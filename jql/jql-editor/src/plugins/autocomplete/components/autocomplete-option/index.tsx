@@ -1,6 +1,6 @@
 import React, {
   forwardRef,
-  ReactElement,
+  type ReactElement,
   useCallback,
   useMemo,
   useState,
@@ -12,13 +12,13 @@ import noop from 'lodash/noop';
 import Icon from '@atlaskit/icon';
 import InfoIcon from '@atlaskit/icon/glyph/editor/panel';
 import { normaliseJqlString } from '@atlaskit/jql-ast';
-import { Position } from '@atlaskit/jql-autocomplete';
+import { type Position } from '@atlaskit/jql-autocomplete';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useIntl } from '../../../../state';
-import { SelectableAutocompleteOption } from '../types';
+import { type SelectableAutocompleteOption } from '../types';
 
 import {
   checkboxGlyph,

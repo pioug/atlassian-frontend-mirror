@@ -7,11 +7,11 @@ import {
   getExtensionKey,
   hasAuthScopeOverrides,
 } from '../../../../state/helpers';
-import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
+import { type ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
-import { FlexibleBlockCardProps } from './types';
+import { type FlexibleBlockCardProps } from './types';
 import { extractProvider } from '@atlaskit/link-extractors';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import { messages } from '../../../../messages';
 import UnresolvedView from './unresolved-view';

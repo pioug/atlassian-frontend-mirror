@@ -1,4 +1,4 @@
-import { ElementProps } from '../types';
+import { type ElementProps } from '../types';
 
 export type DateTimeType = 'created' | 'modified' | 'sent';
 

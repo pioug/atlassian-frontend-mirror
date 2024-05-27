@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import React, { type MouseEventHandler } from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
 

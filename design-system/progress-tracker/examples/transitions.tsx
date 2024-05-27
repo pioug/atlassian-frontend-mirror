@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
 
-import { ProgressTracker, Stage, Stages } from '../src';
+import { ProgressTracker, type Stage, type Stages } from '../src';
 
 const items: Stages = [
   {

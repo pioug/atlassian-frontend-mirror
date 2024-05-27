@@ -2,23 +2,23 @@ jest.mock('../../../service/uploadServiceImpl');
 
 import {
   LocalUploadComponentReact,
-  LocalUploadComponentBaseProps,
+  type LocalUploadComponentBaseProps,
 } from '../../localUploadReact';
-import { ReactWrapper, mount } from 'enzyme';
+import { type ReactWrapper, mount } from 'enzyme';
 import React from 'react';
 import {
-  MediaFile,
-  UploadEventPayloadMap,
-  UploadErrorEventPayload,
-  UploadEndEventPayload,
-  UploadPreviewUpdateEventPayload,
-  UploadsStartEventPayload,
-  UploadRejectionData,
+  type MediaFile,
+  type UploadEventPayloadMap,
+  type UploadErrorEventPayload,
+  type UploadEndEventPayload,
+  type UploadPreviewUpdateEventPayload,
+  type UploadsStartEventPayload,
+  type UploadRejectionData,
 } from '../../../types';
-import { UploadService } from '../../../service/types';
+import { type UploadService } from '../../../service/types';
 import { SCALE_FACTOR_DEFAULT } from '../../../util/getPreviewFromImage';
 import * as ufoWrapper from '../../../util/ufoExperiences';
-import { UploadComponent } from '../../component';
+import { type UploadComponent } from '../../component';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 
 const imageFile: MediaFile = {

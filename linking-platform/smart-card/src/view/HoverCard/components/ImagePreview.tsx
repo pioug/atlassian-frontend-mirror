@@ -1,9 +1,9 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { SerializedStyles } from '@emotion/react';
+import { type SerializedStyles } from '@emotion/react';
 import extractPreview from '../../../extractors/flexible/extract-preview';
 import { PreviewBlock } from '../../FlexibleCard/components/blocks';
 import { getTransitionStyles, getPreviewBlockStyles } from '../styled';
-import { ImagePreviewProps } from '../types';
+import { type ImagePreviewProps } from '../types';
 
 const ImagePreview: React.FC<ImagePreviewProps> = ({
   data,

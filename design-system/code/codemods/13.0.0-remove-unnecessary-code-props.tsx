@@ -1,5 +1,10 @@
-import { API, FileInfo, JSCodeshift, Options } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import {
+  type API,
+  type FileInfo,
+  type JSCodeshift,
+  type Options,
+} from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   getImportDeclarationCollection,

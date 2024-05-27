@@ -1,4 +1,4 @@
-import { FakeMouseElement } from '../utilities';
+import { type FakeMouseElement } from '../utilities';
 
 import { clearScheduled, scheduleTimeout } from './shared-schedule';
 

@@ -1,5 +1,5 @@
 import {
-  Hooks,
+  type Hooks,
   snapshot,
   type SnapshotTestOptions,
 } from '@af/visual-regression';

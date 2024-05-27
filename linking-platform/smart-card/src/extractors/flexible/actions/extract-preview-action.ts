@@ -1,6 +1,6 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
-import { PreviewActionData } from '../../../state/flexible-ui-context/types';
+import { type PreviewActionData } from '../../../state/flexible-ui-context/types';
 import { extractDownloadUrl } from '../../common/detail';
 import {
   extractPreview as extractPreviewData,

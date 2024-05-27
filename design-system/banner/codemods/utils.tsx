@@ -1,5 +1,5 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import core, { ASTPath, ImportDeclaration } from 'jscodeshift';
+import type { ASTPath, default as core, ImportDeclaration } from 'jscodeshift';
 
 export type Nullable<T> = T | null;
 

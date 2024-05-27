@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import FollowAction from '../index';
-import { FollowActionProps } from '../types';
+import { type FollowActionProps } from '../types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import userEvent from '@testing-library/user-event';
 

@@ -1,9 +1,9 @@
 import {
-  AnnotationMarkDefinition,
-  AnnotationMarkAttributes,
+  type AnnotationMarkDefinition,
+  type AnnotationMarkAttributes,
 } from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
-import { WithMark } from '../types';
+import { type WithMark } from '../types';
 
 export const annotation =
   (attrs: AnnotationMarkAttributes) => (maybeNode: WithMark | string) =>

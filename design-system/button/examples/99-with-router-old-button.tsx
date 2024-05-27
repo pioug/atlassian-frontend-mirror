@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link, MemoryRouter } from 'react-router-dom';
 
-import Button, { ButtonProps } from '../src';
+import Button, { type ButtonProps } from '../src';
 
 const Component = React.forwardRef<HTMLElement, ButtonProps>(function Component(
   { href = '', children, ...rest },

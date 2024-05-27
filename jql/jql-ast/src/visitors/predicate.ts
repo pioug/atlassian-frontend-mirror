@@ -1,19 +1,19 @@
 import {
-  JqlChangedPredicateContext,
-  JqlDatePredicateOperatorContext,
-  JqlDateRangePredicateOperatorContext,
-  JqlPredicateOperandContext,
-  JqlUserPredicateOperatorContext,
-  JqlValuePredicateOperatorContext,
-  JqlWasPredicateContext,
+  type JqlChangedPredicateContext,
+  type JqlDatePredicateOperatorContext,
+  type JqlDateRangePredicateOperatorContext,
+  type JqlPredicateOperandContext,
+  type JqlUserPredicateOperatorContext,
+  type JqlValuePredicateOperatorContext,
+  type JqlWasPredicateContext,
 } from '@atlaskit/jql-parser';
 
 import { internalCreators } from '../creators';
 import {
   isPredicateOperator,
-  Operand,
-  Predicate,
-  PredicateOperator,
+  type Operand,
+  type Predicate,
+  type PredicateOperator,
 } from '../types';
 import { notUndefined } from '../utils';
 

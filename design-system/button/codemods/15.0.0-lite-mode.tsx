@@ -1,10 +1,10 @@
-import { API, FileInfo, Options } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type API, type FileInfo, type Options } from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import { changeType, transformButton } from './helpers/15.0.0-runner';
 import {
   getDefaultSpecifierName,
-  Nullable,
+  type Nullable,
   shiftDefaultImport,
 } from './helpers/helpers-generic';
 

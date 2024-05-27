@@ -1,4 +1,4 @@
-import { ExampleUIConfig } from './types';
+import { type ExampleUIConfig } from './types';
 const CONFIG_KEY = '__SMART_LINKS_CONFIG__';
 
 export const exampleUrlsJsonPath =

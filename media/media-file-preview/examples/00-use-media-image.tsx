@@ -14,7 +14,7 @@ import Spinner from '@atlaskit/spinner';
 
 import { TerminalTextDisplay } from '../example-helpers/TerminalTextDisplay';
 import type { MediaFilePreviewStatus } from '../src/types';
-import { useMediaImage, UseMediaImageParams } from '../src/useMediaImage';
+import { useMediaImage, type UseMediaImageParams } from '../src/useMediaImage';
 
 export type MediaImageId = {
   label: string;

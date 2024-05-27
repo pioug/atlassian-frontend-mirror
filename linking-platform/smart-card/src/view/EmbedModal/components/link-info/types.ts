@@ -1,4 +1,4 @@
-import { IconProps } from '../../../common/Icon';
+import { type IconProps } from '../../../common/Icon';
 
 export type LinkInfoProps = {
   icon?: IconProps;

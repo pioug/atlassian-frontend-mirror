@@ -1,8 +1,8 @@
 /** @jsx jsx */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import { CSSProperties, FC } from 'react';
+import { type CSSProperties, type FC } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -12,7 +12,7 @@ import {
   BORDER_WIDTH,
   CSS_VAR_AVATAR_BGCOLOR,
 } from './constants';
-import { AppearanceType, SizeType } from './types';
+import { type AppearanceType, type SizeType } from './types';
 
 export interface SkeletonProps {
   /**

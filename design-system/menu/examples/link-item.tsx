@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Box } from '@atlaskit/primitives';
 
-import { LinkItem, LinkItemProps } from '../src';
+import { LinkItem, type LinkItemProps } from '../src';
 
 import ImgIcon from './common/img-icon';
 import koala from './icons/koala.png';

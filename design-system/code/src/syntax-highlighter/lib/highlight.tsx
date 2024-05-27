@@ -1,9 +1,9 @@
 import { memo } from 'react';
 
 import {
-  CodeBidiWarningConfig,
-  RefractorNode,
-  SyntaxHighlighterProps,
+  type CodeBidiWarningConfig,
+  type RefractorNode,
+  type SyntaxHighlighterProps,
 } from '../types';
 
 import processLines from './process';

@@ -2,7 +2,7 @@
 import { memo, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
-import { defineMessages, MessageDescriptor, useIntl } from 'react-intl-next';
+import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next';
 import uuid from 'uuid';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
@@ -11,9 +11,9 @@ import EditorAddIcon from '@atlaskit/icon/glyph/editor/add';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
-  LinkPickerPluginAction,
-  LinkPickerState,
-  LinkSearchListItemData,
+  type LinkPickerPluginAction,
+  type LinkPickerState,
+  type LinkSearchListItemData,
 } from '../../../common/types';
 import { UnauthenticatedError } from '../../../common/utils/errors';
 

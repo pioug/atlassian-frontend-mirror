@@ -1,9 +1,9 @@
 import {
-  ProcessedFileState,
-  ProcessingFileState,
-  UploadingFileState,
-  ErrorFileState,
-  ProcessingFailedState,
+  type ProcessedFileState,
+  type ProcessingFileState,
+  type UploadingFileState,
+  type ErrorFileState,
+  type ProcessingFailedState,
   RequestError,
 } from '@atlaskit/media-client';
 import { getFileAttributes } from '../../../../analytics';

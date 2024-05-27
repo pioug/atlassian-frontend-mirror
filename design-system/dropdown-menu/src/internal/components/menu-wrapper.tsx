@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import {
-  KeyboardEvent,
-  MouseEvent,
+  type KeyboardEvent,
+  type MouseEvent,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -13,7 +13,7 @@ import MenuGroup from '@atlaskit/menu/menu-group';
 import { Box, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 
-import { FocusableElement, MenuWrapperProps } from '../../types';
+import { type FocusableElement, type MenuWrapperProps } from '../../types';
 import { FocusManagerContext } from '../components/focus-manager';
 import isCheckboxItem from '../utils/is-checkbox-item';
 import isRadioItem from '../utils/is-radio-item';

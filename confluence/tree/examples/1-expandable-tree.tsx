@@ -1,14 +1,14 @@
-import React, { Component, KeyboardEvent } from 'react';
+import React, { Component, type KeyboardEvent } from 'react';
 import styled from 'styled-components';
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import Tree, {
   mutateTree,
-  RenderItemParams,
-  TreeItem,
-  TreeData,
-  ItemId,
+  type RenderItemParams,
+  type TreeItem,
+  type TreeData,
+  type ItemId,
 } from '../src';
 import { treeWithTwoBranches } from '../mockdata/treeWithTwoBranches';
 

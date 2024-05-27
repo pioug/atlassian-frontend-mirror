@@ -12,7 +12,7 @@ import Modal, {
   ModalTitle,
   ModalTransition,
 } from '../src';
-import { Appearance } from '../src/types';
+import { type Appearance } from '../src/types';
 
 const appearances: Appearance[] = ['warning', 'danger'];
 

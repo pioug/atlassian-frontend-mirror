@@ -3,8 +3,8 @@ import { N600 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import ChatIcon from '@atlaskit/icon/glyph/comment';
 
-import { JsonLd } from 'json-ld-types';
-import { LinkDetail } from './types';
+import { type JsonLd } from 'json-ld-types';
+import { type LinkDetail } from './types';
 
 export type LinkCommentType =
   | JsonLd.Data.Document

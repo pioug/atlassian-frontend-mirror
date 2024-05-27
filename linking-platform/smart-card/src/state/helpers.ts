@@ -1,13 +1,13 @@
-import { JsonLd } from 'json-ld-types';
-import { CardType, CardStore } from '@atlaskit/linking-common';
+import { type JsonLd } from 'json-ld-types';
+import { type CardType, type CardStore } from '@atlaskit/linking-common';
 import { extractVisitUrl } from '../extractors/common/primitives/extractVisitUrl';
 import {
-  DestinationProduct,
-  DestinationSubproduct,
+  type DestinationProduct,
+  type DestinationSubproduct,
 } from '../utils/analytics/types';
 import {
-  DatasourceResolveResponse,
-  JsonLdDatasourceResponse,
+  type DatasourceResolveResponse,
+  type JsonLdDatasourceResponse,
 } from '@atlaskit/link-client-extension';
 
 export const getByDefinitionId = (

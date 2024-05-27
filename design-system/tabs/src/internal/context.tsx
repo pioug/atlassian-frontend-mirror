@@ -2,9 +2,9 @@
 import { createContext } from 'react';
 
 import {
-  TabAttributesType,
-  TabListAttributesType,
-  TabPanelAttributesType,
+  type TabAttributesType,
+  type TabListAttributesType,
+  type TabPanelAttributesType,
 } from '../types';
 
 export const TabContext = createContext<TabAttributesType | null>(null);

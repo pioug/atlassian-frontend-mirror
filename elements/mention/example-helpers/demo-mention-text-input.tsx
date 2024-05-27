@@ -1,10 +1,10 @@
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { MentionProvider } from '../src/api/MentionResource';
-import { PresenceProvider } from '../src/api/PresenceResource';
-import MentionPicker, { Position } from '../src/components/MentionPicker';
-import { MentionDescription, OnMentionEvent } from '../src/types';
+import { type MentionProvider } from '../src/api/MentionResource';
+import { type PresenceProvider } from '../src/api/PresenceResource';
+import MentionPicker, { type Position } from '../src/components/MentionPicker';
+import { type MentionDescription, type OnMentionEvent } from '../src/types';
 import debug from '../src/util/logger';
 import SearchTextInput from './demo-search-text-input';
 

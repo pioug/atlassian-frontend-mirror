@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { CardType } from '@atlaskit/linking-common';
-import { ActionProps } from './BlockCard/components/Action';
-import { RequestAccessMessageKey } from '../messages';
+import { type ReactNode } from 'react';
+import { type CardType } from '@atlaskit/linking-common';
+import { type ActionProps } from './BlockCard/components/Action';
+import { type RequestAccessMessageKey } from '../messages';
 
 export interface WithShowControlMethodProp {
   showControls?: () => void;

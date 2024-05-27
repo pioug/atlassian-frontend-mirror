@@ -1,12 +1,12 @@
 import { useRef, useMemo, useLayoutEffect } from 'react';
-import { ObjectKey, TaskState } from '@atlaskit/task-decision';
+import { type ObjectKey, type TaskState } from '@atlaskit/task-decision';
 import { toNativeBridge } from '../web-to-native/implementation';
 import { createTaskDecisionProvider } from '../../providers';
 import {
-  Providers,
+  type Providers,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import RendererBridgeImplementation from '../native-to-web/implementation';
+import type RendererBridgeImplementation from '../native-to-web/implementation';
 
 const handleToggleTask = (key: ObjectKey, state: TaskState) => {
   toNativeBridge.call('taskDecisionBridge', 'updateTask', {

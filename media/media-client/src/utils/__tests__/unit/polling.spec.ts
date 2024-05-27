@@ -1,7 +1,7 @@
 import {
   defaultPollingOptions,
   PollingFunction,
-  PollingOptions,
+  type PollingOptions,
 } from '../../polling';
 import { isPollingError, PollingError } from '../../polling/errors';
 

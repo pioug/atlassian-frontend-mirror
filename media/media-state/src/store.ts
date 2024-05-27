@@ -2,7 +2,7 @@ import { devtools, subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { createStore } from 'zustand/vanilla';
 
-import { FileState } from './file-state';
+import { type FileState } from './file-state';
 
 export interface Store {
   files: Record<string, FileState>;

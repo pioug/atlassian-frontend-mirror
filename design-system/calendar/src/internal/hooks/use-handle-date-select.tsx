@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { type default as React, useCallback, useEffect, useRef } from 'react';
 
 import type { SelectEvent } from '../../types';
 import { arrowKeys } from '../constants';

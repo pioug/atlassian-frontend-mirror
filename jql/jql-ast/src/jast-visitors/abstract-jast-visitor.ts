@@ -1,4 +1,4 @@
-import { AstNode, JastVisitor } from '../types';
+import { type AstNode, type JastVisitor } from '../types';
 
 export abstract class AbstractJastVisitor<Result>
   implements JastVisitor<Result>

@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import { getMockWhatsNewArticleItemList } from '../../../../../../util/testing/mock';
 
 import WhatsNewResultsList from '../../WhatsNewResultsList';
-import { WhatsNewResultsList as WhatsNewResultsListInterface } from '../../model/WhatsNewResultsList';
+import { type WhatsNewResultsList as WhatsNewResultsListInterface } from '../../model/WhatsNewResultsList';
 
 const mockOnWhatsNewArticleItemClick = jest.fn();
 const mockOnShowMoreButtonClick = jest.fn();

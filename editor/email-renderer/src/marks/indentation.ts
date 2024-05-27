@@ -1,4 +1,4 @@
-import { MarkSerializerOpts } from '../interfaces';
+import { type MarkSerializerOpts } from '../interfaces';
 import { createTable } from '../table-util';
 import { createClassName } from '../styles/util';
 

@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import { IconType } from '../../../constants';
 import extractPriority from '../extract-priority';

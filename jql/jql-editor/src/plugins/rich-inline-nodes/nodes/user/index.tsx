@@ -3,8 +3,8 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar';
 
 import { useHydratedUser } from '../../../../state';
-import { NodeViewProps } from '../../util/react-node-view';
-import { JQLNodeSpec } from '../types';
+import { type NodeViewProps } from '../../util/react-node-view';
+import { type JQLNodeSpec } from '../types';
 
 import { AvatarWrapper, NameContainer, UserContainer } from './styled';
 

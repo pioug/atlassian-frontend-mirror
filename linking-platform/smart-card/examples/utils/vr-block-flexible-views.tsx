@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { type CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { Card } from '../../src';
 import type { CardAppearance } from '@atlaskit/linking-common';
 import {

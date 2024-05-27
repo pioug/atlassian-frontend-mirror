@@ -1,19 +1,19 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import {
-  LinkAttachmentType,
-  LinkCommentType,
-  LinkProgrammingLanguageType,
-  LinkSubscriberType,
+  type LinkAttachmentType,
+  type LinkCommentType,
+  type LinkProgrammingLanguageType,
+  type LinkSubscriberType,
 } from '../common/detail';
 import {
   extractPersonOwnedBy,
   extractPersonCreatedBy,
   extractPersonUpdatedBy,
-  LinkPerson,
-  LinkTypeUpdatedBy,
+  type LinkPerson,
+  type LinkTypeUpdatedBy,
   extractPersonAssignedTo,
 } from '@atlaskit/link-extractors';
-import { LinkLocation } from '../../state/flexible-ui-context/types';
+import { type LinkLocation } from '../../state/flexible-ui-context/types';
 
 const extractLinkName = (link?: JsonLd.Primitives.Link): string | undefined => {
   if (link && typeof link === 'object' && link['@type'] === 'Link') {

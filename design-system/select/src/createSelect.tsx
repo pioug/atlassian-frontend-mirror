@@ -8,17 +8,17 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { mergeStyles, type OptionsOrGroups } from 'react-select';
-import BaseSelect from 'react-select/base';
+import type BaseSelect from 'react-select/base';
 
 import { Input } from './components/input-aria-describedby';
 
 import {
-  SelectProps,
-  OptionType,
-  AsyncSelectProps,
-  CreatableSelectProps,
-  GroupType,
-  AtlaskitSelectRefType,
+  type SelectProps,
+  type OptionType,
+  type AsyncSelectProps,
+  type CreatableSelectProps,
+  type GroupType,
+  type AtlaskitSelectRefType,
 } from './types';
 import {
   ClearIndicator,

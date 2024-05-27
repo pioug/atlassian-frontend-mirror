@@ -4,8 +4,10 @@ import { backgroundColor } from '@atlaskit/adf-schema';
 import type {
   NextEditorPlugin,
   OptionalPlugin,
+  ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 
 import { changeColor } from './commands';
@@ -21,6 +23,7 @@ export type HighlightPlugin = NextEditorPlugin<
       OptionalPlugin<AnalyticsPlugin>,
       // Optional, used to allow clearing highlights when clear
       OptionalPlugin<TextFormattingPlugin>,
+      OptionalPlugin<PrimaryToolbarPlugin>,
     ];
     sharedState: HighlightPluginState | undefined;
   }
@@ -28,6 +31,25 @@ export type HighlightPlugin = NextEditorPlugin<
 
 export const highlightPlugin: HighlightPlugin = ({ api }) => {
   const editorAnalyticsAPI = api?.analytics?.actions;
+
+  const primaryToolbarComponent: ToolbarUIComponentFactory = ({
+    popupsMountPoint,
+    popupsBoundariesElement,
+    popupsScrollableElement,
+    disabled,
+    isToolbarReducedSpacing,
+    dispatchAnalyticsEvent,
+  }) => (
+    <ToolbarHighlightColor
+      popupsMountPoint={popupsMountPoint}
+      popupsBoundariesElement={popupsBoundariesElement}
+      popupsScrollableElement={popupsScrollableElement}
+      disabled={disabled}
+      isToolbarReducedSpacing={isToolbarReducedSpacing}
+      dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+      pluginInjectionApi={api}
+    />
+  );
 
   return {
     name: 'highlight',
@@ -54,24 +76,17 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
       return highlightPluginKey.getState(editorState);
     },
 
-    primaryToolbarComponent: ({
-      editorView,
-      popupsMountPoint,
-      popupsBoundariesElement,
-      popupsScrollableElement,
-      disabled,
-      isToolbarReducedSpacing,
-      dispatchAnalyticsEvent,
-    }) => (
-      <ToolbarHighlightColor
-        popupsMountPoint={popupsMountPoint}
-        popupsBoundariesElement={popupsBoundariesElement}
-        popupsScrollableElement={popupsScrollableElement}
-        disabled={disabled}
-        isToolbarReducedSpacing={isToolbarReducedSpacing}
-        dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-        pluginInjectionApi={api}
-      />
-    ),
+    usePluginHook: () => {
+      api?.core?.actions.execute(
+        api?.primaryToolbar?.commands.registerComponent({
+          name: 'highlight',
+          component: primaryToolbarComponent,
+        }),
+      );
+    },
+
+    primaryToolbarComponent: !api?.primaryToolbar
+      ? primaryToolbarComponent
+      : undefined,
   };
 };

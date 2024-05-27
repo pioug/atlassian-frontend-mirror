@@ -1,4 +1,4 @@
-import { Command } from '../types';
+import { type Command } from '../types';
 
 import { addColumn } from './add-column';
 import { addRow } from './add-row';

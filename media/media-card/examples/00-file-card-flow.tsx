@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { Component, SyntheticEvent } from 'react';
+import { Component, type SyntheticEvent } from 'react';
 import {
   defaultCollectionName,
   genericFileId,
@@ -24,9 +24,9 @@ import Button from '@atlaskit/button/new';
 import { Card } from '../src';
 import {
   UploadController,
-  FileIdentifier,
+  type FileIdentifier,
   MediaClient,
-  MediaSubscribable,
+  type MediaSubscribable,
 } from '@atlaskit/media-client';
 import {
   cardWrapperStyles,

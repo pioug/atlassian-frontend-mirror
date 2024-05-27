@@ -8,7 +8,7 @@ import {
   AtlassianNavigation,
   Create,
   PrimaryButton,
-  PrimaryButtonProps,
+  type PrimaryButtonProps,
   useOverflowStatus,
 } from '../src';
 

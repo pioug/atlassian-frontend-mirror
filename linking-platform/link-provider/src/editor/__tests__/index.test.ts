@@ -1,8 +1,8 @@
 import { EditorCardProvider } from '..';
 import {
-  LinkAppearance,
-  ORSProvidersResponse,
-  UserPreferences,
+  type LinkAppearance,
+  type ORSProvidersResponse,
+  type UserPreferences,
 } from '../types';
 import { mocks } from '../../client/__tests__/__fixtures__/mocks';
 import { urlResponsePromiseCache } from '../../client';

@@ -1,6 +1,6 @@
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
-import { NodeSerializerOpts } from '../interfaces';
+import { type NodeSerializerOpts } from '../interfaces';
 import {
   B50,
   B500,

@@ -1,4 +1,4 @@
-import RendererConfiguration from '../renderer-configuration';
+import type RendererConfiguration from '../renderer-configuration';
 import RendererBridgeImplementation from './implementation';
 
 const getBridge = (

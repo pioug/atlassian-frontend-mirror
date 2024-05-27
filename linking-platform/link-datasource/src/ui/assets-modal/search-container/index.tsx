@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import Form, { OnSubmitHandler } from '@atlaskit/form';
+import Form, { type OnSubmitHandler } from '@atlaskit/form';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { ObjectSchema, SearchForm } from '../../../types/assets/types';

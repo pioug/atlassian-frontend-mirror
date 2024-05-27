@@ -1,12 +1,12 @@
-import React, { Component, ReactNode } from 'react';
+import React, { Component, type ReactNode } from 'react';
 import { ExperimentProvider } from './ExperimentContext';
 import {
-  ExperimentKey,
-  EnrollmentDetails,
-  Experiments,
-  ExperimentEnrollmentConfig,
-  ExperimentEnrollmentOptions,
-  ResolverPromises,
+  type ExperimentKey,
+  type EnrollmentDetails,
+  type Experiments,
+  type ExperimentEnrollmentConfig,
+  type ExperimentEnrollmentOptions,
+  type ResolverPromises,
 } from './types';
 
 type Props = {

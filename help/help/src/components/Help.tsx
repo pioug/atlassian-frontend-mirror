@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import { IntlProvider } from 'react-intl-next';
 import { defaultAnalyticsAttributes } from '../analytics';
-import { Help as HelpInterface } from '../model/Help';
+import { type Help as HelpInterface } from '../model/Help';
 
 import { HeaderContextProvider } from './contexts/headerContext';
 import { HomeContextProvider } from './contexts/homeContext';

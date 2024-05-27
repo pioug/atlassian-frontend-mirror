@@ -1,4 +1,4 @@
-import { JQLEditorKeymap } from '../../schema';
+import { type JQLEditorKeymap } from '../../schema';
 
 export class PluginKeymap {
   private keymap: JQLEditorKeymap = {};

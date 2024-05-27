@@ -1,9 +1,9 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
-import { unzip, ZipInfo, ZipEntry, HTTPRangeReader, Reader } from 'unzipit';
+import { unzip, type ZipInfo, type ZipEntry, HTTPRangeReader, type Reader } from 'unzipit';
 import { FormattedMessage } from 'react-intl-next';
 
-import { MediaClient, FileState } from '@atlaskit/media-client';
+import { type MediaClient, type FileState } from '@atlaskit/media-client';
 import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
 import {
   getLanguageType,
@@ -37,14 +37,14 @@ import {
 } from '../../utils';
 import { Spinner } from '../../loading';
 import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from './consts';
-import { ArchiveViewerProps } from './types';
+import { type ArchiveViewerProps } from './types';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { fireAnalytics } from '../../analytics';
 import {
-  ArchiveViewerErrorReason,
+  type ArchiveViewerErrorReason,
   ArchiveViewerError,
   isMediaViewerError,
 } from '../../errors';

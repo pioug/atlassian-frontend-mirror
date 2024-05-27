@@ -9,7 +9,7 @@ import LinkCreateModal, {
   CreateForm,
   TextField,
   useLinkCreateCallback,
-  Validator,
+  type Validator,
 } from '../src';
 import type { CreatePayload, LinkCreatePlugin } from '../src/common/types';
 

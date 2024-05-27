@@ -11,8 +11,8 @@ import {
   SCREEN_EVENT_TYPE,
   TRACK_EVENT_TYPE,
   OPERATIONAL_EVENT_TYPE,
-  GasPayload,
-  GasScreenEventPayload,
+  type GasPayload,
+  type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 
 import {
@@ -21,8 +21,8 @@ import {
   getPackageInfo,
   getComponents,
 } from '../helpers/extract-data-from-event';
-import Logger from '../helpers/logger';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type Logger from '../helpers/logger';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ATLAS_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 
 const ATLAS_TAG = 'atlas';

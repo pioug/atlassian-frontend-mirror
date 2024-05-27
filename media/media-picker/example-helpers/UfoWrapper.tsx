@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { enableMediaUfoLogger } from '@atlaskit/media-test-helpers';
 import { payloadPublisher } from '@atlassian/ufo';
 

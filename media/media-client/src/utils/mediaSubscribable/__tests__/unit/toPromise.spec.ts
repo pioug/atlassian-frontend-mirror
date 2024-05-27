@@ -1,6 +1,6 @@
-import { FileState } from '@atlaskit/media-state';
+import { type FileState } from '@atlaskit/media-state';
 import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
+import { type Observer } from 'rxjs/Observer';
 import { Subscription } from 'rxjs/Subscription';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { from } from 'rxjs/observable/from';

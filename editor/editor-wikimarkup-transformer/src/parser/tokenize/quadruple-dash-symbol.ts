@@ -1,4 +1,4 @@
-import { TokenParser } from './';
+import { type TokenParser } from './';
 
 const MULTI_DASH_REGEX = /^-{4,}(\s|$)/;
 

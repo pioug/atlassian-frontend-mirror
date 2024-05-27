@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { token } from '@atlaskit/tokens';
 import {
-  SimulationSettings,
+  type SimulationSettings,
   useRunSimulation,
   simulateProcessed,
   simulateProcessing,
@@ -11,13 +11,13 @@ import {
   simulateManyProcessed,
   simulateEmptyDetails,
   simulateUpdateFileId,
-  StandardSimulation,
+  type StandardSimulation,
   simulateAlwaysLoading,
   simulateAlwaysProcessing,
 } from '@atlaskit/media-test-helpers';
 import { MainWrapper } from '../example-helpers';
 import { Card } from '../src/card/card';
-import { CardProps } from '../src';
+import { type CardProps } from '../src';
 import { R500 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';

@@ -1,24 +1,24 @@
 import React from 'react';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import {
   FormattedMessage,
   injectIntl,
-  MessageDescriptor,
-  WrappedComponentProps,
+  type MessageDescriptor,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { messages as i18nMessages } from '@atlaskit/media-ui';
-import { FileState } from '@atlaskit/media-client';
+import { type FileState } from '@atlaskit/media-client';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { ErrorMessageWrapper, ErrorImage } from './styleWrappers';
 import { errorLoadingFile } from './error-images';
 import { fireAnalytics } from './analytics';
 import {
-  PrimaryErrorReason,
-  SecondaryErrorReason,
-  MediaViewerError,
+  type PrimaryErrorReason,
+  type SecondaryErrorReason,
+  type MediaViewerError,
   getPrimaryErrorReason,
   getSecondaryErrorReason,
 } from './errors';
@@ -26,10 +26,10 @@ import { createLoadFailedEvent } from './analytics/events/operational/loadFailed
 import { createPreviewUnsupportedEvent } from './analytics/events/operational/previewUnsupported';
 import {
   failMediaFileUfoExperience,
-  UFOFailedEventPayload,
+  type UFOFailedEventPayload,
 } from './analytics/ufoExperiences';
-import { FileStateFlags } from './components/types';
-import { MediaTraceContext } from '@atlaskit/media-common';
+import { type FileStateFlags } from './components/types';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type Props = Readonly<{
   error: MediaViewerError;

@@ -7,6 +7,7 @@ import { injectIntl } from 'react-intl-next';
 
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
 import { separatorStyles } from '@atlaskit/editor-common/styles';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import {
   ArrowKeyNavigationType,
@@ -15,6 +16,7 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
+import type { AlignmentPlugin } from '../../plugin';
 import type {
   AlignmentPluginState,
   AlignmentState,
@@ -36,6 +38,7 @@ export interface Props {
   popupsScrollableElement?: HTMLElement;
   isReducedSpacing?: boolean;
   disabled?: boolean;
+  api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -60,6 +63,7 @@ export class AlignmentToolbar extends React.Component<
       pluginState,
       disabled,
       intl,
+      api,
     } = this.props;
     const alignment = pluginState?.align ?? 'start';
 
@@ -116,8 +120,10 @@ export class AlignmentToolbar extends React.Component<
             selectedAlignment={alignment}
           />
         </Dropdown>
-        {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-        <span css={separatorStyles} />
+        {!api?.primaryToolbar && (
+          /* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
+          <span css={separatorStyles} />
+        )}
       </span>
     );
   }

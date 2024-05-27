@@ -17,7 +17,7 @@ import {
   hydrateJqlStandardResponseMapped,
 } from '@atlaskit/link-test-helpers/datasource';
 
-import { HydrateResponse } from '../types';
+import { type HydrateResponse } from '../types';
 import {
   mapFieldValuesToFilterOptions,
   mapFieldValuesToPageCursor,

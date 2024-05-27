@@ -1,11 +1,11 @@
 /* eslint-disable @repo/internal/react/consistent-types-definitions */
-import { ComponentType, MouseEventHandler, ReactNode } from 'react';
+import { type ComponentType, type MouseEventHandler, type ReactNode } from 'react';
 
 import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { CustomThemeButtonProps } from '@atlaskit/button/types';
+import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 
 export type ActionType = {
   content: ReactNode;

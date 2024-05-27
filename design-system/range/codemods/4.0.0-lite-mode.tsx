@@ -1,10 +1,11 @@
-import core, {
-  API,
-  ASTPath,
-  FileInfo,
-  ImportDeclaration,
-  JSXAttribute,
-  Options,
+import {
+  type API,
+  type ASTPath,
+  type default as core,
+  type FileInfo,
+  type ImportDeclaration,
+  type JSXAttribute,
+  type Options,
 } from 'jscodeshift';
 
 function getDefaultSpecifier(

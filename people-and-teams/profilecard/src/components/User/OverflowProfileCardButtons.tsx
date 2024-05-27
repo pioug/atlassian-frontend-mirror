@@ -11,7 +11,7 @@ import MoreIcon from '@atlaskit/icon/glyph/more';
 
 import messages from '../../messages';
 import { OverflowActionButtonsWrapper } from '../../styled/Card';
-import { AnalyticsWithDurationProps, ProfileCardAction } from '../../types';
+import { type AnalyticsWithDurationProps, type ProfileCardAction } from '../../types';
 import { moreActionsClicked } from '../../util/analytics';
 
 type OverflowButtonsProps = {

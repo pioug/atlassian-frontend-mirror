@@ -1,10 +1,10 @@
 import React from 'react';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
-import { HistoryItem, ARTICLE_TYPE } from '../../../model/Help';
+import { type HistoryItem, ARTICLE_TYPE } from '../../../model/Help';
 import { REQUEST_STATE } from '../../../model/Requests';
-import { Article as ArticleType } from '../../../model/Article';
-import { WhatsNewArticle as WhatsNewArticleType } from '../../../model/WhatsNew';
+import { type Article as ArticleType } from '../../../model/Article';
+import { type WhatsNewArticle as WhatsNewArticleType } from '../../../model/WhatsNew';
 
 import HelpArticle from '../HelpArticle';
 import ArticleLoadingFail from '../ArticleLoadingFail';

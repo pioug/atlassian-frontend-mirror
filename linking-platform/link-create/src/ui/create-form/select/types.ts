@@ -1,6 +1,6 @@
-import { SelectProps as AKSelectProps, OptionType } from '@atlaskit/select';
+import { type SelectProps as AKSelectProps, type OptionType } from '@atlaskit/select';
 
-import { Validator } from '../../../common/types';
+import { type Validator } from '../../../common/types';
 
 export type SelectProps<T = OptionType> = AKSelectProps<T> & {
   /** Name passed to the <Field> */

@@ -1,4 +1,4 @@
-import { expect, Page, test } from '@af/integration-testing';
+import { expect, type Page, test } from '@af/integration-testing';
 
 const skipLink = "[data-skip-link-wrapper='true'] a";
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TagType } from '@atlaskit/linking-types';
+import { type TagType } from '@atlaskit/linking-types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { SimpleTag as Tag } from '@atlaskit/tag';
 

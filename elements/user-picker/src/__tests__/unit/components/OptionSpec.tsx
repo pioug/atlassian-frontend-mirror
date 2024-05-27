@@ -3,7 +3,7 @@ import noop from 'lodash/noop';
 import { IntlProvider } from 'react-intl-next';
 
 import { mount } from 'enzyme';
-import React, { ReactChildren } from 'react';
+import React, { type ReactChildren } from 'react';
 import { AvatarItemOption } from '../../../components/AvatarItemOption';
 import { EmailOption } from '../../../components/EmailOption/main';
 import { Option } from '../../../components/Option';
@@ -11,7 +11,7 @@ import { TeamOption } from '../../../components/TeamOption/main';
 import { UserOption } from '../../../components/UserOption';
 import { GroupOption } from '../../../components/GroupOption/main';
 import { CustomOption } from '../../../components/CustomOption/main';
-import { Email, Team, User, Group, ExternalUser, Custom } from '../../../types';
+import { type Email, type Team, type User, type Group, type ExternalUser, type Custom } from '../../../types';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
 
 // Helper to make <React.Suspense> and React.lazy() work with Enzyme

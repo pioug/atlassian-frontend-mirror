@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { MessageDescriptor, useIntl } from 'react-intl-next';
+import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { Flex, xcss } from '@atlaskit/primitives';
 import { fontFallback } from '@atlaskit/theme/typography';

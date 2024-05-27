@@ -1,6 +1,6 @@
 // this is to DOCUMENT/display the underlying react select props, for our atlaskit/select documentation
 
-import { FocusEventHandler, KeyboardEventHandler, ReactNode } from 'react';
+import { type FocusEventHandler, type KeyboardEventHandler, type ReactNode } from 'react';
 
 interface FilterOptionOption<Option> {
   readonly label: string;
@@ -8,24 +8,24 @@ interface FilterOptionOption<Option> {
   readonly data: Option;
 }
 
-import { StylesConfig } from '../types';
+import { type StylesConfig } from '../types';
 
 import {
-  ActionMeta,
-  AriaLiveMessages,
-  FormatOptionLabelMeta,
-  GetOptionLabel,
-  GetOptionValue,
-  GroupBase,
-  InputActionMeta,
-  MenuPlacement,
-  MenuPosition,
-  OnChangeValue,
-  Options,
-  OptionsOrGroups,
-  PropsValue,
-  SelectComponentsConfig,
-  ThemeConfig,
+  type ActionMeta,
+  type AriaLiveMessages,
+  type FormatOptionLabelMeta,
+  type GetOptionLabel,
+  type GetOptionValue,
+  type GroupBase,
+  type InputActionMeta,
+  type MenuPlacement,
+  type MenuPosition,
+  type OnChangeValue,
+  type Options,
+  type OptionsOrGroups,
+  type PropsValue,
+  type SelectComponentsConfig,
+  type ThemeConfig,
 } from 'react-select';
 
 interface NativeReactSelectProps<

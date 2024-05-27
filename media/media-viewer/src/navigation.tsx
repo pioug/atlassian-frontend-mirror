@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { Component } from 'react';
-import { Identifier } from '@atlaskit/media-client';
+import { type Identifier } from '@atlaskit/media-client';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/chevron-left-circle';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/chevron-right-circle';
 import { hideControlsClassName } from '@atlaskit/media-ui';
@@ -9,7 +9,7 @@ import Button from '@atlaskit/button/standard-button';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import {
   ArrowsWrapper,

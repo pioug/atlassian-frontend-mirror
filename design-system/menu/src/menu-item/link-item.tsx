@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, KeyboardEvent, memo, MouseEvent, Ref } from 'react';
+import { forwardRef, type KeyboardEvent, memo, type MouseEvent, type Ref } from 'react';
 
 import { jsx } from '@emotion/react';
 

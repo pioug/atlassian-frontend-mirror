@@ -5,7 +5,7 @@ import { withLinkClickedEvent } from '../../utils/analytics/click';
 import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
 import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
 import LinkWarningModal from './LinkWarningModal';
-import { LinkUrlProps, PackageDataType } from './types';
+import { type LinkUrlProps, type PackageDataType } from './types';
 
 const PACKAGE_DATA: PackageDataType = {
   packageName: process.env._PACKAGE_NAME_ as string,

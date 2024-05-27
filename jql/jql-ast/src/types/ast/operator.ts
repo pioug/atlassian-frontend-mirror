@@ -11,7 +11,7 @@ import {
   WAS_OPERATORS,
 } from '../../constants';
 
-import { AstNode } from './common';
+import { type AstNode } from './common';
 
 export type OperatorValue = (typeof OPERATORS)[number];
 export type EqualsOperatorValue = (typeof EQUALS_OPERATORS)[number];

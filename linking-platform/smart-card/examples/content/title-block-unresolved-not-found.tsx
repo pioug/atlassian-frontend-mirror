@@ -1,5 +1,5 @@
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { Card, Client, Provider, TitleBlock } from '../../src';
 import { url } from './example-responses';
 

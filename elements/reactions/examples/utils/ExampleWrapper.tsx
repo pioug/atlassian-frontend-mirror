@@ -3,8 +3,8 @@ import { IntlProvider } from 'react-intl-next';
 import { AnalyticsViewerContainer } from '@atlaskit/analytics-viewer';
 import { MockReactionsClient } from '../../src/MockReactionsClient';
 import {
-  ReactionsStore,
-  ReactionClient,
+  type ReactionsStore,
+  type ReactionClient,
   MemoryReactionsStore,
 } from '../../src';
 

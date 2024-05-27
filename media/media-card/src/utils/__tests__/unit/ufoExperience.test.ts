@@ -53,7 +53,7 @@ import {
 } from '../../../utils/ufoExperiences';
 import { extractErrorInfo } from '../../../utils/analytics';
 import { MediaCardError } from '../../../errors';
-import { SSRStatus } from '../../../utils/analytics';
+import { type SSRStatus } from '../../../utils/analytics';
 
 describe('ufoExperience', () => {
   const mockStart = jest.fn();

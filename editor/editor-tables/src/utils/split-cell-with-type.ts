@@ -1,12 +1,12 @@
 import {
-  NodeType,
-  Node as PMNode,
+  type NodeType,
+  type Node as PMNode,
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { type Selection } from '@atlaskit/editor-prosemirror/state';
 
 import { CellSelection } from '../cell-selection';
-import { CellAttributes, Command } from '../types';
+import { type CellAttributes, type Command } from '../types';
 
 import { cellAround } from './cells';
 import { selectedRect } from './selection-rect';

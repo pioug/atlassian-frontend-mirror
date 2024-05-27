@@ -1,13 +1,13 @@
 /** @jsx jsx */
 
-import { FC } from 'react';
+import { type FC } from 'react';
 
-import { css, CSSObject, jsx } from '@emotion/react';
+import { css, type CSSObject, jsx } from '@emotion/react';
 
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { SidebarProps } from '../types';
+import { type SidebarProps } from '../types';
 
 const defaultStyle: CSSObject = {
   alignItems: 'center',

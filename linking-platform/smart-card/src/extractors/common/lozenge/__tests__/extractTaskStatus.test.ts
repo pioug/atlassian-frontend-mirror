@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import { extractTaskStatus } from '../extractTaskStatus';
 import { TEST_BASE_DATA, TEST_OBJECT, TEST_NAME } from '../../__mocks__/jsonld';

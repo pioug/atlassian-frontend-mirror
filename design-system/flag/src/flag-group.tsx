@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 import {
   Children,
   createContext,
-  ReactElement,
+  type ReactElement,
   useContext,
   useMemo,
 } from 'react';

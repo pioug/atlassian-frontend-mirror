@@ -9,7 +9,7 @@ import {
 } from '@storybook/components';
 
 import { TOOL_ID } from '../constants';
-import { Themes } from '../types';
+import { type Themes } from '../types';
 
 interface ThemeOption {
   id: Themes;

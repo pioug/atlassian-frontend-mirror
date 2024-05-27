@@ -1,14 +1,14 @@
-import { FileState } from '@atlaskit/media-client';
-import { MediaFileEventPayload } from './_mediaFile';
-import { getFileAttributes, MediaViewerFailureAttributes } from '../..';
+import { type FileState } from '@atlaskit/media-client';
+import { type MediaFileEventPayload } from './_mediaFile';
+import { getFileAttributes, type MediaViewerFailureAttributes } from '../..';
 import {
   getPrimaryErrorReason,
   getSecondaryErrorReason,
   getErrorDetail,
   getRequestMetadata,
-  MediaViewerError,
+  type MediaViewerError,
 } from '../../../errors';
-import { MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type LoadFailedEventPayload = MediaFileEventPayload<
   MediaViewerFailureAttributes,

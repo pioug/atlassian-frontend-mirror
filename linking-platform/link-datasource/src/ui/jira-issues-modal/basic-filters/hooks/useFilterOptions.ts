@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { IntlShape, useIntl } from 'react-intl-next';
+import { type IntlShape, useIntl } from 'react-intl-next';
 
 import type { Site } from '../../../../common/types';
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import {
-  AvatarLabelOption,
-  SelectOption,
+  type AvatarLabelOption,
+  type SelectOption,
 } from '../../../common/modal/popup-select/types';
-import { BasicFilterFieldType, FieldValuesResponse } from '../types';
+import { type BasicFilterFieldType, type FieldValuesResponse } from '../types';
 import {
   mapFieldValuesToFilterOptions,
   mapFieldValuesToPageCursor,

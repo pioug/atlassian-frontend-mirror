@@ -1,23 +1,23 @@
-import { MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl-next';
 import type { JsonLd } from 'json-ld-types';
 import {
-  CardState,
-  LinkingPlatformFeatureFlags,
+  type CardState,
+  type LinkingPlatformFeatureFlags,
 } from '@atlaskit/linking-common';
-import { CardProviderRenderers } from '@atlaskit/link-provider';
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import {
-  SmartLinkSize,
-  SmartLinkStatus,
-  SmartLinkTheme,
+  type SmartLinkSize,
+  type SmartLinkStatus,
+  type SmartLinkTheme,
 } from '../../constants';
 import type {
   CardInnerAppearance,
   OnResolveCallback,
   CardActionOptions,
 } from '../Card/types';
-import { OnErrorCallback } from '../types';
-import { AnalyticsFacade } from '../../state/analytics';
-import { AISummaryConfig } from '../../state/hooks/use-ai-summary-config/types';
+import { type OnErrorCallback } from '../types';
+import { type AnalyticsFacade } from '../../state/analytics';
+import { type AISummaryConfig } from '../../state/hooks/use-ai-summary-config/types';
 
 export type FlexibleCardProps = {
   /**

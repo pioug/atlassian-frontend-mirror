@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
+import { type Observer } from 'rxjs/Observer';
 import { mergeMap } from 'rxjs/operators/mergeMap';
-import { ChunkinatorFile } from './domain';
+import { type ChunkinatorFile } from './domain';
 
 export async function fetchBlob(file: ChunkinatorFile): Promise<Blob> {
   if (typeof file === 'string') {

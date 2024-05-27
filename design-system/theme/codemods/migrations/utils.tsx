@@ -1,5 +1,9 @@
-import core, { ImportDefaultSpecifier, ImportSpecifier } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import {
+  type default as core,
+  type ImportDefaultSpecifier,
+  type ImportSpecifier,
+} from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 export function tryCreateImport(
   j: core.JSCodeshift,

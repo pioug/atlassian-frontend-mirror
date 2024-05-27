@@ -7,7 +7,7 @@ import { SmartLinkSize } from '../../../../../../../../constants';
 import extractFlexibleUiContext from '../../../../../../../../extractors/flexible';
 import Icon from '../../../../../elements/icon';
 import Link from '../../../../../elements/link';
-import { ResolvedResultItemProps } from './types';
+import { type ResolvedResultItemProps } from './types';
 import { fireLinkClickedEvent } from '../../../../../../../../utils/analytics/click';
 
 const RelatedUrlItem: React.FC<ResolvedResultItemProps> = ({

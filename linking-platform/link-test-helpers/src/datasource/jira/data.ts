@@ -12,7 +12,7 @@ import {
   task,
   trivial,
 } from '../../images';
-import { Site } from '../index';
+import { type Site } from '../index';
 
 const generateMockPeopleResponse = (size: number) => {
   return new Array(size).fill(null).map(() => ({

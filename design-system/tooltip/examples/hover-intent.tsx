@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-import Tooltip, { PositionType } from '../src';
+import Tooltip, { type PositionType } from '../src';
 
 import { Target } from './styled';
 

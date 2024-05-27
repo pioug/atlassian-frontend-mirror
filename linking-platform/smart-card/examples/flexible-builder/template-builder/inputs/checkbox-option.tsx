@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import React, { useCallback, useMemo } from 'react';
 import { CheckboxField } from '@atlaskit/form';
 import { Checkbox } from '@atlaskit/checkbox';
-import { ChangeParams, excludeStyles, handleOnChange } from '../../utils';
+import { type ChangeParams, excludeStyles, handleOnChange } from '../../utils';
 
 type Props<T extends object> = {
   defaultValue?: boolean;

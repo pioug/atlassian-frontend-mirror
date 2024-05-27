@@ -8,7 +8,7 @@ import FlexibleResolvedView from '../../src/view/BlockCard/views/flexible/Flexib
 import { CardClient } from '@atlaskit/link-provider';
 import { minimumResponse, unicornResponse } from '../content/example-responses';
 import { getJsonLdResponse } from '../utils/flexible-ui';
-import { AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
+import { type AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
 
 class MinimumResolvedCustomClient extends CardClient {
   fetchData(url: string) {

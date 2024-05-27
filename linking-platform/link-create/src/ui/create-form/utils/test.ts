@@ -1,4 +1,4 @@
-import { Validator, ValidatorMap } from '../../../common/types';
+import { type Validator, type ValidatorMap } from '../../../common/types';
 
 import { validateFormData } from './index';
 

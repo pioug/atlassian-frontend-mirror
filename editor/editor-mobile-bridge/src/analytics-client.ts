@@ -1,9 +1,9 @@
-import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import {
-  GasPurePayload,
-  GasPureScreenEventPayload,
-  EventType,
-  GasPayload,
+  type GasPurePayload,
+  type GasPureScreenEventPayload,
+  type EventType,
+  type GasPayload,
 } from '@atlaskit/analytics-gas-types';
 
 export const analyticsBridgeClient = (

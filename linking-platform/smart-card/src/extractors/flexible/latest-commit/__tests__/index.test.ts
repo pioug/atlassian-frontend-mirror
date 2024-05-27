@@ -1,5 +1,5 @@
 import { extractLatestCommit } from '../index';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import {
   TEST_BASE_DATA,
   TEST_DATA_WITH_LATEST_COMMIT_OBJ,

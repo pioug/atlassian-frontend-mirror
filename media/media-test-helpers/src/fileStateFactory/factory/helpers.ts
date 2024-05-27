@@ -1,4 +1,4 @@
-import { FileIdentifier, FileDetails, MediaType } from '@atlaskit/media-client';
+import { type FileIdentifier, type FileDetails, type MediaType } from '@atlaskit/media-client';
 import { v4 as uuidv4 } from 'uuid';
 
 export const defaultFileDetails: Partial<FileDetails> = {

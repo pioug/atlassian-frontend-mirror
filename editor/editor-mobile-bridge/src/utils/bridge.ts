@@ -1,4 +1,4 @@
-import { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode, type JSONNode } from '@atlaskit/editor-json-transformer';
 import { measureRender } from '@atlaskit/editor-common/utils';
 import { measurements } from '@atlaskit/editor-core';
 

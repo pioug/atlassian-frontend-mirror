@@ -1,6 +1,6 @@
-import React, { FC, ReactNode, useCallback } from 'react';
+import React, { type FC, type ReactNode, useCallback } from 'react';
 
-import Field, { FieldProps, Meta } from './field';
+import Field, { type FieldProps, type Meta } from './field';
 
 export interface CheckboxFieldProps extends FieldProps<string | undefined> {
   isChecked: boolean;

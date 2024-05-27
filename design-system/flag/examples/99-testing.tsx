@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useRef, useState } from 'react';
+import React, { type ReactElement, type ReactNode, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Tick from '@atlaskit/icon/glyph/check-circle';

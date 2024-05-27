@@ -1,4 +1,4 @@
-import { act, renderHook, RenderResult } from '@testing-library/react-hooks';
+import { act, renderHook, type RenderResult } from '@testing-library/react-hooks';
 import { v4 as uuid } from 'uuid';
 
 import { createAndFireEvent } from '@atlaskit/analytics-next';
@@ -9,7 +9,7 @@ import useUserRecommendations, {
   instrumentFailureOption,
 } from '../../services/use-user-recommendations';
 import { UsersFetchedUfoExperience } from '../../services/use-user-recommendations/ufoExperiences';
-import { UseUserRecommendationsProps } from '../../types';
+import { type UseUserRecommendationsProps } from '../../types';
 
 jest.mock('../../services/use-user-recommendations/ufoExperiences', () => ({
   UsersFetchedUfoExperience: {

@@ -1,9 +1,9 @@
-import { StateNodeConfig } from 'xstate';
+import { type StateNodeConfig } from 'xstate';
 
 import {
-  StateMachineContext,
-  StateMachineSchema,
-  StateMachineEvent,
+  type StateMachineContext,
+  type StateMachineSchema,
+  type StateMachineEvent,
 } from '../types';
 
 export const machineProcessingFailedState: StateNodeConfig<

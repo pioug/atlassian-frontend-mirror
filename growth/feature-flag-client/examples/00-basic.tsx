@@ -1,6 +1,6 @@
 import React from 'react';
 import FeatureFlagClient from '../src/index';
-import { ExposureEvent } from '../src/types';
+import { type ExposureEvent } from '../src/types';
 
 const myAnalyticsHandler = {
   sendOperationalEvent: async (event: ExposureEvent): Promise<void> => {

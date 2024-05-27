@@ -1,7 +1,7 @@
 import type { Space } from '@atlaskit/primitives';
 
 import type { BlockProps } from '../types';
-import { FlexibleUiActionName } from '../../../../../constants';
+import { type FlexibleUiActionName } from '../../../../../constants';
 
 export type ActionBlockProps = {
   /**

@@ -1,8 +1,8 @@
-import React, { FC, useEffect } from 'react';
-import { InlineCardProps } from './types';
+import React, { type FC, useEffect } from 'react';
+import { type InlineCardProps } from './types';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
 import { CardLinkView } from '../LinkView';
 import { InlineCardErroredView } from './ErroredView';

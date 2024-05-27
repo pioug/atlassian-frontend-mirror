@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 import { varBackgroundColor } from '../../internal/constants';
 import ProgressTrackerLink from '../../internal/link';
 import ProgressTrackerStage from '../../internal/stage';
-import { LinkComponentProps, Stage } from '../../types';
+import { type LinkComponentProps, type Stage } from '../../types';
 
 const defaultTestId = 'test';
 

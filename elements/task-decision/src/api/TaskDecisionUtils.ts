@@ -1,9 +1,9 @@
 import {
-  ServiceTask,
-  Task,
-  ServiceTaskState,
-  BaseItem,
-  TaskState,
+  type ServiceTask,
+  type Task,
+  type ServiceTaskState,
+  type BaseItem,
+  type TaskState,
 } from '../types';
 
 export const convertServiceTaskToTask = (serviceTask: ServiceTask): Task => {

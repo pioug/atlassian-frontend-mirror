@@ -1,5 +1,5 @@
-import { Token } from 'antlr4ts';
-import { IntlShape } from 'react-intl-next';
+import { type Token } from 'antlr4ts';
+import { type IntlShape } from 'react-intl-next';
 
 import { JQLLexer } from '@atlaskit/jql-parser';
 

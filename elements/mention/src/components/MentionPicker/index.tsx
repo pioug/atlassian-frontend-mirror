@@ -1,16 +1,16 @@
 import withAnalyticsEvents, {
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import React from 'react';
-import { IntlProvider, IntlShape, injectIntl } from 'react-intl-next';
+import { IntlProvider, type IntlShape, injectIntl } from 'react-intl-next';
 import {
-  ErrorCallback,
-  InfoCallback,
-  MentionProvider,
-  MentionStats,
+  type ErrorCallback,
+  type InfoCallback,
+  type MentionProvider,
+  type MentionStats,
 } from '../../api/MentionResource';
-import { PresenceProvider } from '../../api/PresenceResource';
-import { MentionDescription, OnMentionEvent } from '../../types';
+import { type PresenceProvider } from '../../api/PresenceResource';
+import { type MentionDescription, type OnMentionEvent } from '../../types';
 import { fireAnalyticsMentionTypeaheadEvent } from '../../util/analytics';
 import uniqueId from '../../util/id';
 import debug from '../../util/logger';

@@ -1,15 +1,15 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { InlineCommentViewComponentProps } from '@atlaskit/editor-common/types';
+import { type InlineCommentViewComponentProps } from '@atlaskit/editor-common/types';
 import { memo, useLayoutEffect } from 'react';
 import {
   EmitterEvents,
   eventDispatcher as mobileBridgeEventDispatcher,
 } from '../dispatcher';
-import RendererBridge from '../native-to-web/bridge';
-import { AnnotationPayload } from '../types';
+import type RendererBridge from '../native-to-web/bridge';
+import { type AnnotationPayload } from '../types';
 import {
-  AnnotationPayloadsByType,
-  AnnotationWithRectPayloadsByType,
+  type AnnotationPayloadsByType,
+  type AnnotationWithRectPayloadsByType,
 } from '../web-to-native/bridge';
 import { nativeBridgeAPI as webToNativeBridgeAPI } from '../web-to-native/implementation';
 

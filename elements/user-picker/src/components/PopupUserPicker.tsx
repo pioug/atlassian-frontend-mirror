@@ -1,7 +1,7 @@
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { PopupSelect } from '@atlaskit/select';
 import React from 'react';
-import { PopupUserPickerProps } from '../types';
+import { type PopupUserPickerProps } from '../types';
 import { getPopupComponents } from './components';
 import { getPopupStyles } from './styles';
 import { getPopupProps } from './popup';

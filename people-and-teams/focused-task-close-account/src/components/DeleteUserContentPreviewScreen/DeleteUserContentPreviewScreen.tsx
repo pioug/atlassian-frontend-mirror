@@ -1,13 +1,13 @@
 import React from 'react';
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import Avatar from '@atlaskit/avatar';
 
 import { contentPreviewMessages } from '../../messages';
 import * as Styled from './styled';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import {
-  DeleteUserContentPreviewScreenProps,
-  DeleteUserContentPreviewScreenState,
+  type DeleteUserContentPreviewScreenProps,
+  type DeleteUserContentPreviewScreenState,
 } from './types';
 
 export class DeleteUserContentPreviewScreen extends React.Component<

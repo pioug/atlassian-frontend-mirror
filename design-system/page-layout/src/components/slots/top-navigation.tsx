@@ -12,7 +12,7 @@ import {
   TOP_NAVIGATION_HEIGHT,
   VAR_TOP_NAVIGATION_HEIGHT,
 } from '../../common/constants';
-import { SlotHeightProps } from '../../common/types';
+import { type SlotHeightProps } from '../../common/types';
 import {
   getPageLayoutSlotSelector,
   resolveDimension,

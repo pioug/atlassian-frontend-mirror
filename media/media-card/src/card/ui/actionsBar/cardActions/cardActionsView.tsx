@@ -2,18 +2,18 @@
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
 
-import { CardAction } from '../../../actions';
+import { type CardAction } from '../../../actions';
 import {
   CardActionIconButton,
-  CardActionIconButtonProps,
+  type CardActionIconButtonProps,
 } from './cardActionIconButton';
-import { CardActionIconButtonVariant, wrapperStyles } from './styles';
+import { type CardActionIconButtonVariant, wrapperStyles } from './styles';
 import { CardActionsDropdownMenu } from './cardActionsDropdownMenu';
 import { PreventClickThrough } from '../../../../utils/preventClickThrough';
 import { createAndFireMediaCardEvent } from '../../../../utils/analytics';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
 type CardActionIconButtonPropsWithAnalytics = CardActionIconButtonProps &

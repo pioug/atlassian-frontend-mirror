@@ -11,7 +11,7 @@ import {
   SCREEN_EVENT_TYPE,
   TRACK_EVENT_TYPE,
   OPERATIONAL_EVENT_TYPE,
-  GasPayload,
+  type GasPayload,
 } from '@atlaskit/analytics-gas-types';
 
 import {
@@ -22,8 +22,8 @@ import {
   getPackageHierarchy,
   getComponents,
 } from './extract-data-from-event';
-import Logger from '../helpers/logger';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type Logger from '../helpers/logger';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const ATLASKIT_TAG = 'atlaskit';
 const listenerVersion = process.env._PACKAGE_VERSION_ as string;

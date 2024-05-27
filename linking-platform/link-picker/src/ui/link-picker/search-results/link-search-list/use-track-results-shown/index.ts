@@ -5,7 +5,7 @@ import { useDebounce } from 'use-debounce';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../../../../../common/constants';
-import { LinkSearchListItemData } from '../../../../../common/types';
+import { type LinkSearchListItemData } from '../../../../../common/types';
 import createEventPayload from '../../../../../common/utils/analytics/analytics.codegen';
 
 const DEBOUNCE_MS = 400;

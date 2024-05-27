@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { MediaClient, MediaClientConfig } from '@atlaskit/media-client';
+import { MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
 
 export const MediaClientContext = React.createContext<MediaClient | undefined>(
   undefined,

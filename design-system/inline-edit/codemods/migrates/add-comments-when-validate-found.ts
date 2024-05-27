@@ -1,4 +1,4 @@
-import core, { ASTPath, ImportDeclaration } from 'jscodeshift';
+import type { ASTPath, default as core, ImportDeclaration } from 'jscodeshift';
 
 import {
   addCommentToStartOfFile,

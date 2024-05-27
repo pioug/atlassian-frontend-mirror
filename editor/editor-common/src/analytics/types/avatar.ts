@@ -1,5 +1,5 @@
-import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
-import { UIAEP } from './utils';
+import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
+import { type UIAEP } from './utils';
 
 type AvatarButtonViewedAEP = UIAEP<
   ACTION.VIEWED,

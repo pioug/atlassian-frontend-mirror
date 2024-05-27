@@ -1,5 +1,5 @@
-import { Argument } from './argument';
-import { AstNode } from './common';
+import { type Argument } from './argument';
+import { type AstNode } from './common';
 
 /**
  * A field used in a JQL query.

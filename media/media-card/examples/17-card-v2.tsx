@@ -1,10 +1,10 @@
 import CardV2Loader from '../src/card/v2/cardV2Loader';
 import React, { useState, useEffect, useMemo } from 'react';
-import { MediaClientConfig } from '@atlaskit/media-client';
+import { type MediaClientConfig } from '@atlaskit/media-client';
 import {
   generateItemWithBinaries,
-  ItemWithBinaries,
-  GeneratedItemWithBinaries,
+  type ItemWithBinaries,
+  type GeneratedItemWithBinaries,
 } from '@atlaskit/media-test-data';
 
 import { MainWrapper } from '../example-helpers';

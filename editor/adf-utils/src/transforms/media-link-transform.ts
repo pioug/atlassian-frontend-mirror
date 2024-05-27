@@ -1,5 +1,5 @@
 import { traverse } from '../traverse/traverse';
-import { ADFEntity, ADFEntityMark } from '../types';
+import { type ADFEntity, type ADFEntityMark } from '../types';
 
 // link mark on mediaSingle is deprecated, need to move link mark to child media node
 // https://product-fabric.atlassian.net/browse/ED-14043

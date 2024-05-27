@@ -16,7 +16,7 @@ jest.mock('@atlaskit/editor-common/validator', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/validator'),
 }));
 import * as common from '@atlaskit/editor-common/validator';
-import { renderDocument, Serializer } from '../../index';
+import { renderDocument, type Serializer } from '../../index';
 
 import {
   ACTION,

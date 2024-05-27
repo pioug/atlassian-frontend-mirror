@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import { Placement } from '@atlaskit/popper';
+import { type Placement } from '@atlaskit/popper';
 
 import InlineDialog from '../src';
 

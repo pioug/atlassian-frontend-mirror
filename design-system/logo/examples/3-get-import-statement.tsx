@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { Component, ComponentType } from 'react';
+import { Component, type ComponentType } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import CodeBlock from '@atlaskit/code/block';
 import { Fieldset, Label } from '@atlaskit/form';
 import { Grid } from '@atlaskit/primitives';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 
 import * as Logos from '../src';
 import type { LogoProps as ConstantProps } from '../src/types';

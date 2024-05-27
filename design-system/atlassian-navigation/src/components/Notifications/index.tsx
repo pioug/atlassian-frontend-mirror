@@ -1,11 +1,11 @@
-import React, { forwardRef, Ref } from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import NotificationIcon from '@atlaskit/icon/glyph/notification';
 
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
 
-import { NotificationsProps } from './types';
+import { type NotificationsProps } from './types';
 
 const NOTIFICATIONS_BADGE_ID = 'atlassian-navigation-notification-count';
 

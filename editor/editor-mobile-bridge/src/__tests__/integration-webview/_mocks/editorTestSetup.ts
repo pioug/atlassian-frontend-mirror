@@ -1,7 +1,7 @@
 import {
   MediaMock,
-  MockCollections,
-  MockFile,
+  type MockCollections,
+  type MockFile,
 } from '@atlaskit/media-test-helpers/media-mock';
 import {
   mapDataUriToBlob,

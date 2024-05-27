@@ -1,11 +1,11 @@
 import {
   fillInResponse,
   exactMatch,
-  MockContext,
-  InternalFile,
-  MediaCollectionFile,
+  type MockContext,
+  type InternalFile,
+  type MediaCollectionFile,
 } from '..';
-import { MockRequest, MockResponse } from 'xhr-mock';
+import { type MockRequest, type MockResponse } from 'xhr-mock';
 import * as uuid from 'uuid';
 import { files, fileUri } from '../staticCommon';
 

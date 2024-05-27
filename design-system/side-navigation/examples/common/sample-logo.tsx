@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CustomGlyphProps } from '@atlaskit/icon/types';
+import { type CustomGlyphProps } from '@atlaskit/icon/types';
 
 const RocketIcon = (props: CustomGlyphProps) => {
   return (

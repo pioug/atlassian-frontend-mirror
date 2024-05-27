@@ -1,5 +1,5 @@
 import valueParser from 'postcss-value-parser';
-import stylelint, { Rule, RuleBase, RuleMessageFunc } from 'stylelint';
+import stylelint, { type Rule, type RuleBase, type RuleMessageFunc } from 'stylelint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getCSSCustomProperty } from '@atlaskit/tokens/token-ids';

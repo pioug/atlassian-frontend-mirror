@@ -1,8 +1,8 @@
 /** @jsx jsx */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import { FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import PersonIcon from '@atlaskit/icon/glyph/person';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
@@ -10,7 +10,7 @@ import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { AVATAR_RADIUS, AVATAR_SIZES } from './constants';
-import { AppearanceType, SizeType } from './types';
+import { type AppearanceType, type SizeType } from './types';
 
 interface AvatarImageProps {
   appearance: AppearanceType;

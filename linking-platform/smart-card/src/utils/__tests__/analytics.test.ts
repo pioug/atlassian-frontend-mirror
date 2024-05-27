@@ -7,7 +7,7 @@ import {
   instrumentEvent,
   uiActionClickedEvent,
 } from '../analytics';
-import { AnalyticsPayload } from '../types';
+import { type AnalyticsPayload } from '../types';
 
 // Mock our fire analytics function
 describe('fireSmartLinkEvent', () => {

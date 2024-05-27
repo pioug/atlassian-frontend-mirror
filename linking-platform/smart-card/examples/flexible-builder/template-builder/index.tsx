@@ -15,7 +15,7 @@ import FlexibleToggle from './flexible-toggle';
 
 import type { BlockTemplate, FlexibleTemplate } from '../types';
 import type { CardProps } from '../../../src';
-import { FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
+import { type FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
 
 const TemplateBuilder: React.FC<{
   template: FlexibleTemplate;

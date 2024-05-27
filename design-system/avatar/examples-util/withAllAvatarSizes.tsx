@@ -2,7 +2,7 @@
 import React from 'react';
 
 import Avatar from '../src';
-import { AppearanceType } from '../src/types';
+import { type AppearanceType } from '../src/types';
 
 import { Block } from './helpers';
 

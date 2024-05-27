@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.22.0",
+  "version": "193.23.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,14 +40,14 @@
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
-    "@atlaskit/adf-schema": "^36.8.0",
+    "@atlaskit/adf-schema": "^36.10.7",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^17.16.0",
-    "@atlaskit/editor-common": "^80.5.0",
+    "@atlaskit/button": "^17.17.0",
+    "@atlaskit/editor-common": "^81.0.0",
     "@atlaskit/editor-json-transformer": "^8.13.0",
-    "@atlaskit/editor-plugins": "^2.6.0",
+    "@atlaskit/editor-plugins": "^2.7.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
     "@atlaskit/editor-shared-styles": "^2.11.0",
     "@atlaskit/emoji": "^67.6.0",
@@ -87,9 +87,9 @@
     "@atlaskit/adf-utils": "^19.2.0",
     "@atlaskit/analytics-listeners": "^8.9.1",
     "@atlaskit/checkbox": "^13.3.0",
-    "@atlaskit/collab-provider": "9.29.1",
+    "@atlaskit/collab-provider": "9.29.2",
     "@atlaskit/dropdown-menu": "^12.10.0",
-    "@atlaskit/editor-plugin-annotation": "1.9.2",
+    "@atlaskit/editor-plugin-annotation": "1.9.3",
     "@atlaskit/editor-plugin-card": "^1.14.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
     "@atlaskit/editor-plugin-list": "^3.3.0",
@@ -106,14 +106,14 @@
     "@atlaskit/primitives": "^6.3.0",
     "@atlaskit/renderer": "^109.29.0",
     "@atlaskit/select": "^17.9.0",
-    "@atlaskit/smart-card": "^26.73.0",
+    "@atlaskit/smart-card": "^27.0.0",
     "@atlaskit/synchrony-test-helpers": "^2.4.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/adf-schema-json": "^1.14.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/link-picker-plugins": "^24.1.0",
-    "@atlassian/search-provider": "2.4.68",
+    "@atlassian/search-provider": "2.4.69",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -347,6 +347,9 @@
       "type": "boolean"
     },
     "platform.confluence.frontend.narrow-full-page-editor-toolbar": {
+      "type": "boolean"
+    },
+    "platform.editor.primary-toolbar-ordering": {
       "type": "boolean"
     }
   },

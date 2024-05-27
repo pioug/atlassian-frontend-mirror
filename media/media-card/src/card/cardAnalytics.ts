@@ -1,9 +1,9 @@
 import {
-  FileAttributes,
-  MediaTraceContext,
-  PerformanceAttributes,
+  type FileAttributes,
+  type MediaTraceContext,
+  type PerformanceAttributes,
 } from '@atlaskit/media-common';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   fireMediaCardEvent,
   getRenderSucceededEventPayload,
@@ -11,12 +11,12 @@ import {
   getRenderFailedFileStatusPayload,
   getCopiedFilePayload,
   getRenderCommencedEventPayload,
-  MediaCardAnalyticsEventPayload,
+  type MediaCardAnalyticsEventPayload,
   getRenderPreviewableCardPayload,
-  SSRStatus,
+  type SSRStatus,
   getErrorEventPayload,
 } from '../utils/analytics';
-import { CardStatus } from '../types';
+import { type CardStatus } from '../types';
 import { MediaCardError } from '../errors';
 
 export const fireOperationalEvent = (

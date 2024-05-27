@@ -1,6 +1,6 @@
-import { AuthContext, MediaApiConfig, Auth } from '@atlaskit/media-core';
-import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
-import { MediaFileArtifacts } from '@atlaskit/media-state';
+import { type AuthContext, type MediaApiConfig, type Auth } from '@atlaskit/media-core';
+import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaFileArtifacts } from '@atlaskit/media-state';
 import type {
   ItemsPayload,
   ImageMetadata,
@@ -22,7 +22,7 @@ import type {
 } from './types';
 import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
 import { getArtifactUrl } from '../../models/artifacts';
-import { MediaFile, MediaUpload } from '../../models/media';
+import { type MediaFile, type MediaUpload } from '../../models/media';
 import { request } from '../../utils/request';
 import {
   createUrl,
@@ -30,9 +30,9 @@ import {
   createMapResponseToBlob,
 } from '../../utils/request/helpers';
 import {
-  RequestHeaders,
-  RequestMetadata,
-  CreateUrlOptions,
+  type RequestHeaders,
+  type RequestMetadata,
+  type CreateUrlOptions,
 } from '../../utils/request/types';
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core';

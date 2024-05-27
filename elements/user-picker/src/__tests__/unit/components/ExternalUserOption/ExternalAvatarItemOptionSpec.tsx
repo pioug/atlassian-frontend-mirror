@@ -1,5 +1,5 @@
 import { mount } from 'enzyme';
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { ExternalAvatarItemOption } from '../../../../components/ExternalUserOption/ExternalAvatarItemOption';
 
 jest.mock('@atlaskit/tooltip', () => ({

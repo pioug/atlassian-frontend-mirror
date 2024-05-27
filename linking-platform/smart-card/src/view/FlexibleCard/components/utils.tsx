@@ -1,15 +1,15 @@
 import React from 'react';
-import { css, SerializedStyles } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { Spacing } from '@atlaskit/button';
+import { type Spacing } from '@atlaskit/button';
 import type { Space } from '@atlaskit/primitives';
 import { SmartLinkSize } from '../../../constants';
-import { MessageProps } from './types';
+import { type MessageProps } from './types';
 import Icon from './elements/icon';
 import { openEmbedModal } from '../../EmbedModal/utils';
-import { PreviewActionData } from '../../../state/flexible-ui-context/types';
-import { IntlShape, MessageDescriptor } from 'react-intl-next';
-import { EmbedModalProps } from '../../EmbedModal/types';
+import { type PreviewActionData } from '../../../state/flexible-ui-context/types';
+import { type IntlShape, type MessageDescriptor } from 'react-intl-next';
+import { type EmbedModalProps } from '../../EmbedModal/types';
 import Loadable from 'react-loadable';
 
 export const sizeToButtonSpacing: Record<SmartLinkSize, Spacing> = {

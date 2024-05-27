@@ -1,4 +1,4 @@
-import { FileState, globalMediaEventEmitter } from '../../';
+import { type FileState, globalMediaEventEmitter } from '../../';
 
 describe('globalMediaEventEmitter', () => {
   const fileState: FileState = {

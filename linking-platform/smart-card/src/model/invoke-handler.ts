@@ -1,5 +1,5 @@
-import { JsonLd } from 'json-ld-types';
-import { InvokeClientOpts, InvokeServerOpts } from './invoke-opts';
+import { type JsonLd } from 'json-ld-types';
+import { type InvokeClientOpts, type InvokeServerOpts } from './invoke-opts';
 
 export type InvokeHandler = (
   opts: InvokeClientOpts | InvokeServerOpts,

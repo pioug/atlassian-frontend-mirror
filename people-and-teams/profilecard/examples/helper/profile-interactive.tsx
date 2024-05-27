@@ -11,9 +11,9 @@ import { ProfileCard } from '../../src';
 import { profiles } from '../../src/mocks';
 import { reportingLinesData } from '../../src/mocks/reporting-lines-data';
 import {
-  LozengeProps,
-  StatusModifiedDateType,
-  StatusType,
+  type LozengeProps,
+  type StatusModifiedDateType,
+  type StatusType,
 } from '../../src/types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard

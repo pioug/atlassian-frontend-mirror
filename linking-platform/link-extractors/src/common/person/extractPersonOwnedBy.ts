@@ -1,6 +1,6 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
-import { LinkPerson } from './types';
+import { type LinkPerson } from './types';
 
 import { extractPersonFromJsonLd } from './index';
 

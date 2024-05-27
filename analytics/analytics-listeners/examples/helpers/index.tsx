@@ -1,13 +1,13 @@
 import {
-  EventType,
-  GasPurePayload,
-  GasPureScreenEventPayload,
+  type EventType,
+  type GasPurePayload,
+  type GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 import {
   createAndFireEvent,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-  AnalyticsEventPayload,
+  type WithAnalyticsEventsProps,
+  type AnalyticsEventPayload,
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';

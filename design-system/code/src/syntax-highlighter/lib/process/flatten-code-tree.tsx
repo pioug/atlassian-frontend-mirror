@@ -1,4 +1,4 @@
-import { RefractorNode } from '../../types';
+import { type RefractorNode } from '../../types';
 
 import createLineElement from './create-line-element';
 

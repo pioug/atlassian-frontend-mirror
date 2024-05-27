@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Popup from '@atlaskit/popup';
-import { TriggerProps } from '@atlaskit/popup/types';
+import { type TriggerProps } from '@atlaskit/popup/types';
 import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
@@ -13,10 +13,10 @@ import {
   OverflowProvider,
   useOverflowController,
 } from '../../controllers/overflow';
-import { NavigationTheme } from '../../theme';
+import { type NavigationTheme } from '../../theme';
 import { PrimaryDropdownButton } from '../PrimaryDropdownButton';
 
-import { PrimaryItemsContainerProps } from './types';
+import { type PrimaryItemsContainerProps } from './types';
 
 const containerStyles = css({
   display: 'flex',

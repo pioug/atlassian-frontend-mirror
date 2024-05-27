@@ -1,4 +1,4 @@
-import { GenerateThemeArgs, Mode } from '../../../../theme/types';
+import { type GenerateThemeArgs, type Mode } from '../../../../theme/types';
 
 export const colorSchemes: GenerateThemeArgs[] = [
   {

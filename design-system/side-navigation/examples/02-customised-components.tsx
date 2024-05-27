@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 
 import NestIcon from '@atlaskit/icon/glyph/editor/number-list';
-import { CustomItemComponentProps } from '@atlaskit/menu';
+import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { G100, G200, G400 } from '@atlaskit/theme/colors';
 
 import {

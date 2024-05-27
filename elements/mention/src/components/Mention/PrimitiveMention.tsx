@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/react';
 import { B400, N500, N30A, N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { MentionType } from '../../types';
-import { forwardRef, HTMLAttributes } from 'react';
+import { forwardRef, type HTMLAttributes } from 'react';
 
 export interface PrimitiveMentionProps extends HTMLAttributes<HTMLSpanElement> {
   mentionType: MentionType;

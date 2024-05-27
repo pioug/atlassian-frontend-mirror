@@ -1,7 +1,7 @@
 import {
-  NodeSerializerOpts,
-  SmartCardWithDataAttributes,
-  SmartCardWithUrlAttributes,
+  type NodeSerializerOpts,
+  type SmartCardWithDataAttributes,
+  type SmartCardWithUrlAttributes,
 } from '../interfaces';
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';

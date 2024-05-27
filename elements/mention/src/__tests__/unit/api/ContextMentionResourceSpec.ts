@@ -1,5 +1,5 @@
 import ContextMentionResource from '../../../api/ContextMentionResource';
-import { MentionProvider } from '../../../api/MentionResource';
+import { type MentionProvider } from '../../../api/MentionResource';
 
 describe('ContextMentionResource', () => {
   let mentionProviderMock: MentionProvider;

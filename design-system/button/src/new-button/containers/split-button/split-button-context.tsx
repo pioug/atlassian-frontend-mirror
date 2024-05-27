@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { SplitButtonAppearance, SplitButtonSpacing } from './types';
+import { type SplitButtonAppearance, type SplitButtonSpacing } from './types';
 
 type NavigationSplitButtonContextProps = {
   appearance: 'navigation';

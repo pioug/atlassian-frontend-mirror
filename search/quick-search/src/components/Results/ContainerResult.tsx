@@ -2,7 +2,7 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar';
 
 import ResultBase from './ResultBase';
-import { CommonResultProps } from './types';
+import { type CommonResultProps } from './types';
 
 export type Props = CommonResultProps & {
   /** Name of the container. Provides the main text to be displayed as the item. */

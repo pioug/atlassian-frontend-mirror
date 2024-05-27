@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import DateTimeType, { DateProps, DATETIME_TYPE_TEST_ID } from './index';
+import DateTimeType, { type DateProps, DATETIME_TYPE_TEST_ID } from './index';
 
 describe('DateTime Type', () => {
   const setup = ({

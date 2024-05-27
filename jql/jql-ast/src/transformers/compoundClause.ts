@@ -1,6 +1,6 @@
 import { CLAUSE_TYPE_COMPOUND } from '../constants';
 import { assignParent } from '../creators/common';
-import { Clause, CompoundClause } from '../types';
+import { type Clause, type CompoundClause } from '../types';
 
 /**
  * Append the provided clause to this compound clause. If the clause to append is also a compound clause sharing the

@@ -2,12 +2,12 @@ import { Component } from 'react';
 // Allowing existing usage of non Pragmatic drag and drop solution
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
-  DraggableProvidedDraggableProps,
-  DraggableStateSnapshot,
+  type DraggableProvidedDraggableProps,
+  type DraggableStateSnapshot,
 } from 'react-beautiful-dnd-next';
 import { isSamePath } from '../../utils/path';
 import { sameProps } from '../../utils/react';
-import { Props, TreeDraggableProvided } from './TreeItem-types';
+import { type Props, type TreeDraggableProvided } from './TreeItem-types';
 
 export default class TreeItem extends Component<Props> {
   shouldComponentUpdate(nextProps: Props) {

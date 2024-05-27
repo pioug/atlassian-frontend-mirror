@@ -4,20 +4,20 @@ import React, { useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
-import { Appearance } from '@atlaskit/button/types';
+import { type Appearance } from '@atlaskit/button/types';
 import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
-import { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
+import { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../i18n';
-import { DialogPlacement, Integration } from '../types';
+import { type DialogPlacement, type Integration } from '../types';
 
 import { shareIntegrationButtonEvent } from './analytics/analytics';
 import IntegrationButton from './IntegrationButton';

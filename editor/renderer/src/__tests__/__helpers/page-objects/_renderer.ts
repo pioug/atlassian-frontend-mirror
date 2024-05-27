@@ -1,5 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import { type PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { RendererCssClassName } from '../../../consts';
 
 export const selectors = {

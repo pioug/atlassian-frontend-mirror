@@ -2,7 +2,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 import ProfileCardClient from '../../client/ProfileCardClient';
 import TeamCentralCardClient from '../../client/TeamCentralCardClient';
-import { ReportingLinesUser } from '../../types';
+import { type ReportingLinesUser } from '../../types';
 
 const EXAMPLE_TEAM_CENTRAL_URL = 'https://team.atlassian.com';
 const EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL =

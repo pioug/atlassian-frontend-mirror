@@ -5,7 +5,7 @@ import ModalDialog from '@atlaskit/modal-dialog';
 
 import { ANALYTICS_CHANNEL } from '../../constants';
 import createEventPayload, {
-  AnalyticsEventAttributes,
+  type AnalyticsEventAttributes,
 } from '../../utils/analytics/analytics.codegen';
 import { ScreenViewedEvent } from '../../utils/analytics/components';
 

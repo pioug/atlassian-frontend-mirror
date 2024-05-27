@@ -7,7 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
 
 import { Field } from '@atlaskit/form';
-import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 

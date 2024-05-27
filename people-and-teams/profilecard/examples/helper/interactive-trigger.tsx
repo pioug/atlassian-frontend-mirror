@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { token } from '@atlaskit/tokens';
 
 import { ProfileCardTrigger } from '../../src';
-import { ProfilecardTriggerPosition, ProfileClient } from '../../src/types';
+import { type ProfilecardTriggerPosition, type ProfileClient } from '../../src/types';
 
 const positionsOrder: ProfilecardTriggerPosition[] = [
   'bottom-start',

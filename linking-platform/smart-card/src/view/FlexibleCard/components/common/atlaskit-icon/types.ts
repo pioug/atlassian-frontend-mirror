@@ -1,4 +1,4 @@
-import { IconType } from '../../../../../constants';
+import { type IconType } from '../../../../../constants';
 
 export type AtlaskitIconProps = {
   icon: IconType;

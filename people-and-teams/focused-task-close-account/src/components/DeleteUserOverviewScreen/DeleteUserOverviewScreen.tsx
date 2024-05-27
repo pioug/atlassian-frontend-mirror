@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import Button from '@atlaskit/button/custom-theme-button';
 import SectionMessage from '@atlaskit/section-message';
 import InfoIcon from '@atlaskit/icon/glyph/info';
@@ -7,7 +7,7 @@ import InfoIcon from '@atlaskit/icon/glyph/info';
 import { commonMessages, overviewMessages } from '../../messages';
 import StatefulInlineDialog from '../StatefulInlineDialog';
 import UserInfo from '../UserInfo';
-import { DeleteUserOverviewScreenProps } from './types';
+import { type DeleteUserOverviewScreenProps } from './types';
 import * as Styled from './styled';
 import { DropdownList } from '../DropdownList';
 import MessagesIntlProvider from '../MessagesIntlProvider';

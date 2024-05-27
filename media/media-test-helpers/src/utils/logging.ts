@@ -1,6 +1,6 @@
-import { Database, KakapoResponse } from 'kakapo';
+import { type Database, type KakapoResponse } from 'kakapo';
 
-import { MediaDatabaseSchema } from '../mocks/database';
+import { type MediaDatabaseSchema } from '../mocks/database';
 
 export interface LogRequestParams {
   path: string;

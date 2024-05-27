@@ -1,4 +1,4 @@
-import { Breakpoint } from '../common';
+import { type Breakpoint } from '../common';
 
 export type StyledBarProps = {
   progress?: number;

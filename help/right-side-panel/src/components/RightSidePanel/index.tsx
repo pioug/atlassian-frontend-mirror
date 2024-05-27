@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, ReactNode } from 'react';
+import { Component, type ReactNode } from 'react';
 import { canUseDOM } from 'exenv';
 import { createPortal } from 'react-dom';
 import { Transition } from 'react-transition-group';

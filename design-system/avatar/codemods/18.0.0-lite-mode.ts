@@ -1,7 +1,8 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import core, {
+import type {
   API,
   ASTPath,
+  default as core,
   FileInfo,
   ImportDeclaration,
   ImportSpecifier,

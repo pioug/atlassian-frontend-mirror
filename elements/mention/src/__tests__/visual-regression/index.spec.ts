@@ -1,7 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
-  PuppeteerPage,
+  type PuppeteerPage,
   takeElementScreenShot,
   waitForNoTooltip,
 } from '@atlaskit/visual-regression/helper';

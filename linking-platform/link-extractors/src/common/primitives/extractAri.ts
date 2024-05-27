@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 export const extractAri = (
   jsonLd: JsonLd.Data.BaseData,

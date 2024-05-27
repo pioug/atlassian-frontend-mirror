@@ -1,9 +1,9 @@
 import React from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import Header from './Header';
 
-import { HelpLayout } from '../model/HelpLayout';
+import { type HelpLayout } from '../model/HelpLayout';
 import { messages } from '../messages';
 import { token } from '@atlaskit/tokens';
 import {

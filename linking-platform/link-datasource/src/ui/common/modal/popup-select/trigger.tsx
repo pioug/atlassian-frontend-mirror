@@ -8,7 +8,7 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 
-import { SelectOption } from './types';
+import { type SelectOption } from './types';
 
 export interface PopupTriggerProps {
   label: string;

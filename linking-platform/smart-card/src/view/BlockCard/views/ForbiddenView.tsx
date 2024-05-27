@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
@@ -11,15 +11,15 @@ import { Provider } from '../components/Provider';
 import { Byline } from '../../common/Byline';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
-import { ActionProps } from '../components/Action';
+import { type ActionProps } from '../components/Action';
 import { messages } from '../../../messages';
 import { ContentFooter } from '../components/ContentFooter';
-import { IconProps } from '../../common/Icon';
+import { type IconProps } from '../../common/Icon';
 import { ContentHeader } from '../components/ContentHeader';
 import { handleClickCommon } from '../utils/handlers';
 import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';
-import { RequestAccessContextProps } from '../../types';
+import { type RequestAccessContextProps } from '../../types';
 import type { CardActionOptions } from '../../Card/types';
 
 export interface PermissionDeniedProps {

@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 import { jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import { FormattedMessage } from 'react-intl-next';
 import { TOOLTIP_USERS_LIMIT } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
-import { ReactionSummary } from '../../types';
+import { type ReactionSummary } from '../../types';
 import {
   emojiNameStyle,
   footerStyle,

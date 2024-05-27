@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { components, MenuProps, OptionType } from '@atlaskit/select';
+import { components, type MenuProps, type OptionType } from '@atlaskit/select';
 
 import FixedLayer from '../internal/fixed-layer';
 

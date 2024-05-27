@@ -3,10 +3,10 @@ import React from 'react';
 import CloseIcon from '@atlaskit/icon/glyph/cross-circle';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { Box, xcss } from '@atlaskit/primitives';
-import { components, DropdownIndicatorProps } from '@atlaskit/select';
+import { components, type DropdownIndicatorProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-import { SelectOption } from './types';
+import { type SelectOption } from './types';
 
 const customDropdownIndicatorStyles = xcss({
   display: 'flex',

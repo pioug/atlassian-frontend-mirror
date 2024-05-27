@@ -6,8 +6,8 @@ import {
   getAnnotationIndex,
 } from '../../component';
 import { AnnotationsDraftContext } from '../../../context';
-import TestRenderer, { ReactTestInstance } from 'react-test-renderer';
-import { InsertDraftPosition, Position } from '../../../types';
+import TestRenderer, { type ReactTestInstance } from 'react-test-renderer';
+import { InsertDraftPosition, type Position } from '../../../types';
 
 describe('Annotations: draft/component', () => {
   describe('#getAnnotationIndex', () => {

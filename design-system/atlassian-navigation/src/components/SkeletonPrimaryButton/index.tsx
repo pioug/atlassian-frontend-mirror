@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useTheme } from '../../theme';
 
-import { SkeletonPrimaryButtonProps } from './types';
+import { type SkeletonPrimaryButtonProps } from './types';
 
 const VAR_PRIMARY_BUTTON_BEFORE_HIGHLIGHTED_BACKGROUND_COLOR =
   '--primary-button-before-highlighted-background-color';

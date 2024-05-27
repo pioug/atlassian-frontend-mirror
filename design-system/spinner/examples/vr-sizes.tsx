@@ -2,7 +2,7 @@
 
 import { css, jsx } from '@emotion/react';
 
-import Spinner, { Size } from '../src';
+import Spinner, { type Size } from '../src';
 
 const sizes: Size[] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
 

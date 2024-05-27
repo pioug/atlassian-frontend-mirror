@@ -1,9 +1,9 @@
-import { assign, send, StateNodeConfig } from 'xstate';
+import { assign, send, type StateNodeConfig } from 'xstate';
 
 import {
-  ProcessingStateMachineSchema,
-  StateMachineContext,
-  StateMachineEvent,
+  type ProcessingStateMachineSchema,
+  type StateMachineContext,
+  type StateMachineEvent,
 } from '../types';
 
 export const machineProcessingState: StateNodeConfig<

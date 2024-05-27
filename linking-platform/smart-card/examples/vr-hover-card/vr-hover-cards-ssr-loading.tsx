@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { Provider, Client, ResolveResponse } from '../../src';
+import { Provider, Client, type ResolveResponse } from '../../src';
 import { Card } from '../../src';
 import {
   mockSSRResponse,
   mockConfluenceResponse,
 } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
-import { CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomLoadingClient extends Client {

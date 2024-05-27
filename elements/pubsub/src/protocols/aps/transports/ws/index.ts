@@ -1,9 +1,9 @@
 import { logDebug } from '../../../../util/logger';
 import { EventType } from '../../../../types';
 import WebsocketClient from './websocketClient';
-import { MessageData } from '../../types';
-import { Message } from '../../../types';
-import { APSTransportParams } from '../index';
+import { type MessageData } from '../../types';
+import { type Message } from '../../../types';
+import { type APSTransportParams } from '../index';
 import { APSTransportType } from '../../../../apiTypes';
 import { getTimestampBasedSequenceNumber } from '../../utils';
 import AbstractApsTransport from '../abstract-aps-transport';

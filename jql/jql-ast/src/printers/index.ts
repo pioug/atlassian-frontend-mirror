@@ -1,14 +1,14 @@
 import pick from 'lodash/pick';
 
-import { Jast } from '../types';
+import { type Jast } from '../types';
 
 import {
   printAstToDoc,
-  PrintOptions as PrintAstToDocOptions,
+  type PrintOptions as PrintAstToDocOptions,
 } from './print-ast-to-doc';
 import {
   printDocToString,
-  PrintOptions as PrintDocToStringOptions,
+  type PrintOptions as PrintDocToStringOptions,
 } from './print-doc-to-string';
 
 type PrintOptions = PrintAstToDocOptions & PrintDocToStringOptions;

@@ -1,4 +1,4 @@
-import { ServiceTask, Task } from '../../types';
+import { type ServiceTask, type Task } from '../../types';
 
 import { convertServiceTaskToTask } from '../../api/TaskDecisionUtils';
 

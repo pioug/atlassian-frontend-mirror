@@ -1,7 +1,7 @@
-import { FileState, ProcessedFileState } from '@atlaskit/media-client';
+import { type FileState, type ProcessedFileState } from '@atlaskit/media-client';
 import {
-  RenderInlineCardFailedEventPayload,
-  RenderInlineCardSucceededEventPayload,
+  type RenderInlineCardFailedEventPayload,
+  type RenderInlineCardSucceededEventPayload,
   extractErrorInfo,
   fireMediaCardEvent,
 } from '../utils/analytics';

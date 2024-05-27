@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkSearchListItem, LinkSearchListItemProps } from './index';
+import { LinkSearchListItem, type LinkSearchListItemProps } from './index';
 
 const NOOP = () => {};
 

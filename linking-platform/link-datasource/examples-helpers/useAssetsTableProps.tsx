@@ -2,8 +2,8 @@ import { useCallback, useState } from 'react';
 
 import { assetsDefaultInitialVisibleColumnKeys } from '@atlaskit/link-test-helpers/datasource';
 
-import { DatasourceTableViewProps } from '../src/ui/datasource-table-view/types';
-import { ColumnSizesMap } from '../src/ui/issue-like-table/types';
+import { type DatasourceTableViewProps } from '../src/ui/datasource-table-view/types';
+import { type ColumnSizesMap } from '../src/ui/issue-like-table/types';
 
 export const useAssetsTableProps = (
   props: { defaultColumnCustomSizes?: ColumnSizesMap } = {},

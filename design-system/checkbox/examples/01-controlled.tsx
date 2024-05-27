@@ -1,5 +1,5 @@
 /**  @jsx jsx */
-import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
+import { type ChangeEvent, type MouseEvent, useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

@@ -4,14 +4,14 @@ import React from 'react';
 import {
   createComponentWithAnalytics,
   createTaggedComponentWithAnalytics,
-  OwnProps,
+  type OwnProps,
 } from '../../../examples/helpers';
 import FabricEditorListener, {
   EDITOR_TAG,
   LEGACY_EDITOR_TAG,
 } from '../../fabric/FabricEditorListener';
-import Logger from '../../helpers/logger';
-import { AnalyticsWebClient, FabricChannel } from '../../types';
+import type Logger from '../../helpers/logger';
+import { type AnalyticsWebClient, FabricChannel } from '../../types';
 import { createLoggerMock } from '../_testUtils';
 
 const DummyEditorComponent = createComponentWithAnalytics(FabricChannel.editor);

@@ -1,4 +1,4 @@
-import { AST } from 'refractor';
+import { type AST } from 'refractor';
 
 import createLineGenerator from '../../lib/process/create-line';
 

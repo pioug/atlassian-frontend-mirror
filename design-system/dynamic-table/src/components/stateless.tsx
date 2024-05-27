@@ -2,7 +2,7 @@ import React, { forwardRef, lazy, Suspense, useEffect, useState } from 'react';
 
 import {
   createAndFireEvent,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
@@ -20,13 +20,13 @@ import {
   EmptyViewWithFixedHeight,
 } from '../styled/empty-body';
 import {
-  HeadType,
-  StatelessProps as Props,
-  RankEnd,
-  RankStart,
-  RowCellType,
-  RowType,
-  SortOrderType,
+  type HeadType,
+  type StatelessProps as Props,
+  type RankEnd,
+  type RankStart,
+  type RowCellType,
+  type RowType,
+  type SortOrderType,
 } from '../types';
 
 import Body from './body';

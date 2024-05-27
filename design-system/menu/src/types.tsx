@@ -1,6 +1,6 @@
-import { ComponentType, PropsWithChildren, ReactNode, Ref } from 'react';
+import { type ComponentType, type PropsWithChildren, type ReactNode, type Ref } from 'react';
 
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
 import type { SpacingMode } from './internal/components/menu-context';
 

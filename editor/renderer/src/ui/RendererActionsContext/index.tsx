@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { type PropsWithChildren, useMemo } from 'react';
 import RendererActions from '../../actions/index';
 
 export const RendererContext = React.createContext(new RendererActions());

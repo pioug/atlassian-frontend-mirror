@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 import {
   ButtonItem,
   CustomItem,
-  CustomItemComponentProps,
+  type CustomItemComponentProps,
   LinkItem,
   MenuGroup,
   Section,

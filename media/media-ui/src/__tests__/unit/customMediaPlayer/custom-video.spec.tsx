@@ -30,8 +30,8 @@ import React from 'react';
 import { keyCodes, Shortcut } from '../../..';
 import {
   CustomMediaPlayerBase,
-  CustomMediaPlayerProps,
-  CustomMediaPlayerState,
+  type CustomMediaPlayerProps,
+  type CustomMediaPlayerState,
 } from '../../../customMediaPlayer';
 import {
   toggleFullscreen,
@@ -44,10 +44,10 @@ import {
 } from '../../../customMediaPlayer/styled';
 import {
   TimeRange,
-  TimeRangeProps,
+  type TimeRangeProps,
 } from '../../../customMediaPlayer/timeRange';
 import { PlaybackSpeedControls } from '../../../customMediaPlayer/playbackSpeedControls';
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 import * as getControlsWrapperClassNameModule from '../../../customMediaPlayer/getControlsWrapperClassName';
 import MediaButton from '../../../MediaButton';
 

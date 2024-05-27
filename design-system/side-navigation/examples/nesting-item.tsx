@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, MouseEvent } from 'react';
+import { Fragment, type MouseEvent } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -8,7 +8,7 @@ import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import {
-  CustomItemComponentProps,
+  type CustomItemComponentProps,
   GoBackItem,
   NestableNavigationContent,
   NestingItem,

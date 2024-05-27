@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import { type ConcurrentExperience } from '@atlaskit/ufo';
 
 import {
   defaultAssetsMeta,

@@ -1,6 +1,6 @@
-import { MutableRefObject, useRef } from 'react';
+import { type MutableRefObject, useRef } from 'react';
 
-import { MediaFilePreviewDimensions } from './types';
+import { type MediaFilePreviewDimensions } from './types';
 
 /**
  * Checks if at least one of next dimensions is bigger than current

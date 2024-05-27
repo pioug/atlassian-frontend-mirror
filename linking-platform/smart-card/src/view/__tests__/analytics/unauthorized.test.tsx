@@ -1,12 +1,12 @@
 import './unauthorized.test.mock';
 
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { asMockFunction, JestFunction } from '@atlaskit/media-test-helpers';
+import { asMockFunction, type JestFunction } from '@atlaskit/media-test-helpers';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import * as analytics from '../../../utils/analytics';
-import { CardClient } from '@atlaskit/link-provider';
+import { type CardClient } from '@atlaskit/link-provider';
 import React from 'react';
-import { Card, CardAppearance } from '../../Card';
+import { Card, type CardAppearance } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { render, waitFor, fireEvent, cleanup } from '@testing-library/react';

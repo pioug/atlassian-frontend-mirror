@@ -5,9 +5,9 @@ import { useIntl } from 'react-intl-next';
 
 import {
   CheckboxOption,
-  InputActionMeta,
+  type InputActionMeta,
   PopupSelect,
-  ValueType,
+  type ValueType,
 } from '@atlaskit/select';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
@@ -16,10 +16,10 @@ import CustomControl from './control';
 import CustomDropdownIndicator from './dropdownIndicator';
 import PopupFooter from './footer';
 import formatOptionLabel from './formatOptionLabel';
-import CustomMenuList, { CustomMenuListProps } from './menu-list';
+import CustomMenuList, { type CustomMenuListProps } from './menu-list';
 import { asyncPopupSelectMessages } from './messages';
 import PopupTrigger from './trigger';
-import { SelectOption } from './types';
+import { type SelectOption } from './types';
 
 // Needed to disable filtering from react-select
 const noFilterOptions = () => true;

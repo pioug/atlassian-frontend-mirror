@@ -4,7 +4,7 @@ import DeleteIcon from '@atlaskit/icon/glyph/trash';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 
-import { CardAction } from '../../../actions';
+import { type CardAction } from '../../../actions';
 
 import { ActionsBar } from '../actionsBar';
 import { CardActionsView } from '../cardActions';

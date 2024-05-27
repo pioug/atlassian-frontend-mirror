@@ -1,11 +1,11 @@
 import {
-  SuccessAttributes,
-  WithFileAttributes,
-  FileAttributes,
-  MediaTraceContext,
-  WithTraceContext,
+  type SuccessAttributes,
+  type WithFileAttributes,
+  type FileAttributes,
+  type MediaTraceContext,
+  type WithTraceContext,
 } from '@atlaskit/media-common';
-import { MediaFileEventPayload } from './_mediaFile';
+import { type MediaFileEventPayload } from './_mediaFile';
 
 export type LoadSucceededAttributes = SuccessAttributes &
   WithFileAttributes &

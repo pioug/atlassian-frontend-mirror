@@ -2,11 +2,11 @@
 
 import { jsx } from '@emotion/react';
 
-import AkSelect, { OptionType } from '@atlaskit/select';
+import AkSelect, { type OptionType } from '@atlaskit/select';
 
 import { CreateField } from '../../../controllers/create-field';
 
-import { SelectProps } from './types';
+import { type SelectProps } from './types';
 
 export const TEST_ID = 'link-create-select';
 /**

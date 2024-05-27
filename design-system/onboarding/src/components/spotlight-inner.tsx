@@ -8,11 +8,11 @@ import scrollIntoView from 'scroll-into-view-if-needed';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
-import { ElementBoundingBox, ElementBox } from '../utils/use-element-box';
+import { type ElementBoundingBox, ElementBox } from '../utils/use-element-box';
 
 import { Fade } from './animation';
 import Clone from './clone';
-import { SpotlightProps } from './spotlight';
+import { type SpotlightProps } from './spotlight';
 import SpotlightDialog from './spotlight-dialog';
 import { SpotlightTransitionConsumer } from './spotlight-transition';
 

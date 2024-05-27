@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, {
-  PropsWithChildren,
+  type PropsWithChildren,
   useCallback,
   useLayoutEffect,
   useRef,
@@ -8,26 +8,26 @@ import React, {
 } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { OnEmojiEvent, PickerSize } from '@atlaskit/emoji/types';
+import { type OnEmojiEvent, type PickerSize } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import {
   Manager,
   Popper,
   Reference,
-  PopperProps,
-  PopperChildrenProps,
+  type PopperProps,
+  type PopperChildrenProps,
 } from '@atlaskit/popper';
 import { layers } from '@atlaskit/theme/constants';
 
 import { useCloseManager } from '../../hooks/useCloseManager';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { messages } from '../../shared/i18n';
-import { ReactionSource } from '../../types';
+import { type ReactionSource } from '../../types';
 import { PickerRender } from '../../ufo';
 
-import { Selector, SelectorProps } from '../Selector';
-import { Trigger, TriggerProps } from '../Trigger';
+import { Selector, type SelectorProps } from '../Selector';
+import { Trigger, type TriggerProps } from '../Trigger';
 
 import {
   contentStyle,

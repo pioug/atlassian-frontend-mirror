@@ -1,5 +1,6 @@
-import core, {
+import type {
   ASTPath,
+  default as core,
   ImportDeclaration,
   ImportDefaultSpecifier,
   ImportSpecifier,

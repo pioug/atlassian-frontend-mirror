@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TableBodyCell } from '../styled/table-cell';
 import { TableBodyRow } from '../styled/table-row';
-import { HeadType, RowType } from '../types';
+import { type HeadType, type RowType } from '../types';
 
 interface RowProps {
   head?: HeadType;

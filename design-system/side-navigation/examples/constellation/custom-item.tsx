@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 
 import OpenIcon from '@atlaskit/icon/glyph/open';
 
-import { CustomItem, CustomItemComponentProps, Section } from '../../src';
+import { CustomItem, type CustomItemComponentProps, Section } from '../../src';
 
 type CustomProps = CustomItemComponentProps & { href: string };
 

@@ -8,12 +8,12 @@ import Button from '@atlaskit/button/standard-button';
 import Tree, {
   mutateTree,
   moveItemOnTree,
-  RenderItemParams,
-  TreeItem,
-  TreeData,
-  ItemId,
-  TreeSourcePosition,
-  TreeDestinationPosition,
+  type RenderItemParams,
+  type TreeItem,
+  type TreeData,
+  type ItemId,
+  type TreeSourcePosition,
+  type TreeDestinationPosition,
 } from '../src';
 import { complexTree } from '../mockdata/complexTree';
 

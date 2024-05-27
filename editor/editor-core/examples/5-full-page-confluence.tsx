@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /** @jsx jsx */
-import React from 'react';
+import { useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -29,67 +29,59 @@ const disabledBlanket = css({
   },
 });
 
-interface State {
-  disabled: boolean;
-  appearance: EditorAppearance;
-}
 /**
  * Example designed to be similar to how the editor is within Confluence's Edit mode
  * Has:
  *  - 64px sidebar on the left
  *  - collab editing enabled
  */
-export default class ExampleEditorComponent extends React.Component<{}, State> {
-  collabSessionId = 'quokka';
+const ExampleEditorComponent = () => {
+  const [disabled, setDisabled] = useState(true);
+  const [appearance, setAppearance] = useState<EditorAppearance>('full-page');
 
-  state = {
-    disabled: true,
-    appearance: 'full-page' as EditorAppearance,
-  };
+  const collabSessionId = 'quokka';
 
-  private appearanceTimeoutId: number | undefined;
-
-  componentDidMount() {
+  useEffect(() => {
     // Simulate async nature of confluence fetching appearance
     const timeout = Math.floor(Math.random() * (1500 - 750 + 1)) + 750;
     console.log(`async delay is ${timeout}`);
-    this.appearanceTimeoutId = window.setTimeout(() => {
-      this.setState(() => ({ disabled: false, appearance: getAppearance() }));
+    const appearanceTimeoutId = window.setTimeout(() => {
+      setDisabled(false);
+      setAppearance(getAppearance());
     }, timeout);
-  }
 
-  componentWillUnmount() {
-    window.clearTimeout(this.appearanceTimeoutId);
-  }
+    return () => {
+      window.clearTimeout(appearanceTimeoutId);
+    };
+  }, []);
 
-  render() {
-    const defaultDoc =
-      (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
-      undefined;
-    const { disabled, appearance } = this.state;
+  const defaultDoc =
+    (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
+    undefined;
 
-    return (
-      <SidebarContainer>
-        {this.state.disabled && (
-          <div css={disabledBlanket}>
-            <Spinner size="large" />
-          </div>
-        )}
-        <FullPageExample
-          editorProps={{
-            collabEdit: {
-              provider: createCollabEditProvider({
-                userId: this.collabSessionId,
-                defaultDoc,
-              }),
-              inviteToEditComponent: InviteToEditButton,
-            },
-            disabled,
-            appearance,
-            shouldFocus: true,
-          }}
-        />
-      </SidebarContainer>
-    );
-  }
-}
+  return (
+    <SidebarContainer>
+      {disabled && (
+        <div css={disabledBlanket}>
+          <Spinner size="large" />
+        </div>
+      )}
+      <FullPageExample
+        editorProps={{
+          collabEdit: {
+            provider: createCollabEditProvider({
+              userId: collabSessionId,
+              defaultDoc,
+            }),
+            inviteToEditComponent: InviteToEditButton,
+          },
+          disabled,
+          appearance,
+          shouldFocus: true,
+        }}
+      />
+    </SidebarContainer>
+  );
+};
+
+export default ExampleEditorComponent;

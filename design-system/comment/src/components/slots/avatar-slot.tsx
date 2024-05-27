@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 

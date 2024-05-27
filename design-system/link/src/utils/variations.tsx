@@ -1,5 +1,5 @@
 // A list of display variations used for VR and testing generation purposes
-import { LinkProps } from '../index';
+import { type LinkProps } from '../index';
 
 type DisplayVariation = {
   name: string;

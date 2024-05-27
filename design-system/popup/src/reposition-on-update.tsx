@@ -1,6 +1,6 @@
 import React, { Fragment, useLayoutEffect, useRef } from 'react';
 
-import { RepositionOnUpdateProps } from './types';
+import { type RepositionOnUpdateProps } from './types';
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const RepositionOnUpdate = ({

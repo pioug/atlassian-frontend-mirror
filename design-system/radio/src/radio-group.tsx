@@ -1,15 +1,15 @@
 import React, {
-  ChangeEvent,
-  SyntheticEvent,
+  type ChangeEvent,
+  type SyntheticEvent,
   useCallback,
   useState,
 } from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 
 import Radio from './radio';
-import { OptionPropType, OptionsPropType, RadioValue } from './types';
+import { type OptionPropType, type OptionsPropType, type RadioValue } from './types';
 
 export interface RadioGroupProps {
   /**

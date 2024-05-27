@@ -1,10 +1,10 @@
 import { isRetina } from './isRetina';
-import { CardDimensions } from '../types';
-import { ElementDimension, getElementDimension } from './getElementDimension';
+import { type CardDimensions } from '../types';
+import { type ElementDimension, getElementDimension } from './getElementDimension';
 import { defaultImageCardDimensions } from './cardDimensions';
 import { isValidPercentageUnit } from './isValidPercentageUnit';
 import { containsPixelUnit } from './containsPixelUnit';
-import { NumericalCardDimensions } from '@atlaskit/media-common';
+import { type NumericalCardDimensions } from '@atlaskit/media-common';
 
 /**
  * ************************************************

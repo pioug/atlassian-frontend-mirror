@@ -3,7 +3,7 @@ import { nextTick } from '@atlaskit/media-common/test-helpers';
 import { request } from '..';
 import { isRequestError, RequestError } from '../errors';
 import { fetchRetry } from '../helpers';
-import { RequestMetadata } from '../types';
+import { type RequestMetadata } from '../types';
 
 describe('request', () => {
   describe('fetchRetry', () => {

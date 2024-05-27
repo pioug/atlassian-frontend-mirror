@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { injectIntl, IntlShape } from 'react-intl-next';
+import { injectIntl, type IntlShape } from 'react-intl-next';
 import { di } from 'react-magnetic-di';
 
 import { useJqlEditorAnalytics } from '../../analytics';
@@ -14,7 +14,7 @@ import { JQLEditorPortalRenderer } from '../jql-editor-portal-provider';
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import JQLEditorView from '../jql-editor-view';
 
-import { JQLEditorUIProps } from './types';
+import { type JQLEditorUIProps } from './types';
 
 export type JQLEditorInnerProps = JQLEditorUIProps & {
   /**

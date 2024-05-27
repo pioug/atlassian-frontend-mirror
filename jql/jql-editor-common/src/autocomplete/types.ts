@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs/Observable';
+import { type Observable } from 'rxjs/Observable';
 
-import { JQLClause } from '@atlaskit/jql-autocomplete';
+import { type JQLClause } from '@atlaskit/jql-autocomplete';
 
 export type AutocompleteValueType = 'user';
 

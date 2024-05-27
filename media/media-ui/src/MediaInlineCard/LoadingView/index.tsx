@@ -7,7 +7,7 @@ import {
   IconTitleWrapper,
   RightIconPositionWrapper,
 } from '../IconAndTitleLayout/styled';
-import { InlinePreloaderStyle } from '../../types';
+import { type InlinePreloaderStyle } from '../../types';
 
 export interface MediaInlineCardLoadingViewProps {
   /** The file name to display */

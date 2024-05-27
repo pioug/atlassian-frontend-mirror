@@ -1,17 +1,17 @@
 import {
-  ExternalUser,
+  type ExternalUser,
   ExternalUserType,
-  Group,
+  type Group,
   GroupType,
-  LozengeProps,
-  OptionData,
-  Team,
-  TeamMember,
+  type LozengeProps,
+  type OptionData,
+  type Team,
+  type TeamMember,
   TeamType,
-  User,
+  type User,
   UserType,
 } from '@atlaskit/user-picker';
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 import { messages } from '../i18n';
 import { EntityType } from '../types';
 

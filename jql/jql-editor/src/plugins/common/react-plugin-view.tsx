@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { type FunctionComponent, useEffect, useState } from 'react';
 
 import { Subject } from 'rxjs/Subject';
 
-import { PortalActions } from '../../ui/jql-editor-portal-provider/types';
-import { PluginContainerKey } from '../types';
+import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
+import { type PluginContainerKey } from '../types';
 
 /**
  * Abstract class for Prosemirror plugin views which need to mount a React component. Concrete subclasses must implement

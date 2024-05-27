@@ -1,8 +1,8 @@
-import React, { MouseEvent } from 'react';
+import React, { type MouseEvent } from 'react';
 
 import { Box } from '@atlaskit/primitives';
 
-import { CustomItemComponentProps, Header, NavigationHeader } from '../src';
+import { type CustomItemComponentProps, Header, NavigationHeader } from '../src';
 
 import NextGenProjectIcon from './common/next-gen-project-icon';
 import RocketIcon from './common/sample-logo';

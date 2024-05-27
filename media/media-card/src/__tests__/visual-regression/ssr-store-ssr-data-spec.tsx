@@ -3,9 +3,9 @@ import ReactDOMServer from 'react-dom/server';
 import { imageFileId } from '@atlaskit/media-test-helpers';
 import { Card } from '../../card/card';
 import { tallImage, createMediaStoreError } from '@atlaskit/media-test-helpers';
-import { MediaClient } from '@atlaskit/media-client';
+import { type MediaClient } from '@atlaskit/media-client';
 import {
-  MediaCardSsrData,
+  type MediaCardSsrData,
   GLOBAL_MEDIA_NAMESPACE,
   GLOBAL_MEDIA_CARD_SSR,
   getKey,

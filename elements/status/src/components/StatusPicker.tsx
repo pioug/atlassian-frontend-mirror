@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-import React, { FormEvent, PureComponent } from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import React, { type FormEvent, PureComponent } from 'react';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
 import ColorPalette from './internal/color-palette';
-import { Color } from './Status';
+import { type Color } from './Status';
 import { messages } from './i18n';
 import { N80A } from '@atlaskit/theme/colors';
 

@@ -10,7 +10,7 @@ import {
   SmartLinkSize,
   SmartLinkStatus,
 } from '../../../../../../constants';
-import { MetadataBlockProps } from '../types';
+import { type MetadataBlockProps } from '../types';
 import MetadataBlock from '../index';
 
 describe('MetadataBlock', () => {

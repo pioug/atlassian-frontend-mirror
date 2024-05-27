@@ -1,4 +1,4 @@
-import React, { Component, Ref } from 'react';
+import React, { Component, type Ref } from 'react';
 
 import styled from '@emotion/styled';
 import { render, screen } from '@testing-library/react';

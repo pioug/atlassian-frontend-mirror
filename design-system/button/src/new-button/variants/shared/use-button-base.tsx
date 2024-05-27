@@ -2,6 +2,7 @@ import React, { Fragment, useRef } from 'react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import * as colors from '@atlaskit/theme/colors';
 import { fontSize as getFontSize } from '@atlaskit/theme/constants';
@@ -82,13 +83,7 @@ const buttonStyles = xcss({
   // @ts-expect-error
   color: token('color.text', colors.N500),
   flexShrink: 0,
-  fontFamily: 'inherit',
-  fontSize: 'inherit',
-  fontStyle: 'normal',
-  fontWeight: 500,
   height: `${32 / fontSize}em`,
-  lineHeight: `${32 / fontSize}em`,
-  paddingBlock: 'space.0',
   paddingInlineEnd: 'space.150',
   paddingInlineStart: 'space.150',
   textAlign: 'center',
@@ -99,6 +94,21 @@ const buttonStyles = xcss({
     // @ts-expect-error
     color: token('color.text', colors.N500),
   },
+});
+
+const baseButtonStyles = xcss({
+  fontFamily: 'inherit',
+  fontSize: 'inherit',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  lineHeight: `${32 / fontSize}em`,
+  paddingBlock: 'space.0',
+});
+
+const tokenizedButtonStyles = xcss({
+  font: token('font.body'),
+  fontWeight: token('font.weight.medium'),
+  paddingBlock: 'space.075',
 });
 
 const defaultInteractiveStyles = xcss({
@@ -371,11 +381,18 @@ const selectedDiscoveryStyles = xcss({
 const spacingCompactStyles = xcss({
   columnGap: 'space.050',
   height: `${24 / fontSize}em`,
-  lineHeight: `${24 / fontSize}em`,
   paddingInlineEnd: 'space.150',
   paddingInlineStart: 'space.150',
   verticalAlign: 'middle',
 });
+
+const baseSpacingCompactStyles = xcss({
+  lineHeight: `${24 / fontSize}em`,
+})
+
+const tokenizedSpacingCompactStyles = xcss({
+  paddingBlock: 'space.025'
+})
 
 const spacingNoneStyles = xcss({
   columnGap: 'space.0',
@@ -385,6 +402,10 @@ const spacingNoneStyles = xcss({
   paddingInlineStart: 'space.0',
   verticalAlign: 'baseline',
 });
+
+const tokenizedSpacingNoneStyles = xcss({
+  paddingBlock: 'space.0'
+})
 
 const circleStyles = xcss({ borderRadius: 'border.radius.circle' });
 const fullWidthStyles = xcss({ width: '100%' });
@@ -481,6 +502,11 @@ const useButtonBase = <TagName extends HTMLElement>({
   return {
     ref: mergeRefs([localRef, ref]),
     xcss: [
+      getBooleanFF(
+        'platform.design-system-team.button-tokenised-typography-styles',
+      )
+        ? tokenizedButtonStyles
+        : baseButtonStyles,
       buttonStyles,
       appearance === 'default' && isInteractive && defaultInteractiveStyles,
       appearance === 'primary' && primaryStyles,
@@ -509,7 +535,16 @@ const useButtonBase = <TagName extends HTMLElement>({
       isDisabled && disabledStyles,
       isCircle && !isSplitButton && circleStyles,
       spacing === 'compact' && spacingCompactStyles,
+      spacing === 'compact' && (getBooleanFF(
+        'platform.design-system-team.button-tokenised-typography-styles',
+      )
+        ? tokenizedSpacingCompactStyles
+        : baseSpacingCompactStyles),
       spacing === 'none' && spacingNoneStyles,
+      spacing === 'none' && getBooleanFF(
+        'platform.design-system-team.button-tokenised-typography-styles',
+      )
+        && tokenizedSpacingNoneStyles,
       spacing !== 'none' && hasIconBefore && buttonIconBeforeStyles,
       spacing !== 'none' && hasIconAfter && buttonIconAfterStyles,
       isIconButton && iconButtonStyles,

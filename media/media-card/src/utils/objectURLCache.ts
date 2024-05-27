@@ -1,7 +1,7 @@
 import { LRUMap } from 'lru_map';
 import { EventEmitter2 } from 'eventemitter2';
 
-import { CardPreview } from '../types';
+import { type CardPreview } from '../types';
 
 export const PREVIEW_CACHE_LRU_SIZE = 50;
 

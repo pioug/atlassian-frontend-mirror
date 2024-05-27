@@ -2,7 +2,7 @@ import { components } from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
 import noop from 'lodash/noop';
 import { mount } from 'enzyme';
-import React, { ReactChildren } from 'react';
+import React, { type ReactChildren } from 'react';
 import { ClearIndicator } from '../../../components/ClearIndicator';
 
 // Helper to make <React.Suspense> and React.lazy() work with Enzyme

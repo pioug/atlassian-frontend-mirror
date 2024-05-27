@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import DeleteAction from '../index';
-import { DeleteActionProps } from '../types';
+import { type DeleteActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
   ...jest.requireActual('../../../../../../state/flexible-ui-context'),

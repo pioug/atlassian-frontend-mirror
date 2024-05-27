@@ -1,8 +1,8 @@
-import React, { createRef, RefObject } from 'react';
+import React, { createRef, type RefObject } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import Rating, { RatingRender } from '../../../components/rating';
+import Rating, { type RatingRender } from '../../../components/rating';
 
 const renderIcon: RatingRender = (props) => {
   return (

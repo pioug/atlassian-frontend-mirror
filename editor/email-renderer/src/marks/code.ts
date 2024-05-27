@@ -1,4 +1,4 @@
-import { MarkSerializerOpts } from '../interfaces';
+import { type MarkSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 import { codeFontFamily } from '../styles/common';

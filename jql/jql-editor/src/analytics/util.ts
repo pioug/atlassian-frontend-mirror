@@ -3,7 +3,7 @@ import {
   useJqlPackageAnalytics,
 } from '@atlaskit/jql-editor-common';
 
-import { Action, ActionSubject, ActionSubjectId } from './constants';
+import { type Action, type ActionSubject, type ActionSubjectId } from './constants';
 
 export const useJqlEditorAnalytics = (analyticsSource: string) => {
   return useJqlPackageAnalytics<Action, ActionSubject, ActionSubjectId>(

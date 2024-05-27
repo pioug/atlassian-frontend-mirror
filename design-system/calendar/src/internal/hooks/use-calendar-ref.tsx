@@ -1,4 +1,4 @@
-import React, { useImperativeHandle } from 'react';
+import { type default as React, useImperativeHandle } from 'react';
 
 import type { CalendarRef } from '../../types';
 

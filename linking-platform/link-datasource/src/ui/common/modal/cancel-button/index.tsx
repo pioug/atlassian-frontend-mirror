@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
-import { ButtonClickedCancelAttributesType } from '../../../../analytics/generated/analytics.types';
+import { type ButtonClickedCancelAttributesType } from '../../../../analytics/generated/analytics.types';
 
 import { cancelButtonMessages } from './messages';
 export interface CancelButtonProps {

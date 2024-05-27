@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import React, { MouseEvent, PureComponent } from 'react';
+import React, { type MouseEvent, PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
 import { emojiTypeAheadMaxHeight } from '../../util/shared-styles';
 import { toEmojiId } from '../../util/type-helpers';
 import type { EmojiDescription, EmojiId, OnEmojiEvent } from '../../types';
 import debug from '../../util/logger';
-import { actualMouseMove, mouseLocation, Position } from '../../util/mouse';
+import { actualMouseMove, mouseLocation, type Position } from '../../util/mouse';
 import Scrollable from '../common/Scrollable';
 import EmojiItem from './EmojiTypeAheadItem';
 import {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import { Placement, placements } from '@atlaskit/popper';
+import { type Placement, placements } from '@atlaskit/popper';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import Tooltip from '../../src';

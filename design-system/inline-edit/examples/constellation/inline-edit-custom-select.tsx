@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { Box, xcss } from '@atlaskit/primitives';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
 import {

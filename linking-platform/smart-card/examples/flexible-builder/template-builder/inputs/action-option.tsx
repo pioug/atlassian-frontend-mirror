@@ -7,8 +7,8 @@ import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select/Select';
 import Textfield from '@atlaskit/textfield';
 import { ActionName } from '../../../../src';
-import { ChangeParams, getCustomActionIcon, handleOnChange } from '../../utils';
-import { BlockTemplate } from '../../types';
+import { type ChangeParams, getCustomActionIcon, handleOnChange } from '../../utils';
+import { type BlockTemplate } from '../../types';
 
 type ActionProp = {
   name: ActionName;

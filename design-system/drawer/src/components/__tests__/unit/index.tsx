@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 
 import Drawer from '../../index';
-import { DrawerProps } from '../../types';
+import { type DrawerProps } from '../../types';
 
 declare var global: any;
 

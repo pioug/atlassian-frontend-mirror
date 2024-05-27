@@ -1,5 +1,5 @@
-import { AuthProvider, MediaApiConfig } from '@atlaskit/media-core';
-import { uploadFile, UploadableFileUpfrontIds, MediaStore } from '../..';
+import { type AuthProvider, type MediaApiConfig } from '@atlaskit/media-core';
+import { uploadFile, type UploadableFileUpfrontIds, type MediaStore } from '../..';
 
 jest.mock('../../constants', () => ({
   __esModule: true,

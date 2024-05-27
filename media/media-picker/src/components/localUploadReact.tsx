@@ -1,25 +1,25 @@
 import { Component } from 'react';
 import { start, end } from 'perf-marks';
-import { MediaClient, getMediaClientErrorReason } from '@atlaskit/media-client';
+import { type MediaClient, getMediaClientErrorReason } from '@atlaskit/media-client';
 import {
   ANALYTICS_MEDIA_CHANNEL,
-  MediaFeatureFlags,
+  type MediaFeatureFlags,
 } from '@atlaskit/media-common';
-import { UploadService } from '../service/types';
+import { type UploadService } from '../service/types';
 import {
-  UploadEndEventPayload,
-  UploadErrorEventPayload,
-  UploadPreviewUpdateEventPayload,
-  UploadsStartEventPayload,
-  UploadParams,
-  FlagData,
+  type UploadEndEventPayload,
+  type UploadErrorEventPayload,
+  type UploadPreviewUpdateEventPayload,
+  type UploadsStartEventPayload,
+  type UploadParams,
+  type FlagData,
 } from '../types';
 import { UploadComponent } from './component';
 import { UploadServiceImpl } from '../service/uploadServiceImpl';
-import { LocalUploadConfig } from './types';
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { AnalyticsEventPayload } from '../types';
-import { ComponentName, getRequestMetadata } from '../util/analytics';
+import { type LocalUploadConfig } from './types';
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '../types';
+import { type ComponentName, getRequestMetadata } from '../util/analytics';
 import {
   startMediaUploadUfoExperience,
   succeedMediaUploadUfoExperience,

@@ -3,7 +3,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import Image from '@atlaskit/image';
-import { Icon } from '@atlaskit/linking-types';
+import { type Icon } from '@atlaskit/linking-types';
 
 interface IconProps extends Icon {
   testId?: string;

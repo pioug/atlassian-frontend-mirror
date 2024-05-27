@@ -1,5 +1,5 @@
-import { MockResponse } from 'xhr-mock';
-import { ResponseData } from '.';
+import { type MockResponse } from 'xhr-mock';
+import { type ResponseData } from '.';
 
 export const dataURItoBlob = (dataURI: string) => {
   // convert base64 to raw binary data held in a string

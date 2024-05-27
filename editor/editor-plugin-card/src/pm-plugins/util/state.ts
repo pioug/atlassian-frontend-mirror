@@ -1,9 +1,9 @@
 import {
-  EditorState,
-  ReadonlyTransaction,
+  type EditorState,
+  type ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-import { CardPluginState, Request } from '../../types';
+import { type CardPluginState, type Request } from '../../types';
 import { pluginKey } from '../plugin-key';
 
 // ============================================================================ //

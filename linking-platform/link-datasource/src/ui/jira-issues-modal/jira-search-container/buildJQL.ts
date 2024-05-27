@@ -2,20 +2,20 @@ import {
   COMPOUND_OPERATOR_AND,
   COMPOUND_OPERATOR_OR,
   creators,
-  Jast,
+  type Jast,
   JastBuilder,
   OPERATOR_EQUALS,
   OPERATOR_IN,
   OPERATOR_LIKE,
-  OperatorValue,
+  type OperatorValue,
   ORDER_BY_DIRECTION_ASC,
   ORDER_BY_DIRECTION_DESC,
   print,
 } from '@atlaskit/jql-ast';
 
 import {
-  BasicFilterFieldType,
-  SelectedOptionsMap,
+  type BasicFilterFieldType,
+  type SelectedOptionsMap,
 } from '../basic-filters/types';
 import { availableBasicFilterTypes } from '../basic-filters/ui';
 

@@ -9,14 +9,14 @@ jest.mock('@atlaskit/media-ui', () => {
   };
 });
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
 import {
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
-  FileIdentifier,
-  FileState,
-  MediaFileArtifacts,
+  type MediaViewedEventPayload,
+  type FileIdentifier,
+  type FileState,
+  type MediaFileArtifacts,
   createMediaSubscribable,
 } from '@atlaskit/media-client';
 import {
@@ -29,14 +29,14 @@ import {
 } from '@atlaskit/media-test-helpers';
 import {
   InlinePlayer,
-  InlinePlayerProps,
+  type InlinePlayerProps,
   getPreferredVideoArtifact,
-  InlinePlayerState,
-  InlinePlayerOwnProps,
+  type InlinePlayerState,
+  type InlinePlayerOwnProps,
 } from '../../inlinePlayer';
 import { CardLoading } from '../../../utils/lightCards/cardLoading';
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { WrappedComponentProps } from 'react-intl-next';
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type WrappedComponentProps } from 'react-intl-next';
 
 const defaultFileState: FileState = {
   status: 'processed',

@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import { RequestServiceOptions, utils } from '@atlaskit/util-service-support';
+import { type RequestServiceOptions, utils } from '@atlaskit/util-service-support';
 
 import {
   convertServiceTaskToTask,
@@ -8,21 +8,21 @@ import {
 } from './TaskDecisionUtils';
 
 import {
-  BaseItem,
-  ServiceTaskState,
-  DecisionState,
-  Handler,
-  ObjectKey,
+  type BaseItem,
+  type ServiceTaskState,
+  type DecisionState,
+  type Handler,
+  type ObjectKey,
   PubSubSpecialEventType,
-  PubSubClient,
-  RecentUpdateContext,
-  RecentUpdatesId,
-  RecentUpdatesListener,
-  ServiceTask,
-  TaskDecisionProvider,
-  TaskDecisionResourceConfig,
-  TaskState,
-  ServiceItem,
+  type PubSubClient,
+  type RecentUpdateContext,
+  type RecentUpdatesId,
+  type RecentUpdatesListener,
+  type ServiceTask,
+  type TaskDecisionProvider,
+  type TaskDecisionResourceConfig,
+  type TaskState,
+  type ServiceItem,
 } from '../types';
 
 import {

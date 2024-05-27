@@ -3,7 +3,7 @@ import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { Custom } from '../../types';
+import { type Custom } from '../../types';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
 import { HighlightText } from '../HighlightText';
 import { SizeableAvatar } from '../SizeableAvatar';

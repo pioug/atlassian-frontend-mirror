@@ -5,7 +5,7 @@ import { url, cardState } from '@atlaskit/media-test-helpers/smart-card-state';
 import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
-import { CardSSR, CardSSRProps } from '../../ssr';
+import { CardSSR, type CardSSRProps } from '../../ssr';
 import { Provider, Client } from '../..';
 import * as CardWithUrlContent from '../../view/CardWithUrl/component';
 import { ANALYTICS_CHANNEL, context } from '../../utils/analytics';

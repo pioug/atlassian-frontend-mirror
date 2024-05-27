@@ -2,30 +2,30 @@
 import {
   Router,
   KakapoResponse,
-  KakapoRequest,
-  RouterHandler,
-  Database,
-  DataRecord,
+  type KakapoRequest,
+  type RouterHandler,
+  type Database,
+  type DataRecord,
 } from 'kakapo';
-import { DatabaseSchema } from 'kakapo/dist/Database';
+import { type DatabaseSchema } from 'kakapo/dist/Database';
 
 import uuid from 'uuid/v4';
 
 import {
-  MediaItemDetails,
-  TouchFileDescriptor,
-  ItemsPayload,
-  ResponseFileItem,
+  type MediaItemDetails,
+  type TouchFileDescriptor,
+  type ItemsPayload,
+  type ResponseFileItem,
 } from '@atlaskit/media-client';
 
 import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
 
 import {
-  MediaDatabaseSchema,
+  type MediaDatabaseSchema,
   createCollection,
   createCollectionItem,
   createEmptyCollectionItem,
-  CollectionItem,
+  type CollectionItem,
   isMediaItemDetails,
 } from '../database';
 import { vrVideoDetails } from '../../exampleMediaItems';

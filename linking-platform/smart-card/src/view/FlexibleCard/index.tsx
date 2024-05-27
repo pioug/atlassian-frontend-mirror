@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 
-import { FlexibleCardProps } from './types';
+import { type FlexibleCardProps } from './types';
 import { SmartLinkStatus } from '../../constants';
 import Container from './components/container';
 import {

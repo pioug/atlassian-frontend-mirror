@@ -1,4 +1,4 @@
-import { InlineCardDefinition, CardAttributes } from '@atlaskit/adf-schema';
+import { type InlineCardDefinition, type CardAttributes } from '@atlaskit/adf-schema';
 
 export const inlineCard = (attrs: CardAttributes): InlineCardDefinition => ({
   type: 'inlineCard',

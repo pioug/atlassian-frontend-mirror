@@ -4,12 +4,12 @@
  * moved into @atlaskit/analytics-listeners.
  */
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { sendEvent } from './analytics-web-client-wrapper';
-import Logger from './helpers/logger';
+import type Logger from './helpers/logger';
 import { processEventPayload } from './process-event-payload';
-import { AnalyticsWebClient } from './types';
+import { type AnalyticsWebClient } from './types';
 
 export const handleEvent = (
   event: UIAnalyticsEvent,

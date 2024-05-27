@@ -1,13 +1,13 @@
-import { MutableRefObject } from 'react';
+import { type MutableRefObject } from 'react';
 
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import {
-  EditorState,
+  type EditorState,
   Plugin,
   PluginKey,
 } from '@atlaskit/editor-prosemirror/state';
-import { Jast, JastBuilder } from '@atlaskit/jql-ast';
+import { type Jast, JastBuilder } from '@atlaskit/jql-ast';
 
 import { getNodeText } from '../../utils/document-text';
 

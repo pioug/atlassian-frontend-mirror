@@ -1,7 +1,7 @@
 import {
   ACTION,
   ACTION_SUBJECT,
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
 } from '@atlaskit/editor-common/analytics';
 
 export function mapActionSubjectIdToAttributes(

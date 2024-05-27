@@ -1,17 +1,17 @@
 import {
   addFileAttrsToUrl,
-  FilePreview,
-  MediaBlobUrlAttrs,
-  MediaClient,
-  MediaStoreGetFileImageParams,
+  type FilePreview,
+  type MediaBlobUrlAttrs,
+  type MediaClient,
+  type MediaStoreGetFileImageParams,
 } from '@atlaskit/media-client';
-import { MediaTraceContext, SSR } from '@atlaskit/media-common';
+import { type MediaTraceContext, type SSR } from '@atlaskit/media-common';
 
 import { SsrPreviewError } from '../errors';
 import {
-  MediaFilePreview,
-  MediaFilePreviewDimensions,
-  MediaFilePreviewSource,
+  type MediaFilePreview,
+  type MediaFilePreviewDimensions,
+  type MediaFilePreviewSource,
 } from '../types';
 
 import { mediaFilePreviewCache } from './cache';

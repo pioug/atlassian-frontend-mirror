@@ -1,17 +1,17 @@
 import {
-  ClientOptions,
-  CustomAttributes,
+  type ClientOptions,
+  type CustomAttributes,
   FeatureGateEnvironment,
-  Identifiers,
+  type Identifiers,
   PerimeterType,
 } from '../types';
 import { CLIENT_VERSION } from '../version';
 
 import { ResponseError } from './errors';
 import {
-  FrontendClientSdkKeyResponse,
-  FrontendExperimentsRequest,
-  FrontendExperimentsResponse,
+  type FrontendClientSdkKeyResponse,
+  type FrontendExperimentsRequest,
+  type FrontendExperimentsResponse,
 } from './types';
 
 const DEFAULT_REQUEST_TIMEOUT_MS = 5_000;

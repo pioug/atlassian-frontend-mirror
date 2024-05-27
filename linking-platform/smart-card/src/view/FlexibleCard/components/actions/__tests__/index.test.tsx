@@ -7,7 +7,7 @@ import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
-import { ActionProps } from '../action/types';
+import { type ActionProps } from '../action/types';
 
 interface Options {
   name: string;

@@ -3,10 +3,10 @@ import type { ReactNode } from 'react';
 import { jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
 import EmojiPickerCategoryHeading, {
-  Props as CategoryHeadingProps,
+  type Props as CategoryHeadingProps,
 } from './EmojiPickerCategoryHeading';
 import EmojiPickerEmojiRow, {
-  Props as EmojiRowProps,
+  type Props as EmojiRowProps,
 } from './EmojiPickerEmojiRow';
 import { sizes } from './EmojiPickerSizes';
 import { emojiPickerSpinner } from './styles';

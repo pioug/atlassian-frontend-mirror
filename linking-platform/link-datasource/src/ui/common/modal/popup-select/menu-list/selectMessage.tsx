@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
 import { Flex, Stack, xcss } from '@atlaskit/primitives';

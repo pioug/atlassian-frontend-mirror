@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import { AddOptionAvatar } from '../../../components/AddOptionAvatar';
 import { MultiValue, scrollToValue } from '../../../components/MultiValue';
-import { Email, EmailType, User } from '../../../types';
+import { type Email, EmailType, type User } from '../../../types';
 
 const mockHtmlElement = (rect: Partial<DOMRect>): HTMLDivElement =>
   ({

@@ -16,9 +16,9 @@ import {
   LozengeWrapper,
 } from '../../styled/Card';
 import {
-  AnalyticsWithDurationProps,
-  LozengeProps,
-  ProfilecardProps,
+  type AnalyticsWithDurationProps,
+  type LozengeProps,
+  type ProfilecardProps,
 } from '../../types';
 import { IconLabel } from '../Icon';
 

@@ -3,12 +3,12 @@ import React, { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import Popup from '@atlaskit/popup';
-import { TriggerProps } from '@atlaskit/popup/types';
+import { type TriggerProps } from '@atlaskit/popup/types';
 import { layers } from '@atlaskit/theme/constants';
 
 import filterActions from '../../internal/filterActions';

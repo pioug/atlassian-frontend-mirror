@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react';
 import {
-  InteractionTaskArgs,
-  PublicInteractionTask,
+  type InteractionTaskArgs,
+  type PublicInteractionTask,
 } from 'storybook-addon-performance';
 
 export const interactionTasks: PublicInteractionTask[] = [

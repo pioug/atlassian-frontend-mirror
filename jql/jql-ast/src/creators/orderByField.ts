@@ -1,12 +1,12 @@
 import { setOrderDirection } from '../transformers/orderByField';
 import {
-  AstNode,
-  Field,
-  JastListener,
-  JastVisitor,
-  OrderByDirection,
-  OrderByField,
-  Position,
+  type AstNode,
+  type Field,
+  type JastListener,
+  type JastVisitor,
+  type OrderByDirection,
+  type OrderByField,
+  type Position,
 } from '../types';
 
 import { assignParent } from './common';

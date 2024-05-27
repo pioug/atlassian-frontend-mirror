@@ -1,6 +1,6 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
-import { CardPlatform } from '../../types';
+import { type CardPlatform } from '../../types';
 import { extractPlatformIsSupported } from '../platform/extractPlatformIsSupported';
 import { extractUrlFromLinkJsonLd } from '../url';
 

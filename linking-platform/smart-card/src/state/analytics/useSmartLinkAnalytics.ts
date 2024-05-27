@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { getUrl } from '@atlaskit/linking-common';
 import {
-  AnalyticsHandler,
-  AnalyticsName,
-  AnalyticsPayload,
+  type AnalyticsHandler,
+  type AnalyticsName,
+  type AnalyticsPayload,
 } from '../../utils/types';
 import {
   chunkloadFailedEvent,
@@ -46,33 +46,33 @@ import {
   getSubproduct,
 } from '../helpers';
 import {
-  CommonEventProps,
-  ConnectFailedEventProps,
-  ConnectSucceededEventProps,
-  InstrumentEventProps,
-  InvokeFailedEventProps,
-  InvokeSucceededEventProps,
-  ScreenAuthPopupEventProps,
-  TrackAppAccountConnectedProps,
-  UiActionClickedEventProps,
-  UiAuthAlternateAccountEventProps,
-  UiAuthEventProps,
-  UiCardClickedEventProps,
-  UiClosedAuthEventProps,
-  UiHoverCardDismissedEventProps,
-  UiHoverCardOpenLinkClickedEventProps,
-  UiHoverCardViewedEventProps,
-  UiIframeDwelledEventProps,
-  UiIframeFocusedEventProps,
-  UiRenderFailedEventProps,
-  UiRenderSuccessEventProps,
-  UiServerActionClickedEventProps,
+  type CommonEventProps,
+  type ConnectFailedEventProps,
+  type ConnectSucceededEventProps,
+  type InstrumentEventProps,
+  type InvokeFailedEventProps,
+  type InvokeSucceededEventProps,
+  type ScreenAuthPopupEventProps,
+  type TrackAppAccountConnectedProps,
+  type UiActionClickedEventProps,
+  type UiAuthAlternateAccountEventProps,
+  type UiAuthEventProps,
+  type UiCardClickedEventProps,
+  type UiClosedAuthEventProps,
+  type UiHoverCardDismissedEventProps,
+  type UiHoverCardOpenLinkClickedEventProps,
+  type UiHoverCardViewedEventProps,
+  type UiIframeDwelledEventProps,
+  type UiIframeFocusedEventProps,
+  type UiRenderFailedEventProps,
+  type UiRenderSuccessEventProps,
+  type UiServerActionClickedEventProps,
 } from '../../utils/analytics/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
   trackHoverCardResolutionStarted,
-  TrackQuickActionFailureReason,
-  TrackQuickActionType,
+  type TrackQuickActionFailureReason,
+  type TrackQuickActionType,
   trackSmartLinkQuickActionFailed,
   trackSmartLinkQuickActionStarted,
   trackSmartLinkQuickActionSuccess,
@@ -81,7 +81,7 @@ import {
   uiServerActionClicked,
 } from '../../utils/analytics/analytics';
 import { useDispatchAnalytics } from './useDispatchAnalytics';
-import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { type SmartLinkActionType } from '@atlaskit/linking-types';
 
 const applyCommonAttributes = (
   event: AnalyticsPayload,

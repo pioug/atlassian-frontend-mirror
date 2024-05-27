@@ -1,4 +1,4 @@
-import { ProductType } from '@atlaskit/linking-common';
+import { type ProductType } from '@atlaskit/linking-common';
 
 export type AISummaryConfig = {
   product?: ProductType;

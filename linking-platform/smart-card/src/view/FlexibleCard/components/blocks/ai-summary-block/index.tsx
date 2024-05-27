@@ -1,6 +1,6 @@
 import React from 'react';
 import AISummaryBlockResolvedView from './resolved';
-import { AISummaryBlockProps } from './types';
+import { type AISummaryBlockProps } from './types';
 import { SmartLinkStatus } from '../../../../../constants';
 
 /**

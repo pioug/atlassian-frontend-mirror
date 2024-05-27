@@ -4,8 +4,8 @@ import type { CardClient } from '@atlaskit/link-provider';
 import { request } from '@atlaskit/linking-common';
 import {
   InvokeError,
-  InvokeRequest,
-  InvokeResponse,
+  type InvokeRequest,
+  type InvokeResponse,
 } from '@atlaskit/linking-types/smart-link-actions';
 
 import { useResolverUrl } from '../use-resolver-url';

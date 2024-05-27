@@ -6,7 +6,7 @@
  * @codegen <<SignedSource::0d08fdca953a1eb1130683499e509165>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
-import { AnalyticsEventAttributes, EventKey } from './analytics.types';
+import { type AnalyticsEventAttributes, type EventKey } from './analytics.types';
 
 type OptionalIfUndefined<T> = undefined extends T ? [param?: T] : [param: T];
 

@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import { LoadingButton } from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
 import { SmartLinkSize } from '../../../../../../constants';
-import { ActionButtonProps } from './types';
+import { type ActionButtonProps } from './types';
 import { sizeToButtonSpacing } from '../../../utils';
 
 const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
-  FileState,
+  type MediaViewedEventPayload,
+  type FileState,
 } from '@atlaskit/media-client';
 import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
 import {

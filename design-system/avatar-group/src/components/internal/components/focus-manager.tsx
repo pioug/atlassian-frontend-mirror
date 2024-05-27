@@ -1,17 +1,17 @@
 import React, {
   createContext,
-  FC,
-  ReactNode,
+  type FC,
+  type ReactNode,
   useCallback,
   useEffect,
   useRef,
 } from 'react';
 
-import { bind, UnbindFn } from 'bind-event-listener';
+import { bind, type UnbindFn } from 'bind-event-listener';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
-import { FocusableElement } from '../../types';
+import { type FocusableElement } from '../../types';
 import handleFocus from '../utiles/handle-focus';
 
 /**

@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import PremiumIcon from '@atlaskit/icon/glyph/premium';
 import ActionGroup from '..';
 import { ActionName } from '../../../../../../constants';
-import { ActionItem, CustomActionItem } from '../../types';
+import { type ActionItem, type CustomActionItem } from '../../types';
 import { messages } from '../../../../../../messages';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';

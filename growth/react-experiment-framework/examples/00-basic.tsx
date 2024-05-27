@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import asExperiment from '../src/asExperiment';
 import ExperimentController from '../src/ExperimentController';
-import { EnrollmentDetails } from '../src/types';
+import { type EnrollmentDetails } from '../src/types';
 
 import { Control, VariantA, VariantB, Broken, Loader } from './_common';
 

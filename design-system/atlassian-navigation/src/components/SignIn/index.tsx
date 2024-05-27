@@ -4,7 +4,7 @@ import SignInIcon from '@atlaskit/icon/glyph/sign-in';
 
 import { IconButton } from '../IconButton';
 
-import { SignInProps } from './types';
+import { type SignInProps } from './types';
 
 /**
  * __Sign in__

@@ -1,4 +1,4 @@
-import { Doc, Group, IfBreak } from './types';
+import { type Doc, type Group, type IfBreak } from './types';
 
 const computeFlatWidth = (doc: Doc | Doc[]): number => {
   if (typeof doc === 'string') {

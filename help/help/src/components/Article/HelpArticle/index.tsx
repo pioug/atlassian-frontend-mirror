@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 
 import RelatedArticles from '../../RelatedArticles';
 import { ARTICLE_TYPE } from '../../../model/Help';
 import {
-  ArticleFeedback,
-  ArticleItem,
-  Article as ArticleType,
+  type ArticleFeedback,
+  type ArticleItem,
+  type Article as ArticleType,
 } from '../../../model/Article';
 
 import { useNavigationContext } from '../../contexts/navigationContext';

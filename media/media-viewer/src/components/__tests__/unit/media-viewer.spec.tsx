@@ -1,13 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MediaViewer } from '../../media-viewer';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { fakeMediaClient, imageFileId } from '@atlaskit/media-test-helpers';
 import { MediaViewer as MediaViewerNextGen } from '../../../media-viewer';
-import { MediaViewerExtensions } from '../../../components/types';
+import { type MediaViewerExtensions } from '../../../components/types';
 import {
-  ExternalImageIdentifier,
-  FileIdentifier,
+  type ExternalImageIdentifier,
+  type FileIdentifier,
 } from '@atlaskit/media-client';
 
 describe('MediaViewer', () => {

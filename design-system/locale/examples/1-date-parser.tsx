@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import TextField from '@atlaskit/textfield';
 import { Label } from '@atlaskit/form';
 
-import { LocalizationProvider, createLocalizationProvider } from '../src';
-import LocaleSelect, { Locale } from '../src/LocaleSelect';
+import { type LocalizationProvider, createLocalizationProvider } from '../src';
+import LocaleSelect, { type Locale } from '../src/LocaleSelect';
 
 type State = {
   l10n: LocalizationProvider;

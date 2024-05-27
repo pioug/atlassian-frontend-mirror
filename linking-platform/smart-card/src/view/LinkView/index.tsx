@@ -1,5 +1,5 @@
 import React from 'react';
-import { Frame, FrameViewProps } from '../InlineCard/Frame';
+import { Frame, type FrameViewProps } from '../InlineCard/Frame';
 
 export interface CardLinkViewProps extends FrameViewProps {
   placeholder?: string;

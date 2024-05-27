@@ -4,14 +4,14 @@ import { useEffect, useRef } from 'react';
 
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { createAndFireMediaCardEvent } from '../../../utils/analytics';
 import { IconWrapper } from '../../ui/iconWrapper/iconWrapper';
 import { CreatingPreview } from '../../ui/iconMessage';
 import { useBreakpoint } from '../../useBreakpoint';
-import { CardViewWrapper, SharedCardViewProps } from './cardViewWrapper';
+import { CardViewWrapper, type SharedCardViewProps } from './cardViewWrapper';
 
 export type ProcessingCardViewProps = SharedCardViewProps &
   WithAnalyticsEventsProps & {

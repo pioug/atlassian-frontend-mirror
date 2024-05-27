@@ -1,5 +1,5 @@
-import { InvokePayload, ServerActionOpts } from '@atlaskit/linking-common';
-import { CardInnerAppearance } from '../view/Card/types';
+import { type InvokePayload, type ServerActionOpts } from '@atlaskit/linking-common';
+import { type CardInnerAppearance } from '../view/Card/types';
 
 export type InvokeType = 'server' | 'client';
 export type InvokeOpts<T> = {

@@ -2,7 +2,7 @@
  * Copied from ADS popup component with some tweeks for our use
  */
 import React, { Fragment, useLayoutEffect, useRef } from 'react';
-import { PopperChildrenProps } from '@atlaskit/popper';
+import { type PopperChildrenProps } from '@atlaskit/popper';
 
 export type RepositionOnUpdateProps = {
   update: PopperChildrenProps['update'];

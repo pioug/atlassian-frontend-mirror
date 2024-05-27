@@ -1,11 +1,11 @@
 import {
-  FlagWrapper,
-  Reason,
-  ErrorKind,
-  AutomaticExposureHandler,
-  FlagValue,
-  CustomAttributes,
-  FlagShape,
+  type FlagWrapper,
+  type Reason,
+  type ErrorKind,
+  type AutomaticExposureHandler,
+  type FlagValue,
+  type CustomAttributes,
+  type FlagShape,
 } from './types';
 
 export const MISSING_FLAG_EXPLANATION = {

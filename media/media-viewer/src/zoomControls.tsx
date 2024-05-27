@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { hideControlsClassName, MediaButton } from '@atlaskit/media-ui';
 import ZoomOutIcon from '@atlaskit/icon/glyph/media-services/zoom-out';
 import ZoomInIcon from '@atlaskit/icon/glyph/media-services/zoom-in';
-import { ZoomLevel } from './domain/zoomLevel';
+import { type ZoomLevel } from './domain/zoomLevel';
 import {
   ZoomWrapper,
   ZoomCenterControls,
@@ -12,12 +12,12 @@ import {
 } from './styleWrappers';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { fireAnalytics } from './analytics/';
 import { createZoomInButtonClickEvent } from './analytics/events/ui/zoomInButtonClicked';
 import { createZoomOutButtonClickedEvent } from './analytics/events/ui/zoomOutButtonClicked';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 
 export type ZoomControlsProps = React.PropsWithChildren<

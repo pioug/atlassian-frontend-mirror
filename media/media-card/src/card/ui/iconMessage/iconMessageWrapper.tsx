@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { IconMessageWrapperProps } from './types';
+import { type IconMessageWrapperProps } from './types';
 import { keyframes } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';

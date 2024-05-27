@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 import FocusRing from '@atlaskit/focus-ring';
 
 import { useTabPanel } from '../hooks';
-import { TabPanelAttributesType, TabPanelProps } from '../types';
+import { type TabPanelAttributesType, type TabPanelProps } from '../types';
 
 // Note this is not being memoized as children is an unstable reference
 /**

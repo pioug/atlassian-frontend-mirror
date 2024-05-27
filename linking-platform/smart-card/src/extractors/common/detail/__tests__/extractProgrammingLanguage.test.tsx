@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import {
   extractProgrammingLanguage,
-  LinkProgrammingLanguageType,
+  type LinkProgrammingLanguageType,
 } from '../extractProgrammingLanguage';
 import { TEST_BASE_DATA } from '../../__mocks__/jsonld';
 

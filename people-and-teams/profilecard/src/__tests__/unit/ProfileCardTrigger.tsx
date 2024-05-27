@@ -4,7 +4,7 @@ import { act, fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import ProfileCardTrigger from '../../components/User/ProfileCardTrigger';
-import { ProfileClient } from '../../types';
+import { type ProfileClient } from '../../types';
 import {
   cardTriggered,
   fireEvent as fireAnalyticsEvent,

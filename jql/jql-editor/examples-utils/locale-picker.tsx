@@ -8,7 +8,7 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import { token } from '@atlaskit/tokens';
 
-import { Locale } from './locales';
+import { type Locale } from './locales';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const DropdownContainer = styled.div({

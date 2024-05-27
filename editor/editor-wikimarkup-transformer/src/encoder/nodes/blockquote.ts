@@ -1,5 +1,5 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { encode, NodeEncoder, NodeEncoderOpts } from '..';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { encode, type NodeEncoder, type NodeEncoderOpts } from '..';
 
 export const blockquote: NodeEncoder = (
   node: PMNode,

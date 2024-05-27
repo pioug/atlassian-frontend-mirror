@@ -1,5 +1,5 @@
-import { JsonLd } from 'json-ld-types';
-import { CardProviderRenderers } from '@atlaskit/link-provider';
+import { type JsonLd } from 'json-ld-types';
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { extractTitleTextColor } from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
 import { extractIcon } from '../common/icon';
@@ -10,7 +10,7 @@ import {
   extractProvider,
 } from '@atlaskit/link-extractors';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
-import { InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
+import { type InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
 
 export const extractInlineIcon = (jsonLd: JsonLd.Data.BaseData) => {
   const provider = extractProvider(jsonLd);

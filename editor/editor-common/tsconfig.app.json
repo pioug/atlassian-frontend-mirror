@@ -77,9 +77,6 @@
       "path": "../../design-system/icon-object/tsconfig.app.json"
     },
     {
-      "path": "../../in-product-testing/in-product-testing/tsconfig.app.json"
-    },
-    {
       "path": "../../linking-platform/link-datasource/tsconfig.app.json"
     },
     {

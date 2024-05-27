@@ -1,6 +1,6 @@
 import React from 'react';
 import FooterBlockResolvedView from './resolved';
-import { FooterBlockProps } from './types';
+import { type FooterBlockProps } from './types';
 import { SmartLinkStatus } from '../../../../../constants';
 
 /**

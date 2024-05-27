@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 
 import { MenuGroup } from '@atlaskit/menu';
 
-import { PopupAvatarGroupProps } from '../../types';
+import { type PopupAvatarGroupProps } from '../../types';
 
 import { FocusManagerContext } from './focus-manager';
 

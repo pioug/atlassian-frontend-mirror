@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import QuickInsert from './QuickInsert';
 import Emoji from './Emoji';
 import Mention from './Mention';
-import WebBridgeImpl from '../../../src/editor/native-to-web';
+import type WebBridgeImpl from '../../../src/editor/native-to-web';
 
 interface DisplayItemsArgs {
   trigger: string;

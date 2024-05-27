@@ -1,4 +1,4 @@
-import { CardProviderProps } from '../types';
+import { type CardProviderProps } from '../types';
 
 jest.mock('@atlaskit/link-extractors', () => ({
   ...jest.requireActual<Object>('@atlaskit/link-extractors'),
@@ -9,8 +9,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { SmartCardContext as Context } from '..';
 import CardClient from '../../../client';
-import { SmartCardProvider, CardContext } from '..';
-import { CardStore } from '@atlaskit/linking-common';
+import { SmartCardProvider, type CardContext } from '..';
+import { type CardStore } from '@atlaskit/linking-common';
 
 describe('Provider', () => {
   it('should setup provider with default options', () => {

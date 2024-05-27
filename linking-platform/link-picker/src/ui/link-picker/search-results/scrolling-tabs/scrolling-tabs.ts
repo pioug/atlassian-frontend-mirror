@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { type RefObject } from 'react';
 
 const BUTTON_SIZE = 24;
 const GUTTER = 48;

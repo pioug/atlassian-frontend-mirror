@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { textColor } from '@atlaskit/adf-schema';
+import { type ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 
 import { changeColor } from './commands/change-color';
 import type {
@@ -28,6 +29,29 @@ export const textColorPlugin: TextColorPlugin = ({
   config: textColorConfig,
   api,
 }) => {
+  const primaryToolbarComponent: ToolbarUIComponentFactory = ({
+    editorView,
+    popupsMountPoint,
+    popupsBoundariesElement,
+    popupsScrollableElement,
+    isToolbarReducedSpacing,
+    dispatchAnalyticsEvent,
+    disabled,
+  }) => {
+    return (
+      <PrimaryToolbarComponent
+        isReducedSpacing={isToolbarReducedSpacing}
+        editorView={editorView}
+        popupsMountPoint={popupsMountPoint}
+        popupsBoundariesElement={popupsBoundariesElement}
+        popupsScrollableElement={popupsScrollableElement}
+        dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+        disabled={disabled}
+        api={api}
+      />
+    );
+  };
+
   return {
     name: 'textColor',
 
@@ -58,28 +82,18 @@ export const textColorPlugin: TextColorPlugin = ({
       },
     },
 
-    primaryToolbarComponent({
-      editorView,
-      popupsMountPoint,
-      popupsBoundariesElement,
-      popupsScrollableElement,
-      isToolbarReducedSpacing,
-      dispatchAnalyticsEvent,
-      disabled,
-    }) {
-      return (
-        <PrimaryToolbarComponent
-          isReducedSpacing={isToolbarReducedSpacing}
-          editorView={editorView}
-          popupsMountPoint={popupsMountPoint}
-          popupsBoundariesElement={popupsBoundariesElement}
-          popupsScrollableElement={popupsScrollableElement}
-          dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-          disabled={disabled}
-          api={api}
-        />
+    usePluginHook: () => {
+      api?.core?.actions.execute(
+        api?.primaryToolbar?.commands.registerComponent({
+          name: 'textColor',
+          component: primaryToolbarComponent,
+        }),
       );
     },
+
+    primaryToolbarComponent: !api?.primaryToolbar
+      ? primaryToolbarComponent
+      : undefined,
   };
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Truncate,
-  TruncateProps,
+  type TruncateProps,
   TruncateLeft,
   TruncateRight,
 } from '../../truncateText';

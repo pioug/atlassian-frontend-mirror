@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  MentionProvider,
+  type MentionProvider,
   isResolvingMentionProvider,
 } from '../../api/MentionResource';
 import {
-  MentionEventHandler,
+  type MentionEventHandler,
   isPromise,
-  MentionNameDetails,
+  type MentionNameDetails,
   MentionNameStatus,
 } from '../../types';
 import Mention, { UNKNOWN_USER_ID } from './';

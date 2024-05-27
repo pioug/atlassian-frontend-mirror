@@ -1,7 +1,7 @@
 import { empty } from 'rxjs/observable/empty';
 
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { AutocompleteProvider } from '@atlaskit/jql-editor-common';
+import { type AutocompleteProvider } from '@atlaskit/jql-editor-common';
 
 export const AUTOCOMPLETE_PLUGIN_NAME = 'jql-autocomplete-plugin';
 export const ARROW_UP_KEY = 'ArrowUp';

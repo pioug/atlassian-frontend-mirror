@@ -1,6 +1,6 @@
 import { asyncMap } from './utils';
 
-import { HashedBlob, Uploadinator } from './domain';
+import { type HashedBlob, type Uploadinator } from './domain';
 
 const uploadinator: Uploadinator = (blobs$, options) => {
   const upload = (blob: HashedBlob) => {

@@ -1,5 +1,5 @@
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { type PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 export const emojiSelectors = {
   standard: `.${EmojiSharedCssClassName.EMOJI_SPRITE}`,

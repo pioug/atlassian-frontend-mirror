@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
 
 import { RadioGroup } from '../../src';
-import { OptionsPropType } from '../../src/types';
+import { type OptionsPropType } from '../../src/types';
 
 interface FormData {
   [key: string]: string;

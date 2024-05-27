@@ -7,7 +7,7 @@ import { axe } from '@af/accessibility-testing';
 import DynamicTable, {
   DynamicTableStateless as StatelessDynamicTable,
 } from '../../../index';
-import { StatelessProps } from '../../../types';
+import { type StatelessProps } from '../../../types';
 import LoadingContainer from '../../loading-container';
 import { RankableTableCell } from '../../rankable/table-cell';
 

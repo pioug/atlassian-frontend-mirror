@@ -1,4 +1,4 @@
-import { ThemeModes } from '@atlaskit/theme/types';
+import { type ThemeModes } from '@atlaskit/theme/types';
 
 import { useMediaQueryMatcher } from './useMediaQueryMatcher';
 

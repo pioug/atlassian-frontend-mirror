@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { MarkProps } from '../types';
+import { type MarkProps } from '../types';
 
 export interface Props {
   reference: string;

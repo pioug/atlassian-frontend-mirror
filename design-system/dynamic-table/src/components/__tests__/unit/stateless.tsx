@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { StatelessProps } from '../../../types';
+import { type StatelessProps } from '../../../types';
 import { DynamicTableWithoutAnalytics as StatelessDynamicTable } from '../../stateless';
 
 import { head, rowsWithKeys, secondSortKey, sortKey } from './_data';

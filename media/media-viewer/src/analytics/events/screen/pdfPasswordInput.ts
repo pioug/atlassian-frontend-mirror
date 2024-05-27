@@ -1,4 +1,4 @@
-import { ScreenEventPayload, ScreenAttributes } from '@atlaskit/media-common';
+import { type ScreenEventPayload, type ScreenAttributes } from '@atlaskit/media-common';
 
 export type PdfPasswordInputScreenEventPayload = Omit<
   ScreenEventPayload<ScreenAttributes, 'mediaViewerPdfPasswordInputScreen'>,

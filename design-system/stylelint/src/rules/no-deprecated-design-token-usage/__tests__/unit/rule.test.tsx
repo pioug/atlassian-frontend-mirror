@@ -17,7 +17,7 @@ jest.mock('@atlaskit/tokens/rename-mapping', (): RenameMap[] => [
 
 import path from 'path';
 
-import tokens from '@atlaskit/tokens/token-names';
+import type tokens from '@atlaskit/tokens/token-names';
 
 import testRule from '../../../../__tests__/utils/_test-rule';
 import { messages, ruleName } from '../../index';

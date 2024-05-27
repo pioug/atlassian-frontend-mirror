@@ -1,4 +1,4 @@
-import { CardAppearance, CardDimensions } from '../types';
+import { type CardAppearance, type CardDimensions } from '../types';
 
 export const defaultImageCardDimensions = {
   width: 156,

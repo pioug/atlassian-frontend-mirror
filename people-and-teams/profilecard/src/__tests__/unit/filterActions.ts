@@ -1,5 +1,5 @@
 import filterActions from '../../internal/filterActions';
-import { ProfileCardAction } from '../../types';
+import { type ProfileCardAction } from '../../types';
 
 describe('filterActions', () => {
   it('should filter actions based on shouldRender', () => {

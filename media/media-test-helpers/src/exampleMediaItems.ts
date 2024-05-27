@@ -1,9 +1,9 @@
 import {
-  FileIdentifier,
-  MediaItemType,
-  FileDetails,
-  ExternalImageIdentifier,
-  MediaType,
+  type FileIdentifier,
+  type MediaItemType,
+  type FileDetails,
+  type ExternalImageIdentifier,
+  type MediaType,
 } from '@atlaskit/media-client';
 import {
   defaultCollectionName as collectionName,

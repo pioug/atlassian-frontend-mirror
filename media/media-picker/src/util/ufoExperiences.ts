@@ -4,16 +4,16 @@ import {
   ExperienceTypes,
 } from '@atlaskit/ufo';
 import {
-  FileAttributes,
-  WithFileAttributes,
+  type FileAttributes,
+  type WithFileAttributes,
   getFeatureFlagKeysAllProducts,
 } from '@atlaskit/media-common';
 import {
-  RequestMetadata,
+  type RequestMetadata,
   getMediaEnvironment,
   getMediaRegion,
 } from '@atlaskit/media-client';
-import { ComponentName } from './analytics';
+import { type ComponentName } from './analytics';
 
 export type UFOFailedEventPayload = {
   failReason: string;

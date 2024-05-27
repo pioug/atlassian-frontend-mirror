@@ -1,5 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import React, { ReactNode, useState } from 'react';
+import React, { type ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Flag, { FlagGroup } from '@atlaskit/flag';

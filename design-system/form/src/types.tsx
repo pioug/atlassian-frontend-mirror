@@ -1,4 +1,4 @@
-import { FormApi as FinalFormAPI } from 'final-form';
+import { type FormApi as FinalFormAPI } from 'final-form';
 
 export type Align = 'start' | 'end';
 

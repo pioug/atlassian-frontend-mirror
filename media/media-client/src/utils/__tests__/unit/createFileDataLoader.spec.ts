@@ -9,15 +9,15 @@ import {
 import { fakeMediaClient } from '../../../test-helpers';
 
 import {
-  ItemsPayload,
-  MediaItemDetails,
-  MediaStore,
-  MediaStoreResponse,
-  ResponseFileItem,
+  type ItemsPayload,
+  type MediaItemDetails,
+  type MediaStore,
+  type MediaStoreResponse,
+  type ResponseFileItem,
 } from '../../..';
 
 import {
-  DataloaderKey,
+  type DataloaderKey,
   createBatchLoadingFunc,
   createFileDataloader,
   getItemsFromKeys,

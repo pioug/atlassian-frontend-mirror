@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 import React, { useMemo } from 'react';
 import { withErrorBoundary } from 'react-error-boundary';
 import { CodeBlock } from '@atlaskit/code';
-import { BlockTemplate, FlexibleTemplate } from './types';
+import { type BlockTemplate, type FlexibleTemplate } from './types';
 import { toComponentProps, toObjectString } from '../utils/common';
 
 const codeStyles = css({

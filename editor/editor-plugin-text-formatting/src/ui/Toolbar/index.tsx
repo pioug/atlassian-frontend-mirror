@@ -14,12 +14,14 @@ import {
   wrapperStyle,
 } from '@atlaskit/editor-common/styles';
 import type {
+  ExtractInjectionAPI,
   TextFormattingState,
   ToolbarSize,
 } from '@atlaskit/editor-common/types';
 import { Announcer } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import type { TextFormattingPlugin } from '../../plugin';
 import { compareItemsArrays, isArrayContainsContent } from '../../utils';
 
 import { FormattingTextDropdownMenu } from './dropdown-menu';
@@ -47,6 +49,7 @@ export type ToolbarFormattingProps = {
   popupsScrollableElement?: HTMLElement;
   editorAnalyticsAPI?: EditorAnalyticsAPI;
   textFormattingState: TextFormattingState | undefined;
+  api: ExtractInjectionAPI<TextFormattingPlugin> | undefined;
 };
 const ToolbarFormatting = ({
   shouldUseResponsiveToolbar,
@@ -60,6 +63,7 @@ const ToolbarFormatting = ({
   intl,
   editorAnalyticsAPI,
   textFormattingState,
+  api,
 }: ToolbarFormattingProps & WrappedComponentProps) => {
   const [message, setMessage] = useState('');
 
@@ -218,8 +222,10 @@ const ToolbarFormatting = ({
           )}
         </span>
       </div>
-      {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-      <span css={separatorStyles} />
+      {!api?.primaryToolbar && (
+        /* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
+        <span css={separatorStyles} />
+      )}
     </span>
   );
 };
@@ -235,6 +241,7 @@ const Toolbar = ({
   intl,
   editorAnalyticsAPI,
   textFormattingState,
+  api,
 }: ToolbarFormattingProps & WrappedComponentProps) => {
   return (
     <ToolbarFormatting
@@ -248,6 +255,7 @@ const Toolbar = ({
       shouldUseResponsiveToolbar={shouldUseResponsiveToolbar}
       intl={intl}
       editorAnalyticsAPI={editorAnalyticsAPI}
+      api={api}
     />
   );
 };

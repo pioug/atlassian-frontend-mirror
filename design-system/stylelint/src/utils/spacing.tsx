@@ -1,4 +1,4 @@
-import { Node } from 'postcss-value-parser';
+import { type Node } from 'postcss-value-parser';
 
 // https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units
 const lengthAndPercentageUnitsPattern =

@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useUserSource } from '../../../clients/UserSourceProvider';
-import { UserSourceResult } from '../../../types';
+import { type UserSourceResult } from '../../../types';
 import { createMockedSourceProvider } from '../_testUtils';
 
 describe('UserSourceProvider', () => {

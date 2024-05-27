@@ -1,9 +1,9 @@
 import React from 'react';
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 
 import { deactivateUserOverviewMessages } from '../../messages';
 import UserInfo from '../UserInfo';
-import { DeactivateUserOverviewScreenProps } from './types';
+import { type DeactivateUserOverviewScreenProps } from './types';
 import * as Styled from './styled';
 import { DropdownList } from '../DropdownList';
 import MessagesIntlProvider from '../MessagesIntlProvider';

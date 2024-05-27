@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { flexibleBlockCardStyle } from '../styled';
-import { FlexibleBlockCardProps } from '../types';
+import { type FlexibleBlockCardProps } from '../types';
 
 export const withFlexibleUIBlockCardStyle =
   (FlexibleBlockCardView: React.FC<FlexibleBlockCardProps>) =>

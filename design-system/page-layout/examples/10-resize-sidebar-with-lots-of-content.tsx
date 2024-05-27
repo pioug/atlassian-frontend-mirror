@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import {
-  CSSProperties,
+  type CSSProperties,
   Fragment,
-  ReactElement,
+  type ReactElement,
   useCallback,
   useState,
 } from 'react';
@@ -17,7 +17,7 @@ import {
   Content,
   LeftPanel,
   LeftSidebar,
-  LeftSidebarState,
+  type LeftSidebarState,
   Main,
   PageLayout,
   RightPanel,

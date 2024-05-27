@@ -9,9 +9,9 @@ jest.mock('../../card/ui/styles', () => {
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { CardView, CardViewBase, CardViewOwnProps } from '../../card/cardView';
-import { CardStatus } from '../../types';
-import { FileDetails } from '@atlaskit/media-client';
+import { CardView, CardViewBase, type CardViewOwnProps } from '../../card/cardView';
+import { type CardStatus } from '../../types';
+import { type FileDetails } from '@atlaskit/media-client';
 import { PlayButton } from '../../card/ui/playButton/playButton';
 import { Blanket } from '../../card/ui/blanket/blanket';
 import { TitleBox } from '../../card/ui/titleBox/titleBox';
@@ -35,7 +35,7 @@ import {
 import { createPollingMaxAttemptsError } from '@atlaskit/media-test-helpers';
 import { MediaCardError } from '../../errors';
 import { Wrapper } from '../../card/ui/wrapper';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 

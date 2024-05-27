@@ -9,6 +9,7 @@ export const dragPreview = (
   const parent = document.createElement('div');
   // ProseMirror class is required to make sure the cloned dom is styled correctly
   parent.classList.add('ProseMirror');
+  parent.style.opacity = '0.3';
 
   const resizer: HTMLElement | null =
     domRef.current.querySelector('.resizer-item');

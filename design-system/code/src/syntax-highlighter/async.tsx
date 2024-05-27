@@ -1,7 +1,7 @@
 import React from 'react';
 
 import highlight from './lib/highlight';
-import { AstGenerator, SyntaxHighlighter } from './types';
+import { type AstGenerator, type SyntaxHighlighter } from './types';
 
 type AstPromise = Promise<AstGenerator> | null;
 type GeneratorOptions = {

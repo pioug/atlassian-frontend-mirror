@@ -1,13 +1,13 @@
-import { chunkinator, Chunk, ChunkinatorFile } from '@atlaskit/chunkinator';
+import { chunkinator, type Chunk, type ChunkinatorFile } from '@atlaskit/chunkinator';
 import { from } from 'rxjs/observable/from';
 import { concatMap } from 'rxjs/operators/concatMap';
-import { MediaStore } from '../client/media-store';
+import { type MediaStore } from '../client/media-store';
 import { createHasher } from '../utils/hashing/hasherCreator';
 import { UploaderError } from './error';
 import { CHUNK_SIZE, PROCESSING_BATCH_SIZE } from '../constants';
 import { calculateChunkSize, fileSizeError } from './calculateChunkSize';
-import { MediaTraceContext } from '@atlaskit/media-common';
-import { ChunkHashAlgorithm } from '@atlaskit/media-core';
+import { type MediaTraceContext } from '@atlaskit/media-common';
+import { type ChunkHashAlgorithm } from '@atlaskit/media-core';
 
 // TODO: Allow to pass multiple files
 export type UploadableFile = {

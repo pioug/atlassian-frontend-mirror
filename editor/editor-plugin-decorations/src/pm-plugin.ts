@@ -1,8 +1,8 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command } from '@atlaskit/editor-common/types';
-import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
+import { type Node, type NodeType } from '@atlaskit/editor-prosemirror/model';
 import {
-  EditorState,
+  type EditorState,
   NodeSelection,
   PluginKey,
 } from '@atlaskit/editor-prosemirror/state';

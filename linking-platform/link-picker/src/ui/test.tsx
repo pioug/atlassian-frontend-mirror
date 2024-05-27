@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 
 import { screen } from '@testing-library/dom';
 import { waitForElementToBeRemoved } from '@testing-library/react';
@@ -6,7 +6,7 @@ import { waitForElementToBeRemoved } from '@testing-library/react';
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import '@testing-library/jest-dom/extend-expect';
 
-import { LinkPickerProps, LinkPicker as LinkPickerType } from './link-picker';
+import { type LinkPickerProps, type LinkPicker as LinkPickerType } from './link-picker';
 
 describe('<ComposedLinkPicker />', () => {
   const setupLinkPicker = ({

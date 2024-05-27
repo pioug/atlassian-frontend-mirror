@@ -1,7 +1,7 @@
 import {
-  TableRowDefinition,
-  TableHeaderDefinition,
-  TableCellDefinition,
+  type TableRowDefinition,
+  type TableHeaderDefinition,
+  type TableCellDefinition,
 } from '@atlaskit/adf-schema';
 
 export const tableRow = (

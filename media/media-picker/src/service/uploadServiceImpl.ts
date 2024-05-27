@@ -1,31 +1,31 @@
 import uuidV4 from 'uuid/v4';
 import {
   UploadController,
-  TouchFileDescriptor,
-  UploadableFileUpfrontIds,
-  UploadableFile,
-  MediaType,
-  MediaClient,
+  type TouchFileDescriptor,
+  type UploadableFileUpfrontIds,
+  type UploadableFile,
+  type MediaType,
+  type MediaClient,
   globalMediaEventEmitter,
   RequestError,
-  TouchedFiles,
+  type TouchedFiles,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { EventEmitter2 } from 'eventemitter2';
-import { FileEmptyData, MediaFile, UploadParams } from '../types';
+import { type FileEmptyData, type MediaFile, type UploadParams } from '../types';
 
 import { getPreviewFromImage } from '../util/getPreviewFromImage';
-import { MediaErrorName, UploadRejectionData } from '../types';
+import { type MediaErrorName, type UploadRejectionData } from '../types';
 import {
-  UploadService,
-  UploadServiceEventListener,
-  UploadServiceEventPayloadTypes,
+  type UploadService,
+  type UploadServiceEventListener,
+  type UploadServiceEventPayloadTypes,
 } from './types';
-import { LocalFileSource, LocalFileWithSource } from '../service/types';
+import { LocalFileSource, type LocalFileWithSource } from '../service/types';
 import { getPreviewFromBlob } from '../util/getPreviewFromBlob';
 import {
   getRandomHex,
-  MediaTraceContext,
+  type MediaTraceContext,
   isMimeTypeSupportedByBrowser,
   getMediaTypeFromMimeType,
 } from '@atlaskit/media-common';

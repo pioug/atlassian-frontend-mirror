@@ -1,10 +1,10 @@
 /** @jsx jsx */
 
-import { css, CSSObject, jsx } from '@emotion/react';
+import { css, type CSSObject, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { ContentProps } from '../types';
+import { type ContentProps } from '../types';
 
 const defaultStyles: CSSObject = {
   flex: 1,

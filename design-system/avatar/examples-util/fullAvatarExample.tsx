@@ -3,7 +3,7 @@ import React from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-import Avatar, { AppearanceType } from '../src';
+import Avatar, { type AppearanceType } from '../src';
 
 import { Block, Code, Note } from './helpers';
 

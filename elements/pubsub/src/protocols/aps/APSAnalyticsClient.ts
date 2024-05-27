@@ -1,4 +1,4 @@
-import { AnalyticsWebClient } from '../../apiTypes';
+import { type AnalyticsWebClient } from '../../apiTypes';
 import { logDebug } from '../../util/logger';
 
 export interface APSAnalyticsClient {

@@ -1,5 +1,5 @@
 import { traverse } from '../traverse/traverse';
-import { ADFEntity } from '../types';
+import { type ADFEntity } from '../types';
 
 const hasChildHeadingWithIndentation = (node: ADFEntity): boolean =>
   node.content?.some(

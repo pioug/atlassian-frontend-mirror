@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import Content from '../shared/content';
-import { SimpleTagProps } from '../shared/types';
+import { type SimpleTagProps } from '../shared/types';
 
 const SimpleTag = forwardRef(
   (

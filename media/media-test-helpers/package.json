@@ -27,7 +27,7 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/button": "^17.16.0",
+    "@atlaskit/button": "^17.17.0",
     "@atlaskit/checkbox": "^13.3.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/locale": "^2.7.0",

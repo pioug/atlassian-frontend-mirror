@@ -1,13 +1,13 @@
-import { Action } from 'react-sweet-state';
+import { type Action } from 'react-sweet-state';
 import { Subscription } from 'rxjs/Subscription';
 
 import {
   ActionSubject,
   Action as AnalyticsAction,
-  AnalyticsAttributes,
+  type AnalyticsAttributes,
   EventType,
 } from '../../analytics';
-import { OptionsKey, Props, State } from '../types';
+import { type OptionsKey, type Props, type State } from '../types';
 
 export const ANALYTICS_DEBOUNCE_MS = 2000;
 const AUTOCOMPLETE_ANALYTICS_MEASURE = 'jql-editor-autocomplete';

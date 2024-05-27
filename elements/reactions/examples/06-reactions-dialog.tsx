@@ -1,7 +1,7 @@
 import React from 'react';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import { ConnectedReactionsView, StorePropInput } from '../src';
+import { ConnectedReactionsView, type StorePropInput } from '../src';
 import { MockReactionsClient } from '../src/MockReactionsClient';
 
 import {

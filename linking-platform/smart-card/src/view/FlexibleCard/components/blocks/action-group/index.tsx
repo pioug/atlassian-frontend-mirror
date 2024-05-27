@@ -4,10 +4,10 @@ import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
 
-import { Appearance } from '@atlaskit/button';
+import { type Appearance } from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Tooltip from '@atlaskit/tooltip';
-import { ActionGroupProps } from './types';
+import { type ActionGroupProps } from './types';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 
 import { SmartLinkSize } from '../../../../../constants';

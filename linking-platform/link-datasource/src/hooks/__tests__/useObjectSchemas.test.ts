@@ -4,9 +4,9 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { fetchObjectSchemas } from '../../services/cmdbService';
-import { FetchObjectSchemasResponse } from '../../types/assets/types';
+import { type FetchObjectSchemasResponse } from '../../types/assets/types';
 import {
-  FetchObjectSchemasDetails,
+  type FetchObjectSchemasDetails,
   useObjectSchemas,
 } from '../useObjectSchemas';
 

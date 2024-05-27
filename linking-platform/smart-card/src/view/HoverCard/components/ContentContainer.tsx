@@ -9,7 +9,7 @@ import type { ContentContainerProps } from '../types';
 import { useAISummary } from '../../../state/hooks/use-ai-summary';
 import { useSmartCardState } from '../../../state/store';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { extractAri, extractLink } from '@atlaskit/link-extractors';
 import { di } from 'react-magnetic-di';
 import type { EnvironmentsKeys } from '@atlaskit/linking-common';

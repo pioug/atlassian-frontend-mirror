@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import {
   AddOptionAvatar,
-  AddOptionAvatarProps,
+  type AddOptionAvatarProps,
 } from '../../../components/AddOptionAvatar';
 
 describe('AddOptionAvatar', () => {

@@ -1,4 +1,4 @@
-import { Position } from '../types';
+import { type Position } from '../types';
 
 export const dataAttributes = ({ from, to }: Position) => {
   return {

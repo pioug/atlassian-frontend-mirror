@@ -11,7 +11,7 @@ import {
   RIGHT_PANEL_WIDTH,
   VAR_BANNER_HEIGHT,
 } from '../../common/constants';
-import { SlotHeightProps } from '../../common/types';
+import { type SlotHeightProps } from '../../common/types';
 import {
   getPageLayoutSlotSelector,
   resolveDimension,

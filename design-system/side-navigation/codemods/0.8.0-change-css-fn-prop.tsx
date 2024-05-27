@@ -1,11 +1,12 @@
-import { NodePath } from 'ast-types/lib/node-path';
-import core, {
-  API,
-  ASTPath,
-  FileInfo,
-  ImportDeclaration,
-  ImportSpecifier,
-  Options,
+import { type NodePath } from 'ast-types/lib/node-path';
+import {
+  type API,
+  type ASTPath,
+  type default as core,
+  type FileInfo,
+  type ImportDeclaration,
+  type ImportSpecifier,
+  type Options,
 } from 'jscodeshift';
 
 import {

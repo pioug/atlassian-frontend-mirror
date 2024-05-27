@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { type FC } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -8,7 +8,7 @@ import {
   fixedSizeTruncateStyles,
   getTruncationStyleVars,
   overflowTruncateStyles,
-  TruncateStyleProps,
+  type TruncateStyleProps,
   truncationWidthStyles,
 } from './constants';
 

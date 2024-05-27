@@ -1,7 +1,7 @@
 import React, {
-  ComponentType,
+  type ComponentType,
   createContext,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useContext,
 } from 'react';

@@ -1,10 +1,10 @@
 import {
-  API,
-  ASTPath,
-  FileInfo,
-  ImportDeclaration,
-  ImportSpecifier,
-  Options,
+  type API,
+  type ASTPath,
+  type FileInfo,
+  type ImportDeclaration,
+  type ImportSpecifier,
+  type Options,
 } from 'jscodeshift';
 
 import { addCommentBefore } from './utils';

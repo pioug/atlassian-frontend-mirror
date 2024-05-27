@@ -1,13 +1,12 @@
 /** @jsx jsx */
-import { ReactNode, useCallback } from 'react';
+import { type ReactNode, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { FORM_ERROR, MutableState, Tools } from 'final-form';
+import { FORM_ERROR, type MutableState, type Tools } from 'final-form';
 import { Form, FormSpy } from 'react-final-form';
 import { useIntl } from 'react-intl-next';
 
 import { RequiredAsterisk } from '@atlaskit/form';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -157,13 +156,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 
   return (
     <Form<WithReservedFields<FormData>>
-      onSubmit={
-        getBooleanFF(
-          'platform.linking-platform.link-create.better-observability',
-        )
-          ? handleSubmitWithErrorHandling
-          : handleSubmit
-      }
+      onSubmit={handleSubmitWithErrorHandling}
       initialValues={initialValues}
       mutators={{
         setField: <K extends keyof FormData>(
@@ -197,14 +190,10 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
                 setShouldShowWarning(isModified);
               }}
             />
-            {getBooleanFF(
-              'platform.linking-platform.link-create.enable-expected-field-errors',
-            ) && (
-              <p aria-hidden="true">
-                {intl.formatMessage(messages.requiredFieldInstruction)}{' '}
-                <RequiredAsterisk />
-              </p>
-            )}
+            <p aria-hidden="true">
+              {intl.formatMessage(messages.requiredFieldInstruction)}{' '}
+              <RequiredAsterisk />
+            </p>
             <Box>{children}</Box>
             {!hideFooter && (
               <CreateFormFooter
@@ -214,13 +203,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
                  * default to the `formErrorMessage` that we sometimes use with our own
                  * "form context" (only currently used for AsyncSelect field reporting failed loading)
                  */
-                formErrorMessage={
-                  getBooleanFF(
-                    'platform.linking-platform.link-create.better-observability',
-                  )
-                    ? submitError || formErrorMessage
-                    : formErrorMessage
-                }
+                formErrorMessage={submitError || formErrorMessage}
                 handleCancel={handleCancel}
                 testId={testId}
               />

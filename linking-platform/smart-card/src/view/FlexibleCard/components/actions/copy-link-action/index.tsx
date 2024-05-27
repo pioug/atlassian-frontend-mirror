@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { CopyLinkActionProps } from './types';
+import { type CopyLinkActionProps } from './types';
 import Action from '../action';
 import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { ErrorIcon } from './errorIcon';
 import { Wrapper } from './lightCardWrappers';
-import { StaticCardProps } from './types';
+import { type StaticCardProps } from './types';
 import { getDimensionsWithDefault } from './getDimensionsWithDefault';
 
 export interface ErrorCardProps extends StaticCardProps {

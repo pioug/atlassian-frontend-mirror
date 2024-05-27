@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import Select from './Select';
-import { SelectProps, OptionType, SelectComponentsConfig } from './types';
+import { type SelectProps, type OptionType, type SelectComponentsConfig } from './types';
 import { CheckboxOption } from './components/input-options';
 
 const CheckboxSelectInternal = <OptionT extends OptionType>({

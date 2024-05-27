@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import memoizeOne from 'memoize-one';
-import { mergeStyles, StylesConfig } from '@atlaskit/select';
+import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 
 export const BORDER_PADDING = token('space.075', '6px');
 export const AVATAR_PADDING = 6;

@@ -10,9 +10,9 @@ import {
   getMetaTagNumericValue,
   getScaleFactorFromFile,
   readImageMetaData,
-  ImageMetaData,
-  ImageMetaDataTags,
-  ImageInfo,
+  type ImageMetaData,
+  type ImageMetaDataTags,
+  type ImageInfo,
 } from '../../imageMetaData';
 import { isRotated } from '../../imageMetaData/imageOrientationUtil';
 import { readImageMetaTags } from '../../imageMetaData/metatags';

@@ -4,9 +4,9 @@ import { CardClient } from '@atlaskit/link-provider';
 import { NetworkError } from '@atlaskit/linking-common';
 import {
   InvokeError,
-  InvokeRequest,
+  type InvokeRequest,
   SmartLinkActionType,
-  StatusUpdateActionPayload,
+  type StatusUpdateActionPayload,
 } from '@atlaskit/linking-types';
 
 import { useSmartLinkClientExtension } from './index';

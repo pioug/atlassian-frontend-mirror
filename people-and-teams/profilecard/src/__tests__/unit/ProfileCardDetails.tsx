@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
 import { ProfileCardDetails } from '../../components/User/ProfileCardDetails';
-import { LozengeProps, ReportingLinesUser } from '../../types';
+import { type LozengeProps, type ReportingLinesUser } from '../../types';
 
 jest.mock('react-intl-next', () => {
   return {

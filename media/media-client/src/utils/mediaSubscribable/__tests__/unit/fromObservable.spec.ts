@@ -1,7 +1,7 @@
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscription } from 'rxjs/Subscription';
 import { fromObservable } from '../../fromObservable';
-import { FileState } from '@atlaskit/media-state';
+import { type FileState } from '@atlaskit/media-state';
 
 describe('fromObservable', () => {
   const observable = new ReplaySubject<FileState>(1);

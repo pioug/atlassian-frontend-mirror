@@ -6,7 +6,7 @@ import { uid } from 'react-uid';
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
 import { defaultLogoParams } from '../constants';
-import { LogoProps } from '../types';
+import { type LogoProps } from '../types';
 import Wrapper from '../wrapper';
 
 const svg = ({ iconGradientStart, iconGradientStop }: LogoProps) => {

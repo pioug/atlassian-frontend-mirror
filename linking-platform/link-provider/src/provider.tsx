@@ -1,15 +1,15 @@
 import React, { useContext, useMemo } from 'react';
-import { createStore, Reducer } from 'redux';
-import { JsonLd } from 'json-ld-types';
-import { CardStore, getUrl } from '@atlaskit/linking-common';
+import { createStore, type Reducer } from 'redux';
+import { type JsonLd } from 'json-ld-types';
+import { type CardStore, getUrl } from '@atlaskit/linking-common';
 import {
   extractPreview,
-  LinkPreview,
-  CardPlatform,
+  type LinkPreview,
+  type CardPlatform,
 } from '@atlaskit/link-extractors';
 import { cardReducer } from './reducers';
 import { SmartCardContext } from './state/context';
-import { CardProviderProps } from './state/context/types';
+import { type CardProviderProps } from './state/context/types';
 import CardClient from './client';
 
 export function SmartCardProvider({

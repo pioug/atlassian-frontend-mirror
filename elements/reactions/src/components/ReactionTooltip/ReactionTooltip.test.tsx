@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { TOOLTIP_USERS_LIMIT } from '../../shared/constants';
-import { ReactionSummary } from '../../types';
+import { type ReactionSummary } from '../../types';
 import {
   mockReactDomWarningGlobal,
   renderWithIntl,

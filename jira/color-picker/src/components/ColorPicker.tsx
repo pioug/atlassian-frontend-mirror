@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import React from 'react';
-import { PopupSelect, PopupSelectProps, ValueType } from '@atlaskit/select';
+import { PopupSelect, type PopupSelectProps, type ValueType } from '@atlaskit/select';
 import Trigger from './Trigger';
-import { Color, Palette, SwatchSize } from '../types';
+import { type Color, type Palette, type SwatchSize } from '../types';
 import * as components from './components';
 import { KEY_ARROW_DOWN, KEY_ARROW_UP, KEY_TAB } from '../constants';
 import {

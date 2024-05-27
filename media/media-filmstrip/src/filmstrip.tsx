@@ -2,15 +2,15 @@ import React from 'react';
 import { Component } from 'react';
 import {
   Card,
-  CardAction,
-  CardOnClickCallback,
-  CardEvent,
+  type CardAction,
+  type CardOnClickCallback,
+  type CardEvent,
   defaultImageCardDimensions,
   CardLoading,
 } from '@atlaskit/media-card';
-import { Identifier } from '@atlaskit/media-client';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type Identifier } from '@atlaskit/media-client';
+import { type MediaClientConfig } from '@atlaskit/media-core';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { FilmstripView } from './filmstripView';
 import { generateIdentifierKey } from './utils/generateIdentifierKey';
 

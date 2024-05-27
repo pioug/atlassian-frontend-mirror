@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import { wrapperStyles } from './styles';
 
-import { WrapperProps } from './types';
+import { type WrapperProps } from './types';
 
 export const Wrapper = (props: WrapperProps) => {
   return (

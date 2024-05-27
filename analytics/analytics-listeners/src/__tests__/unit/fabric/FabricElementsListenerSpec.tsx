@@ -3,7 +3,7 @@ import {
   AnalyticsContext,
   AnalyticsListener,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { mount } from 'enzyme';
 import React from 'react';
@@ -11,13 +11,13 @@ import {
   createComponentWithAnalytics,
   createComponentWithAttributesWithAnalytics,
   createTaggedComponentWithAnalytics,
-  OwnProps,
+  type OwnProps,
 } from '../../../../examples/helpers';
 import FabricElementsListener, {
   ELEMENTS_TAG,
 } from '../../../fabric/FabricElementsListener';
-import Logger from '../../../helpers/logger';
-import { AnalyticsWebClient, FabricChannel } from '../../../types';
+import type Logger from '../../../helpers/logger';
+import { type AnalyticsWebClient, FabricChannel } from '../../../types';
 import { createLoggerMock } from '../../_testUtils';
 
 const DummyCompWithAttributesWithAnalytics =

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { mount, ReactWrapper, shallow } from 'enzyme';
+import { mount, type ReactWrapper, shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
 import { Checkbox } from '@atlaskit/checkbox';
@@ -12,7 +12,7 @@ import Select from '@atlaskit/select';
 import FeedbackCollector from '../../components/FeedbackCollector';
 import FeedbackFlag from '../../components/FeedbackFlag';
 import FeedbackForm from '../../components/FeedbackForm';
-import { FormFields } from '../../types';
+import { type FormFields } from '../../types';
 
 import {
   customFieldRecords,

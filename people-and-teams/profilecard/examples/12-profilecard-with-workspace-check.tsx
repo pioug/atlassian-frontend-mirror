@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import Flag, { FlagGroup, FlagProps } from '@atlaskit/flag';
+import Flag, { FlagGroup, type FlagProps } from '@atlaskit/flag';
 import { token } from '@atlaskit/tokens';
 
 import ProfileCardResourced from '../src';

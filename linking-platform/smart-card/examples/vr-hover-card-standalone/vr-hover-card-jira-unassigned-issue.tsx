@@ -1,6 +1,6 @@
 import React from 'react';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
-import { Provider, ResolveResponse, Client } from '../../src';
+import { Provider, type ResolveResponse, Client } from '../../src';
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

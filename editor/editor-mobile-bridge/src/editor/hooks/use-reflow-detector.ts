@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { EventTypes } from '../event-dispatch';
 import { toNativeBridge } from '../web-to-native';
 import { DocumentReflowDetector } from '../../document-reflow-detector';
-import WebBridgeImpl from '../native-to-web';
+import type WebBridgeImpl from '../native-to-web';
 
 const reflowDetector = new DocumentReflowDetector({
   onReflow: (height: number) => {

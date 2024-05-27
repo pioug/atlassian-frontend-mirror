@@ -1,19 +1,19 @@
 import {
   DEFAULT_SOURCE,
-  GasPayload,
+  type GasPayload,
   UI_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import {
   AnalyticsListener,
-  AnalyticsEventPayload,
-  UIAnalyticsEvent,
+  type AnalyticsEventPayload,
+  type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { mount } from 'enzyme';
 import React from 'react';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
-import Logger from '../../../helpers/logger';
+import type Logger from '../../../helpers/logger';
 import MediaAnalyticsListener from '../../../media/MediaAnalyticsListener';
-import { AnalyticsWebClient, FabricChannel } from '../../../types';
+import { type AnalyticsWebClient, FabricChannel } from '../../../types';
 import { createLoggerMock } from '../../_testUtils';
 
 describe('MediaAnalyticsListener', () => {

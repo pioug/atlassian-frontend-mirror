@@ -1,5 +1,5 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeEncoder } from '..';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type NodeEncoder } from '..';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 
 const jsonTransformer = new JSONTransformer();

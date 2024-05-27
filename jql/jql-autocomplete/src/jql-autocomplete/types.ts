@@ -1,9 +1,9 @@
-import { ParserRuleContext } from 'antlr4ts';
-import { ErrorNode } from 'antlr4ts/tree';
+import { type ParserRuleContext } from 'antlr4ts';
+import { type ErrorNode } from 'antlr4ts/tree';
 
-import { RuleSuggestion, TokenSuggestions } from '../base-autocomplete/types';
+import { type RuleSuggestion, type TokenSuggestions } from '../base-autocomplete/types';
 
-import { ORDER_BY_CLAUSE, WHERE_CLAUSE } from './constants';
+import { type ORDER_BY_CLAUSE, type WHERE_CLAUSE } from './constants';
 
 export type JQLClause = typeof WHERE_CLAUSE | typeof ORDER_BY_CLAUSE;
 

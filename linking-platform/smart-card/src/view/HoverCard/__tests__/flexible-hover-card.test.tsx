@@ -18,7 +18,7 @@ import '@atlaskit/link-test-helpers/jest';
 import {
   ActionName,
   Card,
-  CardAppearance,
+  type CardAppearance,
   ElementName,
   TitleBlock,
 } from '@atlaskit/smart-card';
@@ -26,7 +26,7 @@ import {
   mockIntersectionObserver,
   setup,
   setupEventPropagationTest,
-  SetUpParams,
+  type SetUpParams,
   userEventOptionsWithAdvanceTimers,
 } from './common/setup.test-utils';
 import {

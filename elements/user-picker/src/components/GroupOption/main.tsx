@@ -7,7 +7,7 @@ import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
 
-import { Group } from '../../types';
+import { type Group } from '../../types';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
 import { messages } from '../i18n';
 import { HighlightText } from '../HighlightText';

@@ -1,13 +1,13 @@
 import { Search } from 'js-search';
 
 import {
-  MentionDescription,
-  MentionsResult,
+  type MentionDescription,
+  type MentionsResult,
   AbstractMentionResource,
 } from '@atlaskit/mention/resource';
 import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';
-import { MockMentionConfig } from './mock-mention-resource';
+import { type MockMentionConfig } from './mock-mention-resource';
 
 export class MockMentionResourceWithInfoHints extends AbstractMentionResource {
   private config: MockMentionConfig;

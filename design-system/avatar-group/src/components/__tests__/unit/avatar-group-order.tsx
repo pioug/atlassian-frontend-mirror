@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 
 import { render } from '@testing-library/react';
 
-import Avatar, { AppearanceType, SizeType } from '@atlaskit/avatar';
+import Avatar, { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 
 import { RANDOM_USERS } from '../../../../examples-util/data';
 import AvatarGroup, { type AvatarGroupProps } from '../../avatar-group';
-import { AvatarProps } from '../../types';
+import { type AvatarProps } from '../../types';
 import { composeUniqueKey } from '../../utils';
 
 const generateData = (avatarCount: number) => {

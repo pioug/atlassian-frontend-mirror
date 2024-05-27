@@ -7,11 +7,11 @@ import React, {
 } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
-import Popup, { PopupProps } from '@atlaskit/popup';
+import Popup, { type PopupProps } from '@atlaskit/popup';
 import {
   LinkPicker,
-  LinkPickerProps,
-  LinkSearchListItemData,
+  type LinkPickerProps,
+  type LinkSearchListItemData,
 } from '@atlaskit/link-picker';
 import {
   createAndFireEvent,

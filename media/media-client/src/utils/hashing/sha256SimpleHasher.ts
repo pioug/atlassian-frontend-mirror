@@ -1,5 +1,5 @@
 import { sha256 } from 'js-sha256';
-import { Hasher } from './hasher';
+import { type Hasher } from './hasher';
 
 export class SimpleHasher implements Hasher {
   hash(blob: Blob): Promise<string> {

@@ -3,11 +3,11 @@ import React, { useMemo } from 'react';
 import {
   injectIntl,
   IntlProvider,
-  MessageFormatElement,
-  WrappedComponentProps,
+  type MessageFormatElement,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 
-import { getMessagesForLocale, LangCode } from '../util/i18n-util';
+import { getMessagesForLocale, type LangCode } from '../util/i18n-util';
 
 export interface Props {
   children: React.ReactChild;

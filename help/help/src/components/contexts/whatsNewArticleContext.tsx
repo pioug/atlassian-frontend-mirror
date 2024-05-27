@@ -1,15 +1,15 @@
-import React, { useState, useCallback, PropsWithChildren } from 'react';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { NotificationLogProvider } from '@atlaskit/notification-log-client';
+import React, { useState, useCallback, type PropsWithChildren } from 'react';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 
 import {
-  WhatsNewArticleItem,
-  WhatsNewArticle,
-  whatsNewSearchResult,
+  type WhatsNewArticleItem,
+  type WhatsNewArticle,
+  type whatsNewSearchResult,
 } from '../../model/WhatsNew';
 import { REQUEST_STATE } from '../../model/Requests';
-import { articleId } from '../../model/Help';
-import { WHATS_NEW_ITEM_TYPES } from '../../model/WhatsNew';
+import { type articleId } from '../../model/Help';
+import { type WHATS_NEW_ITEM_TYPES } from '../../model/WhatsNew';
 import { createCtx } from '../../util/hooks/ctx';
 
 import { NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE } from '../constants';

@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 
-import { MountStrategy, PortalEventDetail } from './internal/types';
+import { type MountStrategy, type PortalEventDetail } from './internal/types';
 
 /**
  * Interface for props to be passed in Atlassian Portal component

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { ModeSwitcher, ModeSwitcherProps } from './index';
+import { ModeSwitcher, type ModeSwitcherProps } from './index';
 
 describe('ModeSwitcher', () => {
   const setup = (propsOverride: Partial<ModeSwitcherProps> = {}) => {

@@ -67,9 +67,6 @@
             "path": "../../../design-system/icon-object/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../../in-product-testing/in-product-testing/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../../linking-platform/link-datasource/afm-cc/tsconfig.json"
         },
         {

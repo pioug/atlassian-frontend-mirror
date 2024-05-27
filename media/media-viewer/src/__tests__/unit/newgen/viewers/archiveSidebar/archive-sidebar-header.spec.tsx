@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import {
   ArchiveSidebarHeader,
-  HeaderProps,
+  type HeaderProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-header';
 import { ButtonItem } from '@atlaskit/side-navigation';
 import HomeIcon from '@atlaskit/icon/glyph/home';

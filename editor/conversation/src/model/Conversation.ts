@@ -1,4 +1,4 @@
-import { Comment } from './Comment';
+import { type Comment } from './Comment';
 
 export interface Conversation {
   conversationId: string;

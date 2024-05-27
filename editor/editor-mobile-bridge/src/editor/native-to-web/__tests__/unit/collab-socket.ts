@@ -1,5 +1,5 @@
-import { EventEmitter2 } from 'eventemitter2';
-import NativeBridge from '../../../web-to-native/bridge';
+import { type EventEmitter2 } from 'eventemitter2';
+import type NativeBridge from '../../../web-to-native/bridge';
 import { CollabSocket } from '../../collab-socket';
 
 jest.mock('../../../web-to-native');

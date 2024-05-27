@@ -20,7 +20,7 @@ import {
   getWrapperDimensions,
   getWrapperShadow,
 } from '../styles';
-import { WrapperProps } from './types';
+import { type WrapperProps } from './types';
 
 export const wrapperStyles = ({
   breakpoint,

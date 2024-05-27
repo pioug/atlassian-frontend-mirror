@@ -5,15 +5,15 @@ import {
   unMockLoadImage,
 } from '@atlaskit/media-test-helpers';
 
-import { FileInfo, Rectangle, Bounds } from '@atlaskit/media-ui';
+import { type FileInfo, Rectangle, Bounds } from '@atlaskit/media-ui';
 
 import {
   applyOrientation,
   radians,
   initialiseImagePreview,
   renderImageAtCurrentView,
-  PreviewInfo,
-  ViewInfo,
+  type PreviewInfo,
+  type ViewInfo,
 } from '../../image-placer/imageProcessor';
 
 describe('Image Placer Image Processing', () => {

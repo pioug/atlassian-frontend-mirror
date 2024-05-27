@@ -8,7 +8,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
-import { AtlaskitThemeProvider, ThemeModes, typography } from '../src';
+import { AtlaskitThemeProvider, type ThemeModes, typography } from '../src';
 import DeprecatedThemeProvider from '../src/deprecated-provider-please-do-not-use';
 
 const LIGHT = 'light';

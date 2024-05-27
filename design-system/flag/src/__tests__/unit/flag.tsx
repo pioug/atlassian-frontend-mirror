@@ -5,7 +5,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { Text, Box } from '@atlaskit/primitives';
 import noop from '@atlaskit/ds-lib/noop';
 
-import { FlagProps } from '../../types';
+import { type FlagProps } from '../../types';
 import Flag from '../../flag';
 import FlagGroup from '../../flag-group';
 

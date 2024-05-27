@@ -1,18 +1,18 @@
-import { JsonLd } from 'json-ld-types';
-import { InvokeClientOpts } from '../../../model/invoke-opts';
+import { type JsonLd } from 'json-ld-types';
+import { type InvokeClientOpts } from '../../../model/invoke-opts';
 import {
   CardAction,
-  CardInnerAppearance,
-  CardPlatform,
+  type CardInnerAppearance,
+  type CardPlatform,
 } from '../../../view/Card/types';
 
 import { extractDownloadUrl } from '../detail';
 import { extractPreview, extractProvider } from '@atlaskit/link-extractors';
 import {
-  BlockCardResolvedViewProps,
+  type BlockCardResolvedViewProps,
   PreviewAction,
 } from '../../../view/BlockCard';
-import { ExtractBlockOpts } from '../../block/types';
+import { type ExtractBlockOpts } from '../../block/types';
 import { CardDisplay } from '../../../constants';
 import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
 import { canShowAction } from '../../../utils/actions/can-show-action';

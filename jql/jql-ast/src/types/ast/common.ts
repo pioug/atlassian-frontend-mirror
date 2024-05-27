@@ -1,4 +1,4 @@
-import { JastListener, JastVisitor } from '../api';
+import { type JastListener, type JastVisitor } from '../api';
 
 /**
  * Tuple representing the [start, stop] position of an element.

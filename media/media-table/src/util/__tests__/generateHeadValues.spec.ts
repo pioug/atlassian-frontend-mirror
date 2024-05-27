@@ -1,5 +1,5 @@
 import generateHeadValues from '../generateHeadValues';
-import { HeadType, HeadCellType } from '@atlaskit/dynamic-table/types';
+import { type HeadType, type HeadCellType } from '@atlaskit/dynamic-table/types';
 
 const cells: HeadCellType[] = [
   {

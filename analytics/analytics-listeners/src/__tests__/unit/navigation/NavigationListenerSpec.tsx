@@ -1,5 +1,5 @@
 import {
-  GasPurePayload,
+  type GasPurePayload,
   OPERATIONAL_EVENT_TYPE,
   UI_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
@@ -8,9 +8,9 @@ import { mount } from 'enzyme';
 import cases from 'jest-in-case';
 import React from 'react';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
-import Logger from '../../../helpers/logger';
+import type Logger from '../../../helpers/logger';
 import NavigationListener from '../../../navigation/NavigationListener';
-import { AnalyticsWebClient, FabricChannel } from '../../../types';
+import { type AnalyticsWebClient, FabricChannel } from '../../../types';
 import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
 
 type CaseArgs = {

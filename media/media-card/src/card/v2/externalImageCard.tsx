@@ -1,30 +1,30 @@
 import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import {
-  ExternalImageIdentifier,
-  FileDetails,
-  Identifier,
-  MediaClient,
+  type ExternalImageIdentifier,
+  type FileDetails,
+  type Identifier,
+  type MediaClient,
   globalMediaEventEmitter,
 } from '@atlaskit/media-client';
 import {
-  FileAttributes,
-  MediaTraceContext,
+  type FileAttributes,
+  type MediaTraceContext,
   getRandomHex,
 } from '@atlaskit/media-common';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { ImageLoadError, MediaCardError } from '../../errors';
+import { ImageLoadError, type MediaCardError } from '../../errors';
 import {
-  CardEventProps,
-  CardPreview,
-  FileStateFlags,
-  SharedCardProps,
+  type CardEventProps,
+  type CardPreview,
+  type FileStateFlags,
+  type SharedCardProps,
 } from '../../types';
-import { SSRStatus } from '../../utils/analytics';
+import { type SSRStatus } from '../../utils/analytics';
 import getDocument from '../../utils/document';
 import { generateUniqueId } from '../../utils/generateUniqueId';
 import { getMediaCardCursor } from '../../utils/getMediaCardCursor';

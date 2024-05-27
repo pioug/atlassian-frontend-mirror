@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 
 import { Example, md, Props } from '@atlaskit/docs';
 import Lozenge from '@atlaskit/lozenge';

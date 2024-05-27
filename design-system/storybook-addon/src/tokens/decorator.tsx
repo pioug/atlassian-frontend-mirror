@@ -1,11 +1,11 @@
-import React, { CSSProperties, Fragment, ReactNode } from 'react';
+import React, { type CSSProperties, Fragment, type ReactNode } from 'react';
 
 import { makeDecorator, useEffect } from '@storybook/addons';
 
 import { setGlobalTheme, token } from '@atlaskit/tokens';
 
 import { DECORATOR_ID, DECORATOR_PARAM } from './constants';
-import { Themes } from './types';
+import { type Themes } from './types';
 
 const splitColumnStyles: CSSProperties = {
   position: 'absolute',

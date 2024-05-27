@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { DeleteActionProps } from './types';
+import { type DeleteActionProps } from './types';
 import Action from '../action';
 import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';

@@ -1,13 +1,13 @@
 import { NODE_TYPE_ORDER_BY } from '../constants';
 import { prependOrderField, setOrderDirection } from '../transformers/orderBy';
 import {
-  AstNode,
-  JastListener,
-  JastVisitor,
-  OrderBy,
-  OrderByField,
-  OrderByOperator,
-  Position,
+  type AstNode,
+  type JastListener,
+  type JastVisitor,
+  type OrderBy,
+  type OrderByField,
+  type OrderByOperator,
+  type Position,
 } from '../types';
 
 import { assignParent } from './common';

@@ -3,9 +3,9 @@ import { jsx } from '@emotion/react';
 import React, { useMemo } from 'react';
 import EnumOption from './inputs/enum-option';
 import { SmartLinkSize, SmartLinkTheme } from '../../../src';
-import { FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
+import { type FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
 import CheckboxOption from './inputs/checkbox-option';
-import { FlexibleTemplate } from '../types';
+import { type FlexibleTemplate } from '../types';
 import Fieldset from './fieldset';
 
 const UiBuilder: React.FC<{

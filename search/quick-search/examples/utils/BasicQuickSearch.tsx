@@ -9,11 +9,11 @@ import {
   QuickSearch,
   ResultItemGroup,
   ContainerResult,
-  ContainerResultProps,
+  type ContainerResultProps,
   PersonResult,
-  PersonResultProps,
+  type PersonResultProps,
   ObjectResult,
-  ObjectResultProps,
+  type ObjectResultProps,
 } from '../../src';
 import { token } from '@atlaskit/tokens';
 

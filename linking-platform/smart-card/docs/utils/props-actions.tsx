@@ -1,4 +1,4 @@
-import { BaseActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
+import { type BaseActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
 
 /**
  * Hack to display Flexible Smart Links `actions` prop for documentation purpose.

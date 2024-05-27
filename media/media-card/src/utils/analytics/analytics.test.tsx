@@ -12,15 +12,15 @@ import { mount } from 'enzyme';
 import {
   AnalyticsListener,
   withAnalyticsEvents,
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
+  type UIAnalyticsEvent,
   createAndFireEvent,
 } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import {
   createAndFireMediaCardEvent,
   fireMediaCardEvent,
-  MediaCardAnalyticsEventPayload,
+  type MediaCardAnalyticsEventPayload,
   getRenderErrorFailReason,
   getRenderErrorErrorReason,
   getRenderErrorErrorDetail,
@@ -28,12 +28,12 @@ import {
   getRenderErrorEventPayload,
   getRenderPreviewableCardPayload,
   extractErrorInfo,
-  SSRStatus,
+  type SSRStatus,
 } from './analytics';
 import {
-  FileAttributes,
-  MediaTraceContext,
-  PerformanceAttributes,
+  type FileAttributes,
+  type MediaTraceContext,
+  type PerformanceAttributes,
 } from '@atlaskit/media-common';
 import {
   createMediaStoreError,

@@ -8,7 +8,7 @@ import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/asset
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import {
   ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-  AssetsDatasourceParameters,
+  type AssetsDatasourceParameters,
 } from '../../src';
 import JSMAssetsConfigModal from '../../src/ui/assets-modal';
 

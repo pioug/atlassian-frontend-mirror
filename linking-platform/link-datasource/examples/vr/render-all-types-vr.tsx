@@ -4,14 +4,14 @@ import styled from '@emotion/styled';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { DatasourceType } from '@atlaskit/linking-types';
+import { type DatasourceType } from '@atlaskit/linking-types';
 import { token } from '@atlaskit/tokens';
 
 import * as AdfTable from '../../examples-helpers/adfTable.json';
 import * as Image from '../../examples-helpers/images.json';
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { renderType } from '../../src/ui/issue-like-table/render-type';
-import { DatasourceTypeWithOnlyValues } from '../../src/ui/issue-like-table/types';
+import { type DatasourceTypeWithOnlyValues } from '../../src/ui/issue-like-table/types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ContainerWrapper = styled.div({

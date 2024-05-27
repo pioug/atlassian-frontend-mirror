@@ -3,8 +3,8 @@ import { mount } from 'enzyme';
 import { nextTick } from '@atlaskit/media-test-helpers';
 
 import AsyncAvatarPickerDialog, {
-  AsyncAvatarPickerDialogProps,
-  AsyncAvatarPickerDialogState,
+  type AsyncAvatarPickerDialogProps,
+  type AsyncAvatarPickerDialogState,
 } from '../../avatar-picker-dialog/avatar-picker-dialog-loader';
 
 const props = {

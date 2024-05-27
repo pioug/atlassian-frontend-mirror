@@ -1,5 +1,5 @@
-import { AnalyticsFacade } from '../../../../state/analytics';
-import { AnalyticsOrigin } from '../../../../utils/types';
+import { type AnalyticsFacade } from '../../../../state/analytics';
+import { type AnalyticsOrigin } from '../../../../utils/types';
 
 export type WithAnalytics = {
   analytics?: AnalyticsFacade;

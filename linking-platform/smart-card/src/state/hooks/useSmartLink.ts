@@ -3,7 +3,7 @@ import { useSmartCardState as useSmartLinkState } from '../store';
 import { useSmartCardActions as useSmartLinkActions } from '../actions';
 import { useSmartLinkConfig } from '../config';
 import { useSmartLinkAnalytics } from '../analytics';
-import { AnalyticsHandler } from '../../utils/types';
+import { type AnalyticsHandler } from '../../utils/types';
 import { useSmartLinkRenderers } from '../renderers';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 

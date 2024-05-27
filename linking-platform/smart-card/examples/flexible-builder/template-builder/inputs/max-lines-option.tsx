@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { BlockTemplate } from '../../types';
+import { type BlockTemplate } from '../../types';
 import SelectOption from './select-option';
 
 const MaxLinesOption: React.FC<{

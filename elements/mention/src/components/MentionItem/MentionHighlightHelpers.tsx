@@ -1,5 +1,5 @@
-import React, { ComponentType } from 'react';
-import { HighlightDetail } from '../../types';
+import React, { type ComponentType } from 'react';
+import { type HighlightDetail } from '../../types';
 
 interface Part {
   value: string;

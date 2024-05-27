@@ -1,7 +1,7 @@
 import { bufferCount } from 'rxjs/operators/bufferCount';
 import { concatMap } from 'rxjs/operators/concatMap';
 
-import { Processinator, HashedBlob } from './domain';
+import { type Processinator, type HashedBlob } from './domain';
 
 const processinator: Processinator = (blobs$, options) => {
   const process = (blobs: HashedBlob[]): Promise<HashedBlob[]> => {

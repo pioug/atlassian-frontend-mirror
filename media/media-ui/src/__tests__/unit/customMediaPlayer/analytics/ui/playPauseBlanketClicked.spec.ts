@@ -1,6 +1,6 @@
 import {
   createPlayPauseBlanketClickedEvent,
-  PlaybackState,
+  type PlaybackState,
 } from '../../../../../customMediaPlayer/analytics';
 
 describe('createPlayPauseBlanketClickedEvent', () => {

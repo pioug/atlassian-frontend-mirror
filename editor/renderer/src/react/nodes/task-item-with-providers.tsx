@@ -1,9 +1,9 @@
 import React from 'react';
-import { Component, ReactNode } from 'react';
+import { Component, type ReactNode } from 'react';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import {
-  ContentRef,
-  TaskDecisionProvider,
+  type ContentRef,
+  type TaskDecisionProvider,
   ResourcedTaskItem,
 } from '@atlaskit/task-decision';
 

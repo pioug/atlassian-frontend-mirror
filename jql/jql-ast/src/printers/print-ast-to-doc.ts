@@ -1,32 +1,32 @@
 import { CLAUSE_TYPE_COMPOUND } from '../constants';
 import { AbstractJastVisitor } from '../jast-visitors';
 import {
-  Argument,
-  AstNode,
-  CompoundClause,
-  CompoundOperator,
-  Field,
-  FunctionOperand,
-  FunctionString,
-  Jast,
-  KeywordOperand,
-  ListOperand,
-  NotClause,
-  NotClauseOperator,
-  Operator,
-  OrderBy,
-  OrderByDirection,
-  OrderByField,
-  OrderByOperator,
-  Predicate,
-  PredicateOperator,
-  Property,
-  Query,
-  TerminalClause,
-  ValueOperand,
+  type Argument,
+  type AstNode,
+  type CompoundClause,
+  type CompoundOperator,
+  type Field,
+  type FunctionOperand,
+  type FunctionString,
+  type Jast,
+  type KeywordOperand,
+  type ListOperand,
+  type NotClause,
+  type NotClauseOperator,
+  type Operator,
+  type OrderBy,
+  type OrderByDirection,
+  type OrderByField,
+  type OrderByOperator,
+  type Predicate,
+  type PredicateOperator,
+  type Property,
+  type Query,
+  type TerminalClause,
+  type ValueOperand,
 } from '../types';
 
-import { Doc } from './types';
+import { type Doc } from './types';
 import { group, ifBreak, newLine } from './utils';
 
 type OperatorCase = 'lower' | 'upper' | 'preserve';

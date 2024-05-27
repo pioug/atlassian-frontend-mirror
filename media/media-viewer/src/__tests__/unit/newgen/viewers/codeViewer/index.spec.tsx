@@ -11,8 +11,8 @@ jest.mock('@atlaskit/media-client', () => {
 import React from 'react';
 import {
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
-  ProcessedFileState,
+  type MediaViewedEventPayload,
+  type ProcessedFileState,
 } from '@atlaskit/media-client';
 import {
   mountWithIntlContext,
@@ -24,9 +24,9 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { Spinner } from '../../../../../loading';
 import { MediaViewerError } from '../../../../../errors';
-import { BaseState } from '../../../../../viewers/base-viewer';
-import { Content } from '../../../../../content';
-import { CodeViewer, Props } from '../../../../../viewers/codeViewer/index';
+import { type BaseState } from '../../../../../viewers/base-viewer';
+import { type Content } from '../../../../../content';
+import { CodeViewer, type Props } from '../../../../../viewers/codeViewer/index';
 import { msgToText } from '../../../../../viewers/codeViewer/msg-parser';
 
 jest.mock('../../../../../viewers/codeViewer/msg-parser', () => ({

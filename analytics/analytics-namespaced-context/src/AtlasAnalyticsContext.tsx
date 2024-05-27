@@ -1,5 +1,5 @@
-import { FunctionComponent } from 'react';
-import createNamespaceContext, { Props } from './helper/createNamespaceContext';
+import { type FunctionComponent } from 'react';
+import createNamespaceContext, { type Props } from './helper/createNamespaceContext';
 
 export const ATLAS_CONTEXT = 'atlasCtx';
 

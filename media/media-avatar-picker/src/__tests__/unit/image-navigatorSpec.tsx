@@ -5,7 +5,7 @@ import Button from '@atlaskit/button/standard-button';
 import { Ellipsify } from '@atlaskit/media-ui';
 import ImageNavigator, {
   ImageNavigator as ImageNavigatorView,
-  Props as ImageNavigatorProps,
+  type Props as ImageNavigatorProps,
 } from '../../image-navigator';
 import { ImageCropper } from '../../image-cropper';
 import { Slider } from '../../image-navigator/slider';
@@ -15,7 +15,7 @@ import {
   mountWithIntlContext,
 } from '@atlaskit/media-test-helpers';
 import { errorIcon } from '../../image-navigator/images';
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 import { DragZone } from '../../image-navigator/dragZone';
 
 declare var global: any; // we need define an interface for the Node global object when overwriting global objects, in this case FileReader

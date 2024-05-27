@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-nested-styles */
 /** @jsx jsx */
-import { CSSProperties, PureComponent } from 'react';
+import { type CSSProperties, PureComponent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { CSSTransition } from 'react-transition-group';

@@ -1,9 +1,9 @@
 import {
-  DatasourceDataResponseItem,
-  DatasourceDetailsResponse,
+  type DatasourceDataResponseItem,
+  type DatasourceDetailsResponse,
 } from '@atlaskit/linking-types';
 
-import { GenerateDataResponse } from '../types';
+import { type GenerateDataResponse } from '../types';
 
 import { defaultInitialVisibleColumnKeys, mockConfluenceData } from './data';
 

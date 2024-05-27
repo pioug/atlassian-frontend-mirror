@@ -8,7 +8,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   Manager,
   Popper,
-  PopperChildrenProps,
+  type PopperChildrenProps,
   Reference,
 } from '@atlaskit/popper';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports

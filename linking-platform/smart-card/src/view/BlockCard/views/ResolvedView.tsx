@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
-import { AvatarClickEventHandler } from '@atlaskit/avatar';
+import { type AvatarClickEventHandler } from '@atlaskit/avatar';
 import Lozenge from '@atlaskit/lozenge';
-import { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 
 import { Frame } from '../components/Frame';
 import { Thumbnail } from '../components/Thumbnail';
@@ -10,20 +10,20 @@ import { Provider } from '../components/Provider';
 import { Name } from '../components/Name';
 import { Byline } from '../../common/Byline';
 import { ActionList } from '../components/ActionList';
-import { CollaboratorList, Collaborator } from '../components/CollaboratorList';
+import { CollaboratorList, type Collaborator } from '../components/CollaboratorList';
 import { Emoji } from '../components/Emoji';
-import { Icon, IconProps } from '../../common/Icon';
+import { Icon, type IconProps } from '../../common/Icon';
 import { Content } from '../components/Content';
-import { ActionProps } from '../components/Action';
-import { MetadataProps } from '../../common/Metadata';
+import { type ActionProps } from '../components/Action';
+import { type MetadataProps } from '../../common/Metadata';
 import { MetadataList } from '../../common/MetadataList';
 import { LozengeBlockWrapper } from './styled';
 import { ContentHeader } from '../components/ContentHeader';
 import { ContentFooter } from '../components/ContentFooter';
-import { ContextViewModel } from '../../types';
+import { type ContextViewModel } from '../../types';
 import { gs } from '../../common/utils';
 import { handleClickCommon } from '../utils/handlers';
-import { LozengeProps } from '../../../types';
+import { type LozengeProps } from '../../../types';
 
 const styles = css({
   display: 'flex',

@@ -1,4 +1,4 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { createTextNode } from './nodes/text';
 import {
   parseOtherKeyword,
@@ -7,7 +7,7 @@ import {
   parseIssueKeyword,
 } from './tokenize/keyword';
 import { parseToken, TokenType } from './tokenize';
-import { Context } from '../interfaces';
+import { type Context } from '../interfaces';
 import { parseWhitespaceOnly } from './tokenize/whitespace';
 import { escapeHandler } from './utils/escape';
 import { normalizePMNodes } from './utils/normalize';

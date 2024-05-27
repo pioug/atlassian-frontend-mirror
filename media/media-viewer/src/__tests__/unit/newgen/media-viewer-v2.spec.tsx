@@ -4,7 +4,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import { MediaViewerV2 } from '../../../v2/media-viewer-v2';
-import { MediaViewerExtensions } from '../../../components/types';
+import { type MediaViewerExtensions } from '../../../components/types';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 

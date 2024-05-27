@@ -1,17 +1,17 @@
 import {
-  FilePreview,
-  MediaClient,
-  MediaStoreGetFileImageParams,
-  MediaType,
+  type FilePreview,
+  type MediaClient,
+  type MediaStoreGetFileImageParams,
+  type MediaType,
 } from '@atlaskit/media-client';
 import {
   getMediaTypeFromMimeType,
-  MediaTraceContext,
+  type MediaTraceContext,
 } from '@atlaskit/media-common';
 import { getOrientation } from '@atlaskit/media-ui';
 
 import { LocalPreviewError, RemotePreviewError } from '../errors';
-import { MediaFilePreview } from '../types';
+import { type MediaFilePreview } from '../types';
 
 import { takeSnapshot } from './videoSnapshot';
 

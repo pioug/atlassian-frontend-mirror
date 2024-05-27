@@ -2,7 +2,7 @@ import { useLayoutEffect } from 'react';
 import { toNativeBridge } from '../web-to-native/implementation';
 import { DocumentReflowDetector } from '../../document-reflow-detector';
 import { eventDispatcher, EmitterEvents } from '../dispatcher';
-import RendererBridge from '../../renderer/native-to-web/implementation';
+import type RendererBridge from '../../renderer/native-to-web/implementation';
 
 export function useRendererReflowDetected(bridge: RendererBridge) {
   useLayoutEffect(() => {

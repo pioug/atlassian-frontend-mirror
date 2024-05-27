@@ -1,8 +1,8 @@
 import { Box } from '@atlaskit/primitives';
-import { components, OptionProps as AkOptionProps } from '@atlaskit/select';
+import { components, type OptionProps as AkOptionProps } from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
-import React, { FC } from 'react';
-import { Option as OptionType } from '../types';
+import React, { type FC } from 'react';
+import { type Option as OptionType } from '../types';
 import { UserOption } from './UserOption';
 import AsyncExternalOption from './ExternalUserOption';
 import AsyncTeamOption from './TeamOption';

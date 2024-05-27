@@ -9,7 +9,7 @@ import { setupServer } from 'msw/node';
 import {
   getFileStreamsCache,
   MediaClient,
-  ResponseFileItem,
+  type ResponseFileItem,
 } from '@atlaskit/media-client';
 import { mediaStore } from '@atlaskit/media-state';
 

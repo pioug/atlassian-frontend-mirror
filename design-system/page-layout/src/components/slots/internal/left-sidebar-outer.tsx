@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import {
   forwardRef,
-  MouseEventHandler,
-  ReactNode,
-  Ref,
+  type MouseEventHandler,
+  type ReactNode,
+  type Ref,
   useContext,
 } from 'react';
 

@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { type SyntheticEvent, useState } from 'react';
 
 import { Code } from '@atlaskit/code';
 import { Stack, Text } from '@atlaskit/primitives';

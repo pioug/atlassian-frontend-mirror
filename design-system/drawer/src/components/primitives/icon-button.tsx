@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, MouseEventHandler, ReactNode } from 'react';
+import { type FC, type MouseEventHandler, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

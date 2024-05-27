@@ -1,4 +1,4 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export interface AddArgs {
   style: string | null;

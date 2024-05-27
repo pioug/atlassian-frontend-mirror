@@ -13,8 +13,10 @@ import type {
   OptionalPlugin,
   TextFormattingOptions,
   TextFormattingState,
+  ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 
 import {
   toggleCodeWithAnalytics,
@@ -45,7 +47,10 @@ export type TextFormattingPlugin = NextEditorPlugin<
   'textFormatting',
   {
     pluginConfiguration: TextFormattingOptions | undefined;
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<PrimaryToolbarPlugin>,
+    ];
     commands: {
       toggleSuperscript: ToggleMarkEditorCommand;
       toggleSubscript: ToggleMarkEditorCommand;
@@ -66,84 +71,15 @@ export type TextFormattingPlugin = NextEditorPlugin<
 export const textFormattingPlugin: TextFormattingPlugin = ({
   config: options,
   api,
-}) => ({
-  name: 'textFormatting',
-
-  marks() {
-    return [
-      { name: 'em', mark: em },
-      { name: 'strong', mark: strong },
-    ]
-      .concat(
-        options?.disableStrikethrough ? [] : { name: 'strike', mark: strike },
-      )
-      .concat(options?.disableCode ? [] : { name: 'code', mark: code })
-      .concat(
-        options?.disableSuperscriptAndSubscript
-          ? []
-          : { name: 'subsup', mark: subsup },
-      )
-      .concat(
-        options?.disableUnderline ? [] : { name: 'underline', mark: underline },
-      );
-  },
-
-  pmPlugins() {
-    return [
-      {
-        name: 'textFormatting',
-        plugin: ({ dispatch }) => pmPlugin(dispatch, api?.analytics?.actions),
-      },
-      {
-        name: 'textFormattingCursor',
-        plugin: () => textFormattingCursorPlugin,
-      },
-      {
-        name: 'textFormattingInputRule',
-        plugin: ({ schema }) =>
-          textFormattingInputRulePlugin(schema, api?.analytics?.actions),
-      },
-      {
-        name: 'textFormattingSmartRule',
-        plugin: () =>
-          !options?.disableSmartTextCompletion
-            ? textFormattingSmartInputRulePlugin(api?.analytics?.actions)
-            : undefined,
-      },
-      {
-        name: 'textFormattingClear',
-        plugin: ({ dispatch }) => clearFormattingPlugin(dispatch),
-      },
-      {
-        name: 'textFormattingClearKeymap',
-        plugin: () => clearFormattingKeymapPlugin(api?.analytics?.actions),
-      },
-      {
-        name: 'textFormattingKeymap',
-        plugin: ({ schema }) => keymapPlugin(schema, api?.analytics?.actions),
-      },
-    ];
-  },
-
-  getSharedState(editorState) {
-    if (!editorState) {
-      return undefined;
-    }
-    return {
-      ...textFormattingPluginKey.getState(editorState),
-      formattingIsPresent:
-        clearFormattingPluginKey.getState(editorState)?.formattingIsPresent,
-    };
-  },
-
-  primaryToolbarComponent({
+}) => {
+  const primaryToolbarComponent: ToolbarUIComponentFactory = ({
     editorView,
     popupsMountPoint,
     popupsScrollableElement,
     isToolbarReducedSpacing,
     toolbarSize,
     disabled,
-  }) {
+  }) => {
     return (
       <PrimaryToolbarComponent
         api={api}
@@ -156,15 +92,102 @@ export const textFormattingPlugin: TextFormattingPlugin = ({
         shouldUseResponsiveToolbar={Boolean(options?.responsiveToolbarMenu)}
       />
     );
-  },
+  };
+  return {
+    name: 'textFormatting',
 
-  commands: {
-    toggleSuperscript: toggleSuperscriptWithAnalytics(api?.analytics?.actions),
-    toggleSubscript: toggleSubscriptWithAnalytics(api?.analytics?.actions),
-    toggleStrike: toggleStrikeWithAnalytics(api?.analytics?.actions),
-    toggleCode: toggleCodeWithAnalytics(api?.analytics?.actions),
-    toggleUnderline: toggleUnderlineWithAnalytics(api?.analytics?.actions),
-    toggleEm: toggleEmWithAnalytics(api?.analytics?.actions),
-    toggleStrong: toggleStrongWithAnalytics(api?.analytics?.actions),
-  },
-});
+    marks() {
+      return [
+        { name: 'em', mark: em },
+        { name: 'strong', mark: strong },
+      ]
+        .concat(
+          options?.disableStrikethrough ? [] : { name: 'strike', mark: strike },
+        )
+        .concat(options?.disableCode ? [] : { name: 'code', mark: code })
+        .concat(
+          options?.disableSuperscriptAndSubscript
+            ? []
+            : { name: 'subsup', mark: subsup },
+        )
+        .concat(
+          options?.disableUnderline
+            ? []
+            : { name: 'underline', mark: underline },
+        );
+    },
+
+    pmPlugins() {
+      return [
+        {
+          name: 'textFormatting',
+          plugin: ({ dispatch }) => pmPlugin(dispatch, api?.analytics?.actions),
+        },
+        {
+          name: 'textFormattingCursor',
+          plugin: () => textFormattingCursorPlugin,
+        },
+        {
+          name: 'textFormattingInputRule',
+          plugin: ({ schema }) =>
+            textFormattingInputRulePlugin(schema, api?.analytics?.actions),
+        },
+        {
+          name: 'textFormattingSmartRule',
+          plugin: () =>
+            !options?.disableSmartTextCompletion
+              ? textFormattingSmartInputRulePlugin(api?.analytics?.actions)
+              : undefined,
+        },
+        {
+          name: 'textFormattingClear',
+          plugin: ({ dispatch }) => clearFormattingPlugin(dispatch),
+        },
+        {
+          name: 'textFormattingClearKeymap',
+          plugin: () => clearFormattingKeymapPlugin(api?.analytics?.actions),
+        },
+        {
+          name: 'textFormattingKeymap',
+          plugin: ({ schema }) => keymapPlugin(schema, api?.analytics?.actions),
+        },
+      ];
+    },
+
+    getSharedState(editorState) {
+      if (!editorState) {
+        return undefined;
+      }
+      return {
+        ...textFormattingPluginKey.getState(editorState),
+        formattingIsPresent:
+          clearFormattingPluginKey.getState(editorState)?.formattingIsPresent,
+      };
+    },
+
+    usePluginHook: () => {
+      api?.core?.actions.execute(
+        api?.primaryToolbar?.commands.registerComponent({
+          name: 'textFormatting',
+          component: primaryToolbarComponent,
+        }),
+      );
+    },
+
+    primaryToolbarComponent: !api?.primaryToolbar
+      ? primaryToolbarComponent
+      : undefined,
+
+    commands: {
+      toggleSuperscript: toggleSuperscriptWithAnalytics(
+        api?.analytics?.actions,
+      ),
+      toggleSubscript: toggleSubscriptWithAnalytics(api?.analytics?.actions),
+      toggleStrike: toggleStrikeWithAnalytics(api?.analytics?.actions),
+      toggleCode: toggleCodeWithAnalytics(api?.analytics?.actions),
+      toggleUnderline: toggleUnderlineWithAnalytics(api?.analytics?.actions),
+      toggleEm: toggleEmWithAnalytics(api?.analytics?.actions),
+      toggleStrong: toggleStrongWithAnalytics(api?.analytics?.actions),
+    },
+  };
+};

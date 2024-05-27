@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, RenderOptions, waitFor } from '@testing-library/react';
+import { render, type RenderOptions, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -9,10 +9,10 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { EVENT_CHANNEL } from '../../../../analytics';
 import {
   useValidateAqlText,
-  UseValidateAqlTextState,
+  type UseValidateAqlTextState,
 } from '../../../../hooks/useValidateAqlText';
-import { ObjectSchema } from '../../../../types/assets/types';
-import { AssetsSearchContainer, InitialSearchData } from '../index';
+import { type ObjectSchema } from '../../../../types/assets/types';
+import { AssetsSearchContainer, type InitialSearchData } from '../index';
 
 jest.mock('../../../../hooks/useValidateAqlText');
 

@@ -11,7 +11,7 @@ import {
 import {
   Counter,
   RENDER_COUNTER_TESTID,
-  CounterProps,
+  type CounterProps,
   RENDER_LABEL_TESTID,
 } from './Counter';
 

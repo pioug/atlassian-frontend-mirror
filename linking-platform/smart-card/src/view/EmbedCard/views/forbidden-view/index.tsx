@@ -6,7 +6,7 @@ import { di } from 'react-magnetic-di';
 import { messages } from '../../../../messages';
 import { toMessage } from '../../../../utils/intl-utils';
 import UnresolvedView from '../unresolved-view';
-import { ForbiddenViewProps } from './types';
+import { type ForbiddenViewProps } from './types';
 import { getUnresolvedEmbedCardImage } from '../../utils';
 
 const ForbiddenView: FC<ForbiddenViewProps> = ({

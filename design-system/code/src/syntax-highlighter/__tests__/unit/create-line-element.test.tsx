@@ -1,7 +1,7 @@
-import { AST } from 'refractor';
+import { type AST } from 'refractor';
 
 import createLineElement, {
-  CreateLineElementProps,
+  type CreateLineElementProps,
 } from '../../lib/process/create-line-element';
 
 const lineNumberNode: AST.Element = {

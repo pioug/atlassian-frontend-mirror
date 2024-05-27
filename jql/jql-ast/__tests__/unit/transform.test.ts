@@ -1,15 +1,15 @@
 import {
   COMPOUND_OPERATOR_AND,
   COMPOUND_OPERATOR_OR,
-  CompoundClause,
+  type CompoundClause,
   creators,
   JastBuilder,
-  JastListener,
+  type JastListener,
   ORDER_BY_DIRECTION_ASC,
   ORDER_BY_DIRECTION_DESC,
   print,
-  Query,
-  TerminalClause,
+  type Query,
+  type TerminalClause,
   walkAST,
 } from '../../src';
 import {

@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { PropsWithChildren, useCallback, useState } from 'react';
+import { type PropsWithChildren, useCallback, useState } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import Lozenge from '@atlaskit/lozenge';
 import { token } from '@atlaskit/tokens';
-import { BlockName } from '../constants';
+import { type BlockName } from '../constants';
 import ChevronIcon from './chevron-icon';
 
 const containerStyles = css({

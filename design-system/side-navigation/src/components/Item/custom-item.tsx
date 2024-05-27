@@ -3,8 +3,8 @@ import React, { forwardRef } from 'react';
 
 import {
   CustomItem as Custom,
-  CustomItemComponentProps,
-  CustomItemProps,
+  type CustomItemComponentProps,
+  type CustomItemProps,
 } from '@atlaskit/menu';
 
 import {

@@ -1,5 +1,5 @@
-import { MediaClient, FileState, ErrorFileState } from '@atlaskit/media-client';
-import { ArchiveViewerError } from '../../errors';
+import { type MediaClient, type FileState, type ErrorFileState } from '@atlaskit/media-client';
+import { type ArchiveViewerError } from '../../errors';
 
 export type ArchiveViewerProps = {
   item: Exclude<FileState, ErrorFileState>;

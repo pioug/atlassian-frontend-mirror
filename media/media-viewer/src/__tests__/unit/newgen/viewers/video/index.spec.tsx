@@ -12,8 +12,8 @@ jest.mock('@atlaskit/media-ui', () => {
 import React from 'react';
 import {
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
-  ProcessedFileState,
+  type MediaViewedEventPayload,
+  type ProcessedFileState,
 } from '@atlaskit/media-client';
 import Spinner from '@atlaskit/spinner';
 import {
@@ -24,7 +24,7 @@ import {
   asMockFunction,
 } from '@atlaskit/media-test-helpers';
 import { CustomMediaPlayer } from '@atlaskit/media-ui';
-import { VideoViewer, Props } from '../../../../../viewers/video';
+import { VideoViewer, type Props } from '../../../../../viewers/video';
 import { ErrorMessage } from '../../../../../errorMessage';
 
 const token = 'some-token';

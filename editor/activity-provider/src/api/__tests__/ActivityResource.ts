@@ -4,7 +4,7 @@ import { promisify } from 'util';
 import * as fs from 'fs';
 import { join } from 'path';
 import ActivityResource, { makeGetRecentItemBody } from '../ActivityResource';
-import { ActivityResponse } from '../../types';
+import { type ActivityResponse } from '../../types';
 
 const readFile = promisify(fs.readFile);
 

@@ -1,7 +1,7 @@
 import { DefaultMentionNameResolver } from '@atlaskit/mention/resource';
 import {
   UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { MockMentionNameClient } from './mock-mention-name-client';
 

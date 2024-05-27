@@ -1,6 +1,6 @@
 import {
-  MentionNameClient,
-  MentionNameDetails,
+  type MentionNameClient,
+  type MentionNameDetails,
   MentionNameStatus,
 } from '@atlaskit/mention/resource';
 import debug from '../logger';

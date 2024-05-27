@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
-import Popup, { TriggerProps } from '@atlaskit/popup';
+import Popup, { type TriggerProps } from '@atlaskit/popup';
 import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';

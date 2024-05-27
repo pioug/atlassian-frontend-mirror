@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Mode, Palette } from '../types';
+import { Mode, type Palette } from '../types';
 import {
   createAndFireEvent,
   withAnalyticsContext,

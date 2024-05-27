@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugins
 
+## 2.7.2
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 2.7.1
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 2.7.0
+
+### Minor Changes
+
+-   [#101406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101406)
+    [`6daffd65aec4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6daffd65aec4) -
+    [ED-23298] Extract primary toolbar components to editor plugin to allow for custom ordering
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 2.6.15
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import React from 'react';
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
 import { defaultLogoParams } from '../constants';
-import { LogoProps } from '../types';
+import { type LogoProps } from '../types';
 import Wrapper from '../wrapper';
 
 const svg = `<svg viewBox="0 0 185 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">

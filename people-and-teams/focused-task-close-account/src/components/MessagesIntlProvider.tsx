@@ -2,9 +2,9 @@ import React from 'react';
 import {
   IntlProvider,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
-import { getMessagesForLocale, LangCode } from '../util/i18n-util';
+import { getMessagesForLocale, type LangCode } from '../util/i18n-util';
 
 export interface Props {
   children: React.ReactChild;

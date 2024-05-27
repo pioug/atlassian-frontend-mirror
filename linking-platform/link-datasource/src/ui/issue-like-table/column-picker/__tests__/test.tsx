@@ -5,8 +5,8 @@ import { act, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
-import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { type ConcurrentExperience } from '@atlaskit/ufo';
 
 import { SELECT_ITEMS_MAXIMUM_THRESHOLD } from '../concatenated-menu-list';
 import { ColumnPicker } from '../index';

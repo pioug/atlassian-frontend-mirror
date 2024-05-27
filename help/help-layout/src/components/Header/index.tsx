@@ -1,9 +1,9 @@
 import React from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { messages } from '../../messages';
-import { HelpPanelHeader } from '../../model/HelpLayout';
+import { type HelpPanelHeader } from '../../model/HelpLayout';
 
 import CloseButton from './CloseButton';
 import BackButton from './BackButton';

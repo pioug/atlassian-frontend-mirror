@@ -5,10 +5,10 @@ import { render } from '@testing-library/react';
 import { createElement } from '../utils';
 import {
   ElementName,
-  IconType,
+  type IconType,
   SmartLinkTheme,
 } from '../../../../../constants';
-import { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
+import { type FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import context from '../../../../../__fixtures__/flexible-ui-data-context';
 

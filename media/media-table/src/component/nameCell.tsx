@@ -1,9 +1,9 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
-import { FC } from 'react';
-import { MediaType } from '@atlaskit/media-client';
+import { type FC } from 'react';
+import { type MediaType } from '@atlaskit/media-client';
 import Tooltip from '@atlaskit/tooltip';
-import { Truncate, TruncateProps } from '@atlaskit/media-ui/truncateText';
+import { Truncate, type TruncateProps } from '@atlaskit/media-ui/truncateText';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { nameCellWrapperStyles, truncateWrapperStyles } from './styles';
 

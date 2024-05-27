@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState, useCallback } from 'react';
+import React, { type ReactElement, type ReactNode, useState, useCallback } from 'react';
 
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';

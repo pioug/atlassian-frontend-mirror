@@ -1,4 +1,4 @@
-import { ButtonClickEventPayload } from './_clickedButton';
+import { type ButtonClickEventPayload } from './_clickedButton';
 
 export type ZoomButtonClickAttributes = {
   zoomScale: number;

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import { RadioGroup } from '../src';
-import { OptionsPropType } from '../src/types';
+import { type OptionsPropType } from '../src/types';
 
 const options: OptionsPropType = [
   { name: 'color', value: 'red', label: 'Red', testId: 'red' },

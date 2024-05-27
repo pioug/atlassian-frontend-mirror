@@ -12,7 +12,7 @@ import { ProductHomeSkeleton } from '../ProductHome/skeleton';
 import { ProfileSkeleton } from '../Profile/skeleton';
 import { SearchSkeleton } from '../Search/skeleton';
 
-import { NavigationSkeletonProps } from './types';
+import { type NavigationSkeletonProps } from './types';
 
 const containerStyles = css({
   display: 'flex',

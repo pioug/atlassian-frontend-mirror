@@ -1,6 +1,6 @@
 import { isValidPercentageUnit } from './isValidPercentageUnit';
 import { containsPixelUnit } from './containsPixelUnit';
-import { CardDimensionValue, CardDimensions } from '../types';
+import { type CardDimensionValue, type CardDimensions } from '../types';
 
 const isPixelEquivalent = (dimension: CardDimensionValue) =>
   typeof dimension === 'number' || containsPixelUnit(`${dimension}`);

@@ -3,7 +3,7 @@ import React from 'react';
 import {
   act,
   renderHook,
-  RenderHookOptions,
+  type RenderHookOptions,
 } from '@testing-library/react-hooks';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -22,7 +22,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import {
-  DatasourceTableStateProps,
+  type DatasourceTableStateProps,
   useDatasourceTableState,
 } from '../useDatasourceTableState';
 

@@ -24,11 +24,11 @@ jest.mock('@atlaskit/media-client', () => {
 jest.mock('../helpers');
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import {
-  FileState,
+  type FileState,
   isPreviewableType,
   isPreviewableFileState,
   isImageRepresentationReady,
-  MediaType,
+  type MediaType,
 } from '@atlaskit/media-client';
 import { isMimeTypeSupportedByBrowser } from '@atlaskit/media-common';
 import { isSupportedLocalPreview } from '../helpers';
@@ -36,7 +36,7 @@ import {
   extractFilePreviewStatus,
   isPreviewableStatus,
 } from '../filePreviewStatus';
-import { CardStatus } from '../../../types';
+import { type CardStatus } from '../../../types';
 
 describe('extractFilePreviewStatus()', () => {
   describe('Local Preview', () => {

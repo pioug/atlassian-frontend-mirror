@@ -3,7 +3,7 @@ import { borderColorPalette as colorPalette } from '@atlaskit/adf-schema';
 import { DEFAULT_BORDER_COLOR } from './common';
 import getColorMessage from './getColorMessage';
 import paletteMessages from './paletteMessages';
-import { PaletteColor } from './type';
+import { type PaletteColor } from './type';
 
 const borderColorPalette: Array<PaletteColor> = [];
 

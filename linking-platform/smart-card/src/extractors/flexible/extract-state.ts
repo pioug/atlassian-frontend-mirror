@@ -1,16 +1,16 @@
 import { extractLozenge } from '../common/lozenge';
 import type { JsonLd } from 'json-ld-types';
 import type { LinkLozenge } from '../common/lozenge/types';
-import { LinkLozengeInvokeActions } from '../common/lozenge/types';
+import { type LinkLozengeInvokeActions } from '../common/lozenge/types';
 import {
-  InvokeRequest,
-  InvokeRequestAction,
-  SmartLinkActionType,
+  type InvokeRequest,
+  type InvokeRequestAction,
+  type SmartLinkActionType,
 } from '@atlaskit/linking-types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
-  CardDetails,
-  InvokeRequestWithCardDetails,
+  type CardDetails,
+  type InvokeRequestWithCardDetails,
 } from '../../state/hooks/use-invoke/types';
 import { getExtensionKey } from '../../state/helpers';
 import extractServerAction from './extract-server-action';

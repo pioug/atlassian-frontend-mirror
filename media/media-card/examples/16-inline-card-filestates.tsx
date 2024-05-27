@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { token } from '@atlaskit/tokens';
 import {
-  SimulationSettings,
+  type SimulationSettings,
   useRunSimulation,
   simulateProcessed,
   simulateProcessing,
@@ -12,14 +12,14 @@ import {
   simulateManyProcessed,
   simulateEmptyDetails,
   simulateUpdateFileId,
-  StandardSimulation,
+  type StandardSimulation,
   simulateAlwaysLoading,
   simulateAlwaysProcessing,
 } from '@atlaskit/media-test-helpers';
 import { MainWrapper } from '../example-helpers';
 import {
   MediaInlineCard,
-  MediaInlineCardProps,
+  type MediaInlineCardProps,
 } from '../src/inline/mediaInlineCard';
 
 import { R500 } from '@atlaskit/theme/colors';

@@ -1,4 +1,4 @@
-import { Path, FlattenedTree, ItemId, FlattenedItem } from '../types';
+import { type Path, type FlattenedTree, type ItemId, type FlattenedItem } from '../types';
 
 import {
   isTopOfSubtree,

@@ -10,7 +10,7 @@ import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import Range from '@atlaskit/range/range';
 import { Card } from '../../src';
-import { BlockTemplate, FlexibleTemplate } from './types';
+import { type BlockTemplate, type FlexibleTemplate } from './types';
 import { token } from '@atlaskit/tokens';
 import * as Blocks from '../../src/view/FlexibleCard/components/blocks';
 import withJsonldEditorProvider from '../jsonld-editor/jsonld-editor-provider';

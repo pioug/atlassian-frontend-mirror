@@ -1,5 +1,5 @@
 import React from 'react';
-import { ElementItem, ElementName, MetadataBlock } from '../../src';
+import { type ElementItem, ElementName, MetadataBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 const appearances = [

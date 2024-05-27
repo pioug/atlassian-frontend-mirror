@@ -1,5 +1,5 @@
 import WebBridgeImpl from './implementation';
-import EditorConfiguration from '../editor-configuration';
+import type EditorConfiguration from '../editor-configuration';
 
 export const getBridge = (config?: EditorConfiguration): WebBridgeImpl => {
   if (!window.bridge) {

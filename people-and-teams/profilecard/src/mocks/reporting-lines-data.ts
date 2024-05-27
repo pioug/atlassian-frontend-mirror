@@ -1,4 +1,4 @@
-import { ReportingLinesUser, TeamCentralReportingLinesData } from '../types';
+import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../types';
 
 import profiles from './profile-data';
 

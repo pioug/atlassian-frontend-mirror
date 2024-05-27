@@ -1,8 +1,8 @@
 import {
-  FileIdentifier,
-  ExternalImageIdentifier,
-  FileState,
-  ErrorFileState,
+  type FileIdentifier,
+  type ExternalImageIdentifier,
+  type FileState,
+  type ErrorFileState,
 } from '@atlaskit/media-client';
 import { getFileDetails } from '../../metadata';
 

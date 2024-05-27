@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useTheme } from '../../theme';
 
-import { IconButtonSkeletonProps } from './types';
+import { type IconButtonSkeletonProps } from './types';
 
 const buttonHeight = token('space.400', '32px');
 

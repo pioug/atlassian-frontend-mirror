@@ -5,9 +5,9 @@ import { render } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import * as analytics from '../../../../utils/analytics/analytics';
 import { IntlProvider } from 'react-intl-next';
-import { Card, CardProps, Provider, ProviderProps } from '@atlaskit/smart-card';
+import { Card, type CardProps, Provider, type ProviderProps } from '@atlaskit/smart-card';
 import userEvent from '@testing-library/user-event';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import { mockUrl } from './common.test-utils';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 

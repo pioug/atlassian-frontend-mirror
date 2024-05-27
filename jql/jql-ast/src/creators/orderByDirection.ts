@@ -1,9 +1,9 @@
 import {
-  JastListener,
-  JastVisitor,
-  OrderByDirection,
-  OrderByDirectionValue,
-  Position,
+  type JastListener,
+  type JastVisitor,
+  type OrderByDirection,
+  type OrderByDirectionValue,
+  type Position,
 } from '../types';
 
 import { noChildren } from './common';

@@ -3,7 +3,7 @@
 import React, { useRef, useCallback } from 'react';
 import {
   useAnalyticsEvents,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Textfield from '@atlaskit/textfield';
@@ -13,7 +13,7 @@ import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import { jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { REQUEST_STATE } from '../../../model/Requests';
 

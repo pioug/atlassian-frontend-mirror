@@ -1,5 +1,5 @@
 import WikiMarkupTransformer from '../../../index';
-import { Context } from '../../../interfaces';
+import { type Context } from '../../../interfaces';
 
 describe('JIRA wiki markup - Images and attachments', () => {
   const testCases: Array<[string, string]> = [

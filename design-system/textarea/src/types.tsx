@@ -1,4 +1,4 @@
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 export interface OwnProps extends WithAnalyticsEventsProps {
   /**

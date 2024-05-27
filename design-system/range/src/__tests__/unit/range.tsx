@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import Range, { RangeProps } from '../../index';
+import Range, { type RangeProps } from '../../index';
 
 describe('Range', () => {
   const rangeTestId = 'range';

@@ -1,15 +1,15 @@
 import {
-  Node as PMNode,
-  ResolvedPos,
+  type Node as PMNode,
+  type ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { type Selection } from '@atlaskit/editor-prosemirror/state';
 import {
-  ContentNodeWithPos,
+  type ContentNodeWithPos,
   findParentNode,
   findParentNodeClosestToPos,
 } from '@atlaskit/editor-prosemirror/utils';
 
-import { Rect, TableMap } from '../table-map';
+import { type Rect, TableMap } from '../table-map';
 
 // Iterates over parent nodes, returning the closest table node.
 export const findTable = (

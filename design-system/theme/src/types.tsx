@@ -1,7 +1,7 @@
 /* eslint-disable @repo/internal/react/consistent-props-definitions */
 /* eslint-disable @repo/internal/react/consistent-types-definitions */
 // Non-deprecated types
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 export type colorPaletteType = '8' | '16' | '24';
 export type Elevation = 'e100' | 'e200' | 'e300' | 'e400' | 'e500';

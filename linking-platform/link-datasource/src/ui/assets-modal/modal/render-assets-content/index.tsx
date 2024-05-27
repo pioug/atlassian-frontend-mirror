@@ -4,9 +4,9 @@ import { useCallback, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import {
-  DatasourceDataResponseItem,
-  DatasourceResponseSchemaProperty,
-  DatasourceTableStatusType,
+  type DatasourceDataResponseItem,
+  type DatasourceResponseSchemaProperty,
+  type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

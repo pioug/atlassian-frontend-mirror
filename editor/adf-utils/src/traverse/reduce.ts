@@ -1,4 +1,4 @@
-import { ADFEntity } from '../types';
+import { type ADFEntity } from '../types';
 import { traverse } from './traverse';
 
 export function reduce<T = any>(

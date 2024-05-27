@@ -1,5 +1,5 @@
 import {
-  IntersectionOptions,
+  type IntersectionOptions,
   useInView as useInViewLib,
 } from 'react-intersection-observer';
 import browserSupport from '../util/browser-support';

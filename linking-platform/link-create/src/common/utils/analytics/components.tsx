@@ -5,7 +5,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 
 import createEventPayload, {
-  AnalyticsEventAttributes,
+  type AnalyticsEventAttributes,
 } from './analytics.codegen';
 
 export type ScreenViewedEventProps = {

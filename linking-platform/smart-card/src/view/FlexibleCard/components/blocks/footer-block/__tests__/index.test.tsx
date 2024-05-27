@@ -4,10 +4,10 @@ import { ActionName, SmartLinkStatus } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { render } from '@testing-library/react';
-import { FooterBlockProps } from '../types';
+import { type FooterBlockProps } from '../types';
 import { IntlProvider } from 'react-intl-next';
 import FooterBlock from '../index';
-import { ActionItem } from '../../types';
+import { type ActionItem } from '../../types';
 import userEvent from '@testing-library/user-event';
 
 describe('FooterBlock', () => {

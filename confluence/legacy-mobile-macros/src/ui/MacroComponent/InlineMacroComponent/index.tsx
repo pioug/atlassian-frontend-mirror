@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 
-import { InlineMacroComponentProps } from './types';
+import { type InlineMacroComponentProps } from './types';
 import { getInlineMacroUIComponent } from './utils';
 
 export { hasInlineImplementation } from './utils';

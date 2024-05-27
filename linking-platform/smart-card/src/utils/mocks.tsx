@@ -1,6 +1,6 @@
 import { CardClient } from '@atlaskit/link-provider';
-import { JsonLd } from 'json-ld-types';
-import { AnalyticsFacade } from '../state/analytics';
+import { type JsonLd } from 'json-ld-types';
+import { type AnalyticsFacade } from '../state/analytics';
 
 export const mockContext = {
   '@vocab': 'https://www.w3.org/ns/activitystreams#',

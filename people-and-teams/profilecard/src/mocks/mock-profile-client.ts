@@ -1,6 +1,6 @@
 import TeamCentralCardClient from '../client/TeamCentralCardClient';
 import UserProfileCardClient from '../client/UserProfileCardClient';
-import { ClientOverrides, ProfileClientOptions } from '../types';
+import { type ClientOverrides, type ProfileClientOptions } from '../types';
 
 import profiles from './profile-data';
 import { reportingLinesData } from './reporting-lines-data';

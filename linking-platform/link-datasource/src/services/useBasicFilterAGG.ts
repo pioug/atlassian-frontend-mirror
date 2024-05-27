@@ -3,13 +3,13 @@ import { useCallback, useMemo } from 'react';
 import { request } from '@atlaskit/linking-common';
 
 import {
-  UserHydrationAGGResponse,
-  UserInfoAGGResponse,
+  type UserHydrationAGGResponse,
+  type UserInfoAGGResponse,
 } from '../ui/confluence-search-modal/basic-filters/types';
 import {
-  BasicFilterFieldType,
-  FieldValuesResponse,
-  HydrateResponse,
+  type BasicFilterFieldType,
+  type FieldValuesResponse,
+  type HydrateResponse,
 } from '../ui/jira-issues-modal/basic-filters/types';
 
 import {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, ReactNode, useMemo } from 'react';
-import WebBridgeImpl from '../../../src/editor/native-to-web';
+import React, { useState, useEffect, type ReactNode, useMemo } from 'react';
+import type WebBridgeImpl from '../../../src/editor/native-to-web';
 import Button from './Button';
 import Seperator from './Seperator';
 import { colorPalette } from '@atlaskit/adf-schema';

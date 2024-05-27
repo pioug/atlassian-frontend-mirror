@@ -1,20 +1,21 @@
-import { TaskState, ObjectKey } from '@atlaskit/task-decision';
-import RendererBridge, {
-  CallBackToNotifyConfigChange,
+import { type TaskState, type ObjectKey } from '@atlaskit/task-decision';
+import {type CallBackToNotifyConfigChange} from './bridge';
+import type RendererBridge from './bridge';
+import {
   ScrollToContentNode,
 } from './bridge';
-import { AnnotationPayload, AnnotationStatePayload } from '../types';
-import { Serialized } from '../../types';
+import { type AnnotationPayload, type AnnotationStatePayload } from '../types';
+import { type Serialized } from '../../types';
 import WebBridge from '../../web-bridge';
 import { eventDispatcher, EmitterEvents } from '../dispatcher';
 import { resolvePromise, rejectPromise } from '../../cross-platform-promise';
-import { TaskDecisionProviderImpl } from '../../providers/taskDecisionProvider';
+import { type TaskDecisionProviderImpl } from '../../providers/taskDecisionProvider';
 import {
   nativeBridgeAPI,
   toNativeBridge,
 } from '../web-to-native/implementation';
 import { getElementScrollOffsetByNodeType, scrollToElement } from './utils';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import {
   measureContentRenderedPerformance,
   PerformanceMatrices,

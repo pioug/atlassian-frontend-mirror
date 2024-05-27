@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-import { Provider, Client, ResolveResponse } from '../../src';
+import { Provider, Client, type ResolveResponse } from '../../src';
 import { Card } from '../../src';
 import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 

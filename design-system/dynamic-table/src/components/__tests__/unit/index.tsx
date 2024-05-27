@@ -7,7 +7,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Spinner from '@atlaskit/spinner';
 
 import DynamicTable, { DynamicTableStateless } from '../../../index';
-import { RowCellType, RowType } from '../../../types';
+import { type RowCellType, type RowType } from '../../../types';
 
 import { head, rows, rowsWithKeys, secondSortKey } from './_data';
 import { headNumeric, rowsNumeric } from './_data-numeric';

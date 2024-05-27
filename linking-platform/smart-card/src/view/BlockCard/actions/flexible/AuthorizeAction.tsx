@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { CustomActionItem } from '../../../FlexibleCard/components/blocks/types';
+import { type CustomActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { ActionName } from '../../../../constants';
 import { messages } from '../../../../messages';
 

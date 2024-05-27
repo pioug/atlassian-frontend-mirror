@@ -1,5 +1,5 @@
-import { ButtonClickEventPayload } from './_clickedButton';
-import { ZoomButtonClickAttributes } from './zoomInButtonClicked';
+import { type ButtonClickEventPayload } from './_clickedButton';
+import { type ZoomButtonClickAttributes } from './zoomInButtonClicked';
 
 export type ZoomOutButtonClickEventPayload =
   ButtonClickEventPayload<ZoomButtonClickAttributes> & {

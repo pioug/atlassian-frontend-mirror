@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import ArticlesList from './ArticlesList';
 import ShowMoreButton from '../ShowMoreButton';
 import { ArticlesListContainer } from './styled';
-import { ArticlesList as ArticlesListInterface } from './model/ArticlesListItem';
+import { type ArticlesList as ArticlesListInterface } from './model/ArticlesListItem';
 import { MIN_ITEMS_TO_DISPLAY } from './constants';
 
 const ArticleList: React.FC<ArticlesListInterface> = ({

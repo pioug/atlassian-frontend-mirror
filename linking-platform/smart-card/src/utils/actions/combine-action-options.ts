@@ -1,6 +1,6 @@
 import {
   CardAction,
-  CardPlatform,
+  type CardPlatform,
   type CardActionOptions,
 } from '../../view/Card/types';
 

@@ -1,8 +1,8 @@
 import {
-  ANTLRErrorStrategy,
+  type ANTLRErrorStrategy,
   CharStreams,
   CommonTokenStream,
-  ParserErrorListener,
+  type ParserErrorListener,
 } from 'antlr4ts';
 import memoize from 'memoize-one';
 
@@ -10,7 +10,7 @@ import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
 
 import creators from '../creators';
 import { JastBuilderErrorListener, JQLParseError } from '../errors';
-import { Jast } from '../types';
+import { type Jast } from '../types';
 import { QueryVisitor } from '../visitors';
 
 export class JastBuilder {

@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import React, { useCallback, useEffect, useState } from 'react';
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { PreviewBlockProps } from '../types';
+import { type PreviewBlockProps } from '../types';
 import { MediaPlacement } from '../../../../../../constants';
 import Block from '../../block';
 import { Preview } from '../../../elements';

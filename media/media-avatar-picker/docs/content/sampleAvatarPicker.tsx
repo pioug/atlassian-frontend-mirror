@@ -1,4 +1,4 @@
-import { AvatarPickerDialog, Avatar } from '@atlaskit/media-avatar-picker';
+import { AvatarPickerDialog, type Avatar } from '@atlaskit/media-avatar-picker';
 import React from 'react';
 import { useState } from 'react';
 import { generateAvatars } from '../../example-helpers';

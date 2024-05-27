@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, RenderOptions } from '@testing-library/react';
+import { fireEvent, render, type RenderOptions } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import Form from '@atlaskit/form';
@@ -8,7 +8,7 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import {
   useValidateAqlText,
-  UseValidateAqlTextState,
+  type UseValidateAqlTextState,
 } from '../../../../../hooks/useValidateAqlText';
 import { AqlSearchInput } from '../index';
 

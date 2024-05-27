@@ -1,5 +1,5 @@
 import { createTag } from '../create-tag';
-import { NodeSerializerOpts } from '../interfaces';
+import { type NodeSerializerOpts } from '../interfaces';
 import { N40, N300 } from '@atlaskit/adf-schema';
 import { createClassName } from '../styles/util';
 

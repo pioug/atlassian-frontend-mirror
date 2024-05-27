@@ -9,7 +9,7 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 
-import { ActionProps, Action } from './Action';
+import { type ActionProps, Action } from './Action';
 import { gs, mq } from '../../common/utils';
 import { di } from 'react-magnetic-di';
 

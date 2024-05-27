@@ -1,6 +1,6 @@
-import { Identifier, MediaClient } from '@atlaskit/media-client';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { ReactNode } from 'react';
+import { type Identifier, type MediaClient } from '@atlaskit/media-client';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import { type ReactNode } from 'react';
 
 export type FileStateFlags = {
   wasStatusProcessing: boolean;

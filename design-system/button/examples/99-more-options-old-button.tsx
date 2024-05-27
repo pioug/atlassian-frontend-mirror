@@ -11,8 +11,8 @@ import Unlink from '@atlaskit/icon/glyph/editor/unlink';
 import Page from '@atlaskit/icon/glyph/page';
 import Question from '@atlaskit/icon/glyph/question';
 
-import { Appearance } from '../src';
-import Button, { ButtonProps } from '../src/old-button/button';
+import { type Appearance } from '../src';
+import Button, { type ButtonProps } from '../src/old-button/button';
 
 const styles = {
   sample: {

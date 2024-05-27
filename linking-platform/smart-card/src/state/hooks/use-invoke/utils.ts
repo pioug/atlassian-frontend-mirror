@@ -1,4 +1,4 @@
-import { InvokeError } from '@atlaskit/linking-types';
+import { type InvokeError } from '@atlaskit/linking-types';
 import { TrackQuickActionFailureReason } from '../../../utils/analytics/analytics';
 
 export const getInvokeFailureReason = (err: InvokeError | Error) => {

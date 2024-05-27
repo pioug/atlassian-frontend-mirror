@@ -1,4 +1,4 @@
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 import React from 'react';

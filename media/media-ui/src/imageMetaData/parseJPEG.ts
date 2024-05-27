@@ -1,4 +1,4 @@
-import { SupportedImageMetaTag, ImageMetaDataTags } from './types';
+import { SupportedImageMetaTag, type ImageMetaDataTags } from './types';
 
 const { XResolution, YResolution } = SupportedImageMetaTag;
 

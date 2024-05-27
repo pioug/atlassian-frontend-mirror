@@ -2,7 +2,7 @@ import {
   isEmptyFile,
   EMPTY_FILE_HOURS_ELAPSED_TOLERANCE_MS,
 } from '../../detectEmptyFile';
-import { MediaItemDetails } from '../../../models/media';
+import { type MediaItemDetails } from '../../../models/media';
 
 describe('Detect Empty Files', () => {
   const NOW = 1613978306455;

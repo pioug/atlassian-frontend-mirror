@@ -1,5 +1,10 @@
-import core, { ASTPath, ImportDeclaration, ImportSpecifier } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import {
+  type ASTPath,
+  type default as core,
+  type ImportDeclaration,
+  type ImportSpecifier,
+} from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 const component = '@atlaskit/tabs/types';
 const existingTypes = [

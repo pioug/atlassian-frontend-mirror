@@ -1,8 +1,8 @@
 import * as uuid from 'uuid';
 import {
-  MediaType,
-  MediaItemDetails,
-  MediaFileProcessingStatus,
+  type MediaType,
+  type MediaItemDetails,
+  type MediaFileProcessingStatus,
 } from '@atlaskit/media-client';
 import {
   getHackerNoun,

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { type PropsWithChildren, useMemo } from 'react';
 import { useIntl, IntlProvider } from 'react-intl-next';
 import { getMessagesForLocale } from '../util/i18n-util';
 

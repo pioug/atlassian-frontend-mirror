@@ -16,8 +16,8 @@ import {
   smallImageFileId,
   asMock,
 } from '@atlaskit/media-test-helpers';
-import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
-import { FileState } from '@atlaskit/media-client';
+import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
+import { type FileState } from '@atlaskit/media-client';
 import { messages as i18nMessages } from '@atlaskit/media-ui';
 import { createLoadFailedEvent } from '../../../analytics/events/operational/loadFailed';
 import { createPreviewUnsupportedEvent } from '../../../analytics/events/operational/previewUnsupported';

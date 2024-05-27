@@ -5,7 +5,7 @@ import { fireEvent, render } from '@testing-library/react';
 import Box from '@atlaskit/primitives/box';
 import noop from '@atlaskit/ds-lib/noop';
 
-import { AppearanceTypes, FlagProps } from '../../types';
+import { type AppearanceTypes, type FlagProps } from '../../types';
 import Flag from '../../flag';
 
 describe('actions prop', () => {

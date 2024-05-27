@@ -3,7 +3,7 @@ import type { OptionType, SelectProps } from '@atlaskit/select';
 import { shallow, mount } from 'enzyme';
 import { render } from '@testing-library/react';
 import { Input } from '../../../components/Input';
-import { AriaAttributesType } from '../../../types';
+import { type AriaAttributesType } from '../../../types';
 
 describe('ClearIndicator', () => {
   const shallowInput = (props: any) => shallow(<Input {...props} />);

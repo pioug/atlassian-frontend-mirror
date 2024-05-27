@@ -1,5 +1,13 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.6.2
+
+### Patch Changes
+
+-   [#102478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102478)
+    [`3378951608b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3378951608b0) -
+    [ED-23332] Update adf-schema package to 36.10.1
+
 ## 5.6.1
 
 ### Patch Changes

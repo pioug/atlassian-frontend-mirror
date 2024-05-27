@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { MetadataProps, Metadata } from './Metadata';
+import { type MetadataProps, Metadata } from './Metadata';
 import { gs } from './utils';
 
 export interface MetadataListProps {

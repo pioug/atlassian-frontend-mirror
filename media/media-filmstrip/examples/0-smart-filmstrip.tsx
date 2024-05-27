@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Component, SyntheticEvent } from 'react';
+import { Component, type SyntheticEvent } from 'react';
 import {
   createUploadMediaClient,
   genericFileId,
@@ -10,18 +10,18 @@ import {
   externalImageIdentifier,
   defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
-import { CardEvent, CardAction } from '@atlaskit/media-card';
+import { type CardEvent, type CardAction } from '@atlaskit/media-card';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import {
-  FileItem,
-  FileState,
-  UploadableFile,
-  MediaClient,
-  FileIdentifier,
+  type FileItem,
+  type FileState,
+  type UploadableFile,
+  type MediaClient,
+  type FileIdentifier,
 } from '@atlaskit/media-client';
 import Button from '@atlaskit/button/new';
 import { filmstripWrapperStyles } from '../example-helpers/styles';
-import { Filmstrip, FilmstripItem } from '../src';
+import { Filmstrip, type FilmstripItem } from '../src';
 
 export interface ExampleState {
   items: FilmstripItem[];

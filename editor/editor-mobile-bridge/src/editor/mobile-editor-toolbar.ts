@@ -1,21 +1,21 @@
 import { toNativeBridge } from './web-to-native/index';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
-  Command,
-  DropdownOptionT,
-  FloatingToolbarButton,
-  FloatingToolbarColorPicker,
-  FloatingToolbarConfig,
-  FloatingToolbarDatePicker,
-  FloatingToolbarDropdown,
-  FloatingToolbarEmojiPicker,
-  FloatingToolbarInput,
-  FloatingToolbarItem,
-  FloatingToolbarListPicker,
-  SelectOption,
+  type Command,
+  type DropdownOptionT,
+  type FloatingToolbarButton,
+  type FloatingToolbarColorPicker,
+  type FloatingToolbarConfig,
+  type FloatingToolbarDatePicker,
+  type FloatingToolbarDropdown,
+  type FloatingToolbarEmojiPicker,
+  type FloatingToolbarInput,
+  type FloatingToolbarItem,
+  type FloatingToolbarListPicker,
+  type SelectOption,
 } from '@atlaskit/editor-common/types';
-import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
-import { EmojiId } from '@atlaskit/emoji';
+import { type Node, type NodeType } from '@atlaskit/editor-prosemirror/model';
+import { type EmojiId } from '@atlaskit/emoji';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 
 export type MobileEditorToolbarItem = FloatingToolbarItem<Command> & {

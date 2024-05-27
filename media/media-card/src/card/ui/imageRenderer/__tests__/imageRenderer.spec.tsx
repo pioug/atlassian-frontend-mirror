@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { ImageRenderer } from '../imageRenderer';
 import { resizeModeToMediaImageProps } from '../resizeModeToMediaImageProps';
-import { MediaType } from '@atlaskit/media-client';
+import { type MediaType } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 
 const nonImageMediaTypes: MediaType[] = ['video', 'audio', 'doc', 'unknown'];

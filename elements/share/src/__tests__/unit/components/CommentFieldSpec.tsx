@@ -5,9 +5,9 @@ import { mount } from 'enzyme';
 import { Field } from '@atlaskit/form';
 import TextArea from '@atlaskit/textarea';
 
-import { CommentField, Props } from '../../../components/CommentField';
+import { CommentField, type Props } from '../../../components/CommentField';
 import { messages } from '../../../i18n';
-import { Comment } from '../../../types';
+import { type Comment } from '../../../types';
 
 jest.mock('react-intl-next', () => {
   return {

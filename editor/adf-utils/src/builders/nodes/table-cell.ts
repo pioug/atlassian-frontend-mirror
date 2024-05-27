@@ -1,4 +1,4 @@
-import { TableCellDefinition, CellAttributes } from '@atlaskit/adf-schema';
+import { type TableCellDefinition, type CellAttributes } from '@atlaskit/adf-schema';
 
 export const tableCell =
   (attrs?: CellAttributes) =>

@@ -12,13 +12,13 @@ import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import {
   ElementDisplaySchema,
-  ElementDisplaySchemaType,
+  type ElementDisplaySchemaType,
   getBaseStyles,
   renderElementItems,
 } from '../utils';
 import { MetadataBlock } from '../index';
 import Block from '../block';
-import { ElementItem } from '../../blocks/types';
+import { type ElementItem } from '../../blocks/types';
 
 const TestRenderElementItemBlock: React.FC<{
   display: ElementDisplaySchemaType;

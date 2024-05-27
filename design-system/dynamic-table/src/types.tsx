@@ -1,9 +1,9 @@
 /* eslint-disable @repo/internal/react/consistent-types-definitions */
-import React, { Ref } from 'react';
+import { type default as React, type Ref } from 'react';
 
 import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import type { Size as SizeType } from '@atlaskit/spinner';
 

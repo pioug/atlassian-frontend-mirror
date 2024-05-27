@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { forwardRef } from 'react';
 import { jsx } from '@emotion/react';
-import { CardActionButtonOwnProps, cardActionButtonStyles } from './styles';
+import { type CardActionButtonOwnProps, cardActionButtonStyles } from './styles';
 
 export const CardActionButton = forwardRef<
   HTMLButtonElement,

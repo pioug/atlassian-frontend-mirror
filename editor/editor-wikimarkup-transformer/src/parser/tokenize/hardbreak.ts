@@ -1,4 +1,4 @@
-import { TokenParser } from './';
+import { type TokenParser } from './';
 import { parseNewlineOnly } from './whitespace';
 
 export const hardbreak: TokenParser = ({ input, position, schema }) => {

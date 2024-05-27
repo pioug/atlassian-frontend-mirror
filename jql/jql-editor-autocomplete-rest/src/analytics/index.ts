@@ -3,7 +3,7 @@ import {
   useJqlPackageAnalytics,
 } from '@atlaskit/jql-editor-common';
 
-import { Action, ActionSubject, ActionSubjectId } from './types';
+import { type Action, type ActionSubject, type ActionSubjectId } from './types';
 
 export const useJqlEditorAutocompleteAnalytics = (analyticsSource: string) => {
   return useJqlPackageAnalytics<Action, ActionSubject, ActionSubjectId>(

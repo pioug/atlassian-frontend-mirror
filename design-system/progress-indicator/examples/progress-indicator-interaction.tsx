@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { type ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Box, Inline } from '@atlaskit/primitives';

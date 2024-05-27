@@ -8,7 +8,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
   EntityType,
   fetchUserRecommendations,
-  UserSearchItem,
+  type UserSearchItem,
 } from '@atlaskit/smart-common';
 
 import type { UseUserRecommendationsProps } from '../../types';

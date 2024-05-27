@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
 
-import { axe, JestAxeConfigureOptions } from '@af/accessibility-testing';
+import { axe, type JestAxeConfigureOptions } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import BasicExample from '../../../examples/basic';

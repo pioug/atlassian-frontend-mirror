@@ -1,4 +1,4 @@
-import { FlexibleCardProps } from '../../../../FlexibleCard/types';
+import { type FlexibleCardProps } from '../../../../FlexibleCard/types';
 
 export type HoverCardForbiddenProps = {
   /**

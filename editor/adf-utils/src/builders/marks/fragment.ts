@@ -1,13 +1,13 @@
 import {
-  ExtensionDefinition,
-  BodiedExtensionDefinition,
-  InlineExtensionDefinition,
-  TableDefinition,
-  FragmentAttributes,
-  FragmentDefinition,
+  type ExtensionDefinition,
+  type BodiedExtensionDefinition,
+  type InlineExtensionDefinition,
+  type TableDefinition,
+  type FragmentAttributes,
+  type FragmentDefinition,
 } from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
-import { WithAppliedMark } from '../types';
+import { type WithAppliedMark } from '../types';
 
 export const fragment =
   (attrs: FragmentAttributes) =>

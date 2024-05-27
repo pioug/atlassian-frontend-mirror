@@ -5,7 +5,7 @@ import { waitFor, cleanup, screen } from '@testing-library/react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
-import { EmojiDescription, UfoEmojiTimings } from '../../../../types';
+import { type EmojiDescription, UfoEmojiTimings } from '../../../../types';
 import Emoji from '../../../../components/common/Emoji';
 import EmojiPlaceholder from '../../../../components/common/EmojiPlaceholder';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';

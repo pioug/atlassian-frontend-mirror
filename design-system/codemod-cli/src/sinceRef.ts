@@ -1,5 +1,5 @@
 import simpleGit from 'simple-git';
-import { ValidationError, ParsedPkg } from './types';
+import { ValidationError, type ParsedPkg } from './types';
 
 const packageRegex = /"(@(?:atlaskit|atlassian|atlassiansox)\/.*)": "(.*)"/;
 

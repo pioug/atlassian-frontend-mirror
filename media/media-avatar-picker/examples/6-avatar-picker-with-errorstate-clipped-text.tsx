@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { Avatar, AvatarPickerDialog } from '../src';
+import { type Avatar, AvatarPickerDialog } from '../src';
 import { generateAvatars } from '../example-helpers';
 import { tallImage } from '@atlaskit/media-test-helpers';
 

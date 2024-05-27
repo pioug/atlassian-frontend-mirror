@@ -1,9 +1,9 @@
 import {
-  RequestServiceOptions,
-  ServiceConfig,
+  type RequestServiceOptions,
+  type ServiceConfig,
   utils,
 } from '@atlaskit/util-service-support';
-import { NotificationLogProvider, NotificationCountResponse } from './types';
+import { type NotificationLogProvider, type NotificationCountResponse } from './types';
 
 export const DEFAULT_SOURCE = 'atlaskitNotificationLogClient';
 

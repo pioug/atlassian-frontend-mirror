@@ -1,4 +1,4 @@
-import { StatsigOptions } from 'statsig-js-lite';
+import { type StatsigOptions } from 'statsig-js-lite';
 
 /**
  * The identifiers for the user. Options are restricted to the set that is currently supported.

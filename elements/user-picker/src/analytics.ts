@@ -1,9 +1,9 @@
 import {
   createAndFireEvent,
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
 } from '@atlaskit/analytics-next';
 import { v4 as uuidv4 } from 'uuid';
-import { Option, OptionData, UserPickerProps, UserPickerState } from './types';
+import { type Option, type OptionData, type UserPickerProps, type UserPickerState } from './types';
 import { isCustom, isExternalUser } from './components/utils';
 
 const packageName = process.env._PACKAGE_NAME_ as string;

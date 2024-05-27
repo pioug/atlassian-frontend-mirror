@@ -7,7 +7,7 @@ import {
   videoFileId,
   createUploadMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
-import { FileIdentifier } from '@atlaskit/media-client';
+import { type FileIdentifier } from '@atlaskit/media-client';
 import { Card } from '../../src';
 import { cardWrapperStyles } from '../../example-helpers/styles';
 import { MainWrapper } from '../../example-helpers';

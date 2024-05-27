@@ -2,8 +2,8 @@ import React from 'react';
 import { N600 } from '@atlaskit/theme/colors';
 import CodeIcon from '@atlaskit/icon/glyph/code';
 
-import { JsonLd } from 'json-ld-types';
-import { LinkDetail } from './types';
+import { type JsonLd } from 'json-ld-types';
+import { type LinkDetail } from './types';
 import { token } from '@atlaskit/tokens';
 
 export type LinkProgrammingLanguageType =

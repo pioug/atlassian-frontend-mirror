@@ -1,8 +1,8 @@
 import memoizeOne from 'memoize-one';
-import { EmailType, Option } from '../types';
+import { EmailType, type Option } from '../types';
 import {
-  EmailValidationResponse,
-  EmailValidator,
+  type EmailValidationResponse,
+  type EmailValidator,
   isValidEmail as defaultIsValidEmail,
 } from './emailValidation';
 import { isEmail } from './utils';

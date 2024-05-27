@@ -1,6 +1,6 @@
 import AnalyticsWebClient from '@atlassiansox/analytics-web-client';
-import fetchMock, { MockResponseInit } from 'jest-fetch-mock';
-import Statsig, { DynamicConfig } from 'statsig-js-lite';
+import fetchMock, { type MockResponseInit } from 'jest-fetch-mock';
+import Statsig, { type DynamicConfig } from 'statsig-js-lite';
 
 import type FeatureGates from '../index';
 // eslint-disable-next-line no-duplicate-imports

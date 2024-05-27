@@ -1,12 +1,12 @@
-import React, { ComponentType } from 'react';
+import React, { type ComponentType } from 'react';
 
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { withErrorBoundary } from './ui/error-boundary';
 import { withIntlProvider } from './ui/intl-provider';
 import { JQLEditorReadOnly } from './ui/jql-editor-layout';
-import { JQLEditorUIProps } from './ui/jql-editor/types';
-import { JQLEditorProps } from './ui/types';
+import { type JQLEditorUIProps } from './ui/jql-editor/types';
+import { type JQLEditorProps } from './ui/types';
 
 const JQLEditor = lazyForPaint<ComponentType<JQLEditorUIProps>>(
   () =>

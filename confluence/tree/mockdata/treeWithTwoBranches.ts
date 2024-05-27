@@ -1,4 +1,4 @@
-import { TreeData } from '../src/types';
+import { type TreeData } from '../src/types';
 
 export const treeWithTwoBranches: TreeData = {
   rootId: '1',

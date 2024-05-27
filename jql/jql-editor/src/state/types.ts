@@ -1,23 +1,23 @@
-import { FocusEvent, MouseEvent, MutableRefObject, ReactNode } from 'react';
+import { type FocusEvent, type MouseEvent, type MutableRefObject, type ReactNode } from 'react';
 
-import { IntlShape } from 'react-intl-next';
-import { Subscription } from 'rxjs/Subscription';
+import { type IntlShape } from 'react-intl-next';
+import { type Subscription } from 'rxjs/Subscription';
 
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { Jast, JQLParseError } from '@atlaskit/jql-ast';
+import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type Jast, type JQLParseError } from '@atlaskit/jql-ast';
 import {
-  JQLRuleContext,
-  JQLRuleSuggestions,
-  TokenSuggestions,
+  type JQLRuleContext,
+  type JQLRuleSuggestions,
+  type TokenSuggestions,
 } from '@atlaskit/jql-autocomplete';
 
-import { JqlEditorAnalyticsEvent } from '../analytics';
+import { type JqlEditorAnalyticsEvent } from '../analytics';
 import {
-  AutocompleteOptionGroup,
-  AutocompleteProvider,
+  type AutocompleteOptionGroup,
+  type AutocompleteProvider,
 } from '../plugins/autocomplete/types';
-import { HydratedValue, HydratedValues } from '../ui/jql-editor/types';
+import { type HydratedValue, type HydratedValues } from '../ui/jql-editor/types';
 
 export type ContextAwareTokenSuggestions = TokenSuggestions & {
   context?: JQLRuleContext;

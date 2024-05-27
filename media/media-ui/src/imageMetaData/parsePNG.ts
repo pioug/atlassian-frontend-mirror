@@ -1,5 +1,5 @@
 import { fileToArrayBuffer } from '../util';
-import { PNGMetaData, PNGChunk } from './types';
+import { type PNGMetaData, type PNGChunk } from './types';
 
 let pngChunksExtract: any;
 

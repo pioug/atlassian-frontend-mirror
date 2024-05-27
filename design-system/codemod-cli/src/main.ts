@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import fs from 'fs';
-import { ParsedPath } from 'path';
+import { type ParsedPath } from 'path';
 import spawn from 'projector-spawn';
 import { AutoComplete } from 'enquirer';
 import semver from 'semver';
@@ -16,11 +16,11 @@ import {
   getTransformModule,
 } from './transforms';
 import {
-  Flags,
-  Default,
+  type Flags,
+  type Default,
   ValidationError,
   NoTransformsExistError,
-  ParsedPkg,
+  type ParsedPkg,
 } from './types';
 import { getPackagesSinceRef } from './sinceRef';
 import { findDependentPackagePaths } from './filepath';

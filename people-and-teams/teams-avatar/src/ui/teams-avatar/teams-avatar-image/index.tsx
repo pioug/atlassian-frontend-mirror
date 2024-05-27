@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { AVATAR_SIZES, CustomAvatarProps, SizeType } from '@atlaskit/avatar';
+import { AVATAR_SIZES, type CustomAvatarProps, type SizeType } from '@atlaskit/avatar';
 import TeamIcon from '@atlaskit/icon/glyph/people';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

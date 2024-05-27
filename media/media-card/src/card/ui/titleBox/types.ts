@@ -1,7 +1,7 @@
-import { MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl-next';
 
-import { Breakpoint } from '../common';
-import { TitleBoxIcon as TitleBoxIconType } from '../../../types';
+import { type Breakpoint } from '../common';
+import { type TitleBoxIcon as TitleBoxIconType } from '../../../types';
 
 export type TitleBoxProps = {
   name: string;

@@ -1,7 +1,7 @@
 import React from 'react';
-import { css, SerializedStyles } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
-import { MetadataBlockProps } from './types';
+import { type MetadataBlockProps } from './types';
 import {
   SmartLinkAlignment,
   SmartLinkDirection,

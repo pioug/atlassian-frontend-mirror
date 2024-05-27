@@ -10,7 +10,7 @@ import {
 import Button from '@atlaskit/button/new';
 import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
-import { FileState } from '@atlaskit/media-client';
+import { type FileState } from '@atlaskit/media-client';
 
 import {
   MainWrapper,
@@ -22,7 +22,7 @@ import {
   DropzoneItemsInfo,
 } from '../example-helpers';
 import { Dropzone } from '../src';
-import { DropzoneConfig, UploadsStartEventPayload } from '../src/types';
+import { type DropzoneConfig, type UploadsStartEventPayload } from '../src/types';
 
 export interface DropzoneWrapperState {
   isConnectedToUsersCollection: boolean;

@@ -1,40 +1,40 @@
 import {
-  FileDetails,
-  FileStatus,
-  MediaClientErrorReason,
+  type FileDetails,
+  type FileStatus,
+  type MediaClientErrorReason,
   getMediaClientErrorReason,
-  RequestMetadata,
+  type RequestMetadata,
   isRequestError,
 } from '@atlaskit/media-client';
 import {
   ANALYTICS_MEDIA_CHANNEL,
-  FileAttributes,
-  PerformanceAttributes,
-  OperationalEventPayload,
-  UIEventPayload,
-  WithFileAttributes,
-  WithPerformanceAttributes,
-  SuccessAttributes,
-  FailureAttributes,
-  ScreenEventPayload,
-  ScreenAttributes,
-  MediaTraceContext,
-  WithTraceContext,
+  type FileAttributes,
+  type PerformanceAttributes,
+  type OperationalEventPayload,
+  type UIEventPayload,
+  type WithFileAttributes,
+  type WithPerformanceAttributes,
+  type SuccessAttributes,
+  type FailureAttributes,
+  type ScreenEventPayload,
+  type ScreenAttributes,
+  type MediaTraceContext,
+  type WithTraceContext,
   sanitiseAnalyticsPayload,
 } from '@atlaskit/media-common/analytics';
 
 import {
-  CreateUIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
   createAndFireEvent,
 } from '@atlaskit/analytics-next';
 import {
   isMediaCardError,
-  MediaCardError,
-  MediaCardErrorPrimaryReason,
+  type MediaCardError,
+  type MediaCardErrorPrimaryReason,
   getFileStateErrorReason,
   isMediaFileStateError,
 } from '../../errors';
-import { CardPreviewSource, CardDimensions, CardStatus } from '../../types';
+import { type CardPreviewSource, type CardDimensions, type CardStatus } from '../../types';
 
 export type CardPreviewAttributes = {
   fileId: string;

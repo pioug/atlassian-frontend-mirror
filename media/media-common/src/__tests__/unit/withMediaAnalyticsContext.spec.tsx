@@ -2,23 +2,23 @@ import React, { forwardRef, useEffect } from 'react';
 import { mount } from 'enzyme';
 
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   AnalyticsListener,
   createAndFireEvent,
-  CreateUIAnalyticsEvent,
-  WithAnalyticsEventsProps,
+  type CreateUIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 
 import { ANALYTICS_MEDIA_CHANNEL } from '../../analytics/constants';
 import {
-  ContextPublicAttributes,
-  ContextStaticProps,
+  type ContextPublicAttributes,
+  type ContextStaticProps,
 } from '../../analytics/types';
 import { withMediaAnalyticsContext } from '../../analytics/withMediaAnalyticsContext';
 
-import { MediaFeatureFlags } from '../../mediaFeatureFlags';
+import { type MediaFeatureFlags } from '../../mediaFeatureFlags';
 
 describe('withMediaAnalyticsContext()', () => {
   const setup = (analyticsEventPayload: AnalyticsEventPayload = {}) => {

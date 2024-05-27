@@ -3,7 +3,7 @@ import { borderRadius } from '@atlaskit/media-ui';
 import { rgba } from '../styles';
 import { N0 } from '@atlaskit/theme/colors';
 import { Breakpoint, getTitleBoxHeight, responsiveSettings } from '../common';
-import { StyledBarProps } from './types';
+import { type StyledBarProps } from './types';
 
 const height = 3;
 const padding = 1;

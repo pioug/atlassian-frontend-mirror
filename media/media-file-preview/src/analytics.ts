@@ -1,19 +1,19 @@
 import {
   getMediaClientErrorReason,
   isRequestError,
-  MediaClientErrorReason,
+  type MediaClientErrorReason,
 } from '@atlaskit/media-client';
-import { MediaTraceContext, SuccessAttributes } from '@atlaskit/media-common';
+import { type MediaTraceContext, type SuccessAttributes } from '@atlaskit/media-common';
 
 import {
   getFileStateErrorReason,
   ImageLoadError,
   isMediaFilePreviewError,
   isMediaFileStateError,
-  MediaFilePreviewError,
-  MediaFilePreviewErrorPrimaryReason,
+  type MediaFilePreviewError,
+  type MediaFilePreviewErrorPrimaryReason,
 } from './errors';
-import { MediaFilePreview } from './types';
+import { type MediaFilePreview } from './types';
 
 export type FailedErrorFailReason =
   | MediaFilePreviewErrorPrimaryReason

@@ -1,6 +1,6 @@
 import { toArray } from 'rxjs/operators/toArray';
 import { of } from 'rxjs/observable/of';
-import { HashedBlob } from '../../domain';
+import { type HashedBlob } from '../../domain';
 import { hashinator, blobToHashedBlob } from '../../hashinator';
 
 (global as any).window.crypto = {

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { MediaType, ImageResizeMode } from '@atlaskit/media-client';
+import { type MediaType, type ImageResizeMode } from '@atlaskit/media-client';
 import { MediaImage } from '@atlaskit/media-ui';
 import { resizeModeToMediaImageProps } from './resizeModeToMediaImageProps';
-import { CardPreview } from '../../../types';
+import { type CardPreview } from '../../../types';
 import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
 
 export type ImageRendererProps = {

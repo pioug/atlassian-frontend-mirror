@@ -3,7 +3,7 @@ import type { IntlShape } from 'react-intl-next';
 import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import { Command } from './command';
+import { type Command } from './command';
 
 export type MarkOptions = {
   state: EditorState;

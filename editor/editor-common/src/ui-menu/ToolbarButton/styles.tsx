@@ -3,7 +3,7 @@
 //  and notify about the change in #team-fc-editor-ai-dev channel.
 import React from 'react';
 
-import Button, { ButtonProps } from '@atlaskit/button/standard-button';
+import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
 
 export default React.forwardRef<HTMLElement, ButtonProps>((props, ref) => {
   return <Button ref={ref} {...props} style={{ alignItems: 'center' }} />;

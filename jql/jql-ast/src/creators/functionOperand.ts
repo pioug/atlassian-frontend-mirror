@@ -1,12 +1,12 @@
 import { NODE_TYPE_OPERAND, OPERAND_TYPE_FUNCTION } from '../constants';
 import {
-  Argument,
-  AstNode,
-  FunctionOperand,
-  FunctionString,
-  JastListener,
-  JastVisitor,
-  Position,
+  type Argument,
+  type AstNode,
+  type FunctionOperand,
+  type FunctionString,
+  type JastListener,
+  type JastVisitor,
+  type Position,
 } from '../types';
 
 import { assignParent } from './common';

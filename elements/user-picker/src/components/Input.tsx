@@ -4,7 +4,7 @@ import {
   type OptionType,
   type SelectProps,
 } from '@atlaskit/select';
-import { AriaAttributesType } from '../types';
+import { type AriaAttributesType } from '../types';
 
 export type Props = {
   selectProps?: SelectProps<OptionType, boolean>;

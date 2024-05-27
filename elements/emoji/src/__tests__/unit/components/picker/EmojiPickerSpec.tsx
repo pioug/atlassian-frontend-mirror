@@ -6,7 +6,7 @@ import { matchers } from '@emotion/jest';
 import {
   act,
   fireEvent,
-  RenderResult,
+  type RenderResult,
   screen,
   waitFor,
   within,
@@ -26,14 +26,14 @@ import fetchMock from 'fetch-mock/cjs/client';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import {
   EmojiResource,
-  EmojiResourceConfig,
+  type EmojiResourceConfig,
 } from '../../../../api/EmojiResource';
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import { sortCategories } from '../../../../components/picker/CategorySelector';
 import EmojiPicker, {
-  Props as EmojiPickerProps,
+  type Props as EmojiPickerProps,
 } from '../../../../components/picker/EmojiPicker';
 import EmojiPickerVirtualList from '../../../../components/picker/EmojiPickerList';
 import { emojiPickerHeightOffset } from '../../../../components/picker/utils';

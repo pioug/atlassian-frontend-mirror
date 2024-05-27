@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import CustomItem, { CustomItemComponentProps } from '../../custom-item';
+import CustomItem, { type CustomItemComponentProps } from '../../custom-item';
 
 describe('<CustomItem />', () => {
   it('should pass through extra props to the component', () => {

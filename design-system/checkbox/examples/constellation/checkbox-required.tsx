@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Fragment, useCallback, useState } from 'react';
+import React, { type ChangeEvent, Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Form, { CheckboxField, FormFooter } from '@atlaskit/form';

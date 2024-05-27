@@ -1,4 +1,4 @@
-import { RequestMetadata, RequestOptions } from './types';
+import { type RequestMetadata, type RequestOptions } from './types';
 
 export type {
   RequestErrorReason,

@@ -3,19 +3,19 @@ import './card-states.card.test.mock';
 import { APIError } from '@atlaskit/linking-common';
 import '@atlaskit/link-test-helpers/jest';
 import {
-  CardClient,
-  CardProviderStoreOpts,
+  type CardClient,
+  type CardProviderStoreOpts,
   SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import React, { useState } from 'react';
 import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { Card, CardAppearance } from '../../Card';
+import { Card, type CardAppearance } from '../../Card';
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mockByUrl, mocks } from '../../../utils/mocks';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
 import { flushPromises } from '@atlaskit/media-test-helpers';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 mockSimpleIntersectionObserver();
 

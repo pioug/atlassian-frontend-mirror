@@ -1,6 +1,6 @@
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
-import { Card, Client, Provider, ResolveResponse } from '../src';
+import { Card, Client, Provider, type ResolveResponse } from '../src';
 
 class ForbiddenClient extends Client {
   fetchData(): Promise<ResolveResponse> {

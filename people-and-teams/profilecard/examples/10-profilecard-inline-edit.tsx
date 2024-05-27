@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import InlineEdit from '@atlaskit/inline-edit';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 import ProfileCardClient from '../src/client/ProfileCardClient';
 import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/Team';
 import teamData from '../src/mocks/team-data';
-import { Team } from '../src/types';
+import { type Team } from '../src/types';
 
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';

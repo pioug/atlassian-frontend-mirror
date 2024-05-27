@@ -1,4 +1,4 @@
-import { InternalRatingProps } from '../components/rating';
+import { type InternalRatingProps } from '../components/rating';
 
 /**
  * This gets around extract-react-types not supporting forwardRef.

@@ -1,6 +1,6 @@
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import EventEmitter from 'events';
-import { AnnotationPayload, AnnotationStatePayload } from './types';
+import { type AnnotationPayload, type AnnotationStatePayload } from './types';
 
 export enum EmitterEvents {
   SET_ANNOTATION_FOCUS = 'SET_ANNOTATION_FOCUS',

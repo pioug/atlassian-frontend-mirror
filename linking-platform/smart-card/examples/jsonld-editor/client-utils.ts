@@ -1,5 +1,5 @@
-import { JsonLd } from 'json-ld-types';
-import { ServerErrorType } from '@atlaskit/linking-common';
+import { type JsonLd } from 'json-ld-types';
+import { type ServerErrorType } from '@atlaskit/linking-common';
 
 // Copied from packages/linking-platform/link-provider/src/client/api.ts
 const ALLOWED_RESPONSE_STATUS_CODES = [200, 401, 404];

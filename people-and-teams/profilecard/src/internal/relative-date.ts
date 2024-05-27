@@ -3,7 +3,7 @@ import isThisMonth from 'date-fns/isThisMonth';
 import isThisWeek from 'date-fns/isThisWeek';
 import isValid from 'date-fns/isValid';
 
-import { RelativeDateKeyType } from '../types';
+import { type RelativeDateKeyType } from '../types';
 
 export function isValidDate(date: Date, today: Date = new Date()) {
   return !!date.getTime && isValid(date) && date.getTime() <= today.getTime();

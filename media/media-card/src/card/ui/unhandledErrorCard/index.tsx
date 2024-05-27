@@ -6,8 +6,8 @@ import WarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import { N20, N800, Y500 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { center, borderRadius } from '@atlaskit/media-ui';
-import { CardDimensions } from '../../../types';
-import { UnhandledErrorCardProps } from './types';
+import { type CardDimensions } from '../../../types';
+import { type UnhandledErrorCardProps } from './types';
 import { defaultImageCardDimensions } from '../../../utils';
 
 type ConvertedDimensions = {

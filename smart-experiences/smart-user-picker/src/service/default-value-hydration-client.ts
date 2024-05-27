@@ -1,10 +1,10 @@
 import {
-  DefaultValue,
-  OptionData,
-  OptionIdentifier,
-  User,
+  type DefaultValue,
+  type OptionData,
+  type OptionIdentifier,
+  type User,
   UserType,
-  Team,
+  type Team,
 } from '@atlaskit/user-picker';
 
 import { config } from '../config';

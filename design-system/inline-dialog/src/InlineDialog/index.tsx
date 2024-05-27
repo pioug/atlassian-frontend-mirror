@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { FC, memo, useCallback, useEffect, useRef } from 'react';
+import React, { type FC, memo, useCallback, useEffect, useRef } from 'react';
 
 import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';

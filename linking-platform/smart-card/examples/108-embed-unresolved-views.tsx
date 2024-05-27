@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ProviderProps } from '@atlaskit/link-provider';
+import { type ProviderProps } from '@atlaskit/link-provider';
 import { jsx } from '@emotion/react';
 import React from 'react';
 import CardView from './utils/card-view';

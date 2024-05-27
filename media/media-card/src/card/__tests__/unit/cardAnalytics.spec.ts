@@ -1,14 +1,14 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   fireOperationalEvent,
   fireCopiedEvent,
   fireCommencedEvent,
 } from '../../cardAnalytics';
 import {
-  FileAttributes,
+  type FileAttributes,
   ANALYTICS_MEDIA_CHANNEL,
-  PerformanceAttributes,
-  MediaTraceContext,
+  type PerformanceAttributes,
+  type MediaTraceContext,
 } from '@atlaskit/media-common';
 import * as analyticsModule from '../../../utils/analytics/analytics';
 import type { SSRStatus } from '../../../utils/analytics/analytics';

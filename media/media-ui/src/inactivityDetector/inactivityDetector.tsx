@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, SyntheticEvent, ReactElement } from 'react';
+import { Component, type SyntheticEvent, type ReactElement } from 'react';
 import { hideControlsClassName } from '../classNames';
 import { findParentByClassname } from '../util';
 import { InactivityDetectorWrapper } from './styled';

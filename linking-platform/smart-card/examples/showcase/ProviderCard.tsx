@@ -5,14 +5,14 @@ import { useCallback } from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
-import Lozenge, { ThemeAppearance } from '@atlaskit/lozenge';
+import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
 import ExpandIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import CollapseIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import { N50A, N40A } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { ExampleUrl, ExampleUIConfig, ExampleRolloutStatus } from './types';
+import { type ExampleUrl, type ExampleUIConfig, type ExampleRolloutStatus } from './types';
 import { ProviderCardExampleList } from './ProviderCardExampleList';
 
 const getWrapperStyles = ({ disabled }: { disabled: boolean }) => {

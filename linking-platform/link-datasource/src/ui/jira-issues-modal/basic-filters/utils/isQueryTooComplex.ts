@@ -4,13 +4,13 @@ import {
   AbstractJastVisitor,
   COMPOUND_OPERATOR_AND,
   COMPOUND_OPERATOR_OR,
-  CompoundClause,
+  type CompoundClause,
   JastBuilder,
   OPERATOR_EQUALS,
   OPERATOR_IN,
   OPERATOR_LIKE,
-  OrderByField,
-  TerminalClause,
+  type OrderByField,
+  type TerminalClause,
 } from '@atlaskit/jql-ast';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 

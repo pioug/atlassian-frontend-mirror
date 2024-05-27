@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageCropper, { ImageCropperProp } from '../../image-cropper';
+import ImageCropper, { type ImageCropperProp } from '../../image-cropper';
 import { ERROR } from '../../avatar-picker-dialog';
 import { smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import { MediaImage } from '@atlaskit/media-ui';

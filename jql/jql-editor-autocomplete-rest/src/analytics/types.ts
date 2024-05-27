@@ -1,4 +1,4 @@
-import { JqlAnalyticsEvent } from '@atlaskit/jql-editor-common';
+import { type JqlAnalyticsEvent } from '@atlaskit/jql-editor-common';
 
 export enum Action {
   FAILED = 'failed',

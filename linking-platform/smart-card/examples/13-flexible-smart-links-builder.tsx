@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import React, { useCallback, useState } from 'react';
-import { FlexibleTemplate } from './flexible-builder/types';
+import { type FlexibleTemplate } from './flexible-builder/types';
 import TemplateBuilder from './flexible-builder/template-builder';
 import TemplateRenderer from './flexible-builder/template-renderer';
 import {

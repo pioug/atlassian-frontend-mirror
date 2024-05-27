@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
-import { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { useFeatureFlag } from '@atlaskit/link-provider';
-import { CardWithUrlContentProps } from './types';
+import { type CardWithUrlContentProps } from './types';
 import { combineFrameStyle, isSpecialEvent } from '../../utils';
 import * as measure from '../../utils/performance';
 import {
@@ -20,7 +20,7 @@ import {
 import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
 import { InlineCard } from '../InlineCard';
-import { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
+import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';

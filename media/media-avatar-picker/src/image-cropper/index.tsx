@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { Component } from 'react';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages, MediaImage } from '@atlaskit/media-ui';
 import { isImageRemote } from './isImageRemote';
 import { CONTAINER_PADDING } from './styles';

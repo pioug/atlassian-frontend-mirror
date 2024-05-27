@@ -1,10 +1,11 @@
-import core, {
+import type {
   ASTPath,
+  default as core,
   ImportDeclaration,
   JSXAttribute,
   Program,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 function addCommentBefore({
   j,

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, ReactElement, Ref, useCallback } from 'react';
+import { forwardRef, type ReactElement, type Ref, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { useMergeRefs } from 'use-callback-ref';
@@ -7,7 +7,7 @@ import { useMergeRefs } from 'use-callback-ref';
 import { N0 } from '@atlaskit/theme/colors';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
-import { DrawerPrimitiveProps, Widths } from '../types';
+import { type DrawerPrimitiveProps, type Widths } from '../types';
 
 import usePreventProgrammaticScroll from './hooks/use-prevent-programmatic-scroll';
 

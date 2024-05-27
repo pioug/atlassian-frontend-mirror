@@ -1,13 +1,13 @@
 import { EventEmitter2 } from 'eventemitter2';
 import {
-  ActionablePubSubClient,
-  ARI,
-  OnEvent,
-  PubSubClient,
-  PubSubClientConfig,
+  type ActionablePubSubClient,
+  type ARI,
+  type OnEvent,
+  type PubSubClient,
+  type PubSubClientConfig,
   SpecialEventType,
 } from './apiTypes';
-import { EventType, Protocol, SubscribeServiceResponse } from './types';
+import { EventType, type Protocol, type SubscribeServiceResponse } from './types';
 import PubNubProtocol from './protocols/pubnub';
 import NoopProtocol from './protocols/noop';
 import APSProtocol from './protocols/aps';

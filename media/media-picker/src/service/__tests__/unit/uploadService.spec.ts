@@ -7,14 +7,14 @@ jest.mock('uuid/v4', () => ({
 }));
 
 import {
-  MediaClient,
-  UploadableFile,
+  type MediaClient,
+  type UploadableFile,
   createMediaSubject,
-  FileState,
+  type FileState,
 } from '@atlaskit/media-client';
 import {
-  TouchedFiles,
-  ProcessingFileState,
+  type TouchedFiles,
+  type ProcessingFileState,
   fromObservable,
   RequestError,
 } from '@atlaskit/media-client';
@@ -28,12 +28,12 @@ import { UploadServiceImpl } from '../../uploadServiceImpl';
 import * as getPreviewModule from '../../../util/getPreviewFromBlob';
 import * as getPreviewFromImage from '../../../util/getPreviewFromImage';
 import {
-  Preview,
-  UploadParams,
-  UploadPreviewUpdateEventPayload,
-  UploadsStartEventPayload,
+  type Preview,
+  type UploadParams,
+  type UploadPreviewUpdateEventPayload,
+  type UploadsStartEventPayload,
 } from '../../../types';
-import { LocalFileSource, LocalFileWithSource } from '../../../service/types';
+import { LocalFileSource, type LocalFileWithSource } from '../../../service/types';
 
 describe('UploadService', () => {
   const baseUrl = 'some-api-url';

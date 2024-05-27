@@ -12,7 +12,7 @@ import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButton } from '../styled';
 import { HoverCard } from '../../HoverCard';
-import { AnalyticsFacade } from '../../../state/analytics';
+import { type AnalyticsFacade } from '../../../state/analytics';
 
 export interface InlineCardUnauthorizedViewProps {
   /** The url to display */

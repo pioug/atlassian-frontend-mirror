@@ -7,7 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import DownloadAction from '../index';
-import { DownloadActionProps } from '../types';
+import { type DownloadActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
   ...jest.requireActual('../../../../../../state/flexible-ui-context'),

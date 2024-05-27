@@ -1,11 +1,11 @@
 import { useMemo, useCallback } from 'react';
-import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
-import { JsonLd } from 'json-ld-types';
+import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
+import { type JsonLd } from 'json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
   ACTION_UPDATE_METADATA_STATUS,
   cardAction,
-  MetadataStatus,
+  type MetadataStatus,
   ACTION_RESOLVING,
 } from '@atlaskit/linking-common';
 import {
@@ -15,9 +15,9 @@ import {
   getExtensionKey,
 } from '../helpers';
 
-import { InvokeServerOpts, InvokeClientOpts } from '../../model/invoke-opts';
-import { AnalyticsFacade } from '../analytics';
-import { CardInnerAppearance } from '../../view/Card/types';
+import { type InvokeServerOpts, type InvokeClientOpts } from '../../model/invoke-opts';
+import { type AnalyticsFacade } from '../analytics';
+import { type CardInnerAppearance } from '../../view/Card/types';
 import { SmartLinkStatus } from '../../constants';
 import useResolve from '../hooks/use-resolve';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';

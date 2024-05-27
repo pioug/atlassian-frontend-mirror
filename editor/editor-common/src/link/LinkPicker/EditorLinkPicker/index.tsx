@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { LinkPicker, LinkPickerProps } from '@atlaskit/link-picker';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { LinkPicker, type LinkPickerProps } from '@atlaskit/link-picker';
 
 import type { Command, EditorAppearance } from '../../../types';
 import { getAnalyticsEditorAppearance } from '../../../utils';

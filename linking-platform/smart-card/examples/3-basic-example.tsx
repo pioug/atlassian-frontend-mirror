@@ -7,7 +7,7 @@ import Textfield from '@atlaskit/textfield';
 import Button from '@atlaskit/button/new';
 import { CardClient as SmartCardClient } from '@atlaskit/link-provider';
 import { Provider, Card } from '../src';
-import { CardAppearance } from '../src/view/Card/types';
+import { type CardAppearance } from '../src/view/Card/types';
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
 import urlsJSON from '../examples-helpers/example-urls.json';

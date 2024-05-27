@@ -1,15 +1,15 @@
-import React, { ComponentClass } from 'react';
+import React, { type ComponentClass } from 'react';
 import {
-  MediaClient,
-  FileState,
+  type MediaClient,
+  type FileState,
   isErrorFileState,
   request,
-  ErrorFileState,
+  type ErrorFileState,
 } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
 import { MediaViewerError } from '../../errors';
 import { Spinner } from '../../loading';
-import { Props as RendererProps } from './codeViewerRenderer';
+import { type Props as RendererProps } from './codeViewerRenderer';
 import { BaseViewer } from '../base-viewer';
 import { DEFAULT_LANGUAGE, normaliseLineBreaks } from './util';
 import { getLanguageType, getExtension } from '@atlaskit/media-ui/codeViewer';

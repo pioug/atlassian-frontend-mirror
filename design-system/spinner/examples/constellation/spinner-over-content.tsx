@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
-import { HeadType, RowType } from '@atlaskit/dynamic-table/types';
+import { type HeadType, type RowType } from '@atlaskit/dynamic-table/types';
 
 const head: HeadType = {
   cells: [

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import AkSpinner from '@atlaskit/spinner';
 
 import { SpinnerContainer } from '../../styled/Card';

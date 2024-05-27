@@ -1,4 +1,4 @@
-import { Auth, isClientBasedAuth } from '@atlaskit/media-core';
+import { type Auth, isClientBasedAuth } from '@atlaskit/media-core';
 
 export interface ClientBasedQueryParameters {
   readonly client: string;

@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  AnalyticsEventPayload,
-  UIAnalyticsEvent,
+  type AnalyticsEventPayload,
+  type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { GasPayload } from '@atlaskit/analytics-gas-types';
+import { type GasPayload } from '@atlaskit/analytics-gas-types';
 import { browser } from '@atlaskit/linking-common/user-agent';
 
-import { ClickOutcome, ClickType, UiLinkClickedEventProps } from './types';
+import { type ClickOutcome, type ClickType, type UiLinkClickedEventProps } from './types';
 import { ANALYTICS_CHANNEL } from './analytics';
-import { AnalyticsPayload } from '../types';
+import { type AnalyticsPayload } from '../types';
 import {
   useLinkClicked,
   useMouseDownEvent,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import LikeIcon from '@atlaskit/icon/glyph/like';
 import {
   ActionName,

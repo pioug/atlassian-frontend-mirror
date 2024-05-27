@@ -16,7 +16,7 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Text } from '@atlaskit/primitives';
 
 import SectionMessage, { SectionMessageAction } from '../../index';
-import { Appearance } from '../../types';
+import { type Appearance } from '../../types';
 
 const appearancesCases: {
   name: Appearance;

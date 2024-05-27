@@ -6,7 +6,7 @@ import {
 } from '../../__tests__/_testing-library';
 import {
   FlashAnimation,
-  FlashAnimationProps,
+  type FlashAnimationProps,
   RENDER_FLASHANIMATION_TESTID,
 } from './FlashAnimation';
 import { flashAnimation } from './styles';

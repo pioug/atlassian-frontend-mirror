@@ -1,4 +1,4 @@
-import { MediaType } from '..';
+import { type MediaType } from '..';
 import { isArchive } from './isArchive';
 
 import {

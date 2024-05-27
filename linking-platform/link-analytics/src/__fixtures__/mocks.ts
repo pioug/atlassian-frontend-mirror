@@ -1,7 +1,7 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { CardClient } from '@atlaskit/link-provider';
-import { ServerErrorType } from '@atlaskit/linking-common';
-import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import { type ServerErrorType } from '@atlaskit/linking-common';
+import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 
 // Copied from smart-card
 export interface ErrorResponseBody {

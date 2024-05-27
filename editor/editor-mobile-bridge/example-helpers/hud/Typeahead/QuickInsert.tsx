@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../Toolbar/Button';
-import WebBridgeImpl from '../../../src/editor/native-to-web';
+import type WebBridgeImpl from '../../../src/editor/native-to-web';
 
 interface QuickInsertItem {
   id: string;

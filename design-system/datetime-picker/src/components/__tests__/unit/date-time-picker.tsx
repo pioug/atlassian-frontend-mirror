@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import Select, { OptionsType } from '@atlaskit/select';
+import Select, { type OptionsType } from '@atlaskit/select';
 
 import {
   datePickerDefaultAriaLabel,

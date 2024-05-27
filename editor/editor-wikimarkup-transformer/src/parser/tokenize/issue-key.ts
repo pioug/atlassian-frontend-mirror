@@ -1,6 +1,6 @@
-import { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Token, TokenParser } from './';
-import { Context, ConversionMap } from '../../interfaces';
+import { type Schema, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Token, type TokenParser } from './';
+import { type Context, type ConversionMap } from '../../interfaces';
 import { isNotBlank } from '../utils/text';
 
 /**

@@ -3,9 +3,9 @@
 import { jsx } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import {
-  MediaClient,
-  Identifier,
-  MediaFileArtifacts,
+  type MediaClient,
+  type Identifier,
+  type MediaFileArtifacts,
 } from '@atlaskit/media-client';
 import { nativePreviewButtonStyles } from './styles';
 

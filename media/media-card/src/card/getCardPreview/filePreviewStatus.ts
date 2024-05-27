@@ -1,8 +1,8 @@
 import { isMimeTypeSupportedByBrowser } from '@atlaskit/media-common';
-import { CardStatus, FilePreviewStatus } from '../../types';
+import { type CardStatus, type FilePreviewStatus } from '../../types';
 import {
   isPreviewableFileState,
-  FileState,
+  type FileState,
   isPreviewableType,
   isImageRepresentationReady,
 } from '@atlaskit/media-client';

@@ -1,4 +1,4 @@
-import { css, SerializedStyles } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 import { N0, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

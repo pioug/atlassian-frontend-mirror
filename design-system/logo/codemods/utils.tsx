@@ -1,5 +1,5 @@
-import core, { ASTPath } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import type { ASTPath, default as core } from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 // not replacing newlines (which \s does)
 const spacesAndTabs: RegExp = /[ \t]{2,}/g;

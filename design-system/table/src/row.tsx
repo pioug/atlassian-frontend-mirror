@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, memo, ReactNode, useMemo } from 'react';
+import { type FC, memo, type ReactNode, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 

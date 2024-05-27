@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { DescriptionBylineProps } from './types';
+import { type DescriptionBylineProps } from './types';
 import { DescriptionBylineStyle } from './styles';
 import { messages } from '../i18n';
 

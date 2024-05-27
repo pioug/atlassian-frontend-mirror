@@ -1,6 +1,6 @@
-import { PrimitiveType } from './schema-node';
+import { type PrimitiveType } from './schema-node';
 import SchemaNodeWithValidators, {
-  Indexed,
+  type Indexed,
 } from './schema-node-with-validators';
 
 export default class PrimitiveSchemaNode<

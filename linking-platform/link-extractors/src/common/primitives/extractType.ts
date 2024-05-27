@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 export const extractType = (
   jsonLd: JsonLd.Primitives.Object,

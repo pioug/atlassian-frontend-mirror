@@ -1,23 +1,23 @@
 import {
-  Auth,
-  AsapBasedAuth,
-  AuthContext,
-  ClientAltBasedAuth,
+  type Auth,
+  type AsapBasedAuth,
+  type AuthContext,
+  type ClientAltBasedAuth,
 } from '@atlaskit/media-core';
-import { MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
-import { MediaFileArtifacts } from '@atlaskit/media-state';
+import { type MediaFileArtifacts } from '@atlaskit/media-state';
 
-import { MediaItemDetails, MediaFile, MediaUpload } from '../../models/media';
+import { type MediaItemDetails, type MediaFile, type MediaUpload } from '../../models/media';
 
 import {
-  ClientOptions,
-  RequestHeaders,
-  RequestMethod,
-  RequestParams,
-  RequestMetadata,
+  type ClientOptions,
+  type RequestHeaders,
+  type RequestMethod,
+  type RequestParams,
+  type RequestMetadata,
 } from '../../utils/request/types';
-import { ChunkHashAlgorithm } from '@atlaskit/media-core';
+import { type ChunkHashAlgorithm } from '@atlaskit/media-core';
 
 export interface ResponseFileItem {
   id: string;

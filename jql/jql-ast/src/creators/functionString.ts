@@ -1,4 +1,4 @@
-import { FunctionString, JastListener, JastVisitor, Position } from '../types';
+import { type FunctionString, type JastListener, type JastVisitor, type Position } from '../types';
 import { sanitiseJqlString } from '../utils/sanitise-jql-string';
 
 import { noChildren } from './common';

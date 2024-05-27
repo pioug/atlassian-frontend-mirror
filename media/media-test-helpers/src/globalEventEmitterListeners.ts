@@ -1,7 +1,7 @@
 import {
-  FileState,
+  type FileState,
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
+  type MediaViewedEventPayload,
 } from '@atlaskit/media-client';
 
 const fileAddedListener = (fileState: FileState) => {

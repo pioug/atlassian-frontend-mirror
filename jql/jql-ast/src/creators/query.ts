@@ -7,13 +7,13 @@ import {
   setOrderDirection,
 } from '../transformers/query';
 import {
-  AstNode,
-  Clause,
-  JastListener,
-  JastVisitor,
-  OrderBy,
-  Position,
-  Query,
+  type AstNode,
+  type Clause,
+  type JastListener,
+  type JastVisitor,
+  type OrderBy,
+  type Position,
+  type Query,
 } from '../types';
 
 import { assignParent } from './common';

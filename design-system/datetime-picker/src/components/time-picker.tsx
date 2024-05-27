@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { type CSSProperties } from 'react';
 
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid } from 'date-fns';
@@ -11,15 +11,15 @@ import {
 } from '@atlaskit/analytics-next';
 import {
   createLocalizationProvider,
-  LocalizationProvider,
+  type LocalizationProvider,
 } from '@atlaskit/locale';
 import Select, {
-  ActionMeta,
+  type ActionMeta,
   CreatableSelect,
   mergeStyles,
-  OptionType,
-  SelectComponentsConfig,
-  ValueType,
+  type OptionType,
+  type SelectComponentsConfig,
+  type ValueType,
 } from '@atlaskit/select';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
@@ -34,7 +34,7 @@ import { FixedLayerMenu } from '../internal/fixed-layer-menu';
 import parseTime from '../internal/parse-time';
 import { convertTokens } from '../internal/parse-tokens';
 import { makeSingleValue } from '../internal/single-value';
-import { Appearance, Spacing, TimePickerBaseProps } from '../types';
+import { type Appearance, type Spacing, type TimePickerBaseProps } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

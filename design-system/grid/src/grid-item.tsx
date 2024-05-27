@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { CSSProperties, FC, useMemo } from 'react';
+import { type CSSProperties, type FC, useMemo } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import {
-  Breakpoint,
-  ResponsiveObject,
+  type Breakpoint,
+  type ResponsiveObject,
   UNSAFE_BREAKPOINTS_ORDERED_LIST,
   UNSAFE_buildAboveMediaQueryCSS,
 } from '@atlaskit/primitives/responsive';

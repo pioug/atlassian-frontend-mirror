@@ -7,7 +7,7 @@ import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';
 
-import { ContextualSurvey, OnDismissArgs, SurveyMarshal } from '../src';
+import { ContextualSurvey, type OnDismissArgs, SurveyMarshal } from '../src';
 
 const styles = css({
   paddingTop: token('space.100', '8px'),

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Props } from '../types';
+import { type Props } from '../types';
 import { SmartUserPicker } from './SmartUserPicker';
 import MessagesIntlProvider from './MessagesIntlProvider';
 import {

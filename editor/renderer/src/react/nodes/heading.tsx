@@ -1,5 +1,5 @@
 import React from 'react';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import HeadingAnchor from './heading-anchor';
 import {
@@ -10,10 +10,10 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { copyTextToClipboard } from '../utils/clipboard';
-import { NodeProps } from '../types';
+import { type NodeProps } from '../types';
 import {
-  HeadingAnchorLinksProps,
-  HeadingAnchorLinksConfig,
+  type HeadingAnchorLinksProps,
+  type HeadingAnchorLinksConfig,
 } from '../../ui/Renderer/types';
 
 export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;

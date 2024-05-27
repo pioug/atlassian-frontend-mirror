@@ -1,11 +1,11 @@
 import {
-  Node as PMNode,
-  ResolvedPos,
+  type Node as PMNode,
+  type ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 
-import { TableContext, TableMap } from '../table-map';
+import { type TableContext, TableMap } from '../table-map';
 
 import { cloneTr } from './clone-tr';
 import { removeColSpan } from './colspan';

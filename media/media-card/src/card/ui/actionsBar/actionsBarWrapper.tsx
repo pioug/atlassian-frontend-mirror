@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 
 import { wrapperStyles, actionsBarClassName } from './styles';
-import { ActionBarWrapperProps } from './types';
+import { type ActionBarWrapperProps } from './types';
 
 export const ActionsBarWrapper = (props: ActionBarWrapperProps) => {
   return (

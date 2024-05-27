@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 import TeamProfileCard from '../src/components/Team/TeamProfileCard';
 import teamData from '../src/mocks/team-data';
-import { TeamProfileCardErrorType } from '../src/types';
+import { type TeamProfileCardErrorType } from '../src/types';
 
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';

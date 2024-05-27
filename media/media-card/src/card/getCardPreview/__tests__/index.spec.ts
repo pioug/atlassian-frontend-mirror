@@ -19,22 +19,22 @@ jest.mock('../../../utils/analytics', () => {
 });
 import { asMockFunction, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import {
-  FilePreview,
+  type FilePreview,
   addFileAttrsToUrl,
-  ProcessedFileState,
-  FileState,
-  MediaStoreGetFileImageParams,
-  MediaBlobUrlAttrs,
+  type ProcessedFileState,
+  type FileState,
+  type MediaStoreGetFileImageParams,
+  type MediaBlobUrlAttrs,
 } from '@atlaskit/media-client';
-import { CardPreview } from '../../../types';
-import { ImageResizeMode } from '@atlaskit/media-client';
+import { type CardPreview } from '../../../types';
+import { type ImageResizeMode } from '@atlaskit/media-client';
 import cardPreviewCache from '../cache';
 import {
   getCardPreviewFromFilePreview,
   getCardPreviewFromBackend,
 } from '../helpers';
 import {
-  CardPreviewParams,
+  type CardPreviewParams,
   getCardPreview,
   shouldResolvePreview,
   getSSRCardPreview,
@@ -43,7 +43,7 @@ import {
 import { LocalPreviewError } from '../../../errors';
 import * as filePreviewStatusModule from '../filePreviewStatus';
 import * as dimensionComparerModule from '../../../utils/dimensionComparer';
-import { CardStatus } from '../../../types';
+import { type CardStatus } from '../../../types';
 
 const localPreview: CardPreview = {
   dataURI: 'some-card-preview-from-file-preview',

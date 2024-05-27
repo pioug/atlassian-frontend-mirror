@@ -1,4 +1,4 @@
-import { CustomThemeButtonProps } from '@atlaskit/button/types';
+import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 
 export type IconButtonProps = BaseIconButtonProps & {
   /**

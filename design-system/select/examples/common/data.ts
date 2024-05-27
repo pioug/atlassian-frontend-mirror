@@ -1,4 +1,4 @@
-import { OptionsType } from '../../src/types';
+import { type OptionsType } from '../../src/types';
 
 export const cities: OptionsType = [
   { label: 'Adelaide', value: 'adelaide', extra: 'extra' },

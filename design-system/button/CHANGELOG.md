@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 17.17.0
+
+### Minor Changes
+
+-   [#102849](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102849)
+    [`36d7498311be`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36d7498311be) -
+    We are testing an internal change to typography behind a feature flag. If this change is
+    successful it will be available in a later release.
+
 ## 17.16.0
 
 ### Minor Changes

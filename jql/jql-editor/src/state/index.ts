@@ -1,63 +1,63 @@
-import { FocusEvent, MouseEvent } from 'react';
+import { type FocusEvent, type MouseEvent } from 'react';
 
 import clamp from 'lodash/clamp';
 import groupBy from 'lodash/groupBy';
-import { createIntl, IntlShape } from 'react-intl-next';
+import { createIntl, type IntlShape } from 'react-intl-next';
 import {
-  Action,
+  type Action,
   createContainer,
   createHook,
   createSelector,
   createStore,
 } from 'react-sweet-state';
-import { Observable } from 'rxjs/Observable';
+import { type Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { tap } from 'rxjs/operators/tap';
 import { v4 as uuidv4 } from 'uuid';
 
-import { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   computeJqlInsights,
   isListOperator,
-  JQLParseError,
+  type JQLParseError,
 } from '@atlaskit/jql-ast';
-import { JQLAutocomplete, JQLRuleSuggestion } from '@atlaskit/jql-autocomplete';
+import { JQLAutocomplete, type JQLRuleSuggestion } from '@atlaskit/jql-autocomplete';
 
 import {
   ActionSubject,
   ActionSubjectId,
   Action as AnalyticsAction,
   EventType,
-  JqlEditorAnalyticsEvent,
+  type JqlEditorAnalyticsEvent,
 } from '../analytics';
 import { selectErrorCommand } from '../commands/select-error-command';
 import { JQL_EDITOR_MAIN_ID } from '../common/constants';
 import {
-  AutocompleteOptionGroup,
-  AutocompleteOptions,
-  AutocompleteOptionType,
-  SelectableAutocompleteOption,
-  SelectableAutocompleteOptions,
+  type AutocompleteOptionGroup,
+  type AutocompleteOptions,
+  type AutocompleteOptionType,
+  type SelectableAutocompleteOption,
+  type SelectableAutocompleteOptions,
 } from '../plugins/autocomplete/components/types';
 import {
   defaultAutocompleteProvider,
   JQLAutocompletePluginKey,
 } from '../plugins/autocomplete/constants';
 import { getJastFromState } from '../plugins/jql-ast';
-import { AutocompleteProvider } from '../plugins/types';
+import { type AutocompleteProvider } from '../plugins/types';
 import {
   clipboardTextParser,
   clipboardTextSerializer,
   configurePlugins,
   defaultEditorState,
-  JQLEditorCommand,
+  type JQLEditorCommand,
 } from '../schema';
-import { PortalActions } from '../ui/jql-editor-portal-provider/types';
+import { type PortalActions } from '../ui/jql-editor-portal-provider/types';
 import {
-  HydratedDeprecatedField,
-  HydratedUser,
-  HydratedValue,
+  type HydratedDeprecatedField,
+  type HydratedUser,
+  type HydratedValue,
 } from '../ui/jql-editor/types';
 import { getNodeText } from '../utils/document-text';
 
@@ -65,15 +65,15 @@ import { onStartAutocompleteEvent } from './analytics';
 import { sortOperators } from './autocomplete';
 import { hydrateQuery } from './hydration';
 import {
-  AutocompletePosition,
-  AutocompleteState,
-  ContextAwareJQLSuggestions,
-  ExternalError,
-  ExternalErrorAttributes,
-  ExternalMessagesNormalized,
-  OptionsKey,
-  Props,
-  State,
+  type AutocompletePosition,
+  type AutocompleteState,
+  type ContextAwareJQLSuggestions,
+  type ExternalError,
+  type ExternalErrorAttributes,
+  type ExternalMessagesNormalized,
+  type OptionsKey,
+  type Props,
+  type State,
 } from './types';
 import {
   getAutocompleteOptionId,

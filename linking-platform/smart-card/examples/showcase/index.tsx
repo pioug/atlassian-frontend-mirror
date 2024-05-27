@@ -8,9 +8,9 @@ import { token } from '@atlaskit/tokens';
 import { ProviderCategory } from './ProviderCategory';
 import { ShowcaseMenu } from './Menu';
 import { exampleSpinner } from './Spinner';
-import { ExampleUIConfig, ExampleUrls, ExampleUrl } from './types';
+import { type ExampleUIConfig, type ExampleUrls, type ExampleUrl } from './types';
 import { getConfig, exampleUrlsJsonPath } from './config';
-import { EnvironmentsKeys } from '@atlaskit/link-provider';
+import { type EnvironmentsKeys } from '@atlaskit/link-provider';
 
 import Tooltip from '@atlaskit/tooltip';
 

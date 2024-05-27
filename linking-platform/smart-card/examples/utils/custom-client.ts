@@ -1,6 +1,6 @@
 import { CardClient } from '@atlaskit/link-provider';
 import { Client } from '@atlaskit/smart-card';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { AtlasProject } from '../../examples-helpers/_jsonLDExamples';
 import { iconGoogleDrive } from '../images';
 import { mocks, overrideEmbedContent } from './common';

@@ -1,6 +1,6 @@
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { IconType, MediaType } from '../../../../../../constants';
-import { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
+import { type IconType, MediaType } from '../../../../../../constants';
+import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 
 const context: FlexibleUiDataContext = {
   actions: {

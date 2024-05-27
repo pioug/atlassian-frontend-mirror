@@ -1,6 +1,6 @@
 import { overrideEmbedContent } from '../../../../../examples/utils/common';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import JiraPreviewImage from '../../../../../examples/images/forbidden-jira.svg';
 import AvatarImage from '../../../../../examples/images/avatar-1.svg';
 import { iconGoogleDrive } from '../../../../../examples/images';

@@ -1,9 +1,9 @@
-import React, { KeyboardEventHandler, PureComponent, ReactNode } from 'react';
+import React, { type KeyboardEventHandler, PureComponent, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import Select, {
-  components as RSComponents,
-  GroupBase,
+  type components as RSComponents,
+  type GroupBase,
   mergeStyles,
 } from 'react-select';
 import { uid } from 'react-uid';
@@ -11,10 +11,10 @@ import {
   Manager,
   Reference,
   Popper,
-  PopperProps,
-  Modifier,
+  type PopperProps,
+  type Modifier,
 } from 'react-popper';
-import { Placement } from '@popperjs/core';
+import { type Placement } from '@popperjs/core';
 import NodeResolver from 'react-node-resolver';
 import { shallowEqualObjects } from 'shallow-equal';
 import DefaultSelect from '../Select';
@@ -26,15 +26,15 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { MenuDialog, DummyControl, defaultComponents } from './components';
 import baseStyles from '../styles';
 import {
-  OptionType,
-  ActionMeta,
-  ReactSelectProps,
-  StylesConfig,
-  ValueType,
-  ValidationState,
-  AtlaskitSelectRefType,
+  type OptionType,
+  type ActionMeta,
+  type ReactSelectProps,
+  type StylesConfig,
+  type ValueType,
+  type ValidationState,
+  type AtlaskitSelectRefType,
 } from '../types';
-import { bind, UnbindFn } from 'bind-event-listener';
+import { bind, type UnbindFn } from 'bind-event-listener';
 
 type SelectComponents = typeof RSComponents;
 

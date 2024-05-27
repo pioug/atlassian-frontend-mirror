@@ -13,7 +13,7 @@ import { useTheme } from '../../theme';
 import { IconButton } from '../IconButton';
 
 import { getCreateButtonTheme } from './styles';
-import { CreateProps } from './types';
+import { type CreateProps } from './types';
 
 const wrapperStyles = css({
   display: 'flex',

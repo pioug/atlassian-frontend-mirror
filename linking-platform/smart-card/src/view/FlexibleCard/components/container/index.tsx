@@ -1,25 +1,25 @@
 /** @jsx jsx */
 import React, { useContext } from 'react';
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import {
   MediaPlacement,
   SmartLinkSize,
-  SmartLinkStatus,
+  type SmartLinkStatus,
   SmartLinkTheme,
 } from '../../../../constants';
-import { ChildrenOptions, ContainerProps } from './types';
+import { type ChildrenOptions, type ContainerProps } from './types';
 import {
   isFlexibleUiBlock,
   isFlexibleUiPreviewBlock,
   isFlexibleUiTitleBlock,
 } from '../../../../utils/flexible';
-import { RetryOptions } from '../../types';
+import { type RetryOptions } from '../../types';
 import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import LayeredLink from './layered-link';
-import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
-import { TitleBlockProps } from '../blocks/title-block/types';
+import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
+import { type TitleBlockProps } from '../blocks/title-block/types';
 import HoverCardControl from './hover-card-control';
 import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
 import { N40 } from '@atlaskit/theme/colors';

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Provider as CollabProvider, Socket } from '@atlaskit/collab-provider';
-import WebBridgeImpl from '../editor/native-to-web';
+import { Provider as CollabProvider, type Socket } from '@atlaskit/collab-provider';
+import type WebBridgeImpl from '../editor/native-to-web';
 import { createPromise } from '../cross-platform-promise';
-import { FetchProxy } from '../utils/fetch-proxy';
-import { Storage } from '@atlaskit/collab-provider/types';
-import EditorConfiguration from '../editor/editor-configuration';
+import { type FetchProxy } from '../utils/fetch-proxy';
+import { type Storage } from '@atlaskit/collab-provider/types';
+import type EditorConfiguration from '../editor/editor-configuration';
 import { getAllowCollabProvider } from '../query-param-reader';
 
 export class StorageImpl implements Storage {

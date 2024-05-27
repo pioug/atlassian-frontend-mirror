@@ -4,11 +4,11 @@ import {
   OPERAND_TYPE_KEYWORD,
 } from '../constants';
 import {
-  JastListener,
-  JastVisitor,
-  KeywordOperand,
-  KeywordOperandValue,
-  Position,
+  type JastListener,
+  type JastVisitor,
+  type KeywordOperand,
+  type KeywordOperandValue,
+  type Position,
 } from '../types';
 
 import { noChildren } from './common';

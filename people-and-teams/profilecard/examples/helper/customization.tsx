@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import sample from 'lodash/sample';
 
 import teamData from '../../src/mocks/team-data';
-import { Team } from '../../src/types';
+import { type Team } from '../../src/types';
 
 export function Radios<T extends { toString(): string }>({
   label,

@@ -1,2 +1,2 @@
-import { CardActionType } from '@atlaskit/linking-common';
+import { type CardActionType } from '@atlaskit/linking-common';
 export type { CardActionType };

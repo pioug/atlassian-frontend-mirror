@@ -13,7 +13,7 @@
  * local-config and .env: run `yarn run setup-first-time` to setup local-config.ts and .env (.env need to have credentials to get dev proxy working)
  * session cookie for staging: goes to https://id.stg.internal.atlassian.com/, copy value of cookie cloud.session.token.stg, and create same cookie under localhost domain. (cookie expiry is 1 month)
  */
-import WebpackDevServer from 'webpack-dev-server';
+import type WebpackDevServer from 'webpack-dev-server';
 import { config } from 'dotenv';
 import path from 'path';
 

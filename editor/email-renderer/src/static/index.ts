@@ -1,8 +1,8 @@
 import * as icons from './icons';
 import { IconName } from './icons';
 import {
-  SerializeFragmentWithAttachmentsResult,
-  MediaImageBase64,
+  type SerializeFragmentWithAttachmentsResult,
+  type MediaImageBase64,
 } from '../serializer';
 import { base64Prefix, imageOutputType } from './generator/constants';
 import { CS_CONTENT_PREFIX } from '../styles/util';

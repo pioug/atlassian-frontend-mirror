@@ -14,10 +14,10 @@ import {
 
 import {
   Fragment,
-  Mark,
-  Node as PMNode,
-  Schema,
-  NodeType,
+  type Mark,
+  type Node as PMNode,
+  type Schema,
+  type NodeType,
 } from '@atlaskit/editor-prosemirror/model';
 
 import { mapImageToEmoji } from './emojiHelper';

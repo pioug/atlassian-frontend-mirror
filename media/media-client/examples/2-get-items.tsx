@@ -5,7 +5,7 @@ import {
   imageFileId,
   audioFileId,
 } from '../src/test-helpers';
-import { MediaStore, ItemsPayload } from '../src';
+import { MediaStore, type ItemsPayload } from '../src';
 
 const mediaClient = createStorybookMediaClient();
 const store = new MediaStore({

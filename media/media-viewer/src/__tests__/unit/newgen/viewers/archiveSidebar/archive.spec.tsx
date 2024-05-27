@@ -13,7 +13,7 @@ jest.mock(
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ProcessedFileState } from '@atlaskit/media-client';
+import { type ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
 
 jest.mock('unzipit', () => ({
@@ -29,7 +29,7 @@ jest.mock('unzipit', () => ({
 import {
   ArchiveViewerBase,
   getArchiveEntriesFromFileState,
-  Props as ArchiveViewerProps,
+  type Props as ArchiveViewerProps,
 } from '../../../../../viewers/archiveSidebar/archive';
 import { ArchiveLayout } from '../../../../../viewers/archiveSidebar/styleWrappers';
 import { InteractiveImg } from '../../../../../viewers/image/interactive-img';

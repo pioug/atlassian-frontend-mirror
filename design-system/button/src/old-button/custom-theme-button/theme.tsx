@@ -1,13 +1,13 @@
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
 import { createTheme } from '@atlaskit/theme/components';
 
 import { getCss } from '../shared/css';
 
 import {
-  InteractionState,
-  ThemeProps,
-  ThemeTokens,
+  type InteractionState,
+  type ThemeProps,
+  type ThemeTokens,
 } from './custom-theme-button-types';
 
 type InteractionMap = {

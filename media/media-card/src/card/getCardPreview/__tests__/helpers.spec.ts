@@ -4,7 +4,7 @@ jest.mock('../../../utils/videoSnapshot', () => ({
 jest.mock('@atlaskit/media-ui');
 import { isRemotePreviewError, isLocalPreviewError } from '../../../errors';
 import { getOrientation } from '@atlaskit/media-ui';
-import { MediaClient } from '@atlaskit/media-client';
+import { type MediaClient } from '@atlaskit/media-client';
 import {
   getCardPreviewFromFilePreview,
   getCardPreviewFromBackend,

@@ -4,14 +4,14 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { asMock } from '@atlaskit/media-common/test-helpers';
 import { mountWithIntlContext } from '../../../../test-helpers';
-import { WidthObserver } from '@atlaskit/width-detector';
-import MediaPlayer, { VideoProps, VideoState } from 'react-video-renderer';
+import { type WidthObserver } from '@atlaskit/width-detector';
+import MediaPlayer, { type VideoProps, type VideoState } from 'react-video-renderer';
 
 import {
   CustomMediaPlayer,
-  CustomMediaPlayerBase,
-  CustomMediaPlayerProps,
-  CustomMediaPlayerState,
+  type CustomMediaPlayerBase,
+  type CustomMediaPlayerProps,
+  type CustomMediaPlayerState,
 } from '../../../../customMediaPlayer';
 
 type mockWidthObserver = typeof WidthObserver;

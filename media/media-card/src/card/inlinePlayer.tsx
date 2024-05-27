@@ -1,25 +1,25 @@
 import React from 'react';
 import { Component } from 'react';
 import {
-  MediaClient,
-  FileIdentifier,
-  FileState,
-  MediaFileArtifacts,
+  type MediaClient,
+  type FileIdentifier,
+  type FileState,
+  type MediaFileArtifacts,
   globalMediaEventEmitter,
-  MediaSubscription,
+  type MediaSubscription,
 } from '@atlaskit/media-client';
-import { NumericalCardDimensions } from '@atlaskit/media-common';
+import { type NumericalCardDimensions } from '@atlaskit/media-common';
 import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
-import { CardDimensions } from '../types';
+import { type CardDimensions } from '../types';
 import { defaultImageCardDimensions } from '../utils';
 import { CardLoading } from '../utils/lightCards/cardLoading';
 
 import {
-  WithAnalyticsEventsProps,
-  UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { ProgressBar } from './ui/progressBar/progressBar';
-import { Breakpoint } from './ui/common';
+import { type Breakpoint } from './ui/common';
 import { calcBreakpointSize } from './ui/styles';
 import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
 import { getElementDimension } from '../utils/getElementDimension';

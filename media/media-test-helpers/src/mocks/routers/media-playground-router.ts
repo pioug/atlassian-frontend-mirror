@@ -1,6 +1,6 @@
 import { Router } from 'kakapo';
 import {
-  MediaDatabaseSchema,
+  type MediaDatabaseSchema,
   userAuthProvider,
   tenantAuthProvider,
 } from '../database';

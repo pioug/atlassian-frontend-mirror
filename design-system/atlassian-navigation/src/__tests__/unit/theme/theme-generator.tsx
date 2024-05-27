@@ -2,7 +2,7 @@
 // import { generateTheme, GenerateThemeArgs } from '../../../';
 
 import { generateTheme } from '../../../theme/theme-generator';
-import { GenerateThemeArgs } from '../../../theme/types';
+import { type GenerateThemeArgs } from '../../../theme/types';
 
 import { colorSchemes, themes } from './_theme-data';
 

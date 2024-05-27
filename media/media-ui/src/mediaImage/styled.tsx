@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
-import React, { CSSProperties } from 'react';
+import React, { type CSSProperties } from 'react';
 
 /*
   TODO: https://product-fabric.atlassian.net/browse/CXP-3132

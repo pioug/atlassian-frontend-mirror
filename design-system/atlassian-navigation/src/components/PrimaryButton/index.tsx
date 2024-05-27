@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, Ref } from 'react';
+import { forwardRef, type Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -10,7 +10,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { useTheme } from '../../theme';
 
 import { getPrimaryButtonTheme } from './styles';
-import { PrimaryButtonProps } from './types';
+import { type PrimaryButtonProps } from './types';
 
 const VAR_BUTTON_SELECTED_COLOR = '--button-selected-color';
 const VAR_BUTTON_SELECTED_BORDER_COLOR = '--button-selected-border-color';

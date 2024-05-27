@@ -1,16 +1,16 @@
 import {
-  CardAuthFlowOpts,
-  CardProviderRenderers,
+  type CardAuthFlowOpts,
+  type CardProviderRenderers,
 } from '@atlaskit/link-provider';
-import { CardState } from '../../state/types';
-import { InvokeHandler } from '../../model/invoke-handler';
+import { type CardState } from '../../state/types';
+import { type InvokeHandler } from '../../model/invoke-handler';
 import type {
   CardPlatform,
   OnResolveCallback,
   CardActionOptions,
 } from '../Card/types';
-import { OnErrorCallback } from '../types';
-import { AnalyticsFacade } from '../../state/analytics';
+import { type OnErrorCallback } from '../types';
+import { type AnalyticsFacade } from '../../state/analytics';
 
 export type BlockCardProps = {
   id: string;

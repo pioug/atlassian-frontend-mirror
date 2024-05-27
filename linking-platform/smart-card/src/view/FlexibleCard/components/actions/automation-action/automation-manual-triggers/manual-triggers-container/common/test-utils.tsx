@@ -1,5 +1,6 @@
 import React, { Component, type ReactElement, type ComponentProps, Fragment } from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { render, type RenderOptions, type RenderResult } from '@testing-library/react';
 import { DiProvider } from 'react-magnetic-di';
 

@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React from 'react';
 import LoadingSkeleton from '../../../../FlexibleCard/components/common/loading-skeleton';
-import { HoverCardLoadingViewProps } from './types';
+import { type HoverCardLoadingViewProps } from './types';
 import { CARD_WIDTH_REM } from '../../../styled';
 import {
   getTitleStyles,

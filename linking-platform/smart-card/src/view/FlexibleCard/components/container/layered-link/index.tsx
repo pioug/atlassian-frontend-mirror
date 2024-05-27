@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx, css } from '@emotion/react';
 
-import { LayeredLinkProps } from './types';
+import { type LayeredLinkProps } from './types';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 
 const styles = css({

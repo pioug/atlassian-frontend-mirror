@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react';
 import { isVerticalPosition } from '@atlaskit/editor-common/guideline';
 
 import { VAR_POSITION_OFFSET_X, VAR_POSITION_OFFSET_Y } from './constants';
-import { Position } from './types';
+import { type Position } from './types';
 
 export const isNumber = (x: unknown): x is number =>
   typeof x === 'number' && !isNaN(x) && isFinite(x);

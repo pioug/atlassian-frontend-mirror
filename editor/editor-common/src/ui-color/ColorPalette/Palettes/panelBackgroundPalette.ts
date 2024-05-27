@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 import { darkPanelColors } from '../../../panel';
 
 import { DEFAULT_BORDER_COLOR } from './common';
-import { PaletteColor } from './type';
+import { type PaletteColor } from './type';
 
 /** this is not new usage - old code extracted from editor-core */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */

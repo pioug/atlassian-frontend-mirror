@@ -1,4 +1,8 @@
-import React, { AllHTMLAttributes, FormEventHandler } from 'react';
+import {
+  type AllHTMLAttributes,
+  type FormEventHandler,
+  type default as React,
+} from 'react';
 
 // We are ensuring `disabled` can't be used since we are using `isDisabled`
 export interface TextfieldProps

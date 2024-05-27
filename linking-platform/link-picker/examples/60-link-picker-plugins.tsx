@@ -1,18 +1,18 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { type SyntheticEvent, useState } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { mockAvailableSites } from '@atlaskit/linking-common/mocks';
 import { token } from '@atlaskit/tokens';
 import {
-  LinkPickerPluginsConfiguration,
+  type LinkPickerPluginsConfiguration,
   useLinkPickerPlugins,
 } from '@atlassian/link-picker-plugins';
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
 import { MOCK_DATA_V3 as mockRecentData } from '../example-helpers/mock-recents-data';
-import { LinkPicker, LinkPickerProps } from '../src';
+import { LinkPicker, type LinkPickerProps } from '../src';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 

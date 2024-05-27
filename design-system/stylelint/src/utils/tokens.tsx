@@ -1,4 +1,4 @@
-import valueParser from 'postcss-value-parser';
+import type valueParser from 'postcss-value-parser';
 
 import tokenDefaultValues from '@atlaskit/tokens/token-default-values';
 import tokenNames from '@atlaskit/tokens/token-names';

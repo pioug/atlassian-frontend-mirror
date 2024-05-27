@@ -1,4 +1,4 @@
-import { KeyboardEvent, MouseEvent, ReactElement, ReactNode, Ref } from 'react';
+import { type KeyboardEvent, type MouseEvent, type ReactElement, type ReactNode, type Ref } from 'react';
 
 import type {
   CustomItemComponentProps,

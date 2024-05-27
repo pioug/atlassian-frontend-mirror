@@ -1,5 +1,5 @@
 import { token } from '@atlaskit/tokens';
-import { css, SerializedStyles } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 export const loadingViewContainer = css({
   display: 'flex',

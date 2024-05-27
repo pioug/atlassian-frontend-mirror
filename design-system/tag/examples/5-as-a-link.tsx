@@ -1,4 +1,4 @@
-import React, { Fragment, HTMLAttributes } from 'react';
+import React, { Fragment, type HTMLAttributes } from 'react';
 
 import styled from '@emotion/styled';
 

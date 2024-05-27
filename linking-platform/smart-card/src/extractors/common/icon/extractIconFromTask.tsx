@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconOpts } from './extractIcon';
+import { type IconOpts } from './extractIcon';
 
 import TaskIcon from '@atlaskit/icon-object/glyph/task/16';
 import JiraTaskIcon from '@atlaskit/icon-object/glyph/task/16';

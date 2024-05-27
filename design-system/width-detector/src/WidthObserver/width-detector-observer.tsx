@@ -1,6 +1,6 @@
 import React from 'react';
 import { useInView } from './hooks';
-import { WidthObserverProps } from './types';
+import { type WidthObserverProps } from './types';
 
 export const WidthDetectorObserver = React.memo(
   ({ setWidth, offscreen }: WidthObserverProps) => {

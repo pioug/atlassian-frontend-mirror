@@ -1,4 +1,4 @@
-import { ResolvedViewProps } from '../../view/BlockCard/views/ResolvedView';
+import { type ResolvedViewProps } from '../../view/BlockCard/views/ResolvedView';
 
 export const mockUrl = 'https://github.com/changesets/changesets';
 export const getResolvedProps = (

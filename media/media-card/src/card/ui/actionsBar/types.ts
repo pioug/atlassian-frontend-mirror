@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { CardAction } from '../../actions';
+import { type ReactNode } from 'react';
+import { type CardAction } from '../../actions';
 
 export interface ActionsBarProps {
   actions: Array<CardAction>;

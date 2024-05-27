@@ -1,7 +1,7 @@
-import { JQLRuleContext, Position } from '@atlaskit/jql-autocomplete';
-import { AutocompleteOption } from '@atlaskit/jql-editor-common';
+import { type JQLRuleContext, type Position } from '@atlaskit/jql-autocomplete';
+import { type AutocompleteOption } from '@atlaskit/jql-editor-common';
 
-import { PluginKeymap } from '../../common/plugin-keymap';
+import { type PluginKeymap } from '../../common/plugin-keymap';
 
 // Re-export common types for consumer convenience
 export type {

@@ -1,10 +1,11 @@
-import React, { ReactElement, RefObject } from 'react';
+import {type ReactElement, type RefObject} from 'react';
+import type React from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import type { CardBaseProps } from './card';
 
-import { CardDimensions } from '../types';
+import { type CardDimensions } from '../types';
 
 export type InlinePlayerWrapperProps = {
   testId?: string;

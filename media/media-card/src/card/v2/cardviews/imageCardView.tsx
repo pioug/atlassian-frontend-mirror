@@ -2,17 +2,17 @@
 import { jsx } from '@emotion/react';
 import { useEffect, useRef } from 'react';
 
-import { ImageResizeMode } from '@atlaskit/media-client';
+import { type ImageResizeMode } from '@atlaskit/media-client';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { FileDetails } from '@atlaskit/media-client';
+import { type FileDetails } from '@atlaskit/media-client';
 import { createAndFireMediaCardEvent } from '../../../utils/analytics';
 import { ImageRenderer } from '../../ui/imageRenderer/imageRenderer';
 import type { CardPreview, CardStatus } from '../../../types';
 import { useBreakpoint } from '../../useBreakpoint';
-import { CardViewWrapper, SharedCardViewProps } from './cardViewWrapper';
+import { CardViewWrapper, type SharedCardViewProps } from './cardViewWrapper';
 import { ProgressBar } from '../../ui/progressBar/progressBar';
 import { Blanket } from '../../ui/blanket/blanket';
 

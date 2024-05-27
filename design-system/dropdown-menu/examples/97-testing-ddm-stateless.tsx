@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import DropdownMenuStateless, {
   DropdownItemRadio,
   DropdownItemRadioGroup,
-  OnOpenChangeArgs,
+  type OnOpenChangeArgs,
 } from '../src';
 
 const DropdownMenuStatelessExample = () => {

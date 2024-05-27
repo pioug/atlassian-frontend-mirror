@@ -5,7 +5,7 @@ jest.mock('../../../components/emailValidation', () => ({
 import { getCreatableSuggestedEmailProps } from '../../../components/creatableEmailSuggestion';
 import {
   isValidEmail,
-  EmailValidationResponse,
+  type EmailValidationResponse,
 } from '../../../components/emailValidation';
 import { EmailType } from '../../../types';
 

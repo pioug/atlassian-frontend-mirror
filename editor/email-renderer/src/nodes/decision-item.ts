@@ -1,5 +1,5 @@
-import { NodeSerializerOpts } from '../interfaces';
-import { createTable, TableData } from '../table-util';
+import { type NodeSerializerOpts } from '../interfaces';
+import { createTable, type TableData } from '../table-util';
 import { createTag } from '../create-tag';
 import { createContentId } from '../static';
 import { createClassName } from '../styles/util';

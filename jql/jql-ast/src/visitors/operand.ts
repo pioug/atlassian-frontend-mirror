@@ -1,23 +1,23 @@
 import {
-  JqlArgumentListContext,
-  JqlEmptyContext,
-  JqlFunctionContext,
-  JqlFunctionNameContext,
-  JqlListContext,
-  JqlOperandContext,
-  JqlValueContext,
+  type JqlArgumentListContext,
+  type JqlEmptyContext,
+  type JqlFunctionContext,
+  type JqlFunctionNameContext,
+  type JqlListContext,
+  type JqlOperandContext,
+  type JqlValueContext,
 } from '@atlaskit/jql-parser';
 
 import { OPERAND_EMPTY } from '../constants';
 import { internalCreators } from '../creators';
 import {
-  Argument,
-  FunctionOperand,
-  FunctionString,
-  KeywordOperand,
-  ListOperand,
-  Operand,
-  ValueOperand,
+  type Argument,
+  type FunctionOperand,
+  type FunctionString,
+  type KeywordOperand,
+  type ListOperand,
+  type Operand,
+  type ValueOperand,
 } from '../types';
 import { notUndefined } from '../utils';
 

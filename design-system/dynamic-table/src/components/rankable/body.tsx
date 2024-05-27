@@ -4,20 +4,20 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
   DragDropContext,
-  DragStart,
+  type DragStart,
   Droppable,
-  DropResult,
+  type DropResult,
 } from 'react-beautiful-dnd';
 
 import withSortedPageRows, {
-  WithSortedPageRowsProps,
+  type WithSortedPageRowsProps,
 } from '../../hoc/with-sorted-page-rows';
 import {
-  HeadType,
-  RankEnd,
-  RankEndLocation,
-  RankStart,
-  RowType,
+  type HeadType,
+  type RankEnd,
+  type RankEndLocation,
+  type RankStart,
+  type RowType,
 } from '../../types';
 
 import TableRow from './table-row';

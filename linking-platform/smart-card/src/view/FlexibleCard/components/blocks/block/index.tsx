@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { useEffect } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { BlockProps } from '../types';
+import { type BlockProps } from '../types';
 import {
   ElementName,
   SmartLinkDirection,

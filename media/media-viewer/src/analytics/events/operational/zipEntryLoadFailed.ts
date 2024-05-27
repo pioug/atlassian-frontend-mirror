@@ -1,13 +1,13 @@
-import { FileState } from '@atlaskit/media-client';
-import { ZipEntry } from 'unzipit';
-import { MediaFileEventPayload } from './_mediaFile';
-import { MediaViewerFailureAttributes, getFileAttributes } from '../..';
+import { type FileState } from '@atlaskit/media-client';
+import { type ZipEntry } from 'unzipit';
+import { type MediaFileEventPayload } from './_mediaFile';
+import { type MediaViewerFailureAttributes, getFileAttributes } from '../..';
 import { getMimeTypeFromFilename } from '../../../utils';
 import {
   getPrimaryErrorReason,
   getSecondaryErrorReason,
   getErrorDetail,
-  MediaViewerError,
+  type MediaViewerError,
 } from '../../../errors';
 
 export type ZipEntryLoadFailedAttributes = MediaViewerFailureAttributes & {

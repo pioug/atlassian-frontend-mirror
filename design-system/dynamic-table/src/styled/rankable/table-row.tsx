@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { forwardRef, HTMLAttributes } from 'react';
+import { forwardRef, type HTMLAttributes } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { B100, N20, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { ITableRowProps, TableBodyRow } from '../table-row';
+import { type ITableRowProps, TableBodyRow } from '../table-row';
 
 export type RankableTableBodyRowProps = HTMLAttributes<HTMLTableRowElement> &
   ITableRowProps & {

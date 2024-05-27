@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, memo, Ref } from 'react';
+import { forwardRef, memo, type Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -21,7 +21,7 @@ import {
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { RadioProps } from './types';
+import { type RadioProps } from './types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

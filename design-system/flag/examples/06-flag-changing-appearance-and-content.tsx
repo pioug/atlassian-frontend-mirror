@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ReactElement, SyntheticEvent, useState } from 'react';
+import { type ReactElement, type SyntheticEvent, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -13,7 +13,7 @@ import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { FlagGroup } from '../src';
-import { AppearanceArray, AppearanceTypes } from '../src/types';
+import { AppearanceArray, type AppearanceTypes } from '../src/types';
 
 type Appearances<Keys extends AppearanceTypes> = {
   [K in Keys]: { description?: string; title: string; actions?: any[] };

@@ -7,20 +7,20 @@
 
 import {
   Fragment,
-  Node as PMNode,
-  ResolvedPos,
+  type Node as PMNode,
+  type ResolvedPos,
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import {
   Selection,
   TextSelection,
-  Transaction,
+  type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { Mapping } from '@atlaskit/editor-prosemirror/transform';
+import { type Mapping } from '@atlaskit/editor-prosemirror/transform';
 
 import { CellBookmark } from './cell-bookmark';
 import { TableMap } from './table-map';
-import { SerializedCellSelection } from './types';
+import { type SerializedCellSelection } from './types';
 import { pointsAtCell } from './utils/cells';
 import { removeColSpan } from './utils/colspan';
 import { getCellSelectionRanges } from './utils/get-cell-selection-ranges';

@@ -1,4 +1,4 @@
-import { FunctionNode, Node, WordNode } from 'postcss-value-parser';
+import { type FunctionNode, type Node, type WordNode } from 'postcss-value-parser';
 
 const spacingProperties = [
   'gap',

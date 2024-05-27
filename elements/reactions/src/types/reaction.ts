@@ -1,5 +1,5 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { User } from './User';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type User } from './User';
 
 /**
  * Collection of reactions as object (key is unique id from containerAri and ari combined)

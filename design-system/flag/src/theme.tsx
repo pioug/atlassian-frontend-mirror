@@ -1,9 +1,9 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import { BackgroundColor, TextProps } from '@atlaskit/primitives';
+import { type BackgroundColor, type TextProps } from '@atlaskit/primitives';
 import { B400, N0, N30A, N500, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { AppearanceTypes } from './types';
+import { type AppearanceTypes } from './types';
 
 export const flagBackgroundColor: Record<AppearanceTypes, BackgroundColor> = {
   error: 'color.background.danger.bold',

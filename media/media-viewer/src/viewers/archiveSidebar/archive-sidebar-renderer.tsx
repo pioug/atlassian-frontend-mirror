@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { MediaClient, FileState } from '@atlaskit/media-client';
+import { type MediaClient, type FileState } from '@atlaskit/media-client';
 
 import { SpinnerWrapper } from '../../styleWrappers';
 import { ArchiveSidebar } from './archive-sidebar';
@@ -8,7 +8,7 @@ import { getArchiveEntriesFromFileState } from './archive';
 import { Spinner } from '../../loading';
 import { ArchiveViewerError } from '../../errors';
 import { ArchiveSideBar } from './styleWrappers';
-import { ZipEntry } from 'unzipit';
+import { type ZipEntry } from 'unzipit';
 
 export interface ArchiveSidebarRendererProps {
   selectedFileState: FileState;

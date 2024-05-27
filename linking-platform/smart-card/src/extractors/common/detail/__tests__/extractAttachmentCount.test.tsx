@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import {
   extractAttachmentCount,
-  LinkAttachmentType,
+  type LinkAttachmentType,
 } from '../extractAttachmentCount';
 import { TEST_BASE_DATA } from '../../__mocks__/jsonld';
 

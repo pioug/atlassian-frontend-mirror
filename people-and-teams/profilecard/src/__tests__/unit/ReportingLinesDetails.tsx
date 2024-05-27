@@ -3,9 +3,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ReportingLinesDetails, {
-  ReportingLinesDetailsProps,
+  type ReportingLinesDetailsProps,
 } from '../../components/User/ReportingLinesDetails';
-import { ReportingLinesUser } from '../../types';
+import { type ReportingLinesUser } from '../../types';
 
 describe('ReportingLinesDetails', () => {
   const exampleReportingLineUser: ReportingLinesUser = {

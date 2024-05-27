@@ -1,4 +1,4 @@
-import { ValidatorMap } from '../../../common/types';
+import { type ValidatorMap } from '../../../common/types';
 
 /** Map of field names to errors for that field (or undefined if no error for that field) */
 export type ValidatorResults = {

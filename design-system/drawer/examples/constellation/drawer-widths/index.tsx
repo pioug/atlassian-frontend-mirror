@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 
-import Drawer, { DrawerWidth } from '../../../src';
+import Drawer, { type DrawerWidth } from '../../../src';
 import { widths } from '../../../src/constants';
 
 const DrawerWidths = () => {

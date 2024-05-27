@@ -1,4 +1,4 @@
-import SchemaNode from './schema-node';
+import type SchemaNode from './schema-node';
 import OfSchemaNode from './of-schema-node';
 
 export default class AllOfSchemaNode extends OfSchemaNode {

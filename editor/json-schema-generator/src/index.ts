@@ -1,13 +1,13 @@
 /* eslint-disable no-bitwise */
 import {
-  Node,
-  Type,
-  Symbol,
+  type Node,
+  type Type,
+  type Symbol,
   JsxEmit,
   SymbolFlags,
   ObjectFlags,
   createProgram,
-  StringLiteralType,
+  type StringLiteralType,
 } from 'typescript';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import JSON5 from 'json5';
@@ -16,7 +16,7 @@ import * as prettier from 'prettier';
 import mkdirp from 'mkdirp';
 
 import JSONSchemaNode, {
-  SchemaNode,
+  type SchemaNode,
   StringSchemaNode,
   ArraySchemaNode,
   ObjectSchemaNode,

@@ -3,7 +3,7 @@ import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
 
 import { Decorator } from './styled';
-import { CodeBidiWarningProps } from './types';
+import { type CodeBidiWarningProps } from './types';
 
 /**
  * __Bidi Warning__

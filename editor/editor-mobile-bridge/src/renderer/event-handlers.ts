@@ -1,4 +1,4 @@
-import { RendererProps } from '@atlaskit/renderer';
+import { type RendererProps } from '@atlaskit/renderer';
 import { toNativeBridge } from './web-to-native/implementation';
 
 const onLinkClick = (

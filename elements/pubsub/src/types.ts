@@ -1,4 +1,4 @@
-import { OnEvent } from './apiTypes';
+import { type OnEvent } from './apiTypes';
 
 export type ARI = string;
 export type AVI = string;

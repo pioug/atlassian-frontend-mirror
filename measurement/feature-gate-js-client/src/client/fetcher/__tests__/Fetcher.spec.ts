@@ -2,11 +2,11 @@ import fetchMock from 'jest-fetch-mock';
 
 import { FeatureGateEnvironment } from '../../index';
 import { ResponseError } from '../errors';
-import { FetcherOptions } from '../Fetcher';
+import { type FetcherOptions } from '../Fetcher';
 import Fetcher from '../index';
 import {
-  FrontendClientSdkKeyResponse,
-  FrontendExperimentsResponse,
+  type FrontendClientSdkKeyResponse,
+  type FrontendExperimentsResponse,
 } from '../types';
 
 const TARGET_APP = 'test';

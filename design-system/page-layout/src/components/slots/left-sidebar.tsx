@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import {
   Fragment,
-  MouseEvent as ReactMouseEvent,
+  type MouseEvent as ReactMouseEvent,
   useCallback,
   useContext,
   useEffect,
@@ -27,7 +27,7 @@ import {
   VAR_LEFT_SIDEBAR_FLYOUT,
   VAR_LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
-import { LeftSidebarProps } from '../../common/types';
+import { type LeftSidebarProps } from '../../common/types';
 import {
   getGridStateFromStorage,
   mergeGridStateIntoStorage,

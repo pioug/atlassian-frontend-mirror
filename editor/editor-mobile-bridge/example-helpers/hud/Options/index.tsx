@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
-import WebBridgeImpl from '../../../src/editor/native-to-web';
+import type WebBridgeImpl from '../../../src/editor/native-to-web';
 
 interface Props {
   bridge: WebBridgeImpl;

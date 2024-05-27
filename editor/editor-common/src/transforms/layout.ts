@@ -1,7 +1,7 @@
 import {
   Fragment,
-  Node,
-  Schema,
+  type Node,
+  type Schema,
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
 

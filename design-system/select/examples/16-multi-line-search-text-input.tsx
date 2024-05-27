@@ -1,9 +1,9 @@
-import React, { Component, KeyboardEvent } from 'react';
+import React, { Component, type KeyboardEvent } from 'react';
 
 import { Label } from '@atlaskit/form';
 
 import { CreatableSelect } from '../src';
-import { OptionsType } from '../src/types';
+import { type OptionsType } from '../src/types';
 
 const components = {
   DropdownIndicator: null,

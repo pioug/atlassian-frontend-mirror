@@ -1,6 +1,6 @@
-import React, { PropsWithChildren, useState } from 'react';
+import React, { type PropsWithChildren, useState } from 'react';
 import Textfield from '@atlaskit/textfield';
-import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import {
   getMediaFeatureFlags,
   clearAllLocalFeatureFlags,

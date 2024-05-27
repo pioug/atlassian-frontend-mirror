@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import useIsSubsequentRender from '../../../internal/hooks/use-is-subsequent-render';
 import * as hooks from '../../../internal/hooks/use-isomorphic-layout-effect';
-import { MountStrategy } from '../../../internal/types';
+import { type MountStrategy } from '../../../internal/types';
 
 describe('useIsSubsequentRender', () => {
   const effectSpy = jest.spyOn(React, 'useEffect');

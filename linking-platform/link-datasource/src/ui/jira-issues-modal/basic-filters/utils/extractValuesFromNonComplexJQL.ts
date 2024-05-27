@@ -2,15 +2,15 @@ import mergeWith from 'lodash/mergeWith';
 
 import {
   AbstractJastVisitor,
-  Field,
+  type Field,
   JastBuilder,
   NODE_TYPE_ORDER_BY,
-  Operand,
+  type Operand,
   OPERAND_EMPTY,
   OPERAND_TYPE_KEYWORD,
   OPERAND_TYPE_LIST,
   OPERAND_TYPE_VALUE,
-  TerminalClause,
+  type TerminalClause,
 } from '@atlaskit/jql-ast';
 
 import { isQueryTooComplex } from './isQueryTooComplex';

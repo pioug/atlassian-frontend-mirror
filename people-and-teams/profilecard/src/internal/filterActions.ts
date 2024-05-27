@@ -1,4 +1,4 @@
-import { ProfileCardAction } from '../types';
+import { type ProfileCardAction } from '../types';
 
 const filterActions = (
   actions: ProfileCardAction[] = [],

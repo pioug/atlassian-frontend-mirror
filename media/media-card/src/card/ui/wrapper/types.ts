@@ -1,10 +1,11 @@
-import React, { MouseEvent } from 'react';
+import {type MouseEvent} from 'react';
+import type React from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { CardDimensions, CardAppearance } from '../../../types';
-import { Breakpoint } from '../common';
-import { MediaCardCursor } from '../../../types';
+import { type CardDimensions, type CardAppearance } from '../../../types';
+import { type Breakpoint } from '../common';
+import { type MediaCardCursor } from '../../../types';
 
 export interface WrapperProps {
   testId?: string;

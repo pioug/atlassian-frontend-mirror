@@ -3,8 +3,8 @@ import { jsx } from '@emotion/react';
 import { useCallback, useMemo } from 'react';
 import Select from '@atlaskit/select/Select';
 import { Field } from '@atlaskit/form';
-import { ValueType as Value } from '@atlaskit/select';
-import { ChangeParams, excludeStyles, handleOnChange } from '../../utils';
+import { type ValueType as Value } from '@atlaskit/select';
+import { type ChangeParams, excludeStyles, handleOnChange } from '../../utils';
 
 type Props<T> = {
   defaultValue: T[keyof T];

@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import EditAction from '../index';
-import { EditActionProps } from '../types';
+import { type EditActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
   ...jest.requireActual('../../../../../../state/flexible-ui-context'),

@@ -6,7 +6,7 @@ import {
   mediaPickerAuthProvider,
   defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
-import { FileIdentifier, MediaClient } from '@atlaskit/media-client';
+import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
 import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = {

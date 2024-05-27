@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { type FC, useState } from 'react';
 
-import PanelStateless, { BasePanelProps } from './PanelStateless';
+import PanelStateless, { type BasePanelProps } from './PanelStateless';
 
 type Props = BasePanelProps & {
   /** Defines whether the panel is expanded by default. */

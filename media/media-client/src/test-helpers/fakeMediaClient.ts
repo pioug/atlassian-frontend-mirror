@@ -1,4 +1,4 @@
-import { MediaApiConfig, MediaClientConfig } from '@atlaskit/media-core';
+import { type MediaApiConfig, type MediaClientConfig } from '@atlaskit/media-core';
 import { MediaClient } from '../';
 
 import { asMock, getJest } from '@atlaskit/media-common/test-helpers';

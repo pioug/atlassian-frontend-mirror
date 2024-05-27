@@ -1,10 +1,10 @@
 import { videoURI, videoPreviewURI } from '@atlaskit/media-common/test-helpers';
 import {
-  FileIdentifier,
-  MediaItemType,
-  FileDetails,
-  ExternalImageIdentifier,
-  MediaType,
+  type FileIdentifier,
+  type MediaItemType,
+  type FileDetails,
+  type ExternalImageIdentifier,
+  type MediaType,
 } from '../';
 import {
   defaultCollectionName as collectionName,

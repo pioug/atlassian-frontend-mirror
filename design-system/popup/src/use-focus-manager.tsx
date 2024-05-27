@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
-import createFocusTrap, { FocusTrap } from 'focus-trap';
+import createFocusTrap, { type FocusTrap } from 'focus-trap';
 
 import noop from '@atlaskit/ds-lib/noop';
 
-import { FocusManagerHook } from './types';
+import { type FocusManagerHook } from './types';
 
 export const useFocusManager = ({
   initialFocusRef,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnalyticsWebClient, FabricChannel, ListenerProps } from './types';
+import { type AnalyticsWebClient, FabricChannel, type ListenerProps } from './types';
 import FabricElementsListener from './fabric/FabricElementsListener';
 import AtlaskitListener from './atlaskit/AtlaskitListener';
 import Logger from './helpers/logger';

@@ -1,4 +1,4 @@
-import { PrimaryButtonProps } from '../PrimaryButton/types';
+import { type PrimaryButtonProps } from '../PrimaryButton/types';
 
 export type PrimaryDropdownButtonProps = Omit<
   PrimaryButtonProps,

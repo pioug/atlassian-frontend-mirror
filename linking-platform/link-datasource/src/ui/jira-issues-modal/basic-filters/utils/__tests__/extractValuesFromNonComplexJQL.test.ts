@@ -3,7 +3,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   extractValuesFromNonComplexJQL,
-  ResultMap,
+  type ResultMap,
 } from '../extractValuesFromNonComplexJQL';
 
 jest.mock('@atlaskit/platform-feature-flags');

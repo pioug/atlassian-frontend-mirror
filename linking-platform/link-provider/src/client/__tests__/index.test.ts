@@ -7,11 +7,11 @@ jest.mock('@atlaskit/linking-common', () => ({
 import { mocks } from './__fixtures__/mocks';
 import SmartCardClient, { urlResponsePromiseCache } from '..';
 import {
-  ErrorResponseBody,
+  type ErrorResponseBody,
   isSuccessfulResponse,
-  SuccessResponse,
+  type SuccessResponse,
 } from '../types/responses';
-import { APIError, ErrorType, NetworkError } from '@atlaskit/linking-common';
+import { APIError, type ErrorType, NetworkError } from '@atlaskit/linking-common';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 
 // Mock response quick-references:

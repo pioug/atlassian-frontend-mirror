@@ -1,10 +1,10 @@
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
   FileFetcherError,
-  FileIdentifier,
-  FileState,
-  Identifier,
-  MediaClient,
+  type FileIdentifier,
+  type FileState,
+  type Identifier,
+  type MediaClient,
 } from '@atlaskit/media-client';
 import {
   MediaInlineCardErroredView,
@@ -16,16 +16,16 @@ import { formatDate } from '@atlaskit/media-ui/formatDate';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import Tooltip from '@atlaskit/tooltip';
-import React, { FC, useEffect, useState } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import {
   createIntl,
   injectIntl,
   IntlProvider,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { MediaCardError } from '../errors';
-import { InlineCardEvent, InlineCardOnClickCallback } from '../types';
+import { type InlineCardEvent, type InlineCardOnClickCallback } from '../types';
 import { fireMediaCardEvent } from '../utils/analytics';
 import {
   getErrorStatusPayload,

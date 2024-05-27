@@ -17,7 +17,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
-  AqlValidationResult,
+  type AqlValidationResult,
   useValidateAqlText,
 } from '../../../../hooks/useValidateAqlText';
 import { aqlKey } from '../../../../types/assets/types';

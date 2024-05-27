@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { ZoomControlsBase, ZoomControlsProps } from '../../../zoomControls';
+import { ZoomControlsBase, type ZoomControlsProps } from '../../../zoomControls';
 import { ZoomRightControls } from '../../../styleWrappers';
 import { ZoomLevel } from '../../../domain/zoomLevel';
 import { fakeIntl } from '@atlaskit/media-test-helpers';

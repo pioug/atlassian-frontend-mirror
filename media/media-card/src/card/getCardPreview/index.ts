@@ -1,19 +1,19 @@
 import {
-  MediaClient,
-  FilePreview,
+  type MediaClient,
+  type FilePreview,
   isPreviewableFileState,
-  FileState,
+  type FileState,
   addFileAttrsToUrl,
-  MediaStoreGetFileImageParams,
-  MediaBlobUrlAttrs,
+  type MediaStoreGetFileImageParams,
+  type MediaBlobUrlAttrs,
 } from '@atlaskit/media-client';
 import {
   isMimeTypeSupportedByBrowser,
-  SSR,
-  MediaTraceContext,
+  type SSR,
+  type MediaTraceContext,
 } from '@atlaskit/media-common';
-import { ImageResizeMode } from '@atlaskit/media-client';
-import { CardDimensions } from '../../types';
+import { type ImageResizeMode } from '@atlaskit/media-client';
+import { type CardDimensions } from '../../types';
 import cardPreviewCache from './cache';
 import {
   getCardPreviewFromFilePreview,
@@ -24,7 +24,7 @@ import {
   SsrPreviewError,
   isUnsupportedLocalPreviewError,
 } from '../../errors';
-import { CardStatus, CardPreview, CardPreviewSource } from '../../types';
+import { type CardStatus, type CardPreview, type CardPreviewSource } from '../../types';
 import { isBigger } from '../../utils/dimensionComparer';
 import {
   extractFilePreviewStatus,

@@ -1,6 +1,6 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';
-import { reduce, NodeReducer } from './';
+import { reduce, type NodeReducer } from './';
 
 const orderedList: NodeReducer = (node: PMNode, schema: Schema) => {
   const result: string[] = [];

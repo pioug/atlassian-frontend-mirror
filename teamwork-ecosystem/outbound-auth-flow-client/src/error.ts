@@ -1,4 +1,4 @@
-import { AuthErrorType } from './types';
+import { type AuthErrorType } from './types';
 
 export class AuthError extends Error {
   public constructor(

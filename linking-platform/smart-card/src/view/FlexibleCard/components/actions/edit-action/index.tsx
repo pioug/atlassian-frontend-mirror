@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { EditActionProps } from './types';
+import { type EditActionProps } from './types';
 import Action from '../action';
 import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';

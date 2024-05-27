@@ -4,9 +4,9 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { Label } from '@atlaskit/form';
-import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
+import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { Box, xcss } from '@atlaskit/primitives';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 
 import Calendar from '../../src';
 import type { WeekDay } from '../../src/types';

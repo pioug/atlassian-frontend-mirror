@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
 import {

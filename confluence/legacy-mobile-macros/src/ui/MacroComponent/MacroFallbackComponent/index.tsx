@@ -1,4 +1,4 @@
-import React, { ComponentType, FC, useEffect, useState } from 'react';
+import React, { type ComponentType, type FC, useEffect, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 import styled from 'styled-components';
@@ -21,7 +21,7 @@ import {
   TAP_TO_VIEW_PROMISE,
 } from './constants';
 import { MacroFallbackCard } from './MacroFallbackCard';
-import { ActionProps, CreateMacro, MacroFallbackComponentProps } from './types';
+import { type ActionProps, type CreateMacro, type MacroFallbackComponentProps } from './types';
 
 const noop = () => {};
 

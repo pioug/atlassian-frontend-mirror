@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import { FormContextProvider } from '../../src/controllers/form-context';
 import {
   CreateFormFooter,
-  CreateFormFooterProps,
+  type CreateFormFooterProps,
 } from '../../src/ui/create-form/form-footer/main';
 
 const createExample = (

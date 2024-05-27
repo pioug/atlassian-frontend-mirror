@@ -1,20 +1,20 @@
 import {
   Fragment,
-  Node as PMNode,
-  ResolvedPos,
+  type Node as PMNode,
+  type ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
 import {
-  EditorState,
+  type EditorState,
   NodeSelection,
   TextSelection,
-  Transaction,
+  type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  EditorAnalyticsAPI,
+  type EditorAnalyticsAPI,
   EVENT_TYPE,
 } from '../analytics';
 import { withAnalytics } from '../editor-analytics';

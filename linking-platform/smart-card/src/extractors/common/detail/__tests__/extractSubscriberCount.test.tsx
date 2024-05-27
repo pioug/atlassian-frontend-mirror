@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import {
   extractSubscriberCount,
-  LinkSubscriberType,
+  type LinkSubscriberType,
 } from '../extractSubscriberCount';
 import { TEST_BASE_DATA } from '../../__mocks__/jsonld';
 

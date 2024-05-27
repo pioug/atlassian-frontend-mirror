@@ -4,10 +4,10 @@ import {
   DEFAULT_SHARE_PATH,
   DEFAULT_SHARE_SERVICE_URL,
   SHARE_CONFIG_PATH,
-  ShareClient,
+  type ShareClient,
   ShareServiceClient,
 } from '../../../clients/ShareServiceClient';
-import { Comment, Content, MetaData, User } from '../../../types';
+import { type Comment, type Content, type MetaData, type User } from '../../../types';
 
 const mockContent: Content = {
   link: 'link',

@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 
 import getManifest from '../manifest';
-import { DropboxFile } from '../types';
+import { type DropboxFile } from '../types';
 import { POPUP_MOUNTPOINT } from '../constants';
 
 jest.mock('react-dom');

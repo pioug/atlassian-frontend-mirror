@@ -1,5 +1,5 @@
 import {
-  PuppeteerPage,
+  type PuppeteerPage,
   waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
 

@@ -10,7 +10,7 @@ import {
   SmartCardProvider,
 } from '@atlaskit/link-provider';
 import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';
-import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import { Radio } from '@atlaskit/radio';
 import { Card } from '@atlaskit/smart-card';
@@ -19,8 +19,8 @@ import TextArea from '@atlaskit/textarea';
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../src/ui/confluence-search-modal';
 import { ConfluenceSearchConfigModal } from '../src/ui/confluence-search-modal/modal';
 import {
-  ConfluenceSearchDatasourceAdf,
-  ConfluenceSearchDatasourceParameters,
+  type ConfluenceSearchDatasourceAdf,
+  type ConfluenceSearchDatasourceParameters,
 } from '../src/ui/confluence-search-modal/types';
 
 const tableContainerStyles = css({

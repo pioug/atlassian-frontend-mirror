@@ -1,7 +1,7 @@
 import memoizeOne from 'memoize-one';
 
 import { SUPPORTED_LANGUAGES } from '../../constants';
-import { LanguageAlias, SupportedLanguages } from '../types';
+import { type LanguageAlias, type SupportedLanguages } from '../types';
 
 export const normalizeLanguage = memoizeOne(
   (language?: SupportedLanguages): string => {

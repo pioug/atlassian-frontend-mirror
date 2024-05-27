@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  Identifier,
-  FileIdentifier,
-  FileState,
+  type Identifier,
+  type FileIdentifier,
+  type FileState,
   createMediaSubscribable,
 } from '@atlaskit/media-client';
-import { List, Props, State } from '../../../list';
+import { List, type Props, type State } from '../../../list';
 import { nextNavButtonId } from '../../../navigation';
 import { ItemViewer } from '../../../item-viewer';
 import {

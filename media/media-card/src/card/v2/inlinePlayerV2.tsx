@@ -1,19 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {
-  FileIdentifier,
-  FileState,
-  MediaFileArtifacts,
+  type FileIdentifier,
+  type FileState,
+  type MediaFileArtifacts,
   globalMediaEventEmitter,
 } from '@atlaskit/media-client';
-import { NumericalCardDimensions } from '@atlaskit/media-common';
+import { type NumericalCardDimensions } from '@atlaskit/media-common';
 import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
-import { CardDimensions } from '../../types';
+import { type CardDimensions } from '../../types';
 import { defaultImageCardDimensions } from '../../utils';
 import { CardLoading } from '../../utils/lightCards/cardLoading';
 
 import {
-  WithAnalyticsEventsProps,
-  UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { ProgressBar } from '../ui/progressBar/progressBar';
 import type { CardPreview } from '../../types';

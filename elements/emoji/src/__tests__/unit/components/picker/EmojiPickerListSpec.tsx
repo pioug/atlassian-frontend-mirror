@@ -7,7 +7,7 @@ import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../compone
 import {
   default as EmojiPickerList,
   default as EmojiPickerVirtualList,
-  Props as EmojiPickerListProps,
+  type Props as EmojiPickerListProps,
 } from '../../../../components/picker/EmojiPickerList';
 import { VirtualList } from '../../../../components/picker/VirtualList';
 import type { EmojiDescription } from '../../../../types';

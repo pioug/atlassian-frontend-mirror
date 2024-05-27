@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { LabelTextProps } from '../types';
+import { type LabelTextProps } from '../types';
 
 const labelTextStyles = css({
   alignSelf: 'center',

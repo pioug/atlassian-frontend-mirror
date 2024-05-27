@@ -1,4 +1,4 @@
-import { StoreActionApi } from 'react-sweet-state';
+import { type StoreActionApi } from 'react-sweet-state';
 import { empty } from 'rxjs/observable/empty';
 import { from } from 'rxjs/observable/from';
 import { of } from 'rxjs/observable/of';
@@ -6,11 +6,11 @@ import { _throw } from 'rxjs/observable/throw';
 import { Subscription } from 'rxjs/Subscription';
 
 import { JQLParseError } from '@atlaskit/jql-ast';
-import { JQLRuleSuggestion, JQLSuggestions } from '@atlaskit/jql-autocomplete';
-import { AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import { type JQLRuleSuggestion, type JQLSuggestions } from '@atlaskit/jql-autocomplete';
+import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
 
 import * as analyticsActionsModule from './analytics';
-import { ExternalError, Props, State } from './types';
+import { type ExternalError, type Props, type State } from './types';
 import { getAutocompleteOptionId } from './util';
 
 import { actions, initialState } from './index';

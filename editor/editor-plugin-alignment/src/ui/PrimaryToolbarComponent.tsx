@@ -45,6 +45,7 @@ export function PrimaryToolbarComponent({
       popupsMountPoint={popupsMountPoint}
       popupsBoundariesElement={popupsBoundariesElement}
       popupsScrollableElement={popupsScrollableElement}
+      api={api}
     />
   );
 }

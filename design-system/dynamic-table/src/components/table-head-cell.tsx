@@ -1,7 +1,7 @@
-import React, { FC, LegacyRef } from 'react';
+import React, { type FC, type LegacyRef } from 'react';
 
 import { HeadCell } from '../styled/table-head';
-import { SortOrderType } from '../types';
+import { type SortOrderType } from '../types';
 
 export interface TableHeadCellProps {
   colSpan?: number;

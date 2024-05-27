@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { getDimensionsWithDefault } from './getDimensionsWithDefault';
 import { Wrapper } from './lightCardWrappers';
-import { StaticCardProps } from './types';
+import { type StaticCardProps } from './types';
 import SpinnerIcon from '@atlaskit/spinner';
 
 export class CardLoading extends Component<StaticCardProps, {}> {

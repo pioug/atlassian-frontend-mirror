@@ -1,4 +1,4 @@
-import { ServerActionOpts } from '@atlaskit/linking-common';
+import { type ServerActionOpts } from '@atlaskit/linking-common';
 
 export interface ResolveRequest {
   resourceUrl: string;

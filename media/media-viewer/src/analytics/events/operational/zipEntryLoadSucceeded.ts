@@ -1,10 +1,10 @@
-import { FileState } from '@atlaskit/media-client';
+import { type FileState } from '@atlaskit/media-client';
 import {
-  SuccessAttributes,
-  WithFileAttributes,
+  type SuccessAttributes,
+  type WithFileAttributes,
 } from '@atlaskit/media-common/analytics';
-import { ZipEntry } from 'unzipit';
-import { MediaFileEventPayload } from './_mediaFile';
+import { type ZipEntry } from 'unzipit';
+import { type MediaFileEventPayload } from './_mediaFile';
 import { getMimeTypeFromFilename } from '../../../utils';
 import { getFileAttributes } from '../..';
 

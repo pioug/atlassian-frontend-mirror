@@ -10,7 +10,7 @@ import { ExperienceTrackerContext } from '@atlassian/experience-tracker';
 
 import {
   DEFAULT_ALLOWED_FEATURES,
-  PageAllowedFeatures,
+  type PageAllowedFeatures,
 } from '@atlassian/embedded-confluence-common/features';
 import { Page, type PageProps } from '../';
 

@@ -1,6 +1,6 @@
 import {
-  AutocompleteOptions,
-  AutocompleteProvider,
+  type AutocompleteOptions,
+  type AutocompleteProvider,
 } from '@atlaskit/jql-editor-common';
 
 export type OnFields = AutocompleteProvider['onFields'];

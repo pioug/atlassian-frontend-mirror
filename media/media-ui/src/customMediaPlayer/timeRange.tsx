@@ -10,7 +10,7 @@ import {
   CurrentTimeLineThumb,
 } from './styled';
 import { formatDuration, secondsToTime } from '../formatDuration';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../messages';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 

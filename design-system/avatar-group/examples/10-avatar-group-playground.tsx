@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { type FC, useState } from 'react';
 
-import { AVATAR_SIZES, SizeType } from '@atlaskit/avatar';
+import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';

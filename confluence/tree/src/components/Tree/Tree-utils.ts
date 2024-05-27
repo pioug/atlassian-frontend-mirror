@@ -1,12 +1,12 @@
-import { DragState } from './Tree-types';
+import { type DragState } from './Tree-types';
 import { getTreePosition } from '../../utils/tree';
 import { getDestinationPath, getSourcePath } from '../../utils/flat-tree';
 import {
-  Path,
-  TreeSourcePosition,
-  TreeDestinationPosition,
-  TreeData,
-  FlattenedTree,
+  type Path,
+  type TreeSourcePosition,
+  type TreeDestinationPosition,
+  type TreeData,
+  type FlattenedTree,
 } from '../../types';
 
 /*

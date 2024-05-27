@@ -4,7 +4,7 @@ import EmojiRepository, {
 } from '../../../api/EmojiRepository';
 import { customCategory, customType } from '../../../util/constants';
 import { containsEmojiId, toEmojiId } from '../../../util/type-helpers';
-import { EmojiDescription, SearchSort } from '../../../types';
+import { type EmojiDescription, SearchSort } from '../../../types';
 import {
   emojis as allEmojis,
   newEmojiRepository,

@@ -5,7 +5,7 @@ import {
   TEST_NAME,
   TEST_UNDEFINED_LINK,
 } from '../../__mocks__/jsonld';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 describe('extractors.lozenge.lozenge', () => {
   it('returns undefined if type unsupported for lozenge', () => {

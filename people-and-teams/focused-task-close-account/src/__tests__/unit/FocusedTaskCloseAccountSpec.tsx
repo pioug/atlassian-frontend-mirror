@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 
 import {
   FocusedTaskCloseAccount,
-  Props,
-  State,
+  type Props,
+  type State,
 } from '../../components/FocusedTaskCloseAccount';
 
 import Footer from '../../components/Footer';

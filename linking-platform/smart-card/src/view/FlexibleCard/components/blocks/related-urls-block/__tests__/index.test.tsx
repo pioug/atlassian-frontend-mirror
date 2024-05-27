@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
@@ -16,7 +16,7 @@ import {
   JiraIssue,
 } from '../../../../../../../examples-helpers/_jsonLDExamples';
 import useRelatedUrls, {
-  RelatedUrlsResponse,
+  type RelatedUrlsResponse,
 } from '../../../../../../state/hooks/use-related-urls';
 
 const mockGetRelatedUrlsResponseDefault: RelatedUrlsResponse = {

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { SortDirection, SortKey } from './use-table';
+import { type SortDirection, type SortKey } from './use-table';
 
 export const useSorting = <ItemType extends object>(
   sortKey: SortKey<keyof ItemType>,

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { Component, SyntheticEvent } from 'react';
+import { Component, type SyntheticEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

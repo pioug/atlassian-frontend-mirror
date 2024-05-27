@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { IntlProvider } from 'react-intl-next';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
@@ -15,7 +15,7 @@ import {
   ActionName,
   Card,
   Client,
-  ElementItem,
+  type ElementItem,
   ElementName,
   PreviewBlock,
   Provider,
@@ -24,7 +24,7 @@ import {
   SmartLinkTheme,
 } from '../../src/index';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
-import { CustomActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
+import { type CustomActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
 import {
   response1,
   response2,

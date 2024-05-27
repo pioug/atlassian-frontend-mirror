@@ -3,7 +3,7 @@ import {
   createEvent,
   fireEvent,
   render,
-  RenderResult,
+  type RenderResult,
   within,
 } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
@@ -12,12 +12,12 @@ import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import {
   AnalyticsListener,
-  UIAnalyticsEventHandler,
+  type UIAnalyticsEventHandler,
 } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 
 import { CardActionsView } from '../..';
-import { CardAction } from '../../../../../actions';
+import { type CardAction } from '../../../../../actions';
 
 describe('CardActions', () => {
   const openAction = {

@@ -1,7 +1,7 @@
 import {
   getExampleUrl,
   loadPage,
-  PuppeteerPage,
+  type PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 
 async function waitForCalendarPicker(page: PuppeteerPage, testId: string) {

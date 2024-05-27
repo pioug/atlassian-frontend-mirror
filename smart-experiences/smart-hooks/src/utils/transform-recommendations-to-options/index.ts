@@ -1,14 +1,14 @@
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
-import { EntityType, UserSearchItem } from '@atlaskit/smart-common';
+import { EntityType, type UserSearchItem } from '@atlaskit/smart-common';
 import {
-  Group,
+  type Group,
   GroupType,
-  LozengeProps,
-  OptionData,
-  Team,
+  type LozengeProps,
+  type OptionData,
+  type Team,
   TeamType,
-  User,
+  type User,
   UserType,
 } from '@atlaskit/user-picker';
 

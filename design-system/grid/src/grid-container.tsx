@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { createContext, FC } from 'react';
+import { createContext, type FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

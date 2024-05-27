@@ -1,7 +1,7 @@
-import React, { forwardRef, memo, SyntheticEvent } from 'react';
+import React, { forwardRef, memo, type SyntheticEvent } from 'react';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
@@ -15,7 +15,7 @@ import PageComponent from './internal/components/page';
 import renderDefaultEllipsis from './internal/components/render-ellipsis';
 import { emptyObject } from './internal/constants';
 import collapseRange from './internal/utils/collapse-range';
-import { PaginationPropTypes } from './types';
+import { type PaginationPropTypes } from './types';
 
 const analyticsAttributes = {
   componentName: 'pagination',

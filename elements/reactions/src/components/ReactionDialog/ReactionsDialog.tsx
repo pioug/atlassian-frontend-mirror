@@ -4,18 +4,18 @@ import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Modal, {
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  OnCloseHandler,
+  type OnCloseHandler,
 } from '@atlaskit/modal-dialog';
 
 import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
-import { onDialogSelectReactionChange, ReactionSummary } from '../../types';
+import { type onDialogSelectReactionChange, type ReactionSummary } from '../../types';
 
 import { ReactionsList } from './ReactionsList';
 import { containerStyle, titleStyle } from './styles';

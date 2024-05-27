@@ -3,8 +3,8 @@ import React, { useCallback, useRef, useState } from 'react';
 import { findByTestId, findByText, fireEvent } from '@testing-library/dom';
 import Lorem from 'react-lorem-component';
 import {
-  InteractionTaskArgs,
-  PublicInteractionTask,
+  type InteractionTaskArgs,
+  type PublicInteractionTask,
 } from 'storybook-addon-performance';
 
 import Button from '@atlaskit/button/new';

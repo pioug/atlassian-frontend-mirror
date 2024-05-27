@@ -4,17 +4,17 @@ import {
   ACTION_ERROR,
   ACTION_RESOLVED,
   cardAction,
-  CardActionParams,
-  CardStore,
-  CardAction,
+  type CardActionParams,
+  type CardStore,
+  type CardAction,
   ACTION_ERROR_FALLBACK,
   APIError,
   ACTION_RELOADING,
   ACTION_UPDATE_METADATA_STATUS,
-  MetadataStatus,
+  type MetadataStatus,
 } from '@atlaskit/linking-common';
-import { Reducer } from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type Reducer } from 'react';
+import { type JsonLd } from 'json-ld-types';
 import { cardReducer } from '../..';
 
 describe('Smart Card: Reducers', () => {

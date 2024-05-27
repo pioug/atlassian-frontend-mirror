@@ -1,9 +1,9 @@
 import './card-states.card.test.mock';
 
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { render, cleanup, waitFor } from '@testing-library/react';
-import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card } from '../../Card';
 import { Provider } from '../../..';

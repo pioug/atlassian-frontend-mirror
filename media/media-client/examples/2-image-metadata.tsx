@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { MediaStore, ImageMetadata } from '../src';
+import { MediaStore, type ImageMetadata } from '../src';
 import { createStorybookMediaClient, imageFileId } from '../src/test-helpers';
 
 export interface ExampleState {

@@ -1,6 +1,6 @@
 import {
-  MentionProvider,
-  MentionContextIdentifier,
+  type MentionProvider,
+  type MentionContextIdentifier,
   // @ts-ignore
   ErrorCallback,
   // @ts-ignore
@@ -9,7 +9,7 @@ import {
   ResultCallback,
 } from './MentionResource';
 import { padArray } from '../util';
-import { MentionDescription, InviteFromMentionProvider } from '../types';
+import { type MentionDescription, type InviteFromMentionProvider } from '../types';
 export type { MentionDescription };
 
 export type MentionProviderFunctions = Omit<

@@ -3,7 +3,7 @@ import {
   resolveInitialAuth,
 } from '../../client/media-store/resolveAuth';
 import { MediaStoreError } from '../../client/media-store/error';
-import { AsapBasedAuth, AuthProvider } from '@atlaskit/media-core';
+import { type AsapBasedAuth, type AuthProvider } from '@atlaskit/media-core';
 import { resolveTimeout } from '../../utils/setTimeoutPromise';
 
 // expires in 1619827800000

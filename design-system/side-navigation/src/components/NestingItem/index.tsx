@@ -5,10 +5,10 @@ import { jsx } from '@emotion/react';
 
 import RightArrow from '@atlaskit/icon/glyph/arrow-right-circle';
 import {
-  ButtonItemProps,
-  CSSFn,
-  CustomItemComponentProps,
-  Overrides,
+  type ButtonItemProps,
+  type CSSFn,
+  type CustomItemComponentProps,
+  type Overrides,
 } from '@atlaskit/menu';
 import { Box, xcss } from '@atlaskit/primitives';
 import { N10 } from '@atlaskit/theme/colors';
@@ -19,7 +19,7 @@ import { ButtonItem, CustomItem, NavigationContent } from '../index';
 import { ROOT_ID } from '../NestableNavigationContent';
 import {
   NestedContext,
-  NestedContextValue,
+  type NestedContextValue,
   useNestedContext,
 } from '../NestableNavigationContent/context';
 import { useChildIdsEffect } from '../utils/hooks';

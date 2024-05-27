@@ -11,7 +11,7 @@ import VidFullScreenOffIcon from '@atlaskit/icon/glyph/vid-full-screen-off';
 import { Icon } from '../../../common/Icon';
 import { messages } from '../../../../messages';
 import { MAX_MODAL_SIZE } from '../../constants';
-import { LinkInfoProps } from './types';
+import { type LinkInfoProps } from './types';
 import LinkInfoButton from './link-info-button';
 import { actionCss, containerStyles, iconCss, titleCss } from './styled';
 

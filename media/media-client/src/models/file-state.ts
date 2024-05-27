@@ -1,15 +1,15 @@
-import { FileStatus as CommonFileStatus } from '@atlaskit/media-common';
-import { MediaStoreResponse } from '../client/media-store';
-import { MediaItemDetails, MediaFile } from './media';
+import { type FileStatus as CommonFileStatus } from '@atlaskit/media-common';
+import { type MediaStoreResponse } from '../client/media-store';
+import { type MediaItemDetails, type MediaFile } from './media';
 
 import {
-  FilePreview,
-  FileState,
-  ErrorFileState,
-  UploadingFileState,
-  ProcessingFileState,
-  ProcessedFileState,
-  ProcessingFailedState,
+  type FilePreview,
+  type FileState,
+  type ErrorFileState,
+  type UploadingFileState,
+  type ProcessingFileState,
+  type ProcessedFileState,
+  type ProcessingFailedState,
 } from '@atlaskit/media-state';
 
 export type FileStatus = CommonFileStatus;

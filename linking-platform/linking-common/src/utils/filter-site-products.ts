@@ -1,4 +1,4 @@
-import { AvailableSite, AvailableSitesProductType } from '../types';
+import { type AvailableSite, type AvailableSitesProductType } from '../types';
 
 /**
  * Given a set of products, returns a predicate function that can be used to filter an array of available sites

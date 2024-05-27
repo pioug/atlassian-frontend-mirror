@@ -13,7 +13,7 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import { hexToRGBA } from './theme-helpers';
-import { Mode } from './types';
+import { type Mode } from './types';
 
 const defaultTheme: { mode: Mode } = {
   mode: {

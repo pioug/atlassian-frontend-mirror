@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { ResourcedTaskItem as AkTaskItem } from '@atlaskit/task-decision';
 import FabricAnalyticsListener, {
-  AnalyticsWebClient,
+  type AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
 import TaskItem from '../../../../react/nodes/taskItem';
 import ReactSerializer from '../../../../react';

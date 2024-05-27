@@ -1,4 +1,4 @@
-import { PlaceholderDefinition } from '@atlaskit/adf-schema';
+import { type PlaceholderDefinition } from '@atlaskit/adf-schema';
 
 export const placeholder = (
   attrs: PlaceholderDefinition['attrs'],

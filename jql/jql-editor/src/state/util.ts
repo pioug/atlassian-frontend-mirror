@@ -1,29 +1,29 @@
 import escapeRegExp from 'lodash/escapeRegExp';
 import uuidv5 from 'uuid/v5';
 
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   AbstractJastVisitor,
-  CompoundClause,
-  Field,
-  Jast,
-  NotClause,
-  OrderBy,
-  OrderByField,
-  Query,
-  TerminalClause,
+  type CompoundClause,
+  type Field,
+  type Jast,
+  type NotClause,
+  type OrderBy,
+  type OrderByField,
+  type Query,
+  type TerminalClause,
 } from '@atlaskit/jql-ast';
-import { JQLRuleKey, JQLSuggestions } from '@atlaskit/jql-autocomplete';
+import { type JQLRuleKey, type JQLSuggestions } from '@atlaskit/jql-autocomplete';
 
-import { SelectableAutocompleteOptions } from '../plugins/autocomplete/components/types';
+import { type SelectableAutocompleteOptions } from '../plugins/autocomplete/components/types';
 import getDocumentPosition from '../plugins/common/get-document-position';
 import { getNodeText } from '../utils/document-text';
 
 import {
-  AutocompletePosition,
-  ContextAwareTokenSuggestions,
-  DebugMessageEventAttribute,
+  type AutocompletePosition,
+  type ContextAwareTokenSuggestions,
+  type DebugMessageEventAttribute,
 } from './types';
 
 // Unique namespace to identify JQL autocomplete options!

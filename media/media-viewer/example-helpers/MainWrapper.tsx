@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { ReactNode, FC } from 'react';
+import { type ReactNode, type FC } from 'react';
 import { enableMediaUfoLogger } from '@atlaskit/media-test-helpers';
 import { payloadPublisher } from '@atlassian/ufo';
 import {

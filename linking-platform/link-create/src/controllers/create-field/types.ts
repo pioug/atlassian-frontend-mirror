@@ -1,6 +1,6 @@
-import { FieldInputProps } from 'react-final-form';
+import { type FieldInputProps } from 'react-final-form';
 
-import { Validator } from '../../common/types';
+import { type Validator } from '../../common/types';
 
 type FieldProps = FieldInputProps<any, HTMLElement> & {
   fieldId: string;

@@ -10,9 +10,9 @@ import Theme, {
   elevation as AkElevations,
   AtlaskitThemeProvider,
   themed,
-  Theme as ThemeType,
+  type Theme as ThemeType,
 } from '../src';
-import { Elevation, ThemeModes } from '../src/types';
+import { type Elevation, type ThemeModes } from '../src/types';
 
 const elevations = { ...AkElevations };
 

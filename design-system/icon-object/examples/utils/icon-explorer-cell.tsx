@@ -1,4 +1,4 @@
-import React, { useRef, useState, ComponentType, FC } from 'react';
+import React, { useRef, useState, type ComponentType, type FC } from 'react';
 import styled from '@emotion/styled';
 
 import Textfield from '@atlaskit/textfield';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   ColorPickerWithoutAnalytics as ColorPicker,
-  ColorPickerProps,
+  type ColorPickerProps,
 } from '../..';
 import Trigger from '../../components/Trigger';
 import { render } from '@testing-library/react';

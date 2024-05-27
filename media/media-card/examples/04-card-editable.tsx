@@ -7,8 +7,8 @@ import {
 } from '@atlaskit/media-test-helpers';
 import Toggle from '@atlaskit/toggle';
 import Range from '@atlaskit/range';
-import { Identifier } from '@atlaskit/media-client';
-import { Card, CardDimensions } from '../src';
+import { type Identifier } from '@atlaskit/media-client';
+import { Card, type CardDimensions } from '../src';
 import { cardDimensionsWrapperStyles } from '../example-helpers/styles';
 import {
   editableCardOptionsStyles,

@@ -20,7 +20,7 @@ import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import * as analyticsEvents from '../../../utils/analytics';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { CardClient } from '@atlaskit/link-provider';
+import { type CardClient } from '@atlaskit/link-provider';
 import React from 'react';
 import { Card } from '../../Card';
 import { Provider } from '../../..';

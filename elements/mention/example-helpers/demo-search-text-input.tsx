@@ -1,5 +1,5 @@
 import { token } from '@atlaskit/tokens';
-import React, { ChangeEventHandler, Component, FocusEventHandler } from 'react';
+import React, { type ChangeEventHandler, Component, type FocusEventHandler } from 'react';
 import uuid from 'uuid/v1';
 
 function noModifiers(event: React.KeyboardEvent<HTMLInputElement>) {

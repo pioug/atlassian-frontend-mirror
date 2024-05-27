@@ -1,8 +1,8 @@
 import { MediaClient } from '../';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import { type MediaClientConfig } from '@atlaskit/media-core';
 import { StoryBookAuthProvider } from './authProvider';
 import { collectionNames } from './collectionNames';
-import { MediaEnv, mediaPickerAuthProvider } from './mediaPickerAuthProvider';
+import { type MediaEnv, mediaPickerAuthProvider } from './mediaPickerAuthProvider';
 
 export const defaultBaseUrl = 'https://media.dev.atl-paas.net';
 

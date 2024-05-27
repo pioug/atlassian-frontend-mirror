@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { render } from '@testing-library/react';
 import { from } from 'rxjs/observable/from';
 
-import { AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
 
 import {
   accountJqlField,
@@ -22,7 +22,7 @@ import {
   statusJqlField,
   updatedByFunction,
 } from '../../common/mocks';
-import { JQLFieldResponse, JQLFunctionResponse } from '../../common/types';
+import { type JQLFieldResponse, type JQLFunctionResponse } from '../../common/types';
 
 import useOnFunctions from './index';
 

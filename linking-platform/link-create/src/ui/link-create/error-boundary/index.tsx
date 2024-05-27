@@ -1,18 +1,13 @@
-import React, { PropsWithChildren, useCallback } from 'react';
+import React, { type PropsWithChildren, useCallback } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { captureException } from '@atlaskit/linking-common/sentry';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import { ErrorBoundaryUI } from '../../../common/ui/error-boundary-ui';
 import createEventPayload from '../../../common/utils/analytics/analytics.codegen';
 import { useExperience } from '../../../controllers/experience-tracker';
 
-import {
-  BaseErrorBoundary,
-  ErrorBoundaryErrorInfo,
-} from './error-boundary-base';
+import { BaseErrorBoundary } from './error-boundary-base';
 
 type ErrorBoundaryProps = PropsWithChildren<{
   errorComponent?: JSX.Element;
@@ -23,24 +18,10 @@ export const ErrorBoundary = ({
   errorComponent,
 }: ErrorBoundaryProps) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
-  const experience = getBooleanFF(
-    'platform.linking-platform.link-create.better-observability',
-  )
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks
-      useExperience()
-    : null;
+  const experience = useExperience();
 
   const handleError = useCallback(
-    (error: Error, info?: ErrorBoundaryErrorInfo) => {
-      if (
-        !getBooleanFF(
-          'platform.linking-platform.link-create.better-observability',
-        )
-      ) {
-        // Capture exception to Sentry
-        captureException(error, 'link-create');
-      }
-
+    (error: Error) => {
       createAnalyticsEvent(
         createEventPayload('operational.linkCreate.unhandledErrorCaught', {
           browserInfo: window?.navigator?.userAgent || 'unknown',
@@ -49,14 +30,8 @@ export const ErrorBoundary = ({
         }),
       ).fire(ANALYTICS_CHANNEL);
 
-      if (
-        getBooleanFF(
-          'platform.linking-platform.link-create.better-observability',
-        )
-      ) {
-        // Track experience as failed for SLO
-        experience?.failure(error);
-      }
+      // Track experience as failed for SLO
+      experience?.failure(error);
     },
     [createAnalyticsEvent, experience],
   );

@@ -16,7 +16,7 @@ import {
   Help,
   Notifications,
   PrimaryButton,
-  PrimaryButtonProps,
+  type PrimaryButtonProps,
   ProductHome,
   Profile,
   Search,

@@ -3,11 +3,11 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { WidthObserver } from '@atlaskit/width-detector';
+import { type WidthObserver } from '@atlaskit/width-detector';
 
 import * as Image from '../../../../../examples-helpers/images.json';
 
-import UserType, { USER_TYPE_TEST_ID, UserProps } from './index';
+import UserType, { USER_TYPE_TEST_ID, type UserProps } from './index';
 
 let mockInnerSetWidth: Function | undefined;
 

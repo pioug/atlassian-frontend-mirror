@@ -1,7 +1,7 @@
 import {
   getExampleUrl,
   pageSelector,
-  PuppeteerPage,
+  type PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 
 export function getURL(

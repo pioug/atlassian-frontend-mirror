@@ -20,7 +20,7 @@ import {
   useScopedId,
   useStoreActions,
 } from '../../../../state';
-import { PluginKeymap } from '../../../common/plugin-keymap';
+import { type PluginKeymap } from '../../../common/plugin-keymap';
 import {
   ARROW_DOWN_KEY,
   ARROW_UP_KEY,
@@ -35,8 +35,8 @@ import {
 import { messages } from '../../messages';
 import AutocompleteOption from '../autocomplete-option';
 import {
-  AutocompleteAnalyticsAttributes,
-  SelectableAutocompleteOption,
+  type AutocompleteAnalyticsAttributes,
+  type SelectableAutocompleteOption,
 } from '../types';
 
 import {

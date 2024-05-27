@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { macroExtensionHandlerKey } from './constants';
 // import { ExtensionLinkComponent } from './ExtensionLinkComponent';
@@ -14,7 +14,7 @@ import {
   MacroFallbackComponent,
 } from './MacroFallbackComponent';
 import { PlaceholderComponent } from './PlaceholderComponent';
-import { MacroComponentProps } from './types';
+import { type MacroComponentProps } from './types';
 
 const BaseMacroComponent: FC<MacroComponentProps & WrappedComponentProps> = (
   props,

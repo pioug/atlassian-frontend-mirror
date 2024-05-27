@@ -2,7 +2,7 @@ import { AvatarItem } from '@atlaskit/avatar';
 import { shallow } from 'enzyme';
 import noop from 'lodash/noop';
 import React from 'react';
-import { Props } from '../../../components/SingleValue';
+import { type Props } from '../../../components/SingleValue';
 import { SingleValue } from '../../../components/SingleValue';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 

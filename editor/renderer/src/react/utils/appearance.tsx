@@ -1,4 +1,4 @@
-import { RendererAppearance } from '../../ui/Renderer/types';
+import { type RendererAppearance } from '../../ui/Renderer/types';
 
 export const isFullWidthAppearance = (appearance: RendererAppearance) =>
   appearance === 'full-width';

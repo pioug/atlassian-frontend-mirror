@@ -1,4 +1,4 @@
-import React, { Context, createContext, useContext } from 'react';
+import React, { type Context, createContext, useContext } from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 

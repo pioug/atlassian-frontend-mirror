@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import React, { AriaAttributes } from 'react';
+import React, { type AriaAttributes } from 'react';
 import { jsx } from '@emotion/react';
-import { AnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import Tooltip from '@atlaskit/tooltip';
 import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';

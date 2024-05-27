@@ -3,10 +3,10 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { assignToMe, exampleOptions, filterUsers, unassigned } from '.';
 import {
-  OptionData,
-  LoadOptions,
-  OnOption,
-  UserPickerProps,
+  type OptionData,
+  type LoadOptions,
+  type OnOption,
+  type UserPickerProps,
 } from '../src/types';
 
 type ChildrenProps = {

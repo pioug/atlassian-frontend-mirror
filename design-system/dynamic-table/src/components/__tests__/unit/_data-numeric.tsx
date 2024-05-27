@@ -1,4 +1,4 @@
-import { RowType } from '../../../types';
+import { type RowType } from '../../../types';
 
 import testDataNumeric from './_dataNumeric-json.json';
 

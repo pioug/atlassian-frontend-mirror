@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 
-import { CancelButton, CancelButtonProps } from './index';
+import { CancelButton, type CancelButtonProps } from './index';
 
 jest.mock('../../../../analytics', () => ({
   useDatasourceAnalyticsEvents: jest.fn(),

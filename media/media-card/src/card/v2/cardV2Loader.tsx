@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Loadable from 'react-loadable';
 import { CardLoading } from '../../utils/lightCards/cardLoading';
-import { CardWithMediaClientConfigProps } from '../types';
+import { type CardWithMediaClientConfigProps } from '../types';
 
 const MediaCardContext = React.createContext({});
 

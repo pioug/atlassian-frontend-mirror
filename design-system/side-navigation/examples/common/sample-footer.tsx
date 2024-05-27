@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 
 import { LinkButton } from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';
-import { CustomItemComponentProps } from '@atlaskit/menu';
+import { type CustomItemComponentProps } from '@atlaskit/menu';
 
 import { Footer } from '../../src';
 

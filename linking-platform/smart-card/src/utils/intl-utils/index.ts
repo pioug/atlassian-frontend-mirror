@@ -1,5 +1,5 @@
-import { MessageDescriptor } from 'react-intl-next';
-import { MessageKey, messages } from '../../messages';
+import { type MessageDescriptor } from 'react-intl-next';
+import { type MessageKey, messages } from '../../messages';
 
 export const toMessage = (
   defaultMessage: MessageDescriptor,

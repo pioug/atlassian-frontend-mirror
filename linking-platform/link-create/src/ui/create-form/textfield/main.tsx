@@ -5,7 +5,7 @@ import AkTextfield from '@atlaskit/textfield';
 
 import { CreateField } from '../../../controllers/create-field';
 
-import { TextFieldProps } from './types';
+import { type TextFieldProps } from './types';
 
 export const TEST_ID = 'link-create-text-field';
 

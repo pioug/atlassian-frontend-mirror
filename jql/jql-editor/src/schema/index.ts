@@ -1,23 +1,23 @@
-import { MutableRefObject } from 'react';
+import { type MutableRefObject } from 'react';
 
 import mapValues from 'lodash/mapValues';
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history, redo, undo } from '@atlaskit/editor-prosemirror/history';
 import { keydownHandler, keymap } from '@atlaskit/editor-prosemirror/keymap';
 import {
   DOMParser,
-  ResolvedPos,
+  type ResolvedPos,
   Schema,
-  Slice,
+  type Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import {
   EditorState,
   Plugin,
-  Transaction,
+  type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
   autocompletePlugin,
@@ -29,7 +29,7 @@ import {
 import { RICH_INLINE_NODE } from '../plugins/rich-inline-nodes/constants';
 import { richInlineNodes } from '../plugins/rich-inline-nodes/nodes';
 import { createNodeSpec } from '../plugins/rich-inline-nodes/util/create-node-spec';
-import { PortalActions } from '../ui/jql-editor-portal-provider/types';
+import { type PortalActions } from '../ui/jql-editor-portal-provider/types';
 import { getFragmentText } from '../utils/document-text';
 import { splitTextByNewLine } from '../utils/split-text-by-new-line';
 

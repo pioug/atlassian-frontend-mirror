@@ -1,13 +1,13 @@
-import { Store } from 'redux';
+import { type Store } from 'redux';
 import {
-  CardAppearance,
-  CardStore,
-  LinkingPlatformFeatureFlags,
-  ProductType,
+  type CardAppearance,
+  type CardStore,
+  type LinkingPlatformFeatureFlags,
+  type ProductType,
 } from '@atlaskit/linking-common';
-import { LinkPreview, CardPlatform } from '@atlaskit/link-extractors';
-import CardClient from '../../client';
-import { CardConnections } from '../store/types';
+import { type LinkPreview, type CardPlatform } from '@atlaskit/link-extractors';
+import type CardClient from '../../client';
+import { type CardConnections } from '../store/types';
 
 // TODO: Remove once mobile team move to using authentication
 // flow https://product-fabric.atlassian.net/browse/SL-347.

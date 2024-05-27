@@ -1,6 +1,6 @@
 import { asyncMap } from './utils';
 
-import { HashedBlob, Hashinator, HashingFunction, SlicedBlob } from './domain';
+import { type HashedBlob, type Hashinator, type HashingFunction, type SlicedBlob } from './domain';
 
 export const blobToHashedBlob =
   (hasher: HashingFunction) =>

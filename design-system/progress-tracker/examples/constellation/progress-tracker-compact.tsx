@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { ProgressTracker, Stages } from '../../src';
+import { ProgressTracker, type Stages } from '../../src';
 
 const containerStyles = xcss({
   maxWidth: '300px',

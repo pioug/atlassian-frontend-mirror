@@ -1,5 +1,5 @@
 import ActivityResource from './api/ActivityResource';
-import { ActivityProvider, ActivityItem } from './types';
+import { type ActivityProvider, type ActivityItem } from './types';
 import { ActivityError } from './api/error';
 
 export { ActivityResource, ActivityError };

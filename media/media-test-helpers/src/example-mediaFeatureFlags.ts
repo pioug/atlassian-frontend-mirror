@@ -1,6 +1,6 @@
 import {
   defaultMediaFeatureFlags,
-  MediaFeatureFlags,
+  type MediaFeatureFlags,
 } from '@atlaskit/media-common';
 
 export const exampleMediaFeatureFlags: MediaFeatureFlags = {

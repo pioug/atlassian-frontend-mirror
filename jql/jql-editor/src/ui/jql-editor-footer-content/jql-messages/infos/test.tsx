@@ -1,10 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { render } from '@testing-library/react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { useExternalMessages } from '../../../../state';
-import { ExternalMessagesNormalized } from '../../../../state/types';
+import { type ExternalMessagesNormalized } from '../../../../state/types';
 
 import { InfoMessages, useFormattedInfoMessage } from './index';
 

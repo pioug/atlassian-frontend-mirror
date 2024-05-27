@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import { extractBlockUsers } from '../index';
 import {
@@ -9,7 +9,7 @@ import {
   TEST_PULL_REQUEST,
   TEST_TASK,
 } from '../../common/__mocks__/jsonld';
-import { LinkPerson } from '@atlaskit/link-extractors';
+import { type LinkPerson } from '@atlaskit/link-extractors';
 
 const getExpectedLinkPersonList = (name = 'my name'): LinkPerson[] => {
   return [

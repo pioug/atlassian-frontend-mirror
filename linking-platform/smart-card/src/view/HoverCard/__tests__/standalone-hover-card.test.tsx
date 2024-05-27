@@ -2,14 +2,14 @@ import '@atlaskit/link-test-helpers/jest';
 import {
   setup,
   setupEventPropagationTest,
-  SetUpParams,
+  type SetUpParams,
   userEventOptionsWithAdvanceTimers,
 } from './common/setup.test-utils';
 import {
   HoverCard as StandaloneHoverCard,
-  HoverCardProps,
+  type HoverCardProps,
 } from '@atlaskit/smart-card/hover-card';
-import { HoverCardInternalProps } from '../types';
+import { type HoverCardInternalProps } from '../types';
 import {
   forbiddenViewTests,
   mockUrl,

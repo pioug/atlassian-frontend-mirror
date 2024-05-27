@@ -22,7 +22,7 @@ import {
 import FileChooser from '../../../../components/common/FileChooser';
 import Emoji from '../../../../components/common/Emoji';
 import EmojiUploader, {
-  Props,
+  type Props,
 } from '../../../../components/uploader/EmojiUploader';
 import EmojiUploadComponent from '../../../../components/uploader/EmojiUploadComponent';
 import EmojiUploadPreview, {

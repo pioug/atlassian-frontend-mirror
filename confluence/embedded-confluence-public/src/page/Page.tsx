@@ -3,8 +3,8 @@ import React from 'react';
 import {
   Page as PageCommon,
   type PageProps as Props,
-  EditPageProps,
-  ViewPageProps,
+  type EditPageProps,
+  type ViewPageProps,
 } from '@atlassian/embedded-confluence-common';
 import { useIntl } from 'react-intl-next';
 

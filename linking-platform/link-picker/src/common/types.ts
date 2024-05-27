@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl-next';
 
 export type LinkInputType = 'manual' | 'typeAhead';
 

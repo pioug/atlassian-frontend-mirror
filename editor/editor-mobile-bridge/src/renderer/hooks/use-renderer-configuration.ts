@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import RendererBridgeImplementation from '../native-to-web/implementation';
-import RendererConfiguration from '../renderer-configuration';
+import type RendererBridgeImplementation from '../native-to-web/implementation';
+import type RendererConfiguration from '../renderer-configuration';
 
 const useRendererConfiguration = (bridge: RendererBridgeImplementation) => {
   const [configuration, setConfiguration] = useState<RendererConfiguration>(

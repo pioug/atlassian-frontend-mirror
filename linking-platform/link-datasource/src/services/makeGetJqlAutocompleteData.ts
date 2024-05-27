@@ -1,6 +1,6 @@
 import {
-  GetAutocompleteInitialData,
-  JQLAutocompleteResponse,
+  type GetAutocompleteInitialData,
+  type JQLAutocompleteResponse,
 } from '@atlaskit/jql-editor-autocomplete-rest';
 
 export type AutocompleteInitialDataResponse = {

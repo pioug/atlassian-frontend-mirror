@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   act,
-  EventType,
+  type EventType,
   fireEvent,
   render,
   screen,

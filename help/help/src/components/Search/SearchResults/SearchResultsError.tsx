@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import ErrorImage from '../../../assets/ErrorImage';
 import { messages } from '../../../messages';

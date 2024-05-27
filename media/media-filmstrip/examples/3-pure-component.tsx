@@ -1,6 +1,6 @@
 import React from 'react';
 import { FilmstripView } from '../src/filmstripView';
-import { FilmstripState } from '../src';
+import { type FilmstripState } from '../src';
 import { PureComponentBox } from '../example-helpers/wrapper';
 
 export interface StoryProps {}

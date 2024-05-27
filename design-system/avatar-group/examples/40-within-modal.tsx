@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AppearanceType, SizeType } from '@atlaskit/avatar';
+import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import Modal, { ModalBody } from '@atlaskit/modal-dialog';
 
 import { RANDOM_USERS } from '../examples-util/data';

@@ -1,4 +1,4 @@
-import { DatasourceDataResponse } from '@atlaskit/linking-types';
+import { type DatasourceDataResponse } from '@atlaskit/linking-types';
 
 export type GenerateDataResponse = (args: {
   cloudId: string;

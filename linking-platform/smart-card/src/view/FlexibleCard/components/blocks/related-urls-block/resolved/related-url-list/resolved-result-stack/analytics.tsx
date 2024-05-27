@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  AnalyticsEventPayload,
-  UIAnalyticsEvent,
+  type AnalyticsEventPayload,
+  type UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 
-import { UiRelatedLinksViewedEventProps } from './types';
-import { AnalyticsPayload } from '../../../../../../../../utils/types';
+import { type UiRelatedLinksViewedEventProps } from './types';
+import { type AnalyticsPayload } from '../../../../../../../../utils/types';
 import { ANALYTICS_CHANNEL } from '../../../../../../../../utils/analytics';
 
 const createUiRelatedLinksViewedEventPayload = ({

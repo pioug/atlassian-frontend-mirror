@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'react';
-import { ContainerProps } from '../types';
+import { type PropsWithChildren } from 'react';
+import { type ContainerProps } from '../types';
 
 export type HoverCardDelayProps = PropsWithChildren<
   Pick<ContainerProps, 'hideHoverCardPreviewButton' | 'actionOptions'> & {

@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
 import {
-  CSSProperties,
+  type CSSProperties,
   forwardRef,
-  MouseEvent,
-  ReactNode,
+  type MouseEvent,
+  type ReactNode,
   useMemo,
 } from 'react';
-import { MediaType } from '@atlaskit/media-client';
+import { type MediaType } from '@atlaskit/media-client';
 import { blanketColor, overlayZindex } from './styles';
 import { ellipsis, hideControlsClassName } from '@atlaskit/media-ui';
 import { TouchScrollable } from 'react-scrolllock';

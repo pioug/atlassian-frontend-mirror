@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import noop from 'lodash/noop';
 
-import { PortalActions } from './types';
+import { type PortalActions } from './types';
 
 export const PortalActionsContext = createContext<PortalActions>({
   onCreatePortal: noop,

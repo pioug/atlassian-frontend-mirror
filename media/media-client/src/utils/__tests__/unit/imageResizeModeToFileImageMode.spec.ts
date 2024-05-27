@@ -1,6 +1,6 @@
 import {
   imageResizeModeToFileImageMode,
-  ImageResizeMode,
+  type ImageResizeMode,
 } from '../../imageResizeModeToFileImageMode';
 
 describe('imageResizeModeToFileImageMode', () => {

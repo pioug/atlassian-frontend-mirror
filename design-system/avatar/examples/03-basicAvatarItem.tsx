@@ -4,7 +4,7 @@ import React from 'react';
 import { token } from '@atlaskit/tokens';
 
 import { RANDOM_USERS } from '../examples-util/data';
-import Avatar, { AvatarItem, PresenceType, StatusType } from '../src';
+import Avatar, { AvatarItem, type PresenceType, type StatusType } from '../src';
 
 const presenceOptions: PresenceType[] = ['online', 'busy', 'focus', 'offline'];
 const statusOptions: StatusType[] = ['approved', 'declined', 'locked'];

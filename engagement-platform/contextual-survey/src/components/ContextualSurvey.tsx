@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { FormApi, OnSubmitHandler } from '@atlaskit/form';
+import { type FormApi, type OnSubmitHandler } from '@atlaskit/form';
 
-import { FormValues } from '../types';
+import { type FormValues } from '../types';
 
 import FeedbackAcknowledgement from './FeedbackAcknowledgement';
 import SignUpPrompt from './SignUpPrompt';

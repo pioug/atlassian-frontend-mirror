@@ -1,5 +1,5 @@
 import React from 'react';
-import { PureComponent, Children, ReactNode } from 'react';
+import { PureComponent, Children, type ReactNode } from 'react';
 
 import { TaskList as AkTaskList } from '@atlaskit/task-decision';
 

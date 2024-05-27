@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Box, xcss } from '@atlaskit/primitives';
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
 
@@ -12,8 +12,8 @@ import { SlackIcon } from '../assets/slack';
 import { GoogleIcon } from '../assets/google';
 import { MicrosoftIcon } from '../assets/microsoft';
 import { messages } from '../i18n';
-import { UserSource } from '../../types';
-import { ExternalUserSourcesData } from '../ExternalUserSourcesContainer';
+import { type UserSource } from '../../types';
+import { type ExternalUserSourcesData } from '../ExternalUserSourcesContainer';
 import { imageContainer } from './main';
 
 const sourcesTooltipContainer = xcss({

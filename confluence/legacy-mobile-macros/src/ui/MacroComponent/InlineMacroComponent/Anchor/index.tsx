@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { ExtensionParams } from '@atlaskit/editor-common/extensions';
 
-import { AnchorProps } from './types';
+import { type AnchorProps } from './types';
 
 const getAnchorNameProperty = (extension: ExtensionParams<any>) =>
   extension.parameters.macroParams['']?.value || '';

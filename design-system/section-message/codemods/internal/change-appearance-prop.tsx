@@ -1,5 +1,10 @@
-import core, { ASTPath, JSXAttribute, JSXElement } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import {
+  type ASTPath,
+  type default as core,
+  type JSXAttribute,
+  type JSXElement,
+} from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   addCommentBefore,

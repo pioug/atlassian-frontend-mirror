@@ -7,7 +7,7 @@ import Icon from '@atlaskit/icon';
 import { Box } from '@atlaskit/primitives';
 import { B100 } from '@atlaskit/theme/colors';
 
-import { CSSFn, CustomItem, CustomItemComponentProps } from '../../src';
+import { type CSSFn, CustomItem, type CustomItemComponentProps } from '../../src';
 import Slack from '../icons/slack';
 
 type CustomComponentWithHrefProps = CustomItemComponentProps & {

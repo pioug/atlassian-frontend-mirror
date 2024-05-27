@@ -11,14 +11,14 @@ import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import {
   MainWrapper,
   UploadPreviews,
-  AuthEnvironment,
+  type AuthEnvironment,
   PopupHeader,
   PopupContainer,
 } from '../example-helpers';
-import { UploadParams, BrowserConfig } from '../src/types';
+import { type UploadParams, type BrowserConfig } from '../src/types';
 import { Browser } from '../src/';
-import { FileState, MediaClient } from '@atlaskit/media-client';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import { type FileState, MediaClient } from '@atlaskit/media-client';
+import { type MediaClientConfig } from '@atlaskit/media-core';
 
 export interface BrowserWrapperState {
   collectionName: string;

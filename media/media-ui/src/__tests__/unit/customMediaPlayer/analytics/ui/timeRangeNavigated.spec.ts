@@ -1,6 +1,6 @@
 import {
   createTimeRangeNavigatedEvent,
-  PlaybackState,
+  type PlaybackState,
 } from '../../../../../customMediaPlayer/analytics';
 
 describe('createTimeRangeNavigatedEvent', () => {

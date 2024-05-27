@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /** @jsx jsx */
-import { FC, memo } from 'react';
+import { type FC, memo } from 'react';
 
 import { jsx } from '@emotion/react';
 

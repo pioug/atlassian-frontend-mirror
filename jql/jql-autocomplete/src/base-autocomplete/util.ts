@@ -1,7 +1,7 @@
-import { Token, TokenStream } from 'antlr4ts';
+import { type Token, type TokenStream } from 'antlr4ts';
 import { Interval } from 'antlr4ts/misc/Interval';
 
-import { Position } from '../common/types';
+import { type Position } from '../common/types';
 
 export const getMatchedText = (
   tokenStream: TokenStream,

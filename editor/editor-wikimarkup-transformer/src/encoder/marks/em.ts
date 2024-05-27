@@ -1,4 +1,4 @@
-import { MarkEncoder } from '..';
+import { type MarkEncoder } from '..';
 import { baseMarkPattern } from './__base';
 
 export const em: MarkEncoder = (text: string): string => {

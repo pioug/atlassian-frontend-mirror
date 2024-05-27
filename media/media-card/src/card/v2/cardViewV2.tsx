@@ -1,17 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { MouseEvent, useEffect, useState, useRef } from 'react';
-import { MessageDescriptor } from 'react-intl-next';
+import React, { type MouseEvent, useEffect, useState, useRef } from 'react';
+import { type MessageDescriptor } from 'react-intl-next';
 
 import {
-  MediaItemType,
-  FileDetails,
-  ImageResizeMode,
+  type MediaItemType,
+  type FileDetails,
+  type ImageResizeMode,
 } from '@atlaskit/media-client';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-  UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
@@ -19,15 +19,15 @@ import Tooltip from '@atlaskit/tooltip';
 import { messages } from '@atlaskit/media-ui';
 
 import {
-  CardStatus,
-  CardPreview,
-  MediaCardCursor,
-  CardDimensions,
-  TitleBoxIcon,
+  type CardStatus,
+  type CardPreview,
+  type MediaCardCursor,
+  type CardDimensions,
+  type TitleBoxIcon,
 } from '../../types';
-import { MediaFilePreview } from '@atlaskit/media-file-preview';
+import { type MediaFilePreview } from '@atlaskit/media-file-preview';
 import { createAndFireMediaCardEvent } from '../../utils/analytics';
-import { CardAction, attachDetailsToActions } from '../actions';
+import { type CardAction, attachDetailsToActions } from '../actions';
 import { cardImageContainerStyles } from '../ui/styles';
 import { ImageRenderer } from '../ui/imageRenderer/imageRenderer';
 import { TitleBox } from '../ui/titleBox/titleBox';
@@ -49,7 +49,7 @@ import {
   isUploadError,
   isRateLimitedError,
   isPollingError,
-  MediaCardError,
+  type MediaCardError,
 } from '../../errors';
 import { Wrapper } from '../ui/wrapper';
 import { fileCardImageViewSelector } from '../classnames';

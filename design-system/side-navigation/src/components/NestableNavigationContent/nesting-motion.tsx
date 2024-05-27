@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { Ref } from 'react';
+import { type Ref } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { Direction, easeOut, SlideIn } from '@atlaskit/motion';
+import { type Direction, easeOut, SlideIn } from '@atlaskit/motion';
 
 interface ChildrenAsFunctionProps {
   'data-enter-from': string;

@@ -1,13 +1,13 @@
 import React from 'react';
 jest.mock('../../../service/uploadServiceImpl');
 import { Dropzone, DropzoneBase } from '../../dropzone/dropzone';
-import { mount, ReactWrapper } from 'enzyme';
-import { DropzoneDragEnterEventPayload } from '../../types';
+import { mount, type ReactWrapper } from 'enzyme';
+import { type DropzoneDragEnterEventPayload } from '../../types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import {
   ANALYTICS_MEDIA_CHANNEL,
-  MediaFeatureFlags,
+  type MediaFeatureFlags,
 } from '@atlaskit/media-common';
 import { fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
 import { isWebkitSupported } from '@atlaskit/media-ui/browser';

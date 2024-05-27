@@ -2,10 +2,10 @@
 
 import {
   Component,
-  FC,
-  MouseEventHandler,
-  ReactNode,
-  SyntheticEvent,
+  type FC,
+  type MouseEventHandler,
+  type ReactNode,
+  type SyntheticEvent,
 } from 'react';
 
 import { css, jsx } from '@emotion/react';

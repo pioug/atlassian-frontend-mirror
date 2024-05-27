@@ -1,12 +1,12 @@
-import { Server, Router, Database } from 'kakapo';
+import { Server, type Router, type Database } from 'kakapo';
 import * as exenv from 'exenv';
 import uuid from 'uuid/v4';
 
-import { MediaFile } from '@atlaskit/media-client';
+import { type MediaFile } from '@atlaskit/media-client';
 
 import { createApiRouter, createMediaPlaygroundRouter } from './routers';
-import { createDatabase, MediaDatabaseSchema } from './database';
-import { RemoteUploadActivityServer, WebSocketServer } from './websockets';
+import { createDatabase, type MediaDatabaseSchema } from './database';
+import { RemoteUploadActivityServer, type WebSocketServer } from './websockets';
 import { mapDataUriToBlob } from '../utils';
 import { dataURItoFile } from '@atlaskit/media-ui/util';
 import { smallImage } from '../dataURIs/smallImageURI';

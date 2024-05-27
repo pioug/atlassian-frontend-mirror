@@ -1,15 +1,15 @@
 import React from 'react';
-import { ReactNode, ReactChild } from 'react';
+import { type ReactNode, type ReactChild } from 'react';
 import {
-  MediaClient,
-  FileState,
-  MediaType,
-  ProcessingFileState,
-  Identifier,
+  type MediaClient,
+  type FileState,
+  type MediaType,
+  type ProcessingFileState,
+  type Identifier,
   isExternalImageIdentifier,
   isErrorFileState,
-  ErrorFileState,
-  MediaSubscription,
+  type ErrorFileState,
+  type MediaSubscription,
 } from '@atlaskit/media-client';
 import deepEqual from 'deep-equal';
 import {
@@ -26,7 +26,7 @@ import {
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { Outcome } from './domain';
 import {
@@ -44,8 +44,8 @@ import {
   ToolbarDownloadButton,
   DisabledToolbarDownloadButton,
 } from './download';
-import { MediaViewerExtensions } from './components/types';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type MediaViewerExtensions } from './components/types';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { getFormat } from './viewers/codeViewer/util';
 import { MediaViewerError } from './errors';

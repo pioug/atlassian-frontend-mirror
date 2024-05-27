@@ -4,7 +4,7 @@ import DropdownMenu, {
   DropdownItemRadio,
   DropdownItemRadioGroup,
 } from '../../src';
-import { OnOpenChangeArgs } from '../../src/types';
+import { type OnOpenChangeArgs } from '../../src/types';
 
 const DropdownOpenExample = () => {
   const [isOpen, setIsOpen] = useState(false);

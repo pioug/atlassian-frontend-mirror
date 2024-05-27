@@ -1,10 +1,10 @@
 import {
-  MockContext,
+  type MockContext,
   exactMatch,
   fillInResponse,
-  MediaCollectionFile,
+  type MediaCollectionFile,
 } from '..';
-import { MockRequest, MockResponse } from 'xhr-mock';
+import { type MockRequest, type MockResponse } from 'xhr-mock';
 
 export const getFile =
   (context: () => MockContext) => (req: MockRequest, res: MockResponse) => {

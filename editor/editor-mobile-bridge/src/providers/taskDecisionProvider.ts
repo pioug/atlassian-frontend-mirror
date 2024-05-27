@@ -1,10 +1,10 @@
 import {
-  TaskDecisionProvider,
-  RecentUpdatesId,
-  RecentUpdateContext,
-  ObjectKey,
-  TaskState,
-  Handler,
+  type TaskDecisionProvider,
+  type RecentUpdatesId,
+  type RecentUpdateContext,
+  type ObjectKey,
+  type TaskState,
+  type Handler,
 } from '@atlaskit/task-decision';
 
 type ToggleTaskCallback = (key: ObjectKey, state: TaskState) => void;

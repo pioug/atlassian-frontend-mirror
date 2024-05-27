@@ -7,7 +7,7 @@ import { messages } from '../../../../messages';
 import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import { getUnresolvedEmbedCardImage } from '../../utils';
 import UnresolvedView from '../unresolved-view';
-import { UnauthorizedViewProps } from './types';
+import { type UnauthorizedViewProps } from './types';
 
 const UnauthorizedView: FC<UnauthorizedViewProps> = ({
   analytics,

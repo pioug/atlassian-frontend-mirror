@@ -14,10 +14,10 @@ import {
   SmartLinkActionType,
   InvokeError,
 } from '@atlaskit/linking-types/smart-link-actions';
-import { LozengeActionProps } from '../types';
+import { type LozengeActionProps } from '../types';
 import extractLozengeActionItems from '../../../../../../../extractors/action/extract-lozenge-action-items';
 import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
-import { CardDetails } from '../../../../../../../state/hooks/use-invoke/types';
+import { type CardDetails } from '../../../../../../../state/hooks/use-invoke/types';
 import {
   TrackQuickActionFailureReason,
   TrackQuickActionType,

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
 import {
-  AvailableSite,
+  type AvailableSite,
   AvailableSitesProductType,
-  AvailableSitesRequest,
-  AvailableSitesResponse,
+  type AvailableSitesRequest,
+  type AvailableSitesResponse,
 } from './types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../common/utils/constants';

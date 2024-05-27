@@ -6,7 +6,7 @@ import type {
 } from '@atlaskit/emoji/types';
 
 import { MockEmojiResource } from './mock-emoji-resource';
-import { MockEmojiResourceConfig } from './types';
+import { type MockEmojiResourceConfig } from './types';
 import { loggedUser } from './logged-user';
 
 type DataFetch = () => Promise<EmojiServiceResponse>;

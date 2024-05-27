@@ -1,4 +1,4 @@
-import { Auth, AuthContext } from '@atlaskit/media-core';
+import { type Auth, type AuthContext } from '@atlaskit/media-core';
 import { defaultCollectionName } from './collectionNames';
 
 export const authProviderBaseURL = 'https://media.dev.atl-paas.net';

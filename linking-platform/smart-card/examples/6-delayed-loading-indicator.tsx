@@ -3,7 +3,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import Form, { Field, FormHeader } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-import { Card, Client, Provider, ResolveResponse } from '../src';
+import { Card, Client, Provider, type ResolveResponse } from '../src';
 
 const customResponse = (url: string): ResolveResponse => ({
   meta: {

@@ -1,15 +1,16 @@
-import core, {
-  API,
-  ASTPath,
-  FileInfo,
-  Identifier,
-  ImportDeclaration,
-  ImportSpecifier,
-  JSXAttribute,
-  Options,
-  Program,
+import {
+  type API,
+  type ASTPath,
+  type default as core,
+  type FileInfo,
+  type Identifier,
+  type ImportDeclaration,
+  type ImportSpecifier,
+  type JSXAttribute,
+  type Options,
+  type Program,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 export type Nullable<T> = T | null;
 

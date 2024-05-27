@@ -1,6 +1,6 @@
 import { EventEmitter2 } from 'eventemitter2';
 import { LRUMap } from 'lru_map';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { type ReplaySubject } from 'rxjs/ReplaySubject';
 
 export interface StateDeferredValue<T> {
   promise: Promise<T>;

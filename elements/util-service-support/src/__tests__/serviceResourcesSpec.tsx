@@ -1,7 +1,7 @@
 import * as sinon from 'sinon';
 
 import { AbstractResource } from '../serviceResources';
-import { OnProviderChange } from '../types';
+import { type OnProviderChange } from '../types';
 
 class TestResource extends AbstractResource<
   string,

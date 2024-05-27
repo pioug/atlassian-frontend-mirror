@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { ReactNode, MouseEvent, forwardRef } from 'react';
+import React, { type ReactNode, type MouseEvent, forwardRef } from 'react';
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRight from '@atlaskit/icon/glyph/arrow-right';
 import { MediaFilmStripListItemSelector } from '.';

@@ -1,4 +1,4 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export interface HelpPanelHeader {
   // Title used in the header. This prop is optional, if is not defined, the default value is used ("Help")

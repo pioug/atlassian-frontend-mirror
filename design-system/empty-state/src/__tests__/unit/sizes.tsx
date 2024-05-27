@@ -3,7 +3,7 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 
 import EmptyState from '../../empty-state';
-import { Width } from '../../types';
+import { type Width } from '../../types';
 
 const sizes: Width[] = ['narrow', 'wide'];
 

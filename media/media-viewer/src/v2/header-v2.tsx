@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ReactNode, ReactChild } from 'react';
+import { type ReactNode, type ReactChild } from 'react';
 import {
-  FileState,
-  ProcessingFileState,
-  Identifier,
+  type FileState,
+  type ProcessingFileState,
+  type Identifier,
   isExternalImageIdentifier,
   isErrorFileState,
-  ErrorFileState,
-  FileIdentifier,
+  type ErrorFileState,
+  type FileIdentifier,
 } from '@atlaskit/media-client';
 import {
   hideControlsClassName,
@@ -23,7 +23,7 @@ import {
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { Outcome } from '../domain';
 import {
@@ -41,13 +41,13 @@ import {
   ToolbarDownloadButton,
   DisabledToolbarDownloadButton,
 } from '../download';
-import { MediaViewerExtensions } from '../components/types';
+import { type MediaViewerExtensions } from '../components/types';
 import {
   MediaFileStateError,
   useFileState,
   useMediaClient,
 } from '@atlaskit/media-client-react';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { getFormat } from '../viewers/codeViewer/util';
 import { MediaViewerError } from '../errors';

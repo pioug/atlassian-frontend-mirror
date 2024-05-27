@@ -8,7 +8,7 @@ import {
 import { imageItem } from '../example-helpers';
 import { MainWrapper } from '../example-helpers/MainWrapper';
 import { MediaViewer } from '../src';
-import { Identifier } from '@atlaskit/media-client';
+import { type Identifier } from '@atlaskit/media-client';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 

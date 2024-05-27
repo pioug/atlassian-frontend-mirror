@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, MouseEvent, useCallback } from 'react';
+import React, { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
@@ -7,7 +7,7 @@ import ButtonItem from '@atlaskit/menu/button-item';
 import CheckboxIcon from '../internal/components/checkbox-icon';
 import useCheckboxState from '../internal/hooks/use-checkbox-state';
 import useRegisterItemWithFocusManager from '../internal/hooks/use-register-item-with-focus-manager';
-import { DropdownItemCheckboxProps } from '../types';
+import { type DropdownItemCheckboxProps } from '../types';
 
 /**
  * __Dropdown item checkbox__

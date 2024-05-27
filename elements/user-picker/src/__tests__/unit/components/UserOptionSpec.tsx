@@ -1,15 +1,15 @@
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
-import React, { ReactElement } from 'react';
-import { LozengeProps } from '../../../types';
+import React, { type ReactElement } from 'react';
+import { type LozengeProps } from '../../../types';
 import {
   AvatarItemOption,
   textWrapper,
 } from '../../../components/AvatarItemOption';
 import { HighlightText } from '../../../components/HighlightText';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
-import { UserOption, UserOptionProps } from '../../../components/UserOption';
+import { UserOption, type UserOptionProps } from '../../../components/UserOption';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
   ...(jest.requireActual('../../../components/AvatarItemOption') as any),

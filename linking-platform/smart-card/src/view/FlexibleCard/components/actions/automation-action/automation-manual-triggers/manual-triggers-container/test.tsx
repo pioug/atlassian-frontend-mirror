@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { RenderResult, waitFor, fireEvent } from '@testing-library/react'
+import { type RenderResult, waitFor, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils';
 import { injectable } from 'react-magnetic-di';
 

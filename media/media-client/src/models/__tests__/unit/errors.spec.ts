@@ -4,7 +4,7 @@ import {
   isMediaClientError,
 } from '../../errors';
 
-import { MediaClientErrorAttributes } from '../../errors/types';
+import { type MediaClientErrorAttributes } from '../../errors/types';
 
 class TestError extends BaseMediaClientError<
   MediaClientErrorAttributes & {

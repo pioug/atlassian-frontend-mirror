@@ -1,11 +1,11 @@
 import React from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 
-import { FormattedDateProps, TitleBoxProps } from './types';
+import { type FormattedDateProps, type TitleBoxProps } from './types';
 import {
   TitleBoxWrapper,
   TitleBoxFooter,

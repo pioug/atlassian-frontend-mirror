@@ -3,14 +3,14 @@ import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { CardAppearance, CardPlatform, CardProps } from './types';
+import { type CardAppearance, type CardPlatform, type CardProps } from './types';
 import { CardWithDataRenderer } from '../CardWithData/loader';
 import { CardWithURLRenderer } from '../CardWithUrl/loader';
 import { isCardWithData } from '../../utils';
 import { context } from '../../utils/analytics';
 import {
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
   IntlProvider,
 } from 'react-intl-next';
 

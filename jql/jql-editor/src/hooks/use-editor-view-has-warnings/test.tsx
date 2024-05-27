@@ -4,8 +4,8 @@ import { render } from '@testing-library/react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { useExternalMessages, useHydratedDeprecations } from '../../state';
-import { ExternalMessagesNormalized } from '../../state/types';
-import { HydratedDeprecatedField } from '../../ui/jql-editor/types';
+import { type ExternalMessagesNormalized } from '../../state/types';
+import { type HydratedDeprecatedField } from '../../ui/jql-editor/types';
 
 import { useEditorViewHasWarnings } from './index';
 

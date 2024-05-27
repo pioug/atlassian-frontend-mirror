@@ -1,13 +1,13 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import FlexibleCard from '../../../../FlexibleCard';
 import { messages } from '../../../../../messages';
 import {
   CustomBlock,
   PreviewBlock,
 } from '../../../../FlexibleCard/components/blocks';
-import { HoverCardForbiddenProps } from './types';
+import { type HoverCardForbiddenProps } from './types';
 import Button from '@atlaskit/button';
 import { extractProvider } from '@atlaskit/link-extractors';
 import {

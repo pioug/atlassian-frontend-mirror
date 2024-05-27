@@ -1,9 +1,9 @@
-import React, { SyntheticEvent, useCallback, useState } from 'react';
+import React, { type SyntheticEvent, useCallback, useState } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 
 import { RadioGroup } from '../src';
-import { OptionsPropType } from '../src/types';
+import { type OptionsPropType } from '../src/types';
 
 const options: OptionsPropType = [
   { name: 'color', value: 'red', label: 'Red' },

@@ -3,9 +3,9 @@
 import 'setimmediate';
 import Dataloader from 'dataloader';
 
-import { MediaStore, ResponseFileItem } from '../client/media-store';
-import { MediaItemDetails } from '../models/media';
-import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaStore, type ResponseFileItem } from '../client/media-store';
+import { type MediaItemDetails } from '../models/media';
+import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
 
 export const MAX_BATCH_SIZE = 100;
 

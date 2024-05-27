@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   mockConversation,
   MOCK_USERS,

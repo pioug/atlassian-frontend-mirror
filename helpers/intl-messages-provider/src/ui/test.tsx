@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { defineMessages, IntlProvider, useIntl } from 'react-intl-next';
 
 import { default as IntlMessagesProvider } from './main';
-import { I18NMessages } from './types';
+import { type I18NMessages } from './types';
 
 describe('IntlMessagesProvider', () => {
   const messages = defineMessages({

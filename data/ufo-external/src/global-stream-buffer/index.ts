@@ -1,12 +1,12 @@
 import { ufowarn } from '../logger';
 import {
-  ExperienceData,
-  SubscribeCallback,
-  UFOGlobalEventStreamEvent,
+  type ExperienceData,
+  type SubscribeCallback,
+  type UFOGlobalEventStreamEvent,
   UFOGlobalEventStreamEventType,
-  UFOGlobalEventStreamExperiencePayload,
-  UFOGlobalEventStreamSubscribe,
-  UFOGlobalEventStreamUnsubscribe,
+  type UFOGlobalEventStreamExperiencePayload,
+  type UFOGlobalEventStreamSubscribe,
+  type UFOGlobalEventStreamUnsubscribe,
 } from '../types';
 
 export type GlobalEventStream = {

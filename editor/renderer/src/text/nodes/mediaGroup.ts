@@ -1,5 +1,5 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeReducer } from './';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type NodeReducer } from './';
 
 const mediaGroup: NodeReducer = (node: PMNode) => {
   // count children which are media files

@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactElement } from 'react';
+import React, { type ReactNode, type ReactElement } from 'react';
 
 /**
  * Helper function to recursively injects props to

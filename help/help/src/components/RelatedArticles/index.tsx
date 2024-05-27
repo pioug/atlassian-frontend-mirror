@@ -3,15 +3,15 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import SectionMessage from '@atlaskit/section-message';
 import Button from '@atlaskit/button/custom-theme-button';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { messages } from '../../messages';
-import { ArticleItem } from '../../model/Article';
+import { type ArticleItem } from '../../model/Article';
 
 import ArticlesList from '../ArticlesList';
 

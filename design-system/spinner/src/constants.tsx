@@ -1,4 +1,4 @@
-import { PresetSize } from './types';
+import { type PresetSize } from './types';
 
 export const presetSizes: { [K in PresetSize]: number } = {
   xsmall: 8,

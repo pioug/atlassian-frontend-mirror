@@ -1,5 +1,5 @@
-import { WhatsNewArticleItem } from '../../../../../model/WhatsNew';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { type WhatsNewArticleItem } from '../../../../../model/WhatsNew';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 export interface WhatsNewResultsList {
   // Style. This component has two different styles (primary and secondary)

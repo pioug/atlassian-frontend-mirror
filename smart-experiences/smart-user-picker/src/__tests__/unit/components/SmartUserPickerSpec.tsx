@@ -1,17 +1,17 @@
-import React, { ReactNode } from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import React, { type ReactNode } from 'react';
+import { mount, type ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 import Select from '@atlaskit/select';
 import UserPicker, {
-  DefaultValue,
-  OptionData,
-  User,
+  type DefaultValue,
+  type OptionData,
+  type User,
 } from '@atlaskit/user-picker';
 import {
   AnalyticsListener,
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
 } from '@atlaskit/analytics-next';
-import { ConcurrentExperience, UFOExperience } from '@atlaskit/ufo';
+import { type ConcurrentExperience, type UFOExperience } from '@atlaskit/ufo';
 
 import {
   flushPromises,
@@ -19,7 +19,7 @@ import {
   waitForUpdate,
   MockConcurrentExperienceInstance,
 } from '../_testUtils';
-import SmartUserPicker, { Props } from '../../../index';
+import SmartUserPicker, { type Props } from '../../../index';
 import MessagesIntlProvider from '../../../components/MessagesIntlProvider';
 
 import { getUserRecommendations, hydrateDefaultValues } from '../../../service';

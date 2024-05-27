@@ -2,10 +2,10 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { MediaClient, MediaClientConfig } from '@atlaskit/media-client';
+import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client';
 
 import { MediaClientProvider } from '../../src/MediaClientProvider';
-import { withMediaClient, WithMediaClient } from '../../src/withMediaClient';
+import { withMediaClient, type WithMediaClient } from '../../src/withMediaClient';
 
 describe('withMediaClient', () => {
   it('should create new mediaClient from given mediaClientConfig', () => {

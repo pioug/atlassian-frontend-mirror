@@ -1,4 +1,4 @@
-import { IconType } from '../../../constants';
+import { type IconType } from '../../../constants';
 
 /**
  * Represents an icon. Should either contain a label and url, or a an icon type and label.

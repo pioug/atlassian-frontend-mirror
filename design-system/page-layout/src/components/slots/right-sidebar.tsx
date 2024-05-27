@@ -11,7 +11,7 @@ import {
   TOP_NAVIGATION_HEIGHT,
   VAR_RIGHT_SIDEBAR_WIDTH,
 } from '../../common/constants';
-import { SlotWidthProps } from '../../common/types';
+import { type SlotWidthProps } from '../../common/types';
 import {
   getPageLayoutSlotSelector,
   resolveDimension,

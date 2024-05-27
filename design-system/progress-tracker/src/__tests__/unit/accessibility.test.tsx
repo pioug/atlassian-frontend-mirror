@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 
 import { render } from '@testing-library/react';
 import cases from 'jest-in-case';
 
 import { axe } from '@af/accessibility-testing';
 
-import { ProgressTracker, Stages } from '../../index';
+import { ProgressTracker, type Stages } from '../../index';
 
 const items: Stages = [
   {

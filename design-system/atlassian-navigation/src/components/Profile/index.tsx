@@ -1,8 +1,8 @@
-import React, { forwardRef, Ref } from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import { IconButton } from '../IconButton';
 
-import { ProfileProps } from './types';
+import { type ProfileProps } from './types';
 
 /**
  * __Profile__

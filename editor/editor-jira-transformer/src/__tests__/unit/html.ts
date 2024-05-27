@@ -23,7 +23,7 @@ import {
   encode,
   parseWithSchema,
 } from './_test-helpers';
-import { Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Schema } from '@atlaskit/editor-prosemirror/model';
 import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 
 export const schema = createJIRASchema({ allowSubSup: true });

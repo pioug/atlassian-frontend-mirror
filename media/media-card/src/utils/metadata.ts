@@ -1,10 +1,10 @@
 import {
-  FileState,
-  FileDetails,
+  type FileState,
+  type FileDetails,
   isErrorFileState,
-  Identifier,
+  type Identifier,
   isFileIdentifier,
-  ErrorFileState,
+  type ErrorFileState,
 } from '@atlaskit/media-client';
 
 const getProcessingStatusFromFileState = (status: FileState['status']) => {

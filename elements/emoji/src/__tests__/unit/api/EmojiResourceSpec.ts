@@ -17,7 +17,7 @@ import {
   ProviderTypes,
   SearchSort,
 } from '../../../types';
-import EmojiResource, { EmojiResourceConfig } from '../../../api/EmojiResource';
+import EmojiResource, { type EmojiResourceConfig } from '../../../api/EmojiResource';
 import type EmojiRepository from '../../../api/EmojiRepository';
 
 import {

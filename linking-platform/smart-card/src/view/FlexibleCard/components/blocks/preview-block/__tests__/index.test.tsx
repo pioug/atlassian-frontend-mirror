@@ -6,8 +6,8 @@ import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';
 import PreviewBlock from '../index';
-import { PreviewBlockProps } from '../types';
-import { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
+import { type PreviewBlockProps } from '../types';
+import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 
 describe('PreviewBlock', () => {
   const testId = 'test-smart-block-preview';

@@ -9,7 +9,7 @@ import type {
 import invariant from 'tiny-invariant';
 
 import Board from './pieces/board';
-import { RbdApi } from './pieces/types';
+import { type RbdApi } from './pieces/types';
 import {
   getColumn,
   getColumnItems,

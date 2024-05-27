@@ -1,5 +1,5 @@
-import { EmojiId } from '@atlaskit/emoji/types';
-import { Reactions, Client, ReactionSummary } from './types';
+import { type EmojiId } from '@atlaskit/emoji/types';
+import { type Reactions, type Client, type ReactionSummary } from './types';
 import {
   DefaultReactionsByShortName,
   ExtendedReactionsByShortName,

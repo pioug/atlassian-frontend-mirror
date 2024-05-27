@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
-import { ExternalUser, UserSource, UserSourceResult } from '../../../types';
+import { type ExternalUser, type UserSource, type UserSourceResult } from '../../../types';
 import { ExusUserSourceProvider } from '../../../clients/UserSourceProvider';
 import { createAndFireEventInElementsChannel } from '../../../analytics';
 import { IntlProvider } from 'react-intl-next';

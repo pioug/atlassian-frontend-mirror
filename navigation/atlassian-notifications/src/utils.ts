@@ -1,4 +1,4 @@
-import { NotificationsProps } from './types';
+import { type NotificationsProps } from './types';
 
 type Args = Pick<
   NotificationsProps,

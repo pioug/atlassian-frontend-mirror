@@ -1,4 +1,4 @@
-import React, { Fragment, PureComponent, ReactNode } from 'react';
+import React, { Fragment, PureComponent, type ReactNode } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import MenuIcon from '@atlaskit/icon/glyph/menu';

@@ -6,7 +6,7 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { triggerButtonStyles, triggerLozengeStyles } from '../styled';
 
 import type { FC } from 'react';
-import { LozengeActionTriggerProps } from './type';
+import { type LozengeActionTriggerProps } from './type';
 
 const LozengeActionTrigger: FC<LozengeActionTriggerProps> = ({
   appearance,

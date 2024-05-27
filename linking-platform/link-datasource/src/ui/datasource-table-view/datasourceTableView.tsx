@@ -24,7 +24,7 @@ import { IssueLikeDataTableView } from '../issue-like-table';
 import EmptyState from '../issue-like-table/empty-state';
 import { TableFooter } from '../table-footer';
 
-import { DatasourceTableViewProps } from './types';
+import { type DatasourceTableViewProps } from './types';
 
 const containerStyles = css({
   borderRadius: 'inherit',

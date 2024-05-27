@@ -1,9 +1,9 @@
 import {
-  JastListener,
-  JastVisitor,
-  Position,
-  PredicateOperator,
-  PredicateOperatorValue,
+  type JastListener,
+  type JastVisitor,
+  type Position,
+  type PredicateOperator,
+  type PredicateOperatorValue,
 } from '../types';
 
 import { noChildren } from './common';

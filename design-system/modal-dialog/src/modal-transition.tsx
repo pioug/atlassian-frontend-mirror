@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ExitingPersistence, {
-  ExitingPersistenceProps,
+  type ExitingPersistenceProps,
 } from '@atlaskit/motion/exiting-persistence';
 
 /**

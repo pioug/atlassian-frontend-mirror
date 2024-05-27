@@ -1,8 +1,8 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { encode } from './encoder';
 import AbstractTree from './parser/abstract-tree';
-import { Context, ConversionMap } from './interfaces';
+import { type Context, type ConversionMap } from './interfaces';
 import { buildIssueKeyRegex } from './parser/tokenize/issue-key';
 
 interface Transformer<T> {

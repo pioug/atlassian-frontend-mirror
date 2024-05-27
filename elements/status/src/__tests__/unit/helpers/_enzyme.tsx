@@ -7,8 +7,8 @@
  * English-locale intl context around them.
  */
 
-import { Component } from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { type Component } from 'react';
+import { mount, type ReactWrapper } from 'enzyme';
 
 import { IntlProvider } from 'react-intl-next';
 

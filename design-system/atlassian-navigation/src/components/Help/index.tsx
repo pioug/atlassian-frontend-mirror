@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref } from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 
@@ -6,7 +6,7 @@ import { useTheme } from '../../theme';
 import { BadgeContainer } from '../BadgeContainer';
 import { IconButton } from '../IconButton';
 
-import { HelpProps } from './types';
+import { type HelpProps } from './types';
 
 const HELP_NOTIFICATION_BADGE_ID =
   'atlassian-navigation-help-notification-count';

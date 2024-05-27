@@ -1,9 +1,9 @@
 import {
-  Clause,
+  type Clause,
   CLAUSE_TYPE_COMPOUND,
   CLAUSE_TYPE_TERMINAL,
   OPERAND_TYPE_VALUE,
-  TerminalClause,
+  type TerminalClause,
 } from '@atlaskit/jql-ast';
 
 import { fuzzyCharacter } from '../../jira-search-container/buildJQL';

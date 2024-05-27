@@ -1,25 +1,25 @@
 import mapValues from 'lodash/mapValues';
 
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import { type Node } from '@atlaskit/editor-prosemirror/model';
 import {
-  EditorState,
+  type EditorState,
   Plugin,
   PluginKey,
 } from '@atlaskit/editor-prosemirror/state';
 import {
   Decoration,
   DecorationSet,
-  EditorView,
+  type EditorView,
 } from '@atlaskit/editor-prosemirror/view';
 import { JQLSyntaxError } from '@atlaskit/jql-ast';
 
-import { PortalActions } from '../../ui/jql-editor-portal-provider/types';
+import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import getDocumentPosition from '../common/get-document-position';
 import { getJastFromState } from '../jql-ast';
 
 import { ERROR_NODE, RICH_INLINE_NODE, SELECTED_NODE } from './constants';
 import { richInlineNodes } from './nodes';
-import { RichInlineNodeDecoration } from './types';
+import { type RichInlineNodeDecoration } from './types';
 import { ReactNodeView } from './util/react-node-view';
 
 const decorateNodesInRange = (

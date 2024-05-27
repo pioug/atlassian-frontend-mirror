@@ -4,7 +4,7 @@ import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 
 import Button from '../new-button/variants/default/button';
 import LinkButton, {
-  LinkButtonProps,
+  type LinkButtonProps,
 } from '../new-button/variants/default/link';
 import IconButton, {
   type IconButtonProps,

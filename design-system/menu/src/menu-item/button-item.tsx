@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, memo, Ref } from 'react';
+import { forwardRef, memo, type Ref } from 'react';
 
 import { jsx } from '@emotion/react';
 

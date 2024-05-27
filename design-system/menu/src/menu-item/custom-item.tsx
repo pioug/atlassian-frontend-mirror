@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { forwardRef, memo, MouseEventHandler } from 'react';
+import { forwardRef, memo, type MouseEventHandler } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

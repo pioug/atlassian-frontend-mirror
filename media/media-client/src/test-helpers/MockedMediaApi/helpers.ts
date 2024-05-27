@@ -1,14 +1,14 @@
 import {
-  UploadingFileState,
-  ErrorFileState,
-  FileState,
-  MediaFileArtifact,
+  type UploadingFileState,
+  type ErrorFileState,
+  type FileState,
+  type MediaFileArtifact,
 } from '@atlaskit/media-state';
 
 import uuid from 'uuid/v4';
 
-import { MediaFile } from '../../models/media';
-import { ResponseFileItem } from '../../client/media-store/types';
+import { type MediaFile } from '../../models/media';
+import { type ResponseFileItem } from '../../client/media-store/types';
 import type { FileIdentifier } from '../../identifier';
 
 // --------------------------------------------------------

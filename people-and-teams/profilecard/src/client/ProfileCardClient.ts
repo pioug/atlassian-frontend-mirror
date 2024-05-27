@@ -1,9 +1,9 @@
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
 import {
-  ClientOverrides,
-  ProfileClientOptions,
-  TeamCentralReportingLinesData,
+  type ClientOverrides,
+  type ProfileClientOptions,
+  type TeamCentralReportingLinesData,
 } from '../types';
 
 import TeamCentralCardClient from './TeamCentralCardClient';

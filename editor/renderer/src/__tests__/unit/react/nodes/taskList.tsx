@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { TaskList as AkTaskList } from '@atlaskit/task-decision';
 import FabricAnalyticsListener, {
-  AnalyticsWebClient,
+  type AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
 import TaskList from '../../../../react/nodes/taskList';
 import TaskItem from '../../../../react/nodes/taskItem';

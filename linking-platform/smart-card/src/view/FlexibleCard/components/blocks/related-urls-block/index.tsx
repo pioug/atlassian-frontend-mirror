@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { di } from 'react-magnetic-di';
 
-import { CardProviderRenderers } from '@atlaskit/link-provider';
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { css } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import useRelatedUrls, {
-  RelatedUrlsResponse,
+  type RelatedUrlsResponse,
 } from '../../../../../state/hooks/use-related-urls';
-import { BlockProps } from '../types';
+import { type BlockProps } from '../types';
 import { RelatedUrlsBlockErroredView } from './errored';
 import { RelatedUrlsResolvedView } from './resolved';
 import { RelatedUrlsBlockResolvingView } from './resolving';

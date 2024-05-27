@@ -1,8 +1,8 @@
 import fetchMock from 'fetch-mock/cjs/client';
 import {
-  DefaultValue,
-  UserType,
-  OptionIdentifier,
+  type DefaultValue,
+  type UserType,
+  type OptionIdentifier,
 } from '@atlaskit/user-picker';
 
 import { hydrateDefaultValues } from '../../../service';

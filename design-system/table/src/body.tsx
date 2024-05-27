@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/no-clone-element */
 /** @jsx jsx */
-import { Children, ReactElement, useEffect, useMemo } from 'react';
+import { Children, type ReactElement, useEffect, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 

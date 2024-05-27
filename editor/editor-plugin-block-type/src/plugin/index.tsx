@@ -35,9 +35,11 @@ import type {
   HeadingLevels,
   NextEditorPlugin,
   OptionalPlugin,
+  ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
@@ -144,7 +146,10 @@ export type BlockTypePlugin = NextEditorPlugin<
   'blockType',
   {
     pluginConfiguration: BlockTypePluginOptions | undefined;
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<PrimaryToolbarPlugin>,
+    ];
     sharedState: BlockTypeState | undefined;
     actions: {
       insertBlockQuote: (inputMethod: InputMethod) => Command;
@@ -158,96 +163,15 @@ export type BlockTypePlugin = NextEditorPlugin<
   }
 >;
 
-const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
-  name: 'blockType',
-
-  nodes() {
-    const blockquoteNode = getBooleanFF(
-      'platform.editor.allow-list-in-blockquote',
-    )
-      ? blockquoteWithList
-      : blockquote;
-    const headingNode = getBooleanFF(
-      'platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g',
-    )
-      ? headingStage0
-      : heading;
-    const nodes: BlockTypeNode[] = [
-      { name: 'heading', node: headingNode },
-      { name: 'blockquote', node: blockquoteNode },
-      { name: 'hardBreak', node: hardBreak },
-    ];
-
-    if (options && options.allowBlockType) {
-      const exclude = options.allowBlockType.exclude
-        ? options.allowBlockType.exclude
-        : [];
-      return nodes.filter(node => exclude.indexOf(node.name) === -1);
-    }
-
-    return nodes;
-  },
-
-  pmPlugins() {
-    return [
-      {
-        name: 'blockType',
-        plugin: ({ dispatch }) =>
-          createPlugin(
-            api,
-            dispatch,
-            options && options.lastNodeMustBeParagraph,
-          ),
-      },
-      {
-        name: 'blockTypeInputRule',
-        plugin: ({ schema, featureFlags }) =>
-          inputRulePlugin(api?.analytics?.actions, schema, featureFlags),
-      },
-      // Needs to be lower priority than editor-tables.tableEditing
-      // plugin as it is currently swallowing right/down arrow events inside tables
-      {
-        name: 'blockTypeKeyMap',
-        plugin: ({ schema, featureFlags }) =>
-          keymapPlugin(api?.analytics?.actions, schema, featureFlags),
-      },
-    ];
-  },
-
-  actions: {
-    insertBlockQuote(inputMethod: InputMethod) {
-      return insertBlockQuoteWithAnalytics(
-        inputMethod,
-        api?.analytics?.actions,
-      );
-    },
-  },
-
-  commands: {
-    setTextLevel(level: TextBlockTypes, inputMethod: InputMethod) {
-      return setBlockTypeWithAnalytics(
-        level,
-        inputMethod,
-        api?.analytics?.actions,
-      );
-    },
-  },
-
-  getSharedState(editorState) {
-    if (!editorState) {
-      return;
-    }
-    return pluginKey.getState(editorState);
-  },
-
-  primaryToolbarComponent({
+const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
+  const primaryToolbarComponent: ToolbarUIComponentFactory = ({
     popupsMountPoint,
     popupsBoundariesElement,
     popupsScrollableElement,
     toolbarSize,
     disabled,
     isToolbarReducedSpacing,
-  }) {
+  }) => {
     const isSmall =
       options && options.isUndoRedoButtonsEnabled
         ? toolbarSize < ToolbarSize.XXL
@@ -265,30 +189,126 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
         shouldUseDefaultRole={false}
       />
     );
-  },
+  };
 
-  pluginsOptions: {
-    quickInsert: intl => {
-      const exclude =
-        options && options.allowBlockType && options.allowBlockType.exclude
+  return {
+    name: 'blockType',
+
+    nodes() {
+      const blockquoteNode = getBooleanFF(
+        'platform.editor.allow-list-in-blockquote',
+      )
+        ? blockquoteWithList
+        : blockquote;
+      const headingNode = getBooleanFF(
+        'platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g',
+      )
+        ? headingStage0
+        : heading;
+      const nodes: BlockTypeNode[] = [
+        { name: 'heading', node: headingNode },
+        { name: 'blockquote', node: blockquoteNode },
+        { name: 'hardBreak', node: hardBreak },
+      ];
+
+      if (options && options.allowBlockType) {
+        const exclude = options.allowBlockType.exclude
           ? options.allowBlockType.exclude
           : [];
+        return nodes.filter(node => exclude.indexOf(node.name) === -1);
+      }
 
+      return nodes;
+    },
+
+    pmPlugins() {
       return [
-        ...blockquotePluginOptions(
-          intl,
-          exclude.indexOf('blockquote') === -1,
-          api?.analytics?.actions,
-        ),
-        ...headingPluginOptions(
-          intl,
-          exclude.indexOf('heading') === -1,
-          api?.analytics?.actions,
-        ),
+        {
+          name: 'blockType',
+          plugin: ({ dispatch }) =>
+            createPlugin(
+              api,
+              dispatch,
+              options && options.lastNodeMustBeParagraph,
+            ),
+        },
+        {
+          name: 'blockTypeInputRule',
+          plugin: ({ schema, featureFlags }) =>
+            inputRulePlugin(api?.analytics?.actions, schema, featureFlags),
+        },
+        // Needs to be lower priority than editor-tables.tableEditing
+        // plugin as it is currently swallowing right/down arrow events inside tables
+        {
+          name: 'blockTypeKeyMap',
+          plugin: ({ schema, featureFlags }) =>
+            keymapPlugin(api?.analytics?.actions, schema, featureFlags),
+        },
       ];
     },
-  },
-});
+
+    actions: {
+      insertBlockQuote(inputMethod: InputMethod) {
+        return insertBlockQuoteWithAnalytics(
+          inputMethod,
+          api?.analytics?.actions,
+        );
+      },
+    },
+
+    commands: {
+      setTextLevel(level: TextBlockTypes, inputMethod: InputMethod) {
+        return setBlockTypeWithAnalytics(
+          level,
+          inputMethod,
+          api?.analytics?.actions,
+        );
+      },
+    },
+
+    getSharedState(editorState) {
+      if (!editorState) {
+        return;
+      }
+      return pluginKey.getState(editorState);
+    },
+
+    usePluginHook: () => {
+      api?.core?.actions.execute(
+        api?.primaryToolbar?.commands.registerComponent({
+          name: 'blockType',
+          component: primaryToolbarComponent,
+        }),
+      );
+    },
+
+    primaryToolbarComponent: !api?.primaryToolbar
+      ? primaryToolbarComponent
+      : undefined,
+
+    pluginsOptions: {
+      quickInsert: intl => {
+        const exclude =
+          options && options.allowBlockType && options.allowBlockType.exclude
+            ? options.allowBlockType.exclude
+            : [];
+
+        return [
+          ...blockquotePluginOptions(
+            intl,
+            exclude.indexOf('blockquote') === -1,
+            api?.analytics?.actions,
+          ),
+          ...headingPluginOptions(
+            intl,
+            exclude.indexOf('heading') === -1,
+            api?.analytics?.actions,
+          ),
+        ];
+      },
+    },
+  };
+};
 
 export { blockTypePlugin };
 export { pluginKey } from './pm-plugins/main';

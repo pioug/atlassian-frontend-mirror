@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
 import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { HeadType } from '@atlaskit/dynamic-table/types';
+import { type HeadType } from '@atlaskit/dynamic-table/types';
 import { MediaTable } from '../src';
 import {
   RenderMediaTableWithFieldRange,

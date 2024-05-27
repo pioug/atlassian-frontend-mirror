@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, MouseEvent } from 'react';
+import { Fragment, type MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 
-import { CustomProductHomeProps } from './types';
+import { type CustomProductHomeProps } from './types';
 import { getTag } from './utils';
 
 const VAR_PRODUCT_HOME_COLOR_ACTIVE = '--product-home-color-active';

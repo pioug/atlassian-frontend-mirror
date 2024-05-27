@@ -1,6 +1,6 @@
-import { TextColorDefinition, TextColorAttributes } from '@atlaskit/adf-schema';
+import { type TextColorDefinition, type TextColorAttributes } from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
-import { WithMark } from '../types';
+import { type WithMark } from '../types';
 
 export const textColor =
   (attrs: TextColorAttributes) => (maybeNode: WithMark | string) =>

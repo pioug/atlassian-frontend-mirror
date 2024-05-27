@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { ReactElement, useMemo } from 'react';
+import { type ReactElement, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import SelectionProvider from './hooks/selection-provider';
 import { useSorting } from './hooks/use-sorting';
-import { SortKey, TableProvider } from './hooks/use-table';
+import { type SortKey, TableProvider } from './hooks/use-table';
 import { Table as TablePrimitive } from './ui';
 
 export type TableProps<ItemType extends object = {}> = {

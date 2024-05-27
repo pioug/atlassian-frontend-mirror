@@ -1,4 +1,4 @@
-import { extractPersonsUpdatedBy, LinkTypeUpdatedBy } from '../index';
+import { extractPersonsUpdatedBy, type LinkTypeUpdatedBy } from '../index';
 import {
   TEST_BASE_DATA,
   TEST_LINK,

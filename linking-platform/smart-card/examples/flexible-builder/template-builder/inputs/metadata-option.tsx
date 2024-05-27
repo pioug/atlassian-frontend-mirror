@@ -2,11 +2,11 @@
 import { jsx } from '@emotion/react';
 import React, { useCallback, useMemo } from 'react';
 import Select from '@atlaskit/select/Select';
-import { ElementItem, ElementName } from '../../../../src';
-import { OptionsType, ValueType as Value } from '@atlaskit/select';
+import { type ElementItem, type ElementName } from '../../../../src';
+import { type OptionsType, type ValueType as Value } from '@atlaskit/select';
 import { Field } from '@atlaskit/form';
-import { ChangeParams, handleOnChange } from '../../utils';
-import { BlockTemplate } from '../../types';
+import { type ChangeParams, handleOnChange } from '../../utils';
+import { type BlockTemplate } from '../../types';
 import { metadataElements } from '../../../utils/flexible-ui';
 
 const options = metadataElements.map((name) => ({

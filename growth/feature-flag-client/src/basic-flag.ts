@@ -1,11 +1,11 @@
 import {
-  FlagWrapper,
-  FlagShape,
-  AutomaticExposureHandler,
-  FlagValue,
-  CustomAttributes,
-  InternalTriggeredExposureHandler,
-  EvaluationResult,
+  type FlagWrapper,
+  type FlagShape,
+  type AutomaticExposureHandler,
+  type FlagValue,
+  type CustomAttributes,
+  type InternalTriggeredExposureHandler,
+  type EvaluationResult,
   ExposureTriggerReason,
 } from './types';
 

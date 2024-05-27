@@ -1,5 +1,5 @@
-import { ActionItem, BlockProps } from '../types';
-import { OnActionMenuOpenChangeOptions } from '../types';
+import { type ActionItem, type BlockProps } from '../types';
+import { type OnActionMenuOpenChangeOptions } from '../types';
 
 export type FooterBlockProps = {
   /**

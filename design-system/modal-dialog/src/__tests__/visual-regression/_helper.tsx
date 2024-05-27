@@ -1,7 +1,7 @@
 import {
   loadPage,
-  PuppeteerPage,
-  SideEffectOptions,
+  type PuppeteerPage,
+  type SideEffectOptions,
 } from '@atlaskit/visual-regression/helper';
 
 type Options = {

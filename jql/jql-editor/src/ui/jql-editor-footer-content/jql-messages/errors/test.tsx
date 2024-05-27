@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 import noop from 'lodash/noop';
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { JQLParseError, JQLSyntaxError } from '@atlaskit/jql-ast';
@@ -16,7 +16,7 @@ import {
   useJqlError,
   useStoreActions,
 } from '../../../../state';
-import { ExternalMessagesNormalized } from '../../../../state/types';
+import { type ExternalMessagesNormalized } from '../../../../state/types';
 
 import { ErrorMessages } from './index';
 

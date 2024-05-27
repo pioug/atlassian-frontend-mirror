@@ -15,18 +15,18 @@ jest.mock('uuid', () => {
 
 import React from 'react';
 import { cleanup, render, waitFor } from '@testing-library/react';
-import { CardClient } from '@atlaskit/link-provider';
+import { type CardClient } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import {
   MockIntersectionObserverFactory,
-  MockIntersectionObserverOpts,
+  type MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import 'jest-extended';
 import uuid from 'uuid';
-import { JestFunction } from '@atlaskit/media-test-helpers';
+import { type JestFunction } from '@atlaskit/media-test-helpers';
 
 describe('smart-card: prefetching of content', () => {
   let mockClient: CardClient;

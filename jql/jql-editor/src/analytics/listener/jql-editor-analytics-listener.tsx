@@ -4,17 +4,17 @@
  * moved into @atlaskit/analytics-listeners.
  */
 
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import {
   AnalyticsListener,
-  UIAnalyticsEventHandler,
+  type UIAnalyticsEventHandler,
 } from '@atlaskit/analytics-next';
 import { ANALYTICS_CHANNEL } from '@atlaskit/jql-editor-common';
 
 import { handleEvent } from './handle-event';
 import Logger from './helpers/logger';
-import { AnalyticsWebClient } from './types';
+import { type AnalyticsWebClient } from './types';
 
 export type ListenerProps = {
   children?: ReactNode;

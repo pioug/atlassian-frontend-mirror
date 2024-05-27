@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { unicornResponse } from '../content/example-responses';
 import { extractUrlFromLinkJsonLd } from '@atlaskit/link-extractors';
 

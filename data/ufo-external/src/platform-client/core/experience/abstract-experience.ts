@@ -10,26 +10,26 @@ import {
 import { ufolog, ufowarn } from '../../../logger';
 import { visibilityChangeObserver } from '../../../observer/visibility-change-observer';
 import {
-  CustomData,
-  ExperienceData,
-  ExperienceMetrics,
+  type CustomData,
+  type ExperienceData,
+  type ExperienceMetrics,
   FMP_MARK,
   INLINE_RESPONSE_MARK,
   PageVisibleState,
-  PerformanceConfig,
-  ReportedTimings,
+  type PerformanceConfig,
+  type ReportedTimings,
   SUBSCRIBE_ALL,
-  SubscribeCallback,
-  Timing,
+  type SubscribeCallback,
+  type Timing,
 } from '../../../types';
 import { roundPerfNow } from '../../utils/round-perf-now';
 import { isWindowObjectAvailable } from '../../utils/window-helper';
 
-import { UFOExperienceState, UFOExperienceStateType } from './experience-state';
+import { UFOExperienceState, type UFOExperienceStateType } from './experience-state';
 import { canTransition } from './experience-state-transitions';
 import {
   ExperiencePerformanceTypes,
-  ExperienceTypes,
+  type ExperienceTypes,
 } from './experience-types';
 
 const getPageVisibleState = () => {

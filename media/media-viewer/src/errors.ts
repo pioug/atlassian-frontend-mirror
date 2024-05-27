@@ -1,12 +1,12 @@
 import {
-  MediaClientErrorReason,
+  type MediaClientErrorReason,
   getMediaClientErrorReason,
   isMediaClientError,
-  RequestMetadata,
+  type RequestMetadata,
   isRequestError,
   isMediaStoreError,
 } from '@atlaskit/media-client';
-import { ZipEntry } from 'unzipit';
+import { type ZipEntry } from 'unzipit';
 
 export class MediaViewerError extends Error {
   constructor(

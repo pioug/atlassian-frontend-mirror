@@ -1,8 +1,8 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import getUserRecommendations from '../../../service/recommendation-client';
-import { RecommendationRequest } from '../../../types';
-import { IntlShape } from 'react-intl-next';
+import { type RecommendationRequest } from '../../../types';
+import { type IntlShape } from 'react-intl-next';
 
 const URS_URL = '/gateway/api/v1/recommendations';
 

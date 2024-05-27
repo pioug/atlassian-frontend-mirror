@@ -1,5 +1,5 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { Context } from '../../interfaces';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Context } from '../../interfaces';
 
 export default function getMediaGroupNodeView(
   schema: Schema,

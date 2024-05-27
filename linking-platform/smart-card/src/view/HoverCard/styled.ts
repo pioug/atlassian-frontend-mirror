@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { loadingPlaceholderClassName } from '../../index';
 import { SmartLinkSize } from '../../constants';
-import { FlexibleUiOptions } from '../FlexibleCard/types';
+import { type FlexibleUiOptions } from '../FlexibleCard/types';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';

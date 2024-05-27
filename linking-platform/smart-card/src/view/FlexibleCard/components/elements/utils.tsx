@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { FormattedDate, MessageDescriptor } from 'react-intl-next';
+import { FormattedDate, type MessageDescriptor } from 'react-intl-next';
 import {
   ElementName,
   IconType,
   SmartLinkInternalTheme,
 } from '../../../../constants';
-import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
+import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import Icon from './icon';
 import Link from './link';
 import Lozenge from './lozenge';
@@ -16,14 +16,14 @@ import Media from './media';
 import Text from './text';
 import { messages } from '../../../../messages';
 import DateTime from './date-time';
-import { AvatarGroupProps, AvatarItemProps } from './avatar-group/types';
-import { BadgeProps } from './badge/types';
-import { DateTimeProps } from './date-time/types';
-import { LinkProps } from './link/types';
-import { TextProps } from './text/types';
-import { LozengeProps } from './lozenge/types';
+import { type AvatarGroupProps, type AvatarItemProps } from './avatar-group/types';
+import { type BadgeProps } from './badge/types';
+import { type DateTimeProps } from './date-time/types';
+import { type LinkProps } from './link/types';
+import { type TextProps } from './text/types';
+import { type LozengeProps } from './lozenge/types';
 import AtlaskitBadge from './atlaskit-badge';
-import { AtlaskitBadgeProps } from './atlaskit-badge/types';
+import { type AtlaskitBadgeProps } from './atlaskit-badge/types';
 
 const elementMappings: {
   [key in ElementName]?: { component: React.FC<any> | undefined; props?: any };

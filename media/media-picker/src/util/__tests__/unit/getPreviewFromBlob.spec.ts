@@ -1,4 +1,4 @@
-import { Dimensions, getDimensionsFromBlob } from '@atlaskit/media-client';
+import { type Dimensions, getDimensionsFromBlob } from '@atlaskit/media-client';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 
 import { getPreviewFromBlob } from '../../getPreviewFromBlob';

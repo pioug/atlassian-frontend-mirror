@@ -1,40 +1,40 @@
 import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
-import Dataloader from 'dataloader';
-import { LRUMap } from 'lru_map';
-import { Interpreter } from 'xstate';
+import type Dataloader from 'dataloader';
+import { type LRUMap } from 'lru_map';
+import { type Interpreter } from 'xstate';
 
 import {
-  MediaStore,
+  type MediaStore,
   mediaStore,
-  ErrorFileState,
-  FileState,
-  UploadingFileState,
+  type ErrorFileState,
+  type FileState,
+  type UploadingFileState,
 } from '@atlaskit/media-state';
 
 import {
-  MobileUpload,
-  MobileUploadStartEvent,
-  MobileUploadProgressEvent,
-  MobileUploadEndEvent,
-  MobileUploadErrorEvent,
+  type MobileUpload,
+  type MobileUploadStartEvent,
+  type MobileUploadProgressEvent,
+  type MobileUploadEndEvent,
+  type MobileUploadErrorEvent,
 } from '../models/mobile-upload';
 import { getFileStreamsCache } from '../file-streams-cache';
 import {
   createFileDataloader,
-  DataloaderKey,
-  DataloaderResult,
+  type DataloaderKey,
+  type DataloaderResult,
 } from '../utils/createFileDataLoader';
 import {
   createServicesCache,
   createMobileUploadStateMachine,
   createMobileUploadService,
   createMobileFileStateSubject,
-  StateMachineContext,
-  StateMachineSchema,
-  StateMachineEvent,
-  StateMachineTypestate,
+  type StateMachineContext,
+  type StateMachineSchema,
+  type StateMachineEvent,
+  type StateMachineTypestate,
 } from '../utils/mobileUpload';
-import { MediaStore as MediaApi } from './media-store';
+import { type MediaStore as MediaApi } from './media-store';
 export class MobileUploadImpl implements MobileUpload {
   private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
   private readonly servicesCache: LRUMap<

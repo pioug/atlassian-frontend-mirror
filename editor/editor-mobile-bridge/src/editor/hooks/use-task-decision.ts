@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { TaskDecisionProvider } from '@atlaskit/task-decision';
+import { type TaskDecisionProvider } from '@atlaskit/task-decision';
 
 import { createTaskDecisionProvider } from '../../providers';
 

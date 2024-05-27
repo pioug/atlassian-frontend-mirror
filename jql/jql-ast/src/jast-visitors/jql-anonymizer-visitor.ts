@@ -5,17 +5,17 @@ import {
   PRIVACY_SAFE_FIELDS,
 } from '../constants';
 import {
-  Clause,
-  CompoundClause,
-  Field,
-  FunctionOperand,
-  KeywordOperand,
-  ListOperand,
-  NotClause,
-  OrderBy,
-  Predicate,
-  Query,
-  TerminalClause,
+  type Clause,
+  type CompoundClause,
+  type Field,
+  type FunctionOperand,
+  type KeywordOperand,
+  type ListOperand,
+  type NotClause,
+  type OrderBy,
+  type Predicate,
+  type Query,
+  type TerminalClause,
 } from '../types';
 import { notUndefined } from '../utils';
 

@@ -1,4 +1,4 @@
-import React, { Component, FormEvent, ComponentType } from 'react';
+import React, { Component, type FormEvent, type ComponentType } from 'react';
 import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button';

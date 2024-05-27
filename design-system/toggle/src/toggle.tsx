@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import { useUIDSeed } from 'react-uid';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -13,7 +13,7 @@ import CloseIcon from '@atlaskit/icon/glyph/editor/close';
 import CheckIcon from '@atlaskit/icon/glyph/editor/done';
 
 import { getStyles } from './internal/styles';
-import { Size, ToggleProps } from './types';
+import { type Size, type ToggleProps } from './types';
 
 export const getIconSize = (size: Size) =>
   size === 'large' ? 'large' : 'small';

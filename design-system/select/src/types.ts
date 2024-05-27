@@ -1,35 +1,35 @@
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
-  SelectInstance,
-  Props as ReactSelectProps,
-  FormatOptionLabelMeta,
-  OnChangeValue as RSValueType,
-  ActionMeta as RSActionMeta,
-  GroupBase as GroupType,
-  Options as RSOptionsType,
-  SelectComponentsConfig as RSSelectComponentsConfig,
-  StylesConfig as RSStylesConfig,
-  InputActionMeta,
-  ClearIndicatorProps,
-  DropdownIndicatorProps,
-  IndicatorSeparatorProps,
-  LoadingIndicatorProps,
-  NoticeProps,
-  ControlProps as RSControlProps,
-  GroupProps as RSGroupProps,
-  InputProps,
-  MenuProps as RSMenuProps,
-  MenuListProps as RSMenuListComponentProps,
-  MultiValueProps,
-  OptionProps as ReactSelectOptionProps,
-  PlaceholderProps as RSPlaceholderProps,
-  SingleValueProps,
-  ValueContainerProps as RSValueContainerProps,
-  MultiValueRemoveProps,
+  type SelectInstance,
+  type Props as ReactSelectProps,
+  type FormatOptionLabelMeta,
+  type OnChangeValue as RSValueType,
+  type ActionMeta as RSActionMeta,
+  type GroupBase as GroupType,
+  type Options as RSOptionsType,
+  type SelectComponentsConfig as RSSelectComponentsConfig,
+  type StylesConfig as RSStylesConfig,
+  type InputActionMeta,
+  type ClearIndicatorProps,
+  type DropdownIndicatorProps,
+  type IndicatorSeparatorProps,
+  type LoadingIndicatorProps,
+  type NoticeProps,
+  type ControlProps as RSControlProps,
+  type GroupProps as RSGroupProps,
+  type InputProps,
+  type MenuProps as RSMenuProps,
+  type MenuListProps as RSMenuListComponentProps,
+  type MultiValueProps,
+  type OptionProps as ReactSelectOptionProps,
+  type PlaceholderProps as RSPlaceholderProps,
+  type SingleValueProps,
+  type ValueContainerProps as RSValueContainerProps,
+  type MultiValueRemoveProps,
 } from 'react-select';
-import BaseSelect from 'react-select/base';
-import { AsyncProps } from 'react-select/async';
-import { CreatableProps } from 'react-select/creatable';
+import type BaseSelect from 'react-select/base';
+import { type AsyncProps } from 'react-select/async';
+import { type CreatableProps } from 'react-select/creatable';
 
 export type ValidationState = 'default' | 'error' | 'success';
 export interface OptionType {

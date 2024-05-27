@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/forge-react-types",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "Component types for Forge UI Kit React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
   "dependencies": {
     "@atlaskit/badge": "^16.1.0",
     "@atlaskit/banner": "^12.3.0",
-    "@atlaskit/button": "^17.16.0",
+    "@atlaskit/button": "^17.17.0",
     "@atlaskit/calendar": "^14.2.1",
     "@atlaskit/checkbox": "^13.3.0",
     "@atlaskit/code": "^15.2.0",

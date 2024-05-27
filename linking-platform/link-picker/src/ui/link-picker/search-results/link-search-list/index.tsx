@@ -2,7 +2,7 @@
 import {
   forwardRef,
   Fragment,
-  KeyboardEvent,
+  type KeyboardEvent,
   useCallback,
   useRef,
 } from 'react';
@@ -15,8 +15,8 @@ import Spinner from '@atlaskit/spinner';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
-  LinkPickerPlugin,
-  LinkSearchListItemData,
+  type LinkPickerPlugin,
+  type LinkSearchListItemData,
 } from '../../../../common/types';
 import { MinHeightContainer } from '../../../../common/ui/min-height-container';
 import { handleNavKeyDown } from '../../../../common/utils/handleNavKeyDown';

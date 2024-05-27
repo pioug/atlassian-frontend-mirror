@@ -2,8 +2,8 @@ import * as mocks from './analytics.mock';
 import React from 'react';
 import {
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
-  ProcessedFileState,
+  type MediaViewedEventPayload,
+  type ProcessedFileState,
 } from '@atlaskit/media-client';
 import {
   awaitError,

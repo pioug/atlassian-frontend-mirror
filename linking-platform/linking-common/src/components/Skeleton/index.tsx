@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import { B50, N30, N40, N50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { SkeletonProps } from './types';
+import { type SkeletonProps } from './types';
 
 const placeholderShimmer = keyframes({
   '0%': {

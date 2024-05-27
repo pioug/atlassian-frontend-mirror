@@ -1,6 +1,6 @@
 // this is to DOCUMENT/display the underlying react popper props, for our atlaskit/select documentation
 
-import { Modifier, Options } from '@popperjs/core';
+import { type Modifier, type Options } from '@popperjs/core';
 
 type Placement =
   | 'auto'

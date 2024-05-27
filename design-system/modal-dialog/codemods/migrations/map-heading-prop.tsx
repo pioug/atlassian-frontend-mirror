@@ -1,9 +1,10 @@
-import core, {
-  ASTPath,
-  Collection,
-  JSXAttribute,
-  JSXElement,
-  StringLiteral,
+import {
+  type ASTPath,
+  type Collection,
+  type default as core,
+  type JSXAttribute,
+  type JSXElement,
+  type StringLiteral,
 } from 'jscodeshift/src/core';
 
 import {

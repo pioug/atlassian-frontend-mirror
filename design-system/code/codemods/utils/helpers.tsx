@@ -1,6 +1,7 @@
-import core, {
+import type {
   ASTPath,
   CallExpression,
+  default as core,
   Identifier,
   ImportDeclaration,
   ImportSpecifier,
@@ -9,7 +10,7 @@ import core, {
   JSXElement,
   ObjectProperty,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   addCommentToStartOfFile,

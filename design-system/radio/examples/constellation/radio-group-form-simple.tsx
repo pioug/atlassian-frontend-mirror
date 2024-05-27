@@ -1,10 +1,10 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { Field, FieldProps, FormFooter } from '@atlaskit/form';
+import Form, { Field, type FieldProps, FormFooter } from '@atlaskit/form';
 
 import { RadioGroup } from '../../src';
-import { OptionsPropType } from '../../src/types';
+import { type OptionsPropType } from '../../src/types';
 
 const options: OptionsPropType = [
   { name: 'color', value: 'red', label: 'Red' },

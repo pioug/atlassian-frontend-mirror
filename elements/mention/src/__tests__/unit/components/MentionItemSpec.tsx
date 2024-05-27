@@ -2,11 +2,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
-import { ReactWrapper } from 'enzyme';
-import React, { ReactChildren } from 'react';
+import { type ReactWrapper } from 'enzyme';
+import React, { type ReactChildren } from 'react';
 import MentionItem from '../../../components/MentionItem';
-import { Props, State } from '../../../components/MentionList';
-import { MentionDescription, LozengeProps } from '../../../types';
+import { type Props, type State } from '../../../components/MentionList';
+import { type MentionDescription, type LozengeProps } from '../../../types';
 import Lozenge from '@atlaskit/lozenge';
 
 // Helper to make <React.Suspense> and React.lazy() work with Enzyme

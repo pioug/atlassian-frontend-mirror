@@ -1,11 +1,11 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import { css, SerializedStyles } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { Size } from '../types';
+import { type Size } from '../types';
 
 import { getColors } from './colors';
 

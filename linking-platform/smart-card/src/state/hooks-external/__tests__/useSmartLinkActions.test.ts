@@ -6,13 +6,13 @@ jest.mock('@atlaskit/link-provider', () => {
 });
 
 import { renderHook } from '@testing-library/react-hooks';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { mocked } from 'ts-jest/utils';
 
 import { mocks } from '../../../utils/mocks';
 import { useSmartCardState } from '../../store';
 import { useSmartLinkActions } from '../useSmartLinkActions';
-import { CardState } from '../../types';
+import { type CardState } from '../../types';
 import { extractBlockProps } from '../../../extractors/block';
 
 jest.mock('../../actions', () => ({

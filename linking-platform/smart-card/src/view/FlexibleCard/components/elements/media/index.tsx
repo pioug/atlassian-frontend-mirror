@@ -3,7 +3,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ImageIcon from '../../common/image-icon';
-import { MediaProps } from './types';
+import { type MediaProps } from './types';
 
 /**
  * Media: Image

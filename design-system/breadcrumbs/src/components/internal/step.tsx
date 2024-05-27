@@ -2,7 +2,7 @@ import React from 'react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import Button from '@atlaskit/button/standard-button';
-import { CustomThemeButtonProps } from '@atlaskit/button/types';
+import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 import __noop from '@atlaskit/ds-lib/noop';
 
 interface BreadcrumbsButtonProps extends CustomThemeButtonProps {

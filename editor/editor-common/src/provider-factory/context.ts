@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ProviderFactory from './provider-factory';
-import { ProviderType } from './types';
+import { type ProviderType } from './types';
 
 const ProviderFactoryContext = React.createContext<ProviderFactory>(
   new ProviderFactory(),

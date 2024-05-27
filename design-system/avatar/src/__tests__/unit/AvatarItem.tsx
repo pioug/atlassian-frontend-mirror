@@ -1,5 +1,5 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import React, { FC, ReactNode } from 'react';
+import React, { type FC, type ReactNode } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 

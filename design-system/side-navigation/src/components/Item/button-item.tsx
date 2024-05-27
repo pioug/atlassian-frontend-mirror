@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { ButtonItem as Button, ButtonItemProps } from '@atlaskit/menu';
+import { ButtonItem as Button, type ButtonItemProps } from '@atlaskit/menu';
 
 import {
   baseSideNavItemStyle,

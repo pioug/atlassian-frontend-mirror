@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.4.0
+
+### Minor Changes
+
+-   [#101406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101406)
+    [`6daffd65aec4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6daffd65aec4) -
+    [ED-23298] Extract primary toolbar components to editor plugin to allow for custom ordering
+
+### Patch Changes
+
+-   [#102478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102478)
+    [`3378951608b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3378951608b0) -
+    [ED-23332] Update adf-schema package to 36.10.1
+-   Updated dependencies
+
 ## 1.3.1
 
 ### Patch Changes

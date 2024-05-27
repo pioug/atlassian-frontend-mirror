@@ -1,11 +1,11 @@
 // for documentation purposes ONLY
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import {
-  GetOptionLabel,
-  GetOptionValue,
-  GroupBase,
-  Options,
-  OptionsOrGroups,
+  type GetOptionLabel,
+  type GetOptionValue,
+  type GroupBase,
+  type Options,
+  type OptionsOrGroups,
 } from 'react-select';
 
 export interface Accessors<Option> {

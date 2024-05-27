@@ -1,12 +1,12 @@
 import React from 'react';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { CommentAction as AkCommentAction } from '@atlaskit/comment';
+import { type ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { type CommentAction as AkCommentAction } from '@atlaskit/comment';
 import { Provider, connect } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
+import { type ThunkDispatch } from 'redux-thunk';
 
-import Conversation, { Props as BaseProps } from '../components/Conversation';
-import { ResourceProvider } from '../api/ConversationResource';
-import { Comment as CommentType } from '../model/Comment';
+import Conversation, { type Props as BaseProps } from '../components/Conversation';
+import { type ResourceProvider } from '../api/ConversationResource';
+import { type Comment as CommentType } from '../model/Comment';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import {
@@ -17,14 +17,14 @@ import {
   updateUser,
   createConversation,
   HIGHLIGHT_COMMENT,
-  SuccessHandler,
+  type SuccessHandler,
   saveDraft,
 } from '../internal/actions';
 import { getComments, getConversation, getUser } from '../internal/selectors';
 import { uuid } from '../internal/uuid';
-import { State } from '../internal/store';
-import { User } from '../model';
-import { RenderEditorWithComments } from '../components/types';
+import { type State } from '../internal/store';
+import { type User } from '../model';
+import { type RenderEditorWithComments } from '../components/types';
 
 export interface Props extends BaseProps {
   localId: string;

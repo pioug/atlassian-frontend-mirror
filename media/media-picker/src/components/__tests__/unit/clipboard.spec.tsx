@@ -5,14 +5,14 @@ jest.mock('../../../service/uploadServiceImpl');
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   ClipboardMockFile,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
 import { LocalFileSource } from '../../../service/types';
 import { Clipboard, ClipboardBase } from '../../clipboard/clipboard';
-import { ClipboardConfig } from '../../../types';
+import { type ClipboardConfig } from '../../../types';
 import { mount } from 'enzyme';
 
 describe('Clipboard', () => {

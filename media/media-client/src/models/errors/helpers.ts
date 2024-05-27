@@ -1,6 +1,6 @@
 export type { MediaClientError, MediaClientErrorReason } from './types';
 
-import { MediaClientError, MediaClientErrorReason } from './types';
+import { type MediaClientError, type MediaClientErrorReason } from './types';
 
 export function isMediaClientError(error: any): error is MediaClientError<{
   reason: MediaClientErrorReason;

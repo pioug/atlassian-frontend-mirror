@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { N800, N200, B400 } from '@atlaskit/theme/colors';
@@ -12,9 +12,9 @@ import {
 import { HighlightText } from '../../../components/HighlightText';
 import {
   GroupOption,
-  GroupOptionProps,
+  type GroupOptionProps,
 } from '../../../components/GroupOption/main';
-import { Group } from '../../../types';
+import { type Group } from '../../../types';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
   ...(jest.requireActual('../../../components/AvatarItemOption') as any),

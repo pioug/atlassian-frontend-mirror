@@ -1,7 +1,8 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import core, {
+import type {
   API,
   ASTPath,
+  default as core,
   FileInfo,
   Identifier,
   ImportDeclaration,
@@ -11,7 +12,7 @@ import core, {
   Program,
   StringLiteral,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 export type Nullable<T> = T | null;
 function getDefaultSpecifier(

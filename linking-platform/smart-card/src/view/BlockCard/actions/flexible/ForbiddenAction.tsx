@@ -1,12 +1,12 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { CustomActionItem } from '../../../FlexibleCard/components/blocks/types';
+import { type CustomActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { ActionName } from '../../../../constants';
 import {
-  MessageKey,
+  type MessageKey,
   messages,
-  RequestAccessMessageKey,
+  type RequestAccessMessageKey,
 } from '../../../../messages';
 
 /**

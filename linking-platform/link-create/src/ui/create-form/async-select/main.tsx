@@ -6,11 +6,10 @@ import debounce from 'debounce-promise';
 import { useForm } from 'react-final-form';
 import { useIntl } from 'react-intl-next';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   AsyncSelect as AkAsyncSelect,
-  GroupType,
-  OptionType,
+  type GroupType,
+  type OptionType,
 } from '@atlaskit/select';
 
 import messages from '../../../common/messages';
@@ -18,7 +17,7 @@ import { useLinkCreateCallback } from '../../../controllers/callback-context';
 import { CreateField } from '../../../controllers/create-field';
 import { useFormContext } from '../../../controllers/form-context';
 
-import { AsyncSelectProps } from './types';
+import { type AsyncSelectProps } from './types';
 
 export const TEST_ID = 'link-create-async-select';
 
@@ -56,26 +55,19 @@ export function AsyncSelect<T = OptionType>({
   /**
    * This binds experience to fail if async fetch ever fails to load
    */
-  const loadOptions: typeof loadOptionsFn = getBooleanFF(
-    'platform.linking-platform.link-create.better-observability',
-  )
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks
-      useMemo(() => {
-        if (loadOptionsFn) {
-          return async function (...args: Parameters<typeof loadOptionsFn>) {
-            try {
-              return await loadOptionsFn(...args);
-            } catch (err) {
-              onFailure?.(err);
-              setFormErrorMessage(
-                intl.formatMessage(messages.genericErrorMessage),
-              );
-              return [];
-            }
-          };
+  const loadOptions: typeof loadOptionsFn = useMemo(() => {
+    if (loadOptionsFn) {
+      return async function (...args: Parameters<typeof loadOptionsFn>) {
+        try {
+          return await loadOptionsFn(...args);
+        } catch (err) {
+          onFailure?.(err);
+          setFormErrorMessage(intl.formatMessage(messages.genericErrorMessage));
+          return [];
         }
-      }, [intl, onFailure, loadOptionsFn, setFormErrorMessage])
-    : loadOptionsFn;
+      };
+    }
+  }, [intl, onFailure, loadOptionsFn, setFormErrorMessage]);
 
   useEffect(() => {
     let current = true;

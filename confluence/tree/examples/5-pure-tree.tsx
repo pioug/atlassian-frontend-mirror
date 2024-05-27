@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Tree, {
   mutateTree,
   moveItemOnTree,
-  RenderItemParams,
-  TreeItem,
-  TreeData,
-  ItemId,
-  TreeSourcePosition,
-  TreeDestinationPosition,
+  type RenderItemParams,
+  type TreeItem,
+  type TreeData,
+  type ItemId,
+  type TreeSourcePosition,
+  type TreeDestinationPosition,
 } from '../src';
 import { treeWithTwoBranches } from '../mockdata/treeWithTwoBranches';
 

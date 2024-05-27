@@ -1,8 +1,8 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import { extractImage } from '@atlaskit/link-extractors';
 import { MediaType } from '../../constants';
-import { Media } from '../../state/flexible-ui-context/types';
+import { type Media } from '../../state/flexible-ui-context/types';
 
 const extractPreview = (data: JsonLd.Data.BaseData): Media | undefined => {
   if (!data) {

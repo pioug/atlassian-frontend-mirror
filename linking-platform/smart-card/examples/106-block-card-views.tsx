@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ProviderProps } from '@atlaskit/link-provider';
+import { type ProviderProps } from '@atlaskit/link-provider';
 import { jsx, css } from '@emotion/react';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
@@ -20,7 +20,7 @@ import { CollaboratorList } from '../src/view/BlockCard/components/CollaboratorL
 import { ActionList } from '../src/view/BlockCard/components/ActionList';
 
 import { BlockCardResolvingView, PreviewAction } from '../src/view/BlockCard';
-import { CollaboratorListProps } from '../src/view/BlockCard/components/CollaboratorList';
+import { type CollaboratorListProps } from '../src/view/BlockCard/components/CollaboratorList';
 import { mockAnalytics } from '../src/utils/mocks';
 import CardView from './utils/card-view';
 import {

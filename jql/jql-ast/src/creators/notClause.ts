@@ -6,13 +6,13 @@ import {
   replaceClause,
 } from '../transformers/notClause';
 import {
-  AstNode,
-  Clause,
-  JastListener,
-  JastVisitor,
-  NotClause,
-  NotClauseOperator,
-  Position,
+  type AstNode,
+  type Clause,
+  type JastListener,
+  type JastVisitor,
+  type NotClause,
+  type NotClauseOperator,
+  type Position,
 } from '../types';
 
 import { assignParent } from './common';

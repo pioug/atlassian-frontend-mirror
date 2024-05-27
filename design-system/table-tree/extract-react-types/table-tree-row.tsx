@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { Item } from './table-tree';
+import { type Item } from './table-tree';
 
 /**
  * This is hard-coded here because our actual <TableTree /> has no typings

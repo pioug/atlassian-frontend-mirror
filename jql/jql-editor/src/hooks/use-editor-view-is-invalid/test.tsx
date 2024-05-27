@@ -10,7 +10,7 @@ import {
   useExternalMessages,
   useJqlError,
 } from '../../state';
-import { ExternalMessagesNormalized } from '../../state/types';
+import { type ExternalMessagesNormalized } from '../../state/types';
 
 import { useEditorViewIsInvalid } from './index';
 

@@ -1,5 +1,5 @@
-import core, { CallExpression } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type CallExpression, type default as core } from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 export function doesIdentifierExist({
   j,

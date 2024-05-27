@@ -1,7 +1,7 @@
-import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
 import { TableMap } from '../table-map';
-import { Axis } from '../types';
+import { type Axis } from '../types';
 
 export function pointsAtCell($pos: ResolvedPos) {
   return $pos.parent.type.spec.tableRole === 'row' && $pos.nodeAfter;

@@ -1,4 +1,4 @@
-import { FlexibleTemplate } from './types';
+import { type FlexibleTemplate } from './types';
 
 export enum BlockName {
   ActionBlock = 'ActionBlock',

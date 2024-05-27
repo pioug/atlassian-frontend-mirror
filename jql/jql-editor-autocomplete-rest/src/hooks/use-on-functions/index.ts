@@ -8,11 +8,11 @@ import { filter } from 'rxjs/operators/filter';
 import { map } from 'rxjs/operators/map';
 import { toArray } from 'rxjs/operators/toArray';
 
-import { AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
 
-import { JQLFieldResponse, JQLFunctionResponse } from '../../common/types';
+import { type JQLFieldResponse, type JQLFunctionResponse } from '../../common/types';
 import findField$ from '../../utils/find-field-observable';
-import { OnFunctions } from '../use-autocomplete-provider/types';
+import { type OnFunctions } from '../use-autocomplete-provider/types';
 
 const useOnFunctions = (
   jqlSearchableFields$: Observable<JQLFieldResponse>,

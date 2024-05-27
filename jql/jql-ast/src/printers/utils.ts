@@ -1,4 +1,4 @@
-import { Doc, Group, IfBreak, NewLine } from './types';
+import { type Doc, type Group, type IfBreak, type NewLine } from './types';
 
 export const group = (contents: Doc[]): Group => {
   return {

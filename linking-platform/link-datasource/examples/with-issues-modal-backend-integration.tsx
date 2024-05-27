@@ -14,12 +14,12 @@ import {
   SmartCardProvider,
 } from '@atlaskit/link-provider';
 import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';
-import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Card } from '@atlaskit/smart-card';
 
 import {
-  JiraIssueDatasourceParameters,
-  JiraIssuesDatasourceAdf,
+  type JiraIssueDatasourceParameters,
+  type JiraIssuesDatasourceAdf,
 } from '../src/ui/jira-issues-modal/types';
 
 const tableContainerStyles = css({

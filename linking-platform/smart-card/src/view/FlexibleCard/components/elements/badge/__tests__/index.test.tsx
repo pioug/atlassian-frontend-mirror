@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlProvider, MessageFormatElement } from 'react-intl-next';
+import { IntlProvider, type MessageFormatElement } from 'react-intl-next';
 import { render } from '@testing-library/react';
 import { css } from '@emotion/react';
 

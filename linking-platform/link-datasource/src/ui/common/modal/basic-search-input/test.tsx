@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { BasicSearchInput, BasicSearchInputProps } from './index';
+import { BasicSearchInput, type BasicSearchInputProps } from './index';
 
 describe('BasicSearchInput', () => {
   const setup = (propsOverride: Partial<BasicSearchInputProps> = {}) => {

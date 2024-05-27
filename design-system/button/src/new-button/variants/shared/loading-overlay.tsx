@@ -2,7 +2,7 @@ import React from 'react';
 
 import Spinner from '@atlaskit/spinner';
 
-import { Appearance, type ButtonSpacing } from '../types';
+import { type Appearance, type ButtonSpacing } from '../types';
 
 function getIconSpacing(spacing?: ButtonSpacing) {
   switch (spacing) {

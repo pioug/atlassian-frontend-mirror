@@ -1,5 +1,5 @@
 import React from 'react';
-import { MediaTableItem, MediaTable } from '../src';
+import { type MediaTableItem, MediaTable } from '../src';
 import {
   createUploadMediaClientConfig,
   audioNoCoverFileId,
@@ -11,7 +11,7 @@ import {
   gifFileId,
   videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
-import { HeadType } from '@atlaskit/dynamic-table/types';
+import { type HeadType } from '@atlaskit/dynamic-table/types';
 import CheckCircleOutlineIcon from '@atlaskit/icon/glyph/check-circle-outline';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 import dateFnsFormat from 'date-fns/format';

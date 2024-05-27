@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-import { Provider, Client, ResolveResponse } from '../../src';
+import { Provider, Client, type ResolveResponse } from '../../src';
 import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 import { HoverCard } from '../../src/hoverCard';
 import VRTestWrapper from '../utils/vr-test-wrapper';

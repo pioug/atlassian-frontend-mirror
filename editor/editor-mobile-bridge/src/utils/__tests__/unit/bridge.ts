@@ -1,5 +1,5 @@
 import { measureRender } from '@atlaskit/editor-common/utils';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import {
   isContentEmpty,
   measureContentRenderedPerformance,

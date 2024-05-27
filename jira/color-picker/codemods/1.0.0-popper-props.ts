@@ -6,8 +6,15 @@ import {
   isUsingProp,
 } from './utils/helpers';
 
-import core, { API, ASTPath, FileInfo, JSXElement, Options } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import {
+  type API,
+  type default as core,
+  type ASTPath,
+  type FileInfo,
+  type JSXElement,
+  type Options,
+} from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 function updatePopperProps(
   j: core.JSCodeshift,

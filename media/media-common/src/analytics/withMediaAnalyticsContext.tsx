@@ -3,10 +3,10 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 
 import {
-  ContextPublicAttributes,
-  ContextPrivateAttributes,
-  ContextStaticProps,
-  ContextData,
+  type ContextPublicAttributes,
+  type ContextPrivateAttributes,
+  type ContextStaticProps,
+  type ContextData,
 } from './types';
 
 /**

@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { FC, HTMLProps, ReactNode } from 'react';
+import { type FC, type HTMLProps, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { TruncateStyleProps } from '../constants';
+import { type TruncateStyleProps } from '../constants';
 import { TableBodyCell } from '../table-cell';
 
 type RankableTableBodyCellProps = HTMLProps<

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { Link } from '@atlaskit/linking-types';
+import { type Link } from '@atlaskit/linking-types';
 import { Card } from '@atlaskit/smart-card';
 import { HoverCard } from '@atlaskit/smart-card/hover-card';
 import LinkUrl from '@atlaskit/smart-card/link-url';

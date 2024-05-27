@@ -3,10 +3,10 @@ import React, { useCallback, useMemo } from 'react';
 import {
   AsyncSelect,
   CreateForm,
-  CreateFormProps,
+  type CreateFormProps,
   TextField,
   useLinkCreateCallback,
-  Validator,
+  type Validator,
 } from '../src';
 
 import { MockDisclaimer } from './mock-disclaimer';

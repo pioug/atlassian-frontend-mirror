@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 
 import { iconWrapperStyles } from './styles';
-import { IconWrapperProps } from './types';
+import { type IconWrapperProps } from './types';
 
 export const IconWrapper = (props: IconWrapperProps) => {
   const { breakpoint, hasTitleBox } = props;

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { BlockBuilderProps } from '../types';
+import { type BlockBuilderProps } from '../types';
 import MetadataOption from './inputs/metadata-option';
 import MaxLinesOption from './inputs/max-lines-option';
 import { SmartLinkPosition, SmartLinkSize } from '../../../src';

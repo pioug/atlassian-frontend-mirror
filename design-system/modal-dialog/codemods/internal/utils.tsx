@@ -1,5 +1,6 @@
-import core, {
+import type {
   ASTPath,
+  default as core,
   ImportDeclaration,
   ImportDefaultSpecifier,
   ImportNamespaceSpecifier,
@@ -15,7 +16,7 @@ import core, {
   VariableDeclaration,
   VariableDeclarator,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import { getJSXAttributesByName } from '@atlaskit/codemod-utils';
 

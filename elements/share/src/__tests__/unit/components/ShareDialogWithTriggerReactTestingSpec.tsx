@@ -4,12 +4,12 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
   IntlProvider,
-  IntlShape,
-  WrappedComponentProps,
+  type IntlShape,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 
 import { ShareDialogWithTriggerInternal } from '../../../components/ShareDialogWithTrigger';
-import { ShareDialogWithTriggerProps } from '../../../types';
+import { type ShareDialogWithTriggerProps } from '../../../types';
 import mockPopper from '../_mockPopper';
 
 // disable lazy-load component in testing.

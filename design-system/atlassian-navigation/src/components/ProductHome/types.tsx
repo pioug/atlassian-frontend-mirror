@@ -1,6 +1,6 @@
-import { ComponentType, MouseEvent } from 'react';
+import { type ComponentType, type MouseEvent } from 'react';
 
-import { LogoProps } from '@atlaskit/logo';
+import { type LogoProps } from '@atlaskit/logo';
 
 export interface ProductHomeProps {
   /**

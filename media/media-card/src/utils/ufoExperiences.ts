@@ -3,24 +3,24 @@ import {
   ExperiencePerformanceTypes,
   ExperienceTypes,
 } from '@atlaskit/ufo';
-import { CardStatus } from '../types';
+import { type CardStatus } from '../types';
 import {
-  FileAttributes,
+  type FileAttributes,
   getFeatureFlagKeysAllProducts,
 } from '@atlaskit/media-common';
 import {
   extractErrorInfo,
   getRenderErrorRequestMetadata,
-  MediaCardErrorInfo,
-  SSRStatus,
+  type MediaCardErrorInfo,
+  type SSRStatus,
 } from './analytics';
 import { MediaCardError } from '../errors';
 import {
   getMediaEnvironment,
   getMediaRegion,
-  RequestMetadata,
+  type RequestMetadata,
 } from '@atlaskit/media-client';
-import { FileStateFlags } from '../types';
+import { type FileStateFlags } from '../types';
 
 type SucceedUfoPayload = {
   fileAttributes: FileAttributes;

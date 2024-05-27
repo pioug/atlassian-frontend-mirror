@@ -1,6 +1,6 @@
 import {
-  BodiedExtensionDefinition,
-  NonNestableBlockContent,
+  type BodiedExtensionDefinition,
+  type NonNestableBlockContent,
 } from '@atlaskit/adf-schema';
 
 export const bodiedExtension =

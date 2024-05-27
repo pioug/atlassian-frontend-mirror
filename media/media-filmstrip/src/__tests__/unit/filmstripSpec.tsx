@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Filmstrip, FilmstripView, FilmstripProps, FilmstripItem } from '../..';
+import { Filmstrip, FilmstripView, type FilmstripProps, type FilmstripItem } from '../..';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { Card, CardLoading } from '@atlaskit/media-card';
-import { Identifier } from '@atlaskit/media-client';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import { type Identifier } from '@atlaskit/media-client';
+import { type MediaClientConfig } from '@atlaskit/media-core';
 
 describe('<Filmstrip />', () => {
   const firstIdenfier: Identifier = {

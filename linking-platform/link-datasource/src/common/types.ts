@@ -1,6 +1,6 @@
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { IssueLikeDataTableViewProps } from '../ui/issue-like-table/types';
+import { type IssueLikeDataTableViewProps } from '../ui/issue-like-table/types';
 
 export type JiraSearchMethod = 'basic' | 'jql';
 

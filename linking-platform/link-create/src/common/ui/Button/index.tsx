@@ -5,7 +5,7 @@ import AkButton from '@atlaskit/button';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import createEventPayload, {
-  AnalyticsEventAttributes,
+  type AnalyticsEventAttributes,
 } from '../../../common/utils/analytics/analytics.codegen';
 
 type ButtonProps = React.ComponentProps<typeof AkButton> & {

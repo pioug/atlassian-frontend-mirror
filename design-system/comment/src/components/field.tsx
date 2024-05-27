@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

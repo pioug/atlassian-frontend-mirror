@@ -1,11 +1,11 @@
 import creators from '../creators';
 import { assignParent } from '../creators/common';
 import {
-  Clause,
-  CompoundOperatorValue,
-  OrderByDirection,
-  OrderByField,
-  Query,
+  type Clause,
+  type CompoundOperatorValue,
+  type OrderByDirection,
+  type OrderByField,
+  type Query,
 } from '../types';
 
 /**

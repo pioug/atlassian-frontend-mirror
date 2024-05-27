@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { EntityType, UserSearchResponse } from '@atlaskit/smart-common';
+import { EntityType, type UserSearchResponse } from '@atlaskit/smart-common';
 
 import { mockUserSearchData } from './mock-urs-data';
 

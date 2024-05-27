@@ -2,7 +2,7 @@
 import { css, jsx, keyframes } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
-import { SyntheticEvent, useRef } from 'react';
+import { type SyntheticEvent, useRef } from 'react';
 
 const pulseKeyframes = keyframes({
   to: {

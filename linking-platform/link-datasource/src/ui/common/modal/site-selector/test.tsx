@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 
-import { SiteSelector, SiteSelectorProps } from './index';
+import { SiteSelector, type SiteSelectorProps } from './index';
 
 describe('SiteSelector', () => {
   const mockOnSiteSelection = jest.fn();

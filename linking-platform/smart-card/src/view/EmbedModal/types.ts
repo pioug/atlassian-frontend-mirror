@@ -1,6 +1,6 @@
-import { ErrorInfo } from 'react';
-import { IconProps } from '../common/Icon';
-import { WithAnalytics } from './components/analytics/types';
+import { type ErrorInfo } from 'react';
+import { type IconProps } from '../common/Icon';
+import { type WithAnalytics } from './components/analytics/types';
 
 export enum EmbedModalSize {
   Large = 'large',

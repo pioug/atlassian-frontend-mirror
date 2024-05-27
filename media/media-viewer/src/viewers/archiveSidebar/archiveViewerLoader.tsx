@@ -2,7 +2,7 @@ import React from 'react';
 
 import ModalSpinner from '../modalSpinner';
 
-import { ArchiveViewerProps } from './types';
+import { type ArchiveViewerProps } from './types';
 import ErrorMessage from '../../errorMessage';
 import { MediaViewerError } from '../../errors';
 

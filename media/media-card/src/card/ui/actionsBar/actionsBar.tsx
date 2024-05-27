@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CardActionIconButtonVariant, CardActionsView } from './cardActions';
 import { ActionsBarWrapper } from './actionsBarWrapper';
-import { ActionsBarProps } from './types';
+import { type ActionsBarProps } from './types';
 
 export class ActionsBar extends React.Component<ActionsBarProps> {
   render() {

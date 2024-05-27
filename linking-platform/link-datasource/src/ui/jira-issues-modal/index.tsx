@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
-import { JiraConfigModalProps } from './types';
+import { type JiraConfigModalProps } from './types';
 
 export const JIRA_LIST_OF_LINKS_DATASOURCE_ID =
   'd8b75300-dfda-4519-b6cd-e49abbd50401';

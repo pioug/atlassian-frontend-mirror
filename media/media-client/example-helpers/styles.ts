@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
-import { FileStatus } from '../src';
+import { type FileStatus } from '../src';
 
 export const wrapperStyles = css({
   display: 'flex',

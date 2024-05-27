@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { SSR } from '@atlaskit/media-common';
+import { type MediaClientConfig } from '@atlaskit/media-core';
+import { type SSR } from '@atlaskit/media-common';
 import {
   createStorybookMediaClientConfig,
   imageFileId,

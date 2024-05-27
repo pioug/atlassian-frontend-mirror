@@ -13,7 +13,7 @@ import { css, jsx } from '@emotion/react';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 
 import { borderWidth, dynamicStyles, getBaseStyles } from './styles';
-import { TextAreaProps } from './types';
+import { type TextAreaProps } from './types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

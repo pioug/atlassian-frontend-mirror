@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import WebBridgeImpl from '../native-to-web';
-import EditorConfiguration from '../editor-configuration';
+import type WebBridgeImpl from '../native-to-web';
+import type EditorConfiguration from '../editor-configuration';
 import { configFactory, initPluginListeners } from '../plugin-subscription';
 
 export function usePluginListeners(

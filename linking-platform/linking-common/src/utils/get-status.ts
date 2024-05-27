@@ -1,5 +1,5 @@
-import { JsonLd } from 'json-ld-types';
-import { CardType } from '../types';
+import { type JsonLd } from 'json-ld-types';
+import { type CardType } from '../types';
 
 const getStatusForNotFoundVisibility = (meta: JsonLd.Meta.BaseMeta) => {
   const accessType = meta.requestAccess?.accessType;

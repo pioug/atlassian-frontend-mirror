@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileDetails } from '@atlaskit/media-client';
+import { type FileDetails } from '@atlaskit/media-client';
 import { spinnerTestId } from '../../../../__tests__/utils/_testIDs';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';

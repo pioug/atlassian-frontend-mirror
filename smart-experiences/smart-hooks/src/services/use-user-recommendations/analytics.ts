@@ -1,13 +1,13 @@
-import { EventType, TRACK_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
+import { type EventType, TRACK_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   createAndFireEvent,
-  CreateUIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { UserSearchItem } from '@atlaskit/smart-common';
+import { type UserSearchItem } from '@atlaskit/smart-common';
 
-import { UseUserRecommendationsProps } from '../../types';
+import { type UseUserRecommendationsProps } from '../../types';
 
 const createAndFireEventInElementsChannel = createAndFireEvent(
   FabricChannel.elements,

@@ -60,13 +60,13 @@ import Select, { CreatableSelect } from '@atlaskit/select';
 import { shallow, mount } from 'enzyme';
 
 import React from 'react';
-import { ConcurrentExperience, UFOExperience, ufologger } from '@atlaskit/ufo';
+import { type ConcurrentExperience, type UFOExperience, ufologger } from '@atlaskit/ufo';
 import { getComponents } from '../../../components/components';
 import { getCreatableProps } from '../../../components/creatable';
 import { getCreatableSuggestedEmailProps } from '../../../components/creatableEmailSuggestion';
 import { getStyles } from '../../../components/styles';
 import { UserPickerWithoutAnalytics } from '../../../components/UserPicker';
-import { User, UserPickerProps } from '../../../types';
+import { type User, type UserPickerProps } from '../../../types';
 import { MockConcurrentExperienceInstance } from '../_testUtils';
 import { fireEvent, render } from '@testing-library/react';
 

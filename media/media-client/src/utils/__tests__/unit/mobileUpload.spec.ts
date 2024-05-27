@@ -3,14 +3,14 @@ import { _throw } from 'rxjs/observable/throw';
 import { map } from 'rxjs/operators/map';
 
 import {
-  FileState,
-  UploadingFileState,
-  ProcessingFileState,
-  ProcessedFileState,
-  ProcessingFailedState,
+  type FileState,
+  type UploadingFileState,
+  type ProcessingFileState,
+  type ProcessedFileState,
+  type ProcessingFailedState,
   isUploadingFileState,
   isErrorFileState,
-  MediaStore,
+  type MediaStore,
 } from '../../..';
 import { createFileDataloader } from '../../createFileDataLoader';
 import {

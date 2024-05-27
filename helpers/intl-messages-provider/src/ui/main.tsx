@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import { useMessages } from '../services/use-messages';
 import { useSafeIntl } from '../services/use-safe-intl';
 
-import { IntlMessagesProviderProps } from './types';
+import { type IntlMessagesProviderProps } from './types';
 
 export default function IntlMessagesProvider({
   loaderFn,

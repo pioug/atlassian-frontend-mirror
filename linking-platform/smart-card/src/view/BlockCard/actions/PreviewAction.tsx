@@ -1,12 +1,12 @@
-import React, { ErrorInfo } from 'react';
+import React, { type ErrorInfo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { AnalyticsFacade } from '../../../state/analytics';
-import { ActionProps } from '../components/Action';
-import { IconProps } from '../../common/Icon';
-import { MetadataProps } from '../../common/Metadata';
+import { type AnalyticsFacade } from '../../../state/analytics';
+import { type ActionProps } from '../components/Action';
+import { type IconProps } from '../../common/Icon';
+import { type MetadataProps } from '../../common/Metadata';
 import { messages } from '../../../messages';
-import { AnalyticsOrigin } from '../../../utils/types';
+import { type AnalyticsOrigin } from '../../../utils/types';
 import { openEmbedModal } from '../../EmbedModal/utils';
 
 /*

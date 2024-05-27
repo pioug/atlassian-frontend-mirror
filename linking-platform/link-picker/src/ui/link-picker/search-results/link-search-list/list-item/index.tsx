@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { forwardRef, Fragment, KeyboardEvent } from 'react';
+import { forwardRef, Fragment, type KeyboardEvent } from 'react';
 
 import { jsx } from '@emotion/react';
-import { IntlShape, useIntl } from 'react-intl-next';
+import { type IntlShape, useIntl } from 'react-intl-next';
 
-import { LinkSearchListItemData } from '../../../../../common/types';
+import { type LinkSearchListItemData } from '../../../../../common/types';
 /* eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports */
 import { transformTimeStamp } from '../../../transformTimeStamp';
 

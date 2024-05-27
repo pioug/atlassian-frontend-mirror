@@ -4,10 +4,10 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import { Draggable } from 'react-beautiful-dnd';
 
-import withDimensions, { WithDimensionsProps } from '../../hoc/with-dimensions';
+import withDimensions, { type WithDimensionsProps } from '../../hoc/with-dimensions';
 import { inlineStylesIfRanking } from '../../internal/helpers';
 import { RankableTableBodyRow } from '../../styled/rankable/table-row';
-import { HeadType, RowType } from '../../types';
+import { type HeadType, type RowType } from '../../types';
 
 import TableCell from './table-cell';
 

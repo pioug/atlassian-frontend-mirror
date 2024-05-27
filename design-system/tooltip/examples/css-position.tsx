@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { CSSProperties, FC, forwardRef, useRef, useState } from 'react';
+import { type CSSProperties, type FC, forwardRef, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { ReactNode } from 'react-redux';
+import { type ReactNode } from 'react-redux';
 
 import { token } from '@atlaskit/tokens';
 

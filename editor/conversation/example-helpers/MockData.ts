@@ -1,4 +1,4 @@
-import { Comment, Conversation, User } from '../src/model';
+import { type Comment, type Conversation, type User } from '../src/model';
 import { uuid } from '../src/internal/uuid';
 
 export const MOCK_USERS: User[] = [

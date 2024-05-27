@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
 import { messages } from '../../../../../../messages';
-import { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
+import { type FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import Snippet from '../index';
 import { token } from '@atlaskit/tokens';

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { findByText, fireEvent, getByTestId } from '@testing-library/dom';
 import {
-  InteractionTaskArgs,
-  PublicInteractionTask,
+  type InteractionTaskArgs,
+  type PublicInteractionTask,
 } from 'storybook-addon-performance';
 
 import RemovableTag from '../src';

@@ -1,7 +1,7 @@
-import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
-import { DatasourceParameters } from '@atlaskit/linking-types';
+import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common/types';
+import { type DatasourceParameters } from '@atlaskit/linking-types';
 
-import { ConfigModalProps } from '../../common/types';
+import { type ConfigModalProps } from '../../common/types';
 
 type XOR<T1, T2> =
   | (T1 & {

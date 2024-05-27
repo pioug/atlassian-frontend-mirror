@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
-import Tree, { RenderItemParams, TreeItem } from '../src';
+import Tree, { type RenderItemParams, type TreeItem } from '../src';
 import { treeWithTwoBranches } from '../mockdata/treeWithTwoBranches';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard

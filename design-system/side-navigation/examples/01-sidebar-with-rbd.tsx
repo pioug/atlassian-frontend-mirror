@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, Fragment, Ref, useState } from 'react';
+import { forwardRef, Fragment, type Ref, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 // Allowing existing usage of non Pragmatic drag and drop solution
@@ -7,13 +7,13 @@ import { jsx } from '@emotion/react';
 import {
   DragDropContext,
   Draggable,
-  DraggableProvided,
+  type DraggableProvided,
   Droppable,
 } from 'react-beautiful-dnd';
 
 import ItemIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import RBDIcon from '@atlaskit/icon/glyph/editor/media-wide';
-import { CustomItemComponentProps } from '@atlaskit/menu';
+import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { Box } from '@atlaskit/primitives';
 
 import {

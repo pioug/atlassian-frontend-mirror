@@ -5,7 +5,7 @@ import FocusRing from '@atlaskit/focus-ring';
 import { Text } from '@atlaskit/primitives';
 
 import { useTab } from '../hooks';
-import { TabAttributesType, TabProps } from '../types';
+import { type TabAttributesType, type TabProps } from '../types';
 
 /**
  * __Tab__

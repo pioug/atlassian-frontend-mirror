@@ -1,4 +1,4 @@
-import { AIThemeBorderPalette } from './types';
+import { type AIThemeBorderPalette } from './types';
 
 /**
  * The bulk of this file is originally from

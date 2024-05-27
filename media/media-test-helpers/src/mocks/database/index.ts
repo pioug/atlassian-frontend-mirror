@@ -1,14 +1,14 @@
 import { Database } from 'kakapo';
 import uuidV4 from 'uuid/v4';
 
-import { ClientBasedAuth } from '@atlaskit/media-core';
+import { type ClientBasedAuth } from '@atlaskit/media-core';
 
-import { createCollection, MediaCollection } from './collection';
-import { CollectionItem, createCollectionItem } from './collection-item';
-import { createUpload, Upload } from './upload';
-import { Chunk, createChunk } from './chunk';
+import { createCollection, type MediaCollection } from './collection';
+import { type CollectionItem, createCollectionItem } from './collection-item';
+import { createUpload, type Upload } from './upload';
+import { type Chunk, createChunk } from './chunk';
 import { defaultBaseUrl } from '../../mediaClientProvider';
-import { MockCollections } from '../media-mock';
+import { type MockCollections } from '../media-mock';
 import { defaultCollectionName } from '../../collectionNames';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 

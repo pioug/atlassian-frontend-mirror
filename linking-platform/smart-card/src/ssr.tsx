@@ -1,5 +1,5 @@
 import React from 'react';
-import { FC, useState } from 'react';
+import { type FC, useState } from 'react';
 import uuid from 'uuid';
 import { ErrorBoundary } from 'react-error-boundary';
 

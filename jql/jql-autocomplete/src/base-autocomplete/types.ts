@@ -1,6 +1,6 @@
-import { RuleList } from 'antlr4-c3/lib/src/CodeCompletionCore';
+import { type RuleList } from 'antlr4-c3/lib/src/CodeCompletionCore';
 
-import { Position } from '../common/types';
+import { type Position } from '../common/types';
 
 export type RuleSuggestion<RuleContext> = {
   context: RuleContext | null;

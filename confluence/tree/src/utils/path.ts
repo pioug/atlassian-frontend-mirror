@@ -1,4 +1,4 @@
-import { Path } from '../types';
+import { type Path } from '../types';
 
 /*
   Checking if two given path are equal

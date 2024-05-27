@@ -2,13 +2,13 @@ import React, {
   useState,
   useMemo,
   useCallback,
-  PropsWithChildren,
+  type PropsWithChildren,
 } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { createMockClient } from 'mock-apollo-client';
-import { OptionData } from '@atlaskit/user-picker';
+import { type OptionData } from '@atlaskit/user-picker';
 
-import SmartUserPicker, { RecommendationRequest } from '../src';
+import SmartUserPicker, { type RecommendationRequest } from '../src';
 import { users } from '../example-helpers/users';
 import { groups } from '../example-helpers/groups';
 import { UserAndGroupSearchQuery } from '../example-helpers/user-and-group-query';

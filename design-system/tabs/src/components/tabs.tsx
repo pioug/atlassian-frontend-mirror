@@ -2,7 +2,7 @@
 import {
   Children,
   Fragment,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useRef,
   useState,
@@ -10,12 +10,12 @@ import {
 
 import { css, jsx } from '@emotion/react';
 
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 
 import { TabListContext, TabPanelContext } from '../internal/context';
 import { getTabsStyles } from '../internal/styles';
-import { SelectedType, TabsProps } from '../types';
+import { type SelectedType, type TabsProps } from '../types';
 
 const baseStyles = css({
   display: 'flex',

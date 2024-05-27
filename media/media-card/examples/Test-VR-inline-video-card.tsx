@@ -7,11 +7,11 @@ import {
   MediaMock,
   vrVideoDetails,
   generateFilesFromTestData,
-  MockFile,
+  type MockFile,
 } from '@atlaskit/media-test-helpers';
 import { inlineCardVideoWrapperItemStyles } from '../example-helpers/styles';
 import { canUseDOM } from 'exenv';
-import { FileIdentifier } from '@atlaskit/media-client';
+import { type FileIdentifier } from '@atlaskit/media-client';
 import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();

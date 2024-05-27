@@ -1,4 +1,5 @@
-import core, {
+import type {
+  default as core,
   Identifier,
   TSCallSignatureDeclaration,
   TSConstructSignatureDeclaration,
@@ -6,7 +7,7 @@ import core, {
   TSMethodSignature,
   TSPropertySignature,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import { getNamedSpecifier, removeImport } from '@atlaskit/codemod-utils';
 

@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-import { CreatePayload } from '../../common/types';
+import { type CreatePayload } from '../../common/types';
 
 type EditPostCreateModalContextValue = {
   /**

@@ -1,5 +1,13 @@
 # @atlaskit/popper
 
+## 6.0.0
+
+### Major Changes
+
+-   [#102675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102675)
+    [`5a358ae041de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a358ae041de) -
+    Removing @atlaskit/in-product-testing and its usages. Entry point removals require a major bump.
+
 ## 5.6.0
 
 ### Minor Changes

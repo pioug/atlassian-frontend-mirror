@@ -1,18 +1,18 @@
 jest.mock('../../utils/checkWebpSupport');
 jest.mock('../../client/media-store/resolveAuth');
 import {
-  CreatedTouchedFile,
+  type CreatedTouchedFile,
   MediaStore,
-  MediaUpload,
-  MediaFile,
-  MediaStoreGetFileParams,
-  ItemsPayload,
-  ImageMetadata,
-  MediaStoreTouchFileBody,
-  TouchFileDescriptor,
-  TouchedFiles,
-  MediaStoreTouchFileParams,
-  MediaFileArtifacts,
+  type MediaUpload,
+  type MediaFile,
+  type MediaStoreGetFileParams,
+  type ItemsPayload,
+  type ImageMetadata,
+  type MediaStoreTouchFileBody,
+  type TouchFileDescriptor,
+  type TouchedFiles,
+  type MediaStoreTouchFileParams,
+  type MediaFileArtifacts,
   checkWebpSupport,
   isRequestError,
   isMediaStoreError,
@@ -25,7 +25,7 @@ import {
   resolveAuth,
   resolveInitialAuth,
 } from '../../client/media-store/resolveAuth';
-import { Auth } from '@atlaskit/media-core';
+import { type Auth } from '@atlaskit/media-core';
 import * as requestModule from '../../utils/request';
 
 const requestModuleMock = jest.spyOn(requestModule, 'request');

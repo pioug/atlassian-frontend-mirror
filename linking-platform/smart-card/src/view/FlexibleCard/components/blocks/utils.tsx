@@ -1,7 +1,7 @@
 import React from 'react';
-import { css, SerializedStyles } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
-import { ActionItem, ElementItem } from './types';
+import { type ActionItem, type ElementItem } from './types';
 import {
   ActionName,
   ElementName,

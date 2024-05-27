@@ -1,7 +1,7 @@
 import {
   AbstractResource,
-  OnProviderChange,
-  ServiceConfig,
+  type OnProviderChange,
+  type ServiceConfig,
   utils as serviceUtils,
 } from '@atlaskit/util-service-support';
 import type { CategoryId } from '../components/picker/categories';

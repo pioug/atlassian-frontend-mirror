@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useState } from 'react';
+import React, { type ChangeEventHandler, useState } from 'react';
 import { SmartCardProvider, CardClient, useFeatureFlag } from '../src';
 
 const client = new CardClient('stg');

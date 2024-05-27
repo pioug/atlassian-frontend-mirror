@@ -1,4 +1,4 @@
-import { Provider } from './provider';
+import { type Provider } from './provider';
 import { default as ServiceProvider } from './service-provider';
 export { ServiceProvider };
 export type { Provider };

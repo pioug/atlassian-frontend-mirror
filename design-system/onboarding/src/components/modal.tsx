@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Component, ElementType, ReactNode } from 'react';
+import { Component, type ElementType, type ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -7,8 +7,8 @@ import Button, {
   Theme as ButtonTheme,
 } from '@atlaskit/button/custom-theme-button';
 import Modal, {
-  ModalFooterProps as FooterComponentProps,
-  ModalHeaderProps as HeaderComponentProps,
+  type ModalFooterProps as FooterComponentProps,
+  type ModalHeaderProps as HeaderComponentProps,
   ModalBody,
   useModal,
 } from '@atlaskit/modal-dialog';
@@ -20,7 +20,7 @@ import {
   ModalActionItem,
   ModalImage,
 } from '../styled/modal';
-import { Actions } from '../types';
+import { type Actions } from '../types';
 
 import { modalButtonTheme } from './theme';
 

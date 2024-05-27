@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
-import { useIntl, FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { useIntl, FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
 
-import { DateTimeProps, DateTimeType } from './types';
+import { type DateTimeProps, type DateTimeType } from './types';
 import { getTruncateStyles } from '../../utils';
 import { token } from '@atlaskit/tokens';
 import { selectUnit } from '@formatjs/intl-utils';

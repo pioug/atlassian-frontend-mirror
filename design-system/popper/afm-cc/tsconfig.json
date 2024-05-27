@@ -17,9 +17,5 @@
         "../src/**/*.test.*",
         "../src/**/test.*"
     ],
-    "references": [
-        {
-            "path": "../../../in-product-testing/in-product-testing/afm-cc/tsconfig.json"
-        }
-    ]
+    "references": []
 }

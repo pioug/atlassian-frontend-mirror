@@ -1,16 +1,16 @@
-import React, { PropsWithChildren } from 'react';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import React, { type PropsWithChildren } from 'react';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
 import { B300, R300, N30A, N900 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import {
-  AnalyticsErrorBoundaryInlinePayload,
+  type AnalyticsErrorBoundaryInlinePayload,
   fireMediaCardEvent,
-  ErrorBoundaryErrorInfo,
+  type ErrorBoundaryErrorInfo,
 } from '../utils/analytics';
 export type MediaInlineAnalyticsErrorBoundaryProps = PropsWithChildren<
   {

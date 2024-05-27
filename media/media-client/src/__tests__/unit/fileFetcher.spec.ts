@@ -1,24 +1,24 @@
-import { authToOwner, AuthProvider } from '@atlaskit/media-core';
+import { authToOwner, type AuthProvider } from '@atlaskit/media-core';
 import fetchMock from 'fetch-mock/cjs/client';
 import {
-  ResponseFileItem,
-  MediaFile,
-  MediaStore,
+  type ResponseFileItem,
+  type MediaFile,
+  type MediaStore,
   RECENTS_COLLECTION,
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
+  type MediaViewedEventPayload,
   uploadFile,
-  UploadableFile,
-  UploadableFileUpfrontIds,
+  type UploadableFile,
+  type UploadableFileUpfrontIds,
   UploadController,
-  FilePreview,
+  type FilePreview,
   isPreviewableFileState,
   isFileFetcherError,
   FileFetcherError,
 } from '../..';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import uuid from 'uuid';
-import { UploadFileCallbacks } from '../../uploader';
+import { type UploadFileCallbacks } from '../../uploader';
 import { FileFetcherImpl } from '../../client/file-fetcher';
 import {
   expectFunctionToHaveBeenCalledWith,
@@ -31,7 +31,7 @@ import {
 import { fakeMediaClient } from '../../test-helpers';
 import { fromObservable, toPromise } from '../../utils/mediaSubscribable';
 import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
-import * as MediaStoreModule from '../../client/media-store';
+import type * as MediaStoreModule from '../../client/media-store';
 import { mediaStore as fileStateStore } from '@atlaskit/media-state';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {

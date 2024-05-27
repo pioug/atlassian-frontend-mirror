@@ -2,7 +2,7 @@ import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import Select, { CreatableSelect } from '@atlaskit/select';
 import { UFOExperienceState } from '@atlaskit/ufo';
 import React from 'react';
-import { UserPickerProps } from '../types';
+import { type UserPickerProps } from '../types';
 import { BaseUserPickerWithoutAnalytics } from './BaseUserPicker';
 import { getStyles } from './styles';
 import { getComponents } from './components';

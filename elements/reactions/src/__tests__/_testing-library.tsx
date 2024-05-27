@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import {
   act,
   render,
-  RenderOptions,
-  RenderResult,
+  type RenderOptions,
+  type RenderResult,
 } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 

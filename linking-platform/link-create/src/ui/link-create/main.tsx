@@ -16,14 +16,12 @@ import {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX } from '../../common/constants';
 import {
-  CreatePayload,
-  LinkCreatePlugin,
-  LinkCreateWithModalProps,
+  type LinkCreatePlugin,
+  type LinkCreateWithModalProps,
 } from '../../common/types';
 import { Modal } from '../../common/ui/ModalDialog';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
@@ -32,10 +30,7 @@ import {
   ExitWarningModalProvider,
   useExitWarningModal,
 } from '../../controllers/exit-warning-modal-context';
-import {
-  FormContextProvider,
-  useFormContext,
-} from '../../controllers/form-context';
+import { FormContextProvider } from '../../controllers/form-context';
 import { LinkCreatePluginsProvider } from '../../controllers/plugin-context';
 
 import { ConfirmDismissDialog } from './confirm-dismiss-dialog';
@@ -78,30 +73,6 @@ const LinkCreateWithModal = ({
 }: LinkCreateWithModalProps) => {
   const intl = useIntl();
 
-  const { setFormErrorMessage } = useFormContext();
-
-  const handleCreate = useCallback(
-    async (result: CreatePayload) => {
-      // Reset the form error message
-      setFormErrorMessage(undefined);
-
-      if (onCreate) {
-        await onCreate(result);
-      }
-    },
-    [onCreate, setFormErrorMessage],
-  );
-  const handleFailure = useCallback(
-    (error: unknown) => {
-      // Set the form error message
-      if (error instanceof Error) {
-        setFormErrorMessage(error.message);
-      }
-      onFailure && onFailure(error);
-    },
-    [onFailure, setFormErrorMessage],
-  );
-
   const { getShouldShowWarning } = useExitWarningModal();
   const [showExitWarning, setShowExitWarning] = useState(false);
 
@@ -121,20 +92,8 @@ const LinkCreateWithModal = ({
 
   return (
     <LinkCreateCallbackProvider
-      onCreate={
-        getBooleanFF(
-          'platform.linking-platform.link-create.better-observability',
-        )
-          ? onCreate
-          : handleCreate
-      }
-      onFailure={
-        getBooleanFF(
-          'platform.linking-platform.link-create.better-observability',
-        )
-          ? onFailure
-          : handleFailure
-      }
+      onCreate={onCreate}
+      onFailure={onFailure}
       onCancel={handleCancel}
     >
       <ModalTransition>

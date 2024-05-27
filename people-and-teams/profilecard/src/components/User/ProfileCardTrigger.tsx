@@ -12,13 +12,13 @@ import { layers } from '@atlaskit/theme/constants';
 import filterActions from '../../internal/filterActions';
 import { CardWrapper } from '../../styled/Card';
 import {
-  AnalyticsProps,
-  ProfileCardAction,
-  ProfileCardClientData,
-  ProfilecardProps,
-  ProfileCardTriggerProps,
-  ProfileCardTriggerState,
-  TeamCentralReportingLinesData,
+  type AnalyticsProps,
+  type ProfileCardAction,
+  type ProfileCardClientData,
+  type ProfilecardProps,
+  type ProfileCardTriggerProps,
+  type ProfileCardTriggerState,
+  type TeamCentralReportingLinesData,
 } from '../../types';
 import { cardTriggered, fireEvent } from '../../util/analytics';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';

@@ -1,7 +1,7 @@
-import { KeyboardEvent, ReactNode } from 'react';
+import { type KeyboardEvent, type ReactNode } from 'react';
 
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 export interface TabProps {
   /**

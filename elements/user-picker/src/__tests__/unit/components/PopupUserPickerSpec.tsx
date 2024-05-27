@@ -3,13 +3,13 @@ jest.mock('../../../components/styles', () => ({
 }));
 
 import React from 'react';
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 import find from 'lodash/find';
 import { PopupSelect } from '@atlaskit/select';
 import { shallow } from 'enzyme';
 import { getPopupStyles } from '../../../components/styles';
 import { PopupUserPickerWithoutAnalytics } from '../../../components/PopupUserPicker';
-import { PopupUserPickerProps } from '../../../types';
+import { type PopupUserPickerProps } from '../../../types';
 import { getPopupProps } from '../../../components/popup';
 import { PopupControl } from '../../../components/PopupControl';
 

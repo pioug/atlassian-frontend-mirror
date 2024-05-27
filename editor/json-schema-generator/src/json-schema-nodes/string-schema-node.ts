@@ -1,4 +1,4 @@
-import PrimitiveSchemaNode, { Indexed } from './primitive-schema-node';
+import PrimitiveSchemaNode, { type Indexed } from './primitive-schema-node';
 
 export interface StringValidators extends Indexed {
   minLength?: number; // 6.6

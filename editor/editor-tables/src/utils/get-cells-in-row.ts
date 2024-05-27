@@ -1,5 +1,5 @@
-import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { type Selection } from '@atlaskit/editor-prosemirror/state';
+import { type ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { TableMap } from '../table-map';
 

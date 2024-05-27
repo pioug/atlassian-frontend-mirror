@@ -1,6 +1,6 @@
 import {
-  MediaClientError,
-  MediaClientErrorReason,
+  type MediaClientError,
+  type MediaClientErrorReason,
   MediaStoreError,
   RequestError,
 } from '@atlaskit/media-client';
@@ -10,8 +10,8 @@ import {
   getSecondaryErrorReason,
   getErrorDetail,
   getRequestMetadata,
-  MediaViewerErrorReason,
-  ArchiveViewerErrorReason,
+  type MediaViewerErrorReason,
+  type ArchiveViewerErrorReason,
 } from '../../../../src/errors';
 
 describe('Errors', () => {

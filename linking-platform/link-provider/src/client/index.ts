@@ -2,29 +2,29 @@
 // @see https://github.com/graphql/dataloader/issues/249
 import 'setimmediate';
 import DataLoader from 'dataloader';
-import { JsonLd } from 'json-ld-types';
-import retry, { Options } from 'async-retry';
+import { type JsonLd } from 'json-ld-types';
+import retry, { type Options } from 'async-retry';
 import pThrottle from 'p-throttle';
 import {
-  InvokePayload,
+  type InvokePayload,
   APIError,
-  InvocationSearchPayload,
-  EnvironmentsKeys,
+  type InvocationSearchPayload,
+  type EnvironmentsKeys,
   getResolverUrl,
   request,
   NetworkError,
   getStatus,
 } from '@atlaskit/linking-common';
-import { CardClient as CardClientInterface } from './types';
+import { type CardClient as CardClientInterface } from './types';
 import {
-  BatchResponse,
-  SuccessResponse,
-  ErrorResponse,
+  type BatchResponse,
+  type SuccessResponse,
+  type ErrorResponse,
   isSuccessfulResponse,
   isErrorResponse,
-  SearchProviderInfoResponse,
+  type SearchProviderInfoResponse,
 } from './types/responses';
-import { InvokeRequest } from './types/requests';
+import { type InvokeRequest } from './types/requests';
 import { LRUMap } from 'lru_map';
 
 const MAX_BATCH_SIZE = 50;

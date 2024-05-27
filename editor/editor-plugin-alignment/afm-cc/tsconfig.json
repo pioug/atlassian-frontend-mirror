@@ -22,6 +22,9 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-primary-toolbar/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-tables/afm-cc/tsconfig.json"
         },
         {

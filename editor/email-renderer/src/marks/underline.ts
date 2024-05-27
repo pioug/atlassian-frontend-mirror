@@ -1,6 +1,6 @@
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
-import { MarkSerializerOpts } from '../interfaces';
+import { type MarkSerializerOpts } from '../interfaces';
 
 export const styles = `
 .${createClassName('mark-underline')} {

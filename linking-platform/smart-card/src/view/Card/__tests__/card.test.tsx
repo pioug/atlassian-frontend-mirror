@@ -8,7 +8,7 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card } from '../../Card';
 import { APIError, Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { ErrorBoundary } from 'react-error-boundary';
 
 mockSimpleIntersectionObserver();

@@ -1,4 +1,4 @@
-import { NamespaceStatus } from '../types';
+import { type NamespaceStatus } from '../types';
 import { createLogger } from '../helpers/utils';
 
 const logger = createLogger('Provider', 'orange');

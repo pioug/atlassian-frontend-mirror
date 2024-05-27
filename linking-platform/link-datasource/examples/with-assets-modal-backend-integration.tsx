@@ -14,13 +14,13 @@ import {
 } from '@atlaskit/link-provider';
 import { forceCmdbBaseUrl } from '@atlaskit/link-test-helpers/assets';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import { type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Card } from '@atlaskit/smart-card';
 
 import {
   ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-  AssetsDatasourceAdf,
-  AssetsDatasourceParameters,
+  type AssetsDatasourceAdf,
+  type AssetsDatasourceParameters,
 } from '../src';
 
 const tableContainerStyles = css({

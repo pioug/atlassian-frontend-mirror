@@ -1,5 +1,5 @@
 import React from 'react';
-import { CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
 import {
   Camera,
   getCssFromImageOrientation,
@@ -11,7 +11,7 @@ import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { MAX_RESOLUTION } from '@atlaskit/media-client/constants';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import HDIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import Spinner from '@atlaskit/spinner';

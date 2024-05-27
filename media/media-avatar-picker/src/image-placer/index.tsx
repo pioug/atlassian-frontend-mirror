@@ -6,7 +6,7 @@ import {
   Vector2,
   Bounds,
   dataURItoFile,
-  FileInfo,
+  type FileInfo,
   getFileInfo,
   getFileInfoFromSrc,
 } from '@atlaskit/media-ui';

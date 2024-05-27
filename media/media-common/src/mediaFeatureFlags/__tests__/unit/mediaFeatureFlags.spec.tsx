@@ -1,4 +1,4 @@
-import { ProductKeys } from '../../types';
+import { type ProductKeys } from '../../types';
 import * as genericFeatureFlagModule from '../../genericFeatureFlag';
 import * as productKeys from '../../productKeys';
 jest.mock('../../../mediaFeatureFlag-local', () => ({
@@ -29,7 +29,7 @@ import {
   filterFeatureFlagNames,
   getFeatureFlagKeysAllProducts,
 } from '../../mediaFeatureFlags';
-import { MediaFeatureFlags, RequiredMediaFeatureFlags } from '../../types';
+import { type MediaFeatureFlags, type RequiredMediaFeatureFlags } from '../../types';
 
 const getGenericFeatureFlagMock = jest
   .spyOn(genericFeatureFlagModule, 'getGenericFeatureFlag')

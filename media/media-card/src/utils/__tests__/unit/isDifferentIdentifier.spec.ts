@@ -1,6 +1,6 @@
 import {
-  FileIdentifier,
-  ExternalImageIdentifier,
+  type FileIdentifier,
+  type ExternalImageIdentifier,
   isDifferentIdentifier,
 } from '@atlaskit/media-client';
 

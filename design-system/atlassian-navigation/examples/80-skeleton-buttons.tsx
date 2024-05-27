@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, KeyboardEvent, useState } from 'react';
+import { Fragment, type KeyboardEvent, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -8,7 +8,7 @@ import Drawer from '@atlaskit/drawer';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-import { PopupProps } from '@atlaskit/popup/types';
+import { type PopupProps } from '@atlaskit/popup/types';
 import { token } from '@atlaskit/tokens';
 
 import {

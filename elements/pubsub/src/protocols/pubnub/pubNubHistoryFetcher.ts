@@ -1,5 +1,5 @@
-import * as PubNub from 'pubnub';
-import { FetchMessagesResponse } from 'pubnub';
+import type * as PubNub from 'pubnub';
+import { type FetchMessagesResponse } from 'pubnub';
 import { logError } from '../../util/logger';
 
 const MAX_CHANNELS_PER_FETCH_CALL = 500;

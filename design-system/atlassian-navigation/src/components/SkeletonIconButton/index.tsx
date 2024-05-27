@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useTheme } from '../../theme';
 
-import { SkeletonIconButtonProps } from './types';
+import { type SkeletonIconButtonProps } from './types';
 
 const skeletonIconButtonStyles = css({
   margin: 0,

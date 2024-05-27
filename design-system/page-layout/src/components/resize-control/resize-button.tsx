@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 import { RESIZE_BUTTON_SELECTOR } from '../../common/constants';
 
-import { ResizeButtonProps } from './types';
+import { type ResizeButtonProps } from './types';
 
 const increaseHitAreaStyles = css({
   position: 'absolute',

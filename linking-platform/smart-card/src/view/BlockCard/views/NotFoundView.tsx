@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 import { R300 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
@@ -12,7 +12,7 @@ import { Byline } from '../../common/Byline';
 import { Content } from '../components/Content';
 import { messages } from '../../../messages';
 import { ContentFooter } from '../components/ContentFooter';
-import { IconProps } from '../../common/Icon';
+import { type IconProps } from '../../common/Icon';
 import { ContentHeader } from '../components/ContentHeader';
 import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';

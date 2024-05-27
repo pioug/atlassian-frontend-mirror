@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
@@ -27,7 +27,7 @@ import Help, {
   RelatedArticles,
   ARTICLE_TYPE,
   DividerLine,
-  WHATS_NEW_ITEM_TYPES,
+  type WHATS_NEW_ITEM_TYPES,
 } from '../src';
 import type {
   ArticleItem,

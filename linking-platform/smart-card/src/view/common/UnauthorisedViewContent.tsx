@@ -5,7 +5,7 @@ import {
   CONTENT_URL_3P_ACCOUNT_AUTH,
   CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../constants';
-import { AnalyticsFacade } from '../../state/analytics';
+import { type AnalyticsFacade } from '../../state/analytics';
 
 type UnauthorisedViewContentProps = {
   /**

@@ -1,6 +1,6 @@
 import {
-  ObjectSchema,
-  ObjectSchemaOption,
+  type ObjectSchema,
+  type ObjectSchemaOption,
 } from '../../../../types/assets/types';
 
 export const objectSchemaToSelectOption = (

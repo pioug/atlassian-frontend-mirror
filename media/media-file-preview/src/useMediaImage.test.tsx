@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { FileIdentifier, ResponseFileItem } from '@atlaskit/media-client';
+import { type FileIdentifier, type ResponseFileItem } from '@atlaskit/media-client';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
 import { createMockedMediaClientProvider } from './__tests__/helpers/_MockedMediaClientProvider';

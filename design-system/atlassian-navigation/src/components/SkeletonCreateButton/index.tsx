@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useTheme } from '../../theme';
 
-import { SkeletonCreateButtonProps } from './types';
+import { type SkeletonCreateButtonProps } from './types';
 
 const skeletonCreateButtonStyles = css({
   height: 32,

@@ -8,10 +8,10 @@ import merge from 'lodash/merge';
 
 import {
   DEFAULT_SOURCE,
-  GasPayload,
-  GasScreenEventPayload,
+  type GasPayload,
+  type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const extractFieldsFromContext =
   (fieldsToPick: string[]) => (contexts: Record<string, any>[]) =>

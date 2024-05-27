@@ -1,4 +1,4 @@
-import { TextDefinition } from '@atlaskit/adf-schema';
+import { type TextDefinition } from '@atlaskit/adf-schema';
 import { text } from '../nodes/text';
 
 export function createTextNodes<T = any>(

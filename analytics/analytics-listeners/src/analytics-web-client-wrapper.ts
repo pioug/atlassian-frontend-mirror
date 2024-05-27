@@ -1,11 +1,11 @@
-import { AnalyticsWebClient } from './types';
+import { type AnalyticsWebClient } from './types';
 import {
-  GasPayload,
-  GasScreenEventPayload,
-  GasPureScreenEventPayload,
-  GasPurePayload,
+  type GasPayload,
+  type GasScreenEventPayload,
+  type GasPureScreenEventPayload,
+  type GasPurePayload,
 } from '@atlaskit/analytics-gas-types';
-import Logger from './helpers/logger';
+import type Logger from './helpers/logger';
 
 const isPromise = (c: any): c is Promise<AnalyticsWebClient> => {
   return typeof c.then === 'function';

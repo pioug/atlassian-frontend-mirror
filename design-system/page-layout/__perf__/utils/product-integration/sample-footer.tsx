@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { CustomItemComponentProps } from '@atlaskit/menu';
+import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { Footer } from '@atlaskit/side-navigation';
 import { B400, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

@@ -10,15 +10,15 @@ jest.mock('unzipit', () => ({
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ProcessedFileState } from '@atlaskit/media-client';
+import { type ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
 import ArchiveSidebarRenderer, {
-  ArchiveSidebarRendererProps,
+  type ArchiveSidebarRendererProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-renderer';
 import { SpinnerWrapper } from '../../../../../styleWrappers';
 import { ArchiveSideBar } from '../../../../../viewers/archiveSidebar/styleWrappers';
 import { ArchiveSidebar } from '../../../../../viewers/archiveSidebar/archive-sidebar';
-import { unzip, ZipEntry } from 'unzipit';
+import { unzip, type ZipEntry } from 'unzipit';
 
 describe('ArchiveSidebarRenderer', () => {
   const fileState: ProcessedFileState = {

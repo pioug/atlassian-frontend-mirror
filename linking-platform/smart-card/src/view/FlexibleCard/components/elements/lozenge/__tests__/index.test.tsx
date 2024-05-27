@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { css } from '@emotion/react';
 import Lozenge from '../index';
-import { LozengeProps } from '../types';
+import { type LozengeProps } from '../types';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import * as useInvoke from '../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../state/hooks/use-resolve';

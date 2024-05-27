@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { toMessage } from '../../../../utils/intl-utils';
 import { token } from '@atlaskit/tokens';
 import { R300 } from '@atlaskit/theme/colors';
 import { messages } from '../../../../messages';
 import LockIcon from '@atlaskit/icon/glyph/lock';
-import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
+import { type ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { ForbiddenAction } from '../../actions/flexible/ForbiddenAction';
 import Text from '../../../FlexibleCard/components/elements/text';
-import { FlexibleBlockCardProps } from './types';
+import { type FlexibleBlockCardProps } from './types';
 import { getForbiddenJsonLd } from '../../../../utils/jsonld';
 import { extractProvider } from '@atlaskit/link-extractors';
 import UnresolvedView from './unresolved-view';

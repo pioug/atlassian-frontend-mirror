@@ -1,9 +1,9 @@
 import {
-  GasPurePayload,
-  GasPureScreenEventPayload,
+  type GasPurePayload,
+  type GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 import {
-  ExtensionManifest,
+  type ExtensionManifest,
   DefaultExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
 import { getConfluenceMobileMacroManifests } from '@atlaskit/legacy-mobile-macros';

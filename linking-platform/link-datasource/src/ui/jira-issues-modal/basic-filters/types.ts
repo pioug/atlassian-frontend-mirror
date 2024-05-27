@@ -1,4 +1,4 @@
-import { SelectOption } from '../../common/modal/popup-select/types';
+import { type SelectOption } from '../../common/modal/popup-select/types';
 
 export type BasicFilterFieldType = 'project' | 'assignee' | 'type' | 'status';
 

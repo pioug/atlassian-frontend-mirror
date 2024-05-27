@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ProcessedFileState } from '@atlaskit/media-client';
+import { type ProcessedFileState } from '@atlaskit/media-client';
 import {
   awaitError,
   mountWithIntlContext,
@@ -10,13 +10,13 @@ import {
   expectToEqual,
   expectFunctionToHaveBeenCalledWith,
 } from '@atlaskit/media-test-helpers';
-import { getRandomHex, MediaTraceContext } from '@atlaskit/media-common';
+import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
 import {
   ImageViewer,
-  ImageViewerContent,
-  ImageViewerProps,
+  type ImageViewerContent,
+  type ImageViewerProps,
 } from '../../../../../viewers/image';
-import { BaseState } from '../../../../../viewers/base-viewer';
+import { type BaseState } from '../../../../../viewers/base-viewer';
 import { InteractiveImg } from '../../../../../viewers/image/interactive-img';
 
 const collectionName = 'some-collection';

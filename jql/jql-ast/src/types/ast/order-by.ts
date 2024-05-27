@@ -1,12 +1,12 @@
 import {
-  NODE_TYPE_ORDER_BY,
-  ORDER_BY_DIRECTION_ASC,
-  ORDER_BY_DIRECTION_DESC,
-  ORDER_BY_OPERATOR_ORDER_BY,
+  type NODE_TYPE_ORDER_BY,
+  type ORDER_BY_DIRECTION_ASC,
+  type ORDER_BY_DIRECTION_DESC,
+  type ORDER_BY_OPERATOR_ORDER_BY,
 } from '../../constants';
 
-import { AstNode } from './common';
-import { Field } from './field';
+import { type AstNode } from './common';
+import { type Field } from './field';
 
 export type OrderByDirectionValue =
   | typeof ORDER_BY_DIRECTION_ASC

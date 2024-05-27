@@ -1,5 +1,5 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeEncoder, NodeEncoderOpts } from '..';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type NodeEncoder, type NodeEncoderOpts } from '..';
 import { caption } from './caption';
 import { media } from './media';
 import { unknown } from './unknown';

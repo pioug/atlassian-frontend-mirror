@@ -1,14 +1,14 @@
 import React, { useCallback, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import FlexibleCard from '../../../../FlexibleCard';
 import {
-  ActionItem,
-  CustomActionItem,
+  type ActionItem,
+  type CustomActionItem,
 } from '../../../../FlexibleCard/components/blocks/types';
 import { messages } from '../../../../../messages';
 import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
-import { HoverCardUnauthorisedProps } from './types';
+import { type HoverCardUnauthorisedProps } from './types';
 import { extractProvider } from '@atlaskit/link-extractors';
 import {
   connectButtonStyles,

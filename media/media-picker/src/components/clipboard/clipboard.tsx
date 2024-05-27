@@ -1,28 +1,28 @@
 import React from 'react';
 
 import {
-  CreateUIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 
 import {
   ANALYTICS_MEDIA_CHANNEL,
-  MediaFeatureFlags,
+  type MediaFeatureFlags,
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 
 import {
   LocalUploadComponentReact,
-  LocalUploadComponentBaseProps,
+  type LocalUploadComponentBaseProps,
 } from '../localUploadReact';
 
 import {
   LocalFileSource,
-  LocalFileWithSource,
-  UploadService,
+  type LocalFileWithSource,
+  type UploadService,
 } from '../../service/types';
 
-import { ClipboardPastePayload, ClipboardConfig } from '../../types';
+import { type ClipboardPastePayload, type ClipboardConfig } from '../../types';
 import { getPackageAttributes } from '../../util/analytics';
 import { appendTimestamp } from '../../util/appendTimestamp';
 import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';

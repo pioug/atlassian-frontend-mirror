@@ -1,4 +1,4 @@
-import { EmojiDescription } from '@atlaskit/emoji/types';
+import { type EmojiDescription } from '@atlaskit/emoji/types';
 
 export const filterToSearchable = (emojis: EmojiDescription[]) =>
   emojis.filter(emoji => emoji.searchable);

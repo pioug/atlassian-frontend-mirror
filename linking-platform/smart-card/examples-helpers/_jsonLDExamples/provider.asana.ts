@@ -1,4 +1,4 @@
-import { ResolveResponse } from '../../src';
+import { type ResolveResponse } from '../../src';
 
 export const AsanaTask = {
   meta: {

@@ -6,7 +6,7 @@ import ModalDialog, {
 import LinkInfo from './components/link-info';
 import { MAX_MODAL_SIZE, MIN_MODAL_SIZE } from './constants';
 import EmbedContent from './components/embed-content';
-import { EmbedModalProps, EmbedModalSize } from './types';
+import { type EmbedModalProps, EmbedModalSize } from './types';
 import withErrorBoundary from './components/error-boundary';
 import withAnalytics from './components/analytics';
 import { useThemeObserver } from '@atlaskit/tokens';

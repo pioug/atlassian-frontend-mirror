@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardWithDataContentProps as Props } from './types';
+import { type CardWithDataContentProps as Props } from './types';
 import { getEmptyJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
 import { extractBlockProps } from '../../extractors/block';

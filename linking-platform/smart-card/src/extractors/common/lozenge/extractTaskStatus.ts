@@ -1,5 +1,5 @@
-import { JsonLd } from 'json-ld-types';
-import { LinkLozenge } from './types';
+import { type JsonLd } from 'json-ld-types';
+import { type LinkLozenge } from './types';
 
 export const extractTaskStatus = (
   jsonLd: JsonLd.Data.Task,

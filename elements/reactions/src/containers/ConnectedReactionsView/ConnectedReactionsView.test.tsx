@@ -1,6 +1,6 @@
 import React from 'react';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { EmojiProvider } from '@atlaskit/emoji';
+import { type EmojiProvider } from '@atlaskit/emoji';
 import {
   renderWithIntl,
   mockReactDomWarningGlobal,
@@ -11,10 +11,10 @@ import {
   mapStateToPropsHelper,
 } from './ConnectedReactionsView';
 import {
-  Actions,
+  type Actions,
   ReactionStatus,
-  ReactionSummary,
-  StorePropInput,
+  type ReactionSummary,
+  type StorePropInput,
 } from '../../types';
 
 describe('@atlaskit/reactions/containers/ConnectedReactionsView', () => {

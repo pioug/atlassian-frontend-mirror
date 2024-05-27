@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import ProfileClient from '../../../client/ProfileCardClient';
 import { getMockProfileClient } from '../../../mocks';
-import { ProfileCardTriggerProps } from '../../../types';
+import { type ProfileCardTriggerProps } from '../../../types';
 import { DELAY_MS_SHOW } from '../../../util/config';
 import ProfilecardTriggerNext from '../ProfileCardTriggerNext';
 

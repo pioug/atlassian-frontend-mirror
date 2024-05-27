@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import {
-  FormEvent,
-  MutableRefObject,
-  ReactNode,
+  type FormEvent,
+  type MutableRefObject,
+  type ReactNode,
   useContext,
   useEffect,
   useMemo,
@@ -11,7 +11,7 @@ import {
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { FieldState } from 'final-form';
+import { type FieldState } from 'final-form';
 import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserProps } from './browser';
-import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
-import { BrowserConfig } from '../../types';
+import { type BrowserProps } from './browser';
+import { type WithMediaClientConfigProps } from '@atlaskit/media-client-react';
+import { type BrowserConfig } from '../../types';
 
 type BrowserWithMediaClientConfigProps = WithMediaClientConfigProps<
   // BrowserBase defines config default value, which modifies final shape of BrowserBase component.

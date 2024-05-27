@@ -1,7 +1,7 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { type ReactNode, useEffect } from 'react';
 
 import { act, cleanup, render, screen } from '@testing-library/react';
-import { bindAll, UnbindFn } from 'bind-event-listener';
+import { bindAll, type UnbindFn } from 'bind-event-listener';
 import { replaceRaf } from 'raf-stub';
 
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';

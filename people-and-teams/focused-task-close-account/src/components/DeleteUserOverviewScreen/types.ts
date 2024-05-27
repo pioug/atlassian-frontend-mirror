@@ -1,4 +1,4 @@
-import { User } from '../../types';
+import { type User } from '../../types';
 
 export interface DeleteUserOverviewScreenProps {
   accessibleSites: string[];

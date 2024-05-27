@@ -1,7 +1,7 @@
-import { MediaClientErrorReason } from '@atlaskit/media-client';
+import { type MediaClientErrorReason } from '@atlaskit/media-client';
 import { MediaFileStateError } from '@atlaskit/media-client-react';
 
-import { MediaFilePreview } from './types';
+import { type MediaFilePreview } from './types';
 
 /**
  * Primary reason is logged through Data Portal.

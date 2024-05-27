@@ -2,12 +2,12 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { IntlProvider, createIntl } from 'react-intl-next';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
-import { HeadType, RowType } from '@atlaskit/dynamic-table/types';
+import { type HeadType, type RowType } from '@atlaskit/dynamic-table/types';
 import ImageIcon from '@atlaskit/icon-file-type/glyph/image/24';
 import {
-  MediaClient,
-  MediaType,
-  MediaSubscribable,
+  type MediaClient,
+  type MediaType,
+  type MediaSubscribable,
   createMediaSubscribable,
 } from '@atlaskit/media-client';
 import {
@@ -24,7 +24,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
-import { MediaTableProps, MediaTableItem } from '../types';
+import { type MediaTableProps, type MediaTableItem } from '../types';
 import { MediaTable } from '../component/mediaTable';
 import { NameCell } from '../component/nameCell';
 

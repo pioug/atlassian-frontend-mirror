@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import Select, { OptionsType } from '@atlaskit/select';
+import Select, { type OptionsType } from '@atlaskit/select';
 import { N50A, N40A, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { CardAppearance } from '../../src';
-import { CardAuthFlowOpts, EnvironmentsKeys } from '@atlaskit/link-provider';
-import { ExampleUIConfig } from './types';
+import { type CardAppearance } from '../../src';
+import { type CardAuthFlowOpts, type EnvironmentsKeys } from '@atlaskit/link-provider';
+import { type ExampleUIConfig } from './types';
 
 interface ViewTypeOption {
   label: string;

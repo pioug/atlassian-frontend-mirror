@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Theme, { GlobalThemeTokens } from '../src';
+import Theme, { type GlobalThemeTokens } from '../src';
 
 export default () => (
   <Theme.Consumer>

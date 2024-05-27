@@ -1,5 +1,5 @@
 import {
-  MediaFeatureFlags,
+  type MediaFeatureFlags,
   defaultMediaFeatureFlags,
   getMediaFeatureFlag,
 } from '@atlaskit/media-common';

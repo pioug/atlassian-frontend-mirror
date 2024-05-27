@@ -1,4 +1,4 @@
-import { TextToken } from './';
+import { type TextToken } from './';
 import { createDashTokenParser } from './dash-token-creator';
 
 const token: TextToken = {

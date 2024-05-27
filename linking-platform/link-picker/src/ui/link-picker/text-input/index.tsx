@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import {
   Fragment,
-  KeyboardEvent,
-  MouseEvent,
-  MutableRefObject,
+  type KeyboardEvent,
+  type MouseEvent,
+  type MutableRefObject,
   useCallback,
   useRef,
 } from 'react';
@@ -12,12 +12,12 @@ import { jsx } from '@emotion/react';
 
 import { ErrorMessage, Field } from '@atlaskit/form';
 import Selectclear from '@atlaskit/icon/glyph/select-clear';
-import Textfield, { TextFieldProps } from '@atlaskit/textfield';
+import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
   ConditionalSpotlightTargetWrapper,
-  ConditionalSpotlightTargetWrapperProps,
+  type ConditionalSpotlightTargetWrapperProps,
 } from './conditional-spotlight-target-wrapper';
 import { clearTextButtonStyles, fieldStyles } from './styled';
 import { isRedoEvent, isUndoEvent } from './utils';

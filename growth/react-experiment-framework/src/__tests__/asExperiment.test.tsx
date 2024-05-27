@@ -1,18 +1,18 @@
 /* eslint-disable react/no-multi-comp */
 
-import React, { Component, ReactNode, ComponentType } from 'react';
+import React, { Component, type ReactNode, type ComponentType } from 'react';
 import { mount } from 'enzyme';
 
 import ExperimentController from '../ExperimentController';
 import { ExperimentProvider } from '../ExperimentContext';
-import asExperiment, { ExperimentComponentMap } from '../asExperiment';
+import asExperiment, { type ExperimentComponentMap } from '../asExperiment';
 import {
-  ExperimentEnrollmentResolver,
-  Experiments,
-  ExperimentEnrollmentConfig,
-  ExperimentEnrollmentOptions,
-  EnrollmentOptions,
-  ExposureDetails,
+  type ExperimentEnrollmentResolver,
+  type Experiments,
+  type ExperimentEnrollmentConfig,
+  type ExperimentEnrollmentOptions,
+  type EnrollmentOptions,
+  type ExposureDetails,
 } from '../types';
 import CohortTracker from '../CohortTracker';
 

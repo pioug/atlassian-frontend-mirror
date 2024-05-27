@@ -2,10 +2,10 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import { IntlProvider, useIntl } from 'react-intl-next';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Textfield from '@atlaskit/textfield';
 import { ufologger } from '@atlaskit/ufo';
-import UserPicker, { ActionTypes, Value } from '@atlaskit/user-picker';
+import UserPicker, { type ActionTypes, type Value } from '@atlaskit/user-picker';
 import { payloadPublisher } from '@atlassian/ufo';
 
 import { useEndpointMocks } from '../example-helpers/use-endpoint-mocks';

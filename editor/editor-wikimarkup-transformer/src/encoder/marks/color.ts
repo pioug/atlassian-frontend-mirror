@@ -1,4 +1,4 @@
-import { MarkEncoder } from '..';
+import { type MarkEncoder } from '..';
 
 export const textColor: MarkEncoder = (
   text: string,

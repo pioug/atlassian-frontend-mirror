@@ -2,7 +2,7 @@ import { useRef } from 'react';
 
 import { isSafeUrl } from '@atlaskit/linking-common/url';
 
-import { LinkPickerState, PickerState } from '../../common/types';
+import { type LinkPickerState, type PickerState } from '../../common/types';
 
 export function useSearchQuery(state: PickerState) {
   const queryState = useRef<LinkPickerState | null>(null);

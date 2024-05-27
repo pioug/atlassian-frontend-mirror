@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 5.7.1
+
+### Patch Changes
+
+-   [#89064](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89064)
+    [`61c2aeae3561`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61c2aeae3561) -
+    Updates mockAvailableSites test utility to overwriteRoutes
+
 ## 5.7.0
 
 ### Minor Changes

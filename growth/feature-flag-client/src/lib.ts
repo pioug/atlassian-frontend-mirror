@@ -1,8 +1,8 @@
 import {
-  FlagShape,
-  CustomAttributes,
-  Flags,
-  ReservedAttributes,
+  type FlagShape,
+  type CustomAttributes,
+  type Flags,
+  type ReservedAttributes,
 } from './types';
 
 export const isObject = (value: any) => typeof value === 'object';

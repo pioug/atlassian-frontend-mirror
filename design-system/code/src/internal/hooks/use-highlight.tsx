@@ -1,4 +1,4 @@
-import { HTMLProps, useCallback, useMemo } from 'react';
+import { type HTMLProps, useCallback, useMemo } from 'react';
 
 import type { CodeBlockProps } from '../types';
 

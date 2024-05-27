@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Label } from '@atlaskit/form';
 import { Checkbox } from '@atlaskit/checkbox';
 
-import { AsyncCreatableSelect as AsyncCreatable, OptionsType } from '../src';
+import { AsyncCreatableSelect as AsyncCreatable, type OptionsType } from '../src';
 import { cities } from './common/data';
 
 interface State {

@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Icon from '@atlaskit/icon';
-import { CustomGlyphProps } from '@atlaskit/icon/types';
+import { type CustomGlyphProps } from '@atlaskit/icon/types';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

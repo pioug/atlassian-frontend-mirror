@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import Popup from '@atlaskit/popup';
 import { jsx } from '@emotion/react';
-import React, { FC, useCallback, useMemo, useRef, useEffect } from 'react';
+import React, { type FC, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkActions';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import HoverCardContent from '../components/HoverCardContent';
 import CustomPopupContainer from '../components/CustomPopupContainer';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
-import { HoverCardComponentProps, HoverCardContentProps } from '../types';
+import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
 import { ActionName, CardDisplay } from '../../../constants';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { combineActionOptions } from '../../../utils/actions/combine-action-options';

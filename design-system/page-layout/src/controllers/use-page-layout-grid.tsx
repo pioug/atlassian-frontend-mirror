@@ -1,4 +1,4 @@
-import { Dimensions } from '../common/types';
+import { type Dimensions } from '../common/types';
 import {
   mergeGridStateIntoStorage,
   removeFromGridStateInStorage,

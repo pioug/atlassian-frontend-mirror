@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 import { MockPluginForm } from '../example-helpers/mock-plugin-form';
 import LinkCreate from '../src';
-import { CreatePayload } from '../src/common/types';
+import { type CreatePayload } from '../src/common/types';
 
 const ENTITY_KEY = 'object-name';
 

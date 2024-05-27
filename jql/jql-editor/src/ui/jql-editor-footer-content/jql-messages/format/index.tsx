@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useEditorThemeContext } from '../../../../hooks/use-editor-theme';
-import { ExternalMessage } from '../../../../state/types';
+import { type ExternalMessage } from '../../../../state/types';
 
 import {
   MessageContainer as MessageContainerStyled,

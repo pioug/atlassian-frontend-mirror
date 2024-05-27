@@ -1,7 +1,7 @@
 import React, {
   createContext,
-  MutableRefObject,
-  PropsWithChildren,
+  type MutableRefObject,
+  type PropsWithChildren,
   useMemo,
   useRef,
 } from 'react';

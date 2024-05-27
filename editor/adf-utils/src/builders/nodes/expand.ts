@@ -1,6 +1,6 @@
 import {
-  ExpandDefinition,
-  NonNestableBlockContent,
+  type ExpandDefinition,
+  type NonNestableBlockContent,
 } from '@atlaskit/adf-schema';
 
 export const expand =

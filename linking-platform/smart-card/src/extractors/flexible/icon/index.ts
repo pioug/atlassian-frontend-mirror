@@ -1,5 +1,5 @@
-import { JsonLd } from 'json-ld-types';
-import { CardProviderRenderers } from '@atlaskit/link-provider';
+import { type JsonLd } from 'json-ld-types';
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import extractJsonldDataIcon from './extract-jsonld-data-icon';
 import extractProviderIcon from './extract-provider-icon';
 import { IconType, SmartLinkStatus } from '../../../constants';

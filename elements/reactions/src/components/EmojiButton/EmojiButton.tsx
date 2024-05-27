@@ -3,9 +3,9 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 import {
-  EmojiId,
-  OnEmojiEvent,
-  EmojiProvider,
+  type EmojiId,
+  type OnEmojiEvent,
+  type EmojiProvider,
   ResourcedEmoji,
 } from '@atlaskit/emoji';
 import { messages } from '../../shared/i18n';

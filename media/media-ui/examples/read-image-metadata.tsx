@@ -3,7 +3,7 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import {
   readImageMetaData,
   getFileInfo,
-  ImageMetaData,
+  type ImageMetaData,
   getScaleFactor,
 } from '../src';
 import {

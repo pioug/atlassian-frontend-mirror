@@ -1,7 +1,7 @@
-import { ObjectURLCache } from '../../../utils/objectURLCache';
+import { type ObjectURLCache } from '../../../utils/objectURLCache';
 import { CardPreviewCacheImpl, getCacheKey } from '../cache';
-import { CardPreview } from '../../../types';
-import { ImageResizeMode } from '@atlaskit/media-client';
+import { type CardPreview } from '../../../types';
+import { type ImageResizeMode } from '@atlaskit/media-client';
 const objectURLCache = {
   set: jest.fn(),
   get: jest.fn(),

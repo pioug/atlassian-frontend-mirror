@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 
-import { LinkCreatePlugin } from '../../common/types';
+import { type LinkCreatePlugin } from '../../common/types';
 
 type LinkCreatePluginsContextValue = {
   activePlugin: LinkCreatePlugin | null;

@@ -1,4 +1,4 @@
-import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { analyticsBridgeClient } from '../../analytics-client';
 
 describe('Analytics Client', () => {

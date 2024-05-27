@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.7
+
+### Patch Changes
+
+-   [#103100](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103100)
+    [`07d25a4f1dd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07d25a4f1dd9) -
+    Add new parameter to remove inner guidelines, enabled when table alignment is enabled
+-   Updated dependencies
+
+## 7.16.6
+
+### Patch Changes
+
+-   [#102478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102478)
+    [`3378951608b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3378951608b0) -
+    [ED-23332] Update adf-schema package to 36.10.1
+-   Updated dependencies
+
 ## 7.16.5
 
 ### Patch Changes

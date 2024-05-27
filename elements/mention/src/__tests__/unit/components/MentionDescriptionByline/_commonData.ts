@@ -1,5 +1,5 @@
 import {
-  MentionDescription,
+  type MentionDescription,
   UserAccessLevel,
   UserType,
 } from '../../../../types';

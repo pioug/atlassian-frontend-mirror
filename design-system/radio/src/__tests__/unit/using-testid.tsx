@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import RadioGroup from '../../radio-group';
-import { OptionsPropType } from '../../types';
+import { type OptionsPropType } from '../../types';
 
 describe('Radio should be found by data-testid', () => {
   test('Using getByTestId()', async () => {

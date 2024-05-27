@@ -5,6 +5,7 @@ import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
+import { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
@@ -361,7 +362,8 @@ const Editor = () => {
       .add(copyButtonPlugin)
       .add(editorDisabledPlugin)
       .add(floatingToolbarPlugin)
-      .add(emojiPlugin),
+      .add(emojiPlugin)
+      .add(primaryToolbarPlugin),
   );
 
   return (

@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
-import { Placement } from '../src/types';
+import { type Placement } from '../src/types';
 
 const gridStyles = xcss({
   display: 'grid',

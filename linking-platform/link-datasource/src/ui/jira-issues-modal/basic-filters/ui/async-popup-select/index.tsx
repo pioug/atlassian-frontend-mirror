@@ -4,14 +4,14 @@ import isEqual from 'lodash/isEqual';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { ValueType } from '@atlaskit/select';
+import { type ValueType } from '@atlaskit/select';
 
 import type { Site } from '../../../../../common/types';
 import { FilterPopupSelect } from '../../../../common/modal/popup-select';
 import { SEARCH_DEBOUNCE_MS } from '../../../../common/modal/popup-select/constants';
-import { SelectOption } from '../../../../common/modal/popup-select/types';
+import { type SelectOption } from '../../../../common/modal/popup-select/types';
 import { useFilterOptions } from '../../hooks/useFilterOptions';
-import { BasicFilterFieldType } from '../../types';
+import { type BasicFilterFieldType } from '../../types';
 
 import { asyncPopupSelectMessages } from './messages';
 

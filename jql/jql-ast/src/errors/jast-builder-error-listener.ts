@@ -1,4 +1,4 @@
-import { ParserErrorListener, Recognizer, Token } from 'antlr4ts';
+import { type ParserErrorListener, type Recognizer, type Token } from 'antlr4ts';
 
 import { JQLParseError } from './jql-parse-error';
 import { JQLSyntaxError } from './jql-syntax-error';

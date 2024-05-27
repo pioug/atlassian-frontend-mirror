@@ -8,12 +8,12 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { Browser } from '../../browser/browser';
 import {
-  TouchFileDescriptor,
+  type TouchFileDescriptor,
   createMediaSubject,
   fromObservable,
 } from '@atlaskit/media-client';
-import { LocalUploadConfig } from '../../types';
-import { BrowserConfig, UploadErrorEventPayload } from '../../../types';
+import { type LocalUploadConfig } from '../../types';
+import { type BrowserConfig, type UploadErrorEventPayload } from '../../../types';
 
 describe('Browser upload phases', () => {
   const mediaClient = fakeMediaClient();

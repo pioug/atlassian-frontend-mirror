@@ -1,10 +1,10 @@
-import DataLoader from 'dataloader';
+import type DataLoader from 'dataloader';
 import { map } from 'rxjs/operators/map';
-import { createMachine, interpret, Interpreter, StateMachine } from 'xstate';
+import { createMachine, interpret, type Interpreter, type StateMachine } from 'xstate';
 
 import { isProcessingFileState } from '../../../models/file-state';
-import { UploadingFileState } from '@atlaskit/media-state';
-import { DataloaderKey, DataloaderResult } from '../../createFileDataLoader';
+import { type UploadingFileState } from '@atlaskit/media-state';
+import { type DataloaderKey, type DataloaderResult } from '../../createFileDataLoader';
 import { shouldFetchRemoteFileStates } from '../../shouldFetchRemoteFileStates';
 import { createMobileDownloadFileStream } from '../helpers';
 import { machineUploadingState } from './states/uploading';
@@ -13,10 +13,10 @@ import { machineProcessedState } from './states/processed';
 import { machineProcessingFailedState } from './states/processingFailed';
 import { machineErrorState } from './states/error';
 import {
-  StateMachineContext,
-  StateMachineEvent,
-  StateMachineSchema,
-  StateMachineTypestate,
+  type StateMachineContext,
+  type StateMachineEvent,
+  type StateMachineSchema,
+  type StateMachineTypestate,
 } from './types';
 
 export const createMobileUploadStateMachine = (

@@ -1,4 +1,4 @@
-import { Auth, AuthContext, AuthProvider } from '@atlaskit/media-core';
+import { type Auth, type AuthContext, type AuthProvider } from '@atlaskit/media-core';
 import { MediaStoreError } from './error';
 import { rejectTimeout } from '../../utils/setTimeoutPromise';
 

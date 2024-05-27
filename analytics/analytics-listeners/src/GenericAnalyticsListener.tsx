@@ -1,16 +1,16 @@
 import React from 'react';
 import {
   AnalyticsListener,
-  UIAnalyticsEvent,
-  UIAnalyticsEventHandler,
+  type UIAnalyticsEvent,
+  type UIAnalyticsEventHandler,
 } from '@atlaskit/analytics-next';
 
 import { sendEvent } from './analytics-web-client-wrapper';
-import { ListenerProps, FabricChannel } from './types';
-import Logger from './helpers/logger';
+import { type ListenerProps, type FabricChannel } from './types';
+import type Logger from './helpers/logger';
 import {
-  GasPayload,
-  GasScreenEventPayload,
+  type GasPayload,
+  type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 
 type Props = ListenerProps & {

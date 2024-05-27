@@ -1,5 +1,5 @@
-import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { type Selection } from '@atlaskit/editor-prosemirror/state';
 
 import { cellAround, cellNear } from './cells';
 import { isSelectionType } from './is-selection-type';

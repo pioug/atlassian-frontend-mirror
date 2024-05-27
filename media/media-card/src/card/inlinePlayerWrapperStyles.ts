@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithDefault';
-import { InlinePlayerWrapperProps } from './types';
+import { type InlinePlayerWrapperProps } from './types';
 import {
   getSelectionStyles,
   SelectionStyle,

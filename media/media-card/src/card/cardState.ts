@@ -1,5 +1,5 @@
-import { FileState, isErrorFileState } from '@atlaskit/media-client';
-import { CardState } from '../types';
+import { type FileState, isErrorFileState } from '@atlaskit/media-client';
+import { type CardState } from '../types';
 import { MediaCardError } from '../errors';
 import { getCardStatus, isFinalCardStatus } from './getCardStatus';
 import { extractFilePreviewStatus } from './getCardPreview';

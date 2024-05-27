@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
-  Identifier,
+  type Identifier,
   createMediaSubscribable,
   createMediaSubject,
 } from '@atlaskit/media-client';
@@ -22,8 +22,8 @@ import {
 import Header from '../../../header';
 import { List } from '../../../list';
 import {
-  MediaViewerProps,
-  MediaViewerExtensions,
+  type MediaViewerProps,
+  type MediaViewerExtensions,
 } from '../../../components/types';
 function createFixture(
   items: Identifier[],

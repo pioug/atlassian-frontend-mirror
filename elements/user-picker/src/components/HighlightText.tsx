@@ -1,5 +1,5 @@
 import React from 'react';
-import { HighlightRange } from '../types';
+import { type HighlightRange } from '../types';
 
 type Part = {
   value: string;

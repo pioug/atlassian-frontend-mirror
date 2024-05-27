@@ -3,7 +3,7 @@ jest.mock('../../../../../utils/isIE', () => ({
 }));
 
 import React from 'react';
-import { ProcessedFileState } from '@atlaskit/media-client';
+import { type ProcessedFileState } from '@atlaskit/media-client';
 import {
   mountWithIntlContext,
   nextTick,
@@ -14,7 +14,7 @@ import Spinner from '@atlaskit/spinner';
 import { DefaultCoverWrapper, AudioCover } from '../../../../../styleWrappers';
 import { ErrorMessage } from '../../../../../errorMessage';
 import Button from '@atlaskit/button/custom-theme-button';
-import { Auth } from '@atlaskit/media-core';
+import { type Auth } from '@atlaskit/media-core';
 
 const token = 'some-token';
 const clientId = 'some-client-id';

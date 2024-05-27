@@ -3,15 +3,15 @@ import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import deepEqual from 'deep-equal';
 import {
-  MediaClient,
-  FileState,
+  type MediaClient,
+  type FileState,
   globalMediaEventEmitter,
 } from '@atlaskit/media-client';
-import { Outcome } from '../domain';
+import { type Outcome } from '../domain';
 import ErrorMessage from '../errorMessage';
 import { Spinner } from '../loading';
 import { ErrorViewDownloadButton } from '../download';
-import { MediaViewerError } from '../errors';
+import { type MediaViewerError } from '../errors';
 
 export type BaseProps = {
   mediaClient: MediaClient;

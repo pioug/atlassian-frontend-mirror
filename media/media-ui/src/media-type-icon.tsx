@@ -13,7 +13,7 @@ import VideoIconSmall from '@atlaskit/icon-file-type/glyph/video/16';
 import DocIconSmall from '@atlaskit/icon-file-type/glyph/document/16';
 import ArchiveIconSmall from '@atlaskit/icon-file-type/glyph/archive/16';
 import GenericIconSmall from '@atlaskit/icon-file-type/glyph/generic/16';
-import { MediaType } from '@atlaskit/media-common';
+import { type MediaType } from '@atlaskit/media-common';
 
 export interface IconWrapperProps {
   type: MediaType;

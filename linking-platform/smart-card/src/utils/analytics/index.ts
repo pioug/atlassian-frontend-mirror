@@ -1,7 +1,7 @@
 import { getMeasure } from '../performance';
-import { AnalyticsPayload } from '../types';
+import { type AnalyticsPayload } from '../types';
 import { resolvedEvent, unresolvedEvent } from './analytics';
-import { InstrumentEventProps } from './types';
+import { type InstrumentEventProps } from './types';
 
 export {
   ANALYTICS_CHANNEL,

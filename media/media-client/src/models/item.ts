@@ -1,4 +1,4 @@
-import { MediaType } from './media';
+import { type MediaType } from './media';
 export type MediaItemType = 'file' | 'external-image';
 
 export interface FileItem {

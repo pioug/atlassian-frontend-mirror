@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { VirtualElement } from '@popperjs/core';
+import { type VirtualElement } from '@popperjs/core';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 

@@ -1,12 +1,12 @@
-import { AnnotationByMatches } from '@atlaskit/editor-common/types';
+import { type AnnotationByMatches } from '@atlaskit/editor-common/types';
 import {
-  ContentBridge,
-  AnnotationBridge,
-  AnnotationPayloadsByType,
-  AnnotationWithRectPayloadsByType,
-  AnnotationTypesAvailableOnCurrentSelection,
+  type ContentBridge,
+  type AnnotationBridge,
+  type AnnotationPayloadsByType,
+  type AnnotationWithRectPayloadsByType,
+  type AnnotationTypesAvailableOnCurrentSelection,
 } from './bridge';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { sendToBridge } from '../../bridge-utils';
 
 class WebRendererBridge {

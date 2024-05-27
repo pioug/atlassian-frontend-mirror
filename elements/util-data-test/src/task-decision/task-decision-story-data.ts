@@ -1,6 +1,6 @@
 import {
   MockTaskDecisionResource,
-  MockTaskDecisionResourceConfig,
+  type MockTaskDecisionResourceConfig,
 } from './mock-task-decision-resource';
 
 // ServiceTaskResponse

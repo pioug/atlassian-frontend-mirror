@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext } from 'react';
+import React, { createContext, type ReactNode, useContext } from 'react';
 
 // Allows support for heading levels 1-9 via aria-level
 type HeadingLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;

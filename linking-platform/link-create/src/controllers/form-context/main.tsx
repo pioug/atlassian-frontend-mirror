@@ -1,12 +1,12 @@
 import React, {
   createContext,
-  PropsWithChildren,
+  type PropsWithChildren,
   useCallback,
   useContext,
   useState,
 } from 'react';
 
-import { LinkCreateProps } from '../../common/types';
+import { type LinkCreateProps } from '../../common/types';
 
 interface FormContextType {
   setFormErrorMessage: (errorMessage?: string) => void;

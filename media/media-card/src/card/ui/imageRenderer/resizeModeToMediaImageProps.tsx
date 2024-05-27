@@ -1,4 +1,4 @@
-import { ImageResizeMode } from '@atlaskit/media-client';
+import { type ImageResizeMode } from '@atlaskit/media-client';
 
 export function resizeModeToMediaImageProps(resizeMode?: ImageResizeMode) {
   return {

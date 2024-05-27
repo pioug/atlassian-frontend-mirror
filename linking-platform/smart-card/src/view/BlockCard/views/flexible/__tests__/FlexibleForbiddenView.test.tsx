@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardState } from '@atlaskit/linking-common';
+import { type CardState } from '@atlaskit/linking-common';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import FlexibleForbiddenView from '../FlexibleForbiddenView';
 import { mockAnalytics, mocks } from '../../../../../utils/mocks';

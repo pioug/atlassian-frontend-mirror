@@ -1,4 +1,4 @@
-import { createContext, MutableRefObject, useContext } from 'react';
+import { createContext, type MutableRefObject, useContext } from 'react';
 
 /**
  * @internal

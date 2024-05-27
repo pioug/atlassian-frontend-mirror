@@ -3,7 +3,7 @@ import { canUseDOM } from 'exenv';
 import Button from '@atlaskit/button/standard-button';
 import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
 import DetailViewIcon from '@atlaskit/icon/glyph/detail-view';
-import { MediaClient, Identifier } from '@atlaskit/media-client';
+import { MediaClient, type Identifier } from '@atlaskit/media-client';
 import {
   MediaMock,
   defaultCollectionName,
@@ -11,7 +11,7 @@ import {
   tallImage,
   defaultBaseUrl,
   generateFilesFromTestData,
-  MockFile,
+  type MockFile,
 } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
 import { wideImage } from '../example-helpers/assets/wide-image';
@@ -21,7 +21,7 @@ import {
   MVSidebarHeader,
 } from '../example-helpers/MainWrapper';
 import { MediaViewer } from '../src/components/media-viewer';
-import { MediaViewerExtensionsActions } from '../src';
+import { type MediaViewerExtensionsActions } from '../src';
 
 let files: MockFile[] = [];
 

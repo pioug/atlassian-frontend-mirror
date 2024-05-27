@@ -1,5 +1,5 @@
 import { createRuleNode } from '../nodes/rule';
-import { TokenParser } from './';
+import { type TokenParser } from './';
 
 const RULER_REGEX = /^-{4,5}(\s|$)/;
 

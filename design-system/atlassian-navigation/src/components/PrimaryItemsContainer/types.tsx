@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode, ReactNodeArray } from 'react';
+import { type ComponentType, type ReactNode, type ReactNodeArray } from 'react';
 
 export type PrimaryItemsContainerProps = {
   moreLabel: ReactNode;

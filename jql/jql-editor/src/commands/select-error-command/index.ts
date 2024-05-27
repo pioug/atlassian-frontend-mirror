@@ -3,7 +3,7 @@ import { JQLSyntaxError } from '@atlaskit/jql-ast';
 
 import getDocumentPosition from '../../plugins/common/get-document-position';
 import { getJastFromState } from '../../plugins/jql-ast';
-import { JQLEditorCommand } from '../../schema';
+import { type JQLEditorCommand } from '../../schema';
 
 /**
  * A Prosemirror Command that will select the first JQL error in the query if present.

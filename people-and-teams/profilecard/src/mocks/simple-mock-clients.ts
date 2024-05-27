@@ -1,7 +1,7 @@
 import ProfileCardClient from '../client/ProfileCardClient';
 import TeamProfileCardClient from '../client/TeamProfileCardClient';
 import UserProfileCardClient from '../client/UserProfileCardClient';
-import { ProfileCardClientData, Team } from '../types';
+import { type ProfileCardClientData, type Team } from '../types';
 
 import profiles from './profile-data';
 import teamData from './team-data';

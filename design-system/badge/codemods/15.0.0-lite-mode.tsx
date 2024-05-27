@@ -1,5 +1,5 @@
-import { JSCodeshift } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type JSCodeshift } from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   createTransformer,

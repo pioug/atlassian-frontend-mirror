@@ -5,7 +5,7 @@ import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import { ProgressTracker, Stages } from '../src';
+import { ProgressTracker, type Stages } from '../src';
 
 const borderBottomStyles = xcss({
   borderStyle: 'solid',

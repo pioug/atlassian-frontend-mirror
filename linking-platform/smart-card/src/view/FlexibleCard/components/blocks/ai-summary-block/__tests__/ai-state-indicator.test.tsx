@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import AIStateIndicator from '../ai-state-indicator';
-import { AIStateIndicatorProps } from '../ai-state-indicator/types';
+import { type AIStateIndicatorProps } from '../ai-state-indicator/types';
 import { CONTENT_URL_AI_TROUBLESHOOTING } from '../../../../../../constants';
 
 describe('AIStateIndicator', () => {

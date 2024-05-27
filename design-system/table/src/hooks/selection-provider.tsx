@@ -1,9 +1,9 @@
-import React, { createContext, FC, ReactNode, useContext } from 'react';
+import React, { createContext, type FC, type ReactNode, useContext } from 'react';
 
 import useSelectionReducer, {
   defaultSelectableState,
-  SelectableActions,
-  SelectableState,
+  type SelectableActions,
+  type SelectableState,
 } from './use-selectable';
 
 type SelectionContext = [

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
 import { N300 } from '@atlaskit/theme/colors';

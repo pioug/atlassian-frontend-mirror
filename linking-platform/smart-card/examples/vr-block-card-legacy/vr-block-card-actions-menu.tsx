@@ -4,7 +4,7 @@ import { smallImage } from '@atlaskit/media-test-helpers';
 
 import { BlockCardResolvedView } from '../../src/view/BlockCard';
 import { VRTestCase } from '../utils/common';
-import { ActionProps } from '../../src/view/BlockCard/components/Action';
+import { type ActionProps } from '../../src/view/BlockCard/components/Action';
 import VrExpandDropdownMenuWrapper from '../utils/vr-expand-dropdown-menu-wrapper';
 
 export default () => {

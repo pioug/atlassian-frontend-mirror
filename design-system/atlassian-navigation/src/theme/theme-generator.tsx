@@ -5,7 +5,7 @@ import {
   getContrastColor,
   hexToRGBA,
 } from './theme-helpers';
-import { ButtonCSSContext, GenerateThemeArgs, NavigationTheme } from './types';
+import { type ButtonCSSContext, type GenerateThemeArgs, type NavigationTheme } from './types';
 
 type Colors = {
   backgroundColor: string;

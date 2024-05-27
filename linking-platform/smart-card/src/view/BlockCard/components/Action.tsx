@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import { useState } from 'react';
 
-import { Appearance } from '@atlaskit/button/types';
+import { type Appearance } from '@atlaskit/button/types';
 import Button from '@atlaskit/button/custom-theme-button';
 import { ActionIcon } from './ActionIcon';
 

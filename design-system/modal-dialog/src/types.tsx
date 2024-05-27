@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import { type default as React, type RefObject } from 'react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 

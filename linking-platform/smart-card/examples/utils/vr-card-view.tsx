@@ -1,7 +1,7 @@
 import React from 'react';
 
-import VRTestWrapper, { VRTestWrapperProps } from '../utils/vr-test-wrapper';
-import CardView, { CardViewProps } from './card-view';
+import VRTestWrapper, { type VRTestWrapperProps } from '../utils/vr-test-wrapper';
+import CardView, { type CardViewProps } from './card-view';
 
 const VRCardView: React.FC<CardViewProps & VRTestWrapperProps> = ({
   overrideCss,

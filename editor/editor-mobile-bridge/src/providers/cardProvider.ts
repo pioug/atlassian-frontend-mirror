@@ -1,4 +1,4 @@
-import { CardAppearance, ResolveResponse, Client } from '@atlaskit/smart-card';
+import { type CardAppearance, type ResolveResponse, Client } from '@atlaskit/smart-card';
 import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 
 import { createPromise } from '../cross-platform-promise';

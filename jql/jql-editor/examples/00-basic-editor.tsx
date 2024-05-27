@@ -3,8 +3,8 @@ import React, { useCallback } from 'react';
 import { action } from '@storybook/addon-actions';
 
 import {
-  GetAutocompleteInitialData,
-  GetAutocompleteSuggestions,
+  type GetAutocompleteInitialData,
+  type GetAutocompleteSuggestions,
   useAutocompleteProvider,
 } from '@atlaskit/jql-editor-autocomplete-rest';
 

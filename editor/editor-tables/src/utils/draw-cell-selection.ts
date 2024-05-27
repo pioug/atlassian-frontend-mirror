@@ -1,4 +1,4 @@
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { CellSelection } from '../cell-selection';

@@ -1,5 +1,5 @@
-import valueParser, { Node } from 'postcss-value-parser';
-import stylelint, { Rule, RuleBase } from 'stylelint';
+import valueParser, { type Node } from 'postcss-value-parser';
+import stylelint, { type Rule, type RuleBase } from 'stylelint';
 
 import { isColorFunction, isHexColor, isNamedColor } from '../../utils/colors';
 import {

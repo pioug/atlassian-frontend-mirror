@@ -14,7 +14,7 @@ import {
   p,
   caption,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Context } from '../../../interfaces';
+import { type Context } from '../../../interfaces';
 
 describe('ADF => WikiMarkup - Media', () => {
   const transformer = new WikiMarkupTransformer();

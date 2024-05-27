@@ -4,7 +4,7 @@ import { jsx, css } from '@emotion/react';
 
 import { groupedCountries } from './data/countries';
 import Select from './Select';
-import { FormatOptionLabelMeta, SelectProps } from './types';
+import { type FormatOptionLabelMeta, type SelectProps } from './types';
 
 type Country = (typeof groupedCountries)[number]['options'][number];
 

@@ -13,6 +13,7 @@ export const mockAvailableSites = (responseData?: any) => {
     responseData || mockedAvailableSitesResult,
     {
       delay: 10,
+      overwriteRoutes: true,
     },
   );
 };
@@ -31,15 +32,15 @@ export const mockAvailableSitesForGatewayUrl = (gatewayBaseUrl: string) => {
     mockedAvailableSitesResultWithGatewayBaseUrl,
     {
       delay: 10,
+      overwriteRoutes: true,
     },
   );
 };
 
 export const mockAvailableSitesWithError = () => {
-  const fetchAvailableSiteEndpoint = /\/gateway\/api\/available-sites/;
-
   fetchMock.post(fetchAvailableSiteEndpoint, 503, {
     delay: 10,
+    overwriteRoutes: true,
   });
 };
 

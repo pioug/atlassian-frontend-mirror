@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import Form, { CheckboxField, Field, FormFooter } from '@atlaskit/form';
 
 import { Radio, RadioGroup } from '../src';
-import { OptionsPropType } from '../src/types';
+import { type OptionsPropType } from '../src/types';
 
 const colorItems: OptionsPropType = [
   { name: 'color', value: 'red', label: 'Red' },

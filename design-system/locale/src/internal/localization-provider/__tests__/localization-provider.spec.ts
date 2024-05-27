@@ -2,7 +2,7 @@ jest.mock('../toFormattedParts');
 jest.mock('../../date-parser');
 import {
   createLocalizationProvider,
-  LocalizationProvider,
+  type LocalizationProvider,
 } from '../localization-provider';
 import { toFormattedParts } from '../toFormattedParts';
 import { createDateParser } from '../../date-parser';

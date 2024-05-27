@@ -8,12 +8,12 @@ import { map } from 'rxjs/operators/map';
 import { take } from 'rxjs/operators/take';
 import { toArray } from 'rxjs/operators/toArray';
 
-import { AutocompleteOptions, JQLClause } from '@atlaskit/jql-editor-common';
+import { type AutocompleteOptions, type JQLClause } from '@atlaskit/jql-editor-common';
 
-import { JQLFieldResponse } from '../../common/types';
+import { type JQLFieldResponse } from '../../common/types';
 import { filterJqlValue } from '../../utils/filter-jql-value';
 import { normalize } from '../../utils/strings';
-import { OnFields } from '../use-autocomplete-provider/types';
+import { type OnFields } from '../use-autocomplete-provider/types';
 
 // Hard coded limit to prevent excessive number of options being rendered in the autocomplete dropdown.
 export const MAX_VISIBLE_OPTIONS = 20;

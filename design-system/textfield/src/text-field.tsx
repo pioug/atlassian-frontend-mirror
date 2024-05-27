@@ -9,7 +9,7 @@ import {
   containerStyles as getContainerStyles,
   inputStyles as getInputStyles,
 } from './styles';
-import { TextfieldProps } from './types';
+import { type TextfieldProps } from './types';
 
 const analyticsParams = {
   componentName: 'textField',

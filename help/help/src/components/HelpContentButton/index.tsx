@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import Tooltip from '@atlaskit/tooltip';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-import { NotificationLogProvider } from '@atlaskit/notification-log-client';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import {
   useAnalyticsEvents,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
 

@@ -8,7 +8,7 @@ import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select';
 import * as colors from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
-import { ThemeModes } from '@atlaskit/theme/types';
+import { type ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import Button, {

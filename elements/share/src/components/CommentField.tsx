@@ -6,7 +6,7 @@ import { Field } from '@atlaskit/form';
 import TextArea from '@atlaskit/textarea';
 
 import { messages } from '../i18n';
-import { Comment } from '../types';
+import { type Comment } from '../types';
 
 export type Props = {
   defaultValue?: Comment;

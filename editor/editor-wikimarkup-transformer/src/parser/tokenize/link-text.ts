@@ -1,6 +1,6 @@
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { decode } from '../utils/url';
-import { Token, TokenParser } from './';
+import { type Token, type TokenParser } from './';
 
 // the regex should exclude the period and exclamation mark as the last character
 export const LINK_TEXT_REGEXP =

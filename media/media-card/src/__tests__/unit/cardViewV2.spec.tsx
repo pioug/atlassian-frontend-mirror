@@ -11,10 +11,10 @@ import React from 'react';
 import {
   CardViewV2,
   CardViewV2Base,
-  CardViewV2Props,
+  type CardViewV2Props,
 } from '../../card/v2/cardViewV2';
-import { CardStatus } from '../../types';
-import { FileDetails } from '@atlaskit/media-client';
+import { type CardStatus } from '../../types';
+import { type FileDetails } from '@atlaskit/media-client';
 import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { getElementDimension } from '../../utils/getElementDimension';
 import { createPollingMaxAttemptsError } from '@atlaskit/media-test-helpers';
@@ -25,7 +25,7 @@ import {
   cardBlanketTestId,
 } from '../utils/_testIDs';
 import { MediaCardError } from '../../errors';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

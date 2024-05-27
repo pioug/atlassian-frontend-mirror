@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import EmojiPickerList, {
-  Props,
+  type Props,
 } from '../src/components/picker/EmojiPickerList';
 
 import { IntlProvider } from 'react-intl-next';

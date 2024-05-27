@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import { matchers } from '@emotion/jest';
-import { EmojiProvider, OnEmojiEvent } from '@atlaskit/emoji';
+import { type EmojiProvider, type OnEmojiEvent } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
   mockReactDomWarningGlobal,

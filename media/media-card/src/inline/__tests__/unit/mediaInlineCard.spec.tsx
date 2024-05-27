@@ -2,10 +2,10 @@ import React from 'react';
 import { MediaInlineCardInternal as MediaInlineCard } from '../../mediaInlineCard';
 import { mount } from 'enzyme';
 import {
-  FileIdentifier,
-  FileState,
+  type FileIdentifier,
+  type FileState,
   createMediaSubject,
-  ErrorFileState,
+  type ErrorFileState,
   fromObservable,
 } from '@atlaskit/media-client';
 import {

@@ -1,16 +1,16 @@
-import { css, CSSObject } from '@emotion/react';
+import { css, type CSSObject } from '@emotion/react';
 
 import {
   fontSize as getFontSize,
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
-import { ThemeModes } from '@atlaskit/theme/types';
+import { type ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-import { Appearance, Spacing } from '../types';
+import { type Appearance, type Spacing } from '../types';
 
-import colors, { ColorGroup, ColorRule } from './colors';
+import colors, { type ColorGroup, type ColorRule } from './colors';
 
 const gridSize: number = getGridSize();
 const fontSize: number = getFontSize();

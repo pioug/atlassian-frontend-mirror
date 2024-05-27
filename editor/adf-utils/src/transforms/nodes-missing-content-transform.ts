@@ -1,5 +1,5 @@
 import { traverse } from '../traverse/traverse';
-import { ADFEntity } from '../types';
+import { type ADFEntity } from '../types';
 import { tableRow, tableCell, paragraph, listItem } from '../builders';
 import type { TableCellDefinition, TextDefinition } from '@atlaskit/adf-schema';
 import { isEmpty } from './helpers';

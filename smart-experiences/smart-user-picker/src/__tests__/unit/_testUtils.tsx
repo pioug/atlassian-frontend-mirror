@@ -1,7 +1,7 @@
 /* eslint-env jest */
 /* eslint-disable no-console */
 
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 import {
   UFOExperienceState,
   UFOExperience,

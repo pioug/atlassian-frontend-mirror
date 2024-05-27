@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 type JsonLdType = JsonLd.Primitives.ObjectType | 'atlassian:Template';
 

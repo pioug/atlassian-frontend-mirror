@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react';
 
-import { FocusableElement } from '../../types';
+import { type FocusableElement } from '../../types';
 import { FocusManagerContext } from '../components/focus-manager';
 
 // This function is called whenever a MenuItem mounts.

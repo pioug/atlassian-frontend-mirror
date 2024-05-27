@@ -1,23 +1,23 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { MouseEvent, useEffect, useState, useRef } from 'react';
-import { MessageDescriptor } from 'react-intl-next';
+import React, { type MouseEvent, useEffect, useState, useRef } from 'react';
+import { type MessageDescriptor } from 'react-intl-next';
 
-import { MediaItemType, FileDetails } from '@atlaskit/media-client';
+import { type MediaItemType, type FileDetails } from '@atlaskit/media-client';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-  UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 
 import {
-  SharedCardProps,
-  CardStatus,
-  MediaCardCursor,
-  CardPreview,
+  type SharedCardProps,
+  type CardStatus,
+  type MediaCardCursor,
+  type CardPreview,
 } from '../../../types';
 import { createAndFireMediaCardEvent } from '../../../utils/analytics';
-import { MediaCardError } from '../../../errors';
+import { type MediaCardError } from '../../../errors';
 import { useBreakpoint } from '../../useBreakpoint';
 import { ProcessingCardView } from './processingCardView';
 import { ErrorCardView } from './errorCardView';
@@ -25,7 +25,7 @@ import { VideoCardView } from './videoCardView';
 import { ImageCardView } from './imageCardView';
 import { IconCardView } from './iconCardView';
 import { LoadingCardView } from './loadingCardView';
-import { MediaFilePreview } from '@atlaskit/media-file-preview';
+import { type MediaFilePreview } from '@atlaskit/media-file-preview';
 
 export interface CardViewsOwnProps extends SharedCardProps {
   readonly status: CardStatus;

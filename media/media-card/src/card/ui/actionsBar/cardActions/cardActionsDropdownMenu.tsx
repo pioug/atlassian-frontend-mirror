@@ -7,11 +7,11 @@ import DropdownMenu, {
   DropdownItem,
 } from '@atlaskit/dropdown-menu';
 
-import { CardAction } from '../../../actions';
-import { CardActionIconButtonVariant } from './styles';
+import { type CardAction } from '../../../actions';
+import { type CardActionIconButtonVariant } from './styles';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { createAndFireMediaCardEvent } from '../../../../utils/analytics';
 import { CardActionButton } from './cardActionButton';

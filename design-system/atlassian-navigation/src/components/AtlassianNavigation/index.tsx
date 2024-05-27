@@ -11,7 +11,7 @@ import { defaultTheme, ThemeProvider } from '../../theme';
 import { PrimaryItemsContainer } from '../PrimaryItemsContainer';
 import { PrimaryItemsContainer as PrimaryItemsContainerV2 } from '../PrimaryItemsContainerV2';
 
-import { AtlassianNavigationProps } from './types';
+import { type AtlassianNavigationProps } from './types';
 
 const containerStyles = css({
   display: 'flex',

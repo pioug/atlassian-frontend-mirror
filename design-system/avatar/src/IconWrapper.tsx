@@ -1,6 +1,6 @@
 /** @jsx jsx */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

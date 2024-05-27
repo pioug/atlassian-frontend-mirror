@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { components, ValueContainerProps } from '@atlaskit/select';
+import { components, type ValueContainerProps } from '@atlaskit/select';
 import { css, jsx } from '@emotion/react';
 import React from 'react';
-import { Option, User } from '../types';
+import { type Option, type User } from '../types';
 import { SizeableAvatar } from './SizeableAvatar';
 import { BORDER_PADDING } from './styles';
 import ValueContainerWrapper from './ValueContainerWrapper';

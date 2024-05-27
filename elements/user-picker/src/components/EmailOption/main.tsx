@@ -4,11 +4,11 @@ import { FormattedMessage } from 'react-intl-next';
 import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { jsx } from '@emotion/react';
-import { Email } from '../../types';
+import { type Email } from '../../types';
 import { AddOptionAvatar } from '../AddOptionAvatar';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
 import { messages } from '../i18n';
-import { EmailValidationResponse } from '../emailValidation';
+import { type EmailValidationResponse } from '../emailValidation';
 
 export type EmailOptionProps = {
   email: Email;

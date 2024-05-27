@@ -1,6 +1,6 @@
-import { Schema } from '@atlaskit/editor-prosemirror/model';
-import { Token, TokenParser } from '.';
-import { Context } from '../../interfaces';
+import { type Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Token, type TokenParser } from '.';
+import { type Context } from '../../interfaces';
 import { commonMacro } from './common-macro';
 
 export const anchorMacro: TokenParser = ({

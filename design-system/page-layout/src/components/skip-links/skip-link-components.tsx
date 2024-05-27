@@ -1,9 +1,9 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /** @jsx jsx */
 import {
-  KeyboardEvent as ReactKeyboardEvent,
-  MouseEvent as ReactMouseEvent,
-  ReactNode,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+  type ReactNode,
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
@@ -16,9 +16,9 @@ import {
   DEFAULT_I18N_PROPS_SKIP_LINKS,
   PAGE_LAYOUT_CONTAINER_SELECTOR,
 } from '../../common/constants';
-import { SkipLinkData, useSkipLinks } from '../../controllers';
+import { type SkipLinkData, useSkipLinks } from '../../controllers';
 
-import { SkipLinkWrapperProps } from './types';
+import { type SkipLinkWrapperProps } from './types';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const prefersReducedMotionStyles = css(prefersReducedMotion());

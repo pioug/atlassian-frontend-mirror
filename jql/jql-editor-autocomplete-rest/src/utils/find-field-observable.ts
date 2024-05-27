@@ -2,7 +2,7 @@ import type { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
 
-import { JQLFieldResponse } from '../common/types';
+import { type JQLFieldResponse } from '../common/types';
 
 import { areStringsEquivalent, normalize } from './strings';
 

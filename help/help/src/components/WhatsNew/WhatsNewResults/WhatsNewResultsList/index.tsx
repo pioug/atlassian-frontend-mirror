@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import ShowMoreButton from '../../../ShowMoreButton';
 import { useNavigationContext } from '../../../contexts/navigationContext';
@@ -8,7 +8,7 @@ import { NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE } from '../../../constants';
 
 import ArticlesList from './WhatsNewResultsList';
 import { WhatsNewResultsListContainer } from './styled';
-import { WhatsNewResultsList as WhatsNewResultsListInterface } from './model/WhatsNewResultsList';
+import { type WhatsNewResultsList as WhatsNewResultsListInterface } from './model/WhatsNewResultsList';
 
 const WhatsNewResultsList: React.FC<WhatsNewResultsListInterface> = ({
   style,

@@ -1,11 +1,11 @@
-import React, { SyntheticEvent, useCallback } from 'react';
+import React, { type SyntheticEvent, useCallback } from 'react';
 import styled from '@emotion/styled';
 import Select from '@atlaskit/select';
 import { RadioGroup } from '@atlaskit/radio';
 import { exampleOptions } from '../example-helpers';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';
-import { UserSource, UserSourceResult } from '../src/types';
+import { type UserSource, type UserSourceResult } from '../src/types';
 import { isExternalUser } from '../src/components/utils';
 import { token } from '@atlaskit/tokens';
 

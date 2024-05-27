@@ -7,7 +7,7 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { macroIcon } from './MacroIcon';
-import { MacroCardType } from './types';
+import { type MacroCardType } from './types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Card = styled.span`

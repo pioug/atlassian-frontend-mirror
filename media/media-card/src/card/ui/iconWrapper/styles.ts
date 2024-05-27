@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
-import { Breakpoint, getTitleBoxHeight } from '../common';
-import { IconWrapperProps } from './types';
+import { type Breakpoint, getTitleBoxHeight } from '../common';
+import { type IconWrapperProps } from './types';
 
 export function titleBoxHeight(hasTitleBox: boolean, breakpoint: Breakpoint) {
   // there is no titlebox

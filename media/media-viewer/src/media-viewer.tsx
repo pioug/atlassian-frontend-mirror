@@ -1,20 +1,20 @@
 import React from 'react';
-import { SyntheticEvent } from 'react';
-import { MediaClient, Identifier } from '@atlaskit/media-client';
+import { type SyntheticEvent } from 'react';
+import { type MediaClient, type Identifier } from '@atlaskit/media-client';
 import {
-  MediaFeatureFlags,
+  type MediaFeatureFlags,
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 import {
   IntlProvider,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { Shortcut } from '@atlaskit/media-ui';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-  UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import {
   packageName,
@@ -29,7 +29,7 @@ import { List } from './list';
 import { Content } from './content';
 import { Blanket, SidebarWrapper } from './styleWrappers';
 import { start } from 'perf-marks';
-import { MediaViewerExtensions } from './components/types';
+import { type MediaViewerExtensions } from './components/types';
 import { mediaViewerPopupClass } from './classnames';
 import ScrollLock from 'react-scrolllock';
 import FocusLock from 'react-focus-lock';

@@ -9,7 +9,7 @@ import ProfileCardClient from '../src/client/ProfileCardClient';
 import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/Team';
 import teamData from '../src/mocks/team-data';
-import { Team } from '../src/types';
+import { type Team } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
 

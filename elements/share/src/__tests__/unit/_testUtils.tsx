@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
+import { type ReactWrapper, shallow, type ShallowWrapper } from 'enzyme';
 
 // extracted from @atlaskit/type-helpers, from whom it can't be consumed
 export type PropsOf<C> = C extends new (props: infer P) => React.Component

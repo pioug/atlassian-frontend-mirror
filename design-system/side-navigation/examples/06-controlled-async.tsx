@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { type PropsWithChildren, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 

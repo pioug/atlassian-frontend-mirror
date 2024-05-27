@@ -1,7 +1,7 @@
 import {
-  Identifier,
+  type Identifier,
   isFileIdentifier,
-  MediaType,
+  type MediaType,
 } from '@atlaskit/media-client';
 import { getMediaTypeFromMimeType } from '@atlaskit/media-common';
 

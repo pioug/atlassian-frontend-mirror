@@ -4,7 +4,7 @@ import Drawer from '@atlaskit/drawer';
 import { token } from '@atlaskit/tokens';
 
 import { DynamicTableStateless } from '../src';
-import { RowType } from '../src/types';
+import { type RowType } from '../src/types';
 
 import { head, rows } from './content/sample-data-numerical';
 

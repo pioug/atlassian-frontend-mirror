@@ -1,4 +1,4 @@
-import { EventHandler, MouseEvent, KeyboardEvent } from 'react';
+import { type EventHandler, type MouseEvent, type KeyboardEvent } from 'react';
 import type {
   CardAppearance,
   CardPlatform,
@@ -6,11 +6,11 @@ import type {
   OnResolveCallback,
   CardActionOptions,
 } from '../Card/types';
-import { AnalyticsHandler } from '../../utils/types';
-import { FlexibleUiOptions } from '../FlexibleCard/types';
-import { InlinePreloaderStyle, OnErrorCallback } from '../types';
-import { AnalyticsFacade } from '../../state/analytics';
-import { FrameStyle } from '../EmbedCard/types';
+import { type AnalyticsHandler } from '../../utils/types';
+import { type FlexibleUiOptions } from '../FlexibleCard/types';
+import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
+import { type AnalyticsFacade } from '../../state/analytics';
+import { type FrameStyle } from '../EmbedCard/types';
 
 export type CardWithUrlContentProps = {
   id: string;

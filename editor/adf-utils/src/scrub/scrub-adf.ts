@@ -1,13 +1,13 @@
-import { ADFEntity, VisitorCollection } from '../types';
+import { type ADFEntity, type VisitorCollection } from '../types';
 import { traverse } from '../traverse/traverse';
 import { scrubAttrs, scrubStr, scrubLink } from './scrub-content';
 import {
   defaultNodeReplacements,
-  NodeReplacements,
+  type NodeReplacements,
 } from './default-node-replacements';
 import {
   defaultValueReplacements,
-  ValueReplacements,
+  type ValueReplacements,
 } from './default-value-replacements';
 
 export interface ScrubAdfOptions {

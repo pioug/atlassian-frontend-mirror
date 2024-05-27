@@ -1,12 +1,12 @@
-import React from 'react';
+import type React from 'react';
 
-import { FileIdentifier } from '@atlaskit/media-client';
-import { NumericalCardDimensions } from '@atlaskit/media-common';
+import { type FileIdentifier } from '@atlaskit/media-client';
+import { type NumericalCardDimensions } from '@atlaskit/media-common';
 
-import { MediaFilePreviewErrorInfo } from '../analytics';
+import { type MediaFilePreviewErrorInfo } from '../analytics';
 
 import { printFunctionCall, printScript } from './printScript';
-import { MediaCardSsr } from './types';
+import { type MediaCardSsr } from './types';
 
 // ----- WARNING -----
 // This is a very sensitive fraction of code.

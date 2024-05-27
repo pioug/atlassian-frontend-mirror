@@ -1,4 +1,4 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { blockquote } from './nodes/blockquote';
 import { bulletList } from './nodes/bullet-list';
@@ -19,7 +19,7 @@ import { unknown } from './nodes/unknown';
 import { blockCard } from './nodes/block-card';
 import { embedCard } from './nodes/embed-card';
 import { caption } from './nodes/caption';
-import { Context } from '../interfaces';
+import { type Context } from '../interfaces';
 
 export type MarkEncoder = (text: string, attrs: any) => string;
 export type NodeEncoder = (node: PMNode, opts?: NodeEncoderOpts) => string;

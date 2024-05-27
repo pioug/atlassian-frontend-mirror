@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { Placement, placements } from '@atlaskit/popper';
+import { type Placement, placements } from '@atlaskit/popper';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

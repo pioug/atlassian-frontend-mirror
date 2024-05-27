@@ -11,7 +11,7 @@ import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasou
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
 import { IssueLikeDataTableView } from '../src/ui/issue-like-table';
-import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
+import { type JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
 import { useCommonTableProps } from './useCommonTableProps';

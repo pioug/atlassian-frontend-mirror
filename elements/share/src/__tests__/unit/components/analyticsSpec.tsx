@@ -1,4 +1,4 @@
-import { ExternalUser, Team } from '@atlaskit/smart-user-picker';
+import { type ExternalUser, type Team } from '@atlaskit/smart-user-picker';
 
 import {
   cancelShare,
@@ -10,7 +10,7 @@ import {
   shortUrlGenerated,
   shortUrlRequested,
 } from '../../../components/analytics/analytics';
-import { DialogContentState, OriginTracing } from '../../../types';
+import { type DialogContentState, type OriginTracing } from '../../../types';
 
 describe('share analytics', () => {
   const mockShareOrigin = (): OriginTracing => ({

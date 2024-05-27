@@ -1,4 +1,4 @@
-import { HashingFunction } from '../src/domain';
+import { type HashingFunction } from '../src/domain';
 
 export const sha1Hasher: HashingFunction = (blob) => {
   function arrayBufferToHex(buffer: ArrayBuffer) {

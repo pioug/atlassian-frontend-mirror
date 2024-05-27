@@ -1,6 +1,6 @@
-import { COMPOUND_OPERATOR_AND, COMPOUND_OPERATOR_OR } from '../../constants';
+import { type COMPOUND_OPERATOR_AND, type COMPOUND_OPERATOR_OR } from '../../constants';
 
-import { AstNode, Position } from './common';
+import { type AstNode, type Position } from './common';
 
 export type CompoundOperatorValue =
   | typeof COMPOUND_OPERATOR_AND

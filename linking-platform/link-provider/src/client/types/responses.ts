@@ -1,5 +1,5 @@
-import { JsonLd } from 'json-ld-types';
-import { ServerErrorType } from '@atlaskit/linking-common';
+import { type JsonLd } from 'json-ld-types';
+import { type ServerErrorType } from '@atlaskit/linking-common';
 export type BatchResponse = Array<SuccessResponse | ErrorResponse>;
 
 export type SuccessResponse = {

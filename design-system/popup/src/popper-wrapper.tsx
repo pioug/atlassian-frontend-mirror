@@ -11,7 +11,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 import { RepositionOnUpdate } from './reposition-on-update';
-import { PopperWrapperProps, PopupComponentProps } from './types';
+import { type PopperWrapperProps, type PopupComponentProps } from './types';
 import { useCloseManager } from './use-close-manager';
 import { useFocusManager } from './use-focus-manager';
 

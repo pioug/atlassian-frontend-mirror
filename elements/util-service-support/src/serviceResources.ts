@@ -1,4 +1,4 @@
-import { OnProviderChange, Provider } from './types';
+import { type OnProviderChange, type Provider } from './types';
 
 export abstract class AbstractResource<Q, R, E, I, O>
   implements Provider<Q, R, E, I, O>

@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import React from 'react';
-import { MentionResourceConfig } from '../src/api/MentionResource';
+import { type MentionResourceConfig } from '../src/api/MentionResource';
 import TeamMentionResource from '../src/api/TeamMentionResource';
 
 export interface Props {

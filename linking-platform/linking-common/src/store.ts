@@ -1,7 +1,7 @@
-import { JsonLd } from 'json-ld-types';
-import { Store } from 'redux';
-import { CardType, MetadataStatus } from './types';
-import { APIError } from './errors';
+import { type JsonLd } from 'json-ld-types';
+import { type Store } from 'redux';
+import { type CardType, type MetadataStatus } from './types';
+import { type APIError } from './errors';
 
 export interface CardStore {
   [key: string]: CardState;

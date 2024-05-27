@@ -1,46 +1,46 @@
-import { BufferedTokenStream, ParserRuleContext, Token } from 'antlr4ts';
-import { ErrorNode, RuleNode } from 'antlr4ts/tree';
+import { type BufferedTokenStream, type ParserRuleContext, type Token } from 'antlr4ts';
+import { type ErrorNode, type RuleNode } from 'antlr4ts/tree';
 
 import {
-  JqlAndClauseContext,
-  JqlChangedClauseContext,
-  JqlChangedOperatorContext,
-  JqlComparisonClauseContext,
-  JqlComparisonOperatorContext,
-  JqlEqualsClauseContext,
-  JqlEqualsOperatorContext,
-  JqlFieldContext,
-  JqlInClauseContext,
-  JqlInOperatorContext,
-  JqlIsClauseContext,
-  JqlIsOperatorContext,
+  type JqlAndClauseContext,
+  type JqlChangedClauseContext,
+  type JqlChangedOperatorContext,
+  type JqlComparisonClauseContext,
+  type JqlComparisonOperatorContext,
+  type JqlEqualsClauseContext,
+  type JqlEqualsOperatorContext,
+  type JqlFieldContext,
+  type JqlInClauseContext,
+  type JqlInOperatorContext,
+  type JqlIsClauseContext,
+  type JqlIsOperatorContext,
   JQLLexer,
-  JqlLikeClauseContext,
-  JqlLikeOperatorContext,
-  JqlListContext,
-  JqlNonNumberFieldContext,
-  JqlNotClauseContext,
-  JqlNumberFieldContext,
-  JqlOrClauseContext,
+  type JqlLikeClauseContext,
+  type JqlLikeOperatorContext,
+  type JqlListContext,
+  type JqlNonNumberFieldContext,
+  type JqlNotClauseContext,
+  type JqlNumberFieldContext,
+  type JqlOrClauseContext,
   JQLParser,
-  JQLParserVisitor,
-  JqlQueryContext,
-  JqlSubClauseContext,
-  JqlTerminalClauseContext,
-  JqlWasClauseContext,
-  JqlWasInClauseContext,
-  JqlWasInOperatorContext,
-  JqlWasOperatorContext,
-  JqlWhereContext,
+  type JQLParserVisitor,
+  type JqlQueryContext,
+  type JqlSubClauseContext,
+  type JqlTerminalClauseContext,
+  type JqlWasClauseContext,
+  type JqlWasInClauseContext,
+  type JqlWasInOperatorContext,
+  type JqlWasOperatorContext,
+  type JqlWhereContext,
 } from '@atlaskit/jql-parser';
 
-import { RuleSuggestion } from '../base-autocomplete/types';
+import { type RuleSuggestion } from '../base-autocomplete/types';
 
 import { ORDER_BY_CLAUSE, WHERE_CLAUSE } from './constants';
 import {
-  JQLRuleContext,
-  JQLRuleContextWithErrors,
-  MaybeParserRuleContext,
+  type JQLRuleContext,
+  type JQLRuleContextWithErrors,
+  type MaybeParserRuleContext,
 } from './types';
 import { getPositionFromParserRule, isOperator, normalizeText } from './util';
 

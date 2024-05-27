@@ -1,7 +1,7 @@
 import {
-  AnnotationMarkStates,
-  AnnotationId,
-  AnnotationTypes,
+  type AnnotationMarkStates,
+  type AnnotationId,
+  type AnnotationTypes,
 } from '@atlaskit/adf-schema';
 
 export type AnnotationPayload = {

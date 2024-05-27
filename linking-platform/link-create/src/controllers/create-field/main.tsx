@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import { shouldShowValidationErrors } from '../../common/utils/form';
 
-import { CreateFieldProps } from './types';
+import { type CreateFieldProps } from './types';
 
 const fieldWrapperStyles = css({
   marginTop: token('space.100', '8px'),

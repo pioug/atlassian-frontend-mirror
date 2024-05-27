@@ -1,12 +1,12 @@
-import { GasPurePayload, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
+import { type GasPurePayload, UI_EVENT_TYPE } from '@atlaskit/analytics-gas-types';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { mount } from 'enzyme';
 import cases from 'jest-in-case';
 import React from 'react';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';
 import AtlaskitListener from '../../../atlaskit/AtlaskitListener';
-import Logger from '../../../helpers/logger';
-import { AnalyticsWebClient, FabricChannel } from '../../../types';
+import type Logger from '../../../helpers/logger';
+import { type AnalyticsWebClient, FabricChannel } from '../../../types';
 import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
 
 type CaseArgs = {

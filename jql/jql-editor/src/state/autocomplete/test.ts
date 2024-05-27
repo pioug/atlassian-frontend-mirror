@@ -2,7 +2,7 @@ import { of } from 'rxjs/observable/of';
 
 import { OPERATORS } from '@atlaskit/jql-ast';
 
-import { AutocompleteOptions } from '../../plugins/autocomplete/components/types';
+import { type AutocompleteOptions } from '../../plugins/autocomplete/components/types';
 
 import { ORDERED_OPERATORS, sortOperators } from './index';
 

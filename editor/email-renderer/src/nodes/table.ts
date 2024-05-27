@@ -1,6 +1,6 @@
 import { N50 } from '@atlaskit/adf-schema';
 import { createTag } from '../create-tag';
-import { NodeSerializerOpts } from '../interfaces';
+import { type NodeSerializerOpts } from '../interfaces';
 import { createClassName } from '../styles/util';
 
 const className = createClassName('tableNode');

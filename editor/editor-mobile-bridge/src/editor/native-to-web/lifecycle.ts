@@ -1,8 +1,8 @@
 import { EventEmitter2 } from 'eventemitter2';
 import {
-  EventHandler,
-  Lifecycle,
-  LifecycleEvents,
+  type EventHandler,
+  type Lifecycle,
+  type LifecycleEvents,
 } from '@atlaskit/collab-provider/types';
 
 export class LifecycleImpl implements Lifecycle {

@@ -1,6 +1,6 @@
-import { Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Schema } from '@atlaskit/editor-prosemirror/model';
 import getMediaGroupNodeView from '../nodes/mediaGroup';
-import { Token } from './';
+import { type Token } from './';
 
 // [^attachment.pdf]
 const FILE_LINK_REGEXP = /^\[\^([\(\)\w. -]+)\]/;

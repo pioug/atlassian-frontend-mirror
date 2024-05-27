@@ -1,23 +1,23 @@
 /** @jsx jsx */
 import {
-  ElementType,
-  MouseEventHandler,
+  type ElementType,
+  type MouseEventHandler,
   useCallback,
   useEffect,
   useState,
 } from 'react';
 
 import { jsx } from '@emotion/react';
-import { bind, UnbindFn } from 'bind-event-listener';
+import { bind, type UnbindFn } from 'bind-event-listener';
 
-import Avatar, { SizeType } from '@atlaskit/avatar';
+import Avatar, { type SizeType } from '@atlaskit/avatar';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import { Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
-import Tooltip, { PositionType } from '@atlaskit/tooltip';
+import Tooltip, { type PositionType } from '@atlaskit/tooltip';
 
 import AvatarGroupItem from './avatar-group-item';
 import Grid from './grid';
@@ -26,10 +26,10 @@ import PopupAvatarGroup from './internal/components/popup-avatar-group';
 import MoreIndicator from './more-indicator';
 import Stack from './stack';
 import {
-  AvatarGroupOverrides,
-  AvatarProps,
-  DeepRequired,
-  onAvatarClickHandler,
+  type AvatarGroupOverrides,
+  type AvatarProps,
+  type DeepRequired,
+  type onAvatarClickHandler,
 } from './types';
 import { composeUniqueKey } from './utils';
 

@@ -3,7 +3,7 @@ import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Tooltip from '@atlaskit/tooltip';
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import { type ConcurrentExperience } from '@atlaskit/ufo';
 import FocusRing from '@atlaskit/focus-ring';
 import React from 'react';
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
@@ -11,8 +11,8 @@ import ResourcedMention from '../../../components/Mention/ResourcedMention';
 import PrimitiveMention from '../../../components/Mention/PrimitiveMention';
 import { ELEMENTS_CHANNEL } from '../../../_constants';
 import { MentionType, MentionNameStatus } from '../../../types';
-import MentionResource, { MentionProvider } from '../../../api/MentionResource';
-import { MentionNameResolver } from '../../../api/MentionNameResolver';
+import MentionResource, { type MentionProvider } from '../../../api/MentionResource';
+import { type MentionNameResolver } from '../../../api/MentionNameResolver';
 import {
   flushPromises,
   mockMentionData as mentionData,

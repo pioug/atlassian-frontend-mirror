@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { FC, useState } from 'react';
+import { type FC, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { Placement } from '@atlaskit/popper';
+import { type Placement } from '@atlaskit/popper';
 import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';

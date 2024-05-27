@@ -1,6 +1,6 @@
 import React from 'react';
-import { SubSupAttributes } from '@atlaskit/adf-schema';
-import { MarkProps } from '../types';
+import { type SubSupAttributes } from '@atlaskit/adf-schema';
+import { type MarkProps } from '../types';
 
 const isSub = (type: SubSupAttributes['type']): type is 'sub' => {
   return type === 'sub';

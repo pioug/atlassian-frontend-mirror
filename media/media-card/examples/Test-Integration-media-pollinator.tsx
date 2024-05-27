@@ -8,12 +8,12 @@ import {
 } from '@atlaskit/media-test-helpers';
 import {
   Browser,
-  BrowserConfig,
-  UploadsStartEventPayload,
+  type BrowserConfig,
+  type UploadsStartEventPayload,
 } from '@atlaskit/media-picker';
 import Button from '@atlaskit/button/new';
 import { Card } from '../src';
-import { FileIdentifier, MediaClient } from '@atlaskit/media-client';
+import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
 import { cardFlowHeaderStyles } from '../example-helpers/styles';
 import { MainWrapper } from '../example-helpers';

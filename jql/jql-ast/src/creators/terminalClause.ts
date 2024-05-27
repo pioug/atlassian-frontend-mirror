@@ -7,15 +7,15 @@ import {
   setOperator,
 } from '../transformers/terminalClause';
 import {
-  AstNode,
-  Field,
-  JastListener,
-  JastVisitor,
-  Operand,
-  Operator,
-  Position,
-  Predicate,
-  TerminalClause,
+  type AstNode,
+  type Field,
+  type JastListener,
+  type JastVisitor,
+  type Operand,
+  type Operator,
+  type Position,
+  type Predicate,
+  type TerminalClause,
 } from '../types';
 
 import { assignParent } from './common';

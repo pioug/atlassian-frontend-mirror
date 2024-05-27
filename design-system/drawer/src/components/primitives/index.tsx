@@ -8,16 +8,16 @@ import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 import {
   ExitingPersistence,
   SlideIn,
-  Transition,
+  type Transition,
   useExitingPersistence,
 } from '@atlaskit/motion';
 import type { SlideInProps } from '@atlaskit/motion/types';
 
 import { animationTimingFunction, transitionDurationMs } from '../../constants';
 import {
-  DrawerPrimitiveDefaults,
-  DrawerPrimitiveOverrides,
-  DrawerPrimitiveProps,
+  type DrawerPrimitiveDefaults,
+  type DrawerPrimitiveOverrides,
+  type DrawerPrimitiveProps,
 } from '../types';
 import { createExtender } from '../utils';
 

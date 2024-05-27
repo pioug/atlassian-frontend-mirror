@@ -1,6 +1,6 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import CardClient from '../..';
-import { ErrorResponseBody } from '../../types/responses';
+import { type ErrorResponseBody } from '../../types/responses';
 
 export const mockContext = {
   '@vocab': 'https://www.w3.org/ns/activitystreams#',

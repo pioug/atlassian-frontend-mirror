@@ -1,8 +1,8 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../constants';
 
-import { IconDescriptor } from './types';
+import { type IconDescriptor } from './types';
 import { IconType } from '../../../constants';
 import extractUrlIcon from './extract-url-icon';
 import { extractTitle } from '@atlaskit/link-extractors';

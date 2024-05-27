@@ -1,5 +1,5 @@
 import { parseString } from '../text';
-import { Token, TokenType, TokenParser } from './';
+import { type Token, TokenType, type TokenParser } from './';
 
 // h1. HEADING
 const HEADING_REGEXP = /^h([1-6])\.(.*)/;

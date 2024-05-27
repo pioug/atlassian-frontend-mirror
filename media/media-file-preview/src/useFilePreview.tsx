@@ -1,22 +1,22 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
-  FileIdentifier,
+  type FileIdentifier,
   isImageRepresentationReady,
-  MediaBlobUrlAttrs,
-  MediaStoreGetFileImageParams,
+  type MediaBlobUrlAttrs,
+  type MediaStoreGetFileImageParams,
 } from '@atlaskit/media-client';
 import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
 import {
   isMimeTypeSupportedByBrowser,
-  MediaTraceContext,
-  SSR,
+  type MediaTraceContext,
+  type SSR,
 } from '@atlaskit/media-common';
 
 import {
   createFailedSSRObject,
   extractErrorInfo,
-  SSRStatus,
+  type SSRStatus,
 } from './analytics';
 import {
   ensureMediaFilePreviewError,
@@ -42,9 +42,9 @@ import {
   useCurrentValueRef,
 } from './helpers';
 import {
-  MediaFilePreview,
-  MediaFilePreviewDimensions,
-  MediaFilePreviewStatus,
+  type MediaFilePreview,
+  type MediaFilePreviewDimensions,
+  type MediaFilePreviewStatus,
 } from './types';
 
 export interface UseFilePreviewParams {

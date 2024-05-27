@@ -9,7 +9,7 @@ import '@atlaskit/link-test-helpers/jest';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 
-import { ConfirmDismissDialog, ConfirmDismissDialogProps } from './main';
+import { ConfirmDismissDialog, type ConfirmDismissDialogProps } from './main';
 
 describe('ConfirmDismissDialog', () => {
   const setup = (props?: Partial<ConfirmDismissDialogProps>) => {

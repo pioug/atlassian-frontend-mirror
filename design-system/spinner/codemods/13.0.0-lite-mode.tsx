@@ -1,10 +1,11 @@
-import { NodePath } from 'ast-types/lib/node-path';
-import core, {
-  API,
-  ASTPath,
-  FileInfo,
-  ImportDeclaration,
-  Options,
+import { type NodePath } from 'ast-types/lib/node-path';
+import {
+  type API,
+  type ASTPath,
+  type default as core,
+  type FileInfo,
+  type ImportDeclaration,
+  type Options,
 } from 'jscodeshift';
 
 type Nullable<T> = T | null;

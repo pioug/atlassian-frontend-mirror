@@ -1,19 +1,19 @@
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { css } from '@emotion/react';
 import LikeIcon from '@atlaskit/icon/glyph/like';
 import { token } from '@atlaskit/tokens';
-import { CardType, CardState } from '@atlaskit/linking-common';
+import { type CardType, type CardState } from '@atlaskit/linking-common';
 import extractFlexibleUiContext from '../../src/extractors/flexible';
-import { FlexibleUiDataContext } from '../../src/state/flexible-ui-context/types';
+import { type FlexibleUiDataContext } from '../../src/state/flexible-ui-context/types';
 import { ActionName, ElementName } from '../../src';
 import { ElementDisplaySchema } from '../../src/view/FlexibleCard/components/blocks/utils';
 import {
-  CustomActionItem,
-  NamedActionItem,
-  NamedDataActionItem,
+  type CustomActionItem,
+  type NamedActionItem,
+  type NamedDataActionItem,
 } from '../../src/view/FlexibleCard/components/blocks/types';
-import { DatasourceResolveResponse } from '@atlaskit/link-client-extension';
+import { type DatasourceResolveResponse } from '@atlaskit/link-client-extension';
 
 export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
   ({

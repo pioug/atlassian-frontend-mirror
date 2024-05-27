@@ -1,7 +1,7 @@
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
-import { EmbedCardProps } from './types';
+import { type EmbedCardProps } from './types';
 import { extractEmbedProps } from '../../extractors/embed';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';

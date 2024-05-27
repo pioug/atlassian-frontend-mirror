@@ -1,4 +1,4 @@
-import { FileInfo } from './imageMetaData/types';
+import { type FileInfo } from './imageMetaData/types';
 import PdfDocumentIcon from '@atlaskit/icon-file-type/glyph/pdf-document/24';
 import GifIcon from '@atlaskit/icon-file-type/glyph/gif/24';
 import PowerpointPresentationIcon from '@atlaskit/icon-file-type/glyph/powerpoint-presentation/24';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Date, DateProps } from '../src';
+import { Date, type DateProps } from '../src';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { borderRadius } from '@atlaskit/theme/constants';

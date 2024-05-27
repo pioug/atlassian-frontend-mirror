@@ -1,5 +1,5 @@
 import { assignParent } from '../creators/common';
-import { OrderByDirection, OrderByField } from '../types';
+import { type OrderByDirection, type OrderByField } from '../types';
 
 /**
  * Set the direction of this order by field to the provided value.

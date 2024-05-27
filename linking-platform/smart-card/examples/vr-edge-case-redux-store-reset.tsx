@@ -3,10 +3,10 @@ import { jsx } from '@emotion/react';
 
 import { Card, Client, Provider } from '@atlaskit/smart-card';
 import { VRTestWrapper } from './utils/vr-test';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { BitbucketFile1 } from '../examples-helpers/_jsonLDExamples';
 import { useCallback, useState } from 'react';
-import { CardStore } from '@atlaskit/linking-common';
+import { type CardStore } from '@atlaskit/linking-common';
 import Button from '@atlaskit/button/new';
 
 class CustomClient extends Client {

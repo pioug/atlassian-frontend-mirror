@@ -80,9 +80,6 @@
       "path": "../../design-system/icon-object/tsconfig.app.json"
     },
     {
-      "path": "../../in-product-testing/in-product-testing/tsconfig.app.json"
-    },
-    {
       "path": "../link-analytics/tsconfig.app.json"
     },
     {

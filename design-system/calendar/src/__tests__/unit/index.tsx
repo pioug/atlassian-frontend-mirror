@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { fireEvent, render, RenderResult } from '@testing-library/react';
+import { fireEvent, render, type RenderResult } from '@testing-library/react';
 // eslint-disable-next-line no-restricted-imports
 import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
-import Calendar, { CalendarProps } from '../../index';
+import Calendar, { type CalendarProps } from '../../index';
 import dateToString from '../../internal/utils/date-to-string';
-import { TabIndex, WeekDay } from '../../types';
+import { type TabIndex, type WeekDay } from '../../types';
 
 jest.mock('react-uid', () => ({
   useUIDSeed: () => () => 'react-uid',

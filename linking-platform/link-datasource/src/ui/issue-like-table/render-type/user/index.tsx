@@ -5,9 +5,9 @@ import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { FormattedMessage } from 'react-intl-next';
 
-import Avatar, { SizeType } from '@atlaskit/avatar';
-import AvatarGroup, { AvatarProps } from '@atlaskit/avatar-group';
-import { User } from '@atlaskit/linking-types';
+import Avatar, { type SizeType } from '@atlaskit/avatar';
+import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';
+import { type User } from '@atlaskit/linking-types';
 import { Box, xcss } from '@atlaskit/primitives';
 import { WidthObserver } from '@atlaskit/width-detector';
 

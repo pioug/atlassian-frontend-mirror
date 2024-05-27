@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Component, ImgHTMLAttributes } from 'react';
+import { Component, type ImgHTMLAttributes } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';

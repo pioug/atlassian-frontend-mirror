@@ -4,7 +4,7 @@ import { useLayoutEffect } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../../../../common/constants';
-import { LinkPickerPlugin } from '../../../../common/types';
+import { type LinkPickerPlugin } from '../../../../common/types';
 import createEventPayload from '../../../../common/utils/analytics/analytics.codegen';
 
 export function TrackTabViewed({

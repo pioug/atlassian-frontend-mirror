@@ -2,7 +2,7 @@
 import React from 'react';
 import { components } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
-import { UserPickerProps } from '../types';
+import { type UserPickerProps } from '../types';
 import { css, jsx } from '@emotion/react';
 
 export type Props = React.PropsWithChildren<{

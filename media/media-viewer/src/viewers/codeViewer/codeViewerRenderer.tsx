@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { ReactNode, Component } from 'react';
-import { ErrorFileState, FileState } from '@atlaskit/media-client';
+import { type ReactNode, Component } from 'react';
+import { type ErrorFileState, type FileState } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
 import type { SupportedLanguages } from '@atlaskit/code/types';

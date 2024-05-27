@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 
-import { FormState, FormSubscription } from 'final-form';
+import { type FormState, type FormSubscription } from 'final-form';
 
 import { FormContext } from './form';
 

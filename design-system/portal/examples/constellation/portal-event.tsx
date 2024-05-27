@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { bindAll, UnbindFn } from 'bind-event-listener';
+import { bindAll, type UnbindFn } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/new';
 import { CodeBlock } from '@atlaskit/code';

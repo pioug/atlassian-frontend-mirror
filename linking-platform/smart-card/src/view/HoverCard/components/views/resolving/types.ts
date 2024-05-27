@@ -1,5 +1,5 @@
-import { FlexibleCardProps } from '../../../../FlexibleCard/types';
-import { TitleBlockProps } from '../../../../FlexibleCard/components/blocks/title-block/types';
+import { type FlexibleCardProps } from '../../../../FlexibleCard/types';
+import { type TitleBlockProps } from '../../../../FlexibleCard/components/blocks/title-block/types';
 
 export type HoverCardLoadingViewProps = {
   flexibleCardProps: FlexibleCardProps;

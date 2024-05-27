@@ -1,7 +1,7 @@
 import {
   createAndFireEvent,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import React from 'react';
 import { token } from '@atlaskit/tokens';

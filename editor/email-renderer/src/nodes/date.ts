@@ -1,5 +1,5 @@
 import { createTag } from '../create-tag';
-import { NodeSerializerOpts } from '../interfaces';
+import { type NodeSerializerOpts } from '../interfaces';
 import { isPastDate, timestampToString } from '../date-helper';
 import { R50, R500, N40, N500 } from '@atlaskit/adf-schema';
 import { createClassName } from '../styles/util';

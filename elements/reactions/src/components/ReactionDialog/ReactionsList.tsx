@@ -1,14 +1,14 @@
 /** @jsx   jsx */
 import { useCallback, useState } from 'react';
 import { jsx } from '@emotion/react';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import { useThemeObserver } from '@atlaskit/tokens';
-import { SelectedType } from '@atlaskit/tabs/types';
+import { type SelectedType } from '@atlaskit/tabs/types';
 
-import { onDialogSelectReactionChange, ReactionSummary } from '../../types';
+import { type onDialogSelectReactionChange, type ReactionSummary } from '../../types';
 import { Counter } from '../Counter';
 
 import { counterStyle, customTabWrapper, customTabListStyles } from './styles';

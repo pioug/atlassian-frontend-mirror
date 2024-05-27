@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, MouseEvent, useState } from 'react';
+import { Fragment, type MouseEvent, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 

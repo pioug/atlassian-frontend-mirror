@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {
-  MediaClient,
-  FileItem,
-  FileState,
+  type MediaClient,
+  type FileItem,
+  type FileState,
   isImageRepresentationReady,
   isErrorFileState,
   addFileAttrsToUrl,
@@ -15,7 +15,7 @@ import { Outcome } from '../../domain';
 import { MediaViewerError } from '../../errors';
 import { InteractiveImg } from './interactive-img';
 import { BaseViewer } from '../base-viewer';
-import { MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type ObjectUrl = string;
 

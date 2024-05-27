@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import { CardClient } from '@atlaskit/link-provider';
 import { APIError } from '@atlaskit/linking-common';

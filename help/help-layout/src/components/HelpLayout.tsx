@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import { defaultAnalyticsAttributes } from '../analytics';
-import { HelpLayout as HelpLayoutProps } from '../model/HelpLayout';
+import { type HelpLayout as HelpLayoutProps } from '../model/HelpLayout';
 
 import MessagesIntlProvider from './MessagesIntlProvider';
 

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { RefObject, useCallback, useRef, useState } from 'react';
+import { type RefObject, useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { Transition } from 'react-transition-group';
@@ -10,12 +10,12 @@ import Form, {
   CheckboxField,
   Field,
   FormFooter,
-  OnSubmitHandler,
+  type OnSubmitHandler,
 } from '@atlaskit/form';
 import Textarea from '@atlaskit/textarea';
 import { fontSize } from '@atlaskit/theme/constants';
 
-import { FormValues } from '../types';
+import { type FormValues } from '../types';
 
 import FeedbackScoreButtons from './FeedbackScoreButtons';
 

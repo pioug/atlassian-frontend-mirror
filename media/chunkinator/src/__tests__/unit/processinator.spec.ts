@@ -1,5 +1,5 @@
 import { processinator } from '../../processinator';
-import { HashedBlob } from '../../domain';
+import { type HashedBlob } from '../../domain';
 import { from } from 'rxjs/observable/from';
 import { toArray } from 'rxjs/operators/toArray';
 

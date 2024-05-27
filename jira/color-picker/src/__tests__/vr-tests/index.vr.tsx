@@ -1,4 +1,4 @@
-import { snapshot, SnapshotTestOptions } from '@af/visual-regression';
+import { snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
 import { default as ColorPicker } from '../../../examples/00-color-picker';
 import { default as ColorPalleteMenu } from '../../../examples/05-multi-columns-color-palette-menu';

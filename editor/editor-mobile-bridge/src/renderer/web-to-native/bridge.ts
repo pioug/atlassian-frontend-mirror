@@ -1,8 +1,8 @@
-import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
-import { AnnotationByMatches } from '@atlaskit/editor-common/types';
-import { TaskState } from '@atlaskit/task-decision';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { Serialized } from '../../types';
+import { type AnnotationId, type AnnotationTypes } from '@atlaskit/adf-schema';
+import { type AnnotationByMatches } from '@atlaskit/editor-common/types';
+import { type TaskState } from '@atlaskit/task-decision';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type Serialized } from '../../types';
 
 export type AnnotationPayloadsByType = {
   annotationIds: AnnotationId[];

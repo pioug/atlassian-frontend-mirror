@@ -3,13 +3,13 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button, { ButtonProps } from '@atlaskit/button';
+import Button, { type ButtonProps } from '@atlaskit/button';
 import ChevronLeftIcon from '@atlaskit/icon/glyph/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 
 import {
   calculateConditionalButtons,
-  ConditionalButtons,
+  type ConditionalButtons,
   createGhost,
   getTabList,
   scrollBack,

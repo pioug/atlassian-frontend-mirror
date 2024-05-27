@@ -10,9 +10,9 @@ import { layers } from '@atlaskit/theme/constants';
 
 import { useObjectSchemas } from '../../../../hooks/useObjectSchemas';
 import {
-  ObjectSchema,
+  type ObjectSchema,
   objectSchemaKey,
-  ObjectSchemaOption,
+  type ObjectSchemaOption,
 } from '../../../../types/assets/types';
 import { FieldContainer } from '../styled';
 

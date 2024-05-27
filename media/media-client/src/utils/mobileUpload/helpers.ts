@@ -1,20 +1,20 @@
-import Dataloader from 'dataloader';
+import type Dataloader from 'dataloader';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { from } from 'rxjs/observable/from';
 import { map } from 'rxjs/operators/map';
-import { Interpreter } from 'xstate';
+import { type Interpreter } from 'xstate';
 
 import { mapMediaItemToFileState } from '../../models/file-state';
-import { FileState } from '@atlaskit/media-state';
-import { DataloaderKey, DataloaderResult } from '../createFileDataLoader';
+import { type FileState } from '@atlaskit/media-state';
+import { type DataloaderKey, type DataloaderResult } from '../createFileDataLoader';
 import { createMediaSubject } from '../createMediaSubject';
 import { isEmptyFile } from '../detectEmptyFile';
 import { PollingFunction } from '../polling';
 import { MobileUploadError } from './error';
 import {
-  StateMachineContext,
-  StateMachineEvent,
-  StateMachineTypestate,
+  type StateMachineContext,
+  type StateMachineEvent,
+  type StateMachineTypestate,
 } from './stateMachine/types';
 
 export const createMobileFileStateSubject = (

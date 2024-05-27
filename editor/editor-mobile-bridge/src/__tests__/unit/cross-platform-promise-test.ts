@@ -3,10 +3,10 @@ import {
   createPromise,
   rejectPromise,
   resolvePromise,
-  SubmitPromiseToNative,
+  type SubmitPromiseToNative,
 } from '../../cross-platform-promise';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { GetAnnotationStatesPayload } from '../../types';
+import { type GetAnnotationStatesPayload } from '../../types';
 import { toNativeBridge } from '../../editor/web-to-native';
 
 jest.mock('uuid/v4');

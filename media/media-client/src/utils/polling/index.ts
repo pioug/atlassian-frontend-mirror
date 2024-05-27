@@ -1,5 +1,5 @@
 import { PollingError } from './errors';
-import { Executor } from './types';
+import { type Executor } from './types';
 
 export interface PollingOptions {
   poll_intervalMs: number;

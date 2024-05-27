@@ -1,8 +1,8 @@
 import {
-  AST,
-  AstGenerator,
-  RefractorNode,
-  SyntaxHighlighterLineProps,
+  type AST,
+  type AstGenerator,
+  type RefractorNode,
+  type SyntaxHighlighterLineProps,
 } from '../../types';
 
 import createLineGenerator from './create-line';

@@ -6,8 +6,8 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-import { Dispatch } from '../event-dispatcher';
-import { Command } from '../types';
+import { type Dispatch } from '../event-dispatcher';
+import { type Command } from '../types';
 
 /**
  * Creates a ProseMirror plugin's state and handles UI updates.

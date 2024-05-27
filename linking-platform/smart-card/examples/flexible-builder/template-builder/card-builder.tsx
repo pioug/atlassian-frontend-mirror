@@ -2,10 +2,10 @@
 import { jsx } from '@emotion/react';
 import React, { useMemo } from 'react';
 import CheckboxOption from './inputs/checkbox-option';
-import { CardProps } from '@atlaskit/smart-card';
+import { type CardProps } from '@atlaskit/smart-card';
 import SelectOption from './inputs/select-option';
 import TextOption from './inputs/text-option';
-import { TemplateDisplay } from '../types';
+import { type TemplateDisplay } from '../types';
 import Fieldset from './fieldset';
 
 const appearanceOptions = [

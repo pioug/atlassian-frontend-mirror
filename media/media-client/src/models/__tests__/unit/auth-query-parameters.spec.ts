@@ -1,5 +1,5 @@
 import {
-  AuthQueryParameters,
+  type AuthQueryParameters,
   mapAuthToQueryParameters,
 } from '../../auth-query-parameters';
 

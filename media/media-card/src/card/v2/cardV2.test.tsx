@@ -53,7 +53,7 @@ import {
   titleBoxTestId,
 } from '../../__tests__/utils/_testIDs';
 import {
-  MediaClientConfig,
+  type MediaClientConfig,
   globalMediaEventEmitter,
 } from '@atlaskit/media-client';
 import * as performanceModule from './performance';

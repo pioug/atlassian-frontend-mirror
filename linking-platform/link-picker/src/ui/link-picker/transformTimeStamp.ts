@@ -1,5 +1,5 @@
 import isYesterday from 'date-fns/isYesterday';
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { isMoreThanOneWeekAgo } from '../../common/utils/date';
 import { selectUnit } from '../../common/utils/dateUtils';

@@ -10,7 +10,7 @@ import {
   migrateFitContainerButtonToDefaultButtonComment,
   migrateFitContainerButtonToIconButtonComment,
 } from './constants';
-import { JSXElement } from 'jscodeshift';
+import { type JSXElement } from 'jscodeshift';
 
 export const migrateFitContainerIconButton = (
   element: ASTPath<JSXElement>,

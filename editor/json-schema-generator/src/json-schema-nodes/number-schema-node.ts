@@ -1,4 +1,4 @@
-import PrimitiveSchemaNode, { Indexed } from './primitive-schema-node';
+import PrimitiveSchemaNode, { type Indexed } from './primitive-schema-node';
 
 export interface NumberValidators extends Indexed {
   maximum?: number; // 6.2

@@ -7,7 +7,7 @@ import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { getDefaultItems } from '../../../__tests__/__helpers';
 
-import { LinkSearchList, LinkSearchListProps, testIds } from './index';
+import { LinkSearchList, type LinkSearchListProps, testIds } from './index';
 
 interface SetupOptions extends LinkSearchListProps {}
 

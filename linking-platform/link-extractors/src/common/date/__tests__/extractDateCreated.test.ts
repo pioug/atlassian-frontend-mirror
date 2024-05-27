@@ -1,5 +1,5 @@
 import { TEST_BASE_DATA } from '../../__mocks__/linkingPlatformJsonldMocks';
-import { extractDateCreated, LinkTypeCreated } from '../extractDateCreated';
+import { extractDateCreated, type LinkTypeCreated } from '../extractDateCreated';
 
 describe('extractors.date.created', () => {
   it('returns undefined if not present', () => {

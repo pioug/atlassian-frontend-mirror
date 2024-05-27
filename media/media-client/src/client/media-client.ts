@@ -1,17 +1,17 @@
 import { EventEmitter2 } from 'eventemitter2';
-import { ChunkHashAlgorithm, MediaClientConfig } from '@atlaskit/media-core';
-import { MediaTraceContext } from '@atlaskit/media-common';
+import { ChunkHashAlgorithm, type MediaClientConfig } from '@atlaskit/media-core';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 import {
   MediaStore as MediaApi,
-  MediaStoreGetFileImageParams,
-  ImageMetadata,
+  type MediaStoreGetFileImageParams,
+  type ImageMetadata,
 } from './media-store';
-import { FileFetcherImpl, FileFetcher } from './file-fetcher';
-import { UploadEventPayloadMap, EventPayloadListener } from './events';
+import { FileFetcherImpl, type FileFetcher } from './file-fetcher';
+import { type UploadEventPayloadMap, type EventPayloadListener } from './events';
 import { StargateClient } from './stargate-client';
-import { MobileUpload } from '../models/mobile-upload';
+import { type MobileUpload } from '../models/mobile-upload';
 
-import { mediaStore, MediaStore } from '@atlaskit/media-state';
+import { mediaStore, type MediaStore } from '@atlaskit/media-state';
 
 export class MediaClient {
   public readonly mediaStore: MediaApi;

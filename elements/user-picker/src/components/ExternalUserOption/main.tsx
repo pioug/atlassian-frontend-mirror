@@ -5,16 +5,16 @@ import { B400, N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
 import {
   createAndFireEventInElementsChannel,
   userInfoEvent,
 } from '../../analytics';
-import { ExternalUser } from '../../types';
+import { type ExternalUser } from '../../types';
 import { textWrapper } from '../AvatarItemOption';
 import { SizeableAvatar } from '../SizeableAvatar';
 import { ExternalUserSourcesContainer } from '../ExternalUserSourcesContainer';

@@ -1,7 +1,7 @@
-import { isValidElement, ReactElement } from 'react';
+import { isValidElement, type ReactElement } from 'react';
 
 import { render } from '@testing-library/react';
-import { AST } from 'refractor';
+import { type AST } from 'refractor';
 
 import createElement from '../../lib/react-renderer/create-element';
 

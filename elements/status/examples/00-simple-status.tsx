@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Status, Color } from '../src/element';
+import { Status, type Color } from '../src/element';
 import { css, jsx } from '@emotion/react';
 
 const containerStyles = css`

@@ -1,6 +1,6 @@
 import { normalizeLocale } from '../common';
-import { createDateParser, DateParser } from '../date-parser';
-import { FormattedParts, toFormattedParts } from './toFormattedParts';
+import { createDateParser, type DateParser } from '../date-parser';
+import { type FormattedParts, toFormattedParts } from './toFormattedParts';
 
 export type DateFormatter = (date: Date) => string;
 

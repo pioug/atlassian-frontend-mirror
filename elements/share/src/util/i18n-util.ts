@@ -26,7 +26,7 @@ import {
   sv,
   zh,
 } from '../i18n/index';
-import languages from '../i18n/languages';
+import type languages from '../i18n/languages';
 
 export type LangCode = keyof typeof languages | 'pt-BR' | 'pt-PT';
 type LocaleMessages = { [key: string]: string };

@@ -4,13 +4,13 @@ import Button from '@atlaskit/button/new';
 import { CodeBlock } from '@atlaskit/code';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';
-import { InlineCardAdf } from '@atlaskit/linking-common';
+import { type InlineCardAdf } from '@atlaskit/linking-common';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import {
   ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
-  AssetsDatasourceAdf,
-  AssetsDatasourceParameters,
+  type AssetsDatasourceAdf,
+  type AssetsDatasourceParameters,
 } from '../src';
 import JSMAssetsConfigModal from '../src/ui/assets-modal';
 

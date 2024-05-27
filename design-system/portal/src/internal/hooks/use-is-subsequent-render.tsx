@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { MountStrategy } from '../types';
+import { type MountStrategy } from '../types';
 
 import { useIsomorphicLayoutEffect } from './use-isomorphic-layout-effect';
 

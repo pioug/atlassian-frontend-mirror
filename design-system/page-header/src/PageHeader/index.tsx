@@ -2,7 +2,7 @@
 // This rule is here as prop name changes are a major as they are used
 // by our consumers. This can be done in the next lite-mode conversion.
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
-import React, { ReactElement, ReactNode } from 'react';
+import React, { type ReactElement, type ReactNode } from 'react';
 
 import {
   ActionsWrapper,

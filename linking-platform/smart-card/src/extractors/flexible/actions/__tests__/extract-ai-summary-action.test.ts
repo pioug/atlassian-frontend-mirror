@@ -3,7 +3,7 @@ import {
   TEST_RESOLVED_META_DATA_WITH_AI_SUMMARY,
 } from '../../../common/__mocks__/jsonld';
 import { extractAISummaryAction } from '../extract-ai-summary-action';
-import { AISummaryConfig } from '../../../../state/hooks/use-ai-summary-config/types';
+import { type AISummaryConfig } from '../../../../state/hooks/use-ai-summary-config/types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const TEST_URL = 'https://my.url.com';

@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { css, jsx, keyframes } from '@emotion/react';
 
-import { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 
 import SVG from '@atlaskit/icon/svg';
-import { SVGProps } from '@atlaskit/icon/types';
+import { type SVGProps } from '@atlaskit/icon/types';
 import { aiThemeTokens } from '../ai-prism/constants';
 
 /**

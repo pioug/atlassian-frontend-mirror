@@ -5,13 +5,13 @@ import FailIcon from '@atlaskit/icon/glyph/cross-circle';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { FlagData } from '../../types';
+import { type FlagData } from '../../types';
 import { errorFlagMessages } from './messages';
 import {
   injectIntl,
   IntlProvider,
   useIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 
 export interface ErrorFlagGroupProps {

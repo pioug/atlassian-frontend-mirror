@@ -1,18 +1,18 @@
 import uuidV4 from 'uuid/v4';
-import { CardAppearance } from '@atlaskit/smart-card';
-import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import { type CardAppearance } from '@atlaskit/smart-card';
+import { type AnnotationId, type AnnotationTypes } from '@atlaskit/adf-schema';
 import { toNativeBridge } from './editor/web-to-native';
 import {
-  PromiseName,
-  GetAuthPayload,
-  GetConfigPayload,
-  NativeFetchPayload,
-  GetAccountIdPayload,
-  GetResolvedLinkPayload,
-  GetLinkResolvePayload,
-  SelectionPayload,
-  GetAnnotationStatesPayload,
-  GetCollabConfigPayload,
+  type PromiseName,
+  type GetAuthPayload,
+  type GetConfigPayload,
+  type NativeFetchPayload,
+  type GetAccountIdPayload,
+  type GetResolvedLinkPayload,
+  type GetLinkResolvePayload,
+  type SelectionPayload,
+  type GetAnnotationStatesPayload,
+  type GetCollabConfigPayload,
 } from './types';
 
 const pendingPromises: Map<string, Holder<any>> = new Map<

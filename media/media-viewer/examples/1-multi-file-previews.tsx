@@ -22,7 +22,7 @@ import {
 import { MediaViewer } from '../src';
 import { videoFileId } from '@atlaskit/media-test-helpers';
 import { I18NWrapper } from '@atlaskit/media-test-helpers';
-import { Identifier } from '@atlaskit/media-client';
+import { type Identifier } from '@atlaskit/media-client';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
 
 addGlobalEventEmitterListeners();

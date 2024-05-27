@@ -1,6 +1,6 @@
 import {
-  ParagraphDefinition,
-  BlockQuoteDefinition,
+  type ParagraphDefinition,
+  type BlockQuoteDefinition,
 } from '@atlaskit/adf-schema';
 
 export const blockQuote = (

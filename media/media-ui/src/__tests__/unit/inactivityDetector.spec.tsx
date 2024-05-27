@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { InactivityDetector, WithShowControlMethodProp } from '../..';
+import { InactivityDetector, type WithShowControlMethodProp } from '../..';
 import { asMock } from '@atlaskit/media-common/test-helpers';
 import { InactivityDetectorWrapper } from '../../inactivityDetector/styled';
 

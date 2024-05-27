@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 
-import { PreviewBlockProps } from './types';
+import { type PreviewBlockProps } from './types';
 import { SmartLinkStatus } from '../../../../../constants';
 import PreviewBlockResolvedView from './resolved';
 

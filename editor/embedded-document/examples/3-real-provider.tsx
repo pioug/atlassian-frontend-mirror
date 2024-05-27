@@ -3,7 +3,7 @@ import {
   EmbeddedDocument,
   DocumentBody,
   ServiceProvider,
-  DocumentMode,
+  type DocumentMode,
   Toolbar,
 } from '../src';
 

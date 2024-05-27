@@ -1,5 +1,5 @@
-import { NodePath } from 'ast-types/lib/node-path';
-import core, { ASTPath, ImportDeclaration } from 'jscodeshift';
+import { type NodePath } from 'ast-types/lib/node-path';
+import type { ASTPath, default as core, ImportDeclaration } from 'jscodeshift';
 
 import {
   getDefaultSpecifierName,

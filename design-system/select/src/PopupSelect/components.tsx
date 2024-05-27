@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, ReactNode, CSSProperties } from 'react';
+import { type FC, type ReactNode, type CSSProperties } from 'react';
 import { components } from 'react-select';
 import { css, jsx } from '@emotion/react';
 
@@ -9,7 +9,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { ControlProps, MenuProps, OptionType } from '../types';
+import { type ControlProps, type MenuProps, type OptionType } from '../types';
 
 // ==============================
 // Styled Components

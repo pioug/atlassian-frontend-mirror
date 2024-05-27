@@ -1,6 +1,6 @@
 import {
-  PuppeteerPage,
-  PuppeteerWaitForOptions,
+  type PuppeteerPage,
+  type PuppeteerWaitForOptions,
   waitForElementCount,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';

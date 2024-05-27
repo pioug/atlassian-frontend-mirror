@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
-import { DatasourceTableViewProps } from './types';
+import { type DatasourceTableViewProps } from './types';
 
 const LazyDatasourceTableView = lazy(() =>
   import(

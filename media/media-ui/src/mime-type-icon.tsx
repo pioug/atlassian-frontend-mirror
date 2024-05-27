@@ -1,5 +1,5 @@
 import React from 'react';
-import { MediaType } from '@atlaskit/media-common';
+import { type MediaType } from '@atlaskit/media-common';
 import { getMimeIcon } from './util';
 import { MediaTypeIcon } from './media-type-icon';
 import { IconWrapper } from './media-type-icon';

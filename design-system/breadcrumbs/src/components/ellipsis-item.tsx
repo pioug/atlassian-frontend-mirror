@@ -10,7 +10,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { EllipsisItemProps } from '../types';
+import { type EllipsisItemProps } from '../types';
 
 const height = (gridSize() * 3) / fontSize();
 const noop = __noop;

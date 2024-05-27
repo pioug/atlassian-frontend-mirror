@@ -2,14 +2,14 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select from '@atlaskit/select';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import selectEvent from 'react-select-event';
-import { ConcurrentExperience, UFOExperience, ufologger } from '@atlaskit/ufo';
-import { mount, shallow, ReactWrapper } from 'enzyme';
+import { type ConcurrentExperience, type UFOExperience, ufologger } from '@atlaskit/ufo';
+import { mount, shallow, type ReactWrapper } from 'enzyme';
 import debounce from 'lodash/debounce';
 import React from 'react';
 import {
   BaseUserPicker,
   BaseUserPickerWithoutAnalytics,
-  BaseUserPickerProps,
+  type BaseUserPickerProps,
 } from '../../../components/BaseUserPicker';
 import { getComponents } from '../../../components/components';
 import { startSession } from '../../../analytics';
@@ -19,17 +19,17 @@ import {
 } from '../../../components/utils';
 import {
   EmailType,
-  Custom,
-  Option,
-  OptionData,
-  Team,
-  User,
-  Group,
-  UserPickerProps,
+  type Custom,
+  type Option,
+  type OptionData,
+  type Team,
+  type User,
+  type Group,
+  type UserPickerProps,
   UserType,
-  Value,
-  ExternalUser,
-  LoadOptions,
+  type Value,
+  type ExternalUser,
+  type LoadOptions,
 } from '../../../types';
 import { MockConcurrentExperienceInstance } from '../_testUtils';
 

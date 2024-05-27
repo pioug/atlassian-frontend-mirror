@@ -3,7 +3,7 @@
  */
 
 import merge from 'lodash/merge';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export const extractFromEventContext = (
   propertyName: string,

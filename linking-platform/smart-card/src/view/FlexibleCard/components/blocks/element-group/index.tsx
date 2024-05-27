@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { ElementGroupProps } from './types';
+import { type ElementGroupProps } from './types';
 import {
   SmartLinkAlignment,
   SmartLinkDirection,

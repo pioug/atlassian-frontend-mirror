@@ -1,5 +1,5 @@
-import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
-import { TrackAEP } from './utils';
+import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
+import { type TrackAEP } from './utils';
 
 type ExperimentalAEP<Action, ActionSubject, ActionSubjectId, Attributes> =
   TrackAEP<

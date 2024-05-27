@@ -1,9 +1,9 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { messages } from '../../../messages';
-import { RequestAccessContextProps } from '../../../view/types';
+import { type RequestAccessContextProps } from '../../../view/types';
 import { ForbiddenAction } from '../../../view/BlockCard/actions/ForbiddenAction';
 import extractHostname from '../hostname/extractHostname';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 
 export const extractRequestAccessContextImproved = ({

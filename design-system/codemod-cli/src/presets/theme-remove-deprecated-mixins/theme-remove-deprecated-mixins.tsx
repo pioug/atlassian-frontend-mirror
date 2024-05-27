@@ -1,4 +1,4 @@
-import core, { API, Collection, FileInfo } from 'jscodeshift';
+import type { default as core, API, Collection, FileInfo } from 'jscodeshift';
 import {
   hasImportDeclaration,
   getImportDeclaration,

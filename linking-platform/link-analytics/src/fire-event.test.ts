@@ -1,4 +1,4 @@
-import { DatasourceDataResponse } from '@atlaskit/linking-types/datasource';
+import { type DatasourceDataResponse } from '@atlaskit/linking-types/datasource';
 
 import { fireDatasourceEvent } from './fire-event';
 

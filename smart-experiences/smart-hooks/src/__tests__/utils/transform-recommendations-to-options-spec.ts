@@ -1,4 +1,4 @@
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { EntityType } from '@atlaskit/smart-common';
 

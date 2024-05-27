@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import noop from 'lodash/noop';
 
-import { SelectableAutocompleteOption } from '../types';
+import { type SelectableAutocompleteOption } from '../types';
 
 import AutocompleteOption from './index';
 

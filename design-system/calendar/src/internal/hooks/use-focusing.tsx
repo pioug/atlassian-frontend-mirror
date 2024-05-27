@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { type default as React, useCallback } from 'react';
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default function useFocusing({

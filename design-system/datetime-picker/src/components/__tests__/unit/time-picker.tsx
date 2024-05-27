@@ -4,9 +4,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import cases from 'jest-in-case';
 import moment from 'moment';
 
-import { CreatableSelect, OptionsType } from '@atlaskit/select';
+import { CreatableSelect, type OptionsType } from '@atlaskit/select';
 
-import { TimePickerBaseProps } from '../../../types';
+import { type TimePickerBaseProps } from '../../../types';
 import { TimePickerWithoutAnalytics as TimePicker } from '../../time-picker';
 
 jest.mock('@atlaskit/select', () => {

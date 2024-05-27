@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 
 import AvatarGroup from '@atlaskit/avatar-group';
-import { AvatarClickEventHandler } from '@atlaskit/avatar';
+import { type AvatarClickEventHandler } from '@atlaskit/avatar';
 import { mq } from '../../common/utils';
 
 export interface Collaborator {

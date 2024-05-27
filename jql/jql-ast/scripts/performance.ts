@@ -6,7 +6,7 @@ import { parseFile, writeToPath } from 'fast-csv';
 
 import { JastBuilder } from '../src';
 
-import { QueryPerformance, QueryRecord } from './types';
+import { type QueryPerformance, type QueryRecord } from './types';
 
 const builder = new JastBuilder();
 

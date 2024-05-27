@@ -1,4 +1,4 @@
-import { TokenParser } from './';
+import { type TokenParser } from './';
 
 const emptyOrSpecialCharRegex = new RegExp(/^$|[^A-Za-z0-9]/);
 export const emoji: TokenParser = ({ input, position, schema }) => {

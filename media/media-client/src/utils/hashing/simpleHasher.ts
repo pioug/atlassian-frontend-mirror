@@ -1,5 +1,5 @@
 import * as Rusha from 'rusha';
-import { Hasher } from './hasher';
+import { type Hasher } from './hasher';
 
 export class SimpleHasher implements Hasher {
   hash(blob: Blob): Promise<string> {

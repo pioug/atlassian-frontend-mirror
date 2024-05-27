@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
   Transaction,

@@ -8,8 +8,8 @@ import {
   DragDropContext,
   Draggable,
   Droppable,
-  DroppableProvided,
-  DropResult,
+  type DroppableProvided,
+  type DropResult,
 } from 'react-beautiful-dnd';
 
 import Button from '@atlaskit/button/new';

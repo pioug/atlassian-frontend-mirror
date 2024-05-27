@@ -9,7 +9,7 @@ import {
   AccessLockSVGWrapper,
   TeamForbiddenErrorStateWrapper,
 } from '../../styled/TeamCard';
-import { AnalyticsFunction } from '../../types';
+import { type AnalyticsFunction } from '../../types';
 import { profileCardRendered } from '../../util/analytics';
 import AccessLockSVG from '../Error/AccessLockSVG';
 

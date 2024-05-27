@@ -1,5 +1,5 @@
 import React, {
-  FunctionComponent,
+  type FunctionComponent,
   useEffect,
   useLayoutEffect,
   useState,
@@ -8,11 +8,11 @@ import React, {
 import { Subject } from 'rxjs/Subject';
 import { v4 as uuid } from 'uuid';
 
-import { Node } from '@atlaskit/editor-prosemirror/model';
-import { Decoration, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { type Node } from '@atlaskit/editor-prosemirror/model';
+import { type Decoration, type NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import { useEditorViewHasFocus } from '../../../state';
-import { PortalActions } from '../../../ui/jql-editor-portal-provider/types';
+import { type PortalActions } from '../../../ui/jql-editor-portal-provider/types';
 import { ERROR_NODE, SELECTED_NODE } from '../constants';
 
 export type NodeViewProps<Props> = Props & {

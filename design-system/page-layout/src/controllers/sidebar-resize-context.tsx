@@ -1,7 +1,7 @@
 import {
   createContext,
-  KeyboardEvent,
-  MouseEvent,
+  type KeyboardEvent,
+  type MouseEvent,
   useContext,
   useEffect,
 } from 'react';

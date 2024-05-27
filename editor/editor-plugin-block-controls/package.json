@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-block-controls",
-  "version": "1.4.1",
+  "version": "1.4.3",
   "description": "Block controls plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -34,7 +34,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^80.5.0",
+    "@atlaskit/editor-common": "^81.0.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/pragmatic-drag-and-drop": "^1.1.0",

@@ -1,5 +1,5 @@
 import {
-  AstNode,
+  type AstNode,
   COMPOUND_OPERATOR_AND,
   COMPOUND_OPERATOR_OR,
   OPERAND_EMPTY,

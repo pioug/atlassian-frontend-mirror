@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { token } from '@atlaskit/tokens';
-import { components, ControlProps } from '@atlaskit/select';
+import { components, type ControlProps } from '@atlaskit/select';
 import { css, jsx } from '@emotion/react';
 import { N200 } from '@atlaskit/theme/colors';
 

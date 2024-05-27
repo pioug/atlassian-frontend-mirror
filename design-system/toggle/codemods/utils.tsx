@@ -1,15 +1,16 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
-import core, {
-  API,
-  ASTPath,
-  FileInfo,
-  Identifier,
-  ImportDeclaration,
-  JSXAttribute,
-  Options,
-  StringLiteral,
+import {
+  type API,
+  type ASTPath,
+  type default as core,
+  type FileInfo,
+  type Identifier,
+  type ImportDeclaration,
+  type JSXAttribute,
+  type Options,
+  type StringLiteral,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 function getDefaultSpecifier(
   j: core.JSCodeshift,

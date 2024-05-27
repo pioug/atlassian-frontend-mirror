@@ -1,9 +1,9 @@
 import { utils } from '@atlaskit/util-service-support';
 import {
-  ActivityItem,
-  ActivityResponse,
-  ActivityProvider,
-  ActivityContainer,
+  type ActivityItem,
+  type ActivityResponse,
+  type ActivityProvider,
+  type ActivityContainer,
 } from '../types';
 import { ActivityError } from './error';
 

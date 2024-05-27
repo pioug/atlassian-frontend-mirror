@@ -1,9 +1,9 @@
 /**  @jsx jsx */
 import {
-  ChangeEvent,
+  type ChangeEvent,
   forwardRef,
   memo,
-  Ref,
+  type Ref,
   useCallback,
   useRef,
   useState,
@@ -11,7 +11,7 @@ import {
 
 import { css, jsx } from '@emotion/react';
 
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { B200 } from '@atlaskit/theme/colors';

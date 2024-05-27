@@ -15,13 +15,13 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { token } from '@atlaskit/tokens';
 
 import { EVENT_CHANNEL } from '../../../../../../analytics/constants';
-import { SelectOption } from '../../../../../common/modal/popup-select/types';
+import { type SelectOption } from '../../../../../common/modal/popup-select/types';
 import {
-  FilterOptionsState,
+  type FilterOptionsState,
   useFilterOptions,
 } from '../../../hooks/useFilterOptions';
-import { BasicFilterFieldType } from '../../../types';
-import AsyncPopupSelect, { AsyncPopupSelectProps } from '../index';
+import { type BasicFilterFieldType } from '../../../types';
+import AsyncPopupSelect, { type AsyncPopupSelectProps } from '../index';
 
 jest.mock('../../../hooks/useFilterOptions');
 jest.useFakeTimers();

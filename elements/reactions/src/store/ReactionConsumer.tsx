@@ -1,5 +1,5 @@
 import React from 'react';
-import { Actions, State, StorePropInput, Store } from '../types';
+import { type Actions, type State, type StorePropInput, type Store } from '../types';
 
 /**
  * Props type for the ReactionConsumer class component

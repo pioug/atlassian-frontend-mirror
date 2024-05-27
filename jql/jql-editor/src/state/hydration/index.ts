@@ -1,9 +1,9 @@
-import { Action } from 'react-sweet-state';
+import { type Action } from 'react-sweet-state';
 
 import { getJastFromState } from '../../plugins/jql-ast';
 import { replaceRichInlineNodes } from '../../plugins/rich-inline-nodes/util/replace-nodes-transaction';
 import { actions } from '../index';
-import { HydratedValuesMap, Props, State } from '../types';
+import { type HydratedValuesMap, type Props, type State } from '../types';
 
 import { ValidQueryVisitor } from './util';
 

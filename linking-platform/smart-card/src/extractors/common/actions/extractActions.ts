@@ -1,7 +1,7 @@
-import { JsonLd } from 'json-ld-types';
-import { InvokeHandler } from '../../../model/invoke-handler';
-import { InvokeClientOpts } from '../../../model/invoke-opts';
-import { ActionProps } from '../../../view/BlockCard/components/Action';
+import { type JsonLd } from 'json-ld-types';
+import { type InvokeHandler } from '../../../model/invoke-handler';
+import { type InvokeClientOpts } from '../../../model/invoke-opts';
+import { type ActionProps } from '../../../view/BlockCard/components/Action';
 import { ViewAction } from '../../../view/BlockCard/actions/ViewAction';
 import { DownloadAction } from '../../../view/BlockCard/actions/DownloadAction';
 import { CardAction, type CardActionOptions } from '../../../view/Card/types';

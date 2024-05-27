@@ -3,7 +3,7 @@ import {
   prependRows,
   generateEmptyRow,
 } from '../generateRowValues';
-import { HeadCellType, RowCellType } from '@atlaskit/dynamic-table/types';
+import { type HeadCellType, type RowCellType } from '@atlaskit/dynamic-table/types';
 
 const headerCells: HeadCellType[] = [
   {

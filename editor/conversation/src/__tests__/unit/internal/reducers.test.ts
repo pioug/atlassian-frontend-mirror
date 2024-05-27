@@ -26,8 +26,8 @@ import {
   mockComment as mockCommentClean,
   mockReplyComment,
 } from '../../../../example-helpers/MockData';
-import { Dispatch, Store } from 'react-redux';
-import { Comment, Conversation } from '../../../model';
+import { type Dispatch, type Store } from 'react-redux';
+import { type Comment, type Conversation } from '../../../model';
 
 describe('Reducers', () => {
   let mockInlineConversation: Conversation;

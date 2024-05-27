@@ -1,11 +1,11 @@
 import {
-  CardAttributes,
-  DateDefinition,
-  MentionAttributes,
-  StatusDefinition,
-  UrlType,
+  type CardAttributes,
+  type DateDefinition,
+  type MentionAttributes,
+  type StatusDefinition,
+  type UrlType,
 } from '@atlaskit/adf-schema';
-import { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Mark, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { SortOrder } from '../types';
 

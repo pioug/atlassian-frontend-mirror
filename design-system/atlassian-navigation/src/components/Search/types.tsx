@@ -1,4 +1,4 @@
-import { BaseIconButtonProps } from '../IconButton/types';
+import { type BaseIconButtonProps } from '../IconButton/types';
 
 export type SearchProps = BaseIconButtonProps & {
   /**

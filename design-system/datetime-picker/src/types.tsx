@@ -1,8 +1,8 @@
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
-  DropdownIndicatorProps,
-  OptionType,
-  SelectProps,
+  type DropdownIndicatorProps,
+  type OptionType,
+  type SelectProps,
 } from '@atlaskit/select';
 
 export type Appearance = 'default' | 'subtle' | 'none';

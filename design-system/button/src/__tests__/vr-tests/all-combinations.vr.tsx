@@ -5,5 +5,11 @@ import AllCombinationsExample from '../../../examples/10-all-combinations';
 import { themeVariants } from './utils';
 
 snapshot(AllCombinationsExample, {
+  featureFlags: {
+    'platform.design-system-team.button-tokenised-typography-styles': [
+      false,
+      true,
+    ],
+  },
   variants: themeVariants,
 });

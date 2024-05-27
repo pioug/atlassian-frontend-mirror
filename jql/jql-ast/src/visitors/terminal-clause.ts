@@ -1,23 +1,23 @@
-import { RuleNode } from 'antlr4ts/tree';
+import { type RuleNode } from 'antlr4ts/tree';
 
 import {
-  JqlChangedClauseContext,
-  JqlComparisonClauseContext,
-  JqlEmptyContext,
-  JqlEqualsClauseContext,
-  JqlFunctionContext,
-  JqlInClauseContext,
-  JqlIsClauseContext,
-  JqlLikeClauseContext,
-  JqlListContext,
-  JqlTerminalClauseContext,
-  JqlValueContext,
-  JqlWasClauseContext,
-  JqlWasInClauseContext,
+  type JqlChangedClauseContext,
+  type JqlComparisonClauseContext,
+  type JqlEmptyContext,
+  type JqlEqualsClauseContext,
+  type JqlFunctionContext,
+  type JqlInClauseContext,
+  type JqlIsClauseContext,
+  type JqlLikeClauseContext,
+  type JqlListContext,
+  type JqlTerminalClauseContext,
+  type JqlValueContext,
+  type JqlWasClauseContext,
+  type JqlWasInClauseContext,
 } from '@atlaskit/jql-parser';
 
 import { internalCreators } from '../creators';
-import { Clause, Operand, TerminalClauseRhs } from '../types';
+import { type Clause, type Operand, type TerminalClauseRhs } from '../types';
 import { notUndefined } from '../utils';
 
 import { getPositionFromContext, JastBuildingVisitor } from './common';

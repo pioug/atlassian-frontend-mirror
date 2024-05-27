@@ -1,4 +1,4 @@
-import { ActionSubject, ActionSubjectID, EventType } from './enums';
+import { type ActionSubject, type ActionSubjectID, type EventType } from './enums';
 
 interface InvalidCollabEvent {
   action: CollabActions.INVALID_COLLAB_EVENT_WITHOUT_SOCKET;

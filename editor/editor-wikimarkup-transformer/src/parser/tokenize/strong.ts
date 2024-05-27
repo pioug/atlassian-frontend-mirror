@@ -1,5 +1,5 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Token, TokenParser, TokenType } from './';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Token, type TokenParser, TokenType } from './';
 import { hasAnyOfMarks, getSurroundingSymbols } from '../utils/text';
 import { commonFormatter } from './common-formatter';
 import { parseString } from '../text';

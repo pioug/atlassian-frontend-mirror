@@ -1,5 +1,5 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import React, { FC, useState } from 'react';
+import React, { type FC, useState } from 'react';
 
 import { Label } from '@atlaskit/form';
 import Range from '@atlaskit/range';

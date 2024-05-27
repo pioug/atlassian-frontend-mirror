@@ -1,5 +1,5 @@
-import { ResourceProvider } from '../api/ConversationResource';
-import { User } from '../model';
+import { type ResourceProvider } from '../api/ConversationResource';
+import { type User } from '../model';
 
 export const FETCH_CONVERSATIONS_REQUEST = 'fetchConversationsRequest';
 export const FETCH_CONVERSATIONS_SUCCESS = 'fetchConversationsSuccess';

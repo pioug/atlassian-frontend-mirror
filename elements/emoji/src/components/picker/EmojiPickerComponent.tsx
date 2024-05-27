@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import {
-  SyntheticEvent,
+  type SyntheticEvent,
   useCallback,
   useEffect,
   useMemo,
@@ -11,10 +11,10 @@ import {
 } from 'react';
 import { jsx } from '@emotion/react';
 import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
-import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 import { getEmojiVariation } from '../../api/EmojiRepository';
 import {
-  OnEmojiProviderChange,
+  type OnEmojiProviderChange,
   supportsUploadFeature,
 } from '../../api/EmojiResource';
 import {

@@ -1,8 +1,8 @@
 import React, {
   createContext,
-  ElementType,
+  type ElementType,
   PureComponent,
-  ReactNode,
+  type ReactNode,
 } from 'react';
 
 import memoizeOne from 'memoize-one';

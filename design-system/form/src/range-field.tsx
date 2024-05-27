@@ -1,6 +1,6 @@
-import React, { FC, ReactNode } from 'react';
+import React, { type FC, type ReactNode } from 'react';
 
-import Field, { FieldProps, Meta } from './field';
+import Field, { type FieldProps, type Meta } from './field';
 
 type RangeProps = Omit<FieldProps<number>, 'isInvalid' | 'isRequired'>;
 export interface RangeFieldProps {

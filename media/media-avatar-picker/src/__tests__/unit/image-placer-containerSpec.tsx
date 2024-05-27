@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, ShallowWrapper } from 'enzyme';
+import { shallow, type ShallowWrapper } from 'enzyme';
 import {
   createMouseEvent,
   createTouchEvent,
@@ -7,7 +7,7 @@ import {
 
 import {
   ImagePlacerContainer,
-  ImagePlacerContainerProps,
+  type ImagePlacerContainerProps,
 } from '../../image-placer/container';
 import { ContainerWrapper } from '../../image-placer/containerWrapper';
 

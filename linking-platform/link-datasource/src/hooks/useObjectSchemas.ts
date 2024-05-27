@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { fetchObjectSchemas } from '../services/cmdbService';
-import { ObjectSchema } from '../types/assets/types';
+import { type ObjectSchema } from '../types/assets/types';
 
 export type FetchObjectSchemasDetails = Pick<
   UseObjectSchemasState,

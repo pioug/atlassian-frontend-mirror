@@ -1,12 +1,12 @@
 import {
-  CustomFieldResolver,
-  Deserializer,
-  ExtensionManifest,
-  ExtensionModuleFields,
-  Serializer,
-  UserFieldContextProvider,
+  type CustomFieldResolver,
+  type Deserializer,
+  type ExtensionManifest,
+  type ExtensionModuleFields,
+  type Serializer,
+  type UserFieldContextProvider,
 } from './types/extension-manifest';
-import { FieldHandlerLink } from './types/field-definitions';
+import { type FieldHandlerLink } from './types/field-definitions';
 
 async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
   manifest: ExtensionManifest,

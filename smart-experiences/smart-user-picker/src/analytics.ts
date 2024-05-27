@@ -1,9 +1,9 @@
 import {
   createAndFireEvent,
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
 } from '@atlaskit/analytics-next';
 import { v4 as uuid } from 'uuid';
-import { Props, State } from './types';
+import { type Props, type State } from './types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

@@ -9,7 +9,7 @@ import {
   UnstableMockLinkPickerPlugin,
 } from '../../__tests__/__helpers/mock-plugins';
 import { RECENT_SEARCH_LIST_SIZE } from '../../common/constants';
-import { LinkPickerPlugin, LinkPickerState } from '../../common/types';
+import { type LinkPickerPlugin, type LinkPickerState } from '../../common/types';
 
 import * as reducer from './reducer';
 import { CancellationError, resolvePluginUpdates } from './utils';

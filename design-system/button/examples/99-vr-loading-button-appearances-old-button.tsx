@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { Appearance, LoadingButton as Button } from '../src';
+import { type Appearance, LoadingButton as Button } from '../src';
 
 const appearances: Appearance[] = [
   'default',

@@ -1,6 +1,6 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { getText } from '../../utils';
-import { reduce, NodeReducer } from './';
+import { reduce, type NodeReducer } from './';
 
 const unknown: NodeReducer = (node: PMNode, schema: Schema) => {
   const result: string[] = [];

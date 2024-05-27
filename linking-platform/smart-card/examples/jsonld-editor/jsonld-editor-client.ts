@@ -1,7 +1,7 @@
-import { JsonLd } from 'json-ld-types';
-import { CardClient, EnvironmentsKeys } from '@atlaskit/link-provider';
+import { type JsonLd } from 'json-ld-types';
+import { CardClient, type EnvironmentsKeys } from '@atlaskit/link-provider';
 import { getDefaultResponse } from './utils';
-import { BatchResponse, isSuccessfulResponse, request } from './client-utils';
+import { type BatchResponse, isSuccessfulResponse, request } from './client-utils';
 
 class JsonldEditorClient extends CardClient {
   private readonly orsBaseURL: string =

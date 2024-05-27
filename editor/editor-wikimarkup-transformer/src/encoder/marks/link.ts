@@ -1,5 +1,5 @@
-import { LinkAttributes } from '@atlaskit/adf-schema';
-import { MarkEncoder } from '..';
+import { type LinkAttributes } from '@atlaskit/adf-schema';
+import { type MarkEncoder } from '..';
 
 export const link: MarkEncoder = (
   text: string,

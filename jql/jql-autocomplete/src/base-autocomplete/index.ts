@@ -1,18 +1,18 @@
 import {
-  CandidateRule,
+  type CandidateRule,
   CodeCompletionCore,
-  RuleList,
-  TokenList,
+  type RuleList,
+  type TokenList,
 } from 'antlr4-c3/lib/src/CodeCompletionCore';
-import { BufferedTokenStream, Parser, Token } from 'antlr4ts';
+import { type BufferedTokenStream, type Parser, Token } from 'antlr4ts';
 
-import { Position } from '../common/types';
+import { type Position } from '../common/types';
 
 import {
-  RuleSuggestion,
-  RuleSuggestionsWithRuleList,
-  Suggestions,
-  TokenSuggestions,
+  type RuleSuggestion,
+  type RuleSuggestionsWithRuleList,
+  type Suggestions,
+  type TokenSuggestions,
 } from './types';
 import { getMatchedText } from './util';
 

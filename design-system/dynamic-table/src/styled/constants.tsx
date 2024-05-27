@@ -1,4 +1,4 @@
-import { LegacyRef, ReactNode } from 'react';
+import { type LegacyRef, type ReactNode } from 'react';
 
 import { css } from '@emotion/react';
 

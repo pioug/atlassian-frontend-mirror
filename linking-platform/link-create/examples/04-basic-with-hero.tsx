@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { default as whiteboardSvg } from '../example-helpers/hero-image.svg';
 import { MockPluginForm } from '../example-helpers/mock-plugin-form';
 import LinkCreate from '../src';
-import { CreatePayload } from '../src/common/types';
+import { type CreatePayload } from '../src/common/types';
 
 const fetchMockNetworkRequest = () => {
   const search = new URLSearchParams(window.location.search);

@@ -1,6 +1,6 @@
-import { Presence } from '../types';
+import { type Presence } from '../types';
 import debug from '../util/logger';
-import { AbstractResource, ResourceProvider } from './MentionResource';
+import { AbstractResource, type ResourceProvider } from './MentionResource';
 
 export interface PresenceMap {
   [userId: string]: Presence;

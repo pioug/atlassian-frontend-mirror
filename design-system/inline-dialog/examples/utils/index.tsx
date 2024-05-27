@@ -1,4 +1,4 @@
-import { Placement } from '@atlaskit/popper';
+import { type Placement } from '@atlaskit/popper';
 
 export const Placements: Array<Placement> = [
   'auto-end',

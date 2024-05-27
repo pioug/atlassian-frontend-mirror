@@ -7,7 +7,7 @@ import {
   AlphabeticalShortnameComparator,
   AsciiMatchComparator,
   ChainedEmojiComparator,
-  EmojiComparator,
+  type EmojiComparator,
   ExactShortNameMatchComparator,
   EmojiTypeComparator,
   OrderComparator,

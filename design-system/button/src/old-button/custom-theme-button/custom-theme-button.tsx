@@ -1,17 +1,17 @@
 import React, { useCallback, useState } from 'react';
 
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
 import GlobalTheme from '@atlaskit/theme/components';
-import { ThemeModes } from '@atlaskit/theme/types';
+import { type ThemeModes } from '@atlaskit/theme/types';
 
 import ButtonBase from '../shared/button-base';
 import getIsOnlySingleIcon from '../shared/get-is-only-single-icon';
 import LoadingSpinner from '../shared/loading-spinner';
 
 import {
-  InteractionState,
-  CustomThemeButtonProps as Props,
+  type InteractionState,
+  type CustomThemeButtonProps as Props,
 } from './custom-theme-button-types';
 import Theme, { defaultThemeFn, getSpecifiers } from './theme';
 

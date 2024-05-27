@@ -6,7 +6,7 @@ import React, {
   useCallback,
 } from 'react';
 import { Transition } from 'react-transition-group';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { useNavigationContext } from '../contexts/navigationContext';
 import { useHelpArticleContext } from '../contexts/helpArticleContext';

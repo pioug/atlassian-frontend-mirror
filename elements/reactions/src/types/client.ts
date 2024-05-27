@@ -1,4 +1,4 @@
-import { Reactions, ReactionSummary } from './reaction';
+import { type Reactions, type ReactionSummary } from './reaction';
 
 export type Request<T> = (
   /**

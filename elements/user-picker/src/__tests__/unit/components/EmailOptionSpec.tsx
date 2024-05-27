@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { N200, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -10,9 +10,9 @@ import {
 } from '../../../components/AvatarItemOption';
 import {
   EmailOption,
-  EmailOptionProps,
+  type EmailOptionProps,
 } from '../../../components/EmailOption/main';
-import { Email, EmailType } from '../../../types';
+import { type Email, EmailType } from '../../../types';
 import { renderProp } from '../_testUtils';
 
 jest.mock('../../../components/AvatarItemOption', () => ({

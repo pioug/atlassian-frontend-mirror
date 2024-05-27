@@ -1,4 +1,4 @@
-import { ChunkHashAlgorithm } from './ChunkHashAlgorithm';
+import { type ChunkHashAlgorithm } from './ChunkHashAlgorithm';
 
 export interface ClientAltBasedAuth {
   readonly id: string;

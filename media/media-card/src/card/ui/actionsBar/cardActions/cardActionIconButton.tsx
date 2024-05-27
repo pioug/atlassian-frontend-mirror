@@ -1,8 +1,8 @@
 import React from 'react';
-import { Component, ReactNode, MouseEvent } from 'react';
+import { Component, type ReactNode, type MouseEvent } from 'react';
 import { CardActionButton } from './cardActionButton';
 
-import { CardActionIconButtonVariant } from './styles';
+import { type CardActionIconButtonVariant } from './styles';
 
 export type CardActionIconButtonProps = {
   readonly icon: ReactNode;

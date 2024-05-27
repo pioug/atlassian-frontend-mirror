@@ -1,8 +1,8 @@
-import { RefObject, useCallback, useRef } from 'react';
+import { type RefObject, useCallback, useRef } from 'react';
 
 import type { Transition } from '@atlaskit/motion/types';
 
-import { ModalDialogProps } from '../../types';
+import { type ModalDialogProps } from '../../types';
 
 /**
  * This will run the respective passed in callback functions when modal is

@@ -1,4 +1,4 @@
-import { MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl-next';
 import { getJest } from '@atlaskit/media-common/test-helpers';
 
 const jest = getJest();

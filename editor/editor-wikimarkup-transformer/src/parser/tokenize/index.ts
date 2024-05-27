@@ -1,4 +1,4 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { media } from './media';
 import { blockquote } from './blockquote';
 import { citation } from './citation';
@@ -29,7 +29,7 @@ import { colorMacro } from './color-macro';
 import { noformatMacro } from './noformat-macro';
 import { forceLineBreak } from './force-line-break';
 import { issueKey } from './issue-key';
-import { Context } from '../../interfaces';
+import { type Context } from '../../interfaces';
 
 export enum TokenType {
   ADF_MACRO = 'ADF_MACRO', // {adf}

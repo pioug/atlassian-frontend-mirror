@@ -1,6 +1,6 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
-import { CopyLinkActionData } from '../../../state/flexible-ui-context/types';
+import { type CopyLinkActionData } from '../../../state/flexible-ui-context/types';
 import { extractLink } from '@atlaskit/link-extractors';
 import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';

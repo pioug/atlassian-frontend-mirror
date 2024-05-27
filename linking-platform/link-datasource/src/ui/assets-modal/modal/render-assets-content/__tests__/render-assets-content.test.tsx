@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
-import { RenderAssetsContent, RenderAssetsContentProps } from '../index';
+import { RenderAssetsContent, type RenderAssetsContentProps } from '../index';
 
 describe('AssetsConfigModal', () => {
   const setup = (props: Partial<RenderAssetsContentProps> = {}) => {

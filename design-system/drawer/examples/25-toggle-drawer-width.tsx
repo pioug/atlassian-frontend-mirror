@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 
-import Drawer, { DrawerWidth } from '../src';
+import Drawer, { type DrawerWidth } from '../src';
 import { widths } from '../src/constants';
 
 interface State {

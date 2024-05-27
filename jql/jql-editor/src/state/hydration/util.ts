@@ -1,12 +1,12 @@
 import {
   AbstractJastVisitor,
-  Clause,
-  CompoundClause,
-  ListOperand,
-  NotClause,
-  Query,
-  TerminalClause,
-  ValueOperand,
+  type Clause,
+  type CompoundClause,
+  type ListOperand,
+  type NotClause,
+  type Query,
+  type TerminalClause,
+  type ValueOperand,
 } from '@atlaskit/jql-ast';
 
 /**

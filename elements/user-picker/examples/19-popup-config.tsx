@@ -1,4 +1,4 @@
-import { Placement } from '@atlaskit/popper';
+import { type Placement } from '@atlaskit/popper';
 import Range from '@atlaskit/range';
 import Select from '@atlaskit/select';
 import styled from '@emotion/styled';

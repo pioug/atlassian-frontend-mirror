@@ -8,6 +8,8 @@ import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { usePresetContext } from '../../../presets/context';
 import type { EditorAppearanceComponentProps } from '../../../types';
@@ -62,10 +64,28 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
   const wrapperElementRef = useMemo(() => props.innerRef, [props.innerRef]);
   const scrollContentContainerRef = useRef<ScrollContainerRefs | null>(null);
   const showKeyline = useShowKeyline(scrollContentContainerRef);
-  const editorAPI = usePresetContext<[OptionalPlugin<EditorViewModePlugin>]>();
-  const { editorViewModeState } = useSharedPluginState(editorAPI, [
-    'editorViewMode',
-  ]);
+  const editorAPI =
+    usePresetContext<
+      [
+        OptionalPlugin<EditorViewModePlugin>,
+        OptionalPlugin<PrimaryToolbarPlugin>,
+      ]
+    >();
+  const { editorViewModeState, primaryToolbarState } = useSharedPluginState(
+    editorAPI,
+    ['editorViewMode', 'primaryToolbar'],
+  );
+  let primaryToolbarComponents = props.primaryToolbarComponents;
+  if (getBooleanFF('platform.editor.primary-toolbar-ordering')) {
+    if (
+      Array.isArray(primaryToolbarState?.components) &&
+      Array.isArray(primaryToolbarComponents)
+    ) {
+      primaryToolbarComponents = primaryToolbarState.components.concat(
+        primaryToolbarComponents,
+      );
+    }
+  }
 
   const isEditorToolbarHidden = editorViewModeState?.mode === 'view';
 
@@ -97,7 +117,7 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
             popupsBoundariesElement={props.popupsBoundariesElement}
             popupsMountPoint={props.popupsMountPoint}
             popupsScrollableElement={props.popupsScrollableElement}
-            primaryToolbarComponents={props.primaryToolbarComponents}
+            primaryToolbarComponents={primaryToolbarComponents}
             providerFactory={props.providerFactory}
             showKeyline={showKeyline}
             featureFlags={props.featureFlags}

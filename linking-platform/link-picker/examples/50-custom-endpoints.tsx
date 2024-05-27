@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useMemo, useState } from 'react';
+import React, { type SyntheticEvent, useMemo, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
@@ -11,7 +11,7 @@ import {
 } from '@atlassian/link-picker-atlassian-plugin';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
-import { LinkPicker, LinkPickerProps } from '../src';
+import { LinkPicker, type LinkPickerProps } from '../src';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 

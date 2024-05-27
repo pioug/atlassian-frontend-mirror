@@ -1,5 +1,5 @@
-import { isRequestError, RequestMetadata } from '@atlaskit/media-client';
-import { PackageAttributes } from '@atlaskit/media-common';
+import { isRequestError, type RequestMetadata } from '@atlaskit/media-client';
+import { type PackageAttributes } from '@atlaskit/media-common';
 
 // Component name will be prefixed with "media-picker-" in logs. Check ufoExperiences in utils files
 export type ComponentName = 'browser' | 'clipboard' | 'dropzone';

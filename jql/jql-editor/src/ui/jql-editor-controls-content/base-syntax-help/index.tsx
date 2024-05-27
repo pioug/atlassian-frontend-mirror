@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { type MouseEvent } from 'react';
 
 import Button from '@atlaskit/button';
 import QuestionIcon from '@atlaskit/icon/glyph/question';

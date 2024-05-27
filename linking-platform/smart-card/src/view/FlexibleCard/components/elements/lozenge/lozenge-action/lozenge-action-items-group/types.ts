@@ -1,5 +1,5 @@
-import { LozengeItem } from '../types';
-import { ThemeAppearance } from '@atlaskit/lozenge';
+import { type LozengeItem } from '../types';
+import { type ThemeAppearance } from '@atlaskit/lozenge';
 
 export type LozengeActionItemsGroupProps = {
   items: LozengeItem[];

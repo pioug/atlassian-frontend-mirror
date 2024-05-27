@@ -1,15 +1,15 @@
 /**@jsx jsx */
 /* eslint-disable no-console */
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { jsx } from '@emotion/react';
 import Button from '@atlaskit/button/standard-button';
 import { ModalTransition } from '@atlaskit/modal-dialog';
-import { Avatar, AvatarPickerDialog } from '../src';
+import { type Avatar, AvatarPickerDialog } from '../src';
 import { generateAvatars } from '../example-helpers';
 import { layoutStyles } from './styles';
 import {
-  AvatarPickerDialogPropsAlt,
-  AvatarPickerDialogPropsNoAlt,
+  type AvatarPickerDialogPropsAlt,
+  type AvatarPickerDialogPropsNoAlt,
 } from '../src/avatar-picker-dialog/types';
 
 const avatars: Array<Avatar> = generateAvatars(30);

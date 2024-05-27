@@ -1,19 +1,19 @@
 import { tallImage } from '../../images';
 import { dataURItoBlob } from '../../mockData';
 import {
-  FileIdentifier,
-  FileState,
+  type FileIdentifier,
+  type FileState,
   MediaClient,
   createMediaSubject,
-  FileDetails,
+  type FileDetails,
 } from '@atlaskit/media-client';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type ReplaySubject } from 'rxjs/ReplaySubject';
+import { type MediaClientConfig } from '@atlaskit/media-core';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   createFileState,
-  CreateFileStateOptions,
-  FileStateStatus,
+  type CreateFileStateOptions,
+  type FileStateStatus,
 } from './createFileState';
 import { createFileDetails } from './helpers';
 import { sleep } from '../../nextTick';

@@ -2,9 +2,9 @@ import React from 'react';
 
 import {
   fireEvent,
-  queries,
+  type queries,
   render,
-  RenderResult,
+  type RenderResult,
   waitFor,
 } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
@@ -15,22 +15,22 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { EVENT_CHANNEL } from '../../../../analytics';
 import {
   useAssetsClient,
-  UseAssetsClientState,
+  type UseAssetsClientState,
 } from '../../../../hooks/useAssetsClient';
 import {
-  DatasourceTableState,
+  type DatasourceTableState,
   useDatasourceTableState,
 } from '../../../../hooks/useDatasourceTableState';
 import {
-  FetchObjectSchemasDetails,
+  type FetchObjectSchemasDetails,
   useObjectSchemas,
-  UseObjectSchemasState,
+  type UseObjectSchemasState,
 } from '../../../../hooks/useObjectSchemas';
 import {
   useValidateAqlText,
-  UseValidateAqlTextState,
+  type UseValidateAqlTextState,
 } from '../../../../hooks/useValidateAqlText';
-import { AssetsDatasourceParameters } from '../../types';
+import { type AssetsDatasourceParameters } from '../../types';
 import { AssetsConfigModal } from '../index'; // Using async one to test lazy integration at the same time
 
 jest.mock('../../../../hooks/useDatasourceTableState');

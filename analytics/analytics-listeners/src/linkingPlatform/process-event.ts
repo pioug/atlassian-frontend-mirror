@@ -1,8 +1,8 @@
 import last from 'lodash/last';
 import merge from 'lodash/merge';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { DEFAULT_SOURCE, GasPayload } from '@atlaskit/analytics-gas-types';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { DEFAULT_SOURCE, type GasPayload } from '@atlaskit/analytics-gas-types';
 import { LINKING_PLATFORM_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 
 import {

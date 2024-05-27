@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 /** @jsx jsx */
-import { Children, forwardRef, Fragment, Ref } from 'react';
+import { Children, forwardRef, Fragment, type Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

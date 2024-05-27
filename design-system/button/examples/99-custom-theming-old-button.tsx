@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/react';
+import { type CSSObject, jsx } from '@emotion/react';
 
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import * as colors from '@atlaskit/theme/colors';
@@ -10,8 +10,8 @@ import {
   ButtonGroup,
   CustomThemeButton,
   Theme,
-  ThemeProps,
-  ThemeTokens,
+  type ThemeProps,
+  type ThemeTokens,
 } from '../src';
 
 function ourTheme(

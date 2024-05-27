@@ -6,7 +6,7 @@ import { lorem, onClose, onOpen } from '../example-helpers';
 import { getEmojiResourceUsageClear } from '@atlaskit/util-data-test/get-emoji-resource-usage-clear';
 import {
   UsageShowAndClearComponent,
-  UsagingShowingProps,
+  type UsagingShowingProps,
 } from '../example-helpers/demo-emoji-usage-components';
 import SearchTextInput from '../example-helpers/demo-search-text-input';
 import type { TypeaheadProps } from '../example-helpers/typeahead-props';

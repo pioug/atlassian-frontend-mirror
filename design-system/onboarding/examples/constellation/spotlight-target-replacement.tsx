@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ImgHTMLAttributes, useState } from 'react';
+import { type ImgHTMLAttributes, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

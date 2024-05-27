@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { createRef, PropsWithChildren, PureComponent } from 'react';
+import { createRef, type PropsWithChildren, PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -36,7 +36,7 @@ import {
   CategoryHeadingItem,
   EmojisRowItem,
   LoadingItem,
-  VirtualItem,
+  type VirtualItem,
   virtualItemRenderer,
 } from './EmojiPickerVirtualItems';
 import EmojiActions from '../common/EmojiActions';
@@ -46,7 +46,7 @@ import { emojiPickerList } from './styles';
 import { emojiPickerHeightOffset } from './utils';
 import type { Props as CategoryHeadingProps } from './EmojiPickerCategoryHeading';
 import type { Props as EmojiRowProps } from './EmojiPickerEmojiRow';
-import { ListRef, VirtualList } from './VirtualList';
+import { type ListRef, VirtualList } from './VirtualList';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../i18n';
 import { EmojiPickerListContextProvider } from '../../context/EmojiPickerListContext';

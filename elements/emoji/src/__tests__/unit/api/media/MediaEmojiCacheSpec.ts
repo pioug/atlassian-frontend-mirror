@@ -2,7 +2,7 @@ import { waitUntil } from '@atlaskit/elements-test-helpers';
 import * as sinon from 'sinon';
 import MediaEmojiCache, {
   BrowserCacheStrategy,
-  EmojiCacheStrategy,
+  type EmojiCacheStrategy,
   MemoryCacheStrategy,
 } from '../../../../api/media/MediaEmojiCache';
 import MediaImageLoader from '../../../../api/media/MediaImageLoader';

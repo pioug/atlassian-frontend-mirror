@@ -35,6 +35,7 @@ import type { PastePluginOptions } from '@atlaskit/editor-plugins/paste';
 import { pastePlugin } from '@atlaskit/editor-plugins/paste';
 import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugins/placeholder';
 import { placeholderPlugin } from '@atlaskit/editor-plugins/placeholder';
+import { primaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
@@ -47,7 +48,6 @@ import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-c
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 // #endregion
 
 export type DefaultPresetPluginOptions = {
@@ -112,6 +112,10 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
     .add(decorationsPlugin)
     .add([typeAheadPlugin, options.typeAhead])
     .maybeAdd(historyPlugin, Boolean(isMobile || options.allowUndoRedoButtons))
+    .maybeAdd(
+      primaryToolbarPlugin,
+      () => !!getBooleanFF('platform.editor.primary-toolbar-ordering'),
+    )
     .maybeAdd(
       undoRedoPlugin,
       Boolean(

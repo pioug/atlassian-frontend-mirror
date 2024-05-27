@@ -1,7 +1,7 @@
-import { Observable } from 'rxjs/Observable';
+import { type Observable } from 'rxjs/Observable';
 import { range } from 'rxjs/observable/range';
 import { map } from 'rxjs/operators/map';
-import { SlicedBlob, Slicenator } from './domain';
+import { type SlicedBlob, type Slicenator } from './domain';
 
 export const slicenator: Slicenator = (
   blob,

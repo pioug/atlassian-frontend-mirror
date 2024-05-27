@@ -1,6 +1,7 @@
-import core, {
+import type {
   API,
   ASTPath,
+  default as core,
   FileInfo,
   ImportDeclaration,
   Options,

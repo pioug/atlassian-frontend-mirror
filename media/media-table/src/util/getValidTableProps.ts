@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import memoizeOne from 'memoize-one';
-import { ValidatedProps } from '../types';
+import { type ValidatedProps } from '../types';
 
 const DEFAULT_ITEMS_PER_PAGE = 6;
 

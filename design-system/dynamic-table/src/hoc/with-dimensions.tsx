@@ -1,4 +1,4 @@
-import React, { LegacyRef } from 'react';
+import React, { type LegacyRef } from 'react';
 
 export interface State {
   refWidth: number;

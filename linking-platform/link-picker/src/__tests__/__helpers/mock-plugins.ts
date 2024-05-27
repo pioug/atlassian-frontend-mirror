@@ -1,9 +1,9 @@
 import {
-  LinkPickerPlugin,
-  LinkPickerPluginAction,
-  LinkPickerPluginErrorFallback,
-  LinkPickerState,
-  LinkSearchListItemData,
+  type LinkPickerPlugin,
+  type LinkPickerPluginAction,
+  type LinkPickerPluginErrorFallback,
+  type LinkPickerState,
+  type LinkSearchListItemData,
 } from '../../common/types';
 import { UnauthenticatedError } from '../../common/utils/errors';
 

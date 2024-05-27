@@ -5,7 +5,7 @@ import Lozenge from '@atlaskit/lozenge';
 import React from 'react';
 import { ELEMENTS_CHANNEL } from '../../../components/analytics';
 import { ANALYTICS_HOVER_DELAY } from '../../../components/constants';
-import { Color, Status } from '../../../components/Status';
+import { type Color, Status } from '../../../components/Status';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

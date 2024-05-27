@@ -1,11 +1,11 @@
 import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
-  CreateUIAnalyticsEvent,
+  type UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
+  type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 
 import {
-  GasPayload,
+  type GasPayload,
   OPERATIONAL_EVENT_TYPE,
   UI_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';

@@ -1,7 +1,7 @@
-import { ThemeProps, ThemeTokens } from '@atlaskit/button/types';
+import { type ThemeProps, type ThemeTokens } from '@atlaskit/button/types';
 import { token } from '@atlaskit/tokens';
 
-import { NavigationTheme } from '../../theme';
+import { type NavigationTheme } from '../../theme';
 
 export const getPrimaryButtonTheme =
   ({ mode: { primaryButton } }: NavigationTheme) =>

@@ -1,4 +1,4 @@
-import { FileIdentifier } from '@atlaskit/media-client';
+import { type FileIdentifier } from '@atlaskit/media-client';
 
 import { getKey, getMediaCardSSR } from './globalScope';
 import type { MediaCardSsrData } from './types';

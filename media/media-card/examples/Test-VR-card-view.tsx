@@ -2,11 +2,11 @@
 import { css, jsx } from '@emotion/react';
 // eslint-disable-line no-console
 import React from 'react';
-import { CardStatus } from '../src';
+import { type CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
 import { CardViews } from '../src/card/v2/cardviews';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { FileDetails, MediaType } from '@atlaskit/media-client';
+import { type FileDetails, type MediaType } from '@atlaskit/media-client';
 import { tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
 import { IntlProvider } from 'react-intl-next';

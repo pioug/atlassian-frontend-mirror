@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
 import Form, {

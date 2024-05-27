@@ -5,12 +5,12 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import {
   ButtonItem,
   CustomItem,
-  CustomItemComponentProps,
+  type CustomItemComponentProps,
   LinkItem,
 } from '@atlaskit/menu';
 
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
-import { AvatarProps, onAvatarClickHandler } from './types';
+import { type AvatarProps, type onAvatarClickHandler } from './types';
 
 export interface AvatarGroupItemProps {
   avatar: AvatarProps;

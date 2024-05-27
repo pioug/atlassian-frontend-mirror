@@ -1,4 +1,4 @@
-import { Viewport } from './viewport';
+import { type Viewport } from './viewport';
 
 export const radians = (deg: number) => deg * (Math.PI / 180);
 

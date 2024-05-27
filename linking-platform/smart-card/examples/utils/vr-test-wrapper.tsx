@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';

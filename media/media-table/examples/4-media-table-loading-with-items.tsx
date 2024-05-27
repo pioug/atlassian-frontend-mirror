@@ -1,7 +1,7 @@
 import React from 'react';
 import { MediaTable } from '../src';
 import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { HeadType } from '@atlaskit/dynamic-table/types';
+import { type HeadType } from '@atlaskit/dynamic-table/types';
 import {
   RenderMediaTableWithFieldRange,
   items,

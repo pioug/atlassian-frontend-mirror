@@ -77,27 +77,33 @@ function orderObjectByDepthAndRoot(input: { [key: string]: string }): {
   [key: string]: string;
 } {
   // First, group the entries by their root level name
-  const grouped = Object.entries(input).reduce((acc, [key, value]) => {
-    const root = key.split('/')[1]; // Get the root level name
-    if (!acc[root]) {
-      acc[root] = [];
-    }
-    acc[root].push([key, value]);
-    return acc;
-  }, {} as { [key: string]: [string, string][] });
+  const grouped = Object.entries(input).reduce(
+    (acc, [key, value]) => {
+      const root = key.split('/')[1]; // Get the root level name
+      if (!acc[root]) {
+        acc[root] = [];
+      }
+      acc[root].push([key, value]);
+      return acc;
+    },
+    {} as { [key: string]: [string, string][] },
+  );
 
   // Then, sort each group by the depth and merge them into a single object
-  return Object.values(grouped).reduce((acc, group) => {
-    const sortedGroup = group.sort((a, b) => {
-      const depthA = a[0].split('/').length;
-      const depthB = b[0].split('/').length;
-      return depthB - depthA; // Sort by depth, deeper paths first
-    });
-    sortedGroup.forEach(([key, value]) => {
-      acc[key] = value;
-    });
-    return acc;
-  }, {} as { [key: string]: string });
+  return Object.values(grouped).reduce(
+    (acc, group) => {
+      const sortedGroup = group.sort((a, b) => {
+        const depthA = a[0].split('/').length;
+        const depthB = b[0].split('/').length;
+        return depthB - depthA; // Sort by depth, deeper paths first
+      });
+      sortedGroup.forEach(([key, value]) => {
+        acc[key] = value;
+      });
+      return acc;
+    },
+    {} as { [key: string]: string },
+  );
 }
 
 function getNewAfExports(
@@ -212,7 +218,7 @@ function createFileWithPath(filePath: string, content: string) {
     console.error(`Failed formatting code for file: ${filePath}
 
 This may be a problem with Prettier rather than code. Please check support channels for changes`);
-throw e;
+    throw e;
   }
 }
 
@@ -450,6 +456,7 @@ async function run() {
       const updatedPackageJson = {
         ...editorPluginsPackageJson,
         'af:exports': orderObjectByDepthAndRoot(newEditorPluginsAfExports),
+        exports: orderObjectByDepthAndRoot(newEditorPluginsAfExports),
         dependencies: sortObjectKeys(updatedDeps),
         'platform-feature-flags': featureFlags,
       };

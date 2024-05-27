@@ -1,12 +1,12 @@
-import { PropsWithChildren } from 'react';
-import { SerializedStyles } from '@emotion/react';
+import { type PropsWithChildren } from 'react';
+import { type SerializedStyles } from '@emotion/react';
 
 import {
-  SmartLinkAlignment,
-  SmartLinkDirection,
-  SmartLinkPosition,
-  SmartLinkSize,
-  SmartLinkWidth,
+  type SmartLinkAlignment,
+  type SmartLinkDirection,
+  type SmartLinkPosition,
+  type SmartLinkSize,
+  type SmartLinkWidth,
 } from '../../../../../constants';
 
 export type ElementGroupProps = PropsWithChildren<{

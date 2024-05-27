@@ -2,9 +2,9 @@ import React from 'react';
 import { Provider } from '../../src';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 import { getMockForbiddenDirectAccessResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
-import { CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 const mockUrl = 'https://www.mockurl.com';
 

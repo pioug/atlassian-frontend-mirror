@@ -1,12 +1,12 @@
-import { SelectOption } from '../../../common/modal/popup-select/types';
+import { type SelectOption } from '../../../common/modal/popup-select/types';
 import {
-  AggJqlBuilderFieldNode,
-  Appearance,
+  type AggJqlBuilderFieldNode,
+  type Appearance,
   appearanceMap,
-  ColorName,
-  FieldValuesResponse,
-  HydrateResponse,
-  SelectedOptionsMap,
+  type ColorName,
+  type FieldValuesResponse,
+  type HydrateResponse,
+  type SelectedOptionsMap,
 } from '../types';
 import { availableBasicFilterTypes } from '../ui';
 

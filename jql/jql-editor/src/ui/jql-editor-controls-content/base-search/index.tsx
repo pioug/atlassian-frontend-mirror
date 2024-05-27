@@ -1,4 +1,4 @@
-import React, { CSSProperties, useCallback } from 'react';
+import React, { type CSSProperties, useCallback } from 'react';
 
 import { LoadingButton } from '@atlaskit/button';
 import SearchIcon from '@atlaskit/icon/glyph/editor/search';

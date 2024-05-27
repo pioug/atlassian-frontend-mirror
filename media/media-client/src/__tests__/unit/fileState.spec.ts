@@ -1,12 +1,12 @@
 import {
-  ErrorFileState,
+  type ErrorFileState,
   isErrorFileState,
   isImageRepresentationReady,
-  ProcessingFailedState,
-  ProcessedFileState,
-  ProcessingFileState,
+  type ProcessingFailedState,
+  type ProcessedFileState,
+  type ProcessingFileState,
   isPreviewableFileState,
-  FileState,
+  type FileState,
 } from '../..';
 
 describe('isErrorFileState()', () => {

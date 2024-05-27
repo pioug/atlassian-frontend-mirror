@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   UsageShowAndClearComponent,
-  UsagingShowingProps,
+  type UsagingShowingProps,
 } from '../example-helpers/demo-emoji-usage-components';
 import type { EmojiProvider } from '../src/resource';
 import { EmojiPicker } from '../src/picker';

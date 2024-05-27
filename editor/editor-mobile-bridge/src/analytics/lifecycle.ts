@@ -1,4 +1,4 @@
-import { ActionSubject, EventType } from './enums';
+import { type ActionSubject, type EventType } from './enums';
 
 interface EditorReadyCalledTwice {
   action: EditorLifecycleActions.EDITOR_READY_CALLED_TWICE;

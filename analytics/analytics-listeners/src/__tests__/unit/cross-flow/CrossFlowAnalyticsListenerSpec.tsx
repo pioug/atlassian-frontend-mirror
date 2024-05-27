@@ -1,7 +1,7 @@
 import React from 'react';
 import CrossFlowAnalyticsListener from '../../../cross-flow/CrossFlowAnalyticsListener';
-import { AnalyticsWebClient, FabricChannel } from '../../../types';
-import Logger from '../../../helpers/logger';
+import { type AnalyticsWebClient, FabricChannel } from '../../../types';
+import type Logger from '../../../helpers/logger';
 import { mount } from 'enzyme';
 import { createAnalyticsContexts, createLoggerMock } from '../../_testUtils';
 import { createButtonWithAnalytics } from '../../../../examples/helpers';

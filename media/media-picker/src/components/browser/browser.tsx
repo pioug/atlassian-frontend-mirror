@@ -2,10 +2,10 @@ import React from 'react';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import isValidId from 'uuid-validate';
-import { BrowserConfig } from '../../types';
+import { type BrowserConfig } from '../../types';
 import {
   LocalUploadComponentReact,
-  LocalUploadComponentBaseProps,
+  type LocalUploadComponentBaseProps,
 } from '../localUploadReact';
 import { getPackageAttributes } from '../../util/analytics';
 import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';

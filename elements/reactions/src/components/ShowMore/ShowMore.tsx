@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx, SerializedStyles } from '@emotion/react';
+import { jsx, type SerializedStyles } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
 import Tooltip from '@atlaskit/tooltip';

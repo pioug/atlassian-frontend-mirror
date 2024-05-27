@@ -6,7 +6,7 @@ import noop from '@atlaskit/ds-lib/noop';
 
 import { Tab, TabList } from '../../index';
 import { TabListContext } from '../../internal/context';
-import { TabListAttributesType } from '../../types';
+import { type TabListAttributesType } from '../../types';
 
 afterEach(cleanup);
 

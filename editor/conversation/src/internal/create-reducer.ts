@@ -1,4 +1,4 @@
-import { Action, State } from './store';
+import { type Action, type State } from './store';
 
 type Reducer = (state: State, action: Action) => State;
 

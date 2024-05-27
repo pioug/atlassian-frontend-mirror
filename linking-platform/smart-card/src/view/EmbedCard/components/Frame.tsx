@@ -4,9 +4,9 @@ import React, {
   useEffect,
   useState,
   useRef,
-  Ref,
-  RefObject,
-  MutableRefObject,
+  type Ref,
+  type RefObject,
+  type MutableRefObject,
 } from 'react';
 import { di } from 'react-magnetic-di';
 import { getIframeSandboxAttribute } from '../../../utils';

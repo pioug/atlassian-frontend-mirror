@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
-  FileState,
-  ProcessedFileState,
-  ProcessingFileState,
-  PreviewableFileState,
+  type MediaViewedEventPayload,
+  type FileState,
+  type ProcessedFileState,
+  type ProcessingFileState,
+  type PreviewableFileState,
 } from '@atlaskit/media-client';
 import {
   mountWithIntlContext,
@@ -15,9 +15,9 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { Spinner } from '../../../../../loading';
 import { MediaViewerError } from '../../../../../errors';
-import { DocViewer, Props } from '../../../../../viewers/doc/index';
-import { BaseState } from '../../../../../viewers/base-viewer';
-import { Content } from '../../../../../content';
+import { DocViewer, type Props } from '../../../../../viewers/doc/index';
+import { type BaseState } from '../../../../../viewers/base-viewer';
+import { type Content } from '../../../../../content';
 import { getObjectUrlFromFileState } from '../../../../../utils/getObjectUrlFromFileState';
 
 jest.mock('../../../../../utils/getObjectUrlFromFileState', () => ({

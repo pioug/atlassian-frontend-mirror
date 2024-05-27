@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button/custom-theme-button';
 
 import * as Styled from './styled';
-import { DropDownListProps } from './types';
+import { type DropDownListProps } from './types';
 import { overviewMessages, dropDownListMessages } from '../../messages';
 
 type State = {

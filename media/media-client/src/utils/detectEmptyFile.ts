@@ -1,4 +1,4 @@
-import { MediaItemDetails } from '../models/media';
+import { type MediaItemDetails } from '../models/media';
 
 /**
  * EMPTY_FILE_HOURS_ELAPSED_TOLERANCE - how many hours since this file was

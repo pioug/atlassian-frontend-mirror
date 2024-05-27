@@ -1,6 +1,6 @@
 import {
-  HeadingAnchorLinksProps,
-  HeadingAnchorLinksConfig,
+  type HeadingAnchorLinksProps,
+  type HeadingAnchorLinksConfig,
 } from '../../ui/Renderer/types';
 
 export function isNestedHeaderLinksEnabled(

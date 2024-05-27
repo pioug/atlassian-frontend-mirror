@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import WebBridgeImpl from '../../../src/editor/native-to-web';
-import { MentionProvider, MentionDescription } from '@atlaskit/mention';
+import type WebBridgeImpl from '../../../src/editor/native-to-web';
+import { type MentionProvider, type MentionDescription } from '@atlaskit/mention';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import Button from '../Toolbar/Button';
 

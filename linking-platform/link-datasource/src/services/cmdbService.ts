@@ -1,12 +1,12 @@
 import { request } from '@atlaskit/linking-common';
 
-import { EventKey } from '../analytics/generated/analytics.types';
-import createEventPayload from '../analytics/generated/create-event-payload';
+import { type EventKey } from '../analytics/generated/analytics.types';
+import type createEventPayload from '../analytics/generated/create-event-payload';
 import {
-  AqlValidateResponse,
-  FetchObjectSchemaResponse,
-  FetchObjectSchemasResponse,
-  GetWorkspaceDetailsResponse,
+  type AqlValidateResponse,
+  type FetchObjectSchemaResponse,
+  type FetchObjectSchemasResponse,
+  type GetWorkspaceDetailsResponse,
 } from '../types/assets/types';
 
 import {

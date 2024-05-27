@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { useState } from 'react';
 import dateFnsFormat from 'date-fns/format';
-import { MediaType } from '@atlaskit/media-client';
+import { type MediaType } from '@atlaskit/media-client';
 import { exampleWrapperStyles, ROW_HIGHLIGHT_CLASSNAME } from './styles';
 import Range from '@atlaskit/range';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
@@ -14,7 +14,7 @@ import {
   docFileId,
   videoProcessingFailedId,
 } from '@atlaskit/media-test-helpers';
-import { MediaTableItem, NameCell } from '../src';
+import { type MediaTableItem, NameCell } from '../src';
 import { IntlProvider } from 'react-intl-next';
 
 export const createMockFileData = (name: string, mediaType: MediaType) => {

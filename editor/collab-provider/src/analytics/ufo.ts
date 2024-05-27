@@ -3,7 +3,7 @@ import {
   ExperienceTypes,
   UFOExperience,
 } from '@atlaskit/ufo';
-import AnalyticsHelper from './analytics-helper';
+import type AnalyticsHelper from './analytics-helper';
 
 const createDocumentInitExperience: () => UFOExperience = () =>
   new UFOExperience('collab-provider.document-init', {

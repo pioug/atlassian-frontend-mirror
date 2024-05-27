@@ -7,7 +7,7 @@ import {
   fetchObjectSchemas,
   getWorkspaceId,
 } from '../../services/cmdbService';
-import { ObjectSchema } from '../../types/assets/types';
+import { type ObjectSchema } from '../../types/assets/types';
 import { useAssetsClient } from '../useAssetsClient';
 
 jest.mock('../../services/cmdbService');

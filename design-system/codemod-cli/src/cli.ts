@@ -1,5 +1,5 @@
 import meow from 'meow';
-import { CliFlags, ValidationError, NoTransformsExistError } from './types';
+import { type CliFlags, ValidationError, NoTransformsExistError } from './types';
 import main from './main';
 import chalk from 'chalk';
 

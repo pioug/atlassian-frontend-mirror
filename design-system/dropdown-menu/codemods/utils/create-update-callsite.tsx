@@ -1,5 +1,5 @@
-import core from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import type core from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 export const createUpdateCallsite =
   ({

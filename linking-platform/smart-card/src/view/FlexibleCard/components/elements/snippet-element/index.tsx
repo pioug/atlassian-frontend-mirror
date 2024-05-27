@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 import React, { useContext } from 'react';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import Text from '../text';
-import { TextProps } from '../text/types';
+import { type TextProps } from '../text/types';
 
 const SNIPPET_DEFAULT_MAX_LINES = 3;
 

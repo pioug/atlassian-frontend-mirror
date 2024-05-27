@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types,react/no-multi-comp */
 
-import React, { Component, ComponentType } from 'react';
+import React, { Component, type ComponentType } from 'react';
 
 import asExperiment from '../src/asExperiment';
 import ExperimentController from '../src/ExperimentController';
-import { ExperimentEnrollmentConfig } from '../src/types';
+import { type ExperimentEnrollmentConfig } from '../src/types';
 
 import { Control, VariantA, VariantB, Broken, Loader } from './_common';
 import { token } from '@atlaskit/tokens';

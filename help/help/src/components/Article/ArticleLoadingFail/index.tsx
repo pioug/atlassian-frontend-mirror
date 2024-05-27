@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import {
   useAnalyticsEvents,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
 

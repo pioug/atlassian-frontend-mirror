@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /** @jsx jsx */
-import { FC, ReactNode, useCallback } from 'react';
+import { type FC, type ReactNode, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

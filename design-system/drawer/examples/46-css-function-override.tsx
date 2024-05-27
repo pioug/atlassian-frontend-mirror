@@ -1,8 +1,8 @@
 /** @jsx jsx */
 
-import { Component, SyntheticEvent } from 'react';
+import { Component, type SyntheticEvent } from 'react';
 
-import { css, CSSObject, jsx } from '@emotion/react';
+import { css, type CSSObject, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { B400, G400, N0, P400, R400, T400, Y400 } from '@atlaskit/theme/colors';

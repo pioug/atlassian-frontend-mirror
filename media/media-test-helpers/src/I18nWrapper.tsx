@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import LocaleSelect, {
-  Locale,
+  type Locale,
   defaultLocales,
 } from '@atlaskit/locale/LocaleSelect';
 import { locales } from '@atlaskit/media-ui/locales';

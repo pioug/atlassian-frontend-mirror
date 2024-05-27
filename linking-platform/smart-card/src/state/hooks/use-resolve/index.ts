@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { addMetadataToExperience } from '../../analytics';
 import {
   ACTION_ERROR,
@@ -10,8 +10,8 @@ import {
   ACTION_UPDATE_METADATA_STATUS,
   APIError,
   cardAction,
-  CardState,
-  MetadataStatus,
+  type CardState,
+  type MetadataStatus,
   getStatus,
 } from '@atlaskit/linking-common';
 import {

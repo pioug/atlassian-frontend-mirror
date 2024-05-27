@@ -1,11 +1,11 @@
 import React from 'react';
 import { QS_ANALYTICS_EV_SUBMIT } from '../constants';
 import ResultItem from '../ResultItem/ResultItem';
-import { AnalyticsData, CommonResultProps } from './types';
+import { type AnalyticsData, type CommonResultProps } from './types';
 import {
   ResultContext,
   SelectedResultIdContext,
-  ResultContextType,
+  type ResultContextType,
 } from '../context';
 
 export type Props = CommonResultProps & {

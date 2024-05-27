@@ -1,5 +1,5 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeEncoder } from '..';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type NodeEncoder } from '..';
 import { textColor } from '../marks/color';
 import { N80, P300, T300, R300, Y400, G300 } from '@atlaskit/theme/colors';
 

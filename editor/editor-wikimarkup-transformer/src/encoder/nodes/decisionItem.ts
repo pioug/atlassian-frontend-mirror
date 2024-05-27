@@ -1,7 +1,7 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { inlines } from './inlines';
-import { NodeEncoderOpts } from '..';
+import { type NodeEncoderOpts } from '..';
 
 export const decisionItem = (
   node: PMNode,

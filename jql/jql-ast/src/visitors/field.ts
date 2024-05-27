@@ -1,12 +1,12 @@
 import {
-  JqlFieldPropertyContext,
-  JqlNonNumberFieldContext,
-  JqlNumberFieldContext,
-  JqlPropertyArgumentContext,
+  type JqlFieldPropertyContext,
+  type JqlNonNumberFieldContext,
+  type JqlNumberFieldContext,
+  type JqlPropertyArgumentContext,
 } from '@atlaskit/jql-parser';
 
 import { internalCreators } from '../creators';
-import { Argument, Field, Property } from '../types';
+import { type Argument, type Field, type Property } from '../types';
 
 import { ArgumentVisitor } from './argument';
 import { getPositionFromContext, JastBuildingVisitor } from './common';

@@ -1,14 +1,14 @@
-import { CharStreams, CommonTokenStream, Token } from 'antlr4ts';
-import { ParseTree } from 'antlr4ts/tree';
+import { CharStreams, CommonTokenStream, type Token } from 'antlr4ts';
+import { type ParseTree } from 'antlr4ts/tree';
 
 import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
 
 import { BaseAutocomplete } from '../base-autocomplete';
 import {
-  RuleSuggestionsWithRuleList,
-  Suggestions,
+  type RuleSuggestionsWithRuleList,
+  type Suggestions,
 } from '../base-autocomplete/types';
-import { Position } from '../common/types';
+import { type Position } from '../common/types';
 
 import { rulesWithContext, unclosedStringTokens } from './constants';
 import {
@@ -17,7 +17,7 @@ import {
   defaultPreferredRules,
 } from './defaults';
 import { RuleContextVisitor } from './rule-context-visitor';
-import { JQLRuleContext, JQLRuleSuggestions, JQLSuggestions } from './types';
+import { type JQLRuleContext, type JQLRuleSuggestions, type JQLSuggestions } from './types';
 import { isPredicateOperand } from './util';
 
 export class JQLAutocomplete extends BaseAutocomplete<JQLRuleContext> {

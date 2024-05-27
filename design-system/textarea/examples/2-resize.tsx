@@ -7,7 +7,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
 import TextArea from '../src';
-import { TextAreaProps } from '../src/types';
+import { type TextAreaProps } from '../src/types';
 
 const wrapperStyles = css({
   maxWidth: 500,

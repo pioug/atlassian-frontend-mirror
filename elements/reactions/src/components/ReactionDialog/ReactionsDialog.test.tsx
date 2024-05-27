@@ -3,13 +3,13 @@ import React from 'react';
 import { fireEvent, screen, within } from '@testing-library/dom';
 import { act } from '@testing-library/react';
 
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { renderWithIntl } from '../../__tests__/_testing-library';
 
-import { ReactionsDialog, ReactionsDialogProps } from './ReactionsDialog';
+import { ReactionsDialog, type ReactionsDialogProps } from './ReactionsDialog';
 
 const emojiIds = [
   '1f6bf', //:shower:

@@ -1,4 +1,4 @@
-import { Page } from '@af/integration-testing';
+import { type Page } from '@af/integration-testing';
 export class JQLEditorPage {
   private page;
   public input;

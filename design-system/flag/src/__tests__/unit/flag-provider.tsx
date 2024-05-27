@@ -5,8 +5,8 @@ import React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
 
 import {
-  CreateFlagArgs,
-  DismissFn,
+  type CreateFlagArgs,
+  type DismissFn,
   FlagsProvider,
   useFlags,
 } from '../../index';

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, FormEventHandler } from 'react';
-import { JsonLd } from 'json-ld-types';
+import React, { useState, useEffect, type FormEventHandler } from 'react';
+import { type JsonLd } from 'json-ld-types';
 import TextField from '@atlaskit/textfield';
 import { CodeBlock } from '@atlaskit/code';
 import { getUrl } from '@atlaskit/linking-common';

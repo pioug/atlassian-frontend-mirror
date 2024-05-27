@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { Component, FC, ReactNode, SyntheticEvent } from 'react';
+import { Component, type FC, type ReactNode, type SyntheticEvent } from 'react';
 
 import { jsx } from '@emotion/react';
 

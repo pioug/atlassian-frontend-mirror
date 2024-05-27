@@ -1,6 +1,10 @@
-import React, { ReactNode, ReactNodeArray } from 'react';
+import {
+  type default as React,
+  type ReactNode,
+  type ReactNodeArray,
+} from 'react';
 
-import { NavigationTheme } from '../../theme';
+import { type NavigationTheme } from '../../theme';
 
 export interface AtlassianNavigationProps {
   /**

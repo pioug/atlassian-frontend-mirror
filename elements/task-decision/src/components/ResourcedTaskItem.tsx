@@ -2,12 +2,12 @@ import React from 'react';
 import { PureComponent } from 'react';
 import TaskItem from './TaskItem';
 import {
-  Appearance,
-  BaseItem,
-  ContentRef,
-  TaskDecisionProvider,
-  TaskState,
-  DecisionState,
+  type Appearance,
+  type BaseItem,
+  type ContentRef,
+  type TaskDecisionProvider,
+  type TaskState,
+  type DecisionState,
 } from '../types';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 

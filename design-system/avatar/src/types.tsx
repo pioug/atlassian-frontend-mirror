@@ -1,4 +1,4 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export type AvatarSizeMap = Record<SizeType, number>;
 

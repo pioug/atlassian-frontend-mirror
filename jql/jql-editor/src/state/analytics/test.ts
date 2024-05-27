@@ -1,9 +1,9 @@
 import noop from 'lodash/noop';
-import { StoreActionApi } from 'react-sweet-state';
+import { type StoreActionApi } from 'react-sweet-state';
 
 import { Action, ActionSubject, EventType } from '../../analytics';
 import { initialState } from '../index';
-import { State } from '../types';
+import { type State } from '../types';
 
 import { onStartAutocompleteEvent } from './index';
 

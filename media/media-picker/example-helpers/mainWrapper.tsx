@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { FeatureFlagsWrapper } from '@atlaskit/media-test-helpers';
 
 import { UfoLoggerWrapper } from './UfoWrapper';

@@ -1,7 +1,7 @@
 // Simple component which wraps stories and creates a styled list out of it
 import React from 'react';
 import { token } from '@atlaskit/tokens';
-import { Component, ReactNode, CSSProperties } from 'react';
+import { Component, type ReactNode, type CSSProperties } from 'react';
 
 interface UnitStyle {
   statesWrapper: CSSProperties;

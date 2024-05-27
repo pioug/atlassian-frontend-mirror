@@ -1,7 +1,7 @@
-import { EmojiResource, EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import { EmojiResource, type EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { createPromise } from '../cross-platform-promise';
-import { GetConfigPayload } from '../types';
-import { FetchProxy } from '../utils/fetch-proxy';
+import { type GetConfigPayload } from '../types';
+import { type FetchProxy } from '../utils/fetch-proxy';
 
 /**
  * To construct an EmojiResourceConfig we need to know the base url

@@ -1,17 +1,17 @@
 import { takeSnapshot } from '../../utils/videoSnapshot';
 import {
-  MediaClient,
-  FilePreview,
-  MediaStoreGetFileImageParams,
-  MediaType,
+  type MediaClient,
+  type FilePreview,
+  type MediaStoreGetFileImageParams,
+  type MediaType,
 } from '@atlaskit/media-client';
 import {
   getMediaTypeFromMimeType,
-  MediaTraceContext,
+  type MediaTraceContext,
 } from '@atlaskit/media-common';
 import { getOrientation } from '@atlaskit/media-ui';
 import { LocalPreviewError, RemotePreviewError } from '../../errors';
-import { CardPreview } from '../../types';
+import { type CardPreview } from '../../types';
 
 /**
  * This method tells the support for the media

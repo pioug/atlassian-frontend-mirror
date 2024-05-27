@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { InlineCardResolvedView } from '../../index';
-import { LozengeProps } from '../../../../../types';
+import { type LozengeProps } from '../../../../../types';
 import { token } from '@atlaskit/tokens';
 import { Provider } from '../../../../../';
 

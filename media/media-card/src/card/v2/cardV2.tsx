@@ -1,5 +1,5 @@
 import {
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { isFileIdentifier } from '@atlaskit/media-client';
@@ -7,10 +7,10 @@ import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import React from 'react';
 import {
   IntlProvider,
-  WrappedComponentProps,
+  type WrappedComponentProps,
   injectIntl,
 } from 'react-intl-next';
-import { CardProps } from '../../types';
+import { type CardProps } from '../../types';
 import { ExternalImageCard } from './externalImageCard';
 import { FileCard } from './fileCard';
 

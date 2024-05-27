@@ -1,12 +1,12 @@
-import React, { KeyboardEvent, useState } from 'react';
+import React, { type KeyboardEvent, useState } from 'react';
 
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-import { PopupProps } from '@atlaskit/popup/types';
+import { type PopupProps } from '@atlaskit/popup/types';
 
 import {
   PrimaryButton,
-  PrimaryButtonProps,
+  type PrimaryButtonProps,
   PrimaryDropdownButton,
 } from '../../src';
 import { useOverflowStatus } from '../../src/controllers/overflow';

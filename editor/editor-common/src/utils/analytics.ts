@@ -1,10 +1,10 @@
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 
 import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
+  type ACTION,
+  type ACTION_SUBJECT,
+  type ACTION_SUBJECT_ID,
+  type EVENT_TYPE,
 } from '../analytics';
 
 export const getAnalyticsAppearance = (

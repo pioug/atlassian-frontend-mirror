@@ -1,7 +1,7 @@
-import React, { ErrorInfo, useCallback } from 'react';
+import React, { type ErrorInfo, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { EmbedModalProps } from '../../types';
+import { type EmbedModalProps } from '../../types';
 
 const FallbackComponent = () => <span />;
 

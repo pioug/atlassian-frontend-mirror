@@ -1,5 +1,5 @@
 import { assignParent } from '../creators/common';
-import { OrderBy, OrderByDirection, OrderByField } from '../types';
+import { type OrderBy, type OrderByDirection, type OrderByField } from '../types';
 
 /**
  * Prepend the provided order by field to the list of fields in this node.

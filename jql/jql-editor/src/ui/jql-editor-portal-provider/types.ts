@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { PluginContainerKey, PluginContainers } from '../../plugins/types';
+import { type PluginContainerKey, type PluginContainers } from '../../plugins/types';
 
 // Allow portal creators to provide their own container
 export type Container = PluginContainerKey | Element;

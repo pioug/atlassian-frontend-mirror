@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import FieldRange from '@atlaskit/range';
 import {
   Slider,
-  SliderProps,
+  type SliderProps,
   defaultProps,
 } from '../../image-navigator/slider';
 

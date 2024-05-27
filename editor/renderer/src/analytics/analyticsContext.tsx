@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnalyticsEventPayload } from './events';
+import { type AnalyticsEventPayload } from './events';
 
 const AnalyticsContext = React.createContext<{
   fireAnalyticsEvent: (event: AnalyticsEventPayload) => void;

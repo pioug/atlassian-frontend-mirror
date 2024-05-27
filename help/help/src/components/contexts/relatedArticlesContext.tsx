@@ -1,7 +1,7 @@
-import React, { PropsWithChildren } from 'react';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import React, { type PropsWithChildren } from 'react';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { ArticleItem } from '../../model/Article';
+import { type ArticleItem } from '../../model/Article';
 import { createCtx } from '../../util/hooks/ctx';
 
 export interface RelatedArticlesContextInterface {

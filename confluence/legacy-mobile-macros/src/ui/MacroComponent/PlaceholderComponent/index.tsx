@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 
-import { PlaceholderComponentProps } from './types';
+import { type PlaceholderComponentProps } from './types';
 
 class MacroPlaceholderImageError {
   constructor() {}

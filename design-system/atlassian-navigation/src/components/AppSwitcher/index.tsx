@@ -1,10 +1,10 @@
-import React, { forwardRef, Ref } from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 
 import { IconButton } from '../IconButton';
 
-import { AppSwitcherProps } from './types';
+import { type AppSwitcherProps } from './types';
 
 /**
  * _App switcher__

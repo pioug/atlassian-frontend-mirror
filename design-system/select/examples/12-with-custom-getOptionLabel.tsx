@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Checkbox } from '@atlaskit/checkbox';
 import { Label } from '@atlaskit/form';
 
-import { CheckboxSelect, OptionType } from '../src';
+import { CheckboxSelect, type OptionType } from '../src';
 
 const customGetOptionLabel = (option: OptionType) => {
   return option.label.length >= 10

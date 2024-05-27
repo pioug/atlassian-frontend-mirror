@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from 'react';
+import React, { type ReactNode, useCallback } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
@@ -12,7 +12,7 @@ import { useLinkPickerSessionId } from '../../controllers/session-provider';
 
 import {
   BaseErrorBoundary,
-  ErrorBoundaryErrorInfo,
+  type ErrorBoundaryErrorInfo,
 } from './error-boundary-base';
 import { ErrorBoundaryFallback } from './error-boundary-fallback';
 

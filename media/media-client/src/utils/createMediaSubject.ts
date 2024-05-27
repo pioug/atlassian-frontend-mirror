@@ -1,6 +1,6 @@
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
-import { FileState } from '@atlaskit/media-state';
+import { type FileState } from '@atlaskit/media-state';
 
 export function createMediaSubject<T extends FileState>(
   initialState?: T | Error,

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import Stack from '@atlaskit/primitives/stack';
 import noop from '@atlaskit/ds-lib/noop';
 import Tick from '@atlaskit/icon/glyph/check-circle';
@@ -8,7 +8,7 @@ import Warning from '@atlaskit/icon/glyph/warning';
 import { token } from '@atlaskit/tokens';
 
 import Flag from '../src';
-import { AppearanceTypes } from '../src/types';
+import { type AppearanceTypes } from '../src/types';
 
 const actions = [
   { content: 'Understood', onClick: noop },

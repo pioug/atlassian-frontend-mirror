@@ -10,15 +10,15 @@ import { act, renderHook } from '@testing-library/react-hooks';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { LinkPicker, LinkPickerProps } from '@atlaskit/link-picker';
+import { LinkPicker, type LinkPickerProps } from '@atlaskit/link-picker';
 
 import { ANALYTICS_CHANNEL } from './consts';
 import { useSmartLinkLifecycleAnalytics } from './lifecycle';
 import { runWhenIdle } from './utils';
 import { fakeFactory, mocks } from './__fixtures__/mocks';
-import { LifecycleAction } from './types';
+import { type LifecycleAction } from './types';
 import { icon } from '@atlaskit/link-test-helpers/images';
-import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 
 jest.mock('./utils', () => {
   const originalModule = jest.requireActual('./utils');

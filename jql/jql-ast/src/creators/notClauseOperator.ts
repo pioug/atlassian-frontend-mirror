@@ -1,9 +1,9 @@
 import { CLAUSE_OPERATOR_NOT } from '../constants';
 import {
-  JastListener,
-  JastVisitor,
-  NotClauseOperator,
-  Position,
+  type JastListener,
+  type JastVisitor,
+  type NotClauseOperator,
+  type Position,
 } from '../types';
 
 import { noChildren } from './common';

@@ -30,6 +30,7 @@ export const calculateDefaultSnappings = (lengthOffset: number = 0) => [
 export const calculateDefaultTablePreserveSnappings = (
   lengthOffset: number = 0,
   editorContainerWith: number = akEditorFullWidthLayoutWidth,
+  excludeInnerGuidelines = false,
 ) => {
   const dynamicFullWidthLine =
     editorContainerWith - akEditorGutterPadding * 2 >=
@@ -37,7 +38,16 @@ export const calculateDefaultTablePreserveSnappings = (
       ? akEditorFullWidthLayoutWidth
       : editorContainerWith - akEditorGutterPadding * 2 - tableResizerWidth;
 
+  if (excludeInnerGuidelines) {
+    return [
+      akEditorDefaultLayoutWidth + lengthOffset,
+      akEditorCalculatedWideLayoutWidth + lengthOffset,
+      dynamicFullWidthLine - lengthOffset,
+    ];
+  }
+
   return [
+    0,
     ...calculateSubSnappingWidths(
       numberOfLanesInDefaultLayoutWidth,
       akEditorDefaultLayoutWidth + lengthOffset,
@@ -53,11 +63,16 @@ export const defaultSnappingWidths = calculateDefaultSnappings();
 // FF TablePreserve for defaultSnappingWidths
 export const defaultTablePreserveSnappingWidths = (
   editorContainerWidth: number,
+  excludeInnerGuidelines = false,
 ) => {
   return editorContainerWidth - akEditorGutterPadding * 2 >
     akEditorFullWidthLayoutWidth
     ? calculateDefaultSnappings()
-    : calculateDefaultTablePreserveSnappings(0, editorContainerWidth);
+    : calculateDefaultTablePreserveSnappings(
+        0,
+        editorContainerWidth,
+        excludeInnerGuidelines,
+      );
 };
 
 /**

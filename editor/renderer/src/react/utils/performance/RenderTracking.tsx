@@ -2,15 +2,15 @@ import { useMemo } from 'react';
 import debounce from 'lodash/debounce';
 
 import {
-  PropsDifference,
-  ShallowPropsDifference,
+  type PropsDifference,
+  type ShallowPropsDifference,
   useComponentRenderTracking,
 } from '@atlaskit/editor-common/utils';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import {
   EVENT_TYPE,
-  ACTION_SUBJECT,
-  ACTION,
+  type ACTION_SUBJECT,
+  type ACTION,
 } from '@atlaskit/editor-common/analytics';
 
 export type FireAnalyticsCallback = <T = void>(

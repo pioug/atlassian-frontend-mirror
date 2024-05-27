@@ -1,12 +1,13 @@
-import core, {
-  ASTPath,
-  ImportDeclaration,
-  JSXAttribute,
-  JSXElement,
-  JSXExpressionContainer,
-  VariableDeclaration,
+import {
+  type ASTPath,
+  type default as core,
+  type ImportDeclaration,
+  type JSXAttribute,
+  type JSXElement,
+  type JSXExpressionContainer,
+  type VariableDeclaration,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   addCommentBefore,

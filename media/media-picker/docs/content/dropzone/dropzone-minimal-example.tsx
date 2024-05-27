@@ -2,8 +2,8 @@
 import { jsx } from '@emotion/react';
 import { useState } from 'react';
 import { createUploadMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { MediaClient, FileIdentifier } from '@atlaskit/media-client';
-import { DropzoneConfig, UploadEndEventPayload } from '../../../src/types';
+import { MediaClient, type FileIdentifier } from '@atlaskit/media-client';
+import { type DropzoneConfig, type UploadEndEventPayload } from '../../../src/types';
 import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
 import { Dropzone } from '../../../src';
 

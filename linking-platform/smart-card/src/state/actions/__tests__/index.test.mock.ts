@@ -15,7 +15,7 @@ jest.doMock('../../../utils/analytics/analytics');
 jest.doMock('@atlaskit/outbound-auth-flow-client', () => ({
   auth: jest.fn(),
 }));
-import { CardContext } from '@atlaskit/link-provider';
+import { type CardContext } from '@atlaskit/link-provider';
 
 export const mockGetContext = (): CardContext => ({
   config: {},

@@ -1,6 +1,6 @@
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
-import { Card, Client, Provider, ResolveResponse } from '../src';
+import { Card, Client, Provider, type ResolveResponse } from '../src';
 import {
   GithubRepository,
   BitbucketRepository2,
@@ -18,7 +18,7 @@ import {
   GitHubIssue,
 } from '../examples-helpers/_jsonLDExamples';
 import { IntlProvider } from 'react-intl-next';
-import { EnvironmentsKeys } from '@atlaskit/link-provider';
+import { type EnvironmentsKeys } from '@atlaskit/link-provider';
 
 class BitbucketClient extends Client {
   constructor(config: EnvironmentsKeys) {

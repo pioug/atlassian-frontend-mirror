@@ -1,4 +1,4 @@
-import { DatasourceDataResponseItem } from '@atlaskit/linking-types';
+import { type DatasourceDataResponseItem } from '@atlaskit/linking-types';
 
 import { profile as profileBase64Image } from '../../images';
 

@@ -1,4 +1,4 @@
-import colorNameMapping, { RGB, RGBColors } from './color-name-mapping';
+import colorNameMapping, { type RGB, type RGBColors } from './color-name-mapping';
 
 const COLOR_TYPE_REGEX = {
   hexShort: /^#?([a-f\d])([a-f\d])([a-f\d])$/i,

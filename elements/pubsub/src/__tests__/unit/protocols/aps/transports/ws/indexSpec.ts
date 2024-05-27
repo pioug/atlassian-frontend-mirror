@@ -1,6 +1,6 @@
 import 'jest-extended';
 import WebsocketClient, {
-  WebsocketClientParams,
+  type WebsocketClientParams,
 } from '../../../../../../protocols/aps/transports/ws/websocketClient';
 import WebsocketTransport from '../../../../../../protocols/aps/transports/ws';
 import { EventEmitter2 } from 'eventemitter2';

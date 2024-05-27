@@ -1,4 +1,4 @@
-import React, { FocusEvent, ReactNode } from 'react';
+import React, { type FocusEvent, type ReactNode } from 'react';
 
 import {
   EditorThemeContext,

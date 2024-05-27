@@ -1,4 +1,4 @@
-import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+import { type BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import type { AdfDoc } from '@atlaskit/help-article';
 
 export enum WHATS_NEW_ITEM_TYPES {

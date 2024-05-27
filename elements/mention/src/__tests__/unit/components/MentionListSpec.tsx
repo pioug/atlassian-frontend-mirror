@@ -5,10 +5,10 @@ import { waitUntil } from '@atlaskit/elements-test-helpers';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 import React from 'react';
 import MentionItem from '../../../components/MentionItem';
-import MentionList, { Props, State } from '../../../components/MentionList';
+import MentionList, { type Props, type State } from '../../../components/MentionList';
 import { isMentionItemSelected } from '../_test-helpers';
 
 // TODO: After updating to expect.hasAssertions(), it identified some tests that are not correctly written.

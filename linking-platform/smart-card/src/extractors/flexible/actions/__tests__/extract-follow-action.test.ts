@@ -1,5 +1,5 @@
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import {
   TEST_DOCUMENT,
   TEST_FOLLOW_ACTION,

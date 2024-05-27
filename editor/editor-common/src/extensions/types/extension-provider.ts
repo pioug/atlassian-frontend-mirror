@@ -1,10 +1,10 @@
 import {
-  ExtensionAutoConvertHandler,
-  ExtensionKey,
-  ExtensionManifest,
-  ExtensionType,
+  type ExtensionAutoConvertHandler,
+  type ExtensionKey,
+  type ExtensionManifest,
+  type ExtensionType,
 } from './extension-manifest';
-import { Parameters } from './extension-parameters';
+import { type Parameters } from './extension-parameters';
 
 export interface ExtensionProvider<T extends Parameters = any> {
   getExtensions(): Promise<ExtensionManifest<T>[]>;

@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ExposureDetails, ExperimentEnrollmentOptions } from './types';
+import { type ExposureDetails, type ExperimentEnrollmentOptions } from './types';
 
 interface Props {
   exposureDetails: ExposureDetails;

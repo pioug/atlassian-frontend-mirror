@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { CSSProperties, useMemo } from 'react';
+import { type CSSProperties, useMemo } from 'react';
 
 import { css, Global, jsx } from '@emotion/react';
 import { useUID } from 'react-uid';

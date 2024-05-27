@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import { GetCardStateProps, getCardState } from './../utils/flexible-ui';
+import { type GetCardStateProps, getCardState } from './../utils/flexible-ui';
 import VRTestWrapper from './../utils/vr-test-wrapper';
-import { AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
+import { type AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
 import { BlockCard } from '../../src/view/BlockCard';
 import JiraPreviewImage from '../../examples/images/forbidden-jira.svg';
 import { token } from '@atlaskit/tokens';

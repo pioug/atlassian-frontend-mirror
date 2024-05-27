@@ -1,7 +1,7 @@
 import memoizeOne from 'memoize-one';
-import { Placement } from '@atlaskit/popper';
+import { type Placement } from '@atlaskit/popper';
 
-import { Target, BoundariesElement, RootBoundary } from '../types';
+import { type Target, type BoundariesElement, type RootBoundary } from '../types';
 
 export const getPopupProps = memoizeOne(
   (

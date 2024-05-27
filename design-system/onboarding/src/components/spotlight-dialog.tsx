@@ -1,4 +1,4 @@
-import React, { Component, ComponentType, ReactNode } from 'react';
+import React, { Component, type ComponentType, type ReactNode } from 'react';
 
 import FocusLock from 'react-focus-lock';
 
@@ -6,12 +6,12 @@ import {
   createAndFireEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { Placement, Popper } from '@atlaskit/popper';
+import { type Placement, Popper } from '@atlaskit/popper';
 
 import { DialogImage } from '../styled/dialog';
-import { Actions } from '../types';
+import { type Actions } from '../types';
 
 import SpotlightCard from './spotlight-card';
 import ValueChanged from './value-changed';

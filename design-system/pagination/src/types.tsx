@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactElement, SyntheticEvent } from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export interface PaginationPropTypes<T = unknown> {

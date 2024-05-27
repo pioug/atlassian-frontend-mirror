@@ -2,9 +2,9 @@ import mapKeys from 'lodash/mapKeys';
 import mapValues from 'lodash/mapValues';
 
 import {
-  AttributeSpec,
-  Node,
-  NodeSpec,
+  type AttributeSpec,
+  type Node,
+  type NodeSpec,
 } from '@atlaskit/editor-prosemirror/model';
 
 import { RICH_INLINE_NODE } from '../constants';

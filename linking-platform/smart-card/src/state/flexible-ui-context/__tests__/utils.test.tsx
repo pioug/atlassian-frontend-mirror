@@ -1,5 +1,5 @@
 import { MediaType } from '../../../constants';
-import { FlexibleUiDataContext } from '../types';
+import { type FlexibleUiDataContext } from '../types';
 import { isFlexUiPreviewPresent } from '../utils';
 
 describe('tests isFlexUiPreviewPresent() function', () => {

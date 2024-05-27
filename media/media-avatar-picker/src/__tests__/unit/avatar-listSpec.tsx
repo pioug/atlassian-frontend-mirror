@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, AvatarList } from '../../avatar-list';
+import { type Avatar, AvatarList } from '../../avatar-list';
 import { mountWithIntlContext } from '@atlaskit/media-test-helpers';
 
 describe('Avatar List', () => {

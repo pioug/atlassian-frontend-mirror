@@ -1,8 +1,8 @@
-import React from 'react';
+import type React from 'react';
 
 import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
 export interface BreadcrumbsProps extends WithAnalyticsEventsProps {

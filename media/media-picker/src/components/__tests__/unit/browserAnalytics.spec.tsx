@@ -6,18 +6,18 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import {
   RequestError,
-  TouchFileDescriptor,
+  type TouchFileDescriptor,
   createMediaSubject,
   fromObservable,
 } from '@atlaskit/media-client';
 import {
   ANALYTICS_MEDIA_CHANNEL,
-  MediaFeatureFlags,
+  type MediaFeatureFlags,
 } from '@atlaskit/media-common';
 
 import { Browser } from '../../browser/browser';
-import { BrowserConfig } from '../../../../src/types';
-import { LocalUploadConfig } from '../../../../src/components/types';
+import { type BrowserConfig } from '../../../../src/types';
+import { type LocalUploadConfig } from '../../../../src/components/types';
 import * as ufoWrapper from '../../../util/ufoExperiences';
 
 describe('Browser analytics instrumentation', () => {

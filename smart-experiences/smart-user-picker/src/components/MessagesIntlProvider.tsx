@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, useMemo } from 'react';
-import { IntlProvider, injectIntl, IntlShape } from 'react-intl-next';
+import React, { type PropsWithChildren, useMemo } from 'react';
+import { IntlProvider, injectIntl, type IntlShape } from 'react-intl-next';
 import { getMessagesForLocale } from '../util/i18n-util';
 
 export type MessagesIntlProviderProps = PropsWithChildren<{

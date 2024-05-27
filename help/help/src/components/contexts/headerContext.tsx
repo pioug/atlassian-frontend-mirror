@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from 'react';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import React, { type PropsWithChildren } from 'react';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { createCtx } from '../../util/hooks/ctx';
 

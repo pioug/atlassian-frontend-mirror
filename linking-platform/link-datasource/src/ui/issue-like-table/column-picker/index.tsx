@@ -7,12 +7,12 @@ import { useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import BoardIcon from '@atlaskit/icon/glyph/board';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import {
   CheckboxOption,
   createFilter,
-  ModifierList,
-  OptionType,
+  type ModifierList,
+  type OptionType,
   PopupSelect,
 } from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
@@ -21,7 +21,7 @@ import { succeedUfoExperience } from '../../../analytics/ufoExperiences';
 
 import { ConcatenatedMenuList } from './concatenated-menu-list';
 import { columnPickerMessages } from './messages';
-import { ColumnPickerProps } from './types';
+import { type ColumnPickerProps } from './types';
 
 export const ColumnPicker = ({
   columns,

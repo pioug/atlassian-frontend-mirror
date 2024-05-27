@@ -12,7 +12,7 @@ import {
   FormattedMessage,
   IntlProvider,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { breakWordsCss } from './styled';
 import { jsx } from '@emotion/react';

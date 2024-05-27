@@ -4,11 +4,11 @@ import Button from '@atlaskit/button/new';
 import Textfield from '@atlaskit/textfield';
 import Lozenge from '@atlaskit/lozenge';
 
-import Client, { PubSubClientConfig, SpecialEventType } from '../src';
+import Client, { type PubSubClientConfig, SpecialEventType } from '../src';
 import { FeatureFlags } from '../src/featureFlags';
 import PubNubProtocol from '../src/protocols/pubnub';
 import APSProtocol from '../src/protocols/aps';
-import { APSTransportType } from '../src/apiTypes';
+import { type APSTransportType } from '../src/apiTypes';
 
 let clientConfig: { serviceConfig: PubSubClientConfig };
 let defaultApsUrl: string;

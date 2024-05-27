@@ -5,9 +5,9 @@ import AkSpinner from '@atlaskit/spinner';
 import DetailViewIcon from '@atlaskit/icon/glyph/detail-view';
 import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
 import {
-  ExternalImageIdentifier,
-  Identifier,
-  FileState,
+  type ExternalImageIdentifier,
+  type Identifier,
+  type FileState,
 } from '@atlaskit/media-client';
 import {
   externalImageIdentifier,
@@ -37,7 +37,7 @@ import {
   audioItem,
   audioItemNoCover,
 } from '../example-helpers';
-import { MediaViewer, MediaViewerExtensionsActions } from '../src';
+import { MediaViewer, type MediaViewerExtensionsActions } from '../src';
 
 const mediaClient = createStorybookMediaClient();
 

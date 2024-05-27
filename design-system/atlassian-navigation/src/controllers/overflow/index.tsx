@@ -1,6 +1,6 @@
 import React, {
   createContext,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -13,7 +13,7 @@ import throttle from 'lodash/throttle';
 
 import noop from '@atlaskit/ds-lib/noop';
 
-import { OverflowProviderProps } from './types';
+import { type OverflowProviderProps } from './types';
 
 // Prevent width detector from triggering too many re-renders
 const THROTTLE_INTERVAL = 16 * 4;

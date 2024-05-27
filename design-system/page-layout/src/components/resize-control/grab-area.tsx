@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 /** @jsx jsx */
-import { ComponentProps, FocusEvent, KeyboardEvent, MouseEvent } from 'react';
+import { type ComponentProps, type FocusEvent, type KeyboardEvent, type MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -12,7 +12,7 @@ import {
   GRAB_AREA_LINE_SELECTOR,
   GRAB_AREA_SELECTOR,
 } from '../../common/constants';
-import { LeftSidebarProps } from '../../common/types';
+import { type LeftSidebarProps } from '../../common/types';
 
 export type GrabAreaProps = {
   isDisabled: boolean;

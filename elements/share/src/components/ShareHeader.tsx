@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { css, jsx, Theme, useTheme } from '@emotion/react';
+import { css, jsx, type Theme, useTheme } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { h500 } from '@atlaskit/theme/typography';

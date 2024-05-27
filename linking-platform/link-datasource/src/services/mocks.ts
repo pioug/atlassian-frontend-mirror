@@ -1,7 +1,7 @@
-import { SelectOption } from '../ui/common/modal/popup-select/types';
+import { type SelectOption } from '../ui/common/modal/popup-select/types';
 import {
-  FieldValuesResponse,
-  HydrateResponse,
+  type FieldValuesResponse,
+  type HydrateResponse,
 } from '../ui/jira-issues-modal/basic-filters/types';
 
 export const mockHydrateJqlResponse: HydrateResponse = {

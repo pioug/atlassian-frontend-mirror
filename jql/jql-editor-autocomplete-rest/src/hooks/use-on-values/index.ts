@@ -1,4 +1,4 @@
-import { Reducer, useCallback, useReducer } from 'react';
+import { type Reducer, useCallback, useReducer } from 'react';
 
 import { di } from 'react-magnetic-di';
 import type { Observable } from 'rxjs/Observable';
@@ -9,23 +9,23 @@ import { delay } from 'rxjs/operators/delay';
 import { filter } from 'rxjs/operators/filter';
 
 import {
-  AutocompleteOption,
-  AutocompleteOptions,
-  AutocompleteValueType,
+  type AutocompleteOption,
+  type AutocompleteOptions,
+  type AutocompleteValueType,
 } from '@atlaskit/jql-editor-common';
 
-import { JqlEditorAutocompleteAnalyticsEvent } from '../../analytics';
+import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics';
 import {
-  GetAutocompleteSuggestions,
-  JQLFieldResponse,
+  type GetAutocompleteSuggestions,
+  type JQLFieldResponse,
 } from '../../common/types';
 import findField$ from '../../utils/find-field-observable';
 import { normalize } from '../../utils/strings';
 import { USER_FIELD_TYPE } from '../constants';
 import {
-  FieldValuesCache,
-  OnValues,
-  UpdateCacheAction,
+  type FieldValuesCache,
+  type OnValues,
+  type UpdateCacheAction,
 } from '../use-autocomplete-provider/types';
 import { useFetchFieldValues } from '../use-fetch-field-values';
 

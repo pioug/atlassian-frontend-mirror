@@ -37,6 +37,7 @@ import { Mark } from '@atlaskit/editor-prosemirror/model';
 const transformer = new BitbucketTransformer(schema);
 const parse = (html: string) => transformer.parse(html);
 const TABLE_LOCAL_ID = 'test-table-local-id';
+const MENTION_LOCAL_ID = 'test-mention-local-id';
 
 export const textWithMarks = (obj: PMNode, text: string, marks: Mark[]) => {
   let matched = false;
@@ -53,14 +54,6 @@ export const textWithMarks = (obj: PMNode, text: string, marks: Mark[]) => {
 
 // Based on https://bitbucket.org/tutorials/markdowndemo
 describe('BitbucketTransformer: parser', () => {
-  beforeAll(() => {
-    uuid.setStatic(TABLE_LOCAL_ID);
-  });
-
-  afterAll(() => {
-    uuid.setStatic(false);
-  });
-
   describe('block elements', () => {
     it('should support level 1 to 6 headings', () => {
       expect(parse('<h1>text</h1>')).toEqualDocument(doc(h1('text')));
@@ -502,6 +495,14 @@ describe('BitbucketTransformer: parser', () => {
   });
 
   describe('tables', () => {
+    beforeAll(() => {
+      uuid.setStatic(TABLE_LOCAL_ID);
+    });
+
+    afterAll(() => {
+      uuid.setStatic(false);
+    });
+
     it('with header, multiple rows and columns should be converted into table', () => {
       expect(
         parse(
@@ -709,6 +710,14 @@ describe('BitbucketTransformer: parser', () => {
   });
 
   describe('mentions', () => {
+    beforeAll(() => {
+      uuid.setStatic(MENTION_LOCAL_ID);
+    });
+
+    afterAll(() => {
+      uuid.setStatic(false);
+    });
+
     ['mention', 'ap-mention'].forEach((mentionClass) => {
       it(`should be parsed preserving display name and user id for ${mentionClass}`, () => {
         expect(
@@ -726,6 +735,7 @@ describe('BitbucketTransformer: parser', () => {
               mention({
                 text: '@Artur Bodera',
                 id: 'abodera',
+                localId: MENTION_LOCAL_ID,
               })(),
               ' bar',
             ),
@@ -751,6 +761,7 @@ describe('BitbucketTransformer: parser', () => {
               mention({
                 text: '@Artur Bodera',
                 id: '{5c09bf77ec71bd223bbe866f}',
+                localId: MENTION_LOCAL_ID,
               })(),
               ' bar',
             ),
@@ -775,6 +786,7 @@ describe('BitbucketTransformer: parser', () => {
             mention({
               text: '@Scott Demo',
               id: '{5c09bf77ec71bd223bbe866f}',
+              localId: MENTION_LOCAL_ID,
             })(),
             ' test',
           ),

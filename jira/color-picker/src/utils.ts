@@ -3,7 +3,7 @@
 import { gridSize } from '@atlaskit/theme';
 import { COLOR_CARD_SIZE } from './constants';
 import memoizeOne from 'memoize-one';
-import { Mode, Palette } from './types';
+import { Mode, type Palette } from './types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const getWidth = (cols: number, mode?: Mode) => {

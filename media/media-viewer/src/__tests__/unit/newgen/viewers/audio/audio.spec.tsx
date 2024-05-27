@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
-  ProcessedFileState,
+  type MediaViewedEventPayload,
+  type ProcessedFileState,
 } from '@atlaskit/media-client';
 import {
   mountWithIntlContext,
@@ -11,9 +11,9 @@ import {
   expectFunctionToHaveBeenCalledWith,
 } from '@atlaskit/media-test-helpers';
 import Spinner from '@atlaskit/spinner';
-import { Auth } from '@atlaskit/media-core';
+import { type Auth } from '@atlaskit/media-core';
 import { AudioViewer } from '../../../../../viewers/audio';
-import { Props } from '../../../../../viewers/video';
+import { type Props } from '../../../../../viewers/video';
 import { DefaultCoverWrapper, AudioCover } from '../../../../../styleWrappers';
 import { ErrorMessage } from '../../../../../errorMessage';
 import { CustomMediaPlayer } from '@atlaskit/media-ui';

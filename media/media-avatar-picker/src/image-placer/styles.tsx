@@ -1,6 +1,6 @@
 import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
-import { ImgHTMLAttributes } from 'react';
+import { type ImgHTMLAttributes } from 'react';
 
 import { R500 } from '@atlaskit/theme/colors';
 

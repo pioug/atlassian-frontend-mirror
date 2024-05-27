@@ -1,7 +1,7 @@
-import { CardClient } from '@atlaskit/link-provider';
-import { CardState } from '@atlaskit/linking-common';
+import { type CardClient } from '@atlaskit/link-provider';
+import { type CardState } from '@atlaskit/linking-common';
 
-import { LinkDetails, CardStore } from '../types';
+import { type LinkDetails, type CardStore } from '../types';
 import { getResolvedAttributes } from './get-resolved-attributes';
 
 const hasMessage = (err: unknown): err is { message: unknown } => {

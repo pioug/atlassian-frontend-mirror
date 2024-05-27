@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Status } from '@atlaskit/linking-types';
+import { type Status } from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
 
 interface StatusProps extends Status {

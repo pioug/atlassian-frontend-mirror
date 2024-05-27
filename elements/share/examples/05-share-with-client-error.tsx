@@ -1,39 +1,39 @@
-import React, { PropsWithChildren, useState } from 'react';
+import React, { type PropsWithChildren, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Appearance } from '@atlaskit/button/types';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type Appearance } from '@atlaskit/button/types';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import Select from '@atlaskit/select';
-import { OptionData } from '@atlaskit/smart-user-picker';
+import { type OptionData } from '@atlaskit/smart-user-picker';
 import { ufologger } from '@atlaskit/ufo';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 
 import App from '../example-helpers/AppWithFlag';
-import { ProductName, ShareDialogContainer } from '../src';
+import { type ProductName, ShareDialogContainer } from '../src';
 import {
-  ShortenRequest,
-  ShortenResponse,
-  UrlShortenerClient,
+  type ShortenRequest,
+  type ShortenResponse,
+  type UrlShortenerClient,
 } from '../src/clients/AtlassianUrlShortenerClient';
 import languages from '../src/i18n/languages';
 import {
-  Comment,
-  ConfigResponse,
-  Content,
-  DialogPlacement,
-  Integration,
-  KeysOfType,
-  MetaData,
-  OriginTracing,
-  ShareButtonStyle,
-  ShareClient,
-  ShareResponse,
-  TooltipPosition,
-  User,
+  type Comment,
+  type ConfigResponse,
+  type Content,
+  type DialogPlacement,
+  type Integration,
+  type KeysOfType,
+  type MetaData,
+  type OriginTracing,
+  type ShareButtonStyle,
+  type ShareClient,
+  type ShareResponse,
+  type TooltipPosition,
+  type User,
 } from '../src/types';
-import { IntegrationMode } from '../src/types/ShareEntities';
+import { type IntegrationMode } from '../src/types/ShareEntities';
 
 type UserData = {
   avatarUrl?: string;

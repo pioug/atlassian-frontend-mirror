@@ -1,6 +1,6 @@
 import React, {
   createContext,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -10,17 +10,17 @@ import React, {
 
 import {
   createForm,
-  FieldConfig,
-  FieldSubscriber,
-  FieldSubscription,
-  FormApi,
-  FormState,
-  Unsubscribe,
+  type FieldConfig,
+  type FieldSubscriber,
+  type FieldSubscription,
+  type FormApi,
+  type FormState,
+  type Unsubscribe,
 } from 'final-form';
 import createDecorator from 'final-form-focus';
 import set from 'lodash/set';
 
-import { OnSubmitHandler } from './types';
+import { type OnSubmitHandler } from './types';
 
 type DefaultValue<FieldValue> = (value?: FieldValue) => FieldValue;
 

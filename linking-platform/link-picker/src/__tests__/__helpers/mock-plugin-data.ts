@@ -1,6 +1,6 @@
 import { icon } from '@atlaskit/link-test-helpers/images';
 
-import { LinkSearchListItemData } from '../../common/types';
+import { type LinkSearchListItemData } from '../../common/types';
 
 const data: LinkSearchListItemData[] = [
   {

@@ -5,10 +5,10 @@ import React from 'react';
 import { token } from '@atlaskit/tokens';
 import {
   isRestricted,
-  MentionDescription,
-  OnMentionEvent,
-  Presence,
-  LozengeProps,
+  type MentionDescription,
+  type OnMentionEvent,
+  type Presence,
+  type LozengeProps,
 } from '../../types';
 import { NoAccessLabel } from '../../util/i18n';
 import { leftClick } from '../../util/mouse';

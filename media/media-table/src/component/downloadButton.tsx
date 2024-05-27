@@ -1,13 +1,13 @@
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { N40 } from '@atlaskit/theme/colors';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import Button from '@atlaskit/button/custom-theme-button';
 import { messages } from '@atlaskit/media-ui';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ANALYTICS_MEDIA_CHANNEL } from '../util';
 
 interface Props {

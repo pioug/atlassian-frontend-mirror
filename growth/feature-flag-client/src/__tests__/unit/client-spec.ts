@@ -1,12 +1,12 @@
 import FeatureFlagClient from '../../client';
 import { MISSING_FLAG_EXPLANATION } from '../../missing-flag';
 import {
-  AnalyticsHandler,
-  CustomAttributes,
+  type AnalyticsHandler,
+  type CustomAttributes,
   ExposureTriggerReason,
-  Flags,
-  FlagShape,
-  ReservedAttributes,
+  type Flags,
+  type FlagShape,
+  type ReservedAttributes,
 } from '../../types';
 
 const defaultFlags: Flags = {

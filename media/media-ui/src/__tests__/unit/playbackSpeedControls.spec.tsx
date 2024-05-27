@@ -2,10 +2,10 @@ jest.mock('@atlaskit/select');
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { OptionType, PopupSelect, PopupSelectProps } from '@atlaskit/select';
+import { type OptionType, PopupSelect, type PopupSelectProps } from '@atlaskit/select';
 import { WidthObserver } from '@atlaskit/width-detector';
 import PlaybackSpeedControls, {
-  PlaybackSpeedControlsProps,
+  type PlaybackSpeedControlsProps,
 } from '../../customMediaPlayer/playbackSpeedControls';
 import MediaButton from '../../MediaButton';
 import { mountWithIntlContext } from '../../test-helpers/mountWithIntlContext';

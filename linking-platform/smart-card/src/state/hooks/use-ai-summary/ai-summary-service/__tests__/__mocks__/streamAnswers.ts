@@ -1,4 +1,4 @@
-import { StreamMessage } from '../../types';
+import { type StreamMessage } from '../../types';
 
 export const streamAnswer: StreamMessage[] = [
   {

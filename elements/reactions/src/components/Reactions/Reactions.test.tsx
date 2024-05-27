@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, fireEvent, screen, within } from '@testing-library/react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EmojiProvider } from '@atlaskit/emoji';
+import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
   getReactionSummary,
@@ -18,14 +18,14 @@ import type { FakeUFOInstance } from '../../__tests__/_testing-library';
 import { DefaultReactions } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
 import {
-  QuickReactionEmojiSummary,
+  type QuickReactionEmojiSummary,
   ReactionStatus,
-  ReactionSummary,
+  type ReactionSummary,
 } from '../../types';
 import { RENDER_REACTIONPICKER_TESTID } from '../ReactionPicker';
 import { RENDER_REACTION_TESTID } from '../Reaction';
 import {
-  ReactionsProps,
+  type ReactionsProps,
   Reactions,
   getTooltip,
   RENDER_VIEWALL_REACTED_USERS_DIALOG,

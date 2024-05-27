@@ -17,7 +17,7 @@ import {
 import { useTheme } from '../../theme';
 import { IconButton } from '../IconButton';
 
-import { SearchProps } from './types';
+import { type SearchProps } from './types';
 
 const searchInputContainerStyles = css({
   position: 'relative',

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { Appearance } from '@atlaskit/button/types';
+import { type Appearance } from '@atlaskit/button/types';
 
 export type Props = {
   appearance?: Appearance;

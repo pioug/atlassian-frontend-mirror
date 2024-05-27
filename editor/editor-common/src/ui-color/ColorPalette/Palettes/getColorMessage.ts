@@ -1,4 +1,4 @@
-import { MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl-next';
 
 export default function getColorMessage(
   messages: Record<string | number, MessageDescriptor>,

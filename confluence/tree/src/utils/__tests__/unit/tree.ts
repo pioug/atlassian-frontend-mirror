@@ -1,7 +1,7 @@
 import { flattenTree, getItem, getTreePosition } from '../../tree';
 import { mutateTree } from '../../mutateTree';
 import { moveItemOnTree } from '../../moveItemOnTree';
-import { TreeData } from '../../../types';
+import { type TreeData } from '../../../types';
 import { treeWithThreeLeaves } from '../../../../mockdata/treeWithThreeLeaves';
 import { treeWithTwoBranches } from '../../../../mockdata/treeWithTwoBranches';
 

@@ -1,4 +1,4 @@
-import { API, FileInfo, Options } from 'jscodeshift';
+import { type API, type FileInfo, type Options } from 'jscodeshift';
 
 import noop from '@atlaskit/ds-lib/noop';
 

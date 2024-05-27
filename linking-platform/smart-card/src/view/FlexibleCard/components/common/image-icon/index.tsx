@@ -4,7 +4,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import ImageLoader from 'react-render-image';
 
-import { ImageIconProps } from './types';
+import { type ImageIconProps } from './types';
 import LoadingSkeleton from '../loading-skeleton';
 
 const ImageIcon: React.FC<ImageIconProps> = ({

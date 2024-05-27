@@ -3,7 +3,7 @@ import {
   defaultCollectionName,
   createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
-import { Identifier, MediaClient } from '@atlaskit/media-client';
+import { type Identifier, MediaClient } from '@atlaskit/media-client';
 import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
 import { emptyImage } from '../example-helpers';
 import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';

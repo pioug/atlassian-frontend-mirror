@@ -1,5 +1,5 @@
 import {
-  ContainerComponent,
+  type ContainerComponent,
   createContainer,
   createHook,
   createStore,
@@ -11,9 +11,9 @@ import { concatMap } from 'rxjs/operators/concatMap';
 import { EventType } from '@atlaskit/jql-editor-common';
 
 import { Action, ActionSubject } from '../analytics';
-import { JQLFieldResponse, JQLFunctionResponse } from '../common/types';
+import { type JQLFieldResponse, type JQLFunctionResponse } from '../common/types';
 
-import { Actions, Store } from './types';
+import { type Actions, type Store } from './types';
 
 const initialData = {
   jqlSearchableFields: [],

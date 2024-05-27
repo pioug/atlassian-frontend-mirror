@@ -2,15 +2,15 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { Box, xcss } from '@atlaskit/primitives';
-import { components, OptionType } from '@atlaskit/select';
+import { components, type OptionType } from '@atlaskit/select';
 import { css, jsx } from '@emotion/react';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { SizeableAvatar } from './SizeableAvatar';
 import { messages } from './i18n';
 import { getAvatarUrl, isEmail, isGroup } from './utils';
-import { Option, UserPickerProps } from '../types';
+import { type Option, type UserPickerProps } from '../types';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
-import { MultiValueProps } from '@atlaskit/select';
+import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 export const scrollToValue = (

@@ -1,4 +1,4 @@
-import { FlexibleUiDataContext } from './types';
+import { type FlexibleUiDataContext } from './types';
 
 /**
  * Returns true if preview data is available in the FlexibleUiDataContext

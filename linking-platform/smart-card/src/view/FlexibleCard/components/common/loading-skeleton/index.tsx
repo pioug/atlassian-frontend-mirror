@@ -3,7 +3,7 @@ import React from 'react';
 
 import { css, jsx, keyframes } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { LoadingSkeletonProps } from './types';
+import { type LoadingSkeletonProps } from './types';
 
 const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   testId,

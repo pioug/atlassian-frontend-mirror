@@ -1,9 +1,9 @@
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
 import {
-  ApiClientResponse,
-  ProfileCardClientData,
-  ProfileClientOptions,
+  type ApiClientResponse,
+  type ProfileCardClientData,
+  type ProfileClientOptions,
 } from '../types';
 import { userRequestAnalytics } from '../util/analytics';
 import { getPageTime } from '../util/performance';

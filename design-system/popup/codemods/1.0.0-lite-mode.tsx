@@ -1,13 +1,14 @@
-import core, {
-  API,
-  ASTPath,
-  FileInfo,
-  JSXElement,
+import {
+  type API,
+  type ASTPath,
+  type default as core,
+  type FileInfo,
+  type JSXElement,
   JSXExpressionContainer,
-  Literal,
-  Options,
+  type Literal,
+  type Options,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   addCommentToStartOfFile,

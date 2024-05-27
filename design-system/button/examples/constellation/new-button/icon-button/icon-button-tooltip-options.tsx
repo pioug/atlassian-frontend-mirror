@@ -2,7 +2,7 @@ import React from 'react';
 
 import AddIcon from '@atlaskit/icon/glyph/add';
 
-import { IconButton, IconButtonProps } from '../../../../src/new';
+import { IconButton, type IconButtonProps } from '../../../../src/new';
 
 const tooltipOptions: IconButtonProps['tooltip'] = {
   position: 'right',

@@ -1,6 +1,6 @@
 import {
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
+  type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 
 export const ELEMENTS_CHANNEL = 'fabric-elements';

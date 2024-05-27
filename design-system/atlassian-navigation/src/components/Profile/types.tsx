@@ -1,3 +1,3 @@
-import { IconButtonProps } from '../IconButton/types';
+import { type IconButtonProps } from '../IconButton/types';
 
 export type ProfileProps = IconButtonProps;

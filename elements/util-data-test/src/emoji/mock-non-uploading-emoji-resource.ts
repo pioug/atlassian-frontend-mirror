@@ -1,20 +1,20 @@
 import { AbstractResource } from '@atlaskit/util-service-support';
 
-import { EmojiProvider, EmojiRepository } from '@atlaskit/emoji/resource';
+import { type EmojiProvider, type EmojiRepository } from '@atlaskit/emoji/resource';
 
 import {
-  EmojiDescription,
-  EmojiId,
-  EmojiSearchResult,
-  OptionalEmojiDescription,
-  SearchOptions,
-  ToneSelection,
-  User,
-  OptionalUser,
-  CategoryId,
+  type EmojiDescription,
+  type EmojiId,
+  type EmojiSearchResult,
+  type OptionalEmojiDescription,
+  type SearchOptions,
+  type ToneSelection,
+  type User,
+  type OptionalUser,
+  type CategoryId,
 } from '@atlaskit/emoji/types';
 
-import { MockEmojiResourceConfig, PromiseBuilder } from './types';
+import { type MockEmojiResourceConfig, type PromiseBuilder } from './types';
 import { selectedToneStorageKey } from '../emoji-constants';
 
 export class MockNonUploadingEmojiResource

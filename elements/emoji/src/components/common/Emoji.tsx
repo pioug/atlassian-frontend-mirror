@@ -2,11 +2,11 @@
 import React, {
   useEffect,
   useCallback,
-  FocusEvent,
-  MouseEvent,
-  SyntheticEvent,
+  type FocusEvent,
+  type MouseEvent,
+  type SyntheticEvent,
   forwardRef,
-  PropsWithChildren,
+  type PropsWithChildren,
 } from 'react';
 import { jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
@@ -24,9 +24,9 @@ import {
   toEmojiId,
 } from '../../util/type-helpers';
 import {
-  EmojiDescription,
-  OnEmojiEvent,
-  SpriteRepresentation,
+  type EmojiDescription,
+  type OnEmojiEvent,
+  type SpriteRepresentation,
   UfoEmojiTimings,
 } from '../../types';
 import { leftClick } from '../../util/mouse';

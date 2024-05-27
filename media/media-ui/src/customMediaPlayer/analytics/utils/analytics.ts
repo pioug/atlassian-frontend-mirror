@@ -1,23 +1,23 @@
 import {
-  CreateUIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
   createAndFireEvent,
 } from '@atlaskit/analytics-next';
 
 import {
   ANALYTICS_MEDIA_CHANNEL,
-  UIAttributes,
-  UIEventPayload,
+  type UIAttributes,
+  type UIEventPayload,
 } from '@atlaskit/media-common';
 
-import { CustomMediaPlayerScreenEventPayload } from '../events/screen/customMediaPlayer';
-import { MediaButtonClickEventPayload } from '../events/ui/mediaButtonClicked';
-import { PlaybackSpeedChangeEventPayload } from '../events/ui/playbackSpeedChanged';
-import { PlayPauseBlanketClickEventPayload } from '../events/ui/playPauseBlanketClicked';
-import { ShortcutPressEventPayload } from '../events/ui/shortcutPressed';
-import { TimeRangeNavigateEventPayload } from '../events/ui/timeRangeNavigated';
-import { FirstPlayedTrackEventPayload } from '../events/track/playCount';
-import { PlayedTrackEventPayload } from '../events/track/played';
-import { CustomMediaPlayerType } from '../../types';
+import { type CustomMediaPlayerScreenEventPayload } from '../events/screen/customMediaPlayer';
+import { type MediaButtonClickEventPayload } from '../events/ui/mediaButtonClicked';
+import { type PlaybackSpeedChangeEventPayload } from '../events/ui/playbackSpeedChanged';
+import { type PlayPauseBlanketClickEventPayload } from '../events/ui/playPauseBlanketClicked';
+import { type ShortcutPressEventPayload } from '../events/ui/shortcutPressed';
+import { type TimeRangeNavigateEventPayload } from '../events/ui/timeRangeNavigated';
+import { type FirstPlayedTrackEventPayload } from '../events/track/playCount';
+import { type PlayedTrackEventPayload } from '../events/track/played';
+import { type CustomMediaPlayerType } from '../../types';
 
 export type CustomMediaPlayerUIEventPayload = UIEventPayload<
   UIAttributes & {

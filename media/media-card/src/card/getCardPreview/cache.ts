@@ -1,9 +1,9 @@
-import { ImageResizeMode } from '@atlaskit/media-client';
+import { type ImageResizeMode } from '@atlaskit/media-client';
 import {
   createObjectURLCache,
-  ObjectURLCache,
+  type ObjectURLCache,
 } from '../../utils/objectURLCache';
-import { CardPreview } from '../../types';
+import { type CardPreview } from '../../types';
 
 // Dimensions are used to create a key.
 // Cache is invalidated when different dimensions are provided.

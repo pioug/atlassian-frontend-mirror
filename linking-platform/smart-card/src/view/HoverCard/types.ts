@@ -1,11 +1,11 @@
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { AnalyticsFacade } from '../../state/analytics';
-import { LinkAction } from '../../state/hooks-external/useSmartLinkActions';
-import { CardState } from '@atlaskit/linking-common';
-import { AnalyticsHandler } from '../../utils/types';
-import { CardProviderRenderers } from '@atlaskit/link-provider';
-import { MouseEventHandler, ReactElement } from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type AnalyticsFacade } from '../../state/analytics';
+import { type LinkAction } from '../../state/hooks-external/useSmartLinkActions';
+import { type CardState } from '@atlaskit/linking-common';
+import { type AnalyticsHandler } from '../../utils/types';
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
+import { type MouseEventHandler, type ReactElement } from 'react';
+import { type JsonLd } from 'json-ld-types';
 import type { CardActionOptions } from '../Card/types';
 import type { ActionName } from '../../constants';
 

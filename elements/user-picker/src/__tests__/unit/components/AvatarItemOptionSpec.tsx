@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
-import React, { ReactNode } from 'react';
-import { LozengeProps } from '../../../types';
+import React, { type ReactNode } from 'react';
+import { type LozengeProps } from '../../../types';
 import { AvatarItemOption } from '../../../components/AvatarItemOption';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { render, screen } from '@testing-library/react';
-import { CardState } from '@atlaskit/linking-common';
+import { type CardState } from '@atlaskit/linking-common';
 import FlexibleCard from '../index';
 import { TitleBlock } from '../components/blocks';
 import { SmartLinkStatus } from '../../../constants';

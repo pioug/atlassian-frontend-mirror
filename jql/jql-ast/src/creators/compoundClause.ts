@@ -7,13 +7,13 @@ import {
   replaceClause,
 } from '../transformers/compoundClause';
 import {
-  AstNode,
-  Clause,
-  CompoundClause,
-  CompoundOperator,
-  JastListener,
-  JastVisitor,
-  Position,
+  type AstNode,
+  type Clause,
+  type CompoundClause,
+  type CompoundOperator,
+  type JastListener,
+  type JastVisitor,
+  type Position,
 } from '../types';
 
 import { assignParent } from './common';

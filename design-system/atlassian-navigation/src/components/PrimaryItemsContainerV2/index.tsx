@@ -1,6 +1,6 @@
 import React, {
   memo,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 
 import Popup from '@atlaskit/popup';
-import { TriggerProps } from '@atlaskit/popup/types';
+import { type TriggerProps } from '@atlaskit/popup/types';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import {
   media,
@@ -16,9 +16,9 @@ import {
 } from '@atlaskit/primitives/responsive';
 
 import { OverflowProvider } from '../../controllers/overflow';
-import { NavigationTheme } from '../../theme';
+import { type NavigationTheme } from '../../theme';
 import { PrimaryDropdownButton } from '../PrimaryDropdownButton';
-import { PrimaryItemsContainerProps } from '../PrimaryItemsContainer/types';
+import { type PrimaryItemsContainerProps } from '../PrimaryItemsContainer/types';
 
 const containerWrapperStyles = xcss({
   height: '100%',

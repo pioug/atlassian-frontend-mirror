@@ -1,4 +1,4 @@
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
 import type { ProfileClientOptions, Team } from '../types';
 import { teamRequestAnalytics } from '../util/analytics';

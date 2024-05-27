@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconProps } from '@atlaskit/icon';
+import { type IconProps } from '@atlaskit/icon';
 
 export const GlyphPlaceholder = (props: IconProps) => (
   <svg

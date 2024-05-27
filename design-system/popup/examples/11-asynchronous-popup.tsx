@@ -1,11 +1,11 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import { FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { Placement } from '@atlaskit/popper';
+import { type Placement } from '@atlaskit/popper';
 
 import Popup from '../src';
 

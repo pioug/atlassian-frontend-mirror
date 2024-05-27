@@ -1,12 +1,12 @@
 import React from 'react';
 import keycode from 'keycode';
 import { withAnalytics } from '@atlaskit/analytics';
-import { ResultData, SelectedResultId, ResultId } from './Results/types';
+import { type ResultData, type SelectedResultId, type ResultId } from './Results/types';
 import AkSearch from './Search/Search';
 import {
   ResultContext,
   SelectedResultIdContext,
-  ResultContextType,
+  type ResultContextType,
 } from './context';
 
 import decorateWithAnalyticsData from './decorateWithAnalyticsData';
@@ -17,7 +17,7 @@ import {
   QS_ANALYTICS_EV_QUERY_ENTERED,
   QS_ANALYTICS_EV_SUBMIT,
 } from './constants';
-import { ResultBase } from './Results/ResultBase';
+import { type ResultBase } from './Results/ResultBase';
 
 /**
  * Get the result ID of a result by its index in the flatResults array

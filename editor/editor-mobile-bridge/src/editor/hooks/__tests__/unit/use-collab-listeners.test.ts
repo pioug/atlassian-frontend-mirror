@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import { type Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { useCollabListeners } from '../../use-collab-listeners';
 import WebBridgeImpl from '../../../native-to-web';
 import { toNativeBridge } from '../../../web-to-native';

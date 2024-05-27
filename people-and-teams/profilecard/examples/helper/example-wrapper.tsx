@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const onAnalyticsEvent = (event: UIAnalyticsEvent) => {
   console.log(

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { TitleBlockViewProps } from '../types';
+import { type TitleBlockViewProps } from '../types';
 import Block from '../../block';
 import { SmartLinkSize } from '../../../../../../constants';
 import LoadingSkeleton from '../../../common/loading-skeleton';

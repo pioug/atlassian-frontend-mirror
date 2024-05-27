@@ -2,11 +2,12 @@ import {
   AnalyticsContext,
   createAndFireEvent,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
 import React from 'react';
-import Logger, { LOG_LEVEL } from '../helpers/logger';
+import type Logger from '../helpers/logger';
+import { LOG_LEVEL } from '../helpers/logger';
 
 export const createLoggerMock = (): Logger =>
   ({

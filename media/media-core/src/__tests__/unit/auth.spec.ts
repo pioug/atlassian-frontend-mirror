@@ -1,8 +1,8 @@
 import {
   isClientBasedAuth,
   isAsapBasedAuth,
-  ClientBasedAuth,
-  AsapBasedAuth,
+  type ClientBasedAuth,
+  type AsapBasedAuth,
   authToOwner,
 } from '../..';
 

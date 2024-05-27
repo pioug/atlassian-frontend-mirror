@@ -1,4 +1,4 @@
-import { NodeSerializerOpts } from '../interfaces';
+import { type NodeSerializerOpts } from '../interfaces';
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 

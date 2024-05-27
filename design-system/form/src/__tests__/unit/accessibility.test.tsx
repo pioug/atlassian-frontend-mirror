@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 
 import { render } from '@testing-library/react';
 import cases from 'jest-in-case';

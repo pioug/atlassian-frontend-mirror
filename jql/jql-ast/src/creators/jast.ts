@@ -1,5 +1,5 @@
-import { JQLParseError } from '../errors';
-import { Jast, Query } from '../types';
+import { type JQLParseError } from '../errors';
+import { type Jast, type Query } from '../types';
 
 export const jast = (
   query: Query | void,

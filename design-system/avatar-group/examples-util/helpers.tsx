@@ -1,9 +1,9 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import styled from '@emotion/styled';
 
-import { SizeType } from '@atlaskit/avatar';
+import { type SizeType } from '@atlaskit/avatar';
 import { N100, R400, R50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

@@ -4,13 +4,13 @@ import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Avatar from '@atlaskit/avatar/Avatar';
 import Spinner from '@atlaskit/spinner';
 import { useTabPanel } from '@atlaskit/tabs';
 
 import { messages } from '../../shared/i18n';
-import { ReactionSummary } from '../../types';
+import { type ReactionSummary } from '../../types';
 
 import {
   reactionViewStyle,

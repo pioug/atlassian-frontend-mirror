@@ -2,8 +2,8 @@ import React, { useLayoutEffect } from 'react';
 
 import { findByTestId, fireEvent } from '@testing-library/dom';
 import {
-  InteractionTaskArgs,
-  PublicInteractionTask,
+  type InteractionTaskArgs,
+  type PublicInteractionTask,
 } from 'storybook-addon-performance';
 
 import Tooltip from '../src';

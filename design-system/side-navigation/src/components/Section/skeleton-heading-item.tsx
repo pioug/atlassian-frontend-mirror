@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   SkeletonHeadingItem as MenuSkeletonHeadingItem,
-  SkeletonHeadingItemProps,
+  type SkeletonHeadingItemProps,
 } from '@atlaskit/menu';
 
 import { sectionHeaderSpacingStyles } from '../../common/styles';

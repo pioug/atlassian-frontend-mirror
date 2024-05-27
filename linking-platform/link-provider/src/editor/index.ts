@@ -12,11 +12,11 @@
 import 'setimmediate';
 import DataLoader from 'dataloader';
 import {
-  CardAdf,
-  CardAppearance,
+  type CardAdf,
+  type CardAppearance,
   getBaseUrl,
   getResolverUrl,
-  EnvironmentsKeys,
+  type EnvironmentsKeys,
   request,
   getStatus,
 } from '@atlaskit/linking-common';
@@ -24,16 +24,16 @@ import {
 import { extractPreview } from '@atlaskit/link-extractors';
 
 import {
-  CardProvider,
-  LinkAppearance,
-  ORSProvidersResponse,
-  ProviderPattern,
-  ProvidersData,
+  type CardProvider,
+  type LinkAppearance,
+  type ORSProvidersResponse,
+  type ProviderPattern,
+  type ProvidersData,
 } from './types';
 import { Transformer } from './transformer';
 
 import CardClient from '../client';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 const BATCH_WAIT_TIME = 50;
 

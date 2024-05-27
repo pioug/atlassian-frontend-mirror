@@ -1,19 +1,19 @@
 import React from 'react';
 import {
   getArtifactUrl,
-  MediaClient,
-  FileState,
+  type MediaClient,
+  type FileState,
   globalMediaEventEmitter,
 } from '@atlaskit/media-client';
 import {
   CustomMediaPlayer,
-  WithShowControlMethodProp,
+  type WithShowControlMethodProp,
 } from '@atlaskit/media-ui';
 import { Outcome } from '../domain';
 import { MediaViewerError } from '../errors';
 import { Video, CustomVideoPlayerWrapper } from '../styleWrappers';
 import { isIE } from '../utils/isIE';
-import { BaseState, BaseViewer } from './base-viewer';
+import { type BaseState, BaseViewer } from './base-viewer';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
 
 export type Props = Readonly<

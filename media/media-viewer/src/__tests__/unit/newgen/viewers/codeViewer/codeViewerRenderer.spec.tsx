@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   CodeViewRenderer,
-  Props,
-  State,
+  type Props,
+  type State,
 } from '../../../../../viewers/codeViewer/codeViewerRenderer';
 import { Spinner } from '../../../../../loading';
 import { ErrorMessage } from '../../../../../errorMessage';

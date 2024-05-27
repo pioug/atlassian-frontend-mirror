@@ -14,7 +14,7 @@ import extractLozengeActionItems from '../../../../../../extractors/action/extra
 import type { LozengeActionProps, LozengeItem } from './types';
 import createStatusUpdateRequest from '../../../../../../utils/actions/create-status-update-request';
 import useResolve from '../../../../../../state/hooks/use-resolve';
-import { MessageProps } from '../../../types';
+import { type MessageProps } from '../../../types';
 import { LozengeActionErrorMessages } from './lozenge-action-error/types';
 import { isInvokeCustomError } from '../../../../../../state/hooks/use-invoke/utils';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';

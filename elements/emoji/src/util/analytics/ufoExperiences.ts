@@ -13,7 +13,7 @@ import {
   ConcurrentExperience,
   UFOExperience,
 } from '@atlaskit/ufo';
-import { withSampling, WithSamplingUFOExperience } from './samplingUfo';
+import { withSampling, type WithSamplingUFOExperience } from './samplingUfo';
 
 const createRenderExperience = (componentName: string) => {
   return {

@@ -1,11 +1,11 @@
-import React, { FC, ReactNode } from 'react';
+import React, { type FC, type ReactNode } from 'react';
 
 import {
   createAndFireEvent,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
 import Field from './field';

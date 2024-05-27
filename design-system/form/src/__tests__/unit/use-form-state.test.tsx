@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { act, renderHook } from '@testing-library/react-hooks';
-import { FormSubscription } from 'final-form';
+import { type FormSubscription } from 'final-form';
 
 import __noop from '@atlaskit/ds-lib/noop';
 

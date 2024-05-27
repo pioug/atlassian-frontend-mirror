@@ -1,11 +1,11 @@
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
-  DefaultValue,
-  ExternalUser,
-  OptionData,
-  Team,
-  User,
-  UserPickerProps,
+  type DefaultValue,
+  type ExternalUser,
+  type OptionData,
+  type Team,
+  type User,
+  type UserPickerProps,
 } from '@atlaskit/user-picker';
 
 export interface Context {

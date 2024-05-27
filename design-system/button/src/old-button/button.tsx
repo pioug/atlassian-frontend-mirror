@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { useGlobalTheme } from '@atlaskit/theme/components';
@@ -8,7 +8,7 @@ import { useGlobalTheme } from '@atlaskit/theme/components';
 import ButtonBase from './shared/button-base';
 import { getCss } from './shared/css';
 import getIsOnlySingleIcon from './shared/get-is-only-single-icon';
-import { BaseProps } from './types';
+import { type BaseProps } from './types';
 
 const isFirefox: boolean =
   typeof navigator !== 'undefined' &&

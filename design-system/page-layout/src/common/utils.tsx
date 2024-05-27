@@ -6,7 +6,7 @@ import {
   PAGE_LAYOUT_SLOT_SELECTOR,
 } from './constants';
 import safeLocalStorage from './safe-local-storage';
-import { DimensionNames, Dimensions } from './types';
+import { type DimensionNames, type Dimensions } from './types';
 
 const emptyGridState: Dimensions = DIMENSIONS.reduce(
   (acc, currentValue) => ({ ...acc, [currentValue]: 0 }),

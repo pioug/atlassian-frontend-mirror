@@ -1,6 +1,6 @@
 import type { MediaApiToken } from '../../types';
 import {
-  ServiceConfig,
+  type ServiceConfig,
   utils as serviceUtils,
 } from '@atlaskit/util-service-support';
 

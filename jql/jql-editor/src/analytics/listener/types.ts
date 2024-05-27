@@ -1,6 +1,6 @@
 import {
-  GasPurePayload,
-  GasPureScreenEventPayload,
+  type GasPurePayload,
+  type GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 
 export type AnalyticsWebClient = {

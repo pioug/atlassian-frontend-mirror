@@ -3,7 +3,7 @@ import React from 'react';
 import { SingleValueContainer } from '../../../components/SingleValueContainer';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import { testUser } from '../_testUtils';
-import { Option } from '../../../types';
+import { type Option } from '../../../types';
 
 describe('SingleValueContainer', () => {
   const shallowValueContainer = (props: any) =>

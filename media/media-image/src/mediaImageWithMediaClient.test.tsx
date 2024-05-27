@@ -1,7 +1,7 @@
 jest.mock('./mediaImageBase');
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { FileIdentifier, MediaClientConfig } from '@atlaskit/media-client';
+import { type FileIdentifier, type MediaClientConfig } from '@atlaskit/media-client';
 import MediaImageWithMediaClient from './mediaImageWithMediaClient';
 import { MediaImageBase } from './mediaImageBase';
 import {

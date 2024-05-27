@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Spinner, { Appearance, Size } from '@atlaskit/spinner';
+import Spinner, { type Appearance, type Size } from '@atlaskit/spinner';
 
-import { BaseProps } from '../types';
+import { type BaseProps } from '../types';
 
 type LoadingSpinnerProps = Pick<
   BaseProps,

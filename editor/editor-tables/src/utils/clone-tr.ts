@@ -1,4 +1,4 @@
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 
 // Creates a new transaction object from a given transaction
 export const cloneTr = (tr: Transaction): Transaction =>

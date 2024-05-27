@@ -1,6 +1,6 @@
 import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
 export type Size = 'regular' | 'large';

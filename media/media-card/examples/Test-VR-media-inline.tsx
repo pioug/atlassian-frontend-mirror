@@ -5,7 +5,7 @@ import {
   defaultCollectionName,
   MediaMock,
   generateFilesFromTestData,
-  MockFileInputParams,
+  type MockFileInputParams,
 } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl-next';
 import MediaInlineCard from '../src/inline/loader';

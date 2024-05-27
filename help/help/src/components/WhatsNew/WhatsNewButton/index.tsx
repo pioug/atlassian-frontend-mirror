@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
-import { UIAnalyticsEvent, AnalyticsContext } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, AnalyticsContext } from '@atlaskit/analytics-next';
 import * as colors from '@atlaskit/theme/colors';
 import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
 import { token } from '@atlaskit/tokens';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
 import { useNavigationContext } from '../../contexts/navigationContext';

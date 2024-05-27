@@ -3,7 +3,7 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 
-import { AutoDismissFlagProps } from './types';
+import { type AutoDismissFlagProps } from './types';
 
 import Flag from './flag';
 import { useFlagGroup } from './flag-group';

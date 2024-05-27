@@ -1,12 +1,12 @@
 /* eslint-disable react/no-array-index-key */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import React, { CSSProperties } from 'react';
+import React, { type CSSProperties } from 'react';
 
 import { B500, N0, N20, N800 } from '@atlaskit/theme/colors';
 
 import { avatarUrl } from '../examples-util/data';
 import { Code, Note } from '../examples-util/helpers';
-import Avatar, { AppearanceType, PresenceType, StatusType } from '../src';
+import Avatar, { type AppearanceType, type PresenceType, type StatusType } from '../src';
 
 const exampleColors = [N800, B500, N20, N0];
 

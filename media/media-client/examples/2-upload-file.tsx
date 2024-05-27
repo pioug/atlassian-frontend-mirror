@@ -1,15 +1,15 @@
 import React from 'react';
-import { Component, SyntheticEvent } from 'react';
+import { Component, type SyntheticEvent } from 'react';
 import {
   defaultCollectionName,
   defaultMediaPickerAuthProvider,
 } from '../src/test-helpers';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { FileState, MediaClient, UploadController } from '../src';
+import { type MediaClientConfig } from '@atlaskit/media-core';
+import { type FileState, MediaClient, UploadController } from '../src';
 import { FileWrapper } from '../example-helpers/stylesWrapper';
 import {
-  MediaSubscribable,
-  MediaSubscription,
+  type MediaSubscribable,
+  type MediaSubscription,
 } from '../src/utils/mediaSubscribable';
 
 export interface ComponentProps {}

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { getContext } from '../utils/flexible-ui';

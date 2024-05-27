@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { type ChangeEvent, useState } from 'react';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { smallImage } from '@atlaskit/media-common/test-helpers';
-import { chunkinator, Chunk, ChunkinatorFile } from '../src';
+import { chunkinator, type Chunk, type ChunkinatorFile } from '../src';
 import config from '../example-helpers/config';
 import { sha1Hasher } from '../example-helpers/Sha1Hasher';
 

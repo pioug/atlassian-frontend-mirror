@@ -9,9 +9,9 @@ import LinkCreate, {
   CreateForm,
   TextField,
   useLinkCreateCallback,
-  Validator,
+  type Validator,
 } from '../src';
-import { CreatePayload } from '../src/common/types';
+import { type CreatePayload } from '../src/common/types';
 
 const ENTITY_KEY = 'object-name';
 

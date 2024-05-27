@@ -1,8 +1,8 @@
 import React from 'react';
 
-import withDimensions, { WithDimensionsProps } from '../../hoc/with-dimensions';
+import withDimensions, { type WithDimensionsProps } from '../../hoc/with-dimensions';
 import { inlineStylesIfRanking } from '../../internal/helpers';
-import HeadCell, { TableHeadCellProps } from '../table-head-cell';
+import HeadCell, { type TableHeadCellProps } from '../table-head-cell';
 
 class RankableTableHeadCell extends React.Component<
   WithDimensionsProps & TableHeadCellProps,

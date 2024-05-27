@@ -1,11 +1,11 @@
-import { Action } from 'react-sweet-state';
+import { type Action } from 'react-sweet-state';
 import type { Observable } from 'rxjs/Observable';
 
-import { JqlEditorAutocompleteAnalyticsEvent } from '../analytics';
+import { type JqlEditorAutocompleteAnalyticsEvent } from '../analytics';
 import {
-  GetAutocompleteInitialData,
-  JQLFieldResponse,
-  JQLFunctionResponse,
+  type GetAutocompleteInitialData,
+  type JQLFieldResponse,
+  type JQLFunctionResponse,
 } from '../common/types';
 
 export type Store = {

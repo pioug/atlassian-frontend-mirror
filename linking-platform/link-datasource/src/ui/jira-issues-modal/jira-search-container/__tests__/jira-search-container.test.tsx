@@ -4,7 +4,7 @@ import {
   act,
   fireEvent,
   render,
-  RenderResult,
+  type RenderResult,
   within,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -12,7 +12,7 @@ import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { JQLEditor, JQLEditorProps } from '@atlaskit/jql-editor';
+import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
 import {
   fieldValuesResponseForStatusesMapped,
   mockSite,
@@ -21,19 +21,19 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
-import { SelectOption } from '../../../common/modal/popup-select/types';
+import { type SelectOption } from '../../../common/modal/popup-select/types';
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
 import {
-  HydrateJqlState,
+  type HydrateJqlState,
   useHydrateJqlQuery,
 } from '../../basic-filters/hooks/useHydrateJqlQuery';
-import { BasicFilterFieldType } from '../../basic-filters/types';
+import { type BasicFilterFieldType } from '../../basic-filters/types';
 import { availableBasicFilterTypes } from '../../basic-filters/ui';
-import { JiraIssueDatasourceParameters } from '../../types';
+import { type JiraIssueDatasourceParameters } from '../../types';
 import {
   DEFAULT_JQL_QUERY,
   JiraSearchContainer,
-  SearchContainerProps,
+  type SearchContainerProps,
 } from '../index';
 
 jest.mock('../../basic-filters/hooks/useHydrateJqlQuery');

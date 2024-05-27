@@ -1,11 +1,11 @@
 import {
-  AstNode,
-  JastListener,
-  JastVisitor,
-  Operand,
-  Position,
-  Predicate,
-  PredicateOperator,
+  type AstNode,
+  type JastListener,
+  type JastVisitor,
+  type Operand,
+  type Position,
+  type Predicate,
+  type PredicateOperator,
 } from '../types';
 
 import { assignParent } from './common';

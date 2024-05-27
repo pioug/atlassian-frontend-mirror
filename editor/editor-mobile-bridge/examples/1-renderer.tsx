@@ -4,7 +4,7 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import Renderer from './../src/renderer/mobile-renderer-element';
-import { MentionProvider } from '@atlaskit/mention/types';
+import { type MentionProvider } from '@atlaskit/mention/types';
 import { createCardClient, createMentionProvider } from '../src/providers';
 import getBridge from '../src/renderer/native-to-web/bridge-initialiser';
 import useRendererConfiguration from '../src/renderer/hooks/use-renderer-configuration';

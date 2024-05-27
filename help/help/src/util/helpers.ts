@@ -1,4 +1,4 @@
-import { Article } from '../model/Article';
+import { type Article } from '../model/Article';
 
 export enum RESPONSE_TYPE {
   ALGOLIA = 'ALGOLIA',

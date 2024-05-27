@@ -1,4 +1,4 @@
-import { Component, ChangeEvent } from 'react';
+import { Component, type ChangeEvent } from 'react';
 import React from 'react';
 import { defaultMediaPickerAuthProvider } from '../src/test-helpers';
 import { tallImage } from '@atlaskit/media-common/test-helpers';
@@ -10,8 +10,8 @@ import {
   Wrapper,
   FileInput,
 } from '../example-helpers/stylesWrapper';
-import { uploadFile, MediaStore, UploadableFileUpfrontIds } from '../src';
-import { UploadableFile, UploadFileCallbacks } from '../src/uploader';
+import { uploadFile, MediaStore, type UploadableFileUpfrontIds } from '../src';
+import { type UploadableFile, type UploadFileCallbacks } from '../src/uploader';
 import { getRandomHex } from '@atlaskit/media-common';
 
 type UploaderExampleProps = {};

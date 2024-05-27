@@ -1,8 +1,8 @@
 /** @jsx jsx */
 
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';

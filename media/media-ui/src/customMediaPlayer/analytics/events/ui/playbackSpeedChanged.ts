@@ -1,13 +1,13 @@
-import { UIAttributes, UIEventPayload } from '@atlaskit/media-common';
+import { type UIAttributes, type UIEventPayload } from '@atlaskit/media-common';
 
 import {
   createPlaybackAttributes,
-  PlaybackState,
-  WithPlaybackAttributes,
+  type PlaybackState,
+  type WithPlaybackAttributes,
 } from '../../utils/playbackAttributes';
 import {
-  CustomMediaPlayerType,
-  WithCustomMediaPlayerType,
+  type CustomMediaPlayerType,
+  type WithCustomMediaPlayerType,
 } from '../../../types';
 
 export type PlaybackSpeedChangeEventPayload = UIEventPayload<

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
@@ -27,11 +27,11 @@ import {
   SpinnerContainer,
 } from '../../styled/Card';
 import {
-  AnalyticsFromDuration,
-  AnalyticsProps,
-  AnalyticsWithDurationProps,
-  ProfileCardAction,
-  ProfilecardProps,
+  type AnalyticsFromDuration,
+  type AnalyticsProps,
+  type AnalyticsWithDurationProps,
+  type ProfileCardAction,
+  type ProfilecardProps,
 } from '../../types';
 import {
   actionClicked,

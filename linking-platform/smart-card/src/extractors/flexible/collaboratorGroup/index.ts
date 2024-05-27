@@ -1,8 +1,8 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import {
   extractMembers,
   extractPersonFromJsonLd,
-  LinkPerson,
+  type LinkPerson,
 } from '@atlaskit/link-extractors';
 
 export type LinkTypeUpdatedBy =

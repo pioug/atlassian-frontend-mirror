@@ -3,7 +3,7 @@ import React from 'react';
 import {
   AsyncSelect,
   CreateForm,
-  CreateFormProps,
+  type CreateFormProps,
   TextField,
 } from '@atlaskit/link-create';
 

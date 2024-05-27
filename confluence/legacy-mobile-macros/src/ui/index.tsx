@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { GasPurePayload } from '@atlaskit/analytics-gas-types';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type GasPurePayload } from '@atlaskit/analytics-gas-types';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
 import addonIcon from '@atlaskit/icon/glyph/editor/addon';
 

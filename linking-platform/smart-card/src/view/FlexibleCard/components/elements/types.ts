@@ -1,6 +1,6 @@
-import { SerializedStyles } from '@emotion/react';
+import { type SerializedStyles } from '@emotion/react';
 
-import { ElementName, SmartLinkSize } from '../../../../constants';
+import { type ElementName, type SmartLinkSize } from '../../../../constants';
 
 export type ElementProps = {
   /**

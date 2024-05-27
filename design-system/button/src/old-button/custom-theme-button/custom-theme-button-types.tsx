@@ -1,8 +1,8 @@
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
-import { ThemeModes } from '@atlaskit/theme/types';
+import { type ThemeModes } from '@atlaskit/theme/types';
 
-import { BaseProps } from '../types';
+import { type BaseProps } from '../types';
 
 export type ThemeTokens = {
   buttonStyles: CSSObject;

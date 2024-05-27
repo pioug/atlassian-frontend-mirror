@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, MouseEvent, useCallback } from 'react';
+import React, { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
@@ -8,7 +8,7 @@ import RadioIcon from '../internal/components/radio-icon';
 import useRadioState from '../internal/hooks/use-radio-state';
 import useRegisterItemWithFocusManager from '../internal/hooks/use-register-item-with-focus-manager';
 import isVoiceOverSupported from '../internal/utils/is-voice-over-supported';
-import { DropdownItemRadioProps } from '../types';
+import { type DropdownItemRadioProps } from '../types';
 
 /**
  * __Dropdown item radio__

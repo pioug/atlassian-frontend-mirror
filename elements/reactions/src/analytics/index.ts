@@ -1,14 +1,14 @@
 import {
   createAndFireEvent,
-  AnalyticsEventPayload,
-  CreateUIAnalyticsEvent,
+  type AnalyticsEventPayload,
+  type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import {
   UI_EVENT_TYPE,
   OPERATIONAL_EVENT_TYPE,
-  EventType,
+  type EventType,
 } from '@atlaskit/analytics-gas-types';
-import { ReactionSummary, ReactionSource } from '../types';
+import { type ReactionSummary, type ReactionSource } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

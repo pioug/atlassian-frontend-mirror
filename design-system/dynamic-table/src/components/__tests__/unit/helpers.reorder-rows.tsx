@@ -1,5 +1,5 @@
 import { computeIndex, reorderRows } from '../../../internal/helpers';
-import { RankEnd, RowType } from '../../../types';
+import { type RankEnd, type RowType } from '../../../types';
 
 import { rowsWithKeys } from './_data';
 

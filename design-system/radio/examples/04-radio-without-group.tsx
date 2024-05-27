@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { SyntheticEvent, useCallback, useState } from 'react';
+import { type SyntheticEvent, useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

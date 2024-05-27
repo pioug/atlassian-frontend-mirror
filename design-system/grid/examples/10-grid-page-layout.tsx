@@ -20,7 +20,7 @@ import {
 } from '@atlaskit/primitives/responsive';
 import Stack from '@atlaskit/primitives/stack';
 
-import { GridProps } from '../src';
+import { type GridProps } from '../src';
 
 import GridCards from './01-grid-cards';
 

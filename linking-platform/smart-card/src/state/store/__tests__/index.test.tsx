@@ -9,8 +9,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import { useSmartCardState } from '..';
-import { CardState, CardStore } from '../../types';
-import { SmartCardProvider, ProviderProps } from '../../../state';
+import { type CardState, type CardStore } from '../../types';
+import { SmartCardProvider, type ProviderProps } from '../../../state';
 
 function generateWrapper(providerProps?: Partial<ProviderProps>) {
   return ({ children }: { children?: React.ReactNode }) => (

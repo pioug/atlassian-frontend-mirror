@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import { B100, N0, N100, N20, N30, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { Appearance } from '../types';
+import { type Appearance } from '../types';
 
 const isInvalidBorderStyles = css({
   borderColor: token('color.border.danger', R400),

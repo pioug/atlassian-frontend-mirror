@@ -1,12 +1,12 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import React, { FC, Fragment, ReactNode } from 'react';
+import React, { type FC, Fragment, type ReactNode } from 'react';
 
 import { G400, N0, N40, N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ICON_OFFSET, ICON_SIZES } from './constants';
 import IconWrapper from './IconWrapper';
-import { AppearanceType, IndicatorSizeType, Status } from './types';
+import { type AppearanceType, type IndicatorSizeType, type Status } from './types';
 
 export interface StatusProps {
   /**

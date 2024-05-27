@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { DeleteUserContentPreviewScreen } from '../../components/DeleteUserContentPreviewScreen';
 import { catherineHirons } from '../../mocks/users';
-import { DeleteUserContentPreviewScreenProps } from '../../components/DeleteUserContentPreviewScreen/types';
+import { type DeleteUserContentPreviewScreenProps } from '../../components/DeleteUserContentPreviewScreen/types';
 
 const defaultProps: DeleteUserContentPreviewScreenProps = {
   isCurrentUser: false,

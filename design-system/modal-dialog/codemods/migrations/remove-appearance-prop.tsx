@@ -1,4 +1,9 @@
-import core, { ASTPath, Collection, JSXAttribute } from 'jscodeshift/src/core';
+import {
+  type ASTPath,
+  type Collection,
+  type default as core,
+  type JSXAttribute,
+} from 'jscodeshift/src/core';
 
 import {
   getDefaultSpecifier,

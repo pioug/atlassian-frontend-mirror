@@ -1,19 +1,19 @@
-import { Node } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { type Node } from '@atlaskit/editor-prosemirror/model';
+import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
   AbstractJastVisitor,
-  CompoundClause,
-  Jast,
-  ListOperand,
-  NotClause,
-  Query,
-  TerminalClause,
-  ValueOperand,
+  type CompoundClause,
+  type Jast,
+  type ListOperand,
+  type NotClause,
+  type Query,
+  type TerminalClause,
+  type ValueOperand,
 } from '@atlaskit/jql-ast';
 
 import { JQLEditorSchema } from '../../../schema';
-import { HydratedValuesMap } from '../../../state/types';
-import { HydratedValue } from '../../../ui/jql-editor/types';
+import { type HydratedValuesMap } from '../../../state/types';
+import { type HydratedValue } from '../../../ui/jql-editor/types';
 import getDocumentPosition from '../../common/get-document-position';
 import { getJastFromState } from '../../jql-ast';
 import { RICH_INLINE_NODE } from '../constants';

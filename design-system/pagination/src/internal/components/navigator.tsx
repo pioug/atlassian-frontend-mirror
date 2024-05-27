@@ -1,4 +1,4 @@
-import React, { ReactElement, SyntheticEvent } from 'react';
+import React, { type ReactElement, type SyntheticEvent } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 

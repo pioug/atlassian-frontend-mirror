@@ -1,6 +1,6 @@
 import {
-  Node as PMNode,
-  ResolvedPos,
+  type Node as PMNode,
+  type ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
 import { SelectionRange } from '@atlaskit/editor-prosemirror/state';
 

@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 import Lozenge from '@atlaskit/lozenge';
 import { token } from '@atlaskit/tokens';
 
-import { LozengeProps } from '../types';
+import { type LozengeProps } from '../types';
 import { isLozengeText } from './utils';
 
 const AsyncTooltip = React.lazy(() =>

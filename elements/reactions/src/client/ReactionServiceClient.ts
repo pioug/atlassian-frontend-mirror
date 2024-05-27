@@ -1,9 +1,9 @@
 import {
-  RequestServiceOptions,
-  ServiceConfig,
+  type RequestServiceOptions,
+  type ServiceConfig,
   utils,
 } from '@atlaskit/util-service-support';
-import { Reactions, ReactionSummary, Client } from '../types';
+import { type Reactions, type ReactionSummary, type Client } from '../types';
 
 type ReactionsResponse = { ari: string; reactions: ReactionSummary[] };
 

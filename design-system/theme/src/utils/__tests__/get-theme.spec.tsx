@@ -1,6 +1,6 @@
 import cases from 'jest-in-case';
 
-import { Theme, ThemeProps } from '../../types';
+import { type Theme, type ThemeProps } from '../../types';
 import getTheme from '../get-theme';
 
 cases(

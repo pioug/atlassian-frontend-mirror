@@ -31,36 +31,8 @@ const options: OptionsType = {
   ],
 };
 
-snapshot(DefaultCreateForm, {
-  ...options,
-  featureFlags: {
-    'platform.linking-platform.link-create.enable-expected-field-errors': [
-      true,
-      false,
-    ],
-  },
-});
-snapshot(CreateFormIsLoading, {
-  ...options,
-  featureFlags: {
-    'platform.linking-platform.link-create.enable-expected-field-errors': true,
-  },
-});
-snapshot(CreateFormHideFooter, {
-  ...options,
-  featureFlags: {
-    'platform.linking-platform.link-create.enable-expected-field-errors': true,
-  },
-});
-snapshot(CreateFormWithTextField, {
-  ...options,
-  featureFlags: {
-    'platform.linking-platform.link-create.enable-expected-field-errors': true,
-  },
-});
-snapshot(CreateFormWithAsyncSelect, {
-  ...options,
-  featureFlags: {
-    'platform.linking-platform.link-create.enable-expected-field-errors': true,
-  },
-});
+snapshot(DefaultCreateForm, options);
+snapshot(CreateFormIsLoading, options);
+snapshot(CreateFormHideFooter, options);
+snapshot(CreateFormWithTextField, options);
+snapshot(CreateFormWithAsyncSelect, options);

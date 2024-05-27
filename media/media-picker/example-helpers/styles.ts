@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { PastedImageStyleType } from './stylesWrapper';
+import { type PastedImageStyleType } from './stylesWrapper';
 
 interface DropzoneContainerProps {
   isActive: boolean;

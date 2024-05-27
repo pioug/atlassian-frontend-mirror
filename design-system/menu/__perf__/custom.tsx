@@ -1,4 +1,4 @@
-import React, { Ref } from 'react';
+import React, { type Ref } from 'react';
 
 import CustomItem from '../src/menu-item/custom-item';
 import type { CustomItemComponentProps, CustomItemProps } from '../src/types';

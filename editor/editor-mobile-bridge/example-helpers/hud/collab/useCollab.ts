@@ -1,6 +1,6 @@
 import { createSocketIOSocket } from '@atlaskit/collab-provider/socket-io-provider';
 import { useEffect } from 'react';
-import WebBridgeImpl from '../../../src/editor/native-to-web';
+import type WebBridgeImpl from '../../../src/editor/native-to-web';
 
 const startCollab = (
   url: string,

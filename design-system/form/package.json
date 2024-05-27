@@ -50,7 +50,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/banner": "^12.3.0",
-    "@atlaskit/button": "^17.16.0",
+    "@atlaskit/button": "^17.17.0",
     "@atlaskit/checkbox": "^13.3.0",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/modal-dialog": "^12.13.0",

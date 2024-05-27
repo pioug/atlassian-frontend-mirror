@@ -3,8 +3,8 @@ import { N600 } from '@atlaskit/theme/colors';
 import PeopleIcon from '@atlaskit/icon/glyph/people';
 import { token } from '@atlaskit/tokens';
 
-import { JsonLd } from 'json-ld-types';
-import { LinkDetail } from './types';
+import { type JsonLd } from 'json-ld-types';
+import { type LinkDetail } from './types';
 
 export type LinkSubscriberType =
   | JsonLd.Data.SourceCodeRepository

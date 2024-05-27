@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import fetchUserRecommendations from '../../services/recommendations-client';
-import { UserSearchQuery, UserSearchRequest } from '../../types';
+import { type UserSearchQuery, type UserSearchRequest } from '../../types';
 
 const URS_URL = '/gateway/api/v1/recommendations';
 

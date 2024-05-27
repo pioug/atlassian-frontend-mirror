@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
-import { MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
 
-import { BadgeProps } from './types';
+import { type BadgeProps } from './types';
 import { token } from '@atlaskit/tokens';
 import { getFormattedMessage, getIconSizeStyles } from '../../utils';
 import { IconType } from '../../../../../constants';

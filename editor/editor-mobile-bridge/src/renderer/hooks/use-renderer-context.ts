@@ -1,6 +1,6 @@
 import { useRef, useLayoutEffect } from 'react';
-import { RendererContext } from '@atlaskit/renderer';
-import RendererBridgeImplementation from '../native-to-web/implementation';
+import { type RendererContext } from '@atlaskit/renderer';
+import type RendererBridgeImplementation from '../native-to-web/implementation';
 
 const containerAri = 'MOCK-containerAri';
 const objectAri = 'MOCK-objectAri';

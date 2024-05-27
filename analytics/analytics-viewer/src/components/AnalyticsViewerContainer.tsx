@@ -1,7 +1,7 @@
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import React from 'react';
 import styled from 'styled-components';
-import { AnalyticsViewer, EventsArray } from './AnalyticsViewer';
+import { AnalyticsViewer, type EventsArray } from './AnalyticsViewer';
 
 type Props = {
   children: React.ReactNode;

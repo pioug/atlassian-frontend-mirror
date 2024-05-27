@@ -1,18 +1,18 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 
 import { Frame } from '../components/Frame';
 import { Provider } from '../components/Provider';
 import { Byline } from '../../common/Byline';
 import { ActionList } from '../components/ActionList';
 import { Content } from '../components/Content';
-import { ActionProps } from '../components/Action';
+import { type ActionProps } from '../components/Action';
 import { messages } from '../../../messages';
 import { ContentHeader } from '../components/ContentHeader';
 import { ContentFooter } from '../components/ContentFooter';
-import { IconProps } from '../../common/Icon';
+import { type IconProps } from '../../common/Icon';
 import { handleClickCommon } from '../utils/handlers';
 import { Link } from '../components/Link';
 import type { CardActionOptions } from '../../Card/types';

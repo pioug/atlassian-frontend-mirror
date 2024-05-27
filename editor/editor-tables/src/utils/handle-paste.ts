@@ -1,8 +1,8 @@
-import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Fragment, type Slice } from '@atlaskit/editor-prosemirror/model';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { CellSelection } from '../cell-selection';
-import { Rect, TableMap } from '../table-map';
+import { type Rect, TableMap } from '../table-map';
 import type { CellSelectionRect } from '../types';
 import { selectionCell } from '../utils/selection-cell';
 import { tableNodeTypes } from '../utils/table-node-types';

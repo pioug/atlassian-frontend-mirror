@@ -1,14 +1,14 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
-  Fragment,
-  Node as PMNode,
-  Schema,
+  type Fragment,
+  type Node as PMNode,
+  type Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import flow from 'lodash/flow';
 import property from 'lodash/property';
 import {
-  SerializeFragmentWithAttachmentsResult,
-  SerializerWithImages,
+  type SerializeFragmentWithAttachmentsResult,
+  type SerializerWithImages,
 } from './serializer';
 import { nodeSerializers } from './node-serializers';
 import styles from './styles';
@@ -17,7 +17,7 @@ import { escapeHtmlString } from './escape-html-string';
 import { processImages } from './static';
 import { createClassName } from './styles/util';
 import { fontFamily, fontSize } from './styles/common';
-import { MetaDataContext, EmailSerializerOpts } from './interfaces';
+import { type MetaDataContext, type EmailSerializerOpts } from './interfaces';
 
 const serializeNode = (
   node: PMNode,

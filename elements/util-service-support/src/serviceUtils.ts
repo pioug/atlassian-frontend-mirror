@@ -1,9 +1,9 @@
 import {
   buildCredentials,
-  KeyValues,
-  RequestServiceOptions,
-  SecurityOptions,
-  ServiceConfig,
+  type KeyValues,
+  type RequestServiceOptions,
+  type SecurityOptions,
+  type ServiceConfig,
 } from './types';
 
 const defaultRequestServiceOptions: RequestServiceOptions = {};

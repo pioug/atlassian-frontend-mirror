@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 
 import Stack from '@atlaskit/primitives/stack';
 import Tick from '@atlaskit/icon/glyph/check-circle';
@@ -7,7 +7,7 @@ import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
 import { token } from '@atlaskit/tokens';
 
-import Flag, { AppearanceTypes } from '../src';
+import Flag, { type AppearanceTypes } from '../src';
 
 type FlagVariant = {
   appearance: AppearanceTypes;

@@ -1,5 +1,5 @@
-import { FlexibleCardProps } from '../../../../FlexibleCard/types';
-import { AnalyticsFacade } from '../../../../../state/analytics';
+import { type FlexibleCardProps } from '../../../../FlexibleCard/types';
+import { type AnalyticsFacade } from '../../../../../state/analytics';
 
 export type HoverCardUnauthorisedProps = {
   /**

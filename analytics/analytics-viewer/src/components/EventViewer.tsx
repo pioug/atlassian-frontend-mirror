@@ -1,4 +1,4 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import React from 'react';
 import styled from 'styled-components';
 import { PropertyViewer } from './PropertyViewer';

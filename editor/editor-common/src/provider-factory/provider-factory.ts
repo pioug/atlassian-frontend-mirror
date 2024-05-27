@@ -1,8 +1,8 @@
 import {
-  ProviderHandler,
-  ProviderName,
-  Providers,
-  ProviderType,
+  type ProviderHandler,
+  type ProviderName,
+  type Providers,
+  type ProviderType,
 } from './types';
 
 function isUndefined(x: any): x is undefined {

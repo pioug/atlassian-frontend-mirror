@@ -1,31 +1,31 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { AnalyticsPayload } from '../types';
-import { CardInnerAppearance } from '../../view/Card/types';
+import { type AnalyticsPayload } from '../types';
+import { type CardInnerAppearance } from '../../view/Card/types';
 import { getMeasure } from '../performance';
 import {
-  CommonEventProps,
-  ConnectFailedEventProps,
-  ConnectSucceededEventProps,
-  InvokeFailedEventProps,
-  InvokeSucceededEventProps,
-  ResolvedEventProps,
-  ScreenAuthPopupEventProps,
-  TrackAppAccountConnectedProps,
-  UiActionClickedEventProps,
-  UiAuthAlternateAccountEventProps,
-  UiAuthEventProps,
-  UiCardClickedEventProps,
-  UiClosedAuthEventProps,
-  UiHoverCardDismissedEventProps,
-  UiHoverCardOpenLinkClickedEventProps,
-  UiHoverCardViewedEventProps,
-  UiIframeDwelledEventProps,
-  UiIframeFocusedEventProps,
-  UiRenderFailedEventProps,
-  UiRenderSuccessEventProps,
-  UiServerActionClickedEventProps,
-  UnresolvedEventProps,
+  type CommonEventProps,
+  type ConnectFailedEventProps,
+  type ConnectSucceededEventProps,
+  type InvokeFailedEventProps,
+  type InvokeSucceededEventProps,
+  type ResolvedEventProps,
+  type ScreenAuthPopupEventProps,
+  type TrackAppAccountConnectedProps,
+  type UiActionClickedEventProps,
+  type UiAuthAlternateAccountEventProps,
+  type UiAuthEventProps,
+  type UiCardClickedEventProps,
+  type UiClosedAuthEventProps,
+  type UiHoverCardDismissedEventProps,
+  type UiHoverCardOpenLinkClickedEventProps,
+  type UiHoverCardViewedEventProps,
+  type UiIframeDwelledEventProps,
+  type UiIframeFocusedEventProps,
+  type UiRenderFailedEventProps,
+  type UiRenderSuccessEventProps,
+  type UiServerActionClickedEventProps,
+  type UnresolvedEventProps,
 } from './types';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 export const ANALYTICS_CHANNEL = 'media';

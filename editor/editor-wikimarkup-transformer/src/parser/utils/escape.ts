@@ -1,4 +1,4 @@
-import { TextToken } from '../tokenize';
+import { type TextToken } from '../tokenize';
 
 /**
  * In Jira, following characters are escaped

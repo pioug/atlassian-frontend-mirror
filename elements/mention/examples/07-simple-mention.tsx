@@ -1,4 +1,4 @@
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import React from 'react';
 import { onMentionEvent } from '../example-helpers/index';

@@ -20,7 +20,7 @@ import { hotdog, rocket } from '@atlaskit/link-test-helpers/images';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import { useFilterOptions } from '../hooks/useFilterOptions';
-import { BasicFilterFieldType } from '../types';
+import { type BasicFilterFieldType } from '../types';
 
 const mockFilterType = 'project';
 

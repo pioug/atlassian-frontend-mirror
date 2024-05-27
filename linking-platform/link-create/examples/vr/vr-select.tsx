@@ -5,7 +5,7 @@ import { Form } from 'react-final-form';
 import { Select } from '@atlaskit/link-create';
 
 import { FormContextProvider } from '../../src/controllers/form-context';
-import { SelectProps } from '../../src/ui/create-form/select/types';
+import { type SelectProps } from '../../src/ui/create-form/select/types';
 
 const createExample = (
   props: Partial<SelectProps> = {},

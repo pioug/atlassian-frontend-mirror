@@ -1,7 +1,7 @@
-import { OptionData } from '@atlaskit/smart-user-picker';
+import { type OptionData } from '@atlaskit/smart-user-picker';
 
-import { Comment } from './ShareEntities';
-import { User } from './User';
+import { type Comment } from './ShareEntities';
+import { type User } from './User';
 
 export type ShareContentState = {
   users: User[];

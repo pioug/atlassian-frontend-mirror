@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import { type ComponentType } from 'react';
 
-import { BaseIconButtonProps } from '../IconButton/types';
+import { type BaseIconButtonProps } from '../IconButton/types';
 
 export type NotificationsProps = BaseIconButtonProps & {
   /**

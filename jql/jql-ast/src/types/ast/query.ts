@@ -1,10 +1,10 @@
-import { NODE_TYPE_QUERY } from '../../constants';
-import { JQLParseError } from '../../errors';
+import { type NODE_TYPE_QUERY } from '../../constants';
+import { type JQLParseError } from '../../errors';
 
-import { Clause, ParentOfClause } from './clause';
-import { AstNode } from './common';
-import { CompoundOperatorValue } from './compound-operator';
-import { OrderBy, OrderByDirection, OrderByField } from './order-by';
+import { type Clause, type ParentOfClause } from './clause';
+import { type AstNode } from './common';
+import { type CompoundOperatorValue } from './compound-operator';
+import { type OrderBy, type OrderByDirection, type OrderByField } from './order-by';
 
 /**
  * A parsed JQL query.

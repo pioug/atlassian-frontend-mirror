@@ -1,6 +1,6 @@
 import {
-  NestedExpandDefinition,
-  NestedExpandContent,
+  type NestedExpandDefinition,
+  type NestedExpandContent,
 } from '@atlaskit/adf-schema';
 
 export const nestedExpand =

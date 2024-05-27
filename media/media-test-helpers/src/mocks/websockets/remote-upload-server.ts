@@ -1,8 +1,8 @@
-import { Server, WebSocket, type Client } from 'mock-socket';
-import { Database } from 'kakapo';
+import { Server, type WebSocket, type Client } from 'mock-socket';
+import { type Database } from 'kakapo';
 import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { Subscription } from 'rxjs/Subscription';
+import { type Observer } from 'rxjs/Observer';
+import { type Subscription } from 'rxjs/Subscription';
 import { from } from 'rxjs/observable/from';
 import { of } from 'rxjs/observable/of';
 import { delay } from 'rxjs/operators/delay';
@@ -21,8 +21,8 @@ import {
   remoteUploadEndPayload,
 } from './messages';
 
-import { WebSocketServer } from './types';
-import { createCollectionItem, MediaDatabaseSchema } from '../database';
+import { type WebSocketServer } from './types';
+import { createCollectionItem, type MediaDatabaseSchema } from '../database';
 import { defaultBaseUrl } from '../../mediaClientProvider';
 import { smallImage } from '../../dataURIs/smallImageURI';
 import { getWsUrl, mapDataUriToBlob } from '../../utils';

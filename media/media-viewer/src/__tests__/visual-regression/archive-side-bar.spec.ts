@@ -2,7 +2,7 @@ import {
   getExampleUrl,
   loadPage,
   pageSelector,
-  PuppeteerPage,
+  type PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 
 describe('Archive sidebar', () => {

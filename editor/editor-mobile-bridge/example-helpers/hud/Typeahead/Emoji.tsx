@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import WebBridgeImpl from '../../../src/editor/native-to-web';
-import { EmojiProvider, EmojiDescription } from '@atlaskit/emoji';
+import type WebBridgeImpl from '../../../src/editor/native-to-web';
+import { type EmojiProvider, type EmojiDescription } from '@atlaskit/emoji';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import Button from '../Toolbar/Button';
 

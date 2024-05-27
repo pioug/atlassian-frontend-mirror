@@ -1,13 +1,13 @@
-import { ScreenAttributes, ScreenEventPayload } from '@atlaskit/media-common';
+import { type ScreenAttributes, type ScreenEventPayload } from '@atlaskit/media-common';
 
 import {
   createPlaybackAttributes,
-  PlaybackState,
-  WithPlaybackAttributes,
+  type PlaybackState,
+  type WithPlaybackAttributes,
 } from '../../utils/playbackAttributes';
 import {
-  CustomMediaPlayerType,
-  WithCustomMediaPlayerType,
+  type CustomMediaPlayerType,
+  type WithCustomMediaPlayerType,
 } from '../../../types';
 
 export type CustomMediaPlayerScreenEventPayload = ScreenEventPayload<

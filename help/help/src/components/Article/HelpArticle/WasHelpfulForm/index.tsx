@@ -2,10 +2,10 @@
 /** @jsxFrag */
 
 import React, { useState } from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import {
   useAnalyticsEvents,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import SectionMessage from '@atlaskit/section-message';
@@ -23,7 +23,7 @@ import { colors } from '@atlaskit/theme';
 import { jsx } from '@emotion/react';
 
 import { messages } from '../../../../messages';
-import { ArticleFeedback } from '../../../../model/Article';
+import { type ArticleFeedback } from '../../../../model/Article';
 
 import ArticleWasHelpfulYesButton from './WasHelpfulYesButton';
 import ArticleWasHelpfulNoButton from './WasHelpfulNoButton';

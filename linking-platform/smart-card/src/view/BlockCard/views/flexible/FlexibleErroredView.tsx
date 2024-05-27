@@ -4,9 +4,9 @@ import { token } from '@atlaskit/tokens';
 import { R300 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { RetryAction } from '../../actions/flexible/RetryAction';
-import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
+import { type ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import Text from '../../../FlexibleCard/components/elements/text';
-import { FlexibleBlockCardProps } from './types';
+import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 

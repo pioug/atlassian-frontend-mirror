@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 import LockIcon from '@atlaskit/icon/glyph/lock';
-import Form, { Field, OnSubmitHandler } from '@atlaskit/form';
+import Form, { Field, type OnSubmitHandler } from '@atlaskit/form';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { xcss, Box, Flex } from '@atlaskit/primitives';

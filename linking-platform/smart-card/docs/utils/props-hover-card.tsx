@@ -1,4 +1,4 @@
-import { HoverCardProps } from '../../src/view/HoverCard/types';
+import { type HoverCardProps } from '../../src/view/HoverCard/types';
 
 /**
  * Hack to display HoverCardProps prop in details for documentation purpose.

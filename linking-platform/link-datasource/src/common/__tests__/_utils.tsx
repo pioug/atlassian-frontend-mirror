@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { queries } from '@testing-library/dom';
-import { act, fireEvent, render, RenderResult } from '@testing-library/react';
+import { type queries } from '@testing-library/dom';
+import { act, fireEvent, render, type RenderResult } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { JQLEditor, JQLEditorProps } from '@atlaskit/jql-editor';
+import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
@@ -14,15 +14,15 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import SmartLinkClient from '../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../analytics';
 import { succeedUfoExperience } from '../../analytics/ufoExperiences';
-import { ConfigModalProps, DisplayViewModes } from '../../common/types';
+import { type ConfigModalProps, type DisplayViewModes } from '../../common/types';
 import {
-  DatasourceTableState,
+  type DatasourceTableState,
   useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
 import { getAvailableSites } from '../../services/getAvailableSites';
-import { ConfluenceSearchConfigModalProps } from '../../ui/confluence-search-modal/types';
+import { type ConfluenceSearchConfigModalProps } from '../../ui/confluence-search-modal/types';
 import { IssueLikeDataTableView } from '../../ui/issue-like-table';
-import { IssueLikeDataTableViewProps } from '../../ui/issue-like-table/types';
+import { type IssueLikeDataTableViewProps } from '../../ui/issue-like-table/types';
 
 jest.mock('../../services/getAvailableSites', () => ({
   getAvailableSites: jest.fn(),

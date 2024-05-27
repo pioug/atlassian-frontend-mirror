@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { useMemo } from 'react';
 import uuid from 'uuid';
 import type { AnalyticsHandler, AnalyticsOrigin } from '../../utils/types';

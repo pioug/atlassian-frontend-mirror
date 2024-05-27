@@ -9,7 +9,7 @@ import { resetServerContext } from 'react-beautiful-dnd-next';
 
 import { complexTree } from '../../../../../mockdata/complexTree';
 import Tree from '../..';
-import { RenderItemParams } from '../../../TreeItem/TreeItem-types';
+import { type RenderItemParams } from '../../../TreeItem/TreeItem-types';
 
 jest.mock('exenv', () => ({
   get canUseDOM() {

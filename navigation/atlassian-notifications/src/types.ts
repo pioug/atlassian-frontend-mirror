@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, IframeHTMLAttributes } from 'react';
+import { type DetailedHTMLProps, type IframeHTMLAttributes } from 'react';
 
 type IframeProps = DetailedHTMLProps<
   IframeHTMLAttributes<HTMLIFrameElement>,

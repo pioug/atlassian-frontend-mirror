@@ -4,8 +4,8 @@ import React from 'react';
 import { token } from '@atlaskit/tokens';
 import {
   Card,
-  ElementItem,
-  ElementName,
+  type ElementItem,
+  type ElementName,
   FooterBlock,
   MetadataBlock,
   PreviewBlock,

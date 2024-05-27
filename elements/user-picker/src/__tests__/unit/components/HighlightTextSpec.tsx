@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { HighlightText, Props } from '../../../components/HighlightText';
+import { HighlightText, type Props } from '../../../components/HighlightText';
 
 describe('HighlightText', () => {
   const shallowHighlightText = (props: Partial<Props> = {}) =>

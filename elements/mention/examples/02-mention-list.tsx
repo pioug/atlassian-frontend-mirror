@@ -7,7 +7,7 @@ import {
   randomMentions,
 } from '../example-helpers';
 import MentionList from '../src/components/MentionList';
-import { MentionDescription } from '../src/types';
+import { type MentionDescription } from '../src/types';
 
 export interface State {
   mentions: MentionDescription[];

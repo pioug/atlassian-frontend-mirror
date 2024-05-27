@@ -2,8 +2,8 @@ import React from 'react';
 
 import { fireEvent } from '@testing-library/dom';
 import {
-  InteractionTaskArgs,
-  PublicInteractionTask,
+  type InteractionTaskArgs,
+  type PublicInteractionTask,
 } from 'storybook-addon-performance';
 
 import Toggle from '../src';

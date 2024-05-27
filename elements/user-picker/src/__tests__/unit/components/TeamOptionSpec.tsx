@@ -1,7 +1,7 @@
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { shallow } from 'enzyme';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import {
   AvatarItemOption,
@@ -11,9 +11,9 @@ import { HighlightText } from '../../../components/HighlightText';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import {
   TeamOption,
-  TeamOptionProps,
+  type TeamOptionProps,
 } from '../../../components/TeamOption/main';
-import { Team } from '../../../types';
+import { type Team } from '../../../types';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
   ...(jest.requireActual('../../../components/AvatarItemOption') as any),

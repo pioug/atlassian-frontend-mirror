@@ -1,8 +1,8 @@
-import path, { ParsedPath } from 'path';
+import path, { type ParsedPath } from 'path';
 import { globSync } from 'glob';
 import semver from 'semver';
 import presets from './presets';
-import { ParsedPkg } from './types';
+import { type ParsedPkg } from './types';
 
 const basePath = (packages?: ParsedPkg[]) => {
   const packageDirectory =

@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import React, { useEffect, useRef, useState } from 'react';
 import { jsx } from '@emotion/react';
-import { EmojiId, OnEmojiEvent } from '@atlaskit/emoji/types';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { type EmojiId, type OnEmojiEvent } from '@atlaskit/emoji/types';
+import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Tooltip from '@atlaskit/tooltip';
 import { DefaultReactions } from '../../shared/constants';
 import { EmojiButton } from '../EmojiButton';

@@ -1,6 +1,6 @@
 import './image-placer.mock';
 import React from 'react';
-import { shallow, ShallowWrapper } from 'enzyme';
+import { shallow, type ShallowWrapper } from 'enzyme';
 import {
   nextTick,
   mockLoadImage,
@@ -8,13 +8,13 @@ import {
   unMockLoadImage,
 } from '@atlaskit/media-test-helpers';
 
-import { Vector2, Rectangle, FileInfo } from '@atlaskit/media-ui';
+import { type Vector2, Rectangle, type FileInfo } from '@atlaskit/media-ui';
 
 import {
   ImagePlacer,
-  ImagePlacerProps,
+  type ImagePlacerProps,
   defaultProps as defaultComponentProps,
-  ImageActions,
+  type ImageActions,
 } from '../../image-placer';
 import { ImagePlacerContainer } from '../../image-placer/container';
 import { ImagePlacerImage } from '../../image-placer/image';

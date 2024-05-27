@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, ReactNode, useCallback, useRef, useState } from 'react';
+import { Fragment, type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';

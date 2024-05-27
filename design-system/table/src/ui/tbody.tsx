@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/no-clone-element */
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

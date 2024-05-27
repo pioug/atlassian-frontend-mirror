@@ -1,10 +1,10 @@
 import {
-  MediaClientErrorReason,
+  type MediaClientErrorReason,
   isPollingError as isMediaClientPollingError,
   isRateLimitedError as isMediaClientRateLimitedError,
-  PollingErrorReason,
+  type PollingErrorReason,
 } from '@atlaskit/media-client';
-import { CardPreview } from './types';
+import { type CardPreview } from './types';
 
 import { MediaFileStateError } from '@atlaskit/media-client-react';
 /**

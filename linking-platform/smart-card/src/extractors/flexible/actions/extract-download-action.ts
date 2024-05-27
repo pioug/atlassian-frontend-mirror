@@ -1,8 +1,8 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
 import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 
-import { DownloadActionData } from '../../../state/flexible-ui-context/types';
+import { type DownloadActionData } from '../../../state/flexible-ui-context/types';
 import { getActionsFromJsonLd } from '../../common/actions/extractActions';
 import { extractDownloadUrl } from '../../common/detail';
 

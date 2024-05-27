@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl-next';
 
 import {
   components,
-  MenuListComponentProps,
-  OptionType,
+  type MenuListComponentProps,
+  type OptionType,
 } from '@atlaskit/select';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';

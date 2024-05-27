@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  MediaClient,
-  FileState,
+  type MediaClient,
+  type FileState,
   isPreviewableFileState,
 } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';

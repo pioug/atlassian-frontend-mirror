@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import EditorConfiguration from '../editor-configuration';
-import WebBridgeImpl from '../native-to-web';
+import type WebBridgeImpl from '../native-to-web';
 
 export function useEditorConfiguration(
   bridge: WebBridgeImpl,

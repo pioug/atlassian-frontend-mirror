@@ -1,21 +1,21 @@
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   AbstractJastVisitor,
-  AstNode,
-  CompoundOperator,
-  Field,
+  type AstNode,
+  type CompoundOperator,
+  type Field,
   isOperandNode,
-  NotClauseOperator,
-  Operator,
-  OrderByDirection,
-  OrderByOperator,
-  Position,
-  PredicateOperator,
+  type NotClauseOperator,
+  type Operator,
+  type OrderByDirection,
+  type OrderByOperator,
+  type Position,
+  type PredicateOperator,
 } from '@atlaskit/jql-ast';
 
 import getDocumentPosition from '../common/get-document-position';
 
-import { Highlight } from './types';
+import { type Highlight } from './types';
 
 export class SyntaxHighlightingVisitor extends AbstractJastVisitor<
   Highlight[]

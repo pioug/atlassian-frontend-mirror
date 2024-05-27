@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef, useState } from 'react';
+import React, { type FunctionComponent, useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
@@ -19,7 +19,7 @@ import { N300, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../messages';
-import { FormFields, SelectOptionDetails, SelectValue } from '../types';
+import { type FormFields, type SelectOptionDetails, type SelectValue } from '../types';
 
 import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';
 

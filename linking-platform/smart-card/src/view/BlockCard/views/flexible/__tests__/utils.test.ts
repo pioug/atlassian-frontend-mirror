@@ -1,6 +1,6 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { ElementName } from '../../../../../constants';
-import { ElementItem } from '../../../../FlexibleCard/components/blocks/types';
+import { type ElementItem } from '../../../../FlexibleCard/components/blocks/types';
 import { getSimulatedBetterMetadata } from '../utils';
 import {
   mockJiraResponse,

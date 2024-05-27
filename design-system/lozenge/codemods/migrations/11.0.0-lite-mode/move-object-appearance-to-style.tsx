@@ -1,5 +1,10 @@
-import { ASTPath, JSCodeshift, JSXAttribute, JSXElement } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import {
+  type ASTPath,
+  type JSCodeshift,
+  type JSXAttribute,
+  type JSXElement,
+} from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   getDefaultSpecifier,

@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 import {
   ButtonItem,
   CustomItem,
-  CustomItemComponentProps,
+  type CustomItemComponentProps,
   HeadingItem,
   LinkItem,
   Section,

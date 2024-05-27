@@ -6,7 +6,7 @@ import {
   timestampToString,
   timestampToTaskContext,
 } from '@atlaskit/editor-common/utils';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext';
 
 export interface Props {

@@ -9,7 +9,7 @@ import React from 'react';
 import { AnnotationView } from '../../view';
 import { mount } from 'enzyme';
 import { RendererContext } from '../../../RendererActionsContext';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 
 jest.mock('../../hooks', () => ({

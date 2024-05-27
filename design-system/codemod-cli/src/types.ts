@@ -1,4 +1,4 @@
-import { FileInfo, API, Options } from 'jscodeshift';
+import { type FileInfo, type API, type Options } from 'jscodeshift';
 
 export type Transform = (
   fileInfo: FileInfo,

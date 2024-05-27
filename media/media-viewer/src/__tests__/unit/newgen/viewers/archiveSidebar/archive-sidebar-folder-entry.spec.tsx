@@ -4,7 +4,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import {
   ArchiveSidebarFolderEntry,
-  ArchiveSidebarFolderProps,
+  type ArchiveSidebarFolderProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
 import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
 import { ButtonItem } from '@atlaskit/side-navigation';
@@ -13,7 +13,7 @@ import {
   ArchiveSidebarFileEntryWrapper,
   ArchiveDownloadButtonWrapper,
 } from '../../../../../viewers/archiveSidebar/styleWrappers';
-import { ZipEntry } from 'unzipit';
+import { type ZipEntry } from 'unzipit';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';

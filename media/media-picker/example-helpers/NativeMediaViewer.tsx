@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect, useState } from 'react';
 import {
-  MediaClient,
-  MediaFileArtifacts,
-  MediaType,
+  type MediaClient,
+  type MediaFileArtifacts,
+  type MediaType,
 } from '@atlaskit/media-client';
 
 type NativeMediaViewerProps = {

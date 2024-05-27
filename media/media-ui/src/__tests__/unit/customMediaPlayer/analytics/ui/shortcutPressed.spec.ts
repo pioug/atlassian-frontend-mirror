@@ -1,6 +1,6 @@
 import {
   createMediaShortcutPressedEvent,
-  PlaybackState,
+  type PlaybackState,
 } from '../../../../../customMediaPlayer/analytics';
 
 describe('createMediaShortcutPressedEvent', () => {

@@ -1,4 +1,4 @@
-import { FieldMetaState } from 'react-final-form';
+import { type FieldMetaState } from 'react-final-form';
 /**
  * This function checks if there have been changes since last submit
  * to let a Field know if it should hide the error message until

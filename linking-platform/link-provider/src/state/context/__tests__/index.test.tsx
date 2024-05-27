@@ -1,6 +1,6 @@
 import { useSmartLinkContext, SmartCardProvider } from '..';
 import CardClient from '../../../client';
-import { renderHook, RenderHookOptions } from '@testing-library/react-hooks';
+import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
 // import { SmartCardProvider } from '@atlaskit/link-provider';
 import React from 'react';
 import type { ProductType } from '@atlaskit/linking-common';

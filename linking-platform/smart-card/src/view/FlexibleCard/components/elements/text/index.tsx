@@ -2,7 +2,7 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 
-import { TextProps } from './types';
+import { type TextProps } from './types';
 import { getFormattedMessage, getTruncateStyles } from '../../utils';
 import { token } from '@atlaskit/tokens';
 

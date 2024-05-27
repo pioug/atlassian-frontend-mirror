@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { Component, type ReactNode } from 'react';
 
 import CommonCell from './internal/common-cell';
 import OverflowContainer from './internal/overflow-container';

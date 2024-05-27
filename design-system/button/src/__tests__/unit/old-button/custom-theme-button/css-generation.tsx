@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { CSSObject, jsx } from '@emotion/react';
+import { type CSSObject, jsx } from '@emotion/react';
 import { fireEvent, render } from '@testing-library/react';
 
-import { CustomThemeButton, InteractionState } from '../../../../index';
+import { CustomThemeButton, type InteractionState } from '../../../../index';
 import { getCustomCss } from '../../../../old-button/custom-theme-button/theme';
 import { getCss } from '../../../../old-button/shared/css';
 

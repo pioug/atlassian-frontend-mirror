@@ -1,9 +1,9 @@
-import { ComponentType, ReactNode } from 'react';
+import { type ComponentType, type ReactNode } from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Placement } from '@atlaskit/popper';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type Placement } from '@atlaskit/popper';
 
-import { TooltipPrimitiveProps } from './TooltipPrimitive';
+import { type TooltipPrimitiveProps } from './TooltipPrimitive';
 
 export type PositionTypeBase = Placement;
 export type PositionType = PositionTypeBase | 'mouse';

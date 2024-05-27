@@ -1,4 +1,4 @@
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import { type Node } from '@atlaskit/editor-prosemirror/model';
 
 import { JQLEditorSchema } from '../../../schema';
 

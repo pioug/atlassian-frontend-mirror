@@ -7,9 +7,9 @@ import {
   AtlassianNavigation,
   Create,
   PrimaryButton,
-  PrimaryButtonProps,
+  type PrimaryButtonProps,
   PrimaryDropdownButton,
-  PrimaryDropdownButtonProps,
+  type PrimaryDropdownButtonProps,
   useOverflowStatus,
 } from '../../src';
 

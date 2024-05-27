@@ -1,8 +1,8 @@
 import React from 'react';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import ArticlesList from '../../ArticlesList';
-import { ArticleItem } from '../../../model/Article';
+import { type ArticleItem } from '../../../model/Article';
 
 export interface Props {
   searchResult?: ArticleItem[] | null;

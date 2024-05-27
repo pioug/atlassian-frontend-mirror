@@ -5,7 +5,7 @@ import { Box } from '@atlaskit/primitives';
 import { messages } from '../../../../../../messages';
 import AIIconLoading from '../../../../../common/ai-icon-loading';
 import AIIndicatorContainer from './ai-indicator-container';
-import { AIStateIndicatorProps } from './types';
+import { type AIStateIndicatorProps } from './types';
 
 const AIStateLoading: React.FC<Partial<AIStateIndicatorProps>> = ({
   appearance,

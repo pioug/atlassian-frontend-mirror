@@ -6,7 +6,7 @@ import {
 } from '../../_testing-library';
 import { spriteEmoji, imageEmoji } from '../../_test-data';
 import EmojiRadioButton, {
-  Props as EmojiRadioButtonProps,
+  type Props as EmojiRadioButtonProps,
 } from '../../../../components/common/EmojiRadioButton';
 
 describe('<EmojiButton />', () => {

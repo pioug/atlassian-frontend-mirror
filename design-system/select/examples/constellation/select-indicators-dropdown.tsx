@@ -3,7 +3,7 @@ import { Label } from '@atlaskit/form';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 import { cities } from '../common/data';
 import Select, { components } from '../../src';
-import { OptionType, DropdownIndicatorProps } from '../../src/types';
+import { type OptionType, type DropdownIndicatorProps } from '../../src/types';
 
 const DropdownIndicator = (props: DropdownIndicatorProps<OptionType, true>) => {
   return (

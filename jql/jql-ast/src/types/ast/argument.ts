@@ -1,4 +1,4 @@
-import { AstNode } from './common';
+import { type AstNode } from './common';
 
 /**
  * An argument value used in functions or entity properties.

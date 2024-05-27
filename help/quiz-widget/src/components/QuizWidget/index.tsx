@@ -19,7 +19,7 @@ import {
   Score,
   NavAction,
 } from './styled';
-import { QuizElement, QuizInterface } from './types';
+import { type QuizElement, type QuizInterface } from './types';
 
 export interface Props {
   // Content for the quiz

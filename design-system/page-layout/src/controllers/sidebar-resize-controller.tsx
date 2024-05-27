@@ -1,7 +1,7 @@
 import React, {
-  FC,
-  KeyboardEvent,
-  MouseEvent,
+  type FC,
+  type KeyboardEvent,
+  type MouseEvent,
   useCallback,
   useEffect,
   useMemo,
@@ -20,13 +20,13 @@ import {
   DEFAULT_LEFT_SIDEBAR_WIDTH,
   IS_SIDEBAR_COLLAPSING,
 } from '../common/constants';
-import { SidebarResizeControllerProps } from '../common/types';
+import { type SidebarResizeControllerProps } from '../common/types';
 import { getPageLayoutSlotCSSSelector } from '../common/utils';
 
 import {
-  LeftSidebarState,
+  type LeftSidebarState,
   SidebarResizeContext,
-  SidebarResizeContextValue,
+  type SidebarResizeContextValue,
 } from './sidebar-resize-context';
 
 type Callback = (leftSidebarState: LeftSidebarState) => void;

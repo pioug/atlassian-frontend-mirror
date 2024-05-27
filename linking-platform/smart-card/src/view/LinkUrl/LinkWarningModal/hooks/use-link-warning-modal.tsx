@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { useState, type MouseEvent } from 'react';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';

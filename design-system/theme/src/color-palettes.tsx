@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import * as colors from './colors';
-import { colorPaletteType } from './types';
+import { type colorPaletteType } from './types';
 
 // Jira Portfolio
 export const colorPalette8 = [

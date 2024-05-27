@@ -3,14 +3,14 @@ import React from 'react';
 import {
   fireEvent,
   render,
-  RenderResult,
+  type RenderResult,
   screen,
 } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/standard-button';
 
-import Pagination, { PaginationPropTypes } from '../../index';
+import Pagination, { type PaginationPropTypes } from '../../index';
 
 function assertPageButtonRendering(
   view: RenderResult,

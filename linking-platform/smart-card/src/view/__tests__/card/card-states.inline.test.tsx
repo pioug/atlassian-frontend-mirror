@@ -1,14 +1,14 @@
 import './card-states.card.test.mock';
 
 import React from 'react';
-import { useEffect, useState, ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import {
   render,
   cleanup,
   waitFor as waitForElement,
 } from '@testing-library/react';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import * as analytics from '../../../utils/analytics';

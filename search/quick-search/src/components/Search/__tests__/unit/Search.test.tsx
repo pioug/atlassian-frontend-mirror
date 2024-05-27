@@ -1,4 +1,4 @@
-import { mount, shallow, ReactWrapper } from 'enzyme';
+import { mount, shallow, type ReactWrapper } from 'enzyme';
 import React from 'react';
 import Spinner from '@atlaskit/spinner';
 import Search from '../../Search';

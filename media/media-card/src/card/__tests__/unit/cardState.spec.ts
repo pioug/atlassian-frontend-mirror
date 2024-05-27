@@ -1,14 +1,14 @@
 import {
-  ErrorFileState,
-  FileState,
-  UploadingFileState,
+  type ErrorFileState,
+  type FileState,
+  type UploadingFileState,
 } from '@atlaskit/media-client';
-import { CardStatus, CardState } from '../../../types';
+import { type CardStatus, type CardState } from '../../../types';
 import { createStateUpdater, getCardStateFromFileState } from '../../cardState';
 import * as getCardStatusModule from '../../getCardStatus';
 import * as filePreviewStatusModule from '../../getCardPreview/filePreviewStatus';
 import { MediaCardError } from '../../../errors';
-import { FilePreviewStatus } from '../../../types';
+import { type FilePreviewStatus } from '../../../types';
 
 const extractFilePreviewStatus = jest
   .spyOn(filePreviewStatusModule, 'extractFilePreviewStatus')

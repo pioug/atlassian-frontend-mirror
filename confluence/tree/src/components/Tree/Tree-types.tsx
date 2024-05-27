@@ -1,21 +1,21 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 // Allowing existing usage of non Pragmatic drag and drop solution
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
-  DraggableLocation,
-  DraggableId,
-  DroppableId,
+  type DraggableLocation,
+  type DraggableId,
+  type DroppableId,
 } from 'react-beautiful-dnd-next';
 import {
-  TreeData,
-  Path,
-  ItemId,
-  FlattenedTree,
-  TreeSourcePosition,
-  TreeDestinationPosition,
-  TreeItem,
+  type TreeData,
+  type Path,
+  type ItemId,
+  type FlattenedTree,
+  type TreeSourcePosition,
+  type TreeDestinationPosition,
+  type TreeItem,
 } from '../../types';
-import { RenderItemParams } from '../TreeItem/TreeItem-types';
+import { type RenderItemParams } from '../TreeItem/TreeItem-types';
 
 export type Props = {
   /** The tree data structure. */

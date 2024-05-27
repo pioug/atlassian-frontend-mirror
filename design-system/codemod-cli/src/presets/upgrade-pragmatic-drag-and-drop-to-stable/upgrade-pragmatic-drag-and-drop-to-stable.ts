@@ -1,4 +1,4 @@
-import { FileInfo, API } from 'jscodeshift';
+import { type FileInfo, type API } from 'jscodeshift';
 import { updateSafeImports } from './transformers/update-safe-imports';
 import { moveFromFileAdapterToExternalAdapter } from './transformers/external-adapter';
 import { moveToReactDropIndicator } from './transformers/move-to-react-drop-indicator';

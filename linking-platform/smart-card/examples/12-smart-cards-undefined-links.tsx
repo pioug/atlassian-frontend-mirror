@@ -1,6 +1,6 @@
 import React from 'react';
-import { Provider, Card, Client, ResolveResponse } from '../src';
-import { EnvironmentsKeys } from '@atlaskit/link-provider';
+import { Provider, Card, Client, type ResolveResponse } from '../src';
+import { type EnvironmentsKeys } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 class ConfluenceClient extends Client {

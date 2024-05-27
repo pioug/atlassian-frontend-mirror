@@ -1,7 +1,7 @@
 import React from 'react';
-import { ComponentType } from 'react';
-import { ResultData, ResultId, SelectedResultId } from './Results/types';
-import { ResultBase } from './Results/ResultBase';
+import { type ComponentType } from 'react';
+import { type ResultData, type ResultId, type SelectedResultId } from './Results/types';
+import { type ResultBase } from './Results/ResultBase';
 
 export type ResultContextType = {
   /** Register result as keyboard navigation target */

@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  ProcessedFileState,
-  MediaClient,
-  FileState,
+  type ProcessedFileState,
+  type MediaClient,
+  type FileState,
   globalMediaEventEmitter,
 } from '@atlaskit/media-client';
 import AudioIcon from '@atlaskit/icon/glyph/media-services/audio';
@@ -15,11 +15,11 @@ import {
   DefaultCoverWrapper,
   CustomAudioPlayerWrapper,
 } from '../styleWrappers';
-import { BaseState, BaseViewer } from './base-viewer';
+import { type BaseState, BaseViewer } from './base-viewer';
 import { isIE } from '../utils/isIE';
 import {
   CustomMediaPlayer,
-  WithShowControlMethodProp,
+  type WithShowControlMethodProp,
 } from '@atlaskit/media-ui';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
 import { blanketColor } from '../styles';

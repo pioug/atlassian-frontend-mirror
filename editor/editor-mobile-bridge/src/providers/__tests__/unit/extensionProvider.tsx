@@ -1,7 +1,7 @@
-import * as crossPlatformPromise from '../../../cross-platform-promise';
+import type * as crossPlatformPromise from '../../../cross-platform-promise';
 import {
-  ExtensionProvider,
-  ExtensionManifest,
+  type ExtensionProvider,
+  type ExtensionManifest,
 } from '@atlaskit/editor-common/extensions';
 import { createExtensionProvider } from '../../extensionProvider';
 

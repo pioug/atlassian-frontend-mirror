@@ -6,12 +6,12 @@ import { createContainer } from 'react-sweet-state';
 
 import { jqlFieldsString, jqlFunctionsString } from '../common/mocks';
 import {
-  AutocompleteInitialDataResponse,
-  JQLFieldResponse,
-  JQLFunctionResponse,
+  type AutocompleteInitialDataResponse,
+  type JQLFieldResponse,
+  type JQLFunctionResponse,
 } from '../common/types';
 
-import { Actions, Store } from './types';
+import { type Actions, type Store } from './types';
 
 import {
   actions,

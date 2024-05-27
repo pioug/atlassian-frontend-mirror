@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ChangeEventHandler, FC, memo, useCallback, useMemo } from 'react';
+import { type ChangeEventHandler, type FC, memo, useCallback, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 

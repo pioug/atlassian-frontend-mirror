@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { FormFields, SelectOptionDetails, SelectValue } from '../types';
+import { type FormFields, type SelectOptionDetails, type SelectValue } from '../types';
 import { isApiGatewayUrl } from '../utils/is-api-gateway-url';
 import truncate from '../utils/Truncate';
 

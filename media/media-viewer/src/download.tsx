@@ -1,11 +1,11 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
-  FileState,
-  Identifier,
+  type FileState,
+  type Identifier,
   isErrorFileState,
   isExternalImageIdentifier,
-  MediaClient,
+  type MediaClient,
 } from '@atlaskit/media-client';
 import { MediaButton, messages } from '@atlaskit/media-ui';
 import React, { useCallback } from 'react';
@@ -14,7 +14,7 @@ import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { createDownloadButtonClickedEvent } from './analytics/events/ui/downloadButtonClicked';
 import { createFailedPreviewDownloadButtonClickedEvent } from './analytics/events/ui/failedPreviewDownloadButtonClicked';
 import { DownloadButtonWrapper } from './styleWrappers';
-import { MediaViewerError } from './errors';
+import { type MediaViewerError } from './errors';
 
 const downloadIcon = <DownloadIcon label="Download" />;
 

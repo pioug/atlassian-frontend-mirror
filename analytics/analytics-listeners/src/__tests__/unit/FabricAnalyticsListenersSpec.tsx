@@ -19,7 +19,7 @@ import FabricAnalyticsListeners from '../../FabricAnalyticsListeners';
 import { LOG_LEVEL } from '../../helpers/logger';
 import NavigationListener from '../../navigation/NavigationListener';
 import PeopleTeamsAnalyticsListener from '../../peopleTeams/PeopleTeamsAnalyticsListener';
-import { AnalyticsWebClient, FabricChannel } from '../../types';
+import { type AnalyticsWebClient, FabricChannel } from '../../types';
 import NotificationsAnalyticsListener from '../../notifications/NotificationsAnalyticsListener';
 import CrossFlowAnalyticsListener from '../../cross-flow/CrossFlowAnalyticsListener';
 import PostOfficeAnalyticsListener from '../../postOffice/PostOfficeAnalyticsListener';

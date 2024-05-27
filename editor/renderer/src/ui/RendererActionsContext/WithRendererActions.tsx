@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { RendererActionsContextConsumer } from './index';
-import RendererActions from '../../actions/index';
+import type RendererActions from '../../actions/index';
 
 export interface WithRendererActionsProps {
   render(actions: RendererActions): ReactNode | null;

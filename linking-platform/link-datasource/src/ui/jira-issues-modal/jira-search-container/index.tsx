@@ -13,19 +13,19 @@ import type { JiraSearchMethod, Site } from '../../../common/types';
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
 import { basicSearchInputMessages } from '../../common/modal/basic-search-input/messages';
 import { FILTER_SELECTION_DEBOUNCE_MS } from '../../common/modal/popup-select/constants';
-import { SelectOption } from '../../common/modal/popup-select/types';
+import { type SelectOption } from '../../common/modal/popup-select/types';
 import { BasicFilters } from '../basic-filters';
 import { useHydrateJqlQuery } from '../basic-filters/hooks/useHydrateJqlQuery';
 import {
-  BasicFilterFieldType,
-  SelectedOptionsMap,
+  type BasicFilterFieldType,
+  type SelectedOptionsMap,
 } from '../basic-filters/types';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { JiraJQLEditor } from '../jql-editor';
-import { ModeSwitcher, ModeSwitcherPropsOption } from '../mode-switcher';
+import { ModeSwitcher, type ModeSwitcherPropsOption } from '../mode-switcher';
 import {
-  JiraIssueDatasourceParameters,
-  JiraIssueDatasourceParametersQuery,
+  type JiraIssueDatasourceParameters,
+  type JiraIssueDatasourceParametersQuery,
 } from '../types';
 
 import { buildJQL } from './buildJQL';

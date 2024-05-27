@@ -2,7 +2,7 @@ import React from 'react';
 import { withMediaClient } from '@atlaskit/media-client-react';
 import MediaCardAnalyticsErrorBoundary from '../media-card-analytics-error-boundary';
 import { CardV2 } from './cardV2';
-import { CardWithMediaClientConfigProps } from '../types';
+import { type CardWithMediaClientConfigProps } from '../types';
 
 export const CardWithMediaClientV2: React.FC<CardWithMediaClientConfigProps> = (
   props,

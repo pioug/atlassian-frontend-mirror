@@ -1,4 +1,4 @@
-import { MentionContextIdentifier } from '../types';
+import { type MentionContextIdentifier } from '../types';
 
 export const SMART_EVENT_TYPE = 'smart';
 

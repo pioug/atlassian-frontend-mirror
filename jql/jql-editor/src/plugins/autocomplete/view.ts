@@ -1,19 +1,19 @@
-import { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isListOperator } from '@atlaskit/jql-ast';
 
-import { PortalActions } from '../../ui/jql-editor-portal-provider/types';
+import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import getDocumentPosition from '../common/get-document-position';
-import { PluginKeymap } from '../common/plugin-keymap';
+import { type PluginKeymap } from '../common/plugin-keymap';
 import ReactPluginView from '../common/react-plugin-view';
 
 import Autocomplete from './components/autocomplete';
 import {
-  AutocompleteProps,
-  SelectableAutocompleteOption,
+  type AutocompleteProps,
+  type SelectableAutocompleteOption,
 } from './components/types';
 import {
   AUTOCOMPLETE_PLUGIN_NAME,

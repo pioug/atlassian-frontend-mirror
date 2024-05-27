@@ -1,9 +1,9 @@
 import {
-  JastListener,
-  JastVisitor,
-  Operator,
-  OperatorValue,
-  Position,
+  type JastListener,
+  type JastVisitor,
+  type Operator,
+  type OperatorValue,
+  type Position,
 } from '../types';
 
 import { noChildren } from './common';

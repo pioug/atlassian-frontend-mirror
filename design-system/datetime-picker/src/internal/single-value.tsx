@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { components, OptionType, SingleValueProps } from '@atlaskit/select';
+import { components, type OptionType, type SingleValueProps } from '@atlaskit/select';
 
 /**
  * This creates a functional component that `react-select` will use to make the

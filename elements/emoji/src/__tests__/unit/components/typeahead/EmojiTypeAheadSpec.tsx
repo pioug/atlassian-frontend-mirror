@@ -20,10 +20,10 @@ import {
   standardBoomEmoji,
 } from '../../_test-data';
 
-import { RenderResult, screen, waitFor } from '@testing-library/react';
+import { type RenderResult, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import EmojiTypeAhead, {
-  Props,
+  type Props,
 } from '../../../../components/typeahead/EmojiTypeAhead';
 import type { OnLifecycle } from '../../../../components/typeahead/EmojiTypeAheadComponent';
 import type { OnEmojiEvent, OptionalEmojiDescription } from '../../../../types';

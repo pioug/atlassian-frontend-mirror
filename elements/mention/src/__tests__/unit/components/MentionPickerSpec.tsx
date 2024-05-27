@@ -7,19 +7,19 @@ import { waitUntil } from '@atlaskit/elements-test-helpers';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionTestResult as mentions } from '@atlaskit/util-data-test/mention-test-data';
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 import React from 'react';
-import { HttpError } from '../../../api/MentionResource';
+import { type HttpError } from '../../../api/MentionResource';
 import MentionItem from '../../../components/MentionItem';
 import MentionList from '../../../components/MentionList';
 import MentionListError from '../../../components/MentionListError';
 import MentionPicker, {
-  OnClose,
-  OnOpen,
-  Props,
-  State,
+  type OnClose,
+  type OnOpen,
+  type Props,
+  type State,
 } from '../../../components/MentionPicker';
-import { MentionDescription } from '../../../types';
+import { type MentionDescription } from '../../../types';
 import { getMentionItemById, isMentionItemSelected } from '../_test-helpers';
 import * as Analytics from '../../../util/analytics';
 

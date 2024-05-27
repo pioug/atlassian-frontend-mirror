@@ -1,4 +1,4 @@
-import { AST } from 'refractor';
+import { type AST } from 'refractor';
 
 import flattenCodeTree from '../../lib/process/flatten-code-tree';
 

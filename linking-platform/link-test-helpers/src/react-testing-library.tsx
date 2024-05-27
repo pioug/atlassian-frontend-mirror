@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, render, RenderResult } from '@testing-library/react';
+import { act, render, type RenderResult } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 export const renderWithIntl = (component: React.ReactNode): RenderResult => {

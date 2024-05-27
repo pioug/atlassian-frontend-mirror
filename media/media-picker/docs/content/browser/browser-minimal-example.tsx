@@ -3,12 +3,12 @@ import { jsx } from '@emotion/react';
 import { defaultMediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import {
-  BrowserConfig,
-  UploadsStartEventPayload,
-  UploadEndEventPayload,
+  type BrowserConfig,
+  type UploadsStartEventPayload,
+  type UploadEndEventPayload,
 } from '../../../src/types';
 import { Browser } from '../../../src';
-import { MediaClient, FileIdentifier } from '@atlaskit/media-client';
+import { MediaClient, type FileIdentifier } from '@atlaskit/media-client';
 import { useState } from 'react';
 import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
 

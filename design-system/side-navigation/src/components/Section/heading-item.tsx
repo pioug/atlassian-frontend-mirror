@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  HeadingItemProps,
+  type HeadingItemProps,
   HeadingItem as MenuHeadingItem,
 } from '@atlaskit/menu';
 

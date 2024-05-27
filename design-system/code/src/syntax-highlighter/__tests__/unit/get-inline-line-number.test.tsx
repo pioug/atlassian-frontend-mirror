@@ -1,4 +1,4 @@
-import { AST } from 'refractor';
+import { type AST } from 'refractor';
 
 import getInlineLineNumber from '../../lib/process/get-inline-line-number';
 

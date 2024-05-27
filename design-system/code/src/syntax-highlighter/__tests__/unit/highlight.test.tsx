@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { css, CSSObject, jsx } from '@emotion/react';
+import { css, type CSSObject, jsx } from '@emotion/react';
 import { render } from '@testing-library/react';
 import refractor from 'refractor';
 
 import Highlight from '../../async';
-import { SyntaxHighlighterProps } from '../../types';
+import { type SyntaxHighlighterProps } from '../../types';
 
 // code string examples
 const javaCodeLine = 'int num = 21';

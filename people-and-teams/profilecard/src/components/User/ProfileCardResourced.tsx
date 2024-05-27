@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
@@ -9,12 +9,12 @@ import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import filterActions from '../../internal/filterActions';
 import { CardWrapper } from '../../styled/Card';
 import {
-  AnalyticsProps,
-  ProfileCardAction,
-  ProfileCardClientData,
-  ProfileCardResourcedProps,
-  ProfileCardResourcedState,
-  TeamCentralReportingLinesData,
+  type AnalyticsProps,
+  type ProfileCardAction,
+  type ProfileCardClientData,
+  type ProfileCardResourcedProps,
+  type ProfileCardResourcedState,
+  type TeamCentralReportingLinesData,
 } from '../../types';
 import { fireEvent } from '../../util/analytics';
 import { ErrorMessage } from '../Error';

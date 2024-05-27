@@ -4,12 +4,12 @@ import { useRef } from 'react';
 
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { FileDetails } from '@atlaskit/media-client';
+import { type FileDetails } from '@atlaskit/media-client';
 import { createAndFireMediaCardEvent } from '../../../utils/analytics';
 import { useBreakpoint } from '../../useBreakpoint';
-import { CardViewWrapper, SharedCardViewProps } from './cardViewWrapper';
+import { CardViewWrapper, type SharedCardViewProps } from './cardViewWrapper';
 
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { IconWrapper } from '../../ui/iconWrapper/iconWrapper';
@@ -24,7 +24,7 @@ import {
   isUploadError,
   isRateLimitedError,
   isPollingError,
-  MediaCardError,
+  type MediaCardError,
 } from '../../../errors';
 import { messages } from '@atlaskit/media-ui';
 

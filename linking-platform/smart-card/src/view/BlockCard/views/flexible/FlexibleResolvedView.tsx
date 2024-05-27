@@ -13,7 +13,7 @@ import {
   ElementName,
   SmartLinkPosition,
 } from '../../../../constants';
-import { FlexibleBlockCardProps } from './types';
+import { type FlexibleBlockCardProps } from './types';
 import {
   getSimulatedBetterMetadata,
   titleBlockOptions,

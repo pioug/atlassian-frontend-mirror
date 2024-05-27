@@ -1,9 +1,9 @@
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { Plugin } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { JQLEditorCommand } from '../../schema';
-import { PortalActions } from '../../ui/jql-editor-portal-provider/types';
+import { type JQLEditorCommand } from '../../schema';
+import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import { PluginKeymap } from '../common/plugin-keymap';
 
 import {

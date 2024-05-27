@@ -1,7 +1,7 @@
 import React from 'react';
 import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { ExampleUrl, ExampleUIConfig } from './types';
+import { type ExampleUrl, type ExampleUIConfig } from './types';
 import { ProviderCardExampleWithErrorBoundary } from './ProviderCardExampleWithErrorBoundaryProps';
 
 export const ProviderCardExampleList = ({

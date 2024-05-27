@@ -1,4 +1,4 @@
-import { Identifier } from '@atlaskit/media-client';
+import { type Identifier } from '@atlaskit/media-client';
 
 let lastKey = 1;
 const identifiersMap: Map<Promise<string>, string> = new Map();

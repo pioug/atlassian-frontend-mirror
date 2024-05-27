@@ -9,7 +9,7 @@ import {
 } from '../../../../util/testing/mock';
 
 import ArticlesList from '../../ArticlesList';
-import { ArticlesList as ArticlesListInterface } from '../../model/ArticlesListItem';
+import { type ArticlesList as ArticlesListInterface } from '../../model/ArticlesListItem';
 
 const mockOnArticlesListItemClick = jest.fn();
 const mockOnToggleArticlesList = jest.fn();

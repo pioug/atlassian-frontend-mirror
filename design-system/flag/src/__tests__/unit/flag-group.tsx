@@ -3,7 +3,7 @@ import React from 'react';
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 
 import Flag from '../../index';
-import { FlagProps } from '../../types';
+import { type FlagProps } from '../../types';
 import FlagGroup from '../../flag-group';
 
 import { matchers } from '@emotion/jest';

@@ -1,9 +1,9 @@
-import { ImageResizeMode } from '@atlaskit/media-client';
+import { type ImageResizeMode } from '@atlaskit/media-client';
 
-import { MediaFilePreview } from '../types';
+import { type MediaFilePreview } from '../types';
 
 import { CardPreviewCacheImpl, getCacheKey } from './cache';
-import { ObjectURLCache } from './objectURLCache';
+import { type ObjectURLCache } from './objectURLCache';
 
 const objectURLCache = {
   set: jest.fn(),

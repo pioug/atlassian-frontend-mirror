@@ -1,7 +1,7 @@
 /* eslint-disable @repo/internal/react/no-unsafe-overrides */
-import React, { FC, useCallback, useState } from 'react';
+import React, { type FC, useCallback, useState } from 'react';
 
-import { createTheme, ThemeProp } from '../src';
+import { createTheme, type ThemeProp } from '../src';
 
 interface LocalThemeProps {
   isHovered: boolean;

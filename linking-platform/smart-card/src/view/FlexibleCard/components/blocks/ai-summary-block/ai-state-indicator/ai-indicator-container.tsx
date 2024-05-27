@@ -1,6 +1,6 @@
 import React from 'react';
 import { Inline, xcss } from '@atlaskit/primitives';
-import { AIIndicatorContainerProps } from './types';
+import { type AIIndicatorContainerProps } from './types';
 
 const contentStyles = xcss({
   color: 'color.text.subtle',

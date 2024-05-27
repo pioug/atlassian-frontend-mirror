@@ -1,6 +1,6 @@
-import { EmojiRepository } from '@atlaskit/emoji/resource';
+import { type EmojiRepository } from '@atlaskit/emoji/resource';
 import { mockEmojiResourceFactory } from '../emoji/mock-emoji-resource-factory';
-import { MockEmojiResourceConfig } from '../emoji/types';
+import { type MockEmojiResourceConfig } from '../emoji/types';
 
 export const getTestEmojiResourceFromRepository = (
   repo: EmojiRepository,

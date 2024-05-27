@@ -18,7 +18,7 @@ import { AutoComplete } from 'enquirer';
 
 import main from '../main';
 import { getTransforms, hasTransform } from '../transforms';
-import { ValidationError, NoTransformsExistError, ParsedPkg } from '../types';
+import { ValidationError, NoTransformsExistError, type ParsedPkg } from '../types';
 import { getPackagesSinceRef } from '../sinceRef';
 
 const codemods = [

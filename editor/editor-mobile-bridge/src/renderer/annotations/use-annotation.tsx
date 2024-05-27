@@ -1,15 +1,15 @@
 import { useEffect, useMemo } from 'react';
 import {
-  AnnotationProviders,
+  type AnnotationProviders,
   AnnotationUpdateEmitter,
   AnnotationUpdateEvent,
-  AnnotationState,
+  type AnnotationState,
 } from '@atlaskit/editor-common/types';
 import RendererBridgeImplementation from '../native-to-web/implementation';
 import { createSelectionComponent } from './create-selection-component';
 import { createViewComponent } from './create-view-component';
-import { AnnotationStatePayload } from '../types';
-import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import { type AnnotationStatePayload } from '../types';
+import { type AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import {
   EmitterEvents,
   eventDispatcher as mobileBridgeEventDispatcher,

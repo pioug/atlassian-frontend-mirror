@@ -1,4 +1,4 @@
-import { CloudId, DevStack, Environment, StacksResponse } from '../types';
+import { type CloudId, type DevStack, type Environment, type StacksResponse } from '../types';
 
 const AUTOMATION_LOCAL_STORAGE_PREFIX = 'automationPlatform';
 const AUTOMATION_LOCAL_STORAGE_STACK = 'automationStack';

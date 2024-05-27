@@ -1,10 +1,10 @@
 import * as testMocks from './index.test.mock';
-import { APIError, CardState } from '@atlaskit/linking-common';
-import { CardContext } from '@atlaskit/smart-card';
+import { APIError, type CardState } from '@atlaskit/linking-common';
+import { type CardContext } from '@atlaskit/smart-card';
 import { mocks } from '../../../../utils/mocks';
 import useResolve from '../index';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 describe('useResolve', () => {

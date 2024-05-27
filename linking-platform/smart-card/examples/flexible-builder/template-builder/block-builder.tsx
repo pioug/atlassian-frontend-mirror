@@ -7,19 +7,19 @@ import {
   DragDropContext,
   Draggable,
   Droppable,
-  OnDragEndResponder,
-  DropResult,
+  type OnDragEndResponder,
+  type DropResult,
 } from 'react-beautiful-dnd';
 import ActionBlockBuilder from './action-block-builder';
 import BlockBuilderContainer from './block-builder-container';
-import { BlockTemplate } from '../types';
+import { type BlockTemplate } from '../types';
 import { BlockName } from '../constants';
 import FooterBlockBuilder from './footer-block-builder';
 import MetadataBlockBuilder from './metadata-block-builder';
 import PreviewBlockBuilder from './preview-block-builder';
 import SnippetBlockBuilder from './snippet-block-builder';
 import TitleBlockBuilder from './title-block-builder';
-import { SmartLinkSize } from '../../../src';
+import { type SmartLinkSize } from '../../../src';
 import BlockOption from './inputs/block-option';
 import Fieldset from './fieldset';
 

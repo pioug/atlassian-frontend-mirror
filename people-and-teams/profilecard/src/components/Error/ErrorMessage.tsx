@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import IconError from '@atlaskit/icon/glyph/cross-circle';
 
 import { ErrorText, ErrorTitle, ErrorWrapper } from '../../styled/Error';
-import { ProfileCardErrorType } from '../../types';
+import { type ProfileCardErrorType } from '../../types';
 import { profileCardRendered } from '../../util/analytics';
 
 interface Props {

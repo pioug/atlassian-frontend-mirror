@@ -1,5 +1,5 @@
-import { ElementProps } from '../types';
-import { MessageProps } from '../../types';
+import { type ElementProps } from '../types';
+import { type MessageProps } from '../../types';
 
 export type TextProps = ElementProps & {
   /**

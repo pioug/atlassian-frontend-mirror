@@ -2,11 +2,11 @@ import React from 'react';
 import {
   RawIntlProvider,
   createIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
   IntlProvider,
 } from 'react-intl-next';
-import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
-import { Component, ReactElement } from 'react';
+import { mount, type ReactWrapper, shallow, type ShallowWrapper } from 'enzyme';
+import { type Component, type ReactElement } from 'react';
 
 const mockIntl = createIntl({ locale: 'en' });
 

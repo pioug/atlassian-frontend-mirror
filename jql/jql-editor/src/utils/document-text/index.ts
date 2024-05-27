@@ -1,4 +1,4 @@
-import { Fragment, Node } from '@atlaskit/editor-prosemirror/model';
+import { type Fragment, type Node } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * Get all text between positions `from` and `to` with a newline char between block nodes.

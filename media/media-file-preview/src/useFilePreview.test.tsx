@@ -5,9 +5,9 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import {
   addFileAttrsToUrl,
-  FileIdentifier,
-  MediaStoreGetFileImageParams,
-  ResponseFileItem,
+  type FileIdentifier,
+  type MediaStoreGetFileImageParams,
+  type ResponseFileItem,
 } from '@atlaskit/media-client';
 import {
   generateSampleFileItem,
@@ -16,8 +16,8 @@ import {
 
 import { createMockedMediaClientProvider } from './__tests__/helpers/_MockedMediaClientProvider';
 import { mediaFilePreviewCache } from './getPreview';
-import { MediaFilePreview } from './types';
-import { useFilePreview, UseFilePreviewParams } from './useFilePreview';
+import { type MediaFilePreview } from './types';
+import { useFilePreview, type UseFilePreviewParams } from './useFilePreview';
 
 const GLOBAL_MEDIA_CARD_SSR = 'mediaCardSsr';
 const GLOBAL_MEDIA_NAMESPACE = '__MEDIA_INTERNAL';

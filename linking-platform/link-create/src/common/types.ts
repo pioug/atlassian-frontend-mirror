@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { ModalDialogProps } from '@atlaskit/modal-dialog';
+import { type ModalDialogProps } from '@atlaskit/modal-dialog';
 
 /** Map of field names to a list of validators for that field */
 export type ValidatorMap = Record<string, Validator[]>;

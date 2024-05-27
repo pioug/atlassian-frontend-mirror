@@ -5,8 +5,8 @@ import { uuid } from '@atlaskit/adf-schema';
 import {
   getPropsDifference,
   getShallowPropsDifference,
-  PropsDifference,
-  ShallowPropsDifference,
+  type PropsDifference,
+  type ShallowPropsDifference,
 } from '../../../compare-props';
 
 type PropsDiff<Props> = ShallowPropsDifference<Props> | PropsDifference<Props>;

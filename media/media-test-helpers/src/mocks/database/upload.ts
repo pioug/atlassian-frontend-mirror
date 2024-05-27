@@ -1,6 +1,6 @@
-import { MediaUpload } from '@atlaskit/media-client';
+import { type MediaUpload } from '@atlaskit/media-client';
 import * as uuid from 'uuid';
-import { ChunkId } from './chunk';
+import { type ChunkId } from './chunk';
 import { getFutureDate } from '../../utils/mockData';
 
 export type Upload = MediaUpload & {

@@ -1,10 +1,10 @@
-import { assign, StateNodeConfig } from 'xstate';
+import { assign, type StateNodeConfig } from 'xstate';
 
 import { isUploadingFileState } from '../../../../models/file-state';
 import {
-  StateMachineContext,
-  StateMachineSchema,
-  StateMachineEvent,
+  type StateMachineContext,
+  type StateMachineSchema,
+  type StateMachineEvent,
 } from '../types';
 
 export const machineUploadingState: StateNodeConfig<

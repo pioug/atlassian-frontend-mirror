@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
-import { replaceRaf, Stub } from 'raf-stub';
+import { replaceRaf, type Stub } from 'raf-stub';
 
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
 

@@ -1,4 +1,4 @@
-import { CustomAttributes, Identifiers } from '../index';
+import { type CustomAttributes, type Identifiers } from '../index';
 
 export interface FrontendExperimentsRequest {
   identifiers: Identifiers;

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 import { jsx } from '@emotion/react';
 import { containerStyle, flashStyle } from './styles';
 

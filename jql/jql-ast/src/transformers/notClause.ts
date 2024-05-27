@@ -1,5 +1,5 @@
 import { assignParent } from '../creators/common';
-import { Clause, NotClause } from '../types';
+import { type Clause, type NotClause } from '../types';
 
 /**
  * Remove the current node from its parent. The parent node is responsible for implementing the logic to remove any

@@ -4,7 +4,7 @@ import {
   act,
   fireEvent,
   render,
-  RenderOptions,
+  type RenderOptions,
   screen,
   waitFor,
 } from '@testing-library/react';
@@ -14,11 +14,11 @@ import Form from '@atlaskit/form';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import {
-  FetchObjectSchemasDetails,
+  type FetchObjectSchemasDetails,
   useObjectSchemas,
-  UseObjectSchemasState,
+  type UseObjectSchemasState,
 } from '../../../../../hooks/useObjectSchemas';
-import { ObjectSchema } from '../../../../../types/assets/types';
+import { type ObjectSchema } from '../../../../../types/assets/types';
 import { AssetsObjectSchemaSelect, SEARCH_DEBOUNCE_MS } from '../index';
 
 jest.mock('../../../../../hooks/useObjectSchemas');

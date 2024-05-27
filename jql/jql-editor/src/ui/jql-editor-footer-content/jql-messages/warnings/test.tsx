@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { render } from '@testing-library/react';
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { mockIntl } from '../../../../../mocks';
@@ -10,8 +10,8 @@ import {
   useHydratedDeprecations,
   useIntl,
 } from '../../../../state';
-import { ExternalMessagesNormalized } from '../../../../state/types';
-import { HydratedDeprecatedField } from '../../../jql-editor/types';
+import { type ExternalMessagesNormalized } from '../../../../state/types';
+import { type HydratedDeprecatedField } from '../../../jql-editor/types';
 
 import { useFormattedWarningMessage, WarningMessages } from './index';
 

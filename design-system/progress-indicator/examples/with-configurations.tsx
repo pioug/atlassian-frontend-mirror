@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { ChangeEvent, ReactNode, useState } from 'react';
+import React, { type ChangeEvent, type ReactNode, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';

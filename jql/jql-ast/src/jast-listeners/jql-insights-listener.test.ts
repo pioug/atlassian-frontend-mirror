@@ -2,7 +2,7 @@ import { JastBuilder } from '../api';
 
 import {
   computeJqlInsights,
-  JqlInsightsAttributes,
+  type JqlInsightsAttributes,
 } from './jql-insights-listener';
 
 type TestCase = {

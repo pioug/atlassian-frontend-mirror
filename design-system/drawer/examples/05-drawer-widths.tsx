@@ -7,7 +7,7 @@ import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
-import { DrawerWidth } from '../src/components/types';
+import { type DrawerWidth } from '../src/components/types';
 import { widths } from '../src/constants';
 
 const buttonContainerStyles = css({

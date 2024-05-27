@@ -27,10 +27,10 @@ import { fetchMessagesForLocale } from '../../common/utils/fetch-messages-for-lo
 import i18nEN from '../../i18n/en';
 import messages from '../../messages';
 import {
-  Flag,
-  FlagEvent,
+  type Flag,
+  type FlagEvent,
   FlagEventType,
-  GiveKudosDrawerProps,
+  type GiveKudosDrawerProps,
   isFlagEventTypeValue,
 } from '../../types';
 

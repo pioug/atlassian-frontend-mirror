@@ -20,7 +20,7 @@ import type {
   FilePreview,
 } from '@atlaskit/media-client';
 import { createMediaSubject } from '@atlaskit/media-client';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { CardBase } from '../../card/card';
 import type { CardDimensions, CardPreview, CardState } from '../../types';
 import {
@@ -30,7 +30,7 @@ import {
   MediaCardError,
   LocalPreviewError,
   RemotePreviewError,
-  LocalPreviewPrimaryReason,
+  type LocalPreviewPrimaryReason,
 } from '../../errors';
 import { CardView } from '../../card/cardView';
 import * as getCardPreviewModule from '../../card/getCardPreview';
@@ -40,8 +40,8 @@ import { getSSRData } from '../../utils/globalScope';
 import * as videoIsPlayableModule from '../../utils/videoIsPlayable';
 import { extractErrorInfo, getFileAttributes } from '../../utils/analytics';
 import { getFileDetails } from '../../utils/metadata';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ImageResizeMode } from '@atlaskit/media-client';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type ImageResizeMode } from '@atlaskit/media-client';
 import cardPreviewCache from '../../card/getCardPreview/cache';
 
 const videoIsPlayable = jest.spyOn(videoIsPlayableModule, 'videoIsPlayable');

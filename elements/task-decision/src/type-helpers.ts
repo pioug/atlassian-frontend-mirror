@@ -1,12 +1,12 @@
 import {
-  BaseItem,
-  Decision,
-  Item,
-  ObjectKey,
-  ServiceDecision,
-  ServiceTask,
-  Task,
-  TaskState,
+  type BaseItem,
+  type Decision,
+  type Item,
+  type ObjectKey,
+  type ServiceDecision,
+  type ServiceTask,
+  type Task,
+  type TaskState,
 } from './types';
 
 export const isDecision = (item: Item): item is Decision =>

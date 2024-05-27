@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EmptyState, { Sizes } from '../src';
+import EmptyState, { type Sizes } from '../src';
 
 import exampleImage from './img/example-image.png';
 

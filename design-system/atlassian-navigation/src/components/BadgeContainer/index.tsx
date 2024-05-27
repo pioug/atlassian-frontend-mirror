@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { BadgeProps } from './types';
+import { type BadgeProps } from './types';
 
 const badgeContainerStyles = css({
   position: 'absolute',

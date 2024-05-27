@@ -29,7 +29,7 @@ import {
   recordSelectionSucceededSli,
   ufoExperiences,
   withSampling,
-  WithSamplingUFOExperience,
+  type WithSamplingUFOExperience,
 } from './util/analytics';
 import {
   customCategory,

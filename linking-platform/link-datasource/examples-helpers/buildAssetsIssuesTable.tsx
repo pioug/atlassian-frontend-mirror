@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import { DatasourceParameters } from '@atlaskit/linking-types';
+import { type DatasourceParameters } from '@atlaskit/linking-types';
 
 import { DatasourceTableView } from '../src';
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../src/ui/assets-modal';
-import { AssetsDatasourceParameters } from '../src/ui/assets-modal/types';
+import { type AssetsDatasourceParameters } from '../src/ui/assets-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
 import { useAssetsTableProps } from './useAssetsTableProps';

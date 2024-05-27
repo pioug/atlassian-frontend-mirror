@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 export type RelatedUrlsResponse = {
   resolvedResults?: JsonLd.Response[];

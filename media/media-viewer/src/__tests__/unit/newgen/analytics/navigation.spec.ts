@@ -1,4 +1,4 @@
-import { Identifier } from '@atlaskit/media-client';
+import { type Identifier } from '@atlaskit/media-client';
 import { createNavigatedEvent } from '../../../../analytics/events/ui/navigated';
 
 const identifier: Identifier = {

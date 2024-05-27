@@ -2,15 +2,15 @@ import React from 'react';
 
 import {
   Editor,
-  EditorProps,
+  type EditorProps,
   EditorContext,
   ToolbarHelp,
 } from '@atlaskit/editor-core';
 import {
-  MentionResourceConfig,
+  type MentionResourceConfig,
   AbstractMentionResource,
-  ResolvingMentionProvider,
-  MentionNameDetails,
+  type ResolvingMentionProvider,
+  type MentionNameDetails,
   MentionNameStatus,
 } from '../src/resource';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling

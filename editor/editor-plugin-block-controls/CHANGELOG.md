@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.3
+
+### Patch Changes
+
+-   [#103721](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103721)
+    [`8c44ebf695aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c44ebf695aa) -
+    Adjust drag preview opacity
+
+## 1.4.2
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 1.4.1
 
 ### Patch Changes

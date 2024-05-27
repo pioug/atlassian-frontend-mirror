@@ -1,11 +1,11 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
-import React, { Component, SyntheticEvent } from 'react';
+import React, { Component, type SyntheticEvent } from 'react';
 
 import { canUseDOM } from 'exenv';
 
 import {
   createAndFireEvent,
-  CreateUIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
@@ -15,7 +15,7 @@ import { defaultFocusLockSettings } from '../constants';
 
 import Blanket from './blanket';
 import DrawerPrimitive from './primitives';
-import { CloseTrigger, DrawerProps, DrawerWidth } from './types';
+import { type CloseTrigger, type DrawerProps, type DrawerWidth } from './types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

@@ -1,4 +1,4 @@
-import { BulletListDefinition, ListItemDefinition } from '@atlaskit/adf-schema';
+import { type BulletListDefinition, type ListItemDefinition } from '@atlaskit/adf-schema';
 
 export const bulletList = (
   ...content: Array<ListItemDefinition>

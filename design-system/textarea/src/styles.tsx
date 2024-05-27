@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, CSSObject } from '@emotion/react';
+import { css, type CSSObject } from '@emotion/react';
 
 import {
   codeFontFamily as getCodeFontFamily,
@@ -11,7 +11,7 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import * as componentTokens from './component-tokens';
-import { TextAreaProps } from './types';
+import { type TextAreaProps } from './types';
 
 const disabledRules = {
   backgroundColor: componentTokens.disabledBackground,

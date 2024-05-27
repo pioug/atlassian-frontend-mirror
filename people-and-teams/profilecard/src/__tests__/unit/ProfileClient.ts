@@ -6,7 +6,7 @@ import * as sinon from 'sinon';
 
 import ProfileClient from '../../client/ProfileCardClient';
 import { modifyResponse } from '../../client/UserProfileCardClient';
-import { ApiClientResponse } from '../../types';
+import { type ApiClientResponse } from '../../types';
 
 const clientUrl = 'https://foo/';
 const clientCacheSize = 10;

@@ -1,7 +1,7 @@
 import Avatar from '@atlaskit/avatar';
 import { shallow } from 'enzyme';
 import React from 'react';
-import { Props, SizeableAvatar } from '../../../components/SizeableAvatar';
+import { type Props, SizeableAvatar } from '../../../components/SizeableAvatar';
 
 describe('SizeableAvatar', () => {
   const shallowSizeableAvatar = (props: Partial<Props> = {}) =>

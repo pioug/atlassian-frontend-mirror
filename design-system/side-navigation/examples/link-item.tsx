@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { MouseEvent } from 'react';
+import React, { type MouseEvent } from 'react';
 
 import BookIcon from '@atlaskit/icon/glyph/book';
 import OpenIcon from '@atlaskit/icon/glyph/open';

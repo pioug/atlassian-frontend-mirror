@@ -6,11 +6,11 @@ import {
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 import {
-  DatasourceLifecycleEventCallback,
-  DatasourceLifecycleMethods,
-  LifecycleAction,
-  LinkLifecycleEventCallback,
-  SmartLinkLifecycleMethods,
+  type DatasourceLifecycleEventCallback,
+  type DatasourceLifecycleMethods,
+  type LifecycleAction,
+  type LinkLifecycleEventCallback,
+  type SmartLinkLifecycleMethods,
 } from './types';
 import { ANALYTICS_CHANNEL } from './consts';
 import createEventPayload from './common/utils/analytics/analytics.codegen';

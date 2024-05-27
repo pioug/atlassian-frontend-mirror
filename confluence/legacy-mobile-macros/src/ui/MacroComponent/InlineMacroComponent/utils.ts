@@ -1,5 +1,5 @@
 import { Anchor } from './Anchor';
-import { InlineMacroComponentProps } from './types';
+import { type InlineMacroComponentProps } from './types';
 
 const InlineMacroComponents: {
   [index: string]: (props: InlineMacroComponentProps) => JSX.Element;

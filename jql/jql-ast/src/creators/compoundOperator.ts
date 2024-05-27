@@ -1,9 +1,9 @@
 import {
-  CompoundOperator,
-  CompoundOperatorValue,
-  JastListener,
-  JastVisitor,
-  Position,
+  type CompoundOperator,
+  type CompoundOperatorValue,
+  type JastListener,
+  type JastVisitor,
+  type Position,
 } from '../types';
 
 import { noChildren } from './common';

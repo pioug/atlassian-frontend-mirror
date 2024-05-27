@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
@@ -8,8 +8,8 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import MentionList from '../../../components/MentionList';
 import ResourcedMentionList, {
-  Props,
-  State,
+  type Props,
+  type State,
 } from '../../../components/ResourcedMentionList';
 import * as Analytics from '../../../util/analytics';
 import { waitUntil } from '@atlaskit/elements-test-helpers';

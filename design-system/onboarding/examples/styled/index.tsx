@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

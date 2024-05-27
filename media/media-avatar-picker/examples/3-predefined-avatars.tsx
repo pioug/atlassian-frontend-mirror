@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Avatar } from '../src';
+import { type Avatar } from '../src';
 import { AvatarList } from '../src/avatar-list';
 import { PredefinedAvatarList } from '../src/predefined-avatar-list';
 import { PredefinedAvatarView } from '../src/predefined-avatar-view';

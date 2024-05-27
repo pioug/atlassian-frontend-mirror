@@ -1,7 +1,7 @@
-import Logger from './helpers/logger';
+import type Logger from './helpers/logger';
 import {
-  GasPurePayload,
-  GasPureScreenEventPayload,
+  type GasPurePayload,
+  type GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 
 export type AnalyticsWebClient = {

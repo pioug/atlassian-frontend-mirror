@@ -1,6 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { CardState } from '@atlaskit/linking-common';
+import { type CardState } from '@atlaskit/linking-common';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import FlexibleUnauthorisedView from '../FlexibleUnauthorisedView';

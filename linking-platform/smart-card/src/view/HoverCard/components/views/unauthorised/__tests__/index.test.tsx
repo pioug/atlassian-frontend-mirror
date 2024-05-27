@@ -8,9 +8,9 @@ import {
   CONTENT_URL_3P_ACCOUNT_AUTH,
   CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../../../../../constants';
-import { AnalyticsFacade } from '../../../../../../state/analytics';
+import { type AnalyticsFacade } from '../../../../../../state/analytics';
 import HoverCardUnauthorisedView from '../index';
-import { HoverCardUnauthorisedProps } from '../types';
+import { type HoverCardUnauthorisedProps } from '../types';
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
 import { mocks } from '../../../../../../utils/mocks';

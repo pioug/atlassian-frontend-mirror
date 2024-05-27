@@ -9,9 +9,9 @@ import {
   titleBoxWrapperStyles,
 } from './styles';
 import {
-  TitleBoxFooterProps,
-  TitleBoxHeaderProps,
-  TitleBoxWrapperProps,
+  type TitleBoxFooterProps,
+  type TitleBoxHeaderProps,
+  type TitleBoxWrapperProps,
 } from './types';
 
 export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {

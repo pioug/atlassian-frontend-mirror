@@ -6,7 +6,7 @@ import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import EmptyState from '@atlaskit/empty-state';
-import { DatasourceMeta } from '@atlaskit/linking-types';
+import { type DatasourceMeta } from '@atlaskit/linking-types';
 import {
   AuthError,
   auth as outboundAuth,

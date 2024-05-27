@@ -1,4 +1,4 @@
-import { Item } from './table-tree';
+import { type Item } from './table-tree';
 
 /**
  * This is hard-coded here because our actual <Rows /> has no typings

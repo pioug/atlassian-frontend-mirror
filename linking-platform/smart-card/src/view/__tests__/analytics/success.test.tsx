@@ -6,16 +6,16 @@ jest.mock('../../../utils', () => ({
 
 import './success.test.mock';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { CardClient } from '@atlaskit/link-provider';
+import { type CardClient } from '@atlaskit/link-provider';
 import React from 'react';
-import { Card, CardAppearance } from '../../Card';
+import { Card, type CardAppearance } from '../../Card';
 import { CardAction, Provider, TitleBlock } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import * as analytics from '../../../utils/analytics';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import 'jest-extended';
-import { JestFunction, asMock } from '@atlaskit/media-test-helpers';
+import { type JestFunction, asMock } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
 import { isSpecialEvent } from '../../../utils';

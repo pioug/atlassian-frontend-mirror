@@ -1,9 +1,9 @@
-import { modifyResponse, ProfileClient, ProfileClientOptions } from '../../src';
+import { modifyResponse, ProfileClient, type ProfileClientOptions } from '../../src';
 import {
   getMockProfileClient as getMockProfileClientUtil,
   getMockTeamClient,
 } from '../../src/mocks';
-import { ProfilecardProps } from '../../src/types';
+import { type ProfilecardProps } from '../../src/types';
 
 export const getMockProfileClient = (
   cacheSize: number,

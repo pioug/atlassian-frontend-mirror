@@ -1,7 +1,7 @@
 import { EventEmitter2 } from 'eventemitter2';
 import { LRUMap } from 'lru_map';
 
-import { MediaFilePreview } from '../types';
+import { type MediaFilePreview } from '../types';
 
 export const PREVIEW_CACHE_LRU_SIZE = 50;
 

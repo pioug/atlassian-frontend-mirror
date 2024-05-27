@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { defaultMediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
-import { ClipboardConfig } from '@atlaskit/media-picker/types';
+import { type ClipboardConfig } from '@atlaskit/media-picker/types';
 import { Clipboard } from '@atlaskit/media-picker';
-import { MediaClient, FileIdentifier } from '@atlaskit/media-client';
-import { UploadEndEventPayload } from '../../../src/types';
+import { MediaClient, type FileIdentifier } from '@atlaskit/media-client';
+import { type UploadEndEventPayload } from '../../../src/types';
 import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
 
 const mediaClient = new MediaClient({

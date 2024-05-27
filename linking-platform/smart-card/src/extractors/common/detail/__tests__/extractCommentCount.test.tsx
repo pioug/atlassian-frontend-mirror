@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { extractCommentCount, LinkCommentType } from '../extractCommentCount';
+import { extractCommentCount, type LinkCommentType } from '../extractCommentCount';
 import { TEST_BASE_DATA } from '../../__mocks__/jsonld';
 
 const BASE_DATA = TEST_BASE_DATA as LinkCommentType;

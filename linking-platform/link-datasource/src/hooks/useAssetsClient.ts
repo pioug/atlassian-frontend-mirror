@@ -6,8 +6,8 @@ import {
   fetchObjectSchemas,
   getWorkspaceId,
 } from '../services/cmdbService';
-import { ObjectSchema } from '../types/assets/types';
-import { AssetsDatasourceParameters } from '../ui/assets-modal/types';
+import { type ObjectSchema } from '../types/assets/types';
+import { type AssetsDatasourceParameters } from '../ui/assets-modal/types';
 
 export type UseAssetsClientState = {
   workspaceId: string | undefined;

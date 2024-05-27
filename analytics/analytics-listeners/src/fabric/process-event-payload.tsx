@@ -1,13 +1,13 @@
 import {
   DEFAULT_SOURCE,
-  GasPayload,
-  GasScreenEventPayload,
+  type GasPayload,
+  type GasScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 import {
   ELEMENTS_CONTEXT,
   EDITOR_CONTEXT,
 } from '@atlaskit/analytics-namespaced-context';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import merge from 'lodash/merge';
 import { ELEMENTS_TAG } from './FabricElementsListener';
 import { EDITOR_TAG } from './FabricEditorListener';

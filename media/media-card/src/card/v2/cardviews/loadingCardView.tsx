@@ -5,13 +5,13 @@ import { useEffect, useRef } from 'react';
 import SpinnerIcon from '@atlaskit/spinner';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { FileDetails } from '@atlaskit/media-client';
+import { type FileDetails } from '@atlaskit/media-client';
 import { createAndFireMediaCardEvent } from '../../../utils/analytics';
 import { IconWrapper } from '../../ui/iconWrapper/iconWrapper';
 import { useBreakpoint } from '../../useBreakpoint';
-import { CardViewWrapper, SharedCardViewProps } from './cardViewWrapper';
+import { CardViewWrapper, type SharedCardViewProps } from './cardViewWrapper';
 
 export type LoadingCardViewProps = SharedCardViewProps &
   WithAnalyticsEventsProps & {

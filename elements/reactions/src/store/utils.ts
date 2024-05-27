@@ -1,8 +1,8 @@
 import {
-  Updater,
-  ReactionsReadyState,
+  type Updater,
+  type ReactionsReadyState,
   ReactionStatus,
-  ReactionSummary,
+  type ReactionSummary,
 } from '../types';
 
 const compareEmojiId = (l: string, r: string): number => {

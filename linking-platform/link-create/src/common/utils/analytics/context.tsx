@@ -6,12 +6,12 @@ import React, {
   useState,
 } from 'react';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../../constants';
-import { LinkCreateProps } from '../../types';
+import { type LinkCreateProps } from '../../types';
 
-import { LinkCreateAnalyticsContextType } from './analytics.codegen';
+import { type LinkCreateAnalyticsContextType } from './analytics.codegen';
 
 export type TrackAttribute = <K extends keyof LinkCreateAnalyticsContextType>(
   attribute: K,

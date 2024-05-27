@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import fetchMock from 'fetch-mock/cjs/client';
 import { mentions as mentionsData } from '@atlaskit/util-data-test/mention-story-data';
-import { EntityType, RecommendationResponse } from '../src/types';
-import { ApiClientResponse } from '../src/service/users-client';
-import { LegionResponse } from '../src/service/teams-client';
+import { EntityType, type RecommendationResponse } from '../src/types';
+import { type ApiClientResponse } from '../src/service/users-client';
+import { type LegionResponse } from '../src/service/teams-client';
 import { users } from './users';
 import { teams } from './teams';
 

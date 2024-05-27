@@ -4,7 +4,7 @@ import React from 'react';
 import { uid } from 'react-uid';
 
 import { defaultLogoParams } from '../constants';
-import { LogoPropsAppearanceRequired } from '../types';
+import { type LogoPropsAppearanceRequired } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 

@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 /** @jsx jsx */
-import { FC, forwardRef, HTMLProps, ReactNode } from 'react';
+import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -9,14 +9,14 @@ import { token } from '@atlaskit/tokens';
 
 import { ASC, DESC } from '../internal/constants';
 import { arrow, head, MSThemeColors, tableBorder } from '../theme';
-import { SortOrderType } from '../types';
+import { type SortOrderType } from '../types';
 
 import {
   cellStyles,
   fixedSizeTruncateStyles,
   getTruncationStyleVars,
   overflowTruncateStyles,
-  TruncateStyleProps,
+  type TruncateStyleProps,
   truncationWidthStyles,
 } from './constants';
 

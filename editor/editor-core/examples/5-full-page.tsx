@@ -16,6 +16,7 @@ import {
   TTI_SEVERITY_THRESHOLD_DEFAULTS,
 } from '@atlaskit/editor-common/utils';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
@@ -67,7 +68,7 @@ import type {
 } from '../example-helpers/full-page/types';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { EditorActions } from '../src';
-import { Editor } from '../src';
+import { ComposableEditor } from '../src/composable-editor';
 import {
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
@@ -76,9 +77,11 @@ import type {
   EditorProps,
   // EditorPlugin,
 } from '../src/editor';
+import { useUniversalPreset } from '../src/preset-universal';
 import { usePresetContext } from '../src/presets/context';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
+import { usePreset } from '../src/use-preset';
 
 /**
  * +-------------------------------+
@@ -234,6 +237,15 @@ export const getAppearance = (): 'full-page' | 'full-width' => {
 };
 
 const smartCardClient = new CardClient('staging');
+
+const Editor = (props: EditorProps) => {
+  const universalPreset = useUniversalPreset({
+    props,
+  });
+  const { preset } = usePreset(() => universalPreset.add(highlightPlugin));
+
+  return <ComposableEditor preset={preset} {...props} />;
+};
 export class ExampleEditorComponent extends React.Component<
   ExampleEditorProps,
   EditorState
@@ -670,8 +682,8 @@ const Renderer = (props: ExampleRendererProps) => {
   const document = !props.document
     ? undefined
     : typeof props.document === 'string'
-    ? JSON.parse(props.document)
-    : props.document;
+      ? JSON.parse(props.document)
+      : props.document;
 
   const mediaFeatureFlags = props.mediaFeatureFlags
     ? props.mediaFeatureFlags

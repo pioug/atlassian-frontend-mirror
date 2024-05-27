@@ -5,7 +5,7 @@ import { isValid, parseISO } from 'date-fns';
 import Calendar from '@atlaskit/calendar';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { MenuProps } from '@atlaskit/select';
+import { type MenuProps } from '@atlaskit/select';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';

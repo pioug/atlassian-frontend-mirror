@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
-import Select, { OptionType, FormatOptionLabelMeta } from '../../src';
+import Select, { type OptionType, type FormatOptionLabelMeta } from '../../src';
 
 const optionDescriptionStyles = xcss({
   fontSize: 12,

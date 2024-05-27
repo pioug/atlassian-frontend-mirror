@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ReactNode, useCallback, useState } from 'react';
+import { type ReactNode, useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -8,7 +8,7 @@ import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Tabs, { Tab, TabList, TabPanel } from '../../src';
-import { SelectedType } from '../../src/types';
+import { type SelectedType } from '../../src/types';
 
 const panelStyles = css({
   display: 'flex',

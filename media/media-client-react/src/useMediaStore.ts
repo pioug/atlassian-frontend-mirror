@@ -1,4 +1,4 @@
-import { StoreApi, useStore } from 'zustand';
+import { type StoreApi, useStore } from 'zustand';
 
 import type { Store } from '@atlaskit/media-state';
 

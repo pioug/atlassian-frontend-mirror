@@ -1,4 +1,4 @@
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { cardMessages as messages } from '../messages';
 import type { Command } from '../types';

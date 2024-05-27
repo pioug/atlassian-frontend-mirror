@@ -5,7 +5,7 @@ import {
   DirectoryGraphQLErrors,
 } from '../util/errors';
 
-import { ErrorAttributes } from './types';
+import { type ErrorAttributes } from './types';
 
 const IGNORED_ERROR_REASONS_DIRECTORY = [
   // Error categories from pf-directory

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { StylesConfig } from '@atlaskit/select';
+import { type StylesConfig } from '@atlaskit/select';
 import * as colors from '@atlaskit/theme/colors';
 
 import SmartUserPicker from '../src';

@@ -1,24 +1,24 @@
 import Statsig, {
   DynamicConfig,
   EvaluationReason,
-  LocalOverrides,
-  StatsigOptions,
-  StatsigUser,
+  type LocalOverrides,
+  type StatsigOptions,
+  type StatsigUser,
 } from 'statsig-js-lite';
 
-import Fetcher, { FetcherOptions } from './fetcher';
+import Fetcher, { type FetcherOptions } from './fetcher';
 import {
-  CheckGateOptions,
-  ClientOptions,
-  CustomAttributes,
+  type CheckGateOptions,
+  type ClientOptions,
+  type CustomAttributes,
   FeatureGateEnvironment,
-  FromValuesClientOptions,
-  GetExperimentOptions,
-  GetExperimentValueOptions,
-  Identifiers,
-  InitializeValues,
+  type FromValuesClientOptions,
+  type GetExperimentOptions,
+  type GetExperimentValueOptions,
+  type Identifiers,
+  type InitializeValues,
   PerimeterType,
-  UpdateUserCompletionCallback,
+  type UpdateUserCompletionCallback,
 } from './types';
 import { CLIENT_VERSION } from './version';
 

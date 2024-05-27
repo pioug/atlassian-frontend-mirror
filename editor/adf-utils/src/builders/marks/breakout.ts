@@ -1,11 +1,11 @@
 import {
-  BreakoutMarkAttrs,
-  BreakoutMarkDefinition,
-  CodeBlockDefinition,
-  LayoutSectionDefinition,
+  type BreakoutMarkAttrs,
+  type BreakoutMarkDefinition,
+  type CodeBlockDefinition,
+  type LayoutSectionDefinition,
 } from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
-import { WithAppliedMark } from '../types';
+import { type WithAppliedMark } from '../types';
 
 export const breakout =
   (attrs: BreakoutMarkAttrs) =>

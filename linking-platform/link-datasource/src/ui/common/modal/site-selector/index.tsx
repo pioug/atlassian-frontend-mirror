@@ -2,10 +2,10 @@
 import { useMemo } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { MessageDescriptor, useIntl } from 'react-intl-next';
+import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { Box, xcss } from '@atlaskit/primitives';
-import Select, { OptionType, ValueType } from '@atlaskit/select';
+import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 import type { Site } from '../../../../common/types';

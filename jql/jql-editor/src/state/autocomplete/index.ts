@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { type Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 
 import {
@@ -20,7 +20,7 @@ import {
   OPERATOR_WAS_NOT,
   OPERATOR_WAS_NOT_IN,
 } from '@atlaskit/jql-ast';
-import { AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
 
 // Opinionated order in which we want to render operators
 export const ORDERED_OPERATORS = [

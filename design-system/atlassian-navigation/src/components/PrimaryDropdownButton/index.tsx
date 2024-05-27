@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, Ref } from 'react';
+import { forwardRef, type Ref } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -8,7 +8,7 @@ import { Bleed, xcss } from '@atlaskit/primitives';
 
 import { PrimaryButton } from '../PrimaryButton';
 
-import { PrimaryDropdownButtonProps } from './types';
+import { type PrimaryDropdownButtonProps } from './types';
 
 const chevronIconStylesWithSpacingFixStyles = xcss({
   marginInlineEnd: 'space.negative.050',

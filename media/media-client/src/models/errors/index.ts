@@ -1,4 +1,4 @@
-import { MediaClientError, MediaClientErrorAttributes } from './types';
+import { type MediaClientError, type MediaClientErrorAttributes } from './types';
 
 export type {
   MediaClientError,

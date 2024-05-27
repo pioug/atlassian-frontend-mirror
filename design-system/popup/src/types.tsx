@@ -1,14 +1,15 @@
-import React, {
-  ComponentType,
-  CSSProperties,
-  Dispatch,
-  PropsWithChildren,
-  ReactNode,
-  Ref,
-  SetStateAction,
+import {
+  type ComponentType,
+  type CSSProperties,
+  type Dispatch,
+  type PropsWithChildren,
+  type default as React,
+  type ReactNode,
+  type Ref,
+  type SetStateAction,
 } from 'react';
 
-import { Placement, PopperChildrenProps } from '@atlaskit/popper';
+import { type Placement, type PopperChildrenProps } from '@atlaskit/popper';
 
 export interface TriggerProps {
   ref: Ref<any>;

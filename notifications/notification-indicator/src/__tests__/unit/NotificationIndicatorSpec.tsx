@@ -1,16 +1,16 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import * as sinon from 'sinon';
 
 import Badge from '@atlaskit/badge';
 import {
   NotificationLogClient,
-  NotificationCountResponse,
+  type NotificationCountResponse,
 } from '@atlaskit/notification-log-client';
 
 import NotificationIndicator, {
-  ValueUpdatingParams,
-  ValueUpdatingResult,
+  type ValueUpdatingParams,
+  type ValueUpdatingResult,
 } from '../../NotificationIndicator';
 
 class MockNotificationLogClient extends NotificationLogClient {

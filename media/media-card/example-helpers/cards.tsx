@@ -12,7 +12,7 @@ import {
   wideImageFileId,
   largeImageFileId,
 } from '@atlaskit/media-test-helpers';
-import { FileIdentifier } from '@atlaskit/media-client';
+import { type FileIdentifier } from '@atlaskit/media-client';
 
 import { createApiCards, actions } from '.';
 import { CardLoading, CardError, Card } from '../src';

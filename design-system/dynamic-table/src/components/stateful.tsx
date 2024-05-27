@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { reorderRows } from '../internal/helpers';
-import { RankEnd, RowType, SortOrderType, StatefulProps } from '../types';
+import { type RankEnd, type RowType, type SortOrderType, type StatefulProps } from '../types';
 
 import DynamicTableStateless from './stateless';
 

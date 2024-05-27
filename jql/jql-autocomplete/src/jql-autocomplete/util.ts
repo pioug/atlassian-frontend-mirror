@@ -1,8 +1,8 @@
-import { ParserRuleContext } from 'antlr4ts/ParserRuleContext';
+import { type ParserRuleContext } from 'antlr4ts/ParserRuleContext';
 
 import { JQLParser } from '@atlaskit/jql-parser';
 
-import { Position } from '../common/types';
+import { type Position } from '../common/types';
 
 import { operators } from './constants';
 

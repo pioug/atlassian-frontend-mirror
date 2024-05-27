@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { DeleteUserOverviewScreen } from '../../components/DeleteUserOverviewScreen';
 import { catherineHirons } from '../../mocks/users';
 import accessibleSites from '../../mocks/accessibleSites';
-import { DeleteUserOverviewScreenProps } from '../../components/DeleteUserOverviewScreen/types';
+import { type DeleteUserOverviewScreenProps } from '../../components/DeleteUserOverviewScreen/types';
 
 const defaultProps: Partial<DeleteUserOverviewScreenProps> = {
   accessibleSites,

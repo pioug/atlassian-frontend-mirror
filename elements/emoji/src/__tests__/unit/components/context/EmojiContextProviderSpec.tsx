@@ -1,4 +1,4 @@
-import React, { PureComponent, ContextType, useContext } from 'react';
+import React, { PureComponent, type ContextType, useContext } from 'react';
 import * as sinon from 'sinon';
 import { render } from '@testing-library/react';
 import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';

@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 import Button from '@atlaskit/button/standard-button';
 
 import { ProviderCard } from './ProviderCard';
-import { ExampleUrl, ExampleUIConfig } from './types';
+import { type ExampleUrl, type ExampleUIConfig } from './types';
 
 interface ProviderCategoryProps {
   category: string;

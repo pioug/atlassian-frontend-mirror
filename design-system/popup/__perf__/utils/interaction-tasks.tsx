@@ -1,7 +1,7 @@
 import { findByTestId, fireEvent } from '@testing-library/dom';
 import {
-  InteractionTaskArgs,
-  PublicInteractionTask,
+  type InteractionTaskArgs,
+  type PublicInteractionTask,
 } from 'storybook-addon-performance';
 
 export const interactionTasks: PublicInteractionTask[] = [

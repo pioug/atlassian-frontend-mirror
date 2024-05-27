@@ -2,7 +2,7 @@
 
 import { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
-import { Appearance, ContentRef, TaskType, DecisionType } from '../types';
+import { type Appearance, type ContentRef, type TaskType, type DecisionType } from '../types';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import {

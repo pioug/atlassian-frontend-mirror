@@ -5,14 +5,13 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { flushPromises } from '@atlaskit/link-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { Validator } from '../../common/types';
+import { type Validator } from '../../common/types';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
 import { FormContextProvider } from '../../controllers/form-context';
 
 import { AsyncSelect } from './async-select';
-import { CreateForm, CreateFormProps } from './main';
+import { CreateForm, type CreateFormProps } from './main';
 import { TextField } from './textfield';
 
 describe('<CreateForm />', () => {
@@ -199,45 +198,23 @@ describe('<CreateForm />', () => {
       expect(screen.getByText('Something goes wrong')).toBeTruthy();
     });
 
-    ffTest(
-      'platform.linking-platform.link-create.better-observability',
-      /** Should render an error message in the form footer if async select loadOptions function rejects */
-      async () => {
-        const loadOptions = jest.fn(async () => {
-          throw new Response(null, { status: 500 });
-        });
+    it('should render an error message in the form footer if async select loadOptions function rejects', async () => {
+      const loadOptions = jest.fn(async () => {
+        throw new Response(null, { status: 500 });
+      });
 
-        const { onFailure } = setUpCreateForm(
-          <AsyncSelect name="title" label="Title" loadOptions={loadOptions} />,
-        );
+      const { onFailure } = setUpCreateForm(
+        <AsyncSelect name="title" label="Title" loadOptions={loadOptions} />,
+      );
 
-        await act(async () => {
-          await flushPromises();
-        });
+      await act(async () => {
+        await flushPromises();
+      });
 
-        const errorMessage = screen.getByTestId('link-create-form-error');
-        expect(errorMessage).toBeInTheDocument();
-        expect(errorMessage).toHaveTextContent('Something went wrong');
-        expect(onFailure).toHaveBeenCalledWith(expect.any(Response));
-      },
-      /** Does not render an error message to footer by default when async select fails to load */
-      async () => {
-        const loadOptions = jest.fn(async () => {
-          throw new Response(null, { status: 500 });
-        });
-
-        const { onFailure } = setUpCreateForm(
-          <AsyncSelect name="title" label="Title" loadOptions={loadOptions} />,
-        );
-
-        await act(async () => {
-          await flushPromises();
-        });
-
-        const errorMessage = screen.queryByTestId('link-create-form-error');
-        expect(errorMessage).not.toBeInTheDocument();
-        expect(onFailure).not.toHaveBeenCalled();
-      },
-    );
+      const errorMessage = screen.getByTestId('link-create-form-error');
+      expect(errorMessage).toBeInTheDocument();
+      expect(errorMessage).toHaveTextContent('Something went wrong');
+      expect(onFailure).toHaveBeenCalledWith(expect.any(Response));
+    });
   });
 });

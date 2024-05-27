@@ -1,16 +1,16 @@
-import { MutableRefObject } from 'react';
+import { type MutableRefObject } from 'react';
 
 import {
   DefaultErrorStrategy,
-  FailedPredicateException,
-  InputMismatchException,
-  Parser,
-  Token,
+  type FailedPredicateException,
+  type InputMismatchException,
+  type Parser,
+  type Token,
 } from 'antlr4ts';
-import { NoViableAltException } from 'antlr4ts/NoViableAltException';
-import { RecognitionException } from 'antlr4ts/RecognitionException';
+import { type NoViableAltException } from 'antlr4ts/NoViableAltException';
+import { type RecognitionException } from 'antlr4ts/RecognitionException';
 import padStart from 'lodash/padStart';
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { normaliseJqlString } from '@atlaskit/jql-ast';
 import { JQLAutocomplete } from '@atlaskit/jql-autocomplete';

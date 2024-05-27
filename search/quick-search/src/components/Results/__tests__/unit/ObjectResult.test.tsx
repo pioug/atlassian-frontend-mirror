@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import Avatar from '@atlaskit/avatar';
 import ObjectResult from '../../ObjectResult';
 

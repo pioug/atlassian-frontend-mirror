@@ -1,6 +1,6 @@
 import 'jest-extended';
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import uuid from 'uuid';
 
@@ -10,7 +10,7 @@ import FabricAnalyticsListeners, {
 } from '@atlaskit/analytics-listeners';
 import type { ProviderProps } from '@atlaskit/link-provider';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { CardClient } from '@atlaskit/link-provider';
+import { type CardClient } from '@atlaskit/link-provider';
 import {
   flushPromises,
   mockSimpleIntersectionObserver,

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect } from 'react';
 
-import { SkipLinkData, useSkipLinks } from '../../controllers';
+import { type SkipLinkData, useSkipLinks } from '../../controllers';
 
 export const useCustomSkipLink = (
   id: SkipLinkData['id'],

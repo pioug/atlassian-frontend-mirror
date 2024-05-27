@@ -1,7 +1,7 @@
 // eslint-disable-line no-console
 
-import React, { PropsWithChildren } from 'react';
-import { FileItem, Identifier } from '@atlaskit/media-client';
+import React, { type PropsWithChildren } from 'react';
+import { type FileItem, type Identifier } from '@atlaskit/media-client';
 import {
   createPollingMaxAttemptsError,
   createRateLimitedError,
@@ -11,13 +11,13 @@ import {
 } from '@atlaskit/media-test-helpers';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import FabricAnalyticsListeners, {
-  AnalyticsWebClient,
+  type AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
 import { payloadPublisher } from '@atlassian/ufo';
 
 import AnnotateIcon from '@atlaskit/icon/glyph/media-services/annotate';
 import { SelectableCard } from './selectableCard';
-import { Card, CardAppearance, CardEvent, CardAction } from '../src';
+import { Card, type CardAppearance, type CardEvent, type CardAction } from '../src';
 import { MediaCardError } from '../src/errors';
 import DevelopmentUseMessage from './developmentUseMessage';
 

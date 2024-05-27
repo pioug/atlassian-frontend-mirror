@@ -1,4 +1,4 @@
-import React, { Fragment, MouseEvent } from 'react';
+import React, { Fragment, type MouseEvent } from 'react';
 
 import { LinkButton } from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';

@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 const ALLOWED_RESPONSE_STATUS_CODES = [200, 401, 404];
 

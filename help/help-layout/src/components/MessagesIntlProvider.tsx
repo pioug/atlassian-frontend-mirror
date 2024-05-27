@@ -2,7 +2,7 @@ import React from 'react';
 import {
   IntlProvider,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 
 export interface Props {

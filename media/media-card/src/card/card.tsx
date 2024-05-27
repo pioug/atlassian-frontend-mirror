@@ -1,47 +1,47 @@
 import React, { Component, Suspense, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import {
-  NumericalCardDimensions,
-  SSR,
+  type NumericalCardDimensions,
+  type SSR,
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
-  FileAttributes,
-  MediaTraceContext,
+  type FileAttributes,
+  type MediaTraceContext,
   getRandomHex,
 } from '@atlaskit/media-common';
 import {
-  FileDetails,
-  FileIdentifier,
-  FileState,
+  type FileDetails,
+  type FileIdentifier,
+  type FileState,
   globalMediaEventEmitter,
-  Identifier,
+  type Identifier,
   isDifferentIdentifier,
   isFileIdentifier,
-  MediaViewedEventPayload,
+  type MediaViewedEventPayload,
   RECENTS_COLLECTION,
   isImageRepresentationReady,
   isExternalImageIdentifier,
   imageResizeModeToFileImageMode,
-  MediaStoreGetFileImageParams,
-  MediaBlobUrlAttrs,
-  MediaSubscription,
-  MediaClient,
+  type MediaStoreGetFileImageParams,
+  type MediaBlobUrlAttrs,
+  type MediaSubscription,
+  type MediaClient,
 } from '@atlaskit/media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import {
   injectIntl,
   IntlProvider,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
-import { CardAction } from './actions';
-import { CardProps, CardState, CardStatus, CardPreview } from '../types';
+import { type CardAction } from './actions';
+import { type CardProps, type CardState, type CardStatus, type CardPreview } from '../types';
 import { CardView } from './cardView';
 import { ViewportDetector } from '../utils/viewportDetector';
 import { videoIsPlayable } from '../utils/videoIsPlayable';
@@ -51,7 +51,7 @@ import {
   getCardPreviewFromCache,
   removeCardPreviewFromCache,
   getFilePreviewFromFileState,
-  CardPreviewParams,
+  type CardPreviewParams,
   shouldResolvePreview,
   getSSRCardPreview,
   isLocalPreview,
@@ -65,8 +65,8 @@ import { InlinePlayerLazy } from './inlinePlayerLazy';
 import {
   getFileAttributes,
   extractErrorInfo,
-  SSRStatus,
-  SSRStatusFail,
+  type SSRStatus,
+  type SSRStatusFail,
 } from '../utils/analytics';
 import {
   isLocalPreviewError,
@@ -85,7 +85,7 @@ import getDocument from '../utils/document';
 import {
   generateScriptProps,
   getSSRData,
-  MediaCardSsrData,
+  type MediaCardSsrData,
 } from '../utils/globalScope';
 import { getCardStateFromFileState, createStateUpdater } from './cardState';
 import { isBigger } from '../utils/dimensionComparer';
@@ -96,7 +96,7 @@ import {
   abortUfoExperience,
 } from '../utils/ufoExperiences';
 import { generateUniqueId } from '../utils/generateUniqueId';
-import { FileStateFlags } from '../types';
+import { type FileStateFlags } from '../types';
 import { DateOverrideContext } from '../dateOverrideContext';
 
 const packageName = process.env._PACKAGE_NAME_ as string;

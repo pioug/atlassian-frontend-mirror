@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { FlexibleTemplate } from './types';
+import { type FlexibleTemplate } from './types';
 import {
   ComponentStorageValue,
   DefaultTemplate,

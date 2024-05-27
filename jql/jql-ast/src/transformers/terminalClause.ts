@@ -1,7 +1,7 @@
 import { OPERAND_TYPE_LIST } from '../constants';
 import creators from '../creators';
 import { assignParent } from '../creators/common';
-import { Clause, Operand, Operator, TerminalClause } from '../types';
+import { type Clause, type Operand, type Operator, type TerminalClause } from '../types';
 
 /**
  * Set the operator of the current terminal clause.

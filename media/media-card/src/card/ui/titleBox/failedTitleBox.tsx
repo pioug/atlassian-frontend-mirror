@@ -6,7 +6,7 @@ import { messages } from '@atlaskit/media-ui';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { ErrorMessageWrapper, TitleBoxWrapper } from './titleBoxComponents';
-import { FailedTitleBoxProps } from './types';
+import { type FailedTitleBoxProps } from './types';
 
 export const FailedTitleBox: React.FC<FailedTitleBoxProps> = ({
   breakpoint,

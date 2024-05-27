@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import type React from 'react';
+import { useEffect } from 'react';
 
 type callbackType = 'CLICK_OUTSIDE' | 'ESCAPE';
 

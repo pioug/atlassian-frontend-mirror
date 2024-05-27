@@ -1,4 +1,4 @@
-import { CardDimensions } from '../../../types';
+import { type CardDimensions } from '../../../types';
 
 export interface UnhandledErrorCardProps {
   dimensions?: CardDimensions;

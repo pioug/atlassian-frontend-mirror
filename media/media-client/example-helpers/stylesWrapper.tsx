@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { ChangeEvent, ReactNode } from 'react';
+import { type ChangeEvent, type ReactNode } from 'react';
 import {
   cardsWrapperStyles,
   fileInputStyles,
@@ -15,7 +15,7 @@ import {
   uploadTouchWrapperStyles,
   wrapperStyles,
 } from './styles';
-import { FileStatus } from '../src';
+import { type FileStatus } from '../src';
 
 export const Wrapper = ({ children }: { children: ReactNode }) => {
   return <div css={wrapperStyles}>{children}</div>;

@@ -2,22 +2,22 @@
  * Entry Point: @atlaskit/media-card/types
  * tsconfig.entry-points.json
  */
-import { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 import {
-  FileDetails,
-  MediaClient,
-  Identifier,
-  ImageResizeMode,
-  FileState,
+  type FileDetails,
+  type MediaClient,
+  type Identifier,
+  type ImageResizeMode,
+  type FileState,
 } from '@atlaskit/media-client';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
-  MediaFeatureFlags,
-  NumericalCardDimensions,
-  SSR,
+  type MediaFeatureFlags,
+  type NumericalCardDimensions,
+  type SSR,
 } from '@atlaskit/media-common';
-import { CardAction } from './card/actions';
-import { MediaCardError } from './errors';
+import { type CardAction } from './card/actions';
+import { type MediaCardError } from './errors';
 
 export type CardStatus =
   | 'uploading'

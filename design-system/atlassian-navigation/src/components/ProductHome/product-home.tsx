@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, MouseEvent } from 'react';
+import { Fragment, type MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
 
-import { ProductHomeProps } from './types';
+import { type ProductHomeProps } from './types';
 import { getTag } from './utils';
 
 const VAR_LOGO_MAX_WIDTH = '--logo-max-width';

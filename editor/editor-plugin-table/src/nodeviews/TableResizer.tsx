@@ -203,7 +203,10 @@ export const TableResizer = ({
         currentGap.current = gap;
         const visibleGuidelines = getVisibleGuidelines(
           isTableScalingEnabled
-            ? defaultGuidelinesForPreserveTable(containerWidth)
+            ? defaultGuidelinesForPreserveTable(
+                containerWidth,
+                isTableAlignmentEnabled,
+              )
             : defaultGuidelines,
           containerWidth,
         );
@@ -218,7 +221,12 @@ export const TableResizer = ({
         );
       }
     },
-    [isTableScalingEnabled, containerWidth, displayGuideline],
+    [
+      isTableScalingEnabled,
+      isTableAlignmentEnabled,
+      containerWidth,
+      displayGuideline,
+    ],
   );
 
   const guidelineSnaps = useMemo(
@@ -226,11 +234,19 @@ export const TableResizer = ({
       snappingEnabled
         ? {
             x: isTableScalingEnabled
-              ? defaultTablePreserveSnappingWidths(containerWidth)
+              ? defaultTablePreserveSnappingWidths(
+                  containerWidth,
+                  isTableAlignmentEnabled,
+                )
               : defaultSnappingWidths,
           }
         : undefined,
-    [snappingEnabled, isTableScalingEnabled, containerWidth],
+    [
+      snappingEnabled,
+      isTableScalingEnabled,
+      isTableAlignmentEnabled,
+      containerWidth,
+    ],
   );
 
   useEffect(() => {
@@ -276,7 +292,10 @@ export const TableResizer = ({
 
     const visibleGuidelines = getVisibleGuidelines(
       isTableScalingEnabled
-        ? defaultGuidelinesForPreserveTable(containerWidth)
+        ? defaultGuidelinesForPreserveTable(
+            containerWidth,
+            isTableAlignmentEnabled,
+          )
         : defaultGuidelines,
       containerWidth,
     );
@@ -292,6 +311,7 @@ export const TableResizer = ({
     node.attrs.localId,
     tableRef,
     isTableScalingEnabled,
+    isTableAlignmentEnabled,
     containerWidth,
     displayGuideline,
     onResizeStart,
@@ -326,10 +346,16 @@ export const TableResizer = ({
       const closestSnap = findClosestSnap(
         newWidth,
         isTableScalingEnabled
-          ? defaultTablePreserveSnappingWidths(containerWidth)
+          ? defaultTablePreserveSnappingWidths(
+              containerWidth,
+              isTableAlignmentEnabled,
+            )
           : defaultSnappingWidths,
         isTableScalingEnabled
-          ? defaultGuidelinesForPreserveTable(containerWidth)
+          ? defaultGuidelinesForPreserveTable(
+              containerWidth,
+              isTableAlignmentEnabled,
+            )
           : defaultGuidelines,
         TABLE_HIGHLIGHT_GAP,
         TABLE_HIGHLIGHT_TOLERANCE,
@@ -343,6 +369,7 @@ export const TableResizer = ({
 
       const fullWidthGuideline = defaultGuidelinesForPreserveTable(
         containerWidth,
+        isTableAlignmentEnabled,
       ).filter((guideline) => guideline.isFullWidth)[0];
 
       const isFullWidthGuidelineActive = closestSnap.keys.includes(
@@ -362,6 +389,7 @@ export const TableResizer = ({
     [
       countFrames,
       isTableScalingEnabled,
+      isTableAlignmentEnabled,
       tableRef,
       node,
       editorView,

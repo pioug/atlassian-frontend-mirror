@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { useEffect, useState, useRef, SyntheticEvent } from 'react';
+import { useEffect, useState, useRef, type SyntheticEvent } from 'react';
 
 import { iframeCSS } from './styles';
-import { NotificationsProps } from './types';
+import { type NotificationsProps } from './types';
 import { getNotificationsSrc } from './utils';
 
 export const Notifications = (props: NotificationsProps) => {

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -7,7 +7,7 @@ import {
   createAndFireEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

@@ -1,6 +1,6 @@
 import {
   ConcurrentExperience,
-  CustomData,
+  type CustomData,
   ExperiencePerformanceTypes,
   ExperienceTypes,
 } from '@atlaskit/ufo';

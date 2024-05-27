@@ -123,7 +123,7 @@ export class ToolbarTextColor extends React.Component<
     const selectedColor = this.getSelectedColor(pluginState);
     // TODO: This doesn't work, the label isn't translated
     const selectedColorPaletteItemLabel = palette.find(
-      paletteItem => paletteItem.value === pluginState.color,
+      (paletteItem) => paletteItem.value === pluginState.color,
     )?.label;
 
     const selectedColorPaletteItemLabelText =
@@ -189,7 +189,7 @@ export class ToolbarTextColor extends React.Component<
         >
           <div data-testid="text-color-palette">
             <ColorPalette
-              onClick={color =>
+              onClick={(color) =>
                 this.changeTextColor(
                   color,
                   pluginInjectionApi?.analytics?.actions,
@@ -205,10 +205,10 @@ export class ToolbarTextColor extends React.Component<
             />
           </div>
         </Dropdown>
-        {
-          // Only render the separator if the highlight toolbar option isn't being rendered after it
-          !pluginInjectionApi?.highlight && <span css={separatorStyles} />
-        }
+        {!pluginInjectionApi?.primaryToolbar && (
+          /* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
+          <span css={separatorStyles} />
+        )}
       </span>
     );
   }
@@ -224,7 +224,7 @@ export class ToolbarTextColor extends React.Component<
       } = this.props;
 
       // we store color names in analytics
-      const swatch = palette.find(sw => sw.value === color);
+      const swatch = palette.find((sw) => sw.value === color);
 
       this.dispatchAnalyticsEvent(
         this.buildAnalyticsSelectColor({

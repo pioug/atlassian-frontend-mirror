@@ -1,4 +1,4 @@
-import { MentionDescription, Team } from '../../types';
+import { type MentionDescription, type Team } from '../../types';
 
 export const resultCraig: MentionDescription[] =
   require('./_mention-search-result-craig.json') as MentionDescription[];

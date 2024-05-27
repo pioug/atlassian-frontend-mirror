@@ -4,10 +4,10 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 import { requestService } from '../serviceUtils';
 import {
-  RefreshSecurityProvider,
-  RequestServiceOptions,
-  SecurityProvider,
-  ServiceConfig,
+  type RefreshSecurityProvider,
+  type RequestServiceOptions,
+  type SecurityProvider,
+  type ServiceConfig,
 } from '../types';
 
 const url = 'http://cheese';

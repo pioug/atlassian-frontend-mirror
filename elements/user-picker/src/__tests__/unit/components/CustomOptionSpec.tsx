@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import {
   AvatarItemOption,
   textWrapper,
@@ -7,9 +7,9 @@ import {
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import {
   CustomOption,
-  CustomOptionProps,
+  type CustomOptionProps,
 } from '../../../components/CustomOption/main';
-import { Custom } from '../../../types';
+import { type Custom } from '../../../types';
 import { token } from '@atlaskit/tokens';
 import * as colors from '@atlaskit/theme/colors';
 

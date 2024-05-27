@@ -3,10 +3,10 @@ import debounce from 'lodash/debounce';
 import { v4 as uuidV4 } from 'uuid';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import memoizeOne from 'memoize-one';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
-import { CustomData, UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
+import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { type CustomData, type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import UserPicker, {
-  OptionData,
+  type OptionData,
   isExternalUser,
   isTeam,
   isUser,
@@ -20,13 +20,13 @@ import {
   failedRequestUsersEvent,
   mountedWithPrefetchEvent,
   createAndFireEventInElementsChannel,
-  SmartEventCreator,
+  type SmartEventCreator,
 } from '../analytics';
 import MessagesIntlProvider from './MessagesIntlProvider';
-import { SmartProps, Props, State, FilterOptions } from '../types';
+import { type SmartProps, type Props, type State, type FilterOptions } from '../types';
 import { getUserRecommendations, hydrateDefaultValues } from '../service';
 import { smartUserPickerOptionsShownUfoExperience } from '../ufoExperiences';
-import { SUPError } from '../service/recommendation-client';
+import { type SUPError } from '../service/recommendation-client';
 
 const DEFAULT_DEBOUNCE_TIME_MS = 150;
 

@@ -1,15 +1,15 @@
 import {
   DefaultMentionNameResolver,
-  MentionNameResolver,
+  type MentionNameResolver,
 } from '../../../api/MentionNameResolver';
-import { MentionNameClient } from '../../../api/MentionNameClient';
+import { type MentionNameClient } from '../../../api/MentionNameClient';
 import {
   isPromise,
-  MentionNameDetails,
+  type MentionNameDetails,
   MentionNameStatus,
 } from '../../../types';
 import {
-  CreateUIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 

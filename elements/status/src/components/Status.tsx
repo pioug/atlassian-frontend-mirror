@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { PureComponent, MouseEvent } from 'react';
+import { PureComponent, type MouseEvent } from 'react';
 import { css, jsx } from '@emotion/react';
-import Lozenge, { ThemeAppearance } from '@atlaskit/lozenge';
+import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
 import {
-  WithAnalyticsEventsProps,
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
+  type CreateUIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { createStatusAnalyticsAndFire } from './analytics';

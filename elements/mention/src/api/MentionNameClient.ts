@@ -4,7 +4,7 @@
 //   utils as serviceUtils,
 // } from '@atlaskit/util-service-support';
 
-import { MentionNameDetails } from '../types';
+import { type MentionNameDetails } from '../types';
 
 export interface MentionNameClient {
   getLookupLimit(): number;

@@ -3,7 +3,7 @@ import React from 'react';
 import { messages } from '../../../../../../messages';
 import Text from '../../../elements/text';
 import Block from '../../block';
-import { RelatedUrlsBlockErroredViewProps } from './types';
+import { type RelatedUrlsBlockErroredViewProps } from './types';
 
 export const RelatedUrlsBlockErroredView: React.FC<
   RelatedUrlsBlockErroredViewProps

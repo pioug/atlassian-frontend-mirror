@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 import { IntlProvider, useIntl } from 'react-intl-next';
 import { getMessagesForLocale } from '../../util/i18n';
 

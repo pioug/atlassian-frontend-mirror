@@ -1,6 +1,6 @@
 // TODO: remove from editor-core utils, re-export from editor-common
 
-import { Slice } from '@atlaskit/editor-prosemirror/model';
+import { type Slice } from '@atlaskit/editor-prosemirror/model';
 import type {
   ReadonlyTransaction,
   Transaction,

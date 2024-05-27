@@ -1,16 +1,16 @@
 import {
-  UploadingEmojiProvider,
-  EmojiRepository,
+  type UploadingEmojiProvider,
+  type EmojiRepository,
 } from '@atlaskit/emoji/resource';
 import {
-  EmojiDescription,
-  EmojiId,
-  EmojiUpload,
-  OptionalEmojiDescriptionWithVariations,
+  type EmojiDescription,
+  type EmojiId,
+  type EmojiUpload,
+  type OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji/types';
 import { emojiFromUpload } from './emoji-from-upload';
 import { MockNonUploadingEmojiResource } from './mock-non-uploading-emoji-resource';
-import { MockEmojiResourceConfig, UploadDetail } from './types';
+import { type MockEmojiResourceConfig, type UploadDetail } from './types';
 
 export class MockEmojiResource
   extends MockNonUploadingEmojiResource

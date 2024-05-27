@@ -5,7 +5,7 @@ import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import {
   AbstractConversationResource,
-  ConversationResourceConfig,
+  type ConversationResourceConfig,
 } from '../src/api/ConversationResource';
 import { HttpError } from '../src/api/HttpError';
 import {
@@ -27,7 +27,7 @@ import {
   UPDATE_USER_SUCCESS,
 } from '../src/internal/actions';
 import { uuid } from '../src/internal/uuid';
-import { Comment, Conversation, User } from '../src/model';
+import { type Comment, type Conversation, type User } from '../src/model';
 import {
   generateMockConversation,
   mockInlineConversation,

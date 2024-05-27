@@ -1,5 +1,5 @@
 import React from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import HelpArticleContent from '@atlaskit/help-article';
 import { token } from '@atlaskit/tokens';
@@ -9,7 +9,7 @@ import Button from '@atlaskit/button/custom-theme-button';
 
 import { messages } from '../../../messages';
 
-import { WhatsNewArticle as WhatsNewArticleType } from '../../../model/WhatsNew';
+import { type WhatsNewArticle as WhatsNewArticleType } from '../../../model/WhatsNew';
 import { getTypeIcon, getTypeTitle } from '../../../util';
 import { WhatsNewTypeIcon, DividerLine } from '../../../util/styled';
 

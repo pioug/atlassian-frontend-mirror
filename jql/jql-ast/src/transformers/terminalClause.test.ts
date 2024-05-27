@@ -11,7 +11,7 @@ import {
   OPERATOR_IN,
 } from '../constants';
 import creators from '../creators';
-import { Operand } from '../types';
+import { type Operand } from '../types';
 
 const getTerminalClauseWithOperand = (operand?: Operand) =>
   creators.terminalClause(

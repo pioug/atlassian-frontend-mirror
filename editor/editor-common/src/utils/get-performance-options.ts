@@ -7,7 +7,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   ACTION,
   ACTION_SUBJECT,
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   EVENT_TYPE,
 } from '../analytics';
 

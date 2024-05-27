@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 import { PrimaryButtonSkeleton } from '../PrimaryButton/skeleton';
 
-import { PrimaryItemsContainerSkeletonProps } from './types';
+import { type PrimaryItemsContainerSkeletonProps } from './types';
 
 const primaryButtonSkeletonStyles = css({
   marginRight: token('space.150', '12px'),

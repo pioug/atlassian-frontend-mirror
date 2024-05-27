@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { PopupComponentProps } from '@atlaskit/popup';
+import { type PopupComponentProps } from '@atlaskit/popup';
 import { popupContainerStyles } from '../styled';
 import { jsx } from '@emotion/react';
 

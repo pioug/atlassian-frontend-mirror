@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { h500 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-import { IntegrationContentProps } from '../types';
+import { type IntegrationContentProps } from '../types';
 
 export const formWrapperStyle = css`
   [class^='FormHeader__FormHeaderWrapper'] {

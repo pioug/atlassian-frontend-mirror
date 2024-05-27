@@ -2,7 +2,7 @@
 import React from 'react';
 import AKBadge from '@atlaskit/badge';
 import { css, jsx } from '@emotion/react';
-import { AtlaskitBadgeProps } from './types';
+import { type AtlaskitBadgeProps } from './types';
 
 const badgeStyles = css({
   alignItems: 'center',

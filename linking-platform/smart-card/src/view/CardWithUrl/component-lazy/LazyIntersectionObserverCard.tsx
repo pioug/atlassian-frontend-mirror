@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { CardWithUrlContentProps } from '../types';
+import { type CardWithUrlContentProps } from '../types';
 import { usePrefetch } from '../../../state';
 import { CardWithUrlContent } from '../component';
 import { LoadingCardLink } from './LoadingCardLink';

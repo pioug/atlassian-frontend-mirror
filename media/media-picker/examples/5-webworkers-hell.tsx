@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/new';
 import { Browser } from '../src';
-import { BrowserConfig, UploadPreviewUpdateEventPayload } from '../src/types';
+import { type BrowserConfig, type UploadPreviewUpdateEventPayload } from '../src/types';
 import {
   MainWrapper,
   PopupHeader,
@@ -16,7 +16,7 @@ import {
   PreviewsTitle,
   UploadPreview,
 } from '../example-helpers';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import { type MediaClientConfig } from '@atlaskit/media-core';
 
 export interface BrowserWrapperState {
   previewsData: any[];

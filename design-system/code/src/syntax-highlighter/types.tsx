@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { SerializedStyles } from '@emotion/react';
-import { AST, RefractorNode } from 'refractor';
+import { type SerializedStyles } from '@emotion/react';
+import { type AST, type RefractorNode } from 'refractor';
 export type { AST, RefractorNode } from 'refractor';
 
 // This wrapper supports the async loading of refractor and language grammars. The internal Highlight is a memo() functional component as expected

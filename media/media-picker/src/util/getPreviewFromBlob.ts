@@ -1,10 +1,10 @@
 import {
-  MediaType,
-  Dimensions,
+  type MediaType,
+  type Dimensions,
   getDimensionsFromBlob,
 } from '@atlaskit/media-client';
 
-import { Preview } from '../types';
+import { type Preview } from '../types';
 
 export const isUnknownDimensions = (dimensions: Dimensions) =>
   !dimensions.width && !dimensions.height;

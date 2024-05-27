@@ -1,5 +1,5 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
+import { type PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { type default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 import { isVisualRegression } from '../utils';
 
 // Puppeteer and WebDriver share some common APIs but not all.

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import {
   TimeRange,
   TimeRangeBase,
-  TimeRangeProps,
+  type TimeRangeProps,
 } from '../../customMediaPlayer/timeRange';
 import {
   CurrentTimeLine,

@@ -5,7 +5,7 @@ import {
   mockReactDomWarningGlobal,
   renderWithIntl,
 } from '../../__tests__/_testing-library';
-import { ShowMoreProps, ShowMore, RENDER_WRAPPER_TESTID } from './ShowMore';
+import { type ShowMoreProps, ShowMore, RENDER_WRAPPER_TESTID } from './ShowMore';
 
 expect.extend(matchers);
 

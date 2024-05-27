@@ -1,4 +1,4 @@
-import { EditorViewWithComposition } from '../../types';
+import { type EditorViewWithComposition } from '../../types';
 
 const InputEvent = (window as any).InputEvent;
 

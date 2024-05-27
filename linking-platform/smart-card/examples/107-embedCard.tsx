@@ -4,7 +4,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { EmbedCardResolvedView } from '../src/view/EmbedCard/views/ResolvedView';
 import { IntlProvider } from 'react-intl-next';
-import { FrameStyle } from '../src/view/EmbedCard/types';
+import { type FrameStyle } from '../src/view/EmbedCard/types';
 import { token } from '@atlaskit/tokens';
 
 const previewUrl = 'https://www.youtube.com/embed/uhHyh55n5l0';

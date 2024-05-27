@@ -25,6 +25,10 @@ import type {
 } from '@atlaskit/editor-plugins/max-content-size';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { MediaPluginState } from '@atlaskit/editor-plugins/media/types';
+import type {
+  PrimaryToolbarPlugin,
+  PrimaryToolbarPluginState,
+} from '@atlaskit/editor-plugins/primary-toolbar';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -132,7 +136,11 @@ class Editor extends React.Component<
     }
   };
 
-  private renderChrome = ({ maxContentSize, mediaState }: PluginStates) => {
+  private renderChrome = ({
+    maxContentSize,
+    mediaState,
+    primaryToolbarState,
+  }: PluginStates) => {
     const {
       editorDOMElement,
       editorView,
@@ -142,7 +150,7 @@ class Editor extends React.Component<
       contentComponents,
       customContentComponents,
       customPrimaryToolbarComponents,
-      primaryToolbarComponents,
+      primaryToolbarComponents: primaryToolbarComponentsProp,
       customSecondaryToolbarComponents,
       popupsMountPoint,
       popupsBoundariesElement,
@@ -179,6 +187,18 @@ class Editor extends React.Component<
       event.preventDefault();
       event.stopPropagation();
     };
+
+    let primaryToolbarComponents = primaryToolbarComponentsProp;
+    if (getBooleanFF('platform.editor.primary-toolbar-ordering')) {
+      if (
+        Array.isArray(primaryToolbarState?.components) &&
+        Array.isArray(primaryToolbarComponents)
+      ) {
+        primaryToolbarComponents = primaryToolbarState.components.concat(
+          primaryToolbarComponents,
+        );
+      }
+    }
 
     return (
       <WithFlash animate={maxContentSizeReached}>
@@ -322,6 +342,7 @@ class Editor extends React.Component<
 interface PluginStates {
   maxContentSize?: MaxContentSizePluginState;
   mediaState?: MediaPluginState;
+  primaryToolbarState?: PrimaryToolbarPluginState;
 }
 
 interface RenderChromeProps {
@@ -331,18 +352,21 @@ interface RenderChromeProps {
 function RenderWithPluginState({ renderChrome }: RenderChromeProps) {
   const api =
     usePresetContext<
-      [OptionalPlugin<MediaPlugin>, OptionalPlugin<MaxContentSizePlugin>]
+      [
+        OptionalPlugin<MediaPlugin>,
+        OptionalPlugin<MaxContentSizePlugin>,
+        OptionalPlugin<PrimaryToolbarPlugin>,
+      ]
     >();
-  const { mediaState, maxContentSizeState } = useSharedPluginState(api, [
-    'media',
-    'maxContentSize',
-  ]);
+  const { mediaState, maxContentSizeState, primaryToolbarState } =
+    useSharedPluginState(api, ['media', 'maxContentSize', 'primaryToolbar']);
 
   return (
     <Fragment>
       {renderChrome({
         maxContentSize: maxContentSizeState,
         mediaState: mediaState ?? undefined,
+        primaryToolbarState,
       })}
     </Fragment>
   );
@@ -353,12 +377,14 @@ const EditorNext = (
 ) => {
   const api =
     usePresetContext<
-      [OptionalPlugin<MediaPlugin>, OptionalPlugin<MaxContentSizePlugin>]
+      [
+        OptionalPlugin<MediaPlugin>,
+        OptionalPlugin<MaxContentSizePlugin>,
+        OptionalPlugin<PrimaryToolbarPlugin>,
+      ]
     >();
-  const { mediaState, maxContentSizeState } = useSharedPluginState(api, [
-    'media',
-    'maxContentSize',
-  ]);
+  const { mediaState, maxContentSizeState, primaryToolbarState } =
+    useSharedPluginState(api, ['media', 'maxContentSize', 'primaryToolbar']);
   const {
     editorDOMElement,
     editorView,
@@ -368,7 +394,7 @@ const EditorNext = (
     contentComponents,
     customContentComponents,
     customPrimaryToolbarComponents,
-    primaryToolbarComponents,
+    primaryToolbarComponents: primaryToolbarComponentsProp,
     customSecondaryToolbarComponents,
     popupsMountPoint,
     popupsBoundariesElement,
@@ -438,6 +464,18 @@ const EditorNext = (
     },
     [editorView],
   );
+
+  let primaryToolbarComponents = primaryToolbarComponentsProp;
+  if (getBooleanFF('platform.editor.primary-toolbar-ordering')) {
+    if (
+      Array.isArray(primaryToolbarState?.components) &&
+      Array.isArray(primaryToolbarComponents)
+    ) {
+      primaryToolbarComponents = primaryToolbarState.components.concat(
+        primaryToolbarComponents,
+      );
+    }
+  }
 
   return (
     <WithFlash animate={maxContentSizeReached}>

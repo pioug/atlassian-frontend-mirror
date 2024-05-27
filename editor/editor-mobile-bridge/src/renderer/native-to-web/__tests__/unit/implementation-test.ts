@@ -1,13 +1,13 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import RendererBridgeImplementation from '../../implementation';
 import { eventDispatcher, EmitterEvents } from '../../../dispatcher';
-import { AnnotationPayload } from '../../../types';
-import { Serialized } from '../../../../types';
+import { type AnnotationPayload } from '../../../types';
+import { type Serialized } from '../../../../types';
 import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
 import * as crossPlatformPromise from '../../../../cross-platform-promise';
 import * as BridgeUtils from '../../../../utils/bridge';
 import { nativeBridgeAPI } from '../../../web-to-native/implementation';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import RendererConfiguration from '../../../renderer-configuration';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { waitFor } from '@testing-library/dom';

@@ -1,4 +1,4 @@
-import { MediaApi, ResponseFileItem } from '../../client/media-store';
+import { type MediaApi, type ResponseFileItem } from '../../client/media-store';
 import { getMediaFile, normaliseInput } from './helpers';
 
 export interface SetItems {

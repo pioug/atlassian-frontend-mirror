@@ -1,9 +1,9 @@
 import {
-  MediaTraceContext,
-  WithFileAttributes,
-  WithTraceContext,
+  type MediaTraceContext,
+  type WithFileAttributes,
+  type WithTraceContext,
 } from '@atlaskit/media-common';
-import { MediaFileEventPayload } from './_mediaFile';
+import { type MediaFileEventPayload } from './_mediaFile';
 
 export type CommencedAttributes = WithFileAttributes & WithTraceContext;
 

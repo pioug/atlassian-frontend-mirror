@@ -1,7 +1,7 @@
 import VRTestWrapper from '../utils/vr-test-wrapper';
 import React from 'react';
 
-import { Provider, Client, ResolveResponse } from '../../src';
+import { Provider, Client, type ResolveResponse } from '../../src';
 import { Card } from '../../src';
 import { mockUnauthorisedResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 

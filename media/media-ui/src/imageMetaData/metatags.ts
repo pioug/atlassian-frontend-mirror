@@ -1,4 +1,4 @@
-import { ImageMetaDataTags, ImageType } from './types';
+import { type ImageMetaDataTags, ImageType } from './types';
 import { readJPEGExifMetaData } from './parseJPEG';
 import { readPNGXMPMetaData } from './parsePNG';
 import { parseXMPMetaData } from './parsePNGXMP';

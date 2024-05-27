@@ -1,10 +1,10 @@
 import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
-import { ProcessedFileState } from '@atlaskit/media-client';
-import { BaseProps, BaseViewer } from '../../../../viewers/base-viewer';
+import { type ProcessedFileState } from '@atlaskit/media-client';
+import { type BaseProps, BaseViewer } from '../../../../viewers/base-viewer';
 import { Outcome } from '../../../../domain';
 import { ErrorMessage } from '../../../../errorMessage';
-import { MediaViewerError } from '../../../../errors';
+import { type MediaViewerError } from '../../../../errors';
 import { Spinner } from '../../../../loading';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { mount } from 'enzyme';

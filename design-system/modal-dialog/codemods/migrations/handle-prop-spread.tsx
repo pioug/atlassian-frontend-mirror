@@ -1,4 +1,9 @@
-import core, { ASTPath, Collection, JSXElement } from 'jscodeshift/src/core';
+import {
+  type ASTPath,
+  type Collection,
+  type default as core,
+  type JSXElement,
+} from 'jscodeshift/src/core';
 
 import {
   addCommentToStartOfFile,

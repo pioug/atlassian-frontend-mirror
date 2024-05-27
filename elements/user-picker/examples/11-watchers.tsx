@@ -1,10 +1,10 @@
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
-import React, { FC, useCallback, useState } from 'react';
+import React, { type FC, useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import { OptionData, Value } from '../src';
+import { type OptionData, type Value } from '../src';
 import UserPicker from '../src';
 import { isTeam, isUser } from '../src/components/utils';
 

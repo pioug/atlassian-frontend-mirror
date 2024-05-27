@@ -1,5 +1,5 @@
 import { PRD_CONFIG } from '../../config';
-import { UserSearchItem, UserSearchRequest } from '../../types';
+import { type UserSearchItem, type UserSearchRequest } from '../../types';
 
 const fetchUserRecommendations = (
   request: UserSearchRequest,

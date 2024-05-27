@@ -14,10 +14,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
-import {
-  expandIconWrapperStyle,
-  separatorStyles,
-} from '@atlaskit/editor-common/styles';
+import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
   ColorPalette,
@@ -203,8 +200,6 @@ const ToolbarHighlightColor = ({
           />
         </div>
       </Dropdown>
-      {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-      <span css={separatorStyles} />
     </Flex>
   );
 };

@@ -5,7 +5,7 @@ import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { Flag } from '../src/types';
+import { type Flag } from '../src/types';
 
 type RenderChildren = (
   showFlags: (flags: Array<Flag>) => void,

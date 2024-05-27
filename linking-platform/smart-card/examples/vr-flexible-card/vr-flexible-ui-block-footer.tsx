@@ -15,7 +15,7 @@ import {
   makeEditActionItem,
 } from '../utils/flexible-ui';
 import FlexibleCard from '../../src/view/FlexibleCard';
-import { ActionItem } from '../../src';
+import { type ActionItem } from '../../src';
 import PremiumIcon from '@atlaskit/icon/glyph/premium';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

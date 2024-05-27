@@ -5,9 +5,9 @@ import { css, jsx } from '@emotion/react';
 
 import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
 import { SmartLinkSize } from '../../../../../constants';
-import { AvatarGroupProps } from './types';
+import { type AvatarGroupProps } from './types';
 import { messages } from '../../../../../messages';
-import { useIntl, IntlShape } from 'react-intl-next';
+import { useIntl, type IntlShape } from 'react-intl-next';
 import { ElementName } from '../../../../../constants';
 import { getFormattedMessageAsString } from '../../utils';
 

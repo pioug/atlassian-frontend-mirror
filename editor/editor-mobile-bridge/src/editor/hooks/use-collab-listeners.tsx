@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import WebBridgeImpl from '../native-to-web';
+import type WebBridgeImpl from '../native-to-web';
 import {
-  Provider as CollabProvider,
-  CollabMetadataPayload,
-  ProviderError,
+  type Provider as CollabProvider,
+  type CollabMetadataPayload,
+  type ProviderError,
 } from '@atlaskit/collab-provider';
 import { toNativeBridge } from '../web-to-native';
 

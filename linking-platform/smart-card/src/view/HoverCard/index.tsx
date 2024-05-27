@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { jsx } from '@emotion/react';
-import { FC, useCallback } from 'react';
+import { type FC, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useSmartLinkAnalytics } from '../../state/analytics';
 import { HoverCardComponent } from './components/HoverCardComponent';
-import { HoverCardInternalProps, HoverCardProps } from './types';
+import { type HoverCardInternalProps, type HoverCardProps } from './types';
 import { CardDisplay } from '../../constants';
 import { di } from 'react-magnetic-di';
 

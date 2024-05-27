@@ -4,11 +4,11 @@ import { useIntl } from 'react-intl-next';
 
 import {
   getUserRecommendations,
-  OptionData,
+  type OptionData,
 } from '@atlaskit/smart-user-picker';
 
-import { FilterPopupSelectProps } from '../../../common/modal/popup-select';
-import { SelectOption } from '../../../common/modal/popup-select/types';
+import { type FilterPopupSelectProps } from '../../../common/modal/popup-select';
+import { type SelectOption } from '../../../common/modal/popup-select/types';
 
 interface FetchFilterOptionsProps {
   cloudId: string;

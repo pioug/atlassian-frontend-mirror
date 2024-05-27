@@ -1,6 +1,6 @@
 import React from 'react';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
-import { Provider, ResolveResponse, Client } from '../../src';
+import { Provider, type ResolveResponse, Client } from '../../src';
 import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

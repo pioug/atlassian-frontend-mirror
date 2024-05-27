@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Stack, xcss } from '@atlaskit/primitives';
 import { AnalyticsContext, useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-import { ResolvedResultsStackProps } from './types';
+import { type ResolvedResultsStackProps } from './types';
 import RelatedUrlItem from '../related-url-item';
 import {
   RelatedUrlItemAnalyticsContext,

@@ -5,7 +5,7 @@ import {
   RenderMediaTableWithFieldRange,
   items,
 } from '../example-helpers/helpers';
-import { HeadType } from '@atlaskit/dynamic-table/types';
+import { type HeadType } from '@atlaskit/dynamic-table/types';
 
 const columns: HeadType = {
   cells: [

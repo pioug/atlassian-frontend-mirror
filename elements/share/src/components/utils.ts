@@ -1,9 +1,9 @@
-import { OptionData } from '@atlaskit/smart-user-picker';
+import { type OptionData } from '@atlaskit/smart-user-picker';
 import { layers } from '@atlaskit/theme/constants';
 
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { ConfigResponse, User, UserWithEmail } from '../types';
+import { type ConfigResponse, type User, type UserWithEmail } from '../types';
 import type { IntegrationMode } from '../types/ShareEntities';
 
 /**

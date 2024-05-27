@@ -15,9 +15,17 @@ export const defaultGuidelines = createFixedGuidelinesFromLengths([
 
 export const defaultGuidelinesForPreserveTable = (
   editorContainerWidth: number,
-) =>
-  createFixedGuidelinesFromLengths(
-    [0, ...calculateDefaultTablePreserveSnappings(-1, editorContainerWidth)],
+  excludeInnerGuidelines = false,
+) => {
+  const lengths = calculateDefaultTablePreserveSnappings(
+    -1,
+    editorContainerWidth,
+    excludeInnerGuidelines,
+  );
+
+  return createFixedGuidelinesFromLengths(
+    lengths,
     undefined,
     true,
   ) as GuidelineConfig[];
+};

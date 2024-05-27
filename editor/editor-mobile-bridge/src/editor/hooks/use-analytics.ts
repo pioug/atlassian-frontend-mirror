@@ -1,11 +1,11 @@
 import React from 'react';
 import { analyticsBridgeClient } from '../../analytics-client';
 import {
-  GasPurePayload,
-  GasPureScreenEventPayload,
+  type GasPurePayload,
+  type GasPureScreenEventPayload,
 } from '@atlaskit/analytics-gas-types';
 import { toNativeBridge } from '../web-to-native';
-import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 
 const handleAnalyticsEvent = (
   event: GasPurePayload | GasPureScreenEventPayload,

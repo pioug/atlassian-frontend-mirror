@@ -11,12 +11,14 @@ import {
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
 import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 
 import type { TextBlockTypes } from '../../block-types';
+import type { BlockTypePlugin } from '../../index';
 import type { BlockTypeState } from '../../pm-plugins/main';
 import type { BlockType } from '../../types';
 
@@ -42,6 +44,7 @@ export interface Props {
   editorView?: EditorView;
   setTextLevel: (type: TextBlockTypes) => void;
   shouldUseDefaultRole?: boolean;
+  api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
 }
 
 export interface State {
@@ -83,6 +86,7 @@ class ToolbarBlockType extends React.PureComponent<
       },
       shouldUseDefaultRole,
       intl: { formatMessage },
+      api,
     } = this.props;
 
     const isHeadingDisabled = !availableBlockTypes.some(
@@ -135,10 +139,12 @@ class ToolbarBlockType extends React.PureComponent<
               blockTypeName={currentBlockType.name}
             />
           </DropdownMenu>
-          <span
-            // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-            css={separatorStyles}
-          />
+          {!api?.primaryToolbar && (
+            <span
+              // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+              css={separatorStyles}
+            />
+          )}
         </span>
       );
     }

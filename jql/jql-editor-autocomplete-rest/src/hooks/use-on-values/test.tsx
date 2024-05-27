@@ -1,4 +1,4 @@
-import React, { ReducerState, useReducer, useRef } from 'react';
+import React, { type ReducerState, useReducer, useRef } from 'react';
 
 import { render } from '@testing-library/react';
 import noop from 'lodash/noop';
@@ -6,7 +6,7 @@ import { act } from 'react-dom/test-utils';
 import { DiProvider, injectable } from 'react-magnetic-di';
 import { from } from 'rxjs/observable/from';
 
-import { AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
 
 import {
   accountJqlField,
@@ -23,13 +23,13 @@ import {
   statusJqlField,
 } from '../../common/mocks';
 import {
-  AutocompleteSuggestionsResponse,
-  JQLFieldResponse,
-  JQLFieldValueResponse,
+  type AutocompleteSuggestionsResponse,
+  type JQLFieldResponse,
+  type JQLFieldValueResponse,
 } from '../../common/types';
 import { getAutocompleteSuggestionsUrl } from '../use-fetch-field-values';
 
-import useOnValues, { FieldValuesReducer } from './index';
+import useOnValues, { type FieldValuesReducer } from './index';
 
 // @ts-ignore
 jest.mock('rxjs/operators/delay', () => ({ delay: jest.fn(() => s => s) }));

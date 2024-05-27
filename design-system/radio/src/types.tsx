@@ -1,8 +1,8 @@
-import { ReactNode, SyntheticEvent } from 'react';
+import { type ReactNode, type SyntheticEvent } from 'react';
 
 import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
 // Used by RadioGroup

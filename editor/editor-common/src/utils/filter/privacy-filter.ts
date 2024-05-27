@@ -2,7 +2,7 @@ import { traverse } from '@atlaskit/adf-utils/traverse';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import {
   isResolvingMentionProvider,
-  MentionProvider,
+  type MentionProvider,
 } from '@atlaskit/mention/resource';
 
 import type { ProviderFactory } from '../../provider-factory';

@@ -16,7 +16,7 @@ import { GoBackItem as GoBackButton } from '../Item';
 import { default as NestingItem } from '../NestingItem';
 import { useChildIds } from '../utils/hooks';
 
-import { NestedContext, NestedContextValue } from './context';
+import { NestedContext, type NestedContextValue } from './context';
 import { NestingMotion } from './nesting-motion';
 // Named so ERT doesn't pick up the override name as a type.
 

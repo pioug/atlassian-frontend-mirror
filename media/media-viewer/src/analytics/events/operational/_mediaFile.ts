@@ -1,6 +1,6 @@
 import {
-  OperationalEventPayload,
-  OperationalAttributes,
+  type OperationalEventPayload,
+  type OperationalAttributes,
 } from '@atlaskit/media-common';
 
 /** common definition used by other mediaFile events */

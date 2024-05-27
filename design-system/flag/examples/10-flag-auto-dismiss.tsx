@@ -6,7 +6,7 @@ import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { token } from '@atlaskit/tokens';
 
 import { AutoDismissFlag, FlagGroup } from '../src';
-import { AppearanceTypes } from '../src/types';
+import { type AppearanceTypes } from '../src/types';
 
 const appearances: AppearanceTypes[] = [
   'error',

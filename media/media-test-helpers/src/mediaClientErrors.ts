@@ -1,6 +1,6 @@
 import {
   RequestError,
-  RequestErrorMetadata,
+  type RequestErrorMetadata,
   PollingError,
   MediaStoreError,
 } from '@atlaskit/media-client';

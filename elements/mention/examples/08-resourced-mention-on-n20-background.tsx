@@ -1,5 +1,5 @@
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React from 'react';

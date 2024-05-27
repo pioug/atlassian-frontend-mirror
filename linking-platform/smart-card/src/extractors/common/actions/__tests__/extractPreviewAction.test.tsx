@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { extractPreviewAction } from '../extractPreviewAction';
 import { mockAnalytics, mocks } from '../../../../utils/mocks';
 import { CardAction } from '../../../../view/Card/types';

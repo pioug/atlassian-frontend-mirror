@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { type FC, useState } from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-import Tooltip, { PositionType } from '../src';
+import Tooltip, { type PositionType } from '../src';
 
-import { Color, Target } from './styled';
+import { type Color, Target } from './styled';
 
 const VALID_POSITIONS: PositionType[] = [
   'mouse',

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 
 import { render } from '@testing-library/react';
 
@@ -8,7 +8,7 @@ import { default as NestingItem } from '../../../NestingItem';
 import {
   ButtonItem,
   CustomItem,
-  CustomItemComponentProps,
+  type CustomItemComponentProps,
   LinkItem,
 } from '../../index';
 

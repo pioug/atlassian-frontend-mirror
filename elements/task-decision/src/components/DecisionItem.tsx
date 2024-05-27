@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
 
 import Item from './Item';
-import { Appearance, ContentRef } from '../types';
+import { type Appearance, type ContentRef } from '../types';
 import { token } from '@atlaskit/tokens';
 import { G400, N100 } from '@atlaskit/theme/colors';
 

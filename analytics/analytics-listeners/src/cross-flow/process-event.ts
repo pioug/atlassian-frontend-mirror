@@ -3,16 +3,16 @@
  */
 
 import {
-  GasPayload,
-  GasScreenEventPayload,
+  type GasPayload,
+  type GasScreenEventPayload,
   OPERATIONAL_EVENT_TYPE,
   SCREEN_EVENT_TYPE,
   TRACK_EVENT_TYPE,
   UI_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import last from 'lodash/last';
-import Logger from '../helpers/logger';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type Logger from '../helpers/logger';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { NAVIGATION_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import {
   getExtraAttributes,

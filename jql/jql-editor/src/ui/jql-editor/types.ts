@@ -1,9 +1,9 @@
-import { FocusEvent, MouseEvent, Ref } from 'react';
+import { type FocusEvent, type MouseEvent, type Ref } from 'react';
 
-import { Jast } from '@atlaskit/jql-ast';
+import { type Jast } from '@atlaskit/jql-ast';
 
-import { AutocompleteProvider } from '../../plugins/autocomplete/types';
-import { ExternalMessage } from '../../state/types';
+import { type AutocompleteProvider } from '../../plugins/autocomplete/types';
+import { type ExternalMessage } from '../../state/types';
 
 export type HydratedUser = {
   type: 'user';

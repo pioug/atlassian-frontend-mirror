@@ -1,7 +1,7 @@
-import { ARTICLE_ITEM_TYPES, Article, ArticleItem } from '../../model/Article';
+import { ARTICLE_ITEM_TYPES, type Article, type ArticleItem } from '../../model/Article';
 import {
-  WHATS_NEW_ITEM_TYPES,
-  WhatsNewArticleItem,
+  type WHATS_NEW_ITEM_TYPES,
+  type WhatsNewArticleItem,
 } from '../../model/WhatsNew';
 
 // Help article data

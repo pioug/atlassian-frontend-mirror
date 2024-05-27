@@ -3,8 +3,8 @@ import { mount } from 'enzyme';
 
 jest.mock('../../../service/uploadServiceImpl');
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
-import { BrowseFn, Browser, BrowserBase } from '../../browser/browser';
-import { BrowserConfig } from '../../../types';
+import { type BrowseFn, Browser, BrowserBase } from '../../browser/browser';
+import { type BrowserConfig } from '../../../types';
 import Button from '@atlaskit/button/standard-button';
 
 describe('Browser', () => {

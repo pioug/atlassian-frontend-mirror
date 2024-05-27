@@ -1,27 +1,27 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { MouseEvent, ReactNode } from 'react';
+import React, { type MouseEvent, type ReactNode } from 'react';
 
-import { FileDetails } from '@atlaskit/media-client';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type FileDetails } from '@atlaskit/media-client';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Tooltip from '@atlaskit/tooltip';
 
 import { Wrapper } from '../../ui/wrapper';
 import {
-  CardAppearance,
-  CardDimensions,
-  MediaCardCursor,
-  TitleBoxIcon,
+  type CardAppearance,
+  type CardDimensions,
+  type MediaCardCursor,
+  type TitleBoxIcon,
 } from '../../../types';
-import { CardAction, attachDetailsToActions } from '../../actions';
+import { type CardAction, attachDetailsToActions } from '../../actions';
 import { cardImageContainerStyles } from '../../ui/styles';
 import { TitleBox } from '../../ui/titleBox/titleBox';
 import { TickBox } from '../../ui/tickBox/tickBox';
 import { Blanket } from '../../ui/blanket/blanket';
 import { ActionsBar } from '../../ui/actionsBar/actionsBar';
 import { fileCardImageViewSelector } from '../../classnames';
-import { Breakpoint } from '../../ui/common';
-import { MediaFilePreview } from '@atlaskit/media-file-preview';
+import { type Breakpoint } from '../../ui/common';
+import { type MediaFilePreview } from '@atlaskit/media-file-preview';
 import OpenMediaViewerButton from '../../ui/openMediaViewerButton/openMediaViewerButton';
 
 export type SharedCardViewProps = {

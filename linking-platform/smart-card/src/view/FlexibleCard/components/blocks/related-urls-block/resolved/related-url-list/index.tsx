@@ -10,7 +10,7 @@ import { css } from '@emotion/react';
 import { messages } from '../../../../../../../messages';
 import { getFormattedMessageAsString } from '../../../../../components/utils';
 import Text from '../../../../elements/text';
-import { ResolvedResultProps } from './types';
+import { type ResolvedResultProps } from './types';
 import ResolvedResultsStack from './resolved-result-stack';
 
 const RelatedUrlList: React.FC<ResolvedResultProps> = ({

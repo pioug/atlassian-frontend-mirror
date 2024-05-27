@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/react';
 
 import { Skeleton } from '@atlaskit/linking-common';
-import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

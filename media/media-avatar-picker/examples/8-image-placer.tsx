@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
-import { ImagePlacer, ImageActions } from '../src/image-placer';
+import { ImagePlacer, type ImageActions } from '../src/image-placer';
 import {
   labelStyles,
   exportedImageStyles,

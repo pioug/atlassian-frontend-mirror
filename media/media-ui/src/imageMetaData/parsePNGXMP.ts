@@ -1,4 +1,4 @@
-import { ImageMetaDataTags } from './types';
+import { type ImageMetaDataTags } from './types';
 
 export function parseXMPMetaData(xmpMetaData: string): ImageMetaDataTags {
   const metadata: ImageMetaDataTags = {};

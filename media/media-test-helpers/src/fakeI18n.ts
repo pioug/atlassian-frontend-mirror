@@ -1,4 +1,4 @@
-import { MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl-next';
 import getJest from './getJest';
 
 const jest = getJest();

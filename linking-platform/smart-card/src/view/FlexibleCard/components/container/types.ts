@@ -1,9 +1,9 @@
-import { PropsWithChildren } from 'react';
-import { SmartLinkStatus } from '../../../../constants';
+import { type PropsWithChildren } from 'react';
+import { type SmartLinkStatus } from '../../../../constants';
 import {
-  FlexibleCardProps,
-  FlexibleUiOptions,
-  RetryOptions,
+  type FlexibleCardProps,
+  type FlexibleUiOptions,
+  type RetryOptions,
 } from '../../types';
 
 export type ContainerProps = PropsWithChildren<

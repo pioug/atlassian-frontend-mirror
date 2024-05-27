@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import {
-  ElementItem,
+  type ElementItem,
   ElementName,
   MetadataBlock,
   SmartLinkSize,

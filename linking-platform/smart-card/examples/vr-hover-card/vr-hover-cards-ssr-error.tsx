@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import { Provider, Client } from '../../src';
 import { Card } from '../../src';
 import { mockSSRResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
-import { CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomFailureClient extends Client {

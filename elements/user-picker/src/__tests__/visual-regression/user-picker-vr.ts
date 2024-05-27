@@ -2,7 +2,7 @@ import {
   disableCaretCursor,
   getExampleUrl,
   loadPage,
-  PuppeteerPage,
+  type PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 import {
   AVATAR_EMAIL_ITEM_SECONDARY_TEXT,

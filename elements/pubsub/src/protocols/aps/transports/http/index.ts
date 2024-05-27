@@ -1,4 +1,4 @@
-import { APSTransportParams } from '../index';
+import { type APSTransportParams } from '../index';
 import { EventType } from '../../../../types';
 import { logDebug } from '../../../../util/logger';
 import { APSTransportType } from '../../../../apiTypes';

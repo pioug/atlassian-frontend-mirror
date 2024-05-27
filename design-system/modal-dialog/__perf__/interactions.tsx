@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 
 import { findByText, fireEvent } from '@testing-library/dom';
 import {
-  InteractionTaskArgs,
-  PublicInteractionTask,
+  type InteractionTaskArgs,
+  type PublicInteractionTask,
 } from 'storybook-addon-performance';
 
 import Button from '@atlaskit/button/new';

@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
-import { BackgroundColor, Box, xcss } from '@atlaskit/primitives';
+import { type BackgroundColor, Box, xcss } from '@atlaskit/primitives';
 import Inline from '@atlaskit/primitives/inline';
 import Stack from '@atlaskit/primitives/stack';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
-import { OptionsPropType } from '@atlaskit/radio/types';
+import { type OptionsPropType } from '@atlaskit/radio/types';
 import TextField from '@atlaskit/textfield';
 
 import Form, { Field, useFormState } from '../../src';

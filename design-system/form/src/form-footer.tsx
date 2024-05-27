@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { Align } from './types';
+import { type Align } from './types';
 export interface FormFooterProps {
   /**
    * Content to render in the footer of the form.

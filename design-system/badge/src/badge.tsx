@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 
 import {
-  BackgroundColor,
+  type BackgroundColor,
   Box,
   Text,
-  TextColor,
+  type TextColor,
   xcss,
 } from '@atlaskit/primitives';
 

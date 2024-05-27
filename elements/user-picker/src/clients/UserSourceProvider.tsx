@@ -1,12 +1,12 @@
 import React, {
-  PropsWithChildren,
+  type PropsWithChildren,
   createContext,
   useContext,
   useEffect,
   useMemo,
   useState,
 } from 'react';
-import { LoadUserSource, UserSource } from '../types';
+import { type LoadUserSource, type UserSource } from '../types';
 
 export interface UserSourceContext {
   fetchUserSource?: LoadUserSource;

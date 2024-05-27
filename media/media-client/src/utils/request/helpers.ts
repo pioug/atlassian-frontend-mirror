@@ -1,15 +1,15 @@
-import { Auth, isClientBasedAuth } from '@atlaskit/media-core';
-import { MediaTraceContext } from '@atlaskit/media-common';
+import { type Auth, isClientBasedAuth } from '@atlaskit/media-core';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 import { mapAuthToQueryParameters } from '../../models/auth-query-parameters';
 import { RequestError, isRequestError } from './errors';
 
 import {
-  CreateUrlOptions,
-  RequestErrorReason,
-  RequestErrorMetadata,
-  RequestHeaders,
-  RequestMetadata,
-  RetryOptions,
+  type CreateUrlOptions,
+  type RequestErrorReason,
+  type RequestErrorMetadata,
+  type RequestHeaders,
+  type RequestMetadata,
+  type RetryOptions,
 } from './types';
 
 export function waitPromise(timeout: number) {

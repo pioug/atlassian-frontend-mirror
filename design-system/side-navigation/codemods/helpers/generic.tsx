@@ -1,15 +1,16 @@
-import { NodePath } from 'ast-types/lib/node-path';
-import core, {
-  ASTPath,
-  ImportDeclaration,
-  ImportDefaultSpecifier,
-  ImportSpecifier,
-  JSXAttribute,
-  JSXElement,
-  Node,
-  Program,
+import { type NodePath } from 'ast-types/lib/node-path';
+import {
+  type ASTPath,
+  type default as core,
+  type ImportDeclaration,
+  type ImportDefaultSpecifier,
+  type ImportSpecifier,
+  type JSXAttribute,
+  type JSXElement,
+  type Node,
+  type Program,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 export type Nullable<T> = T | null;
 

@@ -1,11 +1,11 @@
-import React, { ReactNode, useMemo, useReducer } from 'react';
+import React, { type ReactNode, useMemo, useReducer } from 'react';
 
 import { createPortal } from 'react-dom';
 
-import { PluginContainerKey } from '../../plugins/types';
+import { type PluginContainerKey } from '../../plugins/types';
 
 import { PortalActionsContext } from './context';
-import { Container, PortalAction, PortalActions, PortalState } from './types';
+import { type Container, type PortalAction, type PortalActions, type PortalState } from './types';
 
 const initialState: PortalState = {
   components: {},

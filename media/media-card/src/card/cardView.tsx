@@ -1,20 +1,20 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { MouseEvent } from 'react';
-import { MessageDescriptor } from 'react-intl-next';
+import React, { type MouseEvent } from 'react';
+import { type MessageDescriptor } from 'react-intl-next';
 
-import { MediaItemType, FileDetails } from '@atlaskit/media-client';
+import { type MediaItemType, type FileDetails } from '@atlaskit/media-client';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-  UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
 import Tooltip from '@atlaskit/tooltip';
 import { messages } from '@atlaskit/media-ui';
 
-import { SharedCardProps, CardStatus } from '../types';
+import { type SharedCardProps, type CardStatus } from '../types';
 import { defaultImageCardDimensions } from '../utils/cardDimensions';
 import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
 import { getElementDimension } from '../utils/getElementDimension';
@@ -29,7 +29,7 @@ import { PlayButton } from './ui/playButton/playButton';
 import { TickBox } from './ui/tickBox/tickBox';
 import { Blanket } from './ui/blanket/blanket';
 import { ActionsBar } from './ui/actionsBar/actionsBar';
-import { Breakpoint } from './ui/common';
+import { type Breakpoint } from './ui/common';
 import { IconWrapper } from './ui/iconWrapper/iconWrapper';
 import {
   PreviewUnavailable,
@@ -42,10 +42,10 @@ import {
   isUploadError,
   isRateLimitedError,
   isPollingError,
-  MediaCardError,
+  type MediaCardError,
 } from '../errors';
-import { CardPreview } from '../types';
-import { MediaCardCursor } from '../types';
+import { type CardPreview } from '../types';
+import { type MediaCardCursor } from '../types';
 import { Wrapper } from './ui/wrapper';
 import { fileCardImageViewSelector } from './classnames';
 

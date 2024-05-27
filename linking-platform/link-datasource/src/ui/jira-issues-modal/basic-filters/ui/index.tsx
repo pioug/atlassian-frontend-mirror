@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Flex, xcss } from '@atlaskit/primitives';
 
 import type { Site } from '../../../../common/types';
-import { SelectOption } from '../../../common/modal/popup-select/types';
+import { type SelectOption } from '../../../common/modal/popup-select/types';
 import type { BasicFilterFieldType, SelectedOptionsMap } from '../types';
 import { extractValuesFromNonComplexJQL } from '../utils/extractValuesFromNonComplexJQL';
 

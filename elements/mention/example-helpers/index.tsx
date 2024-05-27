@@ -9,9 +9,9 @@ import {
 } from '@atlaskit/util-data-test/mention-story-data';
 
 import {
-  MentionDescription,
-  OnMentionEvent,
-  MentionEventHandler,
+  type MentionDescription,
+  type OnMentionEvent,
+  type MentionEventHandler,
 } from '../src/types';
 import debug from '../src/util/logger';
 

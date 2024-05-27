@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { CSSProperties, forwardRef } from 'react';
+import { type CSSProperties, forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

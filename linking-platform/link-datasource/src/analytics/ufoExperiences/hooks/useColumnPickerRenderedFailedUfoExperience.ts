@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { DatasourceTableStatusType } from '@atlaskit/linking-types';
+import { type DatasourceTableStatusType } from '@atlaskit/linking-types';
 
 import { failUfoExperience } from '../index';
 

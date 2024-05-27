@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { MouseEvent, memo, forwardRef } from 'react';
+import React, { type MouseEvent, memo, forwardRef } from 'react';
 import { jsx } from '@emotion/react';
 import type { EmojiDescription } from '../../types';
 import { leftClick } from '../../util/mouse';

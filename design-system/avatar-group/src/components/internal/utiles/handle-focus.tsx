@@ -1,6 +1,6 @@
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
 
-import { Action, FocusableElement } from '../../types';
+import { type Action, type FocusableElement } from '../../types';
 
 const actionMap: { [key: string]: Action } = {
   [KEY_DOWN]: 'next',

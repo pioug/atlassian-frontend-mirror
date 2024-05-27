@@ -1,6 +1,6 @@
 import * as E from './error-messages';
-import { SelectionPayload } from '../types';
-import { ValidationResult } from './types';
+import { type SelectionPayload } from '../types';
+import { type ValidationResult } from './types';
 
 export function assertSelectionPayload(
   input: unknown,

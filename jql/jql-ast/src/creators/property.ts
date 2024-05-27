@@ -1,10 +1,10 @@
 import {
-  Argument,
-  AstNode,
-  JastListener,
-  JastVisitor,
-  Position,
-  Property,
+  type Argument,
+  type AstNode,
+  type JastListener,
+  type JastVisitor,
+  type Position,
+  type Property,
 } from '../types';
 
 import { assignParent } from './common';

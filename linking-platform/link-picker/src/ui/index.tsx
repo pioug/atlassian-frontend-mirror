@@ -9,11 +9,11 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { COMPONENT_NAME, LINK_PICKER_WIDTH_IN_PX } from '../common/constants';
-import { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
+import { type PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
 import { LinkPickerSessionProvider } from '../controllers/session-provider';
 
 import { ErrorBoundary } from './error-boundary';
-import { LinkPickerProps } from './link-picker';
+import { type LinkPickerProps } from './link-picker';
 import { LoaderFallback } from './loader-fallback';
 import { MessagesProvider } from './messages-provider';
 import { fixedWidthContainerStyles } from './styled';

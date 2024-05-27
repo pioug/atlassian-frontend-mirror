@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import {
   MediaSingleDimensionHelper,
-  MediaSingleWrapperProps as MediaSingleDimensionHelperProps,
+  type MediaSingleWrapperProps as MediaSingleDimensionHelperProps,
 } from '../MediaSingle/styled';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation

@@ -1,8 +1,8 @@
 import * as colors from '@atlaskit/theme/colors';
-import { ThemeModes } from '@atlaskit/theme/types';
+import { type ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
-import { Appearance } from '../types';
+import { type Appearance } from '../types';
 
 export type ColorRule = {
   [key in ThemeModes]: string;

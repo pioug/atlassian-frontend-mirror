@@ -4,8 +4,8 @@ import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
 
 import {
   DropzoneLoader,
-  DropzoneWithMediaClientConfigProps,
-  State,
+  type DropzoneWithMediaClientConfigProps,
+  type State,
 } from '../../dropzone';
 
 const mediaClient = fakeMediaClient();

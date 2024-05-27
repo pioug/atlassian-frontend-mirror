@@ -1,7 +1,7 @@
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 import MentionItem from '../../components/MentionItem';
 import MentionResource from '../../api/MentionResource';
-import { MentionDescription } from '../../types';
+import { type MentionDescription } from '../../types';
 /* Component structure:
   ak-mention-picker
    > ak-popup (optional)

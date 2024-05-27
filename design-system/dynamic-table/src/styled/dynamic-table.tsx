@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 /** @jsx jsx */
-import { FC, forwardRef, HTMLProps, ReactNode } from 'react';
+import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

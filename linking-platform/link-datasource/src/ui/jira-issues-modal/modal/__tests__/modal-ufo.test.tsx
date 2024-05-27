@@ -1,4 +1,4 @@
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import { type ConcurrentExperience } from '@atlaskit/ufo';
 
 import {
   getDefaultHookState,

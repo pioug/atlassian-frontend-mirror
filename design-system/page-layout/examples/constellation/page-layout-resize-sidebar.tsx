@@ -11,7 +11,7 @@ import {
   Content,
   LeftPanel,
   LeftSidebar,
-  LeftSidebarState,
+  type LeftSidebarState,
   Main,
   PageLayout,
   RightPanel,

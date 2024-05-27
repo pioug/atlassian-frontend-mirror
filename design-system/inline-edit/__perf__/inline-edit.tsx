@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 import { fireEvent } from '@testing-library/dom';
 import {
-  InteractionTaskArgs,
-  PublicInteractionTask,
+  type InteractionTaskArgs,
+  type PublicInteractionTask,
 } from 'storybook-addon-performance';
 
-import { FieldProps } from '@atlaskit/form';
+import { type FieldProps } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 
 import InlineEdit from '../src';

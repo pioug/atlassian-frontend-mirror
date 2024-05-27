@@ -1,7 +1,7 @@
 import { PREDICATE_OPERATORS } from '../../constants';
 
-import { AstNode } from './common';
-import { Operand } from './operand';
+import { type AstNode } from './common';
+import { type Operand } from './operand';
 
 export type PredicateOperatorValue = (typeof PREDICATE_OPERATORS)[number];
 

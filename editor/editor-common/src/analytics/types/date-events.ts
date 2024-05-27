@@ -1,10 +1,10 @@
 import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  INPUT_METHOD,
+  type ACTION,
+  type ACTION_SUBJECT,
+  type ACTION_SUBJECT_ID,
+  type INPUT_METHOD,
 } from './enums';
-import { TrackAEP } from './utils';
+import { type TrackAEP } from './utils';
 
 type TypeDateStartedAEP = TrackAEP<
   ACTION.TYPING_STARTED,

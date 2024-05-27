@@ -2,13 +2,13 @@ import { tap } from 'rxjs/operators/tap';
 import { concatMap } from 'rxjs/operators/concatMap';
 import { bufferCount } from 'rxjs/operators/bufferCount';
 import { fromPromise } from 'rxjs/observable/fromPromise';
-import { Observable } from 'rxjs/Observable';
+import { type Observable } from 'rxjs/Observable';
 import {
-  Chunkinator,
-  ChunkinatorFile,
-  Options,
-  Callbacks,
-  HashedBlob,
+  type Chunkinator,
+  type ChunkinatorFile,
+  type Options,
+  type Callbacks,
+  type HashedBlob,
 } from './domain';
 import { slicenator } from './slicenator';
 import { hashinator } from './hashinator';

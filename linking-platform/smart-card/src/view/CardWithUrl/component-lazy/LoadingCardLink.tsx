@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { CardWithUrlContentProps } from '../types';
+import React, { type FC } from 'react';
+import { type CardWithUrlContentProps } from '../types';
 import { CardLinkView } from '../../../view/LinkView';
 
 import { loadingPlaceholderClassName } from './LazyFallback';

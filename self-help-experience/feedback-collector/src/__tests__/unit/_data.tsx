@@ -1,5 +1,5 @@
-import { OptionType } from '../../components/FeedbackForm';
-import { SelectOptionDetails, SelectValue } from '../../types';
+import { type OptionType } from '../../components/FeedbackForm';
+import { type SelectOptionDetails, type SelectValue } from '../../types';
 
 export const defaultFieldRecords: Record<SelectValue, SelectOptionDetails> = {
   question: {

@@ -1,4 +1,4 @@
-import { ITokenizer, Search, UnorderedSearchIndex } from 'js-search';
+import { type ITokenizer, Search, UnorderedSearchIndex } from 'js-search';
 import type { CategoryId } from '../components/picker/categories';
 import { defaultCategories, frequentCategory } from '../util/constants';
 import {

@@ -3,8 +3,8 @@ import { N600 } from '@atlaskit/theme/colors';
 import AttachmentIcon from '@atlaskit/icon/glyph/attachment';
 import { token } from '@atlaskit/tokens';
 
-import { JsonLd } from 'json-ld-types';
-import { LinkDetail } from './types';
+import { type JsonLd } from 'json-ld-types';
+import { type LinkDetail } from './types';
 
 export type LinkAttachmentType =
   | JsonLd.Data.Document

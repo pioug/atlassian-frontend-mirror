@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, ReactElement } from 'react';
+import { Component, type ReactElement } from 'react';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import {
   MediaButton,
@@ -7,7 +7,7 @@ import {
   InactivityDetector,
 } from '@atlaskit/media-ui';
 import { CloseButtonWrapper, ContentWrapper } from './styleWrappers';
-import { WithShowControlMethodProp } from '@atlaskit/media-ui';
+import { type WithShowControlMethodProp } from '@atlaskit/media-ui';
 
 export interface ContentProps {
   onClose?: () => void;

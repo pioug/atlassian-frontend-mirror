@@ -11,14 +11,14 @@ import {
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
-import { mergeStyles, StylesConfig } from '@atlaskit/select';
+import { mergeStyles, type StylesConfig } from '@atlaskit/select';
 import { N500, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
 import { DateTimePickerContainer } from '../internal/date-time-picker-container';
 import { convertTokens } from '../internal/parse-tokens';
-import { DateTimePickerBaseProps } from '../types';
+import { type DateTimePickerBaseProps } from '../types';
 
 import DatePicker from './date-picker';
 import TimePicker from './time-picker';

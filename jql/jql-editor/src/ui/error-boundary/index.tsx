@@ -1,14 +1,14 @@
 import React, {
   Component,
-  ComponentClass,
-  FunctionComponent,
-  ReactNode,
+  type ComponentClass,
+  type FunctionComponent,
+  type ReactNode,
 } from 'react';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { JQLEditorReadOnly } from '../jql-editor-layout';
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
-import { JQLEditorUIProps } from '../jql-editor/types';
+import { type JQLEditorUIProps } from '../jql-editor/types';
 
 type ErrorBoundaryProps = {
   /**

@@ -1,5 +1,5 @@
-import { SmartLinkSize } from '../../../../../../constants';
-import { ActionProps } from '../types';
+import { type SmartLinkSize } from '../../../../../../constants';
+import { type ActionProps } from '../types';
 
 export type ActionButtonProps = ActionProps & {
   iconAfter?: React.ReactChild;

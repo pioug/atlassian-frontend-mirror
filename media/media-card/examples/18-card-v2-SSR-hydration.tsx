@@ -2,8 +2,8 @@ import MediaCardV2 from '../src/card/v2/cardV2Loader';
 import React, { useEffect, useState, useMemo } from 'react';
 
 import Loadable from 'react-loadable';
-import { SSR } from '@atlaskit/media-common';
-import { FileIdentifier, MediaClientConfig } from '@atlaskit/media-client';
+import { type SSR } from '@atlaskit/media-common';
+import { type FileIdentifier, type MediaClientConfig } from '@atlaskit/media-client';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 
 import { MainWrapper } from '../example-helpers';

@@ -1,4 +1,4 @@
-import { CSSFn } from '@atlaskit/menu';
+import { type CSSFn } from '@atlaskit/menu';
 
 // exposed for testing purposes
 export const enabledCSS = {

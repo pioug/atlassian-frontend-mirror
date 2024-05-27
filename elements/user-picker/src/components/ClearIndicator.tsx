@@ -1,5 +1,5 @@
 import React from 'react';
-import { components, ClearIndicatorProps } from '@atlaskit/select';
+import { components, type ClearIndicatorProps } from '@atlaskit/select';
 
 const AsyncTooltip = React.lazy(() =>
   import(

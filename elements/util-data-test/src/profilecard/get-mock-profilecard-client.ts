@@ -1,10 +1,10 @@
 import { modifyResponse } from '@atlaskit/profilecard';
-import { ProfileClient } from '@atlaskit/profilecard/types';
+import { type ProfileClient } from '@atlaskit/profilecard/types';
 import {
-  ProfileCardClientData,
-  ReportingLinesUser,
-  Team,
-  TeamCentralReportingLinesData,
+  type ProfileCardClientData,
+  type ReportingLinesUser,
+  type Team,
+  type TeamCentralReportingLinesData,
 } from '@atlaskit/profilecard/types';
 
 import { profilecardData } from './profilecard-data';

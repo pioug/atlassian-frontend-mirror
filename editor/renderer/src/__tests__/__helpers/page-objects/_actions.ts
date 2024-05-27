@@ -1,4 +1,4 @@
-import { WebDriverPage } from './_types';
+import { type WebDriverPage } from './_types';
 
 export async function annotate(
   page: WebDriverPage,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import ErrorFlagGroup from '../../errorFlagGroup/ErrorFlagGroup';
-import { FileEmptyData, UploadRejectionData } from '../../../types';
+import { type FileEmptyData, type UploadRejectionData } from '../../../types';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 
 describe('UploadRejectionFlagGroup', () => {

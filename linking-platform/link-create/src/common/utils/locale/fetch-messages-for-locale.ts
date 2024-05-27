@@ -1,4 +1,4 @@
-import { I18NMessages } from '@atlaskit/intl-messages-provider';
+import { type I18NMessages } from '@atlaskit/intl-messages-provider';
 
 export const fetchMessagesForLocale = async (
   locale: string,

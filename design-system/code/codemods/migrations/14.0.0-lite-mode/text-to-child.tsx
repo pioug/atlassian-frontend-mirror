@@ -1,5 +1,10 @@
-import core, { ASTPath, JSXAttribute, JSXElement } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import type {
+  ASTPath,
+  default as core,
+  JSXAttribute,
+  JSXElement,
+} from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   getJSXAttributesByName,

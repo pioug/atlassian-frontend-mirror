@@ -4,9 +4,7 @@ test.describe('Link Create', () => {
   test('should be able to use a basic create form to create an object', async ({
     page,
   }) => {
-    await page.visitExample('linking-platform', 'link-create', 'basic', {
-      featureFlag: 'platform.linking-platform.link-create.better-observability',
-    });
+    await page.visitExample('linking-platform', 'link-create', 'basic');
 
     const trigger = page.getByRole('button', { name: 'Create' });
 

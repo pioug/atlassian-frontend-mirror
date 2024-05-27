@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
-import { OptionsPropType } from '@atlaskit/radio/types';
+import { type OptionsPropType } from '@atlaskit/radio/types';
 
 import { PopupSelect } from '../src';
 

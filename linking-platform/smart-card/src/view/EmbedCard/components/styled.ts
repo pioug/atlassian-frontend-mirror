@@ -3,7 +3,7 @@ import { fontFamily } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { gs as gridSize } from '../../common/utils';
-import { FrameStyle } from '../types';
+import { type FrameStyle } from '../types';
 import { N40 } from '@atlaskit/theme/colors';
 
 export const className = 'media-card-frame';

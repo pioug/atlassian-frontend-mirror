@@ -1,8 +1,8 @@
 import React from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import {
   useAnalyticsEvents,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Tooltip from '@atlaskit/tooltip';

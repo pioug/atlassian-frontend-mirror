@@ -1,5 +1,5 @@
 /* eslint-disable @repo/internal/react/no-unsafe-overrides */
-import React, { ComponentType, memo, PropsWithChildren } from 'react';
+import React, { type ComponentType, memo, type PropsWithChildren } from 'react';
 
 import { CHANNEL, DEFAULT_THEME_MODE } from '../constants';
 import type { ThemeModes } from '../types';

@@ -1,6 +1,6 @@
 import {
-  LayoutColumnDefinition,
-  LayoutSectionDefinition,
+  type LayoutColumnDefinition,
+  type LayoutSectionDefinition,
 } from '@atlaskit/adf-schema';
 
 export const layoutSection =

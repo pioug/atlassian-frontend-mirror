@@ -1,5 +1,5 @@
 import { Bounds } from '@atlaskit/media-ui';
-import { Viewport } from '../src/viewport/viewport';
+import { type Viewport } from '../src/viewport/viewport';
 import { renderViewport } from '../src/viewport/viewport-render';
 import { viewport as instance } from '../src/image-navigator';
 

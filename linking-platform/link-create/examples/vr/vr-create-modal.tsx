@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { default as whiteboardSvg } from '../../example-helpers/hero-image.svg';
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
-import LinkCreate, { EditViewProps, LinkCreateWithModalProps } from '../../src';
+import LinkCreate, { type EditViewProps, type LinkCreateWithModalProps } from '../../src';
 
 const createExample = (
   props: Partial<LinkCreateWithModalProps> = {},

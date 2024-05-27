@@ -1,11 +1,11 @@
 import {
-  AlignmentMarkDefinition,
-  AlignmentAttributes,
-  ParagraphDefinition,
-  HeadingDefinition,
+  type AlignmentMarkDefinition,
+  type AlignmentAttributes,
+  type ParagraphDefinition,
+  type HeadingDefinition,
 } from '@atlaskit/adf-schema';
 import { applyMark } from '../utils/apply-mark';
-import { WithMark, WithAppliedMark } from '../types';
+import { type WithMark, type WithAppliedMark } from '../types';
 
 export const alignment =
   (attrs: AlignmentAttributes) => (maybeNode: WithMark | string) =>

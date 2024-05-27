@@ -1,5 +1,5 @@
-import { ArticleItem } from '../../../model/Article';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { type ArticleItem } from '../../../model/Article';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 export interface ArticlesList {
   // Style. This component has two different styles (primary and secondary)

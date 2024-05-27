@@ -1,4 +1,4 @@
-import core, { Collection } from 'jscodeshift/src/core';
+import { type Collection, type default as core } from 'jscodeshift/src/core';
 
 import {
   addCommentBefore,

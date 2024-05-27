@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import QuizWidget from '../../components/QuizWidget/index';
 import { quizContent } from '../../../examples/0-Quiz-Widget';
 import {

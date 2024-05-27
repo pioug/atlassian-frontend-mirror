@@ -1,9 +1,9 @@
 import {
   Fragment,
-  Node as PMNode,
-  Mark,
-  NodeType,
-  Schema,
+  type Node as PMNode,
+  type Mark,
+  type NodeType,
+  type Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import { default as encodeCxhtml } from './encode-cxhtml';
 import { children } from './utils';

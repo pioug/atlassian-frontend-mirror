@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { TagType } from '@atlaskit/linking-types';
+import { type TagType } from '@atlaskit/linking-types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Tag, { TAG_TYPE_TEST_ID } from './index';

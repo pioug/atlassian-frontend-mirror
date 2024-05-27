@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 // Allowing existing usage of non Pragmatic drag and drop solution
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
-  DropResult,
-  DragUpdate,
-  DragStart,
+  type DropResult,
+  type DragUpdate,
+  type DragStart,
   Droppable,
   Draggable,
 } from 'react-beautiful-dnd-next';
@@ -18,7 +18,7 @@ import { mutateTree } from '../../../../utils/mutateTree';
 import { treeWithThreeLeaves } from '../../../../../mockdata/treeWithThreeLeaves';
 import { treeWithTwoBranches } from '../../../../../mockdata/treeWithTwoBranches';
 import { treeInitiallyClosed } from '../../../../../mockdata/treeInitiallyClosed';
-import { RenderItemParams } from '../../../TreeItem/TreeItem-types';
+import { type RenderItemParams } from '../../../TreeItem/TreeItem-types';
 
 configure({ adapter: new Adapter() });
 

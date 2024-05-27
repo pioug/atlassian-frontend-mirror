@@ -1,6 +1,6 @@
 // for documentation ONLY
 
-import { GroupBase, OptionsOrGroups } from 'react-select';
+import { type GroupBase, type OptionsOrGroups } from 'react-select';
 
 export interface ReactSelectAsyncProps<
   Option = unknown,

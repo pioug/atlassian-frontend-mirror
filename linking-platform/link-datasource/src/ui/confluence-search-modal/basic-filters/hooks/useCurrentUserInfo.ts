@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
-import { UserInfo } from '../types';
+import { type UserInfo } from '../types';
 
 interface useUserInfoState {
   user?: UserInfo;

@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { MenuListComponentProps, OptionProps } from '@atlaskit/select';
-import { Color } from '../types';
+import { type MenuListComponentProps, type OptionProps } from '@atlaskit/select';
+import { type Color } from '../types';
 import ColorCard from './ColorCard';
 import { getWidth } from '../utils';
 import { token } from '@atlaskit/tokens';

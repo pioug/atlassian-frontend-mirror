@@ -2,7 +2,7 @@ import './card-states.card.test.mock';
 
 import { render, cleanup, waitFor } from '@testing-library/react';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { IntlProvider } from 'react-intl-next';
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';

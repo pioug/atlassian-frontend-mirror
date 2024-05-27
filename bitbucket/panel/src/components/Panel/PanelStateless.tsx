@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { type FC, type ReactNode } from 'react';
 
 import AnimateHeight from 'react-animate-height';
 import { defineMessages, useIntl } from 'react-intl-next';

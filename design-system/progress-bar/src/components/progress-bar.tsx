@@ -6,7 +6,7 @@ import { css, jsx, keyframes } from '@emotion/react';
 import { G300, N40A, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { DefaultProgressBarProps } from '../types';
+import { type DefaultProgressBarProps } from '../types';
 
 const MIN_VALUE = 0;
 const MAX_VALUE = 1;

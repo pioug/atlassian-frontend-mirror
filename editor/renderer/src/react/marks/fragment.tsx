@@ -1,6 +1,6 @@
 import React from 'react';
-import { FragmentAttributes } from '@atlaskit/adf-schema';
-import { MarkProps } from '../types';
+import { type FragmentAttributes } from '@atlaskit/adf-schema';
+import { type MarkProps } from '../types';
 
 export default function FragmentMark(props: MarkProps<FragmentAttributes>) {
   const WrapperElement = props.isInline ? 'span' : 'div';

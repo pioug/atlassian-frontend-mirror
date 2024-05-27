@@ -1,4 +1,4 @@
-import { JQLEditorUIProps } from './jql-editor/types';
+import { type JQLEditorUIProps } from './jql-editor/types';
 
 export type {
   JQLEditorUIProps,

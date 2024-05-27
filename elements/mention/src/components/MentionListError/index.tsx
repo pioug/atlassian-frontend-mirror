@@ -1,10 +1,10 @@
 import React from 'react';
-import { HttpError } from '../../api/MentionResource';
+import { type HttpError } from '../../api/MentionResource';
 import {
   DefaultAdvisedAction,
   DefaultHeadline,
   DifferentText,
-  Formatter,
+  type Formatter,
   LoginAgain,
 } from '../../util/i18n';
 import { GenericErrorIllustration } from './GenericErrorIllustration';

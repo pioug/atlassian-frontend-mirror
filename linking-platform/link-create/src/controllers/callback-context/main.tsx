@@ -1,10 +1,9 @@
-import React, { PropsWithChildren, useContext, useMemo } from 'react';
+import React, { type PropsWithChildren, useContext, useMemo } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { ANALYTICS_CHANNEL } from '../../common/constants';
-import { CreatePayload } from '../../common/types';
+import { type CreatePayload } from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { getErrorType } from '../../common/utils/errors';
 import { useExperience } from '../experience-tracker';
@@ -36,27 +35,16 @@ const LinkCreateCallbackProvider = ({
   onCancel,
 }: PropsWithChildren<LinkCreateCallbackProviderProps>) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
-  const experience = getBooleanFF(
-    'platform.linking-platform.link-create.better-observability',
-  )
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks
-      useExperience()
-    : null;
+  const experience = useExperience();
 
   const handleCreate = useMemo(
     () => ({
       onCreate: async (result: CreatePayload) => {
-        if (
-          getBooleanFF(
-            'platform.linking-platform.link-create.better-observability',
-          )
-        ) {
-          /**
-           * We consider the experience successful once we have
-           * successfully created an object
-           */
-          experience?.success();
-        }
+        /**
+         * We consider the experience successful once we have
+         * successfully created an object
+         */
+        experience?.success();
 
         const { objectId, objectType } = result;
 
@@ -84,13 +72,7 @@ const LinkCreateCallbackProvider = ({
           }),
         ).fire(ANALYTICS_CHANNEL);
 
-        if (
-          getBooleanFF(
-            'platform.linking-platform.link-create.better-observability',
-          )
-        ) {
-          experience?.failure(error);
-        }
+        experience?.failure(error);
 
         onFailure && onFailure(error);
       },

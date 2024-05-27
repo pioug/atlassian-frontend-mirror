@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react';
 
-import { AutocompleteProvider } from '@atlaskit/jql-editor-common';
+import { type AutocompleteProvider } from '@atlaskit/jql-editor-common';
 
 import { useJqlEditorAutocompleteAnalytics } from '../../analytics';
 import {
-  GetAutocompleteInitialData,
-  GetAutocompleteSuggestions,
+  type GetAutocompleteInitialData,
+  type GetAutocompleteSuggestions,
 } from '../../common/types';
 import {
   useJqlAutocompleteActions,

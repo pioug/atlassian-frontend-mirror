@@ -5,7 +5,7 @@ mockPopper();
 
 import React from 'react';
 
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import Popup from '@atlaskit/popup';
@@ -14,8 +14,8 @@ import Tooltip from '@atlaskit/tooltip';
 import {
   CopyLinkButton,
   HiddenInput,
-  Props,
-  State,
+  type Props,
+  type State,
 } from '../../../components/CopyLinkButton';
 import Button from '../../../components/styles';
 import { messages } from '../../../i18n';

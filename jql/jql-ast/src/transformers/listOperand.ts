@@ -1,6 +1,6 @@
 import { OPERAND_TYPE_LIST } from '../constants';
 import { assignParent } from '../creators/common';
-import { ListOperand, Operand } from '../types';
+import { type ListOperand, type Operand } from '../types';
 
 /**
  * Add the provided operand at the end of the current list. If the provided value is also a list then it will be merged

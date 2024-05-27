@@ -1,7 +1,7 @@
 import {
   BridgeEventEmitter,
   EventTypes,
-  allowListPayloadType,
+  type allowListPayloadType,
 } from '../../../event-dispatch';
 import * as sinon from 'sinon';
 

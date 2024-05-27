@@ -1,7 +1,7 @@
 import {
-  LinkPickerPlugin,
-  LinkPickerState,
-  ResolveResult,
+  type LinkPickerPlugin,
+  type LinkPickerState,
+  type ResolveResult,
 } from '../../common/types';
 
 export class CancellationError extends Error {}

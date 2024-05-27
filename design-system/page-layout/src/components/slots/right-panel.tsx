@@ -9,7 +9,7 @@ import {
   RIGHT_PANEL_WIDTH,
   VAR_RIGHT_PANEL_WIDTH,
 } from '../../common/constants';
-import { SlotWidthProps } from '../../common/types';
+import { type SlotWidthProps } from '../../common/types';
 import {
   getPageLayoutSlotSelector,
   resolveDimension,

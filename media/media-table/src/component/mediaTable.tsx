@@ -6,15 +6,15 @@ import ReactDOM from 'react-dom';
 import {
   IntlProvider,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
-import { RowType, RowCellType } from '@atlaskit/dynamic-table/types';
+import { type RowType, type RowCellType } from '@atlaskit/dynamic-table/types';
 import {
   isFileIdentifier,
   isProcessedFileState,
-  FileIdentifier,
-  MediaSubscription,
+  type FileIdentifier,
+  type MediaSubscription,
 } from '@atlaskit/media-client';
 import { withMediaClient } from '@atlaskit/media-client-react';
 import { MediaViewer } from '@atlaskit/media-viewer';
@@ -22,10 +22,10 @@ import { mediaTableWrapperStyles } from './styles';
 import DownloadButton from './downloadButton';
 import PreviewButton from './previewButton';
 import {
-  RowData,
-  OnSortData,
-  MediaTableProps,
-  MediaTableState,
+  type RowData,
+  type OnSortData,
+  type MediaTableProps,
+  type MediaTableState,
 } from '../types';
 import {
   generateRowValues,

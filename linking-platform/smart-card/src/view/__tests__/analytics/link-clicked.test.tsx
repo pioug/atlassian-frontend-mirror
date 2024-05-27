@@ -7,11 +7,11 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { CardClient } from '@atlaskit/link-provider';
+import { type CardClient } from '@atlaskit/link-provider';
 import * as userAgent from '@atlaskit/linking-common/user-agent';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
-import { CardAppearance, Provider, TitleBlock } from '../../..';
+import { type CardAppearance, Provider, TitleBlock } from '../../..';
 import { Card } from '../../Card';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';

@@ -3,10 +3,10 @@ import React from 'react';
 import {
   isUploadingFileState,
   type MediaApi,
-  MediaStore as MediaApiImpl,
+  type MediaStore as MediaApiImpl,
   MediaClient,
-  ResponseFileItem,
-  UploadingFileState,
+  type ResponseFileItem,
+  type UploadingFileState,
 } from '@atlaskit/media-client';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import {
@@ -14,12 +14,12 @@ import {
   createErrorFileState,
   createFileState,
   createMockedMediaApi,
-  CreateMockedMediaApiResult,
+  type CreateMockedMediaApiResult,
   createProcessingFileItem,
   createUploadingFileState,
-  SetItems,
+  type SetItems,
 } from '@atlaskit/media-client/test-helpers';
-import { createMediaStore, MediaStore, Store } from '@atlaskit/media-state';
+import { createMediaStore, type MediaStore, type Store } from '@atlaskit/media-state';
 
 import { dataURItoBlob } from './_helpers';
 

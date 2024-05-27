@@ -1,21 +1,21 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // Keep PlaybackSpeedControls to use static colors from the new color palette to support the hybrid
 // theming in media viewer https://product-fabric.atlassian.net/browse/DSP-6067
-import React, { KeyboardEvent } from 'react';
+import React, { type KeyboardEvent } from 'react';
 import { Component } from 'react';
 import {
   PopupSelect,
-  OptionType,
-  StylesConfig,
-  ValueType,
-  GroupedOptionsType,
-  ActionMeta,
+  type OptionType,
+  type StylesConfig,
+  type ValueType,
+  type GroupedOptionsType,
+  type ActionMeta,
 } from '@atlaskit/select';
 import { N600, DN900 } from '@atlaskit/theme/colors';
-import { NumericalCardDimensions } from '@atlaskit/media-common';
+import { type NumericalCardDimensions } from '@atlaskit/media-common';
 import {
   FormattedMessage,
-  WrappedComponentProps,
+  type WrappedComponentProps,
   injectIntl,
 } from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';

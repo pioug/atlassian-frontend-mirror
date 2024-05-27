@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 import { jsx } from '@emotion/react';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { Team } from '../../types';
+import { type Team } from '../../types';
 import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
 import { HighlightText } from '../HighlightText';
 import { messages } from '../i18n';

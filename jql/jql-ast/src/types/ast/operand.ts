@@ -1,14 +1,14 @@
 import {
   NODE_TYPE_OPERAND,
-  OPERAND_EMPTY,
-  OPERAND_TYPE_FUNCTION,
-  OPERAND_TYPE_KEYWORD,
-  OPERAND_TYPE_LIST,
-  OPERAND_TYPE_VALUE,
+  type OPERAND_EMPTY,
+  type OPERAND_TYPE_FUNCTION,
+  type OPERAND_TYPE_KEYWORD,
+  type OPERAND_TYPE_LIST,
+  type OPERAND_TYPE_VALUE,
 } from '../../constants';
 
-import { Argument } from './argument';
-import { AstNode } from './common';
+import { type Argument } from './argument';
+import { type AstNode } from './common';
 
 export type KeywordOperandValue = typeof OPERAND_EMPTY;
 

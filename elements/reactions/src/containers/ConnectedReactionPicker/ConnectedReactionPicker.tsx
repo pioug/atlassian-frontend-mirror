@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   ReactionPicker,
-  ReactionPickerProps,
+  type ReactionPickerProps,
   UfoErrorBoundary,
 } from '../../components';
-import { StorePropInput } from '../../types';
+import { type StorePropInput } from '../../types';
 import { PickerRender } from '../../ufo';
 
 export interface ConnectedReactionPickerProps

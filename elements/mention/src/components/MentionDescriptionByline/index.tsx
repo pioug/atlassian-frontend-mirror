@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserType } from '../../types';
-import { DescriptionBylineProps } from './types';
+import { type DescriptionBylineProps } from './types';
 import UserMentionDescriptionByline from './UserMentionDescriptionByline';
 import TeamMentionDescriptionByline from './TeamMentionDescriptionByline';
 

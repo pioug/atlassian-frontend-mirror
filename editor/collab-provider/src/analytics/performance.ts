@@ -1,4 +1,4 @@
-import AnalyticsHelper from './analytics-helper';
+import type AnalyticsHelper from './analytics-helper';
 
 export enum MEASURE_NAME {
   SOCKET_CONNECT = 'socketConnect',

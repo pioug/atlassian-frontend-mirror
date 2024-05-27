@@ -21,12 +21,12 @@ import {
   UPDATED_FIELD,
 } from '../constants';
 import {
-  CompoundClause,
-  Field,
-  Jast,
-  JastListener,
-  OrderByField,
-  TerminalClause,
+  type CompoundClause,
+  type Field,
+  type Jast,
+  type JastListener,
+  type OrderByField,
+  type TerminalClause,
 } from '../types';
 
 /**

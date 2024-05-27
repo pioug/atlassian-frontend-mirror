@@ -3,11 +3,11 @@ import React, { useEffect, useMemo } from 'react';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import { DatasourceParameters } from '@atlaskit/linking-types';
+import { type DatasourceParameters } from '@atlaskit/linking-types';
 
 import { DatasourceTableView } from '../src';
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
-import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
+import { type JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
 import { useCommonTableProps } from './useCommonTableProps';

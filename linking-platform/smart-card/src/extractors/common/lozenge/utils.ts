@@ -1,4 +1,4 @@
-import { LinkLozengeColor, LinkState } from './types';
+import { type LinkLozengeColor, type LinkState } from './types';
 
 const VALID_APPEARANCES: LinkLozengeColor[] = [
   'default',

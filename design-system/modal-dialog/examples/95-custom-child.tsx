@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useState } from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';

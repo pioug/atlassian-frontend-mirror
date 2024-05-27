@@ -2,11 +2,11 @@ import * as testMocks from './index.test.mock';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { useSmartCardActions } from '..';
 import { mocks } from '../../../utils/mocks';
-import { APIError, APIErrorKind } from '@atlaskit/linking-common';
-import { useSmartLinkContext, CardContext } from '@atlaskit/link-provider';
+import { APIError, type APIErrorKind } from '@atlaskit/linking-common';
+import { useSmartLinkContext, type CardContext } from '@atlaskit/link-provider';
 import { renderHook } from '@testing-library/react-hooks';
-import { CardState } from '../../types';
-import { JsonLd } from 'json-ld-types';
+import { type CardState } from '../../types';
+import { type JsonLd } from 'json-ld-types';
 import { useSmartLinkAnalytics } from '../../../state';
 
 describe('Smart Card: Actions', () => {

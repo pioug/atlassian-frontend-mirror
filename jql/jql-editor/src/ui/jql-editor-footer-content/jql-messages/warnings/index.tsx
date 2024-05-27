@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback } from 'react';
+import React, { type ReactNode, useCallback } from 'react';
 
 import { di } from 'react-magnetic-di';
 
@@ -13,8 +13,8 @@ import {
   useHydratedDeprecations,
   useIntl,
 } from '../../../../state';
-import { ExternalWarning } from '../../../../state/types';
-import { HydratedDeprecatedField } from '../../../jql-editor/types';
+import { type ExternalWarning } from '../../../../state/types';
+import { type HydratedDeprecatedField } from '../../../jql-editor/types';
 import { FormatMessages, MessageContainer } from '../format';
 
 import { messages } from './messages';

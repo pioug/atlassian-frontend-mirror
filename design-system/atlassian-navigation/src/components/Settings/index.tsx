@@ -4,7 +4,7 @@ import SettingsIcon from '@atlaskit/icon/glyph/settings';
 
 import { IconButton } from '../IconButton';
 
-import { SettingsProps } from './types';
+import { type SettingsProps } from './types';
 
 /**
  * __Settings__

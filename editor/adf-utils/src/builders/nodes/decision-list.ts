@@ -1,6 +1,6 @@
 import {
-  DecisionListDefinition,
-  DecisionItemDefinition,
+  type DecisionListDefinition,
+  type DecisionItemDefinition,
 } from '@atlaskit/adf-schema';
 
 export const decisionList =

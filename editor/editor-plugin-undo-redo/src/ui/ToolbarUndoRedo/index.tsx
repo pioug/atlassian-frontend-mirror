@@ -114,8 +114,10 @@ export const ToolbarUndoRedo = ({
         aria-label={tooltip(redoKeymap, labelRedo)}
         aria-keyshortcuts={getAriaKeyshortcuts(redoKeymap)}
       />
-      {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-      <span css={separatorStyles} />
+      {!api?.primaryToolbar && (
+        /* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
+        <span css={separatorStyles} />
+      )}
     </span>
   );
 };

@@ -3,10 +3,10 @@ import React, { useMemo, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import Item from './Item';
-import { Appearance, ContentRef } from '../types';
+import { type Appearance, type ContentRef } from '../types';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { createAndFireEventInElementsChannel } from '../analytics';
 import { checkboxStyles } from './styles';

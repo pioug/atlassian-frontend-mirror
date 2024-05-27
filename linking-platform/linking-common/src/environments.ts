@@ -1,4 +1,4 @@
-import { EnvironmentsKeys } from './types';
+import { type EnvironmentsKeys } from './types';
 
 const devBaseUrl = 'https://api-private.dev.atlassian.com';
 const stgBaseUrl = 'https://pug.jira-dev.com/gateway/api';

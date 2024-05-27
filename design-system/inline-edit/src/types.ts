@@ -1,4 +1,4 @@
-import React, { type ReactNode } from 'react';
+import { type default as React, type ReactNode } from 'react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type FieldProps } from '@atlaskit/form';

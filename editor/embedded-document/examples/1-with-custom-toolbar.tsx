@@ -7,7 +7,7 @@ import {
   EmbeddedDocument,
   DocumentBody,
   WithDocumentActions,
-  DocumentMode,
+  type DocumentMode,
 } from '../src';
 
 const renderToolbar = (mode: DocumentMode, editorActions?: any) => (

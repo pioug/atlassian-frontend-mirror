@@ -1,4 +1,4 @@
-import { AstNode, Jast, JastListener } from '../types';
+import { type AstNode, type Jast, type JastListener } from '../types';
 
 /**
  * Default method to walk an AST an invoke the corresponding listener methods for each node.

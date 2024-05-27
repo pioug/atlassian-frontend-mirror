@@ -3,7 +3,7 @@ import { cleanup, fireEvent } from '@testing-library/react';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { BlockCardResolvedView } from '../../../../view/BlockCard';
 import { getResolvedProps } from '../../../__mocks__/get-resolved-props';
-import { ResolvedViewProps } from '../../../../view/BlockCard/views/ResolvedView';
+import { type ResolvedViewProps } from '../../../../view/BlockCard/views/ResolvedView';
 
 let mockOnClick: React.MouseEventHandler = jest.fn();
 

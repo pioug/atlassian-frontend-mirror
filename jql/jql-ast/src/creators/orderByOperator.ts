@@ -1,5 +1,5 @@
 import { ORDER_BY_OPERATOR_ORDER_BY } from '../constants';
-import { JastListener, JastVisitor, OrderByOperator, Position } from '../types';
+import { type JastListener, type JastVisitor, type OrderByOperator, type Position } from '../types';
 
 import { noChildren } from './common';
 

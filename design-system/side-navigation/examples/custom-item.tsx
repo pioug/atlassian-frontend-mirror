@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { forwardRef, MouseEvent } from 'react';
+import { forwardRef, type MouseEvent } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -7,7 +7,7 @@ import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import OpenIcon from '@atlaskit/icon/glyph/open';
 import { Box } from '@atlaskit/primitives';
 
-import { CustomItem, CustomItemComponentProps } from '../src';
+import { CustomItem, type CustomItemComponentProps } from '../src';
 
 type CustomProps = CustomItemComponentProps & { href: string };
 

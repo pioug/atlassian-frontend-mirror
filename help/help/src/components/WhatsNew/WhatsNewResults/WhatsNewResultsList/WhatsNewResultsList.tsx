@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import toDate from 'date-fns/toDate';
@@ -7,10 +7,10 @@ import isYesterday from 'date-fns/isYesterday';
 import isToday from 'date-fns/isToday';
 import formatDate from 'date-fns/format';
 
-import { WhatsNewArticleItem } from '../../../../model/WhatsNew';
+import { type WhatsNewArticleItem } from '../../../../model/WhatsNew';
 
 import WhatsNewResultItem from './WhatsNewResultItem';
-import { WhatsNewResultsList as WhatsNewResultsListInterface } from './model/WhatsNewResultsList';
+import { type WhatsNewResultsList as WhatsNewResultsListInterface } from './model/WhatsNewResultsList';
 import {
   WhatsNewResultsListGroupTitle,
   WhatsNewResultsListGroupWrapper,

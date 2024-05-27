@@ -2,10 +2,10 @@ jest.mock('../../card');
 import React from 'react';
 import { mount } from 'enzyme';
 import { fakeMediaClient, nextTick } from '@atlaskit/media-test-helpers';
-import { FileIdentifier } from '@atlaskit/media-client';
+import { type FileIdentifier } from '@atlaskit/media-client';
 import { CardLoading } from '../../../utils/lightCards/cardLoading';
 import CardLoader from '../../cardLoader';
-import { CardWithMediaClientConfigProps } from '../../types';
+import { type CardWithMediaClientConfigProps } from '../../types';
 
 const mediaClient = fakeMediaClient();
 

@@ -1,6 +1,6 @@
-import SchemaNode from './schema-node';
+import type SchemaNode from './schema-node';
 import SchemaNodeWithValidators, {
-  Indexed,
+  type Indexed,
 } from './schema-node-with-validators';
 import { isObject } from '../utils';
 

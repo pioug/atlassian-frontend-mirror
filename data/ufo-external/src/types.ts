@@ -1,8 +1,8 @@
-import { AbstractExperienceConfig } from './platform-client/core/experience/abstract-experience';
-import { UFOExperienceStateType } from './platform-client/core/experience/experience-state';
+import { type AbstractExperienceConfig } from './platform-client/core/experience/abstract-experience';
+import { type UFOExperienceStateType } from './platform-client/core/experience/experience-state';
 import {
-  ExperiencePerformanceTypes,
-  ExperienceTypes,
+  type ExperiencePerformanceTypes,
+  type ExperienceTypes,
 } from './platform-client/core/experience/experience-types';
 export type { GlobalEventStream } from './global-stream-buffer';
 

@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { N0, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import TooltipPrimitive, { TooltipPrimitiveProps } from './TooltipPrimitive';
+import TooltipPrimitive, { type TooltipPrimitiveProps } from './TooltipPrimitive';
 
 export interface TooltipContainerProps extends TooltipPrimitiveProps {}
 

@@ -8,10 +8,10 @@ import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 import Tree, {
   mutateTree,
-  RenderItemParams,
-  TreeItem,
-  TreeData,
-  ItemId,
+  type RenderItemParams,
+  type TreeItem,
+  type TreeData,
+  type ItemId,
 } from '../src';
 import { treeWithTwoBranches } from '../mockdata/treeWithTwoBranches';
 

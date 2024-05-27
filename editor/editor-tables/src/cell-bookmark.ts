@@ -1,11 +1,11 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
   Selection,
-  SelectionBookmark,
+  type SelectionBookmark,
 } from '@atlaskit/editor-prosemirror/state';
-import { Mappable } from '@atlaskit/editor-prosemirror/transform';
+import { type Mappable } from '@atlaskit/editor-prosemirror/transform';
 
-import { SerializedCellSelection } from './types';
+import { type SerializedCellSelection } from './types';
 import { inSameTable } from './utils/tables';
 
 export class CellBookmark implements SelectionBookmark {

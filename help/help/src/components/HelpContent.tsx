@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import HelpLayout from '@atlaskit/help-layout';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { HIDE_CONTENT_DELAY } from './constants';
 import { useNavigationContext } from './contexts/navigationContext';

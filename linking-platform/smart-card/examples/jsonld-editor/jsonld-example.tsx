@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import Button from '@atlaskit/button/new';
 import { getJsonLdResponse } from '../utils/flexible-ui';
-import { ResolveResponse } from '../../src';
+import { type ResolveResponse } from '../../src';
 
 const jsonldExampleStyles = css({
   display: 'flex',

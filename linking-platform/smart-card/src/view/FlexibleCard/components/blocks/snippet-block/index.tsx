@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SnippetBlockProps } from './types';
+import { type SnippetBlockProps } from './types';
 import Block from '../block';
 import { SmartLinkStatus } from '../../../../../constants';
 import { Snippet } from '../../elements';

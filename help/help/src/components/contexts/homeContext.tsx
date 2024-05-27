@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 import { createCtx } from '../../util/hooks/ctx';
 import type { Props as HelpContentButtonProps } from '../HelpContentButton';
 

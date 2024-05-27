@@ -1,4 +1,4 @@
-import { Team, User } from '@atlaskit/user-picker';
+import { type Team, type User } from '@atlaskit/user-picker';
 
 export const UNKNOWN = 'Unknown';
 

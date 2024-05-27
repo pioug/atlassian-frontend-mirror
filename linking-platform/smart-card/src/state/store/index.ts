@@ -1,7 +1,7 @@
 import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
 
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { CardState } from '@atlaskit/linking-common';
+import { type CardState } from '@atlaskit/linking-common';
 
 export type { CardType } from '@atlaskit/linking-common';
 

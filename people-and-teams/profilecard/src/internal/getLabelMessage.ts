@@ -1,4 +1,4 @@
-import { defineMessages, MessageDescriptor } from 'react-intl-next';
+import { defineMessages, type MessageDescriptor } from 'react-intl-next';
 
 const getLabelMessage = (
   ariaLabelProp: string | undefined,

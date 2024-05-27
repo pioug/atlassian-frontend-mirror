@@ -7,7 +7,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { defaultLogoParams } from '../constants';
-import { LogoProps } from '../types';
+import { type LogoProps } from '../types';
 import {
   getColorsFromAppearance,
   getColorsFromAppearanceOldLogos,

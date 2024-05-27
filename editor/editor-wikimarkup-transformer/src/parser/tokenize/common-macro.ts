@@ -1,6 +1,6 @@
-import { Schema } from '@atlaskit/editor-prosemirror/model';
-import { Token } from './';
-import { Context } from '../../interfaces';
+import { type Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Token } from './';
+import { type Context } from '../../interfaces';
 
 // TODO: Create a type for rawContentProcessor which will be shared among parsers
 export interface MacroOption {

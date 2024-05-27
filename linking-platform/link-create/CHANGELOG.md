@@ -1,5 +1,46 @@
 # @atlaskit/link-create
 
+## 2.0.0
+
+### Major Changes
+
+-   [#89064](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89064)
+    [`545c87a31801`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/545c87a31801) -
+    Cleans up the feature flag implemented in 1.11.0 which is now a breaking change for plugins (not
+    for direct consumers).
+
+    Improves observability over failure cases when plugins call `onFailure()`, or throw an error to
+    be caught by `<LinkCreate />`'s internal error boundary.
+
+    Errors provided via `onFailure()` from plugins no longer play a role in displaying an error
+    message to users in the `<CreateForm />`.
+
+    When handling form submission errors, plugin should return an object of error messages in the
+    `onSubmit()` handler provided to the `CreateForm`. To set a generic error, use the newly exposed
+    `FORM_ERROR`
+    [see react-final-form](https://final-form.org/docs/react-final-form/types/FormProps#submission-errors)
+    to define an error message on the object resolved `onSubmit`.
+
+    Example:
+
+    ```tsx
+    import { FORM_ERROR } from '@atlaskit/link-create';
+
+    <CreateForm
+        onSubmit={(data) => {
+            return {
+                [FORM_ERROR]: 'Something bad happened!',
+            };
+        }}
+    />;
+    ```
+
+### Minor Changes
+
+-   [#89064](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89064)
+    [`1a6df7c186bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a6df7c186bf) -
+    Adds required fields instruction to start of link create form.
+
 ## 1.15.9
 
 ### Patch Changes

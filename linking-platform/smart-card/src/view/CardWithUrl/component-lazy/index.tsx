@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardWithUrlContentProps } from '../types';
+import { type CardWithUrlContentProps } from '../types';
 import { LazyLazilyRenderCard } from './LazyLazilyRenderCard';
 import { LazyIntersectionObserverCard } from './LazyIntersectionObserverCard';
 import { isIntersectionObserverSupported } from '../../../utils';

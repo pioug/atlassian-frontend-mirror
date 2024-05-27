@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Select, { ValueType as Value } from '@atlaskit/select';
+import Select, { type ValueType as Value } from '@atlaskit/select';
 
 import Form, { ErrorMessage, Field, FormFooter } from '../src';
 

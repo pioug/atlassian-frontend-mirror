@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import Select from './Select';
-import { SelectProps, OptionType } from './types';
+import { type SelectProps, type OptionType } from './types';
 import { RadioOption } from './components/input-options';
 
 const RadioSelect = React.memo(

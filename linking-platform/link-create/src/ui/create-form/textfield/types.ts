@@ -1,6 +1,6 @@
-import { TextFieldProps as AKTextFieldProps } from '@atlaskit/textfield';
+import { type TextFieldProps as AKTextFieldProps } from '@atlaskit/textfield';
 
-import { Validator } from '../../../common/types';
+import { type Validator } from '../../../common/types';
 
 export type TextFieldProps = Omit<AKTextFieldProps, 'name'> & {
   /** Name passed to the <Field>.*/

@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.14.0
+
+### Minor Changes
+
+-   [#98693](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98693)
+    [`a278560b9ca0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a278560b9ca0) -
+    Added patch fix to List component to comply with design standards
+
 ## 0.13.0
 
 ### Minor Changes

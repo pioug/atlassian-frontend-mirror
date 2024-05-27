@@ -3,10 +3,10 @@ import fetchMock from 'fetch-mock/cjs/client';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 
 import TaskDecisionResource, {
-  ItemStateManager,
+  type ItemStateManager,
 } from '../../../api/TaskDecisionResource';
 
-import { ObjectKey, ServiceTask, TaskState } from '../../../types';
+import { type ObjectKey, type ServiceTask, type TaskState } from '../../../types';
 
 import { objectKeyToString } from '../../../type-helpers';
 

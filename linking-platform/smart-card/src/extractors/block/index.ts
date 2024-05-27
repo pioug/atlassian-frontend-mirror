@@ -1,40 +1,40 @@
-import { JsonLd } from 'json-ld-types';
-import { CardProviderRenderers } from '@atlaskit/link-provider';
+import { type JsonLd } from 'json-ld-types';
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { extractTitleTextColor, extractSummary } from '../common/primitives';
 import { extractLozenge } from '../common/lozenge';
 import { extractIcon } from '../common/icon';
 import {
   extractCommentCount,
-  LinkCommentType,
+  type LinkCommentType,
   extractProgrammingLanguage,
-  LinkProgrammingLanguageType,
+  type LinkProgrammingLanguageType,
   extractSubscriberCount,
-  LinkSubscriberType,
+  type LinkSubscriberType,
   extractAttachmentCount,
-  LinkAttachmentType,
+  type LinkAttachmentType,
 } from '../common/detail';
-import { LinkDetail } from '../common/detail/types';
+import { type LinkDetail } from '../common/detail/types';
 import {
   extractLink,
   extractTitle,
   extractProvider,
-  LinkPerson,
+  type LinkPerson,
   extractMembers,
   extractPersonAssignedTo,
   extractPersonCreatedBy,
   extractPersonUpdatedBy,
-  LinkTypeUpdatedBy,
+  type LinkTypeUpdatedBy,
   extractImage,
 } from '@atlaskit/link-extractors';
 import { extractByline } from '../common/byline/extractByline';
 import { extractTitlePrefix } from '../common/title-prefix/extractTitlePrefix';
 import { extractClientActions } from '../common/actions/extractActions';
-import { ExtractBlockOpts } from './types';
+import { type ExtractBlockOpts } from './types';
 import { extractPreviewAction } from '../common/actions/extractPreviewAction';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
-import { CardPlatform } from '../../view/Card';
-import { BlockCardResolvedViewProps } from '../../view/BlockCard';
-import { ActionProps } from '../../view/BlockCard/components/Action';
+import { type CardPlatform } from '../../view/Card';
+import { type BlockCardResolvedViewProps } from '../../view/BlockCard';
+import { type ActionProps } from '../../view/BlockCard/components/Action';
 
 const extractBlockIcon = (
   jsonLd: JsonLd.Data.BaseData,

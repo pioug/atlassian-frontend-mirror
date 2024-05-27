@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { StringType } from '@atlaskit/linking-types';
+import { type StringType } from '@atlaskit/linking-types';
 
 import { fieldTextFontSize } from '../../styled';
 

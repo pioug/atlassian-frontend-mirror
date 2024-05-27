@@ -11,20 +11,20 @@ import { getFilesFromItems, getFilesFromFileSystemEntries } from 'flat-files';
 
 import {
   LocalUploadComponentReact,
-  LocalUploadComponentBaseProps,
+  type LocalUploadComponentBaseProps,
 } from '../localUploadReact';
 
 import { getPackageAttributes } from '../../util/analytics';
 
 import {
-  DropzoneConfig,
-  DropzoneEventAction,
-  DropzoneEventPayload,
+  type DropzoneConfig,
+  type DropzoneEventAction,
+  type DropzoneEventPayload,
 } from '../../types';
 
 import {
-  DropzoneDragEnterEventPayload,
-  DropzoneDragLeaveEventPayload,
+  type DropzoneDragEnterEventPayload,
+  type DropzoneDragLeaveEventPayload,
 } from '../types';
 import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';
 

@@ -1,9 +1,9 @@
 import type { ElementType, ReactNode } from 'react';
 
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
-import { default as Avatar, type AvatarPropTypes } from '@atlaskit/avatar';
-import { MenuGroupProps } from '@atlaskit/menu';
-import { ContentProps } from '@atlaskit/popup';
+import { type default as Avatar, type AvatarPropTypes } from '@atlaskit/avatar';
+import { type MenuGroupProps } from '@atlaskit/menu';
+import { type ContentProps } from '@atlaskit/popup';
 
 import type { AvatarGroupItemProps } from './avatar-group-item';
 

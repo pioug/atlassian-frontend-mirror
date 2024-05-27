@@ -1,8 +1,8 @@
-import RendererBridgeImpl from './renderer/native-to-web/implementation';
-import WebBridgeImpl from './editor/native-to-web/implementation';
-import { EditorBridges } from './editor/web-to-native/';
-import { RendererBridges } from './renderer/web-to-native/bridge';
-import { ErrorBridge, RuntimeBridges } from './error-reporter';
+import type RendererBridgeImpl from './renderer/native-to-web/implementation';
+import type WebBridgeImpl from './editor/native-to-web/implementation';
+import { type EditorBridges } from './editor/web-to-native/';
+import { type RendererBridges } from './renderer/web-to-native/bridge';
+import { ErrorBridge, type RuntimeBridges } from './error-reporter';
 
 type RequestIdleCallbackHandle = any;
 type RequestIdleCallbackOptions = {

@@ -2,11 +2,11 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import FabricAnalyticsListener, {
-  AnalyticsWebClient,
+  type AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
 import ResourcedTaskItem from '../../../components/ResourcedTaskItem';
-import { TaskDecisionProvider } from '../../../types';
+import { type TaskDecisionProvider } from '../../../types';
 import { asMock } from '../_mock';
 
 describe('<ResourcedTaskItem/>', () => {

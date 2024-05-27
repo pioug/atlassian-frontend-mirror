@@ -1,4 +1,4 @@
-import { AVI, ProtocolConfig } from '../types';
+import { type AVI, type ProtocolConfig } from '../types';
 
 export enum ConnectionState {
   CONNECTING = 'CONNECTING',

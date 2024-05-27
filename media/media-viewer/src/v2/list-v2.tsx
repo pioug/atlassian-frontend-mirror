@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Identifier } from '@atlaskit/media-client';
+import { type Identifier } from '@atlaskit/media-client';
 import {
   hideControlsClassName,
-  WithShowControlMethodProp,
+  type WithShowControlMethodProp,
 } from '@atlaskit/media-ui';
 import { ItemViewerV2 } from './item-viewer-v2';
 import { HeaderWrapper, ListWrapper } from '../styleWrappers';
 import { Navigation } from '../navigation';
-import { MediaViewerExtensions } from '../components/types';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type MediaViewerExtensions } from '../components/types';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import HeaderV2 from './header-v2';
 
 export type Props = Readonly<

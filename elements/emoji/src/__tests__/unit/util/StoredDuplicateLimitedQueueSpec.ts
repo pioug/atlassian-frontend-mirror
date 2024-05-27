@@ -1,7 +1,7 @@
 import * as sinon from 'sinon';
 
 import StoredDuplicateLimitedQueue, {
-  StoredQueueOptions,
+  type StoredQueueOptions,
 } from '../../../util/StoredDuplicateLimitedQueue';
 
 describe('StoredDuplicateLimitedQueue', () => {

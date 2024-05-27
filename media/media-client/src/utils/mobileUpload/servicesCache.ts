@@ -1,10 +1,10 @@
 import { LRUMap } from 'lru_map';
-import { Interpreter } from 'xstate';
+import { type Interpreter } from 'xstate';
 
 import {
-  StateMachineContext,
-  StateMachineEvent,
-  StateMachineTypestate,
+  type StateMachineContext,
+  type StateMachineEvent,
+  type StateMachineTypestate,
 } from './stateMachine/types';
 
 export function createServicesCache() {

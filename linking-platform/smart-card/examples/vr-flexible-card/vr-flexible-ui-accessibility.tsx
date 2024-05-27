@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 
 import {
-  ActionItem,
+  type ActionItem,
   ActionName,
   Card,
   Client,

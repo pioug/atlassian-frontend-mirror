@@ -1,4 +1,4 @@
-import { AstNode } from '../types';
+import { type AstNode } from '../types';
 
 /**
  * Default `getChildren` implementation for nodes in the AST that have no children.

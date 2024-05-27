@@ -1,4 +1,4 @@
-import { NodeReducer } from './';
+import { type NodeReducer } from './';
 
 const rule: NodeReducer = () => {
   return '';

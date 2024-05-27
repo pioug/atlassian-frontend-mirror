@@ -10,7 +10,7 @@ import {
 import { messages } from '../../../../messages';
 
 import RelatedArticles from '../../index';
-import { ArticleItem } from '../../../../model/Article';
+import { type ArticleItem } from '../../../../model/Article';
 
 // Messages
 const cache = createIntlCache();

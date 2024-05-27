@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { Appearance } from '../old-button/types';
+import { type Appearance } from '../old-button/types';
 
 export type ButtonGroupProps = {
   /**

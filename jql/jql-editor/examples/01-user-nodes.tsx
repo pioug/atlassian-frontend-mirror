@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 
 import {
-  GetAutocompleteInitialData,
-  GetAutocompleteSuggestions,
+  type GetAutocompleteInitialData,
+  type GetAutocompleteSuggestions,
   useAutocompleteProvider,
 } from '@atlaskit/jql-editor-autocomplete-rest';
 
@@ -14,7 +14,7 @@ import {
   users,
 } from '../examples-utils/data';
 import { Container } from '../examples-utils/styled';
-import { HydratedUser, HydratedValues, JQLEditor } from '../src';
+import { type HydratedUser, type HydratedValues, JQLEditor } from '../src';
 
 const getAutocompleteInitialData: GetAutocompleteInitialData = () =>
   // Simulate fetching initial data from an API

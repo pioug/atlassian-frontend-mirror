@@ -1,6 +1,6 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Actions } from './Actions';
-import { ReactionsState } from './reaction';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type Actions } from './Actions';
+import { type ReactionsState } from './reaction';
 
 /**
  * Callback event when changes apply to the main store

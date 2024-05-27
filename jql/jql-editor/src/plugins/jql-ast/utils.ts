@@ -1,6 +1,6 @@
-import { RecognitionException } from 'antlr4ts/RecognitionException';
+import { type RecognitionException } from 'antlr4ts/RecognitionException';
 
-import { JQLParser } from '@atlaskit/jql-parser';
+import { type JQLParser } from '@atlaskit/jql-parser';
 
 import { ignoredTokens } from './constants';
 

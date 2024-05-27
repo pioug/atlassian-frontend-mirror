@@ -1,13 +1,13 @@
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
-import { EmojiProvider } from '@atlaskit/emoji';
+import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
   mockReactDomWarningGlobal,
   renderWithIntl,
   useFakeTimers,
 } from '../../__tests__/_testing-library';
-import { StorePropInput } from '../../types';
+import { type StorePropInput } from '../../types';
 import { RENDER_BUTTON_TESTID } from '../../components/EmojiButton';
 import { ConnectedReactionPicker } from './ConnectedReactionPicker';
 

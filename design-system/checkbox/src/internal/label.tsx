@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { LabelProps } from '../types';
+import { type LabelProps } from '../types';
 
 const baseStyles = css({
   display: 'grid',

@@ -1,4 +1,4 @@
-import { I18NMessages } from '@atlaskit/intl-messages-provider';
+import { type I18NMessages } from '@atlaskit/intl-messages-provider';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { locales } from '../../../../i18n';

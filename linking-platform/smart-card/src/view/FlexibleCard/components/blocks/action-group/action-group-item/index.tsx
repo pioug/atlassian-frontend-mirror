@@ -2,12 +2,12 @@
 import { jsx } from '@emotion/react';
 import React, { useCallback } from 'react';
 
-import { Appearance } from '@atlaskit/button';
+import { type Appearance } from '@atlaskit/button';
 
-import { SmartLinkSize } from '../../../../../../constants';
-import { ActionProps } from '../../../actions/action/types';
+import { type SmartLinkSize } from '../../../../../../constants';
+import { type ActionProps } from '../../../actions/action/types';
 import * as Actions from '../../../actions';
-import { ActionItem } from '../../types';
+import { type ActionItem } from '../../types';
 
 const ActionGroupItem: React.FC<{
   item: ActionItem;

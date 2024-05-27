@@ -3,7 +3,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { findDOMNode } from 'react-dom';
-import { MouseEventHandler, PureComponent, ReactNode, UIEvent } from 'react';
+import { type MouseEventHandler, PureComponent, type ReactNode, type UIEvent } from 'react';
 import * as styles from './styles';
 
 export interface OnScroll {

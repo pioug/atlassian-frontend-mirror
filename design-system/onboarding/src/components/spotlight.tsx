@@ -1,6 +1,6 @@
-import React, { ComponentType, MouseEvent, ReactNode } from 'react';
+import React, { type ComponentType, type MouseEvent, type ReactNode } from 'react';
 
-import { Actions } from '../types';
+import { type Actions } from '../types';
 
 import SpotlightInner from './spotlight-inner';
 import { SpotlightConsumer } from './spotlight-manager';

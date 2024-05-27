@@ -1,4 +1,4 @@
-import { AST } from 'refractor';
+import { type AST } from 'refractor';
 
 import createChildren from '../../lib/react-renderer/create-children';
 

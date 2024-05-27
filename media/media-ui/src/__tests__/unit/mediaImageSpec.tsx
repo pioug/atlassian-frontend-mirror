@@ -1,9 +1,9 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
-import { MediaImage, MediaImageProps, MediaImageState } from '../../mediaImage';
+import { mount, type ReactWrapper } from 'enzyme';
+import { MediaImage, type MediaImageProps, type MediaImageState } from '../../mediaImage';
 import { ImageComponent } from '../../mediaImage/styled';
 import { expectToEqual, nextTick } from '@atlaskit/media-common/test-helpers';
-import { isRotated } from '../../imageMetaData';
+import { type isRotated } from '../../imageMetaData';
 
 interface SetupParams {
   isCoverStrategy: boolean;

@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import { newFileExperienceClassName } from '../../cardConstants';
 import { wrapperStyles } from './styles';
-import { WrapperProps } from './types';
+import { type WrapperProps } from './types';
 
 export const Wrapper = (props: WrapperProps) => {
   const {

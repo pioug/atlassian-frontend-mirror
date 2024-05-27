@@ -1,8 +1,8 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { Actions } from '../context/context';
+import { type Actions } from '../context/context';
 import { Consumer } from '../consumers/consumer';
-import { Document as DocumentModel } from '../model';
+import { type Document as DocumentModel } from '../model';
 
 export interface Props {
   render(actions: DocumentActions): React.ReactNode;

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import Select from '@atlaskit/select';
-import { DefaultValue, OptionIdentifier } from '@atlaskit/user-picker';
+import { type DefaultValue, type OptionIdentifier } from '@atlaskit/user-picker';
 
 import SmartUserPicker from '../src';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints';

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import Spinner, { SpinnerProps } from '@atlaskit/spinner';
+import Spinner, { type SpinnerProps } from '@atlaskit/spinner';
 
 import { CREATE_FORM_MIN_HEIGHT_IN_PX } from '../../../common/constants';
 

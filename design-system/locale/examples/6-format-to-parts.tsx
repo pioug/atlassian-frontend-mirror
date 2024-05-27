@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createLocalizationProvider } from '../src';
-import LocaleSelect, { Locale } from '../src/LocaleSelect';
+import LocaleSelect, { type Locale } from '../src/LocaleSelect';
 import styled from 'styled-components';
 import TextField from '@atlaskit/textfield';
 import { Label } from '@atlaskit/form';

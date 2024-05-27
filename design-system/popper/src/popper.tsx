@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 
-import { Placement, VirtualElement } from '@popperjs/core';
+import { type Placement, type VirtualElement } from '@popperjs/core';
 import {
-  Modifier,
-  PopperChildrenProps,
-  PopperProps,
+  type Modifier,
+  type PopperChildrenProps,
+  type PopperProps,
   Popper as ReactPopper,
 } from 'react-popper';
 

@@ -5,7 +5,7 @@ import {
 } from '../__mocks__/mocks';
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
 import * as HoverCardComponent from '../../components/HoverCardComponent';
-import { setup as hoverCardSetup, SetUpParams } from './setup.test-utils';
+import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
 import { within } from '@testing-library/dom';
 
 type AnalyticsTestConfig = {

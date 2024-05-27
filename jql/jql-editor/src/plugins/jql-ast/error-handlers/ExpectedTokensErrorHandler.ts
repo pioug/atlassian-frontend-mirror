@@ -1,8 +1,8 @@
-import { Token } from 'antlr4ts';
-import { RecognitionException } from 'antlr4ts/RecognitionException';
-import { IntlShape } from 'react-intl-next';
+import { type Token } from 'antlr4ts';
+import { type RecognitionException } from 'antlr4ts/RecognitionException';
+import { type IntlShape } from 'react-intl-next';
 
-import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
+import { JQLLexer, type JQLParser } from '@atlaskit/jql-parser';
 
 import { commonMessages } from '../../../common/messages';
 import { lowPriorityTokens } from '../constants';

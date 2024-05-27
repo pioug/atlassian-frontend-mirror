@@ -5,13 +5,13 @@ import { useEffect, useRef } from 'react';
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { FileDetails } from '@atlaskit/media-client';
+import { type FileDetails } from '@atlaskit/media-client';
 import { createAndFireMediaCardEvent } from '../../../utils/analytics';
 import { IconWrapper } from '../../ui/iconWrapper/iconWrapper';
 import { useBreakpoint } from '../../useBreakpoint';
-import { CardViewWrapper, SharedCardViewProps } from './cardViewWrapper';
+import { CardViewWrapper, type SharedCardViewProps } from './cardViewWrapper';
 import type { CardStatus } from '../../../types';
 import { ProgressBar } from '../../ui/progressBar/progressBar';
 import { Blanket } from '../../ui/blanket/blanket';

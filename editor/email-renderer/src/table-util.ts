@@ -1,4 +1,4 @@
-import { Style, Attrs } from './interfaces';
+import { type Style, type Attrs } from './interfaces';
 import { serializeStyle } from './serialize-style';
 import { createTag } from './create-tag';
 import { createClassName } from './styles/util';

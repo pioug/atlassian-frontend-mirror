@@ -2,7 +2,7 @@ import { token } from '@atlaskit/tokens';
 import React from 'react';
 import serializeJavascript from 'serialize-javascript';
 import MentionResource, {
-  MentionResourceConfig,
+  type MentionResourceConfig,
 } from '../src/api/MentionResource';
 
 export interface Props {

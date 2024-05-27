@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-create",
-  "version": "1.15.9",
+  "version": "2.0.0",
   "description": "The driver component of meta creation flow",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -43,14 +43,13 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.16.0",
+    "@atlaskit/button": "^17.17.0",
     "@atlaskit/empty-state": "^7.8.0",
     "@atlaskit/form": "^10.2.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/intl-messages-provider": "^1.0.2",
     "@atlaskit/linking-common": "^5.7.0",
     "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/primitives": "^6.3.0",
     "@atlaskit/select": "^17.9.0",
     "@atlaskit/spinner": "^16.1.0",
@@ -121,12 +120,5 @@
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
-  "platform-feature-flags": {
-    "platform.linking-platform.link-create.better-observability": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.link-create.enable-expected-field-errors": {
-      "type": "boolean"
-    }
-  }
+  "platform-feature-flags": {}
 }

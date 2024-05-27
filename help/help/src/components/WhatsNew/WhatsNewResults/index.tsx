@@ -2,7 +2,7 @@ import React, { useCallback, useState, useRef } from 'react';
 import { Transition } from 'react-transition-group';
 import isEqual from 'lodash/isEqual';
 import Select from '@atlaskit/select';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { VIEW } from '../../constants';
 

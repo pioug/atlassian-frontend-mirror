@@ -1,4 +1,4 @@
-import { AvatarProps } from '../../types';
+import { type AvatarProps } from '../../types';
 import { composeUniqueKey } from '../../utils';
 
 describe('composeAUniqueKey', () => {

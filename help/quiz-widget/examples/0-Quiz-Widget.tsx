@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { QuizWidget } from '../src';
-import { QuizElement } from '../src/components/QuizWidget/types';
+import { type QuizElement } from '../src/components/QuizWidget/types';
 import { QuizWrapper } from '../src/styled';
 
 export const quizContent = {

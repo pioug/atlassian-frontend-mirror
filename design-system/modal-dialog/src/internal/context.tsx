@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { ModalDialogProps, OnCloseHandler } from '../types';
+import { type ModalDialogProps, type OnCloseHandler } from '../types';
 
 export type ModalAttributes = {
   /**

@@ -1,6 +1,6 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { LINK_TEXT_REGEXP } from '../tokenize/link-text';
-import { Context } from '../../interfaces';
+import { type Context } from '../../interfaces';
 
 const defaultWidth = 200;
 const defaultHeight = 183;

@@ -1,4 +1,4 @@
-import React, { MouseEvent, useCallback, forwardRef } from 'react';
+import React, { type MouseEvent, useCallback, forwardRef } from 'react';
 import { WrapperAnchor, WrapperSpan } from './styled';
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 

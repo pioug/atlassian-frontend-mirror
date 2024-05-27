@@ -1,6 +1,6 @@
 /* sample-data.js */
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

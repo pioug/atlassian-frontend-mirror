@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
 import { CHANNEL_ID, errorEncountered } from './analytics/analytics';

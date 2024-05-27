@@ -1,6 +1,6 @@
-import { AllHTMLAttributes, ComponentType, ElementType } from 'react';
+import { type AllHTMLAttributes, type ComponentType, type ElementType } from 'react';
 
-import { CustomThemeButtonProps } from '@atlaskit/button/types';
+import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 
 export type PrimaryButtonProps = Omit<
   CustomThemeButtonProps,

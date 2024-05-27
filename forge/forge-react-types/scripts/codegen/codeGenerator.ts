@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
-  Symbol,
-  SourceFile,
-  TypeAliasDeclaration,
-  ImportDeclaration,
+  type Symbol,
+  type SourceFile,
+  type TypeAliasDeclaration,
+  type ImportDeclaration,
 } from 'ts-morph';
 
 const getNames = (symbol: Symbol) => {

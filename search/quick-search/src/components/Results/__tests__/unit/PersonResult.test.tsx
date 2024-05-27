@@ -1,4 +1,4 @@
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import React from 'react';
 import Avatar from '@atlaskit/avatar';
 import PersonResult from '../../PersonResult';

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { sizes, WrapperProps } from './constants';
-import { Size } from './types';
+import { sizes, type WrapperProps } from './constants';
+import { type Size } from './types';
 
 const CSS_VAR_COLOR = '--logo-color';
 const CSS_VAR_FILL = '--logo-fill';

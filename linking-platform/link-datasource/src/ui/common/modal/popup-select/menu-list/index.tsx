@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Box, Flex, xcss } from '@atlaskit/primitives';
-import { components, MenuListComponentProps } from '@atlaskit/select';
+import { components, type MenuListComponentProps } from '@atlaskit/select';
 import Spinner from '@atlaskit/spinner';
 
-import { SelectOption } from '../types';
+import { type SelectOption } from '../types';
 
 import CustomErrorMessage from './errorMessage';
 import CustomDropdownLoadingMessage from './loadingMessage';

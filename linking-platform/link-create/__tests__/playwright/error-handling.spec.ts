@@ -14,7 +14,6 @@ test.describe('Link Create', () => {
 
     await page.visitExample('linking-platform', 'link-create', 'basic', {
       disableFetchMock: true,
-      featureFlag: 'platform.linking-platform.link-create.better-observability',
     });
 
     const trigger = page.getByRole('button', { name: 'Create' });

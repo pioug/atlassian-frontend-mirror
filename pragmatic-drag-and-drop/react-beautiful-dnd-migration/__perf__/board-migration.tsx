@@ -10,7 +10,7 @@ import invariant from 'tiny-invariant';
 import { DragDropContext, Draggable, Droppable } from '../src';
 
 import Board from './pieces/board';
-import { RbdApi } from './pieces/types';
+import { type RbdApi } from './pieces/types';
 import {
   getColumn,
   getColumnItems,

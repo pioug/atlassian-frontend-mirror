@@ -1,8 +1,8 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import { extractUrlFromIconJsonLd } from '../url';
 
-import { LinkPerson } from './types';
+import { type LinkPerson } from './types';
 
 export const extractPersonFromJsonLd = (
   person: JsonLd.Primitives.Object | JsonLd.Primitives.Link,

@@ -1,4 +1,4 @@
-import { FileIdentifier, MediaStoreError } from '@atlaskit/media-client';
+import { type FileIdentifier, MediaStoreError } from '@atlaskit/media-client';
 
 import { extractErrorInfo } from '../analytics';
 import { MediaFilePreviewError } from '../errors';

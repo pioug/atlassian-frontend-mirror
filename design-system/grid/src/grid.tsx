@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { createContext, FC, useContext } from 'react';
+import { createContext, type FC, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';

@@ -7,7 +7,7 @@ import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import Popup, { PopupComponentProps } from '../../src';
+import Popup, { type PopupComponentProps } from '../../src';
 
 const containerStyles = xcss({
   padding: 'space.200',

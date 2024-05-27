@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 export const TEST_URL = 'https://my.url.com';
 export const TEST_INTERACTIVE_HREF_URL = 'https://my.url.com/embed';
 export const TEST_NAME = 'my name';

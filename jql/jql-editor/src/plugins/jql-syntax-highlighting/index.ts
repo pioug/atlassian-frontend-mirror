@@ -1,6 +1,6 @@
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import { type Node } from '@atlaskit/editor-prosemirror/model';
 import {
-  EditorState,
+  type EditorState,
   Plugin,
   PluginKey,
 } from '@atlaskit/editor-prosemirror/state';
@@ -9,7 +9,7 @@ import { JQLSyntaxError } from '@atlaskit/jql-ast';
 import getDocumentPosition from '../common/get-document-position';
 import { getJastFromState } from '../jql-ast';
 
-import { Highlight } from './types';
+import { type Highlight } from './types';
 import { SyntaxHighlightingVisitor } from './visitor';
 
 const getHighlights = (state: EditorState): Highlight[] => {

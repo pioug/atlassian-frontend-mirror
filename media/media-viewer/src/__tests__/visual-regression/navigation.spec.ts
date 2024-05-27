@@ -1,7 +1,7 @@
 import {
   getExampleUrl,
   pageSelector,
-  PuppeteerPage,
+  type PuppeteerPage,
 } from '@atlaskit/visual-regression/helper';
 import { sleep } from '@atlaskit/media-test-helpers';
 

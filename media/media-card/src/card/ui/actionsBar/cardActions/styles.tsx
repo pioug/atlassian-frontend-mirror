@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
 
-import React, { MouseEvent, HTMLAttributes } from 'react';
+import {type MouseEvent, type HTMLAttributes} from 'react';
+import type React from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { N500, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { borderRadius, size, center } from '@atlaskit/media-ui';

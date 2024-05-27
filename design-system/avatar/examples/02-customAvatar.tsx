@@ -1,5 +1,5 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import React, { CSSProperties } from 'react';
+import React, { type CSSProperties } from 'react';
 
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';

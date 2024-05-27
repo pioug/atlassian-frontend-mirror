@@ -1,12 +1,12 @@
 import { NODE_TYPE_OPERAND, OPERAND_TYPE_LIST } from '../constants';
 import { appendOperand } from '../transformers/listOperand';
 import {
-  AstNode,
-  JastListener,
-  JastVisitor,
-  ListOperand,
-  Operand,
-  Position,
+  type AstNode,
+  type JastListener,
+  type JastVisitor,
+  type ListOperand,
+  type Operand,
+  type Position,
 } from '../types';
 
 import { assignParent } from './common';

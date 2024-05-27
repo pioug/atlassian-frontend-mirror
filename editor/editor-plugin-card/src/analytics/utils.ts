@@ -1,12 +1,12 @@
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import { type Node } from '@atlaskit/editor-prosemirror/model';
 import {
-  ReadonlyTransaction,
-  Transaction,
+  type ReadonlyTransaction,
+  type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
 import { appearanceForNodeType } from '../utils';
 
-import { Entity, EVENT_SUBJECT } from './types';
+import { type Entity, EVENT_SUBJECT } from './types';
 
 export function isDatasourceNode(node: Node) {
   return 'datasource' in node.attrs && !!node.attrs.datasource;

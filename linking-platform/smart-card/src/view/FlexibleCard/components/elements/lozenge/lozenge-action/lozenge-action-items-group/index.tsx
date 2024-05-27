@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { FC } from 'react';
+import { type FC } from 'react';
 import LozengeActionItem from '../lozenge-action-item';
 import { dropdownItemGroupStyles } from '../styled';
 import { DropdownItemGroup } from '@atlaskit/dropdown-menu';

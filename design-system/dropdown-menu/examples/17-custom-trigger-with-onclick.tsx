@@ -5,7 +5,7 @@ import Button from '@atlaskit/button/new';
 import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
-  OnOpenChangeArgs,
+  type OnOpenChangeArgs,
 } from '../src';
 
 const DropdownMenuCustomTriggerWithOnClick = () => {

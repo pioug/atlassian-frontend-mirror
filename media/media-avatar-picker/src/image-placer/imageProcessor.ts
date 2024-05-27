@@ -1,9 +1,9 @@
 import {
   Rectangle,
-  Bounds,
+  type Bounds,
   loadImage,
   getOrientation,
-  FileInfo,
+  type FileInfo,
 } from '@atlaskit/media-ui';
 import { getCanvas } from '../util';
 

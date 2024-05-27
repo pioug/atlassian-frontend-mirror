@@ -1,5 +1,5 @@
-import { shallow, ShallowWrapper } from 'enzyme';
-import React, { PropsWithChildren } from 'react';
+import { shallow, type ShallowWrapper } from 'enzyme';
+import React, { type PropsWithChildren } from 'react';
 import {
   UFOExperienceState,
   UFOExperience,
@@ -7,7 +7,7 @@ import {
   ExperiencePerformanceTypes,
 } from '@atlaskit/ufo';
 import { ExusUserSourceProvider } from '../../clients/UserSourceProvider';
-import { LoadUserSource, User } from '../../types';
+import { type LoadUserSource, type User } from '../../types';
 
 export const renderProp = (
   wrapper: ShallowWrapper<any>,

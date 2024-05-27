@@ -1,4 +1,4 @@
-import { RefractorNode, SyntaxHighlighterLineProps } from '../../types';
+import { type RefractorNode, type SyntaxHighlighterLineProps } from '../../types';
 
 import createLineElement from './create-line-element';
 import getInlineLineNumber from './get-inline-line-number';

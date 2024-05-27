@@ -7,7 +7,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
 import { DynamicTableStateless } from '../src';
-import { SortOrderType } from '../src/types';
+import { type SortOrderType } from '../src/types';
 
 import { caption, head, rows } from './content/sample-data';
 

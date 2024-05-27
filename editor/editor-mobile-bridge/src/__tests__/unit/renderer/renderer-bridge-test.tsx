@@ -1,4 +1,4 @@
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import React from 'react';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { MobileRenderer } from '../../../renderer/mobile-renderer-element';

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, KeyboardEvent } from 'react';
+import { Fragment, type KeyboardEvent } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -7,8 +7,8 @@ import Spinner from '@atlaskit/spinner/spinner';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 
 import {
-  LinkPickerPlugin,
-  LinkSearchListItemData,
+  type LinkPickerPlugin,
+  type LinkSearchListItemData,
 } from '../../../common/types';
 import { useFixHeight } from '../../../controllers/use-fix-height';
 

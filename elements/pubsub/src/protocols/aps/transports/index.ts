@@ -1,6 +1,6 @@
 import { type EventEmitter2 } from 'eventemitter2';
-import { APSTransportType } from '../../../apiTypes';
-import { APSAnalyticsClient } from '../APSAnalyticsClient';
+import { type APSTransportType } from '../../../apiTypes';
+import { type APSAnalyticsClient } from '../APSAnalyticsClient';
 
 export interface APSTransportParams {
   url: URL;

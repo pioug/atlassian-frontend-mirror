@@ -43,6 +43,7 @@ export function PrimaryToolbarComponent({
       isToolbarDisabled={disabled}
       shouldUseResponsiveToolbar={shouldUseResponsiveToolbar}
       editorAnalyticsAPI={api?.analytics?.actions}
+      api={api}
     />
   );
 }

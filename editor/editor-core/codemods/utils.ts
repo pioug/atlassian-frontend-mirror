@@ -1,11 +1,11 @@
 import type {
   API,
   ASTPath,
+  default as core,
   FileInfo,
   ImportDeclaration,
   Options,
 } from 'jscodeshift';
-import type core from 'jscodeshift';
 import type { Collection } from 'jscodeshift/src/Collection';
 
 function hasImportDeclaration(

@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from 'react';
-import WebBridgeImpl from '../native-to-web';
-import { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import type WebBridgeImpl from '../native-to-web';
+import { type Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { useCollabProvider } from '../../providers/collab-provider';
-import EditorConfiguration from '../../editor/editor-configuration';
+import type EditorConfiguration from '../../editor/editor-configuration';
 
 export function useCollabEdit(
   bridge: WebBridgeImpl,

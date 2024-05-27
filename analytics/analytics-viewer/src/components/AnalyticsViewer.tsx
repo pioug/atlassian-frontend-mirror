@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Event, EventViewer } from './EventViewer';
+import { type Event, EventViewer } from './EventViewer';
 
 export type EventsArray = Event[];
 

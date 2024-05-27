@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions';
 
-import { HydratedUser, HydratedValues } from '../src';
+import { type HydratedUser, type HydratedValues } from '../src';
 
 import { mockAvatarUrl, users } from './data';
 

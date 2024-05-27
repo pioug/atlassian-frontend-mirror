@@ -13,7 +13,7 @@ import {
   FEDM_PROD_BASE_URL,
   GATEWAY_BASE_URL,
 } from '../client/fetcher/Fetcher';
-import { ClientOptions } from '../client/types';
+import { type ClientOptions } from '../client/types';
 
 describe('FeatureGate client Statsig integration test', () => {
   const MOCK_CLIENT_SDK_KEY = 'client-mockSdkKey';

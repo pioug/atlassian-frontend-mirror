@@ -1,5 +1,5 @@
 import WikiMarkupTransformer from '../../..';
-import { Context } from '../../../interfaces';
+import { type Context } from '../../../interfaces';
 
 describe('WikiMarkup => ADF Formatters - citation', () => {
   test('[CS-491] should detect mention in the following pattern', () => {

@@ -1,4 +1,4 @@
-import { TaskListDefinition, TaskListContent } from '@atlaskit/adf-schema';
+import { type TaskListDefinition, type TaskListContent } from '@atlaskit/adf-schema';
 
 export const taskList =
   (attrs: TaskListDefinition['attrs']) =>

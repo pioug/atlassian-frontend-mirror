@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from 'react';
+import { type ComponentType, type ReactNode } from 'react';
 
-import { AppearanceType, TagColor } from '../../../types';
+import { type AppearanceType, type TagColor } from '../../../types';
 
 export interface SimpleTagProps {
   /**

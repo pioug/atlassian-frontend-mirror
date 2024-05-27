@@ -1,6 +1,6 @@
-import { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node, type Schema } from '@atlaskit/editor-prosemirror/model';
 
-import { JIRATransformer, JIRACustomEncoders, MediaContextInfo } from '../../';
+import { JIRATransformer, type JIRACustomEncoders, type MediaContextInfo } from '../../';
 
 export function parseWithSchema(html: string, schema: Schema) {
   const transformer = new JIRATransformer(schema);

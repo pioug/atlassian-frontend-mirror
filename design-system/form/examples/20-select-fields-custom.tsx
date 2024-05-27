@@ -3,9 +3,9 @@ import React, { Fragment } from 'react';
 import Button from '@atlaskit/button/new';
 import Select, {
   components,
-  OptionProps,
-  SingleValueProps,
-  ValueType,
+  type OptionProps,
+  type SingleValueProps,
+  type ValueType,
 } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 

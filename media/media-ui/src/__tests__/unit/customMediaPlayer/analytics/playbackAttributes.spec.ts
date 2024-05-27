@@ -1,6 +1,6 @@
 import {
-  PlaybackAttributes,
-  PlaybackState,
+  type PlaybackAttributes,
+  type PlaybackState,
   createPlaybackAttributes,
 } from '../../../../customMediaPlayer/analytics/utils/playbackAttributes';
 

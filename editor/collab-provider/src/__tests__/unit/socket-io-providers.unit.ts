@@ -1,5 +1,5 @@
 import { createSocketIOSocket } from '../../socket-io-provider';
-import { InitAndAuthData } from '../../types';
+import { type InitAndAuthData } from '../../types';
 
 describe('Socket io provider', () => {
   const url = 'http://localhost:8080/ccollab/sessionId/123';

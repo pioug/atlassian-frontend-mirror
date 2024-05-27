@@ -4,9 +4,9 @@ import { responsiveSettings, getTitleBoxHeight, Breakpoint } from '../common';
 import { N0, N800 } from '@atlaskit/theme/colors';
 import { rgba } from '../styles';
 import {
-  TitleBoxFooterProps,
-  TitleBoxHeaderProps,
-  TitleBoxWrapperProps,
+  type TitleBoxFooterProps,
+  type TitleBoxHeaderProps,
+  type TitleBoxWrapperProps,
 } from './types';
 
 const generateResponsiveStyles = (

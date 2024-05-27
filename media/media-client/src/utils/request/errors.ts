@@ -1,9 +1,9 @@
 import { BaseMediaClientError } from '../../models/errors';
 
 import {
-  RequestErrorReason,
-  RequestErrorMetadata,
-  RequestErrorAttributes,
+  type RequestErrorReason,
+  type RequestErrorMetadata,
+  type RequestErrorAttributes,
 } from './types';
 
 export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {

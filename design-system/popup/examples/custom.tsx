@@ -7,7 +7,7 @@ import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { token } from '@atlaskit/tokens';
 
-import Popup, { PopupComponentProps } from '../src';
+import Popup, { type PopupComponentProps } from '../src';
 
 const containerStyles = css({
   backgroundColor: token('color.background.neutral.bold'),

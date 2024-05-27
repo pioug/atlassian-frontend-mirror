@@ -1,12 +1,12 @@
-import core, { API, FileInfo, Options } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import type { API, default as core, FileInfo, Options } from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   addCommentToStartOfFile,
   getDefaultSpecifierName,
   getJSXAttributesByName,
   hasImportDeclaration,
-  Nullable,
+  type Nullable,
 } from './helpers/helpers-generic';
 const relevantEntryPoints = [
   '@atlaskit/button',

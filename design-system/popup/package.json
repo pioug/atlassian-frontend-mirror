@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popup",
-  "version": "1.17.1",
+  "version": "1.17.2",
   "description": "A popup displays brief content in an overlay.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/layering": "^0.3.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/popper": "^5.6.0",
+    "@atlaskit/popper": "^6.0.0",
     "@atlaskit/portal": "^4.5.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",
@@ -67,7 +67,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/button": "^17.16.0",
+    "@atlaskit/button": "^17.17.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^6.3.0",

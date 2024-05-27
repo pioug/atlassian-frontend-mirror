@@ -1,15 +1,15 @@
-import React from 'react';
+import type React from 'react';
 
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import {
-  AnalyticsEventPayload,
-  CreateUIAnalyticsEvent,
+  type AnalyticsEventPayload,
+  type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 
-import TeamCentralCardClient from './client/TeamCentralCardClient';
-import TeamProfileCardClient from './client/TeamProfileCardClient';
-import UserProfileCardClient from './client/UserProfileCardClient';
+import type TeamCentralCardClient from './client/TeamCentralCardClient';
+import type TeamProfileCardClient from './client/TeamProfileCardClient';
+import type UserProfileCardClient from './client/UserProfileCardClient';
 
 export interface ApiClientResponse {
   User: {

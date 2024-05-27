@@ -6,7 +6,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { RadioGroup } from '@atlaskit/radio';
 import Range from '@atlaskit/range';
-import Select, { OptionType, ValueType } from '@atlaskit/select';
+import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
 import TextField from '@atlaskit/textfield';
 import Toggle from '@atlaskit/toggle';

@@ -1,9 +1,9 @@
-import { JsonLd } from 'json-ld-types';
-import { RequestAccessMessageKey } from './messages';
+import { type JsonLd } from 'json-ld-types';
+import { type RequestAccessMessageKey } from './messages';
 export type { CardContext } from '@atlaskit/link-provider';
 import type { LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
-import { AccessContext } from './view/types';
-import { ActionProps } from './view/BlockCard/components/Action';
+import { type AccessContext } from './view/types';
+import { type ActionProps } from './view/BlockCard/components/Action';
 
 export type ResolveResponse = JsonLd.Response;
 export type { ProviderProps, CardType } from './state';

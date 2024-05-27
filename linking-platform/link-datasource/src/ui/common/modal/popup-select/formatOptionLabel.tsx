@@ -7,10 +7,10 @@ import { Box, Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
-  AvatarLabelOption,
-  FormatOptionLabel,
-  IconLabelOption,
-  LozengeLabelOption,
+  type AvatarLabelOption,
+  type FormatOptionLabel,
+  type IconLabelOption,
+  type LozengeLabelOption,
 } from './types';
 
 const commonLabelStyles = xcss({

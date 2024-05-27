@@ -1,5 +1,5 @@
 import React from 'react';
-import InlineDialog, { Placement } from '@atlaskit/inline-dialog';
+import InlineDialog, { type Placement } from '@atlaskit/inline-dialog';
 
 interface Props {
   children: React.ReactNode;

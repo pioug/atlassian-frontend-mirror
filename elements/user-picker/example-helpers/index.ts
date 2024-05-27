@@ -5,7 +5,7 @@ import {
   userPickerTeamData,
   userPickerCustomData,
 } from '@atlaskit/util-data-test/user-picker';
-import { OptionData } from '../src/types';
+import { type OptionData } from '../src/types';
 
 export const isTesting = () => typeof jest !== 'undefined';
 

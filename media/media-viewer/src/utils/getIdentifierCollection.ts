@@ -1,4 +1,4 @@
-import { isFileIdentifier, Identifier } from '@atlaskit/media-client';
+import { isFileIdentifier, type Identifier } from '@atlaskit/media-client';
 
 export const getIdentifierCollection = (
   identifier: Identifier,

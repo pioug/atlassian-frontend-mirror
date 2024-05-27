@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import {
   RankableTableCell,
-  RankableTableCellProps,
+  type RankableTableCellProps,
 } from '../../rankable/table-cell';
 
 import { cellWithKey as cell, head } from './_data';

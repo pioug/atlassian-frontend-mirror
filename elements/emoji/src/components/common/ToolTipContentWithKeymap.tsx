@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
 import { jsx } from '@emotion/react';
-import { formatShortcut, Keymap } from '../../util/keymaps';
+import { formatShortcut, type Keymap } from '../../util/keymaps';
 import { tooltipShortcutStyle } from './styles';
 
 export const ToolTipContentWithKeymap = React.memo(

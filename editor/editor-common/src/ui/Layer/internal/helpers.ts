@@ -1,4 +1,4 @@
-import { Placement } from 'popper.js';
+import { type Placement } from 'popper.js';
 
 type PositionMap = {
   [key: string]: {

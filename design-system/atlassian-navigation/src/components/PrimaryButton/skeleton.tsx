@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useTheme } from '../../theme';
 
-import { PrimaryButtonSkeletonProps } from './types';
+import { type PrimaryButtonSkeletonProps } from './types';
 
 const paddingAll = 4;
 const buttonHeight = 32;

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useState, memo, useEffect } from 'react';
 import { jsx } from '@emotion/react';
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import type {
   AnalyticsEventPayload,
   CreateUIAnalyticsEvent,

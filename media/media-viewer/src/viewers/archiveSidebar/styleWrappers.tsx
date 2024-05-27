@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ReactNode, MouseEvent, Key } from 'react';
+import { type ReactNode, type MouseEvent, type Key } from 'react';
 import { jsx, css, keyframes } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { ArchiveSideBarWidth } from './styles';

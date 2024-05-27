@@ -1,10 +1,10 @@
-import React, { ErrorInfo, useCallback } from 'react';
+import React, { type ErrorInfo, useCallback } from 'react';
 import {
-  EmbedModalContext,
-  EmbedModalProps,
+  type EmbedModalContext,
+  type EmbedModalProps,
   EmbedModalSize,
 } from '../../types';
-import { WithAnalytics } from './types';
+import { type WithAnalytics } from './types';
 import { CardDisplay } from '../../../../constants';
 
 const getResizeFrom = (size?: EmbedModalSize): EmbedModalSize =>

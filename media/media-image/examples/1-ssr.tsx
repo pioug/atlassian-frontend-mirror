@@ -6,16 +6,16 @@
  */
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import {
-  FileIdentifier,
+  type FileIdentifier,
   MediaClient,
-  MediaStoreGetFileImageParams,
+  type MediaStoreGetFileImageParams,
 } from '@atlaskit/media-client';
 import { tallImage } from '@atlaskit/media-test-helpers';
 import FabricAnalyticsListeners, {
-  AnalyticsWebClient,
+  type AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
-import React, { PropsWithChildren, useEffect, useMemo } from 'react';
-import { SSR } from '@atlaskit/media-common';
+import React, { type PropsWithChildren, useEffect, useMemo } from 'react';
+import { type SSR } from '@atlaskit/media-common';
 import { MediaImage } from '../src';
 import Spinner from '@atlaskit/spinner';
 import { MediaClientContext } from '@atlaskit/media-client-react';

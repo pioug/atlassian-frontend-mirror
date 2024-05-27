@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { MentionProvider } from '../../api/MentionResource';
-import { PresenceMap, PresenceProvider } from '../../api/PresenceResource';
-import { MentionDescription, OnMentionEvent } from '../../types';
+import { type MentionProvider } from '../../api/MentionResource';
+import { type PresenceMap, type PresenceProvider } from '../../api/PresenceResource';
+import { type MentionDescription, type OnMentionEvent } from '../../types';
 import uniqueId from '../../util/id';
 import debug from '../../util/logger';
 import MentionList from '../MentionList';

@@ -1,4 +1,4 @@
-import { CardDimensions } from '../../types';
+import { type CardDimensions } from '../../types';
 
 export const getDimensionsWithDefault = (
   dimensions: CardDimensions = { width: '100%', height: '100%' },

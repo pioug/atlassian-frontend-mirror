@@ -1,5 +1,5 @@
 jest.mock('@atlaskit/media-ui');
-import { MediaClient } from '@atlaskit/media-client';
+import { type MediaClient } from '@atlaskit/media-client';
 import { getOrientation } from '@atlaskit/media-ui';
 
 import { isLocalPreviewError, isRemotePreviewError } from '../errors';

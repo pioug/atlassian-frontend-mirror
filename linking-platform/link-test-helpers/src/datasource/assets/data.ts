@@ -1,8 +1,8 @@
 import {
-  DatasourceDataResponse,
-  DatasourceDataResponseItem,
-  DatasourceDetailsResponse,
-  DatasourceResponseSchemaProperty,
+  type DatasourceDataResponse,
+  type DatasourceDataResponseItem,
+  type DatasourceDetailsResponse,
+  type DatasourceResponseSchemaProperty,
 } from '@atlaskit/linking-types';
 
 import { mike, nidhin, profile } from '../../images';

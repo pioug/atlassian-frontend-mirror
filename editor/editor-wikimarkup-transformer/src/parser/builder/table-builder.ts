@@ -1,11 +1,11 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import {
-  AddCellArgs,
-  Builder,
-  CellType,
-  Table,
-  TableCell,
-  TableRow,
+  type AddCellArgs,
+  type Builder,
+  type CellType,
+  type Table,
+  type TableCell,
+  type TableRow,
 } from '../../interfaces';
 
 /**

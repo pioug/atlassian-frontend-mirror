@@ -12,7 +12,7 @@ import { N0, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { presetSizes } from './constants';
-import { Appearance, SpinnerProps } from './types';
+import { type Appearance, type SpinnerProps } from './types';
 
 /**
  * Returns the appropriate circle stroke color.

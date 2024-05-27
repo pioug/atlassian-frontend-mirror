@@ -1,6 +1,6 @@
 import { ufolog } from '../../../logger';
 
-import { AbstractExperienceConfig } from './abstract-experience';
+import { type AbstractExperienceConfig } from './abstract-experience';
 import { UFOExperience } from './experience';
 
 export class ConcurrentExperience {

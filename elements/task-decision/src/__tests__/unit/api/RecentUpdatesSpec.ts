@@ -3,10 +3,10 @@ import {
   ACTION_DECISION_FPS_EVENTS,
 } from '../../../api/TaskDecisionResource';
 import {
-  ObjectKey,
-  ServiceTask,
-  TaskState,
-  PubSubClient,
+  type ObjectKey,
+  type ServiceTask,
+  type TaskState,
+  type PubSubClient,
 } from '../../../types';
 
 const serviceTask = (

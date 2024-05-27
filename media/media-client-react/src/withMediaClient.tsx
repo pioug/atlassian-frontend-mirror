@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {
-  Identifier,
-  MediaClient,
-  MediaClientConfig,
+  type Identifier,
+  type MediaClient,
+  type MediaClientConfig,
 } from '@atlaskit/media-client';
 
 import { MediaClientContext, MediaClientProvider } from './MediaClientProvider';

@@ -9,7 +9,7 @@ import { AKIconWrapper } from '../Icon';
 import { messages } from '../../../messages';
 import { FormattedMessage } from 'react-intl-next';
 import { IconStyledButton } from '../styled';
-import { RequestAccessContextProps } from '../../types';
+import { type RequestAccessContextProps } from '../../types';
 import Lozenge from '@atlaskit/lozenge';
 import { LozengeWrapper } from '../IconAndTitleLayout/styled';
 import withFrameStyleControl from '../utils/withFrameStyleControl';

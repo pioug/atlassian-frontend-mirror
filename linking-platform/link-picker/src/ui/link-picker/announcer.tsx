@@ -1,8 +1,8 @@
 import React, {
-  AriaAttributes,
+  type AriaAttributes,
   forwardRef,
   memo,
-  Ref,
+  type Ref,
   useEffect,
   useState,
 } from 'react';

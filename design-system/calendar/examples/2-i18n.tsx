@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 
 import { Label } from '@atlaskit/form';
-import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
+import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { Stack } from '@atlaskit/primitives';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 
 import Calendar from '../src';
 import type { WeekDay } from '../src/types';

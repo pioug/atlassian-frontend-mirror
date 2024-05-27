@@ -1,5 +1,5 @@
-import core, { ASTPath, JSXElement } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import type { ASTPath, default as core, JSXElement } from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   getDefaultSpecifier,

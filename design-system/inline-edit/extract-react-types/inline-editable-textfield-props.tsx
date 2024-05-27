@@ -1,4 +1,4 @@
-import { InlineEditableTextfieldProps } from '../src/types';
+import { type InlineEditableTextfieldProps } from '../src/types';
 
 export default function InlineEditableTextfieldProp(
   props: InlineEditableTextfieldProps,

@@ -1,17 +1,17 @@
 import {
-  CLAUSE_OPERATOR_NOT,
-  CLAUSE_TYPE_COMPOUND,
-  CLAUSE_TYPE_NOT,
-  CLAUSE_TYPE_TERMINAL,
-  NODE_TYPE_CLAUSE,
+  type CLAUSE_OPERATOR_NOT,
+  type CLAUSE_TYPE_COMPOUND,
+  type CLAUSE_TYPE_NOT,
+  type CLAUSE_TYPE_TERMINAL,
+  type NODE_TYPE_CLAUSE,
 } from '../../constants';
 
-import { AstNode, Removable, Replaceable } from './common';
-import { CompoundOperator } from './compound-operator';
-import { Field } from './field';
-import { Operand } from './operand';
-import { Operator } from './operator';
-import { Predicate } from './predicate';
+import { type AstNode, type Removable, type Replaceable } from './common';
+import { type CompoundOperator } from './compound-operator';
+import { type Field } from './field';
+import { type Operand } from './operand';
+import { type Operator } from './operator';
+import { type Predicate } from './predicate';
 
 export interface ParentOfClause {
   /**

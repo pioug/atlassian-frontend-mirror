@@ -1,5 +1,5 @@
-import core, { ASTPath, JSXElement, StringLiteral } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import type { ASTPath, default as core, JSXElement, StringLiteral } from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import { getDefaultSpecifier } from '@atlaskit/codemod-utils';
 

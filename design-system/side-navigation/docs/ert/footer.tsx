@@ -2,7 +2,7 @@
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
 /* eslint-disable @repo/internal/react/consistent-props-definitions */
 
-import { HeaderProps } from '../../src/components/Header';
+import { type HeaderProps } from '../../src/components/Header';
 
 interface FooterProps extends HeaderProps {
   /**

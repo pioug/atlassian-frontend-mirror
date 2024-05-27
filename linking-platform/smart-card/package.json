@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.73.0",
+  "version": "27.0.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
     "@atlaskit/avatar": "^21.9.0",
     "@atlaskit/avatar-group": "^9.6.0",
     "@atlaskit/badge": "^16.1.0",
-    "@atlaskit/button": "^17.16.0",
+    "@atlaskit/button": "^17.17.0",
     "@atlaskit/checkbox": "^13.3.0",
     "@atlaskit/dropdown-menu": "^12.10.0",
     "@atlaskit/form": "^10.2.0",
@@ -43,7 +43,6 @@
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/icon-object": "^6.4.0",
     "@atlaskit/icon-priority": "^6.3.0",
-    "@atlaskit/in-product-testing": "^0.2.0",
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-client-extension": "^1.8.0",
     "@atlaskit/link-extractors": "^1.5.0",
@@ -145,7 +144,6 @@
   },
   "af:exports": {
     "./ssr": "./src/ssr.tsx",
-    "./in-product": "./src/in-product.ts",
     "./client": "./src/client/index.ts",
     "./types": "./src/types.ts",
     "./hooks": "./src/hooks.ts",
@@ -155,7 +153,6 @@
   },
   "exports": {
     "./ssr": "./src/ssr.tsx",
-    "./in-product": "./src/in-product.ts",
     "./client": "./src/client/index.ts",
     "./types": "./src/types.ts",
     "./hooks": "./src/hooks.ts",

@@ -1,4 +1,4 @@
-import { User } from '@atlaskit/user-picker';
+import { type User } from '@atlaskit/user-picker';
 import { UNKNOWN_USER } from './constants';
 import { graphqlQuery } from './graphqlUtils';
 import { config } from '../config';

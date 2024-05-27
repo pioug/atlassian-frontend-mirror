@@ -1,6 +1,6 @@
 import { handleAGGErrors } from '../client/errorUtils';
 import TeamProfileCardClient from '../client/TeamProfileCardClient';
-import { Team } from '../types';
+import { type Team } from '../types';
 
 export default function getMockTeamClient(data: {
   team: Team;

@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import color from 'color';
 
 import { token } from '@atlaskit/tokens';
 
-import { colors, ThemedValue } from '../src';
+import { colors, type ThemedValue } from '../src';
 
 const emptyColor = (): {
   name: string;

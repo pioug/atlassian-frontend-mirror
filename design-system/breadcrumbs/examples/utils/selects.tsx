@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 
 import Select, {
-  ActionMeta,
-  OptionsType,
-  OptionType,
-  StylesConfig,
-  ValueType,
+  type ActionMeta,
+  type OptionsType,
+  type OptionType,
+  type StylesConfig,
+  type ValueType,
 } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 

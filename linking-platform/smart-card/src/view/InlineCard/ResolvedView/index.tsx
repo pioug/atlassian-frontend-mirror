@@ -3,7 +3,7 @@ import { Frame } from '../Frame';
 import Lozenge from '@atlaskit/lozenge';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { LozengeWrapper } from '../IconAndTitleLayout/styled';
-import { LozengeProps } from '../../../types';
+import { type LozengeProps } from '../../../types';
 import { HoverCard } from '../../HoverCard/index';
 import type { CardActionOptions } from '../../Card/types';
 export interface InlineCardResolvedViewProps {

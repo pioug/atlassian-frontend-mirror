@@ -9,7 +9,7 @@ import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
-  Appearance,
+  type Appearance,
   ModalBody,
   ModalFooter,
   ModalHeader,

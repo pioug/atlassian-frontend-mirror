@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { TH, THProps } from './ui/th';
+import { TH, type THProps } from './ui/th';
 
 /**
  * __HeadCell__

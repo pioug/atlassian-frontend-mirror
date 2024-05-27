@@ -1,5 +1,5 @@
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { FileFetcher, FileFetcherImpl } from '../file-fetcher';
+import { type MediaClientConfig } from '@atlaskit/media-core';
+import { type FileFetcher, FileFetcherImpl } from '../file-fetcher';
 
 export class MediaClient {
   public readonly file: FileFetcher;

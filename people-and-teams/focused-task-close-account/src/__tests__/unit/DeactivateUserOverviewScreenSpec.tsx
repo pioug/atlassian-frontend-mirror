@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { DeactivateUserOverviewScreen } from '../../components/DeactivateUserOverviewScreen';
 import { catherineHirons } from '../../mocks/users';
 import accessibleSites from '../../mocks/accessibleSites';
-import { DeactivateUserOverviewScreenProps } from '../../components/DeactivateUserOverviewScreen/types';
+import { type DeactivateUserOverviewScreenProps } from '../../components/DeactivateUserOverviewScreen/types';
 
 const defaultProps: Partial<DeactivateUserOverviewScreenProps> = {
   accessibleSites,

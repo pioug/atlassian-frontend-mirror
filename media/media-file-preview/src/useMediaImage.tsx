@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 
 import {
-  FileIdentifier,
-  MediaBlobUrlAttrs,
-  MediaStoreGetFileImageParams,
+  type FileIdentifier,
+  type MediaBlobUrlAttrs,
+  type MediaStoreGetFileImageParams,
 } from '@atlaskit/media-client';
-import { MediaTraceContext, SSR } from '@atlaskit/media-common';
+import { type MediaTraceContext, type SSR } from '@atlaskit/media-common';
 
-import { MediaFilePreviewDimensions } from './types';
+import { type MediaFilePreviewDimensions } from './types';
 import { useFilePreview } from './useFilePreview';
 
 export interface UseMediaImageParams {

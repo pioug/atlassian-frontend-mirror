@@ -1,12 +1,12 @@
 import React from 'react';
-import { ZipEntry } from 'unzipit';
+import { type ZipEntry } from 'unzipit';
 
 import { ButtonItem } from '@atlaskit/side-navigation';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import { downloadUrl } from '@atlaskit/media-common';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
-import { MediaClient } from '@atlaskit/media-client';
+import { type MediaClient } from '@atlaskit/media-client';
 
 import {
   ArchiveSidebarFolderWrapper,
@@ -19,7 +19,7 @@ import {
   isMacPrivateFile,
   rejectAfter,
 } from '../../utils';
-import { ArchiveViewerError } from '../../errors';
+import { type ArchiveViewerError } from '../../errors';
 import { itemStyle } from './styles';
 
 type Entries = { [key: string]: ZipEntry };

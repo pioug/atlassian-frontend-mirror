@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 

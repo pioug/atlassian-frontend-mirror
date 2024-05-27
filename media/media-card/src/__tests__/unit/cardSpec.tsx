@@ -52,25 +52,25 @@ jest.mock('../../utils/generateUniqueId', () => ({
 import React from 'react';
 import uuid from 'uuid/v4';
 import { shallow, mount } from 'enzyme';
-import { MediaFeatureFlags, MediaType } from '@atlaskit/media-common';
+import { type MediaFeatureFlags, type MediaType } from '@atlaskit/media-common';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import {
   AnalyticsContext,
-  CreateUIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import {
-  MediaClient,
-  FileState,
-  FileIdentifier,
-  ExternalImageIdentifier,
-  Identifier,
+  type MediaClient,
+  type FileState,
+  type FileIdentifier,
+  type ExternalImageIdentifier,
+  type Identifier,
   globalMediaEventEmitter,
-  MediaViewedEventPayload,
+  type MediaViewedEventPayload,
   RECENTS_COLLECTION,
-  ProcessedFileState,
+  type ProcessedFileState,
   createMediaSubscribable,
-  UploadingFileState,
-  ProcessingFileState,
+  type UploadingFileState,
+  type ProcessingFileState,
 } from '@atlaskit/media-client';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import {
@@ -86,9 +86,9 @@ import {
   createPollingMaxAttemptsError,
 } from '@atlaskit/media-test-helpers';
 
-import { CardProps, CardState, CardPreview } from '../../types';
-import { CardAction } from '../../card/actions';
-import { CardBase, CardBaseProps, Card } from '../../card/card';
+import { type CardProps, type CardState, type CardPreview } from '../../types';
+import { type CardAction } from '../../card/actions';
+import { CardBase, type CardBaseProps, Card } from '../../card/card';
 import { CardView } from '../../card/cardView';
 
 import { InlinePlayerLazy } from '../../card/inlinePlayerLazy';
@@ -108,7 +108,7 @@ import {
   fireScreenEvent,
 } from '../../card/cardAnalytics';
 import { isMediaCardError, MediaCardError } from '../../errors';
-import { CardStatus } from '../../types';
+import { type CardStatus } from '../../types';
 import getDocument from '../../utils/document';
 import {
   completeUfoExperience,

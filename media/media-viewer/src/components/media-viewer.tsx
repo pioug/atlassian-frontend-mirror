@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
-import { Identifier } from '@atlaskit/media-client';
+import { type Identifier } from '@atlaskit/media-client';
 import { MediaViewerV2 as MediaViewerNextGenV2 } from '../v2/media-viewer-v2';
 import { MediaViewer as MediaViewerNextGen } from '../media-viewer';
-import { MediaMessage, MediaViewerProps } from './types';
+import { type MediaMessage, type MediaViewerProps } from './types';
 import { isSameIdentifier } from '../utils';
 import { isFileIdentifier } from '@atlaskit/media-client';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';

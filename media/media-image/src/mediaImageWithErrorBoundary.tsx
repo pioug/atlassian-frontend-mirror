@@ -1,6 +1,6 @@
 import React from 'react';
-import { Component, ErrorInfo, ReactNode } from 'react';
-import { MediaImageWithMediaClientConfigProps } from './types';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { type MediaImageWithMediaClientConfigProps } from './types';
 import MediaImageWithMediaClient from './mediaImageWithMediaClient';
 
 interface Props {

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { getBranchDeploy, getDefaultResponse, getDefaultUrl } from './utils';
 import {
   extractPreview,

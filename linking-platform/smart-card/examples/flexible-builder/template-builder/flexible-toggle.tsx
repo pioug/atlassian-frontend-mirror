@@ -6,7 +6,7 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 import Toggle from '@atlaskit/toggle';
-import { TemplateDisplay } from '../types';
+import { type TemplateDisplay } from '../types';
 
 const containerStyles = css({
   display: 'flex',

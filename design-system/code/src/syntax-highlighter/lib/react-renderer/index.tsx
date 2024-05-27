@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CodeBidiWarningConfig, RefractorNode } from '../../types';
+import { type CodeBidiWarningConfig, type RefractorNode } from '../../types';
 
 import createElement from './create-element';
 

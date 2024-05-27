@@ -1,4 +1,4 @@
-import { AstGenerator, RefractorNode } from '../../types';
+import { type AstGenerator, type RefractorNode } from '../../types';
 
 export default function getCodeTree(
   language: string,

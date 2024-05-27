@@ -4,7 +4,7 @@ import { B300, R300, Y300 } from '@atlaskit/theme/colors';
 
 import IconType from '../render-type/icon';
 
-import { IssuePriority } from './types';
+import { type IssuePriority } from './types';
 
 // https://stackoverflow.com/questions/61099149/svg-fill-color-not-working-with-hex-colors
 const replaceHashInHex = (hex: string) => hex.replace('#', '%23');

@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { MouseEvent, useCallback } from 'react';
+import { type MouseEvent, useCallback } from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { B100, DN600A, N0 } from '@atlaskit/theme/colors';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { SwatchSize } from '../types';
+import { type SwatchSize } from '../types';
 
 export interface Props {
   value: string;

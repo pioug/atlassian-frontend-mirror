@@ -3,11 +3,11 @@ import React, { forwardRef } from 'react';
 import {
   fireEvent,
   render,
-  RenderResult,
+  type RenderResult,
   screen,
 } from '@testing-library/react';
 
-import Pagination, { PaginationPropTypes } from '../../index';
+import Pagination, { type PaginationPropTypes } from '../../index';
 
 const ellipsis = '\u2026';
 

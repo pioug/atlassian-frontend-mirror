@@ -1,11 +1,12 @@
-import core, {
+import type {
   ASTPath,
+  default as core,
   JSXAttribute,
   JSXElement,
   JSXExpressionContainer,
   StringLiteral,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   getDefaultSpecifier,

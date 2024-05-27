@@ -1,4 +1,4 @@
-import { DatasourceType } from '@atlaskit/linking-types';
+import { type DatasourceType } from '@atlaskit/linking-types';
 
 import { stringifyType } from '../render-type';
 

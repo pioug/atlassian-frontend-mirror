@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Identifier, MediaClient } from '@atlaskit/media-client';
+import { type Identifier, MediaClient } from '@atlaskit/media-client';
 import {
   createStorybookMediaClientConfig,
   defaultCollectionName,

@@ -2,13 +2,13 @@ import React, { useCallback, useState } from 'react';
 
 import { action } from '@storybook/addon-actions';
 import { boolean } from '@storybook/addon-knobs';
-import { Dependency, DiProvider } from 'react-magnetic-di';
+import { type Dependency, DiProvider } from 'react-magnetic-di';
 import { defaults as stateDefaults } from 'react-sweet-state';
 
 import { useAutocompleteProvider } from '@atlaskit/jql-editor-autocomplete-rest';
 
 import { JQLEditor, JQLEditorAnalyticsListener } from '../src';
-import { ExternalMessage } from '../src/state/types';
+import { type ExternalMessage } from '../src/state/types';
 
 import {
   getAutocompleteInitialData,

@@ -1,4 +1,4 @@
-import { BasicFilterFieldType } from '../../basic-filters/types';
+import { type BasicFilterFieldType } from '../../basic-filters/types';
 import { buildJQL } from '../buildJQL';
 
 describe('buildJQL', () => {

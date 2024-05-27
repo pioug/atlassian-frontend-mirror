@@ -2,7 +2,7 @@ import { extractLink, extractType } from '@atlaskit/link-extractors';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import type { JsonLd } from 'json-ld-types';
 
-import { ServerActionProp } from '../../../state/flexible-ui-context/types';
+import { type ServerActionProp } from '../../../state/flexible-ui-context/types';
 import { getExtensionKey } from '../../../state/helpers';
 
 import extractServerAction from '../extract-server-action';

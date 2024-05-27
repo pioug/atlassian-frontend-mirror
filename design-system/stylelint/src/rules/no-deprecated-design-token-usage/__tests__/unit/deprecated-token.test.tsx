@@ -23,7 +23,7 @@ jest.mock('@atlaskit/tokens/rename-mapping', (): typeof renameMapper => [
 
 import path from 'path';
 
-import renameMapper from '@atlaskit/tokens/rename-mapping';
+import type renameMapper from '@atlaskit/tokens/rename-mapping';
 
 import testRule from '../../../../__tests__/utils/_test-rule';
 import { messages, ruleName } from '../../index';

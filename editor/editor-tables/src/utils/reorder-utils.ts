@@ -1,5 +1,5 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { TableMap } from '../table-map';
 

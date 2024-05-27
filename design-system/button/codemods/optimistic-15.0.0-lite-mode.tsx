@@ -1,6 +1,13 @@
-import { NodePath } from 'ast-types/lib/node-path';
-import core, { API, FileInfo, JSXElement, Node, Options } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type NodePath } from 'ast-types/lib/node-path';
+import type {
+  API,
+  default as core,
+  FileInfo,
+  JSXElement,
+  Node,
+  Options,
+} from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import { convertButtonType, transformButton } from './helpers/15.0.0-runner';
 import {
@@ -13,7 +20,7 @@ import {
   isOnlyUsingNameForJSX,
   isUsingProp,
   isUsingSupportedSpread,
-  Nullable,
+  type Nullable,
   tryCreateImport,
 } from './helpers/helpers-generic';
 

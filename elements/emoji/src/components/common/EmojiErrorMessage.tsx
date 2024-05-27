@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, SerializedStyles } from '@emotion/react';
+import { jsx, type SerializedStyles } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import type { Message } from '../../types';

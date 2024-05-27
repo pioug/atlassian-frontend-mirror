@@ -1,4 +1,4 @@
-import { UFOExperienceState, UFOExperienceStateType } from './experience-state';
+import { UFOExperienceState, type UFOExperienceStateType } from './experience-state';
 
 const UFOStateAvailableTransitions = {
   [UFOExperienceState.NOT_STARTED.id]: [UFOExperienceState.STARTED.id],

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import {
-  ChangeEvent,
-  FormEvent,
+  type ChangeEvent,
+  type FormEvent,
   Fragment,
-  KeyboardEvent,
+  type KeyboardEvent,
   memo,
   useCallback,
   useLayoutEffect,
@@ -11,9 +11,9 @@ import {
 } from 'react';
 
 import { jsx } from '@emotion/react';
-import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 
-import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -26,10 +26,10 @@ import {
 } from '../../common/analytics';
 import { ANALYTICS_CHANNEL } from '../../common/constants';
 import {
-  LinkInputType,
-  LinkPickerPlugin,
-  LinkSearchListItemData,
-  PickerState,
+  type LinkInputType,
+  type LinkPickerPlugin,
+  type LinkSearchListItemData,
+  type PickerState,
 } from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { handleNavKeyDown } from '../../common/utils/handleNavKeyDown';

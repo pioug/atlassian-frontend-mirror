@@ -1,4 +1,4 @@
-import { MediaFileArtifacts } from '@atlaskit/media-state';
+import { type MediaFileArtifacts } from '@atlaskit/media-state';
 
 export const getArtifactUrl = (
   artifacts: MediaFileArtifacts,

@@ -1,10 +1,10 @@
-import React, { ReactNode, useState } from 'react';
+import React, { type ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Box, Inline } from '@atlaskit/primitives';
 
 import { ProgressIndicator } from '../src';
-import { DotsAppearance } from '../src/components/types';
+import { type DotsAppearance } from '../src/components/types';
 
 const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
   return (

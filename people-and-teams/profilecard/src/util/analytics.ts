@@ -1,7 +1,7 @@
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
-import { ErrorAttributes } from '../client/types';
+import { type ErrorAttributes } from '../client/types';
 
 import { getPageTime } from './performance';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '@atlaskit/avatar';
 
-import { User } from '../../types';
+import { type User } from '../../types';
 import * as Styled from './styles';
 
 interface Props {

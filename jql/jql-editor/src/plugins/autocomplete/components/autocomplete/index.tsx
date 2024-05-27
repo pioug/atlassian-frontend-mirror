@@ -10,9 +10,9 @@ import {
 } from '../../../../state';
 import AutocompleteDropdown from '../autocomplete-dropdown';
 import {
-  AutocompleteAnalyticsAttributes,
-  AutocompleteProps,
-  SelectableAutocompleteOption,
+  type AutocompleteAnalyticsAttributes,
+  type AutocompleteProps,
+  type SelectableAutocompleteOption,
 } from '../types';
 
 const Autocomplete = ({ keymap, onClick }: AutocompleteProps) => {

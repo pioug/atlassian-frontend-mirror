@@ -5,7 +5,7 @@ import { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';
 import { borderRadius as borderRadiusFn } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { ButtonItem, CSSFn, ItemState } from '../../src';
+import { ButtonItem, type CSSFn, type ItemState } from '../../src';
 import ImgIcon from '../common/img-icon';
 import Yeti from '../icons/yeti.png';
 

@@ -6,7 +6,7 @@
  * @codegen <<SignedSource::819168596ba17484cadda969f8ecf82d>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
-import { AnalyticsEventAttributes, EventKey } from './analytics.types';
+import { type AnalyticsEventAttributes, type EventKey } from './analytics.types';
 
 type OptionalIfUndefined<T> = undefined extends T ? [param?: T] : [param: T];
 

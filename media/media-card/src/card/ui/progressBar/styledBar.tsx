@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
-import { StyledBarProps } from './types';
+import { type StyledBarProps } from './types';
 import { styledBarStyles } from './styles';
 
 export const StyledBar = (props: StyledBarProps) => {

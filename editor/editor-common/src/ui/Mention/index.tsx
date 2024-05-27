@@ -2,11 +2,11 @@ import React, { PureComponent } from 'react';
 
 import {
   ProviderFactory,
-  Providers,
+  type Providers,
   WithProviders,
 } from '../../provider-factory';
-import { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
-import { MentionEventHandlers } from '../EventHandlers';
+import { type ProfilecardProvider } from '../../provider-factory/profile-card-provider';
+import { type MentionEventHandlers } from '../EventHandlers';
 
 import MentionWithProviders from './mention-with-providers';
 

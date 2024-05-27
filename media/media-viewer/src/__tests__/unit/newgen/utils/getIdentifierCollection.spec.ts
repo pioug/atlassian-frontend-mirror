@@ -1,7 +1,7 @@
 import { getIdentifierCollection } from '../../../../utils/getIdentifierCollection';
 import {
-  ExternalImageIdentifier,
-  FileIdentifier,
+  type ExternalImageIdentifier,
+  type FileIdentifier,
 } from '@atlaskit/media-client';
 
 describe('getIdentifierCollection', () => {

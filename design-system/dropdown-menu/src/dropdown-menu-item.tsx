@@ -6,7 +6,7 @@ import CustomItem from '@atlaskit/menu/custom-item';
 import LinkItem from '@atlaskit/menu/link-item';
 
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
-import { CustomItemHtmlProps, DropdownItemProps } from './types';
+import { type CustomItemHtmlProps, type DropdownItemProps } from './types';
 
 /**
  * __Dropdown menu item__

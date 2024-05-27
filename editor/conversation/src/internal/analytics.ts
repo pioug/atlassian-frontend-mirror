@@ -1,4 +1,4 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export const ANALYTICS_CHANNEL = 'editor';
 

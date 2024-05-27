@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import { Ellipsify } from '../../ellipsify';
 
 const getElementHeight = (wrapper: ReactWrapper, container: HTMLDivElement) => {

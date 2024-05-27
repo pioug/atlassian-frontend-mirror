@@ -3,14 +3,14 @@ import { Component } from 'react';
 import {
   Editor,
   EditorContext,
-  EditorProps,
+  type EditorProps,
   WithEditorActions,
 } from '@atlaskit/editor-core';
-import { ReactRenderer, RendererProps } from '@atlaskit/renderer';
+import { ReactRenderer, type RendererProps } from '@atlaskit/renderer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { Props as BaseProps } from '../context/embedded-document';
-import { Mode } from '../context/context';
-import { Document as DocumentModel } from '../model';
+import { type Props as BaseProps } from '../context/embedded-document';
+import { type Mode } from '../context/context';
+import { type Document as DocumentModel } from '../model';
 
 export interface Props extends BaseProps {
   doc?: DocumentModel;

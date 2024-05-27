@@ -20,7 +20,7 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { fakeFactory } from '../../../utils/mocks';
-import { CardClient } from '@atlaskit/link-provider';
+import { type CardClient } from '@atlaskit/link-provider';
 import { Provider } from '../../..';
 import * as useSmartCardActions from '../../../state/actions';
 import { Card } from '../../Card';
@@ -36,7 +36,7 @@ import {
   mockIntersectionObserver,
   setup,
   setupEventPropagationTest,
-  SetUpParams,
+  type SetUpParams,
   userEventOptionsWithAdvanceTimers,
 } from './common/setup.test-utils';
 

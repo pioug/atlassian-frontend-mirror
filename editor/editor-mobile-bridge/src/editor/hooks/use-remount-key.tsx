@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { EditorAppearance } from '../editor-configuration';
+import { type EditorAppearance } from '../editor-configuration';
 
 export function useRemountKey(
   appearanceMode: EditorAppearance,

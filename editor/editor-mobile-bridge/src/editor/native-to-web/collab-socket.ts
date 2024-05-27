@@ -1,7 +1,7 @@
 import { EventEmitter2 } from 'eventemitter2';
 import { toNativeBridge } from '../web-to-native';
-import { Socket } from '@atlaskit/collab-provider/types';
-import { CollabActions, CollabAnalyticsEvents } from '../../analytics/collab';
+import { type Socket } from '@atlaskit/collab-provider/types';
+import { CollabActions, type CollabAnalyticsEvents } from '../../analytics/collab';
 import {
   ActionSubject,
   ActionSubjectID,

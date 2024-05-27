@@ -6,7 +6,7 @@ import {
   gifFileId,
   docFileId,
 } from '@atlaskit/media-test-helpers';
-import { Filmstrip, FilmstripItem } from '../../src';
+import { Filmstrip, type FilmstripItem } from '../../src';
 
 const defaultMediaClient = createUploadMediaClient();
 

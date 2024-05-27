@@ -1,5 +1,5 @@
 import React, {
-  PropsWithChildren,
+  type PropsWithChildren,
   useEffect,
   useCallback,
   useState,

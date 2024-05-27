@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { components, InputProps } from 'react-select';
+import { components, type InputProps } from 'react-select';
 import type { OptionType } from '../types';
 
 export function Input<Option = OptionType, IsMulti extends boolean = false>(

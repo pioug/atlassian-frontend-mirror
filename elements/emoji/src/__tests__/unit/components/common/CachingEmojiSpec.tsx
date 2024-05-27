@@ -4,7 +4,7 @@ import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import * as sinon from 'sinon';
 import EmojiResource from '../../../../api/EmojiResource';
 import CachingEmoji from '../../../../components/common/CachingEmoji';
-import { EmojiContext } from '../../../../components/common/internal-types';
+import { type EmojiContext } from '../../../../components/common/internal-types';
 import type { EmojiContextType } from '../../../../context/EmojiContext';
 import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
 import type { EmojiDescription } from '../../../../types';

@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { extractorPriorityMap } from '../icon/priority';
 import { R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

@@ -1,6 +1,6 @@
-import { Reducer, useReducer } from 'react';
+import { type Reducer, useReducer } from 'react';
 
-import { LinkSearchListItemData } from '../../common/types';
+import { type LinkSearchListItemData } from '../../common/types';
 
 export interface PluginState {
   items: LinkSearchListItemData[] | null;

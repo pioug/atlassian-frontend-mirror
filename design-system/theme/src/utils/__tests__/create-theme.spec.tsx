@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { createTheme, ThemeProp } from '../create-theme';
+import { createTheme, type ThemeProp } from '../create-theme';
 
 interface TestTokens {
   [index: string]: boolean;

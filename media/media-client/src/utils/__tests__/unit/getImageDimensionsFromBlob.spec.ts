@@ -1,5 +1,5 @@
 import {
-  Dimensions,
+  type Dimensions,
   getImageDimensionsFromBlob,
 } from '../../getImageDimensionsFromBlob';
 

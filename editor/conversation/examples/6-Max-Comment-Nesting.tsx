@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Editor as AkEditor, EditorProps } from '@atlaskit/editor-core';
+import { type Editor as AkEditor, type EditorProps } from '@atlaskit/editor-core';
 import { MOCK_USERS } from '../example-helpers/MockData';
 import {
   getDataProviderFactory,
   MockProvider as ConversationResource,
 } from '../example-helpers/MockProvider';
 import { Conversation } from '../src';
-import { Comment as CommentType } from '../src/model';
+import { type Comment as CommentType } from '../src/model';
 
 const provider = new ConversationResource({
   url: 'http://mockservice/',

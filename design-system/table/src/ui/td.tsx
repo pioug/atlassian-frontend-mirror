@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { BaseCell, BaseCellProps } from './base-cell';
+import { BaseCell, type BaseCellProps } from './base-cell';
 
 /**
  * __Cell__

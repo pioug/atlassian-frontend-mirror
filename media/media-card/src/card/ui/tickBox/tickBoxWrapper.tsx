@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
 import { tickBoxClassName } from './styles';
-import { TickBoxProps } from './types';
+import { type TickBoxProps } from './types';
 import { css } from '@emotion/react';
 import { transition } from '../styles';
 import { B200 } from '@atlaskit/theme/colors';

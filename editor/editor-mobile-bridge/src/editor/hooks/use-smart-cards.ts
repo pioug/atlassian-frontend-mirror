@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
-import { EditorProps } from '@atlaskit/editor-core';
+import { type CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { type EditorProps } from '@atlaskit/editor-core';
 
 export function useSmartCards(
   cardProvider: Promise<CardProvider>,

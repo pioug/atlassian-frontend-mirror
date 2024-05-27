@@ -1,4 +1,4 @@
-import { UFOExperience } from '@atlaskit/ufo';
+import { type UFOExperience } from '@atlaskit/ufo';
 
 const ignoredErrorStatusCode = [401, 403, 429];
 

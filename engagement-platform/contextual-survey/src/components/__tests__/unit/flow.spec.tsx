@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
-import { FormValues } from '../../../types';
+import { type FormValues } from '../../../types';
 import ContextualSurvey, {
   AUTO_DISAPPEAR_DURATION,
 } from '../../ContextualSurvey';

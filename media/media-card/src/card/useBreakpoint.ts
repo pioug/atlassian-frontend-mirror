@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import { Breakpoint } from './ui/common';
+import { type Breakpoint } from './ui/common';
 import { calcBreakpointSize } from './ui/styles';
-import { CardDimensionValue } from '../types';
+import { type CardDimensionValue } from '../types';
 import {
   getElementDimension,
   isValidPercentageUnit,

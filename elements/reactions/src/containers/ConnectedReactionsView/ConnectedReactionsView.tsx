@@ -1,20 +1,20 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { WithSamplingUFOExperience } from '@atlaskit/emoji';
+import { type WithSamplingUFOExperience } from '@atlaskit/emoji';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
   Reactions,
   UfoErrorBoundary,
-  ReactionsProps,
-  ReactionPickerProps,
+  type ReactionsProps,
+  type ReactionPickerProps,
 } from '../../components';
 import { ufoExperiences } from '../../store';
 import {
   ReactionStatus,
-  Actions,
-  State,
-  StorePropInput,
-  OnChangeCallback,
+  type Actions,
+  type State,
+  type StorePropInput,
+  type OnChangeCallback,
 } from '../../types';
 
 export interface ConnectedReactionsViewProps

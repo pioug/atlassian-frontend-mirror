@@ -1,8 +1,8 @@
-import { AnnotationPayload, AnnotationStatePayload } from '../types';
-import { TaskState } from '@atlaskit/task-decision';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { Serialized } from '../../types';
-import RendererConfiguration from '../renderer-configuration';
+import { type AnnotationPayload, type AnnotationStatePayload } from '../types';
+import { type TaskState } from '@atlaskit/task-decision';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type Serialized } from '../../types';
+import type RendererConfiguration from '../renderer-configuration';
 
 export enum ScrollToContentNode {
   MENTION = 'mention',

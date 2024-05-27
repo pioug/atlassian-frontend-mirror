@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { pluginKey } from './plugin-key';
 import type { WidthPluginState } from './types';

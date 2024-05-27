@@ -1,4 +1,4 @@
-import { WithFileAttributes, OperationalEventPayload } from './types';
+import { type WithFileAttributes, type OperationalEventPayload } from './types';
 import isValidId from 'uuid-validate';
 import { produce } from 'immer';
 type PayloadWithFileAttributes = OperationalEventPayload<

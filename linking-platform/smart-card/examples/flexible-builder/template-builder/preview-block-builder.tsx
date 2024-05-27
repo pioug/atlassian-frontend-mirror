@@ -1,5 +1,5 @@
 import React from 'react';
-import { BlockBuilderProps } from '../types';
+import { type BlockBuilderProps } from '../types';
 import SelectOption from './inputs/select-option';
 import CheckboxOption from './inputs/checkbox-option';
 import { MediaPlacement } from '../../../src';

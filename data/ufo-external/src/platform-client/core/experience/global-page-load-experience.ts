@@ -1,8 +1,8 @@
-import { PageLoadExperienceData } from '../../../types';
+import { type PageLoadExperienceData } from '../../../types';
 import { untilAll } from '../../utils/until-helpers';
 
 import {
-  AbstractExperienceConfig,
+  type AbstractExperienceConfig,
   perfNowOrTimestamp,
   UFOAbstractExperience,
 } from './abstract-experience';

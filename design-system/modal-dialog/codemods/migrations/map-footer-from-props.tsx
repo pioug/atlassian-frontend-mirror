@@ -1,11 +1,12 @@
-import core, {
+import type {
   ASTPath,
+  default as core,
   JSXElement,
   JSXExpressionContainer,
   JSXFragment,
   JSXSpreadChild,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import { getDefaultSpecifier } from '@atlaskit/codemod-utils';
 

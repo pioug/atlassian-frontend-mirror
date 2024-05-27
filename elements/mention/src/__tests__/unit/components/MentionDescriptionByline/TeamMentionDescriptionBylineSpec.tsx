@@ -2,7 +2,7 @@ import { render } from 'enzyme';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import TeamMentionDescriptionByline from '../../../../components/MentionDescriptionByline';
-import { MentionDescription } from '../../../..//types';
+import { type MentionDescription } from '../../../..//types';
 import { teamMention } from './_commonData';
 
 const renderByline = (teamData: MentionDescription) => {

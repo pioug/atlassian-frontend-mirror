@@ -1,4 +1,4 @@
-import { BlockProps, ElementItem } from '../types';
+import { type BlockProps, type ElementItem } from '../types';
 
 export type MetadataBlockProps = {
   /**

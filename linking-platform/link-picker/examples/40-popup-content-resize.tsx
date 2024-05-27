@@ -6,7 +6,7 @@ import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
-import { LinkPicker, LinkPickerState } from '../src';
+import { LinkPicker, type LinkPickerState } from '../src';
 import { MockLinkPickerPromisePlugin } from '../src/__tests__/__helpers/mock-plugins';
 
 /**

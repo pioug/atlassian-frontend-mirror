@@ -1,17 +1,17 @@
-import { FileState, RequestMetadata } from '@atlaskit/media-client';
+import { type FileState, type RequestMetadata } from '@atlaskit/media-client';
 
 import {
-  FileAttributes,
-  WithFileAttributes,
-  FailureAttributes,
+  type FileAttributes,
+  type WithFileAttributes,
+  type FailureAttributes,
   ANALYTICS_MEDIA_CHANNEL,
-  WithTraceContext,
+  type WithTraceContext,
   sanitiseAnalyticsPayload,
 } from '@atlaskit/media-common/analytics';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { PrimaryErrorReason } from '../errors';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type PrimaryErrorReason } from '../errors';
 
-import { MediaViewerEventPayload } from './events';
+import { type MediaViewerEventPayload } from './events';
 
 const componentName = 'mediaViewer';
 const packageName = process.env._PACKAGE_NAME_ as string;

@@ -10,11 +10,11 @@ import Toggle from '@atlaskit/toggle';
 import Spinner from '@atlaskit/spinner';
 import { Clipboard } from '../src';
 import {
-  ImagePreview,
-  UploadPreviewUpdateEventPayload,
-  UploadEndEventPayload,
-  UploadsStartEventPayload,
-  UploadErrorEventPayload,
+  type ImagePreview,
+  type UploadPreviewUpdateEventPayload,
+  type UploadEndEventPayload,
+  type UploadsStartEventPayload,
+  type UploadErrorEventPayload,
 } from '../src/types';
 import {
   MainWrapper,

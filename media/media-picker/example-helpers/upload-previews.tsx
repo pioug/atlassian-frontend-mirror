@@ -1,16 +1,16 @@
 import React from 'react';
 import { UploadPreview } from './upload-preview';
 import {
-  UploadsStartEventPayload,
-  UploadPreviewUpdateEventPayload,
-  UploadErrorEventPayload,
+  type UploadsStartEventPayload,
+  type UploadPreviewUpdateEventPayload,
+  type UploadErrorEventPayload,
 } from '../src/types';
 import {
   PreviewsTitle,
   PreviewsWrapper,
   UploadPreviewsFlexRow,
 } from './stylesWrapper';
-import { PreviewData } from './types';
+import { type PreviewData } from './types';
 
 export interface PreviewsDataState {
   previewsData: PreviewData[];

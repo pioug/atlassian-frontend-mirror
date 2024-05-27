@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, ReactNode } from 'react';
+import { Component, type ReactNode } from 'react';
 import {
   createStorybookMediaClient,
   imageFileId,
@@ -9,7 +9,7 @@ import {
   animatedFileId,
 } from '../src/test-helpers';
 import uuid from 'uuid/v4';
-import { FileState } from '../src';
+import { type FileState } from '../src';
 import { FileStateWrapper } from '../example-helpers/stylesWrapper';
 
 export interface ExampleState {

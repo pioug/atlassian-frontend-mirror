@@ -1,4 +1,4 @@
-import { Component, ComponentType } from 'react';
+import { Component, type ComponentType } from 'react';
 
 import type { EmojiProvider } from '../../api/EmojiResource';
 

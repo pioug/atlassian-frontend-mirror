@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css } from '@emotion/react';
 import { B400, N500, N800 } from '@atlaskit/theme/colors';
-import { ThemeColorModes, token } from '@atlaskit/tokens';
+import { type ThemeColorModes, token } from '@atlaskit/tokens';
 
 import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
 

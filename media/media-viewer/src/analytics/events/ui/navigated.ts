@@ -1,10 +1,10 @@
 import {
-  UIEventPayload,
-  UIAttributes,
-  WithFileAttributes,
+  type UIEventPayload,
+  type UIAttributes,
+  type WithFileAttributes,
 } from '@atlaskit/media-common';
-import { Identifier, isFileIdentifier } from '@atlaskit/media-client';
-import { NavigationDirection, NavigationSource } from '../../../navigation';
+import { type Identifier, isFileIdentifier } from '@atlaskit/media-client';
+import { type NavigationDirection, type NavigationSource } from '../../../navigation';
 
 export type NavigatedAttributes = UIAttributes &
   WithFileAttributes & {

@@ -3,7 +3,7 @@ import React from 'react';
 import { messages } from '../../../../../../messages';
 import Block from '../../block';
 import RelatedUrlsList from './related-url-list';
-import { RelatedUrlsProps } from './types';
+import { type RelatedUrlsProps } from './types';
 
 export const RelatedUrlsResolvedView: React.FC<RelatedUrlsProps> = ({
   relatedUrlsResponse: { resolvedResults },

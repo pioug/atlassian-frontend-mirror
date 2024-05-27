@@ -1,4 +1,4 @@
-import { FileState, isProcessedFileState } from '@atlaskit/media-client';
+import { type FileState, isProcessedFileState } from '@atlaskit/media-client';
 import { isVideoMimeTypeSupportedByBrowser } from '@atlaskit/media-common';
 
 export const videoIsPlayable = (

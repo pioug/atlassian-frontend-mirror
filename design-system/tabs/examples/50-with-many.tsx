@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Tabs, { Tab, TabList, TabPanel } from '../src';
-import { OnChangeCallback } from '../src/types';
+import { type OnChangeCallback } from '../src/types';
 
 import { Panel } from './shared';
 

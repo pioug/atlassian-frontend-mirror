@@ -2,7 +2,7 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 import LozengeActionItemsGroup from '../../src/view/FlexibleCard/components/elements/lozenge/lozenge-action/lozenge-action-items-group';
-import { LozengeItem } from '../../src/view/FlexibleCard/components/elements/lozenge/lozenge-action/types';
+import { type LozengeItem } from '../../src/view/FlexibleCard/components/elements/lozenge/lozenge-action/types';
 
 const items: LozengeItem[] = [
   { id: '1', text: 'In Progress', appearance: 'inprogress' },

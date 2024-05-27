@@ -5,7 +5,7 @@ import { N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { akEditorSelectedBoxShadow } from '@atlaskit/editor-shared-styles/consts';
 
-import { CardDimensions, CardAppearance } from '../../types';
+import { type CardDimensions, type CardAppearance } from '../../types';
 import { getCSSUnitValue } from '../../utils/getCSSUnitValue';
 import { getDefaultCardDimensions } from '../../utils/cardDimensions';
 import { tickBoxClassName, tickboxFixedStyles } from './tickBox/styles';
@@ -15,7 +15,7 @@ import {
 } from './playButton/styles';
 
 import { Breakpoint, responsiveSettings } from './common';
-import { MediaCardCursor } from '../../types';
+import { type MediaCardCursor } from '../../types';
 
 type BreakpointSize = [Breakpoint, number];
 

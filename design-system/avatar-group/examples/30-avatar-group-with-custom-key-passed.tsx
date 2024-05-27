@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import styled from '@emotion/styled';
 
-import { AppearanceType, SizeType } from '@atlaskit/avatar';
+import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 

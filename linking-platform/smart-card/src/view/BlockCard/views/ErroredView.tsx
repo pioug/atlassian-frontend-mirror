@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { MouseEvent, useMemo } from 'react';
+import { type MouseEvent, useMemo } from 'react';
 import { R300 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
@@ -15,7 +15,7 @@ import { ContentHeader } from '../components/ContentHeader';
 import { handleClickCommon } from '../utils/handlers';
 import { Link } from '../components/Link';
 import { UnresolvedText } from '../components/UnresolvedText';
-import { ActionProps } from '../components/Action';
+import { type ActionProps } from '../components/Action';
 import { RetryAction } from '../actions/RetryAction';
 import { token } from '@atlaskit/tokens';
 

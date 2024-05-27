@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import React, { ErrorInfo } from 'react';
+import React, { type ErrorInfo } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import TableTree, {
@@ -11,7 +11,7 @@ import TableTree, {
   Cell,
 } from '@atlaskit/table-tree';
 import { CardClient as SmartCardClient } from '@atlaskit/link-provider';
-import { Provider, Card, CardAppearance, CardContext } from '../src';
+import { Provider, Card, type CardAppearance, type CardContext } from '../src';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import { IntlProvider } from 'react-intl-next';
 import { ufologger } from '@atlaskit/ufo';

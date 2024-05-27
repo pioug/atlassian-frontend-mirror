@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import React from 'react';
-import { PureComponent, ReactNode } from 'react';
+import { PureComponent, type ReactNode } from 'react';
 import { jsx } from '@emotion/react';
 import { listStyles } from './styles';
 

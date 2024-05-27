@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { type Observable } from 'rxjs/Observable';
 
 export interface SlicenatorOptions {
   size: number;

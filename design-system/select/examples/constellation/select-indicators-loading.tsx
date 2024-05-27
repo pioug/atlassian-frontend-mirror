@@ -3,7 +3,7 @@ import { Label } from '@atlaskit/form';
 import Spinner from '@atlaskit/spinner';
 import { cities } from '../common/data';
 import { AsyncSelect } from '../../src';
-import { OptionType, LoadingIndicatorProps } from '../../src/types';
+import { type OptionType, type LoadingIndicatorProps } from '../../src/types';
 
 const LoadingIndicator = (props: LoadingIndicatorProps<OptionType>) => {
   return <Spinner {...props} />;

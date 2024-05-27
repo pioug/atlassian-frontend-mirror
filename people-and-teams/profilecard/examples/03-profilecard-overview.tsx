@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 import { ProfileCard } from '../src';
 import { profiles } from '../src/mocks';
 import { reportingLinesData } from '../src/mocks/reporting-lines-data';
-import { ProfilecardProps, ReportingLinesUser } from '../src/types';
+import { type ProfilecardProps, type ReportingLinesUser } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
 

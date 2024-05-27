@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ChangeEvent, Fragment, useState } from 'react';
+import { type ChangeEvent, Fragment, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

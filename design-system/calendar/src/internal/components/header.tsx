@@ -10,7 +10,7 @@ import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
 import { Box, Inline } from '@atlaskit/primitives';
 
 import useUniqueId from '../../internal/hooks/use-unique-id';
-import { TabIndex } from '../../types';
+import { type TabIndex } from '../../types';
 
 interface HeaderProps {
   monthLongTitle: string;

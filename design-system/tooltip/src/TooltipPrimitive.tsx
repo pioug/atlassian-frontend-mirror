@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { CSSProperties, forwardRef, ReactNode } from 'react';
+import { type CSSProperties, forwardRef, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { layers } from '@atlaskit/theme/constants';
 
-import { PositionType } from './types';
+import { type PositionType } from './types';
 
 export interface TooltipPrimitiveProps {
   truncate?: boolean;

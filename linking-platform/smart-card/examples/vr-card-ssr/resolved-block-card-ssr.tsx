@@ -9,7 +9,7 @@ import {
 } from '../../src';
 import { CardSSR } from '../../src/ssr';
 import { url, cardState } from '../utils/smart-card-ssr-state';
-import { CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
 
 const storeOptions: CardProviderStoreOpts = {
   initialState: {

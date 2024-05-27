@@ -1,4 +1,4 @@
-import { expect, Page, test } from '@af/integration-testing';
+import { expect, type Page, test } from '@af/integration-testing';
 
 const leftSidebar = "[data-testid='left-sidebar']";
 const rightSidebar = "[data-testid='right-sidebar']";

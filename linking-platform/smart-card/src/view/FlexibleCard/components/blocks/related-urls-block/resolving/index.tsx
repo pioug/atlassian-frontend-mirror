@@ -2,7 +2,7 @@ import React from 'react';
 
 import LoadingSkeleton from '../../../common/loading-skeleton';
 import Block from '../../block';
-import { BlockProps } from '../../types';
+import { type BlockProps } from '../../types';
 
 export const RelatedUrlsBlockResolvingView: React.FC<
   BlockProps & { testId?: string }

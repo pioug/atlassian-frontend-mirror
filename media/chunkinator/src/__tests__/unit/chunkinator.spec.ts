@@ -1,4 +1,4 @@
-import { Options } from '../../domain';
+import { type Options } from '../../domain';
 
 import { chunkinator } from '../../chunkinator';
 

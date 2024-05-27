@@ -1,13 +1,13 @@
 import './card-states.card.test.mock';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import * as analytics from '../../../utils/analytics';
 import React from 'react';
 import { render, waitFor, act, fireEvent } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
+import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import '@atlaskit/link-test-helpers/jest';
 import { Card } from '../../Card';

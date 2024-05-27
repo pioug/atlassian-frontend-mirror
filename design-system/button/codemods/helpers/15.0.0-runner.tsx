@@ -1,6 +1,6 @@
-import { NodePath } from 'ast-types/lib/node-path';
-import core, { FileInfo, JSXElement } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type NodePath } from 'ast-types/lib/node-path';
+import type { default as core, FileInfo, JSXElement } from 'jscodeshift';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
   addToImport,

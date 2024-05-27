@@ -1,8 +1,8 @@
-import { KeyboardEvent } from 'react';
+import { type KeyboardEvent } from 'react';
 
-import { ActivityItem, ActivityProvider } from '@atlaskit/activity-provider';
+import { type ActivityItem, type ActivityProvider } from '@atlaskit/activity-provider';
 
-import { INPUT_METHOD } from '../../analytics';
+import { type INPUT_METHOD } from '../../analytics';
 
 export type RecentSearchInputTypes =
   | INPUT_METHOD.TYPEAHEAD

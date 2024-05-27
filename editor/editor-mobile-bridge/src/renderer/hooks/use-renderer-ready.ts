@@ -1,4 +1,5 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import type React from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { toNativeBridge } from '../web-to-native/implementation';
 
 /**

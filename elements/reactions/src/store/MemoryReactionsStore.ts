@@ -1,4 +1,4 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   createAndFireSafe,
   createRestFailedEvent,

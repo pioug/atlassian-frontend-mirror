@@ -1,5 +1,5 @@
 import { NODE_TYPE_OPERAND, OPERAND_TYPE_VALUE } from '../constants';
-import { JastListener, JastVisitor, Position, ValueOperand } from '../types';
+import { type JastListener, type JastVisitor, type Position, type ValueOperand } from '../types';
 import { normaliseJqlString, sanitiseJqlString } from '../utils';
 
 import { noChildren } from './common';

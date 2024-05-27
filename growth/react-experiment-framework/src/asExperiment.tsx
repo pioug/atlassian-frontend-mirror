@@ -1,12 +1,12 @@
-import React, { Component, Fragment, ComponentType } from 'react';
+import React, { Component, Fragment, type ComponentType } from 'react';
 
 import CohortTracker from './CohortTracker';
 import { ExperimentConsumer } from './ExperimentContext';
 import {
-  Experiments,
-  ExposureDetails,
-  ExperimentEnrollmentOptions,
-  EnrollmentOptions,
+  type Experiments,
+  type ExposureDetails,
+  type ExperimentEnrollmentOptions,
+  type EnrollmentOptions,
 } from './types';
 
 type State = {

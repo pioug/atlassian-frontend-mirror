@@ -1,9 +1,9 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
-import { FormatDateOptions, IntlShape, useIntl } from 'react-intl-next';
+import { type FormatDateOptions, type IntlShape, useIntl } from 'react-intl-next';
 
-import { DateTimeType, DateType, TimeType } from '@atlaskit/linking-types';
+import { type DateTimeType, type DateType, type TimeType } from '@atlaskit/linking-types';
 
 import { fieldTextFontSize } from '../../styled';
 

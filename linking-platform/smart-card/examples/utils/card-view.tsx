@@ -1,5 +1,5 @@
-import { ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
-import { Card, CardProps } from '@atlaskit/smart-card';
+import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
+import { Card, type CardProps } from '@atlaskit/smart-card';
 import React from 'react';
 
 export type CardViewProps = {

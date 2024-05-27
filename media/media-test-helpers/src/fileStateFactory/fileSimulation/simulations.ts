@@ -1,6 +1,6 @@
-import { FileStateFactory } from '../factory';
+import { type FileStateFactory } from '../factory';
 import { sleep } from '../../nextTick';
-import { Simulation } from './fileSimulation';
+import { type Simulation } from './fileSimulation';
 
 const speed = 1500;
 

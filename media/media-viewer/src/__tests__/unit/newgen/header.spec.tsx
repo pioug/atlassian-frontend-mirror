@@ -1,9 +1,9 @@
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 import {
-  MediaType,
-  FileState,
-  Identifier,
+  type MediaType,
+  type FileState,
+  type Identifier,
   createMediaSubscribable,
 } from '@atlaskit/media-client';
 import DownloadIcon from '@atlaskit/icon/glyph/download';

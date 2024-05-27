@@ -1,14 +1,14 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
-import { SyntheticEvent } from 'react';
-import { Identifier } from '@atlaskit/media-client';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type SyntheticEvent } from 'react';
+import { type Identifier } from '@atlaskit/media-client';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   IntlProvider,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { Shortcut } from '@atlaskit/media-ui';
-import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fireAnalytics } from '../analytics';
 import { createModalEvent } from '../analytics/events/screen/modal';
 import { createClosedEvent } from '../analytics/events/ui/closed';
@@ -16,7 +16,7 @@ import { ListV2 } from './list-v2';
 import { Content } from '../content';
 import { Blanket, SidebarWrapper } from '../styleWrappers';
 import { start } from 'perf-marks';
-import { MediaViewerExtensions } from '../components/types';
+import { type MediaViewerExtensions } from '../components/types';
 import { mediaViewerPopupClass } from '../classnames';
 import ScrollLock from 'react-scrolllock';
 import FocusLock from 'react-focus-lock';

@@ -3,11 +3,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { ValueType } from '@atlaskit/select';
+import { type ValueType } from '@atlaskit/select';
 
 import { FilterPopupSelect } from '../../../../common/modal/popup-select';
 import { SEARCH_DEBOUNCE_MS } from '../../../../common/modal/popup-select/constants';
-import { SelectOption } from '../../../../common/modal/popup-select/types';
+import { type SelectOption } from '../../../../common/modal/popup-select/types';
 import { useCurrentUserInfo } from '../../hooks/useCurrentUserInfo';
 import useRecommendation from '../../hooks/useRecommendation';
 import { CLOLBasicFilters } from '../../types';

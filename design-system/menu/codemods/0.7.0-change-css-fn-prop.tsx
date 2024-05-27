@@ -1,7 +1,8 @@
-import { NodePath } from 'ast-types/lib/node-path';
-import core, {
+import { type NodePath } from 'ast-types/lib/node-path';
+import type {
   API,
   ASTPath,
+  default as core,
   FileInfo,
   ImportDeclaration,
   ImportSpecifier,

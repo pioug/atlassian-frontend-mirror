@@ -1,4 +1,4 @@
-import { BlockProps } from '../types';
+import { type BlockProps } from '../types';
 
 export type SnippetBlockProps = {
   /**

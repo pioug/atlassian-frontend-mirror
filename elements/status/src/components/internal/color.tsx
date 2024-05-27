@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
 import { ANALYTICS_HOVER_DELAY } from '../constants';
 import { messages } from '../i18n';
-import { Color as ColorType } from '../Status';
+import { type Color as ColorType } from '../Status';
 
 const buttonStyles = css`
   height: 24px;

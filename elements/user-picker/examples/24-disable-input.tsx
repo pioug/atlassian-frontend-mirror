@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
-import UserPicker, { OptionData, Value } from '../src';
+import UserPicker, { type OptionData, type Value } from '../src';
 
 const Example = () => {
   const [selectedUser, setSelectedUser] = useState<Value>();

@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { type FC } from 'react';
 import { di } from 'react-magnetic-di';
 import { css, jsx } from '@emotion/react';
 import { getIframeSandboxAttribute } from '../../../../utils';
-import { EmbedProps } from './types';
+import { type EmbedProps } from './types';
 import { IFrame } from '../../../EmbedCard/components/IFrame';
 
 const iframeCss = css({

@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs/Subscription';
-import { MediaSubscribable } from './types';
-import { FileState } from '@atlaskit/media-state';
+import { type MediaSubscribable } from './types';
+import { type FileState } from '@atlaskit/media-state';
 /**
  * This is a helper to transform the first value emitted by an MediaSubscribable into a Promise.
  *

@@ -1,11 +1,11 @@
 import {
-  UploadEndEventPayload,
-  UploadErrorEventPayload,
-  UploadPreviewUpdateEventPayload,
-  UploadsStartEventPayload,
-  UploadParams,
-  UploadRejectionData,
-  FileEmptyData,
+  type UploadEndEventPayload,
+  type UploadErrorEventPayload,
+  type UploadPreviewUpdateEventPayload,
+  type UploadsStartEventPayload,
+  type UploadParams,
+  type UploadRejectionData,
+  type FileEmptyData,
 } from '../types';
 
 export type UploadServiceEventPayloadTypes = {

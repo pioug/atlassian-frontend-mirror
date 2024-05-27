@@ -3,7 +3,7 @@ import { CONTAINER_PADDING } from '../../image-cropper/styles';
 jest.mock('../../util');
 import { asMock, mockCanvas } from '@atlaskit/media-test-helpers';
 import { getCanvas } from '../../util';
-import { cropToDataURI, Rect } from '../../image-cropper/crop-to-data-uri';
+import { cropToDataURI, type Rect } from '../../image-cropper/crop-to-data-uri';
 
 describe('cropToDataURI()', () => {
   let mockImage: HTMLImageElement;

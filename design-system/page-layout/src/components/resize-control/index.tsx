@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import {
-  ElementType,
+  type ElementType,
   Fragment,
-  KeyboardEvent as ReactKeyboardEvent,
-  MouseEvent as ReactMouseEvent,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
   useCallback,
   useContext,
   useEffect,
@@ -13,7 +13,7 @@ import {
 } from 'react';
 
 import { css, Global, jsx } from '@emotion/react';
-import { bindAll, UnbindFn } from 'bind-event-listener';
+import { bindAll, type UnbindFn } from 'bind-event-listener';
 import rafSchd from 'raf-schd';
 
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
@@ -31,7 +31,7 @@ import {
   getLeftSidebarPercentage,
 } from '../../common/utils';
 import {
-  LeftSidebarState,
+  type LeftSidebarState,
   SidebarResizeContext,
 } from '../../controllers/sidebar-resize-context';
 /* import useUpdateCssVar from '../../controllers/use-update-css-vars'; */
@@ -39,7 +39,7 @@ import {
 import GrabArea from './grab-area';
 import ResizeButton from './resize-button';
 import Shadow from './shadow';
-import { ResizeButtonProps, ResizeControlProps } from './types';
+import { type ResizeButtonProps, type ResizeControlProps } from './types';
 
 const cssSelector = { [RESIZE_CONTROL_SELECTOR]: true };
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Mark as PMMark,
-  Node as PMNode,
+  type Mark as PMMark,
+  type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
-import { RendererContext } from '../types';
-import { ExtensionLayout } from '@atlaskit/adf-schema';
+import { type RendererContext } from '../types';
+import { type ExtensionLayout } from '@atlaskit/adf-schema';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { type ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { overflowShadow, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';

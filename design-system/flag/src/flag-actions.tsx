@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-nested-styles */
 /** @jsx jsx */
-import { ComponentType, CSSProperties, FC } from 'react';
+import { type ComponentType, type CSSProperties, type FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 

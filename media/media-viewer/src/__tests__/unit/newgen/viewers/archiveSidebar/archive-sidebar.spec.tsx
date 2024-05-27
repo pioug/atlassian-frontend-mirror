@@ -14,12 +14,12 @@ import { mount } from 'enzyme';
 import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
 import {
   ArchiveSidebar,
-  ArchiveSidebarProps,
-  ArchiveSidebarState,
+  type ArchiveSidebarProps,
+  type ArchiveSidebarState,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar';
 import { ArchiveSidebarFolderEntry } from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
 import { ArchiveSidebarHeader } from '../../../../../viewers/archiveSidebar/archive-sidebar-header';
-import { ZipEntry } from 'unzipit';
+import { type ZipEntry } from 'unzipit';
 
 describe('ArchiveSidebar', () => {
   const mediaClient = fakeMediaClient();

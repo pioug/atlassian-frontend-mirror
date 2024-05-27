@@ -22,7 +22,7 @@
   },
   "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
   "dependencies": {
-    "@atlaskit/button": "^17.16.0",
+    "@atlaskit/button": "^17.17.0",
     "@atlaskit/code": "^15.2.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/section-message": "^6.5.0",

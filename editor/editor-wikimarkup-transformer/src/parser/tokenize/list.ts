@@ -1,9 +1,9 @@
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { getType as getListType, ListBuilder } from '../builder/list-builder';
 import { parseString } from '../text';
 import { normalizePMNodes } from '../utils/normalize';
 import { parseMacroKeyword } from './keyword';
-import { Token, TokenType, parseToken, TokenParser } from './';
+import { type Token, TokenType, parseToken, type TokenParser } from './';
 import { parseNewlineOnly } from './whitespace';
 import { hasAnyOfMarks } from '../utils/text';
 

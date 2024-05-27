@@ -2,20 +2,20 @@ import React, { Fragment, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import {
-  ActionTypes,
-  OnChange,
-  OnInputChange,
-  Value,
-  OptionData,
-  ExternalUser,
-  User,
-  Team,
+  type ActionTypes,
+  type OnChange,
+  type OnInputChange,
+  type Value,
+  type OptionData,
+  type ExternalUser,
+  type User,
+  type Team,
 } from '@atlaskit/user-picker';
 import SmartUserPicker from '../src';
 import Textfield from '@atlaskit/textfield';
 import Select from '@atlaskit/select';
 import Button from '@atlaskit/button/standard-button';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { options } from '../example-helpers/options';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints';

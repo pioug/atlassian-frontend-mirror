@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { ActivityProvider } from '@atlaskit/activity-provider';
+import { type ActivityProvider } from '@atlaskit/activity-provider';
 
-import { ProviderFactory, WithProviders } from '../../provider-factory';
+import { type ProviderFactory, WithProviders } from '../../provider-factory';
 // eslint-disable-next-line no-duplicate-imports
 import type { Providers } from '../../provider-factory';
 import type { Diff } from '../../utils';

@@ -4,8 +4,8 @@ import type { EmojiProvider } from '../../api/EmojiResource';
 import type { RelativePosition } from '../../types';
 import debug from '../../util/logger';
 import LoadingEmojiComponent, {
-  Props as LoadingProps,
-  State as LoadingState,
+  type Props as LoadingProps,
+  type State as LoadingState,
 } from '../common/LoadingEmojiComponent';
 import Popup from '../common/Popup';
 import type EmojiTypeAheadComponent from './EmojiTypeAheadComponent';

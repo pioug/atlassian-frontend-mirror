@@ -36,6 +36,9 @@
       "path": "../editor-common/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
+    },
+    {
       "path": "../editor-tables/tsconfig.app.json"
     },
     {

@@ -11,7 +11,7 @@ import {
   ExperiencePerformanceTypes,
   ExperienceTypes,
 } from '@atlaskit/ufo';
-import { JestFunction } from '@atlaskit/media-test-helpers';
+import { type JestFunction } from '@atlaskit/media-test-helpers';
 import 'jest-extended';
 import type {
   startUfoExperience as StartUfoExperienceType,

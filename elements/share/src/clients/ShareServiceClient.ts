@@ -1,6 +1,6 @@
-import { ServiceConfig, utils } from '@atlaskit/util-service-support';
+import { type ServiceConfig, utils } from '@atlaskit/util-service-support';
 
-import { Comment, Content, MetaData, User } from '../types';
+import { type Comment, type Content, type MetaData, type User } from '../types';
 
 export type ShareRequest = (
   content: Content,

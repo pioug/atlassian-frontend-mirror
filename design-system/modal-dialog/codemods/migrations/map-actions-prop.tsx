@@ -1,15 +1,16 @@
-import core, {
-  ArrayExpression,
-  ASTPath,
-  Collection,
-  Identifier,
-  JSXAttribute,
-  JSXElement,
-  JSXExpressionContainer,
-  ObjectExpression,
-  Property,
-  VariableDeclaration,
-  VariableDeclarator,
+import {
+  type ArrayExpression,
+  type ASTPath,
+  type Collection,
+  type default as core,
+  type Identifier,
+  type JSXAttribute,
+  type JSXElement,
+  type JSXExpressionContainer,
+  type ObjectExpression,
+  type Property,
+  type VariableDeclaration,
+  type VariableDeclarator,
 } from 'jscodeshift/src/core';
 
 import {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardClient } from '@atlaskit/link-provider';
-import { SmartCardProvider, ProviderProps } from '../state';
+import { SmartCardProvider, type ProviderProps } from '../state';
 
 const Hook = (props: { callback: Function }) => {
   props.callback();

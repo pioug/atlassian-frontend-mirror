@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from './button';
 import LoadingSpinner from './shared/loading-spinner';
-import { BaseProps } from './types';
+import { type BaseProps } from './types';
 
 export type LoadingButtonOwnProps = {
   /* Conditionally show a spinner over the top of a button */

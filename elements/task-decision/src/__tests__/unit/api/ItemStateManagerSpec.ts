@@ -4,12 +4,12 @@ import {
   ACTION_STATE_CHANGED_FPS_EVENT,
 } from '../../../api/TaskDecisionResource';
 import {
-  ObjectKey,
-  ServiceTask,
-  TaskState,
+  type ObjectKey,
+  type ServiceTask,
+  type TaskState,
   PubSubSpecialEventType,
-  PubSubClient,
-  BaseItem,
+  type PubSubClient,
+  type BaseItem,
 } from '../../../types';
 
 jest.useFakeTimers();

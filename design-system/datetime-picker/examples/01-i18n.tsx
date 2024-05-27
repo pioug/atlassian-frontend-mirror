@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
-import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
-import Select, { ValueType } from '@atlaskit/select';
+import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
+import Select, { type ValueType } from '@atlaskit/select';
 
 import {
   DatePicker,
-  DatePickerProps,
+  type DatePickerProps,
   DateTimePicker,
   TimePicker,
 } from '../src';

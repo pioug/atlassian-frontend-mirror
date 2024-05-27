@@ -8,7 +8,7 @@ import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
 import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
 
 import { IconType } from '../../../../../constants';
-import { AtlaskitIconProps } from './types';
+import { type AtlaskitIconProps } from './types';
 import { token } from '@atlaskit/tokens';
 
 // prettier-ignore

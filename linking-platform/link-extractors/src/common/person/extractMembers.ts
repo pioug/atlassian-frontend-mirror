@@ -1,7 +1,7 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import { extractPersonFromJsonLd } from './extractPerson';
-import { LinkPerson } from './types';
+import { type LinkPerson } from './types';
 
 export const extractMembers = (
   jsonLd: JsonLd.Data.Project,

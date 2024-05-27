@@ -6,7 +6,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import Info from '@atlaskit/icon/glyph/info';
 import { token } from '@atlaskit/tokens';
 
-import { CreateFlagArgs, FlagsProvider, useFlags } from '../src';
+import { type CreateFlagArgs, FlagsProvider, useFlags } from '../src';
 
 const actions = [
   {

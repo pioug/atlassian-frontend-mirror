@@ -1,4 +1,4 @@
-import React, { FC, memo, ReactNode } from 'react';
+import React, { type FC, memo, type ReactNode } from 'react';
 
 import { render } from '@testing-library/react';
 

@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { Content } from '../../../content';
 import {
   InactivityDetector,
-  WithShowControlMethodProp,
+  type WithShowControlMethodProp,
 } from '@atlaskit/media-ui';
 
 class DummyChild extends React.Component<WithShowControlMethodProp> {

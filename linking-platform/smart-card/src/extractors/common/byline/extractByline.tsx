@@ -1,5 +1,5 @@
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { FormattedRelativeTime } from 'react-intl-next';
 
 import { selectUnit } from '@formatjs/intl-utils';
@@ -9,9 +9,9 @@ import {
   extractDateUpdated,
   extractPersonCreatedBy,
   extractPersonUpdatedBy,
-  LinkPerson,
-  LinkTypeCreated,
-  LinkTypeUpdatedBy,
+  type LinkPerson,
+  type LinkTypeCreated,
+  type LinkTypeUpdatedBy,
 } from '@atlaskit/link-extractors';
 
 export const extractByline = (

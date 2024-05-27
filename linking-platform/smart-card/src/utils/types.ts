@@ -1,5 +1,5 @@
-import { GasPayload } from '@atlaskit/analytics-gas-types';
-import { CardInnerAppearance } from '../view/Card/types';
+import { type GasPayload } from '@atlaskit/analytics-gas-types';
+import { type CardInnerAppearance } from '../view/Card/types';
 
 // Types of analytics have been defined in the minimum event spec here:
 // https://hello.atlassian.net/wiki/spaces/PData/pages/367398441/Minimum+Event+Spec+-+Smart+Links

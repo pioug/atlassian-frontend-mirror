@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MutableState, Tools } from 'final-form';
+import { type MutableState, type Tools } from 'final-form';
 import { Form } from 'react-final-form';
 import { IntlProvider } from 'react-intl-next';
 

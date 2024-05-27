@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { Component } from 'react';
 
 import RadioIcon from '@atlaskit/icon/glyph/radio';
@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { OptionProps, OptionType } from '../types';
+import { type OptionProps, type OptionType } from '../types';
 
 const getPrimitiveStyles = (
   props: Omit<OptionProps, 'children' | 'innerProps' | 'innerRef'>,

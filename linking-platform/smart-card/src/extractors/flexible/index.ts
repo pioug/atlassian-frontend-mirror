@@ -1,5 +1,5 @@
-import { JsonLd } from 'json-ld-types';
-import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
+import { type JsonLd } from 'json-ld-types';
+import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { extractSummary } from '../common/primitives';
 import extractActions from './actions';
 import { extractLinkIcon } from './icon';
@@ -32,7 +32,7 @@ import {
   extractTitle,
   extractDateUpdated,
   extractDateCreated,
-  LinkTypeCreated,
+  type LinkTypeCreated,
   extractLink,
   extractPersonOwnedBy,
   extractAri,
@@ -41,9 +41,9 @@ import extractPriority from './extract-priority';
 import extractProviderIcon from './icon/extract-provider-icon';
 import extractPreview from './extract-preview';
 import extractState from './extract-state';
-import { extractLatestCommit, LinkTypeLatestCommit } from './latest-commit';
+import { extractLatestCommit, type LinkTypeLatestCommit } from './latest-commit';
 import { extractViewAction } from './actions/extract-view-action';
-import { ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
+import { type ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
 
 const extractFlexibleUiContext = ({
   id,

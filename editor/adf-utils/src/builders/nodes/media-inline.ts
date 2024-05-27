@@ -1,6 +1,6 @@
 import {
-  MediaInlineDefinition,
-  MediaInlineAttributes,
+  type MediaInlineDefinition,
+  type MediaInlineAttributes,
 } from '@atlaskit/adf-schema';
 
 export const mediaInline = (

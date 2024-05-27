@@ -1,4 +1,4 @@
-import { EmojiId } from '@atlaskit/emoji/types';
+import { type EmojiId } from '@atlaskit/emoji/types';
 
 /**
  * Initial list of emoji to pick from

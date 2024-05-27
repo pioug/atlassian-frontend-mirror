@@ -1,12 +1,12 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
 
 import {
-  LinkCreatedAttributesType,
-  LinkUpdatedAttributesType,
-  LinkDeletedAttributesType,
+  type LinkCreatedAttributesType,
+  type LinkUpdatedAttributesType,
+  type LinkDeletedAttributesType,
 } from '../common/utils/analytics/analytics.codegen';
-import { LifecycleAction, LinkDetails } from '../types';
+import { type LifecycleAction, type LinkDetails } from '../types';
 
 const getSourceEvent = (payload: Record<string, unknown>): string | null => {
   const base = (

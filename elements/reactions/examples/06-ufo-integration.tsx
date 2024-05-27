@@ -1,11 +1,11 @@
 import React from 'react';
 import { payloadPublisher } from '@atlassian/ufo';
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import {
   ConnectedReactionsView,
   ConnectedReactionPicker,
-  StorePropInput,
+  type StorePropInput,
 } from '../src';
 import { ExampleWrapper, Constants } from './utils';
 

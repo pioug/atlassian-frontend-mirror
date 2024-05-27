@@ -13,8 +13,8 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import {
   MediaClient,
-  UploadableFile,
-  UploadableFileUpfrontIds,
+  type UploadableFile,
+  type UploadableFileUpfrontIds,
 } from '@atlaskit/media-client';
 import MediaInlineCard from '../src/inline/loader';
 import { MainWrapper } from '../example-helpers';

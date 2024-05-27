@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles */
-import { Placement } from '@atlaskit/popper';
-import { xcss, XCSS } from '@atlaskit/primitives';
+import { type Placement } from '@atlaskit/popper';
+import { xcss, type XCSS } from '@atlaskit/primitives';
 
 export const placementGridPositions: {
   [placement in Placement]: XCSS;

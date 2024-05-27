@@ -1,6 +1,6 @@
-import { ModalDialogProps } from '../types';
+import { type ModalDialogProps } from '../types';
 
-import { width, WidthNames } from './constants';
+import { width, type WidthNames } from './constants';
 
 export const dialogWidth = (input?: ModalDialogProps['width']) => {
   if (!input) {

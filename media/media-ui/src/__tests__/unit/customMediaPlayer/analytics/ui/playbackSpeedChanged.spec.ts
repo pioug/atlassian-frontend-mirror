@@ -1,6 +1,6 @@
 import {
   createPlaybackSpeedChangedEvent,
-  PlaybackState,
+  type PlaybackState,
 } from '../../../../../customMediaPlayer/analytics';
 
 describe('createPlaybackSpeedChangedEvent', () => {

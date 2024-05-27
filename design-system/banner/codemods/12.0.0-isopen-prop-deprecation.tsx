@@ -1,4 +1,4 @@
-import core, { API, FileInfo, Options } from 'jscodeshift';
+import type { API, default as core, FileInfo, Options } from 'jscodeshift';
 
 import { getDefaultSpecifier } from './utils';
 

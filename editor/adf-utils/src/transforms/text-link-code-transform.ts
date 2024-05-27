@@ -1,5 +1,5 @@
 import { traverse } from '../traverse/traverse';
-import { ADFEntity } from '../types';
+import { type ADFEntity } from '../types';
 
 const hasLinkAndCodeMarks = (node: ADFEntity) => {
   const marks = node.marks?.map((mark) => mark.type);

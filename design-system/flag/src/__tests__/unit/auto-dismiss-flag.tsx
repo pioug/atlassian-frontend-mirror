@@ -5,7 +5,7 @@ import { act, fireEvent, render } from '@testing-library/react';
 import Box from '@atlaskit/primitives/box';
 
 import { AutoDismissFlag, FlagGroup } from '../../index';
-import { AutoDismissFlagProps } from '../../types';
+import { type AutoDismissFlagProps } from '../../types';
 import { AUTO_DISMISS_SECONDS } from '../../auto-dismiss-flag';
 
 describe('Auto dismiss flag', () => {

@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
-import { InlinePlayerWrapperProps } from './types';
+import { type InlinePlayerWrapperProps } from './types';
 import {
   inlinePlayerWrapperStyles,
   inlinePlayerClassName,

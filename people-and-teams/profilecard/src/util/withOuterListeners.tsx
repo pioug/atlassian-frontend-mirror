@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React, { type ComponentType } from 'react';
 
 import ReactDOM from 'react-dom';
 

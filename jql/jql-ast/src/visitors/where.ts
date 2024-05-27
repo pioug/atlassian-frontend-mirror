@@ -1,14 +1,14 @@
 import {
-  JqlAndClauseContext,
-  JqlNotClauseContext,
-  JqlOrClauseContext,
-  JqlSubClauseContext,
-  JqlWhereContext,
+  type JqlAndClauseContext,
+  type JqlNotClauseContext,
+  type JqlOrClauseContext,
+  type JqlSubClauseContext,
+  type JqlWhereContext,
 } from '@atlaskit/jql-parser';
 
 import { COMPOUND_OPERATOR_AND, COMPOUND_OPERATOR_OR } from '../constants';
 import { internalCreators } from '../creators';
-import { Clause } from '../types';
+import { type Clause } from '../types';
 import { notUndefined } from '../utils';
 
 import {

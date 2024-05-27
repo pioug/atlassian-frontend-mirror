@@ -1,9 +1,9 @@
-import React, { ReactNode, useCallback, useState } from 'react';
+import React, { type ReactNode, useCallback, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
 import { LocalePicker } from './locale-picker';
-import { Locale, locales } from './locales';
+import { type Locale, locales } from './locales';
 
 type Props = {
   children: ReactNode;

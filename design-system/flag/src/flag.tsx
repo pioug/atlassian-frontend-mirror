@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, useCallback, useEffect, useState, CSSProperties } from 'react';
+import { type FC, useCallback, useEffect, useState, type CSSProperties } from 'react';
 
 import { jsx, css } from '@emotion/react';
 

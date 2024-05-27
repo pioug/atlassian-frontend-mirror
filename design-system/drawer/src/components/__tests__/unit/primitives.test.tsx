@@ -12,7 +12,7 @@ import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 
 import DrawerPrimitive from '../../primitives';
 import { wrapperWidth } from '../../primitives/drawer-wrapper';
-import { DrawerWidth } from '../../types';
+import { type DrawerWidth } from '../../types';
 
 const DrawerContent = () => (
   <code data-testid="DrawerContents">Drawer contents</code>

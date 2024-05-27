@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { ProgressTracker, Stages } from '../../index';
+import { ProgressTracker, type Stages } from '../../index';
 
 const generateStages = ({
   count,

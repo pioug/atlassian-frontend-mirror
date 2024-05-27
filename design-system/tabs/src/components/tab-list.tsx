@@ -2,8 +2,8 @@
 import {
   Children,
   createRef,
-  KeyboardEvent,
-  ReactNode,
+  type KeyboardEvent,
+  type ReactNode,
   useCallback,
 } from 'react';
 
@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { useTabList } from '../hooks';
 import { TabContext } from '../internal/context';
 import { getTabListStyles } from '../internal/styles';
-import { TabListProps } from '../types';
+import { type TabListProps } from '../types';
 
 const baseStyles = css({
   display: 'flex',

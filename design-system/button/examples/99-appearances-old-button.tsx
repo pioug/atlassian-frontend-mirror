@@ -7,7 +7,7 @@ import { jsx } from '@emotion/react';
 import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';
 
-import { Appearance, LoadingButton as Button } from '../src';
+import { type Appearance, LoadingButton as Button } from '../src';
 
 const appearances: Appearance[] = [
   'default',

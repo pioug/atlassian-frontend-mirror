@@ -4,9 +4,9 @@ import {
   EmitterEvents,
   eventDispatcher as mobileBridgeEventDispatcher,
 } from '../dispatcher';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { getEmptyADF } from '@atlaskit/adf-utils/empty-adf';
-import { Serialized } from '../../types';
+import { type Serialized } from '../../types';
 import type { DocNode } from '@atlaskit/adf-schema';
 
 function parseContent(

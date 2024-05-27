@@ -1,5 +1,5 @@
 import memoizeOne from 'memoize-one';
-import { Serializer } from './serializer';
+import { type Serializer } from './serializer';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { getValidDocument } from '@atlaskit/editor-common/validator';
 import type { ADFStage } from '@atlaskit/editor-common/validator';
@@ -8,15 +8,15 @@ import {
   findAndTrackUnsupportedContentNodes,
 } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { AnalyticsEventPayload, PLATFORM } from './analytics/events';
+import { type AnalyticsEventPayload, PLATFORM } from './analytics/events';
 import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
-import { RendererAppearance } from './ui/Renderer/types';
+import { type RendererAppearance } from './ui/Renderer/types';
 import { transformMediaLinkMarks } from '@atlaskit/adf-utils/transforms';
 
 export interface RenderOutput<T> {

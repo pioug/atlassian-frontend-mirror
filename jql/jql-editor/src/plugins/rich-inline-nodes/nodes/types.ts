@@ -1,8 +1,8 @@
-import { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 
-import { AttributeSpec } from '@atlaskit/editor-prosemirror/model';
+import { type AttributeSpec } from '@atlaskit/editor-prosemirror/model';
 
-import { NodeViewProps } from '../util/react-node-view';
+import { type NodeViewProps } from '../util/react-node-view';
 
 export type JQLNodeSpec<Props> = {
   component: FunctionComponent<NodeViewProps<Props>>;

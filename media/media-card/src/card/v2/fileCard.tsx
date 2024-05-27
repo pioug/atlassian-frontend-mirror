@@ -1,17 +1,17 @@
 import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
+  type UIAnalyticsEvent,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
-  FileDetails,
-  FileIdentifier,
-  FileState,
+  type FileDetails,
+  type FileIdentifier,
+  type FileState,
   globalMediaEventEmitter,
-  Identifier,
-  ImageResizeMode,
-  MediaBlobUrlAttrs,
+  type Identifier,
+  type ImageResizeMode,
+  type MediaBlobUrlAttrs,
   RECENTS_COLLECTION,
   imageResizeModeToFileImageMode,
   isProcessedFileState,
@@ -24,10 +24,10 @@ import {
 import {
   getRandomHex,
   isMimeTypeSupportedByBrowser,
-  MediaFeatureFlags,
-  MediaTraceContext,
-  NumericalCardDimensions,
-  SSR,
+  type MediaFeatureFlags,
+  type MediaTraceContext,
+  type NumericalCardDimensions,
+  type SSR,
   isVideoMimeTypeSupportedByBrowser,
 } from '@atlaskit/media-common';
 import { MediaViewer } from '@atlaskit/media-viewer';
@@ -35,12 +35,12 @@ import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { MediaCardError } from '../../errors';
 import {
-  CardAppearance,
-  CardDimensions,
-  CardEventProps,
-  CardStatus,
-  FileStateFlags,
-  TitleBoxIcon,
+  type CardAppearance,
+  type CardDimensions,
+  type CardEventProps,
+  type CardStatus,
+  type FileStateFlags,
+  type TitleBoxIcon,
 } from '../../types';
 import getDocument from '../../utils/document';
 import { generateUniqueId } from '../../utils/generateUniqueId';
@@ -67,8 +67,8 @@ import { isSSRPreview } from '../getCardPreview';
 import { CardViewV2 } from './cardViewV2';
 import { CardViews } from './cardviews';
 import { InlinePlayerLazyV2 } from './inlinePlayerLazyV2';
-import { useFilePreview, MediaFilePreview } from '@atlaskit/media-file-preview';
-import { CardAction } from '../actions';
+import { useFilePreview, type MediaFilePreview } from '@atlaskit/media-file-preview';
+import { type CardAction } from '../actions';
 import { performanceNow } from './performance';
 
 export interface FileCardProps extends CardEventProps {

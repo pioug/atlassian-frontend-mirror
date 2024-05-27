@@ -1,4 +1,4 @@
-import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 
 export type ColumnPickerProps = {
   columns: DatasourceResponseSchemaProperty[];

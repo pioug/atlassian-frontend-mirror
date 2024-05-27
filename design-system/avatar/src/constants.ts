@@ -1,7 +1,7 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match, @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
-import { AvatarSizeMap, IndicatorSizeType } from './types';
+import { type AvatarSizeMap, type IndicatorSizeType } from './types';
 
 export const AVATAR_SIZES: AvatarSizeMap = {
   xsmall: gridSize() * 2,

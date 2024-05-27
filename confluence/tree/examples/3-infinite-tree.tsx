@@ -8,11 +8,11 @@ import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 import Tree, {
   mutateTree,
-  RenderItemParams,
-  TreeItem,
-  TreeData,
-  ItemId,
-  Path,
+  type RenderItemParams,
+  type TreeItem,
+  type TreeData,
+  type ItemId,
+  type Path,
 } from '../src';
 import { range } from '../src/utils/handy';
 

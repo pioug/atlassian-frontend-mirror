@@ -1,8 +1,8 @@
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import {
-  EditorState,
+  type EditorState,
   TextSelection,
-  Transaction,
+  type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
 import { findTable } from './find';

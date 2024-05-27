@@ -1,4 +1,4 @@
-import { Token, TokenParser, TokenType } from '../';
+import { type Token, type TokenParser, TokenType } from '../';
 import { parseString } from '../../text';
 import { resolveLink } from './link-resolver';
 import { parseContentLink } from './link-parser';

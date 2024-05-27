@@ -8,7 +8,7 @@ import {
   mediaSingle,
   a,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Context } from '../../../interfaces';
+import { type Context } from '../../../interfaces';
 
 const wikiContext: Context = {
   conversion: {

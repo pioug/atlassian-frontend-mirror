@@ -5,7 +5,7 @@ import {
   injectIntl,
   IntlProvider,
   useIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 

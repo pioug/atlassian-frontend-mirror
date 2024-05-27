@@ -4,10 +4,10 @@ import { render } from '@testing-library/react';
 import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl-next';
 
-import { JQLEditor, JQLEditorProps } from '@atlaskit/jql-editor';
+import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
 import {
-  GetAutocompleteInitialData,
-  GetAutocompleteSuggestions,
+  type GetAutocompleteInitialData,
+  type GetAutocompleteSuggestions,
   useAutocompleteProvider,
 } from '@atlaskit/jql-editor-autocomplete-rest';
 import {
@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
-import { JiraJQLEditor, JiraJQLEditorProps } from './index';
+import { JiraJQLEditor, type JiraJQLEditorProps } from './index';
 
 jest.mock('@atlaskit/jql-editor', () => ({
   JQLEditor: jest

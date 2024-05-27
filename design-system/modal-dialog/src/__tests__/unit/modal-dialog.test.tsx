@@ -24,7 +24,7 @@ import { width } from '../../internal/constants';
 import ModalBody from '../../modal-body';
 import ModalTransition from '../../modal-transition';
 import ModalDialog from '../../modal-wrapper';
-import { ModalDialogProps } from '../../types';
+import { type ModalDialogProps } from '../../types';
 
 jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');

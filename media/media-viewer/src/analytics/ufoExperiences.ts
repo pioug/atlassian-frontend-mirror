@@ -4,16 +4,16 @@ import {
   ExperienceTypes,
 } from '@atlaskit/ufo';
 
-import { FileAttributes } from '@atlaskit/media-common';
+import { type FileAttributes } from '@atlaskit/media-common';
 import {
   getMediaEnvironment,
   getMediaRegion,
-  RequestMetadata,
+  type RequestMetadata,
 } from '@atlaskit/media-client';
 import { getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
 
-import { PrimaryErrorReason } from '../errors';
-import { FileStateFlags } from '../components/types';
+import { type PrimaryErrorReason } from '../errors';
+import { type FileStateFlags } from '../components/types';
 
 export type UFOFailedEventPayload = {
   failReason?: PrimaryErrorReason;

@@ -18,8 +18,8 @@ import {
   makeEditActionItem,
 } from '../utils/flexible-ui';
 import FlexibleCard from '../../src/view/FlexibleCard';
-import { ActionItem, CardType } from '../../src';
-import { TitleBlockProps } from '../../src/view/FlexibleCard/components/blocks/title-block/types';
+import { type ActionItem, type CardType } from '../../src';
+import { type TitleBlockProps } from '../../src/view/FlexibleCard/components/blocks/title-block/types';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const gridStyles = css({

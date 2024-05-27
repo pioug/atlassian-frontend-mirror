@@ -1,6 +1,6 @@
 import {
   createMediaButtonClickedEvent,
-  PlaybackState,
+  type PlaybackState,
 } from '../../../../../customMediaPlayer/analytics';
 
 describe('createMediaButtonClickedEvent', () => {

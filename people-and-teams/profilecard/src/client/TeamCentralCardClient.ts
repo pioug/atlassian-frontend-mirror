@@ -1,7 +1,7 @@
 import {
-  ProfileClientOptions,
-  ReportingLinesUser,
-  TeamCentralReportingLinesData,
+  type ProfileClientOptions,
+  type ReportingLinesUser,
+  type TeamCentralReportingLinesData,
 } from '../types';
 
 import CachingClient from './CachingClient';

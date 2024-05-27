@@ -1,5 +1,5 @@
 import React from 'react';
-import Select, { components, SingleValueProps } from '@atlaskit/select';
+import Select, { components, type SingleValueProps } from '@atlaskit/select';
 
 export type Locale = {
   value: string;

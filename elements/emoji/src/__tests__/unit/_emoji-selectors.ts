@@ -1,4 +1,4 @@
-import { RenderResult, waitFor } from '@testing-library/react';
+import { type RenderResult, waitFor } from '@testing-library/react';
 import type { EnzymePropSelector, ReactWrapper } from 'enzyme';
 
 export async function getEmojiTypeAheadItemById(

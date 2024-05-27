@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
+import { type ReactWrapper } from 'enzyme';
 import * as jsverify from 'jsverify';
 import {
   createMouseEvent,
@@ -10,8 +10,8 @@ import { MAX_RESOLUTION } from '@atlaskit/media-client';
 import {
   InteractiveImgComponent,
   zoomLevelAfterResize,
-  Props,
-  State,
+  type Props,
+  type State,
 } from '../../../../../viewers/image/interactive-img';
 import { ZoomControls } from '../../../../../zoomControls';
 import {
@@ -20,7 +20,7 @@ import {
   Img,
 } from '../../../../../styleWrappers';
 import { ZoomLevel } from '../../../../../domain/zoomLevel';
-import { WrappedComponentProps } from 'react-intl-next';
+import { type WrappedComponentProps } from 'react-intl-next';
 
 interface ImageSize {
   naturalWidth: number;

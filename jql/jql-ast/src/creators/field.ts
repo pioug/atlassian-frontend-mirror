@@ -1,10 +1,10 @@
 import {
-  AstNode,
-  Field,
-  JastListener,
-  JastVisitor,
-  Position,
-  Property,
+  type AstNode,
+  type Field,
+  type JastListener,
+  type JastVisitor,
+  type Position,
+  type Property,
 } from '../types';
 import { sanitiseJqlString } from '../utils/sanitise-jql-string';
 

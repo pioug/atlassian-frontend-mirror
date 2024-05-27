@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 
-import { AutocompleteOptions, EventType } from '@atlaskit/jql-editor-common';
+import { type AutocompleteOptions, EventType } from '@atlaskit/jql-editor-common';
 
 import {
   Action,
   ActionSubject,
-  JqlEditorAutocompleteAnalyticsEvent,
+  type JqlEditorAutocompleteAnalyticsEvent,
 } from '../../analytics';
-import { GetAutocompleteSuggestions } from '../../common/types';
+import { type GetAutocompleteSuggestions } from '../../common/types';
 
 export const getAutocompleteSuggestionsUrl = (field: string, query?: string) =>
   `/rest/api/latest/jql/autocompletedata/suggestions?fieldName=${field}&fieldValue=${

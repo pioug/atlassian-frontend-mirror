@@ -15,9 +15,9 @@ import {
   ReportingLinesSection,
 } from '../../styled/ReportingLines';
 import {
-  AnalyticsWithDurationProps,
-  ProfilecardProps,
-  ReportingLinesUser,
+  type AnalyticsWithDurationProps,
+  type ProfilecardProps,
+  type ReportingLinesUser,
 } from '../../types';
 import { reportingLinesClicked } from '../../util/analytics';
 

@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 // eslint-disable-next-line no-restricted-imports
 import styled from '@emotion/styled';

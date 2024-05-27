@@ -6,12 +6,12 @@ import React, {
   useState,
 } from 'react';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
 
-import { LinkPickerProps } from '../../index';
+import { type LinkPickerProps } from '../../index';
 import { ANALYTICS_CHANNEL } from '../constants';
-import { LinkPickerAnalyticsContextType } from '../utils/analytics/analytics.codegen';
+import { type LinkPickerAnalyticsContextType } from '../utils/analytics/analytics.codegen';
 
 type AnalyticsContextAttributesType = LinkPickerAnalyticsContextType;
 

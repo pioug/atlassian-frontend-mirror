@@ -1,8 +1,8 @@
-import { MediaStoreGetFileImageParams } from '@atlaskit/media-client';
+import { type MediaStoreGetFileImageParams } from '@atlaskit/media-client';
 
-import { MediaFilePreview } from '../types';
+import { type MediaFilePreview } from '../types';
 
-import { createObjectURLCache, ObjectURLCache } from './objectURLCache';
+import { createObjectURLCache, type ObjectURLCache } from './objectURLCache';
 
 // Dimensions are used to create a key.
 // Cache is invalidated when different dimensions are provided.

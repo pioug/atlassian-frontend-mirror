@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 import InlineEdit from './inline-edit';
 import { fontSize } from './internal/constants';
-import { InlineEditableTextfieldProps } from './types';
+import { type InlineEditableTextfieldProps } from './types';
 
 const errorIconContainerStyles = css({
   paddingRight: token('space.075', '6px'),

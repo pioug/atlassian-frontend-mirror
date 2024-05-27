@@ -1,5 +1,5 @@
-import { AriaOnFocusProps, GroupBase, OptionsOrGroups } from 'react-select';
-import { GroupType, OptionType } from '../types';
+import { type AriaOnFocusProps, type GroupBase, type OptionsOrGroups } from 'react-select';
+import { type GroupType, type OptionType } from '../types';
 
 // Used for overwriting ariaLiveMessages builtin onFocus method.
 // Returns custom built string while focusing each group option. This string is used for screen reader announcement.

@@ -1,5 +1,5 @@
-import { MockContext, exactMatch, fillInResponse } from '..';
-import { MockRequest, MockResponse } from 'xhr-mock';
+import { type MockContext, exactMatch, fillInResponse } from '..';
+import { type MockRequest, type MockResponse } from 'xhr-mock';
 import { userCollection } from '../staticCommon';
 
 export const userCollectionFetch =

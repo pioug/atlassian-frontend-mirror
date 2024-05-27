@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
 import { media } from '@atlaskit/primitives/responsive';

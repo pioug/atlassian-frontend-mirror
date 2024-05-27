@@ -4,14 +4,14 @@ import { render, screen } from '@testing-library/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { ProgressTracker, Stages } from '../../index';
+import { ProgressTracker, type Stages } from '../../index';
 import {
   varSpacing,
   varTransitionDelay,
   varTransitionEasing,
   varTransitionSpeed,
 } from '../../internal/constants';
-import { Stage } from '../../types';
+import { type Stage } from '../../types';
 
 const items: Stages = [
   {

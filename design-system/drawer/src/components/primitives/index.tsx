@@ -4,6 +4,7 @@ import { useCallback, useRef } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { IconButton } from '@atlaskit/button/new';
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 import {
   ExitingPersistence,
@@ -24,7 +25,6 @@ import { createExtender } from '../utils';
 import ContentOverrides from './content';
 import DrawerWrapper from './drawer-wrapper';
 import FocusLock from './focus-lock';
-import IconButton from './icon-button';
 import SidebarOverrides from './sidebar';
 
 // Misc.
@@ -128,13 +128,15 @@ const DrawerPrimitive = ({
                   <IconButton
                     onClick={onClose}
                     testId={testId && 'DrawerPrimitiveSidebarCloseButton'}
-                  >
-                    {Icon ? (
-                      <Icon size="large" label={closeLabel} />
-                    ) : (
-                      <ArrowLeft label={closeLabel} />
-                    )}
-                  </IconButton>
+                    icon={
+                      Icon
+                        ? (iconProps) => <Icon {...iconProps} size="large" />
+                        : ArrowLeft
+                    }
+                    label={closeLabel}
+                    shape="circle"
+                    appearance="subtle"
+                  />
                 </Sidebar>
 
                 <Content {...contentOverrides}>{children}</Content>

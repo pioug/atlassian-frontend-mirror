@@ -39,6 +39,9 @@
       "path": "../blanket/tsconfig.app.json"
     },
     {
+      "path": "../button/tsconfig.app.json"
+    },
+    {
       "path": "../icon/tsconfig.app.json"
     },
     {

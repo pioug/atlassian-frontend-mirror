@@ -24,6 +24,7 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import { browser } from '@atlaskit/editor-common/utils';
+import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -31,7 +32,10 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { updateWidthToWidest } from '../commands/misc';
+import {
+  setTableAlignmentWithTableContentWithPos,
+  updateWidthToWidest,
+} from '../commands/misc';
 import { META_KEYS } from '../pm-plugins/table-analytics';
 import {
   COLUMN_MIN_WIDTH,
@@ -48,7 +52,11 @@ import {
   TABLE_HIGHLIGHT_TOLERANCE,
   TABLE_SNAP_GAP,
 } from '../ui/consts';
-import { normaliseAlignment } from '../utils/alignment';
+import {
+  ALIGN_CENTER,
+  ALIGN_START,
+  normaliseAlignment,
+} from '../utils/alignment';
 import {
   generateResizedPayload,
   generateResizeFrameRatePayloads,
@@ -68,6 +76,7 @@ interface TableResizerProps {
   width: number;
   maxWidth: number;
   containerWidth: number;
+  lineLength: number;
   updateWidth: (width: number) => void;
   editorView: EditorView;
   getPos: () => number | undefined;
@@ -92,6 +101,8 @@ export interface TableResizerImprovementProps extends TableResizerProps {
 type ResizerNextHandler = React.ElementRef<typeof ResizerNext>;
 
 const RESIZE_STEP_VALUE = 10;
+
+const FULL_WIDTH_EDITOR_CONTENT_WIDTH = 1800;
 
 const handles = { right: true };
 const handleStyles = {
@@ -160,6 +171,7 @@ export const TableResizer = ({
   width,
   maxWidth,
   containerWidth,
+  lineLength,
   updateWidth,
   onResizeStop,
   onResizeStart,
@@ -247,6 +259,34 @@ export const TableResizer = ({
       isTableAlignmentEnabled,
       containerWidth,
     ],
+  );
+
+  const switchToCenterAlignment = useCallback(
+    (pos, node, newWidth, state, dispatch) => {
+      if (
+        isTableAlignmentEnabled &&
+        node &&
+        node.attrs.layout === ALIGN_START &&
+        newWidth > lineLength &&
+        lineLength < FULL_WIDTH_EDITOR_CONTENT_WIDTH && // We don't want to switch alignment in Full-width editor
+        isResizing.current
+      ) {
+        const tableNodeWithPos = { pos, node };
+        const tr = setTableAlignmentWithTableContentWithPos(
+          ALIGN_CENTER,
+          tableNodeWithPos,
+        )(state);
+
+        if (tr) {
+          dispatch(tr);
+        }
+
+        return true;
+      }
+
+      return false;
+    },
+    [lineLength, isTableAlignmentEnabled, isResizing],
   );
 
   useEffect(() => {
@@ -378,9 +418,14 @@ export const TableResizer = ({
       const shouldUpdateWidthToWidest =
         !!isTableScalingEnabled && isFullWidthGuidelineActive;
 
-      updateWidthToWidest({
-        [currentTableNodeLocalId]: shouldUpdateWidthToWidest,
-      })(state, dispatch);
+      chainCommands(
+        (state, dispatch) => {
+          return switchToCenterAlignment(pos, node, newWidth, state, dispatch);
+        },
+        updateWidthToWidest({
+          [currentTableNodeLocalId]: shouldUpdateWidthToWidest,
+        }),
+      )(state, dispatch);
 
       updateWidth(shouldUpdateWidthToWidest ? TABLE_MAX_WIDTH : newWidth);
 
@@ -397,6 +442,7 @@ export const TableResizer = ({
       containerWidth,
       updateWidth,
       getPos,
+      switchToCenterAlignment,
     ],
   );
 
@@ -628,7 +674,7 @@ export const TableResizer = ({
   const resizeRatio =
     !isTableAlignmentEnabled ||
     (isTableAlignmentEnabled &&
-      normaliseAlignment(node.attrs.layout) === 'center')
+      normaliseAlignment(node.attrs.layout) === ALIGN_CENTER)
       ? 2
       : 1;
 

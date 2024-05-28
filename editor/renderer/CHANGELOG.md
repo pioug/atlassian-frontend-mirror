@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 109.29.5
+
+### Patch Changes
+
+-   [#103178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103178)
+    [`71c9ef285341`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/71c9ef285341) -
+    ED-22930: Support for table alignment in renderer
+
 ## 109.29.4
 
 ### Patch Changes

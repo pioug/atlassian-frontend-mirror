@@ -123,9 +123,9 @@ const WithRef = forwardRef(LinkButtonBase) as <
  *
  * Renders a link in the style of a button.
  *
- * - [Examples](https://atlassian.design/components/button/examples)
- * - [Code](https://atlassian.design/components/button/code)
- * - [Usage](https://atlassian.design/components/button/usage)
+ * - [Examples](https://atlassian.design/components/link-button/examples)
+ * - [Code](https://atlassian.design/components/link-button/code)
+ * - [Usage](https://atlassian.design/components/link-button/usage)
  */
 const LinkButton = memo(WithRef) as typeof WithRef;
 

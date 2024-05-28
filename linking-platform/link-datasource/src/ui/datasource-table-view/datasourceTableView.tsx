@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
@@ -13,6 +12,7 @@ import { startUfoExperience } from '../../analytics/ufoExperiences';
 import { useColumnPickerRenderedFailedUfoExperience } from '../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
 import { useDataRenderedUfoExperience } from '../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { fetchMessagesForLocale } from '../../common/utils/locale/fetch-messages-for-locale';
+import { DatasourceExperienceIdProvider, useDatasourceExperienceId } from '../../contexts/datasource-experience-id';
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import i18nEN from '../../i18n/en';
 import { ScrollableContainerHeight } from '../../ui/issue-like-table/styled';
@@ -62,7 +62,7 @@ const DatasourceTableViewWithoutAnalytics = ({
   });
 
   const { fireEvent } = useDatasourceAnalyticsEvents();
-  const { current: tableRenderInstanceId } = useRef(uuidv4());
+  const experienceId = useDatasourceExperienceId();
 
   const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
 
@@ -124,22 +124,22 @@ const DatasourceTableViewWithoutAnalytics = ({
         {
           name: 'datasource-rendered',
         },
-        tableRenderInstanceId,
+        experienceId,
       );
     }
   }, [
     datasourceId,
     parameters,
     status,
-    tableRenderInstanceId,
+    experienceId,
     visibleColumnKeys,
   ]);
 
-  useColumnPickerRenderedFailedUfoExperience(status, tableRenderInstanceId);
+  useColumnPickerRenderedFailedUfoExperience(status, experienceId);
 
   useDataRenderedUfoExperience({
     status,
-    experienceId: tableRenderInstanceId,
+    experienceId: experienceId,
     itemCount: responseItems.length,
     extensionKey,
   });
@@ -193,6 +193,7 @@ const DatasourceTableViewWithoutAnalytics = ({
       loaderFn={fetchMessagesForLocale}
     >
       {/* datasource-table classname is to exclude all children from being commentable - exclude list is in CFE*/}
+      {/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop */}
       <div css={containerStyles} className="datasource-table">
         {hasColumns ? (
           <IssueLikeDataTableView
@@ -210,7 +211,6 @@ const DatasourceTableViewWithoutAnalytics = ({
             wrappedColumnKeys={wrappedColumnKeys}
             onWrappedColumnChange={onWrappedColumnChange}
             scrollableContainerHeight={ScrollableContainerHeight}
-            parentContainerRenderInstanceId={tableRenderInstanceId}
             extensionKey={extensionKey}
           />
         ) : (
@@ -230,4 +230,8 @@ const DatasourceTableViewWithoutAnalytics = ({
 
 export const DatasourceTableView = withAnalyticsContext(
   componentMetadata.tableView,
-)(DatasourceTableViewWithoutAnalytics);
+)((props: DatasourceTableViewProps) => (
+  <DatasourceExperienceIdProvider>
+    <DatasourceTableViewWithoutAnalytics {...props} />
+  </DatasourceExperienceIdProvider>
+));

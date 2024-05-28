@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 193.23.1
+
+### Patch Changes
+
+-   [#103741](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103741)
+    [`fb1acc6fb09b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb1acc6fb09b) -
+    Remove inline image preview ff
+
 ## 193.23.0
 
 ### Minor Changes

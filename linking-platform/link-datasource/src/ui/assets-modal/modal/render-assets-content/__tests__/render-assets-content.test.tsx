@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
+import { DatasourceExperienceIdProvider } from '../../../../../contexts/datasource-experience-id';
 import { RenderAssetsContent, type RenderAssetsContentProps } from '../index';
 
 describe('AssetsConfigModal', () => {
@@ -15,50 +16,51 @@ describe('AssetsConfigModal', () => {
       (visibleColumnKeys: string[]) => {},
     );
     const component = render(
-      <IntlProvider locale="en">
-        <SmartCardProvider client={new CardClient()}>
-          <RenderAssetsContent
-            isFetchingInitialData={props.isFetchingInitialData ?? false}
-            status="resolved"
-            responseItems={[
-              {
-                myColumn: { data: 'some-value' },
-                otherColumn: { data: 'other-column-value' },
-                myId: { data: 'some-id1' },
-              },
-              {
-                myColumn: { data: 'other-value' },
-                otherColumn: { data: 'other-column-other-value' },
-                myId: { data: 'some-id2' },
-              },
-            ]}
-            visibleColumnKeys={['myColumn', 'otherColumn', 'myId']}
-            datasourceId="testing"
-            aql="name like a"
-            schemaId="testing"
-            onNextPage={mockOnNextPage}
-            hasNextPage={false}
-            loadDatasourceDetails={mockLoadDatasourceDetails}
-            modalRenderInstanceId="510203d1-74b0-4ae4-b2aa-f34516665ee4"
-            columns={
-              props.columns !== undefined
-                ? []
-                : [
-                    { key: 'myColumn', title: 'My Column', type: 'string' },
-                    {
-                      key: 'otherColumn',
-                      title: 'My Other Column',
-                      type: 'string',
-                    },
-                    { key: 'myId', title: 'ID', type: 'string' },
-                  ]
-            }
-            defaultVisibleColumnKeys={['myColumn', 'otherColumn', 'myId']}
-            onVisibleColumnKeysChange={mockOnVisibleColumnKeysChange}
-            {...props}
-          />
-        </SmartCardProvider>
-      </IntlProvider>,
+      <DatasourceExperienceIdProvider>
+        <IntlProvider locale="en">
+          <SmartCardProvider client={new CardClient()}>
+            <RenderAssetsContent
+              isFetchingInitialData={props.isFetchingInitialData ?? false}
+              status="resolved"
+              responseItems={[
+                {
+                  myColumn: { data: 'some-value' },
+                  otherColumn: { data: 'other-column-value' },
+                  myId: { data: 'some-id1' },
+                },
+                {
+                  myColumn: { data: 'other-value' },
+                  otherColumn: { data: 'other-column-other-value' },
+                  myId: { data: 'some-id2' },
+                },
+              ]}
+              visibleColumnKeys={['myColumn', 'otherColumn', 'myId']}
+              datasourceId="testing"
+              aql="name like a"
+              schemaId="testing"
+              onNextPage={mockOnNextPage}
+              hasNextPage={false}
+              loadDatasourceDetails={mockLoadDatasourceDetails}
+              columns={
+                props.columns !== undefined
+                  ? []
+                  : [
+                      { key: 'myColumn', title: 'My Column', type: 'string' },
+                      {
+                        key: 'otherColumn',
+                        title: 'My Other Column',
+                        type: 'string',
+                      },
+                      { key: 'myId', title: 'ID', type: 'string' },
+                    ]
+              }
+              defaultVisibleColumnKeys={['myColumn', 'otherColumn', 'myId']}
+              onVisibleColumnKeysChange={mockOnVisibleColumnKeysChange}
+              {...props}
+            />
+          </SmartCardProvider>
+        </IntlProvider>
+      </DatasourceExperienceIdProvider>,
     );
 
     return { ...component };

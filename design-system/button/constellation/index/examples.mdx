@@ -4,164 +4,134 @@ order: 0
 
 import SectionMessage from '@atlaskit/section-message';
 
-import LegacyButtonDefault from '../../examples/constellation/legacy-button/button-default';
-import LegacyButtonPrimary from '../../examples/constellation/legacy-button/button-primary';
-import LegacyButtonSubtle from '../../examples/constellation/legacy-button/button-subtle';
-import LegacyButtonLink from '../../examples/constellation/legacy-button/button-link';
-import LegacyButtonSubtleLink from '../../examples/constellation/legacy-button/button-subtle-link';
-import LegacyButtonWarning from '../../examples/constellation/legacy-button/button-warning';
-import LegacyButtonDanger from '../../examples/constellation/legacy-button/button-danger';
-import LegacyButtonDisabled from '../../examples/constellation/legacy-button/button-disabled';
-import LegacyButtonSelected from '../../examples/constellation/legacy-button/button-selected';
-import LegacyButtonLoading from '../../examples/constellation/legacy-button/button-loading';
-import LegacyButtonPadding from '../../examples/constellation/legacy-button/button-padding';
-import LegacyButtonFullWidth from '../../examples/constellation/legacy-button/button-full-width';
-import LegacyButtonWithIconBefore from '../../examples/constellation/legacy-button/button-with-icon-before';
-import LegacyButtonWithIconAfter from '../../examples/constellation/legacy-button/button-with-icon-after';
-import LegacyButtonWithIconOnly from '../../examples/constellation/legacy-button/button-with-icon-only';
-
-<SectionMessage>
-  <p>
-    New buttons are available. Try the{' '}
-    <a href="/components/button/button-new">new button</a>,{' '}
-    <a href="/components/button/icon-button">icon button</a>, and{' '}
-    <a href="/components/button/split-button">split button</a> before we roll
-    them out across Atlassian.{' '}
-    <a href="/components/button/migration-guide">Migrate to new buttons</a>
-  </p>
-</SectionMessage>
+import ButtonDefault from '../../examples/constellation/new-button/button/button-default';
+import ButtonPrimary from '../../examples/constellation/new-button/button/button-primary';
+import ButtonSubtle from '../../examples/constellation/new-button/button/button-subtle';
+import ButtonWarning from '../../examples/constellation/new-button/button/button-warning';
+import ButtonDanger from '../../examples/constellation/new-button/button/button-danger';
+import ButtonDisabled from '../../examples/constellation/new-button/button/button-disabled';
+import ButtonSelected from '../../examples/constellation/new-button/button/button-selected';
+import ButtonSpacing from '../../examples/constellation/new-button/button/button-spacing';
+import ButtonFullWidth from '../../examples/constellation/new-button/button/button-full-width';
+import ButtonWithIconBefore from '../../examples/constellation/new-button/button/button-with-icon-before';
+import ButtonWithIconAfter from '../../examples/constellation/new-button/button/button-with-icon-after';
+import ButtonWithIconBeforeSize from '../../examples/constellation/new-button/button/button-with-icon-before-size';
+import ButtonTruncation from '../../examples/constellation/new-button/button/button-truncation';
+import ButtonLoading from '../../examples/constellation/new-button/button/button-loading';
 
 ## Default
 
-The default form of a button, used for most cases. They are not impactful enough to represent the primary action in a container.
+Use default buttons for most actions that aren't the main call to action for a page or area. Default buttons are less prominent than primary buttons.
 
-<Example Component={LegacyButtonDefault} packageName="@atlaskit/button" />
-
-<!-- WARNING: A pollinator test visits this page and searches for this title to validate the page loaded correctly -->
-<!-- https://pollinator.prod.atl-paas.net/checks/f7425790-6c31-4368-9911-3facd24cb51f -->
-<!-- If this title "Appearance" is removed from the page, please update the pollinator test -->
+<Example Component={ButtonDefault} packageName="@atlaskit/button" />
 
 ## Appearance
 
 ### Primary
 
-Use a `primary` button to call attention to an action on a [form](/patterns/forms) or to highlight the strongest call to action on a page.
-Primary buttons should only appear once per container (not including the application header or in a [modal dialog](/components/modal-dialog)). Not every screen requires a primary button.
+Use a primary button to call attention to a [form](/patterns/forms) submission or to highlight the most important call to action on a page.
+Primary buttons should only appear once per area, but not every screen needs a primary button.
 
-<Example Component={LegacyButtonPrimary} packageName="@atlaskit/button" />
+<Example Component={ButtonPrimary} packageName="@atlaskit/button" />
 
 ### Subtle
 
-Use a `subtle` button with a `primary` button for secondary actions, such as “Cancel".
+Use a subtle button with a primary button for secondary actions, such as “Cancel”.
 
-<Example Component={LegacyButtonSubtle} packageName="@atlaskit/button" />
-
-### Link
-
-Use a `link` button to navigate to another page. These should open in the same window unless information may be lost (for example, when someone is filling out a form), or when the destination is an external site (for example, a knowledge base article).
-
-<Example Component={LegacyButtonLink} packageName="@atlaskit/button" />
-
-### Subtle link
-
-Similar to a `subtle` button, but behaves like a `link` button. Use subtle link buttons with caution. Because there isn't any color or other visual affordance built in, this style relies on the context around it to show that it can be interacted with.
-
-This can make subtle link buttons less accessible than other link buttons. Make sure designs have clear visual affordances for interactive areas and elements.
-
-<Example Component={LegacyButtonSubtleLink} packageName="@atlaskit/button" />
+<Example Component={ButtonSubtle} packageName="@atlaskit/button" />
 
 ### Warning
 
-A `warning` button appears before we request the user to take action, usually in anticipation of a significant change. These are found mostly in confirmation modals.
+Warning buttons confirm actions that may cause a significant change or a loss of data.
 
-<Example Component={LegacyButtonWarning} packageName="@atlaskit/button" />
+Warnings alert people of a problem that might happen if they proceed. These appearances are often used in confirmation modals.
+
+<Example Component={ButtonWarning} packageName="@atlaskit/button" />
 
 ### Danger
 
-The `danger` button appears as a final confirmation for a destructive action such as deleting. These are found mostly in confirmation modals.
+A danger button appears as a final confirmation for a destructive and irreversible action, such as deleting.
 
-<Example Component={LegacyButtonDanger} packageName="@atlaskit/button" />
+<Example Component={ButtonDanger} packageName="@atlaskit/button" />
 
 ## States
 
 ### Disabled
 
-Set `isDisabled` to disable a button that isn’t usable. Disabled buttons can cause accessibility issues as disabled elements are not in the tab order so wherever possible we recommend avoid using `isDisabled`, especially for form submissions.
+Set `isDisabled` to disable a button that shouldn't be actionable. The button will appear faded and won't respond to user interaction.
 
-You should never put a tooltip on a disabled button. For more information see our [usage guidelines](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
+Disabled buttons can cause accessibility issues (disabled elements are not in the tab order) so wherever possible, avoid using `isDisabled`.
+Instead, use [validation](/components/button/usage) or other techniques to show users how to proceed.
 
-<Example Component={LegacyButtonDisabled} packageName="@atlaskit/button" />
+<Example Component={ButtonDisabled} packageName="@atlaskit/button" />
 
 ### Selected
 
 Set `isSelected` to indicate the button is selected.
 
-<Example Component={LegacyButtonSelected} packageName="@atlaskit/button" />
+<Example Component={ButtonSelected} packageName="@atlaskit/button" />
 
 ### Loading
 
-Set `isLoading` to indicate the button is loading. The button text is hidden and a spinner is shown in its place, while maintaining the width that it would have if the text were visible.
+When a button is still loading and not actionable, a loading spinner can be displayed in place of the button label. This also disables the button and blocks user interaction.
 
-<Example Component={LegacyButtonLoading} packageName="@atlaskit/button" />
+<Example Component={ButtonLoading} packageName="@atlaskit/button" />
 
 ## Spacing
 
-Buttons can have various spacing. Default spacing is used for most use cases, compact for tables and none for breadcrumbs.
+Button spacing depends on the surrounding UI. Default spacing is used for most use cases, `compact` for tables, and `none` for breadcrumbs.
 
-<Example Component={LegacyButtonPadding} packageName="@atlaskit/button" />
+<Example Component={ButtonSpacing} packageName="@atlaskit/button" />
 
 ## Full width
 
-Buttons can be expanded to full width to fill its parent container.
+Buttons can expand to full width to fill the parent container. This is sometimes done in login forms. Follow the [alignment guidance](/components/button/usage#alignment-and-positioning) for more options.
 
-<Example Component={LegacyButtonFullWidth} packageName="@atlaskit/button" />
+<Example Component={ButtonFullWidth} packageName="@atlaskit/button" />
 
 ## Button with icon
 
-Buttons may include an icon before or after the text. Omit the text to use an icon button.
+Buttons may include an icon before or after the text label. For an icon-only button, see [icon button](/components/button/icon-button).
 
 ### Icon before
 
 Display an icon before the text.
 
-<Example
-  Component={LegacyButtonWithIconBefore}
-  packageName="@atlaskit/button"
-/>
+<Example Component={ButtonWithIconBefore} packageName="@atlaskit/button" />
 
 ### Icon after
 
 Display an icon after the text.
 
-<Example Component={LegacyButtonWithIconAfter} packageName="@atlaskit/button" />
+<Example Component={ButtonWithIconAfter} packageName="@atlaskit/button" />
 
-### Icon only
+### Overriding icon props
 
-Display an icon-only button.
+Use the `iconBefore` or `iconAfter` render prop to override the default icon props.
 
-<Example Component={LegacyButtonWithIconOnly} packageName="@atlaskit/button" />
+<Example Component={ButtonWithIconBeforeSize} packageName="@atlaskit/button" />
 
-## Routing
+## Truncation
 
-Button's `component` prop allows a custom React component or HTML element to render
-in place of a `<button>` or `<a>` element.
+Avoid truncation whenever possible. Make sure there's always a way to access the full content for all users.
 
-This is useful for using Button with the `<Link>` component from popular routing libraries.
+Text will truncate when buttons are in a narrow container to prevent wrapping onto a new line and breaking layouts. An ellipsis will be added to the end to indicate that the text has been truncated.
 
-```js
-import Link from '@popular/routing-library';
-import Button from '@atlaskit/button';
+The truncation is implemented with styles, so screen readers will still read the full text.
 
-// Set a custom component
-<PrimaryButton component={Link}>Your Work</PrimaryButton>;
-```
+For more information see [truncation](/content/language-and-grammar#truncation).
 
-## Custom theme button
+<Example Component={ButtonTruncation} packageName="@atlaskit/button" />
 
-Avoid using this component. It is intended for deprecation when our alternative, bounded and performant solution is ready. It exists for those already using custom theming, which is hard to use and has performance issues.
+## Custom buttons
 
-Latest versions of button use design tokens. These have theming and dark mode support built in.
-
-```js
-import { CustomThemeButton } from '@atlaskit/button';
-```
+<SectionMessage title="Coming soon" appearance="information">
+  <p>
+    The legacy{' '}
+    <a href="/components/button/button-legacy/examples#custom-theme-button">
+      CustomThemeButton
+    </a>{' '}
+    will soon be deprecated. We're working on a replacement for this with safe
+    style overrides using <a href="/components/primitives/xcss/usage">XCSS</a>.
+  </p>
+</SectionMessage>

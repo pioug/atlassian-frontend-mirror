@@ -27,7 +27,7 @@ The default appearance is for secondary actions or general actions that aren't t
 
 ### Routing
 
-Link button consumes the router link component configured in the [app provider](/components/app-provider/examples#router-links) when possible. This means router links are configured once across an application (replacing [the component prop](/components/button/examples#routing)).
+Link button consumes the router link component configured in the [app provider](/components/app-provider/examples#router-links) when possible. This means router links are configured once across an application (replacing [the component prop](/components/button/button-legacy/examples#routing)).
 
 External links, non-HTTP-based links (`mailto:`, `sms:`), and anchor or hash links (`#`) **won't** use the configured router link when passed to `href`. These render a standard `<a>` tag.
 
@@ -65,7 +65,7 @@ Use subtle buttons when the surrounding context makes it clear the text is inter
   </p>
 </SectionMessage>
 
-Use a link appearance for buttons that look and behave like inline text links. This is only supported for <a href="#link-button">link buttons</a>.
+Use a link appearance for buttons that look and behave like inline text links.
 
 <Example Component={LinkButtonLink} packageName="@atlaskit/button" />
 

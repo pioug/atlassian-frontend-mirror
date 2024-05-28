@@ -1,2 +1,2 @@
-export const value: string =
+export default
   'H4sICH+ATWUAA1VuaUdCLVVURjE2LVYuYmNtYXAAY34Q5JxfUFmUmZ5RomBoaWmga2RgYKngmJKflKoQXFlckppbrOCZl5xfVJBflFiSmqLH5ZiTowBWX6xQlFqcWlQGEgxOTVXQ0/fxdHb1C3Z9yBual+nupBsa4mZopuvhKKgg0hImyDA/ypCBWeC9WfPc3PeGXNyM7634GBjfG0u/N2IE0rzSnIwMDO9ZGll4EtkMONhbPBgYW4KYGFvcgHRA89wCxhYXAcYWBwAxI4RYsgAAAA==';

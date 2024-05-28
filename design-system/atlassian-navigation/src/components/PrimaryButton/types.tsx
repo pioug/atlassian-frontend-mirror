@@ -1,4 +1,8 @@
-import { type AllHTMLAttributes, type ComponentType, type ElementType } from 'react';
+import {
+  type AllHTMLAttributes,
+  type ComponentType,
+  type ElementType,
+} from 'react';
 
 import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 
@@ -13,7 +17,7 @@ export type PrimaryButtonProps = Omit<
    *  This is primarily intended for compatibility with custom
    * routing libraries when using the `href` prop.
    *
-   *  For further usage information, refer to the [documentation for button](https://atlassian.design/components/button/code).
+   *  For further usage information, refer to the [documentation for button](https://atlassian.design/components/button/button-legacy/code).
    *
    * @example
    * ```tsx

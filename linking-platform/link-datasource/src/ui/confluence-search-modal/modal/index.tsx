@@ -10,7 +10,6 @@ import {
 
 import { jsx } from '@emotion/react';
 import { FormattedMessage, FormattedNumber } from 'react-intl-next';
-import { v4 as uuidv4 } from 'uuid';
 
 import {
   type UIAnalyticsEvent,
@@ -49,6 +48,7 @@ import {
 import { type DisplayViewModes, type Site } from '../../../common/types';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
+import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
 import { useAvailableSites } from '../../../services/useAvailableSites';
@@ -94,8 +94,6 @@ const searchCountStyles = xcss({
 export const PlainConfluenceSearchConfigModal = (
   props: ConfluenceSearchConfigModalProps,
 ) => {
-  const { current: modalRenderInstanceId } = useRef(uuidv4());
-
   const {
     datasourceId,
     columnCustomSizes: initialColumnCustomSizes,
@@ -281,7 +279,6 @@ export const PlainConfluenceSearchConfigModal = (
           onNextPage={onNextPage}
           onLoadDatasourceDetails={loadDatasourceDetails}
           onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
-          parentContainerRenderInstanceId={modalRenderInstanceId}
           extensionKey={extensionKey}
           columnCustomSizes={columnCustomSizes}
           onColumnResize={onColumnResize}
@@ -304,7 +301,6 @@ export const PlainConfluenceSearchConfigModal = (
       onNextPage,
       loadDatasourceDetails,
       handleVisibleColumnKeysChange,
-      modalRenderInstanceId,
       extensionKey,
       columnCustomSizes,
       onColumnResize,
@@ -657,6 +653,7 @@ export const PlainConfluenceSearchConfigModal = (
                 href={confluenceSearchUrl}
                 target="_blank"
                 testId="item-count-url"
+                // eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
                 style={{ color: token('color.text.accent.gray', N800) }}
               >
                 <FormattedNumber value={totalCount} />{' '}
@@ -707,5 +704,9 @@ const contextData = {
 };
 
 export const ConfluenceSearchConfigModal = withAnalyticsContext(contextData)(
-  PlainConfluenceSearchConfigModal,
+  (props: ConfluenceSearchConfigModalProps) => (
+    <DatasourceExperienceIdProvider>
+      <PlainConfluenceSearchConfigModal {...props} />
+    </DatasourceExperienceIdProvider>
+  ),
 );

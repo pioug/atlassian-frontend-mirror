@@ -8,6 +8,7 @@ import invariant from 'tiny-invariant';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
 
+import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
 import { SELECT_ITEMS_MAXIMUM_THRESHOLD } from '../concatenated-menu-list';
 import { ColumnPicker } from '../index';
 
@@ -22,7 +23,7 @@ const mockUfoSuccess = jest.fn();
 
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
-  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ...jest.requireActual<object>('@atlaskit/ufo'),
   ConcurrentExperience: (): Partial<ConcurrentExperience> => ({
     getInstance: jest.fn().mockImplementation(() => ({
       start: mockUfoStart,
@@ -36,14 +37,15 @@ const renderColumnPicker = (
   selectedColumnKeys: string[],
 ) => {
   const columnPickerRender = render(
-    <IntlProvider locale="en">
-      <ColumnPicker
-        columns={columns}
-        onSelectedColumnKeysChange={mockOnChange}
-        selectedColumnKeys={selectedColumnKeys}
-        parentContainerRenderInstanceId={'hey!'}
-      />
-    </IntlProvider>,
+    <DatasourceExperienceIdProvider>
+      <IntlProvider locale="en">
+        <ColumnPicker
+          columns={columns}
+          onSelectedColumnKeysChange={mockOnChange}
+          selectedColumnKeys={selectedColumnKeys}
+        />
+      </IntlProvider>
+    </DatasourceExperienceIdProvider>,
   );
 
   const openPopUpMenu = () =>

@@ -15,6 +15,7 @@ import {
   isPreviewableFileState,
   isFileFetcherError,
   FileFetcherError,
+  getDimensionsFromBlob,
 } from '../..';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import uuid from 'uuid';
@@ -36,9 +37,7 @@ import { mediaStore as fileStateStore } from '@atlaskit/media-state';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {
   return {
-    getDimensionsFromBlob: () => {
-      return { width: 1, height: 1 };
-    },
+    getDimensionsFromBlob: jest.fn()
   };
 });
 
@@ -208,6 +207,7 @@ describe('FileFetcher', () => {
     });
 
   beforeEach(() => {
+    (getDimensionsFromBlob as jest.Mock).mockReturnValue({ width: 1, height: 1 })
     jest.spyOn(globalMediaEventEmitter, 'emit');
   });
 
@@ -1324,6 +1324,25 @@ describe('FileFetcher', () => {
       expect(fileStateStore.getState().files['upfront-id']).toEqual(
         expectedFileState,
       );
+    });
+
+    it('should set throw an error when `getDimensionsFromBlob` throws an error ', async () => {
+      const error = new Error("Test Error");
+      (getDimensionsFromBlob as jest.Mock).mockImplementation(() => {
+        throw error;
+      })
+      const { fileFetcher } = setup();
+      fetchMock.mock(
+        url,
+        {
+          headers: { 'Content-Type': 'image/jpeg' },
+          body: new Blob([], { type: 'text/html' }),
+        },
+        { sendAsJson: false },
+      );
+
+
+       await expect(fileFetcher.uploadExternal(url)).rejects.toEqual(error);
     });
   });
 

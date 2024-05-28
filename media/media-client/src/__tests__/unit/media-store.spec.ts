@@ -27,6 +27,7 @@ import {
 } from '../../client/media-store/resolveAuth';
 import { type Auth } from '@atlaskit/media-core';
 import * as requestModule from '../../utils/request';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const requestModuleMock = jest.spyOn(requestModule, 'request');
 
@@ -851,6 +852,37 @@ describe('MediaStore', () => {
     });
 
     describe('getFileImageURL', () => {
+      describe('should return the file image preview url based on the file id', () => {
+        // createFileImageURL is a private function that is called within this function, its output has been altered based on the feature flag 'platform.media-cdn-delivery'
+        ffTest(
+          'platform.media-cdn-delivery',
+          async () => {
+            const collection = 'some-collection';
+            const url = await mediaStore.getFileImageURL('1234', {
+              collection,
+            });
+            expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+              collectionName: collection,
+            });
+            expect(url).toEqual(
+              `${baseUrl}/file/1234/image/cdn?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
+            );
+          },
+          async () => {
+            const collection = 'some-collection';
+            const url = await mediaStore.getFileImageURL('1234', {
+              collection,
+            });
+            expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
+              collectionName: collection,
+            });
+            expect(url).toEqual(
+              `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
+            );
+          },
+        );
+      });
+
       it('should return the file image preview url based on the file id', async () => {
         const collection = 'some-collection';
         const url = await mediaStore.getFileImageURL('1234', { collection });
@@ -879,23 +911,48 @@ describe('MediaStore', () => {
     });
 
     describe('getImage', () => {
-      it('should return file image preview', async () => {
-        fetchMock.once(JSON.stringify({ data }), {
-          status: 201,
-          statusText: 'Created',
-        });
+      describe('should return file image preview', () => {
+        ffTest(
+          'platform.media-cdn-delivery',
+          async () => {
+            fetchMock.once(JSON.stringify({ data }), {
+              status: 201,
+              statusText: 'Created',
+            });
 
-        const image = await mediaStore.getImage('123');
+            const image = await mediaStore.getImage('123');
 
-        expect(image).toBeInstanceOf(Blob);
-        expect(fetchMock).toHaveBeenCalledWith(
-          `${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
-          {
-            method: 'GET',
-            headers: {
-              'X-Client-Id': clientId,
-              Authorization: `Bearer ${token}`,
-            },
+            expect(image).toBeInstanceOf(Blob);
+            expect(fetchMock).toHaveBeenCalledWith(
+              `${baseUrl}/file/123/image/cdn?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
+              {
+                method: 'GET',
+                headers: {
+                  'X-Client-Id': clientId,
+                  Authorization: `Bearer ${token}`,
+                },
+              },
+            );
+          },
+          async () => {
+            fetchMock.once(JSON.stringify({ data }), {
+              status: 201,
+              statusText: 'Created',
+            });
+
+            const image = await mediaStore.getImage('123');
+
+            expect(image).toBeInstanceOf(Blob);
+            expect(fetchMock).toHaveBeenCalledWith(
+              `${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
+              {
+                method: 'GET',
+                headers: {
+                  'X-Client-Id': clientId,
+                  Authorization: `Bearer ${token}`,
+                },
+              },
+            );
           },
         );
       });
@@ -1327,20 +1384,99 @@ describe('MediaStore', () => {
       });
     });
 
-    describe('getFileBinaryURL', () => {
-      let url = '';
+    describe('getFileBinary', () => {
+      describe('should return file url', () => {
+        ffTest(
+          'platform.media-cdn-delivery',
+          async () => {
+            const response = await mediaStore.getFileBinary(
+              '1234',
+              'some-collection-name',
+            );
+            // When the feature flag is enabled, the URL should contain the /binary/cdn path
 
-      beforeEach(async () => {
-        url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+            expect(requestModuleMock).toBeCalledWith(
+              `${baseUrl}/file/1234/binary/cdn`,
+              expect.objectContaining({
+                auth: {
+                  baseUrl: 'http://some-host',
+                  clientId: 'some-client-id',
+                  token: 'some-token',
+                },
+                body: undefined,
+                clientOptions: undefined,
+                endpoint: '/file/{fileId}/binary/cdn',
+                headers: {},
+                method: 'GET',
+                params: { 'max-age': '2592000' },
+                traceContext: undefined,
+              }),
+              undefined,
+            );
+
+            expect(response).toEqual(expect.any(Blob));
+          },
+          async () => {
+            const response = await mediaStore.getFileBinary(
+              '1234',
+              'some-collection-name',
+            );
+            // When the feature flag is disabled, the URL should contain the /binary path
+
+            expect(requestModuleMock).toBeCalledWith(
+              `${baseUrl}/file/1234/binary`,
+              expect.objectContaining({
+                auth: {
+                  baseUrl: 'http://some-host',
+                  clientId: 'some-client-id',
+                  token: 'some-token',
+                },
+                body: undefined,
+                clientOptions: undefined,
+                endpoint: '/file/{fileId}/binary',
+                headers: {},
+                method: 'GET',
+                params: { 'max-age': '2592000' },
+                traceContext: undefined,
+              }),
+              undefined,
+            );
+
+            expect(response).toEqual(expect.any(Blob));
+          },
+        );
       });
+    });
 
-      it('should return file url', () => {
-        expect(url).toEqual(
-          `${baseUrl}/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`,
+    describe('getFileBinaryURL', () => {
+      describe('should return file url', () => {
+        ffTest(
+          'platform.media-cdn-delivery',
+          async () => {
+            const url = await mediaStore.getFileBinaryURL(
+              '1234',
+              'some-collection-name',
+            );
+            // When the feature flag is enabled, the URL should contain the new path
+            expect(url).toEqual(
+              `${baseUrl}/file/1234/binary/cdn?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`,
+            );
+          },
+          async () => {
+            const url = await mediaStore.getFileBinaryURL(
+              '1234',
+              'some-collection-name',
+            );
+            // When the feature flag is disabled, the URL should contain the old path
+            expect(url).toEqual(
+              `${baseUrl}/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`,
+            );
+          },
         );
       });
 
       it('should call resolveAuth with authProvider and given collection name', async () => {
+        await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
         expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
           collectionName: 'some-collection-name',
         });
@@ -1376,6 +1512,32 @@ describe('MediaStore', () => {
         );
         expect(resolveAuth).toHaveBeenCalledWith(authProvider, {
           collectionName: 'some-collection',
+        });
+      });
+
+      describe('handling CDN url', () => {
+        it("should use artifact's cdnUrl over the regular artifact's url", async () => {
+          const url = await mediaStore.getArtifactURL(
+            {
+              'video_640.mp4': {
+                processingStatus: 'succeeded',
+                url: '/sd-video',
+                cdnUrl:
+                  'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?token=cdn-token',
+              },
+            },
+            'video_640.mp4',
+            'some-collection',
+          );
+
+          expect(url).toEqual(
+            'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?collection=some-collection&max-age=2592000&token=cdn-token',
+          );
+
+          // Authentication does not need to be resolved for CDN URLs
+          expect(resolveAuth).not.toHaveBeenCalledWith(authProvider, {
+            collectionName: 'some-collection',
+          });
         });
       });
 
@@ -1514,14 +1676,30 @@ describe('MediaStore', () => {
       });
 
       describe('getFileImageURLSync', () => {
-        it('should return the file image preview url based on the file id', () => {
-          const collection = 'some-collection';
-          const url = mediaStoreSync.getFileImageURLSync('1234', {
-            collection,
-          });
-          expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
-          expect(url).toEqual(
-            `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
+        describe('should return the file image preview url based on the file id', () => {
+          // createFileImageURL is a private function that is called within this function, its output has been altered based on the feature flag 'platform.media-cdn-delivery'
+          ffTest(
+            'platform.media-cdn-delivery',
+            async () => {
+              const collection = 'some-collection';
+              const url = mediaStoreSync.getFileImageURLSync('1234', {
+                collection,
+              });
+              expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+              expect(url).toEqual(
+                `${baseUrl}/file/1234/image/cdn?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
+              );
+            },
+            async () => {
+              const collection = 'some-collection';
+              const url = mediaStoreSync.getFileImageURLSync('1234', {
+                collection,
+              });
+              expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+              expect(url).toEqual(
+                `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`,
+              );
+            },
           );
         });
       });

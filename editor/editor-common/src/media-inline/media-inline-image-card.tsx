@@ -20,7 +20,6 @@ import type {
 import { FileFetcherError } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react';
 import { MediaViewer } from '@atlaskit/media-viewer';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../messages/media-inline-card';
 
@@ -239,10 +238,7 @@ export const MediaInlineImageCardInternal = ({
 
   const onMediaInlineImageClick = useCallback(() => {
     if (
-      shouldOpenMediaViewer &&
-      getBooleanFF(
-        'platform.editor.media.inline-image.renderer-preview-support_3w1ju',
-      )
+      shouldOpenMediaViewer
     ) {
       setMediaViewerVisible(true);
     }
@@ -277,11 +273,7 @@ export const MediaInlineImageCardInternal = ({
     <Fragment>
       <InlineImageWrapper
         isSelected={isSelected}
-        isInteractive={
-          getBooleanFF(
-            'platform.editor.media.inline-image.renderer-preview-support_3w1ju',
-          ) && shouldOpenMediaViewer
-        }
+        isInteractive={shouldOpenMediaViewer}
         aspectRatio={aspectRatio}
         borderColor={border?.borderColor}
         borderSize={border?.borderSize}

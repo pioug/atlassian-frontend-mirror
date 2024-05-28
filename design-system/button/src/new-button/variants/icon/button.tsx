@@ -15,9 +15,9 @@ export type IconButtonProps = CommonIconButtonProps & CommonButtonVariantProps;
  *
  * TODO: Description
  *
- * - [Examples](https://atlassian.design/components/button/examples)
- * - [Code](https://atlassian.design/components/button/code)
- * - [Usage](https://atlassian.design/components/button/usage)
+ * - [Examples](https://atlassian.design/components/icon-button/examples)
+ * - [Code](https://atlassian.design/components/icon-button/code)
+ * - [Usage](https://atlassian.design/components/icon-button/usage)
  */
 const IconButton = React.memo(
   React.forwardRef(function Button(

@@ -161,7 +161,7 @@ export type AdditionalCommonLinkVariantProps<
   RouterLinkConfig extends Record<string, any> = never,
 > = {
   /**
-   * Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/button-new/examples#routing) for more details.
+   * Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/examples#routing) for more details.
    */
   href: string | RouterLinkConfig;
 };

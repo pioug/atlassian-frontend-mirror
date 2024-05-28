@@ -7,6 +7,7 @@ import { type DatasourceParameters } from '@atlaskit/linking-types';
 
 import { DatasourceTableView } from '../src';
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
+import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id';
 import { type JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
@@ -66,10 +67,12 @@ export const ExampleJiraIssuesTableView = ({
   }, [mockDatasourceFetchRequest]);
 
   return (
-    <IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
-      <SmartCardProvider client={new SmartLinkClient()}>
-        <JiraIssuesTableView parameters={parameters} />
-      </SmartCardProvider>
-    </IntlMessagesProvider>
+    <DatasourceExperienceIdProvider>
+      <IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
+        <SmartCardProvider client={new SmartLinkClient()}>
+          <JiraIssuesTableView parameters={parameters} />
+        </SmartCardProvider>
+      </IntlMessagesProvider>
+    </DatasourceExperienceIdProvider>
   );
 };

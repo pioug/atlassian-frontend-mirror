@@ -14,6 +14,7 @@ import { type ConcurrentExperience } from '@atlaskit/ufo';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { type DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
+import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id';
 import {
   type DatasourceTableState,
   useDatasourceTableState,
@@ -38,7 +39,7 @@ const mockColumnPickerRenderUfoFailure = jest.fn();
 
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
-  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ...jest.requireActual<object>('@atlaskit/ufo'),
   ConcurrentExperience: (
     experienceId: string,
   ): Partial<ConcurrentExperience> => ({
@@ -63,7 +64,7 @@ jest.mock('@atlaskit/ufo', () => ({
 
 jest.mock('@atlaskit/outbound-auth-flow-client', () => ({
   __esModule: true,
-  ...jest.requireActual<Object>('@atlaskit/outbound-auth-flow-client'),
+  ...jest.requireActual<object>('@atlaskit/outbound-auth-flow-client'),
   auth: (url: string) => {
     if (url === 'test.success.url') {
       return Promise.resolve();
@@ -115,28 +116,31 @@ const setup = (
   } as DatasourceTableState);
 
   const renderResult = render(
-    <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-      <IntlProvider locale="en">
-        <DatasourceTableView
-          datasourceId={'some-datasource-id'}
-          parameters={{
-            cloudId: 'some-cloud-id',
-            jql: 'some-jql-query',
-          }}
-          visibleColumnKeys={
-            visibleColumnKeys === null
-              ? undefined
-              : visibleColumnKeys || ['visible-column-1', 'visible-column-2']
-          }
-          onVisibleColumnKeysChange={
-            onVisibleColumnKeysChange === null
-              ? undefined
-              : onVisibleColumnKeysChange || jest.fn()
-          }
-          {...propsOverride}
-        />
-      </IntlProvider>
-    </AnalyticsListener>,
+    <DatasourceExperienceIdProvider>
+      <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+        <IntlProvider locale="en">
+          <DatasourceTableView
+            datasourceId={'some-datasource-id'}
+            parameters={{
+              cloudId: 'some-cloud-id',
+              jql: 'some-jql-query',
+            }}
+            visibleColumnKeys={
+              visibleColumnKeys === null
+                ? undefined
+                : visibleColumnKeys || ['visible-column-1', 'visible-column-2']
+            }
+            onVisibleColumnKeysChange={
+              onVisibleColumnKeysChange === null
+                ? undefined
+                : onVisibleColumnKeysChange || jest.fn()
+            }
+            {...propsOverride}
+          />
+        </IntlProvider>
+      </AnalyticsListener>
+    </DatasourceExperienceIdProvider>
+    ,
   );
 
   return { mockReset, ...renderResult };
@@ -370,16 +374,18 @@ describe('DatasourceTableView', () => {
     };
 
     rerender(
-      <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-        <IntlProvider locale="en">
-          <DatasourceTableView
-            datasourceId={'some-datasource-id'}
-            parameters={newParameters}
-            visibleColumnKeys={['visible-column-1', 'visible-column-2']}
-            onVisibleColumnKeysChange={jest.fn()}
-          />
-        </IntlProvider>
-      </AnalyticsListener>,
+      <DatasourceExperienceIdProvider>
+        <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+          <IntlProvider locale="en">
+            <DatasourceTableView
+              datasourceId={'some-datasource-id'}
+              parameters={newParameters}
+              visibleColumnKeys={['visible-column-1', 'visible-column-2']}
+              onVisibleColumnKeysChange={jest.fn()}
+            />
+          </IntlProvider>
+        </AnalyticsListener>
+      </DatasourceExperienceIdProvider>,
     );
 
     expect(mockReset).toBeCalledTimes(1);

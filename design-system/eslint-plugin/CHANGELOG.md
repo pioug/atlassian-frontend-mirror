@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.4.2
+
+### Patch Changes
+
+-   [#104190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104190)
+    [`a6243f719741`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6243f719741) -
+    `no-banned-imports`: Remove banned paths for unsafe Buttons and Pressable primitive
+
 ## 10.4.1
 
 ### Patch Changes

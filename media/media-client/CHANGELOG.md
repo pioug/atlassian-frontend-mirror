@@ -1,5 +1,21 @@
 # @atlaskit/media-client
 
+## 27.1.0
+
+### Minor Changes
+
+-   [#103718](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103718)
+    [`5bdb1cb0f2b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bdb1cb0f2b7) -
+    CXP-3328 Integrate CDN delivery to media-client
+
+## 27.0.1
+
+### Patch Changes
+
+-   [#103775](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103775)
+    [`ce306a2407b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce306a2407b0) -
+    Fix updateExternal function never resolves
+
 ## 27.0.0
 
 ### Major Changes

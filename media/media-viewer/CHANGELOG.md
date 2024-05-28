@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 48.5.5
+
+### Patch Changes
+
+-   [#103980](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103980)
+    [`5b82bf81f73f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b82bf81f73f) -
+    remove redundant export const for cmap async loader
+
 ## 48.5.4
 
 ### Patch Changes

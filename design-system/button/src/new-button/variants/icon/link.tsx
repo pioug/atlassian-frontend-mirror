@@ -210,9 +210,9 @@ const WithRef = forwardRef(LinkIconButtonBase) as <
  *
  * Renders a link in the style of an icon button.
  *
- * - [Examples](https://atlassian.design/components/button/examples)
- * - [Code](https://atlassian.design/components/button/code)
- * - [Usage](https://atlassian.design/components/button/usage)
+ * - [Examples](https://atlassian.design/components/link-icon-button/examples)
+ * - [Code](https://atlassian.design/components/link-icon-button/code)
+ * - [Usage](https://atlassian.design/components/link-icon-button/usage)
  */
 const LinkIconButton = memo(WithRef) as typeof WithRef;
 

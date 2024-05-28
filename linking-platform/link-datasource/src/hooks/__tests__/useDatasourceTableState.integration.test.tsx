@@ -3,7 +3,6 @@ import React from 'react';
 import {
   act,
   renderHook,
-  type RenderHookOptions,
 } from '@testing-library/react-hooks';
 import fetchMock from 'fetch-mock/cjs/client';
 
@@ -13,6 +12,7 @@ import { flushPromises } from '@atlaskit/link-test-helpers';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { EVENT_CHANNEL } from '../../analytics';
+import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id';
 import {
   type DatasourceTableStateProps,
   useDatasourceTableState,
@@ -21,10 +21,12 @@ import {
 const [mockDatasourceId]: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
 const onAnalyticFireEvent = jest.fn();
 
-const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
-  <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-    <SmartCardProvider client={new CardClient()}>{children}</SmartCardProvider>
-  </AnalyticsListener>
+const wrapper = ({ children }: React.PropsWithChildren<Partial<DatasourceTableStateProps>>) => (
+  <DatasourceExperienceIdProvider>
+    <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+      <SmartCardProvider client={new CardClient()}>{children}</SmartCardProvider>
+    </AnalyticsListener>
+  </DatasourceExperienceIdProvider>
 );
 
 jest.mock('@atlaskit/linking-common/sentry', () => {

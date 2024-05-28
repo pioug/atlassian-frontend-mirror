@@ -36,7 +36,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^81.0.0",
+    "@atlaskit/editor-common": "^81.1.0",
     "@atlaskit/editor-markdown-transformer": "^5.6.0",
     "@atlaskit/editor-plugin-analytics": "^1.2.0",
     "@atlaskit/editor-plugin-annotation": "^1.9.0",
@@ -47,7 +47,7 @@
     "@atlaskit/editor-plugin-media": "^1.20.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
     "@atlaskit/editor-tables": "^2.7.0",
-    "@atlaskit/media-client": "^27.0.0",
+    "@atlaskit/media-client": "^27.1.0",
     "@atlaskit/media-common": "^11.2.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@babel/runtime": "^7.0.0",

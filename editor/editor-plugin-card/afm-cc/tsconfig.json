@@ -91,6 +91,9 @@
             "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../linking-platform/link-provider/afm-cc/tsconfig.json"
         }
     ]

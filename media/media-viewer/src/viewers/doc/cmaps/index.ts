@@ -1,4 +1,4 @@
-export const cmap: Record<string, () => Promise<{ value: string }>> = {
+export const cmap: Record<string, () => Promise<{ default: string }>> = {
   '78-EUC-H': () =>
     import(
       /* webpackChunkName: "@atlaskit-internal_media-cname-78-EUC-H" */ './78-EUC-H'

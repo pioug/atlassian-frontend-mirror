@@ -135,6 +135,11 @@ export const messages = defineMessages({
     description:
       'An overlay shown when hover over inline smart link to inform user that they can click the link to edit the links appearance.',
   },
+  inlineConfigureLink: {
+    id: 'fabric.editor.inlineConfigureLink',
+    defaultMessage: 'Configure link',
+    description: 'An icon shown when hovering over inline smart link to inform user they can click the icon to configure the links appearance.',
+  },
   datasourceConfluenceSearch: {
     id: 'fabric.editor.datasource.confluenceSearch',
     defaultMessage: 'Insert Confluence list',

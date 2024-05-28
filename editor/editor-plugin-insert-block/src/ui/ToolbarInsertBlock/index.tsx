@@ -632,20 +632,21 @@ export class ToolbarInsertBlock extends React.PureComponent<
     );
   };
 
-  private insertTable = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
+  private insertTable = (inputMethod: TOOLBAR_MENU_TYPE) => {
     const { pluginInjectionApi, editorView } = this.props;
 
     const { state, dispatch } = editorView;
 
-    return (
+    // workaround to solve race condition where cursor is not placed correctly inside table
+    queueMicrotask(() => {
       pluginInjectionApi?.table?.actions.insertTable?.({
         action: ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.DOCUMENT,
         actionSubjectId: ACTION_SUBJECT_ID.TABLE,
         attributes: { inputMethod },
         eventType: EVENT_TYPE.TRACK,
-      })(state, dispatch) ?? false
-    );
+      })(state, dispatch)
+    });
   };
 
   private insertTableWithSize =
@@ -653,13 +654,16 @@ export class ToolbarInsertBlock extends React.PureComponent<
     () => {
       const { pluginInjectionApi } = this.props;
 
-      return pluginInjectionApi?.core?.actions.execute(
+      // workaround to solve race condition where cursor is not placed correctly inside table
+    queueMicrotask(() => {
+      pluginInjectionApi?.core?.actions.execute(
         pluginInjectionApi?.table?.commands.insertTableWithSize(
           rowsCount,
           colsCount,
           INPUT_METHOD.PICKER,
         ),
       );
+    });
     };
 
   private createDate = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {

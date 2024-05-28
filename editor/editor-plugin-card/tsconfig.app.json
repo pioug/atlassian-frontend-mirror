@@ -106,6 +106,9 @@
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tooltip/tsconfig.app.json"
     }
   ]
 }

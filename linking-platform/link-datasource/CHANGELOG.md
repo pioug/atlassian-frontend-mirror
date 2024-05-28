@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 2.3.4
+
+### Patch Changes
+
+-   [#102451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102451)
+    [`52ef0e53ab4b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52ef0e53ab4b) -
+    Created a new `DatasourceExperienceIdProvider` and `useDatasourceExperienceId` for tracking UFO
+    experiences.
+
 ## 2.3.3
 
 ### Patch Changes

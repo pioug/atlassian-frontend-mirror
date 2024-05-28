@@ -110,8 +110,8 @@ export type Props = {
 class CmapFactory {
   constructor() {}
   async fetch({ name }: { name: string }) {
-    const { value } = await cmap[name]();
-    const data = await extractCompressedBase64(value);
+    const module  = await cmap[name]();
+    const data = await extractCompressedBase64(module.default);
     return { cMapData: data, compressionType: CMapCompressionType.BINARY };
   }
 }

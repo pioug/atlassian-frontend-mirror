@@ -94,7 +94,7 @@ export type PageProps = {
   /**
    * If you provide the banner or banners you are to use, page will help you
    * coordinate the showing and hiding of them in conjunction with `isBannerOpen`.
-   * This is designed to take [banner](components/banner/) component, and
+   * This is designed to take [banner](https://atlassian.design/components/banner/examples) component, and
    * matches its animation timing.
    *
    * The only time that two banners should be rendered are when an announcement

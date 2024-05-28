@@ -9,6 +9,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
+import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id';
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
 import { IssueLikeDataTableView } from '../src/ui/issue-like-table';
 import { type JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
@@ -113,14 +114,16 @@ export const ExampleIssueLikeTable = ({
   skipIntl,
 }: Props) => {
   return (
-    <IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
-      <SmartCardProvider client={new SmartLinkClient()}>
-        <ExampleBody
-          isReadonly={isReadonly}
-          canResizeColumns={canResizeColumns}
-          canControlWrapping={canControlWrapping}
-        />
-      </SmartCardProvider>
-    </IntlMessagesProvider>
+    <DatasourceExperienceIdProvider>
+      <IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
+        <SmartCardProvider client={new SmartLinkClient()}>
+          <ExampleBody
+            isReadonly={isReadonly}
+            canResizeColumns={canResizeColumns}
+            canControlWrapping={canControlWrapping}
+          />
+        </SmartCardProvider>
+      </IntlMessagesProvider>
+    </DatasourceExperienceIdProvider>
   );
 };

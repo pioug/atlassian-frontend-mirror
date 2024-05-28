@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "17.17.0",
+  "version": "17.17.1",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,22 +31,61 @@
     "website": {
       "name": "Button",
       "category": "Components",
+      "status": {
+        "type": "beta",
+        "description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
+        "actions": [
+          {
+            "text": "View the migration guide",
+            "href": "/components/button/button-legacy/migration-guide"
+          }
+        ]
+      },
       "subPages": [
-        {
-          "title": "Button (new)",
-          "id": "button-new",
-          "status": {
-            "type": "beta"
-          },
-          "sortKey": 1
-        },
         {
           "title": "Icon button",
           "id": "icon-button",
           "status": {
-            "type": "beta"
+            "type": "beta",
+            "description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
+            "actions": [
+              {
+                "text": "View the migration guide",
+                "href": "/components/button/button-legacy/migration-guide"
+              }
+            ]
+          },
+          "sortKey": 1
+        },
+        {
+          "title": "Link button",
+          "id": "link-button",
+          "status": {
+            "type": "beta",
+            "description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
+            "actions": [
+              {
+                "text": "View the migration guide",
+                "href": "/components/button/button-legacy/migration-guide"
+              }
+            ]
           },
           "sortKey": 2
+        },
+        {
+          "title": "Link icon button",
+          "id": "link-icon-button",
+          "status": {
+            "type": "beta",
+            "description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
+            "actions": [
+              {
+                "text": "View the migration guide",
+                "href": "/components/button/button-legacy/migration-guide"
+              }
+            ]
+          },
+          "sortKey": 3
         },
         {
           "title": "Split button",
@@ -54,27 +93,26 @@
           "status": {
             "type": "beta"
           },
-          "sortKey": 3
-        },
-        {
-          "title": "Link button",
-          "id": "link-button",
-          "status": {
-            "type": "beta"
-          },
           "sortKey": 4
-        },
-        {
-          "title": "Link icon button",
-          "id": "link-icon-button",
-          "status": {
-            "type": "beta"
-          },
-          "sortKey": 5
         },
         {
           "title": "Button group",
           "id": "button-group",
+          "sortKey": 5
+        },
+        {
+          "title": "Button (legacy)",
+          "id": "button-legacy",
+          "status": {
+            "type": "intent-to-deprecate",
+            "description": "Legacy buttons will soon be deprecated. Please use the new [button](/components/button), [icon button](/components/button/icon-button), [link button](/components/button/link-button), or [link icon button](/components/button/link-icon-button). Migrate from legacy buttons using our codemod.",
+            "actions": [
+              {
+                "text": "View the migration guide",
+                "href": "/components/button/button-legacy/migration-guide"
+              }
+            ]
+          },
           "sortKey": 6
         }
       ]

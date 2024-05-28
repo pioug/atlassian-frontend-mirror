@@ -861,7 +861,6 @@ describe('JiraIssuesConfigModal', () => {
           onNextPage: expect.any(Function),
           onLoadDatasourceDetails: hookState.loadDatasourceDetails,
           onVisibleColumnKeysChange: expect.any(Function),
-          parentContainerRenderInstanceId: expect.any(String),
           extensionKey: expect.any(String),
           columnCustomSizes: undefined,
           onColumnResize: expect.any(Function),

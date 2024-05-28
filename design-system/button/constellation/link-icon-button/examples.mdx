@@ -26,7 +26,7 @@ For buttons that are links for navigation rather than on-page actions. Link icon
 
 ## Routing
 
-When available, link icon button will consume the router link component configured in the **app provider**. This allows router links to be configured once across an entire application. (This replaces [the component prop](/components/button/examples#routing)).
+When available, link icon button will consume the router link component configured in the **app provider**. This allows router links to be configured once across an entire application. (This replaces [the component prop](/components/button/button-legacy/examples#routing)).
 
 These links won't use the configured router link component when passed to `href`, and instead render a standard `<a>` tag:
 
@@ -40,8 +40,8 @@ If your application doesn't have an existing app provider or `routerLinkComponen
 
 <SectionMessage appearance="information">
   Tooltips are currently disabled by default. They will be enabled by default in
-  a later release. Prefer using built-in tooltips over wrapping the link icon button
-  manually.
+  a later release. Prefer using built-in tooltips over wrapping the link icon
+  button manually.
 </SectionMessage>
 
 Set `isTooltipDisabled` to false to enable the tooltip. The value of `label` will be used for the tooltip content.
@@ -52,13 +52,16 @@ Set `isTooltipDisabled` to false to enable the tooltip. The value of `label` wil
 
 Use the `tooltip` prop to override the default tooltip props. It accepts all [tooptip props](/components/tooltip/code), excluding `children`.
 
-<Example Component={LinkIconButtonTooltipOptions} packageName="@atlaskit/button" />
+<Example
+  Component={LinkIconButtonTooltipOptions}
+  packageName="@atlaskit/button"
+/>
 
 ## Appearance
 
 ### Primary
 
-A primary button calls attention to the most important action on a page or in an area. Primary icon buttons aren't common because critical actions should typically use [a button with a label for clarity](components/button/button-new).
+A primary button calls attention to the most important action on a page or in an area. Primary icon buttons aren't common because critical actions should typically use [a button with a label for clarity](/components/button).
 
 <Example Component={LinkIconButtonPrimary} packageName="@atlaskit/button" />
 
@@ -86,7 +89,10 @@ Only use circle icon buttons in the top navigation or other areas that already h
 
 Use the `icon` render prop to override the default icon props.
 
-<Example Component={LinkIconButtonIconOverrides} packageName="@atlaskit/button" />
+<Example
+  Component={LinkIconButtonIconOverrides}
+  packageName="@atlaskit/button"
+/>
 
 ## Advanced href usage with TypeScript
 

@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 81.1.1
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 81.1.0
+
+### Minor Changes
+
+-   [#102269](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102269)
+    [`8718148ba98c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8718148ba98c) -
+    Fix race condition issue caused by react update batching.
+
+## 81.0.1
+
+### Patch Changes
+
+-   [#103741](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103741)
+    [`fb1acc6fb09b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb1acc6fb09b) -
+    Remove inline image preview ff
+
 ## 81.0.0
 
 ### Major Changes

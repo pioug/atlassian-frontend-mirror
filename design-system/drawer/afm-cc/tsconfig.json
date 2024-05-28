@@ -25,6 +25,9 @@
             "path": "../../blanket/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../button/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../icon/afm-cc/tsconfig.json"
         },
         {

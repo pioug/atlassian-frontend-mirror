@@ -75,7 +75,7 @@ export function createUrl(
   url: string,
   { params, auth }: CreateUrlOptions,
 ): string {
-  const parsedUrl = new URL(url);
+  const parsedUrl = new URL(url, auth?.baseUrl);
   const authParams = (auth && mapAuthToQueryParameters(auth)) || {};
   const paramsToAppend: { [key: string]: any } = {
     ...params,

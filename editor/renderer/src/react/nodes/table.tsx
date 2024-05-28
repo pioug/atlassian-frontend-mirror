@@ -41,7 +41,11 @@ import {
 } from './table/sticky';
 import { Table } from './table/table';
 import type { SharedTableProps } from './table/types';
-import { isFullWidthOrFullPageAppearance } from '../utils/appearance';
+import {
+  isFullPageAppearance,
+  isFullWidthAppearance,
+  isFullWidthOrFullPageAppearance,
+} from '../utils/appearance';
 
 type TableArrayMapped = {
   rowNodes: Array<PMNode | null>;
@@ -385,7 +389,7 @@ export class TableContainer extends React.Component<
 
     const { stickyMode } = this.state;
 
-    const lineLength = akEditorDefaultLayoutWidth;
+    const lineLengthFixedWidth = akEditorDefaultLayoutWidth;
     let left: number | undefined;
     let updatedLayout: TableLayout | 'custom';
 
@@ -416,8 +420,38 @@ export class TableContainer extends React.Component<
       tableNode,
     );
 
-    if (canUseLinelength(rendererAppearance) && tableWidth > lineLength) {
-      left = lineLength / 2 - tableWidth / 2;
+    // Logic for table alignment in renderer
+    const isTableAlignStart =
+      getBooleanFF('platform.editor.table.allow-table-alignment') &&
+      isFullWidthOrFullPageAppearance(rendererAppearance) &&
+      tableNode &&
+      tableNode.attrs &&
+      tableNode.attrs.layout === 'align-start';
+
+    const fullWidthLineLength = isRenderWidthValid
+      ? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
+      : akEditorFullWidthLayoutWidth;
+
+    const lineLength = isFullWidthAppearance(rendererAppearance)
+      ? fullWidthLineLength
+      : lineLengthFixedWidth;
+
+    const shouldCalculateLeftForAlignment =
+      isTableAlignStart &&
+      ((isFullPageAppearance(rendererAppearance) &&
+        tableWidth <= lineLengthFixedWidth) ||
+        isFullWidthAppearance(rendererAppearance));
+
+    if (shouldCalculateLeftForAlignment) {
+      left = (tableWidth - lineLength) / 2;
+    }
+
+    if (
+      !shouldCalculateLeftForAlignment &&
+      canUseLinelength(rendererAppearance) &&
+      tableWidth > lineLengthFixedWidth
+    ) {
+      left = lineLengthFixedWidth / 2 - tableWidth / 2;
     }
 
     const children = React.Children.toArray(this.props.children);
@@ -432,9 +466,7 @@ export class TableContainer extends React.Component<
     if (isFullWidth) {
       updatedLayout = 'full-width';
       // if table has width explicity set, ensure SSR is handled
-    } else if (
-      tableNode?.attrs.width
-    ) {
+    } else if (tableNode?.attrs.width) {
       updatedLayout = 'custom';
     } else {
       updatedLayout = layout;
@@ -449,9 +481,14 @@ export class TableContainer extends React.Component<
           data-layout={updatedLayout}
           ref={this.props.handleRef}
           style={{
-            width: isTableResizingEnabled(rendererAppearance) ? tableWidth : 'inherit',
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
-            left,
+            width: isTableResizingEnabled(rendererAppearance)
+              ? tableWidth
+              : 'inherit',
+            left: left,
+            marginLeft:
+              shouldCalculateLeftForAlignment && left !== undefined
+                ? -left
+                : undefined,
           }}
         >
           {stickyHeaders && tableCanBeSticky(tableNode, children) && (

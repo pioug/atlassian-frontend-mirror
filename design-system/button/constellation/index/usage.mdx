@@ -2,8 +2,6 @@
 order: 2
 ---
 
-import SectionMessage from '@atlaskit/section-message';
-
 import buttonPrimaryDo from './images/button-primary-do.png';
 import buttonPrimaryDont from './images/button-primary-dont.png';
 import buttonDisableDo from './images/button-disable-do.png';
@@ -17,17 +15,6 @@ import buttonActionDont from './images/button-action-dont.png';
 import buttonLabelDo from './images/button-label-do.png';
 import buttonLabelDont from './images/button-label-dont.png';
 
-<SectionMessage>
-  <p>
-    New buttons are available. Try the{' '}
-    <a href="/components/button/button-new">new button</a>,{' '}
-    <a href="/components/button/icon-button">icon button</a>, and{' '}
-    <a href="/components/button/split-button">split button</a> before we roll
-    them out across Atlassian.{' '}
-    <a href="/components/button/migration-guide">Migrate to new buttons</a>.
-  </p>
-</SectionMessage>
-
 ## Usage
 
 Buttons are triggers for events or actions. They’re a common part of larger experiences such as [forms](/patterns/forms) or [modal dialogs](/components/modal-dialog).
@@ -36,14 +23,15 @@ Buttons are triggers for events or actions. They’re a common part of larger ex
 
 Buttons typically have a label and can include an icon before or after the label.
 
-1. **Icon (optional):** Most buttons don't need an icon. Use an icon to add additional affordance where the icon has a clear and well-established meaning.
-2. **Label:** Text that explains the result of selecting the button. Use action verbs or phrases to tell the user what will happen next, and follow the [button label content guidelines](/components/button/usage#content-guidelines).
+1. **Label:** Text describing the button action. Use action verbs or phrases to tell the user what will happen next, and follow the [button label content guidelines](/components/button/usage#content-guidelines).
+1. **Button:** The selectable area of the button.
+1. **Icon (optional):** Most buttons don’t need an icon. Use an icon to add additional affordance where the icon has a clear and well-established meaning.
 
 ### Use one primary call to action
 
 Only include one primary button or call to action (CTA) in a page or area of UI.
 
-Primary buttons indicate the most important action in a group or area. Having multiple primary CTAs in one area can be confusing or visually overwhelming.
+Primary buttons indicate the most important action in a group or area. Having multiple primary CTAs in one area can be confusing or visually overwhelming because they compete for attention.
 
 <DoDont
   type="do"
@@ -79,16 +67,11 @@ In general, don’t use a `<button>` in place of a link (`<a>`) or a link in pla
 
 ## Accessibility
 
-### Include aria labels for icon-only buttons
-
-- Include alternative text using the `aria-label` prop when using icon-only buttons.
-- When using an icon alongside text, do not add a label to the icon. Doing so will unnecessarily repeat labels for people using screen readers.
-
 ### Avoid disabling buttons
 
-Avoid using disabled buttons, especially in forms. Disabled buttons don't explain why the button isn't usable, and they aren't focusable at all for people using keyboard navigation.
+Avoid disabling buttons, especially in forms. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed.
 
-Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed.
+Disabled buttons don’t explain why the button isn’t usable. They also aren’t reachable in the tab order and don’t receive hover, focus, or click events, making them entirely inaccessible to some people.
 
 <DoDont
   type="do"
@@ -111,69 +94,29 @@ Instead, keep the button pressable, and use validation and errors to explain wha
   direction for how to proceed.
 </DoDont>
 
-### Don't put tooltips on disabled buttons
+### Never put tooltips on disabled buttons
 
-This is not accessible. Disabled buttons aren't reachable in the tab order and don't receive hover, focus, or click events.
-Don't attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations.
+Tooltips can't be reached on all devices or by some assitive technologies, and they should never appear on elements that aren't interactable.
 
-Some questions you should ask if you feel you need a tooltip on a disabled button:
+<!-- Don’t attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations. -->
 
-- Is this information **essential** to the user experience? If so, don’t hide it behind a tooltip. Tooltips aren’t easy to discover and aren’t accessible on mobile. If it isn’t essential, consider whether you need to show it at all.
-- Is this information **actionable**? Being shown things that you can’t use without any actionable next step can be frustrating or confusing. Consider only showing UI that a user is able to interact with, or replacing the disabled button with text that has the same content you were going to put in the tooltip. If you do this, you can make things even more actionable for the user by providing a link to a next step that they can take, or further information.
+Things to consider before using a tooltip:
 
-We know that disabled buttons with tooltips are sometimes used to promote feature discovery. We are working to provide guidance for this use case in the future.
+- Is this information **essential** to the user experience? If so, never hide it behind a tooltip. Tooltips aren’t easy to discover and aren’t accessible at all on mobile devices. If it isn’t essential information, consider if you need to show it at all.
+- Is this information **actionable**? Being shown things that you can’t use without any next steps can be frustrating or confusing. Consider only showing UI that a user can interact with.
+- If the information is still necessary or helpful, consider using helper text or other more accessible text that has the same content instead of a tooltip. This gives you more options to provide a link to a next step or another relevant action.
 
-### Focus behavior
+<!-- We know that disabled buttons with tooltips are sometimes used for feature discovery. We're working on guidance for this case. -->
 
-<!-- TODO: make example showcasing this behavior. Would be ideal to remove from usage and have as an example instead. -->
+<!-- TODO: make example showcasing focus behavior. Would be ideal to remove from usage and have as an example instead. -->
 
-By default `tabIndex={0}` is added when the `component` prop is specified, so the button element can get browser focus regardless of the element type used.
-
-On a `mousedown`, `event.preventDefault()` is always called to prevent the button from getting focus. This is questionable behavior that we hope to change in future.
-
-When a native `<button>` is disabled, it loses browser focus and cannot be focused. We replicate this behavior by setting `tabIndex={-1}` on the button element and calling `element.blur()` when a button becomes disabled (`isDisabled` prop is set to true).
-
-## Best practices
-
-### Alignment and positioning
-
-In general, the primary button or main CTA should match the alignment of the button group. For example, right aligned button groups place the primary button on the right. Left aligned button groups would place the primary button on the left.
-
-**Right align** buttons for focussed tasks, series of tasks (such as [onboarding](/components/onboarding)), and [modal dialogs](/components/modal-dialog). Right aligning buttons is best for experiences with less copy, so users end scanning on the most important action (following a Z-pattern).
-
-**Left align** buttons for single-page forms and other full-page tasks where there is a lot of content in view. This aligns with how people scan full pages with more content (F-pattern), sorting by importance from left to right. Cards can also left-align the primary action, as they're typically part of a larger page experience.
-
-Exceptions: Benefits modals and login forms currently center align buttons.
-
-<DoDont
-  type="do"
-  image={{
-    url: buttonAlignmentModal,
-    alt: 'Buttons aligned to the right in a modal dialog, with the primary action furthest right.',
-  }}
->
-  Right-align buttons for focussed tasks, modal dialogs, and other areas with
-  less content.
-</DoDont>
-
-<DoDont
-  type="do"
-  image={{
-    url: buttonAlignmentPage,
-    alt: 'Buttons aligned to the left in a full-page layout, with the primary action furthest left.',
-  }}
->
-  Left align buttons on full-page forms, long lists of cards, or other screens
-  with a lot of full-page content.
-</DoDont>
-
-Form patterns show more detailed [button alignment diagrams](/patterns/forms#button-positioning).
+<Snippet name="button-best-practices" />
 
 ## Content guidelines
 
 ### Use sentence case capitalization
 
-Only capitalize the first letter of the button and any proper nouns. (Most feature names aren’t capitalized or considered proper nouns when following [our capitalization guidance](/content/language-and-grammar#capitalization).)
+Only capitalize the first letter of the button and any proper nouns. Most feature names aren’t capitalized or considered proper nouns when following [our capitalization guidance](/content/language-and-grammar#capitalization).
 
 <DoDont
   type="do"
@@ -221,7 +164,7 @@ Keep labels short and free of punctuation. Drop unnecessary articles, such as �
 
 ### Use specific labels wherever possible
 
-Start with the verb and specify what is being acted on. Use dynamic text to make the button very specific if posible.
+Start with the verb and specify what is being acted on. Use dynamic text to make the button very specific if possible.
 
 <DoDont
   type="do"
@@ -275,39 +218,10 @@ For all new features, we recommend using Atlassian Design System and other [Atla
 
 ## Related
 
+- [Icon buttons](/components/button/icon-button)
+- [Link buttons](/components/button/link-button)
 - [Button groups](/components/button/button-group/usage)
+- [Split buttons](/components/button/split-button)
 - [Forms](/patterns/forms)
 - [Modal dialogs](/components/modal-dialog)
 - [Dropdown menus](/components/dropdown-menu)
-
-## Technical considerations
-
-<!-- TODO: These topics should all be examples for their respective props or behaviors. Leave as is for old button docs, but double check new button how these use cases work and put examples in the right spots. -->
-
-### Behavior
-
-Each button variation (`Button`, `LoadingButton` and `CustomThemeButton`) will render out a `<button>` element, an `<a>` element if a `href` prop is supplied, or render any other element type by using the component prop (for example, `component="span"`). Each button element looks and behaves similarly, regardless of element tag, as it is guided by the native `<button>` behavior.
-
-A `role` prop is inferred from the element type or you can pass in a `role` prop if you need to.
-
-### Buttons with an overlay
-
-<!-- TODO: This info should live with the loading button example and/or overlay prop description. Also, loading button should technically be it's own page, but we're leaving it as is since old button is old. -->
-
-Buttons support an overlay element, which is used to display a spinner for `LoadingButton > isLoading`. When there is an overlay, the normal button content fades out and the button is non-interactive but not disabled.
-
-A `button` with an overlay:
-
-- will block events as if it is disabled
-- won’t lose focus automatically when the overlay is shown (unlike when it is disabled, where the focus is lost)
-- allows focus to be given and removed from the element
-
-The button will not show `:active` and `:hover` styles and otherwise keeps the same visual and cursor experience as if it did not have an overlay.
-
-### Adding event listeners
-
-For the most consistent behavior across elements, it’s safest to use bubble phase listeners on the button element and parent elements, for example, use `onClick` rather than `onClickCapture`. Although, event listeners _can_ be added in either the capture or bubble phase on the button element.
-
-Bubble and capture event listeners will not be called when the button component is disabled.
-
-For elements that are parents of a button you need to bind on the bubble phase (for example, `onClick`) since button does not abort the event until the capture phase. So as the event goes down the DOM tree in the capture phase, it’s not aborted until it reaches the button element. This means you will get a click event from a button on parents in the capture phase. A workaround is to add events to the window when disabled and stop the event a bit earlier, but that's a bit heavy.

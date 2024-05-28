@@ -53,7 +53,9 @@ describe('Drawer primitive', () => {
       </DrawerPrimitive>,
     );
 
-    expect(screen.getByLabelText('Close drawer')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Close drawer' }),
+    ).toBeInTheDocument();
   });
 
   it('should render close control if icon prop does NOT exist', () => {
@@ -64,7 +66,9 @@ describe('Drawer primitive', () => {
       </DrawerPrimitive>,
     );
 
-    expect(screen.getByLabelText('Close drawer')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Close drawer' }),
+    ).toBeInTheDocument();
   });
 
   it('should render close control with custom label if closeLabel is supplied', () => {
@@ -76,7 +80,9 @@ describe('Drawer primitive', () => {
       </DrawerPrimitive>,
     );
 
-    expect(screen.getByLabelText(closeLabel)).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: closeLabel }),
+    ).toBeInTheDocument();
   });
 
   it('should unmount the node if receives shouldUnmountOnExit prop', async () => {

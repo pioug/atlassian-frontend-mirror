@@ -25,10 +25,6 @@ export interface ColumnSizesMap {
 export interface IssueLikeDataTableViewProps {
   testId?: string;
   /**
-   * Unique ID to indicate parent component instance to be used for UFO experiences
-   */
-  parentContainerRenderInstanceId?: string;
-  /**
    * Datasource extension key. Optional as value may not have been returned yet
    */
   extensionKey?: string | null;

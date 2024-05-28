@@ -1,4 +1,5 @@
 ---
+title: Button (legacy)
 order: 3
 ---
 
@@ -9,7 +10,7 @@ import SectionMessage from '@atlaskit/section-message';
 
 ## Migrate to use the new button components
 
-New button components with improved APIs are here. If you're using the old `@atlaskit/button`, you can start migrating some default and loading button usages to the [new button](/components/button/button-new), [icon button](/components/button/icon-button), and [link button](/components/button/link-button) today.
+New button components with improved APIs are here. If you're using the old `@atlaskit/button`, you can start migrating some default and loading button usages to the [new button](/components/button), [icon button](/components/button/icon-button), and [link button](/components/button/link-button) today.
 
 ## Use the codemod for automated migration assistance
 
@@ -111,20 +112,20 @@ New button:
 
 ### DOM element changes
 
-Buttons with only icons and no visible labels need accessible labels. The legacy Button component supports this through the button `atia-label` attribute or the `label` prop on the icon component.
+Buttons with only icons and no visible labels need accessible labels. The legacy Button component supports this through the button `aria-label` attribute or the `label` prop on the icon component.
 
-In new icon buttons, we have added a `label` prop which is required. This is rendered as content inside the icon button using [VisuallyHidden](/components/visually-hidden/examples). The text is visually hidden, but still functions in all ways as regular text on a page.
+In new icon buttons, we have added a `label` prop which is required. This is rendered as content inside the icon button using [visually hidden](/components/visually-hidden/examples). The text is visually hidden, but still functions in all ways as regular text on a page.
 This means it is translatable, and readable by screenreaders.
 
 ## What buttons can't be migrated automatically yet?
 
 These buttons are still being developed and reviewed in the new designs, or they just can't be migrated automatically yet. Here's what to do in these situations:
 
-| Old button property                                             | What to do                                                                                                                                                                                            |
-| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `appearance` set to `link` or `subtle link` on non-link buttons | Consider using [semantically correct buttons and links](/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation) instead, or the new Link component or Anchor primitive. |
-| `style` or `css` props                                          | Consider using [Pressable](/components/primitives/pressable) to build custom buttons with Atlassian Design System styling.                                                                            |
-| `component` property                                            | Buttons using `component` prop for routing can be migrated to the new [link button](/components/button/link-button).                                                                                  |
+| Old button property                                             | What to do                                                                                                                                                                                 |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `appearance` set to `link` or `subtle link` on non-link buttons | Consider using [semantically correct buttons and links](/components/button/usage#use-buttons-for-actions-and-links-for-navigation) instead, or the new Link component or Anchor primitive. |
+| `style` or `css` props                                          | Consider using [Pressable](/components/primitives/pressable) to build custom buttons with Atlassian Design System styling.                                                                 |
+| `component` property                                            | Buttons using `component` prop for routing can be migrated to the new [link button](/components/button/link-button).                                                                       |
 
 <SectionMessage>
   Not all old buttons have a 1:1 replacement in the new components. We're still
@@ -138,7 +139,7 @@ If you have a button that can't be migrated or changed, keep using legacy button
 ## More information
 
 - [Atlassian migration details (Atlassians only)](https://go.atlassian.com/button-migration-guide)
-- [New button](/components/button/button-new)
+- [New button](/components/button)
 - [Icon button](/components/button/icon-button)
 - [Link button](/components/button/link-button)
 - [Split button](/components/button/split-button)

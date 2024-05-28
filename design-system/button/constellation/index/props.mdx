@@ -1,38 +1,22 @@
-import SharedProps from '!!extract-react-types-loader!../../extract-react-types/legacy-button/shared-props';
-import LoadingButtonProps from '!!extract-react-types-loader!../../extract-react-types/legacy-button/loading-button-props';
-import CustomThemeButtonProps from '!!extract-react-types-loader!../../extract-react-types/legacy-button/custom-theme-button-props';
+---
+order: 1
+---
 
-import SectionMessage from '@atlaskit/section-message';
-
-<SectionMessage>
-  <p>
-    New buttons are available. Try the{' '}
-    <a href="/components/button/button-new">new button</a>,{' '}
-    <a href="/components/button/icon-button">icon button</a>, and{' '}
-    <a href="/components/button/split-button">split button</a> before we roll
-    them out across Atlassian.{' '}
-    <a href="/components/button/migration-guide">Migrate to new buttons</a>.
-  </p>
-</SectionMessage>
+import CommonDefaultButtonProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/default/common-default-button-props';
+import ButtonProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/default/button-props';
 
 ## Props
 
-### Shared props
+### Common props
 
-These props can be applied to all buttons (`Button`, `LoadingButton` and `CustomThemeButton`).
+These props work for both `Button` and `LinkButton`. Each button type also supports its respective HTML element attributes, **except for**:
 
-All buttons also support all valid `HTMLElement` props, except for `disabled` which is replaced with the `isDisabled` prop.
+- `disabled` (use `isDisabled` instead)
+- `style`
+- `role`
 
-<PropsTable heading="" props={SharedProps} />
+<PropsTable heading="" props={CommonDefaultButtonProps} />
 
-### Loading button props
+### Button props
 
-The `LoadingButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop.
-
-<PropsTable heading="" props={LoadingButtonProps} />
-
-### Custom theme button props
-
-The `CustomThemeButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop, and an optional `theme` prop.
-
-<PropsTable heading="" props={CustomThemeButtonProps} />
+<PropsTable heading="" props={ButtonProps} />

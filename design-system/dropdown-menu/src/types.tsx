@@ -1,4 +1,10 @@
-import { type KeyboardEvent, type MouseEvent, type ReactElement, type ReactNode, type Ref } from 'react';
+import {
+  type KeyboardEvent,
+  type MouseEvent,
+  type ReactElement,
+  type ReactNode,
+  type Ref,
+} from 'react';
 
 import type {
   CustomItemComponentProps,
@@ -160,7 +166,7 @@ export interface DropdownMenuProps<
    * Content that triggers the dropdown menu to open and close. Use with
    * `triggerType` to get a button trigger. To customize the trigger element,
    * provide a function to this prop. You can find
-   * [examples for custom triggers](components/dropdown-menu/examples#custom-triggers)
+   * [examples for custom triggers](https://atlassian.design/components/dropdown-menu/examples#custom-triggers)
    * in our documentation.
    */
   trigger?:

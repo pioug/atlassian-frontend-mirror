@@ -38,7 +38,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/media-client": "^27.0.0",
+    "@atlaskit/media-client": "^27.1.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -47,7 +47,7 @@
   "devDependencies": {
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/media-state": "^1.0.3",
+    "@atlaskit/media-state": "^1.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

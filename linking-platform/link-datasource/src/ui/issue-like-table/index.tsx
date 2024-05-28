@@ -36,6 +36,7 @@ import {
   succeedUfoExperience,
 } from '../../analytics/ufoExperiences';
 import { stickyTableHeadersIndex } from '../../common/zindex';
+import { useDatasourceExperienceId } from '../../contexts/datasource-experience-id';
 
 import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
@@ -428,12 +429,12 @@ export const IssueLikeDataTableView = ({
   status,
   hasNextPage,
   scrollableContainerHeight,
-  parentContainerRenderInstanceId,
   extensionKey,
 }: IssueLikeDataTableViewProps) => {
   const tableId = useMemo(() => Symbol('unique-id'), []);
   const intl = useIntl();
 
+  const experienceId = useDatasourceExperienceId();
   const tableHeaderRowRef = useRef<HTMLTableRowElement>(null);
 
   const [lastRowElement, setLastRowElement] =
@@ -469,15 +470,15 @@ export const IssueLikeDataTableView = ({
   }, [columns, visibleColumnKeys, hasFullSchema]);
 
   useEffect(() => {
-    if (parentContainerRenderInstanceId && status === 'resolved') {
+    if (experienceId && status === 'resolved') {
       succeedUfoExperience(
         {
           name: 'datasource-rendered',
         },
-        parentContainerRenderInstanceId,
+        experienceId,
       );
     }
-  }, [parentContainerRenderInstanceId, status]);
+  }, [experienceId, status]);
 
   const visibleSortedColumns = useMemo(
     () =>
@@ -752,13 +753,13 @@ export const IssueLikeDataTableView = ({
       return;
     }
 
-    if (parentContainerRenderInstanceId) {
+    if (experienceId) {
       startUfoExperience(
         {
           name: 'column-picker-rendered',
           metadata: { extensionKey: extensionKey ?? undefined },
         },
-        parentContainerRenderInstanceId,
+        experienceId,
       );
     }
 
@@ -769,7 +770,7 @@ export const IssueLikeDataTableView = ({
       setHasFullSchema(false);
     }
   }, [
-    parentContainerRenderInstanceId,
+    experienceId,
     extensionKey,
     hasFullSchema,
     onLoadDatasourceDetails,
@@ -879,9 +880,6 @@ export const IssueLikeDataTableView = ({
                   selectedColumnKeys={hasFullSchema ? visibleColumnKeys : []}
                   onSelectedColumnKeysChange={onSelectedColumnKeysChange}
                   onOpen={handlePickerOpen}
-                  parentContainerRenderInstanceId={
-                    parentContainerRenderInstanceId
-                  }
                 />
               </ColumnPickerHeader>
             )}

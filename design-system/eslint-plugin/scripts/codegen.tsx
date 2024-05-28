@@ -205,9 +205,7 @@ async function generateRuleTable(
       const result = await ruleDocsPath(rule.moduleName);
       docsPath = result.path;
     } else {
-      // We want `<a href="consistent-css-prop-usage/usage">consistent-css-prop-usage</a>` for the link
-      // to resolve to `/components/eslint-plugin-design-system/consistent-css-prop-usage/usage`
-      docsPath = `${rule.moduleName}/usage`;
+      docsPath = `/components/eslint-plugin-design-system/${rule.moduleName}/usage`;
     }
 
     const link = optionallyLinkTo(rule.ruleName, docsPath);

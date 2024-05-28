@@ -13,19 +13,25 @@ export const getSelection = (tr: Transaction, start: number) => {
   if (isNodeSelection) {
     return new NodeSelection($startPos);
   } else {
-    const textNodesPos: number[] = [];
+    // To trigger the annotation floating toolbar for non-selectable node, we need to select on the text node
+    // Find the first text node in the node
+    let textNodesPos: number = start;
+    let foundTextNodes = false;
     tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n, pos) => {
+      if (foundTextNodes) {
+        return false;
+      }
       if (n.isText) {
-        textNodesPos.push(pos);
+        textNodesPos = pos;
+        foundTextNodes = true;
         return false;
       }
       return true;
     });
 
-    const textNodeStart = textNodesPos[0] || start;
-    const textNodeDepth = textNodeStart - start;
+    const textNodeDepth = textNodesPos - start;
     return new TextSelection(
-      tr.doc.resolve(textNodeStart),
+      tr.doc.resolve(textNodesPos),
       tr.doc.resolve(start + nodeSize - textNodeDepth),
     );
   }

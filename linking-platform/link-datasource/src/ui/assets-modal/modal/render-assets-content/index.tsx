@@ -36,7 +36,6 @@ export interface RenderAssetsContentProps {
   columns: DatasourceResponseSchemaProperty[];
   defaultVisibleColumnKeys: string[];
   onVisibleColumnKeysChange: (visibleColumnKeys: string[]) => void;
-  modalRenderInstanceId: string;
 }
 
 export const MODAL_HEIGHT = 420;
@@ -115,7 +114,6 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
     columns,
     defaultVisibleColumnKeys,
     onVisibleColumnKeysChange,
-    modalRenderInstanceId,
     isFetchingInitialData,
   } = props;
 
@@ -134,7 +132,6 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
           onNextPage={onNextPage}
           onLoadDatasourceDetails={loadDatasourceDetails}
           onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-          parentContainerRenderInstanceId={modalRenderInstanceId}
         />
       </div>
     ),
@@ -148,7 +145,6 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
       responseItems,
       status,
       visibleColumnKeys,
-      modalRenderInstanceId,
     ],
   );
 

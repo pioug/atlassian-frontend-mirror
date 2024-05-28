@@ -411,7 +411,15 @@ export class FileFetcherImpl implements FileFetcher {
       });
       // we don't want to wait for the file to be upload
       this.upload(file, undefined, uploadableFileUpfrontIds, traceContext);
-      const dimensions = await getDimensionsFromBlob(mediaType, blob);
+
+      let dimensions: Dimensions | undefined;
+      try {
+        dimensions = await getDimensionsFromBlob(mediaType, blob);
+      } catch (error) {
+        reject(error);
+        return;
+      }
+
       resolve({
         dimensions,
         uploadableFileUpfrontIds,

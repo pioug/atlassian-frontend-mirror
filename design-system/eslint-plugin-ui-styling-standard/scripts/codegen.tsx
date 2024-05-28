@@ -18,7 +18,8 @@ import {
 } from '../src/rules/external-rules';
 
 const packagePluginName = '@atlaskit/eslint-plugin-ui-styling-standard';
-const pluginName = packagePluginName.replace('/eslint-plugin-', '/');
+const pluginName = '@atlaskit/ui-styling-standard';
+const pluginPath = 'eslint-plugin-ui-styling-standard';
 const codegenCommand = `yarn workspace ${packagePluginName} codegen`;
 
 interface FoundRule {
@@ -298,9 +299,7 @@ async function generateRuleTable(
     let docsPath: string | undefined;
 
     if (linkTo === 'docs') {
-      // We want `<a href="consistent-css-prop-usage/usage">consistent-css-prop-usage</a>` for the link
-      // to resolve to `/components/eslint-plugin-design-system/consistent-css-prop-usage/usage`
-      docsPath = `${rule.pathSafeName}/usage`;
+      docsPath = `/components/${pluginPath}/${rule.pathSafeName}/usage`;
     } else if (ruleIsInternal(rule)) {
       const result = await ruleDocsPath(rule.pathSafeName);
       docsPath = result.path;

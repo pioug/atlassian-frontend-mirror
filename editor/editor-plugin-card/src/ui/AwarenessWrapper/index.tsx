@@ -17,7 +17,7 @@ import {
 import type { SmartCardProps } from '../../nodeviews/genericCard';
 import { getResolvedAttributesFromStore } from '../../utils';
 import InlineCardOverlay from '../InlineCardOverlay';
-import NewInlineCardOverlay from '../NewInlineCardOverlay';
+import LeftIconOverlay from '../LeftIconOverlay';
 import { DiscoveryPulse } from '../Pulse';
 
 type AwarenessWrapperProps = {
@@ -110,17 +110,16 @@ export const AwarenessWrapper = ({
     () => {
       if (shouldShowLinkOverlay) {
         if (getBooleanFF('platform.linking-platform.smart-links-in-live-pages')) {
-          return <NewInlineCardOverlay
+          return <LeftIconOverlay
             isSelected={isSelected}
             isVisible={
               isResolvedViewRendered && (isInserted || isHovered || isSelected)
             }
             onMouseEnter={() => handleOverlayChange(true)}
             onMouseLeave={() => handleOverlayChange(false)}
-            url={url}
           >
             {children}
-          </NewInlineCardOverlay>
+          </LeftIconOverlay>
         }
         return (
           <InlineCardOverlay

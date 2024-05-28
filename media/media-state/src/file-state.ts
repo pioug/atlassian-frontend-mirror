@@ -9,6 +9,7 @@ export type MediaRepresentations = {
 export type MediaFileArtifact = {
   readonly url: string;
   readonly processingStatus: MediaFileProcessingStatus;
+  readonly cdnUrl?: string;
 };
 
 export interface MediaFileArtifacts {

@@ -18,6 +18,7 @@ import {
 import Tooltip from '@atlaskit/tooltip';
 
 import { succeedUfoExperience } from '../../../analytics/ufoExperiences';
+import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
 
 import { ConcatenatedMenuList } from './concatenated-menu-list';
 import { columnPickerMessages } from './messages';
@@ -28,9 +29,9 @@ export const ColumnPicker = ({
   selectedColumnKeys,
   onSelectedColumnKeysChange,
   onOpen,
-  parentContainerRenderInstanceId,
 }: ColumnPickerProps) => {
   const intl = useIntl();
+  const experienceId = useDatasourceExperienceId();
   const [allOptions, setAllOptions] = useState<OptionType[]>([]);
   const pickerRef = useRef<PopupSelect<OptionType, true, ModifierList>>(null);
 
@@ -116,14 +117,14 @@ export const ColumnPicker = ({
 
   useEffect(() => {
     if (allOptions.length) {
-      if (parentContainerRenderInstanceId) {
+      if (experienceId) {
         succeedUfoExperience(
           { name: 'column-picker-rendered' },
-          parentContainerRenderInstanceId,
+          experienceId,
         );
       }
     }
-  }, [allOptions, parentContainerRenderInstanceId]);
+  }, [allOptions, experienceId]);
 
   return (
     <PopupSelect

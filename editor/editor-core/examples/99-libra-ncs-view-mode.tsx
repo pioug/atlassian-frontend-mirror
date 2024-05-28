@@ -174,7 +174,13 @@ const style = { height: '100%', width: '100%' };
 const urlParams = new URLSearchParams(window.location.search);
 export default function EditorExampleForIntegrationTests() {
   setBooleanFeatureFlagResolver((flagKey) => {
-    return flagKey === 'platform.linking-platform.smart-card.on-click-callback';
+    if (flagKey === 'platform.linking-platform.smart-card.on-click-callback') {
+      return true
+    }
+    if (flagKey === 'platform.linking-platform.smart-links-in-live-pages') {
+      return true
+    }
+    return false;
   });
   const options = React.useMemo(() => {
     const fakeAri = `ari:cloud:confluence:collab-test:blog/${crypto.randomUUID()}`;

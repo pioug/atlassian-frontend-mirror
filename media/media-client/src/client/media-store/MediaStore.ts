@@ -1,4 +1,8 @@
-import { type AuthContext, type MediaApiConfig, type Auth } from '@atlaskit/media-core';
+import {
+  type AuthContext,
+  type MediaApiConfig,
+  type Auth,
+} from '@atlaskit/media-core';
 import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
 import { type MediaFileArtifacts } from '@atlaskit/media-state';
 import type {
@@ -36,6 +40,7 @@ import {
 } from '../../utils/request/types';
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const MEDIA_API_REGION = 'media-api-region';
 const MEDIA_API_ENVIRONMENT = 'media-api-environment';
@@ -270,7 +275,12 @@ export class MediaStore implements MediaApi {
       params: extendImageParams(params),
       auth,
     };
-    return createUrl(`${auth.baseUrl}/file/${id}/image`, options);
+
+    const imageEndpoint = getBooleanFF('platform.media-cdn-delivery')
+      ? 'image/cdn'
+      : 'image';
+
+    return createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options);
   }
 
   async getFileBinary(
@@ -279,9 +289,14 @@ export class MediaStore implements MediaApi {
     maxAge: number = FILE_CACHE_MAX_AGE,
   ): Promise<Blob> {
     const headers: RequestHeaders = {};
+
+    const binaryEndpoint = getBooleanFF('platform.media-cdn-delivery')
+      ? 'binary/cdn'
+      : 'binary';
+
     const metadata: RequestMetadata = {
       method: 'GET',
-      endpoint: '/file/{fileId}/binary',
+      endpoint: `/file/{fileId}/${binaryEndpoint}`,
     };
 
     const options: MediaStoreRequestOptions = {
@@ -293,7 +308,7 @@ export class MediaStore implements MediaApi {
       },
     };
 
-    return this.request(`/file/${id}/binary`, options).then(
+    return this.request(`/file/${id}/${binaryEndpoint}`, options).then(
       createMapResponseToBlob(metadata),
     );
   }
@@ -314,7 +329,11 @@ export class MediaStore implements MediaApi {
       auth,
     };
 
-    return createUrl(`${auth.baseUrl}/file/${id}/binary`, options);
+    const binaryEndpoint = getBooleanFF('platform.media-cdn-delivery')
+      ? 'binary/cdn'
+      : 'binary';
+
+    return createUrl(`${auth.baseUrl}/file/${id}/${binaryEndpoint}`, options);
   }
 
   async getArtifactURL(
@@ -327,14 +346,19 @@ export class MediaStore implements MediaApi {
       throw new Error(`artifact ${artifactName} not found`);
     }
 
-    const auth = await this.resolveAuth({ collectionName });
+    const auth: Auth | undefined = !artifactUrl.includes('media-cdn')
+      ? await this.resolveAuth({ collectionName })
+      : undefined;
 
     const options: CreateUrlOptions = {
-      params: { collection: collectionName, 'max-age': FILE_CACHE_MAX_AGE },
+      params: {
+        collection: collectionName,
+        'max-age': FILE_CACHE_MAX_AGE,
+      },
       auth,
     };
 
-    return createUrl(`${auth.baseUrl}${artifactUrl}`, options);
+    return createUrl(artifactUrl, options);
   }
 
   async getImage(
@@ -351,9 +375,13 @@ export class MediaStore implements MediaApi {
       headers.accept = 'image/webp,image/*,*/*;q=0.8';
     }
 
+    const imageEndpoint = getBooleanFF('platform.media-cdn-delivery')
+      ? 'image/cdn'
+      : 'image';
+
     const metadata: RequestMetadata = {
       method: 'GET',
-      endpoint: '/file/{fileId}/image',
+      endpoint: `/file/{fileId}/${imageEndpoint}`,
     };
 
     const options: MediaStoreRequestOptions = {
@@ -364,9 +392,11 @@ export class MediaStore implements MediaApi {
       traceContext,
     };
 
-    return this.request(`/file/${id}/image`, options, controller).then(
-      createMapResponseToBlob(metadata),
-    );
+    return this.request(
+      `/file/${id}/${imageEndpoint}`,
+      options,
+      controller,
+    ).then(createMapResponseToBlob(metadata));
   }
 
   async getItems(

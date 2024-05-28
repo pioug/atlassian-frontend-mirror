@@ -10,7 +10,7 @@ import {
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../../src';
-import { PlainJiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/modal';
+import { JiraIssuesConfigModal } from '../../src/ui/jira-issues-modal/modal';
 
 mockDatasourceFetchRequests({ delayedResponse: false });
 
@@ -22,7 +22,7 @@ const parameters = {
 export const JiraIssuesConfigModalNoInitialJQL = () => (
   <IntlProvider locale="en">
     <SmartCardProvider client={new SmartLinkClient()}>
-      <PlainJiraIssuesConfigModal
+      <JiraIssuesConfigModal
         datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}
         visibleColumnKeys={defaultInitialVisibleJiraColumnKeys}
         parameters={parameters}

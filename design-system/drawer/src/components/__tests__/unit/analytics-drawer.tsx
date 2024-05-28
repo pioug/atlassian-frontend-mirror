@@ -17,13 +17,18 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 // This is a global mock for this file that will mock all components wrapped with analytics
 // and replace them with an empty SFC that returns null. This includes components imported
 // directly in this file and others imported as dependencies of those imports.
-jest.mock('@atlaskit/analytics-next', () => ({
-  withAnalyticsEvents: jest.fn(() => jest.fn((args) => args)),
-  withAnalyticsContext: jest.fn(() => jest.fn((args) => args)),
-  createAndFireEvent: jest.fn(() =>
-    jest.fn((payload: {}) => jest.fn((createEvent) => createEvent(payload))),
-  ),
-}));
+jest.mock('@atlaskit/analytics-next', () => {
+  const original = jest.requireActual('@atlaskit/analytics-next');
+
+  return {
+    ...original,
+    withAnalyticsEvents: jest.fn(() => jest.fn((args) => args)),
+    withAnalyticsContext: jest.fn(() => jest.fn((args) => args)),
+    createAndFireEvent: jest.fn(() =>
+      jest.fn((payload: {}) => jest.fn((createEvent) => createEvent(payload))),
+    ),
+  };
+});
 
 const escKeyDown = () => {
   const event = document.createEvent('Events');

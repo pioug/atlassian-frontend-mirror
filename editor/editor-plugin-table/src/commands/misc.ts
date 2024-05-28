@@ -19,7 +19,10 @@ import type {
   Selection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type {
+  ContentNodeWithPos,
+  NodeWithPos,
+} from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
@@ -825,6 +828,22 @@ export const setTableAlignment =
     };
 
     tr.setNodeMarkup(tableObject.pos, undefined, nextTableAttrs).setMeta(
+      'scrollIntoView',
+      false,
+    );
+
+    return tr;
+  };
+
+export const setTableAlignmentWithTableContentWithPos =
+  (newAlignment: TableLayout, tableNodeWithPos: NodeWithPos): EditorCommand =>
+  ({ tr }) => {
+    const nextTableAttrs = {
+      ...tableNodeWithPos.node.attrs,
+      layout: newAlignment,
+    };
+
+    tr.setNodeMarkup(tableNodeWithPos.pos, undefined, nextTableAttrs).setMeta(
       'scrollIntoView',
       false,
     );

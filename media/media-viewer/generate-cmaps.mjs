@@ -12,7 +12,7 @@ const promises = fs.readdirSync(dirname).filter(name => name.includes('bcmap')).
 
   const encodedstring = Buffer.from(contents).toString('base64');
   const filename = file.slice(0, -9)
-  const output = `export const value: string = "${encodedstring}";\n`;
+  const output = `export default "${encodedstring}";\n`;
   fs.writeFile(`cmaps/${filename}.ts`, output)
   return filename;
 });
@@ -24,7 +24,7 @@ const content = fileNames.reduce((acc, val, i) => {
   "${val}": () => import(/* webpackChunkName: "@atlaskit-internal_media-cname-${val}" */ "./${val}"),`
 },'')
 
-const final = `export const cmap: Record<string, () => Promise<{ value: string }>> = {${content}
+const final = `export const cmap: Record<string, () => Promise<{ default: string }>> = {${content}
 }\n`
 
 await fs.writeFile(`cmaps/index.ts`, final);

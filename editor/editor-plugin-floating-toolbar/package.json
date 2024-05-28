@@ -30,7 +30,7 @@
     "@atlaskit/adf-utils": "^19.2.0",
     "@atlaskit/button": "^17.17.0",
     "@atlaskit/checkbox": "^13.3.0",
-    "@atlaskit/editor-common": "^81.0.0",
+    "@atlaskit/editor-common": "^81.1.0",
     "@atlaskit/editor-palette": "1.6.0",
     "@atlaskit/editor-plugin-context-panel": "^1.1.0",
     "@atlaskit/editor-plugin-copy-button": "^1.1.0",

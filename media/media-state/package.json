@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-state",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Contains the central state of Media frontend",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

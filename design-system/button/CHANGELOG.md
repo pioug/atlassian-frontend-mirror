@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 17.17.1
+
+### Patch Changes
+
+-   [#103760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103760)
+    [`53958b31d2e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53958b31d2e7) -
+    Legacy buttons are now marked with intent to deprecate in favor of new buttons
+
 ## 17.17.0
 
 ### Minor Changes
@@ -297,12 +305,12 @@ See new features for new exports and entrypoint ⤵
 
 New Button goes open beta!
 
-Check out the exports under `@atlaskit/button/new` and the
-[docs](/components/button/button-new/examples) for our new approach.
+Check out the exports under `@atlaskit/button/new` and the [docs](/components/button/examples) for
+our new approach.
 
 ##### Button
 
-[Read the docs here.](/components/button/button-new/examples)
+[Read the docs here.](/components/button/examples)
 
 ```js
 import Button from '@atlaskit/button/new';

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.8
+
+### Patch Changes
+
+-   [#103615](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103615)
+    [`fd239f714374`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd239f714374) -
+    [ux] When table with left alignmnent is resized to be wider than line length, alignment
+    automatically changes to center.
+
 ## 7.16.7
 
 ### Patch Changes

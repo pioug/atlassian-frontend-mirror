@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.23.0",
+  "version": "193.23.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
     "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/button": "^17.17.0",
-    "@atlaskit/editor-common": "^81.0.0",
+    "@atlaskit/editor-common": "^81.1.0",
     "@atlaskit/editor-json-transformer": "^8.13.0",
     "@atlaskit/editor-plugins": "^2.7.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
@@ -199,10 +199,6 @@
       "referenceOnly": "true"
     },
     "platform.editor.table.drag-move-options-logic-update_fp7xw": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.media.inline-image.renderer-preview-support_3w1ju": {
       "type": "boolean",
       "referenceOnly": "true"
     },

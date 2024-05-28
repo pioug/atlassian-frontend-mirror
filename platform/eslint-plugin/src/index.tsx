@@ -49,6 +49,9 @@ export const configs = {
 const jsonPrefix =
   '/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, @typescript-eslint/semi, no-template-curly-in-string */ module.exports = ';
 
+const jsonPrefixForFlatConfig =
+  '/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, no-template-curly-in-string */ module.exports = ';
+
 export const processors = {
   'package-json-processor': {
     preprocess: (source: string) => {
@@ -63,6 +66,32 @@ export const processors = {
         }
 
         const offset = jsonPrefix.length;
+        return {
+          ...message,
+          fix: {
+            ...fix,
+            range: [fix.range[0] - offset, fix.range[1] - offset],
+          },
+        };
+      });
+    },
+    supportsAutofix: true,
+  } as Linter.Processor,
+  // This processor is used for ESLint FlatConfig,
+  // once we roll out FlatConfig, we can remove the above processor
+  'package-json-processor-for-flat-config': {
+    preprocess: (source: string) => {
+      // augment the json into a js file
+      return [jsonPrefixForFlatConfig + source.trim()];
+    },
+    postprocess: (messages) => {
+      return messages[0].map((message) => {
+        const { fix } = message;
+        if (!fix) {
+          return message;
+        }
+
+        const offset = jsonPrefixForFlatConfig.length;
         return {
           ...message,
           fix: {

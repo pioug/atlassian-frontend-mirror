@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.4
+
+### Patch Changes
+
+-   [#104094](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104094)
+    [`ae80ae898d90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae80ae898d90) -
+    Refactor getSelection and add tests
+
 ## 1.4.3
 
 ### Patch Changes

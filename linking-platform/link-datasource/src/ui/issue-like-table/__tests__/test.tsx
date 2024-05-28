@@ -1,5 +1,7 @@
 import React from 'react';
 
+const mockColumnPickerUfoSuccess = jest.fn();
+
 import {
   findByTestId,
   screen,
@@ -26,7 +28,8 @@ import { type ConcurrentExperience } from '@atlaskit/ufo';
 import { type WidthObserver } from '@atlaskit/width-detector';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
-import { ScrollableContainerHeight } from '../../../../src/ui/issue-like-table/styled';
+import { ScrollableContainerHeight } from '../../..//ui/issue-like-table/styled';
+import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
 import { getOrderedColumns, IssueLikeDataTableView } from '../index';
 import {
   type IssueLikeDataTableViewProps,
@@ -56,15 +59,13 @@ function getDefaultInput(overrides: Partial<Input> = {}): Input {
     ...overrides,
   };
 }
-
 const mockColumnPickerUfoStart = jest.fn();
-const mockColumnPickerUfoAddMetadata = jest.fn();
 const mockTableRenderUfoSuccess = jest.fn();
 const mockTableRenderUfoFailure = jest.fn();
 
 jest.mock('@atlaskit/ufo', () => ({
   __esModule: true,
-  ...jest.requireActual<Object>('@atlaskit/ufo'),
+  ...jest.requireActual<object>('@atlaskit/ufo'),
   ConcurrentExperience: (
     experienceId: string,
   ): Partial<ConcurrentExperience> => ({
@@ -89,13 +90,16 @@ jest.mock('@atlaskit/ufo', () => ({
         return {
           start: mockColumnPickerUfoStart,
           addMetadata: mockColumnPickerUfoAddMetadata,
+          success: mockColumnPickerUfoSuccess,
         };
       }
     }),
   }),
 }));
 
-let mockInnerSetWidth: Function | undefined;
+const mockColumnPickerUfoAddMetadata = jest.fn();
+
+let mockInnerSetWidth: (w: number) => void | undefined;
 
 const setWidth = (width: number) =>
   typeof mockInnerSetWidth === 'function'
@@ -143,24 +147,26 @@ const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
   const smartLinkClient = new SmartLinkClient();
 
   const renderResult = render(
-    <IntlProvider locale="en">
-      <SmartCardProvider client={smartLinkClient}>
-        <IssueLikeDataTableView
-          testId="sometable"
-          status={'resolved'}
-          onNextPage={onNextPage}
-          onLoadDatasourceDetails={onLoadDatasourceDetails}
-          hasNextPage={false}
-          onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-          onColumnResize={onColumnResize}
-          onWrappedColumnChange={onWrappedColumnChange}
-          items={[]}
-          columns={[]}
-          visibleColumnKeys={['id']}
-          {...props}
-        />
-      </SmartCardProvider>
-    </IntlProvider>,
+    <DatasourceExperienceIdProvider>
+      <IntlProvider locale="en">
+        <SmartCardProvider client={smartLinkClient}>
+          <IssueLikeDataTableView
+            testId="sometable"
+            status={'resolved'}
+            onNextPage={onNextPage}
+            onLoadDatasourceDetails={onLoadDatasourceDetails}
+            hasNextPage={false}
+            onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+            onColumnResize={onColumnResize}
+            onWrappedColumnChange={onWrappedColumnChange}
+            items={[]}
+            columns={[]}
+            visibleColumnKeys={['id']}
+            {...props}
+          />
+        </SmartCardProvider>
+      </IntlProvider>
+    </DatasourceExperienceIdProvider>,
   );
 
   let wasColumnPickerOpenBefore = false;
@@ -1404,32 +1410,34 @@ describe('IssueLikeDataTableView', () => {
     } = makeDragAndDropTableProps();
 
     const { getByTestId } = render(
-      <IntlProvider locale="en">
-        <div>
-          <IssueLikeDataTableView
-            testId="sometable1"
-            status={'resolved'}
-            items={items1}
-            onNextPage={onNextPage1}
-            onLoadDatasourceDetails={mockCallBackFn}
-            hasNextPage={false}
-            columns={columns1}
-            visibleColumnKeys={visibleColumnKeys}
-            onVisibleColumnKeysChange={onColumnsChange1}
-          />
-          <IssueLikeDataTableView
-            testId="sometable2"
-            status={'resolved'}
-            items={items2}
-            onNextPage={onNextPage2}
-            onLoadDatasourceDetails={mockCallBackFn}
-            hasNextPage={false}
-            columns={columns2}
-            visibleColumnKeys={visibleColumnKeys}
-            onVisibleColumnKeysChange={onColumnsChange2}
-          />
-        </div>
-      </IntlProvider>,
+      <DatasourceExperienceIdProvider>
+        <IntlProvider locale="en">
+          <div>
+            <IssueLikeDataTableView
+              testId="sometable1"
+              status={'resolved'}
+              items={items1}
+              onNextPage={onNextPage1}
+              onLoadDatasourceDetails={mockCallBackFn}
+              hasNextPage={false}
+              columns={columns1}
+              visibleColumnKeys={visibleColumnKeys}
+              onVisibleColumnKeysChange={onColumnsChange1}
+            />
+            <IssueLikeDataTableView
+              testId="sometable2"
+              status={'resolved'}
+              items={items2}
+              onNextPage={onNextPage2}
+              onLoadDatasourceDetails={mockCallBackFn}
+              hasNextPage={false}
+              columns={columns2}
+              visibleColumnKeys={visibleColumnKeys}
+              onVisibleColumnKeysChange={onColumnsChange2}
+            />
+          </div>
+        </IntlProvider>
+      </DatasourceExperienceIdProvider>,
     );
 
     const table1Head = getByTestId('sometable1--head');
@@ -1799,7 +1807,6 @@ describe('IssueLikeDataTableView', () => {
         setup({
           items,
           columns,
-          parentContainerRenderInstanceId: '123',
         });
 
         expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
@@ -1808,7 +1815,6 @@ describe('IssueLikeDataTableView', () => {
       it('should not mark Ufo experience as successful when data is loading', async () => {
         setup({
           status: 'loading',
-          parentContainerRenderInstanceId: '123',
         });
 
         expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
@@ -1848,7 +1854,6 @@ describe('IssueLikeDataTableView', () => {
         const { getByTestId } = setup({
           items,
           columns,
-          parentContainerRenderInstanceId: 'abc',
         });
 
         const triggerButton = getByTestId('column-picker-trigger-button');

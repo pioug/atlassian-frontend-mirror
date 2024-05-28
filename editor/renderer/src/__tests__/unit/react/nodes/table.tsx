@@ -1411,5 +1411,36 @@ describe('Renderer - React/Nodes/Table', () => {
         wrap.unmount();
       },
     );
+    ffTest(
+      'platform.editor.table.allow-table-alignment',
+      () => {
+        const tableNode = createTable(600, 'align-start');
+        const rendererWidth = 1000;
+
+        const wrap = mountTable(tableNode, rendererWidth);
+
+        const tableContainer = wrap.find(
+          `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+        );
+
+        expect(tableContainer.prop('style')!.left).toBe(-80);
+
+        wrap.unmount();
+      },
+      () => {
+        const tableNode = createTable(600, 'align-start');
+        const rendererWidth = 1000;
+
+        const wrap = mountTable(tableNode, rendererWidth);
+
+        const tableContainer = wrap.find(
+          `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+        );
+
+        expect(tableContainer.prop('style')!.left).toBe(undefined);
+
+        wrap.unmount();
+      },
+    );
   });
 });

@@ -9,8 +9,10 @@ import {
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { FormattedMessage, FormattedNumber } from 'react-intl-next';
-import { v4 as uuidv4 } from 'uuid';
+import {
+  FormattedMessage,
+  FormattedNumber,
+} from 'react-intl-next';
 
 import {
   type UIAnalyticsEvent,
@@ -54,6 +56,7 @@ import type {
 } from '../../../common/types';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
+import { DatasourceExperienceIdProvider, useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
 import {
   type onNextPageProps,
   useDatasourceTableState,
@@ -113,7 +116,7 @@ const getDisplayValue = (
 const jqlSupportDocumentLink =
   'https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/';
 
-export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
+const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
   const {
     datasourceId,
     columnCustomSizes: initialColumnCustomSizes,
@@ -197,7 +200,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
   });
 
   const { fireEvent } = useDatasourceAnalyticsEvents();
-  const { current: modalRenderInstanceId } = useRef(uuidv4());
+  const experienceId = useDatasourceExperienceId();
 
   const analyticsPayload = useMemo(
     () => ({
@@ -242,14 +245,14 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
         {
           name: 'datasource-rendered',
         },
-        modalRenderInstanceId,
+        experienceId,
       );
     }
-  }, [modalRenderInstanceId, status]);
+  }, [experienceId, status]);
 
   useDataRenderedUfoExperience({
     status,
-    experienceId: modalRenderInstanceId,
+    experienceId: experienceId,
     itemCount: responseItems.length,
     canBeLink: currentViewMode === 'inline',
     extensionKey,
@@ -328,7 +331,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
     }
   }, [currentViewMode, status, fireIssueViewAnalytics, fireCountViewedEvent]);
 
-  useColumnPickerRenderedFailedUfoExperience(status, modalRenderInstanceId);
+  useColumnPickerRenderedFailedUfoExperience(status, experienceId);
 
   const onSearch = useCallback(
     (
@@ -542,7 +545,6 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
           onNextPage={handleOnNextPage}
           onLoadDatasourceDetails={loadDatasourceDetails}
           onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
-          parentContainerRenderInstanceId={modalRenderInstanceId}
           extensionKey={extensionKey}
           columnCustomSizes={columnCustomSizes}
           onColumnResize={onColumnResize}
@@ -565,7 +567,6 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
       handleOnNextPage,
       loadDatasourceDetails,
       handleVisibleColumnKeysChange,
-      modalRenderInstanceId,
       extensionKey,
       columnCustomSizes,
       onColumnResize,
@@ -746,6 +747,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
                   href={jqlUrl}
                   target="_blank"
                   testId="item-count-url"
+                  // eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
                   style={{ color: token('color.text.accent.gray', N800) }}
                 >
                   <FormattedNumber value={totalCount} />{' '}
@@ -795,5 +797,9 @@ const contextData = {
 };
 
 export const JiraIssuesConfigModal = withAnalyticsContext(contextData)(
-  PlainJiraIssuesConfigModal,
+  (props: JiraConfigModalProps) => (
+    <DatasourceExperienceIdProvider>
+      <PlainJiraIssuesConfigModal {...props} />
+    </DatasourceExperienceIdProvider>
+  ),
 );

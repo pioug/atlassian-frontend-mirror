@@ -3,7 +3,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { v4 as uuidv4 } from 'uuid';
 
 import {
   type UIAnalyticsEvent,
@@ -40,6 +39,7 @@ import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/u
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
+import { DatasourceExperienceIdProvider, useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
 import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
@@ -63,6 +63,7 @@ type ErrorState = 'permission' | 'network';
 const modalBodyErrorWrapperStyles = css({
   alignItems: 'center',
   display: 'grid',
+  // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
   height: MODAL_HEIGHT,
 });
 
@@ -88,7 +89,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
   const [isNewSearch, setIsNewSearch] = useState<boolean>(false);
   const [errorState, setErrorState] = useState<ErrorState | undefined>();
   const { fireEvent } = useDatasourceAnalyticsEvents();
-  const { current: modalRenderInstanceId } = useRef<string>(uuidv4());
+  const experienceId = useDatasourceExperienceId();
 
   const {
     workspaceId,
@@ -216,20 +217,20 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
         {
           name: 'datasource-rendered',
         },
-        modalRenderInstanceId,
+        experienceId,
       );
     }
-  }, [modalRenderInstanceId, status]);
+  }, [experienceId, status]);
 
   useDataRenderedUfoExperience({
     status,
-    experienceId: modalRenderInstanceId,
+    experienceId: experienceId,
     itemCount: responseItems.length,
     canBeLink: false,
     extensionKey,
   });
 
-  useColumnPickerRenderedFailedUfoExperience(status, modalRenderInstanceId);
+  useColumnPickerRenderedFailedUfoExperience(status, experienceId);
   /* ------------------------------ END OBSERVABILITY ------------------------------ */
 
   const onVisibleColumnKeysChange = useCallback(
@@ -454,7 +455,6 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
                 loadDatasourceDetails={loadDatasourceDetails}
                 columns={columns}
                 defaultVisibleColumnKeys={defaultVisibleColumnKeys}
-                modalRenderInstanceId={modalRenderInstanceId}
               />
             )}
           </ModalBody>
@@ -503,5 +503,9 @@ const contextData = {
 };
 
 export const AssetsConfigModal = withAnalyticsContext(contextData)(
-  PlainAssetsConfigModal,
+  (props: AssetsConfigModalProps) => (
+    <DatasourceExperienceIdProvider>
+      <PlainAssetsConfigModal {...props} />
+    </DatasourceExperienceIdProvider>
+  ),
 );

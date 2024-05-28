@@ -109,6 +109,7 @@ const AlignmentTableContainerWrapper = ({
 
 type ResizableTableContainerProps = {
   containerWidth: number;
+  lineLength: number;
   node: PMNode;
   className: string;
   editorView: EditorView;
@@ -129,6 +130,7 @@ export const ResizableTableContainer = React.memo(
     className,
     node,
     containerWidth,
+    lineLength,
     editorView,
     getPos,
     tableRef,
@@ -246,6 +248,7 @@ export const ResizableTableContainer = React.memo(
       width,
       maxWidth: maxResizerWidth,
       containerWidth,
+      lineLength,
       updateWidth,
       editorView,
       getPos,
@@ -323,7 +326,7 @@ export const TableContainer = ({
   children,
   node,
   className,
-  containerWidth: { width: editorWidth },
+  containerWidth: { width: editorWidth, lineLength },
   editorView,
   getPos,
   tableRef,
@@ -342,6 +345,7 @@ export const TableContainer = ({
         className={className}
         node={node}
         containerWidth={editorWidth!}
+        lineLength={lineLength!}
         editorView={editorView}
         getPos={getPos}
         tableRef={tableRef}

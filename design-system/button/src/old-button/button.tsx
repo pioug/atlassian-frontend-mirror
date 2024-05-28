@@ -19,11 +19,13 @@ export interface ButtonProps extends BaseProps {}
 /**
  * __Button__
  *
+ * CAUTION: Legacy buttons will soon be deprecated. Please use the new Button components from `@atlaskit/button/new`.
+ *
  * A button triggers an event or action. They let users know what will happen next.
  *
- * - [Examples](https://atlassian.design/components/button/examples)
- * - [Code](https://atlassian.design/components/button/code)
- * - [Usage](https://atlassian.design/components/button/usage)
+ * - [Examples](https://atlassian.design/components/button/button-legacy/examples)
+ * - [Code](https://atlassian.design/components/button/button-legacy/code)
+ * - [Usage](https://atlassian.design/components/button/button-legacy/usage)
  */
 const Button = React.memo(
   React.forwardRef(function Button(

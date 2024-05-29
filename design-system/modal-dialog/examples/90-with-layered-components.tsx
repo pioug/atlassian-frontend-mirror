@@ -97,6 +97,7 @@ export default () => {
                 placement="bottom-start"
                 zIndex={layers.modal()}
                 content={() => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   <div style={{ padding: '5px' }}>I'm a little popup!</div>
                 )}
                 trigger={(triggerProps) => (
@@ -144,6 +145,7 @@ export default () => {
               https://ecosystem.atlassian.net/browse/DS-7622,
               but 'fixed' by setting the menuPosition. */}
               <Select
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className="select-zindex-fixed"
                 placeholder="zIndex: 9999, menuPortalTarget: document.body, menuPosition: fixed"
                 options={selectOptions}
@@ -158,6 +160,7 @@ export default () => {
               />
               <Break />
               <Select
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className="select-fixed"
                 placeholder="menuPosition: fixed"
                 options={selectOptions}
@@ -170,6 +173,7 @@ export default () => {
               />
               <Break />
               <Select
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className="select-absolute"
                 placeholder="menuPosition: absolute"
                 options={selectOptions}

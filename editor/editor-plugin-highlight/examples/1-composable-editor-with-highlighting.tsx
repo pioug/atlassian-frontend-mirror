@@ -297,6 +297,153 @@ const highlightAdfDoc = {
         },
       ],
     },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Highlight ',
+          marks: [
+            {
+              type: 'backgroundColor',
+              attrs: {
+                color: '#c6edfb',
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'over',
+          marks: [
+            {
+              type: 'backgroundColor',
+              attrs: {
+                color: '#c6edfb',
+              },
+            },
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' comment',
+          marks: [
+            {
+              type: 'backgroundColor',
+              attrs: {
+                color: '#c6edfb',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Comment ',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'over',
+          marks: [
+            {
+              type: 'backgroundColor',
+              attrs: {
+                color: '#d3f1a7',
+              },
+            },
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' highlight',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Partially ',
+          marks: [
+            {
+              type: 'backgroundColor',
+              attrs: {
+                color: '#fedec8',
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: 'overlapping',
+          marks: [
+            {
+              type: 'backgroundColor',
+              attrs: {
+                color: '#fedec8',
+              },
+            },
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' comment',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              },
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
 

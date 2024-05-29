@@ -133,7 +133,9 @@ export const PresenceWrapper: FC<PresenceWrapperProps> = ({
       aria-hidden="true"
       data-testid={testId && `${testId}--presence`}
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         pointerEvents: 'none',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         position: 'absolute',
         bottom: `${position}px`,
         height: `${ICON_SIZES[size]}px`,

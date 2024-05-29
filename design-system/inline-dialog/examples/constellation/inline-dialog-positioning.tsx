@@ -38,10 +38,13 @@ export default class InlineDialogPositioningExample extends Component<
 
   render() {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={styles}>
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             marginTop: token('space.1000', '80px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             marginBottom: token('space.1000', '80px'),
           }}
         >

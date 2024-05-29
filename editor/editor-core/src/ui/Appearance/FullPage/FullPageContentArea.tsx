@@ -103,6 +103,7 @@ const Content = React.forwardRef<
               data-testid={CONTENT_AREA_TEST_ID}
             >
               <ScrollContainer
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className="fabric-editor-popup-scroll-parent"
                 featureFlags={props.featureFlags}
                 ref={scrollContainerRef}
@@ -125,6 +126,7 @@ const Content = React.forwardRef<
                   >
                     <div
                       css={editorContentGutterStyle}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                       className={[
                         'ak-editor-content-area',
                         fullWidthMode ? 'fabric-editor--full-width-mode' : '',

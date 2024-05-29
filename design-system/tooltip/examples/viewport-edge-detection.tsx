@@ -152,6 +152,7 @@ const PositionExample = () => {
         </ButtonDiv>
         <ButtonDiv>Content: {tooltipSize[state.tooltipContent]}</ButtonDiv>
       </CenterDiv>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ position: 'absolute', ...viewportStyle }}>
         <Tooltip
           content={getTooltipContent(position, state.tooltipContent)}

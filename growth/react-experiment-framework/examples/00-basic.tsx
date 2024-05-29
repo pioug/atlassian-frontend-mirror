@@ -112,6 +112,7 @@ export default class extends Component<{}, State> {
       ? scenarios
       : scenarios.filter((s) => !s.hasError);
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <table style={{ tableLayout: 'fixed' }}>
         <thead>
           <tr>

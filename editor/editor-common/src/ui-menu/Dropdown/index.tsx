@@ -102,6 +102,7 @@ export class Dropdown extends PureComponent<Props, State> {
           closeOnTab={true}
           handleClose={this.handleCloseAndFocus}
         >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ height: 0, minWidth: fitWidth || 0 }}>
             <DropdownList
               isOpen={true}

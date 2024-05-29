@@ -526,6 +526,7 @@ class ExampleEditorComponent extends React.Component<
             <ExampleExternalClipboard />
             <ClipboardWidthPopup
               content={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 <div style={{ padding: token('space.250', '24px') }}>
                   <h3>Clipboard in popup: </h3>
                   {this.renderEditor(
@@ -611,6 +612,7 @@ const ClipboardWidthPopup = ({ content }: { content: ReactNode }) => {
         appearance="primary"
         isSelected={isOpen}
         onClick={() => setIsOpen(!isOpen)}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ marginTop: token('space.200', '16px') }}
       >
         {isOpen ? 'Close' : 'Open'} pop with editor and clipboard{' '}
@@ -676,6 +678,7 @@ const ExampleExternalClipboard = () => {
           />
           <br />
           <Button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="close_button"
             appearance="primary"
             onClick={onReset}
@@ -700,6 +703,7 @@ const ExampleExternalClipboard = () => {
 
 export default function Example(props: EditorProps & ExampleProps) {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ height: '100%' }}>
       <ExampleEditorComponent {...props} />
     </div>

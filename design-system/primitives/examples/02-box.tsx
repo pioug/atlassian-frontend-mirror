@@ -173,6 +173,7 @@ export default () => {
 
       <Stack space="space.200" testId="box-with-layer">
         <Heading level="h600">layer</Heading>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <Box xcss={layerContainerStyles} style={{ width: 800, height: 650 }}>
           {(
             [

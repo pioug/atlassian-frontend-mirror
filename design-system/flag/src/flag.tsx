@@ -174,6 +174,7 @@ const Flag: FC<FlagProps> = (props) => {
         <Inline alignBlock="stretch" space="space.200">
           <div
             css={iconWrapperStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ [CSS_VAR_ICON_COLOR]: iconColor } as CSSProperties}
           >
             {icon}
@@ -208,6 +209,7 @@ const Flag: FC<FlagProps> = (props) => {
               <Expander isExpanded={!isBold || isExpanded} testId={testId}>
                 {description && (
                   <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                     style={{ color: flagTextColorToken[appearance] }}
                     css={descriptionStyles}
                     data-testid={testId && `${testId}-description`}

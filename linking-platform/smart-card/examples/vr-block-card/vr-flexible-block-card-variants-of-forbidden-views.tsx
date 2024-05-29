@@ -33,6 +33,7 @@ export const BlockCardForbiddenViews = () => {
     <VRTestWrapper>
       <SmartCardProvider>
         <Container>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ padding: token('space.400', '32px') }}>
             <h5>Default Forbidden view </h5>
             <BlockCard
@@ -146,6 +147,7 @@ export const BlockCardForbiddenViewsLegacy = () => {
     <VRTestWrapper>
       <SmartCardProvider>
         <Container>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ padding: token('space.400', '32px') }}>
             <h5>Default Forbidden view </h5>
             <BlockCard

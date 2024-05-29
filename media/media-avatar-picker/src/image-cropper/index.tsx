@@ -186,8 +186,10 @@ export class ImageCropper extends Component<
           />
         </Box>
         {isCircularMask ? (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           <Box xcss={[maskStyles, circularMaskStyles]} style={maskShadow} />
         ) : (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           <Box xcss={[maskStyles, rectMaskStyles]} style={maskShadow} />
         )}
         <Box

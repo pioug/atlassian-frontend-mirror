@@ -31,8 +31,11 @@ const CodeBlockShouldWrapLongLinesExample = () => {
     <>
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           paddingBottom: token('space.300', '24px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           flexDirection: 'column',
         }}
       >

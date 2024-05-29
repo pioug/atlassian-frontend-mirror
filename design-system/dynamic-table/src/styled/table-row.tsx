@@ -52,6 +52,7 @@ export const TableBodyRow = forwardRef<HTMLTableRowElement, ITableRowProps>(
   ({ isHighlighted, children, style, testId, ...rest }, ref) => {
     return (
       <tr
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={style}
         css={[
           rowStyles,

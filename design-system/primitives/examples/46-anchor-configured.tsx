@@ -60,6 +60,7 @@ const Table = ({
         <tr>
           <th
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: '25%',
             }}
           >
@@ -67,6 +68,7 @@ const Table = ({
           </th>
           <th
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: '25%',
             }}
           >
@@ -74,6 +76,7 @@ const Table = ({
           </th>
           <th
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: '25%',
             }}
           >
@@ -81,6 +84,7 @@ const Table = ({
           </th>
           <th
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: '25%',
             }}
           >

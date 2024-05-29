@@ -28,7 +28,9 @@ export default function Example() {
           style: {`{ backgroundColor: 'green' }`}{' '}
           <Lozenge
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               backgroundColor: 'green',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               color: token('color.text.inverse'),
             }}
             testId="themed-lozenge"

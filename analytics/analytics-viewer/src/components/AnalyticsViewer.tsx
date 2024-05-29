@@ -28,6 +28,7 @@ const renderEventViewer = (
 ) => <EventViewer key={events.length - index} {...event} />;
 
 export const AnalyticsViewer = ({ events, className }: Props) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <AnalyticsViewerWrapper className={className}>
     {events.map(renderEventViewer)}
   </AnalyticsViewerWrapper>

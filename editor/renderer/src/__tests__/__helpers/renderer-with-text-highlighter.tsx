@@ -139,6 +139,7 @@ function TextHighliterComponent({
   match: string;
   marks: Set<string>;
 }) {
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   return <span style={{ color: 'red', border: '1px solid red' }}>{match}</span>;
 }
 
@@ -152,6 +153,7 @@ function FilteredTextHighliterComponent({
   return marks.has('link') ? (
     <Fragment>{match}</Fragment>
   ) : (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <span style={{ color: 'red', border: '1px solid red' }}>{match}</span>
   );
 }

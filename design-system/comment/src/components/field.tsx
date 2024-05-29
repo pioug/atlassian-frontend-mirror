@@ -1,10 +1,8 @@
-/** @jsx jsx */
-import type { FC, ReactNode } from 'react';
-
-import { css, jsx } from '@emotion/react';
+import React, { type FC, type ReactNode } from 'react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { N500 } from '@atlaskit/theme/colors';
+import { Box, xcss } from '@atlaskit/primitives';
+import Anchor from '@atlaskit/primitives/anchor';
 import { token } from '@atlaskit/tokens';
 
 export interface CommentFieldProps {
@@ -20,14 +18,27 @@ export interface CommentFieldProps {
   testId?: string;
 }
 
-const textStyles = css({
-  fontWeight: 'inherit',
-  '&:not(:hover):not(:active)': {
-    color: token('color.text.subtle', N500),
+const textStyles = xcss({
+  color: 'color.text.subtle',
+});
+
+const anchorStyles = xcss({
+  textDecoration: 'none',
+
+  ':hover': {
+    color: 'color.link',
+    textDecoration: 'underline',
+  },
+  ':active': {
+    color: 'color.link.pressed',
+    textDecoration: 'none',
   },
 });
 
-const hasAuthorStyles = css({
+const noAuthorStyles = xcss({
+  fontWeight: 'inherit',
+});
+const hasAuthorStyles = xcss({
   fontWeight: token('font.weight.medium', '500'),
 });
 
@@ -48,23 +59,28 @@ const Field: FC<CommentFieldProps> = ({
   testId,
 }) => {
   return href ? (
-    <a
+    <Anchor
       href={href}
-      css={[textStyles, hasAuthor && hasAuthorStyles]}
+      xcss={[
+        textStyles,
+        anchorStyles,
+        hasAuthor ? hasAuthorStyles : noAuthorStyles,
+      ]}
       onClick={onClick}
       onFocus={onFocus}
       onMouseOver={onMouseOver}
-      data-testid={testId}
+      testId={testId}
     >
       {children}
-    </a>
+    </Anchor>
   ) : (
-    <span
-      css={[textStyles, hasAuthor && hasAuthorStyles]}
+    <Box
+      as="span"
+      xcss={[textStyles, hasAuthor ? hasAuthorStyles : noAuthorStyles]}
       /**
        * It is not normally acceptable to add key handlers to non-interactive elements
        * as this is an accessibility anti-pattern. However, because this instance is
-       * to add support for analtyics instead of creating an inaccessible
+       * to add support for analytics instead of creating an inaccessible
        * custom element, we can add role="presentation" so that there are no negative
        * impacts to assistive technologies.
        */
@@ -72,10 +88,10 @@ const Field: FC<CommentFieldProps> = ({
       onClick={onClick}
       onFocus={onFocus}
       onMouseOver={onMouseOver}
-      data-testid={testId}
+      testId={testId}
     >
       {children}
-    </span>
+    </Box>
   );
 };
 

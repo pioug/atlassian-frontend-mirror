@@ -98,7 +98,9 @@ export class RightSidePanel extends Component<Props, State> {
         {(state: TransitionStatus) => (
           <RightSidePanelDrawer
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               ...defaultStyle,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               ...transitionStyles[state],
             }}
           >

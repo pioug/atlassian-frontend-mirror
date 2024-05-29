@@ -47,6 +47,7 @@ export const Shimmer = ({ testId }: { testId: string }) => {
       height={14}
       borderRadius={2}
       testId={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={skeletonCustomStyles}
     />
   );

@@ -122,6 +122,7 @@ export const StatusWrapper: FC<StatusWrapperProps> = ({
       aria-hidden="true"
       data-testid={testId && `${testId}--status`}
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         position: 'absolute',
         height: `${ICON_SIZES[size]}px`,
         right: `${position}px`,

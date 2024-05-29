@@ -69,13 +69,13 @@ export default class ToolsDrawer extends React.Component<any, State> {
       return (
         <div>
           <div
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ color: '#ccc', marginBottom: token('space.100', '8px') }}
           >
             &lt;Renderer&gt;
           </div>
           <ReactRenderer {...props} />
-          {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
+          {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ color: '#ccc', marginTop: token('space.100', '8px') }}>
             &lt;/Renderer&gt;
           </div>

@@ -106,6 +106,7 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
       {colorsPerRow.map((row) => (
         <div
           css={colorPaletteWrapper}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={className}
           key={`row-first-color-${row[0].value}`}
           role="radiogroup"

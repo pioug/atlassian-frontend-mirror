@@ -190,9 +190,11 @@ const getWithCellProps = (WrapperComponent: React.ElementType) => {
         // the background color is not taken from the inline style.
         // Instead it is taken from the data-cell-background attribute
         // (added via getDataAttributes below).
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={getStyle({ background, colGroupWidth, offsetTop, colorMode })}
         colorname={colorName}
         onClick={onClick}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={className}
         {...getDataAttributes(colwidth, background)}
         aria-sort={ariaSort}
@@ -226,12 +228,15 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
     return (
       <WrapperComponent
         {...props}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
         ariaSort={getSortOrderLabel(intl, sortOrdered)}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
         <div className={RendererCssClassName.SORTABLE_COLUMN}>
           {children}
           <figure
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={`${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} ${sortOrderedClassName}`}
           >
             <SortingIcon

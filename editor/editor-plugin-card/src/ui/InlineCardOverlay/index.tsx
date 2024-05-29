@@ -260,6 +260,7 @@ const InlineCardOverlay = ({
       {children}
       {isVisible && (
         <React.Fragment>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
           <span aria-hidden="true" className={OVERLAY_MARKER_CLASSNAME}>
             {ZERO_WIDTH_JOINER}
           </span>
@@ -278,6 +279,7 @@ const InlineCardOverlay = ({
             <span css={overflowingContainerStyles}>
               <span
                 css={iconAndLabelStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className={ICON_AND_LABEL_CLASSNAME}
               >
                 <span css={iconStyles}>
@@ -290,6 +292,7 @@ const InlineCardOverlay = ({
                 {showLabel && (
                   <span
                     css={labelStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                     className={OVERLAY_LABEL_CLASSNAME}
                     data-testid={`${testId}-label`}
                   >
@@ -299,6 +302,7 @@ const InlineCardOverlay = ({
               </span>
               <span
                 css={gradientStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className={OVERLAY_GRADIENT_CLASSNAME}
                 data-testid={`${testId}-gradient`}
               />

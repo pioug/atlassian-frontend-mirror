@@ -40,6 +40,7 @@ export const ExtensionNodeWrapper = ({
   });
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <span className={wrapperClassNames} css={styles}>
       {children}
       {nodeType === 'inlineExtension' && ZERO_WIDTH_SPACE}

@@ -1,6 +1,6 @@
 import { type ResolveResponse } from '../../src';
 
-export const AsanaTask = {
+export const AsanaTaskJson = {
   meta: {
     visibility: 'restricted',
     access: 'granted',
@@ -87,4 +87,6 @@ export const AsanaTask = {
     updated: '2018-07-31T11:48:17.741Z',
     url: 'https://app.asana.com/0/759475196256783/759474743020981',
   },
-} as ResolveResponse;
+}
+
+export const AsanaTask = AsanaTaskJson as ResolveResponse;

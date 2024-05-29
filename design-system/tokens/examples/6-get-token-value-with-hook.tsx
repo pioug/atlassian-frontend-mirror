@@ -9,6 +9,7 @@ const ExampleDiv = () => (
   <p
     style={{
       backgroundColor: token('color.background.accent.blue.subtle'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       padding: 20,
     }}
   >
@@ -23,6 +24,7 @@ export default () => {
   const themeString = JSON.stringify(theme);
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ padding: '1em' }}>
       <h1>Current theme: {themeName}</h1>
       {theme && <CodeBlock language={'js'} text={themeString} />}

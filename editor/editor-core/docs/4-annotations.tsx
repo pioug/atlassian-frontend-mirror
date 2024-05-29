@@ -189,16 +189,22 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
     return (
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           maxHeight: '400px',
         }}
       >
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             margin: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             padding: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             backgroundColor: N20,
             border: `1px solid ${N30}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             flex: 1,
           }}
         >
@@ -206,8 +212,11 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
         </div>
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             flex: 2,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             overflow: 'auto',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             margin: token('space.100', '8px'),
           }}
         >
@@ -235,8 +244,11 @@ These denote a comment thread about the given text, and are denoted by a yellow 
 ${(
   <div
     style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       margin: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       padding: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       backgroundColor: N20,
       border: `1px solid ${N30}`,
     }}

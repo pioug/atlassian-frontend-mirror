@@ -212,9 +212,11 @@ export class ContextualMenu extends Component<
           </span>
         ) : undefined,
         elemAfter: (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           <div className={DropdownMenuSharedCssClassName.SUBMENU}>
             <div
               css={cellColourPreviewStyles(background)}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={
                 isDragAndDropEnabled
                   ? ClassName.CONTEXTUAL_MENU_ICON_SMALL
@@ -223,6 +225,7 @@ export class ContextualMenu extends Component<
             />
             {isSubmenuOpen && (
               <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className={ClassName.CONTEXTUAL_SUBMENU}
                 ref={this.handleSubMenuRef}
               >

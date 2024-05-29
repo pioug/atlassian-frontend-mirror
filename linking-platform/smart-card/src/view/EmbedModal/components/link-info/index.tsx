@@ -78,6 +78,7 @@ const LinkInfo: React.FC<LinkInfoProps> = ({
       <VidFullScreenOnIcon label={message.defaultMessage as string} />
     );
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <span className="smart-link-resize-button">
         <LinkInfoButton
           content={<FormattedMessage {...message} />}

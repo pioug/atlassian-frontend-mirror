@@ -92,10 +92,12 @@ const gutterGridLines = (
     gridLines.push(
       <div
         key={side}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classnames(
           'gridLine',
           overflowHighlight(highlights, side, 0, 4) ? 'highlight' : '',
         )}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ position: 'absolute', [side]: `-${wideSpacing}px` }}
       />,
     );
@@ -103,11 +105,13 @@ const gutterGridLines = (
     gridLines.push(
       <div
         key={side + '-bk'}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classnames(
           'gridLine',
           highlights.indexOf('full-width') > -1 ? 'highlight' : '',
         )}
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'absolute',
           [side]: `-${
             (editorWidth - editorMaxWidth - akEditorBreakoutPadding) / 2
@@ -131,10 +135,12 @@ const lineLengthGridLines = (highlights: Highlights) => {
     gridLines.push(
       <div
         key={i}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classnames(
           'gridLine',
           highlights.indexOf(i) > -1 ? 'highlight' : '',
         )}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={i < GRID_SIZE ? style : undefined}
       />,
     );
@@ -176,8 +182,10 @@ const Grid = ({
   ];
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div className="gridParent">
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classnames('gridContainer', gridType)}
         style={{
           height: `${containerElement.scrollHeight}px`,

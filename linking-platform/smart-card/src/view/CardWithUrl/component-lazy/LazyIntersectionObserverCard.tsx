@@ -58,5 +58,6 @@ export function LazyIntersectionObserverCard(props: CardWithUrlContentProps) {
     </ComponentObserver>
   );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   return <Component className="loader-wrapper">{content}</Component>;
 }

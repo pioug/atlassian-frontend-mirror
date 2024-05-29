@@ -53,7 +53,9 @@ export default function Example() {
       <thead>
         <tr>
           <th></th>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <th style={{ width: 300 }}>foo</th>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <th style={{ width: 300 }}>bar</th>
         </tr>
       </thead>

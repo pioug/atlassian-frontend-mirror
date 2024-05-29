@@ -26,6 +26,7 @@ const StatelessExample = () => {
       </Stack>
       <p
         id="button-description"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ marginBottom: token('space.100', '8px') }}
       >
         Can use this button to trigger a toggle

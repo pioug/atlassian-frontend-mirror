@@ -100,6 +100,7 @@ export const FixedTableDiv = (props: FixedProps) => {
     <div
       {...attrs}
       data-testid="sticky-table-fixed"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={
         isTableResizingEnabled(rendererAppearance)
           ? 'fixed-table-div-custom-table-resizing'
@@ -174,6 +175,7 @@ export const StickyTable = ({
         rendererAppearance={rendererAppearance}
       >
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={`${TableSharedCssClassName.TABLE_CONTAINER} is-sticky ${
             shadowClassNames || ''
           }`}
@@ -184,8 +186,10 @@ export const StickyTable = ({
         >
           <div
             ref={innerRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={`${TableSharedCssClassName.TABLE_STICKY_WRAPPER}`}
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               overflow: 'hidden',
             }}
           >

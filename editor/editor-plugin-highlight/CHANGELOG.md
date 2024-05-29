@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.6.0
+
+### Minor Changes
+
+-   [#104271](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104271)
+    [`5d03a899b0c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d03a899b0c9) -
+    [ux] [ED-23155] Adds plugin state for currently selected color for highlight button
+
+### Patch Changes
+
+-   [#103816](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103816)
+    [`3fb50173376f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fb50173376f) -
+    [ED-23159] Added blending styling for when highlights overlap inline comments
+
 ## 1.5.0
 
 ### Minor Changes

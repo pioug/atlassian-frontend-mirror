@@ -15,11 +15,13 @@ const SlackIcon = () => {
             <path
               id="prefix__svg_3"
               d="M27.4 79.2c0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9 0-7.1 5.8-12.9 12.9-12.9h12.9v12.9z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="prefix__st0"
             />
             <path
               id="prefix__svg_4"
               d="M33.9 79.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V79.2z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="prefix__st0"
             />
           </g>
@@ -27,11 +29,13 @@ const SlackIcon = () => {
             <path
               id="prefix__svg_6"
               d="M46.8 27.4c-7.1 0-12.9-5.8-12.9-12.9 0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v12.9H46.8z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="prefix__st1"
             />
             <path
               id="prefix__svg_7"
               d="M46.8 33.9c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H14.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="prefix__st1"
             />
           </g>
@@ -39,11 +43,13 @@ const SlackIcon = () => {
             <path
               id="prefix__svg_9"
               d="M98.6 46.8c0-7.1 5.8-12.9 12.9-12.9 7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H98.6V46.8z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="prefix__st2"
             />
             <path
               id="prefix__svg_10"
               d="M92.1 46.8c0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9V14.5c0-7.1 5.8-12.9 12.9-12.9 7.1 0 12.9 5.8 12.9 12.9v32.3z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="prefix__st2"
             />
           </g>
@@ -51,11 +57,13 @@ const SlackIcon = () => {
             <path
               id="prefix__svg_12"
               d="M79.2 98.6c7.1 0 12.9 5.8 12.9 12.9 0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9V98.6h12.9z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="prefix__st3"
             />
             <path
               id="prefix__svg_13"
               d="M79.2 92.1c-7.1 0-12.9-5.8-12.9-12.9 0-7.1 5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9 0 7.1-5.8 12.9-12.9 12.9H79.2z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="prefix__st3"
             />
           </g>

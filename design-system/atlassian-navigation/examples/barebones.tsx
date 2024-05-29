@@ -67,6 +67,7 @@ export default () => (
   <div
     style={{
       // TODO Delete this comment after verifying space token -> previous value `8`
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       paddingBottom: token('space.100', '8px'),
       border: `1px solid ${token('color.border')}`,
       borderRadius: borderRadius(),
@@ -85,11 +86,17 @@ export default () => (
       src={appsSplash}
       alt=""
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         display: 'block',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         margin: '0 auto',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         maxWidth: '800px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         width: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         boxSizing: 'border-box',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         padding: '60px 100px',
       }}
     />

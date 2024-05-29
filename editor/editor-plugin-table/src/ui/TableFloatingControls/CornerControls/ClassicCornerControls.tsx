@@ -36,6 +36,7 @@ class CornerControlComponent extends Component<
 
     return (
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classnames(ClassName.CORNER_CONTROLS, {
           active: isActive,
           sticky: this.props.stickyTop !== undefined,
@@ -52,6 +53,7 @@ class CornerControlComponent extends Component<
         <button
           aria-label={formatMessage(messages.cornerControl)}
           type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={classnames(ClassName.CONTROLS_CORNER_BUTTON, {
             danger: isActive && isInDanger,
           })}
@@ -61,12 +63,16 @@ class CornerControlComponent extends Component<
         />
 
         {!isHeaderRowEnabled && (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           <div className={ClassName.CORNER_CONTROLS_INSERT_ROW_MARKER}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className={ClassName.CONTROLS_INSERT_MARKER} />
           </div>
         )}
         {!isHeaderColumnEnabled && (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           <div className={ClassName.CORNER_CONTROLS_INSERT_COLUMN_MARKER}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className={ClassName.CONTROLS_INSERT_MARKER} />
           </div>
         )}

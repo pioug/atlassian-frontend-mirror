@@ -19,6 +19,7 @@ const Section = ({ size, willRenderAs, children }: any) => (
 export default () => {
   return (
     <HeadingContextProvider value={2}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <Box style={{ maxWidth: 850, margin: 'auto' }}>
         <Stack testId="headings" space="space.100">
           <Heading size="xxlarge">Heading xxlarge as h2</Heading>

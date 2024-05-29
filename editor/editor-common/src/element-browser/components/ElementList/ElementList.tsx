@@ -137,8 +137,10 @@ function ElementList({
 
         return (
           <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={style}
             key={key}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="element-item-wrapper"
             css={elementItemWrapper}
             onKeyDown={
@@ -325,6 +327,7 @@ export function ElementItem({
         id={`searched-item-${index}`}
       >
         <ItemContent
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={inlineMode ? null : itemStyleOverrides}
           tabIndex={0}
           title={title}
@@ -349,6 +352,7 @@ const ElementBefore = memo(({ icon, title }: Partial<QuickInsertItem>) => (
 
 const ItemContent = memo(
   ({ title, description, keyshortcut }: Partial<QuickInsertItem>) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div css={itemBody} className="item-body">
       <div css={itemText}>
         <div css={itemTitleWrapper}>

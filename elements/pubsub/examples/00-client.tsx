@@ -5,8 +5,6 @@ import Textfield from '@atlaskit/textfield';
 import Lozenge from '@atlaskit/lozenge';
 
 import Client, { type PubSubClientConfig, SpecialEventType } from '../src';
-import { FeatureFlags } from '../src/featureFlags';
-import PubNubProtocol from '../src/protocols/pubnub';
 import APSProtocol from '../src/protocols/aps';
 import { type APSTransportType } from '../src/apiTypes';
 
@@ -38,7 +36,7 @@ interface State {
   client: Client;
 }
 
-type ProtocolName = 'PUBNUB' | 'APS';
+type ProtocolName = 'APS';
 
 class PubSubEventComponent extends Component<{}, State> {
   private readonly serviceConfig: PubSubClientConfig;
@@ -53,9 +51,8 @@ class PubSubEventComponent extends Component<{}, State> {
       eventType: 'avi:emoji-service:updated:emoji',
       events: [],
       status: 'NOT CONNECTED',
-      protocols: ['PUBNUB', 'APS'],
+      protocols: ['APS'],
       client: this.initClient(clientConfig.serviceConfig.url, defaultApsUrl, [
-        'PUBNUB',
         'APS',
       ]),
     };
@@ -153,9 +150,6 @@ class PubSubEventComponent extends Component<{}, State> {
     });
 
     const protocolsMap = {
-      PUBNUB: new PubNubProtocol(
-        new FeatureFlags(this.serviceConfig.featureFlags),
-      ),
       APS: new APSProtocol(
         apsUrl ? new URL(apsUrl) : undefined,
         preferredApsTransport,
@@ -189,13 +183,6 @@ class PubSubEventComponent extends Component<{}, State> {
         <label>Protocols</label>
         <div>
           <ButtonGroup>
-            <Button
-              id="pubnubProtocol"
-              onClick={() => this.toggleProtocol('PUBNUB')}
-              appearance={this.usesProtocol('PUBNUB') ? 'primary' : undefined}
-            >
-              PubNub
-            </Button>
             <Button
               id="apsProtocol"
               onClick={() => this.toggleProtocol('APS')}

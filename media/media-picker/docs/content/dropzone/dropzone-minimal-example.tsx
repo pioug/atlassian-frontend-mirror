@@ -45,6 +45,7 @@ const DropzoneExample = () => {
   return (
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         height: '300px',
       }}
       id="dropZone"
@@ -58,6 +59,7 @@ const DropzoneExample = () => {
         onDrop={onDrop}
       />
       {uploadEnd && (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <div style={{ maxWidth: '300px', maxHeight: '250px' }}>
           <NativeMediaViewer
             id={identifier.id}

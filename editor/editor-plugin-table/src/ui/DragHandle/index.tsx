@@ -213,6 +213,7 @@ const DragHandleComponent = ({
     <>
       <button
         type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={ClassName.DRAG_HANDLE_BUTTON_CLICKABLE_ZONE}
         data-testid="table-drag-handle-clickable-zone-button"
         style={{
@@ -241,6 +242,7 @@ const DragHandleComponent = ({
       <button
         type="button"
         id={isDragMenuTarget ? showDragMenuAnchorId : undefined}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classnames(
           ClassName.DRAG_HANDLE_BUTTON_CONTAINER,
           appearance,
@@ -279,6 +281,7 @@ const DragHandleComponent = ({
           browser.gecko ? (
             <HandleIconComponent {...handleIconProps} />
           ) : (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             <span style={{ pointerEvents: 'none' }}>
               <HandleIconComponent {...handleIconProps} />
             </span>

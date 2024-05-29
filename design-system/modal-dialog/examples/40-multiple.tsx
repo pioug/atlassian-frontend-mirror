@@ -45,6 +45,7 @@ export default function NestedDemo() {
   };
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ maxWidth: 400, padding: token('space.200', '16px') }}>
       <Field name="sb" label="Scrolling behavior">
         {() => (

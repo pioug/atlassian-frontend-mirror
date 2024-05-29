@@ -19,6 +19,7 @@ export default () => (
       iconGradientStart={N600}
       iconGradientStop={N100}
     />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ display: 'inline-block', background: B400 }}>
       <AtlassianLogo textColor={N0} iconColor={N0} />
     </div>
@@ -30,6 +31,7 @@ export default () => (
     />
     <AtlassianLogo appearance="brand" />
     <AtlassianLogo appearance="neutral" />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ display: 'inline-block', background: B400 }}>
       <AtlassianLogo appearance="inverse" />
     </div>

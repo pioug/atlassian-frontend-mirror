@@ -610,9 +610,13 @@ class KitchenSinkWithAnnotationProviders extends React.Component<
         {this.state.warning && (
           <div
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               position: 'fixed',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               top: token('space.1000', '80px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               right: token('space.200', '16px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: 400,
             }}
           >

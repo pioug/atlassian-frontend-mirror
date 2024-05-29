@@ -12,6 +12,7 @@ const EmojiAssistiveTextComponent = React.memo(
   ({ emojiShortName }: { emojiShortName: string }) => {
     const intl = useIntl();
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <span style={{ fontSize: 0 }}>
         {`${intl.formatMessage(messages.emojiNodeLabel)} ${emojiShortName}`}
       </span>

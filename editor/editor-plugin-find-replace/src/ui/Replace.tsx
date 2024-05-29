@@ -7,7 +7,6 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
-import LegacyButton from '@atlaskit/button/standard-button';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -27,10 +26,7 @@ import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 import {
   nextPreviousItemStyles,
   orderOneStyles,
-  orderZeroDeprecatedStyles,
   orderZeroStyles,
-  replaceSectionButtonNewStyles,
-  replaceSectionButtonOldStyles,
   sectionWrapperJustified,
   sectionWrapperStyles,
   sectionWrapperStylesAlternate,
@@ -99,8 +95,6 @@ class Replace extends React.PureComponent<
   private replaceAll: string;
   private findNext: string;
   private findPrevious: string;
-  private findNextIcon: JSX.Element;
-  private findPrevIcon: JSX.Element;
 
   constructor(props: ReplaceProps & WrappedComponentProps) {
     super(props);
@@ -123,8 +117,6 @@ class Replace extends React.PureComponent<
     this.replaceAll = formatMessage(messages.replaceAll);
     this.findNext = formatMessage(messages.findNext);
     this.findPrevious = formatMessage(messages.findPrevious);
-    this.findNextIcon = <ChevronDownIcon label={this.findNext} />;
-    this.findPrevIcon = <ChevronUpIcon label={this.findPrevious} />;
     this.closeFindReplaceDialog = formatMessage(
       messages.closeFindReplaceDialog,
     );
@@ -275,12 +267,6 @@ class Replace extends React.PureComponent<
       numberOfMatches: replaceCount,
     });
 
-    const replaceSectionButtonStyles = getBooleanFF(
-      'platform.editor.a11y-find-replace',
-    )
-      ? replaceSectionButtonNewStyles
-      : replaceSectionButtonOldStyles;
-
     return getBooleanFF('platform.editor.a11y-find-replace') ? (
       <Fragment>
         <div css={[sectionWrapperStyles, sectionWrapperStylesAlternate]}>
@@ -327,8 +313,7 @@ class Replace extends React.PureComponent<
             <div css={nextPreviousItemStyles}>
               <FindReplaceTooltipButton
                 title={this.findNext}
-                icon={this.findNextIcon}
-                newIcon={ChevronDownIcon}
+                icon={ChevronDownIcon}
                 iconLabel={this.findNext}
                 keymapDescription={'Enter'}
                 onClick={this.handleFindNextClick}
@@ -338,97 +323,50 @@ class Replace extends React.PureComponent<
             <div css={nextPreviousItemStyles}>
               <FindReplaceTooltipButton
                 title={this.findPrevious}
-                icon={this.findPrevIcon}
-                newIcon={ChevronUpIcon}
+                icon={ChevronUpIcon}
                 iconLabel={this.findPrevious}
                 keymapDescription={'Shift Enter'}
                 onClick={this.handleFindPrevClick}
                 disabled={count.total <= 1}
               />
             </div>
-            {getBooleanFF(
-              'platform.design-system-team.editor-new-button_jjjdo',
-            ) ? (
-              <Inline
-                space="space.075"
-                xcss={xcss({
-                  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-                  paddingInlineStart: 'space.050',
-                  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-                  paddingInlineEnd: 'space.025',
-                })}
-              >
-                <Button
-                  testId={this.replace}
-                  id="replace-button"
-                  onClick={this.handleReplaceClick}
-                  isDisabled={!canReplace}
-                >
-                  {this.replace}
-                </Button>
-                <Button
-                  appearance="primary"
-                  testId={this.replaceAll}
-                  id="replaceAll-button"
-                  onClick={this.handleReplaceAllClick}
-                  isDisabled={!canReplace}
-                >
-                  {this.replaceAll}
-                </Button>
-              </Inline>
-            ) : (
-              <Fragment>
-                <LegacyButton
-                  css={replaceSectionButtonStyles}
-                  testId={this.replace}
-                  id="replace-button"
-                  onClick={this.handleReplaceClick}
-                  isDisabled={!canReplace}
-                >
-                  {this.replace}
-                </LegacyButton>
-                <LegacyButton
-                  css={replaceSectionButtonStyles}
-                  appearance="primary"
-                  testId={this.replaceAll}
-                  id="replaceAll-button"
-                  onClick={this.handleReplaceAllClick}
-                  isDisabled={!canReplace}
-                >
-                  {this.replaceAll}
-                </LegacyButton>
-              </Fragment>
-            )}
-          </div>
-          <div
-            css={
-              getBooleanFF(
-                'platform.design-system-team.editor-new-button_jjjdo',
-              )
-                ? orderZeroStyles
-                : orderZeroDeprecatedStyles
-            }
-          >
-            {getBooleanFF(
-              'platform.design-system-team.editor-new-button_jjjdo',
-            ) ? (
+
+            <Inline
+              space="space.075"
+              xcss={xcss({
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+                paddingInlineStart: 'space.050',
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+                paddingInlineEnd: 'space.025',
+              })}
+            >
               <Button
-                appearance="subtle"
-                testId={this.closeFindReplaceDialog}
-                onClick={this.clearSearch}
+                testId={this.replace}
+                id="replace-button"
+                onClick={this.handleReplaceClick}
+                isDisabled={!canReplace}
               >
-                {this.closeFindReplaceDialog}
+                {this.replace}
               </Button>
-            ) : (
-              <LegacyButton
-                css={replaceSectionButtonStyles}
-                appearance="subtle"
-                testId={this.closeFindReplaceDialog}
-                onClick={this.clearSearch}
+              <Button
+                appearance="primary"
+                testId={this.replaceAll}
+                id="replaceAll-button"
+                onClick={this.handleReplaceAllClick}
+                isDisabled={!canReplace}
               >
-                {this.closeFindReplaceDialog}
-              </LegacyButton>
-            )}
+                {this.replaceAll}
+              </Button>
+            </Inline>
+          </div>
+          <div css={orderZeroStyles}>
+            <Button
+              appearance="subtle"
+              testId={this.closeFindReplaceDialog}
+              onClick={this.clearSearch}
+            >
+              {this.closeFindReplaceDialog}
+            </Button>
           </div>
         </div>
       </Fragment>
@@ -446,43 +384,22 @@ class Replace extends React.PureComponent<
           onCompositionStart={this.handleCompositionStart}
           onCompositionEnd={this.handleCompositionEnd}
         />
-        {getBooleanFF('platform.design-system-team.editor-new-button_jjjdo') ? (
-          <Inline space="space.050">
-            <Button
-              testId={this.replace}
-              onClick={this.handleReplaceClick}
-              isDisabled={!canReplace}
-            >
-              {this.replace}
-            </Button>
-            <Button
-              testId={this.replaceAll}
-              onClick={this.handleReplaceAllClick}
-              isDisabled={!canReplace}
-            >
-              {this.replaceAll}
-            </Button>
-          </Inline>
-        ) : (
-          <Fragment>
-            <LegacyButton
-              css={replaceSectionButtonStyles}
-              testId={this.replace}
-              onClick={this.handleReplaceClick}
-              isDisabled={!canReplace}
-            >
-              {this.replace}
-            </LegacyButton>
-            <LegacyButton
-              css={replaceSectionButtonStyles}
-              testId={this.replaceAll}
-              onClick={this.handleReplaceAllClick}
-              isDisabled={!canReplace}
-            >
-              {this.replaceAll}
-            </LegacyButton>
-          </Fragment>
-        )}
+        <Inline space="space.050">
+          <Button
+            testId={this.replace}
+            onClick={this.handleReplaceClick}
+            isDisabled={!canReplace}
+          >
+            {this.replace}
+          </Button>
+          <Button
+            testId={this.replaceAll}
+            onClick={this.handleReplaceAllClick}
+            isDisabled={!canReplace}
+          >
+            {this.replaceAll}
+          </Button>
+        </Inline>
       </div>
     );
   }

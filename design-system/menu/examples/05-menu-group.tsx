@@ -26,15 +26,20 @@ export default () => {
   return (
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         flexDirection: 'row',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         justifyContent: 'space-around',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         padding: '1rem',
       }}
     >
       <div
         style={{
           border: `1px solid ${token('color.border')}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           borderRadius: '4px',
         }}
       >
@@ -172,7 +177,9 @@ export default () => {
       <div
         style={{
           border: `1px solid ${token('color.border')}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           height: 'max-content',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           borderRadius: '4px',
         }}
       >

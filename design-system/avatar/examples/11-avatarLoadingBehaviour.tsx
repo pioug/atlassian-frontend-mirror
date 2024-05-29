@@ -48,19 +48,27 @@ const ExternalSrcAvatar: FC = (props) => {
       <Note size="large">Try pasting a URL to see the loading behavior:</Note>
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           gap: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginBottom: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginTop: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           alignItems: 'end',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           justifyContent: 'center',
         }}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <label htmlFor="image-url" style={{ flexGrow: 1 }}>
           Image URL
           <Textfield
             id="image-url"
             onChange={changeUrl}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ flex: 1 }}
             value={inputValue}
           />

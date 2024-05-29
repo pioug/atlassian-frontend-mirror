@@ -44,6 +44,7 @@ export default function Example() {
   return (
     <IntlProvider locale="en">
       <div data-testid="vr-tested">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <AnalyticsListener
             onEvent={listenerHandler}
@@ -59,6 +60,7 @@ export default function Example() {
             />
           </AnalyticsListener>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <Mention
             {...mentionData}
@@ -69,6 +71,7 @@ export default function Example() {
             onMouseLeave={onMentionEvent}
           />
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <Mention
             {...mentionData}
@@ -79,6 +82,7 @@ export default function Example() {
             onMouseLeave={onMentionEvent}
           />
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <Mention
             {...mentionData}

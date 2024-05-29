@@ -40,7 +40,7 @@ const productHomeButtonStyles = css({
     border: 0,
   },
   '&:first-of-type': {
-    marginLeft: 0,
+    marginInlineStart: 0,
   },
   '&:hover': {
     backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_HOVER})`,
@@ -114,11 +114,10 @@ const productIconStyles = css({
 
 const siteTitleStyles = css({
   display: 'flex',
-  // Overridden in PFF styles applied below; consolidate in FF cleanup
-  marginRight: token('space.050', '4px'),
-  marginLeft: token('space.050', '4px'),
-  paddingRight: token('space.200', '16px'),
   alignItems: 'center',
+  marginInlineEnd: token('space.050', '4px'),
+  marginInlineStart: token('space.050', '4px'),
+  paddingInlineEnd: token('space.200', '16px')
 });
 
 // When cleaning up feature flag, these styles can be moved into the above block
@@ -126,7 +125,7 @@ const featureFlaggedSiteTitleStyles = css({
   // Under the FF, we've made the site title handle it's spacing, with the
   // PrimaryItemsContainer not needing to worry about its paddingInlineStart.
   // This makes it cleaner for the title styles to appear and disappear with mq's
-  marginRight: token('space.100', '8px'),
+  marginInlineEnd: token('space.100', '8px'),
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     display: 'none',
@@ -190,6 +189,7 @@ const ProductHome = ({
   return (
     <Fragment>
       <Tag
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={productHomeButtonDynamicStyles as React.CSSProperties}
         css={productHomeButtonStyles}
         href={href}
@@ -223,6 +223,7 @@ const ProductHome = ({
       </Tag>
       {siteTitle && (
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={
             {
               borderRight: theme.mode.productHome.borderRight,

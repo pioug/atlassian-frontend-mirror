@@ -38,6 +38,7 @@ export const PredefinedAvatarList = ({
       />
       <Button
         aria-label={ showMoreAvatarsButtonLabel || intl.formatMessage(messages.show_more_avatars_btn_label) }
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="show-more-button"
         appearance="subtle"
         iconAfter={<EditorMoreIcon label="" size="large" />}

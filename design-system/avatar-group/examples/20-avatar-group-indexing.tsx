@@ -60,7 +60,9 @@ const AvatarGroupExample: FC = () => {
 
   return (
     <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ display: 'flex', marginTop: '1em' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ flex: 1 }}>
           <ButtonGroup label="Avatar options">
             <Button onClick={() => shuffleAvatars()}>Shuffle avatars</Button>
@@ -70,6 +72,7 @@ const AvatarGroupExample: FC = () => {
 
       <h5>Avatars</h5>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ maxWidth: state.gridWidth, position: 'relative' }}>
         <AvatarGroup
           appearance="grid"

@@ -790,6 +790,7 @@ export const IssueLikeDataTableView = ({
         tableContainerStyles,
         scrollableContainerHeight && scrollableContainerStyles,
       ]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={
         scrollableContainerHeight
           ? {
@@ -803,11 +804,13 @@ export const IssueLikeDataTableView = ({
       <Table
         css={tableStyles}
         data-testid={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={shouldUseWidth ? { tableLayout: 'fixed' } : {}}
       >
         <thead
           data-testid={testId && `${testId}--head`}
           css={[noDefaultBorderStyles, tableHeadStyles]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={!!onVisibleColumnKeysChange ? 'has-column-picker' : ''}
         >
           <tr ref={tableHeaderRowRef}>
@@ -866,6 +869,7 @@ export const IssueLikeDataTableView = ({
                   <TableHeading
                     key={key}
                     data-testid={`${key}-column-heading`}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                     style={getWidthCss({ shouldUseWidth, width })}
                   >
                     {heading}
@@ -913,6 +917,7 @@ export const IssueLikeDataTableView = ({
                     key={cellKey}
                     data-testid={testId && `${testId}--cell-${cellIndex}`}
                     colSpan={isEditable && isLastCell ? 2 : undefined}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                     style={loadingRowStyle}
                     css={[
                       wrappedColumnKeys?.includes(cellKey)

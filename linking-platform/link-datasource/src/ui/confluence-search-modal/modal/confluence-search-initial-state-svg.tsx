@@ -117,6 +117,7 @@ export const ConfluenceSearchInitialStateSVG = () => (
       />
       <mask
         id="mask0_1_10772"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ maskType: 'alpha' }}
         maskUnits="userSpaceOnUse"
         x="107"

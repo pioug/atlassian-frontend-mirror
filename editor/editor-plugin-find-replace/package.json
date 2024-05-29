@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-find-replace",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "find replace plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -108,9 +108,6 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.a11y-find-replace": {
-      "type": "boolean"
-    },
-    "platform.design-system-team.editor-new-button_jjjdo": {
       "type": "boolean"
     }
   },

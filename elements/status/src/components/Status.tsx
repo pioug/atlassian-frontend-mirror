@@ -95,6 +95,7 @@ class StatusInternal extends PureComponent<Props, any> {
     return (
       <span
         css={isAndroidChromium ? inlineBlockStyles : undefined}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="status-lozenge-span"
         onClick={onClick}
         onMouseEnter={this.handleMouseEnter}

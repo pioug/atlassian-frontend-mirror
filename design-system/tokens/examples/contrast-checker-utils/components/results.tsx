@@ -78,6 +78,7 @@ const ResultsAccordion = ({
     return (
       <ContrastCard
         key={pairing}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={style}
         foregroundName={foreground as TokenName}
         middleLayerName={middleLayer as TokenName}
@@ -147,6 +148,7 @@ const ResultsAccordion = ({
           itemCount={filteredResultsList.length}
           itemSize={getItemSize}
           width="100%"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ overflowX: 'hidden' }}
           overscanCount={2}
         >

@@ -60,6 +60,7 @@ export default class MediaGroup extends PureComponent<
     } else {
       content = this.renderStrip();
     }
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     return <div className="MediaGroup">{content}</div>;
   }
 

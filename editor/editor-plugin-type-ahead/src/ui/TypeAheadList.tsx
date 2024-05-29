@@ -307,6 +307,7 @@ const TypeAheadListComponent = React.memo(
           columnIndex={0}
           rowIndex={index}
         >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={style} data-index={index}>
             <div
               data-testid={`list-item-height-observed-${index}`}

@@ -60,6 +60,7 @@ export default () => (
               backgroundColor="color.background.neutral"
               padding="space.050"
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 width: '200px',
               }}
             >
@@ -85,6 +86,7 @@ export default () => (
               backgroundColor="color.background.neutral"
               padding="space.050"
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 width: '200px',
               }}
             >
@@ -110,6 +112,7 @@ export default () => (
                 padding="space.050"
                 xcss={containerStyles}
                 style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   height: '200px',
                 }}
               >

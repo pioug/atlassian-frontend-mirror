@@ -35,6 +35,7 @@ export default class extends React.Component<{}, State> {
   render() {
     return (
       <>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p id="row-highlight-control" style={paddingStyle}>
           Select a button to highlight its' corresponding row
         </p>

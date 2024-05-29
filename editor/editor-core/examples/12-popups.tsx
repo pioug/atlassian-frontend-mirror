@@ -58,6 +58,7 @@ class PortalExample extends PureComponent<any, any> {
 
     return (
       <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ overflow: 'hidden' }}>
           <Editor
             appearance="comment"
@@ -92,6 +93,7 @@ class PortalWithCustomBoundaryExample extends PureComponent<any, any> {
     return (
       <div>
         <div css={boundary} ref={this.handleBoundryRef}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ overflow: 'hidden' }}>
             <Editor
               appearance="comment"
@@ -128,13 +130,17 @@ class PortalInScrollContainerExample extends PureComponent<any, any> {
     return (
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           overflow: 'scroll',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           height: 200,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'relative',
           border: `1px solid ${token('color.border', N40)}`,
         }}
         ref={this.handleBoundryRef}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ minHeight: 500, width: '120%' }}>
           <Editor
             appearance="comment"
@@ -183,13 +189,18 @@ class JiraSidebarEditor extends PureComponent<any, any> {
   render() {
     return (
       <div ref={this.handleBoundryRef}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ display: 'table' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ display: 'table-cell', width: 480 }}>JIRA</div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ display: 'table-cell' }}>
             <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={{ width: 300, overflowY: 'scroll', height: 200 }}
               ref={this.handleScrollableRef}
             >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
               <div style={{ height: 500 }}>
                 <Editor
                   onCancel={CANCEL_ACTION}
@@ -224,9 +235,11 @@ export default function Example() {
     <div>
       <div css={content}>
         <h2>Intentionally Broken Example</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: document.body | Container: 300px, overflow: hidden.
         </p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ width: 300, overflow: 'hidden' }}>
           <Editor
             appearance="comment"
@@ -243,9 +256,11 @@ export default function Example() {
 
       <div css={content}>
         <h2>Basic</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: document.body | Container: 300px, no overflow.
         </p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ width: 300 }}>
           <Editor
             appearance="comment"
@@ -260,9 +275,11 @@ export default function Example() {
 
       <div css={content}>
         <h2>Basic with Custom Boundry</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: custom | Container: 500px, no overflow.
         </p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ width: 500 }}>
           <CustomBoundryExample
             appearance="comment"
@@ -279,9 +296,11 @@ export default function Example() {
 
       <div css={content}>
         <h2>Basic Portal</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: document.body | Container: 300px, overflow: hidden.
         </p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ width: 300 }}>
           <PortalExample
             imageUploadHandler={imageUploadHandler}
@@ -296,9 +315,11 @@ export default function Example() {
 
       <div css={content}>
         <h2>Portal with Custom Boundry</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: custom | Container: 500px, overflow: hidden.
         </p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ width: 500 }}>
           <PortalWithCustomBoundaryExample
             imageUploadHandler={imageUploadHandler}
@@ -312,9 +333,11 @@ export default function Example() {
 
       <div css={content}>
         <h2>Portal in Scroll Container</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: custom | Container: 700px, overflow: hidden.
         </p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ maxWidth: 700 }}>
           <PortalInScrollContainerExample
             imageUploadHandler={imageUploadHandler}

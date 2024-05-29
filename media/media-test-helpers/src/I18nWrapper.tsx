@@ -34,6 +34,7 @@ export const I18NWrapper = ({ children }: I18NWrapperProps) => {
   const messages = getMessages(locale.value);
   return (
     <>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginBottom: 10, marginTop: 10 }}>
         <LocaleSelect onLocaleChange={setLocale} locales={selectableLocales} />
       </div>

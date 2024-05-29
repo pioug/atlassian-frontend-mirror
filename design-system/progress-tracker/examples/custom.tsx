@@ -57,6 +57,7 @@ class CustomProgressTrackerLink extends PureComponent<CustomProgressTrackerLinkP
   render() {
     const { href = '', label } = this.props.item;
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <Link style={{ color: token('color.text') }} to={href}>
         {label}
       </Link>

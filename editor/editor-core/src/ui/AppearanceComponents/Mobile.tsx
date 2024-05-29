@@ -128,6 +128,7 @@ export const MobileAppearance = forwardRef<
               editorDisabled={editorDisabled}
             >
               <ContentArea featureFlags={featureFlags}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
                 <div className="ak-editor-content-area">{children}</div>
               </ContentArea>
             </ClickArea>

@@ -133,6 +133,7 @@ function ElementSearch({
         placeholder={formatMessage(commonMessages.placeHolderMessage)}
         aria-label="search"
         aria-labelledby="search-assistive"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="js-search-input"
         role="combobox"
         aria-activedescendant={ariaActiveDescendant}
@@ -143,6 +144,7 @@ function ElementSearch({
         ref={assistiveTextRef}
         aria-live="polite"
         aria-atomic="true"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="assistive"
       >
         {assistiveMessage}

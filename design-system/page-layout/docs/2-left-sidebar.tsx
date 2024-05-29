@@ -20,6 +20,7 @@ The Left Sidebar:
 You can see the Left Sidebar can be resized and even collapsed to give more screen space to the main content:
 
 ${(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={{ contain: 'content' }}>
     <Example
       packageName="@atlaskit/page-layout"

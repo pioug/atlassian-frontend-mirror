@@ -39,10 +39,12 @@ export const MediaCardWrapper = ({
   return (
     <div
       data-testid="media-card-wrapper"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="media-card-wrapper"
       style={{
         borderColor: `var(--custom-palette-color)`,
         borderWidth: `${calculatedBorderWidth}px`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         borderStyle: 'solid',
         borderRadius: `${calculatedBorderWidth * 2}px`,
       }}

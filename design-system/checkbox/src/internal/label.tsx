@@ -81,9 +81,13 @@ export default function Label({
   testId,
   label,
   id,
+  xcss,
 }: LabelProps) {
   return (
     <label
+      // Because we're using Emotion local jsx namespace we have to coerce xcss prop to a string.
+      // When we're fully on Compiled its local jsx namespace accepts the output of xcss prop.
+      className={xcss as string}
       css={[
         baseStyles,
         label && textLabelLayoutStyles,

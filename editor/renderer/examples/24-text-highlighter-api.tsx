@@ -133,6 +133,7 @@ const doc = {
 
 function TextHighliterComponent({ match }: { match: string }) {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <span style={{ color: 'red', textDecoration: 'underline' }}>{match}</span>
   );
 }

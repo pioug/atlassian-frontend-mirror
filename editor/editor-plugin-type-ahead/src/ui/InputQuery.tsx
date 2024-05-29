@@ -510,6 +510,7 @@ export const InputQuery = React.memo(
         >
           {query === null ? <input ref={inputRef} type="text" /> : query}
         </span>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <span id={assistiveHintID} style={{ display: 'none' }}>
           {intl.formatMessage(getAriaLabel(triggerQueryPrefix, intl))},
           {intl.formatMessage(typeAheadListMessages.inputQueryAssistiveLabel)}

@@ -111,6 +111,7 @@ describe('ErrorBoundary', () => {
   });
 
   it('should render props.fallbackComponent if props.fallbackComponent exists', () => {
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     const ExampleFallback = <div className="my-fallback" />;
 
     wrapper = mount(
@@ -126,7 +127,9 @@ describe('ErrorBoundary', () => {
   });
 
   it('should NOT render props.fallbackComponent if zero render errors', () => {
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     const GoodComponent = () => <div className="working" />;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     const ExampleFallback = <div className="my-fallback" />;
 
     wrapper = mount(

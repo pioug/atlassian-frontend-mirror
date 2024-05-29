@@ -35,6 +35,7 @@ export const DragPreview = ({
     >
       <DragInMotionIcon
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'absolute',
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           marginLeft: `${marginLeft}px`,

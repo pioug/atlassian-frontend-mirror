@@ -14,6 +14,7 @@ export const CardActionButton = forwardRef<
       data-testid="media-card-primary-action"
       aria-label={props.label}
       css={cardActionButtonStyles(props)}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={props.style}
       onClick={props.onClick}
       onMouseDown={props.onMouseDown}

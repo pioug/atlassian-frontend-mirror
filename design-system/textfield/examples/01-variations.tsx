@@ -43,6 +43,7 @@ export default function VariationsExample() {
         onFocus={handleOnFocus}
         id="event-handlers"
       />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={eventResultStyle}>{eventResult}</div>
 
       <label htmlFor="default-value">

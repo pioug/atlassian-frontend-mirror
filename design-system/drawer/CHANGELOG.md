@@ -1,5 +1,14 @@
 # @atlaskit/drawer
 
+## 7.10.0
+
+### Minor Changes
+
+-   [#103863](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103863)
+    [`919672b42f27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/919672b42f27) -
+    Update close button to use IconButton from `@atlaskit/button/new`. Some minor visual changes are
+    expected.
+
 ## 7.9.0
 
 ### Minor Changes

@@ -107,6 +107,7 @@ function SpotlightWithConditionalTargets() {
         </SpotlightTarget>
       </HighlightGroup>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginTop: '1em' }}>
         <button
           id="Hide"
@@ -117,6 +118,7 @@ function SpotlightWithConditionalTargets() {
         </button>
       </div>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <p style={{ marginBottom: '1em' }}>
         Use spotlight to highlight elements in your app to users.
       </p>

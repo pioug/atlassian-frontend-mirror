@@ -102,17 +102,23 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
         [cssVar.color.text.default]: styles.textColors[color],
         [cssVar.color.text.hover]: styles.textHoverColors[color],
         [cssVar.color.text.active]: styles.textActiveColors[color],
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         [cssVar.color.text.link]: textLinkColors,
         [cssVar.color.background.default]: styles.backgroundColors[color],
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         [cssVar.color.background.hover]: backgroundHoverColors,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         [cssVar.color.background.active]: backgroundActiveColors,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         [cssVar.color.focusRing]: styles.focusRingColors,
         [cssVar.color.removeButton.default]: styles.removeButtonColors[color],
         [cssVar.color.removeButton.hover]:
           styles.removeButtonHoverColors[color],
         [cssVar.borderRadius]: styles.borderRadius[appearance],
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         ...style,
       }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
       data-testid={testId}
     >

@@ -39,6 +39,7 @@ export default class NumberColumn extends Component<Props, any> {
 
     return (
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={ClassName.NUMBERED_COLUMN}
         style={{
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
@@ -57,8 +58,10 @@ export default class NumberColumn extends Component<Props, any> {
           isDragAndDropEnabled ? (
             <div
               key={`wrapper-${index}`}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={this.getClassNames(index, true)}
               data-index={index}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={this.getCellStyles(index, rowHeight)}
               onMouseOver={() => updateCellHoverLocation(index)}
             >
@@ -67,8 +70,10 @@ export default class NumberColumn extends Component<Props, any> {
           ) : (
             <div
               key={`wrapper-${index}`}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={this.getClassNames(index)}
               data-index={index}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={this.getCellStyles(index, rowHeight)}
               onClick={(event) => this.selectRow(index, event)}
               onMouseOver={() => this.hoverRows(index)}

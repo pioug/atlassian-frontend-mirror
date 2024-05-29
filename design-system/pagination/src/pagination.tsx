@@ -116,6 +116,7 @@ function InnerPagination<T extends React.ReactNode>(
   };
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <Box testId={testId} style={style} ref={ref} aria-label={label} as="nav">
       <Inline space="space.0" alignBlock="center">
         <Navigator

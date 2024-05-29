@@ -291,6 +291,7 @@ const ResizerNext: ForwardRefRenderFunction<
     return SUPPORTED_HANDLES.reduce<HandleComponent>((result, position) => {
       const thumb = (
         <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={resizerHandleThumbClassName}
           data-testid={`resizer-handle-${position}-thumb`}
           contentEditable={false}
@@ -316,6 +317,7 @@ const ResizerNext: ForwardRefRenderFunction<
           <>
             {thumb}
             <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={classnames(
                 resizerHandleTrackClassName,
                 handleHighlight,
@@ -329,6 +331,7 @@ const ResizerNext: ForwardRefRenderFunction<
           return {
             ...result,
             [position]: (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               <div contentEditable={false} style={inheritedCSS}>
                 <Tooltip
                   content={handleTooltipContent}
@@ -347,6 +350,7 @@ const ResizerNext: ForwardRefRenderFunction<
         return {
           ...result,
           [position]: (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             <div contentEditable={false} style={inheritedCSS}>
               {thumbWithTrack}
             </div>
@@ -358,6 +362,7 @@ const ResizerNext: ForwardRefRenderFunction<
           <>
             {thumb}
             <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={classnames(
                 resizerHandleTrackClassName,
                 handleHighlight,
@@ -407,6 +412,7 @@ const ResizerNext: ForwardRefRenderFunction<
         width, // just content itself (no paddings)
         height: 'auto',
       }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={resizerClassName}
       handleClasses={handles}
       handleWrapperClass={handleWrapperClass}
@@ -420,6 +426,7 @@ const ResizerNext: ForwardRefRenderFunction<
       handleComponent={handleComponent}
       {...otherProps}
     >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
       <span className={resizerZoneClassName}>{children}</span>
     </Resizable>
   );

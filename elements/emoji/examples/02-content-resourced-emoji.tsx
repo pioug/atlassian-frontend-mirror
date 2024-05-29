@@ -105,12 +105,15 @@ export default function Example() {
       <h6>
         Heading 6 <SampleEmojis />
       </h6>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <p style={lineStyle()}>
         Paragraph <SampleEmojis />
       </p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <code style={lineStyle()}>
         Code <SampleEmojis />
       </code>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <p style={lineStyle()}>
         {lorem} <SampleEmojis /> {lorem} <SampleEmojis /> {lorem}{' '}
         <SampleEmojis /> {lorem}

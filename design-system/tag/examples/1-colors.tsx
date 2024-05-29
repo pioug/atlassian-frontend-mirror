@@ -21,6 +21,7 @@ const colors: TagColor[] = [
 
 export default () => (
   <div data-testid="wrapper">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Non-interactive tags</caption>
       <tr>
@@ -57,6 +58,7 @@ export default () => (
       </tr>
     </table>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Link tags</caption>
       <tr>
@@ -106,6 +108,7 @@ export default () => (
       </tr>
     </table>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Removable tags</caption>
       <tr>
@@ -150,6 +153,7 @@ export default () => (
       </tr>
     </table>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Removable + link tags</caption>
       <tr>
@@ -201,6 +205,7 @@ export default () => (
       </tr>
     </table>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Link + Element before tags</caption>
       <tr>
@@ -217,6 +222,7 @@ export default () => (
         <td>
           <Tag
             elemBefore={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
             }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
@@ -230,6 +236,7 @@ export default () => (
           <td key={`${color}-link-element-before`}>
             <RemovableTag
               elemBefore={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 <span style={{ paddingLeft: token('space.075', '6px') }}>
                   #
                 </span>
@@ -250,6 +257,7 @@ export default () => (
           <td key={`${color}-link-element-before-light`}>
             <RemovableTag
               elemBefore={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 <span style={{ paddingLeft: token('space.075', '6px') }}>
                   #
                 </span>
@@ -263,6 +271,7 @@ export default () => (
       </tr>
     </table>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Removable + Link + Element before tags</caption>
       <tr>
@@ -279,6 +288,7 @@ export default () => (
         <td>
           <RemovableTag
             elemBefore={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
             }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
@@ -292,6 +302,7 @@ export default () => (
           <td key={`${color}-removable-link-element-before`}>
             <RemovableTag
               elemBefore={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 <span style={{ paddingLeft: token('space.075', '6px') }}>
                   #
                 </span>
@@ -312,6 +323,7 @@ export default () => (
           <td key={`${color}-removable-link-element-before-light`}>
             <RemovableTag
               elemBefore={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 <span style={{ paddingLeft: token('space.075', '6px') }}>
                   #
                 </span>

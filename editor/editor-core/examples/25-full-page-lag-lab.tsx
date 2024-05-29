@@ -228,6 +228,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
       </div>
 
       <p>Presets:</p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="preset-buttons">
         {LATENCY_PRESETS.map(({ value, label }) => (
           <Button onClick={() => onFixedLatencyChange(value)} key={value}>
@@ -249,6 +250,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
         Variable latency (ms)
       </label>
       <br />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="range">
         <input
           min="0"
@@ -297,6 +299,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 
       <hr />
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
       <div className="action-buttons">
         <Button onClick={onApplyClick}>Apply</Button>
 

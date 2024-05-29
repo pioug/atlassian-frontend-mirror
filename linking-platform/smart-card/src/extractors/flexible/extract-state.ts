@@ -7,7 +7,6 @@ import {
   type InvokeRequestAction,
   type SmartLinkActionType,
 } from '@atlaskit/linking-types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   type CardDetails,
   type InvokeRequestWithCardDetails,
@@ -101,12 +100,7 @@ const extractState = (
     return;
   }
 
-  if (
-    !canShowAction(CardAction.ChangeStatusAction, actionOptions) ||
-    getBooleanFF(
-      'platform.linking-platform.smart-card.disable-jira-status-action',
-    )
-  ) {
+  if (!canShowAction(CardAction.ChangeStatusAction, actionOptions)) {
     return lozenge;
   }
 

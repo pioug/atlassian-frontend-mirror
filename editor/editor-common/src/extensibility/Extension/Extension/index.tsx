@@ -184,17 +184,22 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
       <div
         ref={handleRef}
         data-layout={node.attrs.layout}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classNames}
         css={wrapperStyle}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={customContainerStyles}
         onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
         <div className={overflowClassNames} css={overflowWrapperStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
           <div className={'extension-overlay'} css={overlay} />
           <div
             css={header}
             contentEditable={false}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={headerClassNames}
           >
             {!removeBorder && (
@@ -209,10 +214,12 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
             {children}
           </div>
           {hasBody && (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             <div css={newContentStyles} className={newContentClassNames}>
               <div
                 css={content}
                 ref={handleContentDOMRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className={contentClassNames}
               />
             </div>

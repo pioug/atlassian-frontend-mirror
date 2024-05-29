@@ -26,11 +26,19 @@ export const calculateDefaultSnappings = (lengthOffset: number = 0) => [
   akEditorFullWidthLayoutWidth + lengthOffset,
 ];
 
+export type GuidelineExcludeConfig = {
+  innerGuidelines: boolean;
+  breakoutPoints: boolean;
+};
+
 // FF TablePreserve for calculateDefaultSnappings
 export const calculateDefaultTablePreserveSnappings = (
-  lengthOffset: number = 0,
-  editorContainerWith: number = akEditorFullWidthLayoutWidth,
-  excludeInnerGuidelines = false,
+  lengthOffset = 0,
+  editorContainerWith = akEditorFullWidthLayoutWidth,
+  exclude: GuidelineExcludeConfig = {
+    innerGuidelines: false,
+    breakoutPoints: false,
+  },
 ) => {
   const dynamicFullWidthLine =
     editorContainerWith - akEditorGutterPadding * 2 >=
@@ -38,24 +46,26 @@ export const calculateDefaultTablePreserveSnappings = (
       ? akEditorFullWidthLayoutWidth
       : editorContainerWith - akEditorGutterPadding * 2 - tableResizerWidth;
 
-  if (excludeInnerGuidelines) {
-    return [
+  const guides = [dynamicFullWidthLine - lengthOffset];
+
+  if (!exclude.breakoutPoints) {
+    guides.unshift(
       akEditorDefaultLayoutWidth + lengthOffset,
       akEditorCalculatedWideLayoutWidth + lengthOffset,
-      dynamicFullWidthLine - lengthOffset,
-    ];
+    );
   }
 
-  return [
-    0,
-    ...calculateSubSnappingWidths(
-      numberOfLanesInDefaultLayoutWidth,
-      akEditorDefaultLayoutWidth + lengthOffset,
-    ),
-    akEditorDefaultLayoutWidth + lengthOffset,
-    akEditorCalculatedWideLayoutWidth + lengthOffset,
-    dynamicFullWidthLine - lengthOffset,
-  ];
+  if (!exclude.innerGuidelines) {
+    guides.unshift(
+      0,
+      ...calculateSubSnappingWidths(
+        numberOfLanesInDefaultLayoutWidth,
+        akEditorDefaultLayoutWidth + lengthOffset,
+      ),
+    );
+  }
+
+  return guides;
 };
 
 export const defaultSnappingWidths = calculateDefaultSnappings();
@@ -63,7 +73,10 @@ export const defaultSnappingWidths = calculateDefaultSnappings();
 // FF TablePreserve for defaultSnappingWidths
 export const defaultTablePreserveSnappingWidths = (
   editorContainerWidth: number,
-  excludeInnerGuidelines = false,
+  exclude: GuidelineExcludeConfig = {
+    innerGuidelines: false,
+    breakoutPoints: false,
+  },
 ) => {
   return editorContainerWidth - akEditorGutterPadding * 2 >
     akEditorFullWidthLayoutWidth
@@ -71,7 +84,7 @@ export const defaultTablePreserveSnappingWidths = (
     : calculateDefaultTablePreserveSnappings(
         0,
         editorContainerWidth,
-        excludeInnerGuidelines,
+        exclude,
       );
 };
 

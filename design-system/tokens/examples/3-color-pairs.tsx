@@ -438,6 +438,7 @@ export default () => {
   return (
     <div css={containerStyles}>
       <h1>Color Pairs</h1>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {colorPairs.map(({ background, text }, key) => (
           <Box key={key} background={background} text={text} />

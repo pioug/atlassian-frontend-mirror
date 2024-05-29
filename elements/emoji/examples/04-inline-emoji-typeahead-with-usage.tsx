@@ -28,7 +28,9 @@ const downPage: React.CSSProperties = {
 
 const loremContent = (
   <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <p style={{ width: '400px' }}>{lorem}</p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <p style={{ width: '400px' }}>{lorem}</p>
   </div>
 );
@@ -125,7 +127,9 @@ export const EmojiTextInput = (
   }
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={tallPageStyle}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={downPage}>
         {loremContent}
         {searchInput}

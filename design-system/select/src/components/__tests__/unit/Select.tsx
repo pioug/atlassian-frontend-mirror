@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import selectEvent from 'react-select-event';
 
 import AtlaskitSelect from '../../..';
 
@@ -46,7 +47,7 @@ describe('Select', () => {
       'false',
     );
 
-    await user.click(screen.getByText('Select...'));
+    selectEvent.openMenu(screen.getByText('Select...'));
 
     // Menu to open
     expect(screen.getByRole('combobox')).toHaveAttribute(
@@ -75,7 +76,9 @@ describe('Select', () => {
         />,
       );
 
-      await user.click(screen.getByText('Select...'));
+      selectEvent.openMenu(screen.getByText('Select...'));
+      const ele = screen.getByRole('combobox');
+      fireEvent.focus(ele);
       expect(
         screen.getByText(/overwrite native ariaLiveMessages onFocus method/),
       ).toBeInTheDocument();
@@ -302,7 +305,7 @@ describe('Select', () => {
       />,
     );
 
-    await user.click(screen.getByText('Select...'));
+    selectEvent.openMenu(screen.getByText('Select...'));
 
     expect(screen.getByRole('combobox')).toHaveAttribute(
       'aria-expanded',

@@ -90,6 +90,7 @@ export const DropdownMenu = ({
         }}
         targetRef={targetRefDiv}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ height: 0, minWidth: dragMenuDropdownWidth }} />
         <MenuGroup role="menu">
           {items.map((group, index) => (
@@ -116,7 +117,9 @@ export const DropdownMenu = ({
   };
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div className="drag-dropdown-menu-wrapper">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="drag-dropdown-menu-popup-ref" ref={handleRef}></div>
       <Popup
         target={targetRefDiv as HTMLElement}

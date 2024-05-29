@@ -58,8 +58,10 @@ export default class Example extends React.Component {
     const mode = sourceVisible ? 'open' : 'closed';
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <Wrapper className="AKExampleWrapper" state={state} mode={mode}>
         <Toggle
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="AKExampleToggle"
           onClick={this.toggleSource}
           onMouseOver={() => this.setState({ isHover: true })}
@@ -72,6 +74,7 @@ export default class Example extends React.Component {
         </Toggle>
 
         {sourceVisible ? (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           <CodeWrapper className="AKExampleCodeWrapper">
             <CodeBlock
               text={packageName ? replaceSrc(source, packageName) : source}
@@ -81,6 +84,7 @@ export default class Example extends React.Component {
             />
           </CodeWrapper>
         ) : null}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <Showcase className="AKExampleShowcase">
           <ErrorBoundary onError={this.onError}>
             <Component />
@@ -108,39 +112,39 @@ const toggleColor = themed('mode', {
   open: { light: colors.N600, dark: colors.DN100 },
 });
 
-const Wrapper = styled.div`
-  background-color: ${p => exampleBackgroundColor[p.mode]};
-  border-radius: 5px;
-  box-sizing: border-box;
-  color: ${toggleColor};
-  margin-top: 20px;
-  padding: 0 ${gridSize}px ${gridSize}px;
-  transition: background-color ${TRANSITION_DURATION};
-  max-width: calc(100vw - 4rem);
-`;
+const Wrapper = styled.div((props) => ({
+  backgroundColor: exampleBackgroundColor[props.mode](props),
+  borderRadius: "5px",
+  boxSizing: "border-box",
+  color: toggleColor(props),
+  marginTop: "20px",
+  padding: `0 ${gridSize()}px ${gridSize()}px`,
+  transition: `background-color ${TRANSITION_DURATION}`,
+  maxWidth: "calc(100vw - 4rem)"
+}));
 
-export const Toggle = styled.div`
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  padding: ${gridSize}px;
-  transition: color ${TRANSITION_DURATION}, fill ${TRANSITION_DURATION};
-`;
+export const Toggle = styled.div({
+  alignItems: "center",
+  cursor: "pointer",
+  display: "flex",
+  justifyContent: "space-between",
+  padding: `${gridSize()}px`,
+  transition: `color ${TRANSITION_DURATION}, fill ${TRANSITION_DURATION}`
+});
 
 // NOTE: use of important necessary to override element targeted headings
-export const ToggleTitle = styled.h4`
-  color: ${toggleColor} !important;
-  margin: 0;
-`;
+export const ToggleTitle = styled.h4(props => ({
+  color: `${toggleColor(props)} !important`,
+  margin: 0
+}));
 
-const Showcase = styled.div`
-  background-color: ${colors.background};
-  border-radius: 3px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-  padding: ${gridSize}px;
-`;
+const Showcase = styled.div(props => ({
+  backgroundColor: colors.background(props),
+  borderRadius: "3px",
+  boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.1)",
+  padding: `${gridSize()}px`
+}));
 
-const CodeWrapper = styled.div`
-  margin: 0 0 ${gridSize}px;
-`;
+const CodeWrapper = styled.div({
+  margin: `0 0 ${gridSize()}px`
+});

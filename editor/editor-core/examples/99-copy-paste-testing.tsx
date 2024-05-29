@@ -379,6 +379,7 @@ class ExampleEditorComponent extends React.Component<
 
 export default function Example(props: EditorProps & ExampleProps) {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ height: '100%' }}>
       <ExampleEditorComponent {...props} />
     </div>

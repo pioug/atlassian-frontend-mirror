@@ -65,6 +65,7 @@ export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
         {(article.relatedExternalLinks || article.communityUrl) && (
           <>
             <DividerLine
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={{ marginTop: 0, marginBottom: token('space.200', '16px') }}
             />
             <WhatsNewTitleText>RELATED LINKS</WhatsNewTitleText>

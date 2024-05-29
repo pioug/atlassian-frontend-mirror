@@ -49,7 +49,7 @@ export const DatasourceModal = ({
     dispatch(hideDatasourceModal(transaction));
   }, [dispatch, transaction]);
 
-  const onInsert = useOnInsert(view, existingNode);
+  const updateAdf = useUpdateAdf(view, existingNode);
 
   const isRegularCardNode = !!(
     existingNode && !existingNode?.attrs?.datasource
@@ -85,12 +85,12 @@ export const DatasourceModal = ({
       columnCustomSizes={columnCustomSizes}
       wrappedColumnKeys={wrappedColumnKeys}
       onCancel={onClose}
-      onInsert={onInsert}
+      onInsert={updateAdf}
     />
   );
 };
 
-const useOnInsert = (view: EditorView, existingNode: Node | undefined) => {
+const useUpdateAdf = (view: EditorView, existingNode: Node | undefined) => {
   return useCallback(
     (
       newAdf: DatasourceAdf | InlineCardAdf,
@@ -154,11 +154,10 @@ const resolveColumnsConfig = (views: DatasourceAdfView[]) => {
 
   const visibleColumnKeys: string[] = [];
   const wrappedColumnKeys: string[] = [];
-  let columnCustomSizes: { [key: string]: number } | undefined;
+  const columnCustomSizes: { [key: string]: number } = {};
 
   const columns = tableView?.properties?.columns;
   if (columns) {
-    columnCustomSizes = {};
     for (const { key, width, isWrapped } of columns) {
       visibleColumnKeys.push(key);
       if (width) {

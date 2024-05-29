@@ -58,6 +58,7 @@ export default function IconExamples() {
 
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           backgroundColor: token('elevation.surface', DN30),
         }}
         data-testid="dark-root"

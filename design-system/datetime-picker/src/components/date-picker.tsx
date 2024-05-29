@@ -184,16 +184,10 @@ class DatePicker extends Component<DatePickerProps, State> {
     // focus functionality. While that would be the 'right react' way to do it, it doesnt
     // post any other benefits; performance wise, we are only searching within the
     // container, making it quick.
-    if (
-      getBooleanFF(
-        'platform.design-system-team-date-picker-input-focus-fix_awmzp',
-      )
-    ) {
       const innerCombobox: HTMLInputElement | undefined | null =
         this.containerRef?.querySelector('[role="combobox"]');
       innerCombobox?.focus();
       this.setState({ isOpen: false });
-    }
   };
 
   onInputClick = () => {
@@ -264,9 +258,6 @@ class DatePicker extends Component<DatePickerProps, State> {
 
     // If the input is focused and the calendar is not visible, handle space and enter clicks
     if (
-      getBooleanFF(
-        'platform.design-system-team-date-picker-input-focus-fix_awmzp',
-      ) &&
       !this.state.isOpen &&
       (keyPressed === 'enter' || keyPressed === ' ')
     ) {

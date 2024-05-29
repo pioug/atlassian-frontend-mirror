@@ -9,24 +9,29 @@ export default () => (
     <div title="Buttons">
       <h1>Buttons</h1>
       <h2>default appearance</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <button type="button" className="ak-button ak-button__appearance-default">
         Default ak-button
       </button>
       <h2>subtle appearance</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <button type="button" className="ak-button ak-button__appearance-subtle">
         Subtle ak-button
       </button>
       <h2>primary appearance</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <button type="button" className="ak-button ak-button__appearance-primary">
         Primary ak-button
       </button>
       <h2>link appearance</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <button type="button" className="ak-button ak-button__appearance-link">
         Link ak-button
       </button>
       <h2>subtle-link appearance</h2>
       <button
         type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-button ak-button__appearance-subtle-link"
       >
         Subtle link ak-button
@@ -37,6 +42,7 @@ export default () => (
       <h2>default appearance</h2>
       <button
         type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-button ak-button__appearance-default"
         disabled
       >
@@ -45,6 +51,7 @@ export default () => (
       <h2>subtle appearance</h2>
       <button
         type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-button ak-button__appearance-subtle"
         disabled
       >
@@ -53,6 +60,7 @@ export default () => (
       <h2>primary appearance</h2>
       <button
         type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-button ak-button__appearance-primary"
         disabled
       >
@@ -61,6 +69,7 @@ export default () => (
       <h2>link appearance</h2>
       <button
         type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-button ak-button__appearance-link"
         disabled
       >
@@ -69,6 +78,7 @@ export default () => (
       <h2>subtle-link appearance</h2>
       <button
         type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-button ak-button__appearance-subtle-link"
         disabled
       >

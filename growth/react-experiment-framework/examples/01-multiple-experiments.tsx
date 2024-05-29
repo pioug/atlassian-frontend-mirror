@@ -36,6 +36,7 @@ export const createNestedExperiment = (
       parent: () => (
         <div>
           <div>Parent</div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ marginLeft: token('space.150', '12px') }}>
             {children.map((ChildExperiment: ComponentType, key: number) => (
               <ChildExperiment key={key} />
@@ -46,6 +47,7 @@ export const createNestedExperiment = (
       child: () => (
         <div>
           <div>Child</div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ marginLeft: token('space.150', '12px') }}>
             {children.map((ChildExperiment: ComponentType, key: number) => (
               <ChildExperiment key={key} />

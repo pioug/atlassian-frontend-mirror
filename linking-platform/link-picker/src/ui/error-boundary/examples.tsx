@@ -11,11 +11,16 @@ const createExample = (): React.ComponentType => {
     return (
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           border: '1px solid red',
           width: `${LINK_PICKER_WIDTH_IN_PX}px`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ['--link-picker-padding-left' as string]: token('space.200', '16px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ['--link-picker-padding-right' as string]: token('space.200', '16px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ['--link-picker-padding-top' as string]: token('space.200', '16px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ['--link-picker-padding-bottom' as string]: token(
             'space.200',
             '16px',

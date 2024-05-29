@@ -95,6 +95,7 @@ export const TableFooter = ({
               target="_blank"
               testId="item-count-url"
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 color: token('color.text.accent.gray', N800),
                 textDecoration: !url ? 'none' : '',
               }}

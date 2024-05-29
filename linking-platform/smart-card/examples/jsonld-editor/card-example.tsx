@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { useCallback, useMemo } from 'react';
-import { Card } from '../../src';
-import withJsonldEditorProvider from './jsonld-editor-provider';
-import FlexibleDataView from '../utils/flexible-data-view';
 import { ErrorBoundary } from 'react-error-boundary';
+import { IntlProvider } from 'react-intl-next';
+import { Card } from '../../src';
+import { HoverCard } from '../../src/hoverCard';
+import FlexibleDataView from '../utils/flexible-data-view';
+import withJsonldEditorProvider from './jsonld-editor-provider';
 
 const CardExample: React.FC<{
   isEmbedSupported?: boolean;
@@ -49,7 +51,14 @@ const CardExample: React.FC<{
           <i>Whoops! This link does not support embed view.</i>
         </div>
       )}
-
+      {url && (
+        <IntlProvider locale="en">
+          <br />
+          <HoverCard url={url}>
+            <h6> Standalone hover card</h6>
+          </HoverCard>
+        </IntlProvider>
+      )}
       <h6>
         Flexible (
         <a href="http://go/flexible-smart-links-docs" target="_blank">

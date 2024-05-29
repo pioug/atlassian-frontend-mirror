@@ -114,6 +114,7 @@ export const ResolvedView = ({
   const resolvedByline = (
     <Byline
       testId={testId ? `${testId}-by` : undefined}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={blockCardResolvedViewByClassName}
     >
       {byline}
@@ -128,6 +129,7 @@ export const ResolvedView = ({
     <Frame
       isSelected={isSelected}
       testId={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={blockCardResolvedViewClassName}
     >
       <Content>
@@ -145,6 +147,7 @@ export const ResolvedView = ({
                     justifyContent: 'center',
                   }}
                 >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
                   <Lozenge style={lozenge.style} {...lozenge}>
                     {lozenge.text}
                   </Lozenge>

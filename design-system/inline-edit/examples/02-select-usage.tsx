@@ -80,6 +80,7 @@ const InlineEditExample = () => {
           editValue && editValue.length === 0 ? (
             <ReadViewContainer>Click to choose options</ReadViewContainer>
           ) : (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             <div style={{ padding: token('space.050', '4px') }}>
               <Group>
                 {editValue &&

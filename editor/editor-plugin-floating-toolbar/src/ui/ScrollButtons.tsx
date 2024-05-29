@@ -143,6 +143,7 @@ export const ScrollButtons = ({
     <div
       ref={buttonsContainerRef}
       css={toolbarScrollButtons}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="scroll-buttons"
     >
       <Button

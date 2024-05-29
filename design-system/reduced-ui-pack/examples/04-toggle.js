@@ -18,6 +18,7 @@ export default () => (
         <tr>
           <td>Unchecked</td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="ak-field-toggle ak-field-toggle__size-default">
               <input
                 type="checkbox"
@@ -29,6 +30,7 @@ export default () => (
             </div>
           </td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="ak-field-toggle ak-field-toggle__size-large">
               <input
                 type="checkbox"
@@ -43,6 +45,7 @@ export default () => (
         <tr>
           <td>Checked</td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="ak-field-toggle ak-field-toggle__size-default">
               <input
                 type="checkbox"
@@ -55,6 +58,7 @@ export default () => (
             </div>
           </td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="ak-field-toggle ak-field-toggle__size-large">
               <input
                 type="checkbox"
@@ -70,6 +74,7 @@ export default () => (
         <tr>
           <td>Unchecked (disabled)</td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="ak-field-toggle ak-field-toggle__size-default">
               <input
                 type="checkbox"
@@ -82,6 +87,7 @@ export default () => (
             </div>
           </td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="ak-field-toggle ak-field-toggle__size-large">
               <input
                 type="checkbox"
@@ -97,6 +103,7 @@ export default () => (
         <tr>
           <td>Checked (disabled)</td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="ak-field-toggle ak-field-toggle__size-default">
               <input
                 type="checkbox"
@@ -110,6 +117,7 @@ export default () => (
             </div>
           </td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="ak-field-toggle ak-field-toggle__size-large">
               <input
                 type="checkbox"

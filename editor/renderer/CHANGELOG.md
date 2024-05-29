@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 109.30.0
+
+### Minor Changes
+
+-   [#101591](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101591)
+    [`0fd18de5a2e3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fd18de5a2e3) -
+    [ux] removing the isInPageInclude prop in renderer and will access isInPageInclude directly in
+    HoverComponent
+
+## 109.29.6
+
+### Patch Changes
+
+-   [#103816](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103816)
+    [`3fb50173376f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fb50173376f) -
+    [ED-23159] Added blending styling for when highlights overlap inline comments
+-   Updated dependencies
+
 ## 109.29.5
 
 ### Patch Changes

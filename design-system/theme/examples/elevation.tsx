@@ -70,7 +70,9 @@ export default () => {
 
             <div
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 padding: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 textAlign: 'center',
               }}
             >

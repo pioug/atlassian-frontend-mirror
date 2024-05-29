@@ -175,6 +175,7 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
   ]);
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div className="custom-key-handler-wrapper" ref={wrapperRef}>
       {children}
     </div>

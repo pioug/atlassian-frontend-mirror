@@ -68,6 +68,7 @@ const VRTestWrapper = ({ children, overrideCss }: VRTestWrapperProps) => {
   return (
     <DiProvider use={dependencies}>
       <IntlProvider locale="en">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="vr-test-wrapper" css={[styles, overrideCss]}>
           {global}
           {children}

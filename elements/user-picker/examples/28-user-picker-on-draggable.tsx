@@ -79,6 +79,7 @@ const Example = () => {
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={getListStyle(snapshot.isDraggingOver)}
             >
               {items.map(
@@ -90,6 +91,7 @@ const Example = () => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         //@ts-ignore
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                         style={getItemStyle(
                           snapshot.isDragging,
                           provided.draggableProps.style,

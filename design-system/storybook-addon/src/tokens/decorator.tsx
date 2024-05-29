@@ -100,6 +100,7 @@ const withDesignTokens = makeDecorator({
             <div
               data-theme="light:light"
               data-color-mode="light"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={
                 theme === 'split'
                   ? { ...splitColumnStyles, inset: '0px 50vw 0px 0px' }
@@ -111,6 +112,7 @@ const withDesignTokens = makeDecorator({
             <div
               data-theme="dark:dark"
               data-color-mode="dark"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={
                 theme === 'split'
                   ? { ...splitColumnStyles, inset: '0px 0px 0px 50vw' }

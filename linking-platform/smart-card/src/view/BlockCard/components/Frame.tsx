@@ -71,6 +71,7 @@ export const ExpandedFrame = ({
         ),
       })}
       data-testid={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
       data-trello-do-not-use-override={testId}
     >
@@ -109,6 +110,7 @@ export const CompactFrame = ({
         padding: [`0px ${gs(1)}`, '0'],
       })}
       data-testid={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
     >
       {children}

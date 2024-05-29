@@ -2,7 +2,6 @@ export {
   searchManuallyTriggeredRules,
   invokeManuallyTriggeredRule,
 } from './services';
-export { getBaseAutomationUrl } from './common/utils';
 export type {
   RuleScope,
   UserInputType,

@@ -22,8 +22,10 @@ class Date extends PureComponent<Props & WrappedComponentProps, {}> {
         ? 'date-node date-node-highlighted'
         : 'date-node';
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <span className={DateSharedCssClassName.DATE_WRAPPER}>
         <span
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={className}
           data-node-type="date"
           data-timestamp={timestamp}

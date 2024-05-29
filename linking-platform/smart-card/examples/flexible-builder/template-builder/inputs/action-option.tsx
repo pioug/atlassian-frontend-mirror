@@ -152,6 +152,7 @@ const ActionOption: React.FC<{
       <Label htmlFor={name}>Actions</Label>
       <div css={selectionStyles}>
         <Select
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="action-select"
           onChange={handleOnActionChange}
           options={options}
@@ -187,6 +188,7 @@ const ActionOption: React.FC<{
                 value={content}
               />
             ) : (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               <span className="action-select">{name}</span>
             )}
             <Button

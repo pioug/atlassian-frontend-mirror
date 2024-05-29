@@ -125,6 +125,7 @@ const TextfieldComponent = forwardRef((props: TextfieldProps, ref) => {
       // TODO: When removing legacy theming fix this.
       // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       css={containerStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
     >
       {elemBeforeInput}

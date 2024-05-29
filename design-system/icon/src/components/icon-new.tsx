@@ -101,7 +101,7 @@ const baseSizeMap = {
 export const Icon = memo(function Icon(props: NewIconProps) {
   const {
     color = token('color.icon'),
-    spacing = 'none',
+    spacing: providedSpacing = 'none',
     testId,
     label,
     LEGACY_secondaryColor,
@@ -137,6 +137,9 @@ export const Icon = memo(function Icon(props: NewIconProps) {
       />
     );
   }
+
+  // Utility icons don't have 'spacing' as a type, but in case it's provided, we default to 'none'
+  const spacing = type === 'utility' ? 'none' : providedSpacing;
 
   const baseSize = baseSizeMap[type];
   const size = type === 'utility' ? 'utility' : shouldScale ? 'scale' : spacing;

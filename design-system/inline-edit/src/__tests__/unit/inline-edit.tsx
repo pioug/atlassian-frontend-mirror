@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import selectEvent from 'react-select-event';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select, { type ValueType } from '@atlaskit/select';
@@ -209,6 +210,7 @@ describe('InlineEdit component', () => {
 
       fireEvent.click(readView!);
 
+      selectEvent.openMenu(screen.getByRole('combobox'));
       const firstOption = container.querySelector('#react-select-2-option-0');
       fireEvent.click(firstOption!);
 

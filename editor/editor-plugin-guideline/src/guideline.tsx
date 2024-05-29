@@ -90,9 +90,12 @@ export const Guideline = (props: Omit<GuidelineConfig, 'key'>) => {
         lineStyle === 'dashed' && dashedGuidelineStyles,
       ]}
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         ...(color && { borderColor: `${color}` }),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         ...getPositionStyles(position),
       }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="guideline"
     />
   );

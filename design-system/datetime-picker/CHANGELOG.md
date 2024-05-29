@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 13.5.2
+
+### Patch Changes
+
+-   [#102225](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102225)
+    [`95ec6562dae8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/95ec6562dae8) -
+    Removal of feature flag platform.design-system-team-date-picker-input-focus-fix_awmzp
+
 ## 13.5.1
 
 ### Patch Changes

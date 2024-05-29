@@ -64,6 +64,7 @@ export const ProfilePopup = () => {
         <Profile
           icon={
             <img
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={imgCSS}
               src={avatarUrl}
               alt="Your profile and settings"

@@ -26,6 +26,7 @@ const Replacement = (rect: any) => {
   };
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <SpotlightPulse style={style}>
       <Image alt="I replace the target element." src={logoInverted} />
     </SpotlightPulse>
@@ -64,6 +65,7 @@ export default class SpotlightTargetReplacementExample extends Component<
     return (
       <SpotlightManager>
         {/* so we don't get a gross flash on reveal */}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <img alt="hidden" src={logoInverted} style={{ display: 'none' }} />
 
         <SpotlightTarget name="target-replacement-example">

@@ -13,6 +13,7 @@ export const DefaultProfile = () => (
   <Profile
     icon={
       <img
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ borderRadius: '50%', width: 24, height: 24 }}
         src={avatarUrl}
         alt=""

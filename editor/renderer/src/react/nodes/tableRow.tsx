@@ -75,6 +75,7 @@ export default class TableRow extends React.Component<Props, State> {
     return (
       <tr ref={innerRef}>
         {this.props.isNumberColumnEnabled && (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           <td className={RendererCssClassName.NUMBER_COLUMN}>
             {this.props.index}
           </td>

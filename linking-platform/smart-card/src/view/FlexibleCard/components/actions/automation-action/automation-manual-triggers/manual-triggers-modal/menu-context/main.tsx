@@ -7,10 +7,8 @@ import {
   ManualRulesContainer,
   type ManualRulesData,
 } from '../../manual-triggers-container';
-import { type Environment } from '../../manual-triggers-container/common/types';
 
 type AutomationMenuContextContainerProps = {
-  environment: Environment;
   baseAutomationUrl: string;
   objectAri: string;
   siteAri: string;
@@ -62,7 +60,6 @@ export const useAutomationMenu = () => {
 };
 
 export const AutomationMenuContextContainer = ({
-  environment,
   baseAutomationUrl,
   analyticsSource,
   objectAri,
@@ -77,7 +74,6 @@ export const AutomationMenuContextContainer = ({
 }: AutomationMenuContextContainerProps) => {
   return (
     <ManualRulesContainer
-      env={environment}
       site={siteAri}
       query={{
         objects: [objectAri],

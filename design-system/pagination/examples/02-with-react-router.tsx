@@ -65,9 +65,10 @@ function renderLink(pageType: string, selectedIndex: number, pages: Pages[]) {
         selectedIndex < pages.length - 1 ? pages[selectedIndex + 1].href : '';
     }
     return isDisabled ? (
-      // eslint-disable-next-line @atlaskit/design-system/use-primitives
+// eslint-disable-next-line @atlaskit/design-system/use-primitives, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={style} {...rest} />
     ) : (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <Link style={style} {...rest} to={href} />
     );
   };

@@ -34,12 +34,14 @@ export default class ClipboardHelper extends React.Component<{}, State> {
           value={this.state.value}
         />
         <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="copy-as-plaintext"
           onClick={() => this.copyAs('text/plain')}
         >
           Copy Plain Text
         </button>
         <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="copy-as-html"
           onClick={() => this.copyAs('text/html')}
         >

@@ -286,6 +286,7 @@ describe('Pagination', () => {
           screen.getByRole('navigation', { name: 'pagination' }),
         ).toHaveStyle('border: 1px solid red');
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         view.rerender(<Pagination {...props} style={{ top: '50px' }} />);
 
         expect(

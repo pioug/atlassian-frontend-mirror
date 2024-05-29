@@ -60,13 +60,16 @@ export const PredefinedAvatarView = ({
       css={predefinedAvatarViewWrapperStyles}
       id="predefined-avatar-view-wrapper"
     >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
       <div className="header">
         <Button
           aria-label={intl.formatMessage(messages.avatar_picker_back_btn_label)}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="back-button"
           iconAfter={<ArrowLeftIcon label="" />}
           onClick={onGoBack}
         />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
         <h2 className="description">
           {predefinedAvatarsText || (
             <FormattedMessage {...messages.default_avatars} />
@@ -78,6 +81,7 @@ export const PredefinedAvatarView = ({
         aria-label={
           selectAvatarLabel || intl.formatMessage(messages.select_an_avatar)
         }
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="body"
       >
         {cards}

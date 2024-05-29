@@ -61,6 +61,7 @@ const BrowserExample = () => {
   return (
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         height: '300px',
       }}
     >
@@ -78,6 +79,7 @@ const BrowserExample = () => {
       />
       {uploadStart && <p>Upload started. Wait for it to finish !! </p>}
       {uploadEnd && (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <div style={{ maxWidth: '300px', maxHeight: '250px' }}>
           <NativeMediaViewer id={identifier.id} mediaClient={mediaClient} />
         </div>

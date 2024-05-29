@@ -27,6 +27,7 @@ export default () => {
             ari={`${Constants.AriPrefix}1`}
             emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
           />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ marginTop: '30px' }}>
             <p>
               <strong>
@@ -41,6 +42,7 @@ export default () => {
             </p>
             <hr />
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ marginLeft: '10px' }}>
             <ConnectedReactionsView
               store={store}

@@ -40,6 +40,7 @@ const LinkRenderType = ({
       <HoverCard url={url}>
         <LinkUrl
           href={url}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ ...linkStyle, fontSize: fieldTextFontSize }}
           data-testid={testId}
           target="_blank"

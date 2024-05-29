@@ -33,6 +33,7 @@ export const BaseSearch = ({
       aria-label={label}
       isDisabled={isDisabled}
       testId="jql-editor-search"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
       appearance={'primary'}
       spacing={'none'}

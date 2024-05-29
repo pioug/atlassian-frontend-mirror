@@ -31,8 +31,10 @@ export default () => {
   });
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div id="avatar-item-examples" style={{ display: 'flex' }}>
       <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
           <h1>onClick</h1>
           {data.map((user, index) => (
@@ -53,6 +55,7 @@ export default () => {
             />
           ))}
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
           <h1>href</h1>
           {data.map((user, index) => (
@@ -75,6 +78,7 @@ export default () => {
         </div>
       </div>
       <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
           <h1>non-interactive</h1>
           {data.map((user, index) => (
@@ -94,6 +98,7 @@ export default () => {
             />
           ))}
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
           <h1>disabled</h1>
           {data.map((user, index) => (

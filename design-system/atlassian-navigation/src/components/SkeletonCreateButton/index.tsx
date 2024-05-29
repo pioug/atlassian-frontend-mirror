@@ -23,7 +23,7 @@ const skeletonCreateButtonStyles = css({
   },
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&&': {
-    marginLeft: token('space.150', '12px'),
+    marginInlineStart: token('space.150', '12px'),
   },
 });
 
@@ -45,6 +45,7 @@ export const SkeletonCreateButton = ({
 
   return (
     <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={theme.mode.create.default as React.CSSProperties}
       css={skeletonCreateButtonStyles}
       data-testid={testId}

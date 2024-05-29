@@ -6,6 +6,7 @@ const BreadcrumbsExpandedExample = () => {
   return (
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         maxWidth: '500px',
       }}
     >

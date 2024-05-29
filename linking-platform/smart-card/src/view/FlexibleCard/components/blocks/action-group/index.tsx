@@ -176,6 +176,7 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   return renderableActionItems.length > 0 ? (
     <div
       css={styles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="actions-button-group"
       data-action-open={isOpen}
     >

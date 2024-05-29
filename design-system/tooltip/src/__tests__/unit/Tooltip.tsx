@@ -537,6 +537,7 @@ describe('Tooltip', () => {
   it('should render whatever is passed to component prop', () => {
     const CustomTooltip = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
       ({ style, testId }, ref) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <strong ref={ref} style={style} data-testid={testId}>
           Im a custom tooltip
         </strong>

@@ -10,6 +10,7 @@ import type { DocNode } from '@atlaskit/adf-schema';
 
 const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ padding: '10px' }}>
       <MockMediaClientProvider>
         <Renderer

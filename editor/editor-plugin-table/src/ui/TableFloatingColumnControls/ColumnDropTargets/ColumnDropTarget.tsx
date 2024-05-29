@@ -101,7 +101,9 @@ export const ColumnDropTarget = ({
         height: height && `${height}px`,
         // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         marginTop: marginTop && `${marginTop}px`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         pointerEvents: 'auto',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         flexShrink: 0,
       }}
       data-drop-target-index={index}

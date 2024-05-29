@@ -49,6 +49,7 @@ export default function Example() {
       <WidthObserver setWidth={setWidth} offscreen={offscreen} />
       <Aside>
         <output name="width">{width}</output>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <label style={{ marginLeft: 'auto' }}>
           offscreen
           <input

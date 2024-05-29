@@ -24,6 +24,7 @@ const AutoDismissFlagInfoExample = () => {
 
   return (
     <Box>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <p style={{ padding: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={addFlag}>
           Add flag

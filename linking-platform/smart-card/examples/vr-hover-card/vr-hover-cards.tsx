@@ -15,6 +15,7 @@ class CustomClient extends Client {
 export default () => (
   <VRTestWrapper>
     <Provider client={new CustomClient('staging')}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginTop: 250 }}>
         <Card
           url={'https://www.mockurl.com'}

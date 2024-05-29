@@ -41,6 +41,7 @@ export default class extends React.Component<{}, State> {
     return (
       <div>
         <Button onClick={this.toggleData}>Toggle 5 or 15 rows</Button>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <label htmlFor="rows" style={{ display: 'block' }}>
           Number of rows per page
         </label>

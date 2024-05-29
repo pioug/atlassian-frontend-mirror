@@ -58,6 +58,7 @@ export class Date extends React.Component<Props> {
   render() {
     return (
       <DateLozenge
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={this.props.className}
         onClick={isClickable(this.props) ? this.handleOnClick : undefined}
         color={this.props.color}

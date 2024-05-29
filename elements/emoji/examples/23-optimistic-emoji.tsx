@@ -22,7 +22,9 @@ const EmojiWrapper = ({ children }: React.PropsWithChildren<unknown>) => {
   return (
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         margin: '8px 0',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         padding: '8px',
         border: `1px ${token('color.skeleton', N30)} solid`,
       }}
@@ -131,6 +133,7 @@ export default function Example() {
             />
           </EmojiWrapper>
           <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ margin: '8px 0' }}
             onClick={() => handlePickOfEmojis(emojiIds, SHOW_EMOJI_AMOUNT)}
           >

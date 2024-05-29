@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.15.0
+
+### Minor Changes
+
+-   [#100969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100969)
+    [`0bdf8e822b2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0bdf8e822b2f) -
+    Added `no-unsafe-selectors` rule to enable static analysis and prevent regressions when
+    migrating between styling APIs.
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 0.14.2
 
 ### Patch Changes

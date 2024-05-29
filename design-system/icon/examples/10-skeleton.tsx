@@ -12,6 +12,7 @@ export default () => (
     <Skeleton size="xlarge" />
 
     <p>Changing color via inheritance</p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ color: colors.P500 }}>
       <Skeleton size="small" />
       <Skeleton size="medium" />

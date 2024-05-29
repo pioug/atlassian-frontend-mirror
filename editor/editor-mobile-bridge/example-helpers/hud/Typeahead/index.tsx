@@ -64,6 +64,7 @@ const Typeahead = ({ bridge }: Props) => {
     }
   }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   return <div style={{ height: 24, display: 'flex' }}></div>;
 };
 

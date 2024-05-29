@@ -1,0 +1,43 @@
+{
+  "extends": "../../../../tsconfig.products.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__popup/app",
+    "composite": true,
+    "rootDir": "../",
+    "baseUrl": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../ds-lib/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../layering/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../popper/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../portal/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../tokens/afm-jira/tsconfig.json"
+    }
+  ]
+}

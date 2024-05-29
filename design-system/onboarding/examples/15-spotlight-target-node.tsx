@@ -50,6 +50,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
     const duration = 300;
     return (
       <SpotlightManager>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ marginBottom: token('space.200', '1em') }}>
           Use <code>targetNode</code> when you can&apos;t wrap the target in a{' '}
           <code>{'<SpotlightTarget />'}</code>. For example you need to wait for
@@ -84,9 +85,12 @@ export default class SpotlightNodeExample extends Component<Object, State> {
             };
             const style = { ...base, ...anim[state] };
             return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               <div style={style}>
                 <Highlight ref={this.drawer} color="green">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
                   <div style={{ width: 240 }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
                     <h3 style={{ marginBottom: token('space.250', '20px') }}>
                       Animated Element
                     </h3>

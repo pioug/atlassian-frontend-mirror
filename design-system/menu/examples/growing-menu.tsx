@@ -53,6 +53,7 @@ export default () => {
         </MenuGroup>
       </MenuGroupContainer>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ textAlign: 'center' }}>
         <Button onClick={() => setTextIndex(0)}>Again</Button>
       </div>

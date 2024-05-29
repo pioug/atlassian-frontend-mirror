@@ -139,6 +139,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
                     testId={`${testId}--target`}
                     pulse={pulse}
                     target={target}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                     style={this.getTargetNodeStyle(box)}
                     targetBgColor={targetBgColor}
                     targetNode={targetNode}

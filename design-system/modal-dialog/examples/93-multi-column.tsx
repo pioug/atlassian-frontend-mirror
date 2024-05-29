@@ -76,6 +76,7 @@ export default function Example() {
                   <div
                     css={columnStyles}
                     style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                       background: token(
                         'color.background.accent.yellow.subtler',
                       ),
@@ -93,6 +94,7 @@ export default function Example() {
                   <div
                     css={columnStyles}
                     style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                       background: token('color.background.accent.teal.subtler'),
                     }}
                   >

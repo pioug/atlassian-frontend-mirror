@@ -6,6 +6,7 @@ export default () => (
     <div>
       <p>Scroll ⇣ to find a lazily loaded smart card 👇</p>
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ height: '3000px', display: 'flex', alignItems: 'flex-start' }}
       />
       <Card

@@ -152,6 +152,7 @@ const MultiBodiedExtension = (props: Props) => {
   function renderMbeContent(width: number): React.ReactNode {
     return (
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={`${RendererCssClassName.EXTENSION} ${centerAlignClass} ${overflowContainerClass}`}
         style={{
           width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
@@ -159,6 +160,7 @@ const MultiBodiedExtension = (props: Props) => {
         data-layout={layout}
       >
         <nav
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="multiBodiedExtension-navigation"
           css={navigationCssExtended}
           data-testid="multiBodiedExtension-navigation"
@@ -190,6 +192,7 @@ const MultiBodiedExtension = (props: Props) => {
         </nav>
         <article
           data-testid="multiBodiedExtension--frames"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={`multiBodiedExtension--frames`}
         >
           {children}
@@ -200,6 +203,7 @@ const MultiBodiedExtension = (props: Props) => {
 
   return (
     <section
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="multiBodiedExtension--container"
       // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       css={containerCssExtended}

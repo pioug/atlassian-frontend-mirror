@@ -609,6 +609,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
         css={shareButtonWrapperStyles}
         tabIndex={tabIndex}
         onKeyDown={this.handleKeyDown}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={style}
       >
         <Popup

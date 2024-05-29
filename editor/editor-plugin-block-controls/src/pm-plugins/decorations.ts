@@ -111,6 +111,7 @@ export const dragHandleDecoration = (
           element.style.top = `${meta.dom.offsetTop}px`;
         }
 
+        element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
         return element;
       },
       { side: -1 },

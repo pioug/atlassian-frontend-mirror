@@ -49,6 +49,7 @@ const ConnectedAIPrismContainer = ({
 
   const container = (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={hoverCardClassName}
       css={[
         HoverCardContainer,
@@ -94,6 +95,7 @@ const ContentContainer = ({
 
   return (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={hoverCardClassName}
       css={HoverCardContainer}
       data-testid={testId}

@@ -38,6 +38,7 @@ export default () => (
       <button onClick={exportImage}>Export</button>
     </div>
     <img
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ marginTop: token('space.100', '8px') }}
       src=""
       alt=""

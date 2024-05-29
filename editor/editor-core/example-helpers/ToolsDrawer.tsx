@@ -270,6 +270,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                       providers.activityProvider[activityProvider],
                     onChange: this.onChange,
                   })}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
               <div className="toolsDrawer">
                 {(Object.keys(providers) as Array<keyof typeof providers>).map(
                   (providerKey) => (
@@ -285,6 +286,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                                 providerKey,
                                 providerStateName,
                               )}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                               className={`${providerKey}-${providerStateName
                                 .replace(/[()]/g, '')
                                 .replace(/ /g, '-')}`}
@@ -313,6 +315,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                     <Button
                       onClick={this.reloadEditor}
                       spacing="compact"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                       className="reloadEditorButton"
                     >
                       Reload Editor
@@ -327,6 +330,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                         key={key}
                         onClick={() => this.toggleFeature(key)}
                         spacing="compact"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                         className={`toggleFeature-${key} ${
                           this.state.enabledFeatures[key] ? 'disable' : 'enable'
                         }Feature-${key}`}
@@ -342,6 +346,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                         onClick={this.toggleMediaMock}
                         appearance={mediaMockEnabled ? 'primary' : 'default'}
                         spacing="compact"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                         className="mediaPickerMock"
                       >
                         {mediaMockEnabled ? 'Disable' : 'Enable'} Media-Picker
@@ -351,6 +356,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
                   </span>
                 </div>
               </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <div className="json-output">
                 <legend>JSON output:</legend>
                 <pre>{jsonDocument}</pre>

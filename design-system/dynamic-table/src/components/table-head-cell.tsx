@@ -31,6 +31,7 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 }) => {
   return (
     <HeadCell
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={inlineStyles}
       testId={testId && `${testId}--head--cell`}
       ref={typeof innerRef !== 'string' ? innerRef : null} // string refs must be discarded as LegacyRefs are not compatible with FC forwardRefs

@@ -30,6 +30,7 @@ const AsyncExample = () => (
     </Label>
     <AsyncSelect
       inputId="async-select-with-callback-example"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="async-select-with-callback"
       classNamePrefix="react-select"
       defaultOptions

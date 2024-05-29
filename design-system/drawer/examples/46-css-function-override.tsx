@@ -73,6 +73,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ padding: token('space.400', '2rem') }}>
         <Drawer
           onClose={this.onClose}

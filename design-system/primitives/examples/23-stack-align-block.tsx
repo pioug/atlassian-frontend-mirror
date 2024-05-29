@@ -21,6 +21,7 @@ export default () => (
             padding="space.050"
             xcss={containerStyles}
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               height: '200px',
             }}
           >

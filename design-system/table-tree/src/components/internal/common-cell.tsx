@@ -42,6 +42,7 @@ const CommonCell: FC<HTMLAttributes<HTMLDivElement> & CommonCellProps> = ({
     role="gridcell"
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     style={{ '--indent': indent, width } as CSSProperties}
     css={commonStyles}
   />

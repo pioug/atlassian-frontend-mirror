@@ -55,12 +55,14 @@ export const renderExtension = (
       {({ width }) => (
         <div
           ref={options.handleRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={`${RendererCssClassName.EXTENSION} ${options.shadowClassNames} ${centerAlignClass}`}
           style={{
             width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
           }}
           data-layout={layout}
         >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
           <div className={overflowContainerClass}>{content}</div>
         </div>
       )}

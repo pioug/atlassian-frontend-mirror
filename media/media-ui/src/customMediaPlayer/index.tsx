@@ -872,6 +872,7 @@ export class CustomMediaPlayerBase extends Component<
                 </PlayPauseBlanket>
                 <ControlsWrapper
                   ref={videoControlsWrapperRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                   className={getControlsWrapperClassName(this.wasPlayedOnce)}
                 >
                   <Box xcss={timeWrapperStyles}>

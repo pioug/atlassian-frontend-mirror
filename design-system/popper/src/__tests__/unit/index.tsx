@@ -53,6 +53,7 @@ describe('Popper', () => {
         {({ ref, style, placement, arrowProps }) => (
           <div
             ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={style}
             data-placement={placement}
             data-testid="popper"
@@ -76,6 +77,7 @@ describe('Popper', () => {
           {({ ref, style, placement, arrowProps }) => (
             <div
               ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={style}
               data-placement={placement}
               data-testid="popper"
@@ -106,6 +108,7 @@ describe('Popper', () => {
     render(
       <Popper>
         {({ ref, style, placement }) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           <div ref={ref} style={style} data-placement={placement}>
             <Content />
           </div>
@@ -123,6 +126,7 @@ describe('Popper', () => {
           {({ ref, style, placement, arrowProps }) => (
             <div
               ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={style}
               data-placement={placement}
               data-testid="popper"
@@ -146,6 +150,7 @@ describe('Popper', () => {
           {({ ref, style, placement, arrowProps }) => (
             <div
               ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={style}
               data-placement={placement}
               data-testid="popper"
@@ -181,6 +186,7 @@ describe('Popper', () => {
           {({ ref, style, placement, arrowProps }) => (
             <div
               ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={style}
               data-placement={placement}
               data-testid="popper"
@@ -216,6 +222,7 @@ describe('Popper', () => {
           {({ ref, style, placement, arrowProps }) => (
             <div
               ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={style}
               data-placement={placement}
               data-testid="popper"
@@ -240,6 +247,7 @@ describe('Popper', () => {
           {({ ref, style, placement, arrowProps }) => (
             <div
               ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={style}
               data-placement={placement}
               data-testid="popper"

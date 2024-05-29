@@ -1,4 +1,9 @@
-import type { ElementType, ReactNode } from 'react';
+import type {
+  ElementType,
+  ForwardRefExoticComponent,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
 import { type default as Avatar, type AvatarPropTypes } from '@atlaskit/avatar';
@@ -19,7 +24,9 @@ export type AvatarProps = AvatarPropTypes & {
 export interface AvatarGroupOverrides {
   AvatarGroupItem?: {
     render?: (
-      Component: ElementType<AvatarGroupItemProps>,
+      Component: ForwardRefExoticComponent<
+        AvatarGroupItemProps & RefAttributes<HTMLElement>
+      >,
       props: AvatarGroupItemProps,
       index: number,
     ) => ReactNode;

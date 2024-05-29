@@ -24,6 +24,7 @@ function StickyHeaderFixture({ adf }: { adf: unknown }) {
   return (
     <div
       id="testscrollcontainer"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ overflow: 'scroll', width: 1280, height: 868 }}
     >
       <Renderer

@@ -24,18 +24,26 @@ export default () => {
       <SmartCardProvider>
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             width: '640px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             margin: '0 auto',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             marginTop: token('space.800', '64px'),
             // we hardcode the margin bottom to account for the spacing of the floating bar on the example page
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             marginBottom: '120px',
           }}
         >
           <div
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               justifyContent: 'space-evenly',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               alignItems: 'center',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               marginBottom: token('space.150', '12px'),
             }}
           >
@@ -53,6 +61,7 @@ export default () => {
               </DropdownItem>
             </DropdownMenu>
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={cardWrapperStyles}>
             <EmbedCardResolvedView
               link={previewUrl}

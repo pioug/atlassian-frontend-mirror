@@ -25,8 +25,11 @@ const createExample = (
   return () => (
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         border: '1px solid red',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         boxSizing: 'border-box',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         display: 'inline-block',
       }}
     >
@@ -41,7 +44,9 @@ const createWidthExample = (
   return () => (
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         border: '1px solid red',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         boxSizing: 'border-box',
       }}
     >
@@ -67,6 +72,7 @@ export const DisableWidthWithPluginsExample = createWidthExample({
 
 export const DisableWidth500Example = () => {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ width: 500 }}>
       <h1>Width: 500</h1>
       <h2>Without plugins</h2>
@@ -79,6 +85,7 @@ export const DisableWidth500Example = () => {
 
 export const DisableWidth300Example = () => {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ width: 300 }}>
       <h1>Width: 300</h1>
       <h2>Without plugins</h2>

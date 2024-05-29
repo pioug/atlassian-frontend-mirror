@@ -31,8 +31,10 @@ const HeadCell: FC<THProps> = ({
         // migrate to <Text />
         <span
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             color: token('color.text', '#172B4D'),
             /* @ts-ignore migrate to Text */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             fontWeight: token('font.weight.medium', '500'),
           }}
         >

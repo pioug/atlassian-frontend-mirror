@@ -87,6 +87,7 @@ export const ForbiddenView = ({
     <Frame
       isSelected={isSelected}
       testId={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={blockCardForbiddenViewClassName}
       isFluidHeight
     >
@@ -96,6 +97,7 @@ export const ForbiddenView = ({
             <Link
               url={link}
               testId={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={blockCardForbiddenViewLinkClassName}
             />
           </ContentHeader>

@@ -140,12 +140,15 @@ const Section = forwardRef<HTMLElement, SectionProps>(
     const content = isList ? (
       <ul
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           margin: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           padding: 0,
         }}
       >
         {Children.map(Children.toArray(children), (child, index) => (
           <li
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ listStyleType: 'none', margin: 0, padding: 0 }}
             key={index}
           >
@@ -177,6 +180,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
     return (
       <div
         {...rest}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={
           getBooleanFF(
             'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',

@@ -10,6 +10,7 @@ const Example = () => {
       {({ loadUsers }) => (
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             display: 'grid',
             gridGap: `${token('space.200', '16px')}`,
             padding: `${token('space.200', '16px')}`,

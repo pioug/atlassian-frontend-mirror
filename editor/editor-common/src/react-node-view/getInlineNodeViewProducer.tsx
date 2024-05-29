@@ -228,7 +228,9 @@ function getPortalChildren<ExtraComponentProps>({
         }
         dispatchAnalyticsEvent={dispatchAnalyticsEvent}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
         <span className={`zeroWidthSpaceContainer`}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
           <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
           {ZERO_WIDTH_SPACE}
         </span>
@@ -240,11 +242,14 @@ function getPortalChildren<ExtraComponentProps>({
           {...extraComponentProps}
         />
         {browser.android ? (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           <span className={`zeroWidthSpaceContainer`} contentEditable="false">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
             {ZERO_WIDTH_SPACE}
           </span>
         ) : (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           <span className={`${inlineNodeViewClassname}AddZeroWidthSpace`} />
         )}
       </ErrorBoundary>

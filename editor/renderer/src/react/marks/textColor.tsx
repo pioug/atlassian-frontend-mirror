@@ -55,7 +55,9 @@ export default function TextColor(props: MarkProps<TextColorAttributes>) {
     <span
       {...props.dataAttributes}
       data-text-custom-color={props.color}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="fabric-text-color-mark"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
     >
       {props.children}

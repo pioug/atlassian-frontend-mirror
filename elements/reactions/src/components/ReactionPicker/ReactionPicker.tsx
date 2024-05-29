@@ -272,6 +272,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 
   return (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={wrapperClassName}
       css={pickerStyle}
       data-testid={RENDER_REACTIONPICKER_TESTID}
@@ -351,6 +352,7 @@ const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
           <div
             id={PICKER_CONTROL_ID}
             data-testid={RENDER_REACTIONPICKERPANEL_TESTID}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ zIndex: layers.layer(), ...style }}
             ref={(node: HTMLDivElement) => {
               if (node) {

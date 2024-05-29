@@ -176,6 +176,7 @@ const InlineNodeRendererWrapper = ({
 }: React.PropsWithChildren<unknown>) => {
   if (getBooleanFF('platform.editor.inline_extension.extended_lcqdn')) {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <div className="inline-extension-renderer" css={inlineExtensionStyle}>
         {children}
       </div>

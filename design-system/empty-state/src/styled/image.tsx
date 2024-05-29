@@ -39,6 +39,7 @@ const Image: FC<ImageProps> = ({
   src,
 }) => (
   <img
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     style={
       {
         [CSS_VAR_MAX_WIDTH]: `${maxWidth}px`,

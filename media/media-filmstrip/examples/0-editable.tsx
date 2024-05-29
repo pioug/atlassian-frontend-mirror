@@ -178,6 +178,7 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
   renderFilmstrip() {
     const { animate, offset, containerWidth, children } = this.state;
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ width: containerWidth }}>
         <FilmstripView
           animate={animate}

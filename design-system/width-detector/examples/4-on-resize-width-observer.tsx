@@ -55,7 +55,9 @@ const OnResizeExample = () => {
       <div
         style={{
           width: sizes[sizeIndex],
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           minWidth: 180,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           margin: '0 auto',
         }}
       >
@@ -67,7 +69,9 @@ const OnResizeExample = () => {
         </RelativeWrapper>
       </div>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ textAlign: 'center' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ padding: '25px' }}>
           The area above will change color as the width of the container
           changes.

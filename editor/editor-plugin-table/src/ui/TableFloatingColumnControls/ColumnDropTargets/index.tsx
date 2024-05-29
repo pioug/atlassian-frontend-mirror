@@ -34,10 +34,12 @@ export const ColumnDropTargets = ({
   return (
     <div
       ref={dropTargetRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={ClassName.DRAG_COLUMN_DROP_TARGET_CONTROLS}
       contentEditable={false}
     >
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={ClassName.DRAG_COLUMN_CONTROLS_INNER}
         data-testid="table-floating-column-controls-drop-targets"
       >

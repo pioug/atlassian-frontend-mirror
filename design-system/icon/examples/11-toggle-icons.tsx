@@ -48,6 +48,7 @@ const ToggleIcons = () => {
         aria-labelledby="toggle-label"
         aria-describedby="selected-heading"
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={colorStyle}>
           {toggleableIcons.map(([id, Icon]) => (
             <Button onClick={() => setIsColorToggled((old) => !old)} key={id}>
@@ -69,6 +70,7 @@ const ToggleIcons = () => {
         aria-labelledby="toggle-label"
         aria-describedby="checked-heading"
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={styles.iconReverse}>
           {toggleableIcons.map(([id, Icon]) => (
             <Button onClick={() => setIsFillToggled((old) => !old)} key={id}>

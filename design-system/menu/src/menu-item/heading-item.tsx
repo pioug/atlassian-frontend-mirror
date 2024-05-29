@@ -80,6 +80,7 @@ const HeadingItem = memo(
         data-testid={testId}
         data-ds--menu--heading-item
         id={id}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={
           getBooleanFF(
             'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',

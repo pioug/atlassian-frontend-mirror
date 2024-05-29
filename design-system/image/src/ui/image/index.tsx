@@ -71,6 +71,7 @@ export default function Image({
       alt={alt}
       data-testid={testId}
       src={src}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={
         {
           '--img-source': `url(${src})`,

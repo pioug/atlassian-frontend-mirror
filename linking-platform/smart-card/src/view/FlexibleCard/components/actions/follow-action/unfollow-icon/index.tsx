@@ -9,6 +9,7 @@ const UnfollowGlyph = (props: CustomGlyphProps) => (
     viewBox="0 0 16 16"
     data-testid={props['data-testid']}
     aria-label={props['aria-label']}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     className={props.className}
     role="presentation"
     xmlns="http://www.w3.org/2000/svg"

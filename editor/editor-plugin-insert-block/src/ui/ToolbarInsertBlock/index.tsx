@@ -497,6 +497,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
             >
               {isTableButtonVisible && (
                 <ToolbarButton
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                   className="table-toolbar-btn"
                   item={tableButton}
                   ref={this.tableButtonRef}
@@ -521,6 +522,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
               )}
               {isTableButtonVisible && (
                 <ToolbarButton
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                   className="table-selector-toolbar-btn"
                   item={tableSelectorButton}
                   testId={String(tableSelectorButton?.content)}

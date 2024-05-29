@@ -105,6 +105,7 @@ export const AqlSearchInput = ({
               {...fieldProps}
               elemBeforeInput={
                 <span
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   style={{ paddingLeft: token('space.075', '6px'), width: 24 }}
                 >
                   {renderValidatorIcon(lastValidationResult)}

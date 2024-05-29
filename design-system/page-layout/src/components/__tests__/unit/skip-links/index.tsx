@@ -77,20 +77,20 @@ describe('skip links', () => {
       const component = render(skipLinksWithLabel);
       const links = component.getAllByRole('link');
       expect(links).toHaveLength(2);
-      expect(links.every((link) => link.title.startsWith(label))).toBeTruthy();
+      expect(
+        links.every((link) => link.textContent?.startsWith(label)),
+      ).toBeTruthy();
     });
 
     it('uses the default label in SkipLink titles if skipLinksLabel is undefined, empty, or only spaces', () => {
       [skipLinksNoLabel, skipLinksEmptyLabel, skipLinksSpacesLabel].forEach(
         (jsx) => {
           const component = render(jsx);
-          const links = component.getAllByRole('link');
+          const nameRegExp = new RegExp(`^${DEFAULT_I18N_PROPS_SKIP_LINKS}`);
+          const links = component.getAllByRole('link', {
+            name: nameRegExp,
+          });
           expect(links).toHaveLength(2);
-          expect(
-            links.every((link) =>
-              link.title.startsWith(DEFAULT_I18N_PROPS_SKIP_LINKS),
-            ),
-          ).toBeTruthy();
           component.unmount();
         },
       );

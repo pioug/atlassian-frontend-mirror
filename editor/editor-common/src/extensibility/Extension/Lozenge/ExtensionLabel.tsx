@@ -110,12 +110,15 @@ export const ExtensionLabel = ({
 
   return (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       css={containerStyles} className={containerClassNames}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={customContainerStyles}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       data-testid="new-lozenge-container"
     >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
       <span data-testid="new-lozenge" css={labelStyles} className={labelClassNames}>
         <span css={textStyles}>{text}</span>
       </span>

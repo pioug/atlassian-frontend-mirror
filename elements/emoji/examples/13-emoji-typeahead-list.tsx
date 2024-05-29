@@ -41,21 +41,25 @@ export default function RefreshableEmojiList() {
 
   return (
     <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ paddingBottom: '10px' }}>
         <button
           onClick={updateData}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ height: '30px', marginRight: '10px' }}
         >
           Random refresh
         </button>
         <button
           onClick={moveUp}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ height: '30px', marginRight: '10px' }}
         >
           Up
         </button>
         <button
           onClick={moveDown}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ height: '30px', marginRight: '10px' }}
         >
           Down

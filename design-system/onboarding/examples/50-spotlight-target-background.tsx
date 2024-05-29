@@ -95,6 +95,7 @@ export default class SpotlightTargetBackgroundExample extends Component<
             </SpotlightTarget>
           </HighlightGroup>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <p style={{ marginBottom: '1em' }}>
             Sometimes your target relies on an ancestor&apos;s background color,
             which is lost when the blanket is applied. Pass any color value to{' '}

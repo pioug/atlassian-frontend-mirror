@@ -39,6 +39,7 @@ const ChangingColorWithInheritance = () => {
           : token('color.text.inverse'),
       }}
     >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <p css={textStyles} style={{ backgroundColor: 'inherit' }}>
         Icons inherit color from their parent by default.
       </p>

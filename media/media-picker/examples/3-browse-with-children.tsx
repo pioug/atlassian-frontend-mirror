@@ -168,6 +168,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
           >
             {(browse) => (
               <Button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 style={{ margin: '5px' }}
                 appearance="primary"
                 onClick={browse}
@@ -181,6 +182,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
             browseConfig={browseConfig}
           >
             {(browse) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               <div style={{ margin: '5px' }} onClick={browse}>
                 Click me to upload. No, for real.
               </div>

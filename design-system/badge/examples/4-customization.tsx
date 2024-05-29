@@ -9,11 +9,13 @@ export default () => {
     <div>
       <Badge
         max={1000}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ backgroundColor: R400, color: N0 }}
         testId="badge"
       >
         {1001}
       </Badge>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <Badge style={{ backgroundColor: P75, color: P500 }}>
         <strong>10</strong>
       </Badge>

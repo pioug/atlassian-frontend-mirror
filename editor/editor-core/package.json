@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.23.1",
+  "version": "193.24.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -104,10 +104,11 @@
     "@atlaskit/media-test-helpers": "^33.0.27",
     "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/primitives": "^6.3.0",
-    "@atlaskit/renderer": "^109.29.0",
-    "@atlaskit/select": "^17.9.0",
-    "@atlaskit/smart-card": "^27.0.0",
+    "@atlaskit/renderer": "^109.30.0",
+    "@atlaskit/select": "^17.10.0",
+    "@atlaskit/smart-card": "^27.2.0",
     "@atlaskit/synchrony-test-helpers": "^2.4.0",
+    "@atlaskit/toggle": "^13.1.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/adf-schema-json": "^1.14.0",
@@ -203,10 +204,6 @@
       "referenceOnly": "true"
     },
     "platform.editor.media.autoselect-inserted-image_oumto": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.design-system-team.editor-new-button_jjjdo": {
       "type": "boolean",
       "referenceOnly": "true"
     },
@@ -347,6 +344,10 @@
     },
     "platform.editor.primary-toolbar-ordering": {
       "type": "boolean"
+    },
+    "platform.editor.mentions-in-editor-popup-on-click": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   },
   "stricter": {

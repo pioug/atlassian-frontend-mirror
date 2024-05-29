@@ -744,6 +744,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 
   return (
     <WidthProvider
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={`ak-renderer-wrapper is-${appearance}`}
       data-appearance={appearance}
       shouldCheckExistingValue={

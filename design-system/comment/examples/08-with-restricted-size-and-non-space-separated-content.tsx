@@ -8,6 +8,7 @@ const getNonSpacedSampleText = () =>
   'Cookiemacaroonliquorice.Marshmallowdonutlemondropscandycanesmarshmallowtoppingchocolatecake.Croissantpastrysouffléwafflecakefruitcake.Brownieoatcakesugarplum.';
 
 export default () => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={{ width: 500 }}>
     <Comment
       author={<CommentAuthor>John Smith</CommentAuthor>}

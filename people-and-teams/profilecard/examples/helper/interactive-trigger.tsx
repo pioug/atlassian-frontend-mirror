@@ -75,6 +75,7 @@ export default class InteractiveTrigger extends Component<Props, State> {
 
   renderTrigger(): React.ReactNode {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <button style={triggerStyles} onClick={this.changePosition}>
         {this.getPositionDisplayString()}
       </button>
@@ -88,6 +89,7 @@ export default class InteractiveTrigger extends Component<Props, State> {
           Hover over the circle to show the profilecard and click to change the
           cards position.
         </p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <span style={triggerWrapperStyles}>
           <ProfileCardTrigger
             cloudId="DUMMY-10ae0bf3-157e-43f7-be45-f1bb13b39048"

@@ -81,6 +81,7 @@ export const KudosBlobAnimationStyle = styled.div`
 `;
 
 export const KudosBlobAnimation: React.FC = (props) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <KudosBlobAnimationStyle className="kudos-blob-animation" {...props} />
 );
 

@@ -7,11 +7,13 @@ import { ErrorMessage, HelperMessage, ValidMessage } from '../src/messages';
 export default function MessagesExample() {
   return (
     <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div data-testid="messages--short" style={{ width: 'max-content' }}>
         <HelperMessage testId="helper">This is a help message.</HelperMessage>
         <ErrorMessage testId="error">This is an error message.</ErrorMessage>
         <ValidMessage testId="valid">This is a success message.</ValidMessage>
       </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div data-testid="messages--long" style={{ maxWidth: 240 }}>
         <HelperMessage testId="helper--long">
           This is a help message, but it's really really really long.
@@ -23,6 +25,7 @@ export default function MessagesExample() {
           This is a validation message, but it's really really really long.
         </ValidMessage>
       </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div data-testid="messages--inline-content" style={{ maxWidth: 240 }}>
         <HelperMessage testId="helper--long">
           This message contains <strong>strong</strong> text.

@@ -27,7 +27,9 @@ const Expander = ({ children, isExpanded, testId }: ExpanderProps) => {
       xcss={containerStyles}
       style={{
         maxHeight: isExpanded ? 150 : 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         flex: '1 1 100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         minWidth: 0,
       }}
       aria-hidden={!isExpanded}

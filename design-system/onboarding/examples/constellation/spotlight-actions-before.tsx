@@ -95,6 +95,7 @@ const SpotlightActionsBefore = () => {
           <IconButton icon={VidFullScreenOnIcon} label="Full screen" />
         </SpotlightTarget>
       </ButtonGroup>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginTop: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={() => start()}>
           Start example tour

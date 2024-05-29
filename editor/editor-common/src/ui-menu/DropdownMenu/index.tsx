@@ -205,6 +205,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
             }}
             targetRef={this.state.target}
           >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <div style={{ height: 0, minWidth: fitWidth || 0 }} />
             <div ref={this.popupRef}>
               <MenuGroup role={shouldUseDefaultRole ? 'group' : 'menu'}>
@@ -283,6 +284,7 @@ const DropdownMenuItemCustomComponent = React.forwardRef<
         // The current implementation unfortunately is very brittle. Design System Team will
         // be prioritizing official support for accessible nested menus that we want you to move
         // to in the future.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         position: 'static',
       }}
     >

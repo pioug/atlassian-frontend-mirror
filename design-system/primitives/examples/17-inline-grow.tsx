@@ -22,6 +22,7 @@ export default () => (
           <Box
             backgroundColor="color.background.neutral"
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: '200px',
             }}
           >
@@ -51,6 +52,7 @@ export default () => (
 
     <Stack space="space.100">
       width=100% enables truncation
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <Box backgroundColor="color.background.neutral" style={{ maxWidth: 200 }}>
         <Inline grow="fill">
           <Stack space="space.100" grow="fill">

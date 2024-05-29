@@ -35,7 +35,9 @@ const Page = ({ ssr, title, mediaClientConfig }: PageProps) => {
     },
   };
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ width: 1200 }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <h3>{title}</h3>
       </div>

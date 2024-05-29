@@ -50,7 +50,9 @@ export default () => {
         defaultMonth={12}
         defaultYear={2020}
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           border: '1px solid red',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'inline-block',
         }}
         onBlur={onBlur}

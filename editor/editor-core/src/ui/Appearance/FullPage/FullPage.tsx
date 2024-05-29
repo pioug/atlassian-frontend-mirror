@@ -93,6 +93,7 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
     <ContextPanelWidthProvider>
       <div
         css={fullPageEditorWrapper}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="akEditor"
         ref={wrapperElementRef}
       >

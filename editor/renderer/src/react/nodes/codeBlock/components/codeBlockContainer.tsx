@@ -58,6 +58,7 @@ const CodeBlockContainer = ({
   wrapLongLines,
 }: ContainerProps) => {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div className={className} css={codeBlockStyleOverrides}>
       <CodeBlockButtonContainer
         allowCopyToClipboard={allowCopyToClipboard}

@@ -65,7 +65,9 @@ export const ResourcedEmojiControl = (
   };
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ padding: '10px' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ paddingBottom }}>
         {cloneElement(children, { emojiProvider })}
       </div>
@@ -77,6 +79,7 @@ export const ResourcedEmojiControl = (
           <textarea
             id="emoji-urls"
             rows={15}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ height: '280px', width: '500px' }}
             onChange={emojiConfigChange}
             defaultValue={JSON.stringify(emojiConfig, null, 2)}

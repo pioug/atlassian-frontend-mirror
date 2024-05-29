@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.5
+
+### Patch Changes
+
+-   [#103935](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103935)
+    [`e9aa08ecec9b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9aa08ecec9b) -
+    Add block control plugin libra models and tests
+
 ## 1.4.4
 
 ### Patch Changes

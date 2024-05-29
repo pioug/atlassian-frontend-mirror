@@ -31,6 +31,7 @@ const MetadataRenderer = () => {
     ? JSON.stringify(linkMetadata, null, 2)
     : '';
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ width: 800, margin: '0 auto' }}>
       <TextField defaultValue={linkValue} onChange={onChange} />
       <CodeBlock text={metadataText} showLineNumbers={true} language={'JSON'} />

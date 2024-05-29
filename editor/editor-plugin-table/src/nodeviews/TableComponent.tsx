@@ -688,7 +688,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isDragAndDropEnabled,
       getEditorFeatureFlags,
       isTableScalingEnabled, // here we can use options.isTableScalingEnabled
-      isTableAlignmentEnabled
+      isTableAlignmentEnabled,
     } = this.props;
 
     let {
@@ -804,6 +804,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
     return (
       <TableContainer
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classnames(ClassName.TABLE_CONTAINER, {
           [ClassName.WITH_CONTROLS]: allowControls && tableActive,
           [ClassName.TABLE_STICKY]: this.state.stickyHeader && hasHeaderRow,
@@ -825,11 +826,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isTableAlignmentEnabled={isTableAlignmentEnabled}
       >
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={ClassName.TABLE_STICKY_SENTINEL_TOP}
           data-testid="sticky-sentinel-top"
         />
         {stickyScrollbar && (
           <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
             data-testid="sticky-scrollbar-sentinel-top"
           />
@@ -850,11 +853,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         )}
         <div
           contentEditable={false}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={shadowStyle(showBeforeShadow)}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={ClassName.TABLE_LEFT_SHADOW}
         />
         {this.state.stickyHeader && (
           <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={`${ClassName.TABLE_LEFT_SHADOW} ${ClassName.TABLE_STICKY_SHADOW}`}
             style={{
               visibility:
@@ -867,6 +873,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           />
         )}
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={classnames(ClassName.TABLE_NODE_WRAPPER)}
           ref={(elem) => {
             this.wrapper = elem;
@@ -885,9 +892,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         </div>
         {stickyScrollbar && (
           <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               display: 'none',
               // prevent unwanted scroll during table resize without removing scrollbar container from the dom
               width: isResizing ? token('space.0', '0px') : '100%',
@@ -896,6 +906,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             <div
               style={{
                 width: tableRef?.clientWidth,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 height: '100%',
               }}
             ></div>
@@ -903,17 +914,22 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         )}
         <div
           contentEditable={false}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={shadowStyle(showAfterShadow)}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={ClassName.TABLE_RIGHT_SHADOW}
         />
         {this.state.stickyHeader && (
           <div
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               position: 'absolute',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               right: token('space.400', '32px'), // tableOverflowShadowWidthWide
             }}
           >
             <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={`${ClassName.TABLE_RIGHT_SHADOW} ${ClassName.TABLE_STICKY_SHADOW}`}
               style={{
                 visibility:
@@ -927,11 +943,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           </div>
         )}
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={ClassName.TABLE_STICKY_SENTINEL_BOTTOM}
           data-testid="sticky-sentinel-bottom"
         />
         {stickyScrollbar && (
           <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
             data-testid="sticky-scrollbar-sentinel-bottom"
           />

@@ -60,6 +60,7 @@ const Example = () => {
           </div>
         </div>
       </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginTop: token('space.200', '16px') }}>
         <Button testId="themeSwitch" onClick={toggleMode}>
           Toggle theme

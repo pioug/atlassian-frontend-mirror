@@ -66,6 +66,7 @@ export class DeleteUserContentPreviewScreen extends React.Component<
             tagName="p"
           />
           <Styled.SectionCard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="nameSectionCard"
             onClick={this.handleClickSection('Name', 1)}
             isSelected={1 === this.state.currentActive}
@@ -76,6 +77,7 @@ export class DeleteUserContentPreviewScreen extends React.Component<
             <Styled.UserDetails>{user.fullName}</Styled.UserDetails>
           </Styled.SectionCard>
           <Styled.SectionCard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="formerUserSectionCard"
             onClick={this.handleClickSection('Former User', 0)}
             isSelected={0 === this.state.currentActive}

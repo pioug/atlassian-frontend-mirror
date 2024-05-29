@@ -74,6 +74,7 @@ class SearchTextInput extends Component<Props, {}> {
       labelComponent = <label htmlFor={id}>{label}</label>;
     }
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <div id="search-text" className="pf-search-text-input">
         {labelComponent}
         <input

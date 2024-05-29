@@ -36,7 +36,9 @@ const CustomHeader = () => {
   const { titleId, onClose } = useModal();
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={headerStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={titleStyles}>
         <Heading id={titleId} level="h600" as="h1">
           A customised header
@@ -44,8 +46,11 @@ const CustomHeader = () => {
       </div>
       <span
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'absolute',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           right: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           top: token('space.050', '4px'),
         }}
       >

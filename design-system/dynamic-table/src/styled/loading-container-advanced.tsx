@@ -7,8 +7,8 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
-  marginBottom: token('space.300', '24px'),
   position: 'relative',
+  marginBlockEnd: token('space.300'),
 });
 
 type ContainerProps = HTMLProps<HTMLDivElement> & { testId?: string };
@@ -54,7 +54,7 @@ export const SpinnerBackdrop: FC<SpinnerBackdropProps> = ({
 const spinnerContainerStyles = css({
   position: 'relative',
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  top: 0,
+  insetBlockStart: 0,
 });
 
 export const SpinnerContainer = forwardRef<

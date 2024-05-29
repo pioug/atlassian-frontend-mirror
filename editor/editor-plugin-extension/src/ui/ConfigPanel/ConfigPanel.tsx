@@ -111,6 +111,7 @@ function ConfigForm({
         contextIdentifierProvider={contextIdentifierProvider}
         featureFlags={featureFlags}
       />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={canSave ? {} : { display: 'none' }}>
         <FormFooter align="start">
           <ButtonGroup>

@@ -48,6 +48,7 @@ const ColorColumn = ({
   status,
   appearance,
 }: ColorColumn) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={{ ...styles.column, backgroundColor: borderColor }}>
     <Avatar
       onClick={console.log}
@@ -87,6 +88,7 @@ export default () => (
         with the background color.
       </p>
     </Note>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={styles.row}>
       {exampleColors.map((color: string, index: number) => (
         <ColorColumn
@@ -97,6 +99,7 @@ export default () => (
         />
       ))}
     </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={styles.row}>
       {exampleColors.map((color: string, index: number) => (
         <ColorColumn

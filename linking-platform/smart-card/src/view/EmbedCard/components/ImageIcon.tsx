@@ -27,6 +27,7 @@ export const ImageIcon: FC<ImageIconProps> = ({
       loading={defaultIcon}
       loaded={
         <Image
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="smart-link-icon"
           src={src}
           alt={alt}

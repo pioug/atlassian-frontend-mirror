@@ -29,6 +29,7 @@ const DrawersExample = () => {
   };
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ padding: '2rem' }}>
       <Drawer
         testId="widths"
@@ -40,6 +41,7 @@ const DrawersExample = () => {
         <code
           id="drawerContents"
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             textTransform: 'capitalize',
           }}
         >{`${width} drawer contents`}</code>

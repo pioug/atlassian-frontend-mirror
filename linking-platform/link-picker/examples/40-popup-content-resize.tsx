@@ -56,7 +56,7 @@ function TestContentResize() {
           appearance="primary"
           isSelected={isOpen}
           onClick={handleToggle}
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ position: 'fixed', bottom: 350 }}
         >
           Toggle
@@ -84,6 +84,7 @@ function TestContentResize() {
           ordinarily be off-screen when a full set of results are loaded.
         </p>
       </PageHeader>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginTop: token('space.250', '20px') }}>
         <Toggle
           id="provide-updateFn-toggle"

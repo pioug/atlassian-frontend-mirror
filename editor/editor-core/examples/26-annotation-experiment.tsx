@@ -21,6 +21,7 @@ function AnnotationCheckbox(props: {
 }) {
   const { id, checked, onChange } = props;
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <label style={{ display: 'block', lineHeight: '2em' }} htmlFor={id}>
       <input onChange={onChange} type="checkbox" id={id} checked={checked} />
       {id}
@@ -157,7 +158,9 @@ export default class ExampleAnnotationExperiment extends React.Component<
     } = this.state;
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ display: 'flex', height: '100%' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ flex: '20%', padding: token('space.200', '16px') }}>
           <h3>Annotations</h3>
           <button onClick={this.handleShowInlineComments}>
@@ -190,6 +193,7 @@ export default class ExampleAnnotationExperiment extends React.Component<
             />
           ))}
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ flex: '80%' }}>
           <FullPageExample
             key={this.state.isDisallowOnWhiteSpaceEnabled ? 1 : 0}

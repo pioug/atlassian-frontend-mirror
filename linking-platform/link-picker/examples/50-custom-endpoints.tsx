@@ -112,6 +112,7 @@ function CustomEndPoints() {
           <b>Unmocked endpoints</b> (requires access to Staging)
         </p>
       </PageHeader>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ paddingBottom: token('space.250', '20px') }}>
         <a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
           {link.displayText || link.url}

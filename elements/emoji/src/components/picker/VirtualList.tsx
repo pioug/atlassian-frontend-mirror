@@ -418,7 +418,9 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
       <div
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'relative',
         }}
         ref={virtualistItemsRef}
@@ -429,9 +431,13 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
           <div
             key={virtualRow.key}
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               position: 'absolute',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               top: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               left: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: '100%',
               height: `${virtualRow.size}px`,
               transform: `translateY(${virtualRow.start}px)`,

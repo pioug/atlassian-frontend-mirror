@@ -81,6 +81,7 @@ const UnsupportedInlineNode = ({
         onShow={tooltipOnShowHandler}
         strategy="absolute"
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <span style={style}>
           <QuestionsIcon label="?" size="small" />
         </span>

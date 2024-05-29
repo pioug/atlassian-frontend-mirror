@@ -21,6 +21,7 @@ export const App = (props: React.PropsWithChildren<AppProps>) => {
   const isIOS = !!window.webkit;
   if (isIOS) {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ minHeight: '46px' }}>
         <Editor defaultValue={props.defaultValue}></Editor>
       </div>

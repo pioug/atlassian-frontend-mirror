@@ -74,10 +74,14 @@ export default () => {
               iconBefore={
                 <div
                   style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                     height: 24,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                     width: 24,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                     background:
                       'linear-gradient(180deg, #4E86EE 0%, #3562C1 100%), #4E86EE',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                     borderRadius: 3,
                   }}
                 >
@@ -129,6 +133,7 @@ export default () => {
           </Section>
         </MenuGroup>
       </MenuGroupContainer>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ textAlign: 'center' }}>
         <Button testId="toggle-loading" onClick={() => setRetryLoading(true)}>
           Reload

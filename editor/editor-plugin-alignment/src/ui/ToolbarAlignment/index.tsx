@@ -95,6 +95,7 @@ export class AlignmentToolbar extends React.Component<
               disabled={disabled}
               selected={isOpen}
               title={title}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="align-btn"
               aria-label={title}
               aria-expanded={isOpen}

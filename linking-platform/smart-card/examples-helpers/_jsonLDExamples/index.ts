@@ -14,10 +14,11 @@ export {
   GithubFile,
   GitHubIssue,
   GithubPullRequest,
+  GithubPullRequestJson,
   GithubRepository,
   GithubSourceCodeReference,
 } from './provider.github';
-export { AsanaTask } from './provider.asana';
+export { AsanaTask, AsanaTaskJson } from './provider.asana';
 export {
   ConfluenceBlogPost,
   ConfluencePage,

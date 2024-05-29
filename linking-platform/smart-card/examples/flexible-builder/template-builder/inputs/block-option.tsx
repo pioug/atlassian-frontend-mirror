@@ -35,6 +35,7 @@ const BlockOption: React.FC<{ onClick: (name: BlockName) => void }> = ({
         <div css={blockSelectStyles}>
           <Select
             inputId="block-select"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="block-select"
             placeholder="Add a block"
             {...rest}

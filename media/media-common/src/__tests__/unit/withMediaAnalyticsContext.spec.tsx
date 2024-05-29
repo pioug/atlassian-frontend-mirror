@@ -105,6 +105,7 @@ describe('withMediaAnalyticsContext()', () => {
       HTMLButtonElement,
       React.PropsWithChildren<ContextStaticProps>
     >((props, ref) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <button ref={ref} className="FancyButton">
         {props.children}
       </button>

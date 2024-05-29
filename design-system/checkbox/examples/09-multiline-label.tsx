@@ -1,26 +1,41 @@
-/**  @jsx jsx */
+import React from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { cssMap } from '@atlaskit/css';
+import { Stack } from '@atlaskit/primitives';
 
 import { Checkbox } from '../src';
 
-const displayStyles = css({
-  display: 'flex',
-  flexDirection: 'column',
+const styles = cssMap({
+  root: { alignItems: 'center' },
 });
 
 export default function MultilineLabelExample() {
   return (
-    <Checkbox
-      label={
-        <div css={displayStyles}>
-          <span>This is spread over</span>
-          <span>multiple lines</span>
-        </div>
-      }
-      value="Multiline Label Checkbox"
-      name="multiline-label"
-      testId="multiline-label"
-    />
+    <>
+      <Checkbox
+        label={
+          <Stack>
+            <span>This is spread over</span>
+            <span>multiple lines</span>
+          </Stack>
+        }
+        value="Multiline Label Checkbox"
+        name="multiline-label"
+        testId="multiline-label"
+      />
+      <Checkbox
+        xcss={styles.root}
+        label={
+          <Stack>
+            <span>This is spread over</span>
+            <span>multiple lines</span>
+            <span>and centered</span>
+          </Stack>
+        }
+        value="Multiline Label Checkbox"
+        name="multiline-label"
+        testId="multiline-label"
+      />
+    </>
   );
 }

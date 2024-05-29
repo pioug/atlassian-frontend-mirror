@@ -14,7 +14,9 @@ const Emoji = ({
   <div
     style={{
       // Setting font size is important here as it's set to ZERO in the parent Rating to work around inline-block spacing issues.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       fontSize: 30,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       margin: token('space.050', '4px'),
       opacity: isChecked ? 1 : 0.7,
     }}
@@ -28,6 +30,7 @@ export default () => {
     <div
       style={{
         margin: `${token('space.200', '16px')} 0 ${token('space.100', '8px')}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         textAlign: 'center',
       }}
     >

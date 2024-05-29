@@ -12,10 +12,12 @@ import {
   MentionNameStatus,
 } from '@atlaskit/mention';
 import { isPromise } from '@atlaskit/mention/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { MentionPluginOptions } from '../types';
 import Mention from '../ui/Mention';
 import type { MentionProps } from '../ui/Mention';
+import { Mention as MentionNext } from '../ui/Mention/mention';
 
 export type Props = InlineNodeViewComponentProps & {
   options: MentionPluginOptions | undefined;
@@ -31,7 +33,9 @@ const MentionAssistiveTextComponent = ({
   accessLevel,
   mentionProvider,
   localId,
-}: MentionProps & { mentionProvider?: Promise<MentionProvider> }) => {
+}: MentionProps & {
+  mentionProvider?: Promise<MentionProvider>;
+}) => {
   const [resolvedName, setResolvedName] = useState(text);
 
   const processName = (name: MentionNameDetails): string => {
@@ -86,17 +90,38 @@ export const MentionNodeView = (props: Props) => {
     const { mentionProvider } = providers as {
       mentionProvider?: Promise<MentionProvider>;
     };
+    const profilecardProvider = getBooleanFF(
+      'platform.editor.mentions-in-editor-popup-on-click',
+    )
+      ? props.options?.profilecardProvider
+      : undefined;
 
-    return (
-      <MentionAssistiveTextComponent
-        mentionProvider={mentionProvider}
-        id={id}
-        text={text}
-        providers={providerFactory}
-        accessLevel={accessLevel}
-        localId={localId}
-      />
-    );
+    if (profilecardProvider) {
+      return (
+        /**
+         * Rename this to `Mention` when `platform.editor.mentions-in-editor-popup-on-click` is tidied up.
+         */
+        <MentionNext
+          id={id}
+          text={text}
+          accessLevel={accessLevel}
+          mentionProvider={mentionProvider}
+          profilecardProvider={profilecardProvider}
+          localId={localId}
+        />
+      );
+    } else {
+      return (
+        <MentionAssistiveTextComponent
+          mentionProvider={mentionProvider}
+          id={id}
+          text={text}
+          providers={providerFactory}
+          accessLevel={accessLevel}
+          localId={localId}
+        />
+      );
+    }
   };
 
   return (

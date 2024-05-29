@@ -30,6 +30,7 @@ export default () => {
     });
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ textAlign: 'center' }}>
       <ButtonGroup>
         <Button onClick={decrease}>Smaller</Button>
@@ -46,6 +47,7 @@ export default () => {
         <Button onClick={increase}>Bigger</Button>
       </ButtonGroup>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ margin: '16px 0 8px' }}>
         <RatingGroup groupName="rating--star">
           <Star size={size} color={color} label="Terrible" value="one" />

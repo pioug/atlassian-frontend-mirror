@@ -121,13 +121,18 @@ export const ProviderCard = ({
   return (
     <div css={getWrapperStyles({ disabled })}>
       <div css={headerStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <span style={{ display: 'flex', alignItems: 'center' }}>
           <Avatar src={avatarUrl} size="small" />
           <h6
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               margin: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               marginLeft: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               alignItems: 'center',
             }}
           >

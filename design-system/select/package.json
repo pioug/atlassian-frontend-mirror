@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "17.9.0",
+  "version": "17.10.0",
   "description": "Select allows users to make a single selection or multiple selections from a list of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,8 @@
     "website": {
       "name": "Select",
       "category": "Components"
-    }
+    },
+    "runReact18": true
   },
   "af:exports": {
     "./AsyncSelect": "./src/entry-points/async-select.tsx",
@@ -68,7 +69,7 @@
     "shallow-equal": "^3.1.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0",
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
@@ -89,6 +90,7 @@
     "ast-types": "^0.13.3",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
+    "react-select-event": "^5.5.0",
     "react-value": "^0.2.0",
     "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"

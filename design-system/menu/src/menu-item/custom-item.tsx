@@ -76,6 +76,7 @@ const CustomItem = memo(
 
       return (
         <MenuItemPrimitive
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={
             getBooleanFF(
               'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
@@ -107,6 +108,7 @@ const CustomItem = memo(
             <Component
               data-testid={testId}
               {...rest}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={className}
               ref={ref}
               draggable={false}

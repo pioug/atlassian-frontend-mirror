@@ -39,6 +39,7 @@ const Mention = ({ bridge, query }: Props) => {
   }, [query, provider]);
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ display: 'flex', height: 24 }}>
       {items
         ? items.map((item) => (

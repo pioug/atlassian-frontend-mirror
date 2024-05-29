@@ -12,6 +12,7 @@ const props = {
     packageName: '@atlaskit/button',
     componentVersion: '999.9.9',
   },
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   children: <div className="child-component" />,
 };
 
@@ -43,6 +44,7 @@ describe('AnalyticsErrorBoundary', () => {
         throw error;
       }
       // this is just a placeholder
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       return <div className="child-component" />;
     };
 
@@ -73,6 +75,7 @@ describe('AnalyticsErrorBoundary', () => {
         throw error;
       }
       // this is just a placeholder
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       return <div className="child-component" />;
     };
 

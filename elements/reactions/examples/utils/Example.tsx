@@ -18,6 +18,7 @@ export interface ExampleProps {
 export const Example = ({ title, body }: ExampleProps) => {
   return (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ marginTop: '10px', marginLeft: '10px', marginBottom: '10px' }}
     >
       <p>

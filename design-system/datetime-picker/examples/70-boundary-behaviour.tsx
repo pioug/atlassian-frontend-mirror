@@ -75,6 +75,7 @@ export default class MyComponent extends Component<{}, State> {
       this.state;
     return (
       <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ paddingBottom: 10 }}>
           This demonstrates displaying the date time picker display behaviour
           within a modal. In particular, what happens when it overflows the

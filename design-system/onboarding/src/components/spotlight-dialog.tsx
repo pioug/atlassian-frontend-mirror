@@ -175,6 +175,7 @@ class SpotlightDialog extends Component<SpotlightDialogProps, State> {
               returnFocus={false}
               autoFocus
             >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
               <div ref={ref} style={{ ...style, ...animationStyles }}>
                 <SpotlightCard
                   testId={testId}

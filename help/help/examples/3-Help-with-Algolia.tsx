@@ -369,17 +369,25 @@ const Example = () => {
         <Page>
           <div
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               display: 'inline-block',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               height: '100vh',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               verticalAlign: 'top',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: 'Calc(100% - 400px)',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               boxSizing: 'border-box',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               padding: token('space.150', '12px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               overflow: 'auto',
             }}
           >
             <h2
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 width: 'Calc(100% - 400px)',
                 padding: `0 0 ${token('space.100', '8px')} ${token(
                   'space.200',
@@ -427,11 +435,13 @@ const Example = () => {
             </ButtonsWrapper>
             <h3
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 width: 'Calc(100% - 400px)',
                 padding: `${token('space.200', '16px')} 0 0 ${token(
                   'space.200',
                   '16px',
                 )}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 margin: token('space.0', '0px'),
               }}
             >
@@ -542,11 +552,13 @@ const Example = () => {
             <DividerLine />
             <h2
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 width: 'Calc(100% - 400px)',
                 padding: `${token('space.200', '16px')} 0 0 ${token(
                   'space.200',
                   '16px',
                 )}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 margin: token('space.0', '0px'),
               }}
             >
@@ -572,17 +584,20 @@ const Example = () => {
             </ButtonsWrapper>
             <h3
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 width: 'Calc(100% - 400px)',
                 padding: `${token('space.200', '16px')} 0 0 ${token(
                   'space.200',
                   '16px',
                 )}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 margin: token('space.0', '0px'),
               }}
             >
               Help articles settings
             </h3>
             <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
               <ControlsWrapper style={{ width: '100%' }}>
                 <Field label="Token" name="token">
                   {({ fieldProps }: any) => (

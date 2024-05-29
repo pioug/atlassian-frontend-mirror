@@ -149,8 +149,10 @@ class File extends React.Component<FileProps, { addAt?: number }> {
     const lines = code.split('\n');
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ marginTop: '20px' }}>
         <strong>{name}</strong>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ border: '1px solid #C1C7D0', borderRadius: '3px' }}>
           {lines.map((line, index) => this.renderLine(line, index))}
         </div>
@@ -236,8 +238,11 @@ export class Demo extends React.Component<
       <div
         key={conversation.conversationId}
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           borderBottom: '1px solid #ccc',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           paddingBottom: '10px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginBottom: '10px',
         }}
       >
@@ -325,6 +330,7 @@ export class Demo extends React.Component<
     );
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ margin: '20px' }}>
         {/* {this.renderOptions()} */}
         {this.renderConversations(prConversations)}

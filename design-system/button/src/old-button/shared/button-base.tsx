@@ -218,6 +218,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
         <Component
           {...rest}
           ref={setRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={className}
           css={[buttonCss, isInteractive ? null : noPointerEventsOnChildrenCss]}
           // using undefined so that the property doesn't exist when false

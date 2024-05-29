@@ -137,6 +137,7 @@ export default class SpotlightManager extends PureComponent<
             <Fade hasEntered={this.state.spotlightCount > 0}>
               {(animationStyles) => (
                 <Portal zIndex={layers.spotlight()}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
                   <Blanket style={animationStyles} isTinted={blanketIsTinted} />
                 </Portal>
               )}

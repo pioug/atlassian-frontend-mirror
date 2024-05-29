@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import VRTestWrapper from '../utils/vr-test-wrapper';
-import RelatedLinksModal from "../../src/view/RelatedLinksModal/components/RelatedLinksBaseModal";
+import RelatedLinksBaseModal from "../../src/view/RelatedLinksModal/components/RelatedLinksBaseModal";
 
 export default () => (
   <VRTestWrapper
@@ -9,6 +9,6 @@ export default () => (
       height: '700px',
     })}
   >
-    <RelatedLinksModal onClose={() => {}} showModal={true} children={undefined} />
+    <RelatedLinksBaseModal onClose={() => {}} showModal={true} children={undefined} />
   </VRTestWrapper>
 );

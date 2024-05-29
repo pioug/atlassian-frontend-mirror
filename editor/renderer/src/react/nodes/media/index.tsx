@@ -76,7 +76,6 @@ export type MediaProps = MediaCardProps & {
   width?: number;
   height?: number;
   isDrafting: boolean;
-  isInPageInclude?: boolean;
 };
 
 type Providers = {
@@ -309,7 +308,6 @@ class Media extends PureComponent<MediaProps, {}> {
       height,
       mediaSingleElement,
       isDrafting = false,
-      isInPageInclude
     } = this.props;
 
     const annotationMarks = (
@@ -329,6 +327,8 @@ class Media extends PureComponent<MediaProps, {}> {
     const linkHref = linkMark?.attrs.href;
     const eventHandlers = linkHref ? undefined : this.props.eventHandlers;
     const shouldOpenMediaViewer = !linkHref && allowMediaViewer;
+    const isInPageInclude = mediaSingleElement?.closest('[data-node-type="include"]') 
+
 
     const showCommentBadge =
       !!annotationMarks &&
@@ -426,11 +426,6 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
   const { dataAttributes } = props;
   const pos = dataAttributes && dataAttributes['data-renderer-start-pos'];
 
-  let parentElementClosest
-  if (typeof document !== "undefined") {
-    const elementAtPos = pos && document.querySelector(`[data-renderer-start-pos="${pos}"]`);
-    parentElementClosest = elementAtPos instanceof Element ? elementAtPos.closest('[data-node-type="include"]') : null;
-  }
 
   const [position, setPosition] = useState<number | undefined>();
   const [shouldApplyDraftAnnotation, setShouldApplyDraftAnnotation] =
@@ -452,7 +447,6 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
     }
   }, [
     draftPosition,
-    parentElementClosest,
     pos,
     shouldApplyDraftAnnotation,
     isCommentsOnMediaBugFixEnabled,
@@ -479,9 +473,7 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
     <Media
       {...props}
       dataAttributes={dataAttributesWithDraftAnnotation}
-      isDrafting={shouldApplyDraftAnnotation}
-      isInPageInclude={!!parentElementClosest}
-  />
+      isDrafting={shouldApplyDraftAnnotation}  />
   );
 };
 

@@ -168,6 +168,7 @@ class EditableCard extends Component<{}, EditableCardState> {
               onChange={this.onUseDimensionsChange}
             />
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div css={editableCardContentStyles} style={parentStyle}>
             <Card
               mediaClientConfig={mediaClientConfig}

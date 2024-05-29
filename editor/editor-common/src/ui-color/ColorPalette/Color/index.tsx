@@ -55,6 +55,7 @@ class Color extends PureComponent<Props> {
             onClick={this.onClick}
             onMouseDown={this.onMouseDown}
             tabIndex={tabIndex}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={`${isSelected ? 'selected' : ''}`}
             style={{
               backgroundColor: colorStyle || 'transparent',

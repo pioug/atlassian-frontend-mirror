@@ -77,13 +77,16 @@ export class StoryList extends Component<StoryListProps, {}> {
     const listStyles = display === 'column' ? styles.column : styles.row;
     const listContent = children.map((child, index) => {
       return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <li style={listStyles.stateItem} key={index}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={listStyles.stateTitle}>{child.title}</div>
           {child.content}
         </li>
       );
     });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     return <ul style={listStyles.statesWrapper}>{listContent}</ul>;
   }
 }

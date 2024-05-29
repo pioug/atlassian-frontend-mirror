@@ -342,8 +342,11 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             marginTop: token('space.200', '16px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             clear: 'both',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             overflow: 'auto',
           }}
         >
@@ -391,8 +394,11 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             marginTop: token('space.200', '16px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             clear: 'both',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             overflow: 'auto',
           }}
         >

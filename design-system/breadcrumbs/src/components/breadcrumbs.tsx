@@ -173,6 +173,7 @@ const InnerBreadcrumbs = forwardRef(
         <ol
           data-testid={testId}
           css={breadcrumbStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ color: token('color.text.subtlest', N200) }}
         >
           {breadcrumbsItems}

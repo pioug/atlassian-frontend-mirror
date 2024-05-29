@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.17.2
+
+### Patch Changes
+
+-   [#103967](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103967)
+    [`52eed0e32c8b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52eed0e32c8b) -
+    Refactored some code to support lower ECMAScript versions
+
 ## 4.17.1
 
 ### Patch Changes

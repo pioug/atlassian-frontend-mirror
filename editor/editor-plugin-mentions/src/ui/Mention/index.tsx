@@ -1,5 +1,4 @@
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   ProviderFactory,
@@ -36,6 +35,10 @@ export interface MentionProps {
   localId?: string;
 }
 
+/**
+ * @deprecated should be replaced with `editor-plugin-mentions/src/ui/Mention/mention.tsx`
+ * when the feature flag `platform.editor.mentions-in-editor-popup-on-click` is tidied up.
+ */
 export default class Mention extends PureComponent<MentionProps, {}> {
   static displayName = 'Mention';
 

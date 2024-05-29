@@ -30,6 +30,7 @@ const TooltipButton = ({
   onClick: () => void;
   id?: string;
 }) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={{ backgroundColor: 'white' }}>
     <Tooltip content="Click me">
       <Button id={id} onClick={onClick}>
@@ -65,8 +66,11 @@ function ThreeStepSpotlight(props: SpotlightProps) {
     <SpotlightManager>
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           justifyContent: 'space-between',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           padding: token('space.300', '24px'),
         }}
       >

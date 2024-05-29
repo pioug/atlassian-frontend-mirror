@@ -5,6 +5,7 @@ import { DateTimePicker } from '@atlaskit/datetime-picker';
 import InlineEdit from '../src';
 
 const ReadView = ({ data }: { data: string }) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={{ padding: 10 }} data-testid="readview">
     {data || 'Select date'}
   </div>

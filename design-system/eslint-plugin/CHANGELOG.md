@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.4.3
+
+### Patch Changes
+
+-   [#103109](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103109)
+    [`387067d94233`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/387067d94233) -
+    `use-latest-xcss-syntax` - Update to `error` in `recommended` and `all`.
+-   Updated dependencies
+
 ## 10.4.2
 
 ### Patch Changes

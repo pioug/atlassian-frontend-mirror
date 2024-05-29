@@ -51,7 +51,7 @@
     "@atlaskit/linking-common": "^5.7.0",
     "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/primitives": "^6.3.0",
-    "@atlaskit/select": "^17.9.0",
+    "@atlaskit/select": "^17.10.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/textfield": "^6.3.0",
     "@atlaskit/tokens": "^1.49.0",

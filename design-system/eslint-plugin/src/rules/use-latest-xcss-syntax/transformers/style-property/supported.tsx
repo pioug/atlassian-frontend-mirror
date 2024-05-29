@@ -9,6 +9,7 @@ export default {
       'revert-layer',
       // Currently the DST opinion is that 0 is valid. It doesn't need to be converted to `space.0`
       '0',
+      '0 auto',
       'space.negative.025',
       'space.negative.050',
       'space.negative.075',
@@ -18,6 +19,7 @@ export default {
       'space.negative.250',
       'space.negative.300',
       'space.negative.400',
+      'space.0',
       'space.025',
       'space.050',
       'space.075',

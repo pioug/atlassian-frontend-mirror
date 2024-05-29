@@ -66,6 +66,7 @@ export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
 
     const button = (
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={
           {
             [VAR_BUTTON_SELECTED_COLOR]:

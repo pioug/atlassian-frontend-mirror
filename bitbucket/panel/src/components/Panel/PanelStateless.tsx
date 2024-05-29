@@ -71,6 +71,7 @@ const PanelStateless: FC<PanelState> = ({
         duration={200}
         easing="linear"
         height={isExpanded ? 'auto' : 0}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="panel-content"
       >
         {children}

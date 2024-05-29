@@ -487,7 +487,7 @@ export const getToolbarConfig =
 
       alignmentMenu =
         options?.isTableAlignmentEnabled && !isNested
-          ? getAlignmentOptionsConfig(state, intl, editorAnalyticsAPI)
+          ? getAlignmentOptionsConfig(state, intl, editorAnalyticsAPI, getEditorContainerWidth)
           : [];
 
       let cellItems: Array<FloatingToolbarItem<Command>>;
@@ -900,6 +900,7 @@ export const getAlignmentOptionsConfig = (
   editorState: EditorState,
   { formatMessage }: ToolbarMenuContext,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+  getEditorContainerWidth: GetEditorContainerWidth
 ): Array<FloatingToolbarDropdown<Command>> => {
   const tableObject = findTable(editorState.selection);
 
@@ -942,6 +943,7 @@ export const getAlignmentOptionsConfig = (
           currentLayout,
           INPUT_METHOD.FLOATING_TB
         ),
+        ...(isLayoutOptionDisabled(tableObject.node, getEditorContainerWidth) && { disabled: value !== 'center' }),
       };
     },
   );
@@ -987,4 +989,21 @@ export const getSelectedAlignmentIcon = (
   return alignmentIcons.find(
     (icon) => icon.value === normaliseAlignment(selectedAlignment),
   );
+};
+
+export const isLayoutOptionDisabled = (
+  selectedNode: PMNode,
+  getEditorContainerWidth: GetEditorContainerWidth
+) => {
+  const lineLength = getEditorContainerWidth().lineLength;
+
+  if (
+    selectedNode &&
+    lineLength &&
+    selectedNode.attrs.width > lineLength
+  ) {
+    return true;
+  }
+
+  return false;
 };

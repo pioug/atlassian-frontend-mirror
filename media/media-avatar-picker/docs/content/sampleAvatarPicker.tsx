@@ -26,6 +26,7 @@ const AvatarApp = ({ isOpen }: AvatarAppProps) => {
           src={imageSrc}
           style={{
             visibility: imageSrc.length > 0 ? 'visible' : 'hidden',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             marginLeft: token('space.1000', '80px'),
           }}
         />

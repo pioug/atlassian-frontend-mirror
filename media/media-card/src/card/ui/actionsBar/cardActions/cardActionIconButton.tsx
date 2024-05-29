@@ -19,6 +19,7 @@ export class CardActionIconButton extends Component<CardActionIconButtonProps> {
       <CardActionButton
         onClick={onClick}
         onMouseDown={this.onMouseDown}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ color: triggerColor }}
         label={label}
         variant={variant}

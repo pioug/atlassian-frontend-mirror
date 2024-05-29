@@ -7,6 +7,7 @@ import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 export default () => (
   <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Breadcrumbs testId="BreadcrumbsTestId">
         <BreadcrumbsItem href="/item" text="item1" />
@@ -14,6 +15,7 @@ export default () => (
         <BreadcrumbsItem href="/item" text="item3" />
       </Breadcrumbs>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginLeft: token('space.050', '4px') }}>
         <AtlassianIcon label="" />
       </div>

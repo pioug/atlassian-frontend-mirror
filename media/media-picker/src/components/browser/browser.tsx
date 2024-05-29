@@ -148,6 +148,7 @@ export class BrowserBase extends LocalUploadComponentReact<BrowserProps> {
           data-testid="media-picker-file-input"
           ref={this.browserRef}
           type="file"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ display: 'none' }}
           multiple={
             replaceFileId

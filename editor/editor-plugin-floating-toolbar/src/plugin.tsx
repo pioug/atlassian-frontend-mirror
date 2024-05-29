@@ -360,6 +360,7 @@ function ContentComponent({
         boundariesElement={popupsBoundariesElement}
         scrollableElement={popupsScrollableElement}
         onPositionCalculated={customPositionCalculation}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={scrollable ? { maxWidth: '100%' } : {}}
         focusTrap={focusTrap}
         preventOverflow={preventPopupOverflow}
@@ -376,6 +377,7 @@ function ContentComponent({
                 node={node}
                 dispatchCommand={dispatchCommand}
                 editorView={editorView}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className={className}
                 focusEditor={() => editorView.focus()}
                 providerFactory={providerFactory}

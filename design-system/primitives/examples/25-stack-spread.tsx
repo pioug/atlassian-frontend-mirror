@@ -17,6 +17,7 @@ export default () => (
         xcss={containerStyles}
         padding="space.050"
         backgroundColor="color.background.neutral"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ height: '200px' }}
       >
         <Stack space="space.200" spread="space-between">

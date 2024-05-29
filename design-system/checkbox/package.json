@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/css": "^0.1.0",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/theme": "^12.8.0",
@@ -56,6 +57,7 @@
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
+    "@atlaskit/primitives": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

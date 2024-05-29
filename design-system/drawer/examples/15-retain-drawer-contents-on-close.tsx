@@ -36,6 +36,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ padding: '2rem' }}>
         <Drawer
           onClose={this.closeDrawer}
@@ -44,6 +45,7 @@ export default class DrawersExample extends Component<{}, State> {
           shouldUnmountOnExit={this.state.shouldUnmountOnExit}
           label="Drawer with retainable content"
         >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <label htmlFor="textbox" style={{ display: 'block' }}>
             Type something in the textarea below and see if it is retained
             <textarea id="textbox" rows={50} cols={50} />
@@ -52,6 +54,7 @@ export default class DrawersExample extends Component<{}, State> {
         <Button type="button" onClick={this.openDrawer}>
           Open drawer
         </Button>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ paddingTop: '2rem' }}>
           <label htmlFor="checkbox">
             <input
@@ -62,6 +65,7 @@ export default class DrawersExample extends Component<{}, State> {
             />
             Toggle remounting of drawer contents on exit
           </label>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ display: 'block', paddingTop: '1rem' }}>
             Contents of the drawer will be{' '}
             <strong>{`${

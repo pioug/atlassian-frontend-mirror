@@ -226,7 +226,9 @@ const Grid = memo(
         <Component
           id={id}
           role={role}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={style}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={resolvedStyles.static}
           css={[
             baseStyles,

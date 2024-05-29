@@ -47,6 +47,7 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
     <ToolbarButton
       spacing={props.isReducedSpacing ? 'none' : 'default'}
       selected={props.selected}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="block-type-btn"
       disabled={props.disabled}
       onClick={props.onClick}

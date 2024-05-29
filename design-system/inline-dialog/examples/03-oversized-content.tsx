@@ -28,7 +28,9 @@ const oversizedStyles = {
 };
 
 const dialogContentStyles = (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={scrollContainerStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={oversizedStyles}>
       The orange box and the scrollable area should not break out of the
       inline-dialog area.
@@ -37,8 +39,10 @@ const dialogContentStyles = (
 );
 
 const InlineDialogOversizedExample = () => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={centeredContainerStyles}>
     <InlineDialog content={dialogContentStyles} isOpen>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={targetStyles}>I am the target</div>
     </InlineDialog>
   </div>

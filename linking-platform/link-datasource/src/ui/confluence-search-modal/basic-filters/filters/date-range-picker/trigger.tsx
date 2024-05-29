@@ -26,6 +26,7 @@ export const PopupTrigger = ({
       onClick={onClick}
       isSelected={isSelected}
       iconAfter={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <span style={{ display: 'flex', alignItems: 'center' }}>
           <ChevronDownIcon size="medium" label="" />
         </span>

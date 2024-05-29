@@ -152,6 +152,7 @@ export default function CommentWithJiraCardsExample() {
 
                 <div
                   css={detailsHeaderContainer}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   style={isOpen ? {} : { borderRadius: 4 }}
                   onClick={handleClick}
                 >
@@ -187,6 +188,7 @@ export default function CommentWithJiraCardsExample() {
         </section>
       </main>
       <div css={portalContainer}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div ref={handlePortalRef} style={{ zIndex: 511 }} />
       </div>
     </Fragment>

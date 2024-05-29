@@ -76,6 +76,7 @@ export default function RadioInputExample() {
       <table>
         <thead>
           <tr>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <td style={{ width: 0 }} />
             <th id="head-description">Branch</th>
             <th id="head-commit">Last commit</th>
@@ -92,9 +93,11 @@ export default function RadioInputExample() {
                   item.value === value
                     ? token('color.background.selected')
                     : 'transparent',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 transition: 'background-color 200ms ease-in-out',
               }}
             >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
               <th scope="row" style={{ width: 24, paddingRight: 0 }}>
                 <Radio
                   isChecked={item.value === value}

@@ -180,6 +180,7 @@ const ToolbarItems = React.memo(
 
           return (
             <Button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={item.className}
               key={idx}
               title={item.title}
@@ -635,6 +636,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
             aria-label={intl.formatMessage(messages.floatingToolbarAriaLabel)}
             role="toolbar"
             data-testid="editor-floating-toolbar"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={className}
           >
             <Announcer

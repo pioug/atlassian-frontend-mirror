@@ -53,8 +53,10 @@ export const ShowMore = ({
 }: ShowMoreProps) => {
   return (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className.container}
       css={moreEmojiContainerStyle}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style.container}
       data-testid={RENDER_WRAPPER_TESTID}
     >
@@ -64,10 +66,12 @@ export const ShowMore = ({
           <Tooltip content={message}>
             {/* TODO: Convert this to use Emotion css/classname instead of style prop (stylelint rule CSS inline styles should not be used, move styles to an external CSS file) */}
             <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={className.button}
               css={[moreButtonStyle, buttonStyle]}
               aria-label={messages.moreEmoji.defaultMessage}
               type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={style.button}
               onClick={onClick}
               data-testid={RENDER_SHOWMORE_TESTID}

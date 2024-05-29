@@ -405,6 +405,7 @@ export const Blanket = ({
   className,
   children,
 }: BlanketProps) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <div css={blanketStyles} data-testid={datatestId} className={className}>
     {children}
   </div>
@@ -422,6 +423,7 @@ export const HeaderWrapper = ({
   return (
     <div
       css={headerWrapperStyles({ isArchiveSideBarVisible })}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
     >
       {children}
@@ -446,6 +448,7 @@ export const CloseButtonWrapper = ({
   className,
   children,
 }: ClassName & Children) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <div css={closeButtonWrapperStyles} className={className}>
     {children}
   </div>
@@ -463,6 +466,7 @@ export const ContentWrapper = ({
 );
 
 export const ZoomWrapper = ({ className, children }: ClassName & Children) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <div css={zoomWrapperStyles} className={className}>
     {children}
   </div>
@@ -484,6 +488,7 @@ export const HDIconGroupWrapper = ({
   className,
   children,
 }: ClassName & Children) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <div css={hdIconGroupWrapperStyles} className={className}>
     {children}
   </div>
@@ -544,6 +549,7 @@ export const PDFWrapper = forwardRef<HTMLDivElement, PDFWrapperProps>(
 );
 
 export const Arrow = ({ className, children }: ClassName & Children) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <span css={arrowStyles} className={className}>
     {children}
   </span>
@@ -574,6 +580,7 @@ export const Header = ({
   isArchiveSideBarVisible,
   className,
 }: Children & HeaderProps & ClassName) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <div css={headerStyles({ isArchiveSideBarVisible })} className={className}>
     {children}
   </div>
@@ -605,7 +612,9 @@ export const ImageWrapper = forwardRef(
       onClick={onClick}
       ref={ref as React.RefObject<HTMLDivElement>}
       css={imageWrapperStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
     >
       {children}
@@ -650,10 +659,12 @@ export const Img = ({
   }, [canDrag, isDragging]);
   return (
     <img
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
       css={imgStyles({ cursor, shouldPixelate })}
       data-testid={datatestId}
       src={src}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
       onLoad={onLoad}
       onError={onError}

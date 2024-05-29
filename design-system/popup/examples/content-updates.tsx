@@ -45,6 +45,7 @@ export default () => {
   const [isUpdateOn, setIsUpdateOn] = useState(true);
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ width: '100%', textAlign: 'center' }}>
       <ButtonGroup label="Content updates">
         <Popup

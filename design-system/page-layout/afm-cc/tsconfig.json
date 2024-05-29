@@ -26,6 +26,9 @@
             "path": "../../icon/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../link/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../motion/afm-cc/tsconfig.json"
         },
         {
@@ -39,6 +42,9 @@
         },
         {
             "path": "../../tokens/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../visually-hidden/afm-cc/tsconfig.json"
         }
     ]
 }

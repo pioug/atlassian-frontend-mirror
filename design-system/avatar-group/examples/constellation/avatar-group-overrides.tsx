@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -18,8 +18,12 @@ const ButtonGroup = styled.div({
   textAlign: 'center',
 });
 
+const INITIAL_NUMBER_VISIBLE_AVATARS = 8;
+
 const AvatarGroupOverridesExample = () => {
-  const data = RANDOM_USERS.slice(0, 8).map((d, i) => ({
+  const lastAvatarItemRef = useRef<HTMLElement>(null);
+  const [range, setRange] = useState(INITIAL_NUMBER_VISIBLE_AVATARS);
+  const data = RANDOM_USERS.slice(0, range).map((d, i) => ({
     key: d.email,
     name: d.name,
     href: '#',
@@ -27,6 +31,10 @@ const AvatarGroupOverridesExample = () => {
     size: 'medium' as SizeType,
     src: getFreeToUseAvatarImage(i),
   }));
+
+  useEffect(() => {
+    lastAvatarItemRef.current?.focus();
+  }, [range]);
 
   return (
     <AvatarGroup
@@ -37,20 +45,25 @@ const AvatarGroupOverridesExample = () => {
       // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       overrides={{
         AvatarGroupItem: {
-          render: (Component, props, index) => {
-            const avatarItem = <Component {...props} key={index} />;
-
-            return index === data.length - 1 ? (
-              <React.Fragment key={`${index}-overridden`}>
-                {avatarItem}
+          render: (Component, props, index) =>
+            index === data.length - 1 ? (
+              <Fragment key={`${index}-overridden`}>
+                <Component {...props} key={index} ref={lastAvatarItemRef} />
                 <ButtonGroup data-testid="load-more-actions">
-                  <Button testId="load-more">Load more</Button>
+                  <Button
+                    testId="load-more"
+                    isDisabled={range >= RANDOM_USERS.length}
+                    onClick={() => {
+                      setRange(range + 1);
+                    }}
+                  >
+                    Load more
+                  </Button>
                 </ButtonGroup>
-              </React.Fragment>
+              </Fragment>
             ) : (
-              avatarItem
-            );
-          },
+              <Component {...props} key={index} />
+            ),
         },
       }}
     />

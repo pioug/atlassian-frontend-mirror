@@ -133,6 +133,7 @@ export const DragHandle = ({
       css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
       ref={buttonRef}
       onClick={handleClick}
+      data-testid="block-ctrl-drag-handle"
     >
       <DragHandlerIcon label="" size="medium" />
     </button>

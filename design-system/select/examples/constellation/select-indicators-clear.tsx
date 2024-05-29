@@ -24,6 +24,7 @@ const ClearIndicator = (props: ClearIndicatorProps<OptionType, true>) => {
     <div
       {...restInnerProps}
       ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={getStyles('clearIndicator', props) as CSSProperties}
     >
       <Box xcss={clearIndicatorStyles}>{children}</Box>

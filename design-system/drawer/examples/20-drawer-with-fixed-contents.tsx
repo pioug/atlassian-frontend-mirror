@@ -33,6 +33,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ padding: '2rem' }}>
         <Drawer
           onClose={this.closeDrawer}
@@ -47,6 +48,7 @@ export default class DrawersExample extends Component<{}, State> {
               elements such as @atlaskit/dropdown-menu.
             </p>
             {/* The position here is used by the withDropdown integration test. */}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <div style={{ position: 'fixed', left: 100, top: 200 }}>
               <DropdownMenu<HTMLButtonElement>
                 testId="dropdown"

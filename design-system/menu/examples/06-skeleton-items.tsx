@@ -30,9 +30,13 @@ const Item = ({ isLoading, ...props }: any) => {
     icon = (
       <span
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           background: token('color.text.inverse'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           borderRadius: token('border.radius.circle', '50%'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: 24,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           height: 24,
         }}
       >
@@ -62,16 +66,21 @@ const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
   return (
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         display: 'flex',
       }}
     >
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: '200px',
           border: `1px solid ${token('color.border')}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           margin: '10px auto',
           // TODO Delete this comment after verifying space token -> previous value `'4px'`
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           borderRadius: token('border.radius', '4px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           alignSelf: 'flex-start',
         }}
       >
@@ -96,10 +105,13 @@ const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
       </div>
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: '200px',
           border: `1px solid ${token('color.border')}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           margin: '10px auto',
           // TODO Delete this comment after verifying space token -> previous value `'4px'`
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           borderRadius: token('border.radius', '4px'),
         }}
       >

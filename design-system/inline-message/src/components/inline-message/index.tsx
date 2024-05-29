@@ -146,6 +146,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
   return (
     <div
       css={rootStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={
         {
           '--icon-accent-color': iconColor(appearance),

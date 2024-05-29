@@ -60,6 +60,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   const isFixEmbedCardBlurEnabled = getBooleanFF('platform.linking-platform.smart-card.fix-embed-card-blurring') ? true : false;
 
   const renderHeaderOld = () => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <Header className="embed-header" frameStyle={frameStyle}>
       <IconWrapper isPlaceholder={isPlaceholder}>
         {!isPlaceholder && icon}
@@ -75,6 +76,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   );
 
   const renderHeader = () => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <Header className="embed-header" frameStyle={frameStyle}>
       <IconWrapper isPlaceholder={isPlaceholder}>
         {!isPlaceholder && icon}
@@ -111,6 +113,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   if (!isPlaceholder && href) {
     return (
       <LinkWrapper
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={className}
         isInteractive={isInteractive()}
         isSelected={isSelected}
@@ -134,6 +137,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   } else {
     return (
       <Wrapper
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={className}
         isInteractive={isInteractive()}
         isSelected={isSelected}

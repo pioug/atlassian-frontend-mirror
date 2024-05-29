@@ -88,11 +88,13 @@ export default function CommentWithJiraCardsExample() {
               <li>Menu item</li>
             </ul>
           </LeftSidebar>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
           <div css={editorSide} className="the-editor-side">
             <h2>Some content</h2>
             <p>Toast is fun</p>
             <section
               css={stickyHeader}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="external-sticky-toolbar"
               ref={jiraToolbarRef}
             >
@@ -127,6 +129,7 @@ export default function CommentWithJiraCardsExample() {
         </section>
       </main>
       <div css={portalContainer}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div ref={handlePortalRef} style={{ zIndex: 511 }} />
       </div>
     </Fragment>

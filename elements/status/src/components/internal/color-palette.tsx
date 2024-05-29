@@ -133,6 +133,7 @@ export default ({
     // eslint-disable-next-line jsx-a11y/interactive-supports-focus
     <ul
       css={colorPaletteWrapperStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
       style={{ maxWidth: cols * 32 }}
       onKeyDown={memoizedHandleKeyDown}

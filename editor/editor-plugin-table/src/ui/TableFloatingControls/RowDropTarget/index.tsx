@@ -87,6 +87,7 @@ const RowDropTarget = ({ index, localId, style }: RowDropTargetProps) => {
   return (
     <div
       ref={dropTargetRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
       data-drop-target-index={index}
       data-drop-target-localid={localId}

@@ -128,12 +128,14 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
             aria-controls={ariaControls}
             aria-expanded={ariaExpanded}
             aria-haspopup={ariaHaspopup}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={
               {
                 fontSize: FONT_SIZE[size],
               } as React.CSSProperties
             }
             css={[buttonStyles, isActive && buttonActiveStyles]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={className}
           >
             +{count! > MAX_DISPLAY_COUNT ? MAX_DISPLAY_COUNT : count}

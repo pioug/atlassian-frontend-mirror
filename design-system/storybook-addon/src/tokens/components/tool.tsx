@@ -52,6 +52,7 @@ const Tool = () => {
             id,
             title,
             active: adsTheme === id,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             right: <Icons style={{ opacity: 1 }} icon={icon as any} />,
             onClick: () => {
               setTheme(id);

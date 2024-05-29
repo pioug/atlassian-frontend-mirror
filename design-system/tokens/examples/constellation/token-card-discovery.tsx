@@ -54,6 +54,7 @@ const discoveryStyles = {
 
 const TokenDiscovery = () => {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ display: 'flex', columnGap: '24px' }}>
       {Object.entries(discoveryStyles).map(([key, subStyle]) => (
         <Card key={key} tokenSet={subStyle} />

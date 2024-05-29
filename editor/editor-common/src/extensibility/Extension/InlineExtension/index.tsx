@@ -75,10 +75,12 @@ const InlineExtension = (props: Props) => {
       <div
         data-testid="inline-extension-wrapper"
         css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyles]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classNames}
         onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
         <div css={overlay} className="extension-overlay" />
         {children ? (
           children

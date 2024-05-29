@@ -25,12 +25,14 @@ export const ActionIcon = ({ state }: { state: ActionState }) => {
       return null;
     case 'success':
       return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <div data-testid="check-icon" style={spinnerStyles}>
           <CheckIcon size="small" label="check" />
         </div>
       );
     case 'failure':
       return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <div data-testid="cross-icon" style={spinnerStyles}>
           <CrossIcon size="small" label="check" />
         </div>

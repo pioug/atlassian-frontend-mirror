@@ -37,6 +37,7 @@ export default class DrawersExample extends Component<{}, State> {
         <div>
           <code>{this.state.width} width</code>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ margin: '1rem 0' }}>
           <Button type="button" onClick={this.onNextClick}>
             Next width

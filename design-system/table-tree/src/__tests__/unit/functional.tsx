@@ -110,7 +110,9 @@ test('chevron next to items with children', async () => {
         items={nestedData}
         render={({ title, page, children }) => (
           <Row itemId={title} hasChildren={!!children} items={children}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <Cell className="title">{title}</Cell>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <Cell className="page">{page}</Cell>
           </Row>
         )}
@@ -627,7 +629,9 @@ test('headers and column widths', async () => {
         items={nestedData}
         render={({ title, page, children }: any) => (
           <Row itemId={title} items={children} hasChildren={!!children}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <Cell className="title">{title}</Cell>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <Cell className="page">{page}</Cell>
           </Row>
         )}

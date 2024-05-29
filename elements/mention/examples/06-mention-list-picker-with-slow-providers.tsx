@@ -18,7 +18,9 @@ const downPage: React.CSSProperties = {
 
 export default function Example() {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={tallPageStyle}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={downPage}>
         <MentionTextInput
           label="User search"

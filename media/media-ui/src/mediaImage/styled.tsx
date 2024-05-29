@@ -27,6 +27,7 @@ export const ImageComponent: React.FC<
 > = (props) => {
   const { style, imageRef, ...otherProps } = props;
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <img {...otherProps} ref={imageRef} style={{ ...imgStyle, ...style }} />
   );
 };

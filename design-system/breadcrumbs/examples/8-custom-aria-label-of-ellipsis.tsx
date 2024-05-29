@@ -11,8 +11,11 @@ export default () => {
       <label
         htmlFor="label-input"
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           flexDirection: 'column',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           alignItems: 'flex-start',
         }}
       >
@@ -23,7 +26,9 @@ export default () => {
           onChange={(e) => setLabel(e.target.value)}
         />
       </label>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <hr style={{ margin: '15px 0px' }} />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ maxWidth: '500px' }}>
         <Breadcrumbs maxItems={5} ellipsisLabel={label}>
           <BreadcrumbsItem href="/item" text="Item" />

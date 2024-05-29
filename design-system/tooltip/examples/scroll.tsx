@@ -90,6 +90,7 @@ export default () => (
         <Parent
           scroll="vertical"
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             backgroundColor: token('elevation.surface.overlay'),
           }}
         >

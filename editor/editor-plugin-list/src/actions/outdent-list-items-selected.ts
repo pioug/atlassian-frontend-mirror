@@ -3,7 +3,7 @@ import {
   JoinDirection,
   joinSiblingLists,
   normalizeListItemsSelection,
-  processNestedTaskListsInSameLevel,
+  // processNestedTaskListsInSameLevel,
 } from '@atlaskit/editor-common/lists';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import {
@@ -95,7 +95,7 @@ export const outdentListItemsSelected = (tr: Transaction) => {
   });
   tr.setSelection(nextSelection);
 
-  processNestedTaskListsInSameLevel(tr);
+  // processNestedTaskListsInSameLevel(tr);
   joinSiblingLists({ tr, direction: JoinDirection.RIGHT });
 };
 

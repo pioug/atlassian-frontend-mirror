@@ -37,6 +37,7 @@ export class MediaInlineCardLoadingView extends React.Component<MediaInlineCardL
           <IconTitleWrapper>
             {message}
             <RightIconPositionWrapper>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <SpinnerWrapper className="inline-loading-spinner">
                 <Spinner size={14} />
               </SpinnerWrapper>
@@ -48,6 +49,7 @@ export class MediaInlineCardLoadingView extends React.Component<MediaInlineCardL
       return (
         <Frame testId={testId} onClick={onClick} isSelected={isSelected}>
           <IconAndTitleLayout title={message}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <SpinnerWrapper className="inline-loading-spinner">
               <Spinner size={14} />
             </SpinnerWrapper>

@@ -22,6 +22,7 @@ const EmojiPickerCategoryHeading = ({ id, title, className }: Props) => (
   <div
     id={id}
     data-category-id={id}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     className={className}
     data-testid={RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID}
     role="rowheader"

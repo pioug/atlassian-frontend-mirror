@@ -35,7 +35,9 @@ export default function Example() {
 
   return (
     <IntlProvider locale="en">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={style}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <AnalyticsListener
             onEvent={listenerHandler}
@@ -51,6 +53,7 @@ export default function Example() {
             />
           </AnalyticsListener>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <ResourcedMention
             id="oscar"
@@ -61,6 +64,7 @@ export default function Example() {
             onMouseLeave={onMentionEvent}
           />
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <ResourcedMention
             {...mentionData}
@@ -71,6 +75,7 @@ export default function Example() {
             onMouseLeave={onMentionEvent}
           />
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <ResourcedMention
             {...mentionData}
@@ -81,6 +86,7 @@ export default function Example() {
             onMouseLeave={onMentionEvent}
           />
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <ResourcedMention
             id="unknown"
@@ -91,6 +97,7 @@ export default function Example() {
             onMouseLeave={onMentionEvent}
           />
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={padding}>
           <ResourcedMention
             id="service_error"

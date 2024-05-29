@@ -14,6 +14,7 @@ const RenderElementBrowser = (
     getItems: (query?: string, category?: string) => QuickInsertItem[];
   } & WrappedComponentProps,
 ) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={{ display: 'flex', height: '150px' }}>
     <ElementBrowser
       categories={getCategories(props.intl)}

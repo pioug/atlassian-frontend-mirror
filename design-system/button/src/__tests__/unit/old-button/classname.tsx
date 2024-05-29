@@ -7,6 +7,7 @@ import Button from '../../../old-button/button';
 
 it('should support passing in additional classnames', () => {
   const { getByTestId } = render(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <Button testId="button" className="hello">
       children
     </Button>,
@@ -32,6 +33,7 @@ it('should merge css props into one classname', () => {
 
 it('should merge css props into one classname, and independent class names separately', () => {
   const { getByTestId } = render(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <Button testId="button" css={{ color: 'red' }} className="hello">
       children
     </Button>,

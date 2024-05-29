@@ -55,6 +55,7 @@ export default function Example() {
         The box on the left is the only thing causing resize. The purple box
         should update in response.
       </p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ display: 'flex' }}>
         <ResizingBox>I am resizing</ResizingBox>
         <WidthDetector>{displayResults}</WidthDetector>

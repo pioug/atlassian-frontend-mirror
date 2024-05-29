@@ -209,6 +209,16 @@ export const TableResizer = ({
 
   const { startMeasure, endMeasure, countFrames } = useMeasureFramerate();
 
+  const excludeGuidelineConfig = useMemo(
+    () => ({
+      innerGuidelines: !!isTableAlignmentEnabled,
+      breakoutPoints: !!(
+        isTableAlignmentEnabled && tableState?.isFullWidthModeEnabled
+      ),
+    }),
+    [tableState, isTableAlignmentEnabled],
+  );
+
   const updateActiveGuidelines = useCallback(
     ({ gap, keys }: { gap: number; keys: string[] }) => {
       if (gap !== currentGap.current) {
@@ -217,7 +227,7 @@ export const TableResizer = ({
           isTableScalingEnabled
             ? defaultGuidelinesForPreserveTable(
                 containerWidth,
-                isTableAlignmentEnabled,
+                excludeGuidelineConfig,
               )
             : defaultGuidelines,
           containerWidth,
@@ -235,7 +245,7 @@ export const TableResizer = ({
     },
     [
       isTableScalingEnabled,
-      isTableAlignmentEnabled,
+      excludeGuidelineConfig,
       containerWidth,
       displayGuideline,
     ],
@@ -248,7 +258,7 @@ export const TableResizer = ({
             x: isTableScalingEnabled
               ? defaultTablePreserveSnappingWidths(
                   containerWidth,
-                  isTableAlignmentEnabled,
+                  excludeGuidelineConfig,
                 )
               : defaultSnappingWidths,
           }
@@ -256,7 +266,7 @@ export const TableResizer = ({
     [
       snappingEnabled,
       isTableScalingEnabled,
-      isTableAlignmentEnabled,
+      excludeGuidelineConfig,
       containerWidth,
     ],
   );
@@ -334,7 +344,7 @@ export const TableResizer = ({
       isTableScalingEnabled
         ? defaultGuidelinesForPreserveTable(
             containerWidth,
-            isTableAlignmentEnabled,
+            excludeGuidelineConfig,
           )
         : defaultGuidelines,
       containerWidth,
@@ -351,7 +361,7 @@ export const TableResizer = ({
     node.attrs.localId,
     tableRef,
     isTableScalingEnabled,
-    isTableAlignmentEnabled,
+    excludeGuidelineConfig,
     containerWidth,
     displayGuideline,
     onResizeStart,
@@ -388,13 +398,13 @@ export const TableResizer = ({
         isTableScalingEnabled
           ? defaultTablePreserveSnappingWidths(
               containerWidth,
-              isTableAlignmentEnabled,
+              excludeGuidelineConfig,
             )
           : defaultSnappingWidths,
         isTableScalingEnabled
           ? defaultGuidelinesForPreserveTable(
               containerWidth,
-              isTableAlignmentEnabled,
+              excludeGuidelineConfig,
             )
           : defaultGuidelines,
         TABLE_HIGHLIGHT_GAP,
@@ -409,7 +419,7 @@ export const TableResizer = ({
 
       const fullWidthGuideline = defaultGuidelinesForPreserveTable(
         containerWidth,
-        isTableAlignmentEnabled,
+        excludeGuidelineConfig,
       ).filter((guideline) => guideline.isFullWidth)[0];
 
       const isFullWidthGuidelineActive = closestSnap.keys.includes(
@@ -434,7 +444,7 @@ export const TableResizer = ({
     [
       countFrames,
       isTableScalingEnabled,
-      isTableAlignmentEnabled,
+      excludeGuidelineConfig,
       tableRef,
       node,
       editorView,

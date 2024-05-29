@@ -392,14 +392,17 @@ export const DragMenu = React.memo(
         ),
         elemAfter: (
           <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={DropdownMenuSharedCssClassName.SUBMENU}
             css={dragMenuBackgroundColorStyles}
           >
             <div
               css={cellColourPreviewStyles(background)}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={ClassName.DRAG_SUBMENU_ICON}
             />
             {isSubmenuOpen && (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               <div className={ClassName.DRAG_SUBMENU} ref={handleSubMenuRef}>
                 <ArrowKeyNavigationProvider
                   type={ArrowKeyNavigationType.COLOR}

@@ -211,14 +211,23 @@ export const ColumnControls = ({
         key={type}
         style={{
           gridColumn,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           gridRow: '1',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           justifyContent: 'center',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           alignItems: 'center',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           height: 'fit-content',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           placeSelf: 'center',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           zIndex: 99,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'relative',
         }}
         data-testid={`table-floating-column-${
@@ -306,16 +315,19 @@ export const ColumnControls = ({
 
   return (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={ClassName.DRAG_COLUMN_CONTROLS}
       onMouseMove={handleMouseMove}
     >
       <div
         ref={columnControlsRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={ClassName.DRAG_COLUMN_CONTROLS_INNER}
         data-testid="table-floating-column-controls"
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           gridTemplateColumns: widths,
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginTop,
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           width: stickyTop ? containerWidth : undefined,
@@ -330,12 +342,15 @@ export const ColumnControls = ({
             }}
             data-start-index={startIndex}
             data-end-index={endIndex}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER}
             contentEditable={false}
             key={index}
           >
             <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={columnParams.length - 1 === index ? { right: '0' } : {}}
             />
           </div>

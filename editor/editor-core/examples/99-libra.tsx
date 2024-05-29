@@ -142,5 +142,6 @@ export default function EditorExampleForIntegrationTests() {
 
   const style = React.useMemo(() => ({ height: '100%', width: '100%' }), []);
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   return <div id="editor-container" style={style} />;
 }

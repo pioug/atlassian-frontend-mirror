@@ -114,6 +114,7 @@ export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
         paddingInline={paddingInline}
         as={as}
         testId={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={width ? { width } : undefined}
         aria-sort={sortDirection}
         colSpan={colSpan}

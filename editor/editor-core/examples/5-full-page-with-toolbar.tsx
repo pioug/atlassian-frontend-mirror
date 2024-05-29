@@ -150,6 +150,7 @@ export class ExampleEditor extends React.Component<Props> {
 export default function Example(defaultValue: string | object) {
   return (
     <EditorContext>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ height: '100%' }}>
         <DevTools />
         <ExampleEditor defaultValue={defaultValue} />

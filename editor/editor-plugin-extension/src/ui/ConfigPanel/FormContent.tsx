@@ -223,6 +223,7 @@ export function FieldComponent({
 }
 
 function Hidden({ children }: { children: React.ReactNode }) {
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   return <div style={{ display: 'none' }}>{children}</div>;
 }
 
@@ -269,6 +270,7 @@ export default function FormContent({
             name={name}
             canRemoveField={canRemoveFields && !field.isRequired}
             onClickRemove={onClickRemove}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={`field-wrapper-${type}`}
           >
             {fieldElement}

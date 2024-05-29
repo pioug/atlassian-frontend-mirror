@@ -226,13 +226,18 @@ const DragControlsComponent = ({
         key={type}
         style={{
           gridRow,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           gridColumn: '2',
           // DragHandle uses `transform: rotate(90)`, which doesn't affect its parent (this div) causing the width of this element to be the true height of the drag handle
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: '9px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           height: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'relative',
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           right: '-0.5px',
         }}
         data-testid={`table-floating-row-${
@@ -309,6 +314,7 @@ const DragControlsComponent = ({
 
   return (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={ClassName.DRAG_ROW_CONTROLS}
       style={{
         gridTemplateRows: heights,
@@ -328,14 +334,17 @@ const DragControlsComponent = ({
           <div
             style={{
               gridRow: `${index + 1} / span 1`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               gridColumn: '2',
             }}
             data-start-index={startIndex}
             data-end-index={endIndex}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER}
             contentEditable={false}
             key={`insert-dot-${index}`}
           >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
             <div className={ClassName.DRAG_ROW_FLOATING_INSERT_DOT} />
           </div>
           {isDragging && (
@@ -344,11 +353,16 @@ const DragControlsComponent = ({
               index={index}
               localId={currentNodeLocalId}
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 gridColumn: '1 / span 3',
                 gridRow: `${index + 1} / span 1`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 height: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 pointerEvents: 'auto',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 position: 'relative',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 left: token('space.negative.100', '-8px'),
               }}
             />

@@ -297,6 +297,7 @@ export class MentionPicker extends React.PureComponent<
     return (
       /* old classnames are essential for Confluence tests */
       <MentionPickerStyle
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-mention-picker"
         visible={visible || info}
       >

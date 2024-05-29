@@ -58,6 +58,7 @@ export default class DemoResourcedMentionList extends React.Component<
     return (
       <IntlProvider locale="en">
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ width: '100%', padding: `${token('space.150', '12px')}` }}
         >
           <SearchTextInput

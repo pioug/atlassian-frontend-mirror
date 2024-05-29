@@ -30,6 +30,7 @@ export const generateMentionItem = (
 ) => (
   <div>
     <p>{description}</p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <ul style={{ padding: 0 }}>{component}</ul>
   </div>
 );

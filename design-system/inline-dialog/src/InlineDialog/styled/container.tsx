@@ -54,6 +54,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
         onClick={onClick}
         onFocus={onFocus}
         ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={
           {
             [CSS_THEME_BACKGROUND]: token('elevation.surface.overlay', N0),

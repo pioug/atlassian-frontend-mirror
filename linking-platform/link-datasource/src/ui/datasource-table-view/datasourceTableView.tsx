@@ -193,7 +193,7 @@ const DatasourceTableViewWithoutAnalytics = ({
       loaderFn={fetchMessagesForLocale}
     >
       {/* datasource-table classname is to exclude all children from being commentable - exclude list is in CFE*/}
-      {/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop */}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div css={containerStyles} className="datasource-table">
         {hasColumns ? (
           <IssueLikeDataTableView

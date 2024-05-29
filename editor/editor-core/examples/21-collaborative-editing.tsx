@@ -247,8 +247,11 @@ export default class Example extends React.Component<Props, State> {
       return (
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             margin: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             backgroundColor: '#FF5630',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             padding: token('space.150', '12px'),
           }}
         >
@@ -264,8 +267,11 @@ export default class Example extends React.Component<Props, State> {
     return (
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           margin: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           backgroundColor: '#00B8D9',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           padding: token('space.150', '12px'),
         }}
       >

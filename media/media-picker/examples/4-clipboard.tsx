@@ -240,8 +240,10 @@ class ClipboardWrapper extends Component<{}, ClipboardWrapperState> {
               style={{ width, height }}
               title="Click X button to close"
             />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="info">{`${width}x${height}`}</div>
             <Button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="close_button"
               appearance="primary"
               onClick={this.onCloseImg}

@@ -45,11 +45,15 @@ const CustomHeader = () => {
   const { onClose } = useModal();
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={headerStyles}>
       <span
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'absolute',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           right: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           top: token('space.050', '4px'),
         }}
       >
@@ -76,6 +80,7 @@ const CustomBody = React.forwardRef<
   HTMLDivElement,
   React.AllHTMLAttributes<HTMLDivElement>
 >((props, ref) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div ref={ref} style={bodyStyles}>
     {props.children}
   </div>

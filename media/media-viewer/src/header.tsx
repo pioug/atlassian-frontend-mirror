@@ -176,6 +176,7 @@ export class Header extends React.Component<
     return (
       <HeaderWrapper
         isArchiveSideBarVisible={isArchiveSideBarVisible}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={hideControlsClassName}
       >
         <LeftHeader>{this.renderMetadata()}</LeftHeader>

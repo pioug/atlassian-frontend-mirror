@@ -68,20 +68,29 @@ export const ProviderCategory = ({
     return sum;
   }, 0);
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div key={category} style={{ marginBottom: token('space.600', '48px') }}>
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="header"
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           justifyContent: 'space-between',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: '85%',
         }}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="left">
           <h4
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               textTransform: 'uppercase',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               letterSpacing: '0.2rem',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               fontWeight: 'bolder',
             }}
           >
@@ -89,7 +98,9 @@ export const ProviderCategory = ({
           </h4>
           <h5
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               color: token('color.text.subtlest', N200),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               paddingBottom: token('space.300', '24px'),
             }}
           >
@@ -97,11 +108,13 @@ export const ProviderCategory = ({
             providers.
           </h5>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="right">
           <Button
             iconBefore={<CopyIcon size="small" label="" />}
             onClick={handleCopyToClipboard}
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               marginRight: token('space.100', '8px'),
             }}
           >

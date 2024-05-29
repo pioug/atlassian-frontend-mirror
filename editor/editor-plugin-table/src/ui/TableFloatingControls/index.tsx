@@ -127,6 +127,7 @@ export const TableFloatingControls = ({
     : ClassName.ROW_CONTROLS_WRAPPER;
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div className={wrapperClassName}>
       <div onMouseDown={(e) => !isDragAndDropEnabled && e.preventDefault()}>
         {isNumberColumnEnabled ? (

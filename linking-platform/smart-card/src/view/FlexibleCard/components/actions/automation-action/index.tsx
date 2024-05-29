@@ -9,8 +9,6 @@ import {
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { type LinkActionProps } from '../types';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { type Environment } from './automation-manual-triggers/manual-triggers-container/common/types';
 
 const AutomationModal = lazy(
   () => import( /* webpackChunkName: "@atlaskit-internal_smart-card-automation-modal" */ './automation-manual-triggers/manual-triggers-modal')
@@ -27,10 +25,7 @@ const handleAutomationActionClose =  (setIsModalOpen: React.Dispatch<React.SetSt
 const AutomationAction = (props: LinkActionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { formatMessage } = useIntl();
-  const smartLinkContext = useSmartLinkContext();
-  const { connections } = smartLinkContext;
 
-  const environment = connections.client.envKey as Environment ?? 'prod';
   const context = useFlexibleUiContext();
   const automationActionData = context?.actions?.[ActionName.AutomationAction];
   if (!automationActionData) {
@@ -77,7 +72,6 @@ const AutomationAction = (props: LinkActionProps) => {
         // TODO skeleton modal fallback
         <Suspense fallback={false}>
           <AutomationModal
-            environment={environment}
             baseAutomationUrl={baseAutomationUrl}
             objectAri={objectAri}
             siteAri={siteAri}

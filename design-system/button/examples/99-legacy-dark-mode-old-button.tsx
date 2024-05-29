@@ -46,9 +46,11 @@ function ThemeModeSwitcher({
       </h3>
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           padding: token('space.250', '20px'),
           backgroundColor: mode === 'light' ? colors.N0 : colors.N800,
           border: `2px solid ${colors.N800}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           borderRadius: '5px',
         }}
         /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
@@ -63,6 +65,7 @@ function ThemeModeSwitcher({
               <Component appearance="subtle">Subtle Button</Component>
             </ButtonGroup>
           </ButtonTheme.Provider>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ marginTop: '1rem' }}>
             <Label htmlFor={selectId}>Select a theme</Label>
             <Select

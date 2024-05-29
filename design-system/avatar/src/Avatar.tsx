@@ -399,8 +399,11 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
         role={containerShouldBeImage ? 'img' : undefined}
         aria-labelledby={containerShouldBeImage ? `${uuid}-label` : undefined}
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'inline-block',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'relative',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           outline: 0,
           zIndex: stackIndex,
         }}

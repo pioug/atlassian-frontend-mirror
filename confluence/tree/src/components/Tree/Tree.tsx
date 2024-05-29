@@ -346,6 +346,7 @@ export default class Tree extends Component<Props, State> {
             return (
               <div
                 ref={finalProvided.innerRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 style={{ pointerEvents: 'auto' }}
                 onTouchMove={this.onPointerMove}
                 onMouseMove={this.onPointerMove}

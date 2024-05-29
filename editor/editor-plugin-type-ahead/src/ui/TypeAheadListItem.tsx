@@ -151,6 +151,7 @@ const CustomItemComponentWrapper = React.memo(
         aria-posinset={itemIndex}
         tabIndex={0}
         css={listItemClasses}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={`ak-typeahead-item ${
           isSelected ? 'typeahead-selected-item' : ''
         }`}
@@ -259,6 +260,7 @@ export const TypeAheadListItem = React.memo(
           <div aria-hidden={true}>
             <div css={itemText}>
               <div css={itemBody}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
                 <div className="item-title">{item.title}</div>
                 <div css={itemAfter}>
                   {item.keyshortcut && (
@@ -266,6 +268,7 @@ export const TypeAheadListItem = React.memo(
                   )}
                 </div>
               </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <div className="item-description">{item.description}</div>
             </div>
           </div>

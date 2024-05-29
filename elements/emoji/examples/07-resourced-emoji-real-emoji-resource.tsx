@@ -86,6 +86,7 @@ class ResourcedFilteredEmojiList extends PureComponent<
     const { emojiProvider, fitToHeight } = this.props;
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <p style={{ padding: '10px', lineHeight: '24px' }}>
         {emojis.map((emoji) => (
           <ResourcedEmoji

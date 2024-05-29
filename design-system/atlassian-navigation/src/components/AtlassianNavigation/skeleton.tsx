@@ -18,13 +18,13 @@ const containerStyles = css({
   display: 'flex',
   boxSizing: 'border-box',
   height: HORIZONTAL_GLOBAL_NAV_HEIGHT,
-  paddingRight: token('space.150', '12px'),
-  paddingLeft: token('space.150', '12px'),
   position: 'relative',
   alignItems: 'center',
   justifyContent: 'space-between',
   flexShrink: 0,
-  borderBottom: `1px solid ${token('color.border', N30)}`,
+  borderBlockEnd: `1px solid ${token('color.border', N30)}`,
+  paddingInlineEnd: token('space.150', '12px'),
+  paddingInlineStart: token('space.150', '12px')
 });
 
 const leftStyles = css({
@@ -45,9 +45,9 @@ const rightStyles = css({
   flexShrink: 0,
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > *': {
-    marginRight: token('space.050', '4px'),
-    flexShrink: 0,
-  },
+  flexShrink: 0,
+  marginInlineEnd: token('space.050', '4px')
+},
 });
 
 /**
@@ -74,6 +74,7 @@ export const NavigationSkeleton = ({
   return (
     <ThemeProvider value={theme}>
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={theme.mode.navigation as React.CSSProperties}
         css={containerStyles}
         data-testid={testId}

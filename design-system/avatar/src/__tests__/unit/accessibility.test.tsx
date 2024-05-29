@@ -72,6 +72,7 @@ it('Basic Avatar examples (circle, square, disabled, with presence, with status)
 
 it('Avatar Item examples should not fail aXe audit', async () => {
   const { container } = render(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div id="avatar-item-examples" style={{ display: 'flex' }}>
       <div>
         <h2>onClick</h2>

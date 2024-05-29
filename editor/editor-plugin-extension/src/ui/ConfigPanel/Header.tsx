@@ -126,12 +126,14 @@ const Header = ({
           {summary ? (
             <div css={itemTextStyles}>
               <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className="item-title"
                 id="context-panel-title"
                 data-testid="context-panel-title"
               >
                 {title}
               </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <div className="item-summary">{summary}</div>
             </div>
           ) : (

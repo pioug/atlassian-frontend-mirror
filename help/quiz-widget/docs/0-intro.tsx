@@ -13,9 +13,11 @@ export default md`
 
 ${(
   <>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ marginBottom: '0.5rem' }}>
       <AtlassianInternalWarning />
     </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ marginTop: '0.5rem' }}>
       <DevPreviewWarning />
     </div>

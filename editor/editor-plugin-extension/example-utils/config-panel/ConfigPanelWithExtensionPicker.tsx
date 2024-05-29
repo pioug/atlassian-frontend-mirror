@@ -182,6 +182,7 @@ export default function ConfigPanelWithExtensionPicker({
   return (
     <IntlProvider locale="en-AU">
       <Box xcss={wrapperStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ float: 'left' }} key="panel">
           {extensionNode?.node && item && (
             <ExtensionConfigPanel
@@ -195,6 +196,7 @@ export default function ConfigPanelWithExtensionPicker({
             />
           )}
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ float: 'right' }} key="picker">
           <ExtensionNodePicker
             selectedExtension={extensionKey}

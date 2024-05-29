@@ -4,6 +4,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { type CardWithUrlContentProps } from './types';
+import { SmartLinkModalProvider } from '../../state/modal';
 import { combineFrameStyle, isSpecialEvent } from '../../utils';
 import * as measure from '../../utils/performance';
 import {
@@ -20,7 +21,10 @@ import {
 import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
 import { InlineCard } from '../InlineCard';
-import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
+import {
+  type InvokeClientOpts,
+  type InvokeServerOpts,
+} from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import FlexibleCard from '../FlexibleCard';
@@ -380,8 +384,14 @@ export const CardWithUrlContent = (props: CardWithUrlContentProps) => {
     : props.appearance;
 
   return (
-    <SmartLinkAnalyticsContext url={props.url} id={props.id} display={display}>
-      <Component {...props} />
-    </SmartLinkAnalyticsContext>
+    <SmartLinkModalProvider>
+      <SmartLinkAnalyticsContext
+        url={props.url}
+        id={props.id}
+        display={display}
+      >
+        <Component {...props} />
+      </SmartLinkAnalyticsContext>
+    </SmartLinkModalProvider>
   );
 };

@@ -124,6 +124,7 @@ export const TableFloatingColumnControls = ({
   return (
     <div
       ref={containerRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={ClassName.DRAG_COLUMN_CONTROLS_WRAPPER}
       data-testid="table-floating-column-controls-wrapper"
     >

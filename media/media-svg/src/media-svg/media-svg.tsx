@@ -36,6 +36,7 @@ export const Loading = ({ dimensions }: LoadingProps) => {
     <span
       role="status"
       css={[commonStyles, loadingStyles]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ width, height }}
     >
       <Spinner />
@@ -73,6 +74,7 @@ const SvgRenderer = ({
       src={svgUrl}
       alt={alt}
       css={[commonStyles, svgRendererStyles]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ width, height }}
       onError={() => {
         onError && onError(new MediaSVGError('img-error'));

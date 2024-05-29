@@ -76,6 +76,7 @@ export default function FloatingToolbar({
         // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         css={container(fitHeight)}
         data-testid="popup-container"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={className}
       >
         {children}

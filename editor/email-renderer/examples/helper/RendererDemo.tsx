@@ -104,18 +104,27 @@ export default class RendererDemo extends React.Component<
 
   render() {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div ref="root" style={{ padding: token('space.250', '20px') }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <fieldset style={{ marginBottom: token('space.250', '20px') }}>
           <legend>Input</legend>
           <textarea
             id="renderer-value-input"
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               boxSizing: 'border-box',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               border: '1px solid lightgray',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               fontFamily: 'monospace',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               fontSize: 16,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               padding: token('space.150', '12px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               height: 320,
             }}
             ref={(ref) => {
@@ -129,6 +138,7 @@ export default class RendererDemo extends React.Component<
               Copy HTML to clipboard
             </button>
             <textarea
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={{ width: '0px', height: '0px' }}
               ref={(ref) => {
                 this.emailTextareaRef = ref;
@@ -175,6 +185,7 @@ export default class RendererDemo extends React.Component<
             ref={this.onEmailRef}
             frameBorder="0"
             src="about:blank"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ width: '100%', height: '800px' }}
           />
         </div>

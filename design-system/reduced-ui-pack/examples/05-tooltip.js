@@ -13,6 +13,7 @@ export default () => (
     </p>
     <h2>Button triggers</h2>
     <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="ak-button ak-button__appearance-default"
       data-ak-tooltip="Oh hi there"
       data-ak-tooltip-position="top"
@@ -20,6 +21,7 @@ export default () => (
       Top
     </button>
     <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="ak-button ak-button__appearance-default"
       data-ak-tooltip="Oh hi there"
       data-ak-tooltip-position="right"
@@ -27,6 +29,7 @@ export default () => (
       Right
     </button>
     <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="ak-button ak-button__appearance-default"
       data-ak-tooltip="Oh hi there"
       data-ak-tooltip-position="bottom"
@@ -34,6 +37,7 @@ export default () => (
       Bottom
     </button>
     <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="ak-button ak-button__appearance-default"
       data-ak-tooltip="Oh hi there"
       data-ak-tooltip-position="left"
@@ -41,6 +45,7 @@ export default () => (
       Left
     </button>
     <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="ak-button ak-button__appearance-default"
       data-ak-tooltip="Oh hi there I am a tooltip with way too much text, let us see how I behave!"
       data-ak-tooltip-position="top"

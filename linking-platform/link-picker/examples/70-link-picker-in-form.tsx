@@ -72,6 +72,7 @@ function Basic() {
 
   return (
     <Fragment>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ paddingBottom: token('space.250', '20px') }}>
         <p>
           Open the isolated view and ensure React 18 is being used

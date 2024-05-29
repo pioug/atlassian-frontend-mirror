@@ -46,6 +46,7 @@ describe('Code', () => {
 
   it('should style code container with a red color', () => {
     const { getByTestId } = render(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <Code testId="style-property" style={{ color: 'red' }}>
         {pyCode}
       </Code>,

@@ -46,6 +46,7 @@ export const buttonContainerStyles: SerializedStyles = css({
   backgroundColor: token('elevation.surface', N0),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments -- Ignored via go/DSP-18766
 export const backButtonStyles: SerializedStyles = css([
   buttonContainerStyles,
   {
@@ -53,6 +54,7 @@ export const backButtonStyles: SerializedStyles = css([
   },
 ]);
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments -- Ignored via go/DSP-18766
 export const nextButtonStyles: SerializedStyles = css([
   buttonContainerStyles,
   {

@@ -50,7 +50,9 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
       : false;
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <div className={ClassName.ROW_CONTROLS}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className={ClassName.ROW_CONTROLS_INNER}>
           {rowsParams.map(
             ({ startIndex, endIndex, height }: RowParams, index) => {
@@ -71,6 +73,7 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
 
               return (
                 <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                   className={`${
                     ClassName.ROW_CONTROLS_BUTTON_WRAP
                   } ${getRowClassNames(
@@ -99,6 +102,7 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
                   <button
                     aria-label={formatMessage(messages.rowControl)}
                     type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                     className={`${ClassName.ROW_CONTROLS_BUTTON} ${ClassName.CONTROLS_BUTTON}`}
                     onClick={(event) =>
                       this.props.selectRow(startIndex, event.shiftKey)
@@ -109,6 +113,7 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
                     data-end-index={endIndex}
                   />
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
                   <div className={ClassName.CONTROLS_INSERT_MARKER} />
                 </div>
               );

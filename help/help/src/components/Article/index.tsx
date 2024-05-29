@@ -168,8 +168,11 @@ export const Article = () => {
           <ArticleContainer
             ref={articleContainerRef}
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               ...defaultStyle,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               ...transitionStyles[state],
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               ...enableTransition[
                 !skipArticleSlideInAnimation ? 'enabled' : 'disabled'
               ],

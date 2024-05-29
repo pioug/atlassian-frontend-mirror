@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 81.1.2
+
+### Patch Changes
+
+-   [#103169](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103169)
+    [`e9d45fc94064`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9d45fc94064) -
+    [ED-23248] -
+
+    **@af/editor-libra:** Added profilecardPopupName locator to Mention Model
+    **@atlaskit/editor-test-helpers:** Added optional profilecard provider mock for examples
+    **@atlaskit/editor-common:** Exporting mention with profile card component
+
+-   [#103816](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103816)
+    [`3fb50173376f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fb50173376f) -
+    [ED-23159] Added blending styling for when highlights overlap inline comments
+-   Updated dependencies
+
 ## 81.1.1
 
 ### Patch Changes

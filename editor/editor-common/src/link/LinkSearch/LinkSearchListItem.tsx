@@ -128,6 +128,7 @@ class LinkSearchListItem extends React.PureComponent<
         <Fragment>
           &nbsp; •
           <span
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="link-search-timestamp"
             data-test-id="link-search-timestamp"
           >

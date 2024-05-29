@@ -267,6 +267,7 @@ export default () => {
               {items.map((item, index) => (
                 <tr css={tableRowStyles} key={index}>
                   <td>{item.type}</td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
                   <td style={item.style}>
                     {item.variations.map((variation, index) => (
                       <RenderDiv key={index}>

@@ -295,6 +295,7 @@ export class TimeRangeBase extends Component<
                   <CurrentTimeTooltip
                     draggable={false}
                     isDragging={isDragging}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                     className="current-time-tooltip"
                   >
                     {formatDuration(currentTime)}
@@ -307,6 +308,7 @@ export class TimeRangeBase extends Component<
                   <CurrentTimeTooltip
                     draggable={false}
                     isDragging={isDragging}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                     className="current-time-tooltip"
                   >
                     {formatDuration(currentTime)}

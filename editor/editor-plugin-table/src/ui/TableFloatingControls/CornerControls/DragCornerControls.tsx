@@ -50,6 +50,7 @@ const DragCornerControlsComponent = ({
 
   return (
     <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={classnames(ClassName.DRAG_CORNER_BUTTON, {
         active: isActive,
         danger: isActive && isInDanger,
@@ -60,6 +61,7 @@ const DragCornerControlsComponent = ({
       onMouseOut={handleMouseOut}
       contentEditable={false}
     >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
       <div className={ClassName.DRAG_CORNER_BUTTON_INNER} />
     </button>
   );
@@ -101,6 +103,7 @@ const DragCornerControlsComponentWithSelection = ({
 
   return (
     <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={classnames(ClassName.DRAG_CORNER_BUTTON, {
         active: isActive,
         danger: isActive && isInDanger,
@@ -111,6 +114,7 @@ const DragCornerControlsComponentWithSelection = ({
       onMouseOut={handleMouseOut}
       contentEditable={false}
     >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
       <div className={ClassName.DRAG_CORNER_BUTTON_INNER} />
     </button>
   );

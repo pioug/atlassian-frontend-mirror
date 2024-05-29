@@ -44,11 +44,13 @@ const FileChooser = (props: Props) => {
         {label}
       </AkButton>
       <input
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="emojiUploadFileInput"
         ref={filePickerRef}
         onChange={onChange}
         type="file"
         accept={accept}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ display: 'none' }}
         data-testid={fileUploadInputTestId}
       />

@@ -41,6 +41,7 @@ export const HiddenInput = React.forwardRef<HTMLInputElement, InputProps>(
   // we need a hidden input to reliably copy to clipboard across all browsers.
   (props, ref) => (
     <input
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ position: 'absolute', left: '-9999px' }}
       tabIndex={-1}
       aria-hidden={true}
@@ -132,6 +133,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
         {/* Added ARIA live region specifically for VoiceOver + Safari since the status */}
         {/* message 'Link copied to clipboard' is not announced by VO */}
         {isSafari && (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           <div className="assistive" aria-live="assertive">
             {shouldShowCopiedMessage && copiedToClipboardText}
           </div>

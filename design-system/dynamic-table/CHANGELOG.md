@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 14.17.1
+
+### Patch Changes
+
+-   [#101939](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101939)
+    [`07080a7364c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07080a7364c9) -
+    Update dimension and font size values to be in rem. Internal change to use typography tokens.
+
 ## 14.17.0
 
 ### Minor Changes

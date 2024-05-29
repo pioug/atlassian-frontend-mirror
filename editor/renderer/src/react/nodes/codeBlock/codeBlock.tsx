@@ -44,6 +44,7 @@ function CodeBlock(props: Props & WrappedComponentProps) {
     <CodeBlockContainer
       allowCopyToClipboard={allowCopyToClipboard}
       allowWrapCodeBlock={allowWrapCodeBlock}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
       setWrapLongLines={setWrapLongLines}
       text={text}

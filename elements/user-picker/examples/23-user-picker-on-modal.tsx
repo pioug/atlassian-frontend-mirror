@@ -64,6 +64,7 @@ const Example = () => {
                       isCloseMenuOnScroll ? closeMenuOnScroll : false
                     }
                   />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
                   <div style={{ height: '100vh' }} />
                 </>
               )}

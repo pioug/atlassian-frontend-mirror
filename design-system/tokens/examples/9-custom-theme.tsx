@@ -181,11 +181,14 @@ export default () => {
     return (
       <code
         style={{
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           backgroundColor: color,
           color: getContrastRatio('#ffffff', color) >= 4.5 ? 'white' : 'black',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           borderRadius: '24px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           padding: '0 4px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           whiteSpace: 'nowrap',
         }}
       >
@@ -200,6 +203,7 @@ export default () => {
       <Stack space={'space.200'}>
         <Box
           padding="space.200"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ width: 'fit-content' }}
           xcss={xcss({
             borderColor: 'color.border',

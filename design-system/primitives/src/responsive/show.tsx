@@ -77,6 +77,7 @@ export const Show = ({
 
   return (
     <AsElement
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={resolvedStyles.static}
       css={[
         defaultHiddenStyles,

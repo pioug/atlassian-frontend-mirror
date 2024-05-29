@@ -4,6 +4,7 @@ import { jsx } from '@emotion/react';
 import { type FC, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useSmartLinkAnalytics } from '../../state/analytics';
+import { SmartLinkModalProvider } from '../../state/modal';
 import { HoverCardComponent } from './components/HoverCardComponent';
 import { type HoverCardInternalProps, type HoverCardProps } from './types';
 import { CardDisplay } from '../../constants';
@@ -37,7 +38,9 @@ const HoverCardWithErrorBoundary: FC<
 
   return (
     <ErrorBoundary fallback={children} onError={onError}>
-      <HoverCardComponent {...props}>{children}</HoverCardComponent>
+      <SmartLinkModalProvider>
+        <HoverCardComponent {...props}>{children}</HoverCardComponent>
+      </SmartLinkModalProvider>
     </ErrorBoundary>
   );
 };

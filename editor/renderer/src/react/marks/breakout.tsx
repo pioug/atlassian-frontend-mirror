@@ -21,6 +21,7 @@ export default function Breakout(props: MarkProps<BreakoutMarkAttrs>) {
           css={wrapperStyles}
           data-mode={props.mode}
           style={{ width: calcBreakoutWidth(props.mode, width) }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="fabric-editor-breakout-mark fabric-editor-block-mark"
         >
           {props.children}

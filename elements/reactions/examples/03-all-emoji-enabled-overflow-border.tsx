@@ -11,6 +11,7 @@ export default () => {
       {(store: StorePropInput) => (
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             width: '300px',
             border: `1px solid ${token('color.border', '#777')}`,
           }}

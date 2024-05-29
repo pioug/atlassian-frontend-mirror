@@ -118,6 +118,7 @@ export default class ProgressTrackerStage extends PureComponent<
     return (
       <li
         data-testid={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={listInlineStyles}
         css={listItemStyles}
         aria-current={ariaCurrent}

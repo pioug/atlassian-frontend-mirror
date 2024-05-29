@@ -22,8 +22,11 @@ export default () => (
   <Provider storeOptions={storeOptions} client={new Client('stg')}>
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         width: '680px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         margin: '0 auto',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         marginTop: token('space.800', '64px'),
       }}
     >

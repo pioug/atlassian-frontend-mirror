@@ -73,9 +73,7 @@ export type RendererWrapperProps = {
 
 export const TELEPOINTER_ID = 'ai-streaming-telepointer';
 
-const telepointerStyles = () => {
-  const { colorMode } = getGlobalTheme();
-
+const telepointerStyles = (colorMode?: 'light' | 'dark') => {
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   return css`
     #${TELEPOINTER_ID} {
@@ -463,6 +461,7 @@ const getShadowOverrides = () => {
 
 export const rendererStyles =
   (wrapperProps: RendererWrapperProps) => (theme: Theme) => {
+    const { colorMode } = getGlobalTheme();
     // This is required to be compatible with styled-components prop structure.
     const themeProps = { theme };
     const { useBlockRenderForCodeBlock } = wrapperProps;
@@ -537,7 +536,7 @@ export const rendererStyles =
         color: ${token('color.text.subtlest', colors.N200)};
       }
 
-      ${telepointerStyles()}
+      ${telepointerStyles(colorMode)}
       ${whitespaceSharedStyles};
       ${blockquoteSharedStyles};
       ${headingsSharedStyles()};
@@ -550,7 +549,7 @@ export const rendererStyles =
       ${shadowSharedStyle};
       ${dateSharedStyle};
       ${textColorStyles};
-      ${backgroundColorStyles};
+      ${backgroundColorStyles(colorMode)};
       ${tasksAndDecisionsStyles};
       ${smartCardSharedStyles}
 

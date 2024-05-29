@@ -55,7 +55,7 @@
     "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/section-message": "^6.5.0",
-    "@atlaskit/select": "^17.9.0",
+    "@atlaskit/select": "^17.10.0",
     "@atlaskit/textarea": "^5.4.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",

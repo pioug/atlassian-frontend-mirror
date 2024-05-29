@@ -8,6 +8,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 
 import type { HighlightPlugin } from './plugin';
+import { getActiveColor } from './utils/color';
 import { getDisabledState } from './utils/disabled';
 
 export const highlightPluginKey = new PluginKey<HighlightPluginState>(
@@ -56,12 +57,10 @@ export const createPlugin = ({
           default:
             nextState = {
               ...pluginState,
+              activeColor: getActiveColor(tr),
               disabled: getDisabledState(newState),
             };
-            if (pluginState && pluginState.disabled !== nextState.disabled) {
-              return nextState;
-            }
-            return pluginState;
+            return nextState;
         }
       },
     },

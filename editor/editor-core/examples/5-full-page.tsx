@@ -467,6 +467,7 @@ export class ExampleEditorComponent extends React.Component<
                           <Button
                             isDisabled={!actions}
                             onClick={this.onCopyLinkWithContent}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                             style={{ marginRight: token('space.050', '4px') }}
                           >
                             Copy link
@@ -574,10 +575,15 @@ export class ExampleEditorComponent extends React.Component<
           {this.state.warning && (
             <div
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 position: 'fixed',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 top: token('space.1000', '80px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 right: token('space.200', '16px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 width: 400,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 zIndex: 100,
               }}
             >
@@ -699,9 +705,12 @@ const Renderer = (props: ExampleRendererProps) => {
         appearance="primary"
         onClick={() => props.setMode(true)}
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'absolute',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           right: '0',
           margin: `0 ${token('space.250', '20px')}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           zIndex: 100,
         }}
         testId="edit-button"
@@ -792,6 +801,7 @@ export function FullPageExample(props: ExampleProps) {
 
   return (
     <EditorContext>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ height: '100%' }}>
         <DevTools />
         {isEditingMode ? (

@@ -146,14 +146,17 @@ export default () => {
       <h2>Elevations & Surfaces</h2>
       <h3>Non-interactive surfaces</h3>
       {Object.entries(nonInteractiveStyles).map(([key, styles]) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <Box key={key} style={styles} text={styles.label || key} />
       ))}
       <h3>Interactive elevations (approach 1: background change)</h3>
       {Object.entries(interactiveBackgroundStyles).map(([key, styles]) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <Box key={key} style={styles} text={styles.label || key} />
       ))}
       <h3>Interactive elevations (approach 2: elevation change)</h3>
       {Object.entries(interactiveElevationStyles).map(([key, styles]) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <Box key={key} style={styles} text={styles.label || key} />
       ))}
     </div>

@@ -119,23 +119,31 @@ export const SmartLinksShowcase = () => {
         >
           <div
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               padding: token('space.800', '64px'),
               // we hardcode the padding bottom to account for the spacing of the floating bar on the example page
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               paddingBottom: '120px',
             }}
           >
             <div
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 textAlign: 'center',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 paddingTop: token('space.300', '24px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 paddingBottom: token('space.1000', '80px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 position: 'relative',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 zIndex: 1,
               }}
             >
               <h1>✨ Smart Links Showcase ✨</h1>
               <h3
                 style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   color: token('color.text.subtlest', N200),
                 }}
               >
@@ -144,6 +152,7 @@ export const SmartLinksShowcase = () => {
               </h3>
               {helpMessageUrl}
             </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <div style={{ zIndex: 1, position: 'relative' }}>
               {Object.entries(urlsByCategory)
                 .sort(([categoryA], [categoryB]) =>

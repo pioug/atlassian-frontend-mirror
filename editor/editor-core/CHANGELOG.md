@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 193.24.0
+
+### Minor Changes
+
+-   [#103169](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103169)
+    [`e9d45fc94064`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9d45fc94064) -
+    [ux] [ED-23248] -
+
+    **@atlaskit/editor-core**: Added optional profilecardProvider to Mention plugin in universal
+    composable editor **@atlaskit/editor-plugin-mentions**: Made mentions render with profile cards
+    on click if the feature flag: `platform.editor.mentions-in-editor-popup-on-click` is turned on
+
+### Patch Changes
+
+-   [#103816](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103816)
+    [`3fb50173376f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fb50173376f) -
+    [ED-23159] Added blending styling for when highlights overlap inline comments
+
 ## 193.23.1
 
 ### Patch Changes

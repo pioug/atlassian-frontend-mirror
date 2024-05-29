@@ -32,6 +32,7 @@ export class Content extends Component<ContentProps> {
             });
             return (
               <>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
                 <CloseButtonWrapper className={hideControlsClassName}>
                   <MediaButton
                     testId="media-viewer-close-button"

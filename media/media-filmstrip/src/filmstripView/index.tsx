@@ -483,6 +483,7 @@ export class FilmstripView extends React.Component<
         >
           <FilmStripList
             ref={this.handleBufferElementChange}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ transform, transitionProperty, transitionDuration }}
           >
             {React.Children.map(children, mapReactChildToReactNode)}

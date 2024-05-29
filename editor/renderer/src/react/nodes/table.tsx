@@ -475,6 +475,7 @@ export class TableContainer extends React.Component<
     return (
       <>
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
             this.props.shadowClassNames || ''
           }`}
@@ -512,6 +513,7 @@ export class TableContainer extends React.Component<
             </StickyTable>
           )}
           <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={TableSharedCssClassName.TABLE_NODE_WRAPPER}
             ref={this.wrapperRef}
             onScroll={this.props.stickyHeaders && this.onWrapperScrolled}

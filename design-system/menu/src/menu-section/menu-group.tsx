@@ -53,6 +53,7 @@ const MenuGroup = ({
         css={baseStyles}
         data-testid={testId}
         role={role}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={
           getBooleanFF(
             'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',

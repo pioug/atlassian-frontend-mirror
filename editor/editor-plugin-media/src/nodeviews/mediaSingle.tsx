@@ -446,6 +446,7 @@ export default class MediaSingleNode extends Component<
       <figure
         ref={this.mediaSingleWrapperRef}
         css={figureWrapperStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={MediaSingleNodeSelector}
         onClick={this.onMediaSingleClicked}
       >

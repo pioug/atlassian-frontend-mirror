@@ -159,6 +159,7 @@ const Checkbox = memo(
       value,
       isRequired,
       testId,
+      xcss,
       ...rest
     } = props;
 
@@ -198,6 +199,10 @@ const Checkbox = memo(
         label={label as string}
         id={rest.id ? `${rest.id}-label` : undefined}
         testId={testId && `${testId}--checkbox-label`}
+        // Currently the rule hasn't been updated to enable "allowed" dynamic pass-throughs.
+        // When there is more usage of this pattern we'll update the lint rule.
+        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+        xcss={xcss}
       >
         <input
           // It is necessary only for Safari. It allows to render focus styles.

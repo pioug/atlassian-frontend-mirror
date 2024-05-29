@@ -184,6 +184,7 @@ export const Reaction = ({
         isEnabled={isTooltipEnabled}
       >
         <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={className}
           css={[reactionStyle, reaction.reacted && reactedStyle]}
           aria-label={intl.formatMessage(messages.reactWithEmoji, {

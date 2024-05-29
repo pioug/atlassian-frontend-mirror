@@ -263,7 +263,9 @@ export const SpriteEmoji = (props: Props) => {
   };
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <EmojiNodeWrapper {...props} type="sprite" className={classes}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766  */}
       <span className={emojiSprite} style={style}>
         &nbsp;
       </span>
@@ -381,7 +383,9 @@ export const ImageEmoji = (props: Props) => {
       data-emoji-short-name={emoji.shortName}
       data-emoji-id={emoji.id}
       data-emoji-text={emoji.fallback || emoji.shortName}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="emoji"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ visibility: 'visible' }}
       onError={onError}
       onLoad={onLoad}
@@ -401,6 +405,7 @@ export const ImageEmoji = (props: Props) => {
           {...props}
           aria-labelledby={`screenreader-emoji-${emoji.id}`}
           type="image"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={classes}
           ref={ref}
           showTooltip={false} // avoid showing both tooltip and title
@@ -422,6 +427,7 @@ export const ImageEmoji = (props: Props) => {
   }
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <EmojiNodeWrapper {...props} type="image" className={classes} ref={ref}>
       {emojiNode}
     </EmojiNodeWrapper>
@@ -478,6 +484,7 @@ export const EmojiNodeWrapper = forwardRef<
       data-emoji-type={type}
       tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
       css={type === 'sprite' ? emojiSpriteContainer : emojiImageContainer}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
       onKeyDown={(event) => handleKeyDown(props, event)}
       onMouseDown={(event) => {

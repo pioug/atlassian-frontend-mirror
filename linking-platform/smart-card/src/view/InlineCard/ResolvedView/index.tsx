@@ -47,6 +47,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
         <Lozenge
           testId="inline-card-resolved-view-lozenge"
           appearance={appearance}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={lozenge.style}
           isBold={lozenge.isBold}
         >

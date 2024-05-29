@@ -12,6 +12,7 @@ export default () => {
   const PopupContent = () => {
     const [date, setDate] = useState('');
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div id="popup-content" style={{ width: '500px', height: '500px' }}>
         <Label htmlFor="text3"> first field</Label>
         <input id="text3" type="text" />

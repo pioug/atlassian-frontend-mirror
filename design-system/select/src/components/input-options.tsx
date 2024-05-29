@@ -197,7 +197,7 @@ class ControlOption<
     return (
       // These need to remain this way because `react-select` passes props with
       // styles inside, and that must be done dynamically.
-      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <div css={styles} className={classes} ref={innerRef} {...props}>
         <div
           css={[

@@ -122,6 +122,7 @@ const GridColumn = ({
     <GridColumnContext.Provider value={contextValue}>
       <div
         css={[gridColumnStyles, gridColumnWidthStyles[variant]]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={
           {
             /**

@@ -56,6 +56,7 @@ export default class ConfigurableMentionPicker extends React.Component<
           <textarea
             id="mention-urls"
             rows={15}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ width: '400px' }}
             onChange={this.mentionConfigChange}
             defaultValue={serializeJavascript(this.props.config).replace(

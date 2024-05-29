@@ -57,6 +57,7 @@ class Example extends Component<any, ExampleState> {
               isAlwaysActive={false}
             />
           </TimeRangeWrapper>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <TimeRangeWrapper style={{ marginLeft: 100, width: 500 }}>
             <TimeRange
               currentTime={currentTime3}

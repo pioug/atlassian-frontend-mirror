@@ -1,0 +1,58 @@
+{
+  "extends": "../../../../tsconfig.products.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__button/app",
+    "composite": true,
+    "rootDir": "../",
+    "baseUrl": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../ds-lib/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../focus-ring/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../observability/interaction-context/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../primitives/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../spinner/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../tokens/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../tooltip/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../visually-hidden/afm-jira/tsconfig.json"
+    }
+  ]
+}

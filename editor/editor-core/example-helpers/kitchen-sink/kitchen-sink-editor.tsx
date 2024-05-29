@@ -52,7 +52,9 @@ export const KitchenSinkEditor = React.memo((props: KitchenSinkEditorProps) => {
   );
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div css={popupWrapper} className="popups-wrapper">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <PopUps ref={props.setPopupRef} className="popups" />
       <ValidatingKitchenSinkEditor
         actions={props.actions}

@@ -1,5 +1,37 @@
 # @atlaskit/smart-card
 
+## 27.2.1
+
+### Patch Changes
+
+-   [#103165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103165)
+    [`ea89f19613e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea89f19613e2) -
+    Create modal context to fix issue where action modal triggered from hover card disappears when
+    hover card disappears
+
+## 27.2.0
+
+### Minor Changes
+
+-   [#104135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104135)
+    [`c78fc8b1e424`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c78fc8b1e424) -
+    [ux] FF clean up for ActionOptions disabled within Jira
+
+### Patch Changes
+
+-   [#103703](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103703)
+    [`84a7f7c6ea21`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84a7f7c6ea21) -
+    EDM-9887: add resolved view for related-links-modal which renders items in a list for incoming
+    and outgoing links
+
+## 27.1.0
+
+### Minor Changes
+
+-   [#103506](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103506)
+    [`651f63e757d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/651f63e757d1) -
+    Converted to the public api for manual triggers in the automation action.
+
 ## 27.0.0
 
 ### Major Changes

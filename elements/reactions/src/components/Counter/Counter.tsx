@@ -94,6 +94,7 @@ export const Counter = ({
 
   return (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
       data-testid={RENDER_COMPONENT_WRAPPER}
       css={countStyle}
@@ -115,6 +116,7 @@ export const Counter = ({
                     position: direction === 'exiting' ? 'absolute' : undefined,
                   }),
                 ]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className={motion.className}
                 data-testid={RENDER_COUNTER_TESTID}
               >

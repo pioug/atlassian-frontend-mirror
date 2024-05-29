@@ -11,12 +11,17 @@ import NestedDropdownMenuExample from './12-nested-dropdown';
 export default () => (
   <div
     style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       flexDirection: 'column',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       gap: '25px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       margin: '25px',
     }}
   >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ display: 'flex', gap: '25px' }}>
       <Stack>
         <Label htmlFor="toggle-1">Allow pull requests</Label>

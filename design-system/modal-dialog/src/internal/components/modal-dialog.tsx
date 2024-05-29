@@ -152,6 +152,7 @@ const ModalDialog = (
                   {...bottomFadeInProps}
                   aria-label={label}
                   ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   style={
                     {
                       '--modal-dialog-width': dialogWidth(width),

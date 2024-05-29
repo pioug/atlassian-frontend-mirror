@@ -8,12 +8,10 @@ import {
   SpecialEventType,
 } from './apiTypes';
 import { EventType, type Protocol, type SubscribeServiceResponse } from './types';
-import PubNubProtocol from './protocols/pubnub';
 import NoopProtocol from './protocols/noop';
 import APSProtocol from './protocols/aps';
 import { logDebug, logError, logInfo } from './util/logger';
 import { utils as serviceUtils } from '@atlaskit/util-service-support';
-import { FeatureFlags } from './featureFlags';
 
 const PLATFORM = 'WEB';
 const version = process.env._PACKAGE_VERSION_;
@@ -50,13 +48,10 @@ export class Client implements ActionablePubSubClient {
     },
   };
 
-  private readonly featureFlags: FeatureFlags;
-
   constructor(config: PubSubClientConfig, protocols?: Protocol[]) {
     this.config = config;
-    this.featureFlags = new FeatureFlags(this.config.featureFlags);
     if (!protocols) {
-      protocols = [new PubNubProtocol(this.featureFlags)];
+      protocols = [];
       if (config.apsProtocol?.enabled) {
         protocols.push(
           new APSProtocol(

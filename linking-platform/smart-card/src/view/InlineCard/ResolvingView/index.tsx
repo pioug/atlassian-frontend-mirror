@@ -43,6 +43,7 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
           <IconTitleWrapper>
             {url}
             <RightIconPositionWrapper>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <SpinnerWrapper className="inline-resolving-spinner">
                 <Spinner size={14} />
               </SpinnerWrapper>
@@ -57,6 +58,7 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
             title={url}
             titleTextColor={titleTextColor}
           >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
             <SpinnerWrapper className="inline-resolving-spinner">
               <Spinner size={14} />
             </SpinnerWrapper>

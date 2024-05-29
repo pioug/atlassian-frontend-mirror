@@ -41,6 +41,7 @@ export const InviteToEditButton = (props: InviteToEditButtonProps) => {
     <div css={inviteTeamWrapperStyles}>
       <Wrapper>
         <ToolbarButton
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="invite-to-edit"
           onClick={onClick}
           selected={selected}

@@ -19,6 +19,7 @@ export function LazyLazilyRenderCard(props: CardWithUrlContentProps) {
     <LazilyRender
       offset={offset}
       component={appearance === 'inline' ? 'span' : 'div'}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="loader-wrapper"
       placeholder={<LoadingCardLink {...props} />}
       scrollContainer={container}

@@ -75,6 +75,7 @@ export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>(
         onMouseDown={handleMouseDown}
         onKeyPress={handleKeyPress}
         data-testid={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={className}
         ref={ref}
         isHovered={isHovered}

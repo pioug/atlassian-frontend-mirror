@@ -60,6 +60,7 @@ function Alignment({
       data-testid="alignment-buttons"
       // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       css={alignmentWrapper}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
     >
       {alignmentOptions.map(alignment => {

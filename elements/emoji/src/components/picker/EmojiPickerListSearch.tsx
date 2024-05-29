@@ -52,6 +52,7 @@ export const EmojiPickerListSearch = (props: Props) => {
   }, []);
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div css={[pickerSearch, !isVisible && hidden]} style={style}>
       <VisuallyHidden id="emoji-search-results-status" role="status">
         {dirty &&

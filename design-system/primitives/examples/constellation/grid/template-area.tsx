@@ -15,9 +15,13 @@ export default function Basic() {
         'footer footer footer',
       ]}
     >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <ExampleBox style={{ gridArea: 'navigation' }} />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <ExampleBox style={{ gridArea: 'sidenav' }} />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <ExampleBox style={{ gridArea: 'content' }} />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <ExampleBox style={{ gridArea: 'footer' }} />
     </Grid>
   );

@@ -101,6 +101,7 @@ const StickyToolbar = (props: StickyToolbarProps) => {
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       style={{ top: `${top}px` }}
       data-testid="ak-editor-main-toolbar"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={'show-keyline'}
     >
       {props.children}

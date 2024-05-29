@@ -78,6 +78,7 @@ const WrapperDiv = ({ color, background, children }: WrapperDivProps) => {
   return (
     <div
       css={wrapperDivStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={
         { '--color': color, '--background': background } as React.CSSProperties
       }
@@ -100,6 +101,7 @@ export default () => (
   <Fragment>
     {logoOptions.map((Child, index) => (
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ display: 'flex', marginBottom: token('space.250', '20px') }}
         key={index}
       >

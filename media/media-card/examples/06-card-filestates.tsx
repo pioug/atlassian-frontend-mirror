@@ -44,8 +44,10 @@ const createExample =
         }}
       >
         <h4>{title}</h4>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <h5 style={{ marginBottom: token('space.075', '6px') }}>
           File Status:{' '}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <span style={{ color: token('color.text.danger', R500) }}>
             {fileState?.status || 'unknown'}
           </span>
@@ -172,6 +174,7 @@ const Controls: React.FC<{
   disableOverlay: boolean;
   onCheckboxChange: (e: React.SyntheticEvent<HTMLInputElement>) => void;
 }> = ({ onCheckboxChange, onRestartClick, disableOverlay }) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={{ display: 'flex' }}>
     <Button appearance="primary" onClick={onRestartClick}>
       Restart
@@ -213,8 +216,10 @@ const createSection =
     const { key, SectionControls, cardProps } = useSectionControls();
     return (
       <>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <h3 style={{ marginBottom: token('space.150', '12px') }}>{title}</h3>
         <SectionControls />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div key={key} style={{ display: 'flex', flexWrap: 'wrap' }}>
           {simulations.map((Simulation, index) => (
             <Simulation key={`simulation-${index}`} {...cardProps} />

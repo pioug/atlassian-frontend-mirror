@@ -285,14 +285,20 @@ export default class Example extends React.Component {
       <EditorContext>
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             display: 'grid',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             padding: token('space.150', '12px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             gridTemplateColumns: '1fr 1fr 1fr',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             gridTemplateRows: '1fr 1fr',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             gridGap: '6px 6px',
           }}
         >
           <DevTools />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ gridArea: '1 / 1 / 3 / 3' }}>
             <WithEditorActions
               render={(actions) => {
@@ -307,6 +313,7 @@ export default class Example extends React.Component {
               }}
             />
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ gridArea: '1 / 3 / 2 / 4' }}>
             <h2>ADF</h2>
             <TextArea
@@ -318,6 +325,7 @@ export default class Example extends React.Component {
               minimumRows={20}
             />
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ gridArea: '2 / 3 / 3 / 4' }}>
             <h2>Doc Builder</h2>
             <TextArea

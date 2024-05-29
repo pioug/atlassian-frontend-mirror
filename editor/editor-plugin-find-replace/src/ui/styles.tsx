@@ -15,15 +15,6 @@ import { token } from '@atlaskit/tokens';
 const fontSize = getFontSize();
 const gridSize = getGridSize();
 
-export const replaceSectionButtonNewStyles = css({
-  marginLeft: token('space.050', '4px'),
-  marginRight: token('space.050', '2px'),
-});
-
-export const replaceSectionButtonOldStyles = css({
-  marginLeft: token('space.050', '4px'),
-});
-
 export const ruleStyles = css({
   width: '100%',
   border: 'none',
@@ -124,11 +115,6 @@ export const countWrapperStyles = css({
 export const orderZeroStyles = css({
   order: '0',
   marginInline: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
-});
-
-export const orderZeroDeprecatedStyles = css({
-  order: '0',
-  marginInline: 0,
 });
 
 export const orderOneStyles = css({

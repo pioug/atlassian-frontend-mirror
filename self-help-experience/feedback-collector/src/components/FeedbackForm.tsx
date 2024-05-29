@@ -183,6 +183,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                 )}
               </ModalTitle>
               <Button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 style={{ lineHeight: 'normal' }}
                 spacing={'none'}
                 onClick={onClose}
@@ -197,7 +198,9 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
             <ModalBody>
               <p
                 style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   color: token('color.text.subtle', N300),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   marginBottom: token('space.300', '24px'),
                 }}
               >

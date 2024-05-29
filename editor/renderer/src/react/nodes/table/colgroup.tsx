@@ -236,11 +236,13 @@ export const Colgroup = (props: SharedTableProps) => {
     <colgroup>
       {isNumberColumnEnabled && (
         <col
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ width: akEditorTableNumberColumnWidth }}
           data-test-id={'num'}
         />
       )}
       {colStyles.map((style, idx) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <col key={idx} style={style} />
       ))}
     </colgroup>

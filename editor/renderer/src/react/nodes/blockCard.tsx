@@ -160,6 +160,7 @@ export default function BlockCard(props: {
   return (
     <AnalyticsContext data={analyticsData}>
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="blockCardView-content-wrap"
         data-block-card
         data-card-data={data ? JSON.stringify(data) : undefined}

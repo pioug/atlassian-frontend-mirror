@@ -54,10 +54,13 @@ export const ExternalDropTargets = ({
     <div
       style={{
         width: getTableWrapperWidth(),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         overflow: 'hidden',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         position: 'absolute',
         // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         top: `-${dropTargetExtendedWidth - tableMarginTop}px`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         pointerEvents: 'auto',
         zIndex: `${dropTargetsZIndex}`,
       }}
@@ -65,6 +68,7 @@ export const ExternalDropTargets = ({
     >
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
           // move drop targets based on table wrapper scroll
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview

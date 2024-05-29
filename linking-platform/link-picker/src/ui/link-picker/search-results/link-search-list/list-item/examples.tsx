@@ -9,8 +9,11 @@ const createExample = (props: Partial<LinkSearchListItemProps> = {}) => {
     return (
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           maxWidth: 400,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ['--link-picker-padding-left' as string]: '16px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ['--link-picker-padding-right' as string]: '16px',
         }}
       >

@@ -56,6 +56,7 @@ const Base = ({
 }: BaseProps) => (
   <div
     data-testid={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     style={
       {
         ...style,
@@ -111,6 +112,7 @@ export const TargetOverlay = (props: HTMLAttributes<HTMLDivElement>) => (
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}
     css={targetOverlayStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     style={
       {
         cursor: props.onClick ? 'pointer' : 'auto',

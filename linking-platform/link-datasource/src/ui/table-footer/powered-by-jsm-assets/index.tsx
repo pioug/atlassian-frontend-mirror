@@ -37,7 +37,9 @@ export const PoweredByJSMAssets = (props: { text: string }) => {
         rel="noreferrer"
         target="_blank"
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'inline-flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           alignItems: 'center',
         }}
       >

@@ -20,6 +20,7 @@ describe('InteractionSurface component', () => {
   });
   it('should render given a neutral hover interaction by default', () => {
     const { getByTestId } = render(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ position: 'relative' }}>
         <InteractionSurface testId="surface">hello</InteractionSurface>
       </div>,
@@ -37,6 +38,7 @@ describe('InteractionSurface component', () => {
 
   it('should render given a brand hover interaction by if set as brand', () => {
     const { getByTestId } = render(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ position: 'relative' }}>
         <InteractionSurface appearance="brand.bold" testId="surface">
           hello

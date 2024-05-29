@@ -7,6 +7,7 @@ export default () => {
   return (
     <VRTestCase title="Inline card text wrap">
       {() => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <div style={{ maxWidth: '50px' }}>
           <ResolvedView
             isSelected={false}

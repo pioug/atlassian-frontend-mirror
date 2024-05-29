@@ -198,6 +198,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
         <>
           <ArticleFeedbackContainer>
             <ArticleFeedbackText
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={{ paddingRight: token('space.100', '8px') }}
             >
               {formatMessage(messages.help_article_rating_title)}
@@ -294,7 +295,9 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
         <ArticleFeedbackContainer>
           <span
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               paddingRight: token('space.100', '8px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               verticalAlign: 'middle',
             }}
           >

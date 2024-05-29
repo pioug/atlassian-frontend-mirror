@@ -27,6 +27,7 @@ export const ColumnResizeWidget = ({
   if (!includeTooltip) {
     return (
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={TableCssClassName.RESIZE_HANDLE_DECORATION}
         data-start-index={startIndex}
         data-end-index={endIndex}
@@ -49,6 +50,7 @@ export const ColumnResizeWidget = ({
     >
       {(tooltipProps) => (
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={TableCssClassName.RESIZE_HANDLE_DECORATION}
           data-start-index={startIndex}
           data-end-index={endIndex}

@@ -49,6 +49,7 @@ class Example extends React.Component {
         logLevel={logLevel.level}
       >
         <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button appearance="primary" onClick={this.changeLogLevel}>
               Change log level
@@ -64,12 +65,15 @@ class Example extends React.Component {
               Level: {logLevel.name}
             </div>
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ display: 'block' }}>
             <DummyElementsComponentWithAnalytics onClick={myOnClickHandler} />
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ display: 'block' }}>
             <DummyAtlaskitComponentWithAnalytics onClick={myOnClickHandler} />
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ display: 'block' }}>
             <AtlaskitIncorrectEventType onClick={myOnClickHandler} />
           </div>

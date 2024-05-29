@@ -37,7 +37,7 @@ const productHomeButtonStyles = css({
     border: 0,
   },
   '&:first-of-type': {
-    marginLeft: 0,
+    marginInlineStart: 0,
   },
   '&:active': {
     backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_ACTIVE})`,
@@ -105,18 +105,18 @@ const productIconStyles = css({
 const siteTitleStyles = css({
   display: 'flex',
   width: token('space.500', '40px'),
-  marginRight: token('space.050', '4px'),
-  marginLeft: token('space.050', '4px'),
-  paddingRight: token('space.200', '16px'),
   alignItems: 'center',
   backgroundColor: 'transparent',
+  marginInlineEnd: token('space.050', '4px'),
+  marginInlineStart: token('space.050', '4px'),
+  paddingInlineEnd: token('space.200', '16px'),
   '&:after': {
-    width: '100%',
-    height: 14,
-    backgroundColor: `var(${VAR_SITE_TITLE_BG_COLOR_AFTER})`,
-    borderRadius: token('border.radius', '4px'),
-    content: '""',
-  },
+  width: '100%',
+  height: 14,
+  backgroundColor: `var(${VAR_SITE_TITLE_BG_COLOR_AFTER})`,
+  borderRadius: token('border.radius', '4px'),
+  content: '""'
+}
 });
 
 // Not exported to consumers, only used in NavigationSkeleton
@@ -154,20 +154,24 @@ export const ProductHomeSkeleton = ({
   return (
     <Fragment>
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={productHomeButtonDynamicStyles as React.CSSProperties}
         css={productHomeButtonStyles}
       >
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={theme.mode.skeleton as React.CSSProperties}
           css={productLogoStyles}
         />
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={theme.mode.skeleton as React.CSSProperties}
           css={productIconStyles}
         />
       </div>
       {showSiteName && (
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={siteTitleDynamicStyles as React.CSSProperties}
           css={siteTitleStyles}
         />

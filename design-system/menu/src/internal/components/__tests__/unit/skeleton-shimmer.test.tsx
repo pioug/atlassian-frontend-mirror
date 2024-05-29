@@ -7,6 +7,7 @@ import SkeletonShimmer from '../../skeleton-shimmer';
 describe('<SkeletonShimmer />', () => {
   const childTestId = 'child';
   const children = jest.fn<ReactNode, [{ className?: string }]>(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     ({ className }) => <div data-testid={childTestId} className={className} />,
   );
 

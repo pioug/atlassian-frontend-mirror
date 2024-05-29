@@ -106,6 +106,7 @@ type HeadingProps = {
 };
 
 export const Heading: FC<HeadingProps> = ({ children, className }) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <h6 className={className} css={headingStyles}>
     {children}
   </h6>

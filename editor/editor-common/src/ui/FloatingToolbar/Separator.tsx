@@ -12,4 +12,5 @@ const separator = css({
   alignSelf: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 export default () => <div css={separator} className="separator" />;

@@ -14,6 +14,7 @@ export default () => (
   <>
     {/* These should be replaced by just using a Stack primitive, but can't
     because of a styling issue. See DSP-16480. */}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={containerStyle}>
       <h2>Non-Interactive Elements</h2>
       <Avatar
@@ -35,6 +36,7 @@ export default () => (
         secondaryText="ACME co."
       />
     </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={containerStyle}>
       <h2>Interactive Elements</h2>
       <Tooltip content="John Smith (approved)">

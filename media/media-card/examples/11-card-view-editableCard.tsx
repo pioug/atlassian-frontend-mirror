@@ -239,6 +239,7 @@ export const generateStoriesForEditableCards = () => {
                     Parent dimensions: {parentWidth}x{parentHeight}
                   </div>
                 </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
                 <div css={editableCardContentStyles} style={parentStyle}>
                   <CardView
                     appearance={appearance}

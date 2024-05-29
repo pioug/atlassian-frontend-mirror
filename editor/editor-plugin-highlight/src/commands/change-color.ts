@@ -66,7 +66,7 @@ const createAnalyticsEvent = (
 
   const previousColorLabel = previousColorFromPalette
     ? previousColorFromPalette.label
-    : previousColor || '';
+    : previousColor;
 
   return {
     action: ACTION.FORMATTED,

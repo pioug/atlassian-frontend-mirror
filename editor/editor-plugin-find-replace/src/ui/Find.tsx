@@ -79,10 +79,6 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
   private findNext: string;
   private findPrevious: string;
   private matchCase: string;
-  private matchCaseIcon: JSX.Element;
-  private findNextIcon: JSX.Element;
-  private findPrevIcon: JSX.Element;
-  private closeIcon: JSX.Element;
 
   constructor(props: FindProps & WrappedComponentProps) {
     super(props);
@@ -99,18 +95,6 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
     this.findNext = formatMessage(messages.findNext);
     this.findPrevious = formatMessage(messages.findPrevious);
     this.matchCase = formatMessage(messages.matchCase);
-
-    this.matchCaseIcon = (
-      <MatchCaseIcon
-        label={this.matchCase}
-        size={
-          getBooleanFF('platform.editor.a11y-find-replace') ? 'small' : 'medium'
-        }
-      />
-    );
-    this.findNextIcon = <ChevronDownIcon label={this.findNext} />;
-    this.findPrevIcon = <ChevronUpIcon label={this.findPrevious} />;
-    this.closeIcon = <EditorCloseIcon label={this.closeFindReplaceDialog} />;
 
     // We locally manage the value of the input inside this component in order to support compositions.
     // This requires some additional work inside componentDidUpdate to ensure we support changes that
@@ -288,8 +272,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
             <FindReplaceTooltipButton
               title={this.matchCase}
               appearance="default"
-              icon={this.matchCaseIcon}
-              newIcon={MatchCaseIcon}
+              icon={MatchCaseIcon}
               iconLabel={this.matchCase}
               iconSize={
                 getBooleanFF('platform.editor.a11y-find-replace')
@@ -351,8 +334,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
           </div>
           <FindReplaceTooltipButton
             title={this.matchCase}
-            icon={this.matchCaseIcon}
-            newIcon={MatchCaseIcon}
+            icon={MatchCaseIcon}
             iconLabel={this.matchCase}
             iconSize={
               getBooleanFF('platform.editor.a11y-find-replace')
@@ -364,8 +346,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
           />
           <FindReplaceTooltipButton
             title={this.findNext}
-            icon={this.findNextIcon}
-            newIcon={ChevronDownIcon}
+            icon={ChevronDownIcon}
             iconLabel={this.findNext}
             keymapDescription={'Enter'}
             onClick={this.handleFindNextClick}
@@ -373,8 +354,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
           />
           <FindReplaceTooltipButton
             title={this.findPrevious}
-            icon={this.findPrevIcon}
-            newIcon={ChevronUpIcon}
+            icon={ChevronUpIcon}
             iconLabel={this.findPrevious}
             keymapDescription={'Shift Enter'}
             onClick={this.handleFindPrevClick}
@@ -382,8 +362,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
           />
           <FindReplaceTooltipButton
             title={this.closeFindReplaceDialog}
-            icon={this.closeIcon}
-            newIcon={EditorCloseIcon}
+            icon={EditorCloseIcon}
             iconLabel={this.closeFindReplaceDialog}
             keymapDescription={'Escape'}
             onClick={this.clearSearch}

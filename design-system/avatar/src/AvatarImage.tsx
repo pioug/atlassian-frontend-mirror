@@ -106,6 +106,7 @@ const AvatarImage: FC<AvatarImageProps> = ({
       data-testid={testId && `${testId}--image`}
       css={avatarImageStyles}
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         borderRadius: borderRadius,
       }}
       onError={() => setHasImageErrored(true)}

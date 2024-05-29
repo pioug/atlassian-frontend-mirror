@@ -43,6 +43,7 @@ const ImageComponent = ({
     switch (status) {
       case 'error':
         return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           <div style={{ width: 500, height: 500, margin: '5px' }}>
             <h2>There is an error while rendering the image</h2>
           </div>
@@ -51,6 +52,7 @@ const ImageComponent = ({
         return (
           <img
             {...getImgProps()}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ width: 500, height: 500, margin: '5px' }}
           />
         );
@@ -59,6 +61,7 @@ const ImageComponent = ({
     }
   };
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ borderBottom: '5px solid black' }}>
       {getSsrScriptProps && (
         <span>
@@ -68,6 +71,7 @@ const ImageComponent = ({
           <script {...getSsrScriptProps} />
         </span>
       )}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ display: 'flex', margin: '10px 0' }}>
         {renderImage(status)}
         <TerminalTextDisplay>

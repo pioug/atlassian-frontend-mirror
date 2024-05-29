@@ -78,6 +78,7 @@ export const Icon = ({
     <span
       css={getSpanStyles(isFlexibleUi)}
       data-testid={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={blockCardIconImageClassName}
     >
       {icon || image || placeholder}

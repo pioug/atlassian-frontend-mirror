@@ -208,6 +208,7 @@ const SortingIcon = ({
     <Tooltip delay={0} content={content} position="top">
       <div
         css={buttonStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={buttonClassName}
         role="button"
         tabIndex={isSortingAllowed ? 0 : -1}
@@ -218,6 +219,7 @@ const SortingIcon = ({
       >
         <div
           css={iconWrapperStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={getIconClassName(isSortingAllowed, sortOrdered)}
         >
           <div css={iconStyles} />

@@ -617,6 +617,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     return (
       <div
         aria-label="Hyperlink Edit"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="recent-list"
         data-testid="hyperlink-add-toolbar"
       >

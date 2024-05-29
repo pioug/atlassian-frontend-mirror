@@ -20,6 +20,7 @@ it('Standard anonymous nav elements should not fail an aXe audit', async () => {
 
 it('Overflow menu should not fail an aXe audit', async () => {
   const { container } = render(
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ width: '100px' }}>
       <AnonymousNav />
     </div>,

@@ -309,6 +309,7 @@ export const CardViewV2Base = ({
     <React.Fragment>
       <div
         css={cardImageContainerStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={fileCardImageViewSelector}
         data-testid={fileCardImageViewSelector}
         data-test-media-name={name}

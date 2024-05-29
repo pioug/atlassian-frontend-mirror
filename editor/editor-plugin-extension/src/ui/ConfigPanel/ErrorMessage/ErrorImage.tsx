@@ -33,6 +33,7 @@ const ErrorImage = () => (
           <path
             id="_Polygon_"
             d="M94.78 80.16l66.44 115.08A15.17 15.17 0 01148.08 218H15.2a15.17 15.17 0 01-13.14-22.76L68.5 80.16a15.17 15.17 0 0126.28 0z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="cls-1"
             data-name="&lt;Polygon&gt;"
           />
@@ -44,11 +45,13 @@ const ErrorImage = () => (
           <path
             id="_Polygon_2"
             d="M94.78 80.16l66.44 115.08A15.17 15.17 0 01148.08 218H15.2a15.17 15.17 0 01-13.14-22.76L68.5 80.16a15.17 15.17 0 0126.28 0z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="cls-1"
             data-name="&lt;Polygon&gt;"
           />
           <path
             d="M87.22 163.71l2.88-44.35a9.18 9.18 0 00-9.16-9.78 9.18 9.18 0 00-9.16 9.78l2.88 44.35a6.3 6.3 0 006.28 5.89 6.3 6.3 0 006.28-5.89zM71.38 187.25a9.53 9.53 0 0010.39 9.58 9.68 9.68 0 00-.9-19.32 9.64 9.64 0 00-9.49 9.74z"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="cls-2"
           />
           <path
@@ -69,6 +72,7 @@ const ErrorImage = () => (
           />
           <path
             d="M119.92 64.19c-1.46 1.33-7.05-4.78-8.51-3.44s4.13 7.45 2.67 8.78-7.05-4.78-8.51-3.44c-.68.62.16 2.27 1.11 4M44.8 64c1.82.77 5-6.87 6.86-6.1s-1.39 8.4.43 9.17 5-6.87 6.86-6.1c.85.36.61 2.19.29 4.13"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="cls-6"
           />
         </g>

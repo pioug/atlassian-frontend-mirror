@@ -39,9 +39,11 @@ export default class SpotlightRelativeTarget extends Component<Object, State> {
       <SpotlightManager>
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             backgroundColor: 'wheat',
           }}
         >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ textAlign: 'center', paddingTop: '2em' }}>
             <button
               type="button"

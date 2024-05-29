@@ -6,7 +6,6 @@ import { ModalTransition } from '@atlaskit/modal-dialog';
 
 import type {
   Ari,
-  Environment,
   InvocationResponse,
   ManualRule,
   ManualRuleInvoker,
@@ -25,12 +24,10 @@ import UserInputForm from './manual-triggers-form/main';
 /**
  * React hook that implements the fetch and invoke actions for manual triggers.
  * Can be used standalone or in the HOC provided below.
- * @param env - The environment to retrieve rules from
  * @param site - The site to filter on. We map this to just a cloudId to resolve the manual rules API path
  * @param query - Query object containing filter props (container, object(s))
  */
 export const useManualRules = (
-  env: Environment | null,
   site: Ari,
   query: RuleQuery,
 ) => {
@@ -48,7 +45,7 @@ export const useManualRules = (
   const triggerFetch = async () => {
     setInitialised(false);
     try {
-      const fetchedRules = await searchManuallyTriggeredRules(env, site, query);
+      const fetchedRules = await searchManuallyTriggeredRules(site, query);
       setError(null);
       setRules(transformRules(fetchedRules));
     } catch (e) {
@@ -72,7 +69,6 @@ export interface ManualRulesData {
 }
 
 export interface ManualRulesContainerProps {
-  env: Environment | null;
   site: Ari; // extract cloudId from this value
   query: RuleQuery;
 
@@ -123,7 +119,7 @@ export interface ManualRulesContainerProps {
  * should not care about this, only how to trigger invocation and understand
  * the invocation lifecycle.
  *
- * @param props - environment, cloudId, projectId, children
+ * @param props - cloudId, projectId, children
  */
 export const ManualRulesContainer: React.FC<ManualRulesContainerProps> = (
   props: ManualRulesContainerProps,
@@ -137,7 +133,6 @@ export const ManualRulesContainer: React.FC<ManualRulesContainerProps> = (
     useState,
   );
   const {
-    env,
     site,
     query,
     children,
@@ -151,7 +146,6 @@ export const ManualRulesContainer: React.FC<ManualRulesContainerProps> = (
   } = props;
   // Initial data loading state
   const [triggerFetch, initialised, error, rules] = useManualRules(
-    env,
     site,
     query,
   );
@@ -212,7 +206,6 @@ export const ManualRulesContainer: React.FC<ManualRulesContainerProps> = (
           onRuleInvocationLifecycleStarted(ruleId, objects, userInputs);
         }
         const response = await invokeManuallyTriggeredRule(
-          env,
           site,
           ruleId,
           objects,

@@ -69,6 +69,7 @@ const InlineEditExample = () => {
     <div
       style={{
         padding: `${token('space.100', '8px')} ${token('space.100', '8px')}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         width: '50%',
       }}
     >
@@ -92,7 +93,9 @@ const InlineEditExample = () => {
                 fieldProps.isInvalid && (
                   <div
                     style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                       paddingRight: token('space.075', '6px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                       lineHeight: '100%',
                     }}
                   >

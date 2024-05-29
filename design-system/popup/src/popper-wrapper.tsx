@@ -150,6 +150,7 @@ function PopperWrapper({
                 setPopupRef(node);
               }
             }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={style}
             // using tabIndex={-1} would cause a bug where Safari focuses
             // first on the browser address bar when using keyboard

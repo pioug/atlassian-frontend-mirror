@@ -53,6 +53,7 @@ export const SkeletonIconButton = ({
 
   return (
     <button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={theme.mode.iconButton.default as React.CSSProperties}
       data-testid={testId}
       css={skeletonIconButtonStyles}

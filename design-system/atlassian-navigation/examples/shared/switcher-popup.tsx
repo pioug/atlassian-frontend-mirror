@@ -16,9 +16,8 @@ const spinnerStyles = css({
   display: 'flex',
   maxWidth: 240,
   position: 'relative',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  top: '11.25rem',
   justifyContent: 'center',
+  insetBlockStart: '11.25rem'
 });
 
 type SwitcherDataProps = {
@@ -51,6 +50,7 @@ const SwitcherData = ({ update }: SwitcherDataProps) => {
   }, [update]);
 
   return isLoaded ? (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ width: 400, maxHeight: 'calc(100vh - 100px)' }}>
       <h3
         style={{

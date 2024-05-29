@@ -33,6 +33,7 @@ export default function ContrastCard({
   style: any;
 }) {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <li style={{ listStyleType: 'none', padding: 0, ...style }}>
       <Box
         paddingBlock="space.100"

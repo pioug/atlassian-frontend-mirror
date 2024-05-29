@@ -1,6 +1,7 @@
 import type React from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { type StrictXCSSProp } from '@atlaskit/css';
 
 export type Size = 'small' | 'medium' | 'large' | 'xlarge';
 
@@ -77,10 +78,20 @@ export type OwnProps = {
    * Additional information to be included in the `context` of analytics events that come from radio.
    */
   analyticsContext?: Record<string, any>;
+  /**
+   * Bounded style API. Defining allowed styles through this prop will be supported for future component
+   * iterations. Any styles that are not allowed by this API will result in type and land blocking violations.
+   */
+  xcss?: StrictXCSSProp<'alignItems', never>;
+  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  // WARNING: Do not add any styles to xcss prop that would result in style overrides (a style that overrides
+  // an already defined style). Currently in a mixed world of Emotion + Compiled we can't ensure it remains
+  // deterministic.
 };
 
 // Expose all props on a html input element
 type Combine<First, Second> = Omit<First, keyof Second> & Second;
+
 export type CheckboxProps = Combine<
   Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -115,4 +126,15 @@ export interface LabelProps extends React.HTMLProps<HTMLInputElement> {
    * as Firefox does not dispatch modified click events (e.g. Ctrl+Click) down to the underlying input element.
    */
   onClick?: React.MouseEventHandler;
+  /**
+   * Bounded style overrides. Defining allowed styles through this prop will be supported for future component
+   * iterations. Any styles that are not allowed by this API will result in type and land blocking violations.
+   */
+  xcss?: StrictXCSSProp<
+    // Before adding styles here make sure to assert if they're compatible with the styles defined on
+    // the checkbox label. Currently interop between Emotion + Compiled aren't deterministic. Only
+    // define styles that aren't already defined on the label element to ensure deterministic behaviour.
+    'alignItems',
+    never
+  >;
 }

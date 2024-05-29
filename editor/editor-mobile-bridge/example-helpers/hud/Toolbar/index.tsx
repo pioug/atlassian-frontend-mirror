@@ -343,6 +343,7 @@ const Toolbar = ({ bridge }: Props) => {
     }
   }, [toolbarConfig, bridge, menuItems]);
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   return <div style={{ display: 'flex', height: 24 }}>{children}</div>;
 };
 

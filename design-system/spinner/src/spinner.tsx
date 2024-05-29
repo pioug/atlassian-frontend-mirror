@@ -147,6 +147,7 @@ const Spinner = React.memo(
          */
         css={[wrapperStyles, rotateStyles]}
         data-testid={testId && `${testId}-wrapper`}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ animationDelay, width: size, height: size }}
       >
         <svg
@@ -158,6 +159,7 @@ const Spinner = React.memo(
           ref={ref}
           aria-label={label || undefined}
           css={loadInStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ animationDelay }}
           role={label ? 'img' : 'none'}
         >

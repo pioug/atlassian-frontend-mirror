@@ -78,6 +78,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
       <ArrowsWrapper>
         <LeftWrapper isArchiveSideBarVisible={!!isArchiveSideBarVisible}>
           {isLeftVisible ? (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             <Arrow className={hideControlsClassName}>
               <Shortcut
                 code={'ArrowLeft'}
@@ -104,6 +105,7 @@ export class NavigationBase extends Component<NavigationProps, {}> {
 
         <RightWrapper>
           {isRightVisible ? (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             <Arrow className={hideControlsClassName}>
               <Shortcut
                 code={'ArrowRight'}

@@ -8,9 +8,11 @@ import {
 
 import { css, jsx } from '@emotion/react';
 
+import Link from '@atlaskit/link';
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
 import { N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
   DEFAULT_I18N_PROPS_SKIP_LINKS,
@@ -24,12 +26,10 @@ import { type SkipLinkWrapperProps } from './types';
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 const skipLinkStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-  margin: 10,
+  margin: token('space.250', '10px'),
   padding: '0.8rem 1rem',
   position: 'fixed',
   zIndex: -1,
-  left: -999999,
   background: token('elevation.surface.overlay', 'white'),
   border: 'none',
   borderRadius: token('border.radius', '3px'),
@@ -37,19 +37,13 @@ const skipLinkStyles = css({
     'elevation.shadow.overlay',
     `0 0 0 1px ${N30A}, 0 2px 10px ${N30A}, 0 0 20px -4px ${N60A}`,
   ),
+  insetInlineStart: -999999,
   opacity: 0,
-
-  /* Do the transform when focused */
   transform: 'translateY(-50%)',
   transition: `transform 0.3s ${easeOut}`,
-
   ':focus-within': {
-    /**
-     * Max z-index is 2147483647. Skip links always be on top,
-     * but giving a few digits extra space just in case there's a future need.
-     */
     zIndex: 2147483640,
-    left: 0,
+    insetInlineStart: 0,
     opacity: 1,
     transform: 'translateY(0%)',
   },
@@ -58,13 +52,13 @@ const skipLinkStyles = css({
 const skipLinkHeadingStyles = css({ fontWeight: 600 });
 
 const skipLinkListStyles = css({
-  marginTop: token('space.050', '4px'),
-  paddingLeft: 0,
   listStylePosition: 'outside',
   listStyleType: 'none',
+  marginBlockStart: token('space.050', '4px'),
+  paddingInlineStart: 0,
 });
 
-const skipLinkListItemStyles = css({ marginTop: 0 });
+const skipLinkListItemStyles = css({ marginBlockStart: 0 });
 
 const assignIndex = (num: number, arr: number[]): number => {
   if (!arr.includes(num)) {
@@ -151,7 +145,7 @@ export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
               key={id}
               href={`#${id}`}
               isFocusable
-              title={
+              skipToLabel={
                 emptyLabelOverride
                   ? `${DEFAULT_I18N_PROPS_SKIP_LINKS} ${skipLinkTitle}`
                   : `${label} ${skipLinkTitle}`
@@ -207,23 +201,23 @@ export const SkipLink = ({
   href,
   children,
   isFocusable,
-  title,
+  skipToLabel,
 }: {
   href: string;
   children: ReactNode;
   isFocusable: boolean;
-  title: string;
+  skipToLabel: string;
 }) => {
   return (
     <li css={skipLinkListItemStyles}>
-      <a
+      <Link
         tabIndex={isFocusable ? 0 : -1}
         href={href}
         onClick={focusTargetRef(href)}
-        title={title}
       >
+        <VisuallyHidden>{skipToLabel}</VisuallyHidden>
         {children}
-      </a>
+      </Link>
     </li>
   );
 };

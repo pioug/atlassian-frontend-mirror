@@ -85,6 +85,7 @@ class SearchTextInput extends PureComponent<Props, {}> {
       );
     }
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <div id="search-text" className="ak-search-text-input">
         {labelComponent}
         <input
@@ -93,7 +94,9 @@ class SearchTextInput extends PureComponent<Props, {}> {
           onKeyDown={this.handleKeyDown}
           ref={this.handleRef}
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             height: '20px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             margin: '10px',
           }}
         />

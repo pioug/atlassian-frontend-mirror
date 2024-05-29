@@ -58,6 +58,7 @@ export default () => {
         height={60}
         isFixed={false}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ padding: 20, border: '1px solid grey' }}>
           Product Navigation
         </div>
@@ -72,9 +73,12 @@ export default () => {
         >
           <div
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               padding: 20,
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               border: '1px solid grey',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               height: '100%',
             }}
           >
@@ -109,6 +113,7 @@ export default () => {
         isFixed={false}
         width={125}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ padding: 20, border: '1px solid grey', height: '100%' }}>
           Help Panel
         </div>

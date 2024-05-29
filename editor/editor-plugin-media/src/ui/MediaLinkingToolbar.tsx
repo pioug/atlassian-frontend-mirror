@@ -161,6 +161,7 @@ export class LinkAddToolbar extends React.PureComponent<
     });
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <div className="recent-list">
         <div css={[container, !!activityProvider && containerWithProvider]}>
           <div css={inputWrapper}>
@@ -199,6 +200,7 @@ export class LinkAddToolbar extends React.PureComponent<
               }}
               onKeyDown={onKeyDown}
             />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
             <label className="assistive" htmlFor="media-link-search-input">
               {formatMessage(linkToolbarMessages.searchInput)}
             </label>

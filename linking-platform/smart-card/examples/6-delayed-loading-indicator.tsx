@@ -77,6 +77,7 @@ class Example extends React.Component<any, ExampleState> {
             <div
               style={{
                 margin: `${token('space.250', '20px')} 0`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 minHeight: 150,
               }}
             >

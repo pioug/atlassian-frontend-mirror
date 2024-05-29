@@ -127,9 +127,13 @@ const hiddenCardWithCacheAvailable = [
       <div
         data-testid="media-card-hidden-card-with-cache"
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'absolute',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           right: token('space.negative.400', '-32px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginRight: token('space.negative.400', '-32px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: token('space.600', '48px'),
         }}
       >
@@ -154,9 +158,13 @@ const hiddenCardWithoutCacheAvailable = [
       <div
         data-testid="media-card-hidden-card-without-cache"
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'absolute',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           right: token('space.negative.400', '-32px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginRight: token('space.negative.400', '-32px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: token('space.600', '48px'),
         }}
       >

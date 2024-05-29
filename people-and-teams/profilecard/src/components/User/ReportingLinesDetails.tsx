@@ -64,6 +64,7 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
     <>
       {manager && (
         <ReportingLinesSection>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <ReportingLinesHeading style={{ marginBottom: 0 }}>
             <FormattedMessage {...messages.managerSectionHeading} />
           </ReportingLinesHeading>

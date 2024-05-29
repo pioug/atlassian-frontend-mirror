@@ -31,6 +31,7 @@ const ResponsivePrimaryDropdownButton = (props: PrimaryDropdownButtonProps) => {
   ) : (
     <ButtonItem
       iconAfter={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <span style={{ opacity: 0.51 }}>
           <ChevronIcon label="" />
         </span>
@@ -43,6 +44,7 @@ const ResponsivePrimaryDropdownButton = (props: PrimaryDropdownButtonProps) => {
 
 const OverflowMenuExample = () => {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ width: '50%', minWidth: 180 }}>
       <AtlassianNavigation
         label="site"

@@ -223,6 +223,7 @@ export default () => {
             {Object.entries(subVariantStyles).map(([subKey, styles]) => (
               <Box
                 key={key + subKey}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 style={styles}
                 text={`${key}.${subKey}`}
               />

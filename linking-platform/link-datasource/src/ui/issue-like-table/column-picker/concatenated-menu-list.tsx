@@ -38,6 +38,7 @@ export const ConcatenatedMenuList = ({
     height: 'auto',
   };
   const maximumLimitReachedMessage = (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div css={messageStyles} style={optionStyle}>
       <FormattedMessage
         tagName={'div'}

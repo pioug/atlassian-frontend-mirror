@@ -75,6 +75,7 @@ const BasicPopper = ({
           <Popup
             isReferenceHidden={isReferenceHidden}
             ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={style}
             data-placement={placement}
           >
@@ -88,8 +89,10 @@ const BasicPopper = ({
 
 const Test = () => (
   <>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ display: 'flex' }}>
       <BasicPopper>Popper</BasicPopper>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginTop: -REF_HEIGHT, marginLeft: SPACING }}>
         <BasicPopper placement="right">
           Popper shifts along edge of window
@@ -98,6 +101,7 @@ const Test = () => (
       <div
         style={{
           marginTop: -(REF_HEIGHT + POPPER_OFFSET),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginLeft: SPACING,
         }}
       >
@@ -106,6 +110,7 @@ const Test = () => (
       <div
         style={{
           marginTop: REF_HEIGHT + POPPER_OFFSET,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginLeft: SPACING,
         }}
       >
@@ -114,6 +119,7 @@ const Test = () => (
       <div
         style={{
           marginTop: REF_HEIGHT + POPPER_OFFSET - POPPER_FLIP_PADDING,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginLeft: SPACING,
         }}
       >
@@ -126,6 +132,7 @@ const Test = () => (
       <BasicPopper>Popper shifts along edge of window</BasicPopper>
     </div>
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ marginTop: SPACING, marginLeft: -(REF_WIDTH + POPPER_OFFSET) }}
     >
       <BasicPopper>Not visible when reference is obscured</BasicPopper>
@@ -136,29 +143,43 @@ const Test = () => (
 export default () => (
   <div
     style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       margin: '0px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       width: '1000px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       boxShadow: 'inset 0px 0px 0px 10px lightgrey',
     }}
   >
     <Test />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ padding: token('space.250', '20px') }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <h3 style={{ marginTop: SPACING }}> Scroll Container</h3>
     </div>
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         border: '1px solid black',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         boxShadow: 'inset 0px 0px 0px 10px lightgrey',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         height: '400px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         width: '90%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         marginTop: token('space.250', '20px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         overflow: 'auto',
       }}
     >
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: '200%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           height: '200%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           boxSizing: 'border-box',
         }}
       >

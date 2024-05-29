@@ -1042,6 +1042,7 @@ export class ReactEditorView<T = {}> extends React.Component<
   private createEditor = (assistiveLabel?: string) => {
     return (
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={getUAPrefix()}
         key="ProseMirror"
         ref={this.handleEditorViewRef}

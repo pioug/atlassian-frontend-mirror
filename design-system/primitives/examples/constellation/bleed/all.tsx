@@ -14,6 +14,7 @@ export default function Basic() {
         <ExampleBox />
         <Bleed all="space.150">
           <ExampleBox
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ height: '100%', position: 'relative' }}
             backgroundColor="color.background.discovery.pressed"
           />

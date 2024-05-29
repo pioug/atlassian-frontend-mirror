@@ -148,8 +148,11 @@ export type MessageKey =
   | 'last_mentioned_in'
   | 'related'
   | 'generic_error_message'
-  | 'related_links_modal_title_nonfinal'
-  | 'related_links_view_related_urls';
+  | 'related_links_modal_title'
+  | 'related_links_view_related_urls'
+  | 'related_links_found_in'
+  | 'related_links_includes_links_to'
+  | 'related_links_not_found';
 
 type Messages = {
   [K in MessageKey]: MessageDescriptor;
@@ -947,8 +950,8 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'An error occurred',
     description: 'A generic error message to the user',
   },
-  related_links_modal_title_nonfinal: {
-    id: 'fabric.linking.related_links_modal_title.nonfinal',
+  related_links_modal_title: {
+    id: 'fabric.linking.related_links_modal_title',
     defaultMessage: 'Recent Links',
     description: 'Shown as the title for the related links modal',
   },
@@ -956,5 +959,20 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.related_links_view_related_urls.nonfinal',
     defaultMessage: 'View recent links...',
     description: 'Action to view related links to the given resource',
+  },
+  related_links_found_in: {
+    id: 'fabric.linking.related_links_found_in',
+    defaultMessage: 'Found In',
+    description: 'Informs the user of the resources are found in the given url',
+  },
+  related_links_not_found: {
+    id: 'fabric.linking.related_links_not_found',
+    defaultMessage: 'We didn\'t find any links to show here.',
+    description: 'Informs the user that there are no related resources for the given url',
+  },
+  related_links_includes_links_to: {
+    id: 'fabric.linking.related_links_includes_links_to',
+    defaultMessage: 'Includes Links To',
+    description: 'Informs the user of the resources the url links to',
   },
 });

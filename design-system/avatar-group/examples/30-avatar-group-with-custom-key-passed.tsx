@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
+import { Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { RANDOM_USERS } from '../examples-util/data';
@@ -15,39 +16,56 @@ const ButtonGroup = styled.div({
   textAlign: 'center',
 });
 
+const INITIAL_NUMBER_VISIBLE_AVATARS = 8;
+
 export default () => {
-  const data = RANDOM_USERS.slice(0, 8).map((d) => ({
+  const lastAvatarItemRef = useRef<HTMLElement>(null);
+  const [range, setRange] = useState(INITIAL_NUMBER_VISIBLE_AVATARS);
+  const data = RANDOM_USERS.slice(0, range).map((d, i) => ({
     key: d.email,
     name: d.name,
-    href: '#',
+    href: `/users/${i}`,
     appearance: 'circle' as AppearanceType,
     size: 'medium' as SizeType,
   }));
 
+  useEffect(() => {
+    lastAvatarItemRef.current?.focus();
+  }, [range]);
+
   return (
-    <AvatarGroup
-      testId="overrides"
-      appearance="stack"
-      data={data}
-      size="large"
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-      overrides={{
-        AvatarGroupItem: {
-          render: (Component, props, index) => {
-            const avatarItem = <Component {...props} key={index} />;
-            return index === data.length - 1 ? (
-              <Fragment key={`${index}-overridden`}>
-                {avatarItem}
-                <ButtonGroup data-testid="load-more-actions">
-                  <Button testId="load-more">Load more</Button>
-                </ButtonGroup>
-              </Fragment>
-            ) : (
-              avatarItem
-            );
+    <Stack space="space.150">
+      <p>Please note a maximum of 16 items can be added.</p>
+      <AvatarGroup
+        testId="overrides"
+        appearance="stack"
+        data={data}
+        size="large"
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+        overrides={{
+          AvatarGroupItem: {
+            render: (Component, props, index) =>
+              index === data.length - 1 ? (
+                <Fragment key={`${index}-overridden`}>
+                  <Component {...props} key={index} ref={lastAvatarItemRef} />
+                  <ButtonGroup data-testid="load-more-actions">
+                    <Button
+                      testId="load-more"
+                      isDisabled={range >= RANDOM_USERS.length}
+                      onClick={() => {
+                        setRange(range + 1);
+                      }}
+                    >
+                      Load more
+                    </Button>
+                  </ButtonGroup>
+                </Fragment>
+              ) : (
+                <Component {...props} key={index} />
+              ),
           },
-        },
-      }}
-    />
+        }}
+      />
+    </Stack>
   );
 };

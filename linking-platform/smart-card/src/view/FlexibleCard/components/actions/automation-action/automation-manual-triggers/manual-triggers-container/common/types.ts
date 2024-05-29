@@ -114,11 +114,12 @@ export type InvokeManualRulePayload = {
 };
 
 export type GetManualRulesResponse = {
-  id: number;
-  name: string;
-  ruleScope: RuleScope;
-  userInputs: UserInputPrompt[];
-}[];
+  data: {
+    id: number;
+    name: string;
+    ruleScope: RuleScope;
+    userInputs: UserInputPrompt[];
+  }[]};
 
 export type ManualRuleInvoker = (ruleId: number, objects: Ari[]) => void;
 

@@ -31,6 +31,7 @@ export class RankableTableCell extends React.Component<
         shouldTruncate={shouldTruncate}
         width={width}
         isRanking={isRanking}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={inlineStyles}
         onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => e.stopPropagation()}
         innerRef={innerRef}

@@ -27,6 +27,7 @@ export const Content = ({ children, isCompact = false }: ContentProps) => (
       flexGrow: 1,
     })}
     data-trello-do-not-use-override="block-card-content"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     className={blockCardContentClassName}
   >
     {children}

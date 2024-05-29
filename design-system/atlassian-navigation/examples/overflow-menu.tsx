@@ -33,6 +33,7 @@ const ResponsivePrimaryDropdownButton = (props: PrimaryDropdownButtonProps) => {
   ) : (
     <ButtonItem
       iconAfter={
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         <span style={{ opacity: 0.51 }}>
           <ChevronIcon label="" />
         </span>
@@ -51,6 +52,7 @@ export default () => {
 
   return (
     <>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ width: sizes[sizeIndex], minWidth: 180 }}>
         <AtlassianNavigation
           label="site"
@@ -70,7 +72,9 @@ export default () => {
       <div
         style={{
           // TODO Delete this comment after verifying space token -> previous value `'20px'`
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginTop: token('space.250', '20px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           textAlign: 'center',
         }}
       >

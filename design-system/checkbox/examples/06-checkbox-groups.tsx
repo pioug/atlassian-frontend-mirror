@@ -38,6 +38,7 @@ export default function CheckboxGroups() {
     <div>
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
           flexDirection: flexDirection,
         }}

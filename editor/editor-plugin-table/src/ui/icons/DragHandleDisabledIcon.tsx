@@ -13,6 +13,7 @@ export const DragHandleDisabledIcon = ({
     viewBox="0 0 24 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     style={style}
     data-testid="drag-icon-disabled"
   >

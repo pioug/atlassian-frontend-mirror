@@ -67,6 +67,7 @@ const StackLayout = ({
         direction === 'VERTICAL' && gridAutoFlowStyles,
       ]}
       data-testid={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={
         { [CSS_SIZE_SPACING]: `${spacingScale[size]}px` } as React.CSSProperties
       }

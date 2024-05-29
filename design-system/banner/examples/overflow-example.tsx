@@ -12,6 +12,7 @@ const Padded = ({ children }: { children: React.ReactNode }) => (
 );
 
 export default () => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <Box as="span" style={{ width: 400 }}>
     <Stack space="space.200">
       <Banner icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>

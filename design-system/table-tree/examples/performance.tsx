@@ -119,6 +119,7 @@ export default class extends PureComponent {
   render() {
     const { items } = this.state;
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ position: 'relative' }}>
         <TableTree>
           <Headers>
@@ -146,10 +147,12 @@ export default class extends PureComponent {
           />
         </TableTree>
         <div css={performanceTweakContainerStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Label htmlFor="select">Tree children per item</Label>
             <div
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 width: '90px',
                 margin: `0 ${token('space.250', '20px')} 0 10px`,
               }}

@@ -37,8 +37,10 @@ const JSMGrid = () => {
     <HeadingContextProvider>
       <Box
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           background:
             'linear-gradient(180deg, #0C2759 0%, rgba(12, 39, 89, 0) 77.57%), url(./img/jsm.png)',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           backgroundSize: 'cover, 1440px',
         }}
       >
@@ -49,6 +51,7 @@ const JSMGrid = () => {
           />
         </Box>
         {/* Search */}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <Box paddingBlock="space.1000" style={{ paddingBlockEnd: 144 }}>
           <Grid maxWidth="wide">
             <GridItem start={{ md: 3 }} span={{ md: 8 }}>

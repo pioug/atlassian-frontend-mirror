@@ -22,6 +22,7 @@ const SpotlightTourExample = () => {
       <SpotlightTarget name="codesandbox">
         <IconButton icon={CodeSandboxIcon} label="codesandbox" />
       </SpotlightTarget>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginTop: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={() => start()}>
           Show example spotlight

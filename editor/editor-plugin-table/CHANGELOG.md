@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.10
+
+### Patch Changes
+
+-   [#103716](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103716)
+    [`d691deb86b01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d691deb86b01) -
+    Exclude breakout guides for full width appearance for tables
+
+## 7.16.9
+
+### Patch Changes
+
+-   [#103852](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103852)
+    [`a2972bca7951`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2972bca7951) -
+    [ux] Table - Disable left align button when table's width is larger than line length
+
 ## 7.16.8
 
 ### Patch Changes

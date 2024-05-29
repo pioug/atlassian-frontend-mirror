@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feature-gate-js-client",
-  "version": "4.17.1",
+  "version": "4.17.2",
   "description": "Atlassians wrapper for the Statsig js-lite client.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

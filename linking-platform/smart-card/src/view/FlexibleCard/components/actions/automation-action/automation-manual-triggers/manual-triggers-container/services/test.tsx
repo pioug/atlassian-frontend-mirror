@@ -18,13 +18,11 @@ jest.mock('../common/utils/api', () => ({
 }));
 
 describe('searchManuallyTriggeredRules', () => {
-  const env = 'dev';
   const site = 'ari:cloud:platform::site/123';
   const objectAri = 'ari:cloud:opsgenie::alert/123';
 
   test('should return manual rules formatted by id when payload is valid', async () => {
     const rulesById: ManualRulesById = await searchManuallyTriggeredRules(
-      env,
       site,
       {
         objects: [objectAri],
@@ -32,34 +30,33 @@ describe('searchManuallyTriggeredRules', () => {
     );
     expect(rulesById).toEqual({
       0: {
-        id: mockRules[0].id,
-        name: mockRules[0].name,
-        ruleScope: mockRules[0].ruleScope,
-        userInputPrompts: mockRules[0].userInputs,
+        id: mockRules.data[0].id,
+        name: mockRules.data[0].name,
+        ruleScope: mockRules.data[0].ruleScope,
+        userInputPrompts: mockRules.data[0].userInputs,
       },
       1: {
-        id: mockRules[1].id,
-        name: mockRules[1].name,
-        ruleScope: mockRules[1].ruleScope,
-        userInputPrompts: mockRules[1].userInputs,
+        id: mockRules.data[1].id,
+        name: mockRules.data[1].name,
+        ruleScope: mockRules.data[1].ruleScope,
+        userInputPrompts: mockRules.data[1].userInputs,
       },
       2: {
-        id: mockRules[2].id,
-        name: mockRules[2].name,
-        ruleScope: mockRules[2].ruleScope,
-        userInputPrompts: mockRules[2].userInputs,
+        id: mockRules.data[2].id,
+        name: mockRules.data[2].name,
+        ruleScope: mockRules.data[2].ruleScope,
+        userInputPrompts: mockRules.data[2].userInputs,
       },
     });
   });
 });
 
 describe('invokeManuallyTriggeredRule', () => {
-  const env = 'dev';
   const cloudId = 'test:cloudId';
   const object = 'ari:cloud:opsgenie::alert/123';
 
   test('user inputs should not be appended to body if none were passed', async () => {
-    await invokeManuallyTriggeredRule(env, cloudId, mockRules[0].id, [object]);
+    await invokeManuallyTriggeredRule(cloudId, mockRules.data[0].id, [object]);
     expect(performPostRequest).toHaveBeenCalledWith(expect.anything(), {
       body: JSON.stringify({ objects: [object] }),
     });
@@ -70,9 +67,8 @@ describe('invokeManuallyTriggeredRule', () => {
       someInput: { inputType: UserInputType.TEXT, value: 'someValue' },
     };
     await invokeManuallyTriggeredRule(
-      env,
       cloudId,
-      mockRules[0].id,
+      mockRules.data[0].id,
       [object],
       userInputs,
     );

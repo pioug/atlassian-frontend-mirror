@@ -248,7 +248,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${blocktypeStyles()}
   ${codeMarkSharedStyles()}
   ${textColorStyles}
-  ${backgroundColorStyles}
+  ${backgroundColorStyles(props.colorMode)}
   ${listsStyles}
   ${ruleStyles()}
   ${mediaStyles}
@@ -363,6 +363,7 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
     );
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <div className={className} ref={ref as any} css={[memoizedStyle, styles]}>
         {children}
       </div>

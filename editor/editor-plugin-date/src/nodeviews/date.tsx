@@ -39,6 +39,7 @@ export function DateNodeView(props: InlineNodeViewComponentProps) {
     withinIncompleteTask && isPastDate(timestamp) ? 'red' : undefined;
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <span className={DateSharedCssClassName.DATE_WRAPPER} onClick={handleClick}>
       <Date color={color} value={timestamp}>
         {withinIncompleteTask

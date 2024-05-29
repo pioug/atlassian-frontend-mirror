@@ -23,7 +23,9 @@ const EmojiUsageList = (props: React.PropsWithChildren<EmojiUsageProps>) => {
       <span>
         {emojiList.map((emoji) => {
           return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             <span key={emoji.id} style={{ marginRight: '15px' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
               <span style={{ marginRight: '3px' }}>
                 ({emojiQueue.filter((emojiId) => emojiId === emoji.id).length})
               </span>
@@ -40,6 +42,7 @@ const EmojiUsageList = (props: React.PropsWithChildren<EmojiUsageProps>) => {
   }
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
       <h4>Emojis ordered by usage</h4>
       {emojiUsageList}
@@ -69,6 +72,7 @@ export class LocalStorageView extends PureComponent<
         <span>
           {this.props.emojiQueue.map((id, index) => {
             return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               <span key={index} style={{ marginRight: '3px' }}>
                 <ResourcedEmoji
                   emojiId={{ id: id, shortName: 'unknown' }}
@@ -84,8 +88,10 @@ export class LocalStorageView extends PureComponent<
     }
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
         <h4>Emoji Queue (from localStorage)</h4>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
           {renderedQueue}
         </pre>
@@ -178,6 +184,7 @@ export abstract class UsageShowAndClearComponent extends PureComponent<
     const wrappedComponent = this.getWrappedComponent();
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ padding: '10px' }}>
         {wrappedComponent}
         <div>

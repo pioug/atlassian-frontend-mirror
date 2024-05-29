@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 3.3.1
+
+### Patch Changes
+
+-   [#104255](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104255)
+    [`8a21e4b04c50`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a21e4b04c50) -
+    Migration to ADS link components: Link and Anchor
+
 ## 3.3.0
 
 ### Minor Changes

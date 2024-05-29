@@ -12,6 +12,7 @@ const ImgIcon = ({ src, alt }: ImgIconProps) => {
       src={src}
       height={24}
       width={24}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ borderRadius: 3 }}
     />
   );

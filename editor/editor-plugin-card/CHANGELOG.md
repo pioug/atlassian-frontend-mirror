@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 1.14.5
+
+### Patch Changes
+
+-   [#102324](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102324)
+    [`e9618cb8df77`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9618cb8df77) -
+    make columnCustomSizes passed down to config modal to be empty object instead of undefined
+
 ## 1.14.4
 
 ### Patch Changes

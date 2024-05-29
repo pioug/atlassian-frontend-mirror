@@ -24,34 +24,19 @@ const NestedGrid = () => {
       <Grid>
         <GridItem span={{ xxs: 4 }}>
           <Box xcss={itemStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <p style={{ textAlign: 'center' }}>span 4</p>
           </Box>
         </GridItem>
         <GridItem span={{ xxs: 4 }}>
           <Box xcss={itemStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <p style={{ textAlign: 'center' }}>span 4</p>
           </Box>
         </GridItem>
         <GridItem span={{ xxs: 4 }}>
           <Box xcss={itemStyles}>
-            <p style={{ textAlign: 'center' }}>span 4</p>
-          </Box>
-        </GridItem>
-      </Grid>
-
-      <Grid>
-        <GridItem span={{ xxs: 4 }}>
-          <Box xcss={itemStyles}>
-            <p style={{ textAlign: 'center' }}>span 4</p>
-          </Box>
-        </GridItem>
-        <GridItem span={{ xxs: 8 }}>
-          <Box xcss={itemStyles}>
-            <p style={{ textAlign: 'center' }}>span 8</p>
-          </Box>
-        </GridItem>
-        <GridItem span={{ xxs: 4 }}>
-          <Box xcss={itemStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <p style={{ textAlign: 'center' }}>span 4</p>
           </Box>
         </GridItem>
@@ -60,16 +45,40 @@ const NestedGrid = () => {
       <Grid>
         <GridItem span={{ xxs: 4 }}>
           <Box xcss={itemStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <p style={{ textAlign: 'center' }}>span 4</p>
           </Box>
         </GridItem>
         <GridItem span={{ xxs: 8 }}>
           <Box xcss={itemStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <p style={{ textAlign: 'center' }}>span 8</p>
           </Box>
         </GridItem>
         <GridItem span={{ xxs: 4 }}>
           <Box xcss={itemStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+            <p style={{ textAlign: 'center' }}>span 4</p>
+          </Box>
+        </GridItem>
+      </Grid>
+
+      <Grid>
+        <GridItem span={{ xxs: 4 }}>
+          <Box xcss={itemStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+            <p style={{ textAlign: 'center' }}>span 4</p>
+          </Box>
+        </GridItem>
+        <GridItem span={{ xxs: 8 }}>
+          <Box xcss={itemStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+            <p style={{ textAlign: 'center' }}>span 8</p>
+          </Box>
+        </GridItem>
+        <GridItem span={{ xxs: 4 }}>
+          <Box xcss={itemStyles}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <p style={{ textAlign: 'center' }}>span 4</p>
           </Box>
         </GridItem>

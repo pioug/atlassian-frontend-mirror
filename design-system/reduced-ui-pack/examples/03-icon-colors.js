@@ -28,10 +28,12 @@ class FilledIconExample extends Component {
       <Fragment>
         <Warning />
         <form>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
           <div className="ak-field-group">
             <label htmlFor="color">Icon primary colour</label>
             <input
               type="color"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="ak-field-color"
               id="color"
               ref={(input) => {
@@ -46,10 +48,12 @@ class FilledIconExample extends Component {
               name="color"
             />
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
           <div className="ak-field-group">
             <label htmlFor="fill">Icon secondary colour</label>
             <input
               type="color"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="ak-field-color"
               id="fill"
               ref={(input) => {
@@ -65,7 +69,9 @@ class FilledIconExample extends Component {
           <p>
             <svg
               focusable="false"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className="ak-icon ak-icon__size-xlarge"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={iconStyles}
               aria-label="Text colour"
             >

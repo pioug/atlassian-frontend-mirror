@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "109.29.5",
+  "version": "109.30.0",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "@atlaskit/media-ui": "^25.10.0",
     "@atlaskit/media-viewer": "^48.5.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/smart-card": "^27.0.0",
+    "@atlaskit/smart-card": "^27.2.0",
     "@atlaskit/status": "^1.4.0",
     "@atlaskit/task-decision": "^17.10.0",
     "@atlaskit/theme": "^12.8.0",

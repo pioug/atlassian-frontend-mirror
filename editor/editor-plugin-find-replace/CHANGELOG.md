@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.2.8
+
+### Patch Changes
+
+-   [#104260](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104260)
+    [`2050e35bc9d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2050e35bc9d5) -
+    Removing feature flag `platform.design-system.editor-new-button_jjjdo` in
+    `@atlaskit/editor-plugin-find-replace` so the affected Buttons are using new Atlaskit Buttons by
+    default.
+
 ## 1.2.7
 
 ### Patch Changes

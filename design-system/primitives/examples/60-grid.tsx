@@ -12,6 +12,7 @@ const customBorderStyles = xcss({
 const Block = ({ style }: any) => (
   <Box
     xcss={customBorderStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     style={style}
     backgroundColor="color.background.neutral"
     padding="space.600"
@@ -53,9 +54,13 @@ export default function Basic() {
           'footer footer',
         ]}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <Block style={{ gridArea: 'navigation' }} />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <Block style={{ gridArea: 'sidenav' }} />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <Block style={{ gridArea: 'content' }} />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <Block style={{ gridArea: 'footer' }} />
       </Grid>
     </Grid>

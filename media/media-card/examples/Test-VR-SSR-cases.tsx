@@ -192,10 +192,12 @@ const ScenariosComponent: React.FC<{ scenarios: Scenarios }> = ({
     {Object.entries(scenarios).map(([label, collection]) => (
       <React.Fragment key={label}>
         <h2>{label}</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={rowStyle}>
           {collection.map(([id]) => (
             <div
               key={id}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={{ marginRight: token('space.250', '20px') }}
               id={id}
             ></div>
@@ -215,8 +217,11 @@ export default () => {
   return (
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         maxWidth: 1300,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         margin: 'auto',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         marginTop: token('space.250', '20px'),
       }}
     >

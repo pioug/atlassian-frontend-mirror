@@ -179,6 +179,7 @@ const ToolbarFormatting = ({
     <span css={buttonGroupStyle}>
       <div
         role="group"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={'js-text-format-wrap'}
         aria-label={labelTextFormat}
       >

@@ -144,19 +144,26 @@ export const FixedButton = ({
     <div
       ref={observerTargetRef}
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         position: 'absolute',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         top: token('space.0', '0px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         left: token('space.0', '0px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         width: token('space.250', '20px'), // BUTTON_WIDTH
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         height: token('space.250', '20px'), // BUTTON_WIDTH
       }}
     >
       <div
         ref={fixedButtonRef}
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'fixed',
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           top: stickyHeader.top + stickyHeader.padding + offset * 2,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           zIndex: akEditorTableCellOnStickyHeaderZIndex,
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           left: calcLeftPos({
@@ -165,9 +172,12 @@ export const FixedButton = ({
             cellRefWidth: targetCellRef.clientWidth,
             offset,
           }),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: token('space.250', '20px'), // BUTTON_WIDTH
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           height: token('space.250', '20px'), // BUTTON_WIDTH
         }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={ClassName.CONTEXTUAL_MENU_BUTTON_FIXED}
       >
         {children}

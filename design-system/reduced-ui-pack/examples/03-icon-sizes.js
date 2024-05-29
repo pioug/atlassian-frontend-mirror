@@ -15,6 +15,7 @@ export default () => (
     <p>
       <svg
         focusable="false"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-icon ak-icon__size-small"
         aria-label="Add"
       >
@@ -22,6 +23,7 @@ export default () => (
       </svg>
       <svg
         focusable="false"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-icon ak-icon__size-medium"
         aria-label="Add"
       >
@@ -29,6 +31,7 @@ export default () => (
       </svg>
       <svg
         focusable="false"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-icon ak-icon__size-large"
         aria-label="Add"
       >
@@ -36,6 +39,7 @@ export default () => (
       </svg>
       <svg
         focusable="false"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="ak-icon ak-icon__size-xlarge"
         aria-label="Add"
       >

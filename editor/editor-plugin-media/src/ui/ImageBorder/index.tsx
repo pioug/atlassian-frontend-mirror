@@ -87,6 +87,7 @@ const ImageBorder = ({
       content: formatMessage(messages.borderColor),
       value: { name: 'color' },
       elemAfter: (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         <div className={DropdownMenuSharedCssClassName.SUBMENU}>
           <div
             css={contextualMenuColorIcon(
@@ -116,6 +117,7 @@ const ImageBorder = ({
       content: formatMessage(messages.borderSize),
       value: { name: 'size' },
       elemAfter: (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         <div className={DropdownMenuSharedCssClassName.SUBMENU}>
           <div css={contextualMenuArrow} />
           {isSizeSubmenuOpen && (
@@ -169,6 +171,7 @@ const ImageBorder = ({
         })}
       >
         <ToolbarButton
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="image-border-toolbar-btn"
           selected={enabled}
           onClick={toggleBorder}
@@ -187,6 +190,7 @@ const ImageBorder = ({
         />
         <div ref={popupTarget}>
           <ToolbarButton
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="image-border-toolbar-dropdown"
             selected={enabled || isOpen}
             aria-label={formatMessage(messages.borderOptions)}

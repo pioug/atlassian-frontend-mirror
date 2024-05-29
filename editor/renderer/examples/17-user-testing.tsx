@@ -31,7 +31,9 @@ export default class ExampleRenderer extends React.Component {
           <React.Fragment>
             <div
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 justifyContent: 'flex-end',
               }}
             >

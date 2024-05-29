@@ -91,6 +91,7 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
           </label>
           <div
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               display: 'block',
               paddingTop: `${token('space.200', '16px')}`,
             }}
@@ -116,6 +117,7 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
             </label>
             <div
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 display: 'block',
                 paddingTop: `${token('space.200', '16px')}`,
               }}

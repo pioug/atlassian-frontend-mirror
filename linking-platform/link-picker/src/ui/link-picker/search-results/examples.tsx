@@ -27,9 +27,12 @@ const createExample = (
     return (
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           border: '1px solid red',
           width: `${LINK_PICKER_WIDTH_IN_PX}px`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ['--link-picker-padding-left' as string]: '16px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ['--link-picker-padding-right' as string]: '16px',
         }}
       >
@@ -114,8 +117,11 @@ export const ShowingResultsWhileLoadingResults = () => {
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     <div
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         gap: token('space.200', '1rem'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         flexWrap: 'wrap',
       }}
     >

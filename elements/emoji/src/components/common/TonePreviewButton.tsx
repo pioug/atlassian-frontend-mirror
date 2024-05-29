@@ -35,6 +35,7 @@ export const TonePreviewButton = forwardRef<HTMLButtonElement, Props>(
         aria-label={ariaLabelText}
         aria-expanded={ariaExpanded}
         aria-controls="emoji-picker-tone-selector"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ overflow: 'hidden' }}
         data-testid={tonePreviewTestId}
         type="button"

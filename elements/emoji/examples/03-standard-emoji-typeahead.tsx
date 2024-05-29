@@ -14,6 +14,7 @@ import { IntlProvider } from 'react-intl-next';
 
 const loremContent = (
   <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <p style={{ width: '400px' }}>{lorem}</p>
   </div>
 );
@@ -113,6 +114,7 @@ export const EmojiTypeAheadTextInput = (
   }
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ padding: '10px' }}>
       {searchInput}
       {emojiTypeAhead}

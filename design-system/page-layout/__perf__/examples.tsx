@@ -69,6 +69,7 @@ const interactionTasks: PublicInteractionTask[] = [
 
 const performance = () => {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ margin: '-1rem 0 0 -1rem', height: '100vh' }}>
       <ProductExample />
     </div>

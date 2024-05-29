@@ -109,6 +109,7 @@ export const Icon = memo(function Icon(props: IconProps) {
       role={label ? 'img' : undefined}
       aria-label={label ? label : undefined}
       aria-hidden={label ? undefined : true}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={
         {
           '--icon-primary-color': primaryColor,

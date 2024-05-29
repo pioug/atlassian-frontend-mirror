@@ -16,7 +16,7 @@ const rule = createLintRule({
       description:
         'Enforces usage of space design tokens rather than hard-coded values in xcss.',
       recommended: true,
-      severity: 'warn',
+      severity: 'error',
     },
     messages: {
       noRawSpacingValues,

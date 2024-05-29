@@ -133,15 +133,20 @@ export default ({ isCompact, testId }: Props) => {
       style={{
         // the IssueLikeDataTableView wraps the table in a container with the styling below while modal doesn't
         // this maxHeight comes from scrollableContainerHeight
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         maxHeight: ScrollableContainerHeight,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         padding: token('space.0', '0px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         boxSizing: 'border-box',
       }}
     >
       <table css={tableStyles} data-testid={testId}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <thead style={{ borderBottom: 0 }}>
           <tr>
             {columnsToRender.map(({ key, width }) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               <TableHeading key={key} style={{ width, padding }}>
                 <Skeleton
                   appearance="darkGray"

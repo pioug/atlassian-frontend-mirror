@@ -27,6 +27,7 @@ export default () => {
     <div>
       <div
         css={boxStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={
           {
             [CURRENT_SURFACE_CSS_VAR]: token('color.background.success'),
@@ -37,6 +38,7 @@ export default () => {
         <p>This box sets the current surface value.</p>
         <div
           css={boxStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={
             {
               [CURRENT_SURFACE_CSS_VAR]: token('color.background.warning'),

@@ -95,8 +95,10 @@ export const Selector = ({
     return (
       <div
         key={emoji.id ?? emoji.shortName}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={emoji === selection ? 'selected' : undefined}
         css={[emojiStyle, revealStyle]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={emojiStyleAnimation(index)}
         data-testid={RENDER_SELECTOR_TESTID}
       >

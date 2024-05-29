@@ -119,6 +119,7 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
       ? 'hd-active'
       : 'hd-inactive';
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <HDIconGroupWrapper className={hideControlsClassName}>
         {isHDActivating ? <Spinner appearance="invert" /> : undefined}
         <HDIcon
@@ -164,7 +165,9 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
         data-testid="media-viewer-image-content"
         onClick={this.onImageClicked}
         ref={this.saveWrapperRef}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={wrapperStyleOverride}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="media-viewer-image-content"
       >
         <Img
@@ -172,11 +175,13 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
           canDrag={canDrag}
           isDragging={isDragging}
           src={srcToDisplay}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={imgStyle}
           onLoad={this.onImgLoad}
           onError={onError}
           onMouseDown={this.startDragging}
           shouldPixelate={zoomLevel.value > 1}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="media-viewer-image"
         />
 

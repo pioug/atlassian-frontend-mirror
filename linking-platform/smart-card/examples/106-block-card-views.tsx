@@ -257,6 +257,7 @@ export default () => {
   return (
     <IntlProvider locale={'en'}>
       <Page>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ padding: token('space.400', '32px') }}>
           <h2 css={headerCSS}>Components</h2>
           <h6 css={subHeaderCSS}>Frame</h6>

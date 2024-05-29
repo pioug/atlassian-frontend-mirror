@@ -33,15 +33,20 @@ export default class SpotlightTargetFixedPositionExample extends Component<
         <div>
           <div
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               position: 'fixed',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               height: '100vh',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: 300,
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               background: 'salmon',
             }}
           >
             <div
               style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 position: 'relative',
               }}
             >
@@ -52,6 +57,7 @@ export default class SpotlightTargetFixedPositionExample extends Component<
               </SpotlightTarget>
             </div>
           </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ marginLeft: 300, textAlign: 'center' }}>
             <h1>Scroll down and click on the button</h1>
             <h1>...</h1>

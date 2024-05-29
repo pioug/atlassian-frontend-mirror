@@ -24,12 +24,14 @@ export class Slider extends Component<SliderProps, {}> {
     return (
       <div css={sliderWrapperStyles}>
         <Button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="zoom_button zoom_button_small"
           iconAfter={<ScaleSmallIcon label="scale-small-icon" />}
           onClick={() => onChange(0)}
         />
         <FieldRange value={value} onChange={onChange} />
         <Button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="zoom_button zoom_button_large"
           iconAfter={<ScaleLargeIcon label="scale-large-icon" />}
           onClick={() => onChange(100)}

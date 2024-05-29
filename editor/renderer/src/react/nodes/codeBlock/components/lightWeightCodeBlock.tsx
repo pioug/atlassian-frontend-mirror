@@ -63,15 +63,19 @@ const LightWeightCodeBlock = forwardRef(
 
     return (
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={classNames}
         ref={ref}
         css={[codeBlockSharedStyles(), lightWeightCodeBlockStyles]}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
         <div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}>
           <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
           >
             <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={
                 CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER
               }
@@ -80,6 +84,7 @@ const LightWeightCodeBlock = forwardRef(
                 <span key={index} />
               ))}
             </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}>
               <code>{renderBidiWarnings(text)}</code>
             </div>

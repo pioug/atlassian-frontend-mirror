@@ -249,8 +249,11 @@ class Example extends React.Component<{}, State> {
                     <tr key={`${mediaType}-row`}>
                       <th
                         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                           textAlign: 'right',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                           lineHeight: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                           verticalAlign: 'middle',
                         }}
                       >

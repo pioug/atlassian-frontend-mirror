@@ -48,6 +48,7 @@ export default class Example extends React.Component {
   render() {
     return (
       <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ height: 100 }}>
           <WidthDetector onResize={this.onResize}>
             {() => (

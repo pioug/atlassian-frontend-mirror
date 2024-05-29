@@ -86,6 +86,7 @@ export default class ConfigurableTeamMentionPicker extends React.Component<
           <textarea
             id="mention-urls"
             rows={15}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ width: '400px' }}
             name="userMentionConfig"
             onChange={this.configTextAreaChange}
@@ -99,6 +100,7 @@ export default class ConfigurableTeamMentionPicker extends React.Component<
             id="mention-urls-team"
             name="teamMentionConfig"
             rows={15}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ width: '400px' }}
             onChange={this.configTextAreaChange}
             defaultValue={JSON.stringify(teamMentionConfig, null, 2)}

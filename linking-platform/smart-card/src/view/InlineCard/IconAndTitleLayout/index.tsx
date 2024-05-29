@@ -60,6 +60,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
         src={url}
         loaded={
           <Icon
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="smart-link-icon"
             src={url}
             data-testid={`${testId}-image`}
@@ -144,7 +145,9 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
           )}
         </IconPositionWrapper>
         <TitleWrapper
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ color: titleTextColor }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={TitleWrapperClassName}
         >
           {title}
@@ -153,6 +156,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
     );
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <IconTitleWrapper style={{ color: titleColor }} data-testid={testId}>
         {link ? (
           <LinkAppearance

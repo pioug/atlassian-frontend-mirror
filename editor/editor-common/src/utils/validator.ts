@@ -75,6 +75,7 @@ export const markOrder = [
   'em',
   'strong',
   'textColor',
+  'backgroundColor',
   'strike',
   'subsup',
   'underline',
@@ -82,7 +83,6 @@ export const markOrder = [
   'confluenceInlineComment',
   'annotation',
   'dataConsumer',
-  'backgroundColor',
 ];
 
 export const isSubSupType = (type: string): type is 'sub' | 'sup' => {

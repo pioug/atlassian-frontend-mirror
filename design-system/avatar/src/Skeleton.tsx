@@ -99,6 +99,7 @@ const Skeleton: FC<SkeletonProps> = ({
         : defaultRadiusStyles,
       weight === 'strong' ? strongOpacityStyles : defaultOpacityStyles,
     ]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     style={
       {
         [CSS_VAR_AVATAR_BGCOLOR]: color ?? 'currentColor',

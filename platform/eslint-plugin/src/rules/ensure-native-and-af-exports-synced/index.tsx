@@ -14,6 +14,9 @@ const exportsValidationExceptions: ExportsValidationExceptions = {
   '@atlaskit/tokens': {
     ignoredAfExportKeys: ['./babel-plugin'],
   },
+  '@atlaskit/icon': {
+    ignoredAfExportKeys: ['./glyph'],
+  },
 };
 
 const rule: Rule.RuleModule = {

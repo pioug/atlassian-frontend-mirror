@@ -95,6 +95,7 @@ export default class SpotlightTargetRadiusExample extends Component<{}, State> {
           </SpotlightTarget>
         </HighlightGroup>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <p style={{ marginBottom: '1em' }}>
           Rather than digging around in the DOM to find the element applying a
           border-radius, let&apos;s be explicit, define{' '}

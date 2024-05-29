@@ -26,8 +26,11 @@ let n = 0;
 export default function Example() {
   return (
     <ResultBox>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <p style={{ padding: 10 }}>Inside a parent with set height1</p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <p style={{ padding: 10 }}>Inside a parent with set height2</p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={containerDivStyle}>
         <WidthDetector>
           {(width?: Number) => {
@@ -35,6 +38,7 @@ export default function Example() {
             return (
               <>
                 <p>This div has a max width of {containerDivStyle.maxWidth}</p>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
                 <p className="my-component-child">{width}</p>
                 <p>This component has been rendered {n} times.</p>
               </>

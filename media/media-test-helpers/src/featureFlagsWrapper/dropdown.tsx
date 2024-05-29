@@ -98,6 +98,7 @@ const FeatureFlagItems = ({ onUpdate }: { onUpdate: () => void }) => {
   const flagItems = Object.entries(getMediaFeatureFlags());
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ maxHeight: '200px', padding: '10px 0' }}>
       {flagItems.length > 0 ? (
         flagItems.map(([key, currentValue]) => {
@@ -162,6 +163,7 @@ const MediaFeatureFlagsDropdown = ({
       />
       <Tooltip content="Reset all flags">
         <Button
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ marginLeft: 10 }}
           iconBefore={<SelectClearIcon label="Star icon" size="small" />}
           onClick={() => {

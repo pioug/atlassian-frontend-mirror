@@ -4,7 +4,6 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
 import '@atlaskit/link-test-helpers/jest';
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
@@ -24,11 +23,9 @@ describe('AutomationAction', () => {
 
     return render(
       <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-        <SmartCardProvider>
         <IntlProvider locale="en">
           <AutomationAction {...props} as="button"/>
         </IntlProvider>
-        </SmartCardProvider>
       </AnalyticsListener>,
     );
   };
@@ -42,22 +39,20 @@ describe('AutomationAction', () => {
 
   describe('with tooltip', () => {
     it('renders stack item tooltip', async () => {
-      const user = userEvent.setup();
       const { findByRole, findByTestId } = setup();
 
       const element = await findByTestId(testId);
-      await user.hover(element);
+      userEvent.hover(element);
 
       const tooltip = await findByRole('tooltip');
       expect(tooltip.textContent).toBe('Select an automation rule to run');
     });
 
     it('renders updated tooltip after onClick', async () => {
-      const user = userEvent.setup();
       const { findByTestId } = setup();
 
       const element = await findByTestId(testId);
-      await user.click(element);
+      userEvent.click(element);
 
       const modal = await findByTestId('smart-card-automation-action-modal');
       expect(modal).toBeInTheDocument();

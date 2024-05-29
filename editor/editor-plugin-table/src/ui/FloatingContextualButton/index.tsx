@@ -86,6 +86,7 @@ const FloatingContextualButtonInner = React.memo(
         ]}
       >
         <ToolbarButton
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={ClassName.CONTEXTUAL_MENU_BUTTON}
           selected={isContextualMenuOpen}
           title={labelCellOptions}

@@ -74,6 +74,7 @@ const UnsupportedBlockNode = ({
     [dispatchAnalyticsEvent, originalNodeType],
   );
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div css={blockNodeStyle} className="unsupported">
       {message}
       <Tooltip
@@ -83,6 +84,7 @@ const UnsupportedBlockNode = ({
         onShow={tooltipOnShowHandler}
         strategy="absolute"
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <span style={style}>
           <QuestionsIcon label="?" size="small" />
         </span>

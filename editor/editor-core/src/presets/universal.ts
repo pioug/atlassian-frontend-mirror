@@ -212,6 +212,7 @@ export default function createUniversalPreset(
             props.mention?.insertDisplayName ?? props.mentionInsertDisplayName,
           allowZeroWidthSpaceAfter: !isMobile,
           HighlightComponent: props.mention?.HighlightComponent,
+          profilecardProvider: props.mention?.profilecardProvider,
         },
       ],
       Boolean(props.mentionProvider),

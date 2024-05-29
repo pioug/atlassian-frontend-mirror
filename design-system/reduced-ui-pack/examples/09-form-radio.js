@@ -8,10 +8,12 @@ export default () => (
     <Warning />
     <form onSubmit={(e) => e.preventDefault()}>
       <h2>Settings</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <fieldset className="ak-field-group">
         <legend>
           <span>Time display options</span>
         </legend>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="ak-field-radio">
           <input
             type="radio"
@@ -24,10 +26,12 @@ export default () => (
             Use relative times (eg. 2 minutes ago)
           </label>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="ak-field-radio">
           <input type="radio" name="option" id="option2" value="option2" />
           <label htmlFor="option2">Use your time zone</label>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="ak-field-radio">
           <input
             type="radio"
@@ -39,10 +43,12 @@ export default () => (
           <label htmlFor="option3">Use the server time</label>
         </div>
       </fieldset>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <fieldset className="ak-field-group">
         <legend>
           <span>More options</span>
         </legend>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="ak-field-radio">
           <input
             type="radio"
@@ -54,6 +60,7 @@ export default () => (
           />
           <label htmlFor="testsoption1">Needs tests</label>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="ak-field-radio">
           <input
             type="radio"
@@ -65,7 +72,9 @@ export default () => (
           <label htmlFor="testsoption2">No tests required</label>
         </div>
       </fieldset>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="ak-field-group">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <button className="ak-button ak-button__appearance-primary">
           Save
         </button>

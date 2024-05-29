@@ -117,7 +117,10 @@
     "./metadata": "./src/entry-points/metadata.tsx",
     "./svg": "./src/entry-points/svg.tsx",
     "./types": "./src/entry-points/types.tsx",
-    "./glyph/*": "./glyph/*",
+    "./glyph/*": {
+      "types": "./glyph/*.d.ts",
+      "default": "./glyph/*.js"
+    },
     "./core/*": "./core/*",
     "./utility/*": "./utility/*",
     ".": "./src/index.tsx"

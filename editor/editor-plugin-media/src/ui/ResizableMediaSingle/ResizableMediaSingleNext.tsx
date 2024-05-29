@@ -626,6 +626,7 @@ class ResizableMediaSingleNext extends React.Component<
         <ResizerNext
           minWidth={minViewWidth}
           maxWidth={maxWidth}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={resizerNextClassName}
           snapGap={MEDIA_SINGLE_SNAP_GAP}
           enable={enable}

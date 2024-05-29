@@ -293,6 +293,7 @@ export default class Resizer extends React.Component<
           width, // just content itself (no paddings)
           height: 'auto',
         }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={className}
         handleClasses={handles}
         handleStyles={updatedHandleStyles}

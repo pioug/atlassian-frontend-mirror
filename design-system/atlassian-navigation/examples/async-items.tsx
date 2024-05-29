@@ -53,7 +53,9 @@ export default () => {
       <div
         style={{
           // TODO Delete this comment after verifying space token -> previous value `'20px'`
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           marginTop: token('space.250', '20px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           textAlign: 'center',
         }}
       >

@@ -1,18 +1,15 @@
 import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import LegacyButton from '@atlaskit/button/standard-button';
 import {
   findKeymapByDescription,
   ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
 import type { IconProps } from '@atlaskit/icon/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 interface Props {
   title: string;
-  icon: JSX.Element;
-  newIcon: React.ComponentType<React.PropsWithChildren<IconProps>>;
+  icon: React.ComponentType<React.PropsWithChildren<IconProps>>;
   iconLabel: string;
   iconSize?: 'small' | undefined;
   keymapDescription: string;
@@ -39,7 +36,6 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
     const {
       title,
       icon,
-      newIcon,
       iconSize,
       keymapDescription,
       disabled,
@@ -60,35 +56,19 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
         hideTooltipOnClick={true}
         position={'top'}
       >
-        {getBooleanFF('platform.design-system-team.editor-new-button_jjjdo') ? (
-          <IconButton
-            id="afterInputSection"
-            label={title}
-            appearance={appearance}
-            testId={title}
-            ref={this.buttonRef}
-            icon={newIcon}
-            UNSAFE_size={iconSize}
-            isDisabled={disabled}
-            onClick={this.handleClick}
-            isSelected={isPressed}
-            {...pressedProps}
-          />
-        ) : (
-          <LegacyButton
-            id="afterInputSection"
-            label={title}
-            appearance={appearance}
-            testId={title}
-            ref={this.buttonRef}
-            iconBefore={icon}
-            isDisabled={disabled}
-            onClick={this.handleClick}
-            isSelected={isPressed}
-            shouldFitContainer={true}
-            {...pressedProps}
-          />
-        )}
+        <IconButton
+          id="afterInputSection"
+          label={title}
+          appearance={appearance}
+          testId={title}
+          ref={this.buttonRef}
+          icon={icon}
+          UNSAFE_size={iconSize}
+          isDisabled={disabled}
+          onClick={this.handleClick}
+          isSelected={isPressed}
+          {...pressedProps}
+        />
       </Tooltip>
     );
   }

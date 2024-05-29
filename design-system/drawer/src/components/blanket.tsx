@@ -43,6 +43,7 @@ const Blanket = ({ isOpen, onBlanketClicked, testId }: BlanketProps) => {
           animationTimingFunction={animationTimingFunction}
         >
           {({ className }) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             <div css={blanketStyles} className={className}>
               <AkBlanket
                 isTinted

@@ -79,6 +79,7 @@ const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
           align={SmartLinkAlignment.Right}
         >
           <span
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={hasAction ? 'has-action' : ''}
             css={getMessageStyles(size, hasAction)}
             onClick={onClick}

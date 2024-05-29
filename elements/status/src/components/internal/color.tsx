@@ -76,6 +76,7 @@ export default class Color extends PureComponent<ColorProps> {
               onMouseLeave={this.onMouseLeave}
               onMouseDown={this.onMouseDown}
               tabIndex={tabIndex}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={`${isSelected ? 'selected' : ''}`}
               title={labels[0] as string}
               // button element does not support aria-selected.
@@ -85,6 +86,7 @@ export default class Color extends PureComponent<ColorProps> {
               aria-pressed={isSelected}
               style={{
                 backgroundColor: backgroundColor || 'transparent',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 borderColor,
               }}
               ref={setRef}

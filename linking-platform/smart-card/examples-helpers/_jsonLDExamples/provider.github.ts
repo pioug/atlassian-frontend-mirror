@@ -35,7 +35,7 @@ export const GithubFile = {
   },
 } as ResolveResponse;
 
-export const GithubPullRequest = {
+export const GithubPullRequestJson = {
   meta: {
     visibility: 'restricted',
     access: 'granted',
@@ -147,7 +147,9 @@ export const GithubPullRequest = {
     ],
     updated: '2018-08-08T12:17:47Z',
   },
-} as ResolveResponse;
+}
+
+export const GithubPullRequest = GithubPullRequestJson as ResolveResponse;
 
 export const GithubRepository = {
   meta: {

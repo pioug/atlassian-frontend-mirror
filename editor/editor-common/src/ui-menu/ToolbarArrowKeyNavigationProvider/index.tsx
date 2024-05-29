@@ -329,6 +329,7 @@ export const ToolbarArrowKeyNavigationProvider = ({
   return (
     <div
       css={editorAppearance === 'comment' && centeredToolbarContainer}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="custom-key-handler-wrapper"
       ref={wrapperRef}
       role="toolbar"

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-utils
 
+## 1.5.0
+
+### Minor Changes
+
+-   [#100969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100969)
+    [`0add7464f510`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0add7464f510) -
+    Added `walkStyleProperties` util to `/walk-style-properties` entrypoint.
+
 ## 1.4.0
 
 ### Minor Changes

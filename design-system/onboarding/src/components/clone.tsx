@@ -104,6 +104,7 @@ const Clone = (props: CloneProps) => {
       pulse={pulse}
       bgColor={targetBgColor}
       radius={targetRadius}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
     >
       <div
@@ -111,6 +112,7 @@ const Clone = (props: CloneProps) => {
         dangerouslySetInnerHTML={{
           __html: cloneAndOverrideStyles(targetNode).outerHTML,
         }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ height: '100%', pointerEvents: 'none' }}
       />
       <TargetOverlay

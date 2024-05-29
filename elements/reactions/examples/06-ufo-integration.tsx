@@ -69,9 +69,12 @@ export default () => {
 
           <hr />
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ marginTop: '30px' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <h5>Connected reactions picker</h5>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
               <div style={{ marginTop: '10px' }}>
                 <ConnectedReactionPicker
                   store={store}
@@ -82,8 +85,10 @@ export default () => {
               </div>
             </div>
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <h5>Connected reactions view</h5>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
               <div style={{ marginTop: '10px' }}>
                 <ConnectedReactionsView
                   store={store}

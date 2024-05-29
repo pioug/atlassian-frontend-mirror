@@ -123,6 +123,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(
         ref={ref}
         appearance="subtle"
         testId={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={className}
         href={href}
         iconAfter={iconAfter}

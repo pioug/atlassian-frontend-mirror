@@ -30,6 +30,7 @@ const InlineEditExample = () => {
           'space.100',
           '8px',
         )} ${token('space.600', '48px')}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         width: '70%',
       }}
     >

@@ -4,13 +4,10 @@ import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize as getGridSize } from '@atlaskit/theme/constants';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { row, tableBorder } from '../theme';
-
-const gridSize = getGridSize();
 
 export type TableProps = HTMLProps<HTMLTableElement> & {
   isFixedSize?: boolean;
@@ -49,6 +46,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
       <table
         // React and Typescript do not yet support the inert attribute https://github.com/facebook/react/pull/24730
         {...{ inert: isLoading ? '' : undefined }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={
           {
             [tableRowCSSVars.CSS_VAR_HOVER_BACKGROUND]: row.hoverBackground,
@@ -75,19 +73,32 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
 );
 
 const captionStyles = css({
-  fontSize: '1.42857143em',
-  fontStyle: 'inherit',
-  fontWeight: 'var(--ds-font-weight-medium)',
-  letterSpacing: '-0.008em',
-  lineHeight: 1.2,
+  font: token('font.heading.medium'),
   marginBlockEnd: token('space.100', '8px'),
-  marginBlockStart: `${gridSize * 3.5}px`,
-  textAlign: 'left',
   willChange: 'transform',
 });
 
+const oldCaptionStyles = css({
+  fontWeight: token('font.weight.regular'),
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+  marginBlockStart: 28,
+});
+
+const newCaptionStyles = css({
+  marginBlockStart: token('space.300'),
+});
+
 export const Caption: FC<{ children: ReactNode }> = ({ children }) => (
-  <caption css={captionStyles}>{children}</caption>
+  <caption
+    css={[
+      captionStyles,
+      getBooleanFF('platform.design-system-team.dynamic-table-typography_7zio6')
+        ? newCaptionStyles
+        : oldCaptionStyles,
+    ]}
+  >
+    {children}
+  </caption>
 );
 
 const paginationWrapperStyles = css({

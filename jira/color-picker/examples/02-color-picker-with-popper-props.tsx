@@ -15,6 +15,7 @@ class ColorPickerExample extends React.Component<{}, { color: string }> {
 
   render() {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ padding: token('space.250', '20px') }}>
         <IntlProvider locale="en">
           <ColorPicker

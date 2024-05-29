@@ -125,6 +125,7 @@ export const ArrowLeftWrapper = ({
 }: {
   children: ReactNode;
 } & OnClick) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <div css={arrowLeftWrapperStyles} className="arrow" onClick={onClick}>
     {children}
   </div>
@@ -140,6 +141,7 @@ export const ArrowRightWrapper = ({
 }: {
   children: ReactNode;
 } & OnClick) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
   <div css={arrowRightWrapperStyles} className="arrow" onClick={onClick}>
     {children}
   </div>
@@ -220,6 +222,7 @@ export const FilmStripList = React.forwardRef(
     <ul
       css={filmStripListStyles}
       ref={ref as React.RefObject<HTMLUListElement>}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
     >
       {children}
@@ -236,6 +239,7 @@ export const FilmStripListItem = ({
 }) => (
   <li
     css={filmStripListItemStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     className={MediaFilmStripListItemSelector}
     data-testid="media-filmstrip-list-item"
     key={index}

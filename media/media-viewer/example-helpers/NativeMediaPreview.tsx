@@ -82,6 +82,7 @@ export const NativeMediaPreview = ({
         css={nativePreviewButtonStyles}
         onClick={onClick}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <img style={{ maxWidth: '100%' }} src={url} />
       </button>
     );

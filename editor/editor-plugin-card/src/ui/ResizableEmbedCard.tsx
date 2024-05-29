@@ -356,10 +356,14 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
       <span
         data-testid={'resizable-embed-card-height-definer'}
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'block',
           /* Fixes extra padding problem in Firefox */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           fontSize: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           lineHeight: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ...heightDefiningStyles,
         }}
       />

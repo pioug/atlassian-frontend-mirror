@@ -29,6 +29,7 @@ describe('Old icons', () => {
         viewBox="0 0 24 24"
         data-testid={props['data-testid']}
         aria-label={props['aria-label']}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={props.className}
       >
         <path

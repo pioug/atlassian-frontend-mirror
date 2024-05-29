@@ -24,10 +24,13 @@ const actionsContent = (
   </ButtonGroup>
 );
 const barContent = (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={{ display: 'flex' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ flex: '0 0 200px' }}>
       <TextField isCompact placeholder="Filter" aria-label="Filter" />
     </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
     <div style={{ flex: '0 0 200px', marginLeft: token('space.100', '8px') }}>
       <Select
         spacing="compact"

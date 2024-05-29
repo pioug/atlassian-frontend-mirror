@@ -46,6 +46,7 @@ const Position = forwardRef<HTMLDivElement, PosTypes>(
     } as CSSProperties;
 
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div css={positionStyles} ref={ref} style={dynamicStyles}>
         <Tooltip content={`Position "${pos}"`}>
           {(tooltipProps) => (
@@ -86,6 +87,7 @@ const PositionExample: FC = () => {
   const unpin = () => setPinned(false);
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ height: 246, position: 'relative' }}>
       <Position pos="relative" top={0} />
       <Position pos="absolute" top={84} />

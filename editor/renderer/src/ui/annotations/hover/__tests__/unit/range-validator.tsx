@@ -58,9 +58,11 @@ describe('Annotations: RangeValidator', () => {
           <RendererContext.Provider value={actions}>
             <div>
               <div ref={ref} id="renderer-container">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
                 <span className="start-selection">Melancia</span>
                 <span>Mamao</span>
                 <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
                   <small className="end-selection">morango</small>
                 </div>
               </div>
@@ -80,9 +82,11 @@ describe('Annotations: RangeValidator', () => {
           <RendererContext.Provider value={actions}>
             <div>
               <div ref={ref} id="renderer-container">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
                 <span className="start-selection">Melancia</span>
                 <span>Mamao</span>
                 <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
                   <small className="end-selection">morango</small>
                 </div>
               </div>

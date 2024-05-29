@@ -8,9 +8,11 @@ export default () => (
     <Warning />
     <form onSubmit={(e) => e.preventDefault()}>
       <h2>Favourite things</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="ak-field-group">
         <label htmlFor="fav-fruit">Favourite fruit</label>
         <select
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="ak-field-select"
           id="fav-fruit"
           name="fav-fruit"
@@ -34,11 +36,13 @@ export default () => (
           </optgroup>
         </select>
       </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="ak-field-group">
         <label htmlFor="fav-fruit-multiple">
           Favourite fruit (multi select)
         </label>
         <select
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="ak-field-select"
           multiple
           defaultValue={['Cherry', 'Apple', 'Paw paw']}
@@ -63,9 +67,11 @@ export default () => (
           </optgroup>
         </select>
       </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="ak-field-group">
         <label htmlFor="fav-movie">Favourite movie</label>
         <select
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="ak-field-select"
           id="fav-movie"
           name="fav-movie"
@@ -82,9 +88,11 @@ export default () => (
           </optgroup>
         </select>
       </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="ak-field-group">
         <label htmlFor="fav-movies">Favourite movies (multi select)</label>
         <select
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="ak-field-select"
           multiple
           defaultValue={['Star Wars', 'Indiana Jones']}
@@ -102,7 +110,9 @@ export default () => (
           </optgroup>
         </select>
       </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="ak-field-group">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <button className="ak-button ak-button__appearance-primary">
           Save
         </button>

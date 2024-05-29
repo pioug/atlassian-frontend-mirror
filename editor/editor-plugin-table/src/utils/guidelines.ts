@@ -1,6 +1,7 @@
 import { createFixedGuidelinesFromLengths } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 
+import type { GuidelineExcludeConfig } from './snapping';
 import {
   calculateDefaultSnappings,
   calculateDefaultTablePreserveSnappings,
@@ -15,12 +16,15 @@ export const defaultGuidelines = createFixedGuidelinesFromLengths([
 
 export const defaultGuidelinesForPreserveTable = (
   editorContainerWidth: number,
-  excludeInnerGuidelines = false,
+  exclude: GuidelineExcludeConfig = {
+    innerGuidelines: false,
+    breakoutPoints: false,
+  },
 ) => {
   const lengths = calculateDefaultTablePreserveSnappings(
     -1,
     editorContainerWidth,
-    excludeInnerGuidelines,
+    exclude,
   );
 
   return createFixedGuidelinesFromLengths(

@@ -201,6 +201,7 @@ export default function EditorExampleForIntegrationTests() {
   const [isReady, setIsReady] = React.useState(false);
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div id="editor-container" data-collab-is-ready={isReady} style={style}>
       <EditorContext>
         <CollabEditor

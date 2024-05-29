@@ -72,6 +72,7 @@ export class CardActionsDropdownMenu extends Component<CardActionsDropdownMenuPr
           trigger={({ triggerRef, ...providedProps }) => (
             <CardActionButtonWithAnalytics
               variant={triggerVariant}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={{ color: triggerColor }}
               ref={triggerRef}
               {...providedProps}

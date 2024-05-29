@@ -80,6 +80,7 @@ export default class ClickAreaMobile extends React.Component<Props> {
           isExpanded: this.props.isExpanded,
           minHeight: this.props.minHeight,
         })}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="editor-click-wrapper"
         onClick={this.handleClick}
         ref={this.clickElementRef}

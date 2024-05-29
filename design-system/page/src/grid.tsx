@@ -57,6 +57,7 @@ export const Grid = ({
   return (
     <div
       css={[gridStyles, gridLayoutStyles[layout], isNested && nestedGridStyles]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={
         {
           [varColumnsNum]: columns,

@@ -4,6 +4,7 @@ import Avatar, { AvatarItem } from '../../src';
 
 const AvatarItemIsTruncationDisabled = () => {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div style={{ maxWidth: 120, border: '1px solid pink' }}>
       <AvatarItem
         avatar={

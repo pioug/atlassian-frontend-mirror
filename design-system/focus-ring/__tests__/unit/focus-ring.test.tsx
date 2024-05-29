@@ -28,6 +28,7 @@ describe('Focus Ring', () => {
   it('should join pre-defined class name', () => {
     const { getByTestId } = render(
       <FocusRing>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div data-testid="test" className="foobar" />
       </FocusRing>,
     );

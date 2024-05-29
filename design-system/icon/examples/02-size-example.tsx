@@ -53,6 +53,7 @@ const IconSizeExample = ({ defaultSize = 'medium' }: { defaultSize: Size }) => {
     <div>
       <ButtonGroup label="Choose icon size">
         {sizes.map((sizeOpt) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           <div style={{ marginRight: token('space.050', '4px') }} key={sizeOpt}>
             <Button
               testId={sizeOpt}

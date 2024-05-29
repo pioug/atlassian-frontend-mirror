@@ -47,6 +47,7 @@ export const Name = ({
     }}
     data-testid={testId}
     data-trello-do-not-use-override="block-card-content-header-name"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     className={blockCardContentHeaderNameClassName}
   >
     {name}

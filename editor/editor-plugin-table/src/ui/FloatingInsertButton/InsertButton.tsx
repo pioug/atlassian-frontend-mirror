@@ -124,6 +124,7 @@ export const InsertButtonForDragAndDrop = ({
     >
       <>
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={classnames(ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER, {
             [ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW]: isRow,
             [ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_COLUMN]: !isRow,
@@ -131,10 +132,12 @@ export const InsertButtonForDragAndDrop = ({
         >
           <button
             type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={ClassName.DRAG_CONTROLS_INSERT_BUTTON}
             onMouseDown={onMouseDown}
           >
             <svg
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={ClassName.CONTROLS_BUTTON_ICON}
               width="16"
               height="16"
@@ -150,7 +153,9 @@ export const InsertButtonForDragAndDrop = ({
           </button>
         </div>
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={ClassName.CONTROLS_INSERT_LINE}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={
             type === 'row'
               ? {
@@ -174,8 +179,10 @@ export const InsertButtonForDragAndDrop = ({
     : ClassName.CONTROLS_FLOATING_BUTTON_COLUMN;
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div className={floatingButtonClassName}>
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={`${ClassName.DRAG_CONTROLS_INSERT_BUTTON_WRAP} ${ClassName.CONTROLS_INSERT_ROW}`}
       >
         {content}
@@ -204,12 +211,15 @@ const InsertButton = ({
       position="top"
     >
       <>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className={ClassName.CONTROLS_INSERT_BUTTON_INNER}>
           <button
             type="button"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={ClassName.CONTROLS_INSERT_BUTTON}
             onMouseDown={onMouseDown}
           >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
             <svg className={ClassName.CONTROLS_BUTTON_ICON}>
               <path
                 d="M10 4a1 1 0 0 1 1 1v4h4a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H5a1 1 0 1 1 0-2h4V5a1 1 0 0 1 1-1z"
@@ -220,7 +230,9 @@ const InsertButton = ({
           </button>
         </div>
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={ClassName.CONTROLS_INSERT_LINE}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={
             type === 'row'
               ? { width: getInsertLineWidth(tableRef) }
@@ -237,8 +249,10 @@ const InsertButton = ({
       : ClassName.CONTROLS_FLOATING_BUTTON_ROW;
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <div className={floatingButtonClassName}>
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={`${ClassName.CONTROLS_INSERT_BUTTON_WRAP} ${ClassName.CONTROLS_INSERT_ROW}`}
       >
         {content}

@@ -372,7 +372,9 @@ export const DraggableTableHeading = ({
       ref={mainHeaderCellRef}
       data-testid={`${id}-column-heading`}
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         cursor: 'grab',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         ...getWidthCss({ shouldUseWidth: resizeIsEnabled, width }),
       }}
     >

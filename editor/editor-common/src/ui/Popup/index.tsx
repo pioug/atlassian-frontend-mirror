@@ -357,9 +357,12 @@ export default class Popup extends React.Component<Props, State> {
       <div
         ref={this.handleRef}
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           position: 'absolute',
           zIndex: this.props.zIndex || akEditorFloatingPanelZIndex,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ...position,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           ...this.props.style,
         }}
         aria-label={ariaLabel}

@@ -67,6 +67,7 @@ const manifest: ExtensionManifest = {
             return (
               <div
                 style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   border: '1px dashed purple',
                   margin: `${token('space.150', '12px')} 0`,
                 }}
@@ -96,6 +97,7 @@ const manifest: ExtensionManifest = {
             return (
               <div
                 style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   border: '1px dashed purple',
                   margin: `${token('space.150', '12px')} 0`,
                 }}
@@ -117,6 +119,7 @@ const manifest: ExtensionManifest = {
             return (
               <div
                 style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                   border: '1px dashed green',
                   margin: `${token('space.150', '12px')} 0`,
                 }}

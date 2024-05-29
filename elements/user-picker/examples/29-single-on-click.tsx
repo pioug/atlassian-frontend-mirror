@@ -29,6 +29,7 @@ const Example = () => {
         />
         <label htmlFor="open-menu-on-click">
           openMenuOnClick
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <span style={{ color: 'red' }}>
             {isMulti ? ' (this prop will be ignored on multi)' : ''}
           </span>

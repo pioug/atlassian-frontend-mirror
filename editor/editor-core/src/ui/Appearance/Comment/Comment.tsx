@@ -209,6 +209,7 @@ class Editor extends React.Component<
               minHeight: `${minHeight}px`,
             }),
           ]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className="akEditor"
           ref={this.wrapperElementRef}
         >
@@ -262,6 +263,7 @@ class Editor extends React.Component<
                           })
                         : null
                     }
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                     className={classnames('ak-editor-content-area', {
                       'less-margin': width < akEditorMobileBreakoutPoint,
                     })}
@@ -326,6 +328,7 @@ class Editor extends React.Component<
                 </Button>
               )}
             </ButtonGroup>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <span style={{ flexGrow: 1 }} />
             {customSecondaryToolbarComponents}
           </div>
@@ -486,6 +489,7 @@ const EditorNext = (
             minHeight: `${minHeight}px`,
           }),
         ]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="akEditor"
         ref={wrapperElementRef}
       >
@@ -539,6 +543,7 @@ const EditorNext = (
                         })
                       : null
                   }
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                   className={classnames('ak-editor-content-area', {
                     'less-margin': width < akEditorMobileBreakoutPoint,
                   })}
@@ -600,6 +605,7 @@ const EditorNext = (
               </Button>
             )}
           </ButtonGroup>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <span style={{ flexGrow: 1 }} />
           {customSecondaryToolbarComponents}
         </div>

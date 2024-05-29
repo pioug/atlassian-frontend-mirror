@@ -639,6 +639,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 
   describe('Custom components', () => {
     const table = (props: any) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <table className="custom-component">
         <tbody>{props.children}</tbody>
       </table>

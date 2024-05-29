@@ -65,7 +65,9 @@ export const InlineImageWrapper = ({
   return (
     // eslint-disable-next-line @atlaskit/design-system/prefer-primitives
     <span
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={{ ...borderStyleVars, ...aspectStyleVars }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={INLINE_IMAGE_WRAPPER_CLASS_NAME}
       css={[
         wrapperStyle,

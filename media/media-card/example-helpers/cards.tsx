@@ -207,6 +207,7 @@ export const lightDefaultCards = [
   {
     title: 'Medium Loading',
     content: (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={divStyle}>
         <CardLoading />
       </div>
@@ -215,6 +216,7 @@ export const lightDefaultCards = [
   {
     title: 'Medium Error',
     content: (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={divStyle}>
         <CardError />
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { PopupSelect, type OptionsType } from '../../..';
@@ -80,7 +80,10 @@ describe('Popup Select', () => {
       ).toHaveFocus();
     });
 
-    await user.tab();
+    fireEvent.keyDown(selectTrigger, {
+      key: 'Tab',
+      code: 'Tab',
+    });
 
     await waitFor(() => {
       expect(selectTrigger).not.toHaveFocus();

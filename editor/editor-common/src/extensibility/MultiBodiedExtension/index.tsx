@@ -92,6 +92,7 @@ const getWrapperTitleContent = (
   if (imageData) {
     const { url, ...rest } = imageData;
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <div className="extension-title">
         <img css={imageStyles} src={url} {...rest} alt={title} />
         {title}
@@ -100,6 +101,7 @@ const getWrapperTitleContent = (
   }
   return (
     <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="extension-title"
       data-testid={'multiBodiedExtension-default-lozenge'}
     >
@@ -231,15 +233,18 @@ const MultiBodiedExtensionWithWidth = ({
         />
       )}
       <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={wrapperClassNames}
         css={mbeExtensionWrapperCSSStyles}
         data-testid="multiBodiedExtension--wrapper"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={mbeWrapperStyles}
         onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >
         <div
           css={overlayStyles}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={overlayClassNames}
           data-testid="multiBodiedExtension--overlay"
         />
@@ -249,6 +254,7 @@ const MultiBodiedExtensionWithWidth = ({
           showMacroInteractionDesignUpdates,
         )}
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={containerClassNames}
           css={getContainerCssExtendedStyles(
             activeChildIndex,
@@ -258,6 +264,7 @@ const MultiBodiedExtensionWithWidth = ({
           data-active-child-index={activeChildIndex}
         >
           <nav
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className={navigationClassNames}
             css={sharedMultiBodiedExtensionStyles.mbeNavigation}
             data-testid="multiBodiedExtension-navigation"
@@ -266,6 +273,7 @@ const MultiBodiedExtensionWithWidth = ({
           </nav>
 
           <article
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="multiBodiedExtension--frames"
             data-testid="multiBodiedExtension--frames"
             ref={articleRef}

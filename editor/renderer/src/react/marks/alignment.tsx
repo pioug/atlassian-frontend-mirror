@@ -31,6 +31,7 @@ const MarkWrapper = (
 export default function Alignment(props: MarkProps<AlignmentAttributes>) {
   return (
     <MarkWrapper
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="fabric-editor-block-mark fabric-editor-alignment"
       data-align={props.align}
     >

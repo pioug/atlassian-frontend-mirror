@@ -10,6 +10,7 @@ const SelectCheckboxExample = () => (
     </Label>
     <CheckboxSelect
       inputId="checkbox-select-example"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="checkbox-select"
       classNamePrefix="select"
       options={[

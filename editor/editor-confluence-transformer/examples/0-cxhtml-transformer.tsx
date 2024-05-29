@@ -105,18 +105,26 @@ class Example extends Component<ExampleProps, ExampleState> {
       <div ref="root">
         <fieldset
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             marginTop: token('space.250', '20px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             marginBottom: token('space.250', '20px'),
           }}
         >
           <legend>Input</legend>
           <textarea
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               boxSizing: 'border-box',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               border: '1px solid lightgray',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               fontFamily: 'monospace',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               padding: token('space.150', '12px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               width: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               height: 100,
             }}
             ref="input"
@@ -257,6 +265,7 @@ export default class ExampleWrapper extends Component<
       <div ref="root">
         <Example onChange={this.handleChange} />
 
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <fieldset style={{ marginTop: token('space.250', '20px') }}>
           <legend>
             CXHTML output (
@@ -265,6 +274,7 @@ export default class ExampleWrapper extends Component<
               checked={this.state.prettify}
               onChange={this.togglePrettify}
             />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
             <span onClick={this.togglePrettify} style={{ cursor: 'pointer' }}>
               {' '}
               prettify
@@ -272,10 +282,12 @@ export default class ExampleWrapper extends Component<
             )
           </legend>
           {this.state.isMediaReady ? (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
               {xml}
             </pre>
           ) : (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             <div style={{ padding: token('space.250', '20px') }}>
               <Spinner size="large" />
             </div>

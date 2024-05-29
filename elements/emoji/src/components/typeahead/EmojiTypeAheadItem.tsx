@@ -52,6 +52,7 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
     return (
       <EmojiCommonProvider emojiProvider={emojiProvider}>
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={`ak-emoji-typeahead-item ${
             selected ? typeaheadSelected : ''
           }`}

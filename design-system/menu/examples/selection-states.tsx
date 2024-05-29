@@ -18,6 +18,7 @@ type LinkProps = CustomItemComponentProps & {
 
 const Link = ({ children, href, className, onClick, tabIndex }: LinkProps) => {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
     <a href={href} className={className} onClick={onClick} tabIndex={tabIndex}>
       {children}
     </a>
@@ -26,6 +27,7 @@ const Link = ({ children, href, className, onClick, tabIndex }: LinkProps) => {
 
 export default function Example() {
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div data-testid="example" style={{ padding: token('space.150', '12px') }}>
       <MenuGroup maxWidth={300}>
         <Section>

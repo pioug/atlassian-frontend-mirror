@@ -12,6 +12,7 @@ export default () => (
     </p>
     <p>
       Eg. here are some{' '}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <span className="ak-lozenge ak-lozenge__appearance-new">new</span>{' '}
       components.
     </p>
@@ -23,11 +24,13 @@ export default () => (
       <tbody>
         <tr>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-default">
               default
             </span>
           </td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-default-bold">
               bold-bold
             </span>
@@ -35,11 +38,13 @@ export default () => (
         </tr>
         <tr>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-moved">
               moved
             </span>
           </td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-moved-bold">
               moved-bold
             </span>
@@ -47,9 +52,11 @@ export default () => (
         </tr>
         <tr>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-new">new</span>
           </td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-new-bold">
               new-bold
             </span>
@@ -57,11 +64,13 @@ export default () => (
         </tr>
         <tr>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-removed">
               removed
             </span>
           </td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-removed-bold">
               removed-bold
             </span>
@@ -69,11 +78,13 @@ export default () => (
         </tr>
         <tr>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-success">
               success
             </span>
           </td>
           <td>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="ak-lozenge ak-lozenge__appearance-success-bold">
               success-bold
             </span>

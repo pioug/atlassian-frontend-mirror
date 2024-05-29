@@ -653,7 +653,7 @@ export const PlainConfluenceSearchConfigModal = (
                 href={confluenceSearchUrl}
                 target="_blank"
                 testId="item-count-url"
-                // eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 style={{ color: token('color.text.accent.gray', N800) }}
               >
                 <FormattedNumber value={totalCount} />{' '}

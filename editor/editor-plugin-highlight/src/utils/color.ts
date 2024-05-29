@@ -1,16 +1,17 @@
 import { REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color';
-import type { Mark, MarkType } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import type {
+  ReadonlyTransaction,
   TextSelection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-export const getActiveColor = (tr: Transaction): string | null => {
+export const getActiveColor = (
+  tr: Transaction | ReadonlyTransaction,
+): string => {
   const { $from, $to, $cursor } = tr.selection as TextSelection;
 
-  const { backgroundColor } = tr.doc.type.schema.marks as {
-    backgroundColor: MarkType;
-  };
+  const { backgroundColor } = tr.doc.type.schema.marks;
 
   // Filter out other marks
   let marks: Array<Mark | undefined> = [];
@@ -19,7 +20,7 @@ export const getActiveColor = (tr: Transaction): string | null => {
       backgroundColor.isInSet(tr.storedMarks || $cursor.marks()) || undefined,
     );
   } else {
-    tr.doc.nodesBetween($from.pos, $to.pos, currentNode => {
+    tr.doc.nodesBetween($from.pos, $to.pos, (currentNode: Node) => {
       if (currentNode.isLeaf) {
         const mark = backgroundColor.isInSet(currentNode.marks) || undefined;
         marks.push(mark);
@@ -43,11 +44,11 @@ export const getActiveColor = (tr: Transaction): string | null => {
   // When multiple colors are selected revert back to default color
   if (
     marksWithColor.length > 1 ||
-    (marksWithColor.length === 1 && marks.length > 1)
+    (marksWithColor.length === 1 && marks.length > 1) ||
+    marksWithColor.length === 0
   ) {
-    return null;
+    return REMOVE_HIGHLIGHT_COLOR;
   }
-  return marksWithColor.length
-    ? marksWithColor[0].attrs.color
-    : REMOVE_HIGHLIGHT_COLOR;
+
+  return marksWithColor[0].attrs.color;
 };

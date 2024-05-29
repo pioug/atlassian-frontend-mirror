@@ -75,7 +75,9 @@ export default class Example extends React.Component<Props, {}> {
   render() {
     const { text, color, uuid } = this.props;
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ display: 'flex', width: '100%' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ flex: '1 0 300px', padding: 8, margin: 16 }}>
           <h3>Native to Web</h3>
           <Form onSubmit={this.submitOnStatusUpdate}>
@@ -89,6 +91,7 @@ export default class Example extends React.Component<Props, {}> {
                 <Field name="color" label="Color" defaultValue={color}>
                   {({ fieldProps: { id, ...rest } }: { fieldProps: any }) => (
                     <AkSelect
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                       className="single-select"
                       classNamePrefix="react-select"
                       options={colorOptions}
@@ -118,6 +121,7 @@ export default class Example extends React.Component<Props, {}> {
             )}
           </Form>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ flex: '1 0 100%' }}>
           <div css={divStyle('250px')}>
             <h3>Mobile editor</h3>

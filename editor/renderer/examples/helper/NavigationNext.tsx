@@ -53,7 +53,9 @@ const ContainerNavigation = () => (
       {({ css }: any) => (
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             ...css,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             paddingBottom: token('space.200', '16px'),
           }}
         >
@@ -73,6 +75,7 @@ const ContainerNavigation = () => (
     </HeaderSection>
     <MenuSection>
       {({ className }: ClassNameProps) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         <div className={className}>
           <Item before={BacklogIcon} text="Backlog" isSelected />
           <Item before={BoardIcon} text="Active sprints" />
@@ -88,6 +91,7 @@ const ProductNavigation = () => (
   <div>
     <HeaderSection>
       {({ className }: ClassNameProps) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         <div className={className}>
           <Wordmark wordmark={JiraWordmark} />
         </div>
@@ -95,6 +99,7 @@ const ProductNavigation = () => (
     </HeaderSection>
     <MenuSection>
       {({ className }: ClassNameProps) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         <div className={className}>
           <Item text="Dashboards" />
           <Item text="Projects" />
@@ -129,6 +134,7 @@ export function NavigationNext({ children }: { children: React.ReactNode }) {
         productNavigation={ProductNavigation}
         containerNavigation={ContainerNavigation}
       >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ padding: token('space.500', '40px') }}>{children}</div>
       </LayoutManager>
     </NavigationProvider>

@@ -44,6 +44,7 @@ const FullPageWithAdfImport = function FullPageWithAdfImport() {
 
   return (
     <EditorContext>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ height: '100%' }}>
         <DevTools />
         <FullPageEditor
@@ -86,6 +87,7 @@ const FullPageWithAdfImport = function FullPageWithAdfImport() {
                         const value = await actions.getValue();
                         setAdfValue(value);
                       }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                       style={{ marginRight: token('space.050', '4px') }}
                     >
                       Export ADF
@@ -98,14 +100,18 @@ const FullPageWithAdfImport = function FullPageWithAdfImport() {
         />
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             position: 'fixed',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             top: token('space.1000', '80px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             right: token('space.200', '16px'),
           }}
         >
           <Button
             id="toggle-adf-input"
             onClick={() => setPanelOpen(!panelOpen)}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             style={{ marginRight: token('space.050', '4px') }}
           >
             {panelOpen ? 'Close' : 'Open'} Panel
@@ -149,10 +155,15 @@ const AdfPanel = function AdfPanel(props: AdfPanelProps) {
           el && props.onInput(el.textContent!);
         }}
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           width: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           minHeight: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           border: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           fontFamily: 'monospace',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           whiteSpace: 'pre',
         }}
       />

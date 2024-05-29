@@ -59,6 +59,7 @@ const StatusContainerView = (props: ContainerProps) => {
         text={statusText}
         color={color}
         localId={localId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={style}
         onClick={handleClick}
       />
@@ -81,6 +82,7 @@ export const StatusNodeView = (props: Props) => {
       view={view}
       text={text}
       color={color}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
       localId={localId}
     />

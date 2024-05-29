@@ -29,13 +29,16 @@ export const MotionWrapper = ({
       style={{
         height,
         minHeight,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         lineHeight: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         overflow: 'hidden',
         // a fit for purpose state variable to control when the 'visible' styles should be appled
         opacity: height > 0 ? 1 : 0,
         // we only want to transition opacity and height when the error message is initially shown
         // not if its to be shown on mount
         transitionProperty: showTransition ? transition : 'none',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         transitionDuration: '0.3s',
       }}
       ref={ref}

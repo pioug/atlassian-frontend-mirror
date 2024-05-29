@@ -34,6 +34,7 @@ export default () => (
           video large [disableOverlay=true] width=500 height=300 (but with
           constraining box of 250px x auto)
         </h1>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ width: '250px', height: 'auto' }}>
           <Card
             mediaClientConfig={mediaClientConfig}

@@ -19,7 +19,9 @@ export default function Example() {
         <Lozenge
           testId="lozenge-custom-color1"
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             backgroundColor: 'green',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             color: token('color.text.inverse'),
           }}
         >
@@ -31,6 +33,7 @@ export default function Example() {
         <Lozenge
           testId="lozenge-custom-color2"
           /* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ backgroundColor: 'yellow', color: 'blue' }}
         >
           Custom

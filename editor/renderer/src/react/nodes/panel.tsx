@@ -136,12 +136,14 @@ const Panel = (props: Props) => {
 
   const renderIcon = () => {
     if (icon) {
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       return <div className={PanelSharedCssClassName.icon}>{icon}</div>;
     }
   };
 
   return (
     <PanelStyled
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={PanelSharedCssClassName.prefix}
       data-panel-type={panelType}
       data-panel-color={panelColor}
@@ -152,6 +154,7 @@ const Panel = (props: Props) => {
       hasIcon={Boolean(icon)}
     >
       {renderIcon()}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
       <div className={PanelSharedCssClassName.content}>{children}</div>
     </PanelStyled>
   );

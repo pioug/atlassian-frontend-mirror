@@ -39,8 +39,11 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
         <LoadignWhatsNewResultsListItem>
           <LoadingRectangle
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               display: 'inline-block',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               verticalAlign: 'middle',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               position: 'relative',
             }}
             contentHeight="16px"
@@ -49,6 +52,7 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
           />
           <LoadingRectangle
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               marginLeft: token('space.100', '8px'),
             }}
             contentHeight="11px"
@@ -62,8 +66,11 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
         <LoadignWhatsNewResultsListItem>
           <LoadingRectangle
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               display: 'inline-block',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               verticalAlign: 'middle',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               position: 'relative',
             }}
             contentHeight="16px"
@@ -72,6 +79,7 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
           />
           <LoadingRectangle
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               marginLeft: token('space.100', '8px'),
             }}
             contentHeight="11px"
@@ -93,8 +101,11 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
         <LoadignWhatsNewResultsListItem>
           <LoadingRectangle
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               display: 'inline-block',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               verticalAlign: 'middle',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               position: 'relative',
             }}
             contentHeight="16px"
@@ -103,6 +114,7 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
           />
           <LoadingRectangle
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               marginLeft: token('space.100', '8px'),
             }}
             contentHeight="11px"
@@ -116,8 +128,11 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
         <LoadignWhatsNewResultsListItem>
           <LoadingRectangle
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               display: 'inline-block',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               verticalAlign: 'middle',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               position: 'relative',
             }}
             contentHeight="16px"
@@ -126,6 +141,7 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
           />
           <LoadingRectangle
             style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               marginLeft: token('space.100', '8px'),
             }}
             contentHeight="11px"

@@ -34,11 +34,15 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 
 const Editor = (props: any) => (
   <div onClick={props.handleClick}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
     <div className="akEditor">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <div className="ak-editor-content-area">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="child-ak-editor-content-area"></div>
       </div>
     </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
     <div className="outside-ak-editor-content-area"></div>
   </div>
 );
@@ -295,12 +299,16 @@ describe('when click coming from', () => {
   describe('a button', () => {
     const Editor = (props: any) => (
       <div onClick={props.handleClick}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="akEditor">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
           <div className="ak-editor-content-area">
             <button id="fake-button">Button </button>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="child-ak-editor-content-area"></div>
           </div>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="outside-ak-editor-content-area"></div>
       </div>
     );
@@ -327,11 +335,15 @@ describe('when click coming from', () => {
   describe('within #column-picker-popup', () => {
     const Editor = (props: any) => (
       <div onClick={props.handleClick}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="akEditor">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
           <div className="ak-editor-content-area">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <div className="child-ak-editor-content-area"></div>
           </div>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <div className="outside-ak-editor-content-area">
           <div id="column-picker-popup">
             <div id="something-inside-column-picker"></div>

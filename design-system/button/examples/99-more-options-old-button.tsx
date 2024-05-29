@@ -354,10 +354,12 @@ export default function Example() {
   return (
     <div>
       <h3>Select an appearance option to see its effects in contexts</h3>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ marginTop: '1rem' }}>
         <label htmlFor="appearance">Appearance</label>
         <select
           id="appearance"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ display: 'block' }}
           onChange={onChange}
           value={appearance}

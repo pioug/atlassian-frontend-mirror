@@ -45,7 +45,9 @@ export const InnerContainer = forwardRef<
   return (
     <div
       ref={ref}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={className}
       data-number-column={node.attrs.isNumberColumnEnabled}
       data-layout={node.attrs.layout}
@@ -75,6 +77,7 @@ const AlignmentTableContainer = ({
   }, [alignment]);
 
   return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
     <div data-testid="table-alignment-container" style={style}>
       {children}
     </div>
@@ -93,7 +96,9 @@ const AlignmentTableContainerWrapper = ({
       <div
         data-testid="table-alignment-container"
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           display: 'flex',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           justifyContent: 'center',
         }}
       >
@@ -280,19 +285,23 @@ export const ResizableTableContainer = React.memo(
               : 'auto',
             position: isLivePageViewMode ? 'relative' : 'unset',
           }}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={ClassName.TABLE_RESIZER_CONTAINER}
           ref={containerRef}
         >
           {isLivePageViewMode ? (
             <InnerContainer
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
               className={className}
               node={node}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={{ width: 'inherit' }}
             >
               {children}
             </InnerContainer>
           ) : (
             <TableResizer {...tableResizerProps}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <InnerContainer className={className} node={node}>
                 {children}
               </InnerContainer>
@@ -342,6 +351,7 @@ export const TableContainer = ({
   if (isTableResizingEnabled && !isNested) {
     return (
       <ResizableTableContainer
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className={className}
         node={node}
         containerWidth={editorWidth!}
@@ -364,10 +374,12 @@ export const TableContainer = ({
   return (
     <InnerContainer
       node={node}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className={classNames(className, {
         'less-padding': editorWidth < akEditorMobileBreakoutPoint && !isNested,
       })}
       style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         width: 'inherit',
       }}
     >

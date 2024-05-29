@@ -27,7 +27,9 @@ export default () => (
           `}
     </style>
     {iconIds.map((iconId) => (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       <p className="icon-example" key={iconId}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
         <svg focusable="false" className="ak-icon">
           <use xlinkHref={`#${iconId}`} />
         </svg>

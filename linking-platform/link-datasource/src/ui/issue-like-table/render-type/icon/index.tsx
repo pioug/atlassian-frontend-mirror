@@ -29,6 +29,7 @@ const IconRenderType = ({
         src={source}
         alt={label}
         data-testid={testId}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ minWidth: '20px', maxWidth: '20px' }} // having just width: '20px' shrinks it when table width is reduced
       />
     </IconWrapper>

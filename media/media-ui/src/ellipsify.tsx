@@ -38,6 +38,7 @@ export const Ellipsify = ({
 
   return (
     <Wrapper
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="ellipsed-text"
       ref={element}
       aria-label={text}

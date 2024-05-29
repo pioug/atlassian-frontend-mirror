@@ -66,8 +66,11 @@ const AvatarGroupExample: FC = () => {
         Click the excess indicator to see the remaining avatars in a dropdown
         menu.
       </Note>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ display: 'flex', marginTop: '1em' }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ flex: 1 }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <h2 id="avatar-size" style={{ marginBottom: '0.5em' }}>
             Avatar Size: {avatarSize}
           </h2>
@@ -90,7 +93,9 @@ const AvatarGroupExample: FC = () => {
             </Button>
           </ButtonGroup>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ flex: 1 }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <h2 id="avatar-count" style={{ marginBottom: '0.5em' }}>
             Avatar Count: {avatarCount}
           </h2>
@@ -113,7 +118,9 @@ const AvatarGroupExample: FC = () => {
             </Button>
           </ButtonGroup>
         </div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <div style={{ flex: 1 }}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <h2 id="grid-max" style={{ marginBottom: '0.5em' }}>
             Grid Max: {avatarCountMax}
           </h2>
@@ -153,6 +160,7 @@ const AvatarGroupExample: FC = () => {
         type="range"
         value={gridWidth}
       />
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ maxWidth: gridWidth, position: 'relative' }}>
         <AvatarGroup
           appearance="grid"
@@ -171,14 +179,22 @@ const AvatarGroupExample: FC = () => {
         />
         <span
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             borderLeft: '1px solid #ccc',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             paddingLeft: '1em',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             fontSize: 11,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             position: 'absolute',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             right: 0,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             top: 0,
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             color: '#999',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             transform: 'translateX(100%)',
           }}
         >
@@ -200,6 +216,7 @@ const AvatarGroupExample: FC = () => {
       />
 
       <h2>On {'"More"'} Click</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ maxWidth: 380 }}>
         <Note>
           Circumvent the default dropdown menu behaviour by passing{' '}
@@ -230,6 +247,7 @@ const AvatarGroupExample: FC = () => {
       </div>
 
       <h2>Removed from tab order</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ maxWidth: 380 }}>
         <Note>
           Prevent tabbing to elements in the avatar group by passing{' '}
@@ -257,12 +275,17 @@ const AvatarGroupExample: FC = () => {
         <p>Expand and scroll up to reposition the avatar group menu</p>
         <div
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             border: '1px solid black',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             height: '200px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             width: '300px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             overflow: 'scroll',
           }}
         >
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ width: '300px', height: '600px', paddingTop: '200px' }}>
             <AvatarGroup
               boundariesElement="scrollParent"

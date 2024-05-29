@@ -115,12 +115,18 @@ export default class Example extends PureComponent<{}, State> {
       <div>
         <textarea
           style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             boxSizing: 'border-box',
             border: `1px solid ${token('color.border', 'lightgray')}`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             fontFamily: 'monospace',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             fontSize: 16,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             padding: token('space.150', '12px'),
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             width: '100%',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             height: 320,
           }}
           ref="input"
@@ -130,7 +136,9 @@ export default class Example extends PureComponent<{}, State> {
         <div
           style={{
             margin: `${token('space.100', '8px')} 0`,
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             maxHeight: '300px',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
             overflow: 'auto',
           }}
         >

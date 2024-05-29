@@ -567,6 +567,7 @@ export default class PopupSelect<
         {({ placement, ref, style }) => (
           <NodeResolver innerRef={this.resolveMenuRef(ref)}>
             <MenuDialog
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
               style={style}
               data-placement={placement}
               minWidth={minMenuWidth}

@@ -45,27 +45,33 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
       const Component = (
         <div>
           <section id="before-container">
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
             <span className="start-selection">Melancia</span>
             <span>Mamao</span>
             <div>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <small className="end-selection">morango</small>
             </div>
           </section>
           <section id="renderer-container">
             <span>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <span className="start-selection">
                 K<small>e</small>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
                 <strong className="end-selection">VIN</strong>nho
               </span>
             </span>
           </section>
           <ul id="after-container">
             <li>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <span className="start-selection">
                 Hello <strong> World</strong>
               </span>
             </li>
             <li>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
               <span className="end-selection">WELcome</span>
             </li>
           </ul>

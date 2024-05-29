@@ -114,6 +114,7 @@ const SearchComponent = (props: SearchComponentProps) => {
         <SearchIcon label="" />
       </div>
       <input
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={searchInputDynamicStyles as React.CSSProperties}
         css={[searchInputStyles, newSearchBorderStyles]}
         aria-label={label}

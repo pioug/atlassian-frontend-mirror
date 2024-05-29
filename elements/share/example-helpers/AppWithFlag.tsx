@@ -37,6 +37,7 @@ export default class AppWithFlag extends React.PureComponent<Props, State> {
 
   render() {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ padding: token('space.200', '16px') }}>
         {this.props.children(this.addFlag)}
         <FlagGroup onDismissed={this.handleDismiss}>

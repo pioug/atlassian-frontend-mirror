@@ -34,15 +34,19 @@ export default () => {
   return (
     <div>
       {styles}
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <span className="purple">
         <HomeCircleIcon secondaryColor="inherit" size="xlarge" label="" />
       </span>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <span className="blue">
         <HomeCircleIcon secondaryColor="inherit" size="xlarge" label="" />
       </span>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
       <span className={`rainbow-base ${isAnimating ? 'rainbow' : ''}`}>
         <HomeCircleIcon size="xlarge" label="" />
       </span>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ display: 'grid' }}>
         <Label htmlFor="animating">Animate last icon</Label>
         <Toggle

@@ -48,9 +48,11 @@ const formatOptionLabel = (
 ) => {
   if (context === 'menu') {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div>{option.label}</div>
         {option.description ? (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           <div style={{ fontSize: 12, fontStyle: 'italic' }}>
             {option.description}
           </div>

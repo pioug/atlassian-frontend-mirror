@@ -51,7 +51,9 @@ export default function BackgroundColor(props: MarkProps<TextColorAttributes>) {
     <span
       {...props.dataAttributes}
       data-background-custom-color={props.color}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
       className="fabric-background-color-mark"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       style={style}
     >
       {props.children}

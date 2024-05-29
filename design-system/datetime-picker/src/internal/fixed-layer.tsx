@@ -82,6 +82,7 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
       <Manager>
         <ScrollLock />
         <Reference>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           {({ ref }) => <div ref={ref} data-layer-child style={divStyles} />}
         </Reference>
         <Popper>
@@ -91,6 +92,7 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
             return (
               <div
                 ref={ref as React.Ref<HTMLDivElement>}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
                 style={{ ...style, zIndex: layers.dialog() }}
                 data-testid={testId && `${testId}--popper--container`}
               >

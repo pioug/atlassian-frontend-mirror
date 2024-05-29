@@ -57,7 +57,9 @@ export default class WebToNativeReporter extends React.Component<Props, State> {
     return (
       <div
         style={{
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           overflowY: 'scroll',
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           height: '180px',
         }}
       >

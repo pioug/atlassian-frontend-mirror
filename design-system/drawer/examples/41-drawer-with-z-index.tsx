@@ -37,8 +37,10 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
       <div style={{ padding: '2rem' }}>
         <Modal>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
           <div style={{ padding: '2rem' }}>This is a modal</div>
           <Drawer
             onClose={this.onClose}

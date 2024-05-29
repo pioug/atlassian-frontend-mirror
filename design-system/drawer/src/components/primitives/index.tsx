@@ -117,6 +117,7 @@ const DrawerPrimitive = ({
               shouldReturnFocus={shouldReturnFocus}
             >
               <DrawerWrapper
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className={className}
                 width={width}
                 testId={testId}

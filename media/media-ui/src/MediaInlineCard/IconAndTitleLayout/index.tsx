@@ -47,6 +47,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
         src={url}
         loaded={
           <Icon
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
             className="smart-link-icon"
             src={url}
             data-testid={`${testId}-image`}
@@ -98,6 +99,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
     return (
       <>
         <IconTitleWrapper
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={titleColor ? { color: titleColor } : undefined}
         >
           <IconPositionWrapper>

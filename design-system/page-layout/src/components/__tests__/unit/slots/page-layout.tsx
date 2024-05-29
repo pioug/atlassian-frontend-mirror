@@ -74,17 +74,18 @@ describe('page-layout', () => {
 
     // Heading
     expect(
-      component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS),
+      component.getByText(DEFAULT_I18N_PROPS_SKIP_LINKS, { selector: 'p' }),
     ).toBeInTheDocument();
 
-    const skipLinks = component.getAllByTitle((content, element) =>
-      content.startsWith(DEFAULT_I18N_PROPS_SKIP_LINKS),
-    );
+    const nameRegExp = new RegExp(`^${DEFAULT_I18N_PROPS_SKIP_LINKS}`);
+    const skipLinks = component.getAllByRole('link', {
+      name: nameRegExp,
+    });
     expect(skipLinks).toHaveLength(2);
-    expect(skipLinks[0].title).toEqual(
+    expect(skipLinks[0]).toHaveTextContent(
       `${DEFAULT_I18N_PROPS_SKIP_LINKS} ${bannerName}`,
     );
-    expect(skipLinks[1].title).toEqual(
+    expect(skipLinks[1]).toHaveTextContent(
       `${DEFAULT_I18N_PROPS_SKIP_LINKS} ${topNavName}`,
     );
   });

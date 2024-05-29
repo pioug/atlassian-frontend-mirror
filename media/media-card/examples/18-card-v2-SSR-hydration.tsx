@@ -100,11 +100,14 @@ const SimulateSsrPage = ({
   return (
     <>
       <h2>{title}</h2>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={rowStyle}>
+{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
         <SimulateSsr serverPage={serverPage} style={{ marginRight: 20 }} />
         <SimulateSsr
           serverPage={serverPage}
           hydratePage={hydratePage}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={{ marginRight: 20 }}
         />
       </div>

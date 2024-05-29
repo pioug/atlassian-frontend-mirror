@@ -63,7 +63,7 @@ const productHomeButtonStyles = css({
     border: 0,
   },
   '&:first-of-type': {
-    marginLeft: 0,
+    marginInlineStart: 0,
   },
   '&:hover': {
     backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_HOVER})`,
@@ -97,10 +97,10 @@ const productHomeButtonStyles = css({
 
 const siteTitleStyles = css({
   display: 'flex',
-  marginRight: token('space.050', '4px'),
-  marginLeft: token('space.050', '4px'),
-  paddingRight: token('space.200', '16px'),
   alignItems: 'center',
+  marginInlineEnd: token('space.050', '4px'),
+  marginInlineStart: token('space.050', '4px'),
+  paddingInlineEnd: token('space.200', '16px')
 });
 
 const hideSiteTitleStyles = css({
@@ -160,6 +160,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
     <Fragment>
       <Tag
         href={href}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={productHomeButtonDynamicStyles as React.CSSProperties}
         css={productHomeButtonStyles}
         onClick={onClick}
@@ -189,6 +190,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
       </Tag>
       {siteTitle && (
         <div
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={
             {
               borderRight: theme.mode.productHome.borderRight,

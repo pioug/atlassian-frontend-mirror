@@ -42,7 +42,8 @@ export interface PubSubClientConfig extends ServiceConfig {
   product: string;
   apsProtocol?: {
     /**
-     * When 'true', this Client will support the APS protocol, as long as the default one - PubNub
+     * When 'true', this Client will support the APS protocol
+     * @deprecated APS is now the only available protocol, so disabling it will result in no protocol being enabled.
      */
     enabled: boolean;
     /**
@@ -55,7 +56,7 @@ export interface PubSubClientConfig extends ServiceConfig {
     preferredTransport?: APSTransportType;
     /**
      * Indicates whether the APS protocol should not retry subscriptions using the fallback transport when the primary
-     * one failsA. Default is 'false'
+     * one fails. Default is 'false'
      */
     skipFallback?: boolean;
   };

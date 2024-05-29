@@ -136,6 +136,7 @@ export default class WidthDetector extends React.Component<Props, State> {
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <object
           type="text/html"
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
           style={sizerStyle}
           ref={this.handleObjectRef}
           onLoad={this.handleObjectLoad}
@@ -149,6 +150,7 @@ export default class WidthDetector extends React.Component<Props, State> {
     return (
       <div
         {...props}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={{ ...containerDivStyle, ...containerStyle }}
         ref={this.handleContainerRef}
       >

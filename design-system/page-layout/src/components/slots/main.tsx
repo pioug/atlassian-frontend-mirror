@@ -74,6 +74,7 @@ const Main = (props: SlotWidthProps) => {
             isFlyoutOpen && !isFixed && flyoutStyles,
             prefersReducedMotionStyles,
           ]}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
           className={className}
           id={id}
           {...getPageLayoutSlotSelector('main')}

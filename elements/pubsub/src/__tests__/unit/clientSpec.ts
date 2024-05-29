@@ -110,7 +110,7 @@ describe('Client', () => {
           });
         });
 
-        it('should not call pubnub.subscribe if protocol is unknown', () => {
+        it('should not call protocol.subscribe if protocol is unknown', () => {
           client = new Client(
             {
               url: baseUrl,
@@ -456,7 +456,7 @@ describe('Client', () => {
 
         const options: RequestInit = lastCall[1];
         const body = JSON.parse(options.body as string);
-        expect(body.clientInfo.capabilities).toEqual(['PUBNUB']);
+        expect(body.clientInfo.capabilities).toEqual([]);
 
         done();
       });
@@ -505,7 +505,7 @@ describe('Client', () => {
 
         const options: RequestInit = lastCall[1];
         const body = JSON.parse(options.body as string);
-        expect(body.clientInfo.capabilities).toEqual(['PUBNUB', 'APS']);
+        expect(body.clientInfo.capabilities).toEqual(['APS']);
 
         done();
       });

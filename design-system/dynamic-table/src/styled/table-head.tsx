@@ -4,6 +4,7 @@ import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -55,23 +56,27 @@ type HeadCellProps = TruncateStyleProps &
     testId?: string;
   };
 
-const headCellStyles = css([
-  cellStyles,
-  {
-    boxSizing: 'border-box',
-    position: 'relative',
-    border: 'none',
-    borderBottom: `2px solid ${tableBorder.borderColor}`,
-    color: token('color.text.subtlest', `var(${CSS_VAR_TEXT_COLOR})`),
-    fontSize: '12px',
-    fontWeight: 600,
-    textAlign: 'left',
-    verticalAlign: 'top',
-    '&:focus-visible': {
-      outline: `solid 2px ${token('color.border.focused', B100)}`,
-    },
+const headCellBaseStyles = css({
+  boxSizing: 'border-box',
+  position: 'relative',
+  border: 'none',
+  borderBlockEnd: `2px solid ${tableBorder.borderColor}`,
+  color: token('color.text.subtlest', `var(${CSS_VAR_TEXT_COLOR})`),
+  textAlign: 'left',
+  verticalAlign: 'top',
+  '&:focus-visible': {
+    outline: `solid 2px ${token('color.border.focused', B100)}`,
   },
-]);
+});
+
+const headCellOldStyles = css({
+  fontSize: '0.75rem',
+  fontWeight: token('font.weight.semibold'),
+});
+
+const headCellNewStyles = css({
+  font: token('font.heading.xxsmall'),
+});
 
 const onClickStyles = css({
   '&:hover': {
@@ -193,9 +198,16 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
     return (
       <Component
         aria-sort={getFormattedSortOrder()}
+// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
         style={mergedStyles}
         css={[
-          headCellStyles,
+          cellStyles,
+          headCellBaseStyles,
+          getBooleanFF(
+            'platform.design-system-team.dynamic-table-typography_7zio6',
+          )
+            ? headCellNewStyles
+            : headCellOldStyles,
           onClick && onClickStyles,
           truncationWidthStyles,
           isFixedSize && shouldTruncate && fixedSizeTruncateStyles,

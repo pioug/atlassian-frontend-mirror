@@ -1,5 +1,5 @@
-import React from 'react';
-
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -9,12 +9,19 @@ import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { getCategories } from '../../../example-helpers/quick-insert-categories';
 import { default as EditorContext } from '../../ui/EditorContext';
 
+// Hiding the enter (⏎) key due to a bug in fonts for gemini on CI, causing tests to fail in CI but pass locally
+const hideEnterKey = css({
+  "div[data-testid='element_search__element_after_input']": {
+    visibility: 'hidden',
+  },
+});
+
 const RenderElementBrowser = (
   props: {
     getItems: (query?: string, category?: string) => QuickInsertItem[];
   } & WrappedComponentProps,
 ) => (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+  // eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
   <div style={{ display: 'flex', height: '150px' }}>
     <ElementBrowser
       categories={getCategories(props.intl)}
@@ -61,7 +68,7 @@ const ElementBrowserComp = () => {
   return <ElementBrowserWithIntl getItems={getItems} />;
 };
 export default () => (
-  <div>
+  <div css={hideEnterKey}>
     <EditorContext>
       <ElementBrowserComp />
     </EditorContext>

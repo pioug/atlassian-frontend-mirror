@@ -49,12 +49,11 @@
     "@af/accessibility-testing": "*",
     "@af/formatting": "*",
     "@atlaskit/calendar": "^14.2.0",
-    "@atlaskit/checkbox": "^13.3.0",
+    "@atlaskit/checkbox": "^13.4.0",
     "@atlaskit/radio": "^6.3.0",
     "@atlaskit/textfield": "^6.3.0",
     "@atlaskit/tooltip": "^18.4.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/codegen": "^0.1.0",
     "@atlassian/feature-flags-test-utils": "*",
     "@babel/core": "^7.20.0",
@@ -151,6 +150,5 @@
       "type": "boolean"
     }
   },
-  "homepage": "https://atlassian.design/components/tokens",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "homepage": "https://atlassian.design/components/tokens"
 }

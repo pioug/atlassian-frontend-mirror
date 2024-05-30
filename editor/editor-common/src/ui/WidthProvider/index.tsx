@@ -60,18 +60,37 @@ export const WidthProvider = ({
   const [width, setWidth] = React.useState(
     typeof document !== 'undefined' ? document.body?.offsetWidth ?? 0 : 0,
   );
+  const widthRef = React.useRef(width);
+  const isMountedRef = React.useRef(true);
   const providerValue = React.useMemo(() => createWidthContext(width), [width]);
 
-  const updateWidth = rafSchedule((nextWidth: number) => {
-    // Ignore changes that are less than SCROLLBAR_WIDTH, otherwise it can cause infinite re-scaling
-    if (Math.abs(width - nextWidth) < SCROLLBAR_WIDTH) {
-      return;
-    }
-    setWidth(nextWidth);
-  });
+  const updateWidth = React.useMemo(() => {
+    return rafSchedule((nextWidth: number) => {
+      const currentWidth = widthRef.current || 0;
+      // Ignore changes that are less than SCROLLBAR_WIDTH, otherwise it can cause infinite re-scaling
+      if (Math.abs(currentWidth - nextWidth) < SCROLLBAR_WIDTH) {
+        return;
+      }
+
+      // Avoid React memory leak by checking if the component is still mounted
+      if(!isMountedRef.current) {
+        return;
+      }
+
+      setWidth(nextWidth);
+    });
+  }, []);
 
   const skipWidthDetection =
     shouldCheckExistingValue && existingContextValue.width > 0;
+
+  React.useLayoutEffect(() => {
+    isMountedRef.current = true;
+
+    return () => {
+      isMountedRef.current = false;
+    }
+  }, [] );
 
   return (
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

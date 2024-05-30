@@ -37,6 +37,7 @@ export default {
   'linkDataSource.basic-filter.type.label': 'Typ',
   'linkDataSource.checkConnection':
     'Überprüfen Sie Ihre Verbindung und aktualisieren Sie dann die Seite oder versuchen Sie es später erneut.',
+  'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': 'Bearbeitet oder erstellt von',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Ihre Suche brachte zu viele Ergebnisse.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     'Versuchen Sie es erneut mit konkreteren Stichwörtern.',
@@ -44,19 +45,27 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Spalten konfigurieren',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Mit Stichwörtern nach Vorgängen suchen',
   'linkDataSource.configmodal.cancelButtonText': 'Abbrechen',
-  'linkDataSource.configmodal.inlineLinkViewModeDescription':
-    'Anzahl der Suchergebnisse als intelligenten Inline-Link anzeigen',
-  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'Inline-Link',
-  'linkDataSource.configmodal.tableViewModeDescription': 'Suchergebnisse als Tabelle anzeigen',
-  'linkDataSource.configmodal.tableViewModeLabel': 'Tabelle',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Abbrechen',
+  'linkDataSource.confluence-search.configmodal.date.range.after.label': 'Nach {date}',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': 'Beliebig',
+  'linkDataSource.confluence-search.configmodal.date.range.before.label': 'Vor {date}',
   'linkDataSource.confluence-search.configmodal.date.range.custom': 'Benutzerdefiniert',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.end':
+    'Das Startdatum muss vor dem Enddatum liegen.',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.today':
+    'Das Startdatum darf nicht in der Zukunft liegen.',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
+    'Das Enddatum darf nicht in der Zukunft liegen.',
+  'linkDataSource.confluence-search.configmodal.date.range.from': 'Von',
+  'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Datum auswählen',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Letzte 30 Tage',
   'linkDataSource.confluence-search.configmodal.date.range.last.week': 'Letzte 7 Tage',
   'linkDataSource.confluence-search.configmodal.date.range.last.year': 'Letztes Jahr',
   'linkDataSource.confluence-search.configmodal.date.range.title': 'Letzte Aktualisierung',
+  'linkDataSource.confluence-search.configmodal.date.range.to': 'Bis',
+  'linkDataSource.confluence-search.configmodal.date.range.to.Label': 'bis',
   'linkDataSource.confluence-search.configmodal.date.range.today': 'Heute',
+  'linkDataSource.confluence-search.configmodal.date.range.update.button': 'Aktualisieren',
   'linkDataSource.confluence-search.configmodal.date.range.yesterday': 'Gestern',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Confluence-Liste einfügen',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Confluence-Liste einfügen von',
@@ -89,15 +98,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Standard',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Mit Stichwörtern nach Vorgängen suchen',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Site wählen',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
-    'Anzahl der Suchergebnisse als intelligenten Inline-Link anzeigen',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': 'Inline-Link',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-Vorgänge von folgender Site einfügen:',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {Vorgang} other {Vorgänge}}',
-  'linkDataSource.jira-issues.configmodal.tableViewModeDescription': 'Jira-Ergebnisse als Tabelle anzeigen',
-  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Tabelle',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
+    'Zeigen Sie die Anzahl der Suchergebnisse als intelligenten Inline-Link an.',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-Link',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Zeigen Sie Suchergebnisse als Liste an.',
+  'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Liste',
   'linkDataSource.jira-issues.learnMoreLink': 'Weitere Informationen zur Suche mit JQL',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     'Wenden Sie sich an Ihren Administrator, um Zugriff anzufordern.',

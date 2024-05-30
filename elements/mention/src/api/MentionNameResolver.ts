@@ -13,13 +13,17 @@ interface Callback {
 
 export type { MentionNameResolver } from '../types';
 
+/** A queue for user ids */
+type Queue = Map<string, Callback[]>;
+type QueueItem = [string, Callback[]];
+
 export class DefaultMentionNameResolver implements MentionNameResolver {
   public static waitForBatch = 100; // ms
   private client: MentionNameClient;
   private nameCache: Map<string, MentionNameDetails> = new Map();
-  private nameQueue: Map<string, Callback[]> = new Map();
+  private nameQueue: Queue = new Map();
   private nameStartTime: Map<string, number> = new Map();
-  private processingQueue: Map<string, Callback[]> = new Map();
+  private processingQueue: Queue = new Map();
   private debounce: number = 0;
   private fireHydrationEvent: (
     action: string,
@@ -120,7 +124,8 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
 
     const { queue, extraQueue } = this.splitQueueAtLimit();
     this.nameQueue = extraQueue;
-    this.processingQueue = new Map([...this.processingQueue, ...queue]);
+    this.processingQueue = mergeNameResolverQueues(this.processingQueue, queue);
+
     this.client
       .lookupMentionNames(Array.from(queue.keys()))
       .then((response) => {
@@ -162,4 +167,30 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
     this.nameStartTime.delete(id);
     this.fireHydrationEvent(action, id, fromCache, duration);
   }
+}
+
+/**
+ * Merge the two queues making sure to merge callback arrays for items in queueB already in queueA.
+ * This addresses [this ticket](https://product-fabric.atlassian.net/browse/QS-3789).
+ */
+export function mergeNameResolverQueues(queueA: Queue, queueB: Queue): Queue {
+  const queueBeingMerged = new Map([...queueA]);
+
+  // now add the items from the second queue that are not already in the
+  //  merged queue being built
+  [...queueB].forEach((item: QueueItem) => {
+    const [key, queueBCallbacks] = item;
+    const itemAlreadyInMergedQueue = queueBeingMerged.has(key);
+    if (!itemAlreadyInMergedQueue) {
+      queueBeingMerged.set(key, queueBCallbacks);
+    } else {
+      // item already in merged queue, merge the callback arrays
+      const queueACallbacks = queueBeingMerged.get(key) ?? [];
+      const mergedCallbacks = new Set([...queueBCallbacks, ...queueACallbacks]);
+      const deduplicatedCallbacks = Array.from(mergedCallbacks.values()); // prevents calling them twice
+      queueBeingMerged.set(key, deduplicatedCallbacks);
+    }
+  });
+
+  return queueBeingMerged;
 }

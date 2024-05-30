@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 3.3.3
+
+### Patch Changes
+
+-   [#104728](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104728)
+    [`cbeeba0c2bf3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbeeba0c2bf3) -
+    [ux] HOT-109442: turn off processNestedTaskListsInSameLevel() to prevent data loss (but brings
+    back ED-21943)
+
 ## 3.3.2
 
 ### Patch Changes

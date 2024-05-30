@@ -13,14 +13,14 @@ values should be passed into the `css` prop in JSX components.
 
 ```tsx
 function Component() {
-    return (
-        <div
-            style={{
-                margin: 0,
-                color: 'red',
-            }}
-        />
-    );
+	return (
+		<div
+			style={{
+				margin: 0,
+				color: 'red',
+			}}
+		/>
+	);
 }
 ```
 
@@ -28,14 +28,14 @@ function Component() {
 
 ```tsx
 function Component(props) {
-    return (
-        <div
-            style={{
-                width: props.width,
-                '--my-nested-width': props.width,
-            }}
-            css={css({ margin: 0, color: 'red' })}
-        />
-    );
+	return (
+		<div
+			style={{
+				width: props.width,
+				'--my-nested-width': props.width,
+			}}
+			css={css({ margin: 0, color: 'red' })}
+		/>
+	);
 }
 ```

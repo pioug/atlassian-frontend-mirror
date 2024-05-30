@@ -1,45 +1,45 @@
 {
-  "extends": "../../../tsconfig.node.json",
-  "include": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx",
-    "./**/__fixtures__/**/*.json"
-  ],
-  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
-  "compilerOptions": {
-    "baseUrl": "./",
-    "lib": ["ES2021.String"],
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/dev"
-  },
-  "references": [
-    {
-      "path": "tsconfig.app.json"
-    },
-    {
-      "path": "../ds-lib/tsconfig.app.json"
-    }
-  ],
-  "files": []
+	"extends": "../../../tsconfig.node.json",
+	"include": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx",
+		"./**/__fixtures__/**/*.json"
+	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"compilerOptions": {
+		"baseUrl": "./",
+		"lib": ["ES2021.String"],
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/dev"
+	},
+	"references": [
+		{
+			"path": "tsconfig.app.json"
+		},
+		{
+			"path": "../ds-lib/tsconfig.app.json"
+		}
+	],
+	"files": []
 }

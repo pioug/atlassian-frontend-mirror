@@ -36,6 +36,7 @@ export default {
   'linkDataSource.basic-filter.status.label': 'Status',
   'linkDataSource.basic-filter.type.label': 'Tipo',
   'linkDataSource.checkConnection': 'Verifique a conexão e atualize, ou tente de novo mais tarde.',
+  'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': 'Editado ou criado por',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'A pesquisa retornou muitos resultados.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     'Tente de novo com palavras-chave mais específicas.',
@@ -43,19 +44,27 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Configurar colunas',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Pesquise itens por palavra-chave',
   'linkDataSource.configmodal.cancelButtonText': 'Cancelar',
-  'linkDataSource.configmodal.inlineLinkViewModeDescription':
-    'Exibir o número de resultados da pesquisa ou como link inteligente',
-  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'Link em linha',
-  'linkDataSource.configmodal.tableViewModeDescription': 'Exibir resultados de pesquisa como uma tabela',
-  'linkDataSource.configmodal.tableViewModeLabel': 'Tabela',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Cancelar',
+  'linkDataSource.confluence-search.configmodal.date.range.after.label': 'depois de {date}',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': 'A qualquer momento',
+  'linkDataSource.confluence-search.configmodal.date.range.before.label': 'antes de {date}',
   'linkDataSource.confluence-search.configmodal.date.range.custom': 'Personalizado',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.end':
+    'A data "De" deve ser anterior à data "Até"',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.today':
+    'A data "De" não pode estar no futuro',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
+    'A data "Até" não pode estar no futuro',
+  'linkDataSource.confluence-search.configmodal.date.range.from': 'De',
+  'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Escolha uma data',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Últimos 30 dias',
   'linkDataSource.confluence-search.configmodal.date.range.last.week': 'Últimos 7 dias',
   'linkDataSource.confluence-search.configmodal.date.range.last.year': 'Ano passado',
   'linkDataSource.confluence-search.configmodal.date.range.title': 'Última atualização',
+  'linkDataSource.confluence-search.configmodal.date.range.to': 'Até',
+  'linkDataSource.confluence-search.configmodal.date.range.to.Label': 'até',
   'linkDataSource.confluence-search.configmodal.date.range.today': 'Hoje',
+  'linkDataSource.confluence-search.configmodal.date.range.update.button': 'Atualizar',
   'linkDataSource.confluence-search.configmodal.date.range.yesterday': 'Ontem',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Insira a lista do Confluence',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Insira a lista do Confluence de',
@@ -87,16 +96,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Básico',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Pesquise itens por palavra-chave',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Escolha o site',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
-    'Exibir o número de resultados da pesquisa ou como link inteligente',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': 'Link em linha',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Inserir itens',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Inserir itens no Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Inserir itens do Jira de',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {item} other {itens}}',
-  'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
-    'Exibir os resultados da pesquisa do Jira como tabela',
-  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Tabela',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
+    'Mostrar o número de resultados da pesquisa como link inteligente em linha',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Link em linha',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Mostrar resultados da pesquisa em uma lista',
+  'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Lista',
   'linkDataSource.jira-issues.learnMoreLink': 'Saiba como pesquisar com JQL',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     'Para solicitar acesso, entre em contato com o administrador.',

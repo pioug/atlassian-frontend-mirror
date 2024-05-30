@@ -88,6 +88,12 @@
       "path": "../../design-system/modal-dialog/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/select/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/side-navigation/tsconfig.app.json"
     },
     {
@@ -107,6 +113,9 @@
     },
     {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
     },
     {
       "path": "../../data/ufo-internal/tsconfig.app.json"

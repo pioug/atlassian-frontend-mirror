@@ -13,7 +13,6 @@ import {
 import { addPath, getXProductHeaderValue } from './utils';
 import { readStream } from './readStream';
 import { getBaseUrl, type EnvironmentsKeys } from '@atlaskit/linking-common';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export class AISummaryService implements AISummaryServiceInt {
   public state: AISummaryState = {
@@ -78,20 +77,10 @@ export class AISummaryService implements AISummaryServiceInt {
       method: 'POST',
       headers: this.config.headers,
       body: JSON.stringify(payload),
-      ...(getBooleanFF(
-        'platform.linking-platform.smart-card.ai-summary-service-base-url',
-      ) && {
-        credentials: 'include' as RequestCredentials,
-      }),
+      credentials: 'include' as RequestCredentials,
     };
 
-    const requestURL = getBooleanFF(
-      'platform.linking-platform.smart-card.ai-summary-service-base-url',
-    )
-      ? this.config.requestUrl
-      : '/gateway/api/assist/chat/v1/invoke_agent/stream';
-
-    const response = await fetch(requestURL, options);
+    const response = await fetch(this.config.requestUrl, options);
 
     if (!response.ok || response.status >= 400) {
       throw new Error(

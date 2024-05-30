@@ -11,17 +11,17 @@ This rule checks for nested styles inside `css` objects. This rule has no option
 
 ```js
 css({
-    div: {
-        color: 'red',
-    },
+	div: {
+		color: 'red',
+	},
 });
 ```
 
 ```js
 css({
-    '@media (min-width: 480px)': {
-        color: 'red',
-    },
+	'@media (min-width: 480px)': {
+		color: 'red',
+	},
 });
 ```
 
@@ -29,10 +29,10 @@ css({
 
 ```js
 css({
-    color: 'red',
-    ':hover': {
-        color: 'black',
-    },
+	color: 'red',
+	':hover': {
+		color: 'black',
+	},
 });
 ```
 
@@ -40,8 +40,8 @@ css({
 import { media } from '@atlaskit/primitives';
 
 css({
-    [media.above.xs]: {
-        color: 'red',
-    },
+	[media.above.xs]: {
+		color: 'red',
+	},
 });
 ```

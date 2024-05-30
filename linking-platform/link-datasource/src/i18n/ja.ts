@@ -35,6 +35,7 @@ export default {
   'linkDataSource.basic-filter.status.label': 'ステータス',
   'linkDataSource.basic-filter.type.label': 'タイプ',
   'linkDataSource.checkConnection': '接続を確認して更新するか、後でもう一度お試しください。',
+  'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': '編集者または作成者',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': '検索に一致する結果が多すぎます。',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     'キーワードをより具体的にしてもう一度お試しください。',
@@ -42,19 +43,27 @@ export default {
   'linkDataSource.column-picker.tooltip': '列を設定',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'キーワードで課題を検索',
   'linkDataSource.configmodal.cancelButtonText': 'キャンセル',
-  'linkDataSource.configmodal.inlineLinkViewModeDescription':
-    '検索結果の数を表示します。または、検索結果をインライン スマート リンクとして表示します',
-  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'インライン リンク',
-  'linkDataSource.configmodal.tableViewModeDescription': '検索結果を表形式で表示します',
-  'linkDataSource.configmodal.tableViewModeLabel': '表',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'キャンセル',
+  'linkDataSource.confluence-search.configmodal.date.range.after.label': '{date} より後',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': '指定なし',
+  'linkDataSource.confluence-search.configmodal.date.range.before.label': '{date} より前',
   'linkDataSource.confluence-search.configmodal.date.range.custom': 'カスタム',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.end':
+    '開始日は終了日より前の日付にしてください',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.today':
+    '開始日に将来の日付を指定することはできません',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
+    '終了日に将来の日付を指定することはできません',
+  'linkDataSource.confluence-search.configmodal.date.range.from': '開始日',
+  'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': '日付を選択',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': '過去 30 日',
   'linkDataSource.confluence-search.configmodal.date.range.last.week': '過去 7 日',
   'linkDataSource.confluence-search.configmodal.date.range.last.year': '過去 1 年',
   'linkDataSource.confluence-search.configmodal.date.range.title': '最終更新日',
+  'linkDataSource.confluence-search.configmodal.date.range.to': '終了日',
+  'linkDataSource.confluence-search.configmodal.date.range.to.Label': 'から',
   'linkDataSource.confluence-search.configmodal.date.range.today': '今日',
+  'linkDataSource.confluence-search.configmodal.date.range.update.button': '更新',
   'linkDataSource.confluence-search.configmodal.date.range.yesterday': '昨日',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Confluence リストを挿入する',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites':
@@ -85,15 +94,15 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': '基本',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'キーワードで課題を検索',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'サイトを選択',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
-    '検索結果の数を表示します。または、検索結果をインライン スマート リンクとして表示します',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': 'インライン リンク',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '課題を挿入',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira 課題を挿入する',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '次のサイトから Jira 課題を挿入する',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {課題}}',
-  'linkDataSource.jira-issues.configmodal.tableViewModeDescription': 'Jira の検索結果を表形式で表示します',
-  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': '表',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
+    '検索結果の件数をインライン スマート リンクとして表示します',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'インライン リンク',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescription': '検索結果をリストとして表示します',
+  'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'リスト',
   'linkDataSource.jira-issues.learnMoreLink': 'JQL による検索の詳細',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     'アクセスをリクエストするには、管理者にお問い合わせください。',

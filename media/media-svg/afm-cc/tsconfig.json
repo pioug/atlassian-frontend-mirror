@@ -1,0 +1,31 @@
+{
+    "extends": "../../../../tsconfig.entry-points.confluence.json",
+    "compilerOptions": {
+        "target": "es5",
+        "composite": true,
+        "outDir": "../dist",
+        "rootDir": "../",
+        "baseUrl": "../"
+    },
+    "include": [
+        "../src/**/*.ts",
+        "../src/**/*.tsx"
+    ],
+    "exclude": [
+        "../src/**/__tests__/*",
+        "../src/**/*.test.*",
+        "../src/**/test.*",
+        "../src/**/examples.*"
+    ],
+    "references": [
+        {
+            "path": "../../media-client/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../media-client-react/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/spinner/afm-cc/tsconfig.json"
+        }
+    ]
+}

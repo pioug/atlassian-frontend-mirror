@@ -1,7 +1,6 @@
 {
-    "dependencies": {
-      "@atlaskit/dep2": "foo",
-      "@atlaskit/dep3": "foo"
-    }
+  "dependencies": {
+    "@atlaskit/dep2": "foo",
+    "@atlaskit/dep3": "foo"
   }
-  
+}

@@ -14,14 +14,26 @@ export default {
   'fabric.linking.ai_summarized': 'Opsummeret af Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Opsummeret af AI',
   'fabric.linking.ai_summarized_info': 'Informationskvaliteten kan variere. <a>Få mere at vide</a>',
+  'fabric.linking.ai_summarized_info_short': 'Indholdskvaliteten kan variere',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence arbejder ...',
+  'fabric.linking.ai_summary_action': 'Opsummer med AI',
+  'fabric.linking.ai_summary_action_description':
+    'Opsummer indholdet af dette link ved hjælp af Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Vi kan ikke vise resultaterne af denne oversigt, da det er i strid med <a>Atlassians politik for acceptabel brug</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence kan ikke generere en oversigt lige nu, da der er for meget indhold at opsummere.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) svarer ikke. Prøv igen senere, eller <a>kontrollér status for AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence kunne ikke behandle din anmodning, da dit indhold indeholder links til HIPAA-begrænset indhold.',
   'fabric.linking.assigned_to': 'Tildelt til {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Anvend en automatisering til <b>{name}</b>.{br}De tilgængelige valg styres af Confluence- og områdeadministratorer.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Sideautomatiseringer',
+  'fabric.linking.automation-action.icon.label': 'Ikon for automatisering',
+  'fabric.linking.automation-action.title': 'Kør automatisering …',
+  'fabric.linking.automation-action.tooltip': 'Åbn et automatiseringsmodul',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Annuller',
   'fabric.linking.cannot_connect': 'Kan ikke oprette forbindelse. Prøv igen.',
@@ -44,6 +56,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Tilknyt din konto for at samarbejde om arbejde på tværs af Atlassian-produkter.',
   'fabric.linking.continue': 'Fortsæt',
+  'fabric.linking.copied_summary_action_description': 'Kopierede oversigt til udklipsholder',
+  'fabric.linking.copied_url_to_clipboard': 'Kopieret!',
+  'fabric.linking.copy_summary_action': 'Kopiér oversigt',
+  'fabric.linking.copy_summary_action_description': 'Kopiér oversigt',
   'fabric.linking.copy_url_to_clipboard': 'Kopiér link',
   'fabric.linking.couldnt_load_link': 'Af en ukendt årsag kunne vi ikke indlæse dette link.',
   'fabric.linking.create_on_absolute': 'Oprettet {context}',
@@ -55,8 +71,18 @@ export default {
     'Dit team bruger {product} til at samarbejde, og du kan begynde at bruge det med det samme!',
   'fabric.linking.direct_access_title': 'Deltag i {product} for at se dette indhold',
   'fabric.linking.download': 'Hent',
+  'fabric.linking.download_description': 'Download denne fil til dit lokale lager',
+  'fabric.linking.download_file': 'Download fil',
   'fabric.linking.edit': 'Rediger',
   'fabric.linking.follow': 'Følg',
+  'fabric.linking.follow_goal': 'Følg mål',
+  'fabric.linking.follow_goal_description': 'Følg dette mål for at få meddelelser om opdateringer',
+  'fabric.linking.follow_goal_error':
+    'Vi stødte på en fejl, mens vi forsøgte at følge målet. Kontrollér din forbindelse, eller opdater siden, og prøv igen.',
+  'fabric.linking.follow_project': 'Følg projektet',
+  'fabric.linking.follow_project_description': 'Følg for at få meddelelser om dette projekt',
+  'fabric.linking.follow_project_error':
+    'Vi stødte på en fejl under forsøget på at følge projektet. Kontrollér din forbindelse, eller opdater siden, og prøv igen.',
   'fabric.linking.forbidden_access': 'Du har ikke adgang',
   'fabric.linking.forbidden_description': 'Kontakt din administrator for at anmode om adgang til {hostname}.',
   'fabric.linking.forbidden_title': 'Du har ikke adgang til dette indhold',
@@ -85,6 +111,7 @@ export default {
   'fabric.linking.owned_by': 'Ejet af {context}',
   'fabric.linking.pending_request': 'Din anmodning om adgang afventer behandling',
   'fabric.linking.preview_close': 'Luk forhåndsvisning',
+  'fabric.linking.preview_description': 'Åbn en forhåndsvisning i fuld skærm af dette link',
   'fabric.linking.preview_improved': 'Åbn forhåndsvisning',
   'fabric.linking.preview_max_size': 'Vis fuld skærm',
   'fabric.linking.preview_min_size': 'Luk fuld skærm',
@@ -133,6 +160,14 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Vi kan ikke vise private sider fra {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Vi kan ikke vise private sider',
   'fabric.linking.unfollow': 'Ophør med at følge',
+  'fabric.linking.unfollow_goal': 'Stop med at følge mål',
+  'fabric.linking.unfollow_goal_description': 'Stop med at følge for at stoppe med at modtage meddelelser om dette mål',
+  'fabric.linking.unfollow_goal_error':
+    'Vi stødte på en fejl, mens vi forsøgte at stoppe med at følge målet. Kontrollér din forbindelse, eller opdater siden, og prøv igen.',
+  'fabric.linking.unfollow_project': 'Stop med at følge projektet',
+  'fabric.linking.unfollow_project_description': 'Stop med at følge for at stoppe modtagelse af projektmeddelelser',
+  'fabric.linking.unfollow_project_error':
+    'Vi stødte på en fejl under forsøget på at stoppe med at følge projektet. Kontrollér din forbindelse, eller opdater siden, og prøv igen.',
   'fabric.linking.unlink_account': 'Fjern link til konto',
   'fabric.linking.updated_by': 'Ændret af {context}',
   'fabric.linking.view': 'Vis',

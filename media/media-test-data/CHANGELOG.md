@@ -1,5 +1,17 @@
 # @atlaskit/media-test-data
 
+## 2.3.0
+
+### Minor Changes
+
+-   [#101187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101187)
+    [`d7084450441c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d7084450441c) -
+    Added SVG binary examples. File item generators now accept overriding file item attributes
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

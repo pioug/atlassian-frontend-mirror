@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c907cf4b4e11348239dadaefebe80fca>>
+ * @codegen <<SignedSource::6ad0de2d4bdac726387f27681ad9fcf4>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import atlaskitTheme from './atlaskit-theme';
@@ -22,21 +22,21 @@ import noUnsafeValues from './no-unsafe-values';
 import useCompiled from './use-compiled';
 
 export default {
-    'atlaskit-theme': atlaskitTheme,
-    'convert-props-syntax': convertPropsSyntax,
-    'enforce-style-prop': enforceStyleProp,
-    'local-cx-xcss': localCxXcss,
-    'no-array-arguments': noArrayArguments,
-    'no-classname-prop': noClassnameProp,
-    'no-container-queries': noContainerQueries,
-    'no-dynamic-styles': noDynamicStyles,
-    'no-exported-styles': noExportedStyles,
-    'no-global-styles': noGlobalStyles,
-    'no-important-styles': noImportantStyles,
-    'no-imported-style-values': noImportedStyleValues,
-    'no-nested-selectors': noNestedSelectors,
-    'no-styled': noStyled,
-    'no-unsafe-selectors': noUnsafeSelectors,
-    'no-unsafe-values': noUnsafeValues,
-    'use-compiled': useCompiled,
+	'atlaskit-theme': atlaskitTheme,
+	'convert-props-syntax': convertPropsSyntax,
+	'enforce-style-prop': enforceStyleProp,
+	'local-cx-xcss': localCxXcss,
+	'no-array-arguments': noArrayArguments,
+	'no-classname-prop': noClassnameProp,
+	'no-container-queries': noContainerQueries,
+	'no-dynamic-styles': noDynamicStyles,
+	'no-exported-styles': noExportedStyles,
+	'no-global-styles': noGlobalStyles,
+	'no-important-styles': noImportantStyles,
+	'no-imported-style-values': noImportedStyleValues,
+	'no-nested-selectors': noNestedSelectors,
+	'no-styled': noStyled,
+	'no-unsafe-selectors': noUnsafeSelectors,
+	'no-unsafe-values': noUnsafeValues,
+	'use-compiled': useCompiled,
 };

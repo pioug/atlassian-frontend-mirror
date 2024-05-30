@@ -3,11 +3,11 @@ import React, { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { DevTools } from '@af/editor-examples-helpers';
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 
 import { fromLocation } from '../example-helpers/adf-url';
-import { DevTools } from '../example-helpers/DevTools';
 import { ContextPanel } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
@@ -46,7 +46,11 @@ const FullPageWithAdfImport = function FullPageWithAdfImport() {
     <EditorContext>
 {/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ height: '100%' }}>
-        <DevTools />
+        <WithEditorActions
+          render={(actions) => (
+            <DevTools editorView={actions._privateGetEditorView()} />
+          )}
+        />
         <FullPageEditor
           editorProps={{
             defaultValue: adfValue,

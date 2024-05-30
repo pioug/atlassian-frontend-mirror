@@ -18,8 +18,8 @@ robust enough type checking.
 import { cx, cssMap } from '@compiled/react';
 
 const styles = cssMap({
-    text: { color: 'red' },
-    bg: { background: 'blue' },
+	text: { color: 'red' },
+	bg: { background: 'blue' },
 });
 
 const joinedStyles = cx(styles.text, styles.bg);
@@ -33,8 +33,8 @@ const joinedStyles = cx(styles.text, styles.bg);
 import { cx, cssMap } from '@compiled/react';
 
 const styles = cssMap({
-    text: { color: 'red' },
-    bg: { background: 'blue' },
+	text: { color: 'red' },
+	bg: { background: 'blue' },
 });
 
 <Button xcss={cx(styles.text, styles.bg)} />;

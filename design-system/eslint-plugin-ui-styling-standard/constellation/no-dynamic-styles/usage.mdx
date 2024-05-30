@@ -4,9 +4,9 @@ This rule prevents the use of dynamic styles (function expressions) in style dec
 
 This ensures that style declarations:
 
--   are statically analyzable
--   can be efficiently extracted into atomic CSS
--   are more readable, deterministic, and thus easier to maintain
+- are statically analyzable
+- can be efficiently extracted into atomic CSS
+- are more readable, deterministic, and thus easier to maintain
 
 ## Examples
 
@@ -16,7 +16,7 @@ This ensures that style declarations:
 import { styled } from '@compiled/react';
 
 const Component = styled.div<{ width: number }>((props) => ({
-    width: props.width,
+	width: props.width,
 }));
 ```
 
@@ -24,7 +24,7 @@ const Component = styled.div<{ width: number }>((props) => ({
 import styled from 'styled-components';
 
 const Component = styled.div<{ width: number }>({
-    width: (props) => props.width,
+	width: (props) => props.width,
 });
 ```
 
@@ -32,7 +32,7 @@ const Component = styled.div<{ width: number }>({
 import styled from 'styled-components';
 
 const Container = styled.div<hasPadding>({
-    padding: ({ hasPadding }) => (hasPadding ? token('space.100', '8px') : token('space.0', '0px')),
+	padding: ({ hasPadding }) => (hasPadding ? token('space.100', '8px') : token('space.0', '0px')),
 });
 ```
 
@@ -50,7 +50,7 @@ const baseStyles = css({ padding: token('space.0') });
 const hasPaddingStyles = css({ padding: token('space.100') });
 
 const Container = ({ hasPadding = false }: { hasPadding?: boolean }) => {
-    return <div css={[baseStyles, hasPadding && hasPaddingStyles]} />;
+	return <div css={[baseStyles, hasPadding && hasPaddingStyles]} />;
 };
 ```
 
@@ -89,7 +89,7 @@ This approach should be used as a last resort.
 import { css } from '@compiled/react';
 
 const Component = ({ width }: { width: number }) => {
-    return <div style={{ width }} />;
+	return <div style={{ width }} />;
 };
 ```
 
@@ -97,13 +97,13 @@ const Component = ({ width }: { width: number }) => {
 import { css } from '@compiled/react';
 
 const containerStyles = css({
-    '::before': {
-        width: 'var(--ak-example-width)',
-    },
+	'::before': {
+		width: 'var(--ak-example-width)',
+	},
 });
 
 function Example({ width }: { width: number }) {
-    return <div css={containerStyles} style={{ '--ak-example-width': `${width}px` }} />;
+	return <div css={containerStyles} style={{ '--ak-example-width': `${width}px` }} />;
 }
 ```
 
@@ -113,13 +113,13 @@ function Example({ width }: { width: number }) {
 
 By default, this rule will check usages from:
 
--   `@atlaskit/css`
--   `@atlaskit/primitives`
--   `@compiled/react`
--   `@emotion/react`
--   `@emotion/core`
--   `@emotion/styled`
--   `styled-components`
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
 
 To change this list of libraries, you can define a custom set of `importSources`, which accepts an
 array of package names (strings).

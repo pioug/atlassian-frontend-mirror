@@ -184,7 +184,8 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     (actionId: any) => {
       if (
         actionId === 'preview-content' ||
-        actionId === ActionName.PreviewAction
+        actionId === ActionName.PreviewAction ||
+        actionId === ActionName.AutomationAction
       ) {
         hideCard();
       }

@@ -18,12 +18,12 @@ from which this was ported.
 import { css } from '@emotion/react';
 
 css`
-    color: blue;
+	color: blue;
 `;
 
 const styles = css`
-    color: blue;
-    font-weight: 500;
+	color: blue;
+	font-weight: 500;
 `;
 ```
 
@@ -35,8 +35,8 @@ import { css } from '@emotion/react';
 css({ color: 'blue' });
 
 const styles = css({
-    color: 'blue',
-    fontWeight: 500,
+	color: 'blue',
+	fontWeight: 500,
 });
 ```
 
@@ -46,13 +46,13 @@ const styles = css({
 
 By default, this rule will check `css` usages from:
 
--   `@atlaskit/css`
--   `@atlaskit/primitives`
--   `@compiled/react`
--   `@emotion/react`
--   `@emotion/core`
--   `@emotion/styled`
--   `styled-components`
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
 
 To change this list of libraries, you can define a custom set of `importSources`, which accepts an
 array of package names (strings).
@@ -68,4 +68,4 @@ export const styles = css``;
 
 ## Limitations
 
--   Comments are not auto-fixable. You will need to manually convert usages containing functions.
+- Comments are not auto-fixable. You will need to manually convert usages containing functions.

@@ -7,6 +7,7 @@ import { MediaViewerV2 } from '../../../v2/media-viewer-v2';
 import { type MediaViewerExtensions } from '../../../components/types';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -296,6 +297,42 @@ describe('<MediaViewer />', () => {
       expect(screen.queryByText('Sidebar Content')).toBeInTheDocument();
       await user.click(sidebarButton);
       expect(screen.queryByText('Sidebar Content')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('SVG', () => {
+    describe('should render SVG natively', () => {
+      ffTest(
+        'platform.media-svg-rendering',
+        async () => {
+          const [fileItem, identifier] = generateSampleFileItem.svg();
+          const { mediaApi } = createMockedMediaApi(fileItem);
+
+          const { findAllByTestId } = render(
+            <MockedMediaClientProvider mockedMediaApi={mediaApi}>
+              <MediaViewerV2 selectedItem={identifier} items={[identifier]} />
+            </MockedMediaClientProvider>,
+          );
+
+          const elem = await findAllByTestId('media-viewer-svg');
+          expect(elem).toBeDefined();
+          expect(elem[0].nodeName.toLowerCase()).toBe('img');
+        },
+        async () => {
+          const [fileItem, identifier] = generateSampleFileItem.svg();
+          const { mediaApi } = createMockedMediaApi(fileItem);
+
+          const { findAllByTestId } = render(
+            <MockedMediaClientProvider mockedMediaApi={mediaApi}>
+              <MediaViewerV2 selectedItem={identifier} items={[identifier]} />
+            </MockedMediaClientProvider>,
+          );
+
+          const elem = await findAllByTestId('media-viewer-image');
+          expect(elem).toBeDefined();
+          expect(elem[0].nodeName.toLowerCase()).toBe('img');
+        },
+      );
     });
   });
 });

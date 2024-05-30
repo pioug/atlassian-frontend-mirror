@@ -47,7 +47,6 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^6.3.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
@@ -95,7 +94,6 @@
   "exports": {
     ".": "./src/index.tsx"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.design-system-team.page-header-tokenised-typography-styles_lj1ix": {
       "type": "boolean"

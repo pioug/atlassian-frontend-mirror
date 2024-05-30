@@ -37,7 +37,6 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^13.1.0",
     "@atlaskit/visual-regression": "^0.10.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
     "typescript": "~5.4.2",
@@ -78,6 +77,5 @@
   "exports": {
     ".": "./src/index.tsx"
   },
-  "homepage": "https://atlassian.design/components/visually-hidden/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "homepage": "https://atlassian.design/components/visually-hidden/"
 }

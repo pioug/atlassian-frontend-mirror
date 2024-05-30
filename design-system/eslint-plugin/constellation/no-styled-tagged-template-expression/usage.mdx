@@ -17,21 +17,21 @@ The `--fix` option on the command line automatically fixes problems reported by 
 import { styled } from '@compiled/react';
 
 const InlinedStyles = styled.div`
-    color: blue;
+	color: blue;
 `;
 
 const MultilineStyles = styled.div`
-    color: blue;
-    font-weight: 500;
+	color: blue;
+	font-weight: 500;
 `;
 
 const ComposedStyles = styled(InlinedStyles)`
-    font-weight: 500;
+	font-weight: 500;
 `;
 
 const DynamicStyles = styled.div`
-    color: ${(props) => props.color};
-    ${(props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1')}
+	color: ${(props) => props.color};
+	${(props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1')}
 `;
 ```
 
@@ -41,23 +41,23 @@ const DynamicStyles = styled.div`
 import { styled } from '@compiled/react';
 
 const InlinedStyles = styled.div({
-    color: 'blue',
+	color: 'blue',
 });
 
 const MultilineStyles = styled.div({
-    color: 'blue',
-    fontWeight: 500,
+	color: 'blue',
+	fontWeight: 500,
 });
 
 const ComposedStyles = styled(InlinedStyles)({
-    fontWeight: 500,
+	fontWeight: 500,
 });
 
 const DynamicStyles = styled.div(
-    {
-        color: (props) => props.color,
-    },
-    (props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1'),
+	{
+		color: (props) => props.color,
+	},
+	(props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1'),
 );
 ```
 
@@ -67,13 +67,13 @@ const DynamicStyles = styled.div(
 
 By default, this rule will check `styled` usages from:
 
--   `@atlaskit/css`
--   `@atlaskit/primitives`
--   `@compiled/react`
--   `@emotion/react`
--   `@emotion/core`
--   `@emotion/styled`
--   `styled-components`
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
 
 To change this list of libraries, you can define a custom set of `importSources`, which accepts an
 array of package names (strings).
@@ -89,8 +89,8 @@ export const Component = styled.div``;
 
 ## Limitations
 
--   Comments are not fixable.
--   Component selectors are not fixable for `styled-components`.
+- Comments are not fixable.
+- Component selectors are not fixable for `styled-components`.
 
 Do not migrate to this object syntax manually, it is invalid `styled-components`.
 
@@ -110,11 +110,11 @@ Instead, style the button directly—make it clear that you're styling that butt
 ```tsx
 const buttonStyles = css({ color: 'blue' });
 const Wrapper = styled.div({
-    color: 'red',
+	color: 'red',
 });
 
 <Wrapper>
-    <button css={buttonStyles} />
+	<button css={buttonStyles} />
 </Wrapper>;
 ```
 
@@ -123,13 +123,13 @@ Standard around nested styles, pushing the error down the road.
 
 ```tsx
 const Wrapper = styled.div({
-    color: 'red',
-    '[data-component-selector="my.button"]': {
-        color: 'blue',
-    },
+	color: 'red',
+	'[data-component-selector="my.button"]': {
+		color: 'blue',
+	},
 });
 
 <Wrapper>
-    <button data-component-selector="my.button" />
+	<button data-component-selector="my.button" />
 </Wrapper>;
 ```

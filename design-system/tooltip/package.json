@@ -72,7 +72,6 @@
     "@atlaskit/button": "^17.17.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^11.0.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
@@ -108,6 +107,5 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/tooltip/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "homepage": "https://atlassian.design/components/tooltip/"
 }

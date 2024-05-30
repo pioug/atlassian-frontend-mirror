@@ -33,7 +33,7 @@ const relatedLinkItemStyles = css({
 });
 
 const RelatedLinkItem = ({ url, testId }: RelatedLinkItemProp) => {
-  const subtitle: ElementItem[] = [{ name: ElementName.Provider }];
+  const subtitle: ElementItem[] = [{ name: ElementName.Provider, hideIcon: true }];
 
   const ui: FlexibleUiOptions = {
     hideElevation: true,

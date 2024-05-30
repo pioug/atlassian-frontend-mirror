@@ -1,6 +1,10 @@
 /** @jsx jsx */
+import React from 'react';
+
 import { jsx } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
+import { DevTools } from '@af/editor-examples-helpers';
 import Button from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -9,6 +13,8 @@ import type {
   ExtractPublicEditorAPI,
   PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
+// eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
+import type { EditorActions } from '@atlaskit/editor-core';
 import { EditorContext } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
@@ -17,12 +23,11 @@ import { cardPlugin } from '@atlaskit/editor-plugins/card';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
 import type { ListPlugin } from '@atlaskit/editor-plugins/list';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import { DevTools } from '../example-helpers/DevTools';
 
 const editorStyles = xcss({
   margin: 'space.100',
@@ -157,11 +162,17 @@ function Toolbar({ editorApi }: ToolbarProps) {
 
 export function ComposableEditorWithToolbar() {
   const { preset, editorApi } = usePreset(createPreset);
+  const [editorView, setEditorView] = React.useState<EditorView>();
+  const onReady = React.useCallback((editorActions: EditorActions<any>) => {
+    setEditorView(editorActions._privateGetEditorView());
+  }, []);
 
-  return (
-    <Box xcss={editorStyles}>
+  return (<React.Fragment>
+    <DevTools editorView={editorView} />
+      <Box xcss={editorStyles}>
       <Toolbar editorApi={editorApi} />
       <ComposableEditor
+        onEditorReady={onReady}
         appearance="chromeless"
         preset={preset}
         linking={{
@@ -169,6 +180,7 @@ export function ComposableEditorWithToolbar() {
         }}
       />
     </Box>
+    </React.Fragment>
   );
 }
 
@@ -176,7 +188,6 @@ export default function ComposableEditorExample() {
   return (
     <EditorContext>
       <SmartCardProvider client={smartCardClient}>
-        <DevTools />
         <ComposableEditorWithToolbar />
       </SmartCardProvider>
     </EditorContext>

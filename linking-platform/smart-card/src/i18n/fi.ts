@@ -14,14 +14,25 @@ export default {
   'fabric.linking.ai_summarized': 'Atlassian Intelligence loi yhteenvedon',
   'fabric.linking.ai_summarized_abbreviation': 'Yhteenvedon loi AI',
   'fabric.linking.ai_summarized_info': 'Tietojen laatu voi vaihdella. <a>Lue lisää.</a>',
+  'fabric.linking.ai_summarized_info_short': 'Sisällön laatu voi vaihdella',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence työssä...',
+  'fabric.linking.ai_summary_action': 'Tee yhteenveto AI:lla',
+  'fabric.linking.ai_summary_action_description': 'Tee yhteenveto tämän linkin sisällöstä Atlassian Intelligencellä.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Tämän yhteenvedon tuloksia ei voida näyttää, sillä se ei noudata <a>Atlassianin hyväksyttävän käytön käytäntöä</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence ei voi luoda yhteenvetoa sinulle juuri nyt, koska sisältöä on liian paljon.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) ei vastaa. Yritä myöhemmin uudelleen tai <a>tarkista AI:n tila</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence ei pystynyt käsittelemään pyyntöäsi, koska sisältösi sisältää linkkejä HIPAA-rajoitettuun sisältöön.',
   'fabric.linking.assigned_to': 'Määrätty käyttäjälle {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Käytä automaatiota sivulla <b>{name}</b>.{br}Confluencen ja työtilan ylläpitäjät hallitsevat käytettävissä olevia valintoja.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Sivun automaatiot',
+  'fabric.linking.automation-action.icon.label': 'Automaatiokuvake',
+  'fabric.linking.automation-action.title': 'Suorita automaatio...',
+  'fabric.linking.automation-action.tooltip': 'Avaa automaation modaalinen ikkuna',
   'fabric.linking.beta': 'Beeta',
   'fabric.linking.cancel': 'Peruuta',
   'fabric.linking.cannot_connect': 'Ei voi muodostaa yhteyttä, yritä uudelleen',
@@ -45,6 +56,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Yhdistä tilisi ja tee yhteistyötä eri Atlassian-tuotteissa.',
   'fabric.linking.continue': 'Jatka',
+  'fabric.linking.copied_summary_action_description': 'Yhteenveto kopioitu leikepöydälle',
+  'fabric.linking.copied_url_to_clipboard': 'Kopioitu!',
+  'fabric.linking.copy_summary_action': 'Kopioi yhteenveto',
+  'fabric.linking.copy_summary_action_description': 'Kopioi yhteenveto',
   'fabric.linking.copy_url_to_clipboard': 'Kopioi linkki',
   'fabric.linking.couldnt_load_link': 'Tämän linkin lataaminen epäonnistui tuntemattomasta syystä.',
   'fabric.linking.create_on_absolute': 'Luotiin {context}',
@@ -56,8 +71,18 @@ export default {
     '{product} on tiimisi käytössä yhteistyön tukena, ja voit aloittaa sen käytön heti!',
   'fabric.linking.direct_access_title': 'Näytä tämä sisältö liittymällä {product}-palveluun',
   'fabric.linking.download': 'Lataa',
+  'fabric.linking.download_description': 'Lataa tämä tiedosto paikalliseen tallennustilaan',
+  'fabric.linking.download_file': 'Lataa tiedosto',
   'fabric.linking.edit': 'Muokkaa',
   'fabric.linking.follow': 'Seuraa',
+  'fabric.linking.follow_goal': 'Seuraa tavoitetta',
+  'fabric.linking.follow_goal_description': 'Seuraamalla tätä tavoitetta saat ilmoituksia päivityksistä',
+  'fabric.linking.follow_goal_error':
+    'Kohtasimme virheen yrittäessämme seurata tavoitetta. Tarkista verkkoyhteytesi tai päivitä sivu ja yritä uudelleen.',
+  'fabric.linking.follow_project': 'Seuraa projektia',
+  'fabric.linking.follow_project_description': 'Seuraamalla saat ilmoituksia tästä projektista',
+  'fabric.linking.follow_project_error':
+    'Kohtasimme virheen yrittäessämme seurata projektia. Tarkista verkkoyhteytesi tai päivitä sivu ja yritä uudelleen.',
   'fabric.linking.forbidden_access': 'Pääsy on kielletty',
   'fabric.linking.forbidden_description':
     'Ota yhteyttä ylläpitäjääsi oikeuden pyytämistä varten kohteeseen {hostname}.',
@@ -86,6 +111,7 @@ export default {
   'fabric.linking.owned_by': 'Omistaja: {context}',
   'fabric.linking.pending_request': 'Käyttöoikeuspyyntösi on vireillä',
   'fabric.linking.preview_close': 'Sulje esikatselu',
+  'fabric.linking.preview_description': 'Avaa tämän linkin koko näytön esikatselu',
   'fabric.linking.preview_improved': 'Avaa esikatselu',
   'fabric.linking.preview_max_size': 'Näytä koko näytöllä',
   'fabric.linking.preview_min_size': 'Sulje koko näytön tila',
@@ -134,6 +160,14 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Yksityisiä sivuja ei voida näyttää kohteesta {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Yksityisiä sivuja ei voida näyttää',
   'fabric.linking.unfollow': 'Lopeta seuraaminen',
+  'fabric.linking.unfollow_goal': 'Lopeta tavoitteen seuraaminen',
+  'fabric.linking.unfollow_goal_description': 'Lopeta seuraaminen, niin et enää saa ilmoituksia tästä tavoitteesta',
+  'fabric.linking.unfollow_goal_error':
+    'Kohtasimme virheen yrittäessämme lopettaa tavoitteen seuraamisen. Tarkista verkkoyhteytesi tai päivitä sivu ja yritä uudelleen.',
+  'fabric.linking.unfollow_project': 'Lopeta projektin seuraaminen',
+  'fabric.linking.unfollow_project_description': 'Lopeta seuraaminen, niin et enää saa projekti-ilmoituksia',
+  'fabric.linking.unfollow_project_error':
+    'Löysimme virheen yrittäessämme lopettaa projektin seuraamisen. Tarkista verkkoyhteytesi tai päivitä sivu ja yritä uudelleen.',
   'fabric.linking.unlink_account': 'Poista tilin linkitys',
   'fabric.linking.updated_by': 'Muokannut: {context}',
   'fabric.linking.view': 'Näytä',

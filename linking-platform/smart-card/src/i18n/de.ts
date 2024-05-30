@@ -7,6 +7,9 @@
  */
 //German (Germany)
 export default {
+  'automation-menu.modal.error.image.alt': 'Symbol: Fehler',
+  'automation-menu.modal.footer.cancel-button': 'Abbrechen',
+  'automation-menu.modal.footer.ok-button': 'OK',
   'fabric.linking.access_exists_description':
     'Bitten Sie Ihren Administrator um Zugriffsrechte für die Anzeige dieses Inhalts von {hostname}.',
   'fabric.linking.actions': 'Aktionen',
@@ -15,14 +18,26 @@ export default {
   'fabric.linking.ai_summarized': 'Zusammengefasst von Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Von AI zusammengefasst',
   'fabric.linking.ai_summarized_info': 'Die Qualität der Informationen kann variieren. <a>Weitere Informationen</a>',
+  'fabric.linking.ai_summarized_info_short': 'Die Qualität der Inhalte kann variieren.',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence arbeitet …',
+  'fabric.linking.ai_summary_action': 'Atlassian Intelligence für Zusammenfassungen nutzen',
+  'fabric.linking.ai_summary_action_description':
+    'Lassen Sie sich den Inhalt dieses Links mithilfe von Atlassian Intelligence zusammenfassen.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Die Ergebnisse dieser Zusammenfassung können nicht angezeigt werden, da sie gegen die <a>Richtlinie zur akzeptablen Nutzung von Atlassian verstößt</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence kann derzeit keine Zusammenfassung für Sie bereitstellen, da zu viele Inhalte zum Zusammenfassen vorhanden sind.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) reagiert nicht. Versuchen Sie es später erneut oder <a>überprüfen Sie den Status von AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence konnte Ihre Anfrage nicht bearbeiten, da sie Links zu HIPAA-beschränkten Inhalten enthält.',
   'fabric.linking.assigned_to': 'Zugewiesen an {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Wenden Sie eine Automatisierung auf <b>{name}</b> an.{br}Die verfügbaren Auswahlen werden von Confluence- und Bereichsadministratoren gesteuert.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Seitenautomatisierungen',
+  'fabric.linking.automation-action.icon.label': 'Symbol: Automatisierung',
+  'fabric.linking.automation-action.title': 'Automatisierung ausführen …',
+  'fabric.linking.automation-action.tooltip': 'Automatisierungsfenster öffnen',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Abbrechen',
   'fabric.linking.cannot_connect': 'Verbindung nicht möglich, versuchen Sie es erneut',
@@ -45,6 +60,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Verbinden Sie Ihr Konto, um an verschiedenen Atlassian-Produkten mitzuarbeiten.',
   'fabric.linking.continue': 'Weiter',
+  'fabric.linking.copied_summary_action_description': 'Zusammenfassung in die Zwischenablage kopiert',
+  'fabric.linking.copied_url_to_clipboard': 'Kopiert!',
+  'fabric.linking.copy_summary_action': 'Zusammenfassung kopieren',
+  'fabric.linking.copy_summary_action_description': 'Zusammenfassung kopieren',
   'fabric.linking.copy_url_to_clipboard': 'Link kopieren',
   'fabric.linking.couldnt_load_link': 'Dieser Link konnte aus unbekannten Gründen nicht geladen werden.',
   'fabric.linking.create_on_absolute': 'Erstellt am: {context}',
@@ -56,8 +75,19 @@ export default {
     'Ihr Team nutzt {product} bereits zur Zusammenarbeit und kann gleich loslegen!',
   'fabric.linking.direct_access_title': 'Treten Sie {product} bei, um diesen Inhalt anzuzeigen',
   'fabric.linking.download': 'Herunterladen',
+  'fabric.linking.download_description': 'Diese Datei wird in Ihren lokalen Speicher heruntergeladen.',
+  'fabric.linking.download_file': 'Datei herunterladen',
   'fabric.linking.edit': 'Bearbeiten',
   'fabric.linking.follow': 'Folgen',
+  'fabric.linking.follow_goal': 'Ziel folgen',
+  'fabric.linking.follow_goal_description': 'Folgen Sie diesem Ziel, um Benachrichtigungen zu Updates zu erhalten.',
+  'fabric.linking.follow_goal_error':
+    'Beim Versuch, dem Ziel zu folgen, ist ein Fehler aufgetreten. Überprüfen Sie Ihre Verbindung oder aktualisieren Sie die Seite und versuchen Sie es erneut.',
+  'fabric.linking.follow_project': 'Projekt folgen',
+  'fabric.linking.follow_project_description':
+    'Folgen Sie diesem Projekt, um Benachrichtigungen zu Updates zu erhalten.',
+  'fabric.linking.follow_project_error':
+    'Beim Versuch, dem Projekt zu folgen, ist ein Fehler aufgetreten. Überprüfen Sie Ihre Verbindung oder aktualisieren Sie die Seite und versuchen Sie es erneut.',
   'fabric.linking.forbidden_access': 'Sie sind nicht zugriffsberechtigt',
   'fabric.linking.forbidden_description': 'Bitten Sie Ihren Administrator um Zugriffsrechte für {hostname}.',
   'fabric.linking.forbidden_title': 'Sie haben keinen Zugriff auf diesen Inhalt',
@@ -86,6 +116,7 @@ export default {
   'fabric.linking.owned_by': 'Besitzer: {context}',
   'fabric.linking.pending_request': 'Ihre Zugriffsanfrage ist ausstehend.',
   'fabric.linking.preview_close': 'Vorschau beenden',
+  'fabric.linking.preview_description': 'Es wird eine Vorschau dieses Links im Vollbildmodus geöffnet.',
   'fabric.linking.preview_improved': 'Vorschau öffnen',
   'fabric.linking.preview_max_size': 'Vollbildansicht anzeigen',
   'fabric.linking.preview_min_size': 'Vollbildansicht beenden',
@@ -134,6 +165,16 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Private Seiten von {context} können nicht angezeigt werden',
   'fabric.linking.unauthorised_account_name_no_provider': 'Private Seiten können nicht angezeigt werden',
   'fabric.linking.unfollow': 'Nicht mehr folgen',
+  'fabric.linking.unfollow_goal': 'Ziel nicht mehr folgen',
+  'fabric.linking.unfollow_goal_description':
+    'Nicht mehr folgen, um keine Benachrichtigungen für dieses Ziel mehr zu erhalten',
+  'fabric.linking.unfollow_goal_error':
+    'Beim Versuch, dem Ziel nicht mehr zu folgen, ist ein Fehler aufgetreten. Überprüfen Sie Ihre Verbindung oder aktualisieren Sie die Seite und versuchen Sie es erneut.',
+  'fabric.linking.unfollow_project': 'Projekt nicht mehr folgen',
+  'fabric.linking.unfollow_project_description':
+    'Nicht mehr folgen, um keine Benachrichtigungen für dieses Projekt mehr zu erhalten',
+  'fabric.linking.unfollow_project_error':
+    'Beim Versuch, dem Projekt nicht mehr zu folgen, ist ein Fehler aufgetreten. Überprüfen Sie Ihre Verbindung oder aktualisieren Sie die Seite und versuchen Sie es erneut.',
   'fabric.linking.unlink_account': 'Kontoverknüpfung löschen',
   'fabric.linking.updated_by': 'Geändert von {context}',
   'fabric.linking.view': 'Anzeigen',

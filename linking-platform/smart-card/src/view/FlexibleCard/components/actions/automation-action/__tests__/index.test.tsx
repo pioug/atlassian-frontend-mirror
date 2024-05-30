@@ -9,6 +9,7 @@ import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import AutomationAction from '../index'
 import type { LinkActionProps } from '../../types';
+import { SmartLinkModalProvider } from '../../../../../../state/modal'
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
   ...jest.requireActual('../../../../../../state/flexible-ui-context'),
@@ -24,7 +25,9 @@ describe('AutomationAction', () => {
     return render(
       <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
         <IntlProvider locale="en">
+          <SmartLinkModalProvider>
           <AutomationAction {...props} as="button"/>
+          </SmartLinkModalProvider>
         </IntlProvider>
       </AnalyticsListener>,
     );
@@ -47,7 +50,6 @@ describe('AutomationAction', () => {
       const tooltip = await findByRole('tooltip');
       expect(tooltip.textContent).toBe('Select an automation rule to run');
     });
-
     it('renders updated tooltip after onClick', async () => {
       const { findByTestId } = setup();
 
@@ -57,6 +59,5 @@ describe('AutomationAction', () => {
       const modal = await findByTestId('smart-card-automation-action-modal');
       expect(modal).toBeInTheDocument();
     });
-
   });
 });

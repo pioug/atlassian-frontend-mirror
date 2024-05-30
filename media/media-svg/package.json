@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-svg",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "For fetching and rendering SVGs secure and responsively",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -40,13 +40,13 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/media-client": "^27.1.0",
+    "@atlaskit/media-client": "^27.2.0",
     "@atlaskit/media-client-react": "^2.0.2",
     "@atlaskit/spinner": "^16.1.0",
-    "@babel/runtime": "^7.0.0",
-    "@compiled/react": "^0.17.0"
+    "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.7.1",
     "react": "^16.8.0"
   },
   "devDependencies": {
@@ -54,7 +54,7 @@
     "@af/visual-regression": "*",
     "@atlaskit/form": "^10.2.0",
     "@atlaskit/media-state": "^1.1.0",
-    "@atlaskit/media-test-data": "^2.2.0",
+    "@atlaskit/media-test-data": "^2.3.0",
     "@atlaskit/primitives": "^6.3.0",
     "@atlaskit/range": "^7.2.0",
     "@atlaskit/section-message": "^6.5.0",

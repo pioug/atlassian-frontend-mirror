@@ -56,7 +56,6 @@
     "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/ssr": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",
     "@testing-library/react": "^12.1.5",
     "jscodeshift": "^0.13.0",
@@ -89,6 +88,5 @@
       "deprecation": "no-deprecated-imports"
     }
   },
-  "homepage": "https://atlassian.design/components/badge/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "homepage": "https://atlassian.design/components/badge/"
 }

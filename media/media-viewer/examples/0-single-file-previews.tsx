@@ -37,6 +37,7 @@ import {
 } from '../example-helpers';
 import { MediaViewer } from '../src';
 import { I18NWrapper } from '@atlaskit/media-test-helpers';
+import { svgFileIds } from '@atlaskit/media-client/test-helpers';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers';
 addGlobalEventEmitterListeners();
 
@@ -151,6 +152,21 @@ export default class Example extends React.Component<{}, State> {
             <h2>Email item</h2>
             <ButtonList>
               <li>{this.createItem(emailItem, 'Normal')}</li>
+            </ButtonList>
+          </Group>
+          <Group>
+            <h2>SVG</h2>
+            <ButtonList>
+              <li>{this.createItem(svgFileIds.ajDigitalCamera, 'Normal')}</li>
+            </ButtonList>
+            <ButtonList>
+              <li>{this.createItem(svgFileIds.atom, 'Normal')}</li>
+            </ButtonList>
+            <ButtonList>
+              <li>{this.createItem(svgFileIds.car, 'Normal')}</li>
+            </ButtonList>
+            <ButtonList>
+              <li>{this.createItem(svgFileIds.openweb, 'Normal')}</li>
             </ButtonList>
           </Group>
           <Group>

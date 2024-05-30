@@ -448,11 +448,12 @@ export type ProgrammingLanguage = {
   name: ElementName.ProgrammingLanguage;
 };
 /**
- * Represents the props available for an Provider element.
+ * Represents the props available for a Provider element.
  * @see Provider
  */
 export type Provider = {
   name: ElementName.Provider;
+  hideIcon?: boolean;
 };
 /**
  * Represents the props available for an ReactCount element.

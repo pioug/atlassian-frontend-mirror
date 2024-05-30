@@ -2,6 +2,7 @@ import {
   type FileIdentifier,
   type ResponseFileItem,
 } from '@atlaskit/media-client';
+import { type PartialResponseFileItem } from '@atlaskit/media-client/test-helpers';
 
 export type BinaryFn = () => Promise<string>;
 export type ArtifactsSet = Record<string, BinaryFn>;
@@ -16,5 +17,5 @@ export interface ItemWithBinaries extends Binaries {
 export type GeneratedItemWithBinaries = [ItemWithBinaries, FileIdentifier];
 
 export interface ItemWithBinariesGenerator {
-  (): Promise<GeneratedItemWithBinaries>;
+  (override?: PartialResponseFileItem): Promise<GeneratedItemWithBinaries>;
 }

@@ -124,6 +124,34 @@ describe('ProfileCardTrigger', () => {
     expect(await findByText('Give kudos')).toBeDefined();
   });
 
+  it('should open "click" trigger after click (without kudos) when showKudos is false', async () => {
+    const resourceClient: unknown = {
+      ...(mockResourceClient as object),
+      shouldShowGiveKudos: () => {
+        return Promise.resolve(true);
+      },
+    };
+
+    const { queryByText, getByTestId } = renderWithIntl(
+      <ProfileCardTrigger
+        {...defaultProps}
+        resourceClient={resourceClient as ProfileClient}
+        trigger="click"
+        testId="profilecard-trigger"
+        displayConfig={{ showKudos: false }}
+      >
+        <span data-testid="test-inner-trigger">This is the trigger</span>
+      </ProfileCardTrigger>,
+    );
+
+    act(() => {
+      fireEvent.click(getByTestId('profilecard-trigger'));
+      jest.runAllTimers();
+    });
+
+    expect(await queryByText('Give kudos')).toBe(null);
+  });
+
   it('should open "hover" trigger after mouse over', async () => {
     const { getByTestId, queryByTestId, findByTestId } = renderWithIntl(
       <ProfileCardTrigger

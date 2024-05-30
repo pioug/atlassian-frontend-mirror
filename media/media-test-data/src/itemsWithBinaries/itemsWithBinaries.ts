@@ -1,4 +1,9 @@
 import {
+  merge,
+  type PartialResponseFileItem,
+} from '@atlaskit/media-client/test-helpers';
+
+import {
   type FileItemGenerator,
   generateSampleFileItem,
 } from '../sampleFileItems';
@@ -11,9 +16,12 @@ const createItemWithBinariesGenerator =
   (
     fileItemGenerator: FileItemGenerator,
     artifactsSet: ArtifactsSet,
+    override?: PartialResponseFileItem,
   ): ItemWithBinariesGenerator =>
-  async () => {
-    const [fileItem, identifier] = fileItemGenerator();
+  async overrideItem => {
+    const [fileItem, identifier] = fileItemGenerator(
+      merge(override, overrideItem),
+    );
     const itemWithBinaries = await createItemWithBinaries(
       fileItem,
       artifactsSet,
@@ -96,6 +104,17 @@ const svg = {
   svgOpenWeb: createItemWithBinariesGenerator(
     generateSampleFileItem.svg,
     artifactSets.svgOpenWeb,
+    { details: { name: 'OpenWeb.svg' } },
+  ),
+  svgAjDigitalCamera: createItemWithBinariesGenerator(
+    generateSampleFileItem.svg,
+    artifactSets.svgAjDigitalCamera,
+    { details: { name: 'ajDigitalCamera.svg' } },
+  ),
+  svgAtom: createItemWithBinariesGenerator(
+    generateSampleFileItem.svg,
+    artifactSets.svgAtom,
+    { details: { name: 'atom.svg' } },
   ),
 };
 

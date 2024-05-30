@@ -6,10 +6,7 @@ import {
   isExternalImageIdentifier,
   isFileIdentifier,
   type ExternalImageIdentifier,
-  type ProcessedFileState,
-  type UploadingFileState,
-  type ProcessingFileState,
-  type ProcessingFailedState,
+  type NonErrorFileState,
 } from '@atlaskit/media-client';
 import { FormattedMessage } from 'react-intl-next';
 import { messages, type WithShowControlMethodProp } from '@atlaskit/media-ui';
@@ -48,6 +45,8 @@ import {
   succeedMediaFileUfoExperience,
 } from '../analytics/ufoExperiences';
 import { type FileStateFlags } from '../components/types';
+import type { SvgViewerProps } from '../viewers/svg';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const ImageViewerV2 = Loadable({
   loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
@@ -82,6 +81,14 @@ const CodeViewerV2 = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_codeViewer" */ '../viewers/codeViewer'
     ).then((mod) => mod.CodeViewer),
+  loading: () => <Spinner />,
+});
+
+const SvgViewer = Loadable({
+  loader: (): Promise<React.ComponentType<SvgViewerProps>> =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_svgViewer" */ '../viewers/svg'
+    ).then((mod) => mod.SvgViewer),
   loading: () => <Spinner />,
 });
 
@@ -228,13 +235,7 @@ export const ItemViewerV2Base = ({
     [],
   );
 
-  const renderItem = (
-    fileItem:
-      | ProcessedFileState
-      | UploadingFileState
-      | ProcessingFileState
-      | ProcessingFailedState,
-  ) => {
+  const renderItem = (fileItem: NonErrorFileState) => {
     const collectionName = isFileIdentifier(identifier)
       ? identifier.collectionName
       : undefined;
@@ -266,6 +267,23 @@ export const ItemViewerV2Base = ({
         />
       );
     }
+
+    if (
+      getBooleanFF('platform.media-svg-rendering') &&
+      isFileIdentifier(identifier) &&
+      fileItem.mimeType === 'image/svg+xml'
+    ) {
+      return (
+        <SvgViewer
+          identifier={identifier}
+          onLoad={onSuccess}
+          onError={onLoadFail}
+          onClose={onClose}
+          traceContext={traceContext.current}
+        />
+      );
+    }
+
     const { mediaType } = fileItem;
 
     switch (mediaType) {

@@ -48,6 +48,26 @@ const svgOpenWebPreview = () =>
     /* webpackChunkName: "@atlaskit-internal_svgOpenWebPreview" */ './svgOpenWebPreview'
   ).then(mod => mod.default);
 
+const svgAjDigitalCamera = () =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_svgAjDigitalCamera" */ './svgAjDigitalCamera'
+  ).then(mod => mod.default);
+
+const svgAjDigitalCameraPreview = () =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_svgAjDigitalCameraPreview" */ './svgAjDigitalCameraPreview'
+  ).then(mod => mod.default);
+
+const svgAtom = () =>
+  import(/* webpackChunkName: "@atlaskit-internal_svgAtom" */ './svgAtom').then(
+    mod => mod.default,
+  );
+
+const svgAtomPreview = () =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_svgAtomPreview" */ './svgAtomPreview'
+  ).then(mod => mod.default);
+
 const videoFire1080p = () =>
   import(
     /* webpackChunkName: "@atlaskit-internal_videoFire1080p" */ './videoFire1080p'
@@ -89,4 +109,8 @@ export const sampleBinaries = {
   svgCarPreview,
   svgOpenWeb,
   svgOpenWebPreview,
+  svgAjDigitalCamera,
+  svgAjDigitalCameraPreview,
+  svgAtom,
+  svgAtomPreview,
 };

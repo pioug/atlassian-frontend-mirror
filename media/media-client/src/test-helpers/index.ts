@@ -60,6 +60,7 @@ export {
   emailFileId,
   emailUnsupportedFileId,
   vrVideoDetails,
+  svgFileIds,
 } from './exampleMediaItems';
 export const authProviderBaseURL = 'https://media.dev.atl-paas.net';
 export {
@@ -82,4 +83,7 @@ export {
   createUploadingFileState,
   createFileState,
   createErrorFileState,
+  merge,
+  assign,
+  type PartialResponseFileItem,
 } from './MockedMediaApi';

@@ -45,6 +45,14 @@ describe('Element: Badge', () => {
     expect(element).toBeTruthy();
   });
 
+  it('does not render image as badge icon if hideBadgeIcon is true', async () => {
+    const { queryByTestId } = render(<Badge label="desc" url="src-loaded" hideIcon={true}/>);
+
+    const element = queryByTestId('smart-element-badge-image');
+
+    expect(element).toBeNull();
+  });
+
   describe('size', () => {
     it('renders icon at  0.75rem', async () => {
       const { findByTestId } = render(

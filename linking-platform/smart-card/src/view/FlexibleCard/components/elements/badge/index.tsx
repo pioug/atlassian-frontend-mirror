@@ -105,18 +105,18 @@ const renderImageIcon = (
  * @see ProgrammingLanguage
  * @see Provider
  */
-const Badge: React.FC<BadgeProps> = ({
+const Badge = ({
+  hideIcon = false,
   icon,
   label,
   name,
   overrideCss,
   testId = 'smart-element-badge',
   url,
-}) => {
+}: BadgeProps) => {
   const formattedMessageOrLabel = getFormattedMessageFromIcon(icon) || label;
   const badgeIcon =
     renderAtlaskitIcon(icon, testId) || renderImageIcon(url, testId);
-
   if (!formattedMessageOrLabel || !badgeIcon) {
     return null;
   }
@@ -129,7 +129,7 @@ const Badge: React.FC<BadgeProps> = ({
       data-smart-element-badge
       data-testid={testId}
     >
-      <span css={iconStyles}>{badgeIcon}</span>
+      {!hideIcon && <span css={iconStyles}>{badgeIcon}</span>}
       <span css={labelStyles} data-testid={`${testId}-label`}>
         {formattedMessageOrLabel}
       </span>

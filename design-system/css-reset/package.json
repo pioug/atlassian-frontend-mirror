@@ -40,7 +40,6 @@
   },
   "devDependencies": {
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "mkdirp": "^0.5.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
@@ -96,6 +95,5 @@
     "./tables": "./src/tables.tsx",
     "./utils": "./src/utils.tsx"
   },
-  "homepage": "https://atlassian.design/components/css-reset",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "homepage": "https://atlassian.design/components/css-reset"
 }

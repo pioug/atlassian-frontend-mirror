@@ -1,69 +1,69 @@
 {
-  "extends": "../../../tsconfig.base.json",
-  "include": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx"
-  ],
-  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
-  "compilerOptions": {
-    "baseUrl": "./",
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__tag/dev"
-  },
-  "references": [
-    {
-      "path": "tsconfig.app.json"
-    },
-    {
-      "path": "../accessibility-testing/tsconfig.app.json"
-    },
-    {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
-      "path": "../avatar/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/website/docs/tsconfig.app.json"
-    },
-    {
-      "path": "../ds-lib/tsconfig.app.json"
-    },
-    {
-      "path": "../section-message/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-    },
-    {
-      "path": "../tag-group/tsconfig.app.json"
-    },
-    {
-      "path": "../tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-    }
-  ]
+	"extends": "../../../tsconfig.base.json",
+	"include": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"compilerOptions": {
+		"baseUrl": "./",
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__tag/dev"
+	},
+	"references": [
+		{
+			"path": "tsconfig.app.json"
+		},
+		{
+			"path": "../accessibility-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
+			"path": "../avatar/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/website/docs/tsconfig.app.json"
+		},
+		{
+			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
+			"path": "../tag-group/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+		}
+	]
 }

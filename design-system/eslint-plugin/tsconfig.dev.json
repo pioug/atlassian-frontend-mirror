@@ -1,61 +1,61 @@
 {
-  "extends": "../../../tsconfig.node.json",
-  "include": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*",
-    "**/scripts/**/*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx",
-    "./**/__fixtures__/**/*.json"
-  ],
-  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
-  "compilerOptions": {
-    "baseUrl": "./",
-    "lib": ["ES2021.String"],
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__eslint-plugin-design-system/dev"
-  },
-  "references": [
-    {
-      "path": "tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/formatting/tsconfig.app.json"
-    },
-    {
-      "path": "../ds-lib/tsconfig.app.json"
-    },
-    {
-      "path": "../eslint-utils/tsconfig.app.json"
-    },
-    {
-      "path": "../tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../codegen/tsconfig.app.json"
-    },
-    {
-      "path": "../../techstack/eslint-utils/tsconfig.app.json"
-    }
-  ],
-  "files": []
+	"extends": "../../../tsconfig.node.json",
+	"include": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/scripts/**/*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx",
+		"./**/__fixtures__/**/*.json"
+	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"compilerOptions": {
+		"baseUrl": "./",
+		"lib": ["ES2021.String"],
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-design-system/dev"
+	},
+	"references": [
+		{
+			"path": "tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/formatting/tsconfig.app.json"
+		},
+		{
+			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../eslint-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../codegen/tsconfig.app.json"
+		},
+		{
+			"path": "../../techstack/eslint-utils/tsconfig.app.json"
+		}
+	],
+	"files": []
 }

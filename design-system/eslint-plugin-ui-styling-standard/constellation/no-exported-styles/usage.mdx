@@ -31,8 +31,8 @@ Avoid exporting any style-like objects or values for consumption as well as thes
 
 ```js
 export default {
-    color: 'red',
-    margin: '0px',
+	color: 'red',
+	margin: '0px',
 };
 ```
 
@@ -40,15 +40,15 @@ export default {
 import { css } from '@compiled/react';
 
 const color = css({
-    /* */
+	/* */
 });
 
 const styles = {
-    primary: {
-        text: {
-            color,
-        },
-    },
+	primary: {
+		text: {
+			color,
+		},
+	},
 };
 
 export default styles.primary.text.color;
@@ -80,13 +80,13 @@ export const Component = ({ children }) => <div css={styles}>{children}></div>;
 
 By default, this rule will check `css` usages from:
 
--   `@atlaskit/css`
--   `@atlaskit/primitives`
--   `@compiled/react`
--   `@emotion/react`
--   `@emotion/core`
--   `@emotion/styled`
--   `styled-components`
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
 
 To change this list of libraries, you can define a custom set of `importSources`, which accepts an
 array of package names (strings).

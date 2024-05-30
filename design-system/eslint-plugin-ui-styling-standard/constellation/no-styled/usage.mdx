@@ -12,7 +12,7 @@ Avoid usages of styled, eg. `styled.div`, `styled('div')`, `styled(Component)`, 
 import styled from 'styled-components';
 
 const Component = styled.div`
-    color: red;
+	color: red;
 `;
 export default styled.div({ color: 'red' });
 ```
@@ -35,7 +35,7 @@ export const ComponentTwo = styled3(Component)({ … });
 import styled from 'styled-components';
 
 export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))({
-    color: 'red',
+	color: 'red',
 });
 ```
 
@@ -43,7 +43,7 @@ export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))({
 import styled from 'styled-components';
 
 export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))`
-    color: red;
+	color: red;
 `;
 ```
 
@@ -55,7 +55,7 @@ import { css, jsx } from '@emotion/react';
 const styles = css({ color: 'red' });
 
 const Component = ({ children }) => {
-    return <div css={styles}>{children}</div>;
+	return <div css={styles}>{children}</div>;
 };
 ```
 
@@ -64,11 +64,11 @@ const Component = ({ children }) => {
 import { Box, xcss } from '@atlaskit/primitives';
 
 const styles = xcss({
-    color: 'color.text.subtlest',
+	color: 'color.text.subtlest',
 });
 
 const Component = ({ children }) => {
-    return <Box xcss={styles}>{children}</Box>;
+	return <Box xcss={styles}>{children}</Box>;
 };
 ```
 

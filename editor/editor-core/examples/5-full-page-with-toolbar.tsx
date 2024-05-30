@@ -4,6 +4,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { DevTools } from '@af/editor-examples-helpers';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
@@ -12,7 +13,6 @@ import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 
-import { DevTools } from '../example-helpers/DevTools';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import type { EditorActions } from '../src';
@@ -152,7 +152,11 @@ export default function Example(defaultValue: string | object) {
     <EditorContext>
 {/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ height: '100%' }}>
-        <DevTools />
+        <WithEditorActions
+          render={(actions) => (
+            <DevTools editorView={actions._privateGetEditorView()} />
+          )}
+        />
         <ExampleEditor defaultValue={defaultValue} />
       </div>
     </EditorContext>

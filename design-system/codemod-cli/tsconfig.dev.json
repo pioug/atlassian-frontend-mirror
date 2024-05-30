@@ -1,60 +1,60 @@
 {
-  "extends": "../../../tsconfig.base.json",
-  "include": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx"
-  ],
-  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
-  "compilerOptions": {
-    "baseUrl": "./",
-    "module": "commonjs",
-    "target": "es6",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "lib": [
-      "es5",
-      "scripthost",
-      "es2015.core",
-      "es2015.collection",
-      "es2015.symbol",
-      "es2015.iterable",
-      "es2015.promise",
-      "es2016",
-      "es2017"
-    ],
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__codemod-cli/dev"
-  },
-  "references": [
-    {
-      "path": "tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/formatting/tsconfig.app.json"
-    },
-    {
-      "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-    }
-  ]
+	"extends": "../../../tsconfig.base.json",
+	"include": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"compilerOptions": {
+		"baseUrl": "./",
+		"module": "commonjs",
+		"target": "es6",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"lib": [
+			"es5",
+			"scripthost",
+			"es2015.core",
+			"es2015.collection",
+			"es2015.symbol",
+			"es2015.iterable",
+			"es2015.promise",
+			"es2016",
+			"es2017"
+		],
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__codemod-cli/dev"
+	},
+	"references": [
+		{
+			"path": "tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/formatting/tsconfig.app.json"
+		},
+		{
+			"path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
+		}
+	]
 }

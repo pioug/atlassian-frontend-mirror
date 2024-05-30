@@ -24,11 +24,11 @@ import { cssMap } from '@compiled/react';
 // (not within a function, class, etc.)
 
 const Foo = () => {
-    const bar = cssMap({
-        danger: {
-            color: 'red',
-        },
-    });
+	const bar = cssMap({
+		danger: {
+			color: 'red',
+		},
+	});
 };
 ```
 
@@ -42,11 +42,11 @@ import { importedVariable, importedFunction } from 'another-package';
 const myVariable = importedFunction();
 
 const styles = cssMap({
-    danger: {
-        // Both invalid because they rely on an imported function.
-        color: myVariable,
-        padding: importedFunction(),
-    },
+	danger: {
+		// Both invalid because they rely on an imported function.
+		color: myVariable,
+		padding: importedFunction(),
+	},
 });
 ```
 
@@ -58,9 +58,9 @@ import { cssMap } from '@compiled/react';
 // Any usages of cssMap must be in the same file.
 
 export const foo = cssMap({
-    danger: {
-        color: 'red',
-    },
+	danger: {
+		color: 'red',
+	},
 });
 ```
 
@@ -73,29 +73,29 @@ import { token } from '@atlaskit/tokens';
 // values in cssMap.
 
 const styles = cssMap({
-    // Object method
-    get danger() {
-        return { color: '#123456' };
-    },
+	// Object method
+	get danger() {
+		return { color: '#123456' };
+	},
 });
 
 const styles2 = cssMap({
-    // Arrow function
-    danger: () => {
-        color: '#123456';
-    },
+	// Arrow function
+	danger: () => {
+		color: '#123456';
+	},
 });
 
 function customFunction(...args) {
-    return arguments.join('');
+	return arguments.join('');
 }
 
 const styles3 = cssMap({
-    danger: {
-        // Locally defined function
-        color: customFunction('red', 'blue'),
-        backgroundColor: 'red',
-    },
+	danger: {
+		// Locally defined function
+		color: customFunction('red', 'blue'),
+		backgroundColor: 'red',
+	},
 });
 ```
 
@@ -106,16 +106,16 @@ import { cssMap } from '@compiled/react';
 // Spread elements ("...") cannot be used in cssMap.
 
 const base = {
-    success: {
-        color: 'green',
-    },
+	success: {
+		color: 'green',
+	},
 };
 
 const bar = cssMap({
-    ...base,
-    danger: {
-        color: 'red',
-    },
+	...base,
+	danger: {
+		color: 'red',
+	},
 });
 ```
 
@@ -129,14 +129,14 @@ import { cssMap } from '@compiled/react';
 // in cssMap.
 
 const styles = cssMap({
-    danger: {
-        color: 'red',
-        backgroundColor: 'red',
-    },
-    success: {
-        color: 'green',
-        backgroundColor: 'green',
-    },
+	danger: {
+		color: 'red',
+		backgroundColor: 'red',
+	},
+	success: {
+		color: 'green',
+		backgroundColor: 'green',
+	},
 });
 ```
 
@@ -150,9 +150,9 @@ import { cssMap } from '@compiled/react';
 const bap = 'blue';
 
 const styles = cssMap({
-    danger: {
-        color: bap,
-    },
+	danger: {
+		color: bap,
+	},
 });
 ```
 
@@ -169,13 +169,13 @@ import { cssMap } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-    danger: {
-        color: token('my-color'),
-        backgroundColor: 'red',
-    },
-    success: {
-        color: 'green',
-    },
+	danger: {
+		color: token('my-color'),
+		backgroundColor: 'red',
+	},
+	success: {
+		color: 'green',
+	},
 });
 ```
 

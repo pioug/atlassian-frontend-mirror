@@ -14,14 +14,25 @@ export default {
   'fabric.linking.ai_summarized': 'Atlassian Intelligence가 요약했습니다',
   'fabric.linking.ai_summarized_abbreviation': 'AI로 요약',
   'fabric.linking.ai_summarized_info': '정보 품질은 다를 수 있습니다. <a>자세히 알아보기</a>',
+  'fabric.linking.ai_summarized_info_short': '콘텐츠 품질은 다를 수 있습니다',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence가 작동하는 중입니다...',
+  'fabric.linking.ai_summary_action': 'AI로 요약',
+  'fabric.linking.ai_summary_action_description': 'Atlassian Intelligence를 사용하여 이 링크의 콘텐츠를 요약합니다.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     '<a>Atlassian의 사용 제한 정책</a> 위반에 해당하므로 이 요약의 결과를 표시할 수 없습니다.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    '요약할 콘텐츠가 너무 많아서 Atlassian Intelligence가 지금 요약을 생성할 수 없습니다.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence(AI)가 응답하지 않습니다. 나중에 다시 시도하거나 <a>AI 상태를 확인</a>하세요.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     '콘텐츠에 HIPAA 제한 콘텐츠 링크가 포함되어 있으므로 Atlassian Intelligence에서 요청을 처리할 수 없습니다.',
   'fabric.linking.assigned_to': '{context} 님에게 할당',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    '<b>{name}</b>에 자동화를 적용합니다.{br}사용 가능한 선택 항목은 Confluence 및 스페이스 관리자가 제어합니다.',
+  'fabric.linking.automation-action.confluence.page.modal.title': '페이지 자동화',
+  'fabric.linking.automation-action.icon.label': '자동화 아이콘',
+  'fabric.linking.automation-action.title': '자동화 실행...',
+  'fabric.linking.automation-action.tooltip': '자동화 모달 열기',
   'fabric.linking.beta': '베타',
   'fabric.linking.cancel': '취소',
   'fabric.linking.cannot_connect': '연결할 수 없습니다. 다시 시도하세요',
@@ -43,6 +54,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     '계정을 연결하여 Atlassian 제품 전반에서 공동 작업하세요.',
   'fabric.linking.continue': '계속',
+  'fabric.linking.copied_summary_action_description': '요약을 클립보드에 복사함',
+  'fabric.linking.copied_url_to_clipboard': '복사됨!',
+  'fabric.linking.copy_summary_action': '요약 복사',
+  'fabric.linking.copy_summary_action_description': '요약 복사',
   'fabric.linking.copy_url_to_clipboard': '링크 복사',
   'fabric.linking.couldnt_load_link': '알 수 없는 이유로 인해 이 링크를 로드할 수 없습니다.',
   'fabric.linking.create_on_absolute': '{context}에 만듦',
@@ -54,8 +69,18 @@ export default {
     '팀이 공동 작업하는 데 {product}을(를) 사용하므로 바로 사용할 수 있습니다!',
   'fabric.linking.direct_access_title': '{product}에 참여하여 이 콘텐츠 보기',
   'fabric.linking.download': '다운로드',
+  'fabric.linking.download_description': '이 파일을 로컬 스토리지에 다운로드합니다',
+  'fabric.linking.download_file': '파일 다운로드',
   'fabric.linking.edit': '편집',
   'fabric.linking.follow': '팔로우',
+  'fabric.linking.follow_goal': '목표 팔로우',
+  'fabric.linking.follow_goal_description': '업데이트에 대한 알림을 받으려면 이 목표를 팔로우하세요',
+  'fabric.linking.follow_goal_error':
+    '목표를 팔로우하는 동안 오류가 발생했습니다. 연결을 확인하거나 페이지를 새로 고친 후 다시 시도하세요.',
+  'fabric.linking.follow_project': '프로젝트 팔로우',
+  'fabric.linking.follow_project_description': '이 프로젝트에 대한 알림을 받으려면 팔로우하세요',
+  'fabric.linking.follow_project_error':
+    '프로젝트를 팔로우하는 동안 오류가 발생했습니다. 연결을 확인하거나 페이지를 새로 고친 후 다시 시도하세요.',
   'fabric.linking.forbidden_access': '액세스가 금지되었습니다',
   'fabric.linking.forbidden_description': '{hostname}에 대한 액세스를 요청하려면 관리자에게 문의하세요.',
   'fabric.linking.forbidden_title': '이 콘텐츠에 대한 액세스 권한이 없습니다',
@@ -83,6 +108,7 @@ export default {
   'fabric.linking.owned_by': '소유자: {context}',
   'fabric.linking.pending_request': '액세스 요청이 보류 중입니다',
   'fabric.linking.preview_close': '미리 보기 닫기',
+  'fabric.linking.preview_description': '이 링크의 전체 화면 미리 보기를 엽니다',
   'fabric.linking.preview_improved': '미리보기 열기',
   'fabric.linking.preview_max_size': '전체 화면 보기',
   'fabric.linking.preview_min_size': '전체 화면 닫기',
@@ -131,6 +157,14 @@ export default {
   'fabric.linking.unauthorised_account_name': '{context}의 비공개 페이지는 표시할 수 없습니다',
   'fabric.linking.unauthorised_account_name_no_provider': '비공개 페이지를 표시할 수 없습니다',
   'fabric.linking.unfollow': '팔로우 취소',
+  'fabric.linking.unfollow_goal': '목표 팔로우 취소',
+  'fabric.linking.unfollow_goal_description': '이 목표에 대한 알림을 더 이상 받지 않으려면 팔로우 취소하세요',
+  'fabric.linking.unfollow_goal_error':
+    '목표를 팔로우 취소하는 동안 오류가 발생했습니다. 연결을 확인하거나 페이지를 새로 고친 후 다시 시도하세요.',
+  'fabric.linking.unfollow_project': '프로젝트 팔로우 취소',
+  'fabric.linking.unfollow_project_description': '프로젝트 알림을 더 이상 받지 않으려면 팔로우 취소하세요',
+  'fabric.linking.unfollow_project_error':
+    '프로젝트를 팔로우 취소하는 동안 오류가 발생했습니다. 연결을 확인하거나 페이지를 새로 고친 후 다시 시도하세요.',
   'fabric.linking.unlink_account': '계정 연결 해제',
   'fabric.linking.updated_by': '수정한 사용자: {context}',
   'fabric.linking.view': '보기',

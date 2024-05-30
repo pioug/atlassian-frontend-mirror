@@ -15,6 +15,13 @@ import Modal, {
 
 import { messages } from '../../../messages';
 import { type RelatedLinksBaseModalProps } from './types';
+import { Box, xcss } from '@atlaskit/primitives';
+
+const fixedWidth = 'small'; // pre-defined 400px by Atlaskit
+
+const boxStyles = xcss({
+  height: '396px' // Specified by the designer as this will display 5 incoming links and 2 outgoing links
+});
 
 const RelatedLinksBaseModal = ({
   onClose,
@@ -26,7 +33,7 @@ const RelatedLinksBaseModal = ({
       {showModal && (
         <Modal
           onClose={onClose}
-          width={"small"}
+          width={fixedWidth}
         >
           <ModalHeader>
             <ModalTitle>
@@ -36,7 +43,9 @@ const RelatedLinksBaseModal = ({
             </ModalTitle>
           </ModalHeader>
           <ModalBody>
-            {children}
+            <Box xcss={boxStyles}>
+              {children}
+            </Box>
           </ModalBody>
           <ModalFooter>
             <Button appearance="primary" onClick={onClose}>

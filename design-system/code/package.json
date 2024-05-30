@@ -48,7 +48,6 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^13.1.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@types/jscodeshift": "^0.11.0",
     "@types/refractor": "^3.0.2",
@@ -115,6 +114,5 @@
     "./inline": "./src/entry-points/inline.tsx",
     "./constants": "./src/entry-points/constants.tsx"
   },
-  "homepage": "https://atlassian.design/components/code/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "homepage": "https://atlassian.design/components/code/"
 }

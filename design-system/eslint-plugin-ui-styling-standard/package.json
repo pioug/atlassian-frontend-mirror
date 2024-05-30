@@ -58,7 +58,6 @@
     "@af/formatting": "*",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/eslint-plugin-design-system": "^10.4.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/codegen": "*",
     "@compiled/eslint-plugin": "^0.13.6",
     "@types/eslint": "^8.56.6",
@@ -71,6 +70,5 @@
   },
   "scripts": {
     "codegen": "ts-node -r tsconfig-paths/register ./scripts/codegen.tsx"
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

@@ -36,25 +36,34 @@ export default {
   'linkDataSource.basic-filter.status.label': 'État',
   'linkDataSource.basic-filter.type.label': 'Type',
   'linkDataSource.checkConnection': 'Vérifiez votre connexion et actualisez, ou réessayez plus tard.',
+  'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': 'Modifié ou créé par',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Votre recherche a renvoyé trop de résultats.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2': 'Réessayez avec des mots clés plus spécifiques.',
   'linkDataSource.column-picker.search': 'Rechercher des champs',
   'linkDataSource.column-picker.tooltip': 'Configurer les colonnes',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Rechercher des tickets par mot clé',
   'linkDataSource.configmodal.cancelButtonText': 'Annuler',
-  'linkDataSource.configmodal.inlineLinkViewModeDescription':
-    'Affichez le nombre de résultats de recherche ou sous forme de lien intelligent contextuel',
-  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'Lien contextuel',
-  'linkDataSource.configmodal.tableViewModeDescription': 'Affichez les résultats de la recherche sous forme de tableau',
-  'linkDataSource.configmodal.tableViewModeLabel': 'Tableau',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Annuler',
+  'linkDataSource.confluence-search.configmodal.date.range.after.label': 'après {date}',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': "N'importe quand",
+  'linkDataSource.confluence-search.configmodal.date.range.before.label': 'avant {date}',
   'linkDataSource.confluence-search.configmodal.date.range.custom': 'Personnalisée',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.end':
+    'La date de début doit être antérieure à la date de fin',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.today':
+    'La date de début ne peut être dans le futur',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
+    'La date de fin ne peut être dans le futur',
+  'linkDataSource.confluence-search.configmodal.date.range.from': 'Du',
+  'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Choisissez une date',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': '30 derniers jours',
   'linkDataSource.confluence-search.configmodal.date.range.last.week': '7 derniers jours',
   'linkDataSource.confluence-search.configmodal.date.range.last.year': 'Année dernière',
   'linkDataSource.confluence-search.configmodal.date.range.title': 'Dernière mise à jour',
+  'linkDataSource.confluence-search.configmodal.date.range.to': 'au',
+  'linkDataSource.confluence-search.configmodal.date.range.to.Label': 'à',
   'linkDataSource.confluence-search.configmodal.date.range.today': "Aujourd'hui",
+  'linkDataSource.confluence-search.configmodal.date.range.update.button': 'Mettre à jour',
   'linkDataSource.confluence-search.configmodal.date.range.yesterday': 'Hier',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Insérer une liste Confluence',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites':
@@ -86,16 +95,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'De base',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Rechercher des tickets par mot clé',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Choisissez un site',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
-    'Affichez le nombre de résultats de recherche ou sous forme de lien intelligent contextuel',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': 'Lien contextuel',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Insérer des tickets',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Insérer des tickets Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insérer des tickets Jira à partir de',
   'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {ticket} other {tickets}}',
-  'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
-    'Affichez les résultats de recherche Jira sous forme de tableau',
-  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Tableau',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
+    'Affichez le nombre de résultats de recherche sous forme de lien intelligent contextuel',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Lien contextuel',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescription':
+    'Affichez les résultats de recherche sous forme de liste',
+  'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Liste',
   'linkDataSource.jira-issues.learnMoreLink': 'En savoir plus sur la recherche avec JQL',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     "Pour demander l'accès, contactez votre administrateur.",

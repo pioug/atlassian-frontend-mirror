@@ -11,6 +11,8 @@ import { type MediaFile } from '../../models/media';
 import { type ResponseFileItem } from '../../client/media-store/types';
 import type { FileIdentifier } from '../../identifier';
 
+import { type PartialResponseFileItem } from './types';
+
 // --------------------------------------------------------
 // Factory Utils
 // --------------------------------------------------------
@@ -140,6 +142,45 @@ export const copy = (fileItem: ResponseFileItem): ResponseFileItem =>
   JSON.parse(
     JSON.stringify(fileItem).replace(new RegExp(fileItem.id, 'g'), uuid()),
   );
+
+/**
+ * Adds/overrides the attributes from fileItemB into the fileItemA
+ * */
+export const merge = (
+  fileItemA?: PartialResponseFileItem,
+  fileItemB?: PartialResponseFileItem,
+): PartialResponseFileItem => ({
+  ...fileItemA,
+  ...fileItemB,
+  details: {
+    ...fileItemA?.details,
+    ...fileItemB?.details,
+    artifacts: {
+      ...fileItemA?.details?.artifacts,
+      ...fileItemB?.details?.artifacts,
+    },
+  },
+});
+
+/**
+ * Adds/overrides the attributes from fileItemB into the fileItemA
+ * */
+export const assign = (
+  fileItemA: ResponseFileItem,
+  fileItemB?: PartialResponseFileItem,
+): ResponseFileItem => ({
+  ...fileItemA,
+  ...fileItemB,
+  details: {
+    ...fileItemA.details,
+    ...fileItemB?.details,
+    artifacts: {
+      ...fileItemA.details?.artifacts,
+      ...fileItemB?.details?.artifacts,
+    },
+  },
+});
+
 /**
  * Extracts the file identifier from the provided file item
  */

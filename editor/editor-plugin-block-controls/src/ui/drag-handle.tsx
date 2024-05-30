@@ -94,11 +94,6 @@ export const DragHandle = ({
 
       onGenerateDragPreview: ({ nativeSetDragImage }) => {
         setCustomNativeDragPreview({
-          getOffset: () => {
-            const rect = domRef.current.getBoundingClientRect();
-            // Offset the drag preview to the center of the element
-            return { x: 0, y: rect.height / 2 };
-          },
           render: ({ container }) => {
             return dragPreview(container, domRef);
           },

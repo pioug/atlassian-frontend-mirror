@@ -45,7 +45,6 @@
     "@af/integration-testing": "*",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/ssr": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.0.0",
     "@testing-library/react": "^12.1.5",
@@ -61,7 +60,6 @@
     "ui"
   ],
   "homepage": "https://atlaskit.atlassian.com/packages/helpers/width-detector",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "af:exports": {
     ".": "./src/index.ts",
     "./WidthDetector": "./src/WidthDetector.tsx"

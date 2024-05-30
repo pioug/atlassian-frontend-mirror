@@ -49,6 +49,7 @@ import { type DisplayViewModes, type Site } from '../../../common/types';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
+import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
 import { useAvailableSites } from '../../../services/useAvailableSites';
@@ -133,7 +134,7 @@ export const PlainConfluenceSearchConfigModal = (
 
   // analytics related parameters
   const searchCount = useRef(0);
-  const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
+  const userInteractions = useUserInteractions();
   const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
 
   const parameters = useMemo(
@@ -216,14 +217,14 @@ export const PlainConfluenceSearchConfigModal = (
   // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6829171
   const onSiteSelection = useCallback(
     (site: Site) => {
-      userInteractionActions.current.add(DatasourceAction.INSTANCE_UPDATED);
+      userInteractions.add(DatasourceAction.INSTANCE_UPDATED);
       setSearchString(undefined);
       setLastModified(undefined);
       setContributorAccountIds([]);
       setCloudId(site.cloudId);
       reset({ shouldForceRequest: true });
     },
-    [reset],
+    [reset, userInteractions],
   );
 
   useEffect(() => {
@@ -256,12 +257,12 @@ export const PlainConfluenceSearchConfigModal = (
         visibleColumnKeys || [],
         newVisibleColumnKeys,
       );
-      userInteractionActions.current.add(columnAction);
+      userInteractions.add(columnAction);
       visibleColumnCount.current = newVisibleColumnKeys.length;
 
       setVisibleColumnKeys(newVisibleColumnKeys);
     },
-    [visibleColumnKeys],
+    [visibleColumnKeys, userInteractions],
   );
 
   // TODO: further refactoring in EDM-9573
@@ -350,9 +351,9 @@ export const PlainConfluenceSearchConfigModal = (
       extensionKey,
       destinationObjectTypes,
       searchCount: searchCount.current,
-      actions: Array.from(userInteractionActions.current),
+      actions: userInteractions.get(),
     }),
-    [destinationObjectTypes, extensionKey],
+    [destinationObjectTypes, extensionKey, userInteractions],
   );
 
   const isDataReady = (visibleColumnKeys || []).length > 0;
@@ -471,7 +472,7 @@ export const PlainConfluenceSearchConfigModal = (
               : DatasourceDisplay.DATASOURCE_TABLE,
           searchCount: searchCount.current,
           searchMethod: DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY,
-          actions: Array.from(userInteractionActions.current),
+          actions: userInteractions.get(),
         },
         eventType: 'ui',
       });
@@ -534,18 +535,19 @@ export const PlainConfluenceSearchConfigModal = (
       visibleColumnKeys,
       columnCustomSizes,
       wrappedColumnKeys,
+      userInteractions,
     ],
   );
 
   const handleViewModeChange = (selectedMode: DisplayViewModes) => {
-    userInteractionActions.current.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
+    userInteractions.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
     setCurrentViewMode(selectedMode);
   };
 
   const onSearch = useCallback(
     (newSearchString: string, filters?: SelectedOptionsMap) => {
       searchCount.current++;
-      userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
+      userInteractions.add(DatasourceAction.QUERY_UPDATED);
 
       if (filters) {
         const { editedOrCreatedBy, lastModified: lastModifiedList } = filters;
@@ -573,7 +575,7 @@ export const PlainConfluenceSearchConfigModal = (
       setSearchString(newSearchString);
       reset({ shouldForceRequest: true });
     },
-    [reset],
+    [reset, userInteractions],
   );
 
   const isInsertDisabled =
@@ -587,9 +589,9 @@ export const PlainConfluenceSearchConfigModal = (
       extensionKey,
       destinationObjectTypes,
       searchCount: searchCount.current,
-      actions: Array.from(userInteractionActions.current),
+      actions: userInteractions.get(),
     };
-  }, [destinationObjectTypes, extensionKey]);
+  }, [destinationObjectTypes, extensionKey, userInteractions]);
 
   return (
     <IntlMessagesProvider
@@ -706,7 +708,9 @@ const contextData = {
 export const ConfluenceSearchConfigModal = withAnalyticsContext(contextData)(
   (props: ConfluenceSearchConfigModalProps) => (
     <DatasourceExperienceIdProvider>
-      <PlainConfluenceSearchConfigModal {...props} />
+      <UserInteractionsProvider>
+        <PlainConfluenceSearchConfigModal {...props} />
+      </UserInteractionsProvider>
     </DatasourceExperienceIdProvider>
   ),
 );

@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 23.0.4
+
+### Patch Changes
+
+-   [#104781](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104781)
+    [`c1f5107a8905`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1f5107a8905) -
+    Fix some mentions for the same user never loading in pages with many mentions
+
 ## 23.0.3
 
 ### Patch Changes

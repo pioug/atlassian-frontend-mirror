@@ -63,7 +63,6 @@
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
@@ -98,6 +97,5 @@
       ],
       "deprecation": "no-deprecated-imports"
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

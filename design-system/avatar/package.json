@@ -75,7 +75,6 @@
     "@atlaskit/textfield": "^6.3.0",
     "@atlaskit/tooltip": "^18.4.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^11.0.0",
     "@testing-library/react": "^12.1.5",
     "@types/jscodeshift": "^0.11.0",
@@ -112,7 +111,6 @@
     }
   },
   "homepage": "https://atlassian.design/components/avatar/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.design-system-team.avatar-item-font-size_830x6": {
       "type": "boolean"

@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 13.4.0
+
+### Minor Changes
+
+-   [#103698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103698)
+    [`413b5201c8fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/413b5201c8fe) -
+    Introduce the bounded `xcss` prop.
+
 ## 13.3.0
 
 ### Minor Changes

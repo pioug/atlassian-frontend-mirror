@@ -1,3 +1,5 @@
+import { type CSSProperties } from 'react';
+
 import type { FileIdentifier } from '@atlaskit/media-client';
 
 type Dimensions = {
@@ -16,6 +18,12 @@ export interface MediaSvgProps {
   onError?: (error: Error) => void;
   /* alt text for the image element */
   alt?: string;
+  /* IMG onLoad callback */
+  onLoad?: (evt: React.SyntheticEvent<HTMLImageElement>) => void;
+  /* IMG onMouseDown callback */
+  onMouseDown?: (ev: React.MouseEvent<HTMLImageElement, MouseEvent>) => void;
+  /* Override default styles */
+  style?: CSSProperties;
 }
 
 export type ContentSource = 'remote' | 'local';

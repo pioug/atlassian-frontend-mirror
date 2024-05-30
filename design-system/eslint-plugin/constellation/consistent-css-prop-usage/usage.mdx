@@ -11,13 +11,13 @@ linting rules, which we can then all evolve and scale together.
 
 This rule checks for the following cases:
 
--   Styles should not be defined inline; it should instead be in a standalone variable.
-    -   The exception for this is style composition (e.g. `<div css={[baseStyles, moreStyles]} />`),
-        which is a way to combine styles from two variables.
--   Styles must be wrapped in a `css` function call.
--   Styles must be defined in the same file as their usage, and not be imported.
--   Styles should not contain spread operators (e.g. `css({ ...spreadStyles })`).
--   Styles must all be defined at the top of the file, or at the bottom of the file.
+- Styles should not be defined inline; it should instead be in a standalone variable.
+  - The exception for this is style composition (e.g. `<div css={[baseStyles, moreStyles]} />`),
+    which is a way to combine styles from two variables.
+- Styles must be wrapped in a `css` function call.
+- Styles must be defined in the same file as their usage, and not be imported.
+- Styles should not contain spread operators (e.g. `css({ ...spreadStyles })`).
+- Styles must all be defined at the top of the file, or at the bottom of the file.
 
 This rule also has an autofixer that enforces and fixes the code (where practical) to meet the above
 requirements.
@@ -89,16 +89,16 @@ JSX attribute.**
 
 With the following options turned on:
 
--   cssFunctions = ['css']
--   stylesPlacement = 'top'
+- cssFunctions = ['css']
+- stylesPlacement = 'top'
 
 ```js
 const containerStyles = css({
-    zIndex: 1,
+	zIndex: 1,
 });
 
 function Button({ children }) {
-    return <button css={containerStyles}>{children}</button>;
+	return <button css={containerStyles}>{children}</button>;
 }
 ```
 
@@ -106,8 +106,8 @@ function Button({ children }) {
 
 With the following options turned on:
 
--   cssFunctions = ['css']
--   stylesPlacement = 'top'
+- cssFunctions = ['css']
+- stylesPlacement = 'top'
 
 ```js
 const borderStyles = cssMap({
@@ -124,20 +124,20 @@ function Button({ children }) {
 
 With the following options turned on:
 
--   cssFunctions = ['css']
--   stylesPlacement = 'bottom'
+- cssFunctions = ['css']
+- stylesPlacement = 'bottom'
 
 ```js
 function Button({ children }) {
-    return <button css={[baseContainerStyles, containerStyles]}>{children}</button>;
+	return <button css={[baseContainerStyles, containerStyles]}>{children}</button>;
 }
 
 const baseContainerStyles = css({
-    zIndex: 5,
+	zIndex: 5,
 });
 
 const containerStyles = css({
-    zIndex: 7,
+	zIndex: 7,
 });
 ```
 

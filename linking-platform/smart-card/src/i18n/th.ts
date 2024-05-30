@@ -14,14 +14,25 @@ export default {
   'fabric.linking.ai_summarized': 'สรุปโดย Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'สรุปด้วย AI',
   'fabric.linking.ai_summarized_info': 'คุณภาพข้อมูลอาจแตกต่างกันไป <a>เรียนรู้เพิ่มเติม</a>',
+  'fabric.linking.ai_summarized_info_short': 'คุณภาพของเนื้อหาอาจแตกต่างกันไป',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence กำลังดำเนินการ...',
+  'fabric.linking.ai_summary_action': 'สรุปด้วย AI',
+  'fabric.linking.ai_summary_action_description': 'สรุปเนื้อหาของลิงก์นี้โดยใช้ Atlassian Intelligence',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'เราไม่สามารถแสดงผลลัพธ์ของข้อมูลสรุปนี้ได้ เนื่องจากขัดกับ<a>นโยบายการใช้งานที่ยอมรับได้ของ Atlassian</a>',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence ไม่สามารถสร้างสรุปให้กับคุณได้ในขณะนี้ เนื่องจากมีเนื้อหาที่จะสรุปมากเกินไป',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) ไม่ตอบสนอง ลองอีกครั้งในภายหลัง หรือ<a>ตรวจสอบสถานะของ AI</a>',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence ไม่สามารถดำเนินการตามคำขอของคุณได้ เนื่องจากเนื้อหาของคุณมีลิงก์ไปยังเนื้อหาที่ถูกจำกัดโดย HIPAA',
   'fabric.linking.assigned_to': 'มอบหมายให้ {context} แล้ว',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'ใช้ระบบอัตโนมัติกับ <b>{name}</b>{br}ตัวเลือกที่มีอยู่จะได้รับการควบคุมโดย Confluence และผู้ดูแลระบบพื้นที่',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'ระบบอัตโนมัติของหน้าข้อมูล',
+  'fabric.linking.automation-action.icon.label': 'ไอคอนระบบอัตโนมัติ',
+  'fabric.linking.automation-action.title': 'เปิดใช้ระบบอัตโนมัติ...',
+  'fabric.linking.automation-action.tooltip': 'เปิดวิถีระบบอัตโนมัติ',
   'fabric.linking.beta': 'เบต้า',
   'fabric.linking.cancel': 'ยกเลิก',
   'fabric.linking.cannot_connect': 'ไม่สามารถเชื่อมต่อได้ โปรดลองอีกครั้ง',
@@ -44,6 +55,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'เชื่อมต่อบัญชีของคุณเพื่อทำงานร่วมกันในผลิตภัณฑ์ต่าง ๆ ของ Atlassian',
   'fabric.linking.continue': 'ดำเนินการต่อ',
+  'fabric.linking.copied_summary_action_description': 'คัดลอกสรุปไปยังคลิปบอร์ดแล้ว',
+  'fabric.linking.copied_url_to_clipboard': 'คัดลอกแล้ว!',
+  'fabric.linking.copy_summary_action': 'คัดลอกสรุป',
+  'fabric.linking.copy_summary_action_description': 'คัดลอกสรุป',
   'fabric.linking.copy_url_to_clipboard': 'คัดลอกลิงก์',
   'fabric.linking.couldnt_load_link': 'เราไม่สามารถโหลดลิงก์นี้ได้ด้วยเหตุผลที่ไม่อาจทราบได้',
   'fabric.linking.create_on_absolute': 'สร้างเมื่อ {context}',
@@ -55,8 +70,18 @@ export default {
     'ทีมของคุณใช้ {product} ในการทำงานร่วมกันและคุณสามารถเริ่มใช้ได้เลยในตอนนี้!',
   'fabric.linking.direct_access_title': 'เข้าร่วม {product} เพื่อดูเนื้อหานี้',
   'fabric.linking.download': 'ดาวน์โหลด',
+  'fabric.linking.download_description': 'ดาวน์โหลดไฟล์นี้ไปยังพื้นที่จัดเก็บภายในเครื่องของคุณ',
+  'fabric.linking.download_file': 'ดาวน์โหลดไฟล์',
   'fabric.linking.edit': 'แก้ไข',
   'fabric.linking.follow': 'ติดตาม',
+  'fabric.linking.follow_goal': 'ติดตามเป้าหมาย',
+  'fabric.linking.follow_goal_description': 'ติดตามเป้าหมายนี้เพื่อรับการแจ้งเตือนเกี่ยวกับการอัปเดต',
+  'fabric.linking.follow_goal_error':
+    'เราพบข้อผิดพลาดขณะพยายามติดตามเป้าหมาย ตรวจสอบการเชื่อมต่อของคุณหรือรีเฟรชหน้าข้อมูลแล้วลองอีกครั้ง',
+  'fabric.linking.follow_project': 'ติดตามโปรเจกต์',
+  'fabric.linking.follow_project_description': 'ติดตามเพื่อรับการแจ้งเตือนเกี่ยวกับโปรเจกต์นี้',
+  'fabric.linking.follow_project_error':
+    'เราพบข้อผิดพลาดขณะพยายามติดตามโปรเจกต์ ตรวจสอบการเชื่อมต่อของคุณหรือรีเฟรชหน้าข้อมูลแล้วลองอีกครั้ง',
   'fabric.linking.forbidden_access': 'คุณไม่มีสิทธิ์เข้าถึง',
   'fabric.linking.forbidden_description': 'โปรดติดต่อผู้ดูแลระบบของคุณเพื่อส่งคำขอการเข้าถึง {hostname}',
   'fabric.linking.forbidden_title': 'คุณไม่มีสิทธิ์การเข้าถึงเนื้อหานี้',
@@ -84,6 +109,7 @@ export default {
   'fabric.linking.owned_by': 'เจ้าของคือ {context}',
   'fabric.linking.pending_request': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
   'fabric.linking.preview_close': 'ปิดการแสดงตัวอย่าง',
+  'fabric.linking.preview_description': 'เปิดตัวอย่างแบบเต็มหน้าจอของลิงก์นี้',
   'fabric.linking.preview_improved': 'เปิดการแสดงตัวอย่าง',
   'fabric.linking.preview_max_size': 'ดูหน้าจอแบบเต็ม',
   'fabric.linking.preview_min_size': 'ปิดหน้าจอแบบเต็ม',
@@ -132,6 +158,14 @@ export default {
   'fabric.linking.unauthorised_account_name': 'เราไม่สามารถแสดงหน้าข้อมูลส่วนตัวจาก {context} ได้',
   'fabric.linking.unauthorised_account_name_no_provider': 'เราไม่สามารถแสดงหน้าข้อมูลส่วนตัวได้',
   'fabric.linking.unfollow': 'ยกเลิกการติดตาม',
+  'fabric.linking.unfollow_goal': 'ยกเลิกการติดตามเป้าหมาย',
+  'fabric.linking.unfollow_goal_description': 'ยกเลิกการติดตามเพื่อหยุดรับการแจ้งเตือนสำหรับเป้าหมายนี้',
+  'fabric.linking.unfollow_goal_error':
+    'เราพบข้อผิดพลาดขณะพยายามยกเลิกการติดตามเป้าหมาย ตรวจสอบการเชื่อมต่อของคุณหรือรีเฟรชหน้าข้อมูลแล้วลองอีกครั้ง',
+  'fabric.linking.unfollow_project': 'ยกเลิกการติดตามโปรเจกต์',
+  'fabric.linking.unfollow_project_description': 'ยกเลิกการติดตามเพื่อหยุดรับการแจ้งเตือนของโปรเจกต์',
+  'fabric.linking.unfollow_project_error':
+    'เราพบข้อผิดพลาดขณะพยายามยกเลิกการติดตามโปรเจกต์ ตรวจสอบการเชื่อมต่อของคุณหรือรีเฟรชหน้าข้อมูลแล้วลองอีกครั้ง',
   'fabric.linking.unlink_account': 'ยกเลิกการเชื่อมโยงบัญชี',
   'fabric.linking.updated_by': 'แก้ไขแล้วโดย {context}',
   'fabric.linking.view': 'ดู',

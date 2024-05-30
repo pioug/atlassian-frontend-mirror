@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import { DevTools } from '@af/editor-examples-helpers';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
@@ -11,7 +12,6 @@ import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
 import { token } from '@atlaskit/tokens';
 
-import { DevTools } from '../example-helpers/DevTools';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { name, version } from '../package.json';
 import type { EditorProps } from '../src';
@@ -201,7 +201,12 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
             </div>
           )}
         />
-        <DevTools />
+
+        <WithEditorActions
+          render={(actions) => (
+            <DevTools editorView={actions._privateGetEditorView()} />
+          )}
+        />
       </EditorContext>
     </IntlProvider>
   );

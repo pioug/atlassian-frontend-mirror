@@ -4,6 +4,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import { DevTools } from '@af/editor-examples-helpers';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -11,7 +12,6 @@ import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
 import { token } from '@atlaskit/tokens';
 
-import { DevTools } from '../example-helpers/DevTools';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { name, version } from '../package.json';
 import type { EditorProps } from '../src';
@@ -180,7 +180,11 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
                 </div>
               )}
             />
-            <DevTools />
+            <WithEditorActions
+              render={(actions) => (
+                <DevTools editorView={actions._privateGetEditorView()} />
+              )}
+            />
           </div>
         </EditorContext>
       </IntlProvider>

@@ -32,10 +32,22 @@ describe('MediaSvg', () => {
     });
 
     const testId = 'media-svg';
+    const alt = 'some-alt';
+    const onMouseDown = jest.fn();
+    const onLoad = jest.fn();
+    const style = { backgroundColor: 'red' };
 
     const { findByTestId, findByRole } = render(
       <MockedMediaClientProvider>
-        <MediaSvg testId={testId} identifier={identifier} />,
+        <MediaSvg
+          testId={testId}
+          identifier={identifier}
+          alt={alt}
+          onMouseDown={onMouseDown}
+          onLoad={onLoad}
+          style={style}
+        />
+        ,
       </MockedMediaClientProvider>,
     );
 
@@ -49,6 +61,15 @@ describe('MediaSvg', () => {
     expect(elem.getAttribute('data-filecollection')).toBe(
       identifier.collectionName,
     );
+
+    expect(elem.style.backgroundColor).toBe(style.backgroundColor);
+
+    fireEvent.load(elem);
+    expect(onLoad).toBeCalledTimes(1);
+
+    fireEvent.mouseDown(elem);
+    expect(onMouseDown).toBeCalledTimes(1);
+
     expect(mediaApi.getFileBinary).toBeCalledTimes(1);
   });
 

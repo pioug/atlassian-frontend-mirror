@@ -7,6 +7,19 @@
  */
 //English (United Kingdom)
 export default {
+  'automation-menu.empty-state.image.alt': 'Empty automation list icon',
+  'automation-menu.empty-state.learn-more.link': 'Learn more about the manual trigger',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Use the manual trigger to populate a menu of selections that anyone, or people you specify, can apply as one-click automations.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Admins haven’t configured any manually triggered automations yet.',
+  'automation-menu.modal.error.description': 'This is taking awhile to load. Try refreshing the page.',
+  'automation-menu.modal.error.image.alt': 'Error icon',
+  'automation-menu.modal.footer.automate-button': 'Automate',
+  'automation-menu.modal.footer.cancel-button': 'Cancel',
+  'automation-menu.modal.footer.get-started-button': 'Create automation',
+  'automation-menu.modal.footer.ok-button': 'Ok',
+  'automation-menu.modal.header.icon.label': 'Automation modal header icon',
   'fabric.linking.access_exists_description': 'Request access to view this content from {hostname}.',
   'fabric.linking.actions': 'Actions',
   'fabric.linking.add_account': 'Add account',
@@ -14,14 +27,25 @@ export default {
   'fabric.linking.ai_summarized': 'Summarised by Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Summarised by AI',
   'fabric.linking.ai_summarized_info': 'Information quality may vary. <a>Learn more</a>',
+  'fabric.linking.ai_summarized_info_short': 'Content quality may vary',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence is working...',
+  'fabric.linking.ai_summary_action': 'Summarise with AI',
+  'fabric.linking.ai_summary_action_description': 'Summarise the content of this link using Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     "We cannot show the results of this summary as it goes against <a>Atlassian's Acceptable Use Policy</a>.",
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    "Atlassian Intelligence can't generate a summary for you right now as there is too much content to summarise.",
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) isn’t responding. Try again later or <a>check the status of AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence was unable to process your request as your content contains links to HIPAA restricted content.',
   'fabric.linking.assigned_to': 'Assigned to {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Apply an automation to <b>{name}</b>.{br}The available selections are controlled by Confluence and space administrators.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Page automations',
+  'fabric.linking.automation-action.icon.label': 'Automation icon',
+  'fabric.linking.automation-action.title': 'View automation rules...',
+  'fabric.linking.automation-action.tooltip': 'Select an automation rule to run',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Cancel',
   'fabric.linking.cannot_connect': "Can't connect, try again",
@@ -43,7 +67,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Connect your account to collaborate on work across Atlassian products.',
   'fabric.linking.continue': 'Continue',
-  'fabric.linking.copied_url_to_clipboard.nonfinal': 'Copied!',
+  'fabric.linking.copied_summary_action_description': 'Copied summary to clipboard',
+  'fabric.linking.copied_url_to_clipboard': 'Copied!',
+  'fabric.linking.copy_summary_action': 'Copy summary',
+  'fabric.linking.copy_summary_action_description': 'Copy summary',
   'fabric.linking.copy_url_to_clipboard': 'Copy link',
   'fabric.linking.couldnt_load_link': "We couldn't load this link for an unknown reason.",
   'fabric.linking.create_on_absolute': 'Created on {context}',
@@ -55,10 +82,18 @@ export default {
     'Your team uses {product} to collaborate and you can start using it right away!',
   'fabric.linking.direct_access_title': 'Join {product} to view this content',
   'fabric.linking.download': 'Download',
-  'fabric.linking.download_description.nonfinal': 'Download this file into your local storage',
-  'fabric.linking.download_file.nonfinal': 'Download file',
+  'fabric.linking.download_description': 'Download this file into your local storage',
+  'fabric.linking.download_file': 'Download file',
   'fabric.linking.edit': 'Edit',
   'fabric.linking.follow': 'Follow',
+  'fabric.linking.follow_goal': 'Follow goal',
+  'fabric.linking.follow_goal_description': 'Follow this goal to get notifications on updates',
+  'fabric.linking.follow_goal_error':
+    'We encountered an error while trying to follow the goal. Check your connection or refresh the page and try again.',
+  'fabric.linking.follow_project': 'Follow project',
+  'fabric.linking.follow_project_description': 'Follow to get notifications on this project',
+  'fabric.linking.follow_project_error':
+    'We encountered an error while trying to follow the project. Check your connection or refresh the page and try again.',
   'fabric.linking.forbidden_access': 'Your access is forbidden',
   'fabric.linking.forbidden_description': 'Contact your admin to request access to {hostname}.',
   'fabric.linking.forbidden_title': "You don't have access to this content",
@@ -86,7 +121,7 @@ export default {
   'fabric.linking.owned_by': 'Owned by {context}',
   'fabric.linking.pending_request': 'Your access request is pending',
   'fabric.linking.preview_close': 'Close preview',
-  'fabric.linking.preview_description.nonfinal': 'Open a full screen preview of this link',
+  'fabric.linking.preview_description': 'Open a full screen preview of this link',
   'fabric.linking.preview_improved': 'Open preview',
   'fabric.linking.preview_max_size': 'View full screen',
   'fabric.linking.preview_min_size': 'Close full screen',
@@ -103,6 +138,8 @@ export default {
   'fabric.linking.priority_undefined': 'Undefined',
   'fabric.linking.read_time': '{context} min read',
   'fabric.linking.related': 'Related',
+  'fabric.linking.related_links_modal_title.nonfinal': 'Recent Links',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'View recent links...',
   'fabric.linking.related_work_items_not_found': 'This link is not mentioned anywhere else.',
   'fabric.linking.request_access': 'Request access',
   'fabric.linking.request_access_description':
@@ -134,6 +171,14 @@ export default {
   'fabric.linking.unauthorised_account_name': "We can't display private pages from {context}",
   'fabric.linking.unauthorised_account_name_no_provider': "We can't display private pages",
   'fabric.linking.unfollow': 'Unfollow',
+  'fabric.linking.unfollow_goal': 'Unfollow goal',
+  'fabric.linking.unfollow_goal_description': 'Unfollow to stop receiving notifications for this goal',
+  'fabric.linking.unfollow_goal_error':
+    'We encountered an error while trying to unfollow the goal. Check your connection or refresh the page and try again.',
+  'fabric.linking.unfollow_project': 'Unfollow project',
+  'fabric.linking.unfollow_project_description': 'Unfollow to stop receiving project notifications',
+  'fabric.linking.unfollow_project_error':
+    'We encountered an error while trying to unfollow the project. Check your connection or refresh the page and try again.',
   'fabric.linking.unlink_account': 'Unlink Account',
   'fabric.linking.updated_by': 'Modified by {context}',
   'fabric.linking.view': 'View',

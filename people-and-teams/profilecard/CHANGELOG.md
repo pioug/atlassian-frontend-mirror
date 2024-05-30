@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.14.0
+
+### Minor Changes
+
+-   [#102379](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102379)
+    [`d8643ec13c0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8643ec13c0c) -
+    Added displayConfig prop, it has showKudos to control whether to show kudos.
+
 ## 19.13.0
 
 ### Minor Changes

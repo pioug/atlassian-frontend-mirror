@@ -15,7 +15,7 @@ Function calls are not allowed as arguments or as values, unless they are specif
 import { css } from '@compiled/react';
 
 function getStyles() {
-    return { width: 100 };
+	return { width: 100 };
 }
 
 const styles = css(getStyles());
@@ -25,11 +25,11 @@ const styles = css(getStyles());
 import { css } from '@compiled/react';
 
 function getWidth() {
-    return 100;
+	return 100;
 }
 
 const styles = css({
-    width: getWidth(),
+	width: getWidth(),
 });
 ```
 
@@ -43,12 +43,12 @@ import { css } from '@compiled/react';
 import { SELECTOR } from 'my-package';
 
 const styles = css({
-    [SELECTOR]: {
-        color: 'red',
-    },
-    [`${SELECTOR} > p`]: {
-        width: 100,
-    },
+	[SELECTOR]: {
+		color: 'red',
+	},
+	[`${SELECTOR} > p`]: {
+		width: 100,
+	},
 });
 ```
 
@@ -56,19 +56,19 @@ const styles = css({
 
 Variables are not allowed as values, unless they:
 
--   Have a simple, static value
--   Are defined in the same file
+- Have a simple, static value
+- Are defined in the same file
 
 ```tsx
 import { css } from '@compiled/react';
 import { SELECTOR } from 'my-package';
 
 function myFunction() {
-    return '5px';
+	return '5px';
 }
 
 const styles = css({
-    height: myFunction,
+	height: myFunction,
 });
 ```
 
@@ -81,11 +81,11 @@ import { css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const colors = {
-    text: token('color.text'),
+	text: token('color.text'),
 };
 
 const styles = css({
-    color: colors.text,
+	color: colors.text,
 });
 ```
 
@@ -97,11 +97,11 @@ Spread elements are not allowed.
 import { css } from '@compiled/react';
 
 const buttonStyles = {
-    color: 'blue',
+	color: 'blue',
 };
 
 const styles = css({
-    ...buttonStyles,
+	...buttonStyles,
 });
 ```
 
@@ -113,7 +113,7 @@ Array values are not allowed. This syntax is not supported by most styling libra
 import { css } from '@compiled/react';
 
 const styles = css({
-    '::before': [{ fontWeight: 'bold' }, { color: 'red' }],
+	'::before': [{ fontWeight: 'bold' }, { color: 'red' }],
 });
 ```
 
@@ -121,26 +121,26 @@ const styles = css({
 
 Things to note about the following example:
 
--   The `warningStyles` are conditionally applied using the `css` prop
--   The dynamic `width` is applied using the `style` prop
--   The `token()` calls are allowed because they are statically analyzable (and in the default
-    allow-list)
+- The `warningStyles` are conditionally applied using the `css` prop
+- The dynamic `width` is applied using the `style` prop
+- The `token()` calls are allowed because they are statically analyzable (and in the default
+  allow-list)
 
 ```tsx
 import { css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const baseStyles = css({
-    height: 100,
+	height: 100,
 });
 
 const warningStyles = css({
-    color: token('color.text.warning'),
-    backgroundColor: token('color.background.warning'),
+	color: token('color.text.warning'),
+	backgroundColor: token('color.background.warning'),
 });
 
 const Component = ({ isWarning, width }: { isWarning: boolean; width: number }) => {
-    return <div style={{ width }} css={[baseStyles, isWarning && warningStyles]} />;
+	return <div style={{ width }} css={[baseStyles, isWarning && warningStyles]} />;
 };
 ```
 
@@ -204,13 +204,13 @@ Default imports are not currently supported.
 
 By default, this rule will check `css` usages from:
 
--   `@atlaskit/css`
--   `@atlaskit/primitives`
--   `@compiled/react`
--   `@emotion/react`
--   `@emotion/core`
--   `@emotion/styled`
--   `styled-components`
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
 
 To change this list of libraries, you can define a custom set of `importSources`, which accepts an
 array of package names (strings). This will override the built-in allow-list.

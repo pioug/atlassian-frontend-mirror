@@ -57,6 +57,7 @@ import type {
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider, useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
+import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
 import {
   type onNextPageProps,
   useDatasourceTableState,
@@ -146,7 +147,7 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 
   // analytics related parameters
   const searchCount = useRef(0);
-  const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
+  const userInteractions = useUserInteractions();
   const initialSearchMethod: JiraSearchMethod =
     getBooleanFF(
       'platform.linking-platform.datasource.show-jlol-basic-filters',
@@ -352,23 +353,23 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
       isSearchedWithComplexQuery.current = isQueryComplex;
 
       if (jql !== newParameters.jql) {
-        userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
+        userInteractions.add(DatasourceAction.QUERY_UPDATED);
       }
 
       setJql(newParameters.jql);
       reset({ shouldForceRequest: true });
     },
-    [jql, reset],
+    [jql, reset, userInteractions],
   );
 
   const onSiteSelection = useCallback(
     (site: Site) => {
-      userInteractionActions.current.add(DatasourceAction.INSTANCE_UPDATED);
+      userInteractions.add(DatasourceAction.INSTANCE_UPDATED);
       setJql('');
       setCloudId(site.cloudId);
       reset({ shouldForceRequest: true });
     },
-    [reset],
+    [reset, userInteractions],
   );
 
   const retrieveUrlForSmartCardRender = useCallback(() => {
@@ -410,7 +411,7 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
           display: getDisplayValue(currentViewMode, totalCount || 0),
           searchCount: searchCount.current,
           searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
-          actions: Array.from(userInteractionActions.current),
+          actions: userInteractions.get(),
           isQueryComplex: isSearchedWithComplexQuery.current,
           ...(searchMethodSearchedWith.current === 'basic'
             ? { ...filterSelectionCount }
@@ -433,7 +434,7 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
           display: getDisplayValue(currentViewMode, totalCount || 0),
           searchCount: searchCount.current,
           searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
-          actions: Array.from(userInteractionActions.current),
+          actions: userInteractions.get(),
         },
       });
 
@@ -502,20 +503,21 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
       visibleColumnKeys,
       columnCustomSizes,
       wrappedColumnKeys,
+      userInteractions,
     ],
   );
 
   const handleViewModeChange = (selectedMode: DisplayViewModes) => {
-    userInteractionActions.current.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
+    userInteractions.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
     setCurrentViewMode(selectedMode);
   };
 
   const handleOnNextPage = useCallback(
     (onNextPageProps: onNextPageProps = {}) => {
-      userInteractionActions.current.add(DatasourceAction.NEXT_PAGE_SCROLLED);
+      userInteractions.add(DatasourceAction.NEXT_PAGE_SCROLLED);
       onNextPage(onNextPageProps);
     },
-    [onNextPage],
+    [onNextPage, userInteractions],
   );
 
   const handleVisibleColumnKeysChange = useCallback(
@@ -524,12 +526,12 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
         visibleColumnKeys || [],
         newVisibleColumnKeys,
       );
-      userInteractionActions.current.add(columnAction);
+      userInteractions.add(columnAction);
       visibleColumnCount.current = newVisibleColumnKeys.length;
 
       setVisibleColumnKeys(newVisibleColumnKeys);
     },
-    [visibleColumnKeys],
+    [visibleColumnKeys, userInteractions],
   );
 
   const issueLikeDataTableView = useMemo(
@@ -682,9 +684,9 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
     return {
       ...analyticsPayload,
       searchCount: searchCount.current,
-      actions: Array.from(userInteractionActions.current),
+      actions: userInteractions.get(),
     };
-  }, [analyticsPayload]);
+  }, [analyticsPayload, userInteractions]);
 
   return (
     <IntlMessagesProvider
@@ -799,7 +801,9 @@ const contextData = {
 export const JiraIssuesConfigModal = withAnalyticsContext(contextData)(
   (props: JiraConfigModalProps) => (
     <DatasourceExperienceIdProvider>
-      <PlainJiraIssuesConfigModal {...props} />
+      <UserInteractionsProvider>
+        <PlainJiraIssuesConfigModal {...props} />
+      </UserInteractionsProvider>
     </DatasourceExperienceIdProvider>
   ),
 );

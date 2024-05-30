@@ -14,14 +14,26 @@ export default {
   'fabric.linking.ai_summarized': 'Atlassian Intelligence tarafından özetlendi',
   'fabric.linking.ai_summarized_abbreviation': 'AI tarafından özetlendi',
   'fabric.linking.ai_summarized_info': 'Bilgi kalitesi farklılık gösterebilir. <a>Daha fazla bilgi</a>',
+  'fabric.linking.ai_summarized_info_short': 'İçerik kalitesi farklılık gösterebilir',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence çalışıyor...',
+  'fabric.linking.ai_summary_action': 'AI ile özetleyin',
+  'fabric.linking.ai_summary_action_description':
+    'Bu bağlantının içeriğini Atlassian Intelligence kullanarak özetleyin.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     "<a>Atlassian Kabul Edilebilir Kullanım Politikası</a>'na uymadığından bu özetin sonuçları gösterilemiyor.",
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence, özetlenecek çok fazla içerik olduğundan şu anda bir özet oluşturamıyor.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) yanıt vermiyor. Daha sonra yeniden deneyin veya <a>AI durumunu kontrol edin</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence, içeriğiniz HIPAA kısıtlı içeriklere giden bağlantılar içerdiğinden talebinizi işleyemedi.',
   'fabric.linking.assigned_to': '{context} adlı kişiye atandı',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    '<b>{name}</b> sayfasına bir otomasyon uygulayın.{br}Kullanılabilir seçimler Confluence ve alan yöneticileri tarafından kontrol edilir.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Sayfa otomasyonları',
+  'fabric.linking.automation-action.icon.label': 'Otomasyon simgesi',
+  'fabric.linking.automation-action.title': 'Otomasyonu çalıştırın...',
+  'fabric.linking.automation-action.tooltip': 'Otomasyon kalıcı penceresi açın',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'İptal',
   'fabric.linking.cannot_connect': 'Bağlanılamıyor, tekrar deneyin',
@@ -44,6 +56,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Atlassian ürünlerindeki çalışmalarda iş birliği yapmak için hesabınızı bağlayın.',
   'fabric.linking.continue': 'Devam',
+  'fabric.linking.copied_summary_action_description': 'Özet panoya kopyalandı',
+  'fabric.linking.copied_url_to_clipboard': 'Kopyalandı!',
+  'fabric.linking.copy_summary_action': 'Özeti kopyala',
+  'fabric.linking.copy_summary_action_description': 'Özeti kopyala',
   'fabric.linking.copy_url_to_clipboard': 'Bağlantıyı kopyalayın',
   'fabric.linking.couldnt_load_link': 'Bilinmeyen bir nedenden dolayı bu bağlantıyı yükleyemedik.',
   'fabric.linking.create_on_absolute': '{context} tarihinde oluşturuldu',
@@ -55,8 +71,18 @@ export default {
     'Takımınız iş birliği yapmak için {product} kullanıyor ve siz de hemen kullanmaya başlayabilirsiniz!',
   'fabric.linking.direct_access_title': 'Bu içeriği görüntülemek için {product} ürününe katılın',
   'fabric.linking.download': 'İndir',
+  'fabric.linking.download_description': 'Bu dosyayı yerel depolama alanınıza indirin',
+  'fabric.linking.download_file': 'Dosyayı indir',
   'fabric.linking.edit': 'Düzenle',
   'fabric.linking.follow': 'Takip Et',
+  'fabric.linking.follow_goal': 'Hedefi takip et',
+  'fabric.linking.follow_goal_description': 'Güncellemelerle ilgili bildirimler almak için bu hedefi takip edin',
+  'fabric.linking.follow_goal_error':
+    'Hedefi takip etmeye çalışırken bir sorunla karşılaşıldı. Bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin.',
+  'fabric.linking.follow_project': 'Projeyi takip et',
+  'fabric.linking.follow_project_description': 'Bu projeyle ilgili bildirimler almak için takip edin',
+  'fabric.linking.follow_project_error':
+    'Projeyi takip etmeye çalışırken bir sorunla karşılaşıldı. Bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin.',
   'fabric.linking.forbidden_access': 'Erişiminiz yasak',
   'fabric.linking.forbidden_description': '{hostname} sitesine erişim talep etmek için yöneticinizle iletişime geçin.',
   'fabric.linking.forbidden_title': 'Bu içeriğe erişiminiz yok',
@@ -84,6 +110,7 @@ export default {
   'fabric.linking.owned_by': 'Sahibi: {context}',
   'fabric.linking.pending_request': 'Erişim talebiniz beklemede',
   'fabric.linking.preview_close': 'Önizlemeyi kapat',
+  'fabric.linking.preview_description': 'Bu bağlantının tam ekran önizlemesini açın',
   'fabric.linking.preview_improved': 'Önizlemeyi aç',
   'fabric.linking.preview_max_size': 'Tam ekran görüntüle',
   'fabric.linking.preview_min_size': 'Tam ekranı kapat',
@@ -131,6 +158,14 @@ export default {
   'fabric.linking.unauthorised_account_name': '{context} üzerindeki özel sayfalar görüntülenemiyor',
   'fabric.linking.unauthorised_account_name_no_provider': 'Özel sayfalar görüntülenemiyor',
   'fabric.linking.unfollow': 'Takibi bırak',
+  'fabric.linking.unfollow_goal': 'Hedefi takip etmeyi bırak',
+  'fabric.linking.unfollow_goal_description': 'Bu hedefle ilgili bildirim almayı durdurmak için takip etmeyi bırakın',
+  'fabric.linking.unfollow_goal_error':
+    'Hedefi takip etmeyi bırakmaya çalışırken bir sorunla karşılaşıldı. Bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin.',
+  'fabric.linking.unfollow_project': 'Projeyi takip etmeyi bırak',
+  'fabric.linking.unfollow_project_description': 'Proje bildirimi almayı durdurmak için takip etmeyi bırakın',
+  'fabric.linking.unfollow_project_error':
+    'Projeyi takip etmeyi bırakmaya çalışırken bir sorunla karşılaşıldı. Bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin.',
   'fabric.linking.unlink_account': 'Hesabın Bağlantısını Kaldır',
   'fabric.linking.updated_by': '{context} tarafından değiştirildi',
   'fabric.linking.view': 'Görüntüle',

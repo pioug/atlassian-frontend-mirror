@@ -7,6 +7,19 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'automation-menu.empty-state.image.alt': 'Значок пустого списку автоматизацій',
+  'automation-menu.empty-state.learn-more.link': 'Докладніше про ручний тригер',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Використовуйте ручний тригер для заповнення меню вибраних елементів, яке всі або вказані вами люди зможуть застосовувати як автоматизації в одне натискання.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Адміністратори ще не налаштували жодних автоматизацій на основі ручних тригерів.',
+  'automation-menu.modal.error.description': 'Завантаження займає певний час. Спробуйте оновити сторінку.',
+  'automation-menu.modal.error.image.alt': 'Піктограма помилки',
+  'automation-menu.modal.footer.automate-button': 'Автоматизувати',
+  'automation-menu.modal.footer.cancel-button': 'Скасувати',
+  'automation-menu.modal.footer.get-started-button': 'Створити автоматизацію',
+  'automation-menu.modal.footer.ok-button': 'ОК',
+  'automation-menu.modal.header.icon.label': 'Значок у заголовку модального вікна з відомостями про автоматизацію',
   'fabric.linking.access_exists_description': 'Надішліть запит на перегляд цього вмісту з {hostname}.',
   'fabric.linking.actions': 'Дії',
   'fabric.linking.add_account': 'Додати обліковий запис',
@@ -14,14 +27,26 @@ export default {
   'fabric.linking.ai_summarized': 'Узагальнено Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Підсумок створено ШІ',
   'fabric.linking.ai_summarized_info': 'Якість інформації може бути різною. <a>Докладніше</a>',
+  'fabric.linking.ai_summarized_info_short': 'Якість контенту може бути різною',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence узагальнює дані…',
+  'fabric.linking.ai_summary_action': 'Створити підсумок за допомогою AI',
+  'fabric.linking.ai_summary_action_description':
+    'Підсумуйте вміст цього посилання за допомогою Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Ми не можемо показати результати цього підсумку, оскільки вони суперечать <a>Політиці прийнятного використання Atlassian</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence наразі не може згенерувати підсумок, оскільки обсяг вмісту завеликий.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) не відповідає. Повторіть спробу пізніше або <a>перевірте стан AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence не вдалось обробити запит, оскільки ваші матеріали містять посилання на контент, на який поширюються обмеження HIPAA.',
   'fabric.linking.assigned_to': 'Призначено для {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Застосуйте автоматизацію до сторінки <b>{name}</b>.{br}Доступні варіанти контролюються адміністраторами Confluence і адміністраторами розділів.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Автоматизації сторінок',
+  'fabric.linking.automation-action.icon.label': 'Значок автоматизації',
+  'fabric.linking.automation-action.title': 'Переглянути правила автоматизації…',
+  'fabric.linking.automation-action.tooltip': 'Виберіть правило автоматизації для запуску',
   'fabric.linking.beta': 'Бета-версія',
   'fabric.linking.cancel': 'Скасувати',
   'fabric.linking.cannot_connect': 'Не вдається підключитися, спробуйте ще раз',
@@ -45,6 +70,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Підключіть свій обліковий запис, щоб співпрацювати з іншими в продуктах Atlassian.',
   'fabric.linking.continue': 'Продовжити',
+  'fabric.linking.copied_summary_action_description': 'Підсумок скопійовано в буфер обміну',
+  'fabric.linking.copied_url_to_clipboard': 'Скопійовано',
+  'fabric.linking.copy_summary_action': 'Копіювати підсумок',
+  'fabric.linking.copy_summary_action_description': 'Скопіюйте підсумок',
   'fabric.linking.copy_url_to_clipboard': 'Скопіюйте посилання',
   'fabric.linking.couldnt_load_link': 'Не вдалося завантажити це посилання.',
   'fabric.linking.create_on_absolute': 'Створено {context}',
@@ -56,8 +85,18 @@ export default {
     'Ваша команда використовує {product} для співпраці, і ви можете почати роботу з продуктом просто зараз!',
   'fabric.linking.direct_access_title': 'Приєднайтеся до {product}, щоб переглянути цей вміст',
   'fabric.linking.download': 'Завантажити',
+  'fabric.linking.download_description': 'Завантажте файл у локальне сховище',
+  'fabric.linking.download_file': 'Завантажити файл',
   'fabric.linking.edit': 'Редагувати',
   'fabric.linking.follow': 'Підписатися',
+  'fabric.linking.follow_goal': 'Підписатися на ціль',
+  'fabric.linking.follow_goal_description': 'Підпишіться на цю ціль, щоб отримувати сповіщення про оновлення',
+  'fabric.linking.follow_goal_error':
+    'Сталася помилка під час спроби підписатися на ціль. Перевірте підключення або оновіть сторінку й повторіть спробу.',
+  'fabric.linking.follow_project': 'Підписатися на проєкт',
+  'fabric.linking.follow_project_description': 'Підпишіться, щоб отримувати сповіщення про цей проєкт',
+  'fabric.linking.follow_project_error':
+    'Сталася помилка під час спроби підписатися на проєкт. Перевірте підключення або оновіть сторінку й повторіть спробу.',
   'fabric.linking.forbidden_access': 'У вас немає доступу',
   'fabric.linking.forbidden_description': 'Зверніться до адміністратора з проханням надати доступ до {hostname}.',
   'fabric.linking.forbidden_title': 'У вас немає доступу до цього вмісту',
@@ -85,6 +124,7 @@ export default {
   'fabric.linking.owned_by': 'Власник: {context}',
   'fabric.linking.pending_request': 'Запит на надання доступу в очікуванні',
   'fabric.linking.preview_close': 'Закрити вікно попереднього перегляду',
+  'fabric.linking.preview_description': 'Відкрийте посилання в повноекранному режимі для попереднього перегляду',
   'fabric.linking.preview_improved': 'Відкрити попередню версію',
   'fabric.linking.preview_max_size': 'Відкрити в повноекранному режимі',
   'fabric.linking.preview_min_size': 'Вийти з повноекранного режиму',
@@ -133,6 +173,14 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Ми не можемо відображати приватні сторінки з {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Ми не можемо відображати приватні сторінки',
   'fabric.linking.unfollow': 'Відписатися',
+  'fabric.linking.unfollow_goal': 'Відписатися від цілі',
+  'fabric.linking.unfollow_goal_description': 'Відпишіться, щоб більше не отримувати сповіщення про цю ціль',
+  'fabric.linking.unfollow_goal_error':
+    'Сталася помилка під час спроби відписатися від цілі. Перевірте підключення або оновіть сторінку й повторіть спробу.',
+  'fabric.linking.unfollow_project': 'Відписатися від проєкту',
+  'fabric.linking.unfollow_project_description': 'Відпишіться, щоб більше не отримувати сповіщення про цей проєкт',
+  'fabric.linking.unfollow_project_error':
+    'Сталася помилка під час спроби відписатися від проєкту. Перевірте підключення або оновіть сторінку й повторіть спробу.',
   'fabric.linking.unlink_account': 'Від’єднати обліковий запис',
   'fabric.linking.updated_by': 'Автор зміни: {context}',
   'fabric.linking.view': 'Переглянути',

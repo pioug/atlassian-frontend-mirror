@@ -7,6 +7,19 @@
  */
 //Portuguese (Brazil)
 export default {
+  'automation-menu.empty-state.image.alt': 'Ícone da lista de automação vazia',
+  'automation-menu.empty-state.learn-more.link': 'Saiba mais sobre o acionador manual',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Use o acionador manual para preencher um menu de seleções que qualquer pessoa ou alguém que você especificar possa aplicar como automações de um clique.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Os administradores ainda não configuraram nenhuma automação que precise ser acionada pelo usuário.',
+  'automation-menu.modal.error.description': 'Está demorando um pouco para carregar. Atualize a página.',
+  'automation-menu.modal.error.image.alt': 'Ícone de erro',
+  'automation-menu.modal.footer.automate-button': 'Automatizar',
+  'automation-menu.modal.footer.cancel-button': 'Cancelar',
+  'automation-menu.modal.footer.get-started-button': 'Criar automação',
+  'automation-menu.modal.footer.ok-button': 'Ok',
+  'automation-menu.modal.header.icon.label': 'Ícone de cabeçalho modal de Automação',
   'fabric.linking.access_exists_description': 'Solicite acesso para visualizar este conteúdo em {hostname}.',
   'fabric.linking.actions': 'Ações',
   'fabric.linking.add_account': 'Adicionar conta',
@@ -14,14 +27,25 @@ export default {
   'fabric.linking.ai_summarized': 'Resumido pelo Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Resumido pelo AI',
   'fabric.linking.ai_summarized_info': 'A qualidade das informações pode variar. <a>Saiba mais</a>',
+  'fabric.linking.ai_summarized_info_short': 'A qualidade do conteúdo pode variar',
   'fabric.linking.ai_summarizing': 'O Atlassian Intelligence está trabalhando...',
+  'fabric.linking.ai_summary_action': 'Resuma com o AI',
+  'fabric.linking.ai_summary_action_description': 'Resume o conteúdo deste link com o Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'A gente não pode mostrar os resultados deste resumo, pois vão contra a <a>Política de uso aceitável da Atlassian</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'O Atlassian Intelligence não pode gerar um resumo para você no momento, pois há muito conteúdo para resumir.',
   'fabric.linking.ai_summary_error_generic':
     'O Atlassian Intelligence (AI) não está respondendo. Tente de novo ou <a>verifique o status do AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'O Atlassian Intelligence não conseguiu processar a solicitação, pois o conteúdo contém links para conteúdo restrito da HIPAA.',
   'fabric.linking.assigned_to': 'Atribuído a {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Aplique uma automação para <b>{name}</b>.{br}As seleções disponíveis são controladas pelos administradores do Confluence e do espaço.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Automações de página',
+  'fabric.linking.automation-action.icon.label': 'Ícone de automação',
+  'fabric.linking.automation-action.title': 'Visualizar regras de automação...',
+  'fabric.linking.automation-action.tooltip': 'Selecione uma regra de automação para ser executada',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Cancelar',
   'fabric.linking.cannot_connect': 'Não é possível conectar; tente de novo',
@@ -44,6 +68,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Conecte a conta para colaborar no trabalho em todos os produtos da Atlassian.',
   'fabric.linking.continue': 'Continuar',
+  'fabric.linking.copied_summary_action_description': 'Resumo copiado para a área de transferência',
+  'fabric.linking.copied_url_to_clipboard': 'Copiado!',
+  'fabric.linking.copy_summary_action': 'Copiar o resumo',
+  'fabric.linking.copy_summary_action_description': 'Copiar o resumo',
   'fabric.linking.copy_url_to_clipboard': 'Copiar link',
   'fabric.linking.couldnt_load_link': 'Não foi possível carregar esse link por um motivo desconhecido.',
   'fabric.linking.create_on_absolute': 'Data de criação em {context}',
@@ -55,8 +83,18 @@ export default {
     'A equipe já usa o {product} para colaborar e você também pode começar agora mesmo!',
   'fabric.linking.direct_access_title': 'Entre no {product} para ver este conteúdo',
   'fabric.linking.download': 'Baixar',
+  'fabric.linking.download_description': 'Baixa o arquivo para o armazenamento local',
+  'fabric.linking.download_file': 'Baixar arquivo',
   'fabric.linking.edit': 'Editar',
   'fabric.linking.follow': 'Seguir',
+  'fabric.linking.follow_goal': 'Seguir meta',
+  'fabric.linking.follow_goal_description': 'Siga esta meta para obter notificações e atualizações',
+  'fabric.linking.follow_goal_error':
+    'Foi encontrado um erro ao tentar seguir a meta. Verifique a conexão ou atualize a página e tente de novo.',
+  'fabric.linking.follow_project': 'Seguir projeto',
+  'fabric.linking.follow_project_description': 'Siga para receber notificações sobre o projeto',
+  'fabric.linking.follow_project_error':
+    'Foi encontrado um erro ao tentar seguir o projeto. Verifique a conexão ou atualize a página e tente de novo.',
   'fabric.linking.forbidden_access': 'O acesso é proibido',
   'fabric.linking.forbidden_description': 'Fale com o administrador para solicitar acesso a {hostname}.',
   'fabric.linking.forbidden_title': 'Você não tem acesso a este conteúdo',
@@ -85,6 +123,7 @@ export default {
   'fabric.linking.owned_by': 'Pertence a {context}',
   'fabric.linking.pending_request': 'A solicitação de acesso está pendente',
   'fabric.linking.preview_close': 'Fechar pré-visualização',
+  'fabric.linking.preview_description': 'Abre uma pré-visualização em tela cheia deste link',
   'fabric.linking.preview_improved': 'Abir pré-visualização',
   'fabric.linking.preview_max_size': 'Exibir em tela cheia',
   'fabric.linking.preview_min_size': 'Fechar tela cheia',
@@ -133,6 +172,14 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Não é possível exibir páginas privadas de {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Não é possível exibir páginas privadas',
   'fabric.linking.unfollow': 'Deixar de seguir',
+  'fabric.linking.unfollow_goal': 'Parar de seguir meta',
+  'fabric.linking.unfollow_goal_description': 'Pare de seguir para não receber mais notificações sobre a meta',
+  'fabric.linking.unfollow_goal_error':
+    'Foi encontrado um erro ao tentar parar de seguir a meta. Verifique a conexão ou atualize a página e tente de novo.',
+  'fabric.linking.unfollow_project': 'Parar de seguir projeto',
+  'fabric.linking.unfollow_project_description': 'Pare de seguir para não receber mais notificações sobre o projeto',
+  'fabric.linking.unfollow_project_error':
+    'Foi encontrado um erro ao tentar para de seguir o projeto. Verifique a conexão ou atualize a página e tente de novo.',
   'fabric.linking.unlink_account': 'Desvincular conta',
   'fabric.linking.updated_by': 'Modificado por {context}',
   'fabric.linking.view': 'Visualizar',

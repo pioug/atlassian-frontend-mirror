@@ -17,8 +17,8 @@ import { css } from '@compiled/react';
 import { colors, getColor } from '@mui/theme';
 
 const styles = css({
-    [colorKey]: getColor('red'),
-    background: colors['red'],
+	[colorKey]: getColor('red'),
+	background: colors['red'],
 });
 ```
 
@@ -30,10 +30,10 @@ import { ff } from '@atlaskit/ff';
 const sharedObject = { padding: 0 };
 
 const styles = css({
-    ...cssShared,
-    ...sharedObject,
-    height: `${HEIGHT}px`,
-    width: ff('…') ? `${HEIGHT}px` : undefined,
+	...cssShared,
+	...sharedObject,
+	height: `${HEIGHT}px`,
+	width: ff('…') ? `${HEIGHT}px` : undefined,
 });
 ```
 
@@ -44,7 +44,7 @@ import { css } from '@compiled/react';
 import { buttonStyles } from '../shared';
 
 const styles = css({
-    color: 'red',
+	color: 'red',
 });
 
 export default () => <div css={[styles, buttonStyles]} />;
@@ -68,8 +68,8 @@ import { css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const styles = css({
-    color: 'red',
-    padding: token('space.150'),
+	color: 'red',
+	padding: token('space.150'),
 });
 export const Component = ({ children }) => <div css={styles}>{children}></div>;
 ```
@@ -142,13 +142,13 @@ Default imports are not currently supported.
 
 By default, this rule will check `css` usages from:
 
--   `@atlaskit/css`
--   `@atlaskit/primitives`
--   `@compiled/react`
--   `@emotion/react`
--   `@emotion/core`
--   `@emotion/styled`
--   `styled-components`
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
 
 To change this list of libraries, you can define a custom set of `importSources`, which accepts an
 array of package names (strings).

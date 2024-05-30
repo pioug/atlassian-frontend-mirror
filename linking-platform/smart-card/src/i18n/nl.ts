@@ -14,14 +14,26 @@ export default {
   'fabric.linking.ai_summarized': 'Samengevat door Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Samengevat door AI',
   'fabric.linking.ai_summarized_info': 'De kwaliteit van de informatie kan verschillen. <a>Meer informatie</a>',
+  'fabric.linking.ai_summarized_info_short': 'De kwaliteit van de inhoud kan verschillen',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence is bezig ...',
+  'fabric.linking.ai_summary_action': 'Samenvatten met AI',
+  'fabric.linking.ai_summary_action_description':
+    'Vat de inhoud van deze link samen met behulp van Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'We kunnen de resultaten van dit overzicht niet weergeven, omdat deze in strijd is met het <a>Acceptabel Gebruiksbeleid van Atlassian</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence kan op dit moment geen samenvatting voor je maken, omdat er te veel inhoud is om samen te vatten.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) reageert niet. Probeer het later opnieuw of <a>controleer de status van AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence kon je aanvraag niet verwerken omdat je inhoud links bevat naar inhoud met een HIPAA-beperking.',
   'fabric.linking.assigned_to': 'Toegewezen aan {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Een automatisering toepassen op <b>{name}</b>.{br}De beschikbare selecties worden beheerd door Confluence en spacebeheerders.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Pagina-automatiseringen',
+  'fabric.linking.automation-action.icon.label': 'Pictogram automatisering',
+  'fabric.linking.automation-action.title': 'Automatisering uitvoeren ...',
+  'fabric.linking.automation-action.tooltip': 'Een automatiseringsmodal openen',
   'fabric.linking.beta': 'Bèta',
   'fabric.linking.cancel': 'Annuleren',
   'fabric.linking.cannot_connect': 'Geen verbinding, probeer het opnieuw',
@@ -44,6 +56,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Koppel je account om samen te werken op verschillende Atlassian-producten.',
   'fabric.linking.continue': 'Doorgaan',
+  'fabric.linking.copied_summary_action_description': 'Samenvatting naar klembord gekopieerd',
+  'fabric.linking.copied_url_to_clipboard': 'Gekopieerd!',
+  'fabric.linking.copy_summary_action': 'Samenvatting kopiëren',
+  'fabric.linking.copy_summary_action_description': 'Samenvatting kopiëren',
   'fabric.linking.copy_url_to_clipboard': 'Link kopiëren',
   'fabric.linking.couldnt_load_link': 'Om een onbekende reden konden we deze link niet laden.',
   'fabric.linking.create_on_absolute': 'Aangemaakt op {context}',
@@ -55,8 +71,18 @@ export default {
     'Je team gebruikt {product} om samen te werken. Je kunt er meteen mee aan de slag!',
   'fabric.linking.direct_access_title': 'Word lid van {product} om deze inhoud te bekijken',
   'fabric.linking.download': 'Downloaden',
+  'fabric.linking.download_description': 'Download dit bestand naar je lokale opslag',
+  'fabric.linking.download_file': 'Bestand downloaden',
   'fabric.linking.edit': 'Bewerken',
   'fabric.linking.follow': 'Volgen',
+  'fabric.linking.follow_goal': 'Doel volgen',
+  'fabric.linking.follow_goal_description': 'Volg dit doel om op de hoogte te worden gehouden van updates',
+  'fabric.linking.follow_goal_error':
+    'Er is een fout opgetreden toen we het doel probeerden te volgen. Controleer je verbinding of vernieuw de pagina en probeer het opnieuw.',
+  'fabric.linking.follow_project': 'Project volgen',
+  'fabric.linking.follow_project_description': 'Volg om meldingen van dit project te ontvangen',
+  'fabric.linking.follow_project_error':
+    'Er is een fout opgetreden toen we het project probeerden te volgen. Controleer je verbinding of vernieuw de pagina en probeer het opnieuw.',
   'fabric.linking.forbidden_access': 'Je hebt geen toegang',
   'fabric.linking.forbidden_description': 'Neem contact op met je beheerder om toegang aan te vragen tot {hostname}.',
   'fabric.linking.forbidden_title': 'Je hebt geen toegang tot deze inhoud',
@@ -85,6 +111,7 @@ export default {
   'fabric.linking.owned_by': 'Eigendom van {context}',
   'fabric.linking.pending_request': 'Je toegangsaanvraag wordt behandeld.',
   'fabric.linking.preview_close': 'Voorbeeldweergave sluiten',
+  'fabric.linking.preview_description': 'Open een voorvertoning in volledig scherm van deze link',
   'fabric.linking.preview_improved': 'Voorbeeld openen',
   'fabric.linking.preview_max_size': 'Volledig scherm openen',
   'fabric.linking.preview_min_size': 'Volledig scherm sluiten',
@@ -133,6 +160,14 @@ export default {
   'fabric.linking.unauthorised_account_name': "We kunnen besloten pagina's van {context} niet weergeven",
   'fabric.linking.unauthorised_account_name_no_provider': "We kunnen besloten pagina's niet weergeven",
   'fabric.linking.unfollow': 'Niet meer volgen',
+  'fabric.linking.unfollow_goal': 'Stoppen met volgen van doel',
+  'fabric.linking.unfollow_goal_description': 'Stop met volgen om geen meldingen voor dit doel meer te ontvangen',
+  'fabric.linking.unfollow_goal_error':
+    'Er is een fout opgetreden toen we probeerden te stoppen met volgen van het doel. Controleer je verbinding of vernieuw de pagina en probeer het opnieuw.',
+  'fabric.linking.unfollow_project': 'Project niet meer volgen',
+  'fabric.linking.unfollow_project_description': 'Stop met volgen om geen projectmeldingen meer te ontvangen',
+  'fabric.linking.unfollow_project_error':
+    'Er is een fout opgetreden toen we probeerden te stoppen met volgen van het project. Controleer je verbinding of vernieuw de pagina en probeer het opnieuw.',
   'fabric.linking.unlink_account': 'Verbinding met account verwijderen',
   'fabric.linking.updated_by': 'Gewijzigd door {context}',
   'fabric.linking.view': 'Bekijken',

@@ -14,14 +14,26 @@ export default {
   'fabric.linking.ai_summarized': 'Обобщено с помощью Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Обобщено с помощью AI',
   'fabric.linking.ai_summarized_info': 'Качество информации может быть разным. <a>Подробнее</a>',
+  'fabric.linking.ai_summarized_info_short': 'Качество контента может быть разным',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence работает…',
+  'fabric.linking.ai_summary_action': 'Создать краткое описание с помощью AI',
+  'fabric.linking.ai_summary_action_description':
+    'Создайте краткое описание контента по ссылке с помощью Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Невозможно показать результаты этой сводки, так как она противоречит <a>политике допустимого использования Atlassian</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Сейчас Atlassian Intelligence не может создать сводку, так как объем контента слишком большой.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) не отвечает. Повторите попытку позже или <a>проверьте статус AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence не удалось обработать запрос, так как в контенте содержатся ссылки на содержимое, доступ к которому ограничен в соответствии с требованиями HIPAA.',
   'fabric.linking.assigned_to': 'Назначено пользователю {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Примените автоматизацию к странице <b>{name}</b>.{br}Доступные варианты контролируются администраторами Confluence и администраторами раздела.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Автоматизации для страниц',
+  'fabric.linking.automation-action.icon.label': 'Значок автоматизации',
+  'fabric.linking.automation-action.title': 'Запустить автоматизацию…',
+  'fabric.linking.automation-action.tooltip': 'Открыть окно автоматизации',
   'fabric.linking.beta': 'Бета-версия',
   'fabric.linking.cancel': 'Отмена',
   'fabric.linking.cannot_connect': 'Не удается подключиться, повторите попытку',
@@ -45,6 +57,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Подключите свой аккаунт для совместной работы в продуктах Atlassian.',
   'fabric.linking.continue': 'Продолжить',
+  'fabric.linking.copied_summary_action_description': 'Сводка скопирована в буфер обмена',
+  'fabric.linking.copied_url_to_clipboard': 'Скопировано',
+  'fabric.linking.copy_summary_action': 'Копировать сводку',
+  'fabric.linking.copy_summary_action_description': 'Скопируйте сводку',
   'fabric.linking.copy_url_to_clipboard': 'Копировать ссылку',
   'fabric.linking.couldnt_load_link': 'По неизвестной причине не удалось загрузить ссылку.',
   'fabric.linking.create_on_absolute': 'Создано: {context}',
@@ -56,8 +72,18 @@ export default {
     'Ваша команда использует {product} для совместной работы, и вы можете начать использовать этот продукт прямо сейчас!',
   'fabric.linking.direct_access_title': 'Присоединитесь к {product}, чтобы просмотреть контент',
   'fabric.linking.download': 'Скачать',
+  'fabric.linking.download_description': 'Загрузите файл в локальное хранилище',
+  'fabric.linking.download_file': 'Загрузить файл',
   'fabric.linking.edit': 'Изменить',
   'fabric.linking.follow': 'Подписаться',
+  'fabric.linking.follow_goal': 'Отслеживать цель',
+  'fabric.linking.follow_goal_description': 'Отслеживайте цель, чтобы получать уведомления об обновлениях',
+  'fabric.linking.follow_goal_error':
+    'При попытке отслеживать цель произошла ошибка. Проверьте подключение или обновите страницу и повторите попытку.',
+  'fabric.linking.follow_project': 'Отслеживать проект',
+  'fabric.linking.follow_project_description': 'Отслеживайте проект, чтобы получать уведомления о нем',
+  'fabric.linking.follow_project_error':
+    'При попытке отслеживать проект произошла ошибка. Проверьте подключение или обновите страницу и повторите попытку.',
   'fabric.linking.forbidden_access': 'Доступ запрещен',
   'fabric.linking.forbidden_description': 'Запросите у администратора доступ к сайту {hostname}.',
   'fabric.linking.forbidden_title': 'У вас нет доступа к этому контенту',
@@ -84,6 +110,7 @@ export default {
   'fabric.linking.owned_by': 'Владелец: {context}',
   'fabric.linking.pending_request': 'Ваш запрос на доступ ожидает рассмотрения',
   'fabric.linking.preview_close': 'Закрыть предварительный просмотр',
+  'fabric.linking.preview_description': 'Предварительный просмотр ссылки в полноэкранном режиме',
   'fabric.linking.preview_improved': 'Открыть предпросмотр',
   'fabric.linking.preview_max_size': 'На весь экран',
   'fabric.linking.preview_min_size': 'Выйти из полноэкранного режима',
@@ -132,6 +159,16 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Приватные страницы {context} недоступны для отображения',
   'fabric.linking.unauthorised_account_name_no_provider': 'Приватные страницы недоступны для отображения',
   'fabric.linking.unfollow': 'Отписаться',
+  'fabric.linking.unfollow_goal': 'Перестать отслеживать цель',
+  'fabric.linking.unfollow_goal_description':
+    'Перестаньте отслеживать цель, чтобы больше не получать уведомления о ней',
+  'fabric.linking.unfollow_goal_error':
+    'При попытке перестать отслеживать цель произошла ошибка. Проверьте подключение или обновите страницу и повторите попытку.',
+  'fabric.linking.unfollow_project': 'Перестать отслеживать проект',
+  'fabric.linking.unfollow_project_description':
+    'Перестаньте отслеживать проект, чтобы больше не получать уведомления о нем',
+  'fabric.linking.unfollow_project_error':
+    'При попытке перестать отслеживать проект произошла ошибка. Проверьте подключение или обновите страницу и повторите попытку.',
   'fabric.linking.unlink_account': 'Отменить связь с аккаунтом',
   'fabric.linking.updated_by': 'Изменено: {context}',
   'fabric.linking.view': 'Просмотреть',

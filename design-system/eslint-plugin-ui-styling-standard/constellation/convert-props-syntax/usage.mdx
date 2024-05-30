@@ -9,8 +9,8 @@ These libraries do not support having an arrow function inside a CSS value:
 
 ```js
 styled.div({
-    color: ({ myColor }) => myColor,
-    backgroundColor: (props) => props.someColor,
+	color: ({ myColor }) => myColor,
+	backgroundColor: (props) => props.someColor,
 });
 ```
 
@@ -19,8 +19,8 @@ issue:
 
 ```js
 styled.div((props) => ({
-    color: props.myColor,
-    backgroundColor: props.someColor,
+	color: props.myColor,
+	backgroundColor: props.someColor,
 }));
 ```
 
@@ -73,8 +73,8 @@ remediated manually. For example:
 
 ```js
 styled.div({
-    color: ({ myColor = '#fff' }) => myColor,
-    backgroundColor: ({ myColor = '#aaa' }) => myColor,
+	color: ({ myColor = '#fff' }) => myColor,
+	backgroundColor: ({ myColor = '#aaa' }) => myColor,
 });
 ```
 
@@ -82,8 +82,8 @@ could potentially be remediated with
 
 ```js
 styled.div((props) => ({
-    color: myColor ?? '#fff',
-    backgroundColor: myColor ?? '#aaa',
+	color: myColor ?? '#fff',
+	backgroundColor: myColor ?? '#aaa',
 }));
 ```
 
@@ -95,12 +95,12 @@ styled.div((props) => ({
 import styled from 'styled-components';
 
 styled.div({
-    color: ({ myColor }) => myColor,
-    backgroundColor: (props) => props.someColor,
+	color: ({ myColor }) => myColor,
+	backgroundColor: (props) => props.someColor,
 });
 
 styled.div({
-    color: `url(/tmp/${({ coolProp }) => coolProp}.png)`,
+	color: `url(/tmp/${({ coolProp }) => coolProp}.png)`,
 });
 ```
 
@@ -110,12 +110,12 @@ styled.div({
 import styled from '@emotion/styled';
 
 styled.div((props) => ({
-    color: props.myColor,
-    backgroundColor: props.someColor,
+	color: props.myColor,
+	backgroundColor: props.someColor,
 }));
 
 styled.div((props) => ({
-    color: url(`/tmp/${coolProp}.png`),
+	color: url(`/tmp/${coolProp}.png`),
 }));
 ```
 

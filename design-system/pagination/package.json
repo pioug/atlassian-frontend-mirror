@@ -63,7 +63,6 @@
     "@af/visual-regression": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
     "exenv": "^1.2.2",
@@ -97,6 +96,5 @@
         "static"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

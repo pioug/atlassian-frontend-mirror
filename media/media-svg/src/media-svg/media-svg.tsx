@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { css, jsx } from '@compiled/react';
+import { css, jsx } from '@emotion/react';
 
 import { type FileIdentifier } from '@atlaskit/media-client';
 import Spinner from '@atlaskit/spinner';
@@ -9,9 +9,12 @@ import { MediaSVGError } from './errors';
 import type { ContentSource, MediaSvgProps } from './types';
 import { useResolveSvg } from './useResolveSvg';
 
-const commonStyles = css({
+const svgRendererMaxDimensionStyles = css({
   maxWidth: '100%',
   maxHeight: '100%',
+});
+
+const commonStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: 'white', // This background color is for transparency
 });
@@ -30,19 +33,18 @@ const svgRendererStyles = css({
 type LoadingProps = {
   dimensions: MediaSvgProps['dimensions'];
 };
-export const Loading = ({ dimensions }: LoadingProps) => {
-  const { width, height } = dimensions || {};
-  return (
-    <span
-      role="status"
-      css={[commonStyles, loadingStyles]}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      style={{ width, height }}
-    >
-      <Spinner />
-    </span>
-  );
-};
+export const Loading = ({
+  dimensions: { width, height } = {},
+}: LoadingProps) => (
+  <span
+    role="status"
+    css={[commonStyles, loadingStyles]}
+    // eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+    style={{ width, height }}
+  >
+    <Spinner />
+  </span>
+);
 
 type SvgRendererProps = {
   identifier: FileIdentifier;
@@ -52,6 +54,9 @@ type SvgRendererProps = {
   alt: MediaSvgProps['alt'];
   svgUrl: string;
   source: ContentSource;
+  onLoad: MediaSvgProps['onLoad'];
+  onMouseDown: MediaSvgProps['onMouseDown'];
+  style: MediaSvgProps['style'];
 };
 
 const SvgRenderer = ({
@@ -62,8 +67,11 @@ const SvgRenderer = ({
   dimensions,
   onError,
   alt,
+  onLoad,
+  onMouseDown,
+  style,
 }: SvgRendererProps) => {
-  const { width, height } = dimensions || {};
+  const { width, height } = dimensions || style || {};
 
   return (
     <img
@@ -73,9 +81,19 @@ const SvgRenderer = ({
       data-source={source}
       src={svgUrl}
       alt={alt}
-      css={[commonStyles, svgRendererStyles]}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      style={{ width, height }}
+      css={[
+        commonStyles,
+        svgRendererStyles,
+        !width && !height && svgRendererMaxDimensionStyles,
+      ]}
+      style={{
+        // eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+        ...style,
+        width: dimensions?.width || style?.width,
+        height: dimensions?.height || style?.height,
+      }}
+      onLoad={onLoad}
+      onMouseDown={onMouseDown}
       onError={() => {
         onError && onError(new MediaSVGError('img-error'));
       }}
@@ -93,6 +111,9 @@ export default function MediaSvg({
   dimensions,
   onError,
   alt,
+  onLoad,
+  onMouseDown,
+  style,
 }: MediaSvgProps) {
   const { svgUrl, source } = useResolveSvg(identifier, onError);
 
@@ -105,6 +126,9 @@ export default function MediaSvg({
       dimensions={dimensions}
       onError={onError}
       alt={alt}
+      onLoad={onLoad}
+      onMouseDown={onMouseDown}
+      style={style}
     />
   ) : (
     <Loading dimensions={dimensions} />

@@ -1,0 +1,43 @@
+{
+  "extends": "../../../../tsconfig.products.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__avatar-group/app",
+    "composite": true,
+    "rootDir": "../",
+    "baseUrl": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../avatar/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../ds-lib/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../menu/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../popup/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../tokens/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../tooltip/afm-jira/tsconfig.json"
+    }
+  ]
+}

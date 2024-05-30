@@ -19,6 +19,7 @@ import {
   ModalTransition,
 } from '@atlaskit/modal-dialog';
 
+
 import {
   EVENT_CHANNEL,
   useDatasourceAnalyticsEvents,
@@ -40,6 +41,7 @@ import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider, useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
+import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
 import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
@@ -165,7 +167,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 
   /* ------------------------------ OBSERVABILITY ------------------------------ */
   const searchCount = useRef(0);
-  const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
+  const userInteractions = useUserInteractions();
   const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
   const isDataReady = (visibleColumnKeys || []).length > 0;
 
@@ -294,7 +296,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
           display: DatasourceDisplay.DATASOURCE_TABLE,
           searchCount: searchCount.current,
           searchMethod: DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY,
-          actions: Array.from(userInteractionActions.current),
+          actions: userInteractions.get(),
         },
         eventType: 'ui',
       });
@@ -345,6 +347,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
       onInsert,
       datasourceId,
       visibleColumnKeys,
+      userInteractions,
     ],
   );
 
@@ -357,10 +360,10 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
       ) {
         searchCount.current++;
         if (schemaId !== searchSchemaId) {
-          userInteractionActions.current.add(DatasourceAction.SCHEMA_UPDATED);
+          userInteractions.add(DatasourceAction.SCHEMA_UPDATED);
         }
         if (aql !== searchAql) {
-          userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
+          userInteractions.add(DatasourceAction.QUERY_UPDATED);
         }
         setAql(searchAql);
         setSchemaId(searchSchemaId);
@@ -369,7 +372,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
         reset({ shouldForceRequest: true, shouldResetColumns: true });
       }
     },
-    [aql, reset, schemaId, status],
+    [aql, reset, schemaId, status, userInteractions],
   );
 
   const renderErrorState = useCallback(() => {
@@ -421,9 +424,9 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
     return {
       ...analyticsPayload,
       searchCount: searchCount.current,
-      actions: Array.from(userInteractionActions.current),
+      actions: userInteractions.get(),
     };
-  }, [analyticsPayload]);
+  }, [analyticsPayload, userInteractions]);
 
   return (
     <IntlMessagesProvider
@@ -505,7 +508,9 @@ const contextData = {
 export const AssetsConfigModal = withAnalyticsContext(contextData)(
   (props: AssetsConfigModalProps) => (
     <DatasourceExperienceIdProvider>
-      <PlainAssetsConfigModal {...props} />
+      <UserInteractionsProvider>
+        <PlainAssetsConfigModal {...props} />
+      </UserInteractionsProvider>
     </DatasourceExperienceIdProvider>
   ),
 );

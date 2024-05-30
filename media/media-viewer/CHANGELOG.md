@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 48.6.0
+
+### Minor Changes
+
+-   [#101187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101187)
+    [`fe55404af970`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fe55404af970) -
+    [ux] Added support for native SVG rendering (currently behind a feature flag)
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 48.5.5
 
 ### Patch Changes

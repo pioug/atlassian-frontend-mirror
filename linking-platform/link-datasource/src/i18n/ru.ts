@@ -37,6 +37,7 @@ export default {
   'linkDataSource.basic-filter.type.label': 'Тип',
   'linkDataSource.checkConnection':
     'Проверьте подключение к Интернету и обновите страницу или повторите попытку позже.',
+  'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': 'Отредактировано или создано',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1':
     'Ваш поисковый запрос дал слишком много результатов.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
@@ -45,19 +46,27 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Настроить столбцы',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Поиск задач по ключевому слову',
   'linkDataSource.configmodal.cancelButtonText': 'Отмена',
-  'linkDataSource.configmodal.inlineLinkViewModeDescription':
-    'Отображение количества результатов поиска или встроенной интеллектуальной ссылки',
-  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'Встроенная ссылка',
-  'linkDataSource.configmodal.tableViewModeDescription': 'Отображение результатов поиска в виде таблицы',
-  'linkDataSource.configmodal.tableViewModeLabel': 'Таблица',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Отмена',
+  'linkDataSource.confluence-search.configmodal.date.range.after.label': 'после {date}',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': 'В любое время',
+  'linkDataSource.confluence-search.configmodal.date.range.before.label': 'до {date}',
   'linkDataSource.confluence-search.configmodal.date.range.custom': 'Свой вариант',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.end':
+    'Начальная дата должна быть раньше конечной',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.after.today':
+    'Начальная дата не может быть в будущем',
+  'linkDataSource.confluence-search.configmodal.date.range.custom.invalid.to.after.today':
+    'Конечная дата не может быть в будущем',
+  'linkDataSource.confluence-search.configmodal.date.range.from': 'С',
+  'linkDataSource.confluence-search.configmodal.date.range.input.placeholder': 'Выберите дату',
   'linkDataSource.confluence-search.configmodal.date.range.last.month': 'В последние 30 дней',
   'linkDataSource.confluence-search.configmodal.date.range.last.week': 'В последние 7 дней',
   'linkDataSource.confluence-search.configmodal.date.range.last.year': 'В последний год',
   'linkDataSource.confluence-search.configmodal.date.range.title': 'Последнее обновление',
+  'linkDataSource.confluence-search.configmodal.date.range.to': 'По',
+  'linkDataSource.confluence-search.configmodal.date.range.to.Label': '–',
   'linkDataSource.confluence-search.configmodal.date.range.today': 'Сегодня',
+  'linkDataSource.confluence-search.configmodal.date.range.update.button': 'Обновить',
   'linkDataSource.confluence-search.configmodal.date.range.yesterday': 'Вчера',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Вставка списка Confluence',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Вставить список Confluence с сайта',
@@ -89,17 +98,16 @@ export default {
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Базовый',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Поиск задач по ключевому слову',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Выберите сайт',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
-    'Отображение количества результатов поиска или встроенной интеллектуальной ссылки',
-  'linkDataSource.jira-issues.configmodal.inlineLinkViewModeLabel': 'Встроенная ссылка',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставить задачи',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставка задач Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставка задач Jira с сайта',
   'linkDataSource.jira-issues.configmodal.issue':
     '{totalCount, plural, one {задача} few {задачи} many {задач} other {задачи}}',
-  'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
-    'Отображение результатов поиска в Jira в виде таблицы',
-  'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Таблица',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
+    'Отображение количества результатов поиска в виде встроенной интеллектуальной ссылки',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Встроенная ссылка',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Отображение результатов поиска в виде списка',
+  'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Список',
   'linkDataSource.jira-issues.learnMoreLink': 'Подробнее о поиске с помощью JQL',
   'linkDataSource.jira-issues.no.jira.sites.access.description': 'Чтобы запросить доступ, обратитесь к администратору.',
   'linkDataSource.jira-issues.no.jira.sites.access.title': 'У вас нет доступа к сайтам Jira',

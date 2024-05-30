@@ -14,14 +14,25 @@ export default {
   'fabric.linking.ai_summarized': 'Shrnuto pomocí Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Shrnuto pomocí AI',
   'fabric.linking.ai_summarized_info': 'Kvalita informací se může různit. <a>Další informace</a>',
+  'fabric.linking.ai_summarized_info_short': 'Kvalita obsahu se může různit.',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence pracuje…',
+  'fabric.linking.ai_summary_action': 'Shrnout pomocí AI',
+  'fabric.linking.ai_summary_action_description': 'Shrňte obsah tohoto odkazu pomocí Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Výsledky tohoto souhrnu nemůžeme zobrazit, protože jsou v rozporu se <a>Zásadami přijatelného používání společnosti Atlassian</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence pro vás momentálně nemůže vygenerovat souhrn, protože obsahu ke shrnutí je příliš mnoho.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) neodpovídá. Zkuste to znovu později nebo <a>zkontrolujte stav AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence nedokázala zpracovat vaši žádost, protože váš obsah obsahuje odkazy na obsah omezený HIPAA.',
   'fabric.linking.assigned_to': 'Přiřazeno k: {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Použijte automatizaci u položky <b>{name}</b>.{br}Dostupné výběry jsou určeny správci Confluence a prostorů.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Automatizace stránek',
+  'fabric.linking.automation-action.icon.label': 'Ikona automatizace',
+  'fabric.linking.automation-action.title': 'Spustit automatizaci…',
+  'fabric.linking.automation-action.tooltip': 'Otevřít modální okno automatizace',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Zrušit',
   'fabric.linking.cannot_connect': 'Nelze se připojit, zkuste to znovu.',
@@ -44,6 +55,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Připojte svůj účet a spolupracujte pomocí všech produktů Atlassian.',
   'fabric.linking.continue': 'Pokračovat',
+  'fabric.linking.copied_summary_action_description': 'Souhrn byl zkopírován do schránky.',
+  'fabric.linking.copied_url_to_clipboard': 'Zkopírováno',
+  'fabric.linking.copy_summary_action': 'Zkopírovat souhrn',
+  'fabric.linking.copy_summary_action_description': 'Zkopírovat souhrn',
   'fabric.linking.copy_url_to_clipboard': 'Kopírovat odkaz',
   'fabric.linking.couldnt_load_link': 'Tento odkaz se z neznámého důvodu nepodařilo načíst.',
   'fabric.linking.create_on_absolute': 'Vytvořeno: {context}',
@@ -55,8 +70,18 @@ export default {
     'Váš tým spolupracuje v {product} a vy můžete tento produkt hned začít používat také!',
   'fabric.linking.direct_access_title': 'Chcete-li si zobrazit tento obsah, připojte se k produktu {product}',
   'fabric.linking.download': 'Stáhnout',
+  'fabric.linking.download_description': 'Stáhněte si tento soubor do místního úložiště.',
+  'fabric.linking.download_file': 'Stáhnout soubor',
   'fabric.linking.edit': 'Upravit',
   'fabric.linking.follow': 'Sledovat',
+  'fabric.linking.follow_goal': 'Sledovat cíl',
+  'fabric.linking.follow_goal_description': 'Chcete-li dostávat oznámení o aktualizacích, začněte sledovat tento cíl.',
+  'fabric.linking.follow_goal_error':
+    'Při pokusu o zahájení sledování cíle došlo k chybě. Zkontrolujte připojení nebo obnovte stránku a zkuste to znovu.',
+  'fabric.linking.follow_project': 'Sledovat projekt',
+  'fabric.linking.follow_project_description': 'Chcete-li dostávat oznámení o tomto projektu, začněte ho sledovat.',
+  'fabric.linking.follow_project_error':
+    'Při pokusu o zahájení sledování projektu došlo k chybě. Zkontrolujte připojení nebo obnovte stránku a zkuste to znovu.',
   'fabric.linking.forbidden_access': 'Přístup byl odepřen',
   'fabric.linking.forbidden_description': 'Pokud chcete požádat o přístup k webu {hostname}, kontaktujte správce.',
   'fabric.linking.forbidden_title': 'K tomuto obsahu nemáte přístup',
@@ -83,6 +108,7 @@ export default {
   'fabric.linking.owned_by': 'Vlastník: {context}',
   'fabric.linking.pending_request': 'Vaše žádost o přístup čeká na vyřízení.',
   'fabric.linking.preview_close': 'Zavřít náhled',
+  'fabric.linking.preview_description': 'Otevřít náhled tohoto odkazu na celé obrazovce',
   'fabric.linking.preview_improved': 'Otevřít náhled',
   'fabric.linking.preview_max_size': 'Zobrazit na celé obrazovce',
   'fabric.linking.preview_min_size': 'Zavřít zobrazení na celé obrazovce',
@@ -130,6 +156,14 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Soukromé stránky ze zdroje {context} nejde zobrazit.',
   'fabric.linking.unauthorised_account_name_no_provider': 'Soukromé stránky nejde zobrazit.',
   'fabric.linking.unfollow': 'Přestat sledovat',
+  'fabric.linking.unfollow_goal': 'Přestat sledovat cíl',
+  'fabric.linking.unfollow_goal_description': 'Pokud už nechcete dostávat oznámení o tomto cíli, zrušte sledování.',
+  'fabric.linking.unfollow_goal_error':
+    'Při pokusu o zrušení sledování cíle došlo k chybě. Zkontrolujte připojení nebo obnovte stránku a zkuste to znovu.',
+  'fabric.linking.unfollow_project': 'Přestat sledovat projekt',
+  'fabric.linking.unfollow_project_description': 'Pokud už nechcete dostávat oznámení o projektu, zrušte sledování.',
+  'fabric.linking.unfollow_project_error':
+    'Při pokusu o zrušení sledování projektu došlo k chybě. Zkontrolujte připojení nebo obnovte stránku a zkuste to znovu.',
   'fabric.linking.unlink_account': 'Odpojit účet',
   'fabric.linking.updated_by': 'Upravil(a) {context}',
   'fabric.linking.view': 'Zobrazit',

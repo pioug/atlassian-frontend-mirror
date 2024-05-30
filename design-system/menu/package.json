@@ -61,7 +61,6 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@emotion/jest": "^11.8.0",
     "@testing-library/dom": "^8.17.1",
@@ -144,6 +143,5 @@
       "type": "boolean"
     }
   },
-  "homepage": "https://atlassian.design/components/menu/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "homepage": "https://atlassian.design/components/menu/"
 }

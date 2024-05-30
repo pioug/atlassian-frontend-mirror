@@ -1,5 +1,14 @@
 # @atlaskit/media-svg
 
+## 0.1.6
+
+### Patch Changes
+
+-   [#101187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101187)
+    [`533c2c669bdd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/533c2c669bdd) -
+    Added extra props for img loca, mousedown and style
+-   Updated dependencies
+
 ## 0.1.5
 
 ### Patch Changes

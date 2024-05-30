@@ -79,7 +79,6 @@
     "@atlaskit/radio": "^6.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/jest": "^11.8.0",
     "@testing-library/react": "^12.1.5",
     "jest-emotion": "^10.0.32",
@@ -117,6 +116,5 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/flag/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "homepage": "https://atlassian.design/components/flag/"
 }

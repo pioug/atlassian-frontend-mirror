@@ -3,6 +3,12 @@ import { type IconType } from '../../../../../constants';
 
 export type BadgeProps = ElementProps & {
   /**
+   * Determines whether the badge icon should be hidden. When set to true,
+   * the badge will be displayed without the icon, showing only the label text.
+   */
+  hideIcon?: boolean;
+
+  /**
    * The Atlaskit Icon to display next to the label. If this is not supplied,
    * then the badge icon will fallback to the URL provided.
    */
@@ -14,7 +20,7 @@ export type BadgeProps = ElementProps & {
   url?: string;
 
   /**
-   * The text to display for the badge
+   * The text to display for the badge.
    */
   label?: string;
 };

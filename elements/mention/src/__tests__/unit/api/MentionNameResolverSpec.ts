@@ -1,5 +1,6 @@
 import {
   DefaultMentionNameResolver,
+  mergeNameResolverQueues,
   type MentionNameResolver,
 } from '../../../api/MentionNameResolver';
 import { type MentionNameClient } from '../../../api/MentionNameClient';
@@ -705,5 +706,44 @@ describe('MentionNameResolver', () => {
         done,
       );
     });
+  });
+});
+
+describe(mergeNameResolverQueues.name, () => {
+  it('merges callback items, does not overwrite any', () => {
+    const [callbackA, callbackB, callbackC] = [jest.fn(), jest.fn(), jest.fn()];
+    const queueA = new Map([['a', [callbackA]]]);
+    const queueB = new Map([
+      ['a', [callbackB]],
+      ['b', [callbackC]],
+    ]);
+    const result = mergeNameResolverQueues(queueA, queueB);
+    const callbacks = result.get('a')!;
+    expect(callbacks).toHaveLength(2);
+    callbacks.forEach((callback) => {
+      expect([callbackA, callbackB].includes(callback as jest.Mock)).toBe(true);
+    });
+  });
+
+  it('includes items in the second queue not in the first one', () => {
+    const [callbackA, callbackB, callbackC] = [jest.fn(), jest.fn(), jest.fn()];
+    const queueA = new Map([['a', [callbackA]]]);
+    const queueB = new Map([
+      ['a', [callbackB]],
+      ['b', [callbackC]],
+    ]);
+    const result = mergeNameResolverQueues(queueA, queueB);
+    expect(result.get('b')).toEqual([callbackC]);
+  });
+
+  it('deduplicates callbacks with the same references that happen to be across queues', () => {
+    const [callbackA, callbackB] = [jest.fn(), jest.fn()];
+    const queueA = new Map([['a', [callbackA]]]);
+    const queueB = new Map([
+      ['a', [callbackA]],
+      ['b', [callbackB]],
+    ]);
+    const result = mergeNameResolverQueues(queueA, queueB);
+    expect(result.get('a')).toEqual([callbackA]);
   });
 });

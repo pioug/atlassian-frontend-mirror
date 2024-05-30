@@ -2,9 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import { DevTools } from '@af/editor-examples-helpers';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 
-import { DevTools } from '../example-helpers/DevTools';
 import { KitchenSink } from '../example-helpers/kitchen-sink/kitchen-sink';
 import enMessages from '../src/i18n/en';
 import EditorContext from '../src/ui/EditorContext';
@@ -19,15 +19,17 @@ export default function KitchenSinkExample() {
   return (
     <IntlProvider locale={locale} messages={messages}>
       <EditorContext>
-        <DevTools />
         <WithEditorActions
           render={(actions) => (
-            <KitchenSink
-              actions={actions}
-              locale={locale}
-              setLocale={setLocale}
-              setMessages={setMessages}
-            />
+            <>
+              <DevTools editorView={actions._privateGetEditorView()} />
+              <KitchenSink
+                actions={actions}
+                locale={locale}
+                setLocale={setLocale}
+                setMessages={setMessages}
+              />
+            </>
           )}
         />
       </EditorContext>

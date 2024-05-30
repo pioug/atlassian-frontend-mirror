@@ -60,10 +60,9 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
-    "@atlaskit/checkbox": "^13.3.0",
+    "@atlaskit/checkbox": "^13.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
@@ -95,6 +94,5 @@
       "deprecation": "no-deprecated-imports"
     }
   },
-  "homepage": "https://atlassian.design/components/radio/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "homepage": "https://atlassian.design/components/radio/"
 }

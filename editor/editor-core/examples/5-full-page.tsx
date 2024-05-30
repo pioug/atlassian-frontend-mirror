@@ -5,6 +5,7 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { DevTools } from '@af/editor-examples-helpers';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
@@ -53,7 +54,6 @@ import { MockActivityResource } from '../example-helpers/activity-provider';
 import { amend, check, encode, fromLocation } from '../example-helpers/adf-url';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import { copy } from '../example-helpers/copy';
-import { DevTools } from '../example-helpers/DevTools';
 import {
   DEFAULT_MODE,
   LOCALSTORAGE_defaultMode,
@@ -803,7 +803,11 @@ export function FullPageExample(props: ExampleProps) {
     <EditorContext>
 {/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
       <div style={{ height: '100%' }}>
-        <DevTools />
+        <WithEditorActions
+          render={(actions) => (
+            <DevTools editorView={actions._privateGetEditorView()} />
+          )}
+        />
         {isEditingMode ? (
           <ExampleEditor
             editorProps={passedEditorProps}

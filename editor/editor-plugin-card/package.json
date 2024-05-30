@@ -58,7 +58,7 @@
     "@atlaskit/linking-types": "^8.9.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/primitives": "^6.3.0",
-    "@atlaskit/smart-card": "^27.2.0",
+    "@atlaskit/smart-card": "^27.3.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",
     "@atlaskit/tooltip": "^18.4.0",

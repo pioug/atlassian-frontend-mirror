@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 27.2.0
+
+### Minor Changes
+
+-   [#101187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101187)
+    [`021415681643`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/021415681643) -
+    Added SVG sample files
+
 ## 27.1.0
 
 ### Minor Changes

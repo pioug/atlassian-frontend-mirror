@@ -52,7 +52,6 @@
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/textfield": "^6.3.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
     "typescript": "~5.4.2",
@@ -79,6 +78,5 @@
       "deprecation": "no-deprecated-imports"
     }
   },
-  "homepage": "https://atlaskit.atlassian.com/packages/design-system/focus-ring",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "homepage": "https://atlaskit.atlassian.com/packages/design-system/focus-ring"
 }

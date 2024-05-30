@@ -14,14 +14,25 @@ export default {
   'fabric.linking.ai_summarized': 'Riepilogo fornito da Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Sintetizzato da AI',
   'fabric.linking.ai_summarized_info': 'La qualità delle informazioni può variare. <a>Scopri di più</a>',
+  'fabric.linking.ai_summarized_info_short': 'La qualità dei contenuti può variare',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence sta lavorando...',
+  'fabric.linking.ai_summary_action': 'Riassumi con AI',
+  'fabric.linking.ai_summary_action_description': 'Riassumi il contenuto di questo link con Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Non possiamo mostrare i risultati di questo riepilogo in quanto sono contrari ai <a>Termini di utilizzo accettabile di Atlassian</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence non è in grado di generare un riepilogo in questo momento, poiché ci sono troppi contenuti da riepilogare.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) non risponde. Riprova più tardi o <a>controlla lo stato di AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence non è riuscito a elaborare la tua richiesta in quanto nel contenuto sono presenti link a contenuti soggetti a restrizioni HIPAA.',
   'fabric.linking.assigned_to': 'Assegnato a {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    "Applica un'automazione a <b>{name}</b>.{br}Le selezioni disponibili sono controllate da Confluence e dagli amministratori dello spazio.",
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Automazioni di pagina',
+  'fabric.linking.automation-action.icon.label': 'Icona di automazione',
+  'fabric.linking.automation-action.title': "Esegui l'automazione...",
+  'fabric.linking.automation-action.tooltip': 'Apri una finestra di automazione',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Annulla',
   'fabric.linking.cannot_connect': 'Impossibile connettersi, riprova',
@@ -44,6 +55,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Connetti il tuo account per collaborare al lavoro con i prodotti Atlassian.',
   'fabric.linking.continue': 'Continua',
+  'fabric.linking.copied_summary_action_description': 'Riepilogo copiato negli Appunti',
+  'fabric.linking.copied_url_to_clipboard': 'Copiato.',
+  'fabric.linking.copy_summary_action': 'Copia il riepilogo',
+  'fabric.linking.copy_summary_action_description': 'Copia il riepilogo',
   'fabric.linking.copy_url_to_clipboard': 'Copia il link',
   'fabric.linking.couldnt_load_link': 'Non è stato possibile caricare questo link per un motivo sconosciuto.',
   'fabric.linking.create_on_absolute': 'Creazione: {context}',
@@ -55,8 +70,18 @@ export default {
     'Il tuo team usa {product} per collaborare; puoi iniziare a usarlo anche tu da subito!',
   'fabric.linking.direct_access_title': 'Unisciti a {product} per visualizzare questo contenuto',
   'fabric.linking.download': 'Scarica',
+  'fabric.linking.download_description': 'Scarica questo file nello spazio di archiviazione locale',
+  'fabric.linking.download_file': 'Scarica il file',
   'fabric.linking.edit': 'Modifica',
   'fabric.linking.follow': 'Segui',
+  'fabric.linking.follow_goal': "Segui l'obiettivo",
+  'fabric.linking.follow_goal_description': 'Segui questo obiettivo per ricevere notifiche sugli aggiornamenti',
+  'fabric.linking.follow_goal_error':
+    "Si è verificato un errore durante il tentativo di seguire l'obiettivo. Verifica la connessione, oppure aggiorna la pagina e riprova.",
+  'fabric.linking.follow_project': 'Segui il progetto',
+  'fabric.linking.follow_project_description': 'Segui questo progetto per ricevere notifiche in merito',
+  'fabric.linking.follow_project_error':
+    'Si è verificato un errore durante il tentativo di seguire il progetto. Verifica la connessione, oppure aggiorna la pagina e riprova.',
   'fabric.linking.forbidden_access': 'Accesso vietato',
   'fabric.linking.forbidden_description': "Contatta l'amministratore per richiedere l'accesso a {hostname}.",
   'fabric.linking.forbidden_title': 'Non hai accesso a questo contenuto',
@@ -85,6 +110,7 @@ export default {
   'fabric.linking.owned_by': 'Di proprietà di {context}',
   'fabric.linking.pending_request': 'La tua richiesta di accesso è in sospeso',
   'fabric.linking.preview_close': "Chiudi l'anteprima",
+  'fabric.linking.preview_description': "Apri un'anteprima a schermo intero di questo link",
   'fabric.linking.preview_improved': "Apri l'anteprima",
   'fabric.linking.preview_max_size': 'Visualizza a schermo intero',
   'fabric.linking.preview_min_size': 'Esci da schermo intero',
@@ -134,6 +160,16 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Non è possibile visualizzare le pagine private di {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Impossibile visualizzare le pagine private',
   'fabric.linking.unfollow': 'Non seguire più',
+  'fabric.linking.unfollow_goal': "Smetti di seguire l'obiettivo",
+  'fabric.linking.unfollow_goal_description':
+    'Smetti di seguire questo obiettivo per non ricevere più notifiche in merito',
+  'fabric.linking.unfollow_goal_error':
+    "Si è verificato un errore durante il tentativo di smettere di seguire l'obiettivo. Verifica la connessione, oppure aggiorna la pagina e riprova.",
+  'fabric.linking.unfollow_project': 'Smetti di seguire il progetto',
+  'fabric.linking.unfollow_project_description':
+    'Smetti di seguire questo progetto per non ricevere più notifiche in merito',
+  'fabric.linking.unfollow_project_error':
+    'Si è verificato un errore durante il tentativo di smettere di seguire il progetto. Verifica la connessione, oppure aggiorna la pagina e riprova.',
   'fabric.linking.unlink_account': 'Scollega account',
   'fabric.linking.updated_by': 'Modificato da {context}',
   'fabric.linking.view': 'Visualizza',

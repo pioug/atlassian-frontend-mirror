@@ -15,14 +15,26 @@ export default {
   'fabric.linking.ai_summarized': 'Atlassian Intelligence による要約',
   'fabric.linking.ai_summarized_abbreviation': 'AI による要約',
   'fabric.linking.ai_summarized_info': '情報の質は異なる場合があります。<a>詳細をご確認ください</a>',
+  'fabric.linking.ai_summarized_info_short': 'コンテンツの質にはばらつきがある場合があります',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence が作動中...',
+  'fabric.linking.ai_summary_action': 'AI で要約',
+  'fabric.linking.ai_summary_action_description':
+    'Atlassian Intelligence を使用して、このリンクのコンテンツを要約します',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'この要約の結果は、<a>アトラシアンの利用規定</a>に反するため、表示できません。',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    '要約する内容が多すぎるため、現在 Atlassian Intelligence は要約を生成できません。',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) が応答していません。後でもう一度お試しになるか、<a>AI のステータスを確認してください</a>。',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'HIPAA の制限対象となるコンテンツへのリンクが含まれているため、Atlassian Intelligence はリクエストを処理できませんでした。 ',
   'fabric.linking.assigned_to': '割り当て先: {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    '<b>{name}</b> に自動化を適用します。{br}選択可能な項目は、Confluence とスペース管理者によって管理されます。',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'ページ自動化',
+  'fabric.linking.automation-action.icon.label': '自動化アイコン',
+  'fabric.linking.automation-action.title': '自動化を実行...',
+  'fabric.linking.automation-action.tooltip': '自動化モーダルを開く',
   'fabric.linking.beta': 'ベータ版',
   'fabric.linking.cancel': 'キャンセル',
   'fabric.linking.cannot_connect': '接続できません、もう一度お試しください。',
@@ -44,6 +56,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'アカウントを接続すると、アトラシアン製品全体でコラボレーションできます。',
   'fabric.linking.continue': '続行',
+  'fabric.linking.copied_summary_action_description': '要約をクリップボードにコピーしました',
+  'fabric.linking.copied_url_to_clipboard': 'コピーしました',
+  'fabric.linking.copy_summary_action': '要約をコピー',
+  'fabric.linking.copy_summary_action_description': '要約をコピー',
   'fabric.linking.copy_url_to_clipboard': 'リンクをコピー',
   'fabric.linking.couldnt_load_link': '不明な理由によって、このリンクを読み込めませんでした。',
   'fabric.linking.create_on_absolute': '作成日: {context}',
@@ -55,8 +71,18 @@ export default {
     'あなたのチームは {product} を使用してコラボレーションしています。あなたも今すぐ使用を開始できます！',
   'fabric.linking.direct_access_title': '{product} に参加してこのコンテンツを閲覧する',
   'fabric.linking.download': 'ダウンロード',
+  'fabric.linking.download_description': 'このファイルをローカル ストレージにダウンロードします',
+  'fabric.linking.download_file': 'ファイルをダウンロード',
   'fabric.linking.edit': '編集',
   'fabric.linking.follow': 'フォロー',
+  'fabric.linking.follow_goal': '目標をフォロー',
+  'fabric.linking.follow_goal_description': 'この目標をフォローすると、最新情報の通知が届きます',
+  'fabric.linking.follow_goal_error':
+    '目標をフォローする際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
+  'fabric.linking.follow_project': 'プロジェクトをフォロー',
+  'fabric.linking.follow_project_description': 'フォローすると、このプロジェクトの通知が届きます',
+  'fabric.linking.follow_project_error':
+    'プロジェクトをフォローする際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
   'fabric.linking.forbidden_access': 'アクセスは禁止されています。',
   'fabric.linking.forbidden_description': '{hostname} へのアクセス権をリクエストするには、管理者に連絡してください。',
   'fabric.linking.forbidden_title': 'このコンテンツへのアクセス権がありません',
@@ -83,6 +109,7 @@ export default {
   'fabric.linking.owned_by': '所有者: {context}',
   'fabric.linking.pending_request': 'アクセス リクエストは保留中です。',
   'fabric.linking.preview_close': 'プレビューを閉じる',
+  'fabric.linking.preview_description': 'このリンクの全画面プレビューを開きます',
   'fabric.linking.preview_improved': 'プレビューを開く',
   'fabric.linking.preview_max_size': '全画面表示',
   'fabric.linking.preview_min_size': '全画面表示を閉じる',
@@ -130,6 +157,14 @@ export default {
   'fabric.linking.unauthorised_account_name': '{context} の非公開ページは表示できません',
   'fabric.linking.unauthorised_account_name_no_provider': '非公開ページは表示できません',
   'fabric.linking.unfollow': 'フォローを解除',
+  'fabric.linking.unfollow_goal': '目標をフォロー解除',
+  'fabric.linking.unfollow_goal_description': 'フォロー解除すると、この目標の通知が届かなくなります',
+  'fabric.linking.unfollow_goal_error':
+    '目標をフォロー解除する際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
+  'fabric.linking.unfollow_project': 'プロジェクトをフォロー解除',
+  'fabric.linking.unfollow_project_description': 'フォロー解除すると、プロジェクトの通知が届かなくなります',
+  'fabric.linking.unfollow_project_error':
+    'プロジェクトをフォロー解除する際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
   'fabric.linking.unlink_account': 'アカウントのリンクを解除',
   'fabric.linking.updated_by': '変更元: {context}',
   'fabric.linking.view': '表示',

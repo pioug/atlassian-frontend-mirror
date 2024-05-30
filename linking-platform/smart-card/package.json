@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "27.2.1",
+  "version": "27.3.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
     "@atlaskit/avatar-group": "^9.6.0",
     "@atlaskit/badge": "^16.1.0",
     "@atlaskit/button": "^17.17.0",
-    "@atlaskit/checkbox": "^13.3.0",
+    "@atlaskit/checkbox": "^13.4.0",
     "@atlaskit/dropdown-menu": "^12.10.0",
     "@atlaskit/form": "^10.2.0",
     "@atlaskit/frontend-utilities": "^2.7.0",
@@ -172,9 +172,6 @@
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.smart-card.ai-summary-service-base-url": {
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw": {

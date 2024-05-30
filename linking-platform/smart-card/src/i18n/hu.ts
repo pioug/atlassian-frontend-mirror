@@ -14,14 +14,26 @@ export default {
   'fabric.linking.ai_summarized': 'Az összefoglalót az Atlassian Intelligence készítette',
   'fabric.linking.ai_summarized_abbreviation': 'Az AI által összefoglalva',
   'fabric.linking.ai_summarized_info': 'Az információk minősége változó lehet. <a>További információ</a>',
+  'fabric.linking.ai_summarized_info_short': 'A tartalom minősége változhat',
   'fabric.linking.ai_summarizing': 'Az Atlassian Intelligence dolgozik…',
+  'fabric.linking.ai_summary_action': 'Összefoglalás az AI segítségével',
+  'fabric.linking.ai_summary_action_description':
+    'Összefoglalhatod a link tartalmát az Atlassian Intelligence használatával.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Nem tudjuk megjeleníteni az összefoglaló eredményét, mert ellentmond az <a>Atlassian elfogadható használatra vonatkozó irányelveinek</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Az Atlassian Intelligence jelenleg nem tud összefoglalót generálni, mert túl sok az összefoglalni kívánt tartalom.',
   'fabric.linking.ai_summary_error_generic':
     'Az Atlassian Intelligence (AI) nem válaszol. Próbálkozz újra később, vagy <a>ellenőrizd az AI állapotát</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Az Atlassian Intelligence nem tudta feldolgozni a kérelmedet, mert a tartalmad a HIPAA által korlátozott tartalomra hivatkozik.',
   'fabric.linking.assigned_to': 'Hozzárendelve a következő személyhez: {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Automatizálás alkalmazása a következőhöz: <b>{name}</b>.{br}Az elérhető kiválasztásokat a Confluence és a munkatér-adminisztrátorok szabályozzák.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Oldal automatizálása',
+  'fabric.linking.automation-action.icon.label': 'Automatizálás ikon',
+  'fabric.linking.automation-action.title': 'Automatizálás futtatása…',
+  'fabric.linking.automation-action.tooltip': 'Automatizálási párbeszédablak megnyitása',
   'fabric.linking.beta': 'Béta',
   'fabric.linking.cancel': 'Mégse',
   'fabric.linking.cannot_connect': 'Nem sikerült kapcsolódni, próbálkozz újra',
@@ -45,6 +57,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Csatlakoztasd a fiókodat, hogy együtt dolgozhassatok több Atlassian-termékben is.',
   'fabric.linking.continue': 'Folytatás',
+  'fabric.linking.copied_summary_action_description': 'Összefoglaló másolva a vágólapra',
+  'fabric.linking.copied_url_to_clipboard': 'Másolva!',
+  'fabric.linking.copy_summary_action': 'Összefoglaló másolása',
+  'fabric.linking.copy_summary_action_description': 'Összefoglaló másolása',
   'fabric.linking.copy_url_to_clipboard': 'Link másolása',
   'fabric.linking.couldnt_load_link': 'Ismeretlen okból nem tudtuk betölteni ezt a linket.',
   'fabric.linking.create_on_absolute': 'Létrehozva ekkor: {context}',
@@ -56,8 +72,19 @@ export default {
     'A csapatod a(z) {product} terméket használja az együttműködésre, amelyet te is azonnal elkezdhetsz használni!',
   'fabric.linking.direct_access_title': 'A tartalom megtekintéséhez csatlakozz: {product}',
   'fabric.linking.download': 'Letöltés',
+  'fabric.linking.download_description': 'Fájl letöltése a helyi tárhelyre',
+  'fabric.linking.download_file': 'Fájl letöltése',
   'fabric.linking.edit': 'Szerkesztés',
   'fabric.linking.follow': 'Követés',
+  'fabric.linking.follow_goal': 'Cél követése',
+  'fabric.linking.follow_goal_description': 'Kövesd a célt, ha értesítést szeretnél kapni a frissítésekről',
+  'fabric.linking.follow_goal_error':
+    'Hiba történt a cél követésének beállítása során. Ellenőrizd a kapcsolatodat, frissítsd az oldalt, és próbálkozz újra.',
+  'fabric.linking.follow_project': 'Projekt követése',
+  'fabric.linking.follow_project_description':
+    'Ha szeretnél értesítéseket kapni a projekttel kapcsolatban, kövesd a projektet',
+  'fabric.linking.follow_project_error':
+    'Hiba történt a projekt követésének beállítása során. Ellenőrizd a kapcsolatodat, frissítsd az oldalt, és próbálkozz újra.',
   'fabric.linking.forbidden_access': 'Hozzáférés megtagadva',
   'fabric.linking.forbidden_description':
     'Fordulj az adminisztrátorhoz, és kérj tőle hozzáférést a következőhöz: {hostname}.',
@@ -86,6 +113,7 @@ export default {
   'fabric.linking.owned_by': 'Tulajdonos: {context}',
   'fabric.linking.pending_request': 'A hozzáférési kérelmed függőben van',
   'fabric.linking.preview_close': 'Előnézet bezárása',
+  'fabric.linking.preview_description': 'A link teljes képernyős előnézetének megnyitása',
   'fabric.linking.preview_improved': 'Előnézet megnyitása',
   'fabric.linking.preview_max_size': 'Megtekintés teljes képernyőn',
   'fabric.linking.preview_min_size': 'Teljes képernyő bezárása',
@@ -134,6 +162,16 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Nem tudunk privát oldalakat megjeleníteni a(z) {context} felületéről',
   'fabric.linking.unauthorised_account_name_no_provider': 'Nem tudunk privát oldalakat megjeleníteni',
   'fabric.linking.unfollow': 'Követés leállítása',
+  'fabric.linking.unfollow_goal': 'Cél követésének leállítása',
+  'fabric.linking.unfollow_goal_description':
+    'Ha nem szeretnél értesítéseket kapni a céllal kapcsolatban, állítsd le a cél követését',
+  'fabric.linking.unfollow_goal_error':
+    'Hiba történt a cél követésének leállítása során. Ellenőrizd a kapcsolatodat, frissítsd az oldalt, és próbálkozz újra.',
+  'fabric.linking.unfollow_project': 'Projekt követésének leállítása',
+  'fabric.linking.unfollow_project_description':
+    'Ha nem szeretnél értesítéseket kapni a projekttel kapcsolatban, állítsd le a projekt követését',
+  'fabric.linking.unfollow_project_error':
+    'Hiba történt a projekt követésének leállítása során. Ellenőrizd a kapcsolatodat, frissítsd az oldalt, és próbálkozz újra.',
   'fabric.linking.unlink_account': 'Fiók leválasztása',
   'fabric.linking.updated_by': 'Módosította: {context}',
   'fabric.linking.view': 'Megtekintés',

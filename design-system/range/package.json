@@ -39,11 +39,10 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/checkbox": "^13.3.0",
+    "@atlaskit/checkbox": "^13.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tooltip": "^18.4.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^11.0.0",
     "@testing-library/react": "^12.1.5",
     "@types/jscodeshift": "^0.11.0",
@@ -98,6 +97,5 @@
     "./range": "./src/range.tsx",
     "./styled": "./src/styled.tsx",
     "./theme": "./src/theme.tsx"
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

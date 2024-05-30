@@ -27,21 +27,21 @@ config. If provided the rule will use the passed in config instead.
 
 The following fields can be defined in the config:
 
--   `deprecatedProp`, which is the deprecated props. Each prop has the following fields:
-    -   `moduleSpecifier`, which is the module specifier of the package in which the prop was
-        deprecated. For example: `@atlaskit/button`.
-    -   `namedSpecifier` **(optional)**, which is an array of named specifiers of the package in
-        which the prop was deprecated. For example: `Button`.
-    -   `actionableVersion` **(optional)**, which is the version of the package in which the prop
-        can be actioned on. For example: `1.0.0`.
+- `deprecatedProp`, which is the deprecated props. Each prop has the following fields:
+  - `moduleSpecifier`, which is the module specifier of the package in which the prop was
+    deprecated. For example: `@atlaskit/button`.
+  - `namedSpecifier` **(optional)**, which is an array of named specifiers of the package in which
+    the prop was deprecated. For example: `Button`.
+  - `actionableVersion` **(optional)**, which is the version of the package in which the prop can be
+    actioned on. For example: `1.0.0`.
 
 ```json
 {
-    "cssFn": [
-        {
-            "moduleSpecifier": "@atlaskit/menu"
-        }
-    ]
+	"cssFn": [
+		{
+			"moduleSpecifier": "@atlaskit/menu"
+		}
+	]
 }
 ```
 
@@ -49,20 +49,20 @@ The following fields can be defined in the config:
 import { configs } from '@atlaskit/eslint-plugin-design-system';
 
 module.exports = {
-    rules: {
-        '@atlaskit/design-system/no-deprecated-api': [
-            'error',
-            {
-                deprecatedConfig: {
-                    cssFn: [
-                        {
-                            moduleSpecifier: '@atlaskit/menu',
-                        },
-                    ],
-                },
-            },
-        ],
-    },
+	rules: {
+		'@atlaskit/design-system/no-deprecated-api': [
+			'error',
+			{
+				deprecatedConfig: {
+					cssFn: [
+						{
+							moduleSpecifier: '@atlaskit/menu',
+						},
+					],
+				},
+			},
+		],
+	},
 };
 ```
 

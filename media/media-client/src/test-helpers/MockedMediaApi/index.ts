@@ -7,6 +7,8 @@ export { createMockedMediaApi } from './MockedMediaApi';
 
 export {
   copy,
+  merge,
+  assign,
   getIdentifier,
   createEmptyFileItem,
   createUploadingFileState,
@@ -14,3 +16,5 @@ export {
   createFileState,
   createProcessingFileItem,
 } from './helpers';
+
+export { type PartialResponseFileItem } from './types';

@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 22.3.1
+
+### Patch Changes
+
+-   [#104222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104222)
+    [`cabed929cdde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cabed929cdde) -
+    Fix bug where utility icons incorrectly allowed the 'spacing' prop to be set. Utility icons only
+    support 'none' spacing and the prop type has been removed"
+
 ## 22.3.0
 
 ### Minor Changes

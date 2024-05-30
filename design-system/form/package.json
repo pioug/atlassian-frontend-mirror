@@ -51,7 +51,7 @@
     "@af/visual-regression": "*",
     "@atlaskit/banner": "^12.3.0",
     "@atlaskit/button": "^17.17.0",
-    "@atlaskit/checkbox": "^13.3.0",
+    "@atlaskit/checkbox": "^13.4.0",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/radio": "^6.3.0",
@@ -61,7 +61,6 @@
     "@atlaskit/textfield": "^6.3.0",
     "@atlaskit/toggle": "^13.1.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
@@ -137,7 +136,6 @@
     ".": "./src/index.tsx"
   },
   "homepage": "https://atlassian.design/components/form/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.design-system-team.form-header-typography-updates_4f1g6": {
       "type": "boolean"

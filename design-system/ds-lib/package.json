@@ -72,7 +72,6 @@
     "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
@@ -111,6 +110,5 @@
       ]
     }
   },
-  "homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib"
 }

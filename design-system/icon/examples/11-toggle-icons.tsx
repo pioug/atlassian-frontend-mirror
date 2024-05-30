@@ -1,6 +1,9 @@
 import React, { type ComponentType, useState } from 'react';
-import { N400, N0, R300, B300 } from '@atlaskit/theme/colors';
+import { B400, N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives';
 import Button from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
 
 import CheckboxIcon from '../glyph/checkbox';
 import RadioIcon from '../glyph/radio';
@@ -14,16 +17,10 @@ const toggleableIcons: IconPair = [
 
 const styles = {
   iconChecked: {
-    color: N400,
-    fill: N0,
+    color: token('color.icon.selected', B400),
   },
   iconUnchecked: {
-    color: N400,
-    fill: N400,
-  },
-  iconReverse: {
-    color: R300,
-    fill: B300,
+    color: token('color.icon.inverse', N0),
   },
 };
 
@@ -31,63 +28,61 @@ const ToggleIcons = () => {
   const [isColorToggled, setIsColorToggled] = useState(false);
   const [isFillToggled, setIsFillToggled] = useState(false);
 
-  const colorStyle = isColorToggled ? styles.iconChecked : styles.iconUnchecked;
-  const colorStyleReverse = isFillToggled
-    ? styles.iconReverse
-    : styles.iconChecked;
-
   return (
-    <div>
-      <h2 id="toggle-label">Toggle icons</h2>
-      <p id="selected-heading">
+    <Box>
+      <Heading size="large" as="h2" id="toggle-label">
+        Toggle icons
+      </Heading>
+      <Box as="p" id="selected-heading">
         Activate these icons wrapped by a button to toggle between their
         selected and unselected states
-      </p>
-      <div
+      </Box>
+      <Box
         role="group"
         aria-labelledby="toggle-label"
         aria-describedby="selected-heading"
       >
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={colorStyle}>
+        <Box>
           {toggleableIcons.map(([id, Icon]) => (
             <Button onClick={() => setIsColorToggled((old) => !old)} key={id}>
               <Icon
                 key={id}
                 label="Icon which toggles between their selected and unselected states"
-                secondaryColor="inherit"
+                primaryColor={styles.iconChecked.color}
+                secondaryColor={
+                  isColorToggled
+                    ? styles.iconUnchecked.color
+                    : styles.iconChecked.color
+                }
               />
             </Button>
           ))}
-        </div>
-      </div>
-      <p id="checked-heading">
+        </Box>
+      </Box>
+      <Box as="p" id="checked-heading">
         Activate these icons wrapped by a button to see them reverse themselves
         while staying checked
-      </p>
-      <div
+      </Box>
+      <Box
         role="group"
         aria-labelledby="toggle-label"
         aria-describedby="checked-heading"
       >
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={styles.iconReverse}>
+        <Box>
           {toggleableIcons.map(([id, Icon]) => (
             <Button onClick={() => setIsFillToggled((old) => !old)} key={id}>
               <Icon
                 key={id}
                 label="Icon which toggles between their checked and unchecked states"
                 primaryColor={
-                  isFillToggled
-                    ? colorStyleReverse.fill
-                    : colorStyleReverse.color
+                  isFillToggled ? styles.iconChecked.color : 'inherit'
                 }
               />
             </Button>
           ))}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

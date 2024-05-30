@@ -1,12 +1,20 @@
-import { RECENTS_COLLECTION, type ResponseFileItem } from '@atlaskit/media-client';
-import { copy, getIdentifier } from '@atlaskit/media-client/test-helpers';
+import {
+  RECENTS_COLLECTION,
+  type ResponseFileItem,
+} from '@atlaskit/media-client';
+import {
+  assign,
+  copy,
+  getIdentifier,
+  type PartialResponseFileItem,
+} from '@atlaskit/media-client/test-helpers';
 
 import { type FileItemGenerator } from './types';
 
 const createGenerator =
   (baseFileItem: ResponseFileItem): FileItemGenerator =>
-  () => {
-    const fileItem = copy(baseFileItem);
+  (overrideFileItem?: PartialResponseFileItem) => {
+    const fileItem = assign(copy(baseFileItem), overrideFileItem); // First create a new Id (copy), then add the override attributes (assign)
     const identifier = getIdentifier(fileItem);
     return [fileItem, identifier];
   };

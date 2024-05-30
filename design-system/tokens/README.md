@@ -29,7 +29,9 @@ Add the plugin to your babel configuration:
 
 ```
 {
-  "plugins": ["@atlaskit/tokens/babel-plugin"]
+  "plugins": [
+    ["@atlaskit/tokens/babel-plugin", { "shouldUseAutoFallback": true }]
+  ]
 }
 ```
 
@@ -38,4 +40,4 @@ Add the plugin to your babel configuration:
 Currently the plugin supports one option, `shouldUseAutoFallback`. When enabled, the plugin will fetch the token's value in the default
 Atlassian theme (currently `atlassian-light`) and use it as the fallback value.
 
-This is useful for cases where tokens are in use, but token definitions aren't present in the top-level page CSS.
+This is useful for cases where tokens are in use, but token definitions aren't guaranteed to be present in the top-level page CSS.

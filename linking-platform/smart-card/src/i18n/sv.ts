@@ -14,14 +14,25 @@ export default {
   'fabric.linking.ai_summarized': 'Sammanfattat av Atlassian Intelligence',
   'fabric.linking.ai_summarized_abbreviation': 'Sammanfattat av AI',
   'fabric.linking.ai_summarized_info': 'Informationskvaliteten kan variera. <a>Läs mer</a>',
+  'fabric.linking.ai_summarized_info_short': 'Innehållskvaliteten kan variera',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence arbetar ...',
+  'fabric.linking.ai_summary_action': 'Sammanfatta med Atlassian Intelligence',
+  'fabric.linking.ai_summary_action_description': 'Sammanfatta innehållet i länken med Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Vi kan inte visa sammanfattningsresultaten eftersom det strider mot <a>Atlassians policy för godtagbar användning</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence kan inte generera en sammanfattning åt dig just nu eftersom det finns för mycket innehåll att sammanfatta.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) svarar inte. Försök igen senare eller <a>kontrollera status för AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence kunde inte behandla din förfrågan eftersom innehållet innehåller länkar till HIPAA-begränsat innehåll.',
   'fabric.linking.assigned_to': 'Tilldelad till {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Tillämpa en automatisering för <b>{name}</b>.{br}Tillgängliga val styrs av Confluence- och utrymmesadministratörer.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Sidautomatiseringar',
+  'fabric.linking.automation-action.icon.label': 'Automatiseringssymbol',
+  'fabric.linking.automation-action.title': 'Kör automatisering ...',
+  'fabric.linking.automation-action.tooltip': 'Öppna en automatiseringsmodal',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Avbryt',
   'fabric.linking.cannot_connect': 'Det går inte att ansluta, försök igen',
@@ -44,6 +55,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Anslut ditt konto för att samarbeta kring projekt i flera Atlassian-produkter.',
   'fabric.linking.continue': 'Fortsätt',
+  'fabric.linking.copied_summary_action_description': 'Kopierade sammanfattning till urklipp',
+  'fabric.linking.copied_url_to_clipboard': 'Kopierat!',
+  'fabric.linking.copy_summary_action': 'Kopiera sammanfattning',
+  'fabric.linking.copy_summary_action_description': 'Kopiera sammanfattning',
   'fabric.linking.copy_url_to_clipboard': 'Kopiera länk',
   'fabric.linking.couldnt_load_link': 'Vi kunde inte läsa in den här länken av okänd anledning.',
   'fabric.linking.create_on_absolute': 'Skapades {context}',
@@ -55,8 +70,18 @@ export default {
     'Ditt team använder {product} för att samarbeta och du kan börja använda det direkt!',
   'fabric.linking.direct_access_title': 'Anslut till {product} för att visa innehållet',
   'fabric.linking.download': 'Ladda ner',
+  'fabric.linking.download_description': 'Ladda ned filen till ditt lokala lagringsutrymme',
+  'fabric.linking.download_file': 'Ladda ned fil',
   'fabric.linking.edit': 'Redigera',
   'fabric.linking.follow': 'Följ',
+  'fabric.linking.follow_goal': 'Följ mål',
+  'fabric.linking.follow_goal_description': 'Följ målet för att få aviseringar om uppdateringar',
+  'fabric.linking.follow_goal_error':
+    'Ett fel uppstod när vi försökte följa målet. Kontrollera din anslutning eller uppdatera sidan och försök igen.',
+  'fabric.linking.follow_project': 'Följ projekt',
+  'fabric.linking.follow_project_description': 'Följ för att få aviseringar om projektet',
+  'fabric.linking.follow_project_error':
+    'Ett fel uppstod när vi försökte följa projektet. Kontrollera din anslutning eller uppdatera sidan och försök igen.',
   'fabric.linking.forbidden_access': 'Din åtkomst är förbjuden',
   'fabric.linking.forbidden_description': 'Kontakta administratören för att begära åtkomst till {hostname}.',
   'fabric.linking.forbidden_title': 'Du har inte åtkomst till det här innehållet',
@@ -84,6 +109,7 @@ export default {
   'fabric.linking.owned_by': 'Ägs av {context}',
   'fabric.linking.pending_request': 'Din åtkomstförfrågan väntar på svar',
   'fabric.linking.preview_close': 'Stäng förhandsvisning',
+  'fabric.linking.preview_description': 'Öppna en förhandsvisning av länken i helskärm',
   'fabric.linking.preview_improved': 'Öppna förhandsgranskning',
   'fabric.linking.preview_max_size': 'Visa helskärm',
   'fabric.linking.preview_min_size': 'Stäng helskärm',
@@ -132,6 +158,14 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Vi kan inte visa privata sidor från {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Vi kan inte visa privata sidor',
   'fabric.linking.unfollow': 'Sluta följa',
+  'fabric.linking.unfollow_goal': 'Sluta följa mål',
+  'fabric.linking.unfollow_goal_description': 'Sluta följ för att sluta ta emot aviseringar för målet',
+  'fabric.linking.unfollow_goal_error':
+    'Ett fel uppstod när vi försökte sluta följa målet. Kontrollera din anslutning eller uppdatera sidan och försök igen.',
+  'fabric.linking.unfollow_project': 'Sluta följa projekt',
+  'fabric.linking.unfollow_project_description': 'Sluta följ för att sluta ta emot projektaviseringar',
+  'fabric.linking.unfollow_project_error':
+    'Ett fel uppstod när vi försökte sluta följa projektet. Kontrollera din anslutning eller uppdatera sidan och försök igen.',
   'fabric.linking.unlink_account': 'Ta bort kontolänk',
   'fabric.linking.updated_by': 'Ändrad av {context}',
   'fabric.linking.view': 'Visa',

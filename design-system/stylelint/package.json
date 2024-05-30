@@ -55,7 +55,6 @@
     "stylelint": "^14.16.1"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "jest-preset-stylelint": "^5.0.1",
     "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
@@ -74,6 +73,5 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/stylelint-design-system",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "homepage": "https://atlassian.design/components/stylelint-design-system"
 }

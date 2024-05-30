@@ -14,14 +14,25 @@ export default {
   'fabric.linking.ai_summarized': 'Do Atlassian Intelligence tóm tắt',
   'fabric.linking.ai_summarized_abbreviation': 'Do AI tóm tắt',
   'fabric.linking.ai_summarized_info': 'Chất lượng thông tin có thể khác nhau. <a>Tìm hiểu thêm</a>',
+  'fabric.linking.ai_summarized_info_short': 'Chất lượng nội dung có thể khác nhau',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence đang xử lý...',
+  'fabric.linking.ai_summary_action': 'Tóm tắt bằng AI',
+  'fabric.linking.ai_summary_action_description': 'Tóm tắt nội dung của liên kết này bằng Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Chúng tôi không thể hiển thị kết quả của bản tóm tắt này vì nội dung này đi ngược lại <a>Chính sách sử dụng được chấp nhận của Atlassian</a>.',
+  'fabric.linking.ai_summary_error_exceeding_context_length_error':
+    'Atlassian Intelligence hiện không thể tạo bản tóm tắt cho bạn vì có quá nhiều nội dung cần tóm tắt.',
   'fabric.linking.ai_summary_error_generic':
     'Atlassian Intelligence (AI) không phản hồi. Hãy thử lại sau hoặc <a>kiểm tra trạng thái của AI</a>.',
   'fabric.linking.ai_summary_error_hipaa_content_detected':
     'Atlassian Intelligence không xử lý được yêu cầu của bạn vì nội dung của bạn có chứa các liên kết đến nội dung bị hạn chế của HIPAA.',
   'fabric.linking.assigned_to': 'Đã chỉ định cho {context}',
+  'fabric.linking.automation-action.confluence.page.modal.description':
+    'Áp dụng một phương thức tự động hóa cho <b>{name}</b>.{br}Các lựa chọn có sẵn được kiểm soát bởi Confluence và quản lý không gian.',
+  'fabric.linking.automation-action.confluence.page.modal.title': 'Tự động hóa đối với trang',
+  'fabric.linking.automation-action.icon.label': 'Biểu tượng tự động hóa',
+  'fabric.linking.automation-action.title': 'Chạy phương thức tự động hóa...',
+  'fabric.linking.automation-action.tooltip': 'Mở phương thức tự động hóa',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Hủy',
   'fabric.linking.cannot_connect': 'Không thể kết nối, hãy thử lại',
@@ -44,6 +55,10 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     'Kết nối tài khoản của bạn để cộng tác trong công việc trên khắp các sản phẩm Atlassian.',
   'fabric.linking.continue': 'Tiếp tục',
+  'fabric.linking.copied_summary_action_description': 'Đã sao chép tóm tắt vào bảng nhớ tạm',
+  'fabric.linking.copied_url_to_clipboard': 'Đã sao chép!',
+  'fabric.linking.copy_summary_action': 'Sao chép tóm tắt',
+  'fabric.linking.copy_summary_action_description': 'Sao chép tóm tắt',
   'fabric.linking.copy_url_to_clipboard': 'Sao chép liên kết',
   'fabric.linking.couldnt_load_link': 'Chúng tôi không thể tải đường liên kết này vì một lý do không xác định.',
   'fabric.linking.create_on_absolute': 'Đã tạo vào {context}',
@@ -55,8 +70,18 @@ export default {
     'Nhóm của bạn sử dụng {product} để cộng tác và bạn có thể bắt đầu sử dụng sản phẩm này ngay lập tức!',
   'fabric.linking.direct_access_title': 'Tham gia {product} để xem nội dung này',
   'fabric.linking.download': 'Tải xuống',
+  'fabric.linking.download_description': 'Tải tệp này xuống bộ nhớ cục bộ của bạn',
+  'fabric.linking.download_file': 'Tải tệp xuống',
   'fabric.linking.edit': 'Chỉnh sửa',
   'fabric.linking.follow': 'Theo dõi',
+  'fabric.linking.follow_goal': 'Theo dõi mục tiêu',
+  'fabric.linking.follow_goal_description': 'Theo dõi mục tiêu này để nhận thông báo về thông tin cập nhật',
+  'fabric.linking.follow_goal_error':
+    'Chúng tôi gặp lỗi khi cố gắng theo dõi mục tiêu. Hãy kiểm tra kết nối của bạn hoặc làm mới trang và thử lại.',
+  'fabric.linking.follow_project': 'Theo dõi dự án',
+  'fabric.linking.follow_project_description': 'Theo dõi để nhận thông báo về dự án này',
+  'fabric.linking.follow_project_error':
+    'Chúng tôi gặp lỗi khi cố gắng theo dõi dự án. Hãy kiểm tra kết nối của bạn hoặc làm mới trang và thử lại.',
   'fabric.linking.forbidden_access': 'Quyền truy cập của bạn bị cấm',
   'fabric.linking.forbidden_description': 'Hãy liên hệ với quản trị viên để yêu cầu cấp quyền truy cập vào {hostname}.',
   'fabric.linking.forbidden_title': 'Bạn không có quyền truy cập nội dung này',
@@ -85,6 +110,7 @@ export default {
   'fabric.linking.owned_by': 'Sở hữu bởi {context}',
   'fabric.linking.pending_request': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn',
   'fabric.linking.preview_close': 'Đóng bản xem trước',
+  'fabric.linking.preview_description': 'Mở bản xem trước toàn màn hình của liên kết này',
   'fabric.linking.preview_improved': 'Mở bản xem trước',
   'fabric.linking.preview_max_size': 'Xem toàn màn hình',
   'fabric.linking.preview_min_size': 'Đóng toàn màn hình',
@@ -133,6 +159,14 @@ export default {
   'fabric.linking.unauthorised_account_name': 'Chúng tôi không thể hiển thị trang riêng tư từ {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'Chúng tôi không thể hiển thị trang riêng tư',
   'fabric.linking.unfollow': 'Bỏ theo dõi',
+  'fabric.linking.unfollow_goal': 'Bỏ theo dõi mục tiêu',
+  'fabric.linking.unfollow_goal_description': 'Bỏ theo dõi để ngừng nhận thông báo cho mục tiêu này',
+  'fabric.linking.unfollow_goal_error':
+    'Chúng tôi gặp lỗi khi cố gắng bỏ theo dõi mục tiêu. Hãy kiểm tra kết nối của bạn hoặc làm mới trang và thử lại.',
+  'fabric.linking.unfollow_project': 'Bỏ theo dõi dự án',
+  'fabric.linking.unfollow_project_description': 'Bỏ theo dõi để ngừng nhận thông báo về dự án',
+  'fabric.linking.unfollow_project_error':
+    'Chúng tôi gặp lỗi khi cố gắng bỏ theo dõi dự án. Hãy kiểm tra kết nối của bạn hoặc làm mới trang và thử lại.',
   'fabric.linking.unlink_account': 'Hủy liên kết tài khoản',
   'fabric.linking.updated_by': 'Được sửa đổi bởi {context}',
   'fabric.linking.view': 'Xem',

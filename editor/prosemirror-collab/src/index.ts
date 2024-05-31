@@ -1,56 +1,49 @@
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { Plugin, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
-  EditorState,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
-import {
-  Plugin,
-  PluginKey,
-  TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
-import type {
-  Step as ProseMirrorStep,
-  Transform as ProseMirrorTransform,
+	Step as ProseMirrorStep,
+	Transform as ProseMirrorTransform,
 } from '@atlaskit/editor-prosemirror/transform';
 
 class Rebaseable {
-  constructor(
-    readonly step: ProseMirrorStep,
-    readonly inverted: ProseMirrorStep,
-    readonly origin: ProseMirrorTransform,
-  ) {}
+	constructor(
+		readonly step: ProseMirrorStep,
+		readonly inverted: ProseMirrorStep,
+		readonly origin: ProseMirrorTransform,
+	) {}
 }
 
 /// Undo a given set of steps, apply a set of other steps, and then
 /// redo them @internal
 export function rebaseSteps(
-  steps: readonly Rebaseable[],
-  over: readonly ProseMirrorStep[],
-  transform: ProseMirrorTransform,
+	steps: readonly Rebaseable[],
+	over: readonly ProseMirrorStep[],
+	transform: ProseMirrorTransform,
 ) {
-  for (let i = steps.length - 1; i >= 0; i--) {
-    transform.step(steps[i].inverted);
-  }
-  for (let i = 0; i < over.length; i++) {
-    transform.step(over[i]);
-  }
-  let result = [];
-  for (let i = 0, mapFrom = steps.length; i < steps.length; i++) {
-    let mapped = steps[i].step.map(transform.mapping.slice(mapFrom));
-    mapFrom--;
-    if (mapped && !transform.maybeStep(mapped).failed) {
-      // Open ticket for setMirror https://github.com/ProseMirror/prosemirror/issues/869
-      // @ts-expect-error
-      transform.mapping.setMirror(mapFrom, transform.steps.length - 1);
-      result.push(
-        new Rebaseable(
-          mapped,
-          mapped.invert(transform.docs[transform.docs.length - 1]),
-          steps[i].origin,
-        ),
-      );
-    }
-  }
-  return result;
+	for (let i = steps.length - 1; i >= 0; i--) {
+		transform.step(steps[i].inverted);
+	}
+	for (let i = 0; i < over.length; i++) {
+		transform.step(over[i]);
+	}
+	let result = [];
+	for (let i = 0, mapFrom = steps.length; i < steps.length; i++) {
+		let mapped = steps[i].step.map(transform.mapping.slice(mapFrom));
+		mapFrom--;
+		if (mapped && !transform.maybeStep(mapped).failed) {
+			// Open ticket for setMirror https://github.com/ProseMirror/prosemirror/issues/869
+			// @ts-expect-error
+			transform.mapping.setMirror(mapFrom, transform.steps.length - 1);
+			result.push(
+				new Rebaseable(
+					mapped,
+					mapped.invert(transform.docs[transform.docs.length - 1]),
+					steps[i].origin,
+				),
+			);
+		}
+	}
+	return result;
 }
 
 // This state field accumulates changes that have to be sent to the
@@ -59,164 +52,151 @@ export function rebaseSteps(
 // defined by the plugin, and will be available as the `collab` field
 // in the resulting editor state.
 class CollabState {
-  constructor(
-    // The version number of the last update received from the central
-    // authority. Starts at 0 or the value of the `version` property
-    // in the option object, for the editor's value when the option
-    // was enabled.
-    readonly version: number,
-    // The local steps that havent been successfully sent to the
-    // server yet.
-    readonly unconfirmed: readonly Rebaseable[],
-  ) {}
+	constructor(
+		// The version number of the last update received from the central
+		// authority. Starts at 0 or the value of the `version` property
+		// in the option object, for the editor's value when the option
+		// was enabled.
+		readonly version: number,
+		// The local steps that havent been successfully sent to the
+		// server yet.
+		readonly unconfirmed: readonly Rebaseable[],
+	) {}
 }
 
 function unconfirmedFrom(transform: ProseMirrorTransform) {
-  let result = [];
-  for (let i = 0; i < transform.steps.length; i++) {
-    // Filter out the analytics steps, they don't need to be sent to the collab service
-    // Commented out because it broke undo behaviour
-    // TODO: Figure out how it broke undo
-    // if (transform.steps[i] instanceof AnalyticsStep) {
-    //   continue;
-    // }
+	let result = [];
+	for (let i = 0; i < transform.steps.length; i++) {
+		// Filter out the analytics steps, they don't need to be sent to the collab service
+		// Commented out because it broke undo behaviour
+		// TODO: Figure out how it broke undo
+		// if (transform.steps[i] instanceof AnalyticsStep) {
+		//   continue;
+		// }
 
-    result.push(
-      new Rebaseable(
-        transform.steps[i],
-        transform.steps[i].invert(transform.docs[i]),
-        transform,
-      ),
-    );
-  }
-  return result;
+		result.push(
+			new Rebaseable(transform.steps[i], transform.steps[i].invert(transform.docs[i]), transform),
+		);
+	}
+	return result;
 }
 
 const collabKey = new PluginKey<CollabState>('collab');
 
 type CollabConfig = {
-  /// The starting version number of the collaborative editing.
-  /// Defaults to 0.
-  version?: number;
+	/// The starting version number of the collaborative editing.
+	/// Defaults to 0.
+	version?: number;
 
-  /// This client's ID, used to distinguish its changes from those of
-  /// other clients. Defaults to a random 32-bit number.
-  clientID?: number | string | null;
+	/// This client's ID, used to distinguish its changes from those of
+	/// other clients. Defaults to a random 32-bit number.
+	clientID?: number | string | null;
 };
 
 /// Creates a plugin that enables the collaborative editing framework
 /// for the editor.
 export function collab(config: CollabConfig = {}): Plugin {
-  let conf: Required<CollabConfig> = {
-    version: config.version || 0,
-    clientID:
-      // eslint-disable-next-line eqeqeq
-      config.clientID == null
-        ? Math.floor(Math.random() * 0xffffffff)
-        : config.clientID,
-  };
+	let conf: Required<CollabConfig> = {
+		version: config.version || 0,
+		clientID:
+			// eslint-disable-next-line eqeqeq
+			config.clientID == null ? Math.floor(Math.random() * 0xffffffff) : config.clientID,
+	};
 
-  return new Plugin<CollabState>({
-    key: collabKey,
+	return new Plugin<CollabState>({
+		key: collabKey,
 
-    state: {
-      init: () => new CollabState(conf.version, []),
-      apply(tr, collab) {
-        let newState = tr.getMeta(collabKey);
-        if (newState) {
-          return newState;
-        }
-        if (tr.docChanged) {
-          return new CollabState(
-            collab.version,
-            collab.unconfirmed.concat(
-              unconfirmedFrom(tr as ProseMirrorTransform),
-            ),
-          );
-        }
-        return collab;
-      },
-    },
+		state: {
+			init: () => new CollabState(conf.version, []),
+			apply(tr, collab) {
+				let newState = tr.getMeta(collabKey);
+				if (newState) {
+					return newState;
+				}
+				if (tr.docChanged) {
+					return new CollabState(
+						collab.version,
+						collab.unconfirmed.concat(unconfirmedFrom(tr as ProseMirrorTransform)),
+					);
+				}
+				return collab;
+			},
+		},
 
-    config: conf,
+		config: conf,
 
-    // This is used to notify the history plugin to not merge steps,
-    // so that the history can be rebased.
-    historyPreserveItems: true,
-  });
+		// This is used to notify the history plugin to not merge steps,
+		// so that the history can be rebased.
+		historyPreserveItems: true,
+	});
 }
 
 /// Create a transaction that represents a set of new steps received from
 /// the authority. Applying this transaction moves the state forward to
 /// adjust to the authority's view of the document.
 export function receiveTransaction(
-  state: EditorState,
-  steps: readonly ProseMirrorStep[],
-  clientIDs: readonly (string | number)[],
-  options: {
-    /// When enabled (the default is `false`), if the current
-    /// selection is a [text selection](#state.TextSelection), its
-    /// sides are mapped with a negative bias for this transaction, so
-    /// that content inserted at the cursor ends up after the cursor.
-    /// Users usually prefer this, but it isn't done by default for
-    /// reasons of backwards compatibility.
-    mapSelectionBackward?: boolean;
-  } = {},
+	state: EditorState,
+	steps: readonly ProseMirrorStep[],
+	clientIDs: readonly (string | number)[],
+	options: {
+		/// When enabled (the default is `false`), if the current
+		/// selection is a [text selection](#state.TextSelection), its
+		/// sides are mapped with a negative bias for this transaction, so
+		/// that content inserted at the cursor ends up after the cursor.
+		/// Users usually prefer this, but it isn't done by default for
+		/// reasons of backwards compatibility.
+		mapSelectionBackward?: boolean;
+	} = {},
 ) {
-  // Pushes a set of steps (received from the central authority) into
-  // the editor state (which should have the collab plugin enabled).
-  // Will recognize its own changes, and confirm unconfirmed steps as
-  // appropriate. Remaining unconfirmed steps will be rebased over
-  // remote steps.
-  let collabState = collabKey.getState(state);
-  let version = (collabState?.version || 0) + steps.length;
-  let ourID: string | number = (collabKey.get(state)!.spec as any).config
-    .clientID;
+	// Pushes a set of steps (received from the central authority) into
+	// the editor state (which should have the collab plugin enabled).
+	// Will recognize its own changes, and confirm unconfirmed steps as
+	// appropriate. Remaining unconfirmed steps will be rebased over
+	// remote steps.
+	let collabState = collabKey.getState(state);
+	let version = (collabState?.version || 0) + steps.length;
+	let ourID: string | number = (collabKey.get(state)!.spec as any).config.clientID;
 
-  // Find out which prefix of the steps originated with us
-  let ours = 0;
-  // eslint-disable-next-line eqeqeq
-  while (ours < clientIDs.length && clientIDs[ours] == ourID) {
-    ++ours;
-  }
-  let unconfirmed = collabState?.unconfirmed.slice(ours) || [];
-  steps = ours ? steps.slice(ours) : steps;
+	// Find out which prefix of the steps originated with us
+	let ours = 0;
+	// eslint-disable-next-line eqeqeq
+	while (ours < clientIDs.length && clientIDs[ours] == ourID) {
+		++ours;
+	}
+	let unconfirmed = collabState?.unconfirmed.slice(ours) || [];
+	steps = ours ? steps.slice(ours) : steps;
 
-  // If all steps originated with us, we're done.
-  if (!steps.length) {
-    return state.tr.setMeta(collabKey, new CollabState(version, unconfirmed));
-  }
+	// If all steps originated with us, we're done.
+	if (!steps.length) {
+		return state.tr.setMeta(collabKey, new CollabState(version, unconfirmed));
+	}
 
-  let nUnconfirmed = unconfirmed.length;
-  let tr = state.tr;
-  if (nUnconfirmed) {
-    unconfirmed = rebaseSteps(unconfirmed, steps, tr);
-  } else {
-    for (let i = 0; i < steps.length; i++) {
-      tr.step(steps[i]);
-    }
-    unconfirmed = [];
-  }
+	let nUnconfirmed = unconfirmed.length;
+	let tr = state.tr;
+	if (nUnconfirmed) {
+		unconfirmed = rebaseSteps(unconfirmed, steps, tr);
+	} else {
+		for (let i = 0; i < steps.length; i++) {
+			tr.step(steps[i]);
+		}
+		unconfirmed = [];
+	}
 
-  let newCollabState = new CollabState(version, unconfirmed);
-  if (
-    options &&
-    options.mapSelectionBackward &&
-    state.selection instanceof TextSelection
-  ) {
-    tr.setSelection(
-      TextSelection.between(
-        tr.doc.resolve(tr.mapping.map(state.selection.anchor, -1)),
-        tr.doc.resolve(tr.mapping.map(state.selection.head, -1)),
-        -1,
-      ),
-    );
-    (tr as any).updated &= ~1;
-  }
-  return tr
-    .setMeta('rebased', nUnconfirmed)
-    .setMeta('addToHistory', false)
-    .setMeta(collabKey, newCollabState);
+	let newCollabState = new CollabState(version, unconfirmed);
+	if (options && options.mapSelectionBackward && state.selection instanceof TextSelection) {
+		tr.setSelection(
+			TextSelection.between(
+				tr.doc.resolve(tr.mapping.map(state.selection.anchor, -1)),
+				tr.doc.resolve(tr.mapping.map(state.selection.head, -1)),
+				-1,
+			),
+		);
+		(tr as any).updated &= ~1;
+	}
+	return tr
+		.setMeta('rebased', nUnconfirmed)
+		.setMeta('addToHistory', false)
+		.setMeta(collabKey, newCollabState);
 }
 
 /// Provides data describing the editor's unconfirmed steps, which need
@@ -229,36 +209,36 @@ export function receiveTransaction(
 /// rebased, whereas the origin transactions are still the old,
 /// unchanged objects.
 export function sendableSteps(state: EditorState): {
-  version: number;
-  steps: readonly ProseMirrorStep[];
-  clientID: number | string;
-  origins: readonly Transaction[];
+	version: number;
+	steps: readonly ProseMirrorStep[];
+	clientID: number | string;
+	origins: readonly Transaction[];
 } | null {
-  let collabState = collabKey.getState(state);
+	let collabState = collabKey.getState(state);
 
-  if (!collabState) {
-    return null;
-  }
+	if (!collabState) {
+		return null;
+	}
 
-  // eslint-disable-next-line eqeqeq
-  if (collabState.unconfirmed.length == 0) {
-    return null;
-  }
-  return {
-    version: collabState.version,
-    steps: collabState.unconfirmed.map(s => s.step),
-    clientID: (collabKey.get(state)!.spec as any).config.clientID,
-    get origins() {
-      return (
-        (this as any)._origins ||
-        ((this as any)._origins = collabState?.unconfirmed.map(s => s.origin))
-      );
-    },
-  };
+	// eslint-disable-next-line eqeqeq
+	if (collabState.unconfirmed.length == 0) {
+		return null;
+	}
+	return {
+		version: collabState.version,
+		steps: collabState.unconfirmed.map((s) => s.step),
+		clientID: (collabKey.get(state)!.spec as any).config.clientID,
+		get origins() {
+			return (
+				(this as any)._origins ||
+				((this as any)._origins = collabState?.unconfirmed.map((s) => s.origin))
+			);
+		},
+	};
 }
 
 /// Get the version up to which the collab plugin has synced with the
 /// central authority.
 export function getVersion(state: EditorState): number {
-  return collabKey.getState(state)?.version || 0;
+	return collabKey.getState(state)?.version || 0;
 }

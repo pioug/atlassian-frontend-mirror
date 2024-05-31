@@ -7,33 +7,30 @@ import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { createExternalMediaNode } from '../utils';
 
 export function inputRulePlugin(
-  schema: Schema,
-  featureFlags: FeatureFlags,
+	schema: Schema,
+	featureFlags: FeatureFlags,
 ): SafePlugin | undefined {
-  if (!schema.nodes.media || !schema.nodes.mediaSingle) {
-    return;
-  }
+	if (!schema.nodes.media || !schema.nodes.mediaSingle) {
+		return;
+	}
 
-  // ![something](link) should convert to an image
-  const imageRule = createRule(
-    /!\[(.*)\]\((\S+)\)$/,
-    (state, match, start, end) => {
-      const { schema } = state;
-      const attrs = {
-        src: match[2],
-        alt: match[1],
-      };
+	// ![something](link) should convert to an image
+	const imageRule = createRule(/!\[(.*)\]\((\S+)\)$/, (state, match, start, end) => {
+		const { schema } = state;
+		const attrs = {
+			src: match[2],
+			alt: match[1],
+		};
 
-      const node = createExternalMediaNode(attrs.src, schema);
-      if (node) {
-        return state.tr.replaceWith(start, end, node);
-      }
+		const node = createExternalMediaNode(attrs.src, schema);
+		if (node) {
+			return state.tr.replaceWith(start, end, node);
+		}
 
-      return null;
-    },
-  );
+		return null;
+	});
 
-  return new SafePlugin(createPlugin('image-upload', [imageRule]));
+	return new SafePlugin(createPlugin('image-upload', [imageRule]));
 }
 
 export default inputRulePlugin;

@@ -4,18 +4,11 @@ import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { closest } from '@atlaskit/editor-common/utils';
-import type {
-  EditorState,
-  ReadonlyTransaction,
-} from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE } from '../constants';
-import type {
-  PopupMountPointReference,
-  TypeAheadHandler,
-  TypeAheadPluginState,
-} from '../types';
+import type { PopupMountPointReference, TypeAheadHandler, TypeAheadPluginState } from '../types';
 
 import { ACTIONS } from './actions';
 import { factoryDecorations } from './decorations';
@@ -23,120 +16,112 @@ import { pluginKey } from './key';
 import { createReducer } from './reducer';
 import { isInsertionTransaction } from './utils';
 
-const hasValidTypeAheadStep = (
-  tr: ReadonlyTransaction,
-): InsertTypeAheadStep | null => {
-  const steps = tr.steps.filter(step => step instanceof InsertTypeAheadStep);
+const hasValidTypeAheadStep = (tr: ReadonlyTransaction): InsertTypeAheadStep | null => {
+	const steps = tr.steps.filter((step) => step instanceof InsertTypeAheadStep);
 
-  // There are some cases, like collab rebase, where the steps are re-applied
-  // We should not re open the type-ahead for those cases
-  if (steps.length === 1) {
-    return steps[0] as InsertTypeAheadStep;
-  }
+	// There are some cases, like collab rebase, where the steps are re-applied
+	// We should not re open the type-ahead for those cases
+	if (steps.length === 1) {
+		return steps[0] as InsertTypeAheadStep;
+	}
 
-  return null;
+	return null;
 };
 
 type Props = {
-  reactDispatch: Dispatch;
-  popupMountRef: PopupMountPointReference;
-  typeAheadHandlers: Array<TypeAheadHandler>;
-  getIntl: () => IntlShape;
+	reactDispatch: Dispatch;
+	popupMountRef: PopupMountPointReference;
+	typeAheadHandlers: Array<TypeAheadHandler>;
+	getIntl: () => IntlShape;
 };
 export function createPlugin({
-  reactDispatch,
-  popupMountRef,
-  typeAheadHandlers,
-  getIntl,
+	reactDispatch,
+	popupMountRef,
+	typeAheadHandlers,
+	getIntl,
 }: Props): SafePlugin {
-  const intl = getIntl();
-  const { createDecorations, removeDecorations } = factoryDecorations({
-    intl,
-    popupMountRef,
-  });
-  const reducer = createReducer({
-    createDecorations,
-    removeDecorations,
-    typeAheadHandlers,
-    popupMountRef,
-  });
-  return new SafePlugin<TypeAheadPluginState>({
-    key: pluginKey,
+	const intl = getIntl();
+	const { createDecorations, removeDecorations } = factoryDecorations({
+		intl,
+		popupMountRef,
+	});
+	const reducer = createReducer({
+		createDecorations,
+		removeDecorations,
+		typeAheadHandlers,
+		popupMountRef,
+	});
+	return new SafePlugin<TypeAheadPluginState>({
+		key: pluginKey,
 
-    state: {
-      init() {
-        return {
-          typeAheadHandlers,
-          query: '',
-          decorationSet: DecorationSet.empty,
-          decorationElement: null,
-          items: [],
-          selectedIndex: -1,
-          stats: null,
-          inputMethod: null,
-        };
-      },
+		state: {
+			init() {
+				return {
+					typeAheadHandlers,
+					query: '',
+					decorationSet: DecorationSet.empty,
+					decorationElement: null,
+					items: [],
+					selectedIndex: -1,
+					stats: null,
+					inputMethod: null,
+				};
+			},
 
-      apply(tr, currentPluginState, oldEditorState, state) {
-        const customStep = hasValidTypeAheadStep(tr);
+			apply(tr, currentPluginState, oldEditorState, state) {
+				const customStep = hasValidTypeAheadStep(tr);
 
-        const nextPluginState = reducer(tr, currentPluginState, customStep);
+				const nextPluginState = reducer(tr, currentPluginState, customStep);
 
-        if (currentPluginState !== nextPluginState) {
-          reactDispatch(pluginKey, nextPluginState);
-        }
+				if (currentPluginState !== nextPluginState) {
+					reactDispatch(pluginKey, nextPluginState);
+				}
 
-        return nextPluginState;
-      },
-    },
+				return nextPluginState;
+			},
+		},
 
-    appendTransaction(transactions, _oldState, newState) {
-      const insertItemCallback = isInsertionTransaction(
-        transactions,
-        ACTIONS.INSERT_RAW_QUERY,
-      );
-      if (insertItemCallback) {
-        const tr = insertItemCallback(newState);
-        if (tr) {
-          return tr;
-        }
-      }
-    },
+		appendTransaction(transactions, _oldState, newState) {
+			const insertItemCallback = isInsertionTransaction(transactions, ACTIONS.INSERT_RAW_QUERY);
+			if (insertItemCallback) {
+				const tr = insertItemCallback(newState);
+				if (tr) {
+					return tr;
+				}
+			}
+		},
 
-    view() {
-      return {
-        update(editorView) {},
-      };
-    },
+		view() {
+			return {
+				update(editorView) {},
+			};
+		},
 
-    props: {
-      decorations: (state: EditorState) => {
-        return pluginKey.getState(state)?.decorationSet;
-      },
+		props: {
+			decorations: (state: EditorState) => {
+				return pluginKey.getState(state)?.decorationSet;
+			},
 
-      handleDOMEvents: {
-        compositionend: (view, event) => {
-          return false;
-        },
+			handleDOMEvents: {
+				compositionend: (view, event) => {
+					return false;
+				},
 
-        click: (view, event) => {
-          const { target } = event;
-          // ProseMirror view listen to any click event inside of it
-          // When this event is coming from the typeahead
-          // we should tell to ProseMirror to sit down and relax
-          // cuz we know what we are doing (I hope)
-          if (
-            target instanceof HTMLElement &&
-            closest(
-              target,
-              `[data-type-ahead=${TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE}]`,
-            )
-          ) {
-            return true;
-          }
-          return false;
-        },
-      },
-    },
-  });
+				click: (view, event) => {
+					const { target } = event;
+					// ProseMirror view listen to any click event inside of it
+					// When this event is coming from the typeahead
+					// we should tell to ProseMirror to sit down and relax
+					// cuz we know what we are doing (I hope)
+					if (
+						target instanceof HTMLElement &&
+						closest(target, `[data-type-ahead=${TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE}]`)
+					) {
+						return true;
+					}
+					return false;
+				},
+			},
+		},
+	});
 }

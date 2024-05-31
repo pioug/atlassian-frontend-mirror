@@ -15,70 +15,46 @@ import type { LinkContentType } from '../../../provider-factory';
 import { utilMessages } from './messages';
 
 export function filterUniqueItems<T>(
-  arr: Array<T>,
-  comparator?: (firstItem: T, secondItem: T) => boolean,
+	arr: Array<T>,
+	comparator?: (firstItem: T, secondItem: T) => boolean,
 ): Array<T> {
-  return arr.filter((firstItem, index, self) => {
-    return (
-      self.findIndex((secondItem) =>
-        comparator
-          ? comparator(firstItem, secondItem)
-          : firstItem === secondItem,
-      ) === index
-    );
-  });
+	return arr.filter((firstItem, index, self) => {
+		return (
+			self.findIndex((secondItem) =>
+				comparator ? comparator(firstItem, secondItem) : firstItem === secondItem,
+			) === index
+		);
+	});
 }
 
 const Issue16 = (props: WrappedComponentProps) => {
-  const { intl } = props;
-  return (
-    <Issue16Icon
-      label={intl.formatMessage(utilMessages.hyperlinkIconIssueLabel)}
-    />
-  );
+	const { intl } = props;
+	return <Issue16Icon label={intl.formatMessage(utilMessages.hyperlinkIconIssueLabel)} />;
 };
 
 const Bug16 = (props: WrappedComponentProps) => {
-  const { intl } = props;
-  return (
-    <Bug16Icon label={intl.formatMessage(utilMessages.hyperlinkIconBugLabel)} />
-  );
+	const { intl } = props;
+	return <Bug16Icon label={intl.formatMessage(utilMessages.hyperlinkIconBugLabel)} />;
 };
 
 const Story16 = (props: WrappedComponentProps) => {
-  const { intl } = props;
-  return (
-    <Story16Icon
-      label={intl.formatMessage(utilMessages.hyperlinkIconStoryLabel)}
-    />
-  );
+	const { intl } = props;
+	return <Story16Icon label={intl.formatMessage(utilMessages.hyperlinkIconStoryLabel)} />;
 };
 
 const Task16 = (props: WrappedComponentProps) => {
-  const { intl } = props;
-  return (
-    <Task16Icon
-      label={intl.formatMessage(utilMessages.hyperlinkIconTaskLabel)}
-    />
-  );
+	const { intl } = props;
+	return <Task16Icon label={intl.formatMessage(utilMessages.hyperlinkIconTaskLabel)} />;
 };
 
 const Page16 = (props: WrappedComponentProps) => {
-  const { intl } = props;
-  return (
-    <Page16Icon
-      label={intl.formatMessage(utilMessages.hyperlinkIconPageLabel)}
-    />
-  );
+	const { intl } = props;
+	return <Page16Icon label={intl.formatMessage(utilMessages.hyperlinkIconPageLabel)} />;
 };
 
 const Blog16 = (props: WrappedComponentProps) => {
-  const { intl } = props;
-  return (
-    <Blog16Icon
-      label={intl.formatMessage(utilMessages.hyperlinkIconBlogLabel)}
-    />
-  );
+	const { intl } = props;
+	return <Blog16Icon label={intl.formatMessage(utilMessages.hyperlinkIconBlogLabel)} />;
 };
 
 const IntlIssue16Icon = injectIntl(Issue16);
@@ -89,20 +65,20 @@ const IntlPage16Icon = injectIntl(Page16);
 const IntlBlog16Icon = injectIntl(Blog16);
 
 export const mapContentTypeToIcon: {
-  [key in LinkContentType]?: React.ReactElement;
+	[key in LinkContentType]?: React.ReactElement;
 } = {
-  'jira.issue': <IntlIssue16Icon />,
-  'jira.issue.bug': <IntlBug16Icon />,
-  'jira.issue.story': <IntlStory16Icon />,
-  'jira.issue.task': <IntlTask16Icon />,
-  'confluence.page': <IntlPage16Icon />,
-  'confluence.blogpost': <IntlBlog16Icon />,
+	'jira.issue': <IntlIssue16Icon />,
+	'jira.issue.bug': <IntlBug16Icon />,
+	'jira.issue.story': <IntlStory16Icon />,
+	'jira.issue.task': <IntlTask16Icon />,
+	'confluence.page': <IntlPage16Icon />,
+	'confluence.blogpost': <IntlBlog16Icon />,
 };
 
 export const sha1 = (input: string): string => {
-  return Rusha.createHash().update(input).digest('hex');
+	return Rusha.createHash().update(input).digest('hex');
 };
 
 export const wordCount = (input: string): number => {
-  return input.split(' ').length;
+	return input.split(' ').length;
 };

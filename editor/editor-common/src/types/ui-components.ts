@@ -10,23 +10,23 @@ import type { EditorActionsOptions } from './editor-actions';
 import type { EditorAppearance } from './editor-appearance';
 
 export type UiComponentFactoryParams = {
-  editorView: EditorView;
-  editorActions: EditorActionsOptions;
-  eventDispatcher: EventDispatcher;
-  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-  providerFactory: ProviderFactory;
-  appearance: EditorAppearance;
-  popupsMountPoint?: HTMLElement;
-  popupsBoundariesElement?: HTMLElement;
-  popupsScrollableElement?: HTMLElement;
-  containerElement: HTMLElement | null;
-  disabled: boolean;
-  wrapperElement: HTMLElement | null;
+	editorView: EditorView;
+	editorActions: EditorActionsOptions;
+	eventDispatcher: EventDispatcher;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	providerFactory: ProviderFactory;
+	appearance: EditorAppearance;
+	popupsMountPoint?: HTMLElement;
+	popupsBoundariesElement?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	containerElement: HTMLElement | null;
+	disabled: boolean;
+	wrapperElement: HTMLElement | null;
 };
 export type UIComponentFactory = (
-  params: UiComponentFactoryParams,
+	params: UiComponentFactoryParams,
 ) => React.ReactElement<any> | null;
 
 export type ReactHookFactory = (
-  params: Pick<UiComponentFactoryParams, 'editorView' | 'containerElement'>,
+	params: Pick<UiComponentFactoryParams, 'editorView' | 'containerElement'>,
 ) => void;

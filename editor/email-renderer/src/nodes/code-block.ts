@@ -31,9 +31,9 @@ export const styles = `
 `;
 
 export default function codeBlock({ text }: NodeSerializerOpts) {
-  const sanitizedText = (text || '').replace(/\n/g, '<br/>');
+	const sanitizedText = (text || '').replace(/\n/g, '<br/>');
 
-  const pre = createTag('pre', { class: `${className}-pre` }, sanitizedText);
+	const pre = createTag('pre', { class: `${className}-pre` }, sanitizedText);
 
-  return createTag('div', { class: `${className}-div` }, pre);
+	return createTag('div', { class: `${className}-div` }, pre);
 }

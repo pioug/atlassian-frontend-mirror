@@ -4,14 +4,14 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 export type DataConsumerPlugin = NextEditorPlugin<'dataConsumer'>;
 
 export const dataConsumerPlugin: DataConsumerPlugin = () => ({
-  name: 'dataConsumer',
+	name: 'dataConsumer',
 
-  marks() {
-    return [
-      {
-        name: 'dataConsumer',
-        mark: dataConsumer,
-      },
-    ];
-  },
+	marks() {
+		return [
+			{
+				name: 'dataConsumer',
+				mark: dataConsumer,
+			},
+		];
+	},
 });

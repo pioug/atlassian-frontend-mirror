@@ -15,92 +15,85 @@ import mediaSingleInvalidEmptyContent from './__fixtures__/mediasingle-invalid-e
 import mediaSingleInvalidNullContent from './__fixtures__/mediasingle-invalid-null-content-adf.json';
 
 describe('transformNodesMissingContent', () => {
-  describe('lists', () => {
-    describe('when nodes are invalidly empty', () => {
-      it.each([
-        ['bulletList', bulletListInvalidEmptyAdf],
-        ['orderedList', orderedListInvalidEmptyAdf],
-      ])('should create valid filler content for %s', (_, adf) => {
-        let { isTransformed, transformedAdf } =
-          transformNodesMissingContent(adf);
-        expect(isTransformed).toEqual(true);
-        expect(transformedAdf).toMatchSnapshot();
-      });
-    });
+	describe('lists', () => {
+		describe('when nodes are invalidly empty', () => {
+			it.each([
+				['bulletList', bulletListInvalidEmptyAdf],
+				['orderedList', orderedListInvalidEmptyAdf],
+			])('should create valid filler content for %s', (_, adf) => {
+				let { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
+				expect(isTransformed).toEqual(true);
+				expect(transformedAdf).toMatchSnapshot();
+			});
+		});
 
-    describe('when list nodes have invalid children', () => {
-      it.each([
-        ['bulletList with text', bulletListWithTextInvalidAdf],
-        ['orderedList with text', orderedListWithTextInvalidAdf],
-      ])('should create valid listItem nodes for %s', (_, adf) => {
-        let { isTransformed, transformedAdf } =
-          transformNodesMissingContent(adf);
-        expect(isTransformed).toEqual(true);
-        expect(transformedAdf).toMatchSnapshot();
-      });
-    });
+		describe('when list nodes have invalid children', () => {
+			it.each([
+				['bulletList with text', bulletListWithTextInvalidAdf],
+				['orderedList with text', orderedListWithTextInvalidAdf],
+			])('should create valid listItem nodes for %s', (_, adf) => {
+				let { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
+				expect(isTransformed).toEqual(true);
+				expect(transformedAdf).toMatchSnapshot();
+			});
+		});
 
-    describe('when complex lists are valid', () => {
-      it('should not transform any content, transformedAdf should be unchanged', () => {
-        let { isTransformed, transformedAdf } =
-          transformNodesMissingContent(complexListsValidAdf);
-        expect(isTransformed).toEqual(false);
-        expect(transformedAdf).toEqual(complexListsValidAdf);
-      });
-    });
-  });
+		describe('when complex lists are valid', () => {
+			it('should not transform any content, transformedAdf should be unchanged', () => {
+				let { isTransformed, transformedAdf } = transformNodesMissingContent(complexListsValidAdf);
+				expect(isTransformed).toEqual(false);
+				expect(transformedAdf).toEqual(complexListsValidAdf);
+			});
+		});
+	});
 
-  describe('tables', () => {
-    describe('when nodes are invalidly empty', () => {
-      it.each([
-        ['tableRow', tableRowInvalidEmptyAdf],
-        [
-          'tableRow (while alongside valid non-empty tableRows)',
-          tableRowsNonEmptyAndInvalidEmptyAdf,
-        ],
-        ['tableCell', tableCellInvalidEmptyAdf],
-        ['tableCell (with attributes)', tableCellWithAttrsInvalidEmptyAdf],
-      ])('should create valid filler content for %s', (_, adf) => {
-        let { isTransformed, transformedAdf } =
-          transformNodesMissingContent(adf);
-        expect(isTransformed).toEqual(true);
-        expect(transformedAdf).toMatchSnapshot();
-      });
-    });
+	describe('tables', () => {
+		describe('when nodes are invalidly empty', () => {
+			it.each([
+				['tableRow', tableRowInvalidEmptyAdf],
+				[
+					'tableRow (while alongside valid non-empty tableRows)',
+					tableRowsNonEmptyAndInvalidEmptyAdf,
+				],
+				['tableCell', tableCellInvalidEmptyAdf],
+				['tableCell (with attributes)', tableCellWithAttrsInvalidEmptyAdf],
+			])('should create valid filler content for %s', (_, adf) => {
+				let { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
+				expect(isTransformed).toEqual(true);
+				expect(transformedAdf).toMatchSnapshot();
+			});
+		});
 
-    describe('when table nodes have invalid children', () => {
-      it.each([['table with text', tableWithTextInvalidAdf]])(
-        'should create valid tableRow nodes for %s',
-        (_, adf) => {
-          let { isTransformed, transformedAdf } =
-            transformNodesMissingContent(adf);
-          expect(isTransformed).toEqual(true);
-          expect(transformedAdf).toMatchSnapshot();
-        },
-      );
-    });
+		describe('when table nodes have invalid children', () => {
+			it.each([['table with text', tableWithTextInvalidAdf]])(
+				'should create valid tableRow nodes for %s',
+				(_, adf) => {
+					let { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
+					expect(isTransformed).toEqual(true);
+					expect(transformedAdf).toMatchSnapshot();
+				},
+			);
+		});
 
-    describe('when complex table is valid', () => {
-      it('should not transform any content, transformedAdf should be unchanged', () => {
-        let { isTransformed, transformedAdf } =
-          transformNodesMissingContent(complexTableValidAdf);
-        expect(isTransformed).toEqual(false);
-        expect(transformedAdf).toEqual(complexTableValidAdf);
-      });
-    });
-  });
+		describe('when complex table is valid', () => {
+			it('should not transform any content, transformedAdf should be unchanged', () => {
+				let { isTransformed, transformedAdf } = transformNodesMissingContent(complexTableValidAdf);
+				expect(isTransformed).toEqual(false);
+				expect(transformedAdf).toEqual(complexTableValidAdf);
+			});
+		});
+	});
 
-  describe('mediaSingle', () => {
-    describe('is removed when has no children', () => {
-      it.each([
-        ['when content is an empty array', mediaSingleInvalidEmptyContent],
-        ['when content is null', mediaSingleInvalidNullContent],
-      ])('%s', (_, adf) => {
-        let { isTransformed, transformedAdf } =
-          transformNodesMissingContent(adf);
-        expect(isTransformed).toEqual(true);
-        expect(transformedAdf).toMatchSnapshot();
-      });
-    });
-  });
+	describe('mediaSingle', () => {
+		describe('is removed when has no children', () => {
+			it.each([
+				['when content is an empty array', mediaSingleInvalidEmptyContent],
+				['when content is null', mediaSingleInvalidNullContent],
+			])('%s', (_, adf) => {
+				let { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
+				expect(isTransformed).toEqual(true);
+				expect(transformedAdf).toMatchSnapshot();
+			});
+		});
+	});
 });

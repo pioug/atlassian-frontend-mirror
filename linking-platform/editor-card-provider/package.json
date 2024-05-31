@@ -52,7 +52,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "typescript": "~5.4.2"
   },
@@ -66,6 +65,5 @@
     "platform.linking-platform.jira-dashboard-embed_ycjcj": {
       "type": "boolean"
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

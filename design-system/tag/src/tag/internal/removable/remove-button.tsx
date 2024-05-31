@@ -34,7 +34,6 @@ const removeButtonStyles = xcss({
   backgroundColor: 'color.background.neutral.subtle',
   border: 'none',
   // Once legacy theming is dropped, this can be changed to 'border.radius'
-  // @ts-expect-error
   borderRadius: `var(${cssVar.borderRadius})`,
   // Once legacy theming is dropped, this can be changed to 'inherit'
   // @ts-expect-error

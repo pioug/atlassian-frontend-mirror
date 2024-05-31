@@ -5,111 +5,110 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
 type PmMutationRecord =
-  | MutationRecord
-  | {
-      type: 'selection';
-      target: Element;
-    };
+	| MutationRecord
+	| {
+			type: 'selection';
+			target: Element;
+	  };
 
 const serializePlaceholderNode = (node: PMNode): HTMLElement => {
-  const element = document.createElement('span');
+	const element = document.createElement('span');
 
-  element.classList.add('pm-placeholder');
+	element.classList.add('pm-placeholder');
 
-  // the inline node api test suite requires the following class name
-  element.classList.add('placeholderView-content-wrap');
+	// the inline node api test suite requires the following class name
+	element.classList.add('placeholderView-content-wrap');
 
-  element.innerText = ZERO_WIDTH_SPACE;
+	element.innerText = ZERO_WIDTH_SPACE;
 
-  const elementChildren = document.createElement('span');
-  elementChildren.classList.add('pm-placeholder__text');
-  elementChildren.dataset.placeholder = node.attrs.text;
+	const elementChildren = document.createElement('span');
+	elementChildren.classList.add('pm-placeholder__text');
+	elementChildren.dataset.placeholder = node.attrs.text;
 
-  elementChildren.setAttribute('contenteditable', 'false');
+	elementChildren.setAttribute('contenteditable', 'false');
 
-  element.appendChild(elementChildren);
-  if (browser.safari) {
-    element.appendChild(document.createTextNode(ZERO_WIDTH_SPACE));
-  } else {
-    element.appendChild(document.createElement('wbr'));
-  }
+	element.appendChild(elementChildren);
+	if (browser.safari) {
+		element.appendChild(document.createTextNode(ZERO_WIDTH_SPACE));
+	} else {
+		element.appendChild(document.createElement('wbr'));
+	}
 
-  return element;
+	return element;
 };
 
 export class PlaceholderTextNodeView implements NodeView {
-  public readonly dom: Node;
+	public readonly dom: Node;
 
-  public constructor(
-    private readonly node: PMNode,
-    private readonly view: EditorView,
-    private readonly getPos: getPosHandler,
-  ) {
-    this.dom = serializePlaceholderNode(this.node);
-    this.getPos = getPos;
-  }
+	public constructor(
+		private readonly node: PMNode,
+		private readonly view: EditorView,
+		private readonly getPos: getPosHandler,
+	) {
+		this.dom = serializePlaceholderNode(this.node);
+		this.getPos = getPos;
+	}
 
-  public stopEvent(e: Event) {
-    if (e.type === 'mousedown' && typeof this.getPos === 'function') {
-      e.preventDefault();
+	public stopEvent(e: Event) {
+		if (e.type === 'mousedown' && typeof this.getPos === 'function') {
+			e.preventDefault();
 
-      const { view } = this;
-      const startNodePosition = this.getPos();
+			const { view } = this;
+			const startNodePosition = this.getPos();
 
-      if (typeof startNodePosition !== 'number') {
-        return false;
-      }
+			if (typeof startNodePosition !== 'number') {
+				return false;
+			}
 
-      const tr = view.state.tr;
+			const tr = view.state.tr;
 
-      tr.setSelection(Selection.near(tr.doc.resolve(startNodePosition)));
+			tr.setSelection(Selection.near(tr.doc.resolve(startNodePosition)));
 
-      view.dispatch(tr);
+			view.dispatch(tr);
 
-      if (!view.hasFocus()) {
-        window.requestAnimationFrame(() => {
-          view.focus();
-        });
-      }
+			if (!view.hasFocus()) {
+				window.requestAnimationFrame(() => {
+					view.focus();
+				});
+			}
 
-      return true;
-    }
+			return true;
+		}
 
-    return false;
-  }
+		return false;
+	}
 
-  public ignoreMutation(record: PmMutationRecord) {
-    if (typeof this.getPos !== 'function' || record.type !== 'selection') {
-      return true;
-    }
+	public ignoreMutation(record: PmMutationRecord) {
+		if (typeof this.getPos !== 'function' || record.type !== 'selection') {
+			return true;
+		}
 
-    const { view, node } = this;
-    const placeholderStartPosition = this.getPos();
-    if (typeof placeholderStartPosition !== 'number') {
-      return false;
-    }
-    const placeholderEndPosition = placeholderStartPosition + node.nodeSize;
-    const selection = view.state.selection;
+		const { view, node } = this;
+		const placeholderStartPosition = this.getPos();
+		if (typeof placeholderStartPosition !== 'number') {
+			return false;
+		}
+		const placeholderEndPosition = placeholderStartPosition + node.nodeSize;
+		const selection = view.state.selection;
 
-    // when the selection is set right after the placeholder.
-    // we should let ProseMirror deal with this edge-case
-    if (selection.from === placeholderEndPosition) {
-      return false;
-    }
+		// when the selection is set right after the placeholder.
+		// we should let ProseMirror deal with this edge-case
+		if (selection.from === placeholderEndPosition) {
+			return false;
+		}
 
-    const isSelectionAtPlaceholder =
-      selection.from === placeholderStartPosition;
-    const isSelectionAfterlaceholder = selection.from > placeholderEndPosition;
+		const isSelectionAtPlaceholder = selection.from === placeholderStartPosition;
+		const isSelectionAfterlaceholder = selection.from > placeholderEndPosition;
 
-    if (isSelectionAtPlaceholder || isSelectionAfterlaceholder) {
-      const tr = view.state.tr;
+		if (isSelectionAtPlaceholder || isSelectionAfterlaceholder) {
+			const tr = view.state.tr;
 
-      tr.setSelection(Selection.near(tr.doc.resolve(placeholderEndPosition)));
+			tr.setSelection(Selection.near(tr.doc.resolve(placeholderEndPosition)));
 
-      view.dispatch(tr);
-      return true;
-    }
+			view.dispatch(tr);
+			return true;
+		}
 
-    return true;
-  }
+		return true;
+	}
 }

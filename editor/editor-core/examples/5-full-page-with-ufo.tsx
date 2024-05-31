@@ -10,18 +10,18 @@ import { default as FullPageExample } from './5-full-page';
  * We add it in the example here so we can see events coming from UFO in the console
  */
 payloadPublisher.setup({
-  product: 'examples',
-  gasv3: {
-    sendOperationalEvent: (event) => {
-      console.log('sendOperationalEvent:', event);
-    },
-  },
-  app: { version: { web: 'unknown' } },
+	product: 'examples',
+	gasv3: {
+		sendOperationalEvent: (event) => {
+			console.log('sendOperationalEvent:', event);
+		},
+	},
+	app: { version: { web: 'unknown' } },
 });
 ufologger.enable();
 
 const editorProps = {
-  featureFlags: { ufo: true },
+	featureFlags: { ufo: true },
 };
 
 export default () => <FullPageExample editorProps={editorProps} />;

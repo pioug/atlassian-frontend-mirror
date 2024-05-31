@@ -3,9 +3,9 @@ import { type NodeEncoder } from '..';
 import { unknown } from './unknown';
 
 export const embedCard: NodeEncoder = (node: PMNode): string => {
-  if (!node.attrs.url) {
-    return unknown(node);
-  }
+	if (!node.attrs.url) {
+		return unknown(node);
+	}
 
-  return `[${node.attrs.url}|${node.attrs.url}|smart-embed]`;
+	return `[${node.attrs.url}|${node.attrs.url}|smart-embed]`;
 };

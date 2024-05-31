@@ -9,29 +9,29 @@ export type Props = {};
 export type State = { locale: string; messages: { [key: string]: string } };
 
 export default class Example extends React.Component<Props, State> {
-  state: State = {
-    locale: 'en',
-    messages: {},
-  };
-  mediaOptions: MediaOptions = { featureFlags: { mediaInline: true } };
+	state: State = {
+		locale: 'en',
+		messages: {},
+	};
+	mediaOptions: MediaOptions = { featureFlags: { mediaInline: true } };
 
-  render() {
-    const { locale, messages } = this.state;
-    return (
-      <IntlProvider locale={locale} messages={messages}>
-        <RendererDemo
-          appearance="full-page"
-          serializer="react"
-          allowHeadingAnchorLinks
-          allowColumnSorting={true}
-          useSpecBasedValidator={true}
-          adfStage={'stage0'}
-          schema={getSchemaBasedOnStage('stage0')}
-          mediaOptions={this.mediaOptions}
-          document={adf}
-          withProviders={true}
-        />
-      </IntlProvider>
-    );
-  }
+	render() {
+		const { locale, messages } = this.state;
+		return (
+			<IntlProvider locale={locale} messages={messages}>
+				<RendererDemo
+					appearance="full-page"
+					serializer="react"
+					allowHeadingAnchorLinks
+					allowColumnSorting={true}
+					useSpecBasedValidator={true}
+					adfStage={'stage0'}
+					schema={getSchemaBasedOnStage('stage0')}
+					mediaOptions={this.mediaOptions}
+					document={adf}
+					withProviders={true}
+				/>
+			</IntlProvider>
+		);
+	}
 }

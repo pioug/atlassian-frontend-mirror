@@ -3,5 +3,5 @@ import mediaImageWidthBiggerThanColumnWidth from '../__fixtures__/media-image-wi
 import { MediaBaseRenderer } from '../__helpers/mediaRenderer';
 
 export const MediaBiggerThanColumnWidth = () => {
-  return <MediaBaseRenderer adf={mediaImageWidthBiggerThanColumnWidth} />;
+	return <MediaBaseRenderer adf={mediaImageWidthBiggerThanColumnWidth} />;
 };

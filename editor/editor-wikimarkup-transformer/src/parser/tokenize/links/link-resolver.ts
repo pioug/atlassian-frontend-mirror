@@ -17,9 +17,9 @@ import { issueLinkResolver } from './issue-link';
  * @return the corresponding link. If no link can be created, null is returned
  */
 type ContentLinkResolver = (
-  parsedLink: ContentLink,
-  schema: Schema,
-  context: Context,
+	parsedLink: ContentLink,
+	schema: Schema,
+	context: Context,
 ) => PMNode[] | undefined;
 
 // jira-components/jira-core/src/main/resources/system-contentlinkresolvers-plugin.xml
@@ -30,30 +30,30 @@ type ContentLinkResolver = (
 //
 // Fall back to url link resolver
 const linkResolverStrategies: ContentLinkResolver[] = [
-  attachmentLinkResolver,
-  mentionLinkResolver,
-  issueLinkResolver,
-  urlLinkResolver,
+	attachmentLinkResolver,
+	mentionLinkResolver,
+	issueLinkResolver,
+	urlLinkResolver,
 ];
 
 export function resolveLink(
-  link: ContentLink,
-  schema: Schema,
-  context: Context,
+	link: ContentLink,
+	schema: Schema,
+	context: Context,
 ): Token | undefined {
-  const length = link.originalLinkText.length + 2;
+	const length = link.originalLinkText.length + 2;
 
-  for (const resolver of linkResolverStrategies) {
-    const resolvedLink = resolver(link, schema, context);
+	for (const resolver of linkResolverStrategies) {
+		const resolvedLink = resolver(link, schema, context);
 
-    if (resolvedLink) {
-      return {
-        length,
-        nodes: resolvedLink,
-        type: 'pmnode',
-      };
-    }
-  }
+		if (resolvedLink) {
+			return {
+				length,
+				nodes: resolvedLink,
+				type: 'pmnode',
+			};
+		}
+	}
 
-  return undefined;
+	return undefined;
 }

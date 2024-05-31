@@ -1,43 +1,43 @@
 import { InsertDraftPosition, type Position, type TextPosition } from '../types';
 
 export const calcInsertDraftPositionOnText = (
-  { start: startTextPosition, end: endTextPosition }: TextPosition,
-  position: Position,
+	{ start: startTextPosition, end: endTextPosition }: TextPosition,
+	position: Position,
 ): InsertDraftPosition | false => {
-  const isRangePositionAroundText =
-    position.from <= startTextPosition && position.to >= endTextPosition;
+	const isRangePositionAroundText =
+		position.from <= startTextPosition && position.to >= endTextPosition;
 
-  if (isRangePositionAroundText) {
-    return InsertDraftPosition.AROUND_TEXT;
-  }
+	if (isRangePositionAroundText) {
+		return InsertDraftPosition.AROUND_TEXT;
+	}
 
-  const isRangePositionInsideText =
-    position.from > startTextPosition &&
-    position.from < endTextPosition &&
-    position.to < endTextPosition &&
-    position.to > startTextPosition;
+	const isRangePositionInsideText =
+		position.from > startTextPosition &&
+		position.from < endTextPosition &&
+		position.to < endTextPosition &&
+		position.to > startTextPosition;
 
-  if (isRangePositionInsideText) {
-    return InsertDraftPosition.INSIDE;
-  }
+	if (isRangePositionInsideText) {
+		return InsertDraftPosition.INSIDE;
+	}
 
-  const isRangePositionStartingAtText =
-    position.from >= startTextPosition &&
-    position.from <= endTextPosition &&
-    position.to >= endTextPosition;
+	const isRangePositionStartingAtText =
+		position.from >= startTextPosition &&
+		position.from <= endTextPosition &&
+		position.to >= endTextPosition;
 
-  if (isRangePositionStartingAtText) {
-    return InsertDraftPosition.END;
-  }
+	if (isRangePositionStartingAtText) {
+		return InsertDraftPosition.END;
+	}
 
-  const isRangePositionEndingAtText =
-    position.from <= startTextPosition &&
-    position.to >= startTextPosition &&
-    position.to <= endTextPosition;
+	const isRangePositionEndingAtText =
+		position.from <= startTextPosition &&
+		position.to >= startTextPosition &&
+		position.to <= endTextPosition;
 
-  if (isRangePositionEndingAtText) {
-    return InsertDraftPosition.START;
-  }
+	if (isRangePositionEndingAtText) {
+		return InsertDraftPosition.START;
+	}
 
-  return false;
+	return false;
 };

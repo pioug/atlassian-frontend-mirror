@@ -9,65 +9,59 @@ import uuid from 'uuid/v4';
 type Callback = (doc: JSONDocNode) => void;
 
 export const AnnotationSelectionComponentMock = (
-  props: InlineCommentSelectionComponentProps & { setNewDocument: Callback },
+	props: InlineCommentSelectionComponentProps & { setNewDocument: Callback },
 ) => {
-  const { isAnnotationAllowed, onClose, applyDraftMode, wrapperDOM } = props;
-  const [showCreateComponent, setShowCreateComponent] = React.useState(false);
-  const onToolbarCreateButtonClick = React.useCallback(() => {
-    applyDraftMode({ annotationId: uuid(), keepNativeSelection: true });
-    setShowCreateComponent(true);
-  }, [applyDraftMode]);
+	const { isAnnotationAllowed, onClose, applyDraftMode, wrapperDOM } = props;
+	const [showCreateComponent, setShowCreateComponent] = React.useState(false);
+	const onToolbarCreateButtonClick = React.useCallback(() => {
+		applyDraftMode({ annotationId: uuid(), keepNativeSelection: true });
+		setShowCreateComponent(true);
+	}, [applyDraftMode]);
 
-  const onPopupClose = React.useCallback(() => {
-    setShowCreateComponent(false);
-    onClose();
-  }, [onClose]);
+	const onPopupClose = React.useCallback(() => {
+		setShowCreateComponent(false);
+		onClose();
+	}, [onClose]);
 
-  React.useLayoutEffect(() => {
-    const onClick = (event: MouseEvent) => {
-      const { target } = event;
+	React.useLayoutEffect(() => {
+		const onClick = (event: MouseEvent) => {
+			const { target } = event;
 
-      if (!showCreateComponent && wrapperDOM.contains(target as HTMLElement)) {
-        onPopupClose();
-        return;
-      }
-    };
+			if (!showCreateComponent && wrapperDOM.contains(target as HTMLElement)) {
+				onPopupClose();
+				return;
+			}
+		};
 
-    document.addEventListener('mousedown', onClick);
+		document.addEventListener('mousedown', onClick);
 
-    return () => {
-      document.removeEventListener('mousedown', onClick);
-    };
-  }, [wrapperDOM, showCreateComponent, onPopupClose]);
+		return () => {
+			document.removeEventListener('mousedown', onClick);
+		};
+	}, [wrapperDOM, showCreateComponent, onPopupClose]);
 
-  if (!showCreateComponent) {
-    return (
-      <Popup target={wrapperDOM} alignX="center" alignY="bottom">
-        <div>
-          <Button
-            appearance="subtle"
-            iconBefore={<AddCommentIcon size="medium" label="" />}
-            isDisabled={!isAnnotationAllowed}
-            testId="createInlineCommentButton"
-            onClick={onToolbarCreateButtonClick}
-          >
-            Comment
-          </Button>
-        </div>
-      </Popup>
-    );
-  }
+	if (!showCreateComponent) {
+		return (
+			<Popup target={wrapperDOM} alignX="center" alignY="bottom">
+				<div>
+					<Button
+						appearance="subtle"
+						iconBefore={<AddCommentIcon size="medium" label="" />}
+						isDisabled={!isAnnotationAllowed}
+						testId="createInlineCommentButton"
+						onClick={onToolbarCreateButtonClick}
+					>
+						Comment
+					</Button>
+				</div>
+			</Popup>
+		);
+	}
 
-  return <div>Comment Popup</div>;
+	return <div>Comment Popup</div>;
 };
 
 export const SelectionInlineComponentMock =
-  (setNewDocument: Callback) =>
-  (props: InlineCommentSelectionComponentProps) => {
-    return (
-      <AnnotationSelectionComponentMock
-        setNewDocument={setNewDocument}
-        {...props}
-      />
-    );
-  };
+	(setNewDocument: Callback) => (props: InlineCommentSelectionComponentProps) => {
+		return <AnnotationSelectionComponentMock setNewDocument={setNewDocument} {...props} />;
+	};

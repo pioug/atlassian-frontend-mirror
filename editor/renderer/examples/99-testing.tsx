@@ -5,6 +5,6 @@ import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasou
 mockDatasourceFetchRequests({ shouldMockORSBatch: true });
 
 export default function RendererExampleForTests() {
-  createRendererWindowBindings(window);
-  return <div id="renderer-container" />;
+	createRendererWindowBindings(window);
+	return <div id="renderer-container" />;
 }

@@ -1,5 +1,5 @@
 export {
-  copyToClipboard,
-  copyHTMLToClipboard,
-  copyHTMLToClipboardPolyfill,
+	copyToClipboard,
+	copyHTMLToClipboard,
+	copyHTMLToClipboardPolyfill,
 } from '@atlaskit/editor-common/clipboard';

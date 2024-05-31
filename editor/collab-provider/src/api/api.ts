@@ -6,19 +6,19 @@ import type { DocumentService } from '../document/document-service';
 const logger = createLogger('Api', 'blue');
 
 interface Step {
-  stepType: string;
+	stepType: string;
 }
 
 class AddCommentError extends Error {
-  status: number;
-  meta: unknown;
+	status: number;
+	meta: unknown;
 
-  constructor(message: string, status: number, meta?: unknown) {
-    super(message);
-    this.name = 'AddCommentError';
-    this.status = status;
-    this.meta = meta;
-  }
+	constructor(message: string, status: number, meta?: unknown) {
+		super(message);
+		this.name = 'AddCommentError';
+		this.status = status;
+		this.meta = meta;
+	}
 }
 
 /**
@@ -29,83 +29,76 @@ class AddCommentError extends Error {
  *
  */
 export class Api {
-  private readonly config: Config;
-  private documentService: DocumentService;
-  private readonly channel: Channel;
+	private readonly config: Config;
+	private documentService: DocumentService;
+	private readonly channel: Channel;
 
-  constructor(
-    config: Config,
-    documentService: DocumentService,
-    channel: Channel,
-  ) {
-    this.config = config;
-    this.documentService = documentService;
-    this.channel = channel;
-  }
+	constructor(config: Config, documentService: DocumentService, channel: Channel) {
+		this.config = config;
+		this.documentService = documentService;
+		this.channel = channel;
+	}
 
-  async addComment(steps: Step[]) {
-    const stepVersion = this.documentService.getCurrentPmVersion();
+	async addComment(steps: Step[]) {
+		const stepVersion = this.documentService.getCurrentPmVersion();
 
-    try {
-      const response = await this.submitComment(steps, stepVersion);
-      const status = response.status;
-      const { message, meta } = await response.json();
+		try {
+			const response = await this.submitComment(steps, stepVersion);
+			const status = response.status;
+			const { message, meta } = await response.json();
 
-      // If the HTTP status code is 201, then the operation was successful
-      if (status === 201) {
-        logger(`NCS response: ${message}`);
-        return { message };
-      }
-      // If the HTTP status code is between 400 and 499, then there was a client error
-      if (status >= 400 && status <= 499) {
-        logger(`NCS error meta: ${JSON.stringify(meta)}`);
-        // Include details in error response
-        throw new AddCommentError(
-          `Failed to add comment - Client error: ${message}`,
-          status,
-          JSON.stringify(meta),
-        );
-      }
-      // If the code execution reaches this point, then there was a server error
-      throw new AddCommentError(`Failed to add comment - Server error`, status);
-    } catch (err) {
-      if (err instanceof AddCommentError) {
-        throw err;
-      } else {
-        throw new Error(`Error submitting comment: ${err}`);
-      }
-    }
-  }
+			// If the HTTP status code is 201, then the operation was successful
+			if (status === 201) {
+				logger(`NCS response: ${message}`);
+				return { message };
+			}
+			// If the HTTP status code is between 400 and 499, then there was a client error
+			if (status >= 400 && status <= 499) {
+				logger(`NCS error meta: ${JSON.stringify(meta)}`);
+				// Include details in error response
+				throw new AddCommentError(
+					`Failed to add comment - Client error: ${message}`,
+					status,
+					JSON.stringify(meta),
+				);
+			}
+			// If the code execution reaches this point, then there was a server error
+			throw new AddCommentError(`Failed to add comment - Server error`, status);
+		} catch (err) {
+			if (err instanceof AddCommentError) {
+				throw err;
+			} else {
+				throw new Error(`Error submitting comment: ${err}`);
+			}
+		}
+	}
 
-  private submitComment = async (
-    steps: Step[],
-    version: number,
-  ): Promise<Response> => {
-    const reqBody = JSON.stringify({
-      productId: 'ccollab',
-      version,
-      steps,
-    });
+	private submitComment = async (steps: Step[], version: number): Promise<Response> => {
+		const reqBody = JSON.stringify({
+			productId: 'ccollab',
+			version,
+			steps,
+		});
 
-    const url = `${this.config.url}/document/${encodeURIComponent(
-      this.config.documentAri,
-    )}/comment`;
-    logger(`Request url: `, url);
-    const fetchOptions: RequestInit = {
-      credentials: 'include',
-      headers: {
-        ...(this.config.permissionTokenRefresh
-          ? {
-              'x-token': await this.channel.getChannelToken(),
-            }
-          : {}),
-        'x-product': getProduct(this.config.productInfo),
-        'x-subproduct': getSubProduct(this.config.productInfo),
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: reqBody,
-    };
-    return await fetch(url, fetchOptions);
-  };
+		const url = `${this.config.url}/document/${encodeURIComponent(
+			this.config.documentAri,
+		)}/comment`;
+		logger(`Request url: `, url);
+		const fetchOptions: RequestInit = {
+			credentials: 'include',
+			headers: {
+				...(this.config.permissionTokenRefresh
+					? {
+							'x-token': await this.channel.getChannelToken(),
+						}
+					: {}),
+				'x-product': getProduct(this.config.productInfo),
+				'x-subproduct': getSubProduct(this.config.productInfo),
+				'Content-Type': 'application/json',
+			},
+			method: 'POST',
+			body: reqBody,
+		};
+		return await fetch(url, fetchOptions);
+	};
 }

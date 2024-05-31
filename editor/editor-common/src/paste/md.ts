@@ -10,12 +10,12 @@ import paragraph from './md-plugins/paragraph-md-plugin';
 export const md = MarkdownIt('zero', { html: false });
 
 md.enable([
-  // Process html entity - &#123;, &#xAF;, &quot;, ...
-  'entity',
-  // Process escaped chars and hardbreaks
-  'escape',
+	// Process html entity - &#123;, &#xAF;, &quot;, ...
+	'entity',
+	// Process escaped chars and hardbreaks
+	'escape',
 
-  'newline',
+	'newline',
 ]);
 
 md.use(paragraph);

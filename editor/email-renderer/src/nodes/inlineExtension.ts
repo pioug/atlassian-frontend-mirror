@@ -25,10 +25,10 @@ export const styles = `
 `;
 
 export default function inlineExtension({ attrs }: NodeSerializerOpts) {
-  const inner = createTag(
-    'span',
-    { class: className + '-inner' },
-    `&nbsp;${attrs.extensionKey}&nbsp;`,
-  );
-  return createTag('span', { class: className + '-outer' }, inner);
+	const inner = createTag(
+		'span',
+		{ class: className + '-inner' },
+		`&nbsp;${attrs.extensionKey}&nbsp;`,
+	);
+	return createTag('span', { class: className + '-outer' }, inner);
 }

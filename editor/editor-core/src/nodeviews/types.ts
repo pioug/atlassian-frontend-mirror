@@ -1,7 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export interface ReactNodeProps {
-  selected: boolean;
+	selected: boolean;
 }
 
 export type ProsemirrorGetPosHandler = () => number | undefined;

@@ -32,32 +32,32 @@ import { WidthObserver } from '@atlaskit/width-detector';
  */
 
 type useContainerWidthReturnType = {
-  containerWidth: number;
-  ContainerWidthMonitor: React.ElementType;
+	containerWidth: number;
+	ContainerWidthMonitor: React.ElementType;
 };
 
 const widthObserverWrapper = css({
-  position: 'relative',
+	position: 'relative',
 });
 
 export default function useContainerWidth(): useContainerWidthReturnType {
-  const [containerWidth, setContainerWidth] = useState(0);
+	const [containerWidth, setContainerWidth] = useState(0);
 
-  const ref = useRef<null | HTMLDivElement>(null);
+	const ref = useRef<null | HTMLDivElement>(null);
 
-  useEffect(() => {
-    const { current } = ref;
-    if (ref && current) {
-      setContainerWidth(current.getBoundingClientRect().width);
-    }
-  }, [ref]);
+	useEffect(() => {
+		const { current } = ref;
+		if (ref && current) {
+			setContainerWidth(current.getBoundingClientRect().width);
+		}
+	}, [ref]);
 
-  const ContainerWidthMonitor = memo(() => {
-    return (
-      <div css={widthObserverWrapper} ref={ref} tabIndex={-1}>
-        <WidthObserver setWidth={setContainerWidth} />
-      </div>
-    );
-  });
-  return { containerWidth, ContainerWidthMonitor };
+	const ContainerWidthMonitor = memo(() => {
+		return (
+			<div css={widthObserverWrapper} ref={ref} tabIndex={-1}>
+				<WidthObserver setWidth={setContainerWidth} />
+			</div>
+		);
+	});
+	return { containerWidth, ContainerWidthMonitor };
 }

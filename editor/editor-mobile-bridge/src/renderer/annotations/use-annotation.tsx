@@ -1,19 +1,16 @@
 import { useEffect, useMemo } from 'react';
 import {
-  type AnnotationProviders,
-  AnnotationUpdateEmitter,
-  AnnotationUpdateEvent,
-  type AnnotationState,
+	type AnnotationProviders,
+	AnnotationUpdateEmitter,
+	AnnotationUpdateEvent,
+	type AnnotationState,
 } from '@atlaskit/editor-common/types';
 import RendererBridgeImplementation from '../native-to-web/implementation';
 import { createSelectionComponent } from './create-selection-component';
 import { createViewComponent } from './create-view-component';
 import { type AnnotationStatePayload } from '../types';
 import { type AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
-import {
-  EmitterEvents,
-  eventDispatcher as mobileBridgeEventDispatcher,
-} from '../dispatcher';
+import { EmitterEvents, eventDispatcher as mobileBridgeEventDispatcher } from '../dispatcher';
 import { nativeBridgeAPI as webToNativeBridgeAPI } from '../web-to-native/implementation';
 
 const updateEmitter = new AnnotationUpdateEmitter();
@@ -22,114 +19,102 @@ const ViewComponent = createViewComponent(nativeToWebAPI);
 const SelectionComponent = createSelectionComponent(nativeToWebAPI);
 
 const setAnnotationStateCallback = (payload?: AnnotationStatePayload[]) => {
-  const data = (payload || []).reduce<
-    Record<AnnotationId, AnnotationState<AnnotationTypes.INLINE_COMMENT>>
-  >((acc, value) => {
-    const { annotationId, annotationState } = value;
+	const data = (payload || []).reduce<
+		Record<AnnotationId, AnnotationState<AnnotationTypes.INLINE_COMMENT>>
+	>((acc, value) => {
+		const { annotationId, annotationState } = value;
 
-    return {
-      ...acc,
-      [value.annotationId]: {
-        annotationType: AnnotationTypes.INLINE_COMMENT,
-        id: annotationId,
-        state: annotationState,
-      },
-    };
-  }, {});
+		return {
+			...acc,
+			[value.annotationId]: {
+				annotationType: AnnotationTypes.INLINE_COMMENT,
+				id: annotationId,
+				state: annotationState,
+			},
+		};
+	}, {});
 
-  updateEmitter.emit(AnnotationUpdateEvent.SET_ANNOTATION_STATE, data);
+	updateEmitter.emit(AnnotationUpdateEvent.SET_ANNOTATION_STATE, data);
 };
-const setAnnotationFocusCallback = (payload?: {
-  annotationId: AnnotationId;
-}) => {
-  if (payload) {
-    updateEmitter.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, payload);
-  }
+const setAnnotationFocusCallback = (payload?: { annotationId: AnnotationId }) => {
+	if (payload) {
+		updateEmitter.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, payload);
+	}
 };
 const removeAnnotationFocusCallback = () => {
-  updateEmitter.emit(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS);
+	updateEmitter.emit(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS);
 };
 
 function useAnnotationBridge(allowAnnotations: boolean) {
-  useEffect(() => {
-    if (!allowAnnotations) {
-      return;
-    }
+	useEffect(() => {
+		if (!allowAnnotations) {
+			return;
+		}
 
-    mobileBridgeEventDispatcher.on(
-      EmitterEvents.SET_ANNOTATION_STATE,
-      setAnnotationStateCallback,
-    );
-    mobileBridgeEventDispatcher.on(
-      EmitterEvents.SET_ANNOTATION_FOCUS,
-      setAnnotationFocusCallback,
-    );
-    mobileBridgeEventDispatcher.on(
-      EmitterEvents.REMOVE_ANNOTATION_FOCUS,
-      removeAnnotationFocusCallback,
-    );
+		mobileBridgeEventDispatcher.on(EmitterEvents.SET_ANNOTATION_STATE, setAnnotationStateCallback);
+		mobileBridgeEventDispatcher.on(EmitterEvents.SET_ANNOTATION_FOCUS, setAnnotationFocusCallback);
+		mobileBridgeEventDispatcher.on(
+			EmitterEvents.REMOVE_ANNOTATION_FOCUS,
+			removeAnnotationFocusCallback,
+		);
 
-    return () => {
-      if (!allowAnnotations) {
-        return;
-      }
-      mobileBridgeEventDispatcher.off(
-        EmitterEvents.SET_ANNOTATION_STATE,
-        setAnnotationStateCallback,
-      );
-      mobileBridgeEventDispatcher.off(
-        EmitterEvents.SET_ANNOTATION_FOCUS,
-        setAnnotationFocusCallback,
-      );
-      mobileBridgeEventDispatcher.off(
-        EmitterEvents.REMOVE_ANNOTATION_FOCUS,
-        removeAnnotationFocusCallback,
-      );
-    };
-  }, [allowAnnotations]);
+		return () => {
+			if (!allowAnnotations) {
+				return;
+			}
+			mobileBridgeEventDispatcher.off(
+				EmitterEvents.SET_ANNOTATION_STATE,
+				setAnnotationStateCallback,
+			);
+			mobileBridgeEventDispatcher.off(
+				EmitterEvents.SET_ANNOTATION_FOCUS,
+				setAnnotationFocusCallback,
+			);
+			mobileBridgeEventDispatcher.off(
+				EmitterEvents.REMOVE_ANNOTATION_FOCUS,
+				removeAnnotationFocusCallback,
+			);
+		};
+	}, [allowAnnotations]);
 }
 
-const useAnnotationProvider = (
-  allowAnnotation: boolean,
-): AnnotationProviders | null => {
-  return useMemo<AnnotationProviders | null>(() => {
-    if (!allowAnnotation) {
-      return null;
-    }
+const useAnnotationProvider = (allowAnnotation: boolean): AnnotationProviders | null => {
+	return useMemo<AnnotationProviders | null>(() => {
+		if (!allowAnnotation) {
+			return null;
+		}
 
-    return {
-      inlineComment: {
-        getState: async (annotationIds: AnnotationId[]) => {
-          webToNativeBridgeAPI.fetchAnnotationStates([
-            {
-              annotationIds,
-              annotationType: AnnotationTypes.INLINE_COMMENT,
-            },
-          ]);
+		return {
+			inlineComment: {
+				getState: async (annotationIds: AnnotationId[]) => {
+					webToNativeBridgeAPI.fetchAnnotationStates([
+						{
+							annotationIds,
+							annotationType: AnnotationTypes.INLINE_COMMENT,
+						},
+					]);
 
-          return annotationIds.map((id) => {
-            return {
-              id,
-              annotationType: AnnotationTypes.INLINE_COMMENT,
-              state: null,
-            };
-          });
-        },
-        updateSubscriber: updateEmitter,
-        allowDraftMode: true,
-        selectionComponent: SelectionComponent,
-        viewComponent: ViewComponent,
-      },
-    };
-  }, [allowAnnotation]);
+					return annotationIds.map((id) => {
+						return {
+							id,
+							annotationType: AnnotationTypes.INLINE_COMMENT,
+							state: null,
+						};
+					});
+				},
+				updateSubscriber: updateEmitter,
+				allowDraftMode: true,
+				selectionComponent: SelectionComponent,
+				viewComponent: ViewComponent,
+			},
+		};
+	}, [allowAnnotation]);
 };
 
-export function useAnnotation(
-  allowAnnotations: boolean,
-): AnnotationProviders | null {
-  const provider = useAnnotationProvider(allowAnnotations);
+export function useAnnotation(allowAnnotations: boolean): AnnotationProviders | null {
+	const provider = useAnnotationProvider(allowAnnotations);
 
-  useAnnotationBridge(allowAnnotations);
+	useAnnotationBridge(allowAnnotations);
 
-  return provider;
+	return provider;
 }

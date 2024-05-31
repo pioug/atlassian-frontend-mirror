@@ -4,37 +4,31 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findSupportedNodeForBreakout } from '../utils/find-breakout-node';
 import { updateExpandedState } from '../utils/single-player-expand';
 
-export function setBreakoutMode(
-  mode: BreakoutMode,
-  isLivePage?: boolean,
-): Command {
-  return (state, dispatch) => {
-    const node = findSupportedNodeForBreakout(state.selection);
+export function setBreakoutMode(mode: BreakoutMode, isLivePage?: boolean): Command {
+	return (state, dispatch) => {
+		const node = findSupportedNodeForBreakout(state.selection);
 
-    if (!node) {
-      return false;
-    }
-    const tr = state.tr.setNodeMarkup(
-      node.pos,
-      node.node.type,
-      node.node.attrs,
-      [state.schema.marks.breakout.create({ mode })],
-    );
+		if (!node) {
+			return false;
+		}
+		const tr = state.tr.setNodeMarkup(node.pos, node.node.type, node.node.attrs, [
+			state.schema.marks.breakout.create({ mode }),
+		]);
 
-    updateExpandedState(tr, node, isLivePage);
+		updateExpandedState(tr, node, isLivePage);
 
-    tr.setMeta('scrollIntoView', false);
+		tr.setMeta('scrollIntoView', false);
 
-    if (state.selection instanceof NodeSelection) {
-      if (state.selection.$anchor.pos === node.pos) {
-        tr.setSelection(NodeSelection.create(tr.doc, node.pos));
-      }
-    }
+		if (state.selection instanceof NodeSelection) {
+			if (state.selection.$anchor.pos === node.pos) {
+				tr.setSelection(NodeSelection.create(tr.doc, node.pos));
+			}
+		}
 
-    if (dispatch) {
-      dispatch(tr);
-    }
+		if (dispatch) {
+			dispatch(tr);
+		}
 
-    return true;
-  };
+		return true;
+	};
 }

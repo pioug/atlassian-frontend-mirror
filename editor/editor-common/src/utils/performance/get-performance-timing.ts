@@ -5,6 +5,5 @@
  * @param startTime DOMHighResTimeStamp
  * @returns DOMHighResTimeStamp
  */
-export const getTimeSince = (
-  startTime: DOMHighResTimeStamp,
-): DOMHighResTimeStamp => performance.now() - startTime;
+export const getTimeSince = (startTime: DOMHighResTimeStamp): DOMHighResTimeStamp =>
+	performance.now() - startTime;

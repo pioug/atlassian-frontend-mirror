@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "7.16.10",
+  "version": "7.16.11",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,7 +49,7 @@
     "@atlaskit/pragmatic-drag-and-drop": "^1.1.0",
     "@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.3.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/toggle": "^13.1.0",
     "@atlaskit/tokens": "^1.49.0",
@@ -67,7 +67,6 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "typescript": "~5.4.2"
   },
   "af:exports": {
@@ -87,7 +86,6 @@
     "./commands": "./src/commands/index.ts",
     "./i18n/*": "./src/i18n/*.ts"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": [
@@ -147,6 +145,9 @@
       "type": "boolean"
     },
     "platform.editor.table.live-pages-sorting_4malx": {
+      "type": "boolean"
+    },
+    "platform.editor.table.editor-num-col-style-changes": {
       "type": "boolean"
     }
   }

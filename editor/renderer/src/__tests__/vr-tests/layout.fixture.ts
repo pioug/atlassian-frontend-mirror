@@ -17,67 +17,67 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 export const OverflowLayoutRenderer = generateRendererComponent({
-  document: overflowLayout,
-  appearance: 'full-page',
-  extensionHandlers,
+	document: overflowLayout,
+	appearance: 'full-page',
+	extensionHandlers,
 });
 
 export const Layout3ColWithDifferentTextRenderer = generateRendererComponent({
-  document: Layout3ColWithDifferentText,
-  appearance: 'full-width',
+	document: Layout3ColWithDifferentText,
+	appearance: 'full-width',
 });
 
 export const Layout3ColWithMentionRenderer = generateRendererComponent({
-  document: Layout3ColWithMention,
-  appearance: 'full-width',
+	document: Layout3ColWithMention,
+	appearance: 'full-width',
 });
 
 export const LayoutWithBlockNodesRenderer = generateRendererComponent({
-  document: LayoutWithBlockNodes,
-  appearance: 'full-width',
+	document: LayoutWithBlockNodes,
+	appearance: 'full-width',
 });
 
 export const LayoutWithDifferentTextRenderer = generateRendererComponent({
-  document: LayoutWithDifferentText,
-  appearance: 'full-width',
+	document: LayoutWithDifferentText,
+	appearance: 'full-width',
 });
 
 export const LayoutWithMediaRenderer = generateRendererComponent({
-  document: LayoutWithMedia,
-  appearance: 'full-width',
+	document: LayoutWithMedia,
+	appearance: 'full-width',
 });
 
 export const LayoutWithTextAndCodeblockRenderer = generateRendererComponent({
-  document: LayoutWithTextAndCodeblock,
-  appearance: 'full-width',
+	document: LayoutWithTextAndCodeblock,
+	appearance: 'full-width',
 });
 
 export const Layout2ColRenderer = generateRendererComponent({
-  document: layout2Col,
-  appearance: 'full-width',
+	document: layout2Col,
+	appearance: 'full-width',
 });
 
 export const LayoutWithDefaultBreakoutMarkRenderer = generateRendererComponent({
-  document: layoutWithDefaultBreakoutMark,
-  appearance: 'full-width',
+	document: layoutWithDefaultBreakoutMark,
+	appearance: 'full-width',
 });
 
 export const Layout3ColRenderer = generateRendererComponent({
-  document: layout3Col,
-  appearance: 'full-width',
+	document: layout3Col,
+	appearance: 'full-width',
 });
 
 export const LayoutLeftSidebarRenderer = generateRendererComponent({
-  document: layoutLeftSidebar,
-  appearance: 'full-width',
+	document: layoutLeftSidebar,
+	appearance: 'full-width',
 });
 
 export const LayoutRightSidebarRenderer = generateRendererComponent({
-  document: layoutRightSidebar,
-  appearance: 'full-width',
+	document: layoutRightSidebar,
+	appearance: 'full-width',
 });
 
 export const Layout3ColWithSidebarsRenderer = generateRendererComponent({
-  document: layout3ColWithSidebars,
-  appearance: 'full-width',
+	document: layout3ColWithSidebars,
+	appearance: 'full-width',
 });

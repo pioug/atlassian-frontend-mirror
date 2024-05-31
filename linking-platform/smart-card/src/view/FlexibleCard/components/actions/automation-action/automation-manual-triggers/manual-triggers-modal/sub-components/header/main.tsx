@@ -12,12 +12,6 @@ import { token } from '@atlaskit/tokens';
 import { useAutomationMenu } from '../../menu-context';
 import { ManualTriggerGlyph } from './manual-trigger-icon';
 
-
-type AutomationModalHeaderProps = {
-  modalTitle: React.ReactNode;
-  modalDescription?: React.ReactNode;
-};
-
 const i18n = defineMessages({
   modalHeaderIconLabel: {
     id: 'automation-menu.modal.header.icon.label',
@@ -35,6 +29,11 @@ const iconStyle = xcss({
 const modalDescriptionStyle = xcss({
   marginTop: 'space.150',
 });
+
+type AutomationModalHeaderProps = {
+  modalTitle?: React.ReactNode;
+  modalDescription?: React.ReactNode;
+};
 
 export const AutomationModalHeader = ({
   modalTitle,

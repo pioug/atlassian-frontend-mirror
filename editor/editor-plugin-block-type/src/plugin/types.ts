@@ -9,44 +9,41 @@
 
 import type { MessageDescriptor } from 'react-intl-next';
 
-import type {
-  AllowedBlockTypes,
-  HeadingLevelsAndNormalText,
-} from '@atlaskit/editor-common/types';
+import type { AllowedBlockTypes, HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 export type BlockTypeName =
-  | 'normal'
-  | 'heading1'
-  | 'heading2'
-  | 'heading3'
-  | 'heading4'
-  | 'heading5'
-  | 'heading6'
-  | 'blockquote'
-  | 'codeblock'
-  | 'panel'
-  | 'notePanel'
-  | 'successPanel'
-  | 'warningPanel'
-  | 'errorPanel'
-  | 'other';
+	| 'normal'
+	| 'heading1'
+	| 'heading2'
+	| 'heading3'
+	| 'heading4'
+	| 'heading5'
+	| 'heading6'
+	| 'blockquote'
+	| 'codeblock'
+	| 'panel'
+	| 'notePanel'
+	| 'successPanel'
+	| 'warningPanel'
+	| 'errorPanel'
+	| 'other';
 
 export interface BlockType {
-  name: string;
-  title: MessageDescriptor;
-  nodeName: string;
-  tagName?: string;
-  level?: HeadingLevelsAndNormalText;
+	name: string;
+	title: MessageDescriptor;
+	nodeName: string;
+	tagName?: string;
+	level?: HeadingLevelsAndNormalText;
 }
 
 export interface BlockTypeNode {
-  name: AllowedBlockTypes;
-  node: NodeSpec;
+	name: AllowedBlockTypes;
+	node: NodeSpec;
 }
 
 export interface BlockTypePluginOptions {
-  lastNodeMustBeParagraph?: boolean;
-  allowBlockType?: { exclude?: Array<AllowedBlockTypes> };
-  isUndoRedoButtonsEnabled?: boolean;
+	lastNodeMustBeParagraph?: boolean;
+	allowBlockType?: { exclude?: Array<AllowedBlockTypes> };
+	isUndoRedoButtonsEnabled?: boolean;
 }

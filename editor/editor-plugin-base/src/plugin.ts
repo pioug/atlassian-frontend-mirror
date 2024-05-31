@@ -2,11 +2,11 @@ import { doc, paragraph, paragraphStage0, text } from '@atlaskit/adf-schema';
 import { keymap } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
-  BrowserFreezetracking,
-  InputTracking,
-  NextEditorPlugin,
-  OptionalPlugin,
-  PMPluginFactory,
+	BrowserFreezetracking,
+	InputTracking,
+	NextEditorPlugin,
+	OptionalPlugin,
+	PMPluginFactory,
 } from '@atlaskit/editor-common/types';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -24,135 +24,129 @@ import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter';
 import scrollGutter, { getKeyboardHeight } from './pm-plugins/scroll-gutter';
 
 export interface BasePluginOptions {
-  allowScrollGutter?: ScrollGutterPluginOptions;
-  allowInlineCursorTarget?: boolean;
-  inputTracking?: InputTracking;
-  browserFreezeTracking?: BrowserFreezetracking;
-  ufo?: boolean;
+	allowScrollGutter?: ScrollGutterPluginOptions;
+	allowInlineCursorTarget?: boolean;
+	inputTracking?: InputTracking;
+	browserFreezeTracking?: BrowserFreezetracking;
+	ufo?: boolean;
 }
 
 export type BasePluginState = {
-  /** Current height of keyboard (+ custom toolbar) in iOS app */
-  keyboardHeight: number | undefined;
+	/** Current height of keyboard (+ custom toolbar) in iOS app */
+	keyboardHeight: number | undefined;
 };
 
 export type BasePlugin = NextEditorPlugin<
-  'base',
-  {
-    pluginConfiguration: BasePluginOptions | undefined;
-    dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
-      OptionalPlugin<ContextIdentifierPlugin>,
-    ];
-    sharedState: BasePluginState;
-    actions: {
-      setKeyboardHeight: typeof setKeyboardHeight;
-    };
-  }
+	'base',
+	{
+		pluginConfiguration: BasePluginOptions | undefined;
+		dependencies: [OptionalPlugin<FeatureFlagsPlugin>, OptionalPlugin<ContextIdentifierPlugin>];
+		sharedState: BasePluginState;
+		actions: {
+			setKeyboardHeight: typeof setKeyboardHeight;
+		};
+	}
 >;
 
 const basePlugin: BasePlugin = ({ config: options, api }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
+	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 
-  return {
-    name: 'base',
+	return {
+		name: 'base',
 
-    getSharedState(editorState) {
-      return {
-        keyboardHeight: getKeyboardHeight(editorState),
-      };
-    },
+		getSharedState(editorState) {
+			return {
+				keyboardHeight: getKeyboardHeight(editorState),
+			};
+		},
 
-    actions: {
-      setKeyboardHeight,
-    },
+		actions: {
+			setKeyboardHeight,
+		},
 
-    pmPlugins() {
-      const plugins: { name: string; plugin: PMPluginFactory }[] = [
-        {
-          name: 'filterStepsPlugin',
-          plugin: ({ dispatchAnalyticsEvent }) =>
-            filterStepsPlugin(dispatchAnalyticsEvent),
-        },
-      ];
+		pmPlugins() {
+			const plugins: { name: string; plugin: PMPluginFactory }[] = [
+				{
+					name: 'filterStepsPlugin',
+					plugin: ({ dispatchAnalyticsEvent }) => filterStepsPlugin(dispatchAnalyticsEvent),
+				},
+			];
 
-      // In Chrome, when the selection is placed between adjacent nodes which are not contenteditatble
-      // the cursor appears at the right most point of the parent container.
-      //
-      // In Firefox, when the selection is placed between adjacent nodes which are not contenteditatble
-      // no cursor is presented to users.
-      //
-      // In Safari, when the selection is placed between adjacent nodes which are not contenteditatble
-      // it is not possible to navigate with arrow keys.
-      //
-      // This plugin works around the issues by inserting decorations between
-      // inline nodes which are set as contenteditable, and have a zero width space.
-      plugins.push({
-        name: 'inlineCursorTargetPlugin',
-        plugin: () =>
-          options && options.allowInlineCursorTarget
-            ? inlineCursorTargetPlugin()
-            : undefined,
-      });
+			// In Chrome, when the selection is placed between adjacent nodes which are not contenteditatble
+			// the cursor appears at the right most point of the parent container.
+			//
+			// In Firefox, when the selection is placed between adjacent nodes which are not contenteditatble
+			// no cursor is presented to users.
+			//
+			// In Safari, when the selection is placed between adjacent nodes which are not contenteditatble
+			// it is not possible to navigate with arrow keys.
+			//
+			// This plugin works around the issues by inserting decorations between
+			// inline nodes which are set as contenteditable, and have a zero width space.
+			plugins.push({
+				name: 'inlineCursorTargetPlugin',
+				plugin: () =>
+					options && options.allowInlineCursorTarget ? inlineCursorTargetPlugin() : undefined,
+			});
 
-      plugins.push(
-        {
-          name: 'newlinePreserveMarksPlugin',
-          plugin: newlinePreserveMarksPlugin,
-        },
-        {
-          name: 'frozenEditor',
-          plugin: ({ dispatchAnalyticsEvent }) => {
-            return options?.inputTracking?.enabled || options?.ufo
-              ? frozenEditor(api?.contextIdentifier)(
-                  dispatchAnalyticsEvent,
-                  options.inputTracking,
-                  options.browserFreezeTracking,
-                  options.ufo,
-                )
-              : undefined;
-          },
-        },
-        { name: 'history', plugin: () => history() as SafePlugin },
-        // should be last :(
-        {
-          name: 'codeBlockIndent',
-          plugin: () =>
-            keymap({
-              ...baseKeymap,
-              'Mod-[': () => true,
-              'Mod-]': () => true,
-            }),
-        },
-      );
+			plugins.push(
+				{
+					name: 'newlinePreserveMarksPlugin',
+					plugin: newlinePreserveMarksPlugin,
+				},
+				{
+					name: 'frozenEditor',
+					plugin: ({ dispatchAnalyticsEvent }) => {
+						return options?.inputTracking?.enabled || options?.ufo
+							? frozenEditor(api?.contextIdentifier)(
+									dispatchAnalyticsEvent,
+									options.inputTracking,
+									options.browserFreezeTracking,
+									options.ufo,
+								)
+							: undefined;
+					},
+				},
+				{ name: 'history', plugin: () => history() as SafePlugin },
+				// should be last :(
+				{
+					name: 'codeBlockIndent',
+					plugin: () =>
+						keymap({
+							...baseKeymap,
+							'Mod-[': () => true,
+							'Mod-]': () => true,
+						}),
+				},
+			);
 
-      if (options && options.allowScrollGutter) {
-        plugins.push({
-          name: 'scrollGutterPlugin',
-          plugin: () => scrollGutter(options.allowScrollGutter),
-        });
-      }
+			if (options && options.allowScrollGutter) {
+				plugins.push({
+					name: 'scrollGutterPlugin',
+					plugin: () => scrollGutter(options.allowScrollGutter),
+				});
+			}
 
-      plugins.push({
-        name: 'disableSpellcheckingPlugin',
-        plugin: () => disableSpellcheckingPlugin(featureFlags),
-      });
+			plugins.push({
+				name: 'disableSpellcheckingPlugin',
+				plugin: () => disableSpellcheckingPlugin(featureFlags),
+			});
 
-      return plugins;
-    },
-    nodes() {
-      const paragraphNode = getBooleanFF(
-        'platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g',
-      )
-        ? paragraphStage0
-        : paragraph;
-      return [
-        { name: 'doc', node: doc },
-        { name: 'paragraph', node: paragraphNode },
-        { name: 'text', node: text },
-      ];
-    },
-  };
+			return plugins;
+		},
+		nodes() {
+			const paragraphNode = getBooleanFF(
+				'platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g',
+			)
+				? paragraphStage0
+				: paragraph;
+			return [
+				{ name: 'doc', node: doc },
+				{ name: 'paragraph', node: paragraphNode },
+				{ name: 'text', node: text },
+			];
+		},
+	};
 };
 
 export default basePlugin;

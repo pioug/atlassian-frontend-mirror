@@ -1,28 +1,25 @@
 import { css } from '@emotion/react';
 
-import {
-  BreakoutCssClassName,
-  expandClassNames,
-} from '@atlaskit/editor-common/styles';
+import { BreakoutCssClassName, expandClassNames } from '@atlaskit/editor-common/styles';
 import { sharedExpandStyles } from '@atlaskit/editor-common/ui';
 import {
-  akEditorSelectedNodeClassName,
-  akLayoutGutterOffset,
-  getSelectionStyles,
-  SelectionStyle,
+	akEditorSelectedNodeClassName,
+	akLayoutGutterOffset,
+	getSelectionStyles,
+	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { N100A, N40A, N50A, R300, R50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const EXPAND_SELECTED_BACKGROUND = token(
-  'color.background.neutral.subtle',
-  'rgba(255, 255, 255, 0.6)',
+	'color.background.neutral.subtle',
+	'rgba(255, 255, 255, 0.6)',
 );
 
 const EXPAND_ICON_COLOR = () =>
-  css({
-    color: token('color.icon.subtle', N100A),
-  });
+	css({
+		color: token('color.icon.subtle', N100A),
+	});
 
 const DANGER_STATE_BACKGROUND_COLOR = token('color.background.danger', R50);
 
@@ -31,103 +28,103 @@ const DANGER_STATE_BORDER_COLOR = token('color.border.danger', R300);
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const expandStyles = () => css`
-  .${expandClassNames.icon} > div {
-    display: flex;
-  }
+	.${expandClassNames.icon} > div {
+		display: flex;
+	}
 
-  .${expandClassNames.prefix} {
-    ${sharedExpandStyles.containerStyles({ expanded: false, focused: false })()}
-    overflow: hidden;
-    cursor: pointer;
-    box-sizing: border-box;
+	.${expandClassNames.prefix} {
+		${sharedExpandStyles.containerStyles({ expanded: false, focused: false })()}
+		overflow: hidden;
+		cursor: pointer;
+		box-sizing: border-box;
 
-    td > & {
-      margin-top: 0;
-    }
+		td > & {
+			margin-top: 0;
+		}
 
-    .${expandClassNames.iconContainer} svg {
-      ${EXPAND_ICON_COLOR()};
-      transform: rotate(90deg);
-    }
+		.${expandClassNames.iconContainer} svg {
+			${EXPAND_ICON_COLOR()};
+			transform: rotate(90deg);
+		}
 
-    &.${akEditorSelectedNodeClassName}:not(.danger) {
-      ${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.Border])}
-    }
+		&.${akEditorSelectedNodeClassName}:not(.danger) {
+			${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.Border])}
+		}
 
-    &.danger {
-      background: ${DANGER_STATE_BACKGROUND_COLOR};
-      border-color: ${DANGER_STATE_BORDER_COLOR};
-    }
-  }
+		&.danger {
+			background: ${DANGER_STATE_BACKGROUND_COLOR};
+			border-color: ${DANGER_STATE_BORDER_COLOR};
+		}
+	}
 
-  .ProseMirror
-    > .${expandClassNames.type('expand')},
-    .${BreakoutCssClassName.BREAKOUT_MARK_DOM}
-    > .${expandClassNames.type('expand')} {
-    margin-left: -${akLayoutGutterOffset}px;
-    margin-right: -${akLayoutGutterOffset}px;
-  }
+	.ProseMirror
+		> .${expandClassNames.type('expand')},
+		.${BreakoutCssClassName.BREAKOUT_MARK_DOM}
+		> .${expandClassNames.type('expand')} {
+		margin-left: -${akLayoutGutterOffset}px;
+		margin-right: -${akLayoutGutterOffset}px;
+	}
 
-  .${expandClassNames.content} {
-    ${sharedExpandStyles.contentStyles({ expanded: false, focused: false })()}
-    cursor: text;
-    padding-top: 0px;
-  }
+	.${expandClassNames.content} {
+		${sharedExpandStyles.contentStyles({ expanded: false, focused: false })()}
+		cursor: text;
+		padding-top: 0px;
+	}
 
-  .${expandClassNames.titleInput} {
-    ${sharedExpandStyles.titleInputStyles()}
-  }
+	.${expandClassNames.titleInput} {
+		${sharedExpandStyles.titleInputStyles()}
+	}
 
-  .${expandClassNames.titleContainer} {
-    ${sharedExpandStyles.titleContainerStyles()};
-    align-items: center;
-    overflow: visible;
-  }
+	.${expandClassNames.titleContainer} {
+		${sharedExpandStyles.titleContainerStyles()};
+		align-items: center;
+		overflow: visible;
+	}
 
-  .${expandClassNames.expanded} {
-    background: ${EXPAND_SELECTED_BACKGROUND};
-    border-color: ${token('color.border', N40A)};
+	.${expandClassNames.expanded} {
+		background: ${EXPAND_SELECTED_BACKGROUND};
+		border-color: ${token('color.border', N40A)};
 
-    .${expandClassNames.content} {
-      padding-top: ${token('space.100', '8px')};
-    }
-  }
+		.${expandClassNames.content} {
+			padding-top: ${token('space.100', '8px')};
+		}
+	}
 
-  .${expandClassNames.inputContainer} {
-    width: 100%;
-  }
+	.${expandClassNames.inputContainer} {
+		width: 100%;
+	}
 
-  /* stylelint-disable property-no-unknown, value-keyword-case */
-  .${expandClassNames.prefix}:(.${expandClassNames.expanded}) {
-    .expand-content-wrapper {
-      height: auto;
-    }
-  }
-  /* stylelint-enable property-no-unknown, value-keyword-case */
+	/* stylelint-disable property-no-unknown, value-keyword-case */
+	.${expandClassNames.prefix}:(.${expandClassNames.expanded}) {
+		.expand-content-wrapper {
+			height: auto;
+		}
+	}
+	/* stylelint-enable property-no-unknown, value-keyword-case */
 
-  .${expandClassNames.prefix}:not(.${expandClassNames.expanded}) {
-    .ak-editor-expand__content {
-      position: absolute;
-      height: 1px;
-      width: 1px;
-      overflow: hidden;
-      clip: rect(1px, 1px, 1px, 1px);
-      white-space: nowrap;
-    }
+	.${expandClassNames.prefix}:not(.${expandClassNames.expanded}) {
+		.ak-editor-expand__content {
+			position: absolute;
+			height: 1px;
+			width: 1px;
+			overflow: hidden;
+			clip: rect(1px, 1px, 1px, 1px);
+			white-space: nowrap;
+		}
 
-    .${expandClassNames.iconContainer} svg {
-      ${EXPAND_ICON_COLOR()};
-      transform: rotate(0deg);
-    }
+		.${expandClassNames.iconContainer} svg {
+			${EXPAND_ICON_COLOR()};
+			transform: rotate(0deg);
+		}
 
-    &:not(.${akEditorSelectedNodeClassName}):not(.danger) {
-      background: transparent;
-      border-color: transparent;
+		&:not(.${akEditorSelectedNodeClassName}):not(.danger) {
+			background: transparent;
+			border-color: transparent;
 
-      &:hover {
-        border-color: ${token('color.border', N50A)};
-        background: ${EXPAND_SELECTED_BACKGROUND};
-      }
-    }
-  }
+			&:hover {
+				border-color: ${token('color.border', N50A)};
+				background: ${EXPAND_SELECTED_BACKGROUND};
+			}
+		}
+	}
 `;

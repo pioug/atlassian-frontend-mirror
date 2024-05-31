@@ -24,15 +24,15 @@ export const styles = `
 `;
 
 export default function code({ mark, text }: MarkSerializerOpts) {
-  // Outlook accepts padding on <td> element, thus we wrap it with table here
-  return createTable([
-    [
-      {
-        text,
-        attrs: {
-          class: createClassName(`mark-indentation-${mark.attrs.level}`),
-        },
-      },
-    ],
-  ]);
+	// Outlook accepts padding on <td> element, thus we wrap it with table here
+	return createTable([
+		[
+			{
+				text,
+				attrs: {
+					class: createClassName(`mark-indentation-${mark.attrs.level}`),
+				},
+			},
+		],
+	]);
 }

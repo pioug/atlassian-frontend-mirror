@@ -6,15 +6,13 @@ import { createTransformer } from '../utils';
 // This stays as require() since changing to import will trigger a linter error
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
-const transformer = createTransformer('@atlaskit/editor-core', [
-  renameSmartLinksProp,
-]);
+const transformer = createTransformer('@atlaskit/editor-core', [renameSmartLinksProp]);
 
 describe('Rename smartLinks to inside linking prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -22,7 +20,7 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -30,13 +28,13 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor />
     );
     `, // -----
-    'rename nothing if smartLinks prop not set',
-  );
+		'rename nothing if smartLinks prop not set',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -44,7 +42,7 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor linking />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -52,13 +50,13 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor linking />
     );
     `, // -----
-    'rename nothing if boolean prop',
-  );
+		'rename nothing if boolean prop',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -66,7 +64,7 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor linking={{ smartLinks: { provider: Promise.resolve({}) } }} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -74,13 +72,13 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor linking={{ smartLinks: { provider: Promise.resolve({}) } }} />
     );
     `, // -----
-    'rename nothing if smartLinks not found',
-  );
+		'rename nothing if smartLinks not found',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -88,7 +86,7 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor smartLinks={{ provider: Promise.resolve({}), allowEmbeds: true }} linking={{ linkPicker: {} }} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -96,13 +94,13 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor smartLinks={{ provider: Promise.resolve({}), allowEmbeds: true }} linking={{ linkPicker: {} }} />
     );
     `, // -----
-    'rename nothing if linking prop already exists',
-  );
+		'rename nothing if linking prop already exists',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -110,7 +108,7 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor smartLinks={{ provider: Promise.resolve({}), allowEmbeds: true }} linking={{ smartLinks: { provider: Promise.resolve({}) } }} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -118,13 +116,13 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor smartLinks={{ provider: Promise.resolve({}), allowEmbeds: true }} linking={{ smartLinks: { provider: Promise.resolve({}) } }} />
     );
     `, // -----
-    'rename nothing if linking prop already exists with smartLinks key',
-  );
+		'rename nothing if linking prop already exists with smartLinks key',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -132,7 +130,7 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor smartLinks={{ provider: Promise.resolve({}), allowEmbeds: true }} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -145,13 +143,13 @@ describe('Rename smartLinks to inside linking prop', () => {
       }} />
     );
     `, // -----
-    'rename smartLinks to key inside linking and do not change other options',
-  );
+		'rename smartLinks to key inside linking and do not change other options',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor as AKEditor } from '@atlaskit/editor-core';
 
@@ -159,7 +157,7 @@ describe('Rename smartLinks to inside linking prop', () => {
       <AKEditor smartLinks={{ provider: Promise.resolve({}) }} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor as AKEditor } from '@atlaskit/editor-core';
 
@@ -171,13 +169,13 @@ describe('Rename smartLinks to inside linking prop', () => {
       }} />
     );
     `, // -----
-    'rename smartLinks to key inside linking when Editor is renamed',
-  );
+		'rename smartLinks to key inside linking when Editor is renamed',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     const Editor = (props) => {
@@ -188,7 +186,7 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor smartLinks={{ provider: Promise.resolve({}) }} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
 
     const Editor = (props) => {
@@ -199,6 +197,6 @@ describe('Rename smartLinks to inside linking prop', () => {
       <Editor smartLinks={{ provider: Promise.resolve({}) }} />
     );
     `, // -----
-    'rename nothing if smartLinks for Editor is not from @atlaskit/editor-core',
-  );
+		'rename nothing if smartLinks for Editor is not from @atlaskit/editor-core',
+	);
 });

@@ -43,13 +43,12 @@ If this has been properly set up, the Google Drive file picker should work
 accordingly.
 
 ${(
-  <>
-    <p />
-    <SectionMessage>
-      You should likely set up two GCPs, one for local testing, and one for
-      production - make sure both are verified and allow External user type
-      under the OAuth consent screen.
-    </SectionMessage>
-  </>
+	<>
+		<p />
+		<SectionMessage>
+			You should likely set up two GCPs, one for local testing, and one for production - make sure
+			both are verified and allow External user type under the OAuth consent screen.
+		</SectionMessage>
+	</>
 )}
 `;

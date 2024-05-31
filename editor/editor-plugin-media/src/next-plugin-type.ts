@@ -1,7 +1,4 @@
-import type {
-  NextEditorPlugin,
-  OptionalPlugin,
-} from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
@@ -20,26 +17,26 @@ import type { MediaOptions } from './types';
 import type { InsertMediaAsMediaSingle } from './utils/media-single';
 
 export type MediaNextEditorPluginType = NextEditorPlugin<
-  'media',
-  {
-    pluginConfiguration: MediaOptions | undefined;
-    dependencies: [
-      OptionalPlugin<AnalyticsPlugin>,
-      OptionalPlugin<ContextIdentifierPlugin>,
-      OptionalPlugin<EditorViewModePlugin>,
-      GuidelinePlugin,
-      GridPlugin,
-      WidthPlugin,
-      DecorationsPlugin,
-      FloatingToolbarPlugin,
-      EditorDisabledPlugin,
-      FocusPlugin,
-      SelectionPlugin,
-      OptionalPlugin<AnnotationPlugin>,
-    ];
-    sharedState: MediaPluginState | null;
-    actions: {
-      insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
-    };
-  }
+	'media',
+	{
+		pluginConfiguration: MediaOptions | undefined;
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<ContextIdentifierPlugin>,
+			OptionalPlugin<EditorViewModePlugin>,
+			GuidelinePlugin,
+			GridPlugin,
+			WidthPlugin,
+			DecorationsPlugin,
+			FloatingToolbarPlugin,
+			EditorDisabledPlugin,
+			FocusPlugin,
+			SelectionPlugin,
+			OptionalPlugin<AnnotationPlugin>,
+		];
+		sharedState: MediaPluginState | null;
+		actions: {
+			insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
+		};
+	}
 >;

@@ -5,10 +5,7 @@ import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
 
 import type EditorActions from '../actions';
 
-import {
-  combineQuickInsertProviders,
-  extensionProviderToQuickInsertProvider,
-} from './extensions';
+import { combineQuickInsertProviders, extensionProviderToQuickInsertProvider } from './extensions';
 
 /**
  *
@@ -21,26 +18,19 @@ import {
  * @returns Quick insert provider if available
  */
 export default function prepareQuickInsertProvider(
-  editorActions: EditorActions,
-  extensionProvider?: ExtensionProvider,
-  quickInsert?: QuickInsertOptions,
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
+	editorActions: EditorActions,
+	extensionProvider?: ExtensionProvider,
+	quickInsert?: QuickInsertOptions,
+	createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): Promise<QuickInsertProvider> | undefined {
-  const quickInsertProvider =
-    quickInsert && typeof quickInsert !== 'boolean' && quickInsert.provider;
+	const quickInsertProvider =
+		quickInsert && typeof quickInsert !== 'boolean' && quickInsert.provider;
 
-  const extensionQuickInsertProvider =
-    extensionProvider &&
-    extensionProviderToQuickInsertProvider(
-      extensionProvider,
-      editorActions,
-      createAnalyticsEvent,
-    );
+	const extensionQuickInsertProvider =
+		extensionProvider &&
+		extensionProviderToQuickInsertProvider(extensionProvider, editorActions, createAnalyticsEvent);
 
-  return quickInsertProvider && extensionQuickInsertProvider
-    ? combineQuickInsertProviders([
-        quickInsertProvider,
-        extensionQuickInsertProvider,
-      ])
-    : quickInsertProvider || extensionQuickInsertProvider;
+	return quickInsertProvider && extensionQuickInsertProvider
+		? combineQuickInsertProviders([quickInsertProvider, extensionQuickInsertProvider])
+		: quickInsertProvider || extensionQuickInsertProvider;
 }

@@ -335,6 +335,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'การดำเนินการของหน้าข้อมูล',
   'fabric.editor.panel.backgroundColor': 'สีพื้นหลัง',
   'fabric.editor.panel.emoji': 'เพิ่มเอโมจิ',
+  'fabric.editor.panel.panelsGroup': 'ประเภทแผง',
   'fabric.editor.pasteOptions': 'ตัวเลือกการวาง',
   'fabric.editor.pastePlainText': 'วางข้อความธรรมดา',
   'fabric.editor.placeholderAltText': 'อธิบายรูปภาพนี้ด้วยข้อความอธิบายรูปภาพ',

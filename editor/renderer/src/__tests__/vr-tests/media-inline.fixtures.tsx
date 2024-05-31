@@ -9,32 +9,30 @@ import { mediaInlineMultipleInParagraphAdf } from '../visual-regression/media/__
 import type { DocNode } from '@atlaskit/adf-schema';
 
 const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {
-  return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    <div style={{ padding: '10px' }}>
-      <MockMediaClientProvider>
-        <Renderer
-          document={adf}
-          // @ts-expect-error
-          appearance={appearance}
-          adfStage={'stage0'}
-          media={{ allowLinking: true, allowCaptions: true }}
-        />
-      </MockMediaClientProvider>
-    </div>
-  );
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ padding: '10px' }}>
+			<MockMediaClientProvider>
+				<Renderer
+					document={adf}
+					// @ts-expect-error
+					appearance={appearance}
+					adfStage={'stage0'}
+					media={{ allowLinking: true, allowCaptions: true }}
+				/>
+			</MockMediaClientProvider>
+		</div>
+	);
 };
 
 export const MediaInlineADF = () => {
-  return <Media adf={mediaInlineAdf} appearance={'full-page'} />;
+	return <Media adf={mediaInlineAdf} appearance={'full-page'} />;
 };
 
 export const MediaInlineInParagraphADF = () => {
-  return <Media adf={mediaInlineInParagraphAdf} appearance={'full-page'} />;
+	return <Media adf={mediaInlineInParagraphAdf} appearance={'full-page'} />;
 };
 
 export const MediaInlineMultipleInParagraphADF = () => {
-  return (
-    <Media adf={mediaInlineMultipleInParagraphAdf} appearance={'full-page'} />
-  );
+	return <Media adf={mediaInlineMultipleInParagraphAdf} appearance={'full-page'} />;
 };

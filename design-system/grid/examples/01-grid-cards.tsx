@@ -10,7 +10,6 @@ const itemStyles = xcss({
   justifyContent: 'center',
   backgroundColor: 'elevation.surface.sunken',
   borderColor: 'color.border',
-  // @ts-expect-error
   borderWidth: '3px',
   borderStyle: 'solid',
   height: 'size.600',

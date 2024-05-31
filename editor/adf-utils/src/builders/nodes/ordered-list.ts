@@ -1,12 +1,9 @@
-import {
-  type ListItemDefinition,
-  type OrderedListDefinition,
-} from '@atlaskit/adf-schema';
+import { type ListItemDefinition, type OrderedListDefinition } from '@atlaskit/adf-schema';
 
 export const orderedList =
-  (attrs?: OrderedListDefinition['attrs']) =>
-  (...content: Array<ListItemDefinition>): OrderedListDefinition => ({
-    type: 'orderedList',
-    attrs,
-    content,
-  });
+	(attrs?: OrderedListDefinition['attrs']) =>
+	(...content: Array<ListItemDefinition>): OrderedListDefinition => ({
+		type: 'orderedList',
+		attrs,
+		content,
+	});

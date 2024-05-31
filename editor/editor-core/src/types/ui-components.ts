@@ -1,4 +1,1 @@
-export type {
-  UiComponentFactoryParams,
-  UIComponentFactory,
-} from '@atlaskit/editor-common/types';
+export type { UiComponentFactoryParams, UIComponentFactory } from '@atlaskit/editor-common/types';

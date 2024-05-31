@@ -1,31 +1,31 @@
 let hasRequiredPerformanceAPIs: boolean | undefined;
 
 export function isPerformanceAPIAvailable(): boolean {
-  if (hasRequiredPerformanceAPIs === undefined) {
-    hasRequiredPerformanceAPIs =
-      typeof window !== 'undefined' &&
-      'performance' in window &&
-      [
-        'measure',
-        'clearMeasures',
-        'clearMarks',
-        'getEntriesByName',
-        'getEntriesByType',
-        'now',
-      ].every((api) => !!(performance as any)[api]);
-  }
+	if (hasRequiredPerformanceAPIs === undefined) {
+		hasRequiredPerformanceAPIs =
+			typeof window !== 'undefined' &&
+			'performance' in window &&
+			[
+				'measure',
+				'clearMeasures',
+				'clearMarks',
+				'getEntriesByName',
+				'getEntriesByType',
+				'now',
+			].every((api) => !!(performance as any)[api]);
+	}
 
-  return hasRequiredPerformanceAPIs;
+	return hasRequiredPerformanceAPIs;
 }
 
 export function isPerformanceObserverAvailable(): boolean {
-  return !!(typeof window !== 'undefined' && 'PerformanceObserver' in window);
+	return !!(typeof window !== 'undefined' && 'PerformanceObserver' in window);
 }
 
 export function isPerformanceObserverLongTaskAvailable(): boolean {
-  return (
-    isPerformanceObserverAvailable() &&
-    PerformanceObserver.supportedEntryTypes &&
-    PerformanceObserver.supportedEntryTypes.includes('longtask')
-  );
+	return (
+		isPerformanceObserverAvailable() &&
+		PerformanceObserver.supportedEntryTypes &&
+		PerformanceObserver.supportedEntryTypes.includes('longtask')
+	);
 }

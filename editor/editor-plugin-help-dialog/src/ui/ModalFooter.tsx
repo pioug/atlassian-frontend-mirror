@@ -9,12 +9,12 @@ import { footer } from './styles';
 import { getComponentFromKeymap } from './utils';
 
 const ModalFooter = () => (
-  <div css={footer}>
-    <FormattedMessage
-      {...messages.helpDialogTips}
-      values={{ keyMap: getComponentFromKeymap(openHelp) }}
-    />
-  </div>
+	<div css={footer}>
+		<FormattedMessage
+			{...messages.helpDialogTips}
+			values={{ keyMap: getComponentFromKeymap(openHelp) }}
+		/>
+	</div>
 );
 
 export default ModalFooter;

@@ -8,44 +8,39 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererAppearance } from './ui/Renderer/types';
 
 function createEncoder<T>(parser: Transformer<T>, encoder: Transformer<any>) {
-  return (value: T) => encoder.encode(parser.parse(value));
+	return (value: T) => encoder.encode(parser.parse(value));
 }
 export type TransformerProvider<T> = (schema: Schema) => Transformer<T>;
 export class ADFEncoder<T> {
-  encode: (value: T) => any;
+	encode: (value: T) => any;
 
-  constructor(createTransformerWithSchema: TransformerProvider<T>) {
-    const transformer = createTransformerWithSchema(defaultSchema);
-    this.encode = createEncoder(transformer, new JSONTransformer());
-  }
+	constructor(createTransformerWithSchema: TransformerProvider<T>) {
+		const transformer = createTransformerWithSchema(defaultSchema);
+		this.encode = createEncoder(transformer, new JSONTransformer());
+	}
 }
 
 export const getText = (node: PMNode | ADNode): string => {
-  return (
-    node.text ||
-    (node.attrs && (node.attrs.text || node.attrs.shortName)) ||
-    `[${typeof node.type === 'string' ? node.type : node.type.name}]`
-  );
+	return (
+		node.text ||
+		(node.attrs && (node.attrs.text || node.attrs.shortName)) ||
+		`[${typeof node.type === 'string' ? node.type : node.type.name}]`
+	);
 };
 
 export const getEventHandler = (
-  eventHandlers?: EventHandlers,
-  type?: keyof EventHandlers,
-  eventName: string = 'onClick',
+	eventHandlers?: EventHandlers,
+	type?: keyof EventHandlers,
+	eventName: string = 'onClick',
 ): any => {
-  return (
-    eventHandlers &&
-    type &&
-    eventHandlers[type] &&
-    (eventHandlers as any)[type][eventName]
-  );
+	return eventHandlers && type && eventHandlers[type] && (eventHandlers as any)[type][eventName];
 };
 
 export const getPlatform = (rendererAppearance: RendererAppearance) => {
-  if (rendererAppearance === 'mobile') {
-    return 'mobile' as const;
-  }
-  return 'web' as const;
+	if (rendererAppearance === 'mobile') {
+		return 'mobile' as const;
+	}
+	return 'web' as const;
 };
 
 /**
@@ -58,18 +53,18 @@ export const getPlatform = (rendererAppearance: RendererAppearance) => {
  * element has desired classname.
  */
 export function findInTree(
-  element: HTMLElement,
-  topElement: HTMLElement,
-  evaluate: (element: HTMLElement) => boolean,
+	element: HTMLElement,
+	topElement: HTMLElement,
+	evaluate: (element: HTMLElement) => boolean,
 ): boolean {
-  if (element === topElement) {
-    return false;
-  }
-  if (evaluate(element)) {
-    return true;
-  }
-  if (!element.parentElement) {
-    return false;
-  }
-  return findInTree(element.parentElement, topElement, evaluate);
+	if (element === topElement) {
+		return false;
+	}
+	if (evaluate(element)) {
+		return true;
+	}
+	if (!element.parentElement) {
+		return false;
+	}
+	return findInTree(element.parentElement, topElement, evaluate);
 }

@@ -5,30 +5,30 @@ import type { Command } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 
 export enum IconTypes {
-  strong = 'strong',
-  em = 'em',
-  underline = 'underline',
-  strike = 'strike',
-  code = 'code',
-  subscript = 'subscript',
-  superscript = 'superscript',
+	strong = 'strong',
+	em = 'em',
+	underline = 'underline',
+	strike = 'strike',
+	code = 'code',
+	subscript = 'subscript',
+	superscript = 'superscript',
 }
 
 export interface MenuIconItem extends MenuItem {
-  command: Command;
-  iconMark?: IconTypes;
-  tooltipElement?: React.ReactElement;
-  iconElement?: React.ReactElement;
-  buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
+	command: Command;
+	iconMark?: IconTypes;
+	tooltipElement?: React.ReactElement;
+	iconElement?: React.ReactElement;
+	buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
 }
 
 export type MenuIconState = {
-  isActive: boolean;
-  isDisabled: boolean;
-  isHidden: boolean;
-  hasSchemaMark: boolean;
+	isActive: boolean;
+	isDisabled: boolean;
+	isHidden: boolean;
+	hasSchemaMark: boolean;
 };
 
 export type IconHookProps = {
-  isToolbarDisabled?: boolean;
+	isToolbarDisabled?: boolean;
 } & WrappedComponentProps;

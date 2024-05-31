@@ -1,16 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  clickFirstCell,
-  tableSelectors,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { clickFirstCell, tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  editorCommentContentSelector,
-  initCommentEditorWithAdf,
-  initFullPageEditorWithAdf,
-  snapshot,
+	editorCommentContentSelector,
+	initCommentEditorWithAdf,
+	initFullPageEditorWithAdf,
+	snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
@@ -26,49 +23,46 @@ const numberedColumnSelector = '.pm-table-numbered-column';
 const undefinedThreshold = {};
 
 describe('Snapshot Test: numbered table', () => {
-  let page: PuppeteerPage;
+	let page: PuppeteerPage;
 
-  const checkIsInsertRowButtonInDocument = async () => {
-    return await page.evaluate(
-      isElementBySelectorInDocument,
-      tableSelectors.insertRowButton,
-    );
-  };
+	const checkIsInsertRowButtonInDocument = async () => {
+		return await page.evaluate(isElementBySelectorInDocument, tableSelectors.insertRowButton);
+	};
 
-  beforeAll(async () => {
-    page = global.page;
-  });
+	beforeAll(async () => {
+		page = global.page;
+	});
 
-  it('looks correct for fullpage', async () => {
-    await initFullPageEditorWithAdf(page, multipleTablesAdf, Device.LaptopMDPI);
-    await clickFirstCell(page, true);
-    await waitForFloatingControl(page, 'Table floating controls');
-    await snapshot(page);
-  });
+	it('looks correct for fullpage', async () => {
+		await initFullPageEditorWithAdf(page, multipleTablesAdf, Device.LaptopMDPI);
+		await clickFirstCell(page, true);
+		await waitForFloatingControl(page, 'Table floating controls');
+		await snapshot(page);
+	});
 
-  it('looks correct for comment', async () => {
-    await initCommentEditorWithAdf(page, multipleTablesAdf, Device.LaptopMDPI);
-    await clickFirstCell(page, true);
-    await waitForFloatingControl(page, 'Table floating controls');
-    await snapshot(page, undefined, editorCommentContentSelector);
-  });
+	it('looks correct for comment', async () => {
+		await initCommentEditorWithAdf(page, multipleTablesAdf, Device.LaptopMDPI);
+		await clickFirstCell(page, true);
+		await waitForFloatingControl(page, 'Table floating controls');
+		await snapshot(page, undefined, editorCommentContentSelector);
+	});
 
-  it('should show insert button when mouse is hover numbered button', async () => {
-    await initFullPageEditorWithAdf(page, adf);
+	it('should show insert button when mouse is hover numbered button', async () => {
+		await initFullPageEditorWithAdf(page, adf);
 
-    await expect(checkIsInsertRowButtonInDocument()).resolves.toBeFalsy();
+		await expect(checkIsInsertRowButtonInDocument()).resolves.toBeFalsy();
 
-    await clickFirstCell(page, true);
-    await waitForFloatingControl(page, 'Table floating controls');
-    await page.hover(tableSelectors.nthRowControl(2));
-    await page.waitForSelector(tableSelectors.insertRowButton);
+		await clickFirstCell(page, true);
+		await waitForFloatingControl(page, 'Table floating controls');
+		await page.hover(tableSelectors.nthRowControl(2));
+		await page.waitForSelector(tableSelectors.insertRowButton);
 
-    await expect(checkIsInsertRowButtonInDocument()).resolves.toBeTruthy();
-  });
+		await expect(checkIsInsertRowButtonInDocument()).resolves.toBeTruthy();
+	});
 
-  it('should show numbered column correctly', async () => {
-    await initFullPageEditorWithAdf(page, tableWithContentAdf);
+	it('should show numbered column correctly', async () => {
+		await initFullPageEditorWithAdf(page, tableWithContentAdf);
 
-    await snapshot(page, undefinedThreshold, numberedColumnSelector);
-  });
+		await snapshot(page, undefinedThreshold, numberedColumnSelector);
+	});
 });

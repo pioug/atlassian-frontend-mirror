@@ -39,6 +39,9 @@
 			"path": "../accessibility-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
@@ -49,6 +52,9 @@
 		},
 		{
 			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"

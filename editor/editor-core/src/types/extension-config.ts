@@ -1,4 +1,4 @@
 export interface ExtensionConfig {
-  allowBreakout?: boolean;
-  allowExtendFloatingToolbars?: boolean;
+	allowBreakout?: boolean;
+	allowExtendFloatingToolbars?: boolean;
 }

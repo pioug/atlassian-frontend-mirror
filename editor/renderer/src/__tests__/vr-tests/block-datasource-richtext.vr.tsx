@@ -1,7 +1,7 @@
 import { Device, snapshot } from '@af/visual-regression';
 import {
-  DatasourceWithRichTextFullPage,
-  DatasourceWithRichTextFullWidth,
+	DatasourceWithRichTextFullPage,
+	DatasourceWithRichTextFullWidth,
 } from '../__helpers/rendererComponents';
 
 /**
@@ -10,21 +10,21 @@ import {
  * Slack: https://atlassian.slack.com/archives/C05DWCW6ZAN/p1692671566069189
  */
 snapshot.skip(DatasourceWithRichTextFullPage, {
-  variants: [
-    {
-      name: 'desktop',
-      device: Device.DESKTOP_CHROME,
-    },
-  ],
-  drawsOutsideBounds: true,
+	variants: [
+		{
+			name: 'desktop',
+			device: Device.DESKTOP_CHROME,
+		},
+	],
+	drawsOutsideBounds: true,
 });
 
 snapshot.skip(DatasourceWithRichTextFullWidth, {
-  variants: [
-    {
-      name: 'desktop',
-      device: Device.DESKTOP_CHROME,
-    },
-  ],
-  drawsOutsideBounds: true,
+	variants: [
+		{
+			name: 'desktop',
+			device: Device.DESKTOP_CHROME,
+		},
+	],
+	drawsOutsideBounds: true,
 });

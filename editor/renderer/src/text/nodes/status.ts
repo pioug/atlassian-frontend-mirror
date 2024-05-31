@@ -3,9 +3,7 @@ import { getText } from '../../utils';
 import { type NodeReducer } from './';
 
 const status: NodeReducer = (node: PMNode, schema: Schema) => {
-  return node.attrs.text
-    ? `[ ${node.attrs.text.toUpperCase()} ]`
-    : getText(node);
+	return node.attrs.text ? `[ ${node.attrs.text.toUpperCase()} ]` : getText(node);
 };
 
 export default status;

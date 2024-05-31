@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/share",
-  "version": "4.18.1",
+  "version": "4.18.2",
   "description": "Fabric Share Element",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
     "@atlaskit/popper": "^6.0.0",
     "@atlaskit/popup": "^1.17.0",
     "@atlaskit/portal": "^4.5.0",
-    "@atlaskit/primitives": "^6.2.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/smart-user-picker": "^6.9.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/tabs": "^16.1.0",
@@ -76,7 +76,6 @@
   "devDependencies": {
     "@atlaskit/editor-test-helpers": "^18.23.0",
     "@atlaskit/flag": "^15.5.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "enzyme": "^3.10.0",
@@ -124,6 +123,5 @@
     "./clients": "./src/clients/index.ts",
     "./copy-link-button": "./src/components/CopyLinkButton.tsx",
     "./i18n/*": "./src/i18n/*.ts"
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

@@ -11,12 +11,12 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
  * @returns boolean
  */
 export const mediaInlineImagesEnabled = (
-  allowMediaInline?: boolean,
-  allowMediaInlineImages?: boolean,
+	allowMediaInline?: boolean,
+	allowMediaInlineImages?: boolean,
 ) => {
-  return (
-    allowMediaInline &&
-    allowMediaInlineImages &&
-    getBooleanFF('platform.editor.media.inline-image.base-support')
-  );
+	return (
+		allowMediaInline &&
+		allowMediaInlineImages &&
+		getBooleanFF('platform.editor.media.inline-image.base-support')
+	);
 };

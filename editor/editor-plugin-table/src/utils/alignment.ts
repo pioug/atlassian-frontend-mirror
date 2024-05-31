@@ -10,4 +10,4 @@ export const ALIGN_CENTER = 'center';
  * center if layout equals a breakout value (e.g. 'default', 'wide', 'full-width')
  */
 export const normaliseAlignment = (layout: TableLayout): AlignmentOptions =>
-  layout === ALIGN_CENTER || layout === ALIGN_START ? layout : ALIGN_CENTER;
+	layout === ALIGN_CENTER || layout === ALIGN_START ? layout : ALIGN_CENTER;

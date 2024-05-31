@@ -26,191 +26,193 @@ export const resizerHandleZIndex = 1;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Seems perfectly safe to autofix, but comments would be lost…
 export const resizerStyles = css`
-  .${resizerItemClassName} {
-    will-change: width;
+	.${resizerItemClassName} {
+		will-change: width;
 
-    &:hover,
-    &.display-handle {
-      & > .${handleWrapperClass} > .${resizerHandleClassName} {
-        visibility: visible;
-        opacity: 1;
-      }
-    }
+		&:hover,
+		&.display-handle {
+			& > .${handleWrapperClass} > .${resizerHandleClassName} {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
 
-    &.is-resizing {
-      & .${resizerHandleThumbClassName} {
-        background: ${token('color.border.focused', B200)};
-      }
-    }
+		&.is-resizing {
+			& .${resizerHandleThumbClassName} {
+				background: ${token('color.border.focused', B200)};
+			}
+		}
 
-    &.${resizerDangerClassName} {
-      & .${resizerHandleThumbClassName} {
-        transition: none;
-        background: ${token('color.icon.danger', akEditorDeleteIconColor)};
-      }
-    }
-  }
+		&.${resizerDangerClassName} {
+			& .${resizerHandleThumbClassName} {
+				transition: none;
+				background: ${token('color.icon.danger', akEditorDeleteIconColor)};
+			}
+		}
+	}
 
-  .${resizerHandleClassName} {
-    display: flex;
-    visibility: hidden;
-    opacity: 0;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 7px;
-    transition: visibility 0.2s, opacity 0.2s;
+	.${resizerHandleClassName} {
+		display: flex;
+		visibility: hidden;
+		opacity: 0;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 7px;
+		transition:
+			visibility 0.2s,
+			opacity 0.2s;
 
-    /*
+		/*
       NOTE: The below style is targeted at the div element added by the tooltip. We don't have any means of injecting styles
       into the tooltip
     */
-    & div[role='presentation'] {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-top: ${token('space.negative.200', '-16px')};
-      white-space: normal;
-    }
+		& div[role='presentation'] {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin-top: ${token('space.negative.200', '-16px')};
+			white-space: normal;
+		}
 
-    /*
+		/*
       Handle Positions
     */
-    &.left {
-      align-items: flex-start;
-    }
-    &.right {
-      align-items: flex-end;
-    }
+		&.left {
+			align-items: flex-start;
+		}
+		&.right {
+			align-items: flex-end;
+		}
 
-    /*
+		/*
       Handle Sizing
     */
-    &.small {
-      & .${resizerHandleThumbClassName} {
-        height: 43px;
-      }
-    }
-    &.medium {
-      & .${resizerHandleThumbClassName} {
-        height: 64px;
-      }
-    }
-    &.large {
-      & .${resizerHandleThumbClassName} {
-        height: 96px;
-      }
-    }
+		&.small {
+			& .${resizerHandleThumbClassName} {
+				height: 43px;
+			}
+		}
+		&.medium {
+			& .${resizerHandleThumbClassName} {
+				height: 64px;
+			}
+		}
+		&.large {
+			& .${resizerHandleThumbClassName} {
+				height: 96px;
+			}
+		}
 
-    /*
+		/*
       Handle Alignment
     */
-    &.sticky {
-      & .${resizerHandleThumbClassName} {
-        position: sticky;
-        top: ${token('space.150', '12px')};
-        bottom: ${token('space.150', '12px')};
-      }
-    }
+		&.sticky {
+			& .${resizerHandleThumbClassName} {
+				position: sticky;
+				top: ${token('space.150', '12px')};
+				bottom: ${token('space.150', '12px')};
+			}
+		}
 
-    &:hover {
-      & .${resizerHandleThumbClassName} {
-        background: ${token('color.border.focused', B200)};
-      }
+		&:hover {
+			& .${resizerHandleThumbClassName} {
+				background: ${token('color.border.focused', B200)};
+			}
 
-      & .${resizerHandleTrackClassName} {
-        visibility: visible;
-        opacity: 0.5;
-      }
-    }
-  }
+			& .${resizerHandleTrackClassName} {
+				visibility: visible;
+				opacity: 0.5;
+			}
+		}
+	}
 
-  .${resizerHandleThumbClassName} {
-    content: ' ';
-    display: flex;
-    width: 3px;
-    margin: 0 ${token('space.025', '2px')};
-    height: 64px;
-    transition: background-color 0.2s;
-    border-radius: 6px;
-    border: 0;
-    padding: 0;
-    z-index: 2;
-    outline: none;
-    min-height: 24px;
-    background: ${token('color.border', N60)};
+	.${resizerHandleThumbClassName} {
+		content: ' ';
+		display: flex;
+		width: 3px;
+		margin: 0 ${token('space.025', '2px')};
+		height: 64px;
+		transition: background-color 0.2s;
+		border-radius: 6px;
+		border: 0;
+		padding: 0;
+		z-index: 2;
+		outline: none;
+		min-height: 24px;
+		background: ${token('color.border', N60)};
 
-    &:hover {
-      cursor: col-resize;
-    }
+		&:hover {
+			cursor: col-resize;
+		}
 
-    &:focus {
-      background: ${token('color.border.selected', '#0C66E4')};
+		&:focus {
+			background: ${token('color.border.selected', '#0C66E4')};
 
-      &::after {
-        content: '';
-        position: absolute;
-        top: ${token('space.negative.050', '-4px')};
-        right: ${token('space.negative.050', '-4px')};
-        bottom: ${token('space.negative.050', '-4px')};
-        left: ${token('space.negative.050', '-4px')};
-        border: 2px solid ${token('color.border.focused', '#388BFF')};
-        border-radius: inherit;
-        z-index: -1;
-      }
-    }
-  }
+			&::after {
+				content: '';
+				position: absolute;
+				top: ${token('space.negative.050', '-4px')};
+				right: ${token('space.negative.050', '-4px')};
+				bottom: ${token('space.negative.050', '-4px')};
+				left: ${token('space.negative.050', '-4px')};
+				border: 2px solid ${token('color.border.focused', '#388BFF')};
+				border-radius: inherit;
+				z-index: -1;
+			}
+		}
+	}
 
-  .${resizerHandleTrackClassName} {
-    visibility: hidden;
-    position: absolute;
-    width: 7px;
-    height: calc(100% - 40px);
-    border-radius: 4px;
-    opacity: 0;
-    transition: background-color 0.2s, visibility 0.2s, opacity 0.2s;
+	.${resizerHandleTrackClassName} {
+		visibility: hidden;
+		position: absolute;
+		width: 7px;
+		height: calc(100% - 40px);
+		border-radius: 4px;
+		opacity: 0;
+		transition:
+			background-color 0.2s,
+			visibility 0.2s,
+			opacity 0.2s;
 
-    &.none {
-      background: none;
-    }
+		&.none {
+			background: none;
+		}
 
-    &.shadow {
-      background: ${token('color.background.selected', B50)};
-    }
+		&.shadow {
+			background: ${token('color.background.selected', B50)};
+		}
 
-    &.full-height {
-      background: ${token('color.background.selected', B50)};
-      height: 100%;
-      min-height: 36px;
-    }
-  }
+		&.full-height {
+			background: ${token('color.background.selected', B50)};
+			height: 100%;
+			min-height: 36px;
+		}
+	}
 
-  .${akEditorSelectedNodeClassName} {
-    & .${resizerHandleThumbClassName} {
-      background: ${token('color.border.focused', B200)};
-    }
-  }
+	.${akEditorSelectedNodeClassName} {
+		& .${resizerHandleThumbClassName} {
+			background: ${token('color.border.focused', B200)};
+		}
+	}
 
-  .${resizerHoverZoneClassName} {
-    position: relative;
-    display: inline-block;
-    width: 100%;
+	.${resizerHoverZoneClassName} {
+		position: relative;
+		display: inline-block;
+		width: 100%;
 
-    &.${resizerExtendedZone} {
-      padding: 0 ${token('space.150', '12px')};
-      left: ${token('space.negative.150', '-12px')};
-    }
-  }
+		&.${resizerExtendedZone} {
+			padding: 0 ${token('space.150', '12px')};
+			left: ${token('space.negative.150', '-12px')};
+		}
+	}
 
-  // This below style is here to make sure the image width is correct when nested in a table
-  table
-    .${resizerHoverZoneClassName},
-    table
-    .${resizerHoverZoneClassName}.${resizerExtendedZone} {
-    padding: unset;
-    left: unset;
-  }
+	// This below style is here to make sure the image width is correct when nested in a table
+	table .${resizerHoverZoneClassName}, table .${resizerHoverZoneClassName}.${resizerExtendedZone} {
+		padding: unset;
+		left: unset;
+	}
 `;

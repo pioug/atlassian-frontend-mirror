@@ -13,95 +13,93 @@ import type { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
 
 export interface BlockInsertMenuProps {
-  disabled: boolean;
-  editorView: EditorView;
-  items: BlockMenuItem[];
-  label: string;
-  open: boolean;
-  plusButtonRef?: HTMLElement;
-  popupsBoundariesElement?: HTMLElement;
-  popupsMountPoint?: HTMLElement;
-  popupsScrollableElement?: HTMLElement;
-  replacePlusMenuWithElementBrowser: boolean;
-  spacing: 'none' | 'default';
-  showElementBrowserLink: boolean;
-  onRef(el: HTMLElement): void;
-  onPlusButtonRef(el: HTMLElement): void;
-  onClick: React.MouseEventHandler;
-  onItemActivated(attrs: { item: MenuItem }): void;
-  onInsert: OnInsert;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onOpenChange(attrs: any): void;
-  togglePlusMenuVisibility(): void;
-  onKeyDown?: React.KeyboardEventHandler;
-  pluginInjectionApi:
-    | PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>
-    | undefined;
+	disabled: boolean;
+	editorView: EditorView;
+	items: BlockMenuItem[];
+	label: string;
+	open: boolean;
+	plusButtonRef?: HTMLElement;
+	popupsBoundariesElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	replacePlusMenuWithElementBrowser: boolean;
+	spacing: 'none' | 'default';
+	showElementBrowserLink: boolean;
+	onRef(el: HTMLElement): void;
+	onPlusButtonRef(el: HTMLElement): void;
+	onClick: React.MouseEventHandler;
+	onItemActivated(attrs: { item: MenuItem }): void;
+	onInsert: OnInsert;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onOpenChange(attrs: any): void;
+	togglePlusMenuVisibility(): void;
+	onKeyDown?: React.KeyboardEventHandler;
+	pluginInjectionApi: PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies> | undefined;
 }
 
 export const BlockInsertMenu = (props: BlockInsertMenuProps) => {
-  if (props.items.length === 0) {
-    return null;
-  }
+	if (props.items.length === 0) {
+		return null;
+	}
 
-  if (props.disabled) {
-    return (
-      <div>
-        <DropDownButton
-          aria-expanded={props.open}
-          aria-haspopup
-          handleRef={props.onRef}
-          selected={props.open}
-          disabled={props.disabled}
-          onClick={props.onClick}
-          onKeyDown={props.onKeyDown}
-          spacing={props.spacing}
-          label={props.label}
-          aria-keyshortcuts="/"
-        />
-      </div>
-    );
-  }
+	if (props.disabled) {
+		return (
+			<div>
+				<DropDownButton
+					aria-expanded={props.open}
+					aria-haspopup
+					handleRef={props.onRef}
+					selected={props.open}
+					disabled={props.disabled}
+					onClick={props.onClick}
+					onKeyDown={props.onKeyDown}
+					spacing={props.spacing}
+					label={props.label}
+					aria-keyshortcuts="/"
+				/>
+			</div>
+		);
+	}
 
-  if (props.replacePlusMenuWithElementBrowser) {
-    return (
-      <BlockInsertElementBrowser
-        disabled={props.disabled}
-        editorView={props.editorView}
-        items={props.items}
-        label={props.label}
-        onClick={props.onClick}
-        onKeyDown={props.onKeyDown}
-        onInsert={props.onInsert}
-        onRef={props.onPlusButtonRef}
-        open={props.open}
-        plusButtonRef={props.plusButtonRef}
-        popupsBoundariesElement={props.popupsBoundariesElement}
-        popupsMountPoint={props.popupsMountPoint}
-        popupsScrollableElement={props.popupsScrollableElement}
-        spacing={props.spacing}
-        togglePlusMenuVisibility={props.togglePlusMenuVisibility}
-        showElementBrowserLink={props.showElementBrowserLink}
-        pluginInjectionApi={props.pluginInjectionApi}
-      />
-    );
-  }
+	if (props.replacePlusMenuWithElementBrowser) {
+		return (
+			<BlockInsertElementBrowser
+				disabled={props.disabled}
+				editorView={props.editorView}
+				items={props.items}
+				label={props.label}
+				onClick={props.onClick}
+				onKeyDown={props.onKeyDown}
+				onInsert={props.onInsert}
+				onRef={props.onPlusButtonRef}
+				open={props.open}
+				plusButtonRef={props.plusButtonRef}
+				popupsBoundariesElement={props.popupsBoundariesElement}
+				popupsMountPoint={props.popupsMountPoint}
+				popupsScrollableElement={props.popupsScrollableElement}
+				spacing={props.spacing}
+				togglePlusMenuVisibility={props.togglePlusMenuVisibility}
+				showElementBrowserLink={props.showElementBrowserLink}
+				pluginInjectionApi={props.pluginInjectionApi}
+			/>
+		);
+	}
 
-  return (
-    <BlockInsertMenuLegacy
-      disabled={props.disabled}
-      items={props.items}
-      label={props.label}
-      onClick={props.onClick}
-      onKeyDown={props.onKeyDown}
-      onItemActivated={props.onItemActivated}
-      onOpenChange={props.onOpenChange}
-      onRef={props.onRef}
-      open={props.open}
-      popupsBoundariesElement={props.popupsBoundariesElement}
-      popupsMountPoint={props.popupsMountPoint}
-      popupsScrollableElement={props.popupsScrollableElement}
-      spacing={props.spacing}
-    />
-  );
+	return (
+		<BlockInsertMenuLegacy
+			disabled={props.disabled}
+			items={props.items}
+			label={props.label}
+			onClick={props.onClick}
+			onKeyDown={props.onKeyDown}
+			onItemActivated={props.onItemActivated}
+			onOpenChange={props.onOpenChange}
+			onRef={props.onRef}
+			open={props.open}
+			popupsBoundariesElement={props.popupsBoundariesElement}
+			popupsMountPoint={props.popupsMountPoint}
+			popupsScrollableElement={props.popupsScrollableElement}
+			spacing={props.spacing}
+		/>
+	);
 };

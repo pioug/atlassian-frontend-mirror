@@ -11,15 +11,11 @@ const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });
 
 export default function Example() {
-  return (
-    <Sidebar showSidebar={true}>
-      {(additionalProps: object) => (
-        <Renderer
-          dataProviders={providerFactory}
-          document={document}
-          {...additionalProps}
-        />
-      )}
-    </Sidebar>
-  );
+	return (
+		<Sidebar showSidebar={true}>
+			{(additionalProps: object) => (
+				<Renderer dataProviders={providerFactory} document={document} {...additionalProps} />
+			)}
+		</Sidebar>
+	);
 }

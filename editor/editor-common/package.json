@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "81.1.4",
+  "version": "81.1.5",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -193,10 +193,10 @@
     "@atlaskit/mention": "^23.0.0",
     "@atlaskit/menu": "^2.3.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/profilecard": "^19.14.0",
     "@atlaskit/section-message": "^6.5.0",
-    "@atlaskit/smart-card": "^27.3.0",
+    "@atlaskit/smart-card": "^27.4.0",
     "@atlaskit/smart-user-picker": "^6.9.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/task-decision": "^17.10.0",
@@ -243,7 +243,6 @@
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -278,7 +277,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.editor.media.extended-resize-experience": {
       "type": "boolean"

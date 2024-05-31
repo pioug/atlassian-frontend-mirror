@@ -26,139 +26,131 @@ import { contentStyles, wrapperStyles } from './5-full-page';
 const SAVE_ACTION = () => console.log('Save');
 
 const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
-  const exampleDocument = useExampleDocument();
+	const exampleDocument = useExampleDocument();
 
-  return (
-    <ButtonGroup>
-      <Button
-        onClick={() =>
-          props.editorActions.replaceDocument(exampleDocument, false)
-        }
-      >
-        Load Example
-      </Button>
-      <Button
-        appearance="primary"
-        onClick={() =>
-          props.editorActions
-            .getValue()
-            // eslint-disable-next-line no-console
-            .then((value) => console.log(value))
-        }
-      >
-        Publish
-      </Button>
-      <Button appearance="subtle" onClick={() => props.editorActions.clear()}>
-        Close
-      </Button>
-    </ButtonGroup>
-  );
+	return (
+		<ButtonGroup>
+			<Button onClick={() => props.editorActions.replaceDocument(exampleDocument, false)}>
+				Load Example
+			</Button>
+			<Button
+				appearance="primary"
+				onClick={() =>
+					props.editorActions
+						.getValue()
+						// eslint-disable-next-line no-console
+						.then((value) => console.log(value))
+				}
+			>
+				Publish
+			</Button>
+			<Button appearance="subtle" onClick={() => props.editorActions.clear()}>
+				Close
+			</Button>
+		</ButtonGroup>
+	);
 };
 
 export type Props = {
-  defaultValue?: Object;
+	defaultValue?: Object;
 };
 
 const quickInsertProvider = quickInsertProviderFactory();
 const quickInsert = {
-  provider: Promise.resolve(quickInsertProvider),
+	provider: Promise.resolve(quickInsertProvider),
 };
 export class ExampleEditor extends React.Component<Props> {
-  render() {
-    return (
-      <IntlProvider locale="en">
-        <div css={wrapperStyles}>
-          <div css={contentStyles}>
-            <ToolsDrawer
-              renderEditor={({
-                mentionProvider,
-                emojiProvider,
-                mediaProvider,
-                activityProvider,
-                taskDecisionProvider,
-                contextIdentifierProvider,
-                onChange,
-                disabled,
-                enabledFeatures,
-              }: any) => (
-                <Editor
-                  defaultValue={this.props.defaultValue}
-                  appearance="full-page"
-                  allowAnalyticsGASV3={true}
-                  quickInsert={quickInsert}
-                  allowBreakout={true}
-                  allowTextColor={true}
-                  allowTextAlignment={true}
-                  allowIndentation={true}
-                  allowTables={{
-                    allowColumnSorting: true,
-                    allowColumnResizing: true,
-                    allowMergeCells: true,
-                    allowNumberColumn: true,
-                    allowBackgroundColor: true,
-                    allowHeaderRow: true,
-                    allowHeaderColumn: true,
-                    permittedLayouts: 'all',
-                  }}
-                  allowPanel={true}
-                  allowStatus={true}
-                  allowExtension={{
-                    allowBreakout: true,
-                  }}
-                  allowRule={true}
-                  allowDate={true}
-                  allowLayouts={true}
-                  allowTemplatePlaceholders={{ allowInserting: true }}
-                  smartLinks={{
-                    provider: Promise.resolve(cardProvider),
-                  }}
-                  activityProvider={activityProvider}
-                  mentionProvider={mentionProvider}
-                  emojiProvider={emojiProvider}
-                  taskDecisionProvider={taskDecisionProvider}
-                  contextIdentifierProvider={contextIdentifierProvider}
-                  macroProvider={Promise.resolve(macroProvider)}
-                  media={{
-                    provider: mediaProvider,
-                    allowMediaSingle: true,
-                    allowResizing: enabledFeatures.imageResizing,
-                  }}
-                  placeholder="Write something..."
-                  shouldFocus={false}
-                  onChange={onChange}
-                  disabled={disabled}
-                  primaryToolbarComponents={
-                    <WithEditorActions
-                      render={(actions) => (
-                        <SaveAndCancelButtons editorActions={actions} />
-                      )}
-                    />
-                  }
-                  onSave={SAVE_ACTION}
-                  insertMenuItems={customInsertMenuItems}
-                  extensionHandlers={extensionHandlers}
-                />
-              )}
-            />
-          </div>
-        </div>
-      </IntlProvider>
-    );
-  }
+	render() {
+		return (
+			<IntlProvider locale="en">
+				<div css={wrapperStyles}>
+					<div css={contentStyles}>
+						<ToolsDrawer
+							renderEditor={({
+								mentionProvider,
+								emojiProvider,
+								mediaProvider,
+								activityProvider,
+								taskDecisionProvider,
+								contextIdentifierProvider,
+								onChange,
+								disabled,
+								enabledFeatures,
+							}: any) => (
+								<Editor
+									defaultValue={this.props.defaultValue}
+									appearance="full-page"
+									allowAnalyticsGASV3={true}
+									quickInsert={quickInsert}
+									allowBreakout={true}
+									allowTextColor={true}
+									allowTextAlignment={true}
+									allowIndentation={true}
+									allowTables={{
+										allowColumnSorting: true,
+										allowColumnResizing: true,
+										allowMergeCells: true,
+										allowNumberColumn: true,
+										allowBackgroundColor: true,
+										allowHeaderRow: true,
+										allowHeaderColumn: true,
+										permittedLayouts: 'all',
+									}}
+									allowPanel={true}
+									allowStatus={true}
+									allowExtension={{
+										allowBreakout: true,
+									}}
+									allowRule={true}
+									allowDate={true}
+									allowLayouts={true}
+									allowTemplatePlaceholders={{ allowInserting: true }}
+									smartLinks={{
+										provider: Promise.resolve(cardProvider),
+									}}
+									activityProvider={activityProvider}
+									mentionProvider={mentionProvider}
+									emojiProvider={emojiProvider}
+									taskDecisionProvider={taskDecisionProvider}
+									contextIdentifierProvider={contextIdentifierProvider}
+									macroProvider={Promise.resolve(macroProvider)}
+									media={{
+										provider: mediaProvider,
+										allowMediaSingle: true,
+										allowResizing: enabledFeatures.imageResizing,
+									}}
+									placeholder="Write something..."
+									shouldFocus={false}
+									onChange={onChange}
+									disabled={disabled}
+									primaryToolbarComponents={
+										<WithEditorActions
+											render={(actions) => <SaveAndCancelButtons editorActions={actions} />}
+										/>
+									}
+									onSave={SAVE_ACTION}
+									insertMenuItems={customInsertMenuItems}
+									extensionHandlers={extensionHandlers}
+								/>
+							)}
+						/>
+					</div>
+				</div>
+			</IntlProvider>
+		);
+	}
 }
 
 export default function Example(defaultValue: string | object) {
-  return (
-    <EditorContext>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ height: '100%' }}>
-        <WithEditorActions
-          render={(actions) => (
-            <DevTools editorView={actions._privateGetEditorView()} />
-          )}
-        />
-        <ExampleEditor defaultValue={defaultValue} />
-      </div>
-    </EditorContext>
-  );
+	return (
+		<EditorContext>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ height: '100%' }}>
+				<WithEditorActions
+					render={(actions) => <DevTools editorView={actions._privateGetEditorView()} />}
+				/>
+				<ExampleEditor defaultValue={defaultValue} />
+			</div>
+		</EditorContext>
+	);
 }

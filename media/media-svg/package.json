@@ -55,14 +55,13 @@
     "@atlaskit/form": "^10.2.0",
     "@atlaskit/media-state": "^1.1.0",
     "@atlaskit/media-test-data": "^2.3.0",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/range": "^7.2.0",
     "@atlaskit/section-message": "^6.5.0",
     "@atlaskit/select": "^17.10.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^13.1.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
     "typescript": "~5.4.2",
@@ -102,6 +101,5 @@
         "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

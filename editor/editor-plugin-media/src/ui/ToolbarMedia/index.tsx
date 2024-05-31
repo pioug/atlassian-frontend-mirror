@@ -13,42 +13,40 @@ import type { MediaNextEditorPluginType } from '../../next-plugin-type';
 import type { MediaPluginState } from '../../pm-plugins/types';
 
 export interface Props {
-  isDisabled?: boolean;
-  isReducedSpacing?: boolean;
-  api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	isDisabled?: boolean;
+	isReducedSpacing?: boolean;
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 }
 
 const onClickMediaButton = (pluginState: MediaPluginState) => () => {
-  pluginState.showMediaPicker();
-  return true;
+	pluginState.showMediaPicker();
+	return true;
 };
 
 const ToolbarMedia = ({
-  isDisabled,
-  isReducedSpacing,
-  intl,
-  api,
+	isDisabled,
+	isReducedSpacing,
+	intl,
+	api,
 }: Props & WrappedComponentProps) => {
-  const { mediaState } = useSharedPluginState(api, ['media']);
+	const { mediaState } = useSharedPluginState(api, ['media']);
 
-  if (!mediaState?.allowsUploads) {
-    return null;
-  }
+	if (!mediaState?.allowsUploads) {
+		return null;
+	}
 
-  const { toolbarMediaTitle } = toolbarMediaMessages;
+	const { toolbarMediaTitle } = toolbarMediaMessages;
 
-  return (
-    <ToolbarButton
-      buttonId={TOOLBAR_BUTTON.MEDIA}
-      onClick={onClickMediaButton(mediaState)}
-      disabled={isDisabled}
-      title={intl.formatMessage(toolbarMediaTitle)}
-      spacing={isReducedSpacing ? 'none' : 'default'}
-      iconBefore={
-        <AttachmentIcon label={intl.formatMessage(toolbarMediaTitle)} />
-      }
-    />
-  );
+	return (
+		<ToolbarButton
+			buttonId={TOOLBAR_BUTTON.MEDIA}
+			onClick={onClickMediaButton(mediaState)}
+			disabled={isDisabled}
+			title={intl.formatMessage(toolbarMediaTitle)}
+			spacing={isReducedSpacing ? 'none' : 'default'}
+			iconBefore={<AttachmentIcon label={intl.formatMessage(toolbarMediaTitle)} />}
+		/>
+	);
 };
 
 export default injectIntl(ToolbarMedia);

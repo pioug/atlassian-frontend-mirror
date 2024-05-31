@@ -10,695 +10,653 @@ jest.mock('@atlaskit/editor-prosemirror/state');
 jest.useFakeTimers();
 
 describe('Notify editing capabilities to the native bridge', () => {
-  let toolbarActions: MobileEditorToolbarActions;
-  const floatingToolbarConfig: FloatingToolbarConfig = {
-    title: 'floating',
-    nodeType: defaultSchema.nodes['panel'],
-    items: [
-      {
-        type: 'button',
-        title: 'info',
-        onClick: jest.fn(),
-      },
-      {
-        type: 'dropdown',
-        title: 'Table Options',
-        options: [
-          {
-            title: 'option1',
-            onClick: jest.fn(),
-          },
-        ],
-      },
-      {
-        id: 'id',
-        type: 'select',
-        selectType: 'list',
-        onChange: jest.fn(),
-        options: [
-          {
-            label: 'Java',
-            value: 'java',
-          },
-        ],
-      },
-      {
-        id: 'select.color.id',
-        type: 'select',
-        selectType: 'color',
-        onChange: jest.fn(),
-        options: [
-          {
-            label: 'white',
-            value: 'fffff',
-            border: 'ffff',
-          },
-        ],
-      },
-      {
-        id: 'input.id',
-        type: 'input',
-        onSubmit: jest.fn(),
-        onBlur: jest.fn(),
-      },
-      {
-        type: 'custom',
-        fallback: [
-          {
-            type: 'separator',
-          },
-          {
-            type: 'button',
-            title: 'info',
-            onClick: jest.fn(),
-          },
-        ],
-        render: jest.fn(),
-      },
-      {
-        id: 'dateId',
-        type: 'select',
-        selectType: 'date',
-        onChange: jest.fn(),
-        options: [],
-      },
-    ],
-  };
+	let toolbarActions: MobileEditorToolbarActions;
+	const floatingToolbarConfig: FloatingToolbarConfig = {
+		title: 'floating',
+		nodeType: defaultSchema.nodes['panel'],
+		items: [
+			{
+				type: 'button',
+				title: 'info',
+				onClick: jest.fn(),
+			},
+			{
+				type: 'dropdown',
+				title: 'Table Options',
+				options: [
+					{
+						title: 'option1',
+						onClick: jest.fn(),
+					},
+				],
+			},
+			{
+				id: 'id',
+				type: 'select',
+				selectType: 'list',
+				onChange: jest.fn(),
+				options: [
+					{
+						label: 'Java',
+						value: 'java',
+					},
+				],
+			},
+			{
+				id: 'select.color.id',
+				type: 'select',
+				selectType: 'color',
+				onChange: jest.fn(),
+				options: [
+					{
+						label: 'white',
+						value: 'fffff',
+						border: 'ffff',
+					},
+				],
+			},
+			{
+				id: 'input.id',
+				type: 'input',
+				onSubmit: jest.fn(),
+				onBlur: jest.fn(),
+			},
+			{
+				type: 'custom',
+				fallback: [
+					{
+						type: 'separator',
+					},
+					{
+						type: 'button',
+						title: 'info',
+						onClick: jest.fn(),
+					},
+				],
+				render: jest.fn(),
+			},
+			{
+				id: 'dateId',
+				type: 'select',
+				selectType: 'date',
+				onChange: jest.fn(),
+				options: [],
+			},
+		],
+	};
 
-  const floatingToolbarConfigWithCallback: FloatingToolbarConfig = {
-    title: 'blockCard',
-    nodeType: defaultSchema.nodes['blockCard'],
-    items: (node) => {
-      if (!node) {
-        return [];
-      }
-      return [
-        {
-          type: 'button',
-          title: 'info',
-          onClick: jest.fn(),
-        },
-        {
-          type: 'dropdown',
-          title: 'Table Options',
-          options: [
-            {
-              title: 'option1',
-              onClick: jest.fn(),
-            },
-          ],
-        },
-        {
-          id: 'id',
-          type: 'select',
-          selectType: 'list',
-          onChange: jest.fn(),
-          options: [
-            {
-              label: 'Java',
-              value: 'java',
-            },
-          ],
-        },
-      ];
-    },
-  };
+	const floatingToolbarConfigWithCallback: FloatingToolbarConfig = {
+		title: 'blockCard',
+		nodeType: defaultSchema.nodes['blockCard'],
+		items: (node) => {
+			if (!node) {
+				return [];
+			}
+			return [
+				{
+					type: 'button',
+					title: 'info',
+					onClick: jest.fn(),
+				},
+				{
+					type: 'dropdown',
+					title: 'Table Options',
+					options: [
+						{
+							title: 'option1',
+							onClick: jest.fn(),
+						},
+					],
+				},
+				{
+					id: 'id',
+					type: 'select',
+					selectType: 'list',
+					onChange: jest.fn(),
+					options: [
+						{
+							label: 'Java',
+							value: 'java',
+						},
+					],
+				},
+			];
+		},
+	};
 
-  beforeEach(() => {
-    toolbarActions = new MobileEditorToolbarActions();
-  });
+	beforeEach(() => {
+		toolbarActions = new MobileEditorToolbarActions();
+	});
 
-  afterEach(() => {
-    jest.clearAllMocks();
-    toolbarActions.setEditAllowList([]);
-  });
+	afterEach(() => {
+		jest.clearAllMocks();
+		toolbarActions.setEditAllowList([]);
+	});
 
-  it('should relay editing capabilities to the native bridge in a mobile specific DSL', () => {
-    const expectedMobileDsl = [
-      {
-        type: 'button',
-        title: 'info',
-        key: '0',
-      },
-      {
-        type: 'dropdown',
-        title: 'Table Options',
-        options: [
-          {
-            title: 'option1',
-            key: '1.0',
-          },
-        ],
-        key: '1',
-      },
-      {
-        id: 'id',
-        type: 'select',
-        selectType: 'list',
-        options: [
-          {
-            label: 'Java',
-            value: 'java',
-            key: '2.0',
-          },
-        ],
-        key: '2',
-      },
-      {
-        id: 'select.color.id',
-        type: 'select',
-        selectType: 'color',
-        options: [
-          {
-            label: 'white',
-            value: 'fffff',
-            border: 'ffff',
-            key: '3.0',
-          },
-        ],
-        key: '3',
-      },
-      {
-        id: 'input.id',
-        type: 'input',
-        key: '4',
-      },
-      {
-        type: 'separator',
-      },
-      {
-        type: 'button',
-        title: 'info',
-        key: '6',
-      },
-      {
-        id: 'dateId',
-        type: 'select',
-        selectType: 'date',
-        options: [],
-        key: '7',
-      },
-    ];
+	it('should relay editing capabilities to the native bridge in a mobile specific DSL', () => {
+		const expectedMobileDsl = [
+			{
+				type: 'button',
+				title: 'info',
+				key: '0',
+			},
+			{
+				type: 'dropdown',
+				title: 'Table Options',
+				options: [
+					{
+						title: 'option1',
+						key: '1.0',
+					},
+				],
+				key: '1',
+			},
+			{
+				id: 'id',
+				type: 'select',
+				selectType: 'list',
+				options: [
+					{
+						label: 'Java',
+						value: 'java',
+						key: '2.0',
+					},
+				],
+				key: '2',
+			},
+			{
+				id: 'select.color.id',
+				type: 'select',
+				selectType: 'color',
+				options: [
+					{
+						label: 'white',
+						value: 'fffff',
+						border: 'ffff',
+						key: '3.0',
+					},
+				],
+				key: '3',
+			},
+			{
+				id: 'input.id',
+				type: 'input',
+				key: '4',
+			},
+			{
+				type: 'separator',
+			},
+			{
+				type: 'button',
+				title: 'info',
+				key: '6',
+			},
+			{
+				id: 'dateId',
+				type: 'select',
+				selectType: 'date',
+				options: [],
+				key: '7',
+			},
+		];
 
-    toolbarActions.setEditAllowList([]);
+		toolbarActions.setEditAllowList([]);
 
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    jest.advanceTimersByTime(1000);
-    const expectedItems = JSON.stringify(expectedMobileDsl);
-    expect(toNativeBridge.onNodeSelected).toBeCalledWith(
-      'panel',
-      expectedItems,
-    );
-  });
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		jest.advanceTimersByTime(1000);
+		const expectedItems = JSON.stringify(expectedMobileDsl);
+		expect(toNativeBridge.onNodeSelected).toBeCalledWith('panel', expectedItems);
+	});
 
-  it('should relay editing capabilities to the native bridge in a mobile specific DSL when config uses an items callback', () => {
-    const expectedMobileDsl = [
-      {
-        type: 'button',
-        title: 'info',
-        key: '0',
-      },
-      {
-        type: 'dropdown',
-        title: 'Table Options',
-        options: [
-          {
-            title: 'option1',
-            key: '1.0',
-          },
-        ],
-        key: '1',
-      },
-      {
-        id: 'id',
-        type: 'select',
-        selectType: 'list',
-        options: [
-          {
-            label: 'Java',
-            value: 'java',
-            key: '2.0',
-          },
-        ],
-        key: '2',
-      },
-    ];
-    const dummyNode: any = 'dummy node';
+	it('should relay editing capabilities to the native bridge in a mobile specific DSL when config uses an items callback', () => {
+		const expectedMobileDsl = [
+			{
+				type: 'button',
+				title: 'info',
+				key: '0',
+			},
+			{
+				type: 'dropdown',
+				title: 'Table Options',
+				options: [
+					{
+						title: 'option1',
+						key: '1.0',
+					},
+				],
+				key: '1',
+			},
+			{
+				id: 'id',
+				type: 'select',
+				selectType: 'list',
+				options: [
+					{
+						label: 'Java',
+						value: 'java',
+						key: '2.0',
+					},
+				],
+				key: '2',
+			},
+		];
+		const dummyNode: any = 'dummy node';
 
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfigWithCallback,
-      dummyNode,
-    );
-    jest.advanceTimersByTime(1000);
-    const expectedItems = JSON.stringify(expectedMobileDsl);
-    expect(toNativeBridge.onNodeSelected).toBeCalledWith(
-      'blockCard',
-      expectedItems,
-    );
-  });
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
+			floatingToolbarConfigWithCallback,
+			dummyNode,
+		);
+		jest.advanceTimersByTime(1000);
+		const expectedItems = JSON.stringify(expectedMobileDsl);
+		expect(toNativeBridge.onNodeSelected).toBeCalledWith('blockCard', expectedItems);
+	});
 
-  it('should notify native bridge that node is deselected when editing capabilities are not available', () => {
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
-    jest.advanceTimersByTime(1000);
-    expect(toNativeBridge.onNodeDeselected).toBeCalled();
-    expect(toNativeBridge.onNodeSelected).toBeCalledTimes(1);
-  });
+	it('should notify native bridge that node is deselected when editing capabilities are not available', () => {
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
+		jest.advanceTimersByTime(1000);
+		expect(toNativeBridge.onNodeDeselected).toBeCalled();
+		expect(toNativeBridge.onNodeSelected).toBeCalledTimes(1);
+	});
 
-  it('should not notify native bridge if the node was already deselected before', () => {
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
-    jest.advanceTimersByTime(1000);
-    expect(toNativeBridge.onNodeDeselected).toBeCalledTimes(1);
-    expect(toNativeBridge.onNodeSelected).toBeCalledTimes(1);
-  });
+	it('should not notify native bridge if the node was already deselected before', () => {
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(undefined);
+		jest.advanceTimersByTime(1000);
+		expect(toNativeBridge.onNodeDeselected).toBeCalledTimes(1);
+		expect(toNativeBridge.onNodeSelected).toBeCalledTimes(1);
+	});
 
-  it('should notify native bridge only once for multiple calls when there is no change in the items', () => {
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    jest.advanceTimersByTime(1000);
-    expect(toNativeBridge.onNodeSelected).toBeCalledTimes(1);
-    expect(toNativeBridge.onNodeDeselected).not.toBeCalled();
-  });
+	it('should notify native bridge only once for multiple calls when there is no change in the items', () => {
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		jest.advanceTimersByTime(1000);
+		expect(toNativeBridge.onNodeSelected).toBeCalledTimes(1);
+		expect(toNativeBridge.onNodeDeselected).not.toBeCalled();
+	});
 
-  it('should notify native bridge when the toolbar items have different values for the same config', () => {
-    const floatingToolbar1: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['paragraph'],
-      items: [
-        {
-          type: 'button',
-          title: 'info',
-          selected: false,
-          onClick: jest.fn(),
-        },
-      ],
-    };
-    const floatingToolbar2: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['paragraph'],
-      items: [
-        {
-          type: 'button',
-          title: 'info',
-          selected: true,
-          onClick: jest.fn(),
-        },
-      ],
-    };
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbar1,
-    );
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbar2,
-    );
-    jest.advanceTimersByTime(1000);
-    expect(toNativeBridge.onNodeSelected).toBeCalledTimes(2);
-    expect(toNativeBridge.onNodeDeselected).not.toBeCalled();
-  });
+	it('should notify native bridge when the toolbar items have different values for the same config', () => {
+		const floatingToolbar1: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['paragraph'],
+			items: [
+				{
+					type: 'button',
+					title: 'info',
+					selected: false,
+					onClick: jest.fn(),
+				},
+			],
+		};
+		const floatingToolbar2: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['paragraph'],
+			items: [
+				{
+					type: 'button',
+					title: 'info',
+					selected: true,
+					onClick: jest.fn(),
+				},
+			],
+		};
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbar1);
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbar2);
+		jest.advanceTimersByTime(1000);
+		expect(toNativeBridge.onNodeSelected).toBeCalledTimes(2);
+		expect(toNativeBridge.onNodeDeselected).not.toBeCalled();
+	});
 
-  it('should notify native side with allowed items only without redundant separators', () => {
-    const floatingToolbarConfig: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['panel'],
-      items: [
-        {
-          id: 'button1',
-          type: 'button',
-          title: 'info',
-          onClick: jest.fn(),
-        },
-        {
-          type: 'separator',
-        },
-        {
-          id: 'dropdown1',
-          type: 'dropdown',
-          title: 'Table Options',
-          options: [
-            {
-              id: 'dropdown1.option1',
-              title: 'option1',
-              onClick: jest.fn(),
-            },
-          ],
-        },
-        {
-          type: 'separator',
-        },
-        {
-          id: 'dropdown2',
-          type: 'dropdown',
-          title: 'Cell Options',
-          options: [
-            {
-              id: 'dropdown2.option1',
-              title: 'option1',
-              onClick: jest.fn(),
-            },
-            {
-              id: 'dropdown2.option2',
-              title: 'option2',
-              onClick: jest.fn(),
-            },
-          ],
-        },
-        {
-          type: 'separator',
-        },
-        {
-          id: 'button2',
-          type: 'button',
-          title: 'info',
-          onClick: jest.fn(),
-        },
-        {
-          type: 'separator',
-        },
-        {
-          id: 'select1',
-          type: 'select',
-          selectType: 'list',
-          onChange: jest.fn(),
-          options: [
-            {
-              label: 'Java',
-              value: 'java',
-            },
-          ],
-        },
-      ],
-    };
-    const allowedList = ['button2', 'dropdown2', 'dropdown2.option2'];
-    toolbarActions.setEditAllowList(allowedList);
+	it('should notify native side with allowed items only without redundant separators', () => {
+		const floatingToolbarConfig: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['panel'],
+			items: [
+				{
+					id: 'button1',
+					type: 'button',
+					title: 'info',
+					onClick: jest.fn(),
+				},
+				{
+					type: 'separator',
+				},
+				{
+					id: 'dropdown1',
+					type: 'dropdown',
+					title: 'Table Options',
+					options: [
+						{
+							id: 'dropdown1.option1',
+							title: 'option1',
+							onClick: jest.fn(),
+						},
+					],
+				},
+				{
+					type: 'separator',
+				},
+				{
+					id: 'dropdown2',
+					type: 'dropdown',
+					title: 'Cell Options',
+					options: [
+						{
+							id: 'dropdown2.option1',
+							title: 'option1',
+							onClick: jest.fn(),
+						},
+						{
+							id: 'dropdown2.option2',
+							title: 'option2',
+							onClick: jest.fn(),
+						},
+					],
+				},
+				{
+					type: 'separator',
+				},
+				{
+					id: 'button2',
+					type: 'button',
+					title: 'info',
+					onClick: jest.fn(),
+				},
+				{
+					type: 'separator',
+				},
+				{
+					id: 'select1',
+					type: 'select',
+					selectType: 'list',
+					onChange: jest.fn(),
+					options: [
+						{
+							label: 'Java',
+							value: 'java',
+						},
+					],
+				},
+			],
+		};
+		const allowedList = ['button2', 'dropdown2', 'dropdown2.option2'];
+		toolbarActions.setEditAllowList(allowedList);
 
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    jest.advanceTimersByTime(1000);
-    const expectedMobileDsl = [
-      {
-        id: 'dropdown2',
-        type: 'dropdown',
-        title: 'Cell Options',
-        options: [
-          {
-            id: 'dropdown2.option2',
-            title: 'option2',
-            key: '0.0',
-            onClick: jest.fn(),
-          },
-        ],
-        key: '0',
-      },
-      {
-        type: 'separator',
-      },
-      {
-        id: 'button2',
-        type: 'button',
-        title: 'info',
-        key: '2',
-      },
-    ];
-    const expectedItems = JSON.stringify(expectedMobileDsl);
-    expect(toNativeBridge.onNodeSelected).toBeCalledWith(
-      'panel',
-      expectedItems,
-    );
-  });
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		jest.advanceTimersByTime(1000);
+		const expectedMobileDsl = [
+			{
+				id: 'dropdown2',
+				type: 'dropdown',
+				title: 'Cell Options',
+				options: [
+					{
+						id: 'dropdown2.option2',
+						title: 'option2',
+						key: '0.0',
+						onClick: jest.fn(),
+					},
+				],
+				key: '0',
+			},
+			{
+				type: 'separator',
+			},
+			{
+				id: 'button2',
+				type: 'button',
+				title: 'info',
+				key: '2',
+			},
+		];
+		const expectedItems = JSON.stringify(expectedMobileDsl);
+		expect(toNativeBridge.onNodeSelected).toBeCalledWith('panel', expectedItems);
+	});
 
-  it('should filter out dropdown completely if none of the options is allowed', () => {
-    const floatingToolbarConfig: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['panel'],
-      items: [
-        {
-          id: 'dropdown1',
-          type: 'dropdown',
-          title: 'Table Options',
-          options: [
-            {
-              id: 'dropdown1.option1',
-              title: 'option1',
-              onClick: jest.fn(),
-            },
-            {
-              id: 'dropdown1.option2',
-              title: 'option2',
-              onClick: jest.fn(),
-            },
-          ],
-        },
-        {
-          id: 'button2',
-          type: 'button',
-          title: 'info',
-          onClick: jest.fn(),
-        },
-      ],
-    };
-    const allowedList = ['button2', 'dropdown1'];
-    toolbarActions.setEditAllowList(allowedList);
+	it('should filter out dropdown completely if none of the options is allowed', () => {
+		const floatingToolbarConfig: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['panel'],
+			items: [
+				{
+					id: 'dropdown1',
+					type: 'dropdown',
+					title: 'Table Options',
+					options: [
+						{
+							id: 'dropdown1.option1',
+							title: 'option1',
+							onClick: jest.fn(),
+						},
+						{
+							id: 'dropdown1.option2',
+							title: 'option2',
+							onClick: jest.fn(),
+						},
+					],
+				},
+				{
+					id: 'button2',
+					type: 'button',
+					title: 'info',
+					onClick: jest.fn(),
+				},
+			],
+		};
+		const allowedList = ['button2', 'dropdown1'];
+		toolbarActions.setEditAllowList(allowedList);
 
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
 
-    jest.advanceTimersByTime(1000);
-    const expectedMobileDsl = [
-      {
-        id: 'button2',
-        type: 'button',
-        title: 'info',
-        key: '0',
-      },
-    ];
-    const expectedItems = JSON.stringify(expectedMobileDsl);
-    expect(toNativeBridge.onNodeSelected).toBeCalledWith(
-      'panel',
-      expectedItems,
-    );
-  });
+		jest.advanceTimersByTime(1000);
+		const expectedMobileDsl = [
+			{
+				id: 'button2',
+				type: 'button',
+				title: 'info',
+				key: '0',
+			},
+		];
+		const expectedItems = JSON.stringify(expectedMobileDsl);
+		expect(toNativeBridge.onNodeSelected).toBeCalledWith('panel', expectedItems);
+	});
 });
 
 describe('perform edit action', () => {
-  let toolbarActions: MobileEditorToolbarActions;
+	let toolbarActions: MobileEditorToolbarActions;
 
-  beforeEach(() => {
-    toolbarActions = new MobileEditorToolbarActions();
-  });
+	beforeEach(() => {
+		toolbarActions = new MobileEditorToolbarActions();
+	});
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 
-  it('should perform click action for buttons', () => {
-    const mockOnClick = jest.fn();
-    const floatingToolbar: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['panel'],
-      items: [
-        {
-          type: 'button',
-          title: 'info',
-          selected: true,
-          onClick: mockOnClick,
-        },
-      ],
-    };
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbar,
-    );
-    const editorView = {} as EditorViewWithComposition;
+	it('should perform click action for buttons', () => {
+		const mockOnClick = jest.fn();
+		const floatingToolbar: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['panel'],
+			items: [
+				{
+					type: 'button',
+					title: 'info',
+					selected: true,
+					onClick: mockOnClick,
+				},
+			],
+		};
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbar);
+		const editorView = {} as EditorViewWithComposition;
 
-    toolbarActions.performEditAction('0', editorView);
-    jest.advanceTimersByTime(1000);
-    expect(mockOnClick).toBeCalled();
-  });
+		toolbarActions.performEditAction('0', editorView);
+		jest.advanceTimersByTime(1000);
+		expect(mockOnClick).toBeCalled();
+	});
 
-  it('should perform click action for dropdown options', () => {
-    const mockOnClick = jest.fn();
-    const floatingToolbarConfig: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['panel'],
-      items: [
-        {
-          type: 'dropdown',
-          title: 'Table Options',
-          options: [
-            {
-              title: 'option1',
-              onClick: jest.fn(),
-            },
-            {
-              title: 'option2',
-              onClick: mockOnClick,
-            },
-          ],
-        },
-      ],
-    };
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    const editorView = {} as EditorViewWithComposition;
+	it('should perform click action for dropdown options', () => {
+		const mockOnClick = jest.fn();
+		const floatingToolbarConfig: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['panel'],
+			items: [
+				{
+					type: 'dropdown',
+					title: 'Table Options',
+					options: [
+						{
+							title: 'option1',
+							onClick: jest.fn(),
+						},
+						{
+							title: 'option2',
+							onClick: mockOnClick,
+						},
+					],
+				},
+			],
+		};
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		const editorView = {} as EditorViewWithComposition;
 
-    toolbarActions.performEditAction('0.1', editorView);
+		toolbarActions.performEditAction('0.1', editorView);
 
-    expect(mockOnClick).toBeCalled();
-  });
+		expect(mockOnClick).toBeCalled();
+	});
 
-  it('should perform change action for select options', () => {
-    const mockOnChange = jest.fn();
-    const floatingToolbarConfig: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['panel'],
-      items: [
-        {
-          id: 'id',
-          type: 'select',
-          selectType: 'list',
-          onChange: (selected) => {
-            return mockOnChange;
-          },
-          options: [
-            {
-              label: 'Java',
-              value: 'java',
-            },
-          ],
-        },
-      ],
-    };
+	it('should perform change action for select options', () => {
+		const mockOnChange = jest.fn();
+		const floatingToolbarConfig: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['panel'],
+			items: [
+				{
+					id: 'id',
+					type: 'select',
+					selectType: 'list',
+					onChange: (selected) => {
+						return mockOnChange;
+					},
+					options: [
+						{
+							label: 'Java',
+							value: 'java',
+						},
+					],
+				},
+			],
+		};
 
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    const editorView = {} as EditorViewWithComposition;
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		const editorView = {} as EditorViewWithComposition;
 
-    toolbarActions.performEditAction('0.0', editorView);
+		toolbarActions.performEditAction('0.0', editorView);
 
-    expect(mockOnChange).toBeCalled();
-  });
+		expect(mockOnChange).toBeCalled();
+	});
 
-  it('should perform change action for color picker', () => {
-    const mockOnChange = jest.fn();
-    const floatingToolbarConfig: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['panel'],
-      items: [
-        {
-          id: 'id',
-          type: 'select',
-          selectType: 'color',
-          onChange: () => {
-            return mockOnChange;
-          },
-          options: [
-            {
-              label: 'green',
-              value: 'fffff',
-              border: 'ffff',
-            },
-          ],
-        },
-      ],
-    };
+	it('should perform change action for color picker', () => {
+		const mockOnChange = jest.fn();
+		const floatingToolbarConfig: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['panel'],
+			items: [
+				{
+					id: 'id',
+					type: 'select',
+					selectType: 'color',
+					onChange: () => {
+						return mockOnChange;
+					},
+					options: [
+						{
+							label: 'green',
+							value: 'fffff',
+							border: 'ffff',
+						},
+					],
+				},
+			],
+		};
 
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    const editorView = {} as EditorViewWithComposition;
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		const editorView = {} as EditorViewWithComposition;
 
-    toolbarActions.performEditAction('0.0', editorView);
+		toolbarActions.performEditAction('0.0', editorView);
 
-    expect(mockOnChange).toBeCalled();
-  });
+		expect(mockOnChange).toBeCalled();
+	});
 
-  it('should perform submit action for input', () => {
-    const mockOnChange = jest.fn((value) => true);
-    const floatingToolbarConfig: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['panel'],
-      items: [
-        {
-          id: 'id',
-          type: 'input',
-          onSubmit: (input) => () => {
-            mockOnChange(input);
-            return true;
-          },
-          onBlur: () => () => {
-            return true;
-          },
-        },
-      ],
-    };
+	it('should perform submit action for input', () => {
+		const mockOnChange = jest.fn((value) => true);
+		const floatingToolbarConfig: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['panel'],
+			items: [
+				{
+					id: 'id',
+					type: 'input',
+					onSubmit: (input) => () => {
+						mockOnChange(input);
+						return true;
+					},
+					onBlur: () => () => {
+						return true;
+					},
+				},
+			],
+		};
 
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(
-      floatingToolbarConfig,
-    );
-    const editorView = {} as EditorViewWithComposition;
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(floatingToolbarConfig);
+		const editorView = {} as EditorViewWithComposition;
 
-    toolbarActions.performEditAction('0.0', editorView, 'value');
+		toolbarActions.performEditAction('0.0', editorView, 'value');
 
-    expect(mockOnChange).toBeCalledWith('value');
-  });
+		expect(mockOnChange).toBeCalledWith('value');
+	});
 
-  it('should perform change action for date select options', () => {
-    const mockCommand = jest.fn();
-    const mockOnChange = jest.fn(() => mockCommand);
+	it('should perform change action for date select options', () => {
+		const mockCommand = jest.fn();
+		const mockOnChange = jest.fn(() => mockCommand);
 
-    const toolbarConfig: FloatingToolbarConfig = {
-      title: 'floating',
-      nodeType: defaultSchema.nodes['date'],
-      items: [
-        {
-          id: 'id',
-          type: 'select',
-          selectType: 'date',
-          onChange: mockOnChange,
-          options: [],
-        },
-      ],
-    };
+		const toolbarConfig: FloatingToolbarConfig = {
+			title: 'floating',
+			nodeType: defaultSchema.nodes['date'],
+			items: [
+				{
+					id: 'id',
+					type: 'select',
+					selectType: 'date',
+					onChange: mockOnChange,
+					options: [],
+				},
+			],
+		};
 
-    toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(toolbarConfig);
+		toolbarActions.notifyNativeBridgeForEditCapabilitiesChanges(toolbarConfig);
 
-    const editorView = {
-      state: {
-        tr: {
-          selection: {
-            to: 1,
-          },
-          doc: {
-            resolve: jest.fn(),
-          },
-          setSelection: jest.fn(),
-        },
-      },
-      dispatch: jest.fn(),
-    } as any;
+		const editorView = {
+			state: {
+				tr: {
+					selection: {
+						to: 1,
+					},
+					doc: {
+						resolve: jest.fn(),
+					},
+					setSelection: jest.fn(),
+				},
+			},
+			dispatch: jest.fn(),
+		} as any;
 
-    toolbarActions.performEditAction('0', editorView, '0');
+		toolbarActions.performEditAction('0', editorView, '0');
 
-    expect(mockOnChange).toBeCalledWith(0);
-    expect(mockCommand).toBeCalled();
-  });
+		expect(mockOnChange).toBeCalledWith(0);
+		expect(mockCommand).toBeCalled();
+	});
 });

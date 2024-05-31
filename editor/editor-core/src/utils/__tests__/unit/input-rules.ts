@@ -22,57 +22,54 @@ import { inlineCommentProvider } from '@atlaskit/editor-test-helpers/annotation'
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  createProsemirrorEditorFactory,
-  Preset,
+	createProsemirrorEditorFactory,
+	Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  alignment,
-  doc,
-  li,
-  a as link,
-  media,
-  mediaSingle,
-  ul,
+	alignment,
+	doc,
+	li,
+	a as link,
+	media,
+	mediaSingle,
+	ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('createWrappingJoinRule()', () => {
-  const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocBuilder) => {
-    const editorTemp = createEditor({
-      doc,
-      preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsPlugin, {}])
-        .add(basePlugin)
-        .add(editorDisabledPlugin)
-        .add([analyticsPlugin, {}])
-        .add(decorationsPlugin)
-        .add(listPlugin)
-        .add(hyperlinkPlugin)
-        .add(alignmentPlugin)
-        .add(widthPlugin)
-        .add(guidelinePlugin)
-        .add(gridPlugin)
-        .add(copyButtonPlugin)
-        .add(floatingToolbarPlugin)
-        .add(focusPlugin)
-        .add(captionPlugin)
-        .add(selectionPlugin)
-        .add([
-          annotationPlugin,
-          { inlineComment: { ...inlineCommentProvider } },
-        ])
-        .add([mediaPlugin, { allowMediaSingle: true }]),
-    });
-    return editorTemp;
-  };
+	const createEditor = createProsemirrorEditorFactory();
+	const editor = (doc: DocBuilder) => {
+		const editorTemp = createEditor({
+			doc,
+			preset: new Preset<LightEditorPlugin>()
+				.add([featureFlagsPlugin, {}])
+				.add(basePlugin)
+				.add(editorDisabledPlugin)
+				.add([analyticsPlugin, {}])
+				.add(decorationsPlugin)
+				.add(listPlugin)
+				.add(hyperlinkPlugin)
+				.add(alignmentPlugin)
+				.add(widthPlugin)
+				.add(guidelinePlugin)
+				.add(gridPlugin)
+				.add(copyButtonPlugin)
+				.add(floatingToolbarPlugin)
+				.add(focusPlugin)
+				.add(captionPlugin)
+				.add(selectionPlugin)
+				.add([annotationPlugin, { inlineComment: { ...inlineCommentProvider } }])
+				.add([mediaPlugin, { allowMediaSingle: true }]),
+		});
+		return editorTemp;
+	};
 
-  describe('with a mediaSingle node', () => {
-    describe('without marks', () => {
-      it('should wrap in a list', () => {
-        const { editorView } = editor(
-          // prettier-ignore
-          doc(
+	describe('with a mediaSingle node', () => {
+		describe('without marks', () => {
+			it('should wrap in a list', () => {
+				const { editorView } = editor(
+					// prettier-ignore
+					doc(
           mediaSingle()(
             media({
               id: 'a559980d-cd47-43e2-8377-27359fcb905f',
@@ -81,24 +78,24 @@ describe('createWrappingJoinRule()', () => {
             })(),
           ),
         ),
-        );
-        const {
-          state: {
-            schema: {
-              nodes: { bulletList },
-            },
-          },
-          state,
-        } = editorView;
-        const { handler } = createWrappingJoinRule({
-          match: new RegExp(''),
-          nodeType: bulletList,
-        });
-        const matchResult = /(\w)/.exec('a');
-        const tr = handler(state, matchResult!, 1, 1);
-        expect(tr!.doc).toEqualDocument(
-          // prettier-ignore
-          doc(
+				);
+				const {
+					state: {
+						schema: {
+							nodes: { bulletList },
+						},
+					},
+					state,
+				} = editorView;
+				const { handler } = createWrappingJoinRule({
+					match: new RegExp(''),
+					nodeType: bulletList,
+				});
+				const matchResult = /(\w)/.exec('a');
+				const tr = handler(state, matchResult!, 1, 1);
+				expect(tr!.doc).toEqualDocument(
+					// prettier-ignore
+					doc(
           ul(
             li(
               mediaSingle()(
@@ -111,14 +108,14 @@ describe('createWrappingJoinRule()', () => {
             ),
           ),
         ),
-        );
-      });
-    });
-    describe('with a link mark', () => {
-      it('should wrap in a list and keep link mark', () => {
-        const { editorView } = editor(
-          // prettier-ignore
-          doc(
+				);
+			});
+		});
+		describe('with a link mark', () => {
+			it('should wrap in a list and keep link mark', () => {
+				const { editorView } = editor(
+					// prettier-ignore
+					doc(
             mediaSingle()(
               link({ href: 'http://www.atlassian.com' })(
                 media({
@@ -129,24 +126,24 @@ describe('createWrappingJoinRule()', () => {
               ),
             ),
           ),
-        );
-        const {
-          state: {
-            schema: {
-              nodes: { bulletList },
-            },
-          },
-          state,
-        } = editorView;
-        const { handler } = createWrappingJoinRule({
-          match: new RegExp(''),
-          nodeType: bulletList,
-        });
-        const matchResult = /(\w)/.exec('a');
-        const tr = handler(state, matchResult!, 1, 1);
-        expect(tr!.doc).toEqualDocument(
-          // prettier-ignore
-          doc(
+				);
+				const {
+					state: {
+						schema: {
+							nodes: { bulletList },
+						},
+					},
+					state,
+				} = editorView;
+				const { handler } = createWrappingJoinRule({
+					match: new RegExp(''),
+					nodeType: bulletList,
+				});
+				const matchResult = /(\w)/.exec('a');
+				const tr = handler(state, matchResult!, 1, 1);
+				expect(tr!.doc).toEqualDocument(
+					// prettier-ignore
+					doc(
           ul(
             li(
                 mediaSingle()(
@@ -161,14 +158,14 @@ describe('createWrappingJoinRule()', () => {
               ),
             ),
           ),
-        );
-      });
-    });
-    describe('with link and alignment marks', () => {
-      it('should wrap in a list and remove the alignment mark', () => {
-        const { editorView } = editor(
-          // prettier-ignore
-          doc(
+				);
+			});
+		});
+		describe('with link and alignment marks', () => {
+			it('should wrap in a list and remove the alignment mark', () => {
+				const { editorView } = editor(
+					// prettier-ignore
+					doc(
           alignment({ align: 'center' })(
               mediaSingle()(
                 link({ href: 'http://www.atlassian.com' })(
@@ -181,24 +178,24 @@ describe('createWrappingJoinRule()', () => {
               ),
             ),
           ),
-        );
-        const {
-          state: {
-            schema: {
-              nodes: { bulletList },
-            },
-          },
-          state,
-        } = editorView;
-        const { handler } = createWrappingJoinRule({
-          match: new RegExp(''),
-          nodeType: bulletList,
-        });
-        const matchResult = /(\w)/.exec('a');
-        const tr = handler(state, matchResult!, 1, 1);
-        expect(tr!.doc).toEqualDocument(
-          // prettier-ignore
-          doc(
+				);
+				const {
+					state: {
+						schema: {
+							nodes: { bulletList },
+						},
+					},
+					state,
+				} = editorView;
+				const { handler } = createWrappingJoinRule({
+					match: new RegExp(''),
+					nodeType: bulletList,
+				});
+				const matchResult = /(\w)/.exec('a');
+				const tr = handler(state, matchResult!, 1, 1);
+				expect(tr!.doc).toEqualDocument(
+					// prettier-ignore
+					doc(
           ul(
             li(
                 mediaSingle()(
@@ -213,8 +210,8 @@ describe('createWrappingJoinRule()', () => {
               ),
             ),
           ),
-        );
-      });
-    });
-  });
+				);
+			});
+		});
+	});
 });

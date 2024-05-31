@@ -1,5 +1,1 @@
-export type {
-  NextEditorPlugin,
-  PluginsOptions,
-  EditorPlugin,
-} from '@atlaskit/editor-common/types';
+export type { NextEditorPlugin, PluginsOptions, EditorPlugin } from '@atlaskit/editor-common/types';

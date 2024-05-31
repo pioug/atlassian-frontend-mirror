@@ -10,7 +10,6 @@ import { type InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
 import type { CardInnerAppearance } from '../../view/Card/types';
 import type { AnalyticsFacade } from '../analytics';
 import type { ProductType } from '@atlaskit/linking-common';
-import { type MessageDescriptor } from 'react-intl-next';
 
 /**
  * This provides the data that will be used by Smart Links Flexible UI to populate it's
@@ -305,14 +304,14 @@ export type AISummaryActionData = {
 
 // TODO: types more specific once modal is implemented
 export type AutomationActionData = {
+  product: string;
+  resourceType: string;
   baseAutomationUrl: string;
   objectAri: any;
   siteAri: any;
   canManageAutomation: boolean;
   analyticsSource: string;
   objectName?: string;
-  modalTitle: MessageDescriptor;
-  modalDescription: MessageDescriptor;
 }
 
 export type ViewRelatedLinksActionData = {

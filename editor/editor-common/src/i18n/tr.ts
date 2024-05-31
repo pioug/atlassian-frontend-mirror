@@ -336,6 +336,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Sayfa işlemleri',
   'fabric.editor.panel.backgroundColor': 'Arkaplan rengi',
   'fabric.editor.panel.emoji': 'Emoji ekle',
+  'fabric.editor.panel.panelsGroup': 'Panel Türleri',
   'fabric.editor.pasteOptions': 'Yapıştırma seçenekleri',
   'fabric.editor.pastePlainText': 'Düz metin olarak yapıştır',
   'fabric.editor.placeholderAltText': 'Bu görseli bir alternatif metinle açıklayın',

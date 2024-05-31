@@ -14,90 +14,85 @@ import type { StatusType } from '../types';
 import StatusPicker from './statusPicker';
 
 interface ContentComponentProps {
-  api: ExtractInjectionAPI<StatusPlugin> | undefined;
-  popupsMountPoint?: HTMLElement;
-  popupsBoundariesElement?: HTMLElement;
-  popupsScrollableElement?: HTMLElement;
-  editorView: EditorView;
-  domAtPos: DomAtPos;
+	api: ExtractInjectionAPI<StatusPlugin> | undefined;
+	popupsMountPoint?: HTMLElement;
+	popupsBoundariesElement?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	editorView: EditorView;
+	domAtPos: DomAtPos;
 }
 
 export function ContentComponent({
-  api,
-  popupsMountPoint,
-  popupsBoundariesElement,
-  popupsScrollableElement,
-  editorView,
-  domAtPos,
+	api,
+	popupsMountPoint,
+	popupsBoundariesElement,
+	popupsScrollableElement,
+	editorView,
+	domAtPos,
 }: ContentComponentProps) {
-  const { statusState } = useSharedPluginState(api, ['status']);
-  const { showStatusPickerAt } = statusState ?? {};
+	const { statusState } = useSharedPluginState(api, ['status']);
+	const { showStatusPickerAt } = statusState ?? {};
 
-  const target = useMemo(
-    () =>
-      showStatusPickerAt
-        ? (findDomRefAtPos(showStatusPickerAt, domAtPos) as HTMLElement)
-        : null,
-    [showStatusPickerAt, domAtPos],
-  );
+	const target = useMemo(
+		() =>
+			showStatusPickerAt ? (findDomRefAtPos(showStatusPickerAt, domAtPos) as HTMLElement) : null,
+		[showStatusPickerAt, domAtPos],
+	);
 
-  const statusNode = useMemo(
-    () =>
-      showStatusPickerAt
-        ? editorView.state.doc.nodeAt(showStatusPickerAt)
-        : undefined,
-    [showStatusPickerAt, editorView],
-  );
+	const statusNode = useMemo(
+		() => (showStatusPickerAt ? editorView.state.doc.nodeAt(showStatusPickerAt) : undefined),
+		[showStatusPickerAt, editorView],
+	);
 
-  const onSelect = useCallback(
-    (status: StatusType) => {
-      updateStatus(status)(editorView.state, editorView.dispatch);
-    },
-    [editorView],
-  );
+	const onSelect = useCallback(
+		(status: StatusType) => {
+			updateStatus(status)(editorView.state, editorView.dispatch);
+		},
+		[editorView],
+	);
 
-  const onTextChanged = useCallback(
-    (status: StatusType) => {
-      updateStatus(status)(editorView.state, editorView.dispatch);
-    },
-    [editorView],
-  );
-  const closeStatusPicker = useCallback(
-    (closingPayload?: ClosingPayload) => {
-      commitStatusPicker(closingPayload)(editorView);
-    },
-    [editorView],
-  );
-  const onEnter = useCallback(() => {
-    commitStatusPicker()(editorView);
-  }, [editorView]);
+	const onTextChanged = useCallback(
+		(status: StatusType) => {
+			updateStatus(status)(editorView.state, editorView.dispatch);
+		},
+		[editorView],
+	);
+	const closeStatusPicker = useCallback(
+		(closingPayload?: ClosingPayload) => {
+			commitStatusPicker(closingPayload)(editorView);
+		},
+		[editorView],
+	);
+	const onEnter = useCallback(() => {
+		commitStatusPicker()(editorView);
+	}, [editorView]);
 
-  if (typeof showStatusPickerAt !== 'number') {
-    return null;
-  }
+	if (typeof showStatusPickerAt !== 'number') {
+		return null;
+	}
 
-  if (!statusNode || statusNode.type.name !== 'status') {
-    return null;
-  }
+	if (!statusNode || statusNode.type.name !== 'status') {
+		return null;
+	}
 
-  const { text, color, localId } = statusNode.attrs;
+	const { text, color, localId } = statusNode.attrs;
 
-  return (
-    <StatusPicker
-      isNew={statusState?.isNew}
-      focusStatusInput={statusState?.focusStatusInput}
-      target={target}
-      defaultText={text}
-      defaultColor={color}
-      defaultLocalId={localId}
-      mountTo={popupsMountPoint}
-      boundariesElement={popupsBoundariesElement}
-      scrollableElement={popupsScrollableElement}
-      onSelect={onSelect}
-      onTextChanged={onTextChanged}
-      closeStatusPicker={closeStatusPicker}
-      onEnter={onEnter}
-      editorView={editorView}
-    />
-  );
+	return (
+		<StatusPicker
+			isNew={statusState?.isNew}
+			focusStatusInput={statusState?.focusStatusInput}
+			target={target}
+			defaultText={text}
+			defaultColor={color}
+			defaultLocalId={localId}
+			mountTo={popupsMountPoint}
+			boundariesElement={popupsBoundariesElement}
+			scrollableElement={popupsScrollableElement}
+			onSelect={onSelect}
+			onTextChanged={onTextChanged}
+			closeStatusPicker={closeStatusPicker}
+			onEnter={onEnter}
+			editorView={editorView}
+		/>
+	);
 }

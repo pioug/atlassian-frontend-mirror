@@ -13,5 +13,5 @@ export const styles = `
 `;
 
 export default function listItem({ text }: NodeSerializerOpts) {
-  return createTag('li', { class: createClassName('li') }, text);
+	return createTag('li', { class: createClassName('li') }, text);
 }

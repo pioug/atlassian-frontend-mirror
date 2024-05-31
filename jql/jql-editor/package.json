@@ -80,7 +80,6 @@
     "@atlaskit/docs": "*",
     "@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@storybook/addon-actions": "^5.2.5",
     "@storybook/addon-knobs": "^5.3.18",
     "@testing-library/jest-dom": "^5.16.5",
@@ -127,6 +126,5 @@
         "util"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

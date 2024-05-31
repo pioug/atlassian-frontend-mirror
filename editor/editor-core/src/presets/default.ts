@@ -4,12 +4,12 @@ import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';
 import type {
-  EditorAppearance,
-  FeatureFlags,
-  HyperlinkPluginOptions,
-  PerformanceTracking,
-  QuickInsertPluginOptions,
-  TextFormattingOptions,
+	EditorAppearance,
+	FeatureFlags,
+	HyperlinkPluginOptions,
+	PerformanceTracking,
+	QuickInsertPluginOptions,
+	TextFormattingOptions,
 } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { BasePluginOptions } from '@atlaskit/editor-plugins/base';
@@ -51,34 +51,34 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 // #endregion
 
 export type DefaultPresetPluginOptions = {
-  paste?: PastePluginOptions;
-  base?: BasePluginOptions;
-  blockType?: BlockTypePluginOptions;
-  placeholder?: PlaceholderPluginOptions;
-  textFormatting?: TextFormattingOptions;
-  submitEditor?: (editorView: EditorView) => void;
-  quickInsert?: QuickInsertPluginOptions;
-  codeBlock?: CodeBlockOptions;
-  selection?: SelectionPluginOptions;
-  hyperlinkOptions?: HyperlinkPluginOptions;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  typeAhead?: TypeAheadPluginOptions;
-  allowAnalyticsGASV3?: boolean;
-  performanceTracking?: PerformanceTracking;
-  appearance?: EditorAppearance | undefined;
-  allowUndoRedoButtons?: boolean;
-  featureFlags?: FeatureFlags;
-  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-  /**
-   * There is expected to be temporary divergence between Live Page editor expand behaviour and the standard expand behaviour.
-   *
-   * This is expected to be removed in Q4 as Editor and Live Page teams align on a singular behaviour.
-   *
-   * It is only supported for use by Confluence.
-   *
-   * @default false
-   */
-  __livePage?: boolean;
+	paste?: PastePluginOptions;
+	base?: BasePluginOptions;
+	blockType?: BlockTypePluginOptions;
+	placeholder?: PlaceholderPluginOptions;
+	textFormatting?: TextFormattingOptions;
+	submitEditor?: (editorView: EditorView) => void;
+	quickInsert?: QuickInsertPluginOptions;
+	codeBlock?: CodeBlockOptions;
+	selection?: SelectionPluginOptions;
+	hyperlinkOptions?: HyperlinkPluginOptions;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	typeAhead?: TypeAheadPluginOptions;
+	allowAnalyticsGASV3?: boolean;
+	performanceTracking?: PerformanceTracking;
+	appearance?: EditorAppearance | undefined;
+	allowUndoRedoButtons?: boolean;
+	featureFlags?: FeatureFlags;
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	/**
+	 * There is expected to be temporary divergence between Live Page editor expand behaviour and the standard expand behaviour.
+	 *
+	 * This is expected to be removed in Q4 as Editor and Live Page teams align on a singular behaviour.
+	 *
+	 * It is only supported for use by Confluence.
+	 *
+	 * @default false
+	 */
+	__livePage?: boolean;
 };
 
 /**
@@ -86,79 +86,74 @@ export type DefaultPresetPluginOptions = {
  * their placement in the editor toolbar
  */
 export function createDefaultPreset(options: DefaultPresetPluginOptions) {
-  const isMobile = options.appearance === 'mobile';
-  const preset = new EditorPresetBuilder()
-    .add([featureFlagsPlugin, options.featureFlags || {}])
-    .maybeAdd(
-      [
-        analyticsPlugin,
-        {
-          createAnalyticsEvent: options.createAnalyticsEvent,
-          performanceTracking: options.performanceTracking,
-        },
-      ],
-      Boolean(options.allowAnalyticsGASV3),
-    )
-    .add(betterTypeHistoryPlugin)
-    .add([pastePlugin, { ...options?.paste }])
-    .add(clipboardPlugin)
-    .add(focusPlugin)
-    .add(compositionPlugin)
-    .add([
-      contextIdentifierPlugin,
-      { contextIdentifierProvider: options.contextIdentifierProvider },
-    ])
-    .add([basePlugin, options.base])
-    .add(decorationsPlugin)
-    .add([typeAheadPlugin, options.typeAhead])
-    .maybeAdd(historyPlugin, Boolean(isMobile || options.allowUndoRedoButtons))
-    .maybeAdd(
-      primaryToolbarPlugin,
-      () => !!getBooleanFF('platform.editor.primary-toolbar-ordering'),
-    )
-    .maybeAdd(
-      undoRedoPlugin,
-      Boolean(
-        options.featureFlags?.undoRedoButtons ?? options.allowUndoRedoButtons,
-      ),
-    )
-    .add([blockTypePlugin, options.blockType])
-    .add(clearMarksOnEmptyDocPlugin)
-    .maybeAdd(
-      [
-        selectionToolbarPlugin,
-        {
-          preferenceToolbarAboveSelection: false,
-        },
-      ],
-      () => {
-        if (getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd')) {
-          return true;
-        }
+	const isMobile = options.appearance === 'mobile';
+	const preset = new EditorPresetBuilder()
+		.add([featureFlagsPlugin, options.featureFlags || {}])
+		.maybeAdd(
+			[
+				analyticsPlugin,
+				{
+					createAnalyticsEvent: options.createAnalyticsEvent,
+					performanceTracking: options.performanceTracking,
+				},
+			],
+			Boolean(options.allowAnalyticsGASV3),
+		)
+		.add(betterTypeHistoryPlugin)
+		.add([pastePlugin, { ...options?.paste }])
+		.add(clipboardPlugin)
+		.add(focusPlugin)
+		.add(compositionPlugin)
+		.add([
+			contextIdentifierPlugin,
+			{ contextIdentifierProvider: options.contextIdentifierProvider },
+		])
+		.add([basePlugin, options.base])
+		.add(decorationsPlugin)
+		.add([typeAheadPlugin, options.typeAhead])
+		.maybeAdd(historyPlugin, Boolean(isMobile || options.allowUndoRedoButtons))
+		.maybeAdd(
+			primaryToolbarPlugin,
+			() => !!getBooleanFF('platform.editor.primary-toolbar-ordering'),
+		)
+		.maybeAdd(
+			undoRedoPlugin,
+			Boolean(options.featureFlags?.undoRedoButtons ?? options.allowUndoRedoButtons),
+		)
+		.add([blockTypePlugin, options.blockType])
+		.add(clearMarksOnEmptyDocPlugin)
+		.maybeAdd(
+			[
+				selectionToolbarPlugin,
+				{
+					preferenceToolbarAboveSelection: false,
+				},
+			],
+			() => {
+				if (getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd')) {
+					return true;
+				}
 
-        return false;
-      },
-    )
-    .add([hyperlinkPlugin, options.hyperlinkOptions])
-    .add([textFormattingPlugin, options.textFormatting])
-    .add(widthPlugin)
-    .add([quickInsertPlugin, options.quickInsert])
-    .add([placeholderPlugin, options.placeholder])
-    .add(unsupportedContentPlugin)
-    .add(editorDisabledPlugin)
-    .add([submitEditorPlugin, options.submitEditor])
-    .add(copyButtonPlugin)
-    .add(floatingToolbarPlugin)
-    .add([
-      selectionPlugin,
-      { ...options.selection, __livePage: options.__livePage },
-    ])
-    .add([codeBlockPlugin, options.codeBlock || { appearance: 'full-page' }]);
+				return false;
+			},
+		)
+		.add([hyperlinkPlugin, options.hyperlinkOptions])
+		.add([textFormattingPlugin, options.textFormatting])
+		.add(widthPlugin)
+		.add([quickInsertPlugin, options.quickInsert])
+		.add([placeholderPlugin, options.placeholder])
+		.add(unsupportedContentPlugin)
+		.add(editorDisabledPlugin)
+		.add([submitEditorPlugin, options.submitEditor])
+		.add(copyButtonPlugin)
+		.add(floatingToolbarPlugin)
+		.add([selectionPlugin, { ...options.selection, __livePage: options.__livePage }])
+		.add([codeBlockPlugin, options.codeBlock || { appearance: 'full-page' }]);
 
-  return preset;
+	return preset;
 }
 
 export function useDefaultPreset(props: DefaultPresetPluginOptions) {
-  const preset = createDefaultPreset(props);
-  return [preset];
+	const preset = createDefaultPreset(props);
+	return [preset];
 }

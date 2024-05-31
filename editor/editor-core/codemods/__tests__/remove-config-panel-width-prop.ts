@@ -6,15 +6,13 @@ import { createTransformer } from '../utils';
 // This stays as require() since changing to import will trigger a linter error
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
-const transformer = createTransformer('@atlaskit/editor-core', [
-  removeConfigPanelWidthProp,
-]);
+const transformer = createTransformer('@atlaskit/editor-core', [removeConfigPanelWidthProp]);
 
 describe('Remove ContextPanel "width" prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { ContextPanel } from '@atlaskit/editor-core';
 
@@ -24,7 +22,7 @@ describe('Remove ContextPanel "width" prop', () => {
       </ContextPanel>
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { ContextPanel } from '@atlaskit/editor-core';
 
@@ -34,13 +32,13 @@ describe('Remove ContextPanel "width" prop', () => {
       </ContextPanel>
     );
     `, // -----
-    'remove if width prop is set',
-  );
+		'remove if width prop is set',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { ContextPanel } from '@atlaskit/editor-core';
 
@@ -50,7 +48,7 @@ describe('Remove ContextPanel "width" prop', () => {
       </ContextPanel>
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { ContextPanel } from '@atlaskit/editor-core';
 
@@ -60,13 +58,13 @@ describe('Remove ContextPanel "width" prop', () => {
       </ContextPanel>
     );
     `, // -----
-    'remove nothing if width prop not set',
-  );
+		'remove nothing if width prop not set',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { ContextPanel as AKContextPanel } from '@atlaskit/editor-core';
 
@@ -76,7 +74,7 @@ describe('Remove ContextPanel "width" prop', () => {
       </AKContextPanel>
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { ContextPanel as AKContextPanel } from '@atlaskit/editor-core';
 
@@ -86,13 +84,13 @@ describe('Remove ContextPanel "width" prop', () => {
       </AKContextPanel>
     );
     `, // -----
-    'remove width prop when ContextPanel is renamed',
-  );
+		'remove width prop when ContextPanel is renamed',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     const ContextPanel = (props) => {
@@ -105,7 +103,7 @@ describe('Remove ContextPanel "width" prop', () => {
       </ContextPanel>
     );
     `, // -----
-    `
+		`
     import React from 'react';
 
     const ContextPanel = (props) => {
@@ -118,6 +116,6 @@ describe('Remove ContextPanel "width" prop', () => {
       </ContextPanel>
     );
     `, // -----
-    'only remove width for ContextPanel from @atlaskit/editor-core',
-  );
+		'only remove width for ContextPanel from @atlaskit/editor-core',
+	);
 });

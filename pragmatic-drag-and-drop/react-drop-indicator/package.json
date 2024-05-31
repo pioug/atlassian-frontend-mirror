@@ -36,7 +36,6 @@
   "devDependencies": {
     "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
     "tiny-invariant": "^1.2.0",
@@ -88,6 +87,5 @@
     "./types": "./src/types.ts",
     "./tree-item": "./src/tree-item.tsx"
   },
-  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/"
 }

@@ -9,20 +9,20 @@ import adf from './helper/multi-bodied-extension-demo.adf.json';
 import { createRendererWindowBindings } from './helper/testing-setup';
 
 const dataProviders = ProviderFactory.create({
-  extensionProvider: Promise.resolve(getExampleExtensionProviders(undefined)),
+	extensionProvider: Promise.resolve(getExampleExtensionProviders(undefined)),
 });
 
 export default function Example() {
-  createRendererWindowBindings(window);
-  return (
-    <div id="renderer-container">
-      <Renderer
-        document={adf}
-        adfStage="stage0"
-        extensionHandlers={extensionHandlers}
-        dataProviders={dataProviders}
-        appearance="full-page"
-      />
-    </div>
-  );
+	createRendererWindowBindings(window);
+	return (
+		<div id="renderer-container">
+			<Renderer
+				document={adf}
+				adfStage="stage0"
+				extensionHandlers={extensionHandlers}
+				dataProviders={dataProviders}
+				appearance="full-page"
+			/>
+		</div>
+	);
 }

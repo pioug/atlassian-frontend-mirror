@@ -49,9 +49,8 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "ast-types": "^0.13.3",
@@ -81,7 +80,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.color-picker-radio-button-functionality_6hkcy": {
       "type": "boolean"

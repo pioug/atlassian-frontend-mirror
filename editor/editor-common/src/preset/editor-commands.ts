@@ -12,20 +12,18 @@ import type { EditorCommand } from '../types/editor-command';
  * @param command A plugin command (a function that modifies and returns a `Transaction`)
  * @returns Command
  */
-export function editorCommandToPMCommand(
-  command: EditorCommand | undefined,
-): Command {
-  return ({ tr }, dispatch) => {
-    const newTr = command?.({ tr });
-    if (!newTr) {
-      return false;
-    }
-    if (newTr instanceof PassiveTransaction) {
-      return true;
-    }
-    dispatch?.(newTr);
-    return true;
-  };
+export function editorCommandToPMCommand(command: EditorCommand | undefined): Command {
+	return ({ tr }, dispatch) => {
+		const newTr = command?.({ tr });
+		if (!newTr) {
+			return false;
+		}
+		if (newTr instanceof PassiveTransaction) {
+			return true;
+		}
+		dispatch?.(newTr);
+		return true;
+	};
 }
 
 /**
@@ -33,11 +31,11 @@ export function editorCommandToPMCommand(
  * an `EditorCommand` should return `true` but should not dispatch.
  */
 export class PassiveTransaction extends Transaction {
-  // This is very cheeky but this should never be used outside its intended
-  // purpose - it will likely crash the editor so we should get an early warning
-  // signal
-  constructor() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    super({} as any);
-  }
+	// This is very cheeky but this should never be used outside its intended
+	// purpose - it will likely crash the editor so we should get an early warning
+	// signal
+	constructor() {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		super({} as any);
+	}
 }

@@ -1,5 +1,5 @@
 export type {
-  PMPluginFactoryParams,
-  PMPluginFactory,
-  PMPlugin,
+	PMPluginFactoryParams,
+	PMPluginFactory,
+	PMPlugin,
 } from '@atlaskit/editor-common/types';

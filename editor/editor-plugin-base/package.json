@@ -43,9 +43,6 @@
     "@atlaskit/platform-feature-flags": "^0.2.5",
     "@babel/runtime": "^7.0.0"
   },
-  "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
-  },
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": [
@@ -81,7 +78,6 @@
       "type": "boolean"
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "stricter": {
     "no-unused-dependencies": {
       "checkDevDependencies": true

@@ -10,135 +10,131 @@ import type { GuidelineConfig, GuidelineStyles, RelativeGuides } from './types';
 import { getMediaSingleDimensions } from './utils';
 
 export const generateDynamicGuidelines = (
-  state: EditorState,
-  editorWidth: number,
-  styles: GuidelineStyles = {},
+	state: EditorState,
+	editorWidth: number,
+	styles: GuidelineStyles = {},
 ): {
-  dynamicGuides: GuidelineConfig[];
-  relativeGuides: RelativeGuides;
+	dynamicGuides: GuidelineConfig[];
+	relativeGuides: RelativeGuides;
 } => {
-  const selectedNode =
-    state.selection instanceof NodeSelection &&
-    (state.selection as NodeSelection).node;
+	const selectedNode =
+		state.selection instanceof NodeSelection && (state.selection as NodeSelection).node;
 
-  const offset = editorWidth / 2;
+	const offset = editorWidth / 2;
 
-  return findChildren(
-    state.tr.doc,
-    (node: PMNode) => node.type === state.schema.nodes.mediaSingle,
-  ).reduce<{
-    dynamicGuides: GuidelineConfig[];
-    relativeGuides: RelativeGuides;
-  }>(
-    (acc, nodeWithPos, index) => {
-      const { node, pos } = nodeWithPos;
+	return findChildren(
+		state.tr.doc,
+		(node: PMNode) => node.type === state.schema.nodes.mediaSingle,
+	).reduce<{
+		dynamicGuides: GuidelineConfig[];
+		relativeGuides: RelativeGuides;
+	}>(
+		(acc, nodeWithPos, index) => {
+			const { node, pos } = nodeWithPos;
 
-      // if the current node the selected node
-      // or the node is not using pixel width,
-      // We will skip the node.
-      if (selectedNode === node || node.attrs.widthType !== 'pixel') {
-        return acc;
-      }
+			// if the current node the selected node
+			// or the node is not using pixel width,
+			// We will skip the node.
+			if (selectedNode === node || node.attrs.widthType !== 'pixel') {
+				return acc;
+			}
 
-      const $pos = state.tr.doc.resolve(pos);
+			const $pos = state.tr.doc.resolve(pos);
 
-      if ($pos.parent.type !== state.schema.nodes.doc) {
-        return acc;
-      }
+			if ($pos.parent.type !== state.schema.nodes.doc) {
+				return acc;
+			}
 
-      const dimensions = getMediaSingleDimensions(node, editorWidth);
+			const dimensions = getMediaSingleDimensions(node, editorWidth);
 
-      if (!dimensions) {
-        return acc;
-      }
+			if (!dimensions) {
+				return acc;
+			}
 
-      const { width, height } = dimensions;
+			const { width, height } = dimensions;
 
-      const dynamicGuides = [
-        ...acc.dynamicGuides,
-        ...getDynamicGuides(
-          node.attrs.layout,
-          width,
-          offset,
-          `${MEDIA_DYNAMIC_GUIDELINE_PREFIX}${index}`,
-          styles,
-        ),
-      ];
+			const dynamicGuides = [
+				...acc.dynamicGuides,
+				...getDynamicGuides(
+					node.attrs.layout,
+					width,
+					offset,
+					`${MEDIA_DYNAMIC_GUIDELINE_PREFIX}${index}`,
+					styles,
+				),
+			];
 
-      const accRelativeGuidesWidth = acc.relativeGuides?.width || {};
-      const accRelativeGuidesHeight = acc.relativeGuides?.height || {};
+			const accRelativeGuidesWidth = acc.relativeGuides?.width || {};
+			const accRelativeGuidesHeight = acc.relativeGuides?.height || {};
 
-      const relativeGuidesWidth = {
-        ...accRelativeGuidesWidth,
-        [width]: [...(accRelativeGuidesWidth[width] || []), nodeWithPos],
-      };
+			const relativeGuidesWidth = {
+				...accRelativeGuidesWidth,
+				[width]: [...(accRelativeGuidesWidth[width] || []), nodeWithPos],
+			};
 
-      const relativeGuidesWidthHeight = {
-        ...accRelativeGuidesHeight,
-        [Math.round(height)]: [
-          ...(accRelativeGuidesHeight[height] || []),
-          nodeWithPos,
-        ],
-      };
+			const relativeGuidesWidthHeight = {
+				...accRelativeGuidesHeight,
+				[Math.round(height)]: [...(accRelativeGuidesHeight[height] || []), nodeWithPos],
+			};
 
-      return {
-        dynamicGuides,
-        relativeGuides: {
-          width: relativeGuidesWidth,
-          height: relativeGuidesWidthHeight,
-        },
-      };
-    },
-    {
-      relativeGuides: {
-        width: {},
-        height: {},
-      },
-      dynamicGuides: [],
-    },
-  );
+			return {
+				dynamicGuides,
+				relativeGuides: {
+					width: relativeGuidesWidth,
+					height: relativeGuidesWidthHeight,
+				},
+			};
+		},
+		{
+			relativeGuides: {
+				width: {},
+				height: {},
+			},
+			dynamicGuides: [],
+		},
+	);
 };
 
 const getDynamicGuides = (
-  layout: string,
-  width: number,
-  offset: number,
-  key: string,
-  styles: GuidelineStyles,
+	layout: string,
+	width: number,
+	offset: number,
+	key: string,
+	styles: GuidelineStyles,
 ): GuidelineConfig[] => {
-  switch (layout) {
-    case 'align-start':
-    case 'wrap-left':
-      return [
-        {
-          position: { x: roundToNearest(width - offset) },
-          key,
-          ...styles,
-        },
-      ];
-    case 'align-end':
-    case 'wrap-right':
-      return [
-        {
-          position: { x: roundToNearest(offset - width) },
-          key,
-          ...styles,
-        },
-      ];
-    case 'center':
-      return [
-        {
-          position: { x: roundToNearest(width / 2) },
-          key: `${key}_right`,
-          ...styles,
-        },
-        {
-          position: { x: -roundToNearest(width / 2) },
-          key: `${key}_left`,
-          ...styles,
-        },
-      ];
-    default:
-      return [];
-  }
+	switch (layout) {
+		case 'align-start':
+		case 'wrap-left':
+			return [
+				{
+					position: { x: roundToNearest(width - offset) },
+					key,
+					...styles,
+				},
+			];
+		case 'align-end':
+		case 'wrap-right':
+			return [
+				{
+					position: { x: roundToNearest(offset - width) },
+					key,
+					...styles,
+				},
+			];
+		case 'center':
+			return [
+				{
+					position: { x: roundToNearest(width / 2) },
+					key: `${key}_right`,
+					...styles,
+				},
+				{
+					position: { x: -roundToNearest(width / 2) },
+					key: `${key}_left`,
+					...styles,
+				},
+			];
+		default:
+			return [];
+	}
 };

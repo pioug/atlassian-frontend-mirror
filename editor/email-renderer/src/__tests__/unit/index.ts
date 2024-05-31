@@ -1,9 +1,6 @@
 import type { EmailSerializerOpts } from '../..';
 import EmailSerializer from '../..';
-import {
-  defaultSchema,
-  getSchemaBasedOnStage,
-} from '@atlaskit/adf-schema/schema-default';
+import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import MockDate from 'mockdate';
 
 import * as paragraphIndents from './__fixtures__/paragraph-indents.adf.json';
@@ -55,401 +52,386 @@ import * as nestedExpand from './__fixtures__/extended-nested-expand.adf.json';
 import type { MetaDataContext } from '../../interfaces';
 
 const defaultTestOpts: EmailSerializerOpts = {
-  isImageStubEnabled: false,
-  isInlineCSSEnabled: true,
+	isImageStubEnabled: false,
+	isInlineCSSEnabled: true,
 };
 
 const baseURLContext: MetaDataContext = {
-  baseURL: 'https://example.com',
+	baseURL: 'https://example.com',
 };
 
 const incorrectBaseURLContext: MetaDataContext = {
-  baseURL: 'incorrectBaseURL',
+	baseURL: 'incorrectBaseURL',
 };
 
 const mediaContext: MetaDataContext = {
-  hydration: {
-    mediaMetaData: {
-      'media-type-image': {
-        name: 'Dark wallpaper theme.jpg',
-        mediaType: 'image',
-        mimeType: 'image/jpeg',
-        size: 54981,
-      },
-      'media-type-doc': {
-        name: 'My bachelor thesis.pdf',
-        mediaType: 'doc',
-        mimeType: 'application/pdf',
-        size: 12345,
-      },
-      'media-type-video': {
-        name: 'Metallica full concert.mpeg',
-        mediaType: 'video',
-        mimeType: 'vide/mpeg',
-        size: 982347,
-      },
-      'media-type-audio': {
-        name: 'The sound of silence.mp3',
-        mediaType: 'audio',
-        mimeType: 'audio/mpeg',
-        size: 98734,
-      },
-      'media-type-archive': {
-        name: 'The Slackening.zip',
-        mediaType: 'archive',
-        mimeType: 'application/zip',
-        size: 4383,
-      },
-      'media-type-unknown': {
-        name: 'unknown',
-        mediaType: 'unknown',
-        mimeType: 'unknown',
-        size: 54981,
-      },
-    },
-  },
+	hydration: {
+		mediaMetaData: {
+			'media-type-image': {
+				name: 'Dark wallpaper theme.jpg',
+				mediaType: 'image',
+				mimeType: 'image/jpeg',
+				size: 54981,
+			},
+			'media-type-doc': {
+				name: 'My bachelor thesis.pdf',
+				mediaType: 'doc',
+				mimeType: 'application/pdf',
+				size: 12345,
+			},
+			'media-type-video': {
+				name: 'Metallica full concert.mpeg',
+				mediaType: 'video',
+				mimeType: 'vide/mpeg',
+				size: 982347,
+			},
+			'media-type-audio': {
+				name: 'The sound of silence.mp3',
+				mediaType: 'audio',
+				mimeType: 'audio/mpeg',
+				size: 98734,
+			},
+			'media-type-archive': {
+				name: 'The Slackening.zip',
+				mediaType: 'archive',
+				mimeType: 'application/zip',
+				size: 4383,
+			},
+			'media-type-unknown': {
+				name: 'unknown',
+				mediaType: 'unknown',
+				mimeType: 'unknown',
+				size: 54981,
+			},
+		},
+	},
 };
 
 const highlightedMentionNodeContext: MetaDataContext = {
-  highlightedMentionNodeID: '1234',
+	highlightedMentionNodeID: '1234',
 };
 
 const render = (
-  doc: any,
-  serializerOptions: Partial<EmailSerializerOpts> = {},
-  context?: MetaDataContext,
-  schemaStage?: string,
+	doc: any,
+	serializerOptions: Partial<EmailSerializerOpts> = {},
+	context?: MetaDataContext,
+	schemaStage?: string,
 ) => {
-  const opts = {
-    ...defaultTestOpts,
-    ...serializerOptions,
-  };
-  const schema = schemaStage
-    ? getSchemaBasedOnStage(schemaStage)
-    : getSchemaBasedOnStage();
-  const serializer = new EmailSerializer(schema, opts);
-  const docFromSchema = schema.nodeFromJSON(doc);
-  const { result, embeddedImages } = serializer.serializeFragmentWithImages(
-    docFromSchema.content,
-    context,
-  );
-  const node = document.createElement('div');
-  node.innerHTML = result!;
-  return {
-    result: node.firstChild,
-    embeddedImages,
-  };
+	const opts = {
+		...defaultTestOpts,
+		...serializerOptions,
+	};
+	const schema = schemaStage ? getSchemaBasedOnStage(schemaStage) : getSchemaBasedOnStage();
+	const serializer = new EmailSerializer(schema, opts);
+	const docFromSchema = schema.nodeFromJSON(doc);
+	const { result, embeddedImages } = serializer.serializeFragmentWithImages(
+		docFromSchema.content,
+		context,
+	);
+	const node = document.createElement('div');
+	node.innerHTML = result!;
+	return {
+		result: node.firstChild,
+		embeddedImages,
+	};
 };
 
 describe('EmailSerializer constructor', () => {
-  MockDate.reset();
-  it('should initialize with default values', () => {
-    const s = new EmailSerializer(defaultSchema);
-    expect(s.opts).toEqual({
-      isImageStubEnabled: false,
-      isInlineCSSEnabled: false,
-    });
-  });
-  it('should override default values', () => {
-    const s = new EmailSerializer(defaultSchema, { isInlineCSSEnabled: true });
-    expect(s.opts).toEqual({
-      isImageStubEnabled: false,
-      isInlineCSSEnabled: true,
-    });
-  });
+	MockDate.reset();
+	it('should initialize with default values', () => {
+		const s = new EmailSerializer(defaultSchema);
+		expect(s.opts).toEqual({
+			isImageStubEnabled: false,
+			isInlineCSSEnabled: false,
+		});
+	});
+	it('should override default values', () => {
+		const s = new EmailSerializer(defaultSchema, { isInlineCSSEnabled: true });
+		expect(s.opts).toEqual({
+			isImageStubEnabled: false,
+			isInlineCSSEnabled: true,
+		});
+	});
 });
 
 describe('Renderer - EmailSerializer', () => {
-  it('should render nothing for image node', () => {
-    const { result } = render(image);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render nothing for image node', () => {
+		const { result } = render(image);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render nothing for placeholder node', () => {
-    const { result } = render(placeholder);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render nothing for placeholder node', () => {
+		const { result } = render(placeholder);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should apply no mark for annotation marks', () => {
-    const { result } = render(annotation);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should apply no mark for annotation marks', () => {
+		const { result } = render(annotation);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should apply no mark for breakout marks', () => {
-    const { result } = render(breakout);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should apply no mark for breakout marks', () => {
+		const { result } = render(breakout);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should apply textColor mark correctly', () => {
-    const { result } = render(textColor);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should apply textColor mark correctly', () => {
+		const { result } = render(textColor);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should apply backgroundColor mark correctly', () => {
-    const { result } = render(backgroundColor);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should apply backgroundColor mark correctly', () => {
+		const { result } = render(backgroundColor);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render media single correctly', () => {
-    const { result } = render(mediaSingle);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render media single correctly', () => {
+		const { result } = render(mediaSingle);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render media single with pixel sizing fallback correctly', () => {
-    const { result } = render(mediaSingleWithPixelSizing);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render media single with pixel sizing fallback correctly', () => {
+		const { result } = render(mediaSingleWithPixelSizing);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render media single with pixel sizing correctly', () => {
-    const { result } = render(
-      mediaSingleWithPixelSizing,
-      {},
-      undefined,
-      'stage0',
-    );
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render media single with pixel sizing correctly', () => {
+		const { result } = render(mediaSingleWithPixelSizing, {}, undefined, 'stage0');
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render media group correctly', () => {
-    const { result } = render(mediaGroup);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render media group correctly', () => {
+		const { result } = render(mediaGroup);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render media inline correctly', () => {
-    const { result } = render(mediaInline);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render media inline correctly', () => {
+		const { result } = render(mediaInline);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render media with images inline correctly', () => {
-    const { result } = render(
-      mediaInlineImageAllTypes,
-      undefined,
-      mediaContext,
-    );
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render media with images inline correctly', () => {
+		const { result } = render(mediaInlineImageAllTypes, undefined, mediaContext);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render media inline correctly', () => {
-    const { result } = render(caption);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render media inline correctly', () => {
+		const { result } = render(caption);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render decision list correctly', () => {
-    const { result, embeddedImages } = render(decisionList);
-    expect(result).toMatchSnapshot('html');
-    expect(embeddedImages).toMatchSnapshot('embeddedImages');
-  });
+	it('should render decision list correctly', () => {
+		const { result, embeddedImages } = render(decisionList);
+		expect(result).toMatchSnapshot('html');
+		expect(embeddedImages).toMatchSnapshot('embeddedImages');
+	});
 
-  it('should render decision list correctly with mock enabled', () => {
-    const { result, embeddedImages } = render(decisionList, {
-      isImageStubEnabled: true,
-    });
-    expect(result).toMatchSnapshot('mock-html');
-    expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
-  });
+	it('should render decision list correctly with mock enabled', () => {
+		const { result, embeddedImages } = render(decisionList, {
+			isImageStubEnabled: true,
+		});
+		expect(result).toMatchSnapshot('mock-html');
+		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
+	});
 
-  it('should render task list correctly', () => {
-    const { result, embeddedImages } = render(taskList);
-    expect(result).toMatchSnapshot('html');
-    expect(embeddedImages).toMatchSnapshot('embeddedImages');
-  });
+	it('should render task list correctly', () => {
+		const { result, embeddedImages } = render(taskList);
+		expect(result).toMatchSnapshot('html');
+		expect(embeddedImages).toMatchSnapshot('embeddedImages');
+	});
 
-  it('should render task list correctly with mock enabled', () => {
-    const { result, embeddedImages } = render(taskList, {
-      isImageStubEnabled: true,
-    });
-    expect(result).toMatchSnapshot('mock-html');
-    expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
-  });
+	it('should render task list correctly with mock enabled', () => {
+		const { result, embeddedImages } = render(taskList, {
+			isImageStubEnabled: true,
+		});
+		expect(result).toMatchSnapshot('mock-html');
+		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
+	});
 
-  it('should render nested task list correctly', () => {
-    const { result, embeddedImages } = render(nestedTaskList);
-    expect(result).toMatchSnapshot('html');
-    expect(embeddedImages).toMatchSnapshot('embeddedImages');
-  });
+	it('should render nested task list correctly', () => {
+		const { result, embeddedImages } = render(nestedTaskList);
+		expect(result).toMatchSnapshot('html');
+		expect(embeddedImages).toMatchSnapshot('embeddedImages');
+	});
 
-  it('should render nested task list correctly with mock enabled', () => {
-    const { result, embeddedImages } = render(nestedTaskList, {
-      isImageStubEnabled: true,
-    });
-    expect(result).toMatchSnapshot('mock-html');
-    expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
-  });
+	it('should render nested task list correctly with mock enabled', () => {
+		const { result, embeddedImages } = render(nestedTaskList, {
+			isImageStubEnabled: true,
+		});
+		expect(result).toMatchSnapshot('mock-html');
+		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
+	});
 
-  it('should render block cards correctly', () => {
-    const { result } = render(blockCards);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render block cards correctly', () => {
+		const { result } = render(blockCards);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render inline cards correctly', () => {
-    const { result } = render(inlineCards);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render inline cards correctly', () => {
+		const { result } = render(inlineCards);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render embed cards correctly', () => {
-    const { result } = render(embedCards);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render embed cards correctly', () => {
+		const { result } = render(embedCards);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render text with em inside of a paragraph correctly', () => {
-    const { result } = render(em);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render text with em inside of a paragraph correctly', () => {
+		const { result } = render(em);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render panels correctly', () => {
-    const { result, embeddedImages } = render(panels);
-    expect(result).toMatchSnapshot('html');
-    expect(embeddedImages).toMatchSnapshot('embeddedImages');
-  });
+	it('should render panels correctly', () => {
+		const { result, embeddedImages } = render(panels);
+		expect(result).toMatchSnapshot('html');
+		expect(embeddedImages).toMatchSnapshot('embeddedImages');
+	});
 
-  it('should render panels correctly with mock enabled', () => {
-    const { result, embeddedImages } = render(panels, {
-      isImageStubEnabled: true,
-    });
-    expect(result).toMatchSnapshot('mock-html');
-    expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
-  });
+	it('should render panels correctly with mock enabled', () => {
+		const { result, embeddedImages } = render(panels, {
+			isImageStubEnabled: true,
+		});
+		expect(result).toMatchSnapshot('mock-html');
+		expect(embeddedImages).toMatchSnapshot('mock-embeddedImages');
+	});
 
-  it('should align paragraph correctly', () => {
-    const { result } = render(paragraphAlign);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should align paragraph correctly', () => {
+		const { result } = render(paragraphAlign);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should align heading correctly', () => {
-    const { result } = render(headingAlign);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should align heading correctly', () => {
+		const { result } = render(headingAlign);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render headings 1-6 correctly', () => {
-    const { result } = render(heading);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render headings 1-6 correctly', () => {
+		const { result } = render(heading);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should inline text properties correctly', () => {
-    const { result } = render(inlineTextProps);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should inline text properties correctly', () => {
+		const { result } = render(inlineTextProps);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should inline code properties correctly', () => {
-    const { result } = render(inlineCodeProps);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should inline code properties correctly', () => {
+		const { result } = render(inlineCodeProps);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render codeblock correctly', () => {
-    const { result } = render(codeBlock);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render codeblock correctly', () => {
+		const { result } = render(codeBlock);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render mention correctly', () => {
-    const { result } = render(mention);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render mention correctly', () => {
+		const { result } = render(mention);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render mention with context', () => {
-    const { result } = render(
-      mention,
-      undefined,
-      highlightedMentionNodeContext,
-    );
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render mention with context', () => {
+		const { result } = render(mention, undefined, highlightedMentionNodeContext);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render paragraph with indentations', () => {
-    const { result } = render(paragraphIndents);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render paragraph with indentations', () => {
+		const { result } = render(paragraphIndents);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render absolute link', () => {
-    const { result } = render(link);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render absolute link', () => {
+		const { result } = render(link);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render relative link with baseURL', () => {
-    const { result } = render(linkRelative, undefined, baseURLContext);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render relative link with baseURL', () => {
+		const { result } = render(linkRelative, undefined, baseURLContext);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render link with incorrect baseURL', () => {
-    const { result } = render(link, undefined, incorrectBaseURLContext);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render link with incorrect baseURL', () => {
+		const { result } = render(link, undefined, incorrectBaseURLContext);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render text and does not interpret HTML', () => {
-    const { result } = render(text);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render text and does not interpret HTML', () => {
+		const { result } = render(text);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render status correctly', () => {
-    const { result } = render(status);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render status correctly', () => {
+		const { result } = render(status);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render numbered column for table', () => {
-    const { result } = render(tableNumberedColumn);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render numbered column for table', () => {
+		const { result } = render(tableNumberedColumn);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render layout column and sections', () => {
-    const { result } = render(layoutColumnSection);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render layout column and sections', () => {
+		const { result } = render(layoutColumnSection);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render extension placeholders', () => {
-    const { result } = render(extensions);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render extension placeholders', () => {
+		const { result } = render(extensions);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render dates in normal text and task lists', () => {
-    const { result } = render(date);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render dates in normal text and task lists', () => {
+		const { result } = render(date);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render lists', () => {
-    const { result } = render(lists);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render lists', () => {
+		const { result } = render(lists);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render ordered lists', () => {
-    const { result } = render(orderedList);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render ordered lists', () => {
+		const { result } = render(orderedList);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render expands', () => {
-    const { result } = render(expand);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render expands', () => {
+		const { result } = render(expand);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should not inline CSS', () => {
-    const { result } = render(status, { isInlineCSSEnabled: false });
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should not inline CSS', () => {
+		const { result } = render(status, { isInlineCSSEnabled: false });
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render media based on given context', () => {
-    const { result } = render(mediaGroupAllTypes, undefined, mediaContext);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render media based on given context', () => {
+		const { result } = render(mediaGroupAllTypes, undefined, mediaContext);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render media inline based on given context', () => {
-    const { result } = render(mediaInlineAllTypes, undefined, mediaContext);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render media inline based on given context', () => {
+		const { result } = render(mediaInlineAllTypes, undefined, mediaContext);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render list inside a blockquote', () => {
-    const { result } = render(blockquoteWithList, undefined, mediaContext);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render list inside a blockquote', () => {
+		const { result } = render(blockquoteWithList, undefined, mediaContext);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render actions inside list', () => {
-    const { result } = render(actionInsideList, undefined, mediaContext);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render actions inside list', () => {
+		const { result } = render(actionInsideList, undefined, mediaContext);
+		expect(result).toMatchSnapshot('html');
+	});
 
-  it('should render action, code-block, decision, media, rule inside panel', () => {
-    const { result } = render(extendedPanel, undefined, mediaContext);
-    expect(result).toMatchSnapshot('html');
-  });
-  it('should render list, action, code-block, panel, quote, decision, rule inside nested expand', () => {
-    const { result } = render(nestedExpand, undefined, mediaContext);
-    expect(result).toMatchSnapshot('html');
-  });
+	it('should render action, code-block, decision, media, rule inside panel', () => {
+		const { result } = render(extendedPanel, undefined, mediaContext);
+		expect(result).toMatchSnapshot('html');
+	});
+	it('should render list, action, code-block, panel, quote, decision, rule inside nested expand', () => {
+		const { result } = render(nestedExpand, undefined, mediaContext);
+		expect(result).toMatchSnapshot('html');
+	});
 });

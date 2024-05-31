@@ -1,4 +1,4 @@
-import type { Appearance } from '@atlaskit/button/types';
+import type { IconButtonProps } from '@atlaskit/button/new';
 import type { IconProps } from '@atlaskit/icon';
 import type { LoadOptions, Value } from '@atlaskit/smart-user-picker';
 
@@ -123,7 +123,7 @@ export type ShareDialogContainerProps = {
    */
   loggedInAccountId?: string;
   /** Appearance of the share modal trigger button  */
-  triggerButtonAppearance?: Appearance;
+  triggerButtonAppearance?: IconButtonProps['appearance'];
   /** Share button Icon */
   triggerButtonIcon?: React.ComponentType<IconProps>;
   /** Style of the share modal trigger button. */
@@ -163,7 +163,7 @@ export type ShareDialogContainerProps = {
   /* Indicates the mode for integrations to be displayed */
   integrationMode?: IntegrationMode;
   /* Indicates if the menu item was clicked when 'integrationMode=menu' is active */
-  isMenuItemSelected?: boolean
+  isMenuItemSelected?: boolean;
   /* List of share integrations */
   shareIntegrations?: Array<Integration>;
   /**

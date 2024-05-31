@@ -2,8 +2,11 @@ import React, { type PropsWithChildren, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type Appearance } from '@atlaskit/button/types';
+import {
+  AnalyticsListener,
+  type UIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
+import { type IconButtonProps } from '@atlaskit/button/new';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import Select from '@atlaskit/select';
 import { type OptionData } from '@atlaskit/smart-user-picker';
@@ -127,7 +130,7 @@ type ExampleState = {
 type State = {
   isAutoOpenDialog: boolean;
   dialogPlacement: DialogPlacement;
-  triggerButtonAppearance: Appearance;
+  triggerButtonAppearance: IconButtonProps['appearance'];
   triggerButtonStyle: ShareButtonStyle;
   triggerButtonTooltipPosition: TooltipPosition;
 } & ExampleState;

@@ -7,26 +7,17 @@ import mediaSingleWithDuplicateMedia from './__fixtures__/mediasingle-with-dupli
 import mediaSingleWithDuplicateMediaAndCaptions from './__fixtures__/mediasingle-with-duplicate-media-and-captions.json';
 
 describe('transformInvalidMediaContent', () => {
-  describe('mediaSingle', () => {
-    it.each([
-      [
-        'with duplicated captions and one empty',
-        mediaSingleWithDuplicateCaptions1,
-      ],
-      ['with duplicated nonempty captions', mediaSingleWithDuplicateCaptions2],
-      ['with duplicated media', mediaSingleWithDuplicateMedia],
-      [
-        'with duplicated media and captions',
-        mediaSingleWithDuplicateMediaAndCaptions,
-      ],
-      [
-        'with multiple empty and one non-empty caption',
-        mediaSingleWithDuplicateCaptions3,
-      ],
-    ])('%s', (_, adf) => {
-      let { isTransformed, transformedAdf } = transformInvalidMediaContent(adf);
-      expect(isTransformed).toEqual(true);
-      expect(transformedAdf).toMatchSnapshot();
-    });
-  });
+	describe('mediaSingle', () => {
+		it.each([
+			['with duplicated captions and one empty', mediaSingleWithDuplicateCaptions1],
+			['with duplicated nonempty captions', mediaSingleWithDuplicateCaptions2],
+			['with duplicated media', mediaSingleWithDuplicateMedia],
+			['with duplicated media and captions', mediaSingleWithDuplicateMediaAndCaptions],
+			['with multiple empty and one non-empty caption', mediaSingleWithDuplicateCaptions3],
+		])('%s', (_, adf) => {
+			let { isTransformed, transformedAdf } = transformInvalidMediaContent(adf);
+			expect(isTransformed).toEqual(true);
+			expect(transformedAdf).toMatchSnapshot();
+		});
+	});
 });

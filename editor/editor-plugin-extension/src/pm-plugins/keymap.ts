@@ -7,24 +7,22 @@ import { clearEditingContext } from '../commands';
 
 import { getPluginState } from './main';
 
-export default function keymapPlugin(
-  applyChange: ApplyChangeHandler | undefined,
-): SafePlugin {
-  const list = {};
+export default function keymapPlugin(applyChange: ApplyChangeHandler | undefined): SafePlugin {
+	const list = {};
 
-  bindKeymapWithCommand(
-    escape.common!,
-    (state, dispatch) => {
-      const extensionState = getPluginState(state);
+	bindKeymapWithCommand(
+		escape.common!,
+		(state, dispatch) => {
+			const extensionState = getPluginState(state);
 
-      if (!extensionState.showContextPanel) {
-        return false;
-      }
+			if (!extensionState.showContextPanel) {
+				return false;
+			}
 
-      return clearEditingContext(applyChange)(state, dispatch);
-    },
-    list,
-  );
+			return clearEditingContext(applyChange)(state, dispatch);
+		},
+		list,
+	);
 
-  return keymap(list) as SafePlugin;
+	return keymap(list) as SafePlugin;
 }

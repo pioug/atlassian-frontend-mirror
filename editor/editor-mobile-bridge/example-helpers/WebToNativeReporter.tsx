@@ -2,71 +2,70 @@ import React from 'react';
 import { toNativeBridge } from '../src/editor/web-to-native';
 
 export interface LogItem {
-  log: string;
-  id: number;
+	log: string;
+	id: number;
 }
 
 export interface Props {
-  filter?: string[];
+	filter?: string[];
 }
 
 export interface State {
-  logs: LogItem[];
+	logs: LogItem[];
 }
 
 let logId = 0;
 
 export default class WebToNativeReporter extends React.Component<Props, State> {
-  private oldLog?: string;
+	private oldLog?: string;
 
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      logs: [],
-    };
-  }
+	constructor(props: any) {
+		super(props);
+		this.state = {
+			logs: [],
+		};
+	}
 
-  UNSAFE_componentWillMount() {
-    this.oldLog = (toNativeBridge as any).log;
-    (toNativeBridge as any).log = this.handleNewLog;
-  }
+	UNSAFE_componentWillMount() {
+		this.oldLog = (toNativeBridge as any).log;
+		(toNativeBridge as any).log = this.handleNewLog;
+	}
 
-  componentWillUnmount() {
-    (toNativeBridge as any).log = this.oldLog;
-  }
+	componentWillUnmount() {
+		(toNativeBridge as any).log = this.oldLog;
+	}
 
-  private handleNewLog = (bridge: string, event: string, props: any) => {
-    const { filter } = this.props;
-    const logText = `${bridge}:${event} ${JSON.stringify(props)}`;
-    const isInFilter = (acc: boolean, filterBy: string) =>
-      acc || logText.startsWith(filterBy);
-    if (!filter || !filter.length || filter.reduce(isInFilter, false)) {
-      this.setState({
-        logs: [
-          {
-            log: logText,
-            id: logId++,
-          },
-          ...this.state.logs.slice(0, 99),
-        ],
-      });
-    }
-  };
+	private handleNewLog = (bridge: string, event: string, props: any) => {
+		const { filter } = this.props;
+		const logText = `${bridge}:${event} ${JSON.stringify(props)}`;
+		const isInFilter = (acc: boolean, filterBy: string) => acc || logText.startsWith(filterBy);
+		if (!filter || !filter.length || filter.reduce(isInFilter, false)) {
+			this.setState({
+				logs: [
+					{
+						log: logText,
+						id: logId++,
+					},
+					...this.state.logs.slice(0, 99),
+				],
+			});
+		}
+	};
 
-  render() {
-    return (
-      <div
-        style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          overflowY: 'scroll',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          height: '180px',
-        }}
-      >
-        {this.state.logs.map((logItem) => (
-          <p key={logItem.id}>{logItem.log}</p>
-        ))}
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					overflowY: 'scroll',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					height: '180px',
+				}}
+			>
+				{this.state.logs.map((logItem) => (
+					<p key={logItem.id}>{logItem.log}</p>
+				))}
+			</div>
+		);
+	}
 }

@@ -17,16 +17,13 @@ export const styles = `
 `;
 
 export default function taskList({ text, parent }: NodeSerializerOpts) {
-  return createTag(
-    'div',
-    {
-      class: [
-        className,
-        parent && parent.type.name === 'taskList' && nestedClassName,
-      ]
-        .filter(Boolean)
-        .join(' '),
-    },
-    text,
-  );
+	return createTag(
+		'div',
+		{
+			class: [className, parent && parent.type.name === 'taskList' && nestedClassName]
+				.filter(Boolean)
+				.join(' '),
+		},
+		text,
+	);
 }

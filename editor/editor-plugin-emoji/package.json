@@ -42,7 +42,6 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
     "typescript": "~5.4.2",
@@ -94,6 +93,5 @@
   },
   "exports": {
     ".": "./src/index.ts"
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

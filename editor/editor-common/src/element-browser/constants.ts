@@ -5,15 +5,15 @@ import { gridSize } from '@atlaskit/theme/constants';
 export const GRID_SIZE = gridSize();
 
 export const DEVICE_BREAKPOINT_NUMBERS = {
-  small: GRID_SIZE * 40,
-  medium: GRID_SIZE * 75,
-  large: GRID_SIZE * 128,
+	small: GRID_SIZE * 40,
+	medium: GRID_SIZE * 75,
+	large: GRID_SIZE * 128,
 };
 
 export const FLEX_ITEMS_CONTAINER_BREAKPOINT_NUMBERS = {
-  small: GRID_SIZE * 50,
-  medium: DEVICE_BREAKPOINT_NUMBERS.medium,
-  large: DEVICE_BREAKPOINT_NUMBERS.large,
+	small: GRID_SIZE * 50,
+	medium: DEVICE_BREAKPOINT_NUMBERS.medium,
+	large: DEVICE_BREAKPOINT_NUMBERS.large,
 };
 
 export const SIDEBAR_WIDTH = `${GRID_SIZE * 25}px`;

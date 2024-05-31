@@ -27,6 +27,7 @@ type Props = CustomThemeButtonProps & {
 const IntegrationButton: React.FC<Props> = (props) => {
   const { text, textColor, IntegrationIcon, ...restProps } = props;
   return (
+    // TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles.
     <Button {...restProps}>
       <span
         css={integrationButtonCopyWrapperStyle}

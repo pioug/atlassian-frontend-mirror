@@ -52,7 +52,6 @@
     "@atlaskit/docs": "*",
     "@atlaskit/link-test-helpers": "^7.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "typescript": "~5.4.2"
   },
@@ -95,6 +94,5 @@
     "platform.linking-platform.extractor.improve-bitbucket-file-links": {
       "type": "boolean"
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

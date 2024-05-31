@@ -1,36 +1,33 @@
-import type {
-  Node as PMNode,
-  Schema,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { DOMParser } from '@atlaskit/editor-prosemirror/model';
 import { MarkdownSerializer, marks, nodes } from './serializer';
 import { transformHtml } from './util';
 import type { Transformer } from '@atlaskit/editor-common/types';
 
 export interface TransformerOptions {
-  disableBitbucketLinkStripping?: boolean;
+	disableBitbucketLinkStripping?: boolean;
 }
 
 export class BitbucketTransformer implements Transformer<string> {
-  private serializer = new MarkdownSerializer(nodes, marks);
-  private schema: Schema;
-  private options: TransformerOptions;
+	private serializer = new MarkdownSerializer(nodes, marks);
+	private schema: Schema;
+	private options: TransformerOptions;
 
-  constructor(schema: Schema, options: TransformerOptions = {}) {
-    this.schema = schema;
-    this.options = options;
-  }
+	constructor(schema: Schema, options: TransformerOptions = {}) {
+		this.schema = schema;
+		this.options = options;
+	}
 
-  encode(node: PMNode): string {
-    return this.serializer.serialize(node);
-  }
+	encode(node: PMNode): string {
+		return this.serializer.serialize(node);
+	}
 
-  parse(html: string): PMNode {
-    const dom = this.buildDOMTree(html);
-    return DOMParser.fromSchema(this.schema).parse(dom);
-  }
+	parse(html: string): PMNode {
+		const dom = this.buildDOMTree(html);
+		return DOMParser.fromSchema(this.schema).parse(dom);
+	}
 
-  buildDOMTree(html: string): HTMLElement {
-    return transformHtml(html, this.options);
-  }
+	buildDOMTree(html: string): HTMLElement {
+		return transformHtml(html, this.options);
+	}
 }

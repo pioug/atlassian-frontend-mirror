@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "2.7.9",
+  "version": "2.7.12",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -33,6 +33,7 @@
     "./analytics": "./src/analytics/index.ts",
     "./annotation": "./src/annotation/index.ts",
     "./avatar-group": "./src/avatar-group/index.ts",
+    "./background-color": "./src/background-color/index.ts",
     "./base": "./src/base/index.ts",
     "./before-primary-toolbar": "./src/before-primary-toolbar/index.ts",
     "./better-type-history": "./src/better-type-history/index.ts",
@@ -125,6 +126,7 @@
     "./analytics": "./src/analytics/index.ts",
     "./annotation": "./src/annotation/index.ts",
     "./avatar-group": "./src/avatar-group/index.ts",
+    "./background-color": "./src/background-color/index.ts",
     "./base": "./src/base/index.ts",
     "./before-primary-toolbar": "./src/before-primary-toolbar/index.ts",
     "./better-type-history": "./src/better-type-history/index.ts",
@@ -220,10 +222,11 @@
     "@atlaskit/editor-plugin-analytics": "1.2.2",
     "@atlaskit/editor-plugin-annotation": "1.9.3",
     "@atlaskit/editor-plugin-avatar-group": "1.2.4",
+    "@atlaskit/editor-plugin-background-color": "1.1.0",
     "@atlaskit/editor-plugin-base": "1.3.1",
     "@atlaskit/editor-plugin-before-primary-toolbar": "1.0.5",
     "@atlaskit/editor-plugin-better-type-history": "1.2.2",
-    "@atlaskit/editor-plugin-block-controls": "1.4.6",
+    "@atlaskit/editor-plugin-block-controls": "1.4.8",
     "@atlaskit/editor-plugin-block-type": "3.4.0",
     "@atlaskit/editor-plugin-border": "1.1.2",
     "@atlaskit/editor-plugin-breakout": "1.2.2",
@@ -238,7 +241,7 @@
     "@atlaskit/editor-plugin-content-insertion": "1.2.2",
     "@atlaskit/editor-plugin-context-identifier": "1.1.4",
     "@atlaskit/editor-plugin-context-panel": "1.1.4",
-    "@atlaskit/editor-plugin-copy-button": "1.1.5",
+    "@atlaskit/editor-plugin-copy-button": "1.1.6",
     "@atlaskit/editor-plugin-custom-autoformat": "1.1.4",
     "@atlaskit/editor-plugin-data-consumer": "1.1.2",
     "@atlaskit/editor-plugin-date": "1.2.2",
@@ -251,18 +254,18 @@
     "@atlaskit/editor-plugin-feature-flags": "1.1.4",
     "@atlaskit/editor-plugin-feedback-dialog": "1.0.5",
     "@atlaskit/editor-plugin-find-replace": "1.2.8",
-    "@atlaskit/editor-plugin-floating-toolbar": "1.4.6",
+    "@atlaskit/editor-plugin-floating-toolbar": "1.4.7",
     "@atlaskit/editor-plugin-focus": "1.2.4",
     "@atlaskit/editor-plugin-fragment": "1.2.2",
     "@atlaskit/editor-plugin-grid": "1.1.4",
     "@atlaskit/editor-plugin-guideline": "1.1.4",
     "@atlaskit/editor-plugin-help-dialog": "1.2.4",
-    "@atlaskit/editor-plugin-highlight": "1.6.0",
+    "@atlaskit/editor-plugin-highlight": "1.7.0",
     "@atlaskit/editor-plugin-history": "1.1.4",
     "@atlaskit/editor-plugin-hyperlink": "1.7.2",
     "@atlaskit/editor-plugin-image-upload": "1.1.4",
     "@atlaskit/editor-plugin-indentation": "1.2.2",
-    "@atlaskit/editor-plugin-insert-block": "1.3.2",
+    "@atlaskit/editor-plugin-insert-block": "1.3.3",
     "@atlaskit/editor-plugin-layout": "1.2.2",
     "@atlaskit/editor-plugin-list": "3.3.3",
     "@atlaskit/editor-plugin-loom": "2.2.6",
@@ -275,7 +278,7 @@
     "@atlaskit/editor-plugin-placeholder": "1.1.4",
     "@atlaskit/editor-plugin-placeholder-text": "1.2.2",
     "@atlaskit/editor-plugin-primary-toolbar": "1.1.0",
-    "@atlaskit/editor-plugin-quick-insert": "1.1.4",
+    "@atlaskit/editor-plugin-quick-insert": "1.1.5",
     "@atlaskit/editor-plugin-rule": "1.3.2",
     "@atlaskit/editor-plugin-save-on-enter": "1.1.4",
     "@atlaskit/editor-plugin-scroll-into-view": "1.1.4",
@@ -284,7 +287,7 @@
     "@atlaskit/editor-plugin-selection-toolbar": "1.1.7",
     "@atlaskit/editor-plugin-status": "1.2.2",
     "@atlaskit/editor-plugin-submit-editor": "1.1.4",
-    "@atlaskit/editor-plugin-table": "7.16.10",
+    "@atlaskit/editor-plugin-table": "7.16.11",
     "@atlaskit/editor-plugin-tasks-and-decisions": "1.3.2",
     "@atlaskit/editor-plugin-text-color": "1.4.0",
     "@atlaskit/editor-plugin-text-formatting": "1.7.0",
@@ -304,7 +307,6 @@
     "@af/visual-regression": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@manypkg/find-root": "^1.1.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
@@ -346,7 +348,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.text-alignment-keyboard-shortcuts": {
       "type": "boolean",
@@ -561,6 +562,10 @@
       "referenceOnly": true
     },
     "platform.editor.mentions-in-editor-popup-on-click": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.table.editor-num-col-style-changes": {
       "type": "boolean",
       "referenceOnly": "true"
     }

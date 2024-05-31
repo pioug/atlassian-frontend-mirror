@@ -6,8 +6,11 @@ import React, { type PropsWithChildren, useState } from 'react';
 import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type Appearance } from '@atlaskit/button/types';
+import {
+  AnalyticsListener,
+  type UIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
+import { type IconButtonProps } from '@atlaskit/button/new';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
@@ -146,12 +149,7 @@ interface TriggerButtonAppearanceOption {
 
 const triggerButtonAppearanceOptions: Array<TriggerButtonAppearanceOption> = [
   { label: 'default', value: 'default' },
-  { label: 'danger', value: 'danger' },
-  { label: 'link', value: 'link' },
   { label: 'primary', value: 'primary' },
-  { label: 'subtle', value: 'subtle' },
-  { label: 'subtle-link', value: 'subtle-link' },
-  { label: 'warning', value: 'warning' },
 ];
 
 interface TriggerButtonStyleOption {
@@ -208,7 +206,7 @@ type ExampleState = {
 type State = {
   isAutoOpenDialog: boolean;
   dialogPlacement: DialogPlacement;
-  triggerButtonAppearance: Appearance;
+  triggerButtonAppearance: IconButtonProps['appearance'];
   triggerButtonStyle: ShareButtonStyle;
   triggerButtonTooltipPosition: TooltipPosition;
 } & ExampleState;
@@ -790,8 +788,8 @@ export default function Example() {
                   Trigger Button Appearance
                   <Select<TriggerButtonAppearanceOption>
                     value={{
-                      label: state.triggerButtonAppearance,
-                      value: state.triggerButtonAppearance,
+                      label: state.triggerButtonAppearance ?? 'default',
+                      value: state.triggerButtonAppearance ?? 'default',
                     }}
                     options={triggerButtonAppearanceOptions}
                     onChange={(option: any) =>

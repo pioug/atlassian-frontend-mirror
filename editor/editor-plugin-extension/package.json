@@ -49,7 +49,7 @@
     "@atlaskit/form": "^10.2.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/radio": "^6.3.0",
     "@atlaskit/section-message": "^6.5.0",
     "@atlaskit/select": "^17.10.0",
@@ -75,7 +75,6 @@
   },
   "devDependencies": {
     "@atlaskit/editor-test-helpers": "^18.23.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "react-select": "^5.4.0",
     "typescript": "~5.4.2"
   },
@@ -109,7 +108,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "stricter": {
     "no-unused-dependencies": {
       "checkDevDependencies": true

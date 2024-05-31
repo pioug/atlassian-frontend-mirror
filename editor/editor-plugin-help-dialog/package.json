@@ -51,7 +51,6 @@
     "react-loadable": "^5.1.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5"
   },
   "peerDependencies": {
@@ -87,7 +86,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.a11y-media-resizing_b5v0o": {
       "type": "boolean"

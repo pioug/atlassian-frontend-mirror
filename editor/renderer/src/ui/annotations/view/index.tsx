@@ -6,52 +6,51 @@ import { RendererContext } from '../../../ui/RendererActionsContext';
 import { type AnnotationTypes } from '@atlaskit/adf-schema';
 
 type Props = {
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 type AnnotationInfo = {
-  id: string;
-  type: AnnotationTypes.INLINE_COMMENT;
+	id: string;
+	type: AnnotationTypes.INLINE_COMMENT;
 };
 
 const AnnotationView = (props: Props) => {
-  const providers = useContext(ProvidersContext);
-  const actionContext = useContext(RendererContext);
-  const inlineCommentProvider = providers && providers.inlineComment;
+	const providers = useContext(ProvidersContext);
+	const actionContext = useContext(RendererContext);
+	const inlineCommentProvider = providers && providers.inlineComment;
 
-  const updateSubscriber =
-    (inlineCommentProvider && inlineCommentProvider.updateSubscriber) || null;
+	const updateSubscriber =
+		(inlineCommentProvider && inlineCommentProvider.updateSubscriber) || null;
 
-  const isCommentsOnMediaAnalyticsEnabled =
-    inlineCommentProvider?.isCommentsOnMediaAnalyticsEnabled;
+	const isCommentsOnMediaAnalyticsEnabled =
+		inlineCommentProvider?.isCommentsOnMediaAnalyticsEnabled;
 
-  const viewComponentProps = useAnnotationClickEvent({
-    updateSubscriber,
-    createAnalyticsEvent: props.createAnalyticsEvent,
-    isCommentsOnMediaAnalyticsEnabled,
-  });
+	const viewComponentProps = useAnnotationClickEvent({
+		updateSubscriber,
+		createAnalyticsEvent: props.createAnalyticsEvent,
+		isCommentsOnMediaAnalyticsEnabled,
+	});
 
-  const ViewComponent =
-    inlineCommentProvider && inlineCommentProvider.viewComponent;
+	const ViewComponent = inlineCommentProvider && inlineCommentProvider.viewComponent;
 
-  const deleteAnnotation = useMemo(
-    () => (annotationInfo: AnnotationInfo) =>
-      actionContext.deleteAnnotation(annotationInfo.id, annotationInfo.type),
-    [actionContext],
-  );
+	const deleteAnnotation = useMemo(
+		() => (annotationInfo: AnnotationInfo) =>
+			actionContext.deleteAnnotation(annotationInfo.id, annotationInfo.type),
+		[actionContext],
+	);
 
-  if (ViewComponent && viewComponentProps) {
-    const { annotations, clickElementTarget } = viewComponentProps;
-    return (
-      <ViewComponent
-        annotations={annotations}
-        clickElementTarget={clickElementTarget}
-        deleteAnnotation={deleteAnnotation}
-      />
-    );
-  }
+	if (ViewComponent && viewComponentProps) {
+		const { annotations, clickElementTarget } = viewComponentProps;
+		return (
+			<ViewComponent
+				annotations={annotations}
+				clickElementTarget={clickElementTarget}
+				deleteAnnotation={deleteAnnotation}
+			/>
+		);
+	}
 
-  return null;
+	return null;
 };
 
 export { AnnotationView };

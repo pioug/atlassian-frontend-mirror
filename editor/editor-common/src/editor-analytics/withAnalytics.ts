@@ -13,9 +13,7 @@ import type { HigherOrderCommand } from '../types';
  *
  * @param state - EditorState, passed to the callback
  */
-type AnalyticsEventPayloadCallback = (
-  state: EditorState,
-) => AnalyticsEventPayload | undefined;
+type AnalyticsEventPayloadCallback = (state: EditorState) => AnalyticsEventPayload | undefined;
 
 /**
  * Analytics API
@@ -36,27 +34,27 @@ type AnalyticsEventPayloadCallback = (
  * @param channel - string - channel to be used for analytics
  */
 export function withAnalytics(
-  analyticsApi: EditorAnalyticsAPI | undefined,
-  payload: AnalyticsEventPayload | AnalyticsEventPayloadCallback,
-  channel?: string,
+	analyticsApi: EditorAnalyticsAPI | undefined,
+	payload: AnalyticsEventPayload | AnalyticsEventPayloadCallback,
+	channel?: string,
 ): HigherOrderCommand {
-  return (command) => (state, dispatch, view) =>
-    command(
-      state,
-      (tr) => {
-        if (dispatch) {
-          if (payload instanceof Function) {
-            const dynamicPayload = payload(state);
-            if (dynamicPayload) {
-              analyticsApi?.attachAnalyticsEvent(dynamicPayload, channel)(tr);
-              dispatch(tr);
-            }
-          } else {
-            analyticsApi?.attachAnalyticsEvent(payload, channel)(tr);
-            dispatch(tr);
-          }
-        }
-      },
-      view,
-    );
+	return (command) => (state, dispatch, view) =>
+		command(
+			state,
+			(tr) => {
+				if (dispatch) {
+					if (payload instanceof Function) {
+						const dynamicPayload = payload(state);
+						if (dynamicPayload) {
+							analyticsApi?.attachAnalyticsEvent(dynamicPayload, channel)(tr);
+							dispatch(tr);
+						}
+					} else {
+						analyticsApi?.attachAnalyticsEvent(payload, channel)(tr);
+						dispatch(tr);
+					}
+				}
+			},
+			view,
+		);
 }

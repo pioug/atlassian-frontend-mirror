@@ -77,7 +77,6 @@
   },
   "devDependencies": {
     "@atlaskit/ssr": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
     "enzyme": "^3.10.0",
@@ -112,6 +111,5 @@
     "platform.analytics-next-use-modern-context_fqgbx": {
       "type": "boolean"
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

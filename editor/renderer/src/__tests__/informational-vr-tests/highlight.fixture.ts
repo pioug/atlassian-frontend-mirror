@@ -2,6 +2,6 @@ import * as adfBackgroundColorYellow from '../__fixtures__/highlight-yellow.adf.
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 export const BackgroundColorYellow = generateRendererComponent({
-  document: adfBackgroundColorYellow,
-  appearance: 'comment',
+	document: adfBackgroundColorYellow,
+	appearance: 'comment',
 });

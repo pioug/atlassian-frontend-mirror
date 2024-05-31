@@ -1,20 +1,12 @@
 import type { CellAttributes } from '@atlaskit/adf-schema';
-import {
-  inlineNodes,
-  isSafeUrl,
-  PanelType,
-  generateUuid as uuid,
-} from '@atlaskit/adf-schema';
+import { inlineNodes, isSafeUrl, PanelType, generateUuid as uuid } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type {
-  Mark as PMMark,
-  Schema,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Mark as PMMark, Schema } from '@atlaskit/editor-prosemirror/model';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const ADFStages = {
-  FINAL: 'final',
-  STAGE_0: 'stage0',
+	FINAL: 'final',
+	STAGE_0: 'stage0',
 } as const;
 
 export type ADFStage = (typeof ADFStages)[keyof typeof ADFStages];
@@ -30,9 +22,9 @@ export type ADFStage = (typeof ADFStages)[keyof typeof ADFStages];
  * Use ADNode instead for content nodes (any node other than the doc).
  */
 export interface ADDoc {
-  version: 1;
-  type: 'doc';
-  content: ADNode[];
+	version: 1;
+	type: 'doc';
+	content: ADNode[];
 }
 
 /*
@@ -46,23 +38,23 @@ export interface ADDoc {
  * Do not use this for ADF documents - they should use the ADDoc interface.
  */
 export interface ADNode {
-  type: string;
-  attrs?: any;
-  content?: ADNode[];
-  marks?: ADMark[];
-  text?: string;
+	type: string;
+	attrs?: any;
+	content?: ADNode[];
+	marks?: ADMark[];
+	text?: string;
 }
 
 export interface ADMark {
-  type: string;
-  attrs?: any;
+	type: string;
+	attrs?: any;
 }
 
 export interface ADMarkSimple {
-  type: {
-    name: string;
-  };
-  attrs?: any;
+	type: {
+		name: string;
+	};
+	attrs?: any;
 }
 
 /*
@@ -70,72 +62,70 @@ export interface ADMarkSimple {
  * https://product-fabric.atlassian.net/wiki/spaces/ETEMP/pages/11174043/Atlassian+Document+Format+-+Internal+documentation#Rank
  */
 export const markOrder = [
-  'fragment',
-  'link',
-  'em',
-  'strong',
-  'textColor',
-  'backgroundColor',
-  'strike',
-  'subsup',
-  'underline',
-  'code',
-  'confluenceInlineComment',
-  'annotation',
-  'dataConsumer',
+	'fragment',
+	'link',
+	'em',
+	'strong',
+	'textColor',
+	'backgroundColor',
+	'strike',
+	'subsup',
+	'underline',
+	'code',
+	'confluenceInlineComment',
+	'annotation',
+	'dataConsumer',
 ];
 
 export const isSubSupType = (type: string): type is 'sub' | 'sup' => {
-  return type === 'sub' || type === 'sup';
+	return type === 'sub' || type === 'sup';
 };
 
 /*
  * Sorts mark by the predefined order above
  */
 export const getMarksByOrder = (marks: readonly PMMark[]) => {
-  return [...marks].sort(
-    (a, b) => markOrder.indexOf(a.type.name) - markOrder.indexOf(b.type.name),
-  );
+	return [...marks].sort((a, b) => markOrder.indexOf(a.type.name) - markOrder.indexOf(b.type.name));
 };
 
 /*
  * Check if two marks are the same by comparing type and attrs
  */
 export const isSameMark = (mark: PMMark | null, otherMark: PMMark | null) => {
-  if (!mark || !otherMark) {
-    return false;
-  }
+	if (!mark || !otherMark) {
+		return false;
+	}
 
-  return mark.eq(otherMark);
+	return mark.eq(otherMark);
 };
 
 export const getValidDocument = (
-  doc: ADDoc,
-  schema: Schema = defaultSchema,
-  adfStage: ADFStage = 'final',
+	doc: ADDoc,
+	schema: Schema = defaultSchema,
+	adfStage: ADFStage = 'final',
 ): ADDoc | null => {
-  const node = getValidNode(doc as ADNode, schema, adfStage);
+	const node = getValidNode(doc as ADNode, schema, adfStage);
 
-  if (node.type === 'doc') {
-    node.content = wrapInlineNodes(node.content);
-    return node as ADDoc;
-  }
+	if (node.type === 'doc') {
+		node.content = wrapInlineNodes(node.content);
+		return node as ADDoc;
+	}
 
-  return null;
+	return null;
 };
 
 const wrapInlineNodes = (nodes: ADNode[] = []): ADNode[] => {
-  return nodes.map((node) =>
-    inlineNodes.has(node.type) ? { type: 'paragraph', content: [node] } : node,
-  );
+	return nodes.map((node) =>
+		inlineNodes.has(node.type) ? { type: 'paragraph', content: [node] } : node,
+	);
 };
 
 export const getValidContent = (
-  content: ADNode[],
-  schema: Schema = defaultSchema,
-  adfStage: ADFStage = 'final',
+	content: ADNode[],
+	schema: Schema = defaultSchema,
+	adfStage: ADFStage = 'final',
 ): ADNode[] => {
-  return content.map((node) => getValidNode(node, schema, adfStage));
+	return content.map((node) => getValidNode(node, schema, adfStage));
 };
 
 const TEXT_COLOR_PATTERN = /^#[0-9a-fA-F]{6}$/;
@@ -143,35 +133,35 @@ const RELATIVE_LINK = /^\//;
 const ANCHOR_LINK = /^#/;
 
 const flattenUnknownBlockTree = (
-  node: ADNode,
-  schema: Schema = defaultSchema,
-  adfStage: ADFStage = 'final',
+	node: ADNode,
+	schema: Schema = defaultSchema,
+	adfStage: ADFStage = 'final',
 ): ADNode[] => {
-  const output: ADNode[] = [];
-  let isPrevLeafNode = false;
+	const output: ADNode[] = [];
+	let isPrevLeafNode = false;
 
-  for (let i = 0; i < node.content!.length; i++) {
-    const childNode = node.content![i];
-    const isLeafNode = !(childNode.content && childNode.content.length);
+	for (let i = 0; i < node.content!.length; i++) {
+		const childNode = node.content![i];
+		const isLeafNode = !(childNode.content && childNode.content.length);
 
-    if (i > 0) {
-      if (isPrevLeafNode) {
-        output.push({ type: 'text', text: ' ' } as ADNode);
-      } else {
-        output.push({ type: 'hardBreak' } as ADNode);
-      }
-    }
+		if (i > 0) {
+			if (isPrevLeafNode) {
+				output.push({ type: 'text', text: ' ' } as ADNode);
+			} else {
+				output.push({ type: 'hardBreak' } as ADNode);
+			}
+		}
 
-    if (isLeafNode) {
-      output.push(getValidNode(childNode, schema, adfStage));
-    } else {
-      output.push(...flattenUnknownBlockTree(childNode, schema, adfStage));
-    }
+		if (isLeafNode) {
+			output.push(getValidNode(childNode, schema, adfStage));
+		} else {
+			output.push(...flattenUnknownBlockTree(childNode, schema, adfStage));
+		}
 
-    isPrevLeafNode = isLeafNode;
-  }
+		isPrevLeafNode = isLeafNode;
+	}
 
-  return output;
+	return output;
 };
 
 /**
@@ -180,55 +170,55 @@ const flattenUnknownBlockTree = (
  * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/11174043/Document+structure#Documentstructure-ImplementationdetailsforHCNGwebrenderer
  */
 export const getValidUnknownNode = (node: ADNode): ADNode => {
-  const { attrs = {}, content, text, type } = node;
+	const { attrs = {}, content, text, type } = node;
 
-  if (!content || !content.length) {
-    const unknownInlineNode: ADNode = {
-      type: 'text',
-      text: text || attrs.text || `[${type}]`,
-    };
+	if (!content || !content.length) {
+		const unknownInlineNode: ADNode = {
+			type: 'text',
+			text: text || attrs.text || `[${type}]`,
+		};
 
-    const { textUrl } = attrs;
-    if (textUrl && isSafeUrl(textUrl)) {
-      unknownInlineNode.marks = [
-        {
-          type: 'link',
-          attrs: {
-            href: textUrl,
-          },
-        } as ADMark,
-      ];
-    }
+		const { textUrl } = attrs;
+		if (textUrl && isSafeUrl(textUrl)) {
+			unknownInlineNode.marks = [
+				{
+					type: 'link',
+					attrs: {
+						href: textUrl,
+					},
+				} as ADMark,
+			];
+		}
 
-    return unknownInlineNode;
-  }
+		return unknownInlineNode;
+	}
 
-  /*
-   * Find leaf nodes and join them. If leaf nodes' parent node is the same node
-   * join with a blank space, otherwise they are children of different branches, i.e.
-   * we need to join them with a hardBreak node
-   */
-  return {
-    type: 'unknownBlock',
-    content: flattenUnknownBlockTree(node),
-  };
+	/*
+	 * Find leaf nodes and join them. If leaf nodes' parent node is the same node
+	 * join with a blank space, otherwise they are children of different branches, i.e.
+	 * we need to join them with a hardBreak node
+	 */
+	return {
+		type: 'unknownBlock',
+		content: flattenUnknownBlockTree(node),
+	};
 };
 
 const getValidMarks = (
-  marks: ADMark[] | undefined,
-  adfStage: ADFStage = 'final',
+	marks: ADMark[] | undefined,
+	adfStage: ADFStage = 'final',
 ): ADMark[] | undefined => {
-  if (marks && marks.length > 0) {
-    return marks.reduce((acc, mark) => {
-      const validMark = getValidMark(mark, adfStage);
-      if (validMark) {
-        acc.push(validMark);
-      }
+	if (marks && marks.length > 0) {
+		return marks.reduce((acc, mark) => {
+			const validMark = getValidMark(mark, adfStage);
+			if (validMark) {
+				acc.push(validMark);
+			}
 
-      return acc;
-    }, [] as ADMark[]);
-  }
-  return marks;
+			return acc;
+		}, [] as ADMark[]);
+	}
+	return marks;
 };
 
 /*
@@ -241,642 +231,631 @@ const getValidMarks = (
  *
  */
 export const getValidNode = (
-  originalNode: ADNode,
-  schema: Schema = defaultSchema,
-  adfStage: ADFStage = 'final',
+	originalNode: ADNode,
+	schema: Schema = defaultSchema,
+	adfStage: ADFStage = 'final',
 ): ADNode => {
-  const { attrs, marks, text, type } = originalNode;
-  let { content } = originalNode;
+	const { attrs, marks, text, type } = originalNode;
+	let { content } = originalNode;
 
-  const node: ADNode = {
-    attrs,
-    marks,
-    text,
-    type,
-  };
+	const node: ADNode = {
+		attrs,
+		marks,
+		text,
+		type,
+	};
 
-  if (content) {
-    node.content = content = getValidContent(content, schema, adfStage);
-  }
+	if (content) {
+		node.content = content = getValidContent(content, schema, adfStage);
+	}
 
-  // If node type doesn't exist in schema, make it an unknown node
-  if (!schema.nodes[type]) {
-    return getValidUnknownNode(node);
-  }
+	// If node type doesn't exist in schema, make it an unknown node
+	if (!schema.nodes[type]) {
+		return getValidUnknownNode(node);
+	}
 
-  if (type) {
-    switch (type) {
-      case 'doc': {
-        const { version } = originalNode as ADDoc;
-        if (version && content && content.length) {
-          return {
-            type,
-            content,
-          };
-        }
-        break;
-      }
-      case 'codeBlock': {
-        if (content) {
-          content = content.reduce((acc: ADNode[], val) => {
-            if (val.type === 'text') {
-              acc.push({ type: val.type, text: val.text });
-            }
-            return acc;
-          }, []);
-        }
-        if (attrs && attrs.language) {
-          return {
-            type,
-            attrs,
-            content,
-            marks,
-          };
-        }
-        return {
-          type,
-          content,
-          marks,
-        };
-      }
-      case 'date': {
-        if (attrs && attrs.timestamp) {
-          return {
-            type,
-            attrs,
-          };
-        }
-        break;
-      }
-      case 'status': {
-        if (attrs && attrs.text && attrs.color) {
-          return {
-            type,
-            attrs,
-          };
-        }
-        break;
-      }
-      case 'emoji': {
-        if (attrs && attrs.shortName) {
-          return {
-            type,
-            attrs,
-          };
-        }
-        break;
-      }
-      case 'inlineExtension':
-      case 'extension': {
-        if (attrs && attrs.extensionType && attrs.extensionKey) {
-          return {
-            type,
-            attrs,
-          };
-        }
-        break;
-      }
-      case 'inlineCard': {
-        if (
-          getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
-        ) {
-          let inlineCardNode: ADNode = { type };
-          if (
-            attrs &&
-            ((attrs.datasource && !attrs.url) ||
-              (attrs.url && isSafeUrl(attrs.url)) ||
-              (attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
-          ) {
-            inlineCardNode.attrs = { ...attrs };
-          }
+	if (type) {
+		switch (type) {
+			case 'doc': {
+				const { version } = originalNode as ADDoc;
+				if (version && content && content.length) {
+					return {
+						type,
+						content,
+					};
+				}
+				break;
+			}
+			case 'codeBlock': {
+				if (content) {
+					content = content.reduce((acc: ADNode[], val) => {
+						if (val.type === 'text') {
+							acc.push({ type: val.type, text: val.text });
+						}
+						return acc;
+					}, []);
+				}
+				if (attrs && attrs.language) {
+					return {
+						type,
+						attrs,
+						content,
+						marks,
+					};
+				}
+				return {
+					type,
+					content,
+					marks,
+				};
+			}
+			case 'date': {
+				if (attrs && attrs.timestamp) {
+					return {
+						type,
+						attrs,
+					};
+				}
+				break;
+			}
+			case 'status': {
+				if (attrs && attrs.text && attrs.color) {
+					return {
+						type,
+						attrs,
+					};
+				}
+				break;
+			}
+			case 'emoji': {
+				if (attrs && attrs.shortName) {
+					return {
+						type,
+						attrs,
+					};
+				}
+				break;
+			}
+			case 'inlineExtension':
+			case 'extension': {
+				if (attrs && attrs.extensionType && attrs.extensionKey) {
+					return {
+						type,
+						attrs,
+					};
+				}
+				break;
+			}
+			case 'inlineCard': {
+				if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+					let inlineCardNode: ADNode = { type };
+					if (
+						attrs &&
+						((attrs.datasource && !attrs.url) ||
+							(attrs.url && isSafeUrl(attrs.url)) ||
+							(attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
+					) {
+						inlineCardNode.attrs = { ...attrs };
+					}
 
-          if (marks) {
-            inlineCardNode.marks = [...marks];
-          }
-          return inlineCardNode;
-        } else {
-          if (
-            attrs &&
-            ((attrs.datasource && !attrs.url) ||
-              (attrs.url && isSafeUrl(attrs.url)) ||
-              (attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
-          ) {
-            return {
-              type,
-              attrs,
-            };
-          }
-          break;
-        }
-      }
-      case 'blockCard': {
-        if (
-          attrs &&
-          ((attrs.datasource && !attrs.url) ||
-            (attrs.url && isSafeUrl(attrs.url)) ||
-            (attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
-        ) {
-          return {
-            type,
-            attrs,
-          };
-        }
-        break;
-      }
-      case 'embedCard': {
-        if (
-          attrs &&
-          ((attrs.url && isSafeUrl(attrs.url)) ||
-            (attrs.data && attrs.data.url && isSafeUrl(attrs.data.url))) &&
-          attrs.layout
-        ) {
-          return {
-            type,
-            attrs,
-          };
-        }
-        break;
-      }
-      case 'bodiedExtension': {
-        if (attrs && attrs.extensionType && attrs.extensionKey && content) {
-          return {
-            type,
-            attrs,
-            content,
-          };
-        }
-        break;
-      }
-      case 'multiBodiedExtension': {
-        if (attrs && attrs.extensionType && attrs.extensionKey && content) {
-          return {
-            type,
-            attrs,
-            content,
-          };
-        }
-        break;
-      }
-      case 'extensionFrame': {
-        if (content) {
-          return {
-            type,
-            attrs,
-            content,
-          };
-        }
-        break;
-      }
-      case 'hardBreak': {
-        return {
-          type,
-        };
-      }
-      case 'caption': {
-        if (content) {
-          return {
-            type,
-            content,
-          };
-        }
-        break;
-      }
-      case 'mediaInline': {
-        let mediaId = '';
-        let mediaCollection = [];
+					if (marks) {
+						inlineCardNode.marks = [...marks];
+					}
+					return inlineCardNode;
+				} else {
+					if (
+						attrs &&
+						((attrs.datasource && !attrs.url) ||
+							(attrs.url && isSafeUrl(attrs.url)) ||
+							(attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
+					) {
+						return {
+							type,
+							attrs,
+						};
+					}
+					break;
+				}
+			}
+			case 'blockCard': {
+				if (
+					attrs &&
+					((attrs.datasource && !attrs.url) ||
+						(attrs.url && isSafeUrl(attrs.url)) ||
+						(attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
+				) {
+					return {
+						type,
+						attrs,
+					};
+				}
+				break;
+			}
+			case 'embedCard': {
+				if (
+					attrs &&
+					((attrs.url && isSafeUrl(attrs.url)) ||
+						(attrs.data && attrs.data.url && isSafeUrl(attrs.data.url))) &&
+					attrs.layout
+				) {
+					return {
+						type,
+						attrs,
+					};
+				}
+				break;
+			}
+			case 'bodiedExtension': {
+				if (attrs && attrs.extensionType && attrs.extensionKey && content) {
+					return {
+						type,
+						attrs,
+						content,
+					};
+				}
+				break;
+			}
+			case 'multiBodiedExtension': {
+				if (attrs && attrs.extensionType && attrs.extensionKey && content) {
+					return {
+						type,
+						attrs,
+						content,
+					};
+				}
+				break;
+			}
+			case 'extensionFrame': {
+				if (content) {
+					return {
+						type,
+						attrs,
+						content,
+					};
+				}
+				break;
+			}
+			case 'hardBreak': {
+				return {
+					type,
+				};
+			}
+			case 'caption': {
+				if (content) {
+					return {
+						type,
+						content,
+					};
+				}
+				break;
+			}
+			case 'mediaInline': {
+				let mediaId = '';
+				let mediaCollection = [];
 
-        if (attrs) {
-          const { id, collection } = attrs;
-          mediaId = id;
-          mediaCollection = collection;
-        }
+				if (attrs) {
+					const { id, collection } = attrs;
+					mediaId = id;
+					mediaCollection = collection;
+				}
 
-        if (mediaId && mediaCollection) {
-          return {
-            type,
-            attrs,
-            marks,
-          };
-        }
-        break;
-      }
-      case 'media': {
-        let mediaId = '';
-        let mediaType = '';
-        let mediaCollection = [];
-        let mediaUrl = '';
+				if (mediaId && mediaCollection) {
+					return {
+						type,
+						attrs,
+						marks,
+					};
+				}
+				break;
+			}
+			case 'media': {
+				let mediaId = '';
+				let mediaType = '';
+				let mediaCollection = [];
+				let mediaUrl = '';
 
-        if (attrs) {
-          const { id, collection, type, url } = attrs;
-          mediaId = id;
-          mediaType = type;
-          mediaCollection = collection;
-          mediaUrl = url;
-        }
+				if (attrs) {
+					const { id, collection, type, url } = attrs;
+					mediaId = id;
+					mediaType = type;
+					mediaCollection = collection;
+					mediaUrl = url;
+				}
 
-        if (mediaType === 'external' && !!mediaUrl) {
-          const mediaAttrs: any = {
-            type: mediaType,
-            url: mediaUrl,
-            width: attrs.width,
-            height: attrs.height,
-          };
+				if (mediaType === 'external' && !!mediaUrl) {
+					const mediaAttrs: any = {
+						type: mediaType,
+						url: mediaUrl,
+						width: attrs.width,
+						height: attrs.height,
+					};
 
-          if (attrs.alt) {
-            mediaAttrs.alt = attrs.alt;
-          }
+					if (attrs.alt) {
+						mediaAttrs.alt = attrs.alt;
+					}
 
-          const getMarks = getValidMarks(marks, adfStage);
-          return getMarks
-            ? {
-                type,
-                attrs: mediaAttrs,
-                marks: getMarks,
-              }
-            : {
-                type,
-                attrs: mediaAttrs,
-              };
-        } else if (mediaId && mediaType) {
-          const mediaAttrs: any = {
-            type: mediaType,
-            id: mediaId,
-            collection: mediaCollection,
-          };
+					const getMarks = getValidMarks(marks, adfStage);
+					return getMarks
+						? {
+								type,
+								attrs: mediaAttrs,
+								marks: getMarks,
+							}
+						: {
+								type,
+								attrs: mediaAttrs,
+							};
+				} else if (mediaId && mediaType) {
+					const mediaAttrs: any = {
+						type: mediaType,
+						id: mediaId,
+						collection: mediaCollection,
+					};
 
-          if (attrs.width) {
-            mediaAttrs.width = attrs.width;
-          }
+					if (attrs.width) {
+						mediaAttrs.width = attrs.width;
+					}
 
-          if (attrs.height) {
-            mediaAttrs.height = attrs.height;
-          }
+					if (attrs.height) {
+						mediaAttrs.height = attrs.height;
+					}
 
-          if (attrs.alt) {
-            mediaAttrs.alt = attrs.alt;
-          }
+					if (attrs.alt) {
+						mediaAttrs.alt = attrs.alt;
+					}
 
-          const getMarks = getValidMarks(marks, adfStage);
+					const getMarks = getValidMarks(marks, adfStage);
 
-          return getMarks
-            ? {
-                type,
-                attrs: mediaAttrs,
-                marks: getMarks,
-              }
-            : {
-                type,
-                attrs: mediaAttrs,
-              };
-        }
-        break;
-      }
-      case 'mediaGroup': {
-        if (
-          Array.isArray(content) &&
-          !content.some((e) => e.type !== 'media')
-        ) {
-          return {
-            type,
-            content,
-          };
-        }
-        break;
-      }
-      case 'mediaSingle': {
-        const containsJustMedia =
-          Array.isArray(content) &&
-          content.length === 1 &&
-          content[0].type === 'media';
-        const containsMediaAndCaption =
-          Array.isArray(content) &&
-          content.length === 2 &&
-          content[0].type === 'media' &&
-          content[1].type === 'caption';
-        if (containsJustMedia || containsMediaAndCaption) {
-          return {
-            type,
-            attrs,
-            content,
-            marks: getValidMarks(marks, adfStage),
-          };
-        }
-        break;
-      }
-      case 'mention': {
-        let mentionText = '';
-        let mentionId;
-        let mentionAccess;
-        if (attrs) {
-          const { text, displayName, id, accessLevel } = attrs;
-          mentionText = text || displayName;
-          mentionId = id;
-          mentionAccess = accessLevel;
-        }
+					return getMarks
+						? {
+								type,
+								attrs: mediaAttrs,
+								marks: getMarks,
+							}
+						: {
+								type,
+								attrs: mediaAttrs,
+							};
+				}
+				break;
+			}
+			case 'mediaGroup': {
+				if (Array.isArray(content) && !content.some((e) => e.type !== 'media')) {
+					return {
+						type,
+						content,
+					};
+				}
+				break;
+			}
+			case 'mediaSingle': {
+				const containsJustMedia =
+					Array.isArray(content) && content.length === 1 && content[0].type === 'media';
+				const containsMediaAndCaption =
+					Array.isArray(content) &&
+					content.length === 2 &&
+					content[0].type === 'media' &&
+					content[1].type === 'caption';
+				if (containsJustMedia || containsMediaAndCaption) {
+					return {
+						type,
+						attrs,
+						content,
+						marks: getValidMarks(marks, adfStage),
+					};
+				}
+				break;
+			}
+			case 'mention': {
+				let mentionText = '';
+				let mentionId;
+				let mentionAccess;
+				if (attrs) {
+					const { text, displayName, id, accessLevel } = attrs;
+					mentionText = text || displayName;
+					mentionId = id;
+					mentionAccess = accessLevel;
+				}
 
-        if (!mentionText) {
-          mentionText = text || '@unknown';
-        }
+				if (!mentionText) {
+					mentionText = text || '@unknown';
+				}
 
-        if (mentionText && mentionId) {
-          const mentionNode = {
-            type,
-            attrs: {
-              id: mentionId,
-              text: mentionText,
-              accessLevel: '',
-            },
-          };
-          if (mentionAccess) {
-            mentionNode.attrs.accessLevel = mentionAccess;
-          }
+				if (mentionText && mentionId) {
+					const mentionNode = {
+						type,
+						attrs: {
+							id: mentionId,
+							text: mentionText,
+							accessLevel: '',
+						},
+					};
+					if (mentionAccess) {
+						mentionNode.attrs.accessLevel = mentionAccess;
+					}
 
-          return mentionNode;
-        }
-        break;
-      }
-      case 'paragraph': {
-        if (adfStage === 'stage0') {
-          let paragraphNode: ADNode = { type, content: content || [] };
-          if (attrs && attrs.localId) {
-            paragraphNode.attrs = { localId: attrs.localId };
-          }
-          if (marks) {
-            paragraphNode.marks = [...marks];
-          }
-          return paragraphNode;
-        }
-        return marks
-          ? {
-              type,
-              content: content || [],
-              marks,
-            }
-          : { type, content: content || [] };
-      }
-      case 'rule': {
-        return {
-          type,
-        };
-      }
-      case 'text': {
-        let { marks } = node;
-        if (text) {
-          return marks
-            ? { type, text, marks: getValidMarks(marks, adfStage) }
-            : { type, text };
-        }
-        break;
-      }
-      case 'heading': {
-        if (attrs) {
-          const { level } = attrs;
-          const between = (x: number, a: number, b: number) => x >= a && x <= b;
-          if (level && between(level, 1, 6)) {
-            if (adfStage === 'stage0') {
-              let headingNode: ADNode = {
-                type,
-                content: content,
-                attrs: { level },
-              };
-              if (attrs.localId) {
-                headingNode.attrs.localId = attrs.localId;
-              }
-              if (marks) {
-                headingNode.marks = [...marks];
-              }
-              return headingNode;
-            }
-            return marks
-              ? {
-                  type,
-                  content,
-                  marks,
-                  attrs: {
-                    level,
-                  },
-                }
-              : {
-                  type,
-                  content,
-                  attrs: {
-                    level,
-                  },
-                };
-          }
-        }
-        break;
-      }
-      case 'bulletList': {
-        if (content) {
-          return {
-            type,
-            content,
-          };
-        }
-        break;
-      }
-      case 'orderedList': {
-        if (content) {
-          return {
-            type,
-            content,
-            attrs: {
-              order: attrs && attrs.order,
-            },
-          };
-        }
-        break;
-      }
-      case 'listItem': {
-        if (content) {
-          return {
-            type,
-            content: wrapInlineNodes(content),
-          };
-        }
-        break;
-      }
-      case 'blockquote': {
-        if (content) {
-          return {
-            type,
-            content,
-          };
-        }
-        break;
-      }
-      case 'panel': {
-        if (attrs && content) {
-          const { panelType } = attrs;
-          if (Object.values(PanelType).includes(panelType)) {
-            return {
-              type,
-              attrs,
-              content,
-            };
-          }
-        }
-        break;
-      }
-      case 'layoutSection': {
-        if (content) {
-          return {
-            type,
-            marks,
-            content,
-          };
-        }
-        break;
-      }
-      case 'layoutColumn': {
-        if (attrs && content) {
-          if (attrs.width > 0 && attrs.width <= 100) {
-            return {
-              type,
-              content,
-              attrs,
-            };
-          }
-        }
-        break;
-      }
-      case 'decisionList': {
-        return {
-          type,
-          content,
-          attrs: {
-            localId: (attrs && attrs.localId) || uuid(),
-          },
-        };
-      }
-      case 'decisionItem': {
-        return {
-          type,
-          content,
-          attrs: {
-            localId: (attrs && attrs.localId) || uuid(),
-            state: (attrs && attrs.state) || 'DECIDED',
-          },
-        };
-      }
-      case 'taskList': {
-        return {
-          type,
-          content,
-          attrs: {
-            localId: (attrs && attrs.localId) || uuid(),
-          },
-        };
-      }
-      case 'taskItem': {
-        return {
-          type,
-          content,
-          attrs: {
-            localId: (attrs && attrs.localId) || uuid(),
-            state: (attrs && attrs.state) || 'TODO',
-          },
-        };
-      }
-      case 'table': {
-        if (
-          Array.isArray(content) &&
-          content.length > 0 &&
-          !content.some((e) => e.type !== 'tableRow')
-        ) {
-          if (adfStage === 'stage0') {
-            return {
-              type,
-              content,
-              attrs: {
-                ...attrs,
-                localId: attrs?.localId || uuid(),
-                width: attrs?.width || null,
-              },
-            };
-          }
-          return {
-            type,
-            content,
-            attrs,
-          };
-        }
-        break;
-      }
-      case 'tableRow': {
-        if (
-          Array.isArray(content) &&
-          content.length > 0 &&
-          !content.some(
-            (e) => e.type !== 'tableCell' && e.type !== 'tableHeader',
-          )
-        ) {
-          return {
-            type,
-            content,
-          };
-        }
-        break;
-      }
-      case 'tableCell':
-      case 'tableHeader': {
-        if (content) {
-          const cellAttrs: CellAttributes = {};
+					return mentionNode;
+				}
+				break;
+			}
+			case 'paragraph': {
+				if (adfStage === 'stage0') {
+					let paragraphNode: ADNode = { type, content: content || [] };
+					if (attrs && attrs.localId) {
+						paragraphNode.attrs = { localId: attrs.localId };
+					}
+					if (marks) {
+						paragraphNode.marks = [...marks];
+					}
+					return paragraphNode;
+				}
+				return marks
+					? {
+							type,
+							content: content || [],
+							marks,
+						}
+					: { type, content: content || [] };
+			}
+			case 'rule': {
+				return {
+					type,
+				};
+			}
+			case 'text': {
+				let { marks } = node;
+				if (text) {
+					return marks ? { type, text, marks: getValidMarks(marks, adfStage) } : { type, text };
+				}
+				break;
+			}
+			case 'heading': {
+				if (attrs) {
+					const { level } = attrs;
+					const between = (x: number, a: number, b: number) => x >= a && x <= b;
+					if (level && between(level, 1, 6)) {
+						if (adfStage === 'stage0') {
+							let headingNode: ADNode = {
+								type,
+								content: content,
+								attrs: { level },
+							};
+							if (attrs.localId) {
+								headingNode.attrs.localId = attrs.localId;
+							}
+							if (marks) {
+								headingNode.marks = [...marks];
+							}
+							return headingNode;
+						}
+						return marks
+							? {
+									type,
+									content,
+									marks,
+									attrs: {
+										level,
+									},
+								}
+							: {
+									type,
+									content,
+									attrs: {
+										level,
+									},
+								};
+					}
+				}
+				break;
+			}
+			case 'bulletList': {
+				if (content) {
+					return {
+						type,
+						content,
+					};
+				}
+				break;
+			}
+			case 'orderedList': {
+				if (content) {
+					return {
+						type,
+						content,
+						attrs: {
+							order: attrs && attrs.order,
+						},
+					};
+				}
+				break;
+			}
+			case 'listItem': {
+				if (content) {
+					return {
+						type,
+						content: wrapInlineNodes(content),
+					};
+				}
+				break;
+			}
+			case 'blockquote': {
+				if (content) {
+					return {
+						type,
+						content,
+					};
+				}
+				break;
+			}
+			case 'panel': {
+				if (attrs && content) {
+					const { panelType } = attrs;
+					if (Object.values(PanelType).includes(panelType)) {
+						return {
+							type,
+							attrs,
+							content,
+						};
+					}
+				}
+				break;
+			}
+			case 'layoutSection': {
+				if (content) {
+					return {
+						type,
+						marks,
+						content,
+					};
+				}
+				break;
+			}
+			case 'layoutColumn': {
+				if (attrs && content) {
+					if (attrs.width > 0 && attrs.width <= 100) {
+						return {
+							type,
+							content,
+							attrs,
+						};
+					}
+				}
+				break;
+			}
+			case 'decisionList': {
+				return {
+					type,
+					content,
+					attrs: {
+						localId: (attrs && attrs.localId) || uuid(),
+					},
+				};
+			}
+			case 'decisionItem': {
+				return {
+					type,
+					content,
+					attrs: {
+						localId: (attrs && attrs.localId) || uuid(),
+						state: (attrs && attrs.state) || 'DECIDED',
+					},
+				};
+			}
+			case 'taskList': {
+				return {
+					type,
+					content,
+					attrs: {
+						localId: (attrs && attrs.localId) || uuid(),
+					},
+				};
+			}
+			case 'taskItem': {
+				return {
+					type,
+					content,
+					attrs: {
+						localId: (attrs && attrs.localId) || uuid(),
+						state: (attrs && attrs.state) || 'TODO',
+					},
+				};
+			}
+			case 'table': {
+				if (
+					Array.isArray(content) &&
+					content.length > 0 &&
+					!content.some((e) => e.type !== 'tableRow')
+				) {
+					if (adfStage === 'stage0') {
+						return {
+							type,
+							content,
+							attrs: {
+								...attrs,
+								localId: attrs?.localId || uuid(),
+								width: attrs?.width || null,
+							},
+						};
+					}
+					return {
+						type,
+						content,
+						attrs,
+					};
+				}
+				break;
+			}
+			case 'tableRow': {
+				if (
+					Array.isArray(content) &&
+					content.length > 0 &&
+					!content.some((e) => e.type !== 'tableCell' && e.type !== 'tableHeader')
+				) {
+					return {
+						type,
+						content,
+					};
+				}
+				break;
+			}
+			case 'tableCell':
+			case 'tableHeader': {
+				if (content) {
+					const cellAttrs: CellAttributes = {};
 
-          if (attrs) {
-            if (attrs.colspan && attrs.colspan > 1) {
-              cellAttrs.colspan = attrs.colspan;
-            }
+					if (attrs) {
+						if (attrs.colspan && attrs.colspan > 1) {
+							cellAttrs.colspan = attrs.colspan;
+						}
 
-            if (attrs.rowspan && attrs.rowspan > 1) {
-              cellAttrs.rowspan = attrs.rowspan;
-            }
+						if (attrs.rowspan && attrs.rowspan > 1) {
+							cellAttrs.rowspan = attrs.rowspan;
+						}
 
-            if (attrs.background) {
-              cellAttrs.background = attrs.background;
-            }
+						if (attrs.background) {
+							cellAttrs.background = attrs.background;
+						}
 
-            if (attrs.colwidth && Array.isArray(attrs.colwidth)) {
-              cellAttrs.colwidth = attrs.colwidth;
-            }
-          }
+						if (attrs.colwidth && Array.isArray(attrs.colwidth)) {
+							cellAttrs.colwidth = attrs.colwidth;
+						}
+					}
 
-          return {
-            type,
-            content: wrapInlineNodes(content),
-            attrs: attrs ? cellAttrs : undefined,
-          };
-        }
-        break;
-      }
-      case 'image': {
-        if (attrs && attrs.src) {
-          return {
-            type,
-            attrs,
-          };
-        }
-        break;
-      }
-      case 'placeholder': {
-        if (attrs && typeof attrs.text !== 'undefined') {
-          return {
-            type,
-            attrs,
-          };
-        }
-        break;
-      }
+					return {
+						type,
+						content: wrapInlineNodes(content),
+						attrs: attrs ? cellAttrs : undefined,
+					};
+				}
+				break;
+			}
+			case 'image': {
+				if (attrs && attrs.src) {
+					return {
+						type,
+						attrs,
+					};
+				}
+				break;
+			}
+			case 'placeholder': {
+				if (attrs && typeof attrs.text !== 'undefined') {
+					return {
+						type,
+						attrs,
+					};
+				}
+				break;
+			}
 
-      case 'expand':
-      case 'nestedExpand': {
-        return { type, attrs, content, marks };
-      }
-    }
-  }
+			case 'expand':
+			case 'nestedExpand': {
+				return { type, attrs, content, marks };
+			}
+		}
+	}
 
-  return getValidUnknownNode(node);
+	return getValidUnknownNode(node);
 };
 
 /*
@@ -887,146 +866,143 @@ export const getValidNode = (
  * If a node is not recognized or is missing required attributes, we should return null
  *
  */
-export const getValidMark = (
-  mark: ADMark,
-  adfStage: ADFStage = 'final',
-): ADMark | null => {
-  const { attrs, type } = mark;
+export const getValidMark = (mark: ADMark, adfStage: ADFStage = 'final'): ADMark | null => {
+	const { attrs, type } = mark;
 
-  if (type) {
-    switch (type) {
-      case 'code': {
-        return {
-          type,
-        };
-      }
-      case 'em': {
-        return {
-          type,
-        };
-      }
-      case 'link': {
-        if (attrs) {
-          const { href, url, __confluenceMetadata } = attrs;
-          let linkHref = href || url;
-          if (
-            linkHref &&
-            linkHref.indexOf(':') === -1 &&
-            !RELATIVE_LINK.test(linkHref) &&
-            !ANCHOR_LINK.test(linkHref)
-          ) {
-            linkHref = `http://${linkHref}`;
-          }
+	if (type) {
+		switch (type) {
+			case 'code': {
+				return {
+					type,
+				};
+			}
+			case 'em': {
+				return {
+					type,
+				};
+			}
+			case 'link': {
+				if (attrs) {
+					const { href, url, __confluenceMetadata } = attrs;
+					let linkHref = href || url;
+					if (
+						linkHref &&
+						linkHref.indexOf(':') === -1 &&
+						!RELATIVE_LINK.test(linkHref) &&
+						!ANCHOR_LINK.test(linkHref)
+					) {
+						linkHref = `http://${linkHref}`;
+					}
 
-          const linkAttrs: any = {
-            href: linkHref,
-          };
+					const linkAttrs: any = {
+						href: linkHref,
+					};
 
-          if (__confluenceMetadata) {
-            linkAttrs.__confluenceMetadata = __confluenceMetadata;
-          }
+					if (__confluenceMetadata) {
+						linkAttrs.__confluenceMetadata = __confluenceMetadata;
+					}
 
-          if (linkHref && isSafeUrl(linkHref)) {
-            return {
-              type,
-              attrs: linkAttrs,
-            };
-          }
-        }
-        break;
-      }
-      case 'strike': {
-        return {
-          type,
-        };
-      }
-      case 'strong': {
-        return {
-          type,
-        };
-      }
-      case 'subsup': {
-        if (attrs && attrs['type']) {
-          const subSupType = attrs['type'];
-          if (isSubSupType(subSupType)) {
-            return {
-              type,
-              attrs: {
-                type: subSupType,
-              },
-            };
-          }
-        }
-        break;
-      }
-      case 'textColor': {
-        if (attrs && TEXT_COLOR_PATTERN.test(attrs.color)) {
-          return {
-            type,
-            attrs,
-          };
-        }
+					if (linkHref && isSafeUrl(linkHref)) {
+						return {
+							type,
+							attrs: linkAttrs,
+						};
+					}
+				}
+				break;
+			}
+			case 'strike': {
+				return {
+					type,
+				};
+			}
+			case 'strong': {
+				return {
+					type,
+				};
+			}
+			case 'subsup': {
+				if (attrs && attrs['type']) {
+					const subSupType = attrs['type'];
+					if (isSubSupType(subSupType)) {
+						return {
+							type,
+							attrs: {
+								type: subSupType,
+							},
+						};
+					}
+				}
+				break;
+			}
+			case 'textColor': {
+				if (attrs && TEXT_COLOR_PATTERN.test(attrs.color)) {
+					return {
+						type,
+						attrs,
+					};
+				}
 
-        break;
-      }
-      case 'underline': {
-        return {
-          type,
-        };
-      }
-      case 'annotation': {
-        return {
-          type,
-          attrs,
-        };
-      }
-      case 'border': {
-        return {
-          type,
-          attrs,
-        };
-      }
-      case 'backgroundColor': {
-        if (attrs && TEXT_COLOR_PATTERN.test(attrs.color)) {
-          return {
-            type,
-            attrs,
-          };
-        }
+				break;
+			}
+			case 'underline': {
+				return {
+					type,
+				};
+			}
+			case 'annotation': {
+				return {
+					type,
+					attrs,
+				};
+			}
+			case 'border': {
+				return {
+					type,
+					attrs,
+				};
+			}
+			case 'backgroundColor': {
+				if (attrs && TEXT_COLOR_PATTERN.test(attrs.color)) {
+					return {
+						type,
+						attrs,
+					};
+				}
 
-        break;
-      }
-    }
-  }
+				break;
+			}
+		}
+	}
 
-  if (adfStage === 'stage0') {
-    switch (type) {
-      case 'confluenceInlineComment': {
-        return {
-          type,
-          attrs,
-        };
-      }
-      case 'dataConsumer': {
-        return {
-          type,
-          attrs,
-        };
-      }
-      case 'fragment': {
-        return {
-          type,
-          attrs,
-        };
-      }
-      case 'border': {
-        return {
-          type,
-          attrs,
-        };
-      }
-    }
-  }
+	if (adfStage === 'stage0') {
+		switch (type) {
+			case 'confluenceInlineComment': {
+				return {
+					type,
+					attrs,
+				};
+			}
+			case 'dataConsumer': {
+				return {
+					type,
+					attrs,
+				};
+			}
+			case 'fragment': {
+				return {
+					type,
+					attrs,
+				};
+			}
+			case 'border': {
+				return {
+					type,
+					attrs,
+				};
+			}
+		}
+	}
 
-  return null;
+	return null;
 };

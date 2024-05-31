@@ -1,3 +1,3 @@
 export const selectors = {
-  placeholder: 'span[data-placeholder]',
+	placeholder: 'span[data-placeholder]',
 };

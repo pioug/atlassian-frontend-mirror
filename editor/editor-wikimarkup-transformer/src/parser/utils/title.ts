@@ -5,7 +5,7 @@ import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/m
  * {panel:title}aaa{panel}
  */
 export function title(text: string, schema: Schema): PMNode {
-  const mark = schema.marks.strong.create();
-  const title = schema.text(text, [mark]);
-  return schema.nodes.paragraph.createChecked({}, [title]);
+	const mark = schema.marks.strong.create();
+	const title = schema.text(text, [mark]);
+	return schema.nodes.paragraph.createChecked({}, [title]);
 }

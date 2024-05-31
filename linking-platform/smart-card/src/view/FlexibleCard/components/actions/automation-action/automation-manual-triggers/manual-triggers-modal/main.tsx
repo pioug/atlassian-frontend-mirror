@@ -6,9 +6,10 @@ import Modal, { ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
 import type { ManualRule } from '../manual-triggers-container/common/types';
 import { AutomationMenuContextContainer } from './menu-context';
 
-import { AutomationModalBody } from './sub-components/body';
-import { AutomationModalFooter } from './sub-components/footer';
 import { AutomationModalHeader } from './sub-components/header';
+import { AutomationModalBody } from './sub-components/body';
+import { AutomationModalExecutionState } from './sub-components/execution-state-message';
+import { AutomationModalFooter } from './sub-components/footer';
 
 export type AutomationModalProps = {
   baseAutomationUrl: string;
@@ -59,7 +60,8 @@ export const AutomationModal = ({
       analyticsSource={analyticsSource}
       emptyStateDescription={emptyStateDescription}
       emptyStateAdminDescription={emptyStateAdminDescription}
-      onRuleInvocationLifecycleDone={onClose}
+      onRuleInvocationSuccess={onClose}
+      onRuleInvocationFailure={() => setSelectedRule(undefined)}
     >
       {() => {
         return (
@@ -80,6 +82,7 @@ export const AutomationModal = ({
                 setSelectedRule={setSelectedRule}
               />
             </ModalBody>
+            <AutomationModalExecutionState />
             <ModalFooter>
               <AutomationModalFooter
                 selectedRule={selectedRule}

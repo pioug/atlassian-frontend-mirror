@@ -39,14 +39,8 @@ const context: FlexibleUiDataContext = {
       siteAri: 'someAri',
       canManageAutomation: false,
       analyticsSource: 'smart-card',
-      modalTitle: {
-        id: 'automation-modal-title-id',
-        defaultMessage: 'AutomationModalTitle',
-      },
-      modalDescription: {
-        id: 'automation-modal-description-id',
-        defaultMessage: 'AutomationModalDescription',
-      },
+      product: 'confluence',
+      resourceType: 'page',
     },
     ViewRelatedLinksAction: {
       url: 'https://www.link-url.com',

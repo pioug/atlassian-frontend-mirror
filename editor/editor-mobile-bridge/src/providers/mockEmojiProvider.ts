@@ -5,74 +5,74 @@ import type { EmojiProvider, EmojiRepository } from '@atlaskit/emoji/resource';
 import type { EmojiDescription, EmojiId } from '@atlaskit/emoji';
 
 class EmojiProviderImpl implements EmojiProvider {
-  findByShortName() {
-    return undefined;
-  }
+	findByShortName() {
+		return undefined;
+	}
 
-  fetchByEmojiId() {
-    return undefined;
-  }
+	fetchByEmojiId() {
+		return undefined;
+	}
 
-  findByEmojiId() {
-    return undefined;
-  }
+	findByEmojiId() {
+		return undefined;
+	}
 
-  findById() {
-    return undefined;
-  }
+	findById() {
+		return undefined;
+	}
 
-  findInCategory() {
-    return Promise.resolve([]);
-  }
+	findInCategory() {
+		return Promise.resolve([]);
+	}
 
-  getAsciiMap() {
-    return Promise.resolve(new Map());
-  }
+	getAsciiMap() {
+		return Promise.resolve(new Map());
+	}
 
-  getFrequentlyUsed() {
-    return Promise.resolve([]);
-  }
+	getFrequentlyUsed() {
+		return Promise.resolve([]);
+	}
 
-  recordSelection() {
-    return Promise.resolve();
-  }
+	recordSelection() {
+		return Promise.resolve();
+	}
 
-  deleteSiteEmoji() {
-    return Promise.resolve(false);
-  }
+	deleteSiteEmoji() {
+		return Promise.resolve(false);
+	}
 
-  loadMediaEmoji() {
-    return undefined;
-  }
+	loadMediaEmoji() {
+		return undefined;
+	}
 
-  optimisticMediaRendering() {
-    return false;
-  }
+	optimisticMediaRendering() {
+		return false;
+	}
 
-  getSelectedTone() {
-    return undefined;
-  }
+	getSelectedTone() {
+		return undefined;
+	}
 
-  getCurrentUser() {
-    return undefined;
-  }
+	getCurrentUser() {
+		return undefined;
+	}
 
-  getMediaEmojiDescriptionURLWithInlineToken(emoji: EmojiDescription) {
-    return Promise.resolve(emoji);
-  }
+	getMediaEmojiDescriptionURLWithInlineToken(emoji: EmojiDescription) {
+		return Promise.resolve(emoji);
+	}
 
-  fetchEmojiProvider(force?: boolean): Promise<EmojiRepository | undefined> {
-    return Promise.resolve(undefined);
-  }
+	fetchEmojiProvider(force?: boolean): Promise<EmojiRepository | undefined> {
+		return Promise.resolve(undefined);
+	}
 
-  getOptimisticImageURL(emojiId: EmojiId): string | undefined {
-    return undefined;
-  }
+	getOptimisticImageURL(emojiId: EmojiId): string | undefined {
+		return undefined;
+	}
 
-  setSelectedTone() {}
-  filter() {}
-  subscribe() {}
-  unsubscribe() {}
+	setSelectedTone() {}
+	filter() {}
+	subscribe() {}
+	unsubscribe() {}
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

@@ -15,11 +15,11 @@ Use the component in your React app as follows:
   transfomer.parse(markdown);`}
 
   ${(
-    <Example
-      packageName="@atlaskit/editor-markdown-transformer"
-      Component={require('../examples/0-markdown-transformer').default}
-      title="Markdown Transformer"
-      source={require('!!raw-loader!../examples/0-markdown-transformer')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/editor-markdown-transformer"
+			Component={require('../examples/0-markdown-transformer').default}
+			title="Markdown Transformer"
+			source={require('!!raw-loader!../examples/0-markdown-transformer')}
+		/>
+	)}
 `;

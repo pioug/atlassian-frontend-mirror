@@ -10,43 +10,43 @@ import { FieldTypeError } from '../types';
 import { validate } from '../utils';
 
 export default function RadioField({
-  name,
-  field,
-  onFieldChange,
+	name,
+	field,
+	onFieldChange,
 }: {
-  name: string;
-  field: EnumRadioField;
-  onFieldChange: OnFieldChange;
+	name: string;
+	field: EnumRadioField;
+	onFieldChange: OnFieldChange;
 }) {
-  if (field.isMultiple) {
-    return <FieldMessages error={FieldTypeError.isMultipleAndRadio} />;
-  }
+	if (field.isMultiple) {
+		return <FieldMessages error={FieldTypeError.isMultipleAndRadio} />;
+	}
 
-  return (
-    <Field
-      name={name}
-      label={field.label}
-      defaultValue={field.defaultValue}
-      isRequired={field.isRequired}
-      validate={(value?: string) => validate<string | undefined>(field, value)}
-      testId={`config-panel-radio-group-${field.name}`}
-    >
-      {({ fieldProps, error }) => (
-        <Fragment>
-          <RadioGroup
-            {...fieldProps}
-            options={(field.items || []).map(option => ({
-              ...option,
-              name: field.name,
-            }))}
-            onChange={value => {
-              fieldProps.onChange(value);
-              onFieldChange(field.name, true);
-            }}
-          />
-          <FieldMessages error={error} />
-        </Fragment>
-      )}
-    </Field>
-  );
+	return (
+		<Field
+			name={name}
+			label={field.label}
+			defaultValue={field.defaultValue}
+			isRequired={field.isRequired}
+			validate={(value?: string) => validate<string | undefined>(field, value)}
+			testId={`config-panel-radio-group-${field.name}`}
+		>
+			{({ fieldProps, error }) => (
+				<Fragment>
+					<RadioGroup
+						{...fieldProps}
+						options={(field.items || []).map((option) => ({
+							...option,
+							name: field.name,
+						}))}
+						onChange={(value) => {
+							fieldProps.onChange(value);
+							onFieldChange(field.name, true);
+						}}
+					/>
+					<FieldMessages error={error} />
+				</Fragment>
+			)}
+		</Field>
+	);
 }

@@ -5,31 +5,31 @@ import type { TextHighlighter } from '../types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
 type Props = {
-  startPos: number;
-  endPos: number;
-  children?: ReactNode | null;
-  textHighlighter?: TextHighlighter;
-  marks?: readonly Mark[];
+	startPos: number;
+	endPos: number;
+	children?: ReactNode | null;
+	textHighlighter?: TextHighlighter;
+	marks?: readonly Mark[];
 };
 
 const TextWrapper = (props: Props) => {
-  const { startPos, endPos } = props;
-  const { children } = props;
+	const { startPos, endPos } = props;
+	const { children } = props;
 
-  if (!children) {
-    return null;
-  }
+	if (!children) {
+		return null;
+	}
 
-  return (
-    <TextWithAnnotationDraft
-      startPos={startPos}
-      endPos={endPos}
-      textHighlighter={props.textHighlighter}
-      marks={props.marks}
-    >
-      {children}
-    </TextWithAnnotationDraft>
-  );
+	return (
+		<TextWithAnnotationDraft
+			startPos={startPos}
+			endPos={endPos}
+			textHighlighter={props.textHighlighter}
+			marks={props.marks}
+		>
+			{children}
+		</TextWithAnnotationDraft>
+	);
 };
 
 export default TextWrapper;

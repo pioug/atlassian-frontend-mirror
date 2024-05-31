@@ -44,7 +44,6 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "react-dom": "^16.8.0",
     "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
@@ -80,6 +79,5 @@
         "emotion"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

@@ -6,60 +6,45 @@ import type { StepJson } from '@atlaskit/editor-common/collab';
 const logger = createLogger('Catchupv2', 'red');
 
 export const catchupv2 = async (opt: Catchupv2Options): Promise<boolean> => {
-  let steps: any;
-  let metadata: any;
-  const fromVersion = opt.getCurrentPmVersion();
+	let steps: any;
+	let metadata: any;
+	const fromVersion = opt.getCurrentPmVersion();
 
-  try {
-    ({ steps, metadata } = await opt.fetchCatchupv2(
-      fromVersion,
-      opt.clientId,
-      opt.catchUpOutofSync,
-    ));
-  } catch (error) {
-    opt.analyticsHelper?.sendErrorEvent(
-      error,
-      'Error while fetching catchupv2 from server',
-    );
-    logger(
-      `Fetch catchupv2 from server failed:`,
-      (error as InternalError).message,
-    );
-    throw error;
-  }
+	try {
+		({ steps, metadata } = await opt.fetchCatchupv2(
+			fromVersion,
+			opt.clientId,
+			opt.catchUpOutofSync,
+		));
+	} catch (error) {
+		opt.analyticsHelper?.sendErrorEvent(error, 'Error while fetching catchupv2 from server');
+		logger(`Fetch catchupv2 from server failed:`, (error as InternalError).message);
+		throw error;
+	}
 
-  try {
-    // skip onStepsAdded if steps are undefined or empty
-    if (!steps || steps.length === 0) {
-      opt.updateMetadata(metadata);
-      return false;
-    }
+	try {
+		// skip onStepsAdded if steps are undefined or empty
+		if (!steps || steps.length === 0) {
+			opt.updateMetadata(metadata);
+			return false;
+		}
 
-    const version = fromVersion + steps.length;
+		const version = fromVersion + steps.length;
 
-    const stepsPayload: StepsPayload = {
-      version,
-      steps,
-    };
-    opt.onStepsAdded(stepsPayload);
-    opt.updateMetadata(metadata);
-    return Boolean(
-      opt.clientId &&
-        isOutOfSync(
-          fromVersion,
-          opt.getCurrentPmVersion(),
-          steps,
-          opt.clientId,
-        ),
-    );
-  } catch (error) {
-    opt.analyticsHelper?.sendErrorEvent(
-      error,
-      'Failed to apply catchupv2 result in the editor',
-    );
-    logger(`Apply catchupv2 steps failed:`, (error as InternalError).message);
-    throw error;
-  }
+		const stepsPayload: StepsPayload = {
+			version,
+			steps,
+		};
+		opt.onStepsAdded(stepsPayload);
+		opt.updateMetadata(metadata);
+		return Boolean(
+			opt.clientId && isOutOfSync(fromVersion, opt.getCurrentPmVersion(), steps, opt.clientId),
+		);
+	} catch (error) {
+		opt.analyticsHelper?.sendErrorEvent(error, 'Failed to apply catchupv2 result in the editor');
+		logger(`Apply catchupv2 steps failed:`, (error as InternalError).message);
+		throw error;
+	}
 };
 
 /**
@@ -71,13 +56,10 @@ export const catchupv2 = async (opt: Catchupv2Options): Promise<boolean> => {
  * @returns True if we're out of sync, false if not.
  */
 export const isOutOfSync = (
-  fromVersion: number,
-  currentVersion: number,
-  steps: StepJson[],
-  clientId: string | number,
+	fromVersion: number,
+	currentVersion: number,
+	steps: StepJson[],
+	clientId: string | number,
 ): boolean =>
-  // If version number hasn't increased, and steps are not from our client, we're out of sync
-  Boolean(
-    fromVersion >= currentVersion &&
-      steps.some((step) => step.clientId !== clientId),
-  );
+	// If version number hasn't increased, and steps are not from our client, we're out of sync
+	Boolean(fromVersion >= currentVersion && steps.some((step) => step.clientId !== clientId));

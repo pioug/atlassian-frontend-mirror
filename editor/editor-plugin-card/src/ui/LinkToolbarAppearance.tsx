@@ -6,18 +6,13 @@ import type { IntlShape } from 'react-intl-next';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type {
-  CardPluginActions,
-  OptionConfig,
-} from '@atlaskit/editor-common/card';
+import type { CardPluginActions, OptionConfig } from '@atlaskit/editor-common/card';
 import {
-  commandWithMetadata,
-  getButtonGroupOption,
-  LinkToolbarButtonGroup,
+	commandWithMetadata,
+	getButtonGroupOption,
+	LinkToolbarButtonGroup,
 } from '@atlaskit/editor-common/card';
-import nodeNames, {
-  cardMessages as messages,
-} from '@atlaskit/editor-common/messages';
+import nodeNames, { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import type { Command } from '@atlaskit/editor-common/types';
 import { isSupportedInParent } from '@atlaskit/editor-common/utils';
@@ -34,227 +29,209 @@ import { getResolvedAttributesFromStore } from '../utils';
 import { DiscoveryPulse } from './Pulse';
 
 export interface LinkToolbarAppearanceProps {
-  intl: IntlShape;
-  editorAnalyticsApi: EditorAnalyticsAPI | undefined;
-  currentAppearance?: CardAppearance;
-  editorState: EditorState;
-  editorView?: EditorView;
-  url?: string;
-  allowEmbeds?: boolean;
-  allowBlockCards?: boolean;
-  platform?: CardPlatform;
-  cardActions: CardPluginActions | undefined;
-  showUpgradeDiscoverability?: boolean;
-  isDatasourceView?: boolean;
+	intl: IntlShape;
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
+	currentAppearance?: CardAppearance;
+	editorState: EditorState;
+	editorView?: EditorView;
+	url?: string;
+	allowEmbeds?: boolean;
+	allowBlockCards?: boolean;
+	platform?: CardPlatform;
+	cardActions: CardPluginActions | undefined;
+	showUpgradeDiscoverability?: boolean;
+	isDatasourceView?: boolean;
 }
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class LinkToolbarAppearance extends React.Component<
-  LinkToolbarAppearanceProps,
-  {}
-> {
-  static contextTypes = {
-    contextAdapter: PropTypes.object,
-  };
+export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearanceProps, {}> {
+	static contextTypes = {
+		contextAdapter: PropTypes.object,
+	};
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	context: any;
 
-  renderDropdown = (view?: EditorView, cardContext?: CardContext) => {
-    const {
-      url,
-      intl,
-      currentAppearance,
-      editorState,
-      allowEmbeds,
-      allowBlockCards = true,
-      platform,
-      editorAnalyticsApi,
-      cardActions,
-      showUpgradeDiscoverability = true,
-      isDatasourceView,
-    } = this.props;
-    const preview =
-      allowEmbeds &&
-      cardContext &&
-      url &&
-      cardContext.extractors.getPreview(url, platform);
+	renderDropdown = (view?: EditorView, cardContext?: CardContext) => {
+		const {
+			url,
+			intl,
+			currentAppearance,
+			editorState,
+			allowEmbeds,
+			allowBlockCards = true,
+			platform,
+			editorAnalyticsApi,
+			cardActions,
+			showUpgradeDiscoverability = true,
+			isDatasourceView,
+		} = this.props;
+		const preview =
+			allowEmbeds && cardContext && url && cardContext.extractors.getPreview(url, platform);
 
-    const defaultCommand: Command = () => false;
+		const defaultCommand: Command = () => false;
 
-    if (url) {
-      const urlState = cardContext?.store?.getState()[url];
-      if (urlState?.error?.kind === 'fatal') {
-        return null;
-      }
-    }
+		if (url) {
+			const urlState = cardContext?.store?.getState()[url];
+			if (urlState?.error?.kind === 'fatal') {
+				return null;
+			}
+		}
 
-    const isBlockCardLinkSupportedInParent = allowBlockCards
-      ? isSupportedInParent(
-          editorState,
-          Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),
-          currentAppearance,
-        )
-      : false;
+		const isBlockCardLinkSupportedInParent = allowBlockCards
+			? isSupportedInParent(
+					editorState,
+					Fragment.from(editorState.schema.nodes.blockCard.createChecked({})),
+					currentAppearance,
+				)
+			: false;
 
-    const isEmbedCardLinkSupportedInParent = allowEmbeds
-      ? isSupportedInParent(
-          editorState,
-          Fragment.from(editorState.schema.nodes.embedCard.createChecked({})),
-          currentAppearance,
-        )
-      : false;
+		const isEmbedCardLinkSupportedInParent = allowEmbeds
+			? isSupportedInParent(
+					editorState,
+					Fragment.from(editorState.schema.nodes.embedCard.createChecked({})),
+					currentAppearance,
+				)
+			: false;
 
-    const embedOption = allowEmbeds &&
-      preview && {
-        appearance: 'embed' as const,
-        title: intl.formatMessage(messages.embed),
-        onClick:
-          cardActions?.setSelectedCardAppearance('embed', editorAnalyticsApi) ??
-          defaultCommand,
-        selected: currentAppearance === 'embed',
-        hidden: false,
-        testId: 'embed-appearance',
-        disabled: !isEmbedCardLinkSupportedInParent,
-        tooltip: isEmbedCardLinkSupportedInParent
-          ? undefined
-          : getUnavailableMessage(editorState, intl),
-      };
+		const embedOption = allowEmbeds &&
+			preview && {
+				appearance: 'embed' as const,
+				title: intl.formatMessage(messages.embed),
+				onClick:
+					cardActions?.setSelectedCardAppearance('embed', editorAnalyticsApi) ?? defaultCommand,
+				selected: currentAppearance === 'embed',
+				hidden: false,
+				testId: 'embed-appearance',
+				disabled: !isEmbedCardLinkSupportedInParent,
+				tooltip: isEmbedCardLinkSupportedInParent
+					? undefined
+					: getUnavailableMessage(editorState, intl),
+			};
 
-    const blockCardOption = allowBlockCards && {
-      appearance: 'block' as const,
-      title: intl.formatMessage(messages.block),
-      onClick:
-        cardActions?.setSelectedCardAppearance('block', editorAnalyticsApi) ??
-        defaultCommand,
-      selected: currentAppearance === 'block' && !isDatasourceView,
-      testId: 'block-appearance',
-      disabled: !isBlockCardLinkSupportedInParent,
-      tooltip: isBlockCardLinkSupportedInParent
-        ? undefined
-        : getUnavailableMessage(editorState, intl),
-    };
+		const blockCardOption = allowBlockCards && {
+			appearance: 'block' as const,
+			title: intl.formatMessage(messages.block),
+			onClick:
+				cardActions?.setSelectedCardAppearance('block', editorAnalyticsApi) ?? defaultCommand,
+			selected: currentAppearance === 'block' && !isDatasourceView,
+			testId: 'block-appearance',
+			disabled: !isBlockCardLinkSupportedInParent,
+			tooltip: isBlockCardLinkSupportedInParent
+				? undefined
+				: getUnavailableMessage(editorState, intl),
+		};
 
-    const options: OptionConfig[] = [
-      {
-        title: intl.formatMessage(messages.url),
-        onClick: commandWithMetadata(
-          cardActions?.changeSelectedCardToLink(
-            url,
-            url,
-            true,
-            undefined,
-            undefined,
-            editorAnalyticsApi,
-          ) ?? defaultCommand,
-          {
-            action: ACTION.CHANGED_TYPE,
-          },
-        ),
-        selected: !currentAppearance && !isDatasourceView,
-        testId: 'url-appearance',
-      },
-      {
-        appearance: 'inline',
-        title: intl.formatMessage(messages.inline),
-        onClick:
-          cardActions?.setSelectedCardAppearance(
-            'inline',
-            editorAnalyticsApi,
-          ) ?? defaultCommand,
-        selected: currentAppearance === 'inline',
-        testId: 'inline-appearance',
-      },
-    ];
+		const options: OptionConfig[] = [
+			{
+				title: intl.formatMessage(messages.url),
+				onClick: commandWithMetadata(
+					cardActions?.changeSelectedCardToLink(
+						url,
+						url,
+						true,
+						undefined,
+						undefined,
+						editorAnalyticsApi,
+					) ?? defaultCommand,
+					{
+						action: ACTION.CHANGED_TYPE,
+					},
+				),
+				selected: !currentAppearance && !isDatasourceView,
+				testId: 'url-appearance',
+			},
+			{
+				appearance: 'inline',
+				title: intl.formatMessage(messages.inline),
+				onClick:
+					cardActions?.setSelectedCardAppearance('inline', editorAnalyticsApi) ?? defaultCommand,
+				selected: currentAppearance === 'inline',
+				testId: 'inline-appearance',
+			},
+		];
 
-    const dispatchCommand = (fn?: Function) => {
-      fn && fn(editorState, view && view.dispatch);
-      // Refocus the view to ensure the editor has focus
-      if (view && !view.hasFocus()) {
-        view.focus();
-      }
-    };
+		const dispatchCommand = (fn?: Function) => {
+			fn && fn(editorState, view && view.dispatch);
+			// Refocus the view to ensure the editor has focus
+			if (view && !view.hasFocus()) {
+				view.focus();
+			}
+		};
 
-    if (blockCardOption) {
-      options.push(blockCardOption);
-    }
+		if (blockCardOption) {
+			options.push(blockCardOption);
+		}
 
-    if (embedOption) {
-      options.push(embedOption);
-    }
+		if (embedOption) {
+			options.push(embedOption);
+		}
 
-    const LinkToolbarButtons = (
-      <LinkToolbarButtonGroup
-        key="link-toolbar-button-group"
-        options={options.map(option =>
-          getButtonGroupOption(intl, dispatchCommand, {
-            ...option,
-            onClick: commandWithMetadata(option.onClick, {
-              inputMethod: INPUT_METHOD.FLOATING_TB,
-            }),
-          }),
-        )}
-      />
-    );
+		const LinkToolbarButtons = (
+			<LinkToolbarButtonGroup
+				key="link-toolbar-button-group"
+				options={options.map((option) =>
+					getButtonGroupOption(intl, dispatchCommand, {
+						...option,
+						onClick: commandWithMetadata(option.onClick, {
+							inputMethod: INPUT_METHOD.FLOATING_TB,
+						}),
+					}),
+				)}
+			/>
+		);
 
-    const status = url ? cardContext?.store?.getState()[url]?.status : '';
-    const embedEnabled = embedOption ? !embedOption.disabled : false;
-    if (
-      shouldRenderToolbarPulse(
-        embedEnabled,
-        currentAppearance ?? '',
-        status ?? '',
-        showUpgradeDiscoverability,
-      )
-    ) {
-      const resolvedAnalyticsAttributes = getResolvedAttributesFromStore(
-        url || '',
-        currentAppearance || null,
-        cardContext?.store,
-      );
+		const status = url ? cardContext?.store?.getState()[url]?.status : '';
+		const embedEnabled = embedOption ? !embedOption.disabled : false;
+		if (
+			shouldRenderToolbarPulse(
+				embedEnabled,
+				currentAppearance ?? '',
+				status ?? '',
+				showUpgradeDiscoverability,
+			)
+		) {
+			const resolvedAnalyticsAttributes = getResolvedAttributesFromStore(
+				url || '',
+				currentAppearance || null,
+				cardContext?.store,
+			);
 
-      return (
-        <AnalyticsContext
-          data={{ attributes: { ...resolvedAnalyticsAttributes } }}
-        >
-          <DiscoveryPulse
-            localStorageKey={LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR}
-            testId="toolbar-discovery-pulse"
-          >
-            {LinkToolbarButtons}
-          </DiscoveryPulse>
-        </AnalyticsContext>
-      );
-    }
+			return (
+				<AnalyticsContext data={{ attributes: { ...resolvedAnalyticsAttributes } }}>
+					<DiscoveryPulse
+						localStorageKey={LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR}
+						testId="toolbar-discovery-pulse"
+					>
+						{LinkToolbarButtons}
+					</DiscoveryPulse>
+				</AnalyticsContext>
+			);
+		}
 
-    return LinkToolbarButtons;
-  };
+		return LinkToolbarButtons;
+	};
 
-  render() {
-    const cardContext = this.context.contextAdapter
-      ? this.context.contextAdapter.card
-      : undefined;
-    const { editorView } = this.props;
+	render() {
+		const cardContext = this.context.contextAdapter ? this.context.contextAdapter.card : undefined;
+		const { editorView } = this.props;
 
-    return this.renderDropdown(editorView, cardContext && cardContext.value);
-  }
+		return this.renderDropdown(editorView, cardContext && cardContext.value);
+	}
 }
 
 const getUnavailableMessage = (state: EditorState, intl: IntlShape): string => {
-  try {
-    const parentNode = state.selection.$from.node(1);
-    const parentName = intl.formatMessage(
-      nodeNames[parentNode.type.name as keyof typeof nodeNames],
-    );
-    const tooltip = intl.formatMessage(
-      messages.displayOptionUnavailableInParentNode,
-      {
-        node: parentName,
-      },
-    );
-    return tooltip;
-  } catch (e) {
-    return intl.formatMessage(messages.displayOptionUnavailableInParentNode, {
-      node: intl.formatMessage(nodeNames.defaultBlockNode),
-    });
-  }
+	try {
+		const parentNode = state.selection.$from.node(1);
+		const parentName = intl.formatMessage(
+			nodeNames[parentNode.type.name as keyof typeof nodeNames],
+		);
+		const tooltip = intl.formatMessage(messages.displayOptionUnavailableInParentNode, {
+			node: parentName,
+		});
+		return tooltip;
+	} catch (e) {
+		return intl.formatMessage(messages.displayOptionUnavailableInParentNode, {
+			node: intl.formatMessage(nodeNames.defaultBlockNode),
+		});
+	}
 };

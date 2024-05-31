@@ -13,17 +13,20 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import {
-  TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
-  TTI_SEVERITY_THRESHOLD_DEFAULTS,
+	TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
+	TTI_SEVERITY_THRESHOLD_DEFAULTS,
 } from '@atlaskit/editor-common/utils';
+import { backgroundColorPlugin } from '@atlaskit/editor-plugins/background-color';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
-import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
+import {
+	getExampleExtensionProviders,
+	TitleInput,
+} from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
@@ -35,16 +38,10 @@ import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
-import {
-  isMediaMockOptedIn,
-  mediaMock,
-} from '@atlaskit/media-test-helpers/media-mock';
+import { isMediaMockOptedIn, mediaMock } from '@atlaskit/media-test-helpers/media-mock';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { token } from '@atlaskit/tokens';
-import {
-  currentUser,
-  getEmojiProvider,
-} from '@atlaskit/util-data-test/get-emoji-provider';
+import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
@@ -54,28 +51,25 @@ import { MockActivityResource } from '../example-helpers/activity-provider';
 import { amend, check, encode, fromLocation } from '../example-helpers/adf-url';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import { copy } from '../example-helpers/copy';
-import {
-  DEFAULT_MODE,
-  LOCALSTORAGE_defaultMode,
-} from '../example-helpers/example-constants';
+import { DEFAULT_MODE, LOCALSTORAGE_defaultMode } from '../example-helpers/example-constants';
 import ExamplesErrorBoundary from '../example-helpers/ExamplesErrorBoundary';
 import * as FeatureFlagUrl from '../example-helpers/feature-flag-url';
 import type {
-  EditorState,
-  ExampleEditorProps,
-  ExampleProps,
-  ExampleRendererProps,
+	EditorState,
+	ExampleEditorProps,
+	ExampleProps,
+	ExampleRendererProps,
 } from '../example-helpers/full-page/types';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { EditorActions } from '../src';
 import { ComposableEditor } from '../src/composable-editor';
 import {
-  PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
-  PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+	PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
 } from '../src/create-editor/consts';
 import type {
-  EditorProps,
-  // EditorPlugin,
+	EditorProps,
+	// EditorPlugin,
 } from '../src/editor';
 import { useUniversalPreset } from '../src/preset-universal';
 import { usePresetContext } from '../src/presets/context';
@@ -95,13 +89,13 @@ import { usePreset } from '../src/use-preset';
  *
  */
 const wrapperStyles = css({
-  boxSizing: 'border-box',
-  height: '100%',
+	boxSizing: 'border-box',
+	height: '100%',
 });
 const contentStyles = css({
-  padding: 0,
-  height: '100%',
-  boxSizing: 'border-box',
+	padding: 0,
+	height: '100%',
+	boxSizing: 'border-box',
 });
 
 export { wrapperStyles, contentStyles };
@@ -137,92 +131,86 @@ const BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD = 3000;
 
 addGlobalEventEmitterListeners();
 if (isMediaMockOptedIn()) {
-  mediaMock.enable();
+	mediaMock.enable();
 }
 
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
 
 const defaultMediaFeatureFlags: MediaFeatureFlags = {
-  ...exampleMediaFeatureFlags,
-  mediaInline: true,
+	...exampleMediaFeatureFlags,
+	mediaInline: true,
 };
 
 export const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
-export const LOCALSTORAGE_defaultTitleKey =
-  'fabric.editor.example.full-page.title';
+export const LOCALSTORAGE_defaultTitleKey = 'fabric.editor.example.full-page.title';
 
 export const saveChanges =
-  ({
-    editorActions,
-    setMode,
-  }: {
-    editorActions?: EditorActions;
-    setMode?: (mode: boolean) => void;
-  }) =>
-  async () => {
-    if (!editorActions) {
-      return;
-    }
+	({
+		editorActions,
+		setMode,
+	}: {
+		editorActions?: EditorActions;
+		setMode?: (mode: boolean) => void;
+	}) =>
+	async () => {
+		if (!editorActions) {
+			return;
+		}
 
-    const value = await editorActions.getValue();
+		const value = await editorActions.getValue();
 
-    localStorage.setItem(LOCALSTORAGE_defaultDocKey, JSON.stringify(value));
-    if (setMode) {
-      setMode(false);
-    }
-  };
+		localStorage.setItem(LOCALSTORAGE_defaultDocKey, JSON.stringify(value));
+		if (setMode) {
+			setMode(false);
+		}
+	};
 
 export const SaveAndCancelButtons = (props: {
-  editorActions?: EditorActions;
-  setMode?: (mode: boolean) => void;
+	editorActions?: EditorActions;
+	setMode?: (mode: boolean) => void;
 }) => (
-  <ButtonGroup>
-    <Button
-      tabIndex={-1}
-      appearance="primary"
-      onClick={saveChanges(props)}
-      testId="publish-button"
-    >
-      Publish
-    </Button>
+	<ButtonGroup>
+		<Button tabIndex={-1} appearance="primary" onClick={saveChanges(props)} testId="publish-button">
+			Publish
+		</Button>
 
-    <Button
-      tabIndex={-1}
-      appearance="subtle"
-      onClick={() => {
-        if (!props.editorActions) {
-          return;
-        }
-        props.editorActions.clear();
-        localStorage.removeItem(LOCALSTORAGE_defaultDocKey);
-        localStorage.removeItem(LOCALSTORAGE_defaultTitleKey);
-      }}
-      testId="close-button"
-    >
-      Close
-    </Button>
-  </ButtonGroup>
+		<Button
+			tabIndex={-1}
+			appearance="subtle"
+			onClick={() => {
+				if (!props.editorActions) {
+					return;
+				}
+				props.editorActions.clear();
+				localStorage.removeItem(LOCALSTORAGE_defaultDocKey);
+				localStorage.removeItem(LOCALSTORAGE_defaultTitleKey);
+			}}
+			testId="close-button"
+		>
+			Close
+		</Button>
+	</ButtonGroup>
 );
 
 const searchProvider = createSearchProvider(
-  'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
-  Scope.ConfluencePageBlog,
-  'https://api-private.stg.atlassian.com/gateway/api/xpsearch-aggregator',
+	'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
+	Scope.ConfluencePageBlog,
+	'https://api-private.stg.atlassian.com/gateway/api/xpsearch-aggregator',
 );
 
 export const getProviders = (): Partial<Providers> => ({
-  emojiProvider: getEmojiProvider({
-    uploadSupported: true,
-    currentUser,
-  }),
-  mentionProvider: Promise.resolve(mentionResourceProvider),
-  taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
-  contextIdentifierProvider: storyContextIdentifierProviderFactory(),
-  activityProvider: Promise.resolve(new MockActivityResource()),
-  searchProvider: Promise.resolve(searchProvider),
-  macroProvider: Promise.resolve(macroProvider),
-  autoformattingProvider: Promise.resolve(autoformattingProvider),
+	emojiProvider: getEmojiProvider({
+		uploadSupported: true,
+		currentUser,
+	}),
+	mentionProvider: Promise.resolve(mentionResourceProvider),
+	taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
+	contextIdentifierProvider: storyContextIdentifierProviderFactory(),
+	activityProvider: Promise.resolve(new MockActivityResource()),
+	searchProvider: Promise.resolve(searchProvider),
+	macroProvider: Promise.resolve(macroProvider),
+	autoformattingProvider: Promise.resolve(autoformattingProvider),
 });
 
 export const mediaProvider = storyMediaProviderFactory();
@@ -230,620 +218,585 @@ export const mediaProvider = storyMediaProviderFactory();
 export const quickInsertProvider = quickInsertProviderFactory();
 
 export const getAppearance = (): 'full-page' | 'full-width' => {
-  return (localStorage.getItem(LOCALSTORAGE_defaultMode) || DEFAULT_MODE) ===
-    DEFAULT_MODE
-    ? 'full-page'
-    : 'full-width';
+	return (localStorage.getItem(LOCALSTORAGE_defaultMode) || DEFAULT_MODE) === DEFAULT_MODE
+		? 'full-page'
+		: 'full-width';
 };
 
 const smartCardClient = new CardClient('staging');
 
 const Editor = (props: EditorProps) => {
-  const universalPreset = useUniversalPreset({
-    props,
-  });
-  const { preset } = usePreset(() => universalPreset.add(highlightPlugin));
+	const universalPreset = useUniversalPreset({
+		props,
+	});
+	const { preset } = usePreset(
+		() => universalPreset.add(backgroundColorPlugin).add(highlightPlugin),
+		[universalPreset],
+	);
 
-  return <ComposableEditor preset={preset} {...props} />;
+	return <ComposableEditor preset={preset} {...props} />;
 };
-export class ExampleEditorComponent extends React.Component<
-  ExampleEditorProps,
-  EditorState
-> {
-  state: EditorState = {
-    disabled: true,
-    title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
-    appearance: this.props.editorProps.appearance || getAppearance(),
-  };
+export class ExampleEditorComponent extends React.Component<ExampleEditorProps, EditorState> {
+	state: EditorState = {
+		disabled: true,
+		title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
+		appearance: this.props.editorProps.appearance || getAppearance(),
+	};
 
-  private startTime: number = 0;
-  private editorActions: EditorActions | null = null;
-  private providers = getProviders();
+	private startTime: number = 0;
+	private editorActions: EditorActions | null = null;
+	private providers = getProviders();
 
-  UNSAFE_componentWillMount() {
-    this.startTime = new Date().getTime();
-  }
+	UNSAFE_componentWillMount() {
+		this.startTime = new Date().getTime();
+	}
 
-  componentDidMount() {
-    // This is to simulate a scenario where the consumer may try to call `focus` on mount
-    // We would prefer to notice any issues with this in development rather than in product.
-    if (this.editorActions) {
-      this.editorActions.focus();
-    }
+	componentDidMount() {
+		// This is to simulate a scenario where the consumer may try to call `focus` on mount
+		// We would prefer to notice any issues with this in development rather than in product.
+		if (this.editorActions) {
+			this.editorActions.focus();
+		}
 
-    // To try the macro paste handler, paste one of the following links:
+		// To try the macro paste handler, paste one of the following links:
 
-    // www.dumbmacro.com?paramA=CFE
-    // www.smartmacro.com?paramB=CFE
-  }
+		// www.dumbmacro.com?paramA=CFE
+		// www.smartmacro.com?paramB=CFE
+	}
 
-  componentDidUpdate(prevProps: ExampleEditorProps) {
-    if (
-      prevProps.editorProps.appearance !== this.props.editorProps.appearance
-    ) {
-      this.setState(() => ({
-        appearance: this.props.editorProps.appearance || 'full-page',
-      }));
-    }
+	componentDidUpdate(prevProps: ExampleEditorProps) {
+		if (prevProps.editorProps.appearance !== this.props.editorProps.appearance) {
+			this.setState(() => ({
+				appearance: this.props.editorProps.appearance || 'full-page',
+			}));
+		}
 
-    if (
-      prevProps.editorProps.defaultValue !== this.props.editorProps.defaultValue
-    ) {
-      this.editorActions?.replaceDocument(
-        this.props.editorProps.defaultValue,
-        false,
-      );
-    }
-  }
+		if (prevProps.editorProps.defaultValue !== this.props.editorProps.defaultValue) {
+			this.editorActions?.replaceDocument(this.props.editorProps.defaultValue, false);
+		}
+	}
 
-  onEditorReady = (editorActions: EditorActions) => {
-    const timeTaken = new Date().getTime() - this.startTime;
-    console.log('Editor init time', timeTaken, 'ms');
+	onEditorReady = (editorActions: EditorActions) => {
+		const timeTaken = new Date().getTime() - this.startTime;
+		console.log('Editor init time', timeTaken, 'ms');
 
-    if (this.props.onExampleEditorReady) {
-      this.props.onExampleEditorReady(editorActions, timeTaken);
-    }
+		if (this.props.onExampleEditorReady) {
+			this.props.onExampleEditorReady(editorActions, timeTaken);
+		}
 
-    (window as any).__editorView = editorActions._privateGetEditorView();
-  };
+		(window as any).__editorView = editorActions._privateGetEditorView();
+	};
 
-  onCopyLinkWithContent = async () => {
-    if (!this.editorActions) {
-      return;
-    }
+	onCopyLinkWithContent = async () => {
+		if (!this.editorActions) {
+			return;
+		}
 
-    const value = await this.editorActions.getValue();
-    if (!value) {
-      return;
-    }
+		const value = await this.editorActions.getValue();
+		if (!value) {
+			return;
+		}
 
-    const encoded = encode(value);
-    const url = amend(window.parent.location, encoded);
+		const encoded = encode(value);
+		const url = amend(window.parent.location, encoded);
 
-    window.parent.history.pushState(value, window.parent.document.title, url);
-    copy(url);
+		window.parent.history.pushState(value, window.parent.document.title, url);
+		copy(url);
 
-    const warning = check(url);
+		const warning = check(url);
 
-    if (warning) {
-      this.setState({
-        warning,
-      });
-    }
-  };
+		if (warning) {
+			this.setState({
+				warning,
+			});
+		}
+	};
 
-  render() {
-    const { editorProps } = this.props;
-    const { media } = editorProps;
-    const mediaEditorProps = media
-      ? media.featureFlags
-      : defaultMediaFeatureFlags;
-    return (
-      <ExamplesErrorBoundary>
-        <div css={wrapperStyles}>
-          <div css={contentStyles}>
-            <SmartCardProvider client={smartCardClient}>
-              <Editor
-                allowUndoRedoButtons={true}
-                allowBorderMark={true}
-                allowAnalyticsGASV3={true}
-                quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
-                allowTextColor={true}
-                allowTables={{
-                  advanced: true,
-                  allowColumnSorting: true,
-                  stickyHeaders: true,
-                  allowCollapse: true,
-                  allowDistributeColumns: true,
-                }}
-                // allowTables={false}
-                allowBreakout={true}
-                allowPanel
-                allowExtension={{
-                  allowBreakout: true,
-                }}
-                allowRule={true}
-                allowDate={true}
-                allowLayouts={{
-                  allowBreakout: true,
-                  UNSAFE_addSidebarLayouts: true,
-                  UNSAFE_allowSingleColumnLayout: true,
-                }}
-                allowTextAlignment={true}
-                allowIndentation={true}
-                allowTemplatePlaceholders={{ allowInserting: true }}
-                linking={{
-                  smartLinks: {
-                    provider: Promise.resolve(cardProviderStaging),
-                    allowBlockCards: true,
-                    allowEmbeds: true,
-                    allowResizing: true,
-                    useAlternativePreloader: false,
-                    userPreferencesLink: '/user-preferences',
-                  },
-                }}
-                allowExpand={{
-                  allowInsertion: true,
-                  allowInteractiveExpand: true,
-                }}
-                waitForMediaUpload={true}
-                allowStatus={true}
-                allowFindReplace={{
-                  allowMatchCase: true,
-                }}
-                allowNestedTasks
-                codeBlock={{
-                  allowCopyToClipboard: true,
-                  appearance: this.state.appearance,
-                }}
-                {...this.providers}
-                media={{
-                  provider: mediaProvider,
-                  allowMediaSingle: true,
-                  allowResizing: true,
-                  allowLinking: true,
-                  allowResizingInTables: true,
-                  allowAltTextOnImages: true,
-                  altTextValidator: (value: string) => {
-                    const errors = [];
-                    if (!/^[A-Z]/g.test(value)) {
-                      errors.push('Please start with capital letter.');
-                    }
-                    if (!/^[^"<>&\\]*$/g.test(value)) {
-                      errors.push('Please remove special characters.');
-                    }
-                    if (!/(\w.+\s).+/g.test(value)) {
-                      errors.push('Please use at least two words.');
-                    }
-                    return errors;
-                  },
-                  allowCaptions: true,
-                  featureFlags: mediaEditorProps,
-                }}
-                allowHelpDialog
-                placeholder="Use markdown shortcuts to format your page as you type, like * for lists, # for headers, and *** for a horizontal rule."
-                placeholderBracketHint="Did you mean to use '/' to insert content?"
-                shouldFocus={true}
-                disabled={this.state.disabled}
-                defaultValue={
-                  (localStorage &&
-                    localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
-                  undefined
-                }
-                contentComponents={
-                  <WithEditorActions
-                    render={(actions) => (
-                      <Fragment>
-                        <BreadcrumbsMiscActions
-                          appearance={this.state.appearance}
-                          onFullWidthChange={this.setFullWidthMode}
-                        />
-                        <TitleInput
-                          value={this.state.title}
-                          onChange={this.handleTitleChange}
-                          innerRef={this.handleTitleRef}
-                          onFocus={this.handleTitleOnFocus}
-                          onBlur={this.handleTitleOnBlur}
-                          onKeyDown={(e: React.KeyboardEvent) => {
-                            this.onKeyPressed(e, actions);
-                          }}
-                        />
-                      </Fragment>
-                    )}
-                  />
-                }
-                primaryToolbarComponents={[
-                  <WithEditorActions
-                    key={1}
-                    render={(actions) => {
-                      this.editorActions = actions;
+	render() {
+		const { editorProps } = this.props;
+		const { media } = editorProps;
+		const mediaEditorProps = media ? media.featureFlags : defaultMediaFeatureFlags;
+		return (
+			<ExamplesErrorBoundary>
+				<div css={wrapperStyles}>
+					<div css={contentStyles}>
+						<SmartCardProvider client={smartCardClient}>
+							<Editor
+								allowUndoRedoButtons={true}
+								allowBorderMark={true}
+								allowAnalyticsGASV3={true}
+								quickInsert={{ provider: Promise.resolve(quickInsertProvider) }}
+								allowTextColor={true}
+								allowTables={{
+									advanced: true,
+									allowColumnSorting: true,
+									stickyHeaders: true,
+									allowCollapse: true,
+									allowDistributeColumns: true,
+								}}
+								// allowTables={false}
+								allowBreakout={true}
+								allowPanel
+								allowExtension={{
+									allowBreakout: true,
+								}}
+								allowRule={true}
+								allowDate={true}
+								allowLayouts={{
+									allowBreakout: true,
+									UNSAFE_addSidebarLayouts: true,
+									UNSAFE_allowSingleColumnLayout: true,
+								}}
+								allowTextAlignment={true}
+								allowIndentation={true}
+								allowTemplatePlaceholders={{ allowInserting: true }}
+								linking={{
+									smartLinks: {
+										provider: Promise.resolve(cardProviderStaging),
+										allowBlockCards: true,
+										allowEmbeds: true,
+										allowResizing: true,
+										useAlternativePreloader: false,
+										userPreferencesLink: '/user-preferences',
+									},
+								}}
+								allowExpand={{
+									allowInsertion: true,
+									allowInteractiveExpand: true,
+								}}
+								waitForMediaUpload={true}
+								allowStatus={true}
+								allowFindReplace={{
+									allowMatchCase: true,
+								}}
+								allowNestedTasks
+								codeBlock={{
+									allowCopyToClipboard: true,
+									appearance: this.state.appearance,
+								}}
+								{...this.providers}
+								media={{
+									provider: mediaProvider,
+									allowMediaSingle: true,
+									allowResizing: true,
+									allowLinking: true,
+									allowResizingInTables: true,
+									allowAltTextOnImages: true,
+									altTextValidator: (value: string) => {
+										const errors = [];
+										if (!/^[A-Z]/g.test(value)) {
+											errors.push('Please start with capital letter.');
+										}
+										if (!/^[^"<>&\\]*$/g.test(value)) {
+											errors.push('Please remove special characters.');
+										}
+										if (!/(\w.+\s).+/g.test(value)) {
+											errors.push('Please use at least two words.');
+										}
+										return errors;
+									},
+									allowCaptions: true,
+									featureFlags: mediaEditorProps,
+								}}
+								allowHelpDialog
+								placeholder="Use markdown shortcuts to format your page as you type, like * for lists, # for headers, and *** for a horizontal rule."
+								placeholderBracketHint="Did you mean to use '/' to insert content?"
+								shouldFocus={true}
+								disabled={this.state.disabled}
+								defaultValue={
+									(localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) || undefined
+								}
+								contentComponents={
+									<WithEditorActions
+										render={(actions) => (
+											<Fragment>
+												<BreadcrumbsMiscActions
+													appearance={this.state.appearance}
+													onFullWidthChange={this.setFullWidthMode}
+												/>
+												<TitleInput
+													value={this.state.title}
+													onChange={this.handleTitleChange}
+													innerRef={this.handleTitleRef}
+													onFocus={this.handleTitleOnFocus}
+													onBlur={this.handleTitleOnBlur}
+													onKeyDown={(e: React.KeyboardEvent) => {
+														this.onKeyPressed(e, actions);
+													}}
+												/>
+											</Fragment>
+										)}
+									/>
+								}
+								primaryToolbarComponents={[
+									<WithEditorActions
+										key={1}
+										render={(actions) => {
+											this.editorActions = actions;
 
-                      return (
-                        <Fragment>
-                          {
-                            this.props
-                              .customPrimaryToolbarComponents as React.ReactNode
-                          }
-                          <Button
-                            isDisabled={!actions}
-                            onClick={this.onCopyLinkWithContent}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-                            style={{ marginRight: token('space.050', '4px') }}
-                          >
-                            Copy link
-                          </Button>
-                          <SaveAndCancelButtons
-                            editorActions={actions}
-                            setMode={this.props.setMode}
-                          />
-                        </Fragment>
-                      );
-                    }}
-                  />,
-                ]}
-                primaryToolbarIconBefore={
-                  <Button
-                    iconBefore={<AtlassianIcon />}
-                    appearance="subtle"
-                    shouldFitContainer
-                  ></Button>
-                }
-                onSave={SAVE_ACTION}
-                insertMenuItems={customInsertMenuItems}
-                extensionHandlers={extensionHandlers}
-                performanceTracking={{
-                  ttiTracking: {
-                    enabled: true,
-                    trackSeverity: true,
-                    ttiSeverityNormalThreshold:
-                      TTI_SEVERITY_THRESHOLD_DEFAULTS.NORMAL,
-                    ttiSeverityDegradedThreshold:
-                      TTI_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED,
-                    ttiFromInvocationSeverityNormalThreshold:
-                      TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS.NORMAL,
-                    ttiFromInvocationSeverityDegradedThreshold:
-                      TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED,
-                  },
-                  transactionTracking: { enabled: true },
-                  uiTracking: { enabled: true },
-                  nodeViewTracking: { enabled: true },
-                  inputTracking: {
-                    enabled: true,
-                    countNodes: true,
-                    trackSingleKeypress: true,
-                    trackRenderingTime: true,
-                  },
-                  bFreezeTracking: {
-                    trackInteractionType: true,
-                    trackSeverity: true,
-                    severityNormalThreshold:
-                      BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
-                    severityDegradedThreshold:
-                      BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD,
-                  },
-                  proseMirrorRenderedTracking: {
-                    trackSeverity: true,
-                    severityNormalThreshold:
-                      PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
-                    severityDegradedThreshold:
-                      PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
-                  },
-                  contentRetrievalTracking: {
-                    enabled: true,
-                    successSamplingRate: 2,
-                    failureSamplingRate: 1,
-                    reportErrorStack: true,
-                  },
-                  onEditorReadyCallbackTracking: { enabled: true },
-                  pasteTracking: { enabled: true },
-                  renderTracking: {
-                    editor: {
-                      enabled: true,
-                      useShallow: false,
-                    },
-                    reactEditorView: {
-                      enabled: true,
-                      useShallow: false,
-                    },
-                  },
-                }}
-                {...editorProps}
-                featureFlags={{
-                  ...editorProps.featureFlags,
-                  // Enabling to catch during dev by default
-                  'safer-dispatched-transactions': true,
-                  'table-drag-and-drop': true,
-                  'table-preserve-width': true,
-                  'sticky-scrollbar': true,
-                  'table-duplicate-cell-colouring': true,
-                }}
-                appearance={this.state.appearance}
-                onEditorReady={this.onEditorReady}
-                trackValidTransactions={{ samplingRate: 100 }}
-                // dangerouslyAppendPlugins={{
-                //   __plugins: [
-                //     ...(this.props.dangerouslyAppendPlugins?.__plugins || []),
-                //     ...__getFullPageDangerouslyAppendedPlugins({
-                //       ...this.props,
-                //       appearance: this.state.appearance,
-                //     }),
-                //   ],
-                // }}
-              />
-            </SmartCardProvider>
-          </div>
-          {this.state.warning && (
-            <div
-              style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-                position: 'fixed',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-                top: token('space.1000', '80px'),
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-                right: token('space.200', '16px'),
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-                width: 400,
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-                zIndex: 100,
-              }}
-            >
-              <Flag
-                actions={[
-                  {
-                    content: 'Sure',
-                    onClick: () => this.setState({ warning: undefined }),
-                  },
-                ]}
-                appearance="warning"
-                description={this.state.warning.message}
-                icon={<Warning label="Heads up!" />}
-                title={this.state.warning.title}
-                id="warning"
-              />
-            </div>
-          )}
-        </div>
-      </ExamplesErrorBoundary>
-    );
-  }
-  private onKeyPressed = (e: React.KeyboardEvent, actions: EditorActions) => {
-    if ((e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
-      // Move to the editor view
-      const target = e.currentTarget as HTMLInputElement;
-      target.blur();
-      e.preventDefault();
-      actions.focus();
-      return false;
-    }
-    return;
-  };
+											return (
+												<Fragment>
+													{this.props.customPrimaryToolbarComponents as React.ReactNode}
+													<Button
+														isDisabled={!actions}
+														onClick={this.onCopyLinkWithContent}
+														// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+														style={{ marginRight: token('space.050', '4px') }}
+													>
+														Copy link
+													</Button>
+													<SaveAndCancelButtons
+														editorActions={actions}
+														setMode={this.props.setMode}
+													/>
+												</Fragment>
+											);
+										}}
+									/>,
+								]}
+								primaryToolbarIconBefore={
+									<Button
+										iconBefore={<AtlassianIcon />}
+										appearance="subtle"
+										shouldFitContainer
+									></Button>
+								}
+								onSave={SAVE_ACTION}
+								insertMenuItems={customInsertMenuItems}
+								extensionHandlers={extensionHandlers}
+								performanceTracking={{
+									ttiTracking: {
+										enabled: true,
+										trackSeverity: true,
+										ttiSeverityNormalThreshold: TTI_SEVERITY_THRESHOLD_DEFAULTS.NORMAL,
+										ttiSeverityDegradedThreshold: TTI_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED,
+										ttiFromInvocationSeverityNormalThreshold:
+											TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS.NORMAL,
+										ttiFromInvocationSeverityDegradedThreshold:
+											TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED,
+									},
+									transactionTracking: { enabled: true },
+									uiTracking: { enabled: true },
+									nodeViewTracking: { enabled: true },
+									inputTracking: {
+										enabled: true,
+										countNodes: true,
+										trackSingleKeypress: true,
+										trackRenderingTime: true,
+									},
+									bFreezeTracking: {
+										trackInteractionType: true,
+										trackSeverity: true,
+										severityNormalThreshold: BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
+										severityDegradedThreshold: BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD,
+									},
+									proseMirrorRenderedTracking: {
+										trackSeverity: true,
+										severityNormalThreshold: PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
+										severityDegradedThreshold: PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
+									},
+									contentRetrievalTracking: {
+										enabled: true,
+										successSamplingRate: 2,
+										failureSamplingRate: 1,
+										reportErrorStack: true,
+									},
+									onEditorReadyCallbackTracking: { enabled: true },
+									pasteTracking: { enabled: true },
+									renderTracking: {
+										editor: {
+											enabled: true,
+											useShallow: false,
+										},
+										reactEditorView: {
+											enabled: true,
+											useShallow: false,
+										},
+									},
+								}}
+								{...editorProps}
+								featureFlags={{
+									...editorProps.featureFlags,
+									// Enabling to catch during dev by default
+									'safer-dispatched-transactions': true,
+									'table-drag-and-drop': true,
+									'table-preserve-width': true,
+									'sticky-scrollbar': true,
+									'table-duplicate-cell-colouring': true,
+								}}
+								appearance={this.state.appearance}
+								onEditorReady={this.onEditorReady}
+								trackValidTransactions={{ samplingRate: 100 }}
+								// dangerouslyAppendPlugins={{
+								//   __plugins: [
+								//     ...(this.props.dangerouslyAppendPlugins?.__plugins || []),
+								//     ...__getFullPageDangerouslyAppendedPlugins({
+								//       ...this.props,
+								//       appearance: this.state.appearance,
+								//     }),
+								//   ],
+								// }}
+							/>
+						</SmartCardProvider>
+					</div>
+					{this.state.warning && (
+						<div
+							style={{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								position: 'fixed',
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								top: token('space.1000', '80px'),
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								right: token('space.200', '16px'),
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								width: 400,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								zIndex: 100,
+							}}
+						>
+							<Flag
+								actions={[
+									{
+										content: 'Sure',
+										onClick: () => this.setState({ warning: undefined }),
+									},
+								]}
+								appearance="warning"
+								description={this.state.warning.message}
+								icon={<Warning label="Heads up!" />}
+								title={this.state.warning.title}
+								id="warning"
+							/>
+						</div>
+					)}
+				</div>
+			</ExamplesErrorBoundary>
+		);
+	}
+	private onKeyPressed = (e: React.KeyboardEvent, actions: EditorActions) => {
+		if ((e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
+			// Move to the editor view
+			const target = e.currentTarget as HTMLInputElement;
+			target.blur();
+			e.preventDefault();
+			actions.focus();
+			return false;
+		}
+		return;
+	};
 
-  private handleTitleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
-    const title = (e.target as HTMLInputElement).value;
-    this.setState({
-      title,
-    });
+	private handleTitleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+		const title = (e.target as HTMLInputElement).value;
+		this.setState({
+			title,
+		});
 
-    if (this.props.onTitleChange) {
-      this.props.onTitleChange(title);
-    }
-  };
+		if (this.props.onTitleChange) {
+			this.props.onTitleChange(title);
+		}
+	};
 
-  private handleTitleOnFocus = () => this.setState({ disabled: false });
-  private handleTitleOnBlur = () => this.setState({ disabled: false });
-  private handleTitleRef = (ref?: HTMLElement) => {
-    if (ref) {
-      ref.focus();
-    }
-  };
+	private handleTitleOnFocus = () => this.setState({ disabled: false });
+	private handleTitleOnBlur = () => this.setState({ disabled: false });
+	private handleTitleRef = (ref?: HTMLElement) => {
+		if (ref) {
+			ref.focus();
+		}
+	};
 
-  private setFullWidthMode = (fullWidthMode: boolean) => {
-    this.setState({ appearance: fullWidthMode ? 'full-width' : 'full-page' });
-  };
+	private setFullWidthMode = (fullWidthMode: boolean) => {
+		this.setState({ appearance: fullWidthMode ? 'full-width' : 'full-page' });
+	};
 }
 
 export const ExampleEditor = ExampleEditorComponent;
 
 const Renderer = (props: ExampleRendererProps) => {
-  const emojiProvider = getEmojiProvider();
-  const mentionProvider = Promise.resolve(mentionResourceProvider);
-  const MockProfileClient: any = simpleMockProfilecardClient();
-  const profilecardProvider = Promise.resolve({
-    cloudId: 'DUMMY-CLOUDID',
-    resourceClient: MockProfileClient,
-    getActions: (id: string) => {
-      const actions = [
-        {
-          label: 'Mention',
-          callback: () => console.log('profile-card:mention'),
-        },
-        {
-          label: 'Message',
-          callback: () => console.log('profile-card:message'),
-        },
-      ];
+	const emojiProvider = getEmojiProvider();
+	const mentionProvider = Promise.resolve(mentionResourceProvider);
+	const MockProfileClient: any = simpleMockProfilecardClient();
+	const profilecardProvider = Promise.resolve({
+		cloudId: 'DUMMY-CLOUDID',
+		resourceClient: MockProfileClient,
+		getActions: (id: string) => {
+			const actions = [
+				{
+					label: 'Mention',
+					callback: () => console.log('profile-card:mention'),
+				},
+				{
+					label: 'Message',
+					callback: () => console.log('profile-card:message'),
+				},
+			];
 
-      return id === '1' ? actions : actions.slice(0, 1);
-    },
-  });
-  const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
-  const contextIdentifierProvider = storyContextIdentifierProviderFactory();
+			return id === '1' ? actions : actions.slice(0, 1);
+		},
+	});
+	const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
+	const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 
-  const providerFactory = ProviderFactory.create({
-    mentionProvider,
-    mediaProvider,
-    emojiProvider,
-    profilecardProvider,
-    taskDecisionProvider,
-    contextIdentifierProvider,
-  });
+	const providerFactory = ProviderFactory.create({
+		mentionProvider,
+		mediaProvider,
+		emojiProvider,
+		profilecardProvider,
+		taskDecisionProvider,
+		contextIdentifierProvider,
+	});
 
-  if (props.extensionProviders && props.extensionProviders.length > 0) {
-    providerFactory.setProvider(
-      'extensionProvider',
-      Promise.resolve(combineExtensionProviders(props.extensionProviders)),
-    );
-  }
+	if (props.extensionProviders && props.extensionProviders.length > 0) {
+		providerFactory.setProvider(
+			'extensionProvider',
+			Promise.resolve(combineExtensionProviders(props.extensionProviders)),
+		);
+	}
 
-  const document = !props.document
-    ? undefined
-    : typeof props.document === 'string'
-      ? JSON.parse(props.document)
-      : props.document;
+	const document = !props.document
+		? undefined
+		: typeof props.document === 'string'
+			? JSON.parse(props.document)
+			: props.document;
 
-  const mediaFeatureFlags = props.mediaFeatureFlags
-    ? props.mediaFeatureFlags
-    : defaultMediaFeatureFlags;
+	const mediaFeatureFlags = props.mediaFeatureFlags
+		? props.mediaFeatureFlags
+		: defaultMediaFeatureFlags;
 
-  return (
-    <div
-      style={{
-        margin: `${token('space.400', '32px')} 0`,
-      }}
-    >
-      <Button
-        appearance="primary"
-        onClick={() => props.setMode(true)}
-        style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          position: 'absolute',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          right: '0',
-          margin: `0 ${token('space.250', '20px')}`,
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          zIndex: 100,
-        }}
-        testId="edit-button"
-      >
-        Edit
-      </Button>
-      <SmartCardProvider client={smartCardClient}>
-        <IntlProvider locale="en">
-          <ReactRenderer
-            allowHeadingAnchorLinks
-            allowAltTextOnImages
-            allowColumnSorting
-            adfStage="stage0"
-            dataProviders={providerFactory}
-            extensionHandlers={extensionHandlers}
-            document={document}
-            appearance={getAppearance()}
-            stickyHeaders={{ offsetTop: 0 }}
-            media={{
-              featureFlags: mediaFeatureFlags,
-            }}
-            allowCustomPanels={props.allowCustomPanel}
-            eventHandlers={{
-              onUnhandledClick: props.clickToEdit
-                ? (e) => {
-                    console.log('onUnhandledClick called');
-                    props.setMode(true);
-                  }
-                : undefined,
-            }}
-          />
-        </IntlProvider>
-      </SmartCardProvider>
-    </div>
-  );
+	return (
+		<div
+			style={{
+				margin: `${token('space.400', '32px')} 0`,
+			}}
+		>
+			<Button
+				appearance="primary"
+				onClick={() => props.setMode(true)}
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					position: 'absolute',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					right: '0',
+					margin: `0 ${token('space.250', '20px')}`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					zIndex: 100,
+				}}
+				testId="edit-button"
+			>
+				Edit
+			</Button>
+			<SmartCardProvider client={smartCardClient}>
+				<IntlProvider locale="en">
+					<ReactRenderer
+						allowHeadingAnchorLinks
+						allowAltTextOnImages
+						allowColumnSorting
+						adfStage="stage0"
+						dataProviders={providerFactory}
+						extensionHandlers={extensionHandlers}
+						document={document}
+						appearance={getAppearance()}
+						stickyHeaders={{ offsetTop: 0 }}
+						media={{
+							featureFlags: mediaFeatureFlags,
+						}}
+						allowCustomPanels={props.allowCustomPanel}
+						eventHandlers={{
+							onUnhandledClick: props.clickToEdit
+								? (e) => {
+										console.log('onUnhandledClick called');
+										props.setMode(true);
+									}
+								: undefined,
+						}}
+					/>
+				</IntlProvider>
+			</SmartCardProvider>
+		</div>
+	);
 };
 
 export function FullPageExample(props: ExampleProps) {
-  const { editorProps = {} } = props;
-  const [isEditingMode, setMode] = React.useState(true);
+	const { editorProps = {} } = props;
+	const [isEditingMode, setMode] = React.useState(true);
 
-  const maybeDoc =
-    editorProps.defaultValue || fromLocation<object>(window.parent.location);
-  const doc = maybeDoc instanceof window.Error ? undefined : maybeDoc;
-  const localDraft =
-    (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
-    undefined;
+	const maybeDoc = editorProps.defaultValue || fromLocation<object>(window.parent.location);
+	const doc = maybeDoc instanceof window.Error ? undefined : maybeDoc;
+	const localDraft =
+		(localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) || undefined;
 
-  const maybeFlags = FeatureFlagUrl.fromLocation<string>(
-    window.parent.location,
-  );
+	const maybeFlags = FeatureFlagUrl.fromLocation<string>(window.parent.location);
 
-  const defaultFeatureFlags = {
-    maxUnsafeChromeSpellcheckingVersion: 100,
-  };
+	const defaultFeatureFlags = {
+		maxUnsafeChromeSpellcheckingVersion: 100,
+	};
 
-  const featureFlags =
-    editorProps.featureFlags ||
-    (!maybeFlags || maybeFlags instanceof window.Error
-      ? defaultFeatureFlags
-      : JSON.parse(maybeFlags ?? '{}'));
+	const featureFlags =
+		editorProps.featureFlags ||
+		(!maybeFlags || maybeFlags instanceof window.Error
+			? defaultFeatureFlags
+			: JSON.parse(maybeFlags ?? '{}'));
 
-  let allowCustomPanel = false;
-  if (editorProps.allowPanel && typeof editorProps.allowPanel === 'object') {
-    allowCustomPanel =
-      (editorProps.allowPanel as PanelPluginConfig).allowCustomPanel || false;
-  }
+	let allowCustomPanel = false;
+	if (editorProps.allowPanel && typeof editorProps.allowPanel === 'object') {
+		allowCustomPanel = (editorProps.allowPanel as PanelPluginConfig).allowCustomPanel || false;
+	}
 
-  const { media } = editorProps;
-  const mediaProps = media?.featureFlags
-    ? media.featureFlags
-    : defaultMediaFeatureFlags;
-  type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
-  const editorApi = usePresetContext<StackPlugins>();
-  const passedEditorProps: EditorProps = {
-    ...editorProps,
-    extensionProviders: (editorActions?: EditorActions) => [
-      getExampleExtensionProviders(editorApi, editorActions),
-    ],
-    allowExtension: {
-      allowExtendFloatingToolbars: true,
-    },
-    allowFragmentMark: true,
-    insertMenuItems: [],
-    featureFlags,
-    defaultValue: doc || localDraft,
-  };
+	const { media } = editorProps;
+	const mediaProps = media?.featureFlags ? media.featureFlags : defaultMediaFeatureFlags;
+	type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
+	const editorApi = usePresetContext<StackPlugins>();
+	const passedEditorProps: EditorProps = {
+		...editorProps,
+		extensionProviders: (editorActions?: EditorActions) => [
+			getExampleExtensionProviders(editorApi, editorActions),
+		],
+		allowExtension: {
+			allowExtendFloatingToolbars: true,
+		},
+		allowFragmentMark: true,
+		insertMenuItems: [],
+		featureFlags,
+		defaultValue: doc || localDraft,
+	};
 
-  return (
-    <EditorContext>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ height: '100%' }}>
-        <WithEditorActions
-          render={(actions) => (
-            <DevTools editorView={actions._privateGetEditorView()} />
-          )}
-        />
-        {isEditingMode ? (
-          <ExampleEditor
-            editorProps={passedEditorProps}
-            onExampleEditorReady={props.onExampleEditorReady}
-            onTitleChange={props.onTitleChange}
-            setMode={setMode}
-            customPrimaryToolbarComponents={
-              props.customPrimaryToolbarComponents
-            }
-          />
-        ) : (
-          <div
-            style={{
-              padding: `${token('space.200', '16px')} ${token(
-                'space.400',
-                '32px',
-              )}`,
-            }}
-          >
-            <Renderer
-              document={localDraft || doc}
-              setMode={setMode}
-              extensionProviders={
-                typeof editorProps.extensionProviders === 'function'
-                  ? editorProps.extensionProviders()
-                  : editorProps.extensionProviders
-              }
-              allowCustomPanel={allowCustomPanel}
-              clickToEdit={props.clickToEdit}
-              mediaFeatureFlags={mediaProps}
-            />
-          </div>
-        )}
-      </div>
-    </EditorContext>
-  );
+	return (
+		<EditorContext>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ height: '100%' }}>
+				<WithEditorActions
+					render={(actions) => <DevTools editorView={actions._privateGetEditorView()} />}
+				/>
+				{isEditingMode ? (
+					<ExampleEditor
+						editorProps={passedEditorProps}
+						onExampleEditorReady={props.onExampleEditorReady}
+						onTitleChange={props.onTitleChange}
+						setMode={setMode}
+						customPrimaryToolbarComponents={props.customPrimaryToolbarComponents}
+					/>
+				) : (
+					<div
+						style={{
+							padding: `${token('space.200', '16px')} ${token('space.400', '32px')}`,
+						}}
+					>
+						<Renderer
+							document={localDraft || doc}
+							setMode={setMode}
+							extensionProviders={
+								typeof editorProps.extensionProviders === 'function'
+									? editorProps.extensionProviders()
+									: editorProps.extensionProviders
+							}
+							allowCustomPanel={allowCustomPanel}
+							clickToEdit={props.clickToEdit}
+							mediaFeatureFlags={mediaProps}
+						/>
+					</div>
+				)}
+			</div>
+		</EditorContext>
+	);
 }
 
 export default FullPageExample;

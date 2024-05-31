@@ -14,37 +14,36 @@ import { isInsidePotentialEmptyParagraph } from './media-common';
 export type MediaNodeType = 'inline' | 'block' | 'group';
 
 export const isInSupportedInlineImageParent = (state: EditorState): boolean => {
-  return hasParentNodeOfType([state.schema.nodes.listItem])(state.selection);
+	return hasParentNodeOfType([state.schema.nodes.listItem])(state.selection);
 };
 
 export const getMediaNodeInsertionType = (
-  state: EditorState,
-  mediaOptions?: MediaOptions,
-  fileMimeType?: string,
+	state: EditorState,
+	mediaOptions?: MediaOptions,
+	fileMimeType?: string,
 ): MediaNodeType => {
-  const canInsertInlineNode =
-    getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags) &&
-    !isInEmptyLine(state) &&
-    (!isInsidePotentialEmptyParagraph(state) ||
-      isInSupportedInlineImageParent(state)) &&
-    canInsertMediaInline(state);
+	const canInsertInlineNode =
+		getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags) &&
+		!isInEmptyLine(state) &&
+		(!isInsidePotentialEmptyParagraph(state) || isInSupportedInlineImageParent(state)) &&
+		canInsertMediaInline(state);
 
-  if (
-    mediaInlineImagesEnabled(
-      getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags),
-      mediaOptions?.allowMediaInlineImages,
-    )
-  ) {
-    if (canInsertInlineNode && !isVideo(fileMimeType)) {
-      return 'inline';
-    }
-  }
+	if (
+		mediaInlineImagesEnabled(
+			getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags),
+			mediaOptions?.allowMediaInlineImages,
+		)
+	) {
+		if (canInsertInlineNode && !isVideo(fileMimeType)) {
+			return 'inline';
+		}
+	}
 
-  if (isMediaSingle(state.schema, fileMimeType)) {
-    return 'block';
-  } else if (canInsertInlineNode) {
-    return 'inline';
-  }
+	if (isMediaSingle(state.schema, fileMimeType)) {
+		return 'block';
+	} else if (canInsertInlineNode) {
+		return 'inline';
+	}
 
-  return 'group';
+	return 'group';
 };

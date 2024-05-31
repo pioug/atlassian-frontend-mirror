@@ -67,6 +67,7 @@ export const Trigger = React.forwardRef(
       <Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
         <Button
           testId={RENDER_TRIGGER_BUTTON_TESTID}
+          // TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
           css={triggerStyle({ miniMode, disabled })}
           appearance="subtle"
           onClick={handleMouseDown}

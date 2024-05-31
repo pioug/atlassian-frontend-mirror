@@ -1,3 +1,3 @@
 export type MediaAltTextState = {
-  isAltTextEditorOpen: boolean;
+	isAltTextEditorOpen: boolean;
 };

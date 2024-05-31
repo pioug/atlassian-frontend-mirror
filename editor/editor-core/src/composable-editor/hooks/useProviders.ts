@@ -7,7 +7,7 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-i
 import { usePresetContext } from '../../presets/context';
 
 interface UseProvidersProps {
-  contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined;
+	contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined;
 }
 
 /**
@@ -18,24 +18,21 @@ interface UseProvidersProps {
  *
  * In the future ideally consumers implement this behaviour themselves.
  */
-export const useProviders = ({
-  contextIdentifierProvider,
-}: UseProvidersProps) => {
-  const editorApi =
-    usePresetContext<[OptionalPlugin<ContextIdentifierPlugin>]>();
+export const useProviders = ({ contextIdentifierProvider }: UseProvidersProps) => {
+	const editorApi = usePresetContext<[OptionalPlugin<ContextIdentifierPlugin>]>();
 
-  useEffect(() => {
-    async function setProvider() {
-      if (!contextIdentifierProvider) {
-        return;
-      }
-      const provider = await contextIdentifierProvider;
-      editorApi?.core?.actions.execute(
-        editorApi?.contextIdentifier?.commands.setProvider({
-          contextIdentifierProvider: provider,
-        }),
-      );
-    }
-    setProvider();
-  }, [contextIdentifierProvider, editorApi]);
+	useEffect(() => {
+		async function setProvider() {
+			if (!contextIdentifierProvider) {
+				return;
+			}
+			const provider = await contextIdentifierProvider;
+			editorApi?.core?.actions.execute(
+				editorApi?.contextIdentifier?.commands.setProvider({
+					contextIdentifierProvider: provider,
+				}),
+			);
+		}
+		setProvider();
+	}, [contextIdentifierProvider, editorApi]);
 };

@@ -3,35 +3,30 @@ import { type Schema, type Node as PMNode } from '@atlaskit/editor-prosemirror/m
 import { type Context } from '../../../interfaces';
 
 export function mentionLinkResolver(
-  link: ContentLink,
-  schema: Schema,
-  context: Context,
+	link: ContentLink,
+	schema: Schema,
+	context: Context,
 ): PMNode[] | undefined {
-  // [CS-1896] Empty mention nodes should fallback to plaintext
-  if (
-    link.notLinkBody.toLowerCase() === '~accountid:' ||
-    link.notLinkBody === '~'
-  ) {
-    return [
-      schema.nodes.paragraph.createChecked({}, [schema.nodes.text.create({})]),
-    ];
-  }
+	// [CS-1896] Empty mention nodes should fallback to plaintext
+	if (link.notLinkBody.toLowerCase() === '~accountid:' || link.notLinkBody === '~') {
+		return [schema.nodes.paragraph.createChecked({}, [schema.nodes.text.create({})])];
+	}
 
-  if (link.notLinkBody.startsWith('~')) {
-    const mentionText = link.notLinkBody.substring(1);
-    const mentionKey = mentionText.toLowerCase();
-    const id =
-      context.conversion &&
-      context.conversion.mentionConversion &&
-      context.conversion.mentionConversion[mentionKey]
-        ? context.conversion.mentionConversion[mentionKey]
-        : mentionText;
+	if (link.notLinkBody.startsWith('~')) {
+		const mentionText = link.notLinkBody.substring(1);
+		const mentionKey = mentionText.toLowerCase();
+		const id =
+			context.conversion &&
+			context.conversion.mentionConversion &&
+			context.conversion.mentionConversion[mentionKey]
+				? context.conversion.mentionConversion[mentionKey]
+				: mentionText;
 
-    return [
-      schema.nodes.mention.createChecked({
-        id,
-      }),
-    ];
-  }
-  return;
+		return [
+			schema.nodes.mention.createChecked({
+				id,
+			}),
+		];
+	}
+	return;
 }

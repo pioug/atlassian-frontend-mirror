@@ -8,86 +8,76 @@ import { type EventData } from '../internal/analytics';
 export type SendAnalyticsEvent = (eventData: EventData) => void;
 
 export type RenderEditorWithComments = (
-  Editor: typeof AkEditor,
-  props: EditorProps,
-  comment?: CommentType,
+	Editor: typeof AkEditor,
+	props: EditorProps,
+	comment?: CommentType,
 ) => JSX.Element;
 
 /**
  * Props which are passed down from the parent Conversation/Comment
  */
 export interface SharedProps {
-  user?: User;
-  comments?: CommentType[];
-  /* Optionally restricts visual nesting of comments to a maximum level. */
-  maxCommentNesting?: number;
+	user?: User;
+	comments?: CommentType[];
+	/* Optionally restricts visual nesting of comments to a maximum level. */
+	maxCommentNesting?: number;
 
-  // Dispatch
-  onAddComment?: (
-    conversationId: string,
-    parentId: string,
-    value: any,
-    localId?: string,
-    onSuccess?: SuccessHandler,
-  ) => void;
-  onUpdateComment?: (
-    conversationId: string,
-    commentId: string,
-    value: any,
-    onSuccess?: SuccessHandler,
-  ) => void;
-  onDeleteComment?: (
-    conversationId: string,
-    commentId: string,
-    onSuccess?: SuccessHandler,
-  ) => void;
-  onRevertComment?: (conversationId: string, commentId: string) => void;
-  onCancelComment?: (conversationId: string, commentId: string) => void;
-  onCancel?: () => void;
-  onHighlightComment?: (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    commentId: string,
-  ) => void;
-  onEditorOpen?: () => void;
-  onEditorClose?: () => void;
-  onEditorChange?: (
-    isLocal: boolean,
-    value: any,
-    conversationId: string,
-    commentId: string | undefined,
-    meta: any,
-    objectId: string,
-    containerId?: string,
-  ) => void;
+	// Dispatch
+	onAddComment?: (
+		conversationId: string,
+		parentId: string,
+		value: any,
+		localId?: string,
+		onSuccess?: SuccessHandler,
+	) => void;
+	onUpdateComment?: (
+		conversationId: string,
+		commentId: string,
+		value: any,
+		onSuccess?: SuccessHandler,
+	) => void;
+	onDeleteComment?: (conversationId: string, commentId: string, onSuccess?: SuccessHandler) => void;
+	onRevertComment?: (conversationId: string, commentId: string) => void;
+	onCancelComment?: (conversationId: string, commentId: string) => void;
+	onCancel?: () => void;
+	onHighlightComment?: (event: React.MouseEvent<HTMLAnchorElement>, commentId: string) => void;
+	onEditorOpen?: () => void;
+	onEditorClose?: () => void;
+	onEditorChange?: (
+		isLocal: boolean,
+		value: any,
+		conversationId: string,
+		commentId: string | undefined,
+		meta: any,
+		objectId: string,
+		containerId?: string,
+	) => void;
 
-  // Provider
-  dataProviders?: ProviderFactory;
+	// Provider
+	dataProviders?: ProviderFactory;
 
-  // Event Hooks
-  onUserClick?: (user: User) => void;
-  onRetry?: (localId?: string) => void;
-  onCommentPermalinkClick?: (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    commentId: string,
-  ) => void;
+	// Event Hooks
+	onUserClick?: (user: User) => void;
+	onRetry?: (localId?: string) => void;
+	onCommentPermalinkClick?: (event: React.MouseEvent<HTMLAnchorElement>, commentId: string) => void;
 
-  // Editor
-  renderEditor?: RenderEditorWithComments;
+	// Editor
+	renderEditor?: RenderEditorWithComments;
 
-  objectId?: string;
-  containerId?: string;
+	objectId?: string;
+	containerId?: string;
 
-  isHighlighted?: boolean;
-  placeholder?: string;
-  disableScrollTo?: boolean;
-  allowFeedbackAndHelpButtons?: boolean;
-  sendAnalyticsEvent: SendAnalyticsEvent;
+	isHighlighted?: boolean;
+	placeholder?: string;
+	disableScrollTo?: boolean;
+	allowFeedbackAndHelpButtons?: boolean;
+	sendAnalyticsEvent: SendAnalyticsEvent;
 
-  portal?: HTMLElement;
+	portal?: HTMLElement;
 
-  renderAdditionalCommentActions?: (
-    CommentAction: typeof AkCommentAction,
-    comment: CommentType,
-  ) => JSX.Element[];
-  renderAfterComment?: (comment: CommentType) => JSX.Element;
+	renderAdditionalCommentActions?: (
+		CommentAction: typeof AkCommentAction,
+		comment: CommentType,
+	) => JSX.Element[];
+	renderAfterComment?: (comment: CommentType) => JSX.Element;
 }

@@ -4,14 +4,14 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 export type BorderPlugin = NextEditorPlugin<'border'>;
 
 export const borderPlugin: BorderPlugin = () => ({
-  name: 'border',
+	name: 'border',
 
-  marks() {
-    return [
-      {
-        name: 'border',
-        mark: border,
-      },
-    ];
-  },
+	marks() {
+		return [
+			{
+				name: 'border',
+				mark: border,
+			},
+		];
+	},
 });

@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import Button, {
-  type CustomThemeButtonProps,
-} from '@atlaskit/button/custom-theme-button';
+import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import { token } from '@atlaskit/tokens';
 import { N500 } from '@atlaskit/theme/colors';
@@ -14,7 +12,7 @@ import { emojiDeleteButton, deleteButton } from './styles';
  */
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
-const DeleteButton = (props: CustomThemeButtonProps) => (
+const DeleteButton = (props: ButtonProps) => (
   <span
     css={deleteButton}
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -30,6 +28,7 @@ const DeleteButton = (props: CustomThemeButtonProps) => (
         />
       }
       onClick={props.onClick}
+      // TODO: (from codemod) "link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.
       appearance="subtle-link"
       spacing="none"
       testId="emoji-delete-button"

@@ -1,13 +1,10 @@
 import type { CSSProperties } from 'react';
 import React from 'react';
 
+import { tableCellBorderWidth, tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import {
-  tableCellBorderWidth,
-  tableCellMinWidth,
-} from '@atlaskit/editor-common/styles';
-import {
-  akEditorTableNumberColumnWidth,
-  akEditorTableLegacyCellMinWidth,
+	akEditorTableNumberColumnWidth,
+	akEditorTableLegacyCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
@@ -23,228 +20,219 @@ import type { RendererContextProps } from '../../../renderer-context';
 const MAX_SCALING_PERCENT = 0.3;
 
 const isTableResized = (columnWidths: Array<number>) => {
-  const filteredWidths = columnWidths.filter((width) => width !== 0);
-  return !!filteredWidths.length;
+	const filteredWidths = columnWidths.filter((width) => width !== 0);
+	return !!filteredWidths.length;
 };
 
 const fixColumnWidth = (
-  columnWidth: number,
-  _tableWidth: number,
-  _layoutWidth: number,
-  zeroWidthColumnsCount: number,
-  scaleDownPercent: number,
+	columnWidth: number,
+	_tableWidth: number,
+	_layoutWidth: number,
+	zeroWidthColumnsCount: number,
+	scaleDownPercent: number,
 ): number => {
-  if (columnWidth === 0) {
-    return columnWidth;
-  }
+	if (columnWidth === 0) {
+		return columnWidth;
+	}
 
-  // If the tables total width (including no zero widths col or cols without width) is less than the current layout
-  // We scale up the columns to meet the minimum of the table layout.
-  if (zeroWidthColumnsCount === 0 && scaleDownPercent) {
-    return Math.max(
-      Math.floor((1 - scaleDownPercent) * columnWidth),
-      tableCellMinWidth,
-    );
-  }
+	// If the tables total width (including no zero widths col or cols without width) is less than the current layout
+	// We scale up the columns to meet the minimum of the table layout.
+	if (zeroWidthColumnsCount === 0 && scaleDownPercent) {
+		return Math.max(Math.floor((1 - scaleDownPercent) * columnWidth), tableCellMinWidth);
+	}
 
-  return Math.max(
-    // We need to take tableCellBorderWidth, to avoid unnecessary overflow.
-    columnWidth - tableCellBorderWidth,
-    zeroWidthColumnsCount ? akEditorTableLegacyCellMinWidth : tableCellMinWidth,
-  );
+	return Math.max(
+		// We need to take tableCellBorderWidth, to avoid unnecessary overflow.
+		columnWidth - tableCellBorderWidth,
+		zeroWidthColumnsCount ? akEditorTableLegacyCellMinWidth : tableCellMinWidth,
+	);
 };
 
 export interface ScaleOptions {
-  renderWidth: number;
-  tableWidth: number;
-  maxScale: number;
+	renderWidth: number;
+	tableWidth: number;
+	maxScale: number;
 }
-export const calcScalePercent = ({
-  renderWidth,
-  tableWidth,
-  maxScale,
-}: ScaleOptions) => {
-  const diffPercent = 1 - renderWidth / tableWidth;
-  return diffPercent < maxScale ? diffPercent : maxScale;
+export const calcScalePercent = ({ renderWidth, tableWidth, maxScale }: ScaleOptions) => {
+	const diffPercent = 1 - renderWidth / tableWidth;
+	return diffPercent < maxScale ? diffPercent : maxScale;
 };
 
+const colWidthSum = (columnWidths: number[]) => columnWidths.reduce((prev, curr) => curr + prev, 0);
+
 const renderScaleDownColgroup = (
-  props: SharedTableProps & { isTableScalingEnabled: boolean },
+	props: SharedTableProps & { isTableScalingEnabled: boolean },
 ): CSSProperties[] | null => {
-  let {
-    columnWidths,
-    isNumberColumnEnabled,
-    renderWidth,
-    tableNode,
-    rendererAppearance,
-    isInsideOfBlockNode,
-    isinsideMultiBodiedExtension,
-    isTableScalingEnabled,
-  } = props;
+	let {
+		columnWidths,
+		isNumberColumnEnabled,
+		renderWidth,
+		tableNode,
+		rendererAppearance,
+		isInsideOfBlockNode,
+		isinsideMultiBodiedExtension,
+		isTableScalingEnabled,
+	} = props;
 
-  if (!columnWidths) {
-    return [];
-  }
+	if (!columnWidths) {
+		return [];
+	}
 
-  const tableResized = isTableResized(columnWidths);
-  const noOfColumns = columnWidths.length;
-  let targetWidths;
+	const tableResized = isTableResized(columnWidths);
+	const noOfColumns = columnWidths.length;
+	let targetWidths;
 
-  const tableContainerWidth = getTableContainerWidth(tableNode);
+	const tableContainerWidth = getTableContainerWidth(tableNode);
 
-  if (
-    isTableResizingEnabled(rendererAppearance) &&
-    !isInsideOfBlockNode &&
-    !isinsideMultiBodiedExtension &&
-    !tableResized
-  ) {
-    // for tables with no column widths defined, assume that the real table width
-    // is defined by node.attrs.width
-    const tableWidth =
-      (isNumberColumnEnabled
-        ? tableContainerWidth - akEditorTableNumberColumnWidth
-        : tableContainerWidth) - 1;
+	if (
+		isTableResizingEnabled(rendererAppearance) &&
+		!isInsideOfBlockNode &&
+		!isinsideMultiBodiedExtension &&
+		!tableResized
+	) {
+		// for tables with no column widths defined, assume that the real table width
+		// is defined by node.attrs.width
+		const tableWidth =
+			(isNumberColumnEnabled
+				? tableContainerWidth - akEditorTableNumberColumnWidth
+				: tableContainerWidth) - 1;
 
-    const defaultColumnWidth = tableWidth / noOfColumns;
-    targetWidths = new Array(noOfColumns).fill(defaultColumnWidth);
-  } else if (!tableResized) {
-    return null;
-  }
+		const defaultColumnWidth = tableWidth / noOfColumns;
+		targetWidths = new Array(noOfColumns).fill(defaultColumnWidth);
+	} else if (!tableResized) {
+		return null;
+	}
 
-  // when table resized and number column is enabled, we need to scale down the table in render
-  if (
-    getBooleanFF(
-      'platform.editor.scale-table-when-number-column-in-table-resized_y4qh2',
-    ) &&
-    isTableScalingEnabled &&
-    isNumberColumnEnabled &&
-    tableResized
-  ) {
-    const scalePercentage = +(
-      (tableContainerWidth - akEditorTableNumberColumnWidth) /
-      tableContainerWidth
-    ).toFixed(2);
+	const sumOfColumns = colWidthSum(columnWidths);
 
-    const targetMaxWidth = tableContainerWidth - akEditorTableNumberColumnWidth;
-    let totalWidthAfterScale = 0;
-    const newScaledTargetWidths = columnWidths.map((width) => {
-      const newWidth = Math.floor(width * scalePercentage);
-      totalWidthAfterScale += newWidth;
-      return newWidth;
-    });
+	// A bug was released that caused col resizing in editor to be off by 2px, so using 2 here
+	const isTableSmallerThanContainer = sumOfColumns < tableContainerWidth - 2;
 
-    const diff = targetMaxWidth - totalWidthAfterScale;
-    targetWidths = newScaledTargetWidths;
+	const forceScaleForNumColumn =
+		getBooleanFF('platform.editor.scale-table-when-number-column-in-table-resized_y4qh2') &&
+		isTableScalingEnabled &&
+		isNumberColumnEnabled &&
+		tableResized &&
+		// if table col widths are smaller than container, then ignore. Most likely was created before custom table widths, where
+		// col widths could be smaller than container width (width was enforced by breakout buttons)
+		!isTableSmallerThanContainer;
 
-    if (diff > 0 || (diff < 0 && Math.abs(diff) < tableCellMinWidth)) {
-      let updated = false;
-      targetWidths = targetWidths.map((width: number) => {
-        if (!updated && width + diff > tableCellMinWidth) {
-          updated = true;
-          width += diff;
-        }
-        return width;
-      });
-    }
-  }
+	// when table resized and number column is enabled, we need to scale down the table in render
+	if (forceScaleForNumColumn) {
+		const scalePercentage = +(
+			(tableContainerWidth - akEditorTableNumberColumnWidth) /
+			tableContainerWidth
+		).toFixed(2);
 
-  targetWidths = targetWidths || columnWidths;
+		const targetMaxWidth = tableContainerWidth - akEditorTableNumberColumnWidth;
+		let totalWidthAfterScale = 0;
+		const newScaledTargetWidths = columnWidths.map((width) => {
+			const newWidth = Math.floor(width * scalePercentage);
+			totalWidthAfterScale += newWidth;
+			return newWidth;
+		});
 
-  // @see ED-6056
-  const maxTableWidth =
-    renderWidth < tableContainerWidth ? renderWidth : tableContainerWidth;
+		const diff = targetMaxWidth - totalWidthAfterScale;
+		targetWidths = newScaledTargetWidths;
 
-  let tableWidth = isNumberColumnEnabled ? akEditorTableNumberColumnWidth : 0;
-  let minTableWidth = tableWidth;
-  let zeroWidthColumnsCount = 0;
+		if (diff > 0 || (diff < 0 && Math.abs(diff) < tableCellMinWidth)) {
+			let updated = false;
+			targetWidths = targetWidths.map((width: number) => {
+				if (!updated && width + diff > tableCellMinWidth) {
+					updated = true;
+					width += diff;
+				}
+				return width;
+			});
+		}
+	}
 
-  targetWidths.forEach((width) => {
-    if (width) {
-      tableWidth += Math.ceil(width);
-    } else {
-      zeroWidthColumnsCount += 1;
-    }
-    minTableWidth += Math.ceil(width) || akEditorTableLegacyCellMinWidth;
-  });
-  let cellMinWidth = 0;
-  let scaleDownPercent = 0;
+	targetWidths = targetWidths || columnWidths;
 
-  const isTableWidthFixed =
-    getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
-    props.tableNode?.attrs.displayMode === 'fixed';
+	// @see ED-6056
+	const maxTableWidth = renderWidth < tableContainerWidth ? renderWidth : tableContainerWidth;
 
-  // fixes migration tables with zero-width columns
-  if (zeroWidthColumnsCount > 0) {
-    if (minTableWidth > maxTableWidth) {
-      const minWidth = Math.ceil(
-        (maxTableWidth - tableWidth) / zeroWidthColumnsCount,
-      );
-      cellMinWidth =
-        minWidth < akEditorTableLegacyCellMinWidth
-          ? akEditorTableLegacyCellMinWidth
-          : minWidth;
-    }
-  }
-  // scaling down
-  else if (renderWidth < tableWidth && !isTableWidthFixed) {
-    scaleDownPercent = calcScalePercent({
-      renderWidth,
-      tableWidth,
-      maxScale: MAX_SCALING_PERCENT,
-    });
-  }
+	let tableWidth = isNumberColumnEnabled ? akEditorTableNumberColumnWidth : 0;
+	let minTableWidth = tableWidth;
+	let zeroWidthColumnsCount = 0;
 
-  return targetWidths.map((colWidth) => {
-    const width =
-      fixColumnWidth(
-        colWidth,
-        minTableWidth,
-        maxTableWidth,
-        zeroWidthColumnsCount,
-        scaleDownPercent,
-      ) || cellMinWidth;
+	targetWidths.forEach((width) => {
+		if (width) {
+			tableWidth += Math.ceil(width);
+		} else {
+			zeroWidthColumnsCount += 1;
+		}
+		minTableWidth += Math.ceil(width) || akEditorTableLegacyCellMinWidth;
+	});
+	let cellMinWidth = 0;
+	let scaleDownPercent = 0;
 
-    const style = width ? { width: `${width}px` } : {};
-    return style;
-  });
+	const isTableWidthFixed =
+		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+		props.tableNode?.attrs.displayMode === 'fixed';
+
+	// fixes migration tables with zero-width columns
+	if (zeroWidthColumnsCount > 0) {
+		if (minTableWidth > maxTableWidth) {
+			const minWidth = Math.ceil((maxTableWidth - tableWidth) / zeroWidthColumnsCount);
+			cellMinWidth =
+				minWidth < akEditorTableLegacyCellMinWidth ? akEditorTableLegacyCellMinWidth : minWidth;
+		}
+	}
+	// scaling down
+	else if (renderWidth < tableWidth && !isTableWidthFixed) {
+		scaleDownPercent = calcScalePercent({
+			renderWidth,
+			tableWidth,
+			maxScale: MAX_SCALING_PERCENT,
+		});
+	}
+
+	return targetWidths.map((colWidth) => {
+		const width =
+			fixColumnWidth(
+				colWidth,
+				minTableWidth,
+				maxTableWidth,
+				zeroWidthColumnsCount,
+				scaleDownPercent,
+			) || cellMinWidth;
+
+		const style = width ? { width: `${width}px` } : {};
+		return style;
+	});
 };
 
 export const Colgroup = (props: SharedTableProps) => {
-  let { columnWidths, isNumberColumnEnabled } = props;
-  const flags = useFeatureFlags() as
-    | RendererContextProps['featureFlags']
-    | undefined;
+	let { columnWidths, isNumberColumnEnabled } = props;
+	const flags = useFeatureFlags() as RendererContextProps['featureFlags'] | undefined;
 
-  if (!columnWidths) {
-    return null;
-  }
+	if (!columnWidths) {
+		return null;
+	}
 
-  const colStyles = renderScaleDownColgroup({
-    ...props,
-    isTableScalingEnabled: !!(
-      flags &&
-      'tablePreserveWidth' in flags &&
-      flags.tablePreserveWidth
-    ),
-  });
+	const colStyles = renderScaleDownColgroup({
+		...props,
+		isTableScalingEnabled: !!(flags && 'tablePreserveWidth' in flags && flags.tablePreserveWidth),
+	});
 
-  if (!colStyles) {
-    return null;
-  }
+	if (!colStyles) {
+		return null;
+	}
 
-  return (
-    <colgroup>
-      {isNumberColumnEnabled && (
-        <col
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          style={{ width: akEditorTableNumberColumnWidth }}
-          data-test-id={'num'}
-        />
-      )}
-      {colStyles.map((style, idx) => (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        <col key={idx} style={style} />
-      ))}
-    </colgroup>
-  );
+	return (
+		<colgroup>
+			{isNumberColumnEnabled && (
+				<col
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={{ width: akEditorTableNumberColumnWidth }}
+					data-test-id={'num'}
+				/>
+			)}
+			{colStyles.map((style, idx) => (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				<col key={idx} style={style} />
+			))}
+		</colgroup>
+	);
 };

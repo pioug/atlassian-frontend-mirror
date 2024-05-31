@@ -8,39 +8,39 @@ import type { ArrowKeyNavigationProviderProps } from './types';
 import { ArrowKeyNavigationType } from './types';
 
 export const ArrowKeyNavigationProvider = (
-  props: React.PropsWithChildren<ArrowKeyNavigationProviderProps>,
+	props: React.PropsWithChildren<ArrowKeyNavigationProviderProps>,
 ) => {
-  const { children, type, ...restProps } = props;
+	const { children, type, ...restProps } = props;
 
-  if (type === ArrowKeyNavigationType.COLOR) {
-    return (
-      <ReactEditorViewContext.Consumer>
-        {({ editorView, editorRef }) =>
-          editorRef && (
-            <ColorPaletteArrowKeyNavigationProvider
-              selectedRowIndex={props.selectedRowIndex}
-              selectedColumnIndex={props.selectedColumnIndex}
-              isOpenedByKeyboard={props.isOpenedByKeyboard}
-              isPopupPositioned={props.isPopupPositioned}
-              editorRef={editorRef}
-              {...restProps}
-            >
-              {children}
-            </ColorPaletteArrowKeyNavigationProvider>
-          )
-        }
-      </ReactEditorViewContext.Consumer>
-    );
-  }
-  return (
-    <ReactEditorViewContext.Consumer>
-      {({ editorView, editorRef }) =>
-        editorRef && (
-          <MenuArrowKeyNavigationProvider editorRef={editorRef} {...restProps}>
-            {children}
-          </MenuArrowKeyNavigationProvider>
-        )
-      }
-    </ReactEditorViewContext.Consumer>
-  );
+	if (type === ArrowKeyNavigationType.COLOR) {
+		return (
+			<ReactEditorViewContext.Consumer>
+				{({ editorView, editorRef }) =>
+					editorRef && (
+						<ColorPaletteArrowKeyNavigationProvider
+							selectedRowIndex={props.selectedRowIndex}
+							selectedColumnIndex={props.selectedColumnIndex}
+							isOpenedByKeyboard={props.isOpenedByKeyboard}
+							isPopupPositioned={props.isPopupPositioned}
+							editorRef={editorRef}
+							{...restProps}
+						>
+							{children}
+						</ColorPaletteArrowKeyNavigationProvider>
+					)
+				}
+			</ReactEditorViewContext.Consumer>
+		);
+	}
+	return (
+		<ReactEditorViewContext.Consumer>
+			{({ editorView, editorRef }) =>
+				editorRef && (
+					<MenuArrowKeyNavigationProvider editorRef={editorRef} {...restProps}>
+						{children}
+					</MenuArrowKeyNavigationProvider>
+				)
+			}
+		</ReactEditorViewContext.Consumer>
+	);
 };

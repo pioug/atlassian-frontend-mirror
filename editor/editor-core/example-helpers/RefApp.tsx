@@ -18,94 +18,84 @@ import { toJSON } from '../src/utils';
 import { content } from './styles';
 
 const emojiProvider = getEmojiProvider({
-  uploadSupported: true,
+	uploadSupported: true,
 });
 const mentionProvider = Promise.resolve(mentionResourceProvider);
 const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 
 export interface State {
-  reloadEditor: boolean;
-  jsonDocument?: string;
+	reloadEditor: boolean;
+	jsonDocument?: string;
 }
 
 export default class ToolsDrawer extends React.Component<any, State> {
-  private providerFactory: ProviderFactory;
+	private providerFactory: ProviderFactory;
 
-  constructor(props: any) {
-    super(props);
+	constructor(props: any) {
+		super(props);
 
-    this.providerFactory = new ProviderFactory();
-    this.providerFactory.setProvider('emojiProvider', emojiProvider);
-    this.providerFactory.setProvider('mentionProvider', mentionProvider);
-    this.providerFactory.setProvider(
-      'taskDecisionProvider',
-      taskDecisionProvider,
-    );
-    this.providerFactory.setProvider(
-      'contextIdentifierProvider',
-      contextIdentifierProvider,
-    );
+		this.providerFactory = new ProviderFactory();
+		this.providerFactory.setProvider('emojiProvider', emojiProvider);
+		this.providerFactory.setProvider('mentionProvider', mentionProvider);
+		this.providerFactory.setProvider('taskDecisionProvider', taskDecisionProvider);
+		this.providerFactory.setProvider('contextIdentifierProvider', contextIdentifierProvider);
 
-    this.state = {
-      reloadEditor: false,
-      jsonDocument: '{}',
-    };
-  }
+		this.state = {
+			reloadEditor: false,
+			jsonDocument: '{}',
+		};
+	}
 
-  private onChange = (editorView: EditorView) => {
-    this.setState({
-      jsonDocument: JSON.stringify(toJSON(editorView.state.doc), null, 2),
-    });
-  };
+	private onChange = (editorView: EditorView) => {
+		this.setState({
+			jsonDocument: JSON.stringify(toJSON(editorView.state.doc), null, 2),
+		});
+	};
 
-  private renderRenderer(doc: string = '') {
-    try {
-      const props: any = {
-        document: JSON.parse(doc),
-        dataProviders: this.providerFactory,
-        appearance: 'comment',
-      };
-      return (
-        <div>
-          <div
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            style={{ color: '#ccc', marginBottom: token('space.100', '8px') }}
-          >
-            &lt;Renderer&gt;
-          </div>
-          <ReactRenderer {...props} />
-          {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-          <div style={{ color: '#ccc', marginTop: token('space.100', '8px') }}>
-            &lt;/Renderer&gt;
-          </div>
-        </div>
-      );
-    } catch (ex) {
-      return (
-        <pre>
-          Invalid document: {ex instanceof Error ? ex.stack : String(ex)}
-        </pre>
-      );
-    }
-  }
+	private renderRenderer(doc: string = '') {
+		try {
+			const props: any = {
+				document: JSON.parse(doc),
+				dataProviders: this.providerFactory,
+				appearance: 'comment',
+			};
+			return (
+				<div>
+					<div
+						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={{ color: '#ccc', marginBottom: token('space.100', '8px') }}
+					>
+						&lt;Renderer&gt;
+					</div>
+					<ReactRenderer {...props} />
+					{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+					<div style={{ color: '#ccc', marginTop: token('space.100', '8px') }}>
+						&lt;/Renderer&gt;
+					</div>
+				</div>
+			);
+		} catch (ex) {
+			return <pre>Invalid document: {ex instanceof Error ? ex.stack : String(ex)}</pre>;
+		}
+	}
 
-  render() {
-    const { reloadEditor, jsonDocument } = this.state;
-    return (
-      <div css={content}>
-        {reloadEditor
-          ? ''
-          : this.props.renderEditor({
-              onChange: this.onChange,
-              emojiProvider,
-              mentionProvider,
-              taskDecisionProvider,
-              contextIdentifierProvider,
-            })}
-        <legend>Renderer:</legend>
-        {this.renderRenderer(jsonDocument)}
-      </div>
-    );
-  }
+	render() {
+		const { reloadEditor, jsonDocument } = this.state;
+		return (
+			<div css={content}>
+				{reloadEditor
+					? ''
+					: this.props.renderEditor({
+							onChange: this.onChange,
+							emojiProvider,
+							mentionProvider,
+							taskDecisionProvider,
+							contextIdentifierProvider,
+						})}
+				<legend>Renderer:</legend>
+				{this.renderRenderer(jsonDocument)}
+			</div>
+		);
+	}
 }

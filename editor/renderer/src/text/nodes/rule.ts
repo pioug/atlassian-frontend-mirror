@@ -1,7 +1,7 @@
 import { type NodeReducer } from './';
 
 const rule: NodeReducer = () => {
-  return '';
+	return '';
 };
 
 export default rule;

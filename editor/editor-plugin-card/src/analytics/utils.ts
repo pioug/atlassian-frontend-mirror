@@ -1,138 +1,132 @@
 import { type Node } from '@atlaskit/editor-prosemirror/model';
-import {
-  type ReadonlyTransaction,
-  type Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import { type ReadonlyTransaction, type Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { appearanceForNodeType } from '../utils';
 
 import { type Entity, EVENT_SUBJECT } from './types';
 
 export function isDatasourceNode(node: Node) {
-  return 'datasource' in node.attrs && !!node.attrs.datasource;
+	return 'datasource' in node.attrs && !!node.attrs.datasource;
 }
 
 /**
  * Determine if a node is considered to be a link
  */
 export const isLinkNode = (node: Node) => {
-  if (isDatasourceNode(node)) {
-    return false;
-  }
+	if (isDatasourceNode(node)) {
+		return false;
+	}
 
-  if (!!appearanceForNodeType(node.type)) {
-    return true;
-  }
+	if (!!appearanceForNodeType(node.type)) {
+		return true;
+	}
 
-  return hasLinkMark(node);
+	return hasLinkMark(node);
 };
 
 export function getNodeSubject(node: Node) {
-  if (isDatasourceNode(node)) {
-    return EVENT_SUBJECT.DATASOURCE;
-  }
-  if (isLinkNode(node)) {
-    return EVENT_SUBJECT.LINK;
-  }
-  return null;
+	if (isDatasourceNode(node)) {
+		return EVENT_SUBJECT.DATASOURCE;
+	}
+	if (isLinkNode(node)) {
+		return EVENT_SUBJECT.LINK;
+	}
+	return null;
 }
 
 /**
  * Analytics appearance for link object
  */
 export function appearanceForLink(node: Node) {
-  const appearance = appearanceForNodeType(node.type);
-  if (appearance) {
-    return appearance;
-  }
+	const appearance = appearanceForNodeType(node.type);
+	if (appearance) {
+		return appearance;
+	}
 
-  return 'url';
+	return 'url';
 }
 
 const getLinkMark = (node: Node) => {
-  if (node.marks) {
-    for (let i = 0; i < node.marks.length; i++) {
-      const mark = node.marks[i];
-      if (mark.type.name === 'link') {
-        return mark;
-      }
-    }
-  }
+	if (node.marks) {
+		for (let i = 0; i < node.marks.length; i++) {
+			const mark = node.marks[i];
+			if (mark.type.name === 'link') {
+				return mark;
+			}
+		}
+	}
 };
 
 const hasLinkMark = (node: Node) => {
-  return !!getLinkMark(node);
+	return !!getLinkMark(node);
 };
 
 export function getUrl(node: Node): string | undefined {
-  return node.attrs?.url ?? getLinkMark(node)?.attrs?.href;
+	return node.attrs?.url ?? getLinkMark(node)?.attrs?.href;
 }
 
 export const getNodeContext = (doc: Node, pos: number) => {
-  const $pos = doc.resolve(pos);
+	const $pos = doc.resolve(pos);
 
-  const maxDepth = 3;
-  for (let i = 0; i <= maxDepth; i++) {
-    const node = $pos.node($pos.depth - i);
-    if (node && node.type.name !== 'paragraph') {
-      return node.type.name;
-    }
-  }
+	const maxDepth = 3;
+	for (let i = 0; i <= maxDepth; i++) {
+		const node = $pos.node($pos.depth - i);
+		if (node && node.type.name !== 'paragraph') {
+			return node.type.name;
+		}
+	}
 
-  return 'unknown';
+	return 'unknown';
 };
 
-export const findAtPositions = (
-  tr: Transaction | ReadonlyTransaction,
-  positions: number[],
-) => {
-  const entities: Entity[] = [];
+export const findAtPositions = (tr: Transaction | ReadonlyTransaction, positions: number[]) => {
+	const entities: Entity[] = [];
 
-  for (let i = 0; i < positions.length; i++) {
-    const pos = positions[i];
-    const node = tr.doc.nodeAt(pos);
+	for (let i = 0; i < positions.length; i++) {
+		const pos = positions[i];
+		const node = tr.doc.nodeAt(pos);
 
-    if (!node) {
-      continue;
-    }
+		if (!node) {
+			continue;
+		}
 
-    const nodeContext = getNodeContext(tr.doc, pos);
+		const nodeContext = getNodeContext(tr.doc, pos);
 
-    entities.push({
-      pos,
-      node,
-      nodeContext,
-    });
-  }
+		entities.push({
+			pos,
+			node,
+			nodeContext,
+		});
+	}
 
-  return entities;
+	return entities;
 };
 
 export const findInNodeRange = (
-  doc: Node,
-  from: number,
-  to: number,
-  predicate: (node: Node) => boolean,
+	doc: Node,
+	from: number,
+	to: number,
+	predicate: (node: Node) => boolean,
 ) => {
-  const entities: Entity[] = [];
+	const entities: Entity[] = [];
 
-  doc.nodesBetween(from, to, (node, pos) => {
-    if (predicate(node)) {
-      const entirelyInRange = pos >= from && pos + node.nodeSize <= to;
+	doc.nodesBetween(from, to, (node, pos) => {
+		if (predicate(node)) {
+			const entirelyInRange = pos >= from && pos + node.nodeSize <= to;
 
-      if (entirelyInRange) {
-        const nodeContext = getNodeContext(doc, pos);
+			if (entirelyInRange) {
+				const nodeContext = getNodeContext(doc, pos);
 
-        entities.push({
-          pos,
-          node,
-          nodeContext,
-        });
-      }
-    }
-  });
+				entities.push({
+					pos,
+					node,
+					nodeContext,
+				});
+			}
+		}
+	});
 
-  return entities;
+	return entities;
 };
 
 /**
@@ -140,21 +134,21 @@ export const findInNodeRange = (
  * That they are in the same order and that both their hrefs and appearances match
  */
 export const areSameNodes = (setA: Entity[], setB: Entity[]) => {
-  if (setA.length !== setB.length) {
-    return false;
-  }
+	if (setA.length !== setB.length) {
+		return false;
+	}
 
-  for (let i = 0; i < setA.length; i++) {
-    const a = setA[i];
-    const b = setB[i];
+	for (let i = 0; i < setA.length; i++) {
+		const a = setA[i];
+		const b = setB[i];
 
-    if (
-      getUrl(a.node) !== getUrl(b.node) ||
-      appearanceForLink(a.node) !== appearanceForLink(b.node)
-    ) {
-      return false;
-    }
-  }
+		if (
+			getUrl(a.node) !== getUrl(b.node) ||
+			appearanceForLink(a.node) !== appearanceForLink(b.node)
+		) {
+			return false;
+		}
+	}
 
-  return true;
+	return true;
 };

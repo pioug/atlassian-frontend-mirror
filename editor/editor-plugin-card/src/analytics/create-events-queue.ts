@@ -1,10 +1,10 @@
 export type Subscriber<T> = (event: T) => void;
 
 export type EditorCardPluginEvents<T> = {
-  push: (...events: T[]) => void;
-  subscribe: (listener: Subscriber<T>) => () => void;
-  flush: () => void;
-  getSize: () => number;
+	push: (...events: T[]) => void;
+	subscribe: (listener: Subscriber<T>) => () => void;
+	flush: () => void;
+	getSize: () => number;
 };
 
 /**
@@ -20,41 +20,39 @@ export type EditorCardPluginEvents<T> = {
  * to be subscribed to elsewhere where the react context is available (contentComponent or otherwise) (smart card context)
  * in order to be able to annotate events with additional attributes to events
  */
-export const createEventsQueue = <
-  T extends unknown,
->(): EditorCardPluginEvents<T> => {
-  const queue: T[] = [];
-  const subscribers = new Set<Subscriber<T>>();
+export const createEventsQueue = <T extends unknown>(): EditorCardPluginEvents<T> => {
+	const queue: T[] = [];
+	const subscribers = new Set<Subscriber<T>>();
 
-  const subscribe = (subscriber: Subscriber<T>) => {
-    subscribers.add(subscriber);
-    return () => {
-      subscribers.delete(subscriber);
-    };
-  };
+	const subscribe = (subscriber: Subscriber<T>) => {
+		subscribers.add(subscriber);
+		return () => {
+			subscribers.delete(subscriber);
+		};
+	};
 
-  const push = (...events: T[]) => {
-    queue.push(...events);
-  };
+	const push = (...events: T[]) => {
+		queue.push(...events);
+	};
 
-  const flush = () => {
-    while (queue.length) {
-      const event = queue.shift();
+	const flush = () => {
+		while (queue.length) {
+			const event = queue.shift();
 
-      if (event) {
-        subscribers.forEach(subscriber => {
-          subscriber(event);
-        });
-      }
-    }
-  };
+			if (event) {
+				subscribers.forEach((subscriber) => {
+					subscriber(event);
+				});
+			}
+		}
+	};
 
-  const getSize = () => queue.length;
+	const getSize = () => queue.length;
 
-  return {
-    push,
-    flush,
-    subscribe,
-    getSize,
-  };
+	return {
+		push,
+		flush,
+		subscribe,
+		getSize,
+	};
 };

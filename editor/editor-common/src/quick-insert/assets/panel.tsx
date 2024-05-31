@@ -3,44 +3,41 @@ import React from 'react';
 import { useIconThemed } from '../use-icon-themed';
 
 export default function IconPanel() {
-  const { iconThemed } = useIconThemed();
-  return (
-    <svg focusable="false" aria-hidden width={40} height={40}>
-      <g fill="none" fillRule="evenodd">
-        <path
-          fill={iconThemed({ light: '#FFF', dark: '#161A1D' })}
-          d="M0 0h40v40H0z"
-        />
-        <rect
-          fill={iconThemed({ light: '#DEEBFF', dark: '#09326C' })}
-          x={8}
-          y={12}
-          width={32}
-          height={16}
-          rx={1}
-        />
-        <path
-          d="M12 20a4 4 0 108 0 4 4 0 00-8 0z"
-          fill={iconThemed({ light: '#0052CC', dark: '#388BFF' })}
-          fillRule="nonzero"
-        />
-        <rect
-          fill={iconThemed({ light: '#FFF', dark: '#09326C' })}
-          fillRule="nonzero"
-          x={15.556}
-          y={19.722}
-          width={1}
-          height={2.2}
-          rx={0.5}
-        />
-        <circle
-          fill={iconThemed({ light: '#FFF', dark: '#09326C' })}
-          fillRule="nonzero"
-          cx={16}
-          cy={18.444}
-          r={1}
-        />
-      </g>
-    </svg>
-  );
+	const { iconThemed } = useIconThemed();
+	return (
+		<svg focusable="false" aria-hidden width={40} height={40}>
+			<g fill="none" fillRule="evenodd">
+				<path fill={iconThemed({ light: '#FFF', dark: '#161A1D' })} d="M0 0h40v40H0z" />
+				<rect
+					fill={iconThemed({ light: '#DEEBFF', dark: '#09326C' })}
+					x={8}
+					y={12}
+					width={32}
+					height={16}
+					rx={1}
+				/>
+				<path
+					d="M12 20a4 4 0 108 0 4 4 0 00-8 0z"
+					fill={iconThemed({ light: '#0052CC', dark: '#388BFF' })}
+					fillRule="nonzero"
+				/>
+				<rect
+					fill={iconThemed({ light: '#FFF', dark: '#09326C' })}
+					fillRule="nonzero"
+					x={15.556}
+					y={19.722}
+					width={1}
+					height={2.2}
+					rx={0.5}
+				/>
+				<circle
+					fill={iconThemed({ light: '#FFF', dark: '#09326C' })}
+					fillRule="nonzero"
+					cx={16}
+					cy={18.444}
+					r={1}
+				/>
+			</g>
+		</svg>
+	);
 }

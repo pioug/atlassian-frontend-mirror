@@ -13,11 +13,11 @@ export { BorderIcon } from './shared/BorderIcon';
 export { SteppedRainbowIconDecoration } from './shared/SteppedRainbowIconDecoration';
 
 export const IconTable = Loadable({
-  loader: () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_editor-icon-table" */ '../icons/shared/table'
-    ).then((module) => module.default) as Promise<
-      React.ComponentType<React.PropsWithChildren<IconProps>>
-    >,
-  loading: () => null,
+	loader: () =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-icon-table" */ '../icons/shared/table'
+		).then((module) => module.default) as Promise<
+			React.ComponentType<React.PropsWithChildren<IconProps>>
+		>,
+	loading: () => null,
 });

@@ -5,10 +5,10 @@ import type { CSSToken } from '@atlaskit/tokens';
 export type WidthTypes = 'percentage' | 'pixel';
 
 export type LengthGuide = {
-  left: number;
-  right: number;
-  length: number;
-  isFullWidth?: boolean;
+	left: number;
+	right: number;
+	length: number;
+	isFullWidth?: boolean;
 };
 
 export type Range = { start: number; end: number };
@@ -30,29 +30,29 @@ export type HorizontalPosition = { x?: Range; y: number };
 export type Position = VerticalPosition | HorizontalPosition;
 
 export type GuidelineStyles = {
-  active?: boolean;
-  show?: boolean;
-  styles?: {
-    capStyle?: 'line';
-    lineStyle?: 'dashed' | 'solid'; // default solid
-    color?: CSSToken;
-  };
+	active?: boolean;
+	show?: boolean;
+	styles?: {
+		capStyle?: 'line';
+		lineStyle?: 'dashed' | 'solid'; // default solid
+		color?: CSSToken;
+	};
 };
 
 export type GuidelineConfig = {
-  key: string; // will be used as the React key
-  position: Position;
-  isFullWidth?: boolean;
+	key: string; // will be used as the React key
+	position: Position;
+	isFullWidth?: boolean;
 } & GuidelineStyles;
 
 export type GuidelineContainerRect = {
-  top: number;
-  left: number;
+	top: number;
+	left: number;
 };
 
 export type GuidelinePluginState = {
-  guidelines: GuidelineConfig[];
-  rect?: GuidelineContainerRect;
+	guidelines: GuidelineConfig[];
+	rect?: GuidelineContainerRect;
 };
 
 export interface GuidelinePluginOptions {}
@@ -61,25 +61,25 @@ export type DisplayGrid = (props: GuidelinePluginState) => boolean;
 export type DisplayGuideline = (view: EditorView) => DisplayGrid;
 
 export type GuidelineSnap = {
-  guidelineKey: string;
-  width: number;
+	guidelineKey: string;
+	width: number;
 };
 
 export type GuidelineSnapsReference = {
-  snaps: {
-    x?: number[];
-    y?: number[];
-  };
-  guidelineReference: GuidelineSnap[];
+	snaps: {
+		x?: number[];
+		y?: number[];
+	};
+	guidelineReference: GuidelineSnap[];
 };
 
 export type GuidelineTypes = 'default' | 'temporary' | 'relative' | 'none';
 
 export type RelativeGuides = {
-  width?: {
-    [key: number]: NodeWithPos[];
-  };
-  height?: {
-    [key: number]: NodeWithPos[];
-  };
+	width?: {
+		[key: number]: NodeWithPos[];
+	};
+	height?: {
+		[key: number]: NodeWithPos[];
+	};
 };

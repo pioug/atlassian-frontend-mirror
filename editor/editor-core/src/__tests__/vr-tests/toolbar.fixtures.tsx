@@ -7,19 +7,19 @@ import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 
 export const EditorToolbarWithIconBefore = () => {
-  const { preset } = usePreset(() => createDefaultPreset({}));
-  return (
-    <ComposableEditor
-      preset={preset}
-      appearance="full-page"
-      primaryToolbarIconBefore={
-        <Button
-          iconBefore={<AtlassianIcon />}
-          appearance="subtle"
-          href="https://atlaskit.atlassian.com/"
-          shouldFitContainer
-        ></Button>
-      }
-    />
-  );
+	const { preset } = usePreset(() => createDefaultPreset({}));
+	return (
+		<ComposableEditor
+			preset={preset}
+			appearance="full-page"
+			primaryToolbarIconBefore={
+				<Button
+					iconBefore={<AtlassianIcon />}
+					appearance="subtle"
+					href="https://atlaskit.atlassian.com/"
+					shouldFitContainer
+				></Button>
+			}
+		/>
+	);
 };

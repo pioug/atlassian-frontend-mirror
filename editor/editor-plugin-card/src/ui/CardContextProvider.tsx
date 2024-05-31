@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import type { CardContext } from '@atlaskit/link-provider';
 
 type CardContextProviderProps = {
-  children: ({ cardContext }: { cardContext?: CardContext }) => React.ReactNode;
+	children: ({ cardContext }: { cardContext?: CardContext }) => React.ReactNode;
 };
 
 /**
@@ -13,22 +13,19 @@ type CardContextProviderProps = {
  * and children render function
  */
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class CardContextProvider extends React.Component<
-  CardContextProviderProps,
-  {}
-> {
-  static contextTypes = {
-    contextAdapter: PropTypes.object,
-  };
+export class CardContextProvider extends React.Component<CardContextProviderProps, {}> {
+	static contextTypes = {
+		contextAdapter: PropTypes.object,
+	};
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context: any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	context: any;
 
-  render() {
-    const cardContext = this.context.contextAdapter
-      ? this.context.contextAdapter.card?.value
-      : undefined;
+	render() {
+		const cardContext = this.context.contextAdapter
+			? this.context.contextAdapter.card?.value
+			: undefined;
 
-    return this.props.children({ cardContext });
-  }
+		return this.props.children({ cardContext });
+	}
 }

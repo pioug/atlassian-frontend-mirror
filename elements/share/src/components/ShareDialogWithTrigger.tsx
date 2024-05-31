@@ -13,6 +13,7 @@ import {
   withAnalyticsEvents,
   type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { type Appearance } from '@atlaskit/button';
 import { type IconProps } from '@atlaskit/icon';
 import ShareIcon from '@atlaskit/icon/glyph/share';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
@@ -177,7 +178,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
   };
 
   private onMenuItemChange = (menuType: MenuType) => {
-    let subjectId: MenuItemSubjectIdType = menuType === 'Slack' ? 'shareToSlackMenuItem' : 'shareMenuItem';
+    let subjectId: MenuItemSubjectIdType =
+      menuType === 'Slack' ? 'shareToSlackMenuItem' : 'shareMenuItem';
     const { shareContentType } = this.props;
 
     this.createAndFireEvent(shareMenuItemClicked(subjectId, shareContentType));
@@ -397,8 +399,9 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     isMenuItemSelected?: boolean;
     dialogPlacement?: string;
   }): [number, number] => {
-    if (isMenuItemSelected && dialogPlacement === 'bottom-end')
-      {return [-0.1, 8];}
+    if (isMenuItemSelected && dialogPlacement === 'bottom-end') {
+      return [-0.1, 8];
+    }
     return [0, 8];
   };
 
@@ -469,7 +472,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     } else {
       button = (
         <ShareButton
-          appearance={triggerButtonAppearance}
+          appearance={triggerButtonAppearance as Appearance}
           text={
             triggerButtonStyle !== 'icon-only' ? (
               <FormattedMessage {...messages.shareTriggerButtonText} />

@@ -11,37 +11,37 @@ import { pluginKey } from '../types';
 import { handleCut } from '../utils';
 
 export type PanelOptions = {
-  color?: string;
-  emoji?: string;
-  emojiId?: string;
-  emojiText?: string;
+	color?: string;
+	emoji?: string;
+	emojiId?: string;
+	emojiText?: string;
 };
 
 export const createPlugin = (
-  dispatch: Dispatch,
-  providerFactory: ProviderFactory,
-  pluginOptions: PanelPluginOptions,
+	dispatch: Dispatch,
+	providerFactory: ProviderFactory,
+	pluginOptions: PanelPluginOptions,
 ) => {
-  const { useLongPressSelection = false } = pluginOptions;
-  return new SafePlugin({
-    key: pluginKey,
-    appendTransaction: (transactions, oldState, newState) => {
-      if (getBooleanFF('platform.editor.allow-custom-cut-for-panel')) {
-        const tr = transactions.find(tr => tr.getMeta('uiEvent') === 'cut');
-        if (tr) {
-          return handleCut(newState, oldState);
-        }
-      }
-    },
-    props: {
-      nodeViews: {
-        panel: getPanelNodeView(pluginOptions, providerFactory),
-      },
-      handleClickOn: createSelectionClickHandler(
-        ['panel'],
-        target => !!target.closest(`.${PanelSharedCssClassName.prefix}`),
-        { useLongPressSelection },
-      ),
-    },
-  });
+	const { useLongPressSelection = false } = pluginOptions;
+	return new SafePlugin({
+		key: pluginKey,
+		appendTransaction: (transactions, oldState, newState) => {
+			if (getBooleanFF('platform.editor.allow-custom-cut-for-panel')) {
+				const tr = transactions.find((tr) => tr.getMeta('uiEvent') === 'cut');
+				if (tr) {
+					return handleCut(newState, oldState);
+				}
+			}
+		},
+		props: {
+			nodeViews: {
+				panel: getPanelNodeView(pluginOptions, providerFactory),
+			},
+			handleClickOn: createSelectionClickHandler(
+				['panel'],
+				(target) => !!target.closest(`.${PanelSharedCssClassName.prefix}`),
+				{ useLongPressSelection },
+			),
+		},
+	});
 };

@@ -9,20 +9,20 @@ import type { TablePluginState } from '../types';
  * We are using editor-tables splitCellWithType that allows you to choose what cell type should be.
  */
 export const splitCell: Command = (state, dispatch) => {
-  const tableState: TablePluginState = getPluginState(state);
-  const { tableHeader, tableCell } = state.schema.nodes;
-  if (dispatch) {
-    return splitCellWithType(({ row, col }: { row: number; col: number }) => {
-      if (
-        (row === 0 && tableState.isHeaderRowEnabled) ||
-        (col === 0 && tableState.isHeaderColumnEnabled)
-      ) {
-        return tableHeader;
-      }
+	const tableState: TablePluginState = getPluginState(state);
+	const { tableHeader, tableCell } = state.schema.nodes;
+	if (dispatch) {
+		return splitCellWithType(({ row, col }: { row: number; col: number }) => {
+			if (
+				(row === 0 && tableState.isHeaderRowEnabled) ||
+				(col === 0 && tableState.isHeaderColumnEnabled)
+			) {
+				return tableHeader;
+			}
 
-      return tableCell;
-    })(state, dispatch);
-  }
+			return tableCell;
+		})(state, dispatch);
+	}
 
-  return true;
+	return true;
 };

@@ -1,3 +1,3 @@
 export type EditorTheme = {
-  baseFontSize?: number;
+	baseFontSize?: number;
 };

@@ -37,34 +37,34 @@ export const styles = `
 `;
 
 export default function expand({ attrs, text }: NodeSerializerOpts) {
-  if (!text) {
-    return '';
-  }
+	if (!text) {
+		return '';
+	}
 
-  const expandIconTd: TableData = {
-    text: createTag('img', {
-      class: className + '-icon',
-      src: createContentId('expand'),
-    }),
-    attrs: { class: className + '-iconWrapper' },
-  };
+	const expandIconTd: TableData = {
+		text: createTag('img', {
+			class: className + '-icon',
+			src: createContentId('expand'),
+		}),
+		attrs: { class: className + '-iconWrapper' },
+	};
 
-  const expandTitleTd: TableData = {
-    text: attrs.title || 'Click here to expand...',
-    attrs: { class: className + '-title' },
-  };
+	const expandTitleTd: TableData = {
+		text: attrs.title || 'Click here to expand...',
+		attrs: { class: className + '-title' },
+	};
 
-  const expandContentTd: TableData = {
-    text,
-    attrs: { class: className + '-content' },
-  };
+	const expandContentTd: TableData = {
+		text,
+		attrs: { class: className + '-content' },
+	};
 
-  return createTable(
-    [
-      [expandIconTd, expandTitleTd],
-      [{}, expandContentTd],
-    ],
-    undefined,
-    { class: className },
-  );
+	return createTable(
+		[
+			[expandIconTd, expandTitleTd],
+			[{}, expandContentTd],
+		],
+		undefined,
+		{ class: className },
+	);
 }

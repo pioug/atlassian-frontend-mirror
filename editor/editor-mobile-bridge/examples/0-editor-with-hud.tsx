@@ -20,53 +20,53 @@ import { disableZooming } from './utils/viewport';
 (window as any).messageHandler = new EventEmitter2();
 
 function EditorWithFetchProxy() {
-  const bridge = getBridge();
-  const editorConfiguration = useEditorConfiguration(
-    bridge,
-    new MobileEditorConfiguration(
-      `{ "enableQuickInsert": "true", "allowCollabProvider": ${isCollabEnabled()} }`,
-    ),
-  );
-  const smartCardClient = useMemo(() => new ConfluenceCardClient('stg'), []);
+	const bridge = getBridge();
+	const editorConfiguration = useEditorConfiguration(
+		bridge,
+		new MobileEditorConfiguration(
+			`{ "enableQuickInsert": "true", "allowCollabProvider": ${isCollabEnabled()} }`,
+		),
+	);
+	const smartCardClient = useMemo(() => new ConfluenceCardClient('stg'), []);
 
-  return (
-    <>
-      <Editor
-        bridge={bridge}
-        createCollabProvider={createCollabProviderFactory(fetchProxy)}
-        cardProvider={Promise.resolve(new ConfluenceCardProvider('stg'))}
-        cardClient={smartCardClient}
-        emojiProvider={getEmojiProvider() as any}
-        mentionProvider={Promise.resolve(mentionResourceProvider)}
-        mediaProvider={storyMediaProviderFactory({
-          collectionName: 'InitialCollectionForTesting',
-        })}
-        placeholder="Type something here"
-        shouldFocus={true}
-        editorConfiguration={editorConfiguration}
-        locale={editorConfiguration.getLocale()}
-      />
-    </>
-  );
+	return (
+		<>
+			<Editor
+				bridge={bridge}
+				createCollabProvider={createCollabProviderFactory(fetchProxy)}
+				cardProvider={Promise.resolve(new ConfluenceCardProvider('stg'))}
+				cardClient={smartCardClient}
+				emojiProvider={getEmojiProvider() as any}
+				mentionProvider={Promise.resolve(mentionResourceProvider)}
+				mediaProvider={storyMediaProviderFactory({
+					collectionName: 'InitialCollectionForTesting',
+				})}
+				placeholder="Type something here"
+				shouldFocus={true}
+				editorConfiguration={editorConfiguration}
+				locale={editorConfiguration.getLocale()}
+			/>
+		</>
+	);
 }
 
 export default class Example extends React.Component {
-  componentDidMount() {
-    disableZooming();
-    // Set initial padding (this usually gets set by native)
-    if (window.bridge) {
-      window.bridge.setPadding(32, 16, 0, 16);
-    }
-  }
+	componentDidMount() {
+		disableZooming();
+		// Set initial padding (this usually gets set by native)
+		if (window.bridge) {
+			window.bridge.setPadding(32, 16, 0, 16);
+		}
+	}
 
-  render() {
-    return (
-      <>
-        <HUD />
-        <div id="editor">
-          <EditorWithFetchProxy />
-        </div>
-      </>
-    );
-  }
+	render() {
+		return (
+			<>
+				<HUD />
+				<div id="editor">
+					<EditorWithFetchProxy />
+				</div>
+			</>
+		);
+	}
 }

@@ -1,19 +1,16 @@
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
 import type {
-  Fragment,
-  MarkType,
-  NodeType,
-  Mark as PMMark,
-  Node as PMNode,
-  ResolvedPos,
-  Schema,
-  Slice,
+	Fragment,
+	MarkType,
+	NodeType,
+	Mark as PMMark,
+	Node as PMNode,
+	ResolvedPos,
+	Schema,
+	Slice,
 } from '@atlaskit/editor-prosemirror/model';
-import type {
-  EditorState,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { CardAppearance } from '@atlaskit/smart-card';
@@ -24,63 +21,54 @@ import type { CardAppearance } from '@atlaskit/smart-card';
  * be changed by the transaction
  */
 export const findChangedNodesFromTransaction = (tr: Transaction): PMNode[] => {
-  const nodes: PMNode[] = [];
-  const steps = (tr.steps || []) as (Step & {
-    from: number;
-    to: number;
-    slice?: Slice;
-  })[];
+	const nodes: PMNode[] = [];
+	const steps = (tr.steps || []) as (Step & {
+		from: number;
+		to: number;
+		slice?: Slice;
+	})[];
 
-  steps.forEach((step) => {
-    step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
-      tr.doc.nodesBetween(
-        newStart,
-        Math.min(newEnd, tr.doc.content.size),
-        (node) => {
-          if (!nodes.find((n) => n === node)) {
-            nodes.push(node);
-          }
-          return false;
-        },
-      );
-    });
-  });
+	steps.forEach((step) => {
+		step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
+			tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node) => {
+				if (!nodes.find((n) => n === node)) {
+					nodes.push(node);
+				}
+				return false;
+			});
+		});
+	});
 
-  return nodes;
+	return nodes;
 };
 
 export const validNode = (node: PMNode): boolean => {
-  try {
-    node.check(); // this will throw an error if the node is invalid
-  } catch (error) {
-    return false;
-  }
-  return true;
+	try {
+		node.check(); // this will throw an error if the node is invalid
+	} catch (error) {
+		return false;
+	}
+	return true;
 };
 
 /** Validates prosemirror nodes, and returns true only if all nodes are valid */
-export const validateNodes = (nodes: PMNode[]): boolean =>
-  nodes.every(validNode);
+export const validateNodes = (nodes: PMNode[]): boolean => nodes.every(validNode);
 
 type PMEntities = PMNode | PMMark | null | undefined;
 
-export const isType = (
-  node: PMEntities,
-  type: NodeType | MarkType | undefined,
-) => type && node && node.type === type;
+export const isType = (node: PMEntities, type: NodeType | MarkType | undefined) =>
+	type && node && node.type === type;
 
 export const isParagraph = (node: PMEntities, schema: Schema) =>
-  isType(node, schema.nodes.paragraph);
+	isType(node, schema.nodes.paragraph);
 
-export const isText = (node: PMEntities, schema: Schema) =>
-  isType(node, schema.nodes.text);
+export const isText = (node: PMEntities, schema: Schema) => isType(node, schema.nodes.text);
 
-export const isLinkMark = (node: PMEntities, schema: Schema) =>
-  isType(node, schema.marks.link);
+export const isLinkMark = (node: PMEntities, schema: Schema) => isType(node, schema.marks.link);
 
 export enum SelectedState {
-  selectedInRange,
-  selectedInside,
+	selectedInRange,
+	selectedInside,
 }
 
 /**
@@ -90,32 +78,32 @@ export enum SelectedState {
  * is fully selected by a range or if the "inside" of the node has been selected or clicked.
  */
 export const isNodeSelectedOrInRange = (
-  anchorPosition: number,
-  headPosition: number,
-  nodePosition: number | undefined,
-  nodeSize: number,
+	anchorPosition: number,
+	headPosition: number,
+	nodePosition: number | undefined,
+	nodeSize: number,
 ): SelectedState | null => {
-  if (typeof nodePosition !== 'number') {
-    return null;
-  }
+	if (typeof nodePosition !== 'number') {
+		return null;
+	}
 
-  const rangeStart = Math.min(anchorPosition, headPosition);
-  const rangeEnd = Math.max(anchorPosition, headPosition);
-  const nodeStart = nodePosition;
-  const nodeEnd = nodePosition + nodeSize;
-  if (anchorPosition === headPosition) {
-    return null;
-  }
-  if (
-    (rangeStart <= nodeStart && nodeEnd < rangeEnd) ||
-    (rangeStart < nodeStart && nodeEnd <= rangeEnd)
-  ) {
-    return SelectedState.selectedInRange;
-  }
-  if (nodeStart <= anchorPosition && headPosition <= nodeEnd) {
-    return SelectedState.selectedInside;
-  }
-  return null;
+	const rangeStart = Math.min(anchorPosition, headPosition);
+	const rangeEnd = Math.max(anchorPosition, headPosition);
+	const nodeStart = nodePosition;
+	const nodeEnd = nodePosition + nodeSize;
+	if (anchorPosition === headPosition) {
+		return null;
+	}
+	if (
+		(rangeStart <= nodeStart && nodeEnd < rangeEnd) ||
+		(rangeStart < nodeStart && nodeEnd <= rangeEnd)
+	) {
+		return SelectedState.selectedInRange;
+	}
+	if (nodeStart <= anchorPosition && headPosition <= nodeEnd) {
+		return SelectedState.selectedInside;
+	}
+	return null;
 };
 
 /**
@@ -124,16 +112,13 @@ export const isNodeSelectedOrInRange = (
  * @param fragment The fragment to be checked for
  */
 export const isSupportedInParent = (
-  state: EditorState,
-  fragment: Fragment,
-  currentAppearance?: CardAppearance,
+	state: EditorState,
+	fragment: Fragment,
+	currentAppearance?: CardAppearance,
 ): boolean => {
-  const depth =
-    currentAppearance === 'embed' || currentAppearance === 'block'
-      ? undefined
-      : -1;
-  const parent = state.selection.$from.node(depth);
-  return parent && parent.type.validContent(fragment);
+	const depth = currentAppearance === 'embed' || currentAppearance === 'block' ? undefined : -1;
+	const parent = state.selection.$from.node(depth);
+	return parent && parent.type.validContent(fragment);
 };
 
 /**
@@ -142,9 +127,7 @@ export const isSupportedInParent = (
  * @param node The PM node to be checked
  */
 export const isMediaNode = (node: PMNode): boolean => {
-  return ['media', 'mediaInline', 'mediaGroup', 'mediaSingle'].includes(
-    node.type.name,
-  );
+	return ['media', 'mediaInline', 'mediaGroup', 'mediaSingle'].includes(node.type.name);
 };
 
 /**
@@ -154,46 +137,38 @@ export const isMediaNode = (node: PMNode): boolean => {
  * @param $pos The position of the selection
  * @param state The editor state
  */
-export const isNodeBeforeMediaNode = (
-  $pos: ResolvedPos,
-  state: EditorState,
-): boolean => {
-  let nodeBefore = $pos.nodeBefore;
-  if (!nodeBefore) {
-    const depthOfParent = $pos.depth - 1 || 1;
-    const parentNode = findParentNodeOfType([
-      state.schema.nodes[`${$pos.node(depthOfParent).type.name}`],
-    ])(state.selection);
+export const isNodeBeforeMediaNode = ($pos: ResolvedPos, state: EditorState): boolean => {
+	let nodeBefore = $pos.nodeBefore;
+	if (!nodeBefore) {
+		const depthOfParent = $pos.depth - 1 || 1;
+		const parentNode = findParentNodeOfType([
+			state.schema.nodes[`${$pos.node(depthOfParent).type.name}`],
+		])(state.selection);
 
-    const resolvedPosOfParentNode = parentNode
-      ? state.tr.doc.resolve(parentNode.pos)
-      : undefined;
+		const resolvedPosOfParentNode = parentNode ? state.tr.doc.resolve(parentNode.pos) : undefined;
 
-    const nodeBeforeParent =
-      resolvedPosOfParentNode &&
-      resolvedPosOfParentNode.pos < state.doc.nodeSize
-        ? resolvedPosOfParentNode.nodeBefore
-        : undefined;
+		const nodeBeforeParent =
+			resolvedPosOfParentNode && resolvedPosOfParentNode.pos < state.doc.nodeSize
+				? resolvedPosOfParentNode.nodeBefore
+				: undefined;
 
-    if (nodeBeforeParent) {
-      nodeBefore = nodeBeforeParent;
-    }
-  }
+		if (nodeBeforeParent) {
+			nodeBefore = nodeBeforeParent;
+		}
+	}
 
-  if (nodeBefore) {
-    return ['media', 'mediaInline', 'mediaGroup', 'mediaSingle'].includes(
-      nodeBefore.type.name,
-    );
-  }
+	if (nodeBefore) {
+		return ['media', 'mediaInline', 'mediaGroup', 'mediaSingle'].includes(nodeBefore.type.name);
+	}
 
-  return false;
+	return false;
 };
 
 const transformer = new JSONTransformer();
 export function toJSON(node: PMNode): JSONDocNode {
-  return transformer.encode(node);
+	return transformer.encode(node);
 }
 
 export function nodeToJSON(node: PMNode): JSONNode {
-  return transformer.encodeNode(node);
+	return transformer.encodeNode(node);
 }

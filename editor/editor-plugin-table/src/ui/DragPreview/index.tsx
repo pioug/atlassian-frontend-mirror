@@ -6,44 +6,44 @@ import type { TableDirection } from '../../types';
 import { DragInMotionIcon } from '../icons/DragInMotionIcon';
 
 const boxStyles = xcss({
-  borderColor: 'color.border.focused',
-  borderStyle: 'solid',
-  borderRadius: 'border.radius.100',
-  borderWidth: 'border.width.outline',
-  backgroundColor: 'color.blanket.selected',
+	borderColor: 'color.border.focused',
+	borderStyle: 'solid',
+	borderRadius: 'border.radius.100',
+	borderWidth: 'border.width.outline',
+	backgroundColor: 'color.blanket.selected',
 });
 
 export const DragPreview = ({
-  direction,
-  width,
-  height,
+	direction,
+	width,
+	height,
 }: {
-  direction: TableDirection;
-  width: number;
-  height: number;
+	direction: TableDirection;
+	width: number;
+	height: number;
 }) => {
-  let marginLeft = direction === 'row' ? -14 : width / 2 - 14;
-  let marginTop = direction === 'row' ? height / 2 - 14 : -10;
-  let transform = direction === 'row' ? 'rotate(90deg)' : 'none';
-  return (
-    <Box
-      xcss={boxStyles}
-      style={{
-        width: `${width}px`,
-        height: `${height}px`,
-      }}
-    >
-      <DragInMotionIcon
-        style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          position: 'absolute',
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-          marginLeft: `${marginLeft}px`,
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-          marginTop: `${marginTop}px`,
-          transform: transform,
-        }}
-      />
-    </Box>
-  );
+	let marginLeft = direction === 'row' ? -14 : width / 2 - 14;
+	let marginTop = direction === 'row' ? height / 2 - 14 : -10;
+	let transform = direction === 'row' ? 'rotate(90deg)' : 'none';
+	return (
+		<Box
+			xcss={boxStyles}
+			style={{
+				width: `${width}px`,
+				height: `${height}px`,
+			}}
+		>
+			<DragInMotionIcon
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					position: 'absolute',
+					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+					marginLeft: `${marginLeft}px`,
+					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+					marginTop: `${marginTop}px`,
+					transform: transform,
+				}}
+			/>
+		</Box>
+	);
 };

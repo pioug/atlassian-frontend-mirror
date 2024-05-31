@@ -6,20 +6,20 @@ import { generateRendererComponent } from '../__helpers/rendererComponents';
 import { annotationInlineCommentProvider } from '../__helpers/rendererWithAnnotations';
 
 export const BackgroundColorDefinedColors = generateRendererComponent({
-  document: highlightAdf,
-  appearance: 'comment',
+	document: highlightAdf,
+	appearance: 'comment',
 });
 
 export const BackgroundColorOverlapped = generateRendererComponent({
-  document: highlightOverlappedAdf,
-  appearance: 'comment',
-  allowAnnotations: true,
-  annotationProvider: {
-    inlineComment: annotationInlineCommentProvider,
-  },
+	document: highlightOverlappedAdf,
+	appearance: 'comment',
+	allowAnnotations: true,
+	annotationProvider: {
+		inlineComment: annotationInlineCommentProvider,
+	},
 });
 
 export const BackgroundColorCustomColors = generateRendererComponent({
-  document: highlightCustomColorsAdf,
-  appearance: 'comment',
+	document: highlightCustomColorsAdf,
+	appearance: 'comment',
 });

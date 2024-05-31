@@ -1,13 +1,7 @@
 import React from 'react';
 
-import { exampleDocument } from '../example-helpers/example-doc-with-unsupported';
-
-import { default as FullPageExample } from './5-full-page';
-
-const editorProps = {
-  defaultValue: exampleDocument,
-};
+import { DeletedExample } from '@af/editor-examples-helpers';
 
 export default function Example() {
-  return <FullPageExample editorProps={editorProps} />;
+	return <DeletedExample commitId="443f72739ed1c42aeceee0debbe7c8c83d516f7b" />;
 }

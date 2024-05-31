@@ -60,7 +60,7 @@
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlassian/codegen": "*",
-    "@atlassian/eslint-utils": "^0.4.0",
+    "@atlassian/eslint-utils": "^0.5.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.0.0",
     "@types/eslint": "^8.56.6",

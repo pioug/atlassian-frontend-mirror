@@ -15,7 +15,7 @@ export const AutomationModalBody = ({
   selectedRule,
   setSelectedRule,
 }: AutomationModalBodyProps) => {
-  const { triggerFetch, initialised, rules, error } = useAutomationMenu();
+  const { triggerFetch, initialised, rules, fetchError } = useAutomationMenu();
 
   useEffect(() => {
     void triggerFetch();
@@ -25,7 +25,7 @@ export const AutomationModalBody = ({
 
   if (!initialised) {
     return <Skeleton lineCount={10} />;
-  } else if (error && rules.length === 0) {
+  } else if (fetchError && rules.length === 0) {
     return <AutomationModalErrorState />;
   }
 

@@ -1,8 +1,8 @@
 import type {
-  PerformanceOptions,
-  PluginsConfig,
-  Props,
-  State,
+	PerformanceOptions,
+	PluginsConfig,
+	Props,
+	State,
 } from '@atlaskit/editor-common/with-plugin-state';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 

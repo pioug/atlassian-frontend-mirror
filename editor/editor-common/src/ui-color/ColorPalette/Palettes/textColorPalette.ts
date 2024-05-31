@@ -6,20 +6,20 @@ import paletteMessages from './paletteMessages';
 import type { PaletteColor } from './type';
 
 export const mapPaletteColor = (label: string, color: string) => {
-  const key = label.toLowerCase().replace(' ', '-');
-  const message = getColorMessage(paletteMessages, key);
+	const key = label.toLowerCase().replace(' ', '-');
+	const message = getColorMessage(paletteMessages, key);
 
-  return {
-    value: color,
-    label,
-    border: DEFAULT_BORDER_COLOR,
-    message,
-  };
+	return {
+		value: color,
+		label,
+		border: DEFAULT_BORDER_COLOR,
+		message,
+	};
 };
 
 // row 1
 export const textColorPalette: Array<PaletteColor> = [];
 
 colorPalette.forEach((label, color) => {
-  textColorPalette.push(mapPaletteColor(label, color));
+	textColorPalette.push(mapPaletteColor(label, color));
 });

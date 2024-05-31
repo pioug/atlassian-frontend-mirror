@@ -9,67 +9,63 @@ import * as extensionUtils from '../../extensions';
 import prepareQuickInsertProvider from '../../prepare-quick-insert-provider';
 
 describe('providers', () => {
-  const quickInsertProvider = Promise.resolve({} as QuickInsertProvider);
+	const quickInsertProvider = Promise.resolve({} as QuickInsertProvider);
 
-  const extensionProvider = createFakeExtensionProvider(
-    'fake.confluence',
-    'extension',
-    () => <div>Fake extension</div>,
-  );
+	const extensionProvider = createFakeExtensionProvider('fake.confluence', 'extension', () => (
+		<div>Fake extension</div>
+	));
 
-  it('should set extensionProvider quickInsert provider even when quickInsertProvider is not provided', () => {
-    const provider = prepareQuickInsertProvider(
-      new EditorActions(),
-      extensionProvider,
-      undefined,
-      undefined,
-    );
+	it('should set extensionProvider quickInsert provider even when quickInsertProvider is not provided', () => {
+		const provider = prepareQuickInsertProvider(
+			new EditorActions(),
+			extensionProvider,
+			undefined,
+			undefined,
+		);
 
-    expect(provider).toBeDefined();
-  });
+		expect(provider).toBeDefined();
+	});
 
-  it('should just set quickInsertProvider if there is no extensionProvider', () => {
-    const provider = prepareQuickInsertProvider(
-      new EditorActions(),
-      undefined,
-      { provider: quickInsertProvider },
-      undefined,
-    );
+	it('should just set quickInsertProvider if there is no extensionProvider', () => {
+		const provider = prepareQuickInsertProvider(
+			new EditorActions(),
+			undefined,
+			{ provider: quickInsertProvider },
+			undefined,
+		);
 
-    expect(provider).toBe(quickInsertProvider);
-  });
+		expect(provider).toBe(quickInsertProvider);
+	});
 
-  it('should combine them if both quickInsertProvider and extensionProvider are provided', () => {
-    const combineQuickInsertProvidersSpy = jest.spyOn(
-      extensionUtils,
-      'combineQuickInsertProviders',
-    );
-    const provider = prepareQuickInsertProvider(
-      new EditorActions(),
-      extensionProvider,
-      { provider: quickInsertProvider },
-      undefined,
-    );
+	it('should combine them if both quickInsertProvider and extensionProvider are provided', () => {
+		const combineQuickInsertProvidersSpy = jest.spyOn(
+			extensionUtils,
+			'combineQuickInsertProviders',
+		);
+		const provider = prepareQuickInsertProvider(
+			new EditorActions(),
+			extensionProvider,
+			{ provider: quickInsertProvider },
+			undefined,
+		);
 
-    expect(provider).toEqual(quickInsertProvider);
-    expect(combineQuickInsertProvidersSpy).toHaveBeenCalledTimes(1);
-    // Call 0, Argument 0, Array item 0
-    expect(combineQuickInsertProvidersSpy.mock.calls[0][0][0]).toBe(
-      quickInsertProvider,
-    );
+		expect(provider).toEqual(quickInsertProvider);
+		expect(combineQuickInsertProvidersSpy).toHaveBeenCalledTimes(1);
+		// Call 0, Argument 0, Array item 0
+		expect(combineQuickInsertProvidersSpy.mock.calls[0][0][0]).toBe(quickInsertProvider);
 
-    combineQuickInsertProvidersSpy.mockReset();
-    combineQuickInsertProvidersSpy.mockRestore();
-  });
+		combineQuickInsertProvidersSpy.mockReset();
+		combineQuickInsertProvidersSpy.mockRestore();
+	});
 
-  it('should not set quickInsertProvider if neither quickInsertProvider or extensionProvider provided', () => {
-    const provider = prepareQuickInsertProvider(
-      new EditorActions(),
-      undefined,
-      undefined,
-      undefined,
-    );
+	it('should not set quickInsertProvider if neither quickInsertProvider or extensionProvider provided', () => {
+		const provider = prepareQuickInsertProvider(
+			new EditorActions(),
+			undefined,
+			undefined,
+			undefined,
+		);
 
-    expect(provider).toBeUndefined();
-  });
+		expect(provider).toBeUndefined();
+	});
 });

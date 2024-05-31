@@ -11,7 +11,7 @@ import EmojiPicker, {
 } from '../src';
 import { EmojiTypeAheadTextInput } from './03-standard-emoji-typeahead';
 import { Popup } from '@atlaskit/popup';
-import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
 /**
  * Emoji Picker in Popup
@@ -40,11 +40,12 @@ export const EmojiPickerPopup = ({
         isOpen={emojiPickerOpen}
         onClose={() => setEmojiPickerOpen(false)}
         trigger={(triggerProps) => (
-          <Button
+          <IconButton
+            label="Add reaction"
             {...triggerProps}
             onClick={() => setEmojiPickerOpen(true)}
-            iconBefore={<EmojiAddIcon size="small" label="Add reaction" />}
-            spacing="none"
+            icon={(iconProps) => <EmojiAddIcon {...iconProps} size="small" />}
+            spacing="compact"
           />
         )}
         content={() => (

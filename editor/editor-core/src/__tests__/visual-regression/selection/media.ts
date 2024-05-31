@@ -5,16 +5,16 @@ import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provi
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  mediaDangerSelector,
-  mediaImageSelector,
-  mediaToolbarRemoveSelector,
-  waitForMediaToBeLoaded,
+	mediaDangerSelector,
+	mediaImageSelector,
+	mediaToolbarRemoveSelector,
+	waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
-  Appearance,
-  initEditorWithAdf,
-  snapshot,
+	Appearance,
+	initEditorWithAdf,
+	snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { flushPromises } from '@atlaskit/media-test-helpers';
 import { waitForLoadedImageElements } from '@atlaskit/visual-regression/helper';
@@ -25,45 +25,45 @@ import adf from './__fixtures__/nested-elements.adf.json';
 // FIXME: Skipping theses tests as it has been failing on master on CI due to "Screenshot comparison failed" issue.
 // Build URL: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2319963/steps/%7B31b3ca1c-6917-4861-88ed-d816d6fae22f%7D
 describe.skip('Selection:', () => {
-  let page: PuppeteerPage;
+	let page: PuppeteerPage;
 
-  describe('Media', () => {
-    const cardProvider = new EditorTestCardProvider();
+	describe('Media', () => {
+		const cardProvider = new EditorTestCardProvider();
 
-    beforeAll(() => {
-      page = global.page;
-    });
+		beforeAll(() => {
+			page = global.page;
+		});
 
-    beforeEach(async () => {
-      await initEditorWithAdf(page, {
-        appearance: Appearance.fullPage,
-        adf,
-        viewport: { width: 1280, height: 550 },
-        editorProps: {
-          smartLinks: { provider: Promise.resolve(cardProvider) },
-        },
-      });
+		beforeEach(async () => {
+			await initEditorWithAdf(page, {
+				appearance: Appearance.fullPage,
+				adf,
+				viewport: { width: 1280, height: 550 },
+				editorProps: {
+					smartLinks: { provider: Promise.resolve(cardProvider) },
+				},
+			});
 
-      await waitForMediaToBeLoaded(page);
-      await waitForLoadedImageElements(page, 3000);
-    });
+			await waitForMediaToBeLoaded(page);
+			await waitForLoadedImageElements(page, 3000);
+		});
 
-    afterEach(async () => {
-      await snapshot(page);
-    });
+		afterEach(async () => {
+			await snapshot(page);
+		});
 
-    it('displays danger styling when selected and hovering over delete button', async () => {
-      await page.click(mediaImageSelector);
+		it('displays danger styling when selected and hovering over delete button', async () => {
+			await page.click(mediaImageSelector);
 
-      // Wait for a frame because we are using RAF to throttle floating toolbar render
-      await animationFrame(page);
+			// Wait for a frame because we are using RAF to throttle floating toolbar render
+			await animationFrame(page);
 
-      // Media toolbar link button is async, so wait for all existing promises to flush
-      await flushPromises();
+			// Media toolbar link button is async, so wait for all existing promises to flush
+			await flushPromises();
 
-      await page.waitForSelector(mediaToolbarRemoveSelector);
-      await page.hover(mediaToolbarRemoveSelector);
-      await page.waitForSelector(mediaDangerSelector);
-    });
-  });
+			await page.waitForSelector(mediaToolbarRemoveSelector);
+			await page.hover(mediaToolbarRemoveSelector);
+			await page.waitForSelector(mediaDangerSelector);
+		});
+	});
 });

@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 81.1.5
+
+### Patch Changes
+
+- [#103091](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103091)
+  [`736512792df6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/736512792df6) -
+  Fix analytics inputMethod bug for inserting a macro
+
 ## 81.1.4
 
 ### Patch Changes

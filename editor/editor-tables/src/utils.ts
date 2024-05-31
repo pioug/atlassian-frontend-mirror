@@ -9,10 +9,10 @@ export { createTable } from './utils/create-table';
 export { drawCellSelection } from './utils/draw-cell-selection';
 export { emptyCell } from './utils/empty-cells';
 export {
-  findTable,
-  findTableClosestToPos,
-  findCellClosestToPos,
-  findCellRectClosestToPos,
+	findTable,
+	findTableClosestToPos,
+	findCellClosestToPos,
+	findCellRectClosestToPos,
 } from './utils/find';
 export { fixTables } from './utils/fix-tables';
 export { forEachCellInColumn, forEachCellInRow } from './utils/for-each-cell';
@@ -25,10 +25,10 @@ export { getSelectionRangeInRow } from './utils/get-selection-range-in-row';
 export { getSelectionRect } from './utils/get-selection-rect';
 export { goToNextCell } from './utils/go-to-next-cell';
 export {
-  isRectSelected,
-  isColumnSelected,
-  isRowSelected,
-  isTableSelected,
+	isRectSelected,
+	isColumnSelected,
+	isRowSelected,
+	isTableSelected,
 } from './utils/is-selected';
 export { isSelectionType } from './utils/is-selection-type';
 export { moveColumn } from './utils/move-column';
@@ -37,23 +37,19 @@ export { cloneColumn } from './utils/clone-column';
 export { cloneRow } from './utils/clone-row';
 export { normalizeSelection } from './utils/normalize-selection';
 export {
-  removeColumnAt,
-  removeSelectedColumns,
-  removeColumnClosestToPos,
+	removeColumnAt,
+	removeSelectedColumns,
+	removeColumnClosestToPos,
 } from './utils/remove-column';
-export {
-  removeRowAt,
-  removeSelectedRows,
-  removeRowClosestToPos,
-} from './utils/remove-row';
+export { removeRowAt, removeSelectedRows, removeRowClosestToPos } from './utils/remove-row';
 export { removeTable } from './utils/remove-table';
 export {
-  selectColumn,
-  selectColumns,
-  selectRow,
-  selectRows,
-  selectTable,
-  selectTableClosestToPos,
+	selectColumn,
+	selectColumns,
+	selectRow,
+	selectRows,
+	selectTable,
+	selectTableClosestToPos,
 } from './utils/select-nodes';
 export { selectionCell } from './utils/selection-cell';
 export { selectedRect } from './utils/selection-rect';
@@ -65,12 +61,9 @@ export { tableNodeTypes } from './utils/table-node-types';
 export { isInTable, inSameTable } from './utils/tables';
 export { toggleHeader } from './utils/toggle-header';
 export {
-  convertArrayOfRowsToTableNode,
-  convertTableNodeToArrayOfRows,
+	convertArrayOfRowsToTableNode,
+	convertTableNodeToArrayOfRows,
 } from './utils/reorder-utils';
 export { handlePaste } from './utils/handle-paste';
 export { replaceSelectedTable } from './utils/replace-table';
-export {
-  getSelectedTableInfo,
-  getSelectedCellInfo,
-} from './utils/analytics-helpers';
+export { getSelectedTableInfo, getSelectedCellInfo } from './utils/analytics-helpers';

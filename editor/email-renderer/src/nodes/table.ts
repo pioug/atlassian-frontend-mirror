@@ -21,13 +21,13 @@ export const styles = `
 export const numberedColumnWidth = 42;
 
 export default function table({ text, node }: NodeSerializerOpts) {
-  let colgroup: string = '';
-  if (node.attrs && node.attrs.isNumberColumnEnabled) {
-    const style = `width: ${numberedColumnWidth}px`;
-    const colTag = createTag('col', { style });
-    colgroup = createTag('colgroup', undefined, colTag);
-  }
+	let colgroup: string = '';
+	if (node.attrs && node.attrs.isNumberColumnEnabled) {
+		const style = `width: ${numberedColumnWidth}px`;
+		const colTag = createTag('col', { style });
+		colgroup = createTag('colgroup', undefined, colTag);
+	}
 
-  const table = createTag('table', { class: className }, colgroup + text);
-  return createTag('div', { class: `${className}-wrapper` }, table);
+	const table = createTag('table', { class: className }, colgroup + text);
+	return createTag('div', { class: `${className}-wrapper` }, table);
 }

@@ -9,7 +9,7 @@ import {
 } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/new';
 import Form, { RequiredAsterisk } from '@atlaskit/form';
 import EmailIcon from '@atlaskit/icon/glyph/email';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -96,7 +96,6 @@ const menuGroupContainerStyles = xcss({
   width: '150px',
   margin: `${token('space.negative.100')} ${token('space.negative.300')}`,
 });
-
 
 const integrationTabText = (integrationName: string) => (
   <FormattedMessage

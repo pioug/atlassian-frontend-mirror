@@ -5,17 +5,13 @@ import { useSmartLinkEvents } from '@atlaskit/smart-card';
 
 import { registerSmartCardEvents } from '../pm-plugins/actions';
 
-export const EditorSmartCardEvents = ({
-  editorView,
-}: {
-  editorView: EditorView;
-}) => {
-  const events = useSmartLinkEvents();
-  useEffect(() => {
-    if (!events) {
-      return;
-    }
-    editorView.dispatch(registerSmartCardEvents(events)(editorView.state.tr));
-  }, [events, editorView]);
-  return null;
+export const EditorSmartCardEvents = ({ editorView }: { editorView: EditorView }) => {
+	const events = useSmartLinkEvents();
+	useEffect(() => {
+		if (!events) {
+			return;
+		}
+		editorView.dispatch(registerSmartCardEvents(events)(editorView.state.tr));
+	}, [events, editorView]);
+	return null;
 };

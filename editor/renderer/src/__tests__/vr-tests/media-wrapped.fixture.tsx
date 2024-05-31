@@ -7,17 +7,17 @@ import wrappedMediaAdf from '../__fixtures__/wrapped-media.adf.json';
 import { MediaBaseRenderer } from '../__helpers/mediaRenderer';
 
 export const MediaWrapped = () => {
-  return <MediaBaseRenderer adf={wrappedMediaAdf} />;
+	return <MediaBaseRenderer adf={wrappedMediaAdf} />;
 };
 
 export const MediaWrappedText = () => {
-  return <MediaBaseRenderer adf={wrappedMediaTextAdf} />;
+	return <MediaBaseRenderer adf={wrappedMediaTextAdf} />;
 };
 
 export const MediaWrappedTextSplit = () => {
-  return <MediaBaseRenderer adf={wrappedMediaTextSplitAdf} />;
+	return <MediaBaseRenderer adf={wrappedMediaTextSplitAdf} />;
 };
 
 export const MediaWrappedSmall = () => {
-  return <MediaBaseRenderer adf={wrappedMediaSmallAdf} />;
+	return <MediaBaseRenderer adf={wrappedMediaSmallAdf} />;
 };

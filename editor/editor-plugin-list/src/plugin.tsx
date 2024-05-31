@@ -1,32 +1,23 @@
 import React from 'react';
 
+import { bulletList, listItem, listItemWithTask, orderedListWithOrder } from '@atlaskit/adf-schema';
 import {
-  bulletList,
-  listItem,
-  listItemWithTask,
-  orderedListWithOrder,
-} from '@atlaskit/adf-schema';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-  INPUT_METHOD,
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import {
-  toggleBulletList,
-  toggleOrderedList,
-  tooltip,
-} from '@atlaskit/editor-common/keymaps';
+import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-common/keymaps';
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
-  indentList,
-  outdentList,
-  toggleBulletList as toggleBulletListCommand,
-  toggleOrderedList as toggleOrderedListCommand,
+	indentList,
+	outdentList,
+	toggleBulletList as toggleBulletListCommand,
+	toggleOrderedList as toggleOrderedListCommand,
 } from './commands';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymapPlugin from './pm-plugins/keymap';
@@ -45,128 +36,127 @@ import { isInsideListItem } from './utils/selection';
  * from `@atlaskit/editor-core`.
  */
 export const listPlugin: ListPlugin = ({ config: options, api }) => {
-  const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
-  const editorAnalyticsAPI = api?.analytics?.actions;
+	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
+	const editorAnalyticsAPI = api?.analytics?.actions;
 
-  return {
-    name: 'list',
-    actions: {
-      isInsideListItem,
-      findRootParentListNode,
-    },
-    commands: {
-      indentList: indentList(editorAnalyticsAPI),
-      outdentList: inputMethod => outdentList(editorAnalyticsAPI)(inputMethod),
-      toggleOrderedList: toggleOrderedListCommand(editorAnalyticsAPI),
-      toggleBulletList: toggleBulletListCommand(editorAnalyticsAPI),
-    },
-    getSharedState: editorState => {
-      if (!editorState) {
-        return undefined;
-      }
+	return {
+		name: 'list',
+		actions: {
+			isInsideListItem,
+			findRootParentListNode,
+		},
+		commands: {
+			indentList: indentList(editorAnalyticsAPI),
+			outdentList: (inputMethod) => outdentList(editorAnalyticsAPI)(inputMethod),
+			toggleOrderedList: toggleOrderedListCommand(editorAnalyticsAPI),
+			toggleBulletList: toggleBulletListCommand(editorAnalyticsAPI),
+		},
+		getSharedState: (editorState) => {
+			if (!editorState) {
+				return undefined;
+			}
 
-      return listPluginKey.getState(editorState);
-    },
+			return listPluginKey.getState(editorState);
+		},
 
-    nodes() {
-      const listItemNode = getBooleanFF('platform.editor.allow-action-in-list')
-        ? listItemWithTask
-        : listItem;
-      return [
-        { name: 'bulletList', node: bulletList },
-        {
-          name: 'orderedList',
-          node: orderedListWithOrder,
-        },
-        { name: 'listItem', node: listItemNode },
-      ];
-    },
+		nodes() {
+			const listItemNode = getBooleanFF('platform.editor.allow-action-in-list')
+				? listItemWithTask
+				: listItem;
+			return [
+				{ name: 'bulletList', node: bulletList },
+				{
+					name: 'orderedList',
+					node: orderedListWithOrder,
+				},
+				{ name: 'listItem', node: listItemNode },
+			];
+		},
 
-    pmPlugins() {
-      return [
-        {
-          name: 'list',
-          plugin: ({ dispatch }) => createPlugin(dispatch, featureFlags),
-        },
-        {
-          name: 'listInputRule',
-          plugin: ({ schema, featureFlags }) =>
-            inputRulePlugin(schema, api?.analytics?.actions),
-        },
-        {
-          name: 'listKeymap',
-          plugin: () => keymapPlugin(featureFlags, api?.analytics?.actions),
-        },
-      ];
-    },
+		pmPlugins() {
+			return [
+				{
+					name: 'list',
+					plugin: ({ dispatch }) => createPlugin(dispatch, featureFlags),
+				},
+				{
+					name: 'listInputRule',
+					plugin: ({ schema, featureFlags }) => inputRulePlugin(schema, api?.analytics?.actions),
+				},
+				{
+					name: 'listKeymap',
+					plugin: () => keymapPlugin(featureFlags, api?.analytics?.actions),
+				},
+			];
+		},
 
-    pluginsOptions: {
-      quickInsert: ({ formatMessage }) => [
-        {
-          id: 'unorderedList',
-          title: formatMessage(messages.unorderedList),
-          description: formatMessage(messages.unorderedListDescription),
-          keywords: ['ul', 'unordered'],
-          priority: 1100,
-          keyshortcut: tooltip(toggleBulletList),
-          icon: () => <IconList />,
-          action(insert, state) {
-            const tr = insert(
-              state.schema.nodes.bulletList.createChecked(
-                {},
-                state.schema.nodes.listItem.createChecked(
-                  {},
-                  state.schema.nodes.paragraph.createChecked(),
-                ),
-              ),
-            );
+		pluginsOptions: {
+			quickInsert: ({ formatMessage }) => [
+				{
+					id: 'unorderedList',
+					title: formatMessage(messages.unorderedList),
+					description: formatMessage(messages.unorderedListDescription),
+					keywords: ['ul', 'unordered'],
+					priority: 1100,
+					keyshortcut: tooltip(toggleBulletList),
+					icon: () => <IconList />,
+					action(insert, state) {
+						const tr = insert(
+							state.schema.nodes.bulletList.createChecked(
+								{},
+								state.schema.nodes.listItem.createChecked(
+									{},
+									state.schema.nodes.paragraph.createChecked(),
+								),
+							),
+						);
 
-            editorAnalyticsAPI?.attachAnalyticsEvent({
-              action: ACTION.INSERTED,
-              actionSubject: ACTION_SUBJECT.LIST,
-              actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
-              eventType: EVENT_TYPE.TRACK,
-              attributes: {
-                inputMethod: INPUT_METHOD.QUICK_INSERT,
-              },
-            })(tr);
+						editorAnalyticsAPI?.attachAnalyticsEvent({
+							action: ACTION.INSERTED,
+							actionSubject: ACTION_SUBJECT.LIST,
+							actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
+							eventType: EVENT_TYPE.TRACK,
+							attributes: {
+								inputMethod: INPUT_METHOD.QUICK_INSERT,
+							},
+						})(tr);
 
-            return tr;
-          },
-        },
-        {
-          id: 'orderedList',
-          title: formatMessage(messages.orderedList),
-          description: formatMessage(messages.orderedListDescription),
-          keywords: ['ol', 'ordered'],
-          priority: 1200,
-          keyshortcut: tooltip(toggleOrderedList),
-          icon: () => <IconListNumber />,
-          action(insert, state) {
-            const tr = insert(
-              state.schema.nodes.orderedList.createChecked(
-                {},
-                state.schema.nodes.listItem.createChecked(
-                  {},
-                  state.schema.nodes.paragraph.createChecked(),
-                ),
-              ),
-            );
+						return tr;
+					},
+				},
+				{
+					id: 'orderedList',
+					title: formatMessage(messages.orderedList),
+					description: formatMessage(messages.orderedListDescription),
+					keywords: ['ol', 'ordered'],
+					priority: 1200,
+					keyshortcut: tooltip(toggleOrderedList),
+					icon: () => <IconListNumber />,
+					action(insert, state) {
+						const tr = insert(
+							state.schema.nodes.orderedList.createChecked(
+								{},
+								state.schema.nodes.listItem.createChecked(
+									{},
+									state.schema.nodes.paragraph.createChecked(),
+								),
+							),
+						);
 
-            editorAnalyticsAPI?.attachAnalyticsEvent({
-              action: ACTION.INSERTED,
-              actionSubject: ACTION_SUBJECT.LIST,
-              actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
-              eventType: EVENT_TYPE.TRACK,
-              attributes: {
-                inputMethod: INPUT_METHOD.QUICK_INSERT,
-              },
-            })(tr);
+						editorAnalyticsAPI?.attachAnalyticsEvent({
+							action: ACTION.INSERTED,
+							actionSubject: ACTION_SUBJECT.LIST,
+							actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
+							eventType: EVENT_TYPE.TRACK,
+							attributes: {
+								inputMethod: INPUT_METHOD.QUICK_INSERT,
+							},
+						})(tr);
 
-            return tr;
-          },
-        },
-      ],
-    },
-  };
+						return tr;
+					},
+				},
+			],
+		},
+	};
 };

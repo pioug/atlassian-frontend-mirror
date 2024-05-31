@@ -5,62 +5,61 @@ import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/t
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
-  useAnnotationRangeDispatch,
-  useAnnotationRangeState,
+	useAnnotationRangeDispatch,
+	useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
 import { useAnnotationHoverContext } from '../contexts/AnnotationHoverContext';
 import { ProvidersContext } from '../context';
 
 type Props = {
-  component: React.ComponentType<InlineCommentHoverComponentProps>;
-  rendererRef: React.RefObject<HTMLDivElement>;
-  applyAnnotationDraftAt: (position: Position) => void;
-  clearAnnotationDraft: () => void;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	component: React.ComponentType<InlineCommentHoverComponentProps>;
+	rendererRef: React.RefObject<HTMLDivElement>;
+	applyAnnotationDraftAt: (position: Position) => void;
+	clearAnnotationDraft: () => void;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 export const RangeValidator = (props: Props) => {
-  const {
-    component,
-    rendererRef,
-    applyAnnotationDraftAt,
-    clearAnnotationDraft,
-    createAnalyticsEvent,
-  } = props;
-  const actions = useContext(ActionsContext);
-  const { clearHoverRange } = useAnnotationRangeDispatch();
-  const { range, type } = useAnnotationRangeState();
-  const { isWithinRange } = useAnnotationHoverContext();
-  const providers = useContext(ProvidersContext);
-  const isCommentsOnMediaBugFixEnabled =
-    providers?.inlineComment.isCommentsOnMediaBugFixEnabled ?? false;
-  const isCommentsOnMediaBugVideoCommentEnabled =
-    providers?.inlineComment.isCommentsOnMediaBugVideoCommentEnabled ?? false;
+	const {
+		component,
+		rendererRef,
+		applyAnnotationDraftAt,
+		clearAnnotationDraft,
+		createAnalyticsEvent,
+	} = props;
+	const actions = useContext(ActionsContext);
+	const { clearHoverRange } = useAnnotationRangeDispatch();
+	const { range, type } = useAnnotationRangeState();
+	const { isWithinRange } = useAnnotationHoverContext();
+	const providers = useContext(ProvidersContext);
+	const isCommentsOnMediaBugFixEnabled =
+		providers?.inlineComment.isCommentsOnMediaBugFixEnabled ?? false;
+	const isCommentsOnMediaBugVideoCommentEnabled =
+		providers?.inlineComment.isCommentsOnMediaBugVideoCommentEnabled ?? false;
 
+	if (!range || type !== 'hover') {
+		return null;
+	}
 
-  if (!range || type !== 'hover') {
-    return null;
-  }
-
-  const documentPosition = actions.getPositionFromRange(
-    range,
-    isCommentsOnMediaBugFixEnabled,
-    isCommentsOnMediaBugVideoCommentEnabled
-  );
-  return (
-    <Mounter
-      isWithinRange={isWithinRange}
-      range={range}
-      wrapperDOM={rendererRef}
-      component={component}
-      onClose={clearHoverRange}
-      documentPosition={documentPosition}
-      isAnnotationAllowed={true}
-      applyAnnotation={actions.applyAnnotation.bind(actions)}
-      applyAnnotationDraftAt={applyAnnotationDraftAt}
-      generateIndexMatch={actions.generateAnnotationIndexMatch.bind(actions)}
-      clearAnnotationDraft={clearAnnotationDraft}
-      createAnalyticsEvent={createAnalyticsEvent}
-    />
-  );
+	const documentPosition = actions.getPositionFromRange(
+		range,
+		isCommentsOnMediaBugFixEnabled,
+		isCommentsOnMediaBugVideoCommentEnabled,
+	);
+	return (
+		<Mounter
+			isWithinRange={isWithinRange}
+			range={range}
+			wrapperDOM={rendererRef}
+			component={component}
+			onClose={clearHoverRange}
+			documentPosition={documentPosition}
+			isAnnotationAllowed={true}
+			applyAnnotation={actions.applyAnnotation.bind(actions)}
+			applyAnnotationDraftAt={applyAnnotationDraftAt}
+			generateIndexMatch={actions.generateAnnotationIndexMatch.bind(actions)}
+			clearAnnotationDraft={clearAnnotationDraft}
+			createAnalyticsEvent={createAnalyticsEvent}
+		/>
+	);
 };

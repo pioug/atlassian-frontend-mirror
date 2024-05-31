@@ -57,7 +57,6 @@
   "devDependencies": {
     "@atlaskit/editor-plugin-feature-flags": "^1.1.0",
     "@atlaskit/util-data-test": "^17.9.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "react-dom": "^16.8.0",
     "typescript": "~5.4.2"
   },
@@ -94,7 +93,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.allow-extended-panel": {
       "type": "boolean"

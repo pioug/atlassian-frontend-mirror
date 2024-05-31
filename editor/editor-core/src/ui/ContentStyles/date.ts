@@ -2,35 +2,35 @@ import { css } from '@emotion/react';
 
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
-  akEditorDeleteBorder,
-  akEditorSelectedBorderSize,
-  akEditorSelectedNodeClassName,
-  getSelectionStyles,
-  SelectionStyle,
+	akEditorDeleteBorder,
+	akEditorSelectedBorderSize,
+	akEditorSelectedNodeClassName,
+	getSelectionStyles,
+	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const dateStyles = css`
-  .${DateSharedCssClassName.DATE_CONTAINER} {
-    .${DateSharedCssClassName.DATE_WRAPPER} {
-      line-height: initial;
-      cursor: pointer;
-    }
+	.${DateSharedCssClassName.DATE_CONTAINER} {
+		.${DateSharedCssClassName.DATE_WRAPPER} {
+			line-height: initial;
+			cursor: pointer;
+		}
 
-    &.${akEditorSelectedNodeClassName} {
-      .${DateSharedCssClassName.DATE_WRAPPER} > span {
-        ${getSelectionStyles([SelectionStyle.BoxShadow])}
-      }
-    }
-  }
+		&.${akEditorSelectedNodeClassName} {
+			.${DateSharedCssClassName.DATE_WRAPPER} > span {
+				${getSelectionStyles([SelectionStyle.BoxShadow])}
+			}
+		}
+	}
 
-  .danger {
-    .${DateSharedCssClassName.DATE_CONTAINER}.${akEditorSelectedNodeClassName}
-      .${DateSharedCssClassName.DATE_WRAPPER}
-      > span {
-      box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
-        ${token('color.border.danger', akEditorDeleteBorder)};
-    }
-  }
+	.danger {
+		.${DateSharedCssClassName.DATE_CONTAINER}.${akEditorSelectedNodeClassName}
+			.${DateSharedCssClassName.DATE_WRAPPER}
+			> span {
+			box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
+				${token('color.border.danger', akEditorDeleteBorder)};
+		}
+	}
 `;

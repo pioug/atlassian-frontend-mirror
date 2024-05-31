@@ -2,14 +2,14 @@
 import { clickEditableContent } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  resizeMediaInPosition,
-  waitForMediaToBeLoaded,
+	resizeMediaInPosition,
+	waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  Appearance,
-  initEditorWithAdf,
-  snapshot,
+	Appearance,
+	initEditorWithAdf,
+	snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
@@ -20,44 +20,44 @@ import * as panelList from './__fixtures__/panel-list-adf.json';
 let page: PuppeteerPage;
 
 const initEditor = async (adf?: Object) => {
-  await initEditorWithAdf(page, {
-    appearance: Appearance.fullPage,
-    adf,
-    viewport: { width: 1040, height: 1000 },
-  });
-  await clickEditableContent(page);
+	await initEditorWithAdf(page, {
+		appearance: Appearance.fullPage,
+		adf,
+		viewport: { width: 1040, height: 1000 },
+	});
+	await clickEditableContent(page);
 };
 
 describe('Snapshot Test: Media', () => {
-  beforeEach(async () => {
-    page = global.page;
-  });
+	beforeEach(async () => {
+		page = global.page;
+	});
 
-  describe('Lists', () => {
-    it('can insert a media single inside a bullet list', async () => {
-      await initEditor(bulletListAdf);
-      await waitForMediaToBeLoaded(page);
+	describe('Lists', () => {
+		it('can insert a media single inside a bullet list', async () => {
+			await initEditor(bulletListAdf);
+			await waitForMediaToBeLoaded(page);
 
-      await snapshot(page);
-    });
+			await snapshot(page);
+		});
 
-    it('can insert a media single inside a numbered list', async () => {
-      await initEditor(numberListAdf);
-      await waitForMediaToBeLoaded(page);
+		it('can insert a media single inside a numbered list', async () => {
+			await initEditor(numberListAdf);
+			await waitForMediaToBeLoaded(page);
 
-      await snapshot(page);
-    });
-  });
+			await snapshot(page);
+		});
+	});
 
-  // TODO: Convert to integration test (https://product-fabric.atlassian.net/browse/ED-6692)
-  describe('Lists in panels', () => {
-    beforeEach(async () => {
-      await initEditor(panelList);
-    });
+	// TODO: Convert to integration test (https://product-fabric.atlassian.net/browse/ED-6692)
+	describe('Lists in panels', () => {
+		beforeEach(async () => {
+			await initEditor(panelList);
+		});
 
-    it('can be resized in a list in a panel', async () => {
-      await resizeMediaInPosition(page, 0, 300);
-      await snapshot(page);
-    });
-  });
+		it('can be resized in a list in a panel', async () => {
+			await resizeMediaInPosition(page, 0, 300);
+			await snapshot(page);
+		});
+	});
 });

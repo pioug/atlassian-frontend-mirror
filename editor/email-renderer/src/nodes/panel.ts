@@ -7,14 +7,7 @@ import { createContentId } from '../static';
 import { createClassName } from '../styles/util';
 import { fontFamily, fontSize, lineHeight, fontWeight } from '../styles/common';
 
-type PanelType =
-  | 'info'
-  | 'note'
-  | 'tip'
-  | 'success'
-  | 'warning'
-  | 'error'
-  | 'custom';
+type PanelType = 'info' | 'note' | 'tip' | 'success' | 'warning' | 'error' | 'custom';
 
 export const className = createClassName('panel');
 
@@ -83,29 +76,29 @@ export const styles = `
 `;
 
 export default function panel({ attrs, text }: NodeSerializerOpts) {
-  const type: PanelType = attrs.panelType;
+	const type: PanelType = attrs.panelType;
 
-  const panelIcon = createTag('img', {
-    class: className + '-icon',
-    src: createContentId(type),
-    width: 16,
-    height: 16,
-  });
+	const panelIcon = createTag('img', {
+		class: className + '-icon',
+		src: createContentId(type),
+		width: 16,
+		height: 16,
+	});
 
-  const iconTd: TableData = {
-    text: panelIcon,
-    attrs: { class: className + '-iconTd' },
-  };
+	const iconTd: TableData = {
+		text: panelIcon,
+		attrs: { class: className + '-iconTd' },
+	};
 
-  const textTd: TableData = {
-    text,
-    attrs: { class: className + '-inner' },
-  };
+	const textTd: TableData = {
+		text,
+		attrs: { class: className + '-inner' },
+	};
 
-  const innerTable = createTable(
-    [[iconTd, textTd]],
-    {},
-    { class: `${className}-innerTable ${className}-type-${type}` },
-  );
-  return createTable([[{ attrs: { class: className }, text: innerTable }]]);
+	const innerTable = createTable(
+		[[iconTd, textTd]],
+		{},
+		{ class: `${className}-innerTable ${className}-type-${type}` },
+	);
+	return createTable([[{ attrs: { class: className }, text: innerTable }]]);
 }

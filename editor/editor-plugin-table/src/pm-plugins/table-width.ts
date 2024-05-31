@@ -6,10 +6,10 @@
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
@@ -17,9 +17,9 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
-  akEditorDefaultLayoutWidth,
-  akEditorFullWidthLayoutWidth,
-  akEditorWideLayoutWidth,
+	akEditorDefaultLayoutWidth,
+	akEditorFullWidthLayoutWidth,
+	akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
@@ -28,211 +28,198 @@ import { ALIGN_START } from '../utils/alignment';
 import { TABLE_MAX_WIDTH } from './table-resizing/utils';
 
 type __ReplaceStep = ReplaceStep & {
-  // Properties `to` and `from` are private attributes of ReplaceStep.
-  to: number;
-  from: number;
+	// Properties `to` and `from` are private attributes of ReplaceStep.
+	to: number;
+	from: number;
 };
 
 type TableWidthPluginState = {
-  resizing: boolean;
-  tableLocalId: string;
-  tableRef: HTMLTableElement | null;
+	resizing: boolean;
+	tableLocalId: string;
+	tableRef: HTMLTableElement | null;
 };
 
-export const pluginKey = new PluginKey<TableWidthPluginState>(
-  'tableWidthPlugin',
-);
+export const pluginKey = new PluginKey<TableWidthPluginState>('tableWidthPlugin');
 
 const createPlugin = (
-  dispatch: Dispatch,
-  dispatchAnalyticsEvent: DispatchAnalyticsEvent,
-  fullWidthEnabled: boolean,
-  isTableScalingEnabled: boolean,
-  isTableAlignmentEnabled: boolean,
+	dispatch: Dispatch,
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
+	fullWidthEnabled: boolean,
+	isTableScalingEnabled: boolean,
+	isTableAlignmentEnabled: boolean,
 ) => {
-  return new SafePlugin({
-    key: pluginKey,
-    state: {
-      init() {
-        return {
-          resizing: false,
-          tableLocalId: '',
-          tableRef: null,
-        };
-      },
-      apply(tr, pluginState) {
-        const meta = tr.getMeta(pluginKey);
-        if (meta) {
-          const keys = Object.keys(meta) as Array<keyof TableWidthPluginState>;
-          const changed = keys.some((key) => {
-            return pluginState[key] !== meta[key];
-          });
+	return new SafePlugin({
+		key: pluginKey,
+		state: {
+			init() {
+				return {
+					resizing: false,
+					tableLocalId: '',
+					tableRef: null,
+				};
+			},
+			apply(tr, pluginState) {
+				const meta = tr.getMeta(pluginKey);
+				if (meta) {
+					const keys = Object.keys(meta) as Array<keyof TableWidthPluginState>;
+					const changed = keys.some((key) => {
+						return pluginState[key] !== meta[key];
+					});
 
-          if (changed) {
-            const newState = { ...pluginState, ...meta };
+					if (changed) {
+						const newState = { ...pluginState, ...meta };
 
-            dispatch(pluginKey, newState);
-            return newState;
-          }
-        }
+						dispatch(pluginKey, newState);
+						return newState;
+					}
+				}
 
-        return pluginState;
-      },
-    },
-    appendTransaction: (transactions, oldState, newState) => {
-      // do not fire select table analytics events when a table is being created or deleted
-      const selectedTableOldState = findTable(oldState.selection);
-      const selectedTableNewState = findTable(newState.selection);
+				return pluginState;
+			},
+		},
+		appendTransaction: (transactions, oldState, newState) => {
+			// do not fire select table analytics events when a table is being created or deleted
+			const selectedTableOldState = findTable(oldState.selection);
+			const selectedTableNewState = findTable(newState.selection);
 
-      /**
-       * Select table event
-       *   condition: 1
-       * When users selection changes to table
-       */
-      if (!selectedTableOldState && selectedTableNewState) {
-        dispatchAnalyticsEvent({
-          action: ACTION.SELECTED,
-          actionSubject: ACTION_SUBJECT.DOCUMENT,
-          actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-          eventType: EVENT_TYPE.TRACK,
-          attributes: {
-            localId: selectedTableNewState.node.attrs.localId || '',
-          },
-        });
-      }
+			/**
+			 * Select table event
+			 *   condition: 1
+			 * When users selection changes to table
+			 */
+			if (!selectedTableOldState && selectedTableNewState) {
+				dispatchAnalyticsEvent({
+					action: ACTION.SELECTED,
+					actionSubject: ACTION_SUBJECT.DOCUMENT,
+					actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+					eventType: EVENT_TYPE.TRACK,
+					attributes: {
+						localId: selectedTableNewState.node.attrs.localId || '',
+					},
+				});
+			}
 
-      // When document first load in Confluence, initially it is an empty document
-      // and Collab service triggers a transaction to replace the empty document with the real document that should be rendered.
-      // what we need to do is to add width attr to all tables in the real document
-      // isReplaceDocumentOperation is checking if the transaction is the one that replace the empty document with the real document
-      const isReplaceDocumentOperation = transactions.some((tr) => {
-        if (tr.getMeta('replaceDocument')) {
-          return true;
-        }
+			// When document first load in Confluence, initially it is an empty document
+			// and Collab service triggers a transaction to replace the empty document with the real document that should be rendered.
+			// what we need to do is to add width attr to all tables in the real document
+			// isReplaceDocumentOperation is checking if the transaction is the one that replace the empty document with the real document
+			const isReplaceDocumentOperation = transactions.some((tr) => {
+				if (tr.getMeta('replaceDocument')) {
+					return true;
+				}
 
-        const hasStepReplacingEntireDocument = tr.steps.some((step) => {
-          if (!(step instanceof ReplaceStep)) {
-            return false;
-          }
+				const hasStepReplacingEntireDocument = tr.steps.some((step) => {
+					if (!(step instanceof ReplaceStep)) {
+						return false;
+					}
 
-          const isStepReplacingFromDocStart =
-            (step as __ReplaceStep).from === 0;
-          const isStepReplacingUntilTheEndOfDocument =
-            (step as __ReplaceStep).to === oldState.doc.content.size;
+					const isStepReplacingFromDocStart = (step as __ReplaceStep).from === 0;
+					const isStepReplacingUntilTheEndOfDocument =
+						(step as __ReplaceStep).to === oldState.doc.content.size;
 
-          if (
-            !isStepReplacingFromDocStart ||
-            !isStepReplacingUntilTheEndOfDocument
-          ) {
-            return false;
-          }
-          return true;
-        });
+					if (!isStepReplacingFromDocStart || !isStepReplacingUntilTheEndOfDocument) {
+						return false;
+					}
+					return true;
+				});
 
-        return hasStepReplacingEntireDocument;
-      });
+				return hasStepReplacingEntireDocument;
+			});
 
-      const referentialityTr = transactions.find((tr) =>
-        tr.getMeta('referentialityTableInserted'),
-      );
+			const referentialityTr = transactions.find((tr) => tr.getMeta('referentialityTableInserted'));
 
-      const shouldPatchTableWidth = fullWidthEnabled && isTableScalingEnabled;
-      const shouldPatchTableAlignment =
-        fullWidthEnabled && isTableAlignmentEnabled;
+			const shouldPatchTableWidth = fullWidthEnabled && isTableScalingEnabled;
+			const shouldPatchTableAlignment = fullWidthEnabled && isTableAlignmentEnabled;
 
-      if (
-        !isReplaceDocumentOperation &&
-        ((!shouldPatchTableWidth && !shouldPatchTableAlignment) ||
-          !referentialityTr)
-      ) {
-        return null;
-      }
+			if (
+				!isReplaceDocumentOperation &&
+				((!shouldPatchTableWidth && !shouldPatchTableAlignment) || !referentialityTr)
+			) {
+				return null;
+			}
 
-      const { table } = newState.schema.nodes;
-      const tr = newState.tr;
+			const { table } = newState.schema.nodes;
+			const tr = newState.tr;
 
-      /**
-       * Select table event
-       *   condition: 2
-       * Users selection defaults to table, if first node
-       */
-      if (selectedTableOldState) {
-        dispatchAnalyticsEvent({
-          action: ACTION.SELECTED,
-          actionSubject: ACTION_SUBJECT.DOCUMENT,
-          actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-          eventType: EVENT_TYPE.TRACK,
-          attributes: {
-            localId: selectedTableOldState.node.attrs.localId || '',
-          },
-        });
-      }
+			/**
+			 * Select table event
+			 *   condition: 2
+			 * Users selection defaults to table, if first node
+			 */
+			if (selectedTableOldState) {
+				dispatchAnalyticsEvent({
+					action: ACTION.SELECTED,
+					actionSubject: ACTION_SUBJECT.DOCUMENT,
+					actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+					eventType: EVENT_TYPE.TRACK,
+					attributes: {
+						localId: selectedTableOldState.node.attrs.localId || '',
+					},
+				});
+			}
 
-      if (isReplaceDocumentOperation) {
-        newState.doc.forEach((node, offset) => {
-          if (node.type === table) {
-            const width = node.attrs.width;
-            const layout = node.attrs.layout;
+			if (isReplaceDocumentOperation) {
+				newState.doc.forEach((node, offset) => {
+					if (node.type === table) {
+						const width = node.attrs.width;
+						const layout = node.attrs.layout;
 
-            if (!width && layout) {
-              let tableWidthCal;
+						if (!width && layout) {
+							let tableWidthCal;
 
-              if (fullWidthEnabled) {
-                tableWidthCal = akEditorFullWidthLayoutWidth;
-              } else {
-                switch (layout) {
-                  case 'wide':
-                    tableWidthCal = akEditorWideLayoutWidth;
-                    break;
-                  case 'full-width':
-                    tableWidthCal = akEditorFullWidthLayoutWidth;
-                    break;
-                  // when in fix-width appearance, no need to assign value to table width attr
-                  // as when table is created, width attr is null by default, table rendered using layout attr
-                  default:
-                    tableWidthCal = akEditorDefaultLayoutWidth;
-                    break;
-                }
-              }
+							if (fullWidthEnabled) {
+								tableWidthCal = akEditorFullWidthLayoutWidth;
+							} else {
+								switch (layout) {
+									case 'wide':
+										tableWidthCal = akEditorWideLayoutWidth;
+										break;
+									case 'full-width':
+										tableWidthCal = akEditorFullWidthLayoutWidth;
+										break;
+									// when in fix-width appearance, no need to assign value to table width attr
+									// as when table is created, width attr is null by default, table rendered using layout attr
+									default:
+										tableWidthCal = akEditorDefaultLayoutWidth;
+										break;
+								}
+							}
 
-              const { width, ...rest } = node.attrs;
+							const { width, ...rest } = node.attrs;
 
-              if (tableWidthCal) {
-                tr.step(
-                  new SetAttrsStep(offset, {
-                    width: tableWidthCal,
-                    ...rest,
-                  }),
-                );
-              }
-            }
-          }
-        });
-      }
+							if (tableWidthCal) {
+								tr.step(
+									new SetAttrsStep(offset, {
+										width: tableWidthCal,
+										...rest,
+									}),
+								);
+							}
+						}
+					}
+				});
+			}
 
-      if (referentialityTr) {
-        referentialityTr.steps.forEach((step) => {
-          step.getMap().forEach((_, __, newStart, newEnd) => {
-            newState.doc.nodesBetween(newStart, newEnd, (node, pos) => {
-              if (node.type === table) {
-                if (
-                  shouldPatchTableWidth &&
-                  node.attrs.width !== TABLE_MAX_WIDTH
-                ) {
-                  tr.setNodeAttribute(pos, 'width', TABLE_MAX_WIDTH);
-                }
-                if (shouldPatchTableAlignment) {
-                  tr.setNodeAttribute(pos, 'layout', ALIGN_START);
-                }
-              }
-            });
-          });
-        });
-      }
+			if (referentialityTr) {
+				referentialityTr.steps.forEach((step) => {
+					step.getMap().forEach((_, __, newStart, newEnd) => {
+						newState.doc.nodesBetween(newStart, newEnd, (node, pos) => {
+							if (node.type === table) {
+								if (shouldPatchTableWidth && node.attrs.width !== TABLE_MAX_WIDTH) {
+									tr.setNodeAttribute(pos, 'width', TABLE_MAX_WIDTH);
+								}
+								if (shouldPatchTableAlignment) {
+									tr.setNodeAttribute(pos, 'layout', ALIGN_START);
+								}
+							}
+						});
+					});
+				});
+			}
 
-      return tr;
-    },
-  });
+			return tr;
+		},
+	});
 };
 
 export { createPlugin };

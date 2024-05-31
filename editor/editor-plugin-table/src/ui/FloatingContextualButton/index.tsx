@@ -22,129 +22,123 @@ import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 
 import FixedButton from './FixedButton';
-import {
-  tableFloatingCellButtonSelectedStyles,
-  tableFloatingCellButtonStyles,
-} from './styles';
+import { tableFloatingCellButtonSelectedStyles, tableFloatingCellButtonStyles } from './styles';
 
 export interface Props {
-  editorView: EditorView;
-  tableWrapper?: HTMLElement;
-  tableNode?: PMNode;
-  targetCellPosition: number;
-  isContextualMenuOpen?: boolean;
-  mountPoint?: HTMLElement;
-  boundariesElement?: HTMLElement;
-  scrollableElement?: HTMLElement;
-  isNumberColumnEnabled?: boolean;
-  stickyHeader?: RowStickyState;
-  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	editorView: EditorView;
+	tableWrapper?: HTMLElement;
+	tableNode?: PMNode;
+	targetCellPosition: number;
+	isContextualMenuOpen?: boolean;
+	mountPoint?: HTMLElement;
+	boundariesElement?: HTMLElement;
+	scrollableElement?: HTMLElement;
+	isNumberColumnEnabled?: boolean;
+	stickyHeader?: RowStickyState;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
 
 const BUTTON_OFFSET = 3;
 
-const FloatingContextualButtonInner = React.memo(
-  (props: Props & WrappedComponentProps) => {
-    const {
-      editorView,
-      isContextualMenuOpen,
-      mountPoint,
-      scrollableElement,
-      stickyHeader,
-      tableWrapper,
-      targetCellPosition,
-      intl: { formatMessage },
-    } = props; //  : Props & WrappedComponentProps
+const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponentProps) => {
+	const {
+		editorView,
+		isContextualMenuOpen,
+		mountPoint,
+		scrollableElement,
+		stickyHeader,
+		tableWrapper,
+		targetCellPosition,
+		intl: { formatMessage },
+	} = props; //  : Props & WrappedComponentProps
 
-    const handleClick = () => {
-      const { state, dispatch } = editorView;
-      // Clicking outside the dropdown handles toggling the menu closed
-      // (otherwise these two toggles combat each other).
-      // In the event a user clicks the chevron button again
-      // That will count as clicking outside the dropdown and
-      // will be toggled appropriately
-      if (!isContextualMenuOpen) {
-        toggleContextualMenu()(state, dispatch);
-      }
-    };
+	const handleClick = () => {
+		const { state, dispatch } = editorView;
+		// Clicking outside the dropdown handles toggling the menu closed
+		// (otherwise these two toggles combat each other).
+		// In the event a user clicks the chevron button again
+		// That will count as clicking outside the dropdown and
+		// will be toggled appropriately
+		if (!isContextualMenuOpen) {
+			toggleContextualMenu()(state, dispatch);
+		}
+	};
 
-    const domAtPos = editorView.domAtPos.bind(editorView);
-    let targetCellRef: Node | undefined;
-    targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
+	const domAtPos = editorView.domAtPos.bind(editorView);
+	let targetCellRef: Node | undefined;
+	targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
 
-    if (!targetCellRef || !(targetCellRef instanceof HTMLElement)) {
-      return null;
-    }
+	if (!targetCellRef || !(targetCellRef instanceof HTMLElement)) {
+		return null;
+	}
 
-    const labelCellOptions = formatMessage(messages.cellOptions);
+	const labelCellOptions = formatMessage(messages.cellOptions);
 
-    const button = (
-      <div
-        css={[
-          tableFloatingCellButtonStyles(),
-          isContextualMenuOpen && tableFloatingCellButtonSelectedStyles(),
-        ]}
-      >
-        <ToolbarButton
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-          className={ClassName.CONTEXTUAL_MENU_BUTTON}
-          selected={isContextualMenuOpen}
-          title={labelCellOptions}
-          onClick={handleClick}
-          iconBefore={<ExpandIcon label="" />}
-          aria-label={labelCellOptions}
-        />
-      </div>
-    );
+	const button = (
+		<div
+			css={[
+				tableFloatingCellButtonStyles(),
+				isContextualMenuOpen && tableFloatingCellButtonSelectedStyles(),
+			]}
+		>
+			<ToolbarButton
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={ClassName.CONTEXTUAL_MENU_BUTTON}
+				selected={isContextualMenuOpen}
+				title={labelCellOptions}
+				onClick={handleClick}
+				iconBefore={<ExpandIcon label="" />}
+				aria-label={labelCellOptions}
+			/>
+		</div>
+	);
 
-    const parentSticky =
-      targetCellRef.parentElement &&
-      targetCellRef.parentElement.className.indexOf('sticky') > -1;
-    if (stickyHeader && parentSticky && tableWrapper) {
-      return (
-        <FixedButton
-          offset={BUTTON_OFFSET}
-          stickyHeader={stickyHeader}
-          tableWrapper={tableWrapper}
-          targetCellPosition={targetCellPosition}
-          targetCellRef={targetCellRef}
-          mountTo={tableWrapper}
-          isContextualMenuOpen={isContextualMenuOpen}
-        >
-          {button}
-        </FixedButton>
-      );
-    }
+	const parentSticky =
+		targetCellRef.parentElement && targetCellRef.parentElement.className.indexOf('sticky') > -1;
+	if (stickyHeader && parentSticky && tableWrapper) {
+		return (
+			<FixedButton
+				offset={BUTTON_OFFSET}
+				stickyHeader={stickyHeader}
+				tableWrapper={tableWrapper}
+				targetCellPosition={targetCellPosition}
+				targetCellRef={targetCellRef}
+				mountTo={tableWrapper}
+				isContextualMenuOpen={isContextualMenuOpen}
+			>
+				{button}
+			</FixedButton>
+		);
+	}
 
-    return (
-      <Popup
-        alignX="right"
-        alignY="start"
-        target={targetCellRef}
-        mountTo={tableWrapper || mountPoint}
-        boundariesElement={targetCellRef}
-        scrollableElement={scrollableElement}
-        offset={[BUTTON_OFFSET, -BUTTON_OFFSET]}
-        forcePlacement
-        allowOutOfBounds
-        zIndex={akEditorSmallZIndex}
-      >
-        {button}
-      </Popup>
-    );
-  },
-);
+	return (
+		<Popup
+			alignX="right"
+			alignY="start"
+			target={targetCellRef}
+			mountTo={tableWrapper || mountPoint}
+			boundariesElement={targetCellRef}
+			scrollableElement={scrollableElement}
+			offset={[BUTTON_OFFSET, -BUTTON_OFFSET]}
+			forcePlacement
+			allowOutOfBounds
+			zIndex={akEditorSmallZIndex}
+		>
+			{button}
+		</Popup>
+	);
+});
 
 const FloatingContextualButton = injectIntl(FloatingContextualButtonInner);
 
 export default function (props: Props) {
-  return (
-    <ErrorBoundary
-      component={ACTION_SUBJECT.FLOATING_CONTEXTUAL_BUTTON}
-      dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-      fallbackComponent={null}
-    >
-      <FloatingContextualButton {...props} />
-    </ErrorBoundary>
-  );
+	return (
+		<ErrorBoundary
+			component={ACTION_SUBJECT.FLOATING_CONTEXTUAL_BUTTON}
+			dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+			fallbackComponent={null}
+		>
+			<FloatingContextualButton {...props} />
+		</ErrorBoundary>
+	);
 }

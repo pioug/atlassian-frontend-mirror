@@ -10,115 +10,115 @@ import adfHeadingsRTLSymbols from '../__fixtures__/headings-right-aligned-symbol
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 export const HeadingRenderer = generateRendererComponent({
-  document: headingNodeAdf,
-  appearance: 'full-width',
-  allowHeadingAnchorLinks: {
-    allowNestedHeaderLinks: true,
-  },
+	document: headingNodeAdf,
+	appearance: 'full-width',
+	allowHeadingAnchorLinks: {
+		allowNestedHeaderLinks: true,
+	},
 });
 
 export const HeadingCommentRenderer = generateRendererComponent({
-  document: headingNodeAdf,
-  appearance: 'comment',
-  allowHeadingAnchorLinks: {
-    allowNestedHeaderLinks: true,
-  },
+	document: headingNodeAdf,
+	appearance: 'comment',
+	allowHeadingAnchorLinks: {
+		allowNestedHeaderLinks: true,
+	},
 });
 
 export const HeadingMultilineRenderer = generateRendererComponent({
-  document: adfHeadingsMultilined,
-  appearance: 'full-page',
-  allowHeadingAnchorLinks: {
-    allowNestedHeaderLinks: true,
-  },
+	document: adfHeadingsMultilined,
+	appearance: 'full-page',
+	allowHeadingAnchorLinks: {
+		allowNestedHeaderLinks: true,
+	},
 });
 
 export const HeadingsLeftRenderer = generateRendererComponent({
-  document: headingsLeftAligned,
-  appearance: 'full-page',
-  allowHeadingAnchorLinks: {
-    allowNestedHeaderLinks: true,
-  },
+	document: headingsLeftAligned,
+	appearance: 'full-page',
+	allowHeadingAnchorLinks: {
+		allowNestedHeaderLinks: true,
+	},
 });
 
 export const HeadingsLeftMobileRenderer = generateRendererComponent(
-  {
-    document: headingsLeftAligned,
-    appearance: 'mobile',
-    allowHeadingAnchorLinks: {
-      allowNestedHeaderLinks: true,
-    },
-  },
-  { viewport: { width: 320 } },
+	{
+		document: headingsLeftAligned,
+		appearance: 'mobile',
+		allowHeadingAnchorLinks: {
+			allowNestedHeaderLinks: true,
+		},
+	},
+	{ viewport: { width: 320 } },
 );
 
 export const HeadingsCenterRenderer = generateRendererComponent({
-  document: headingsCenterAligned,
-  appearance: 'full-page',
-  allowHeadingAnchorLinks: {
-    allowNestedHeaderLinks: true,
-  },
+	document: headingsCenterAligned,
+	appearance: 'full-page',
+	allowHeadingAnchorLinks: {
+		allowNestedHeaderLinks: true,
+	},
 });
 
 export const HeadingsCenterMobileRenderer = generateRendererComponent(
-  {
-    document: headingsCenterAligned,
-    appearance: 'mobile',
-    allowHeadingAnchorLinks: {
-      allowNestedHeaderLinks: true,
-    },
-  },
-  { viewport: { width: 320 } },
+	{
+		document: headingsCenterAligned,
+		appearance: 'mobile',
+		allowHeadingAnchorLinks: {
+			allowNestedHeaderLinks: true,
+		},
+	},
+	{ viewport: { width: 320 } },
 );
 
 export const HeadingsRightRenderer = generateRendererComponent({
-  document: headingsRightAligned,
-  appearance: 'full-page',
-  allowHeadingAnchorLinks: {
-    allowNestedHeaderLinks: true,
-  },
+	document: headingsRightAligned,
+	appearance: 'full-page',
+	allowHeadingAnchorLinks: {
+		allowNestedHeaderLinks: true,
+	},
 });
 
 export const HeadingsRightMobileRenderer = generateRendererComponent(
-  {
-    document: headingsRightAligned,
-    appearance: 'mobile',
-    allowHeadingAnchorLinks: {
-      allowNestedHeaderLinks: true,
-    },
-  },
-  { viewport: { width: 320 } },
+	{
+		document: headingsRightAligned,
+		appearance: 'mobile',
+		allowHeadingAnchorLinks: {
+			allowNestedHeaderLinks: true,
+		},
+	},
+	{ viewport: { width: 320 } },
 );
 
 export const HeadingRightStatusRenderer = generateRendererComponent(
-  {
-    document: adfHeadingsRTLStatus,
-    appearance: 'full-page',
-    allowHeadingAnchorLinks: {
-      allowNestedHeaderLinks: true,
-    },
-  },
-  { viewport: { width: 350 } },
+	{
+		document: adfHeadingsRTLStatus,
+		appearance: 'full-page',
+		allowHeadingAnchorLinks: {
+			allowNestedHeaderLinks: true,
+		},
+	},
+	{ viewport: { width: 350 } },
 );
 
 export const HeadingRightSymbolsRenderer = generateRendererComponent(
-  {
-    document: adfHeadingsRTLSymbols,
-    appearance: 'full-page',
-    allowHeadingAnchorLinks: {
-      allowNestedHeaderLinks: true,
-    },
-  },
-  { viewport: { width: 350 } },
+	{
+		document: adfHeadingsRTLSymbols,
+		appearance: 'full-page',
+		allowHeadingAnchorLinks: {
+			allowNestedHeaderLinks: true,
+		},
+	},
+	{ viewport: { width: 350 } },
 );
 
 export const HeadingRightEmojiRenderer = generateRendererComponent(
-  {
-    document: adfHeadingsRTLEmoji,
-    appearance: 'full-page',
-    allowHeadingAnchorLinks: {
-      allowNestedHeaderLinks: true,
-    },
-  },
-  { viewport: { width: 350 } },
+	{
+		document: adfHeadingsRTLEmoji,
+		appearance: 'full-page',
+		allowHeadingAnchorLinks: {
+			allowNestedHeaderLinks: true,
+		},
+	},
+	{ viewport: { width: 350 } },
 );

@@ -40,12 +40,10 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "typescript": "~5.4.2"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@repo/internal": {
       "design-tokens": [

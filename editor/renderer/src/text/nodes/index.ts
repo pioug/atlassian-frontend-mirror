@@ -21,28 +21,27 @@ import unknown from './unknown';
 export type NodeReducer = (node: PMNode, schema: Schema) => string;
 
 export const reduce: NodeReducer = (node: PMNode, schema: Schema) => {
-  const reducer =
-    nodeToReducerMapping[node.type.name] || nodeToReducerMapping.unknown;
-  return reducer(node, schema);
+	const reducer = nodeToReducerMapping[node.type.name] || nodeToReducerMapping.unknown;
+	return reducer(node, schema);
 };
 
 export const nodeToReducerMapping: { [key: string]: NodeReducer } = {
-  blockquote,
-  bulletList,
-  date,
-  decisionItem,
-  hardBreak,
-  heading,
-  inlineCard,
-  listItem,
-  mediaGroup,
-  mention,
-  orderedList,
-  panel,
-  paragraph,
-  rule,
-  status,
-  table,
-  taskItem,
-  unknown,
+	blockquote,
+	bulletList,
+	date,
+	decisionItem,
+	hardBreak,
+	heading,
+	inlineCard,
+	listItem,
+	mediaGroup,
+	mention,
+	orderedList,
+	panel,
+	paragraph,
+	rule,
+	status,
+	table,
+	taskItem,
+	unknown,
 };

@@ -45,7 +45,6 @@
   },
   "devDependencies": {
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "typescript": "~5.4.2"
   },
@@ -64,7 +63,6 @@
     }
   },
   "homepage": "https://atlaskit.atlassian.com/packages/design-system/rating",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "af:exports": {
     ".": "./src/index.tsx"
   },

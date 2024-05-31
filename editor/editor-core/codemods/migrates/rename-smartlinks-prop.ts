@@ -10,47 +10,39 @@ import type { Collection } from 'jscodeshift/src/Collection';
  * @param toObjectKey String
  */
 export const createJSXRenameVariableToNestedKeyTransform = (
-  from: string,
-  toObjectName: string,
-  toObjectKey: string,
+	from: string,
+	toObjectName: string,
+	toObjectKey: string,
 ) => {
-  return (j: core.JSCodeshift, source: Collection<any>) => {
-    source
-      .find(j.JSXAttribute, { name: { type: 'JSXIdentifier', name: from } })
-      .forEach((fromAttribute) => {
-        // is there an existing destination prop
-        const isExistingAttribute =
-          source.find(j.JSXAttribute, {
-            name: { type: 'JSXIdentifier', name: toObjectName },
-          }).length !== 0;
+	return (j: core.JSCodeshift, source: Collection<any>) => {
+		source
+			.find(j.JSXAttribute, { name: { type: 'JSXIdentifier', name: from } })
+			.forEach((fromAttribute) => {
+				// is there an existing destination prop
+				const isExistingAttribute =
+					source.find(j.JSXAttribute, {
+						name: { type: 'JSXIdentifier', name: toObjectName },
+					}).length !== 0;
 
-        if (
-          !isExistingAttribute &&
-          fromAttribute.node.value?.type === 'JSXExpressionContainer' &&
-          fromAttribute.node.value.expression.type === 'ObjectExpression'
-        ) {
-          const existingProperties =
-            fromAttribute.node.value.expression.properties;
-          const newObject = j.objectExpression([
-            j.property(
-              'init',
-              j.identifier(toObjectKey),
-              j.objectExpression(existingProperties),
-            ),
-          ]);
-          fromAttribute.replace(
-            j.jsxAttribute(
-              j.jsxIdentifier(toObjectName),
-              j.jsxExpressionContainer(newObject),
-            ),
-          );
-        }
-      });
-  };
+				if (
+					!isExistingAttribute &&
+					fromAttribute.node.value?.type === 'JSXExpressionContainer' &&
+					fromAttribute.node.value.expression.type === 'ObjectExpression'
+				) {
+					const existingProperties = fromAttribute.node.value.expression.properties;
+					const newObject = j.objectExpression([
+						j.property('init', j.identifier(toObjectKey), j.objectExpression(existingProperties)),
+					]);
+					fromAttribute.replace(
+						j.jsxAttribute(j.jsxIdentifier(toObjectName), j.jsxExpressionContainer(newObject)),
+					);
+				}
+			});
+	};
 };
 
 export const renameSmartLinksProp = createJSXRenameVariableToNestedKeyTransform(
-  'smartLinks',
-  'linking',
-  'smartLinks',
+	'smartLinks',
+	'linking',
+	'smartLinks',
 );

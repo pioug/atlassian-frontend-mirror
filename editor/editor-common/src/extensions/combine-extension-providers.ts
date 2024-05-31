@@ -7,26 +7,25 @@ import type { ExtensionKey, ExtensionProvider, ExtensionType } from './types';
  * This handles promise racing and discards rejected promises safely.
  */
 export default (
-  extensionProviders: (ExtensionProvider | Promise<ExtensionProvider>)[],
+	extensionProviders: (ExtensionProvider | Promise<ExtensionProvider>)[],
 ): ExtensionProvider => {
-  const { invokeSingle, invokeList } =
-    combineProviders<ExtensionProvider>(extensionProviders);
+	const { invokeSingle, invokeList } = combineProviders<ExtensionProvider>(extensionProviders);
 
-  return {
-    getExtensions() {
-      return invokeList('getExtensions');
-    },
+	return {
+		getExtensions() {
+			return invokeList('getExtensions');
+		},
 
-    getExtension(type: ExtensionType, key: ExtensionKey) {
-      return invokeSingle('getExtension', [type, key]);
-    },
+		getExtension(type: ExtensionType, key: ExtensionKey) {
+			return invokeSingle('getExtension', [type, key]);
+		},
 
-    search(keyword: string) {
-      return invokeList('search', [keyword]);
-    },
+		search(keyword: string) {
+			return invokeList('search', [keyword]);
+		},
 
-    getAutoConverter() {
-      return invokeList('getAutoConverter');
-    },
-  };
+		getAutoConverter() {
+			return invokeList('getAutoConverter');
+		},
+	};
 };

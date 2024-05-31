@@ -12,27 +12,21 @@ import { clickAreaClickHandler } from '../click-area-helper';
  * clicks/taps within or below the content (e.g. if the content
  * doesn't exceed the viewport, or whether it overflows it).
  */
-const clickWrapper = ({
-  isExpanded,
-  minHeight,
-}: {
-  isExpanded?: boolean;
-  minHeight: number;
-}) =>
-  css(
-    {
-      height: '100%',
-    },
-    isExpanded && minHeight ? `min-height: ${minHeight}px` : '',
-  );
+const clickWrapper = ({ isExpanded, minHeight }: { isExpanded?: boolean; minHeight: number }) =>
+	css(
+		{
+			height: '100%',
+		},
+		isExpanded && minHeight ? `min-height: ${minHeight}px` : '',
+	);
 
 export interface Props {
-  editorView?: EditorView;
-  minHeight: number;
-  children?: any;
-  persistScrollGutter?: boolean;
-  isExpanded?: boolean;
-  editorDisabled?: boolean;
+	editorView?: EditorView;
+	minHeight: number;
+	children?: any;
+	persistScrollGutter?: boolean;
+	isExpanded?: boolean;
+	editorDisabled?: boolean;
 }
 
 /**
@@ -50,43 +44,42 @@ export interface Props {
  * whitespace at the end of the document when it overflows the viewport.
  */
 export default class ClickAreaMobile extends React.Component<Props> {
-  private clickElementRef = React.createRef<HTMLDivElement>();
+	private clickElementRef = React.createRef<HTMLDivElement>();
 
-  private handleClick = (event: React.MouseEvent<any>) => {
-    const { editorView: view, editorDisabled } = this.props;
-    if (!view) {
-      return;
-    }
-    if (!editorDisabled) {
-      // if the editor is disabled -- we don't want to intercept any click events
-      clickAreaClickHandler(view, event);
-    }
-    const scrollGutterClicked =
-      event.clientY > view.dom.getBoundingClientRect().bottom;
-    // Reset the default prosemirror scrollIntoView logic by
-    // clamping the scroll position to the bottom of the viewport.
-    if (scrollGutterClicked) {
-      event.preventDefault();
-      if (this.clickElementRef.current) {
-        this.clickElementRef.current.scrollIntoView(false);
-      }
-    }
-  };
+	private handleClick = (event: React.MouseEvent<any>) => {
+		const { editorView: view, editorDisabled } = this.props;
+		if (!view) {
+			return;
+		}
+		if (!editorDisabled) {
+			// if the editor is disabled -- we don't want to intercept any click events
+			clickAreaClickHandler(view, event);
+		}
+		const scrollGutterClicked = event.clientY > view.dom.getBoundingClientRect().bottom;
+		// Reset the default prosemirror scrollIntoView logic by
+		// clamping the scroll position to the bottom of the viewport.
+		if (scrollGutterClicked) {
+			event.preventDefault();
+			if (this.clickElementRef.current) {
+				this.clickElementRef.current.scrollIntoView(false);
+			}
+		}
+	};
 
-  render() {
-    return (
-      <div
-        css={clickWrapper({
-          isExpanded: this.props.isExpanded,
-          minHeight: this.props.minHeight,
-        })}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className="editor-click-wrapper"
-        onClick={this.handleClick}
-        ref={this.clickElementRef}
-      >
-        {this.props.children}
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div
+				css={clickWrapper({
+					isExpanded: this.props.isExpanded,
+					minHeight: this.props.minHeight,
+				})}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="editor-click-wrapper"
+				onClick={this.handleClick}
+				ref={this.clickElementRef}
+			>
+				{this.props.children}
+			</div>
+		);
+	}
 }

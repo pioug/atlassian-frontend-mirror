@@ -1,6 +1,6 @@
 import type {
-  CollectionCellSizeAndPosition,
-  CollectionCellSizeAndPositionGetter,
+	CollectionCellSizeAndPosition,
+	CollectionCellSizeAndPositionGetter,
 } from 'react-virtualized/dist/commonjs/Collection';
 
 import { ELEMENT_ITEM_HEIGHT } from '../../constants';
@@ -13,40 +13,37 @@ import { generateVirtualizedContainerDatum } from './utils';
  * https://github.com/bvaughn/react-virtualized/blob/master/docs/Collection.md
  **/
 export default function cellSizeAndPositionGetter(
-  containerWidth: number,
-  scrollbarWidth: number,
+	containerWidth: number,
+	scrollbarWidth: number,
 ): CollectionCellSizeAndPositionGetter {
-  const GUTTER_SIZE = 4;
-  /**
-   * Save the currently rendered columnY positions.
-   * Have to be within the current render scope.
-   */
-  let columnYMap: number[] = [];
-  return ({ index }): CollectionCellSizeAndPosition => {
-    const { columnCount, availableWidth } = generateVirtualizedContainerDatum(
-      containerWidth,
-      {
-        gutterSize: GUTTER_SIZE,
-        scrollbarWidth,
-      },
-    );
+	const GUTTER_SIZE = 4;
+	/**
+	 * Save the currently rendered columnY positions.
+	 * Have to be within the current render scope.
+	 */
+	let columnYMap: number[] = [];
+	return ({ index }): CollectionCellSizeAndPosition => {
+		const { columnCount, availableWidth } = generateVirtualizedContainerDatum(containerWidth, {
+			gutterSize: GUTTER_SIZE,
+			scrollbarWidth,
+		});
 
-    const width = Math.floor(availableWidth / columnCount);
+		const width = Math.floor(availableWidth / columnCount);
 
-    const height = ELEMENT_ITEM_HEIGHT;
+		const height = ELEMENT_ITEM_HEIGHT;
 
-    const columnPosition = index % (columnCount || 1);
+		const columnPosition = index % (columnCount || 1);
 
-    const x = columnPosition * width;
-    const y = columnYMap[columnPosition] || 0;
+		const x = columnPosition * width;
+		const y = columnYMap[columnPosition] || 0;
 
-    columnYMap[columnPosition] = y + height;
+		columnYMap[columnPosition] = y + height;
 
-    return {
-      height,
-      width,
-      x,
-      y,
-    };
-  };
+		return {
+			height,
+			width,
+			x,
+			y,
+		};
+	};
 }

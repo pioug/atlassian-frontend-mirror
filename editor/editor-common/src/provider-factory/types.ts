@@ -17,32 +17,30 @@ import type { QuickInsertProvider } from './quick-insert-provider';
 import type { SearchProvider } from './search-provider';
 
 export interface Providers {
-  mediaProvider?: Promise<MediaProvider>;
-  emojiProvider?: Promise<EmojiProvider>;
-  mentionProvider?: Promise<MentionProvider>;
-  extensionProvider?: Promise<ExtensionProvider>;
-  autoformattingProvider?: Promise<AutoformattingProvider>;
-  taskDecisionProvider?: Promise<TaskDecisionProvider>;
-  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-  imageUploadProvider?: Promise<ImageUploadProvider>;
-  collabEditProvider?: Promise<CollabEditProvider>;
-  macroProvider?: Promise<MacroProvider>;
-  cardProvider?: Promise<CardProvider>;
-  quickInsertProvider?: Promise<QuickInsertProvider>;
-  profilecardProvider?: Promise<ProfilecardProvider>;
-  searchProvider?: Promise<SearchProvider>;
-  activityProvider?: Promise<ActivityProvider>;
+	mediaProvider?: Promise<MediaProvider>;
+	emojiProvider?: Promise<EmojiProvider>;
+	mentionProvider?: Promise<MentionProvider>;
+	extensionProvider?: Promise<ExtensionProvider>;
+	autoformattingProvider?: Promise<AutoformattingProvider>;
+	taskDecisionProvider?: Promise<TaskDecisionProvider>;
+	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	imageUploadProvider?: Promise<ImageUploadProvider>;
+	collabEditProvider?: Promise<CollabEditProvider>;
+	macroProvider?: Promise<MacroProvider>;
+	cardProvider?: Promise<CardProvider>;
+	quickInsertProvider?: Promise<QuickInsertProvider>;
+	profilecardProvider?: Promise<ProfilecardProvider>;
+	searchProvider?: Promise<SearchProvider>;
+	activityProvider?: Promise<ActivityProvider>;
 
-  presenceProvider?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8592
-  reactionsStore?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8593
+	presenceProvider?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8592
+	reactionsStore?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8593
 }
 
 export type ProviderName = keyof Providers;
-export type ProviderType<T> = T extends keyof Providers
-  ? Providers[T]
-  : Promise<any>;
+export type ProviderType<T> = T extends keyof Providers ? Providers[T] : Promise<any>;
 
 export type ProviderHandler<T extends string = any> = (
-  name: T,
-  provider?: ProviderType<typeof name>,
+	name: T,
+	provider?: ProviderType<typeof name>,
 ) => void;

@@ -10,64 +10,57 @@ import { ReactEditorView } from '../../create-editor/ReactEditorView';
 import Editor from '../../editor';
 
 describe('reconfigure state', () => {
-  let reconfigureSpy: jest.SpyInstance<void, [props: any]>;
+	let reconfigureSpy: jest.SpyInstance<void, [props: any]>;
 
-  beforeEach(() => {
-    reconfigureSpy = jest.spyOn(ReactEditorView.prototype, 'reconfigureState');
-  });
+	beforeEach(() => {
+		reconfigureSpy = jest.spyOn(ReactEditorView.prototype, 'reconfigureState');
+	});
 
-  afterEach(() => {
-    reconfigureSpy.mockReset();
-  });
+	afterEach(() => {
+		reconfigureSpy.mockReset();
+	});
 
-  it('should not reconfigure when updating the collab edit provider', () => {
-    const collabEditProvider = jest.fn() as any;
-    const setProviderSpy = jest.spyOn(ProviderFactory.prototype, 'setProvider');
-    const { rerender, unmount } = renderWithIntl(
-      <Editor collabEditProvider={undefined} />,
-    );
-    rerender(<Editor collabEditProvider={collabEditProvider} />);
-    expect(reconfigureSpy).toHaveBeenCalledTimes(0);
-    expect(setProviderSpy).toHaveBeenCalledWith(
-      'collabEditProvider',
-      collabEditProvider,
-    );
+	it('should not reconfigure when updating the collab edit provider', () => {
+		const collabEditProvider = jest.fn() as any;
+		const setProviderSpy = jest.spyOn(ProviderFactory.prototype, 'setProvider');
+		const { rerender, unmount } = renderWithIntl(<Editor collabEditProvider={undefined} />);
+		rerender(<Editor collabEditProvider={collabEditProvider} />);
+		expect(reconfigureSpy).toHaveBeenCalledTimes(0);
+		expect(setProviderSpy).toHaveBeenCalledWith('collabEditProvider', collabEditProvider);
 
-    unmount();
-  });
+		unmount();
+	});
 
-  it('should reconfigure when updating the appearance', () => {
-    const { rerender, unmount } = renderWithIntl(
-      <Editor appearance="full-width" />,
-    );
-    rerender(<Editor appearance="full-page" />);
-    expect(reconfigureSpy).toHaveBeenCalledTimes(1);
-    unmount();
-  });
+	it('should reconfigure when updating the appearance', () => {
+		const { rerender, unmount } = renderWithIntl(<Editor appearance="full-width" />);
+		rerender(<Editor appearance="full-page" />);
+		expect(reconfigureSpy).toHaveBeenCalledTimes(1);
+		unmount();
+	});
 
-  it('should reconfigure the editor state when updating the dangerouslyAppendPlugins', () => {
-    const { rerender, unmount } = renderWithIntl(<Editor />);
-    rerender(
-      <Editor
-        dangerouslyAppendPlugins={{
-          __plugins: [testPlugin],
-        }}
-      />,
-    );
-    expect(reconfigureSpy).toHaveBeenCalledTimes(1);
-    unmount();
-  });
+	it('should reconfigure the editor state when updating the dangerouslyAppendPlugins', () => {
+		const { rerender, unmount } = renderWithIntl(<Editor />);
+		rerender(
+			<Editor
+				dangerouslyAppendPlugins={{
+					__plugins: [testPlugin],
+				}}
+			/>,
+		);
+		expect(reconfigureSpy).toHaveBeenCalledTimes(1);
+		unmount();
+	});
 });
 
 const testPlugin: EditorPlugin = {
-  name: 'testPlugin',
+	name: 'testPlugin',
 
-  pmPlugins() {
-    return [
-      {
-        name: 'testPlugin',
-        plugin: () => new SafePlugin({}),
-      },
-    ];
-  },
+	pmPlugins() {
+		return [
+			{
+				name: 'testPlugin',
+				plugin: () => new SafePlugin({}),
+			},
+		];
+	},
 };

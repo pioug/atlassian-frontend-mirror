@@ -53,7 +53,6 @@
   },
   "peerDependencies": {},
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
@@ -80,6 +79,5 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/"
 }

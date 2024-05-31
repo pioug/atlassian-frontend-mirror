@@ -11,22 +11,19 @@ import SidebarContainer from '../example-helpers/SidebarContainer';
 import type { EditorAppearance } from '../src/editor';
 
 import { InviteToEditButton } from './3-collab';
-import FullPageExample, {
-  getAppearance,
-  LOCALSTORAGE_defaultDocKey,
-} from './5-full-page';
+import FullPageExample, { getAppearance, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 
 const disabledBlanket = css({
-  position: 'absolute',
-  top: '0px',
-  left: '0px',
-  width: '100%',
-  height: '100%',
-  background: 'rgba(0, 0, 0, 0.03)',
-  '> *': {
-    marginTop: '50vh',
-    marginLeft: '50vw',
-  },
+	position: 'absolute',
+	top: '0px',
+	left: '0px',
+	width: '100%',
+	height: '100%',
+	background: 'rgba(0, 0, 0, 0.03)',
+	'> *': {
+		marginTop: '50vh',
+		marginLeft: '50vw',
+	},
 });
 
 /**
@@ -36,52 +33,51 @@ const disabledBlanket = css({
  *  - collab editing enabled
  */
 const ExampleEditorComponent = () => {
-  const [disabled, setDisabled] = useState(true);
-  const [appearance, setAppearance] = useState<EditorAppearance>('full-page');
+	const [disabled, setDisabled] = useState(true);
+	const [appearance, setAppearance] = useState<EditorAppearance>('full-page');
 
-  const collabSessionId = 'quokka';
+	const collabSessionId = 'quokka';
 
-  useEffect(() => {
-    // Simulate async nature of confluence fetching appearance
-    const timeout = Math.floor(Math.random() * (1500 - 750 + 1)) + 750;
-    console.log(`async delay is ${timeout}`);
-    const appearanceTimeoutId = window.setTimeout(() => {
-      setDisabled(false);
-      setAppearance(getAppearance());
-    }, timeout);
+	useEffect(() => {
+		// Simulate async nature of confluence fetching appearance
+		const timeout = Math.floor(Math.random() * (1500 - 750 + 1)) + 750;
+		console.log(`async delay is ${timeout}`);
+		const appearanceTimeoutId = window.setTimeout(() => {
+			setDisabled(false);
+			setAppearance(getAppearance());
+		}, timeout);
 
-    return () => {
-      window.clearTimeout(appearanceTimeoutId);
-    };
-  }, []);
+		return () => {
+			window.clearTimeout(appearanceTimeoutId);
+		};
+	}, []);
 
-  const defaultDoc =
-    (localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) ||
-    undefined;
+	const defaultDoc =
+		(localStorage && localStorage.getItem(LOCALSTORAGE_defaultDocKey)) || undefined;
 
-  return (
-    <SidebarContainer>
-      {disabled && (
-        <div css={disabledBlanket}>
-          <Spinner size="large" />
-        </div>
-      )}
-      <FullPageExample
-        editorProps={{
-          collabEdit: {
-            provider: createCollabEditProvider({
-              userId: collabSessionId,
-              defaultDoc,
-            }),
-            inviteToEditComponent: InviteToEditButton,
-          },
-          disabled,
-          appearance,
-          shouldFocus: true,
-        }}
-      />
-    </SidebarContainer>
-  );
+	return (
+		<SidebarContainer>
+			{disabled && (
+				<div css={disabledBlanket}>
+					<Spinner size="large" />
+				</div>
+			)}
+			<FullPageExample
+				editorProps={{
+					collabEdit: {
+						provider: createCollabEditProvider({
+							userId: collabSessionId,
+							defaultDoc,
+						}),
+						inviteToEditComponent: InviteToEditButton,
+					},
+					disabled,
+					appearance,
+					shouldFocus: true,
+				}}
+			/>
+		</SidebarContainer>
+	);
 };
 
 export default ExampleEditorComponent;

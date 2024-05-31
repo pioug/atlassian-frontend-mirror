@@ -8,82 +8,73 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { CorePlugin } from '../preset/core-plugin/types';
 
-import type {
-  EditorCommand,
-  EditorCommandWithMetadata,
-} from './editor-command';
+import type { EditorCommand, EditorCommandWithMetadata } from './editor-command';
 import type { EditorPlugin } from './editor-plugin';
 
 type IsAny<T> = 0 extends 1 & T ? true : false;
 
 type PickSharedStatePropertyName<Metadata extends NextEditorPluginMetadata> =
-  IsAny<Metadata> extends true
-    ? never
-    : ExtractSharedStateFromMetadata<Metadata> extends never
-      ? never
-      : 'getSharedState';
+	IsAny<Metadata> extends true
+		? never
+		: ExtractSharedStateFromMetadata<Metadata> extends never
+			? never
+			: 'getSharedState';
 
 type WithSharedState<Metadata extends NextEditorPluginMetadata> = {
-  [Property in keyof Pick<
-    Metadata,
-    'sharedState'
-  > as PickSharedStatePropertyName<Metadata>]: (
-    editorState: EditorState | undefined,
-  ) => ExtractSharedStateFromMetadata<Metadata>;
+	[Property in keyof Pick<Metadata, 'sharedState'> as PickSharedStatePropertyName<Metadata>]: (
+		editorState: EditorState | undefined,
+	) => ExtractSharedStateFromMetadata<Metadata>;
 };
 
 type PickActionsPropertyName<Metadata extends NextEditorPluginMetadata> =
-  IsAny<Metadata> extends true
-    ? never
-    : ExtractActionsFromMetadata<Metadata> extends never
-      ? never
-      : 'actions';
+	IsAny<Metadata> extends true
+		? never
+		: ExtractActionsFromMetadata<Metadata> extends never
+			? never
+			: 'actions';
 
 type PickCommandsPropertyName<Metadata extends NextEditorPluginMetadata> =
-  IsAny<Metadata> extends true
-    ? never
-    : ExtractCommandsFromMetadata<Metadata> extends never
-      ? never
-      : 'commands';
+	IsAny<Metadata> extends true
+		? never
+		: ExtractCommandsFromMetadata<Metadata> extends never
+			? never
+			: 'commands';
 
 type WithActions<Metadata extends NextEditorPluginMetadata> = {
-  [Property in keyof Pick<
-    Metadata,
-    'actions'
-  > as PickActionsPropertyName<Metadata>]: ExtractActionsFromMetadata<Metadata>;
+	[Property in keyof Pick<
+		Metadata,
+		'actions'
+	> as PickActionsPropertyName<Metadata>]: ExtractActionsFromMetadata<Metadata>;
 };
 
 type WithCommands<Metadata extends NextEditorPluginMetadata> = {
-  [Property in keyof Pick<
-    Metadata,
-    'commands'
-  > as PickCommandsPropertyName<Metadata>]: ExtractCommandsFromMetadata<Metadata>;
+	[Property in keyof Pick<
+		Metadata,
+		'commands'
+	> as PickCommandsPropertyName<Metadata>]: ExtractCommandsFromMetadata<Metadata>;
 };
 
 export type DefaultEditorPlugin<
-  Name extends string,
-  Metadata extends NextEditorPluginMetadata,
+	Name extends string,
+	Metadata extends NextEditorPluginMetadata,
 > = EditorPlugin &
-  WithSharedState<Metadata> &
-  WithActions<Metadata> &
-  WithCommands<Metadata> & {
-    name: Name;
-  };
+	WithSharedState<Metadata> &
+	WithActions<Metadata> &
+	WithCommands<Metadata> & {
+		name: Name;
+	};
 
 type MaybeAction = ((...agrs: any) => any) | ((...agrs: any) => void);
 type NextEditorPluginActions = Record<string, MaybeAction>;
 
-type NextEditorEditorCommands = Record<
-  string,
-  EditorCommandWithMetadata | EditorCommand
->;
+type NextEditorEditorCommands = Record<string, EditorCommandWithMetadata | EditorCommand>;
 
 export interface NextEditorPluginMetadata {
-  readonly sharedState?: any;
-  readonly pluginConfiguration?: any;
-  readonly dependencies?: DependencyPlugin[];
-  readonly actions?: NextEditorPluginActions;
-  readonly commands?: NextEditorEditorCommands;
+	readonly sharedState?: any;
+	readonly pluginConfiguration?: any;
+	readonly dependencies?: DependencyPlugin[];
+	readonly actions?: NextEditorPluginActions;
+	readonly commands?: NextEditorEditorCommands;
 }
 
 /**
@@ -92,29 +83,22 @@ export interface NextEditorPluginMetadata {
  * it is only here because otherwise typescript blows up
  * trying to compare `PluginInjectionAPI` to `PublicPluginAPI`
  */
-export type PluginInjectionAPI<
-  Name extends string,
-  Metadata extends NextEditorPluginMetadata,
-> = {
-  dependencies: PublicPluginAPI<
-    [
-      NextEditorPlugin<Name, Metadata>,
-      ...ExtractPluginDependenciesFromMetadata<Metadata>,
-    ]
-  >;
+export type PluginInjectionAPI<Name extends string, Metadata extends NextEditorPluginMetadata> = {
+	dependencies: PublicPluginAPI<
+		[NextEditorPlugin<Name, Metadata>, ...ExtractPluginDependenciesFromMetadata<Metadata>]
+	>;
 };
 
-export type PluginInjectionAPIWithDependencies<
-  Plugins extends NextEditorPlugin<any, any>[],
-> = PublicPluginAPI<Plugins>;
+export type PluginInjectionAPIWithDependencies<Plugins extends NextEditorPlugin<any, any>[]> =
+	PublicPluginAPI<Plugins>;
 
 export type NextEditorPluginFunctionOptionalConfigDefinition<
-  Name extends string,
-  Metadata extends NextEditorPluginMetadata,
-  Configuration = undefined,
+	Name extends string,
+	Metadata extends NextEditorPluginMetadata,
+	Configuration = undefined,
 > = (props: {
-  config: Configuration;
-  api?: PluginInjectionAPI<Name, Metadata>['dependencies'];
+	config: Configuration;
+	api?: PluginInjectionAPI<Name, Metadata>['dependencies'];
 }) => DefaultEditorPlugin<Name, Metadata>;
 
 // Used internally to indicate the plugin is internal
@@ -123,320 +107,270 @@ export type NextEditorPluginFunctionOptionalConfigDefinition<
 // (See `ExternalPluginAPI` for how it determines the typing)
 type OptionalPrivateProperty = { __optionalPluginType: true };
 
-export type OptionalPlugin<EditorPlugin extends NextEditorPlugin<any, any>> =
-  EditorPlugin & OptionalPrivateProperty;
+export type OptionalPlugin<EditorPlugin extends NextEditorPlugin<any, any>> = EditorPlugin &
+	OptionalPrivateProperty;
 
-type DependencyPlugin =
-  | OptionalPlugin<NextEditorPlugin<any, any>>
-  | NextEditorPlugin<any, any>;
+type DependencyPlugin = OptionalPlugin<NextEditorPlugin<any, any>> | NextEditorPlugin<any, any>;
 
 export type NextEditorPlugin<
-  Name extends string,
-  Metadata extends NextEditorPluginMetadata = {},
+	Name extends string,
+	Metadata extends NextEditorPluginMetadata = {},
 > = Metadata extends NextEditorPluginMetadata
-  ? 'pluginConfiguration' extends keyof Metadata
-    ? NextEditorPluginFunctionOptionalConfigDefinition<
-        Name,
-        Metadata,
-        Metadata['pluginConfiguration']
-      >
-    : NextEditorPluginFunctionOptionalConfigDefinition<Name, Metadata>
-  : never;
+	? 'pluginConfiguration' extends keyof Metadata
+		? NextEditorPluginFunctionOptionalConfigDefinition<
+				Name,
+				Metadata,
+				Metadata['pluginConfiguration']
+			>
+		: NextEditorPluginFunctionOptionalConfigDefinition<Name, Metadata>
+	: never;
 
-type FilterOptionalPlugins<T extends DependencyPlugin[]> = T extends [
-  infer Head,
-  ...infer Tail,
-]
-  ? Tail extends DependencyPlugin[]
-    ? Head extends OptionalPlugin<NextEditorPlugin<any, any>>
-      ? FilterOptionalPlugins<Tail>
-      : [Head, ...FilterOptionalPlugins<Tail>]
-    : T
-  : T;
+type FilterOptionalPlugins<T extends DependencyPlugin[]> = T extends [infer Head, ...infer Tail]
+	? Tail extends DependencyPlugin[]
+		? Head extends OptionalPlugin<NextEditorPlugin<any, any>>
+			? FilterOptionalPlugins<Tail>
+			: [Head, ...FilterOptionalPlugins<Tail>]
+		: T
+	: T;
 
 type ExtractPluginDependenciesFromMetadataWithoutOptionals<
-  Metadata extends NextEditorPluginMetadata,
+	Metadata extends NextEditorPluginMetadata,
 > = Metadata['dependencies'] extends DependencyPlugin[]
-  ? FilterOptionalPlugins<Metadata['dependencies']>
-  : [];
+	? FilterOptionalPlugins<Metadata['dependencies']>
+	: [];
 
-type ExtractPluginDependenciesFromMetadata<Metadata> =
-  'dependencies' extends keyof Metadata
-    ? Metadata['dependencies'] extends DependencyPlugin[]
-      ? Exclude<Metadata['dependencies'], undefined>
-      : []
-    : [];
+type ExtractPluginDependenciesFromMetadata<Metadata> = 'dependencies' extends keyof Metadata
+	? Metadata['dependencies'] extends DependencyPlugin[]
+		? Exclude<Metadata['dependencies'], undefined>
+		: []
+	: [];
 
-type ExtractSharedStateFromMetadata<Metadata> =
-  'sharedState' extends keyof Metadata ? Metadata['sharedState'] : never;
+type ExtractSharedStateFromMetadata<Metadata> = 'sharedState' extends keyof Metadata
+	? Metadata['sharedState']
+	: never;
 
 type ExtractActionsFromMetadata<Metadata> = 'actions' extends keyof Metadata
-  ? Metadata['actions']
-  : never;
+	? Metadata['actions']
+	: never;
 
 type ExtractCommandsFromMetadata<Metadata> = 'commands' extends keyof Metadata
-  ? Metadata['commands']
-  : never;
+	? Metadata['commands']
+	: never;
 
-type ExtractPluginConfigurationFromMetadata<Metadata> =
-  'pluginConfiguration' extends keyof Metadata
-    ? Metadata['pluginConfiguration']
-    : never;
+type ExtractPluginConfigurationFromMetadata<Metadata> = 'pluginConfiguration' extends keyof Metadata
+	? Metadata['pluginConfiguration']
+	: never;
 
 export type ExtractPluginDependencies<Plugin> =
-  Plugin extends NextEditorPlugin<any, any>
-    ? Plugin extends (props: {
-        config: any;
-        api: any;
-      }) => DefaultEditorPlugin<any, infer Metadata>
-      ? ExtractPluginDependenciesFromMetadataWithoutOptionals<Metadata>
-      : never
-    : never;
+	Plugin extends NextEditorPlugin<any, any>
+		? Plugin extends (props: { config: any; api: any }) => DefaultEditorPlugin<any, infer Metadata>
+			? ExtractPluginDependenciesFromMetadataWithoutOptionals<Metadata>
+			: never
+		: never;
 
 type ExtractPluginConfiguration<Plugin> =
-  Plugin extends NextEditorPlugin<any, any>
-    ? Plugin extends (props: {
-        config: any;
-        api: any;
-      }) => DefaultEditorPlugin<any, infer Metadata>
-      ? ExtractPluginConfigurationFromMetadata<Metadata>
-      : never
-    : never;
+	Plugin extends NextEditorPlugin<any, any>
+		? Plugin extends (props: { config: any; api: any }) => DefaultEditorPlugin<any, infer Metadata>
+			? ExtractPluginConfigurationFromMetadata<Metadata>
+			: never
+		: never;
 
 export type ExtractPluginSharedState<Plugin> =
-  Plugin extends NextEditorPlugin<any, any>
-    ? Plugin extends (props: {
-        config: any;
-        api: any;
-      }) => DefaultEditorPlugin<any, infer Metadata>
-      ? ExtractSharedStateFromMetadata<Metadata>
-      : never
-    : never;
+	Plugin extends NextEditorPlugin<any, any>
+		? Plugin extends (props: { config: any; api: any }) => DefaultEditorPlugin<any, infer Metadata>
+			? ExtractSharedStateFromMetadata<Metadata>
+			: never
+		: never;
 
 export type ExtractPluginActions<Plugin> =
-  Plugin extends NextEditorPlugin<any, any>
-    ? Plugin extends (props: {
-        config: any;
-        api: any;
-      }) => DefaultEditorPlugin<any, infer Metadata>
-      ? ExtractActionsFromMetadata<Metadata>
-      : never
-    : never;
+	Plugin extends NextEditorPlugin<any, any>
+		? Plugin extends (props: { config: any; api: any }) => DefaultEditorPlugin<any, infer Metadata>
+			? ExtractActionsFromMetadata<Metadata>
+			: never
+		: never;
 
 type ExtractPluginName<Plugin> =
-  Plugin extends NextEditorPlugin<any, any>
-    ? Plugin extends (
-        ...args: any
-      ) => DefaultEditorPlugin<infer PluginName, any>
-      ? PluginName
-      : never
-    : never;
+	Plugin extends NextEditorPlugin<any, any>
+		? Plugin extends (...args: any) => DefaultEditorPlugin<infer PluginName, any>
+			? PluginName
+			: never
+		: never;
 
 type Unsubscribe = () => void;
 export type PluginDependenciesAPI<Plugin extends NextEditorPlugin<any, any>> = {
-  sharedState: {
-    currentState: () => ExtractPluginSharedState<Plugin> | undefined;
-    onChange: (
-      sub: (props: {
-        nextSharedState: ExtractPluginSharedState<Plugin>;
-        prevSharedState: ExtractPluginSharedState<Plugin>;
-      }) => void,
-    ) => Unsubscribe;
-  };
-  actions: ExtractPluginActions<Plugin>;
-  commands: Plugin extends NextEditorPlugin<any, infer Metadata>
-    ? ExtractCommandsFromMetadata<Metadata>
-    : never;
+	sharedState: {
+		currentState: () => ExtractPluginSharedState<Plugin> | undefined;
+		onChange: (
+			sub: (props: {
+				nextSharedState: ExtractPluginSharedState<Plugin>;
+				prevSharedState: ExtractPluginSharedState<Plugin>;
+			}) => void,
+		) => Unsubscribe;
+	};
+	actions: ExtractPluginActions<Plugin>;
+	commands: Plugin extends NextEditorPlugin<any, infer Metadata>
+		? ExtractCommandsFromMetadata<Metadata>
+		: never;
 };
 
-export type CreatePluginDependenciesAPI<
-  PluginList extends NextEditorPlugin<any, any>[],
-> = {
-  [Plugin in PluginList[number] as `${ExtractPluginName<Plugin>}`]: Plugin extends OptionalPlugin<
-    NextEditorPlugin<any, any>
-  >
-    ? PluginDependenciesAPI<Plugin> | undefined
-    : // Special case for core as it is always included
-      Plugin extends NextEditorPlugin<'core', any>
-      ? PluginDependenciesAPI<Plugin>
-      : Plugin extends NextEditorPlugin<any, any>
-        ? PluginDependenciesAPI<Plugin> | undefined
-        : never;
+export type CreatePluginDependenciesAPI<PluginList extends NextEditorPlugin<any, any>[]> = {
+	[Plugin in PluginList[number] as `${ExtractPluginName<Plugin>}`]: Plugin extends OptionalPlugin<
+		NextEditorPlugin<any, any>
+	>
+		? PluginDependenciesAPI<Plugin> | undefined
+		: // Special case for core as it is always included
+			Plugin extends NextEditorPlugin<'core', any>
+			? PluginDependenciesAPI<Plugin>
+			: Plugin extends NextEditorPlugin<any, any>
+				? PluginDependenciesAPI<Plugin> | undefined
+				: never;
 };
 
 export type PluginWithConfiguration<Plugin> =
-  undefined extends ExtractPluginConfiguration<Plugin>
-    ? [Plugin, ExtractPluginConfiguration<Plugin>?]
-    : [Plugin, ExtractPluginConfiguration<Plugin>];
+	undefined extends ExtractPluginConfiguration<Plugin>
+		? [Plugin, ExtractPluginConfiguration<Plugin>?]
+		: [Plugin, ExtractPluginConfiguration<Plugin>];
 
 export type MaybePluginName<T extends string> = [T];
-export type PresetPlugin =
-  | PluginWithConfiguration<any>
-  | NextEditorPlugin<any, any>;
+export type PresetPlugin = PluginWithConfiguration<any> | NextEditorPlugin<any, any>;
 
 export type MaybePlugin<T extends PresetPlugin> = T | undefined;
 
-export type AllEditorPresetPluginTypes =
-  | PresetPlugin
-  | MaybePlugin<NextEditorPlugin<any, any>>;
+export type AllEditorPresetPluginTypes = PresetPlugin | MaybePlugin<NextEditorPlugin<any, any>>;
 
 type ExtractNextEditorPlugin<Plugin> =
-  Plugin extends PluginWithConfiguration<any> ? Plugin[0] : never;
+	Plugin extends PluginWithConfiguration<any> ? Plugin[0] : never;
 
-export type VerifyPluginDependencies<
-  Plugin,
-  PluginsStack extends AllEditorPresetPluginTypes[],
-> =
-  ExtractPluginDependencies<Plugin> extends []
-    ? // Plugin has no dependencies
-      Plugin extends PluginWithConfiguration<any> | NextEditorPlugin<any, any>
-      ? Plugin
-      : never
-    : // Plugin has dependencies
-      /**
-       * case 1: We're looking for its dependent plugins indexed on `AllEditorPresetPluginTypes`
-       */
-      ExtractPluginDependencies<Plugin>[number] extends
-          | (ExtractPluginDependencies<Plugin>[number] & PluginsStack[number])
-          /**
-           * case 2:
-           * Otherwise check whether the dependent-plugin, is hidden inside a tuple,
-           * unwrapping `Plugins` via `ExtractNextEditorPlugin`
-           */
-          | (ExtractPluginDependencies<Plugin>[number] &
-              ExtractNextEditorPlugin<PluginsStack[number]>)
-      ? Plugin
-      : never;
+export type VerifyPluginDependencies<Plugin, PluginsStack extends AllEditorPresetPluginTypes[]> =
+	ExtractPluginDependencies<Plugin> extends []
+		? // Plugin has no dependencies
+			Plugin extends PluginWithConfiguration<any> | NextEditorPlugin<any, any>
+			? Plugin
+			: never
+		: // Plugin has dependencies
+			/**
+			 * case 1: We're looking for its dependent plugins indexed on `AllEditorPresetPluginTypes`
+			 */
+			ExtractPluginDependencies<Plugin>[number] extends
+					| (ExtractPluginDependencies<Plugin>[number] & PluginsStack[number])
+					/**
+					 * case 2:
+					 * Otherwise check whether the dependent-plugin, is hidden inside a tuple,
+					 * unwrapping `Plugins` via `ExtractNextEditorPlugin`
+					 */
+					| (ExtractPluginDependencies<Plugin>[number] &
+							ExtractNextEditorPlugin<PluginsStack[number]>)
+			? Plugin
+			: never;
 
 type FilterExistingPlugins<
-  T extends DependencyPlugin[],
-  PluginsStack extends AllEditorPresetPluginTypes[],
-> = T extends [
-  infer CurrentPluginDependency,
-  ...infer RemainingPluginDependencies,
-]
-  ? RemainingPluginDependencies extends DependencyPlugin[]
-    ? CurrentPluginDependency extends PluginsStack[number]
-      ? FilterExistingPlugins<RemainingPluginDependencies, PluginsStack>
-      : [
-          CurrentPluginDependency,
-          ...FilterExistingPlugins<RemainingPluginDependencies, PluginsStack>,
-        ]
-    : T
-  : T;
+	T extends DependencyPlugin[],
+	PluginsStack extends AllEditorPresetPluginTypes[],
+> = T extends [infer CurrentPluginDependency, ...infer RemainingPluginDependencies]
+	? RemainingPluginDependencies extends DependencyPlugin[]
+		? CurrentPluginDependency extends PluginsStack[number]
+			? FilterExistingPlugins<RemainingPluginDependencies, PluginsStack>
+			: [
+					CurrentPluginDependency,
+					...FilterExistingPlugins<RemainingPluginDependencies, PluginsStack>,
+				]
+		: T
+	: T;
 
 type DependencyErrorMessage<Message extends string> = { errorMessage: Message };
 
 // Used to create a more informative message if you are missing dependencies
-type ExtractRequiredDependencies<
-  Plugin,
-  PluginsStack extends AllEditorPresetPluginTypes[],
-> =
-  Plugin extends NextEditorPlugin<infer PluginName, infer Metadata>
-    ? Metadata['dependencies'] extends undefined
-      ? DependencyErrorMessage<'No found dependencies'>
-      : Metadata['dependencies'] extends DependencyPlugin[]
-        ? FilterOptionalPlugins<
-            FilterExistingPlugins<Metadata['dependencies'], PluginsStack>
-          >[number] extends NextEditorPlugin<infer Name, any>
-          ? Name
-          : DependencyErrorMessage<`Invalid dependency for ${PluginName}`>
-        : DependencyErrorMessage<`Invalid dependencies for ${PluginName}`>
-    : DependencyErrorMessage<'Plugin is not NextEditorPlugin'>;
+type ExtractRequiredDependencies<Plugin, PluginsStack extends AllEditorPresetPluginTypes[]> =
+	Plugin extends NextEditorPlugin<infer PluginName, infer Metadata>
+		? Metadata['dependencies'] extends undefined
+			? DependencyErrorMessage<'No found dependencies'>
+			: Metadata['dependencies'] extends DependencyPlugin[]
+				? FilterOptionalPlugins<
+						FilterExistingPlugins<Metadata['dependencies'], PluginsStack>
+					>[number] extends NextEditorPlugin<infer Name, any>
+					? Name
+					: DependencyErrorMessage<`Invalid dependency for ${PluginName}`>
+				: DependencyErrorMessage<`Invalid dependencies for ${PluginName}`>
+		: DependencyErrorMessage<'Plugin is not NextEditorPlugin'>;
 
 // Check if we have missing dependencies or some other error
-type GetDependencyErrorMessage<
-  Plugin,
-  StackPlugins extends AllEditorPresetPluginTypes[],
-> =
-  ExtractRequiredDependencies<Plugin, StackPlugins> extends string
-    ? DependencyErrorMessage<`Missing dependency: ${ExtractRequiredDependencies<
-        Plugin,
-        StackPlugins
-      >}Plugin`>
-    : ExtractRequiredDependencies<Plugin, StackPlugins>;
+type GetDependencyErrorMessage<Plugin, StackPlugins extends AllEditorPresetPluginTypes[]> =
+	ExtractRequiredDependencies<Plugin, StackPlugins> extends string
+		? DependencyErrorMessage<`Missing dependency: ${ExtractRequiredDependencies<
+				Plugin,
+				StackPlugins
+			>}Plugin`>
+		: ExtractRequiredDependencies<Plugin, StackPlugins>;
 
-export type CheckDuplicatePlugin<
-  Plugin,
-  StackPlugins extends AllEditorPresetPluginTypes[],
-> =
-  Plugin extends NextEditorPlugin<infer PluginName, any>
-    ? Plugin extends StackPlugins[number]
-      ? // It's possible that the StackPlugins are type "any" - if we don't check this
-        // the "any" type will throw an error (which is not ideal for someone just trying
-        // to ignore preset type errors). We check if "unknown" extends StackPlugins because
-        // if the StackPlugins is typed strongly this won't be true.
-        unknown extends StackPlugins[number]
-        ? unknown
-        : DependencyErrorMessage<`Duplicate plugin: ${PluginName}`>
-      : unknown
-    : unknown;
+export type CheckDuplicatePlugin<Plugin, StackPlugins extends AllEditorPresetPluginTypes[]> =
+	Plugin extends NextEditorPlugin<infer PluginName, any>
+		? Plugin extends StackPlugins[number]
+			? // It's possible that the StackPlugins are type "any" - if we don't check this
+				// the "any" type will throw an error (which is not ideal for someone just trying
+				// to ignore preset type errors). We check if "unknown" extends StackPlugins because
+				// if the StackPlugins is typed strongly this won't be true.
+				unknown extends StackPlugins[number]
+				? unknown
+				: DependencyErrorMessage<`Duplicate plugin: ${PluginName}`>
+			: unknown
+		: unknown;
 
 /**
  * Used to check if a plugin being added can be added to a Preset/builder
  */
 export type SafePresetCheck<
-  Plugin,
-  StackPlugins extends AllEditorPresetPluginTypes[],
+	Plugin,
+	StackPlugins extends AllEditorPresetPluginTypes[],
 > = Plugin extends Plugin & VerifyPluginDependencies<Plugin, StackPlugins>
-  ? Plugin extends NextEditorPlugin<any, any>
-    ? CheckDuplicatePlugin<Plugin, StackPlugins> & CheckBasicPlugin<Plugin>
-    : never
-  : GetDependencyErrorMessage<Plugin, StackPlugins>;
+	? Plugin extends NextEditorPlugin<any, any>
+		? CheckDuplicatePlugin<Plugin, StackPlugins> & CheckBasicPlugin<Plugin>
+		: never
+	: GetDependencyErrorMessage<Plugin, StackPlugins>;
 
 type CheckTupleRequirements<Plugin, Config, ArrayType> = unknown extends Config
-  ? Plugin | ArrayType
-  : // If plugin config is optional, all configurations are valid
-    undefined extends Config
-    ? Plugin | ArrayType
-    : // If plugin does not have config, keep old shape for backward compability
-      [Config] extends [never]
-      ? Plugin
-      : // Otherwise, we have mandatory config to be supplied & we only allow a plugin to be added as a tuple
-        ArrayType;
+	? Plugin | ArrayType
+	: // If plugin config is optional, all configurations are valid
+		undefined extends Config
+		? Plugin | ArrayType
+		: // If plugin does not have config, keep old shape for backward compability
+			[Config] extends [never]
+			? Plugin
+			: // Otherwise, we have mandatory config to be supplied & we only allow a plugin to be added as a tuple
+				ArrayType;
 
-type CheckBasicPlugin<Plugin> = Plugin extends (
-  args: any,
-  api: any,
-) => EditorPlugin
-  ? CheckTupleRequirements<
-      Plugin,
-      ExtractPluginConfiguration<Plugin>,
-      PluginWithConfiguration<Plugin>
-    >
-  : never;
+type CheckBasicPlugin<Plugin> = Plugin extends (args: any, api: any) => EditorPlugin
+	? CheckTupleRequirements<
+			Plugin,
+			ExtractPluginConfiguration<Plugin>,
+			PluginWithConfiguration<Plugin>
+		>
+	: never;
 
-export type ExtractPluginNameFromAllBuilderPlugins<
-  Plugin extends PresetPlugin,
-> =
-  Plugin extends Array<any>
-    ? Plugin extends [infer MPlugin, ...any]
-      ? MPlugin extends NextEditorPlugin<any, any>
-        ? ExtractPluginName<MPlugin>
-        : never
-      : never
-    : Plugin extends NextEditorPlugin<any, any>
-      ? ExtractPluginName<Plugin>
-      : never;
+export type ExtractPluginNameFromAllBuilderPlugins<Plugin extends PresetPlugin> =
+	Plugin extends Array<any>
+		? Plugin extends [infer MPlugin, ...any]
+			? MPlugin extends NextEditorPlugin<any, any>
+				? ExtractPluginName<MPlugin>
+				: never
+			: never
+		: Plugin extends NextEditorPlugin<any, any>
+			? ExtractPluginName<Plugin>
+			: never;
 
 export type ExtractInjectionAPI<Plugin> =
-  Plugin extends NextEditorPlugin<infer Name, infer Metadata>
-    ? PluginInjectionAPI<Name, Metadata>['dependencies']
-    : never;
+	Plugin extends NextEditorPlugin<infer Name, infer Metadata>
+		? PluginInjectionAPI<Name, Metadata>['dependencies']
+		: never;
 
 export type PublicPluginAPI<PluginList extends NextEditorPlugin<any, any>[]> =
-  CreatePluginDependenciesAPI<[...PluginList, CorePlugin]>;
+	CreatePluginDependenciesAPI<[...PluginList, CorePlugin]>;
 
-export type ExtractNextEditorPlugins<
-  Plugins extends AllEditorPresetPluginTypes[],
-> = {
-  [PluginNumber in keyof Plugins]: Plugins[PluginNumber] extends MaybePlugin<
-    NextEditorPlugin<infer Name, infer Metadata>
-  >
-    ? NextEditorPlugin<Name, Metadata>
-    : Plugins[PluginNumber] extends MaybePlugin<
-          NextEditorPlugin<infer Name, infer Metadata>
-        >
-      ? NextEditorPlugin<Name, Metadata>
-      : never;
+export type ExtractNextEditorPlugins<Plugins extends AllEditorPresetPluginTypes[]> = {
+	[PluginNumber in keyof Plugins]: Plugins[PluginNumber] extends MaybePlugin<
+		NextEditorPlugin<infer Name, infer Metadata>
+	>
+		? NextEditorPlugin<Name, Metadata>
+		: Plugins[PluginNumber] extends MaybePlugin<NextEditorPlugin<infer Name, infer Metadata>>
+			? NextEditorPlugin<Name, Metadata>
+			: never;
 };

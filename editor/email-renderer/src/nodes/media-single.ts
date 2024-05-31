@@ -32,33 +32,28 @@ export const styles = `
 }
 `;
 
-export default function mediaSingle({
-  attrs,
-  marks,
-  text,
-  context,
-}: NodeSerializerOpts) {
-  // If not full width or wide
-  const honorWidth = !['wide', 'full-width'].includes(attrs.layout);
+export default function mediaSingle({ attrs, marks, text, context }: NodeSerializerOpts) {
+	// If not full width or wide
+	const honorWidth = !['wide', 'full-width'].includes(attrs.layout);
 
-  // Determine pixel sizing or percent sizing
-  const widthType = attrs.widthType || 'percent';
-  const width = widthType === 'pixel' ? attrs.width : Math.min(attrs.width, 100);
-  const widthUnitType = widthType === 'pixel' ? 'px' : '%';
+	// Determine pixel sizing or percent sizing
+	const widthType = attrs.widthType || 'percent';
+	const width = widthType === 'pixel' ? attrs.width : Math.min(attrs.width, 100);
+	const widthUnitType = widthType === 'pixel' ? 'px' : '%';
 
-  // If attrs.width comes in as falsey (when the image is inserted and not resized), fallback to auto
-  const computedWidth = attrs.width ? `${width}${widthUnitType}` : 'auto';
+	// If attrs.width comes in as falsey (when the image is inserted and not resized), fallback to auto
+	const computedWidth = attrs.width ? `${width}${widthUnitType}` : 'auto';
 
-  const style: any = {
-    width: honorWidth ? computedWidth : '100%',
-    'max-width': '100%',
-  };
+	const style: any = {
+		width: honorWidth ? computedWidth : '100%',
+		'max-width': '100%',
+	};
 
-  const layoutClass = `${className}-${attrs.layout}`;
-  const mediaSingleTag = createTag(
-    'div',
-    { style: serializeStyle(style), class: layoutClass },
-    text,
-  );
-  return applyMarks(marks, mediaSingleTag, context);
+	const layoutClass = `${className}-${attrs.layout}`;
+	const mediaSingleTag = createTag(
+		'div',
+		{ style: serializeStyle(style), class: layoutClass },
+		text,
+	);
+	return applyMarks(marks, mediaSingleTag, context);
 }

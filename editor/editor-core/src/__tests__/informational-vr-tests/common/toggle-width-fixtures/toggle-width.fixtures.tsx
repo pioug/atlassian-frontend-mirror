@@ -8,43 +8,43 @@ import adf from './tall-image-local.json';
 import { EditorAppearance } from '@atlaskit/editor-common/src/types';
 
 export function EditorFullWidth() {
-  const [appearance, setApperance] = useState('full-page');
+	const [appearance, setApperance] = useState('full-page');
 
-  const toggleApperance = async () => {
-    setApperance(appearance === 'full-page' ? 'full-width' : 'full-page');
-  };
+	const toggleApperance = async () => {
+		setApperance(appearance === 'full-page' ? 'full-width' : 'full-page');
+	};
 
-  //adding custom function to window for changing width option of Editor
-  (window as any).__changeWidth = toggleApperance;
+	//adding custom function to window for changing width option of Editor
+	(window as any).__changeWidth = toggleApperance;
 
-  return (
-    <Editor
-      defaultValue={adf}
-      appearance={appearance as EditorAppearance}
-      media={{
-        allowMediaSingle: true,
-      }}
-    />
-  );
+	return (
+		<Editor
+			defaultValue={adf}
+			appearance={appearance as EditorAppearance}
+			media={{
+				allowMediaSingle: true,
+			}}
+		/>
+	);
 }
 
 export function EditorFullPage() {
-  const [appearance, setApperance] = useState('full-width');
+	const [appearance, setApperance] = useState('full-width');
 
-  const toggleApperance = async () => {
-    setApperance(appearance === 'full-page' ? 'full-width' : 'full-page');
-  };
+	const toggleApperance = async () => {
+		setApperance(appearance === 'full-page' ? 'full-width' : 'full-page');
+	};
 
-  //adding custom function to window for changing width option of Editor
-  (window as any).__changeWidth = toggleApperance;
+	//adding custom function to window for changing width option of Editor
+	(window as any).__changeWidth = toggleApperance;
 
-  return (
-    <Editor
-      defaultValue={adf}
-      appearance={appearance as EditorAppearance}
-      media={{
-        allowMediaSingle: true,
-      }}
-    />
-  );
+	return (
+		<Editor
+			defaultValue={adf}
+			appearance={appearance as EditorAppearance}
+			media={{
+				allowMediaSingle: true,
+			}}
+		/>
+	);
 }

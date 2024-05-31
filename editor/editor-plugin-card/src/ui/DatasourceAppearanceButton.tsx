@@ -27,140 +27,131 @@ import { DatasourceIcon } from './DatasourceIcon';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
 export interface DatasourceAppearanceButtonProps {
-  intl: IntlShape;
-  editorAnalyticsApi?: EditorAnalyticsAPI;
-  url: string;
-  editorView?: EditorView;
-  editorState: EditorState;
-  cardContext?: CardContext;
-  selected?: boolean;
-  inputMethod: string;
+	intl: IntlShape;
+	editorAnalyticsApi?: EditorAnalyticsAPI;
+	url: string;
+	editorView?: EditorView;
+	editorState: EditorState;
+	cardContext?: CardContext;
+	selected?: boolean;
+	inputMethod: string;
 }
 
 const buttonStyles = css({
-  pointerEvents: 'auto',
+	pointerEvents: 'auto',
 });
 
 const DatasourceAppearanceButtonWithCardContext = ({
-  cardContext,
-  intl,
-  url,
-  editorView,
-  editorState,
-  selected,
-  inputMethod,
+	cardContext,
+	intl,
+	url,
+	editorView,
+	editorState,
+	selected,
+	inputMethod,
 }: DatasourceAppearanceButtonProps) => {
-  const { datasourceId, parameters } = useFetchDatasourceInfo({
-    isRegularCardNode: true,
-    url,
-    cardContext,
-  });
+	const { datasourceId, parameters } = useFetchDatasourceInfo({
+		isRegularCardNode: true,
+		url,
+		cardContext,
+	});
 
-  const onChangeAppearance = useCallback(() => {
-    if (!editorView || !datasourceId || !parameters) {
-      return;
-    }
+	const onChangeAppearance = useCallback(() => {
+		if (!editorView || !datasourceId || !parameters) {
+			return;
+		}
 
-    const state = pluginKey.getState(editorState) as
-      | CardPluginState
-      | undefined;
+		const state = pluginKey.getState(editorState) as CardPluginState | undefined;
 
-    const newAdf: DatasourceAdf = buildDatasourceAdf(
-      {
-        id: datasourceId,
-        parameters,
-        views: state?.datasourceStash[url]?.views ?? [{ type: 'table' }],
-      },
-      url,
-    );
+		const newAdf: DatasourceAdf = buildDatasourceAdf(
+			{
+				id: datasourceId,
+				parameters,
+				views: state?.datasourceStash[url]?.views ?? [{ type: 'table' }],
+			},
+			url,
+		);
 
-    const { selection } = editorState;
-    let existingNode: Node | undefined;
-    if (
-      getBooleanFF(
-        'platform.linking-platform.enable-datasource-appearance-toolbar',
-      )
-    ) {
-      // Check if the selection contains a link mark
-      const $pos = editorState.doc.resolve(selection.from);
-      const isLinkMark = $pos
-        .marks()
-        .some(mark => mark.type === editorState.schema.marks.link);
+		const { selection } = editorState;
+		let existingNode: Node | undefined;
+		if (getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar')) {
+			// Check if the selection contains a link mark
+			const $pos = editorState.doc.resolve(selection.from);
+			const isLinkMark = $pos.marks().some((mark) => mark.type === editorState.schema.marks.link);
 
-      // When selection is a TextNode and a link Mark is present return that node
-      if (selection instanceof NodeSelection) {
-        existingNode = selection.node;
-      } else if (isLinkMark) {
-        existingNode = editorState.doc.nodeAt(selection.from) ?? undefined;
-      }
-    } else {
-      existingNode =
-        selection instanceof NodeSelection ? selection.node : undefined;
-    }
+			// When selection is a TextNode and a link Mark is present return that node
+			if (selection instanceof NodeSelection) {
+				existingNode = selection.node;
+			} else if (isLinkMark) {
+				existingNode = editorState.doc.nodeAt(selection.from) ?? undefined;
+			}
+		} else {
+			existingNode = selection instanceof NodeSelection ? selection.node : undefined;
+		}
 
-    if (existingNode) {
-      updateCardViaDatasource({
-        state: editorState,
-        node: existingNode,
-        newAdf,
-        view: editorView,
-        sourceEvent: undefined,
-        isDeletingConfig: true,
-        inputMethod,
-      });
-    }
-  }, [parameters, datasourceId, inputMethod, editorState, editorView, url]);
+		if (existingNode) {
+			updateCardViaDatasource({
+				state: editorState,
+				node: existingNode,
+				newAdf,
+				view: editorView,
+				sourceEvent: undefined,
+				isDeletingConfig: true,
+				inputMethod,
+			});
+		}
+	}, [parameters, datasourceId, inputMethod, editorState, editorView, url]);
 
-  if (!parameters || !datasourceId || !canRenderDatasource(datasourceId)) {
-    return null;
-  }
+	if (!parameters || !datasourceId || !canRenderDatasource(datasourceId)) {
+		return null;
+	}
 
-  if (url) {
-    const urlState = cardContext?.store?.getState()[url];
-    if (urlState?.error?.kind === 'fatal') {
-      return null;
-    }
-  }
+	if (url) {
+		const urlState = cardContext?.store?.getState()[url];
+		if (urlState?.error?.kind === 'fatal') {
+			return null;
+		}
+	}
 
-  const buttonLabel = intl.formatMessage(messages.datasourceAppearanceTitle);
+	const buttonLabel = intl.formatMessage(messages.datasourceAppearanceTitle);
 
-  return (
-    <Flex>
-      <Button
-        css={buttonStyles}
-        title={buttonLabel}
-        icon={<DatasourceIcon label={buttonLabel} />}
-        selected={selected}
-        onClick={onChangeAppearance}
-        testId={'card-datasource-appearance-button'}
-      />
-    </Flex>
-  );
+	return (
+		<Flex>
+			<Button
+				css={buttonStyles}
+				title={buttonLabel}
+				icon={<DatasourceIcon label={buttonLabel} />}
+				selected={selected}
+				onClick={onChangeAppearance}
+				testId={'card-datasource-appearance-button'}
+			/>
+		</Flex>
+	);
 };
 
 export const DatasourceAppearanceButton = ({
-  intl,
-  editorAnalyticsApi,
-  url,
-  editorView,
-  editorState,
-  selected,
-  inputMethod,
+	intl,
+	editorAnalyticsApi,
+	url,
+	editorView,
+	editorState,
+	selected,
+	inputMethod,
 }: DatasourceAppearanceButtonProps) => {
-  return (
-    <CardContextProvider>
-      {({ cardContext }) => (
-        <DatasourceAppearanceButtonWithCardContext
-          url={url}
-          intl={intl}
-          editorAnalyticsApi={editorAnalyticsApi}
-          editorView={editorView}
-          editorState={editorState}
-          cardContext={cardContext}
-          selected={selected}
-          inputMethod={inputMethod}
-        />
-      )}
-    </CardContextProvider>
-  );
+	return (
+		<CardContextProvider>
+			{({ cardContext }) => (
+				<DatasourceAppearanceButtonWithCardContext
+					url={url}
+					intl={intl}
+					editorAnalyticsApi={editorAnalyticsApi}
+					editorView={editorView}
+					editorState={editorState}
+					cardContext={cardContext}
+					selected={selected}
+					inputMethod={inputMethod}
+				/>
+			)}
+		</CardContextProvider>
+	);
 };

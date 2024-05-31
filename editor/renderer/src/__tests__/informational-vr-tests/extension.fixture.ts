@@ -3,7 +3,7 @@ import { generateRendererComponent } from '../__helpers/rendererComponents';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
 export const ExtensionsWithinExpand = generateRendererComponent({
-  document: extensionsWithinExpand,
-  appearance: 'full-page',
-  extensionHandlers,
+	document: extensionsWithinExpand,
+	appearance: 'full-page',
+	extensionHandlers,
 });

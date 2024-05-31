@@ -5,13 +5,13 @@ import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-do
 import { default as FullPageExample } from './5-full-page';
 
 export default function Example() {
-  const exampleDocument = useExampleDocument();
+	const exampleDocument = useExampleDocument();
 
-  return (
-    <FullPageExample
-      editorProps={{
-        defaultValue: exampleDocument,
-      }}
-    />
-  );
+	return (
+		<FullPageExample
+			editorProps={{
+				defaultValue: exampleDocument,
+			}}
+		/>
+	);
 }

@@ -1,147 +1,147 @@
 {
-  "extends": "../../../tsconfig.base.json",
-  "include": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx"
-  ],
-  "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
-  "compilerOptions": {
-    "baseUrl": "",
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-docs/dev"
-  },
-  "references": [
-    {
-      "path": "tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/avatar/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/badge/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/button/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/checkbox/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/code/tsconfig.app.json"
-    },
-    {
-      "path": "../../elements/date/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/dropdown-menu/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/ds-lib/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/focus-ring/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/form/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/grid/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/heading/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/icon/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/icon-object/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/lozenge/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/menu/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/modal-dialog/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/motion/tsconfig.app.json"
-    },
-    {
-      "path": "../core/tsconfig.app.json"
-    },
-    {
-      "path": "../auto-scroll/tsconfig.app.json"
-    },
-    {
-      "path": "../flourish/tsconfig.app.json"
-    },
-    {
-      "path": "../hitbox/tsconfig.app.json"
-    },
-    {
-      "path": "../live-region/tsconfig.app.json"
-    },
-    {
-      "path": "../react-accessibility/tsconfig.app.json"
-    },
-    {
-      "path": "../react-beautiful-dnd-migration/tsconfig.app.json"
-    },
-    {
-      "path": "../react-drop-indicator/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/primitives/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/radio/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/select/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tabs/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tag/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tag-group/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/theme/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../async/react-async/tsconfig.app.json"
-    }
-  ]
+	"extends": "../../../tsconfig.base.json",
+	"include": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"compilerOptions": {
+		"baseUrl": "",
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-docs/dev"
+	},
+	"references": [
+		{
+			"path": "tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/avatar/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/badge/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/checkbox/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/code/tsconfig.app.json"
+		},
+		{
+			"path": "../../elements/date/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/focus-ring/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/form/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/grid/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon-object/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/lozenge/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/menu/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/motion/tsconfig.app.json"
+		},
+		{
+			"path": "../core/tsconfig.app.json"
+		},
+		{
+			"path": "../auto-scroll/tsconfig.app.json"
+		},
+		{
+			"path": "../flourish/tsconfig.app.json"
+		},
+		{
+			"path": "../hitbox/tsconfig.app.json"
+		},
+		{
+			"path": "../live-region/tsconfig.app.json"
+		},
+		{
+			"path": "../react-accessibility/tsconfig.app.json"
+		},
+		{
+			"path": "../react-beautiful-dnd-migration/tsconfig.app.json"
+		},
+		{
+			"path": "../react-drop-indicator/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/radio/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/select/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tabs/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tag/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tag-group/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/theme/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../async/react-async/tsconfig.app.json"
+		}
+	]
 }

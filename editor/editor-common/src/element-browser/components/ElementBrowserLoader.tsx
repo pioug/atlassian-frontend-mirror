@@ -9,25 +9,25 @@ import Spinner from '@atlaskit/spinner';
 import type { Props as ElementBrowserProps } from '../ElementBrowser';
 
 const spinnerContainer = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%',
-  width: '100%',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	height: '100%',
+	width: '100%',
 });
 
 const ElementBrowserLoader = Loadable({
-  loader: () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_editor-element-browser" */ '../ElementBrowser'
-    ).then((module) => module.default) as Promise<
-      React.ComponentType<React.PropsWithChildren<ElementBrowserProps>>
-    >,
-  loading: () => (
-    <div css={spinnerContainer}>
-      <Spinner size="medium" />
-    </div>
-  ),
+	loader: () =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_editor-element-browser" */ '../ElementBrowser'
+		).then((module) => module.default) as Promise<
+			React.ComponentType<React.PropsWithChildren<ElementBrowserProps>>
+		>,
+	loading: () => (
+		<div css={spinnerContainer}>
+			<Spinner size="medium" />
+		</div>
+	),
 });
 
 export default ElementBrowserLoader;

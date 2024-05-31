@@ -1,5 +1,5 @@
 export const selectStyles = {
-  menu(styles: {}) {
-    return { ...styles, zIndex: 9999 };
-  },
+	menu(styles: {}) {
+		return { ...styles, zIndex: 9999 };
+	},
 };

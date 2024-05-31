@@ -17,93 +17,89 @@ import { overlay } from '../styles';
 import { inlineWrapperStyles, wrapperStyle } from './styles';
 
 export interface Props {
-  node: PmNode;
-  pluginInjectionApi: ExtensionsPluginInjectionAPI;
-  children?: React.ReactNode;
-  showMacroInteractionDesignUpdates?: boolean;
-  isNodeSelected?: boolean;
-  isNodeHovered?: boolean;
-  setIsNodeHovered?: (isHovered: boolean) => void;
+	node: PmNode;
+	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	children?: React.ReactNode;
+	showMacroInteractionDesignUpdates?: boolean;
+	isNodeSelected?: boolean;
+	isNodeHovered?: boolean;
+	setIsNodeHovered?: (isHovered: boolean) => void;
 }
 
 const InlineExtension = (props: Props) => {
-  const {
-    node,
-    pluginInjectionApi,
-    showMacroInteractionDesignUpdates,
-    isNodeSelected,
-    children,
-    isNodeHovered,
-    setIsNodeHovered,
-  } = props;
-  const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+	const {
+		node,
+		pluginInjectionApi,
+		showMacroInteractionDesignUpdates,
+		isNodeSelected,
+		children,
+		isNodeHovered,
+		setIsNodeHovered,
+	} = props;
+	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
 
-  const hasChildren = !!children;
+	const hasChildren = !!children;
 
-  const classNames = classnames('extension-container', 'inline', {
-    'with-overlay': !showMacroInteractionDesignUpdates,
-    'with-children': hasChildren,
-    'with-danger-overlay': showMacroInteractionDesignUpdates,
-    'with-border': showMacroInteractionDesignUpdates,
-    'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
-  });
+	const classNames = classnames('extension-container', 'inline', {
+		'with-overlay': !showMacroInteractionDesignUpdates,
+		'with-children': hasChildren,
+		'with-danger-overlay': showMacroInteractionDesignUpdates,
+		'with-border': showMacroInteractionDesignUpdates,
+		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
+	});
 
-  const rendererContainerWidth = widthState
-    ? widthState.width - akEditorGutterPadding * 2
-    : 0;
+	const rendererContainerWidth = widthState ? widthState.width - akEditorGutterPadding * 2 : 0;
 
-  const extendedInlineExtension =
-    getBooleanFF('platform.editor.inline_extension.extended_lcqdn') || false;
+	const extendedInlineExtension =
+		getBooleanFF('platform.editor.inline_extension.extended_lcqdn') || false;
 
-  const handleMouseEvent = (didHover: boolean) => {
-    if (setIsNodeHovered) {
-      setIsNodeHovered(didHover);
-    }
-  };
+	const handleMouseEvent = (didHover: boolean) => {
+		if (setIsNodeHovered) {
+			setIsNodeHovered(didHover);
+		}
+	};
 
-  const inlineExtensionInternal = (
-    <Fragment>
-      {showMacroInteractionDesignUpdates && (
-        <ExtensionLozenge
-          node={node}
-          isNodeSelected={isNodeSelected}
-          isNodeHovered={isNodeHovered}
-          showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
-          setIsNodeHovered={setIsNodeHovered}
-        />
-      )}
-      <div
-        data-testid="inline-extension-wrapper"
-        css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyles]}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className={classNames}
-        onMouseEnter={() => handleMouseEvent(true)}
-        onMouseLeave={() => handleMouseEvent(false)}
-      >
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
-        <div css={overlay} className="extension-overlay" />
-        {children ? (
-          children
-        ) : (
-          <ExtensionLozenge
-            node={node}
-            isNodeSelected={isNodeSelected}
-            showMacroInteractionDesignUpdates={
-              showMacroInteractionDesignUpdates
-            }
-          />
-        )}
-      </div>
-    </Fragment>
-  );
-  if (extendedInlineExtension) {
-    return (
-      <WidthContext.Provider value={createWidthContext(rendererContainerWidth)}>
-        {inlineExtensionInternal}
-      </WidthContext.Provider>
-    );
-  }
-  return inlineExtensionInternal;
+	const inlineExtensionInternal = (
+		<Fragment>
+			{showMacroInteractionDesignUpdates && (
+				<ExtensionLozenge
+					node={node}
+					isNodeSelected={isNodeSelected}
+					isNodeHovered={isNodeHovered}
+					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+					setIsNodeHovered={setIsNodeHovered}
+				/>
+			)}
+			<div
+				data-testid="inline-extension-wrapper"
+				css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyles]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={classNames}
+				onMouseEnter={() => handleMouseEvent(true)}
+				onMouseLeave={() => handleMouseEvent(false)}
+			>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
+				<div css={overlay} className="extension-overlay" />
+				{children ? (
+					children
+				) : (
+					<ExtensionLozenge
+						node={node}
+						isNodeSelected={isNodeSelected}
+						showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+					/>
+				)}
+			</div>
+		</Fragment>
+	);
+	if (extendedInlineExtension) {
+		return (
+			<WidthContext.Provider value={createWidthContext(rendererContainerWidth)}>
+				{inlineExtensionInternal}
+			</WidthContext.Provider>
+		);
+	}
+	return inlineExtensionInternal;
 };
 
 export default InlineExtension;

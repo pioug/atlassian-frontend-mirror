@@ -29,7 +29,6 @@
   "devDependencies": {
     "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/react": "^11.7.1",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
@@ -75,6 +74,5 @@
   "exports": {
     ".": "./src/index.tsx"
   },
-  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/"
 }

@@ -14,33 +14,33 @@ import gapcursor from '../../visual-regression/common/__fixtures__/gap-cursor-ad
 import gapcursorLayout from '../../visual-regression/common/__fixtures__/gap-cursor-layout-adf.json';
 
 export function EditorGapCursorDefault() {
-  return (
-    <Editor
-      defaultValue={gapcursor}
-      allowTables={{ advanced: true }}
-      allowPanel
-      appearance="full-page"
-    />
-  );
+	return (
+		<Editor
+			defaultValue={gapcursor}
+			allowTables={{ advanced: true }}
+			allowPanel
+			appearance="full-page"
+		/>
+	);
 }
 
 export function EditorGapCursorLayout() {
-  const preset = createDefaultPreset({
-    base: { allowScrollGutter: undefined },
-    paste: {},
-  })
-    .add(rulePlugin)
-    .add(layoutPlugin)
-    .add(mentionsPlugin)
-    .add(tasksAndDecisionsPlugin)
-    .add(statusPlugin);
+	const preset = createDefaultPreset({
+		base: { allowScrollGutter: undefined },
+		paste: {},
+	})
+		.add(rulePlugin)
+		.add(layoutPlugin)
+		.add(mentionsPlugin)
+		.add(tasksAndDecisionsPlugin)
+		.add(statusPlugin);
 
-  return (
-    <ComposableEditor
-      defaultValue={gapcursorLayout}
-      appearance="full-page"
-      preset={preset}
-      mentionProvider={Promise.resolve(mentionResourceProvider)}
-    />
-  );
+	return (
+		<ComposableEditor
+			defaultValue={gapcursorLayout}
+			appearance="full-page"
+			preset={preset}
+			mentionProvider={Promise.resolve(mentionResourceProvider)}
+		/>
+	);
 }

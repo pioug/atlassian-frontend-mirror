@@ -1,161 +1,130 @@
 import type { ACTION, ACTION_SUBJECT, EVENT_TYPE } from './enums';
 
 type AEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-  EventType,
-  ImplicitAttributes extends {} = {},
+	Action,
+	ActionSubject,
+	ActionSubjectID,
+	Attributes,
+	NonPrivacySafeAttributes,
+	EventType,
+	ImplicitAttributes extends {} = {},
 > = {
-  action: Action;
-  actionSubject: ActionSubject;
-  actionSubjectId?: ActionSubjectID;
-  attributes?: Attributes & {
-    [key in keyof ImplicitAttributes]?: ImplicitAttributes[key];
-  };
+	action: Action;
+	actionSubject: ActionSubject;
+	actionSubjectId?: ActionSubjectID;
+	attributes?: Attributes & {
+		[key in keyof ImplicitAttributes]?: ImplicitAttributes[key];
+	};
 } & (
-  | {
-      eventType: Exclude<EventType, EVENT_TYPE.OPERATIONAL>;
-      nonPrivacySafeAttributes?: NonPrivacySafeAttributes;
-    }
-  | { eventType: EVENT_TYPE.OPERATIONAL }
+	| {
+			eventType: Exclude<EventType, EVENT_TYPE.OPERATIONAL>;
+			nonPrivacySafeAttributes?: NonPrivacySafeAttributes;
+	  }
+	| { eventType: EVENT_TYPE.OPERATIONAL }
 );
 
-export type UIAEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-> = AEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-  EVENT_TYPE.UI
->;
+export type UIAEP<Action, ActionSubject, ActionSubjectID, Attributes, NonPrivacySafeAttributes> =
+	AEP<Action, ActionSubject, ActionSubjectID, Attributes, NonPrivacySafeAttributes, EVENT_TYPE.UI>;
 
 export type TrackAEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-  ImplicitAttributes extends {} = {},
+	Action,
+	ActionSubject,
+	ActionSubjectID,
+	Attributes,
+	NonPrivacySafeAttributes,
+	ImplicitAttributes extends {} = {},
 > = AEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-  EVENT_TYPE.TRACK,
-  ImplicitAttributes
+	Action,
+	ActionSubject,
+	ActionSubjectID,
+	Attributes,
+	NonPrivacySafeAttributes,
+	EVENT_TYPE.TRACK,
+	ImplicitAttributes
 >;
 
-export type OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes> =
-  AEP<
-    Action,
-    ActionSubject,
-    ActionSubjectID,
-    Attributes,
-    undefined,
-    EVENT_TYPE.OPERATIONAL
-  >;
-
-export type OperationalExposureAEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-> = OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes> & {
-  source?: string;
-  tags?: string[];
-};
-
-export type OperationalAEPWithObjectId<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-> = OperationalAEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes & { objectId?: string }
+export type OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes> = AEP<
+	Action,
+	ActionSubject,
+	ActionSubjectID,
+	Attributes,
+	undefined,
+	EVENT_TYPE.OPERATIONAL
 >;
+
+export type OperationalExposureAEP<Action, ActionSubject, ActionSubjectID, Attributes> =
+	OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes> & {
+		source?: string;
+		tags?: string[];
+	};
+
+export type OperationalAEPWithObjectId<Action, ActionSubject, ActionSubjectID, Attributes> =
+	OperationalAEP<Action, ActionSubject, ActionSubjectID, Attributes & { objectId?: string }>;
 
 export type ScreenAEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
+	Action,
+	ActionSubject,
+	ActionSubjectID,
+	Attributes,
+	NonPrivacySafeAttributes,
 > = AEP<
-  Action,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-  EVENT_TYPE.SCREEN
+	Action,
+	ActionSubject,
+	ActionSubjectID,
+	Attributes,
+	NonPrivacySafeAttributes,
+	EVENT_TYPE.SCREEN
 >;
 
 export type TableAEP<Action, Attributes, NonPrivacySafeAttributes> = TrackAEP<
-  Action,
-  ACTION_SUBJECT.TABLE,
-  null,
-  Attributes,
-  NonPrivacySafeAttributes
+	Action,
+	ACTION_SUBJECT.TABLE,
+	null,
+	Attributes,
+	NonPrivacySafeAttributes
 >;
 
 export enum SELECTION_TYPE {
-  CURSOR = 'cursor',
-  RANGED = 'ranged',
-  TEXT = 'text',
-  NODE = 'node',
-  CELL = 'cell',
-  GAP_CURSOR = 'gapCursor',
+	CURSOR = 'cursor',
+	RANGED = 'ranged',
+	TEXT = 'text',
+	NODE = 'node',
+	CELL = 'cell',
+	GAP_CURSOR = 'gapCursor',
 }
 
 export enum SELECTION_POSITION {
-  START = 'start',
-  MIDDLE = 'middle',
-  END = 'end',
-  LEFT = 'left',
-  RIGHT = 'right',
+	START = 'start',
+	MIDDLE = 'middle',
+	END = 'end',
+	LEFT = 'left',
+	RIGHT = 'right',
 }
 
 export interface NonRequiredAttributes {
-  insertLocation?: string;
-  insertedLocation?: string;
-  nodeLocation?: string;
-  changeFromLocation?: string;
-  selectionType?: SELECTION_TYPE;
-  selectionPosition?: SELECTION_POSITION;
+	insertLocation?: string;
+	insertedLocation?: string;
+	nodeLocation?: string;
+	changeFromLocation?: string;
+	selectionType?: SELECTION_TYPE;
+	selectionPosition?: SELECTION_POSITION;
 }
 
-export type InsertAEP<ActionSubjectID, Attributes, NonPrivacySafeAttributes> =
-  TrackAEP<
-    ACTION.INSERTED,
-    ACTION_SUBJECT.DOCUMENT,
-    ActionSubjectID,
-    Attributes,
-    NonPrivacySafeAttributes,
-    NonRequiredAttributes
-  >;
-
-export type ChangeTypeAEP<
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-> = TrackAEP<
-  ACTION.CHANGED_TYPE,
-  ActionSubject,
-  ActionSubjectID,
-  Attributes,
-  NonPrivacySafeAttributes,
-  NonRequiredAttributes
+export type InsertAEP<ActionSubjectID, Attributes, NonPrivacySafeAttributes> = TrackAEP<
+	ACTION.INSERTED,
+	ACTION_SUBJECT.DOCUMENT,
+	ActionSubjectID,
+	Attributes,
+	NonPrivacySafeAttributes,
+	NonRequiredAttributes
 >;
+
+export type ChangeTypeAEP<ActionSubject, ActionSubjectID, Attributes, NonPrivacySafeAttributes> =
+	TrackAEP<
+		ACTION.CHANGED_TYPE,
+		ActionSubject,
+		ActionSubjectID,
+		Attributes,
+		NonPrivacySafeAttributes,
+		NonRequiredAttributes
+	>;

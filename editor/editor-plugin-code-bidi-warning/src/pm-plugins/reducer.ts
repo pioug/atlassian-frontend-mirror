@@ -1,8 +1,8 @@
 import type { CodeBidiWarningPluginState } from './types';
 
 export default (
-  pluginState: CodeBidiWarningPluginState,
-  action: unknown,
+	pluginState: CodeBidiWarningPluginState,
+	action: unknown,
 ): CodeBidiWarningPluginState => {
-  return pluginState;
+	return pluginState;
 };

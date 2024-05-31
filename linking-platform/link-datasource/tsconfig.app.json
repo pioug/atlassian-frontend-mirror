@@ -1,166 +1,166 @@
 {
-  "extends": "../../../tsconfig.base.json",
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx",
-    "./examples-helpers/**/*"
-  ],
-  "compilerOptions": {
-    "baseUrl": "",
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__link-datasource/app"
-  },
-  "references": [
-    {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/avatar/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/avatar-group/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/badge/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/button/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/datetime-picker/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/dropdown-menu/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/empty-state/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/form/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/heading/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/icon/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/icon-object/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/image/tsconfig.app.json"
-    },
-    {
-      "path": "../../helpers/intl-messages-provider/tsconfig.app.json"
-    },
-    {
-      "path": "../../jql/jql-ast/tsconfig.app.json"
-    },
-    {
-      "path": "../../jql/jql-editor/tsconfig.app.json"
-    },
-    {
-      "path": "../../jql/jql-editor-autocomplete-rest/tsconfig.app.json"
-    },
-    {
-      "path": "../link-client-extension/tsconfig.app.json"
-    },
-    {
-      "path": "../link-provider/tsconfig.app.json"
-    },
-    {
-      "path": "../linking-common/tsconfig.app.json"
-    },
-    {
-      "path": "../linking-types/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/logo/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/lozenge/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/modal-dialog/tsconfig.app.json"
-    },
-    {
-      "path": "../../teamwork-ecosystem/outbound-auth-flow-client/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/popup/tsconfig.app.json"
-    },
-    {
-      "path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
-    },
-    {
-      "path": "../../pragmatic-drag-and-drop/hitbox/tsconfig.app.json"
-    },
-    {
-      "path": "../../pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll/tsconfig.app.json"
-    },
-    {
-      "path": "../../pragmatic-drag-and-drop/react-drop-indicator/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/primitives/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/select/tsconfig.app.json"
-    },
-    {
-      "path": "../smart-card/tsconfig.app.json"
-    },
-    {
-      "path": "../../smart-experiences/smart-user-picker/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/spinner/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tag/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/textfield/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/theme/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tooltip/tsconfig.app.json"
-    },
-    {
-      "path": "../../data/ufo-external/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/width-detector/tsconfig.app.json"
-    }
-  ]
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx",
+		"./examples-helpers/**/*"
+	],
+	"compilerOptions": {
+		"baseUrl": "",
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__link-datasource/app"
+	},
+	"references": [
+		{
+			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/avatar/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/avatar-group/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/badge/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/datetime-picker/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/empty-state/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/form/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon-object/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/image/tsconfig.app.json"
+		},
+		{
+			"path": "../../helpers/intl-messages-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../../jql/jql-ast/tsconfig.app.json"
+		},
+		{
+			"path": "../../jql/jql-editor/tsconfig.app.json"
+		},
+		{
+			"path": "../../jql/jql-editor-autocomplete-rest/tsconfig.app.json"
+		},
+		{
+			"path": "../link-client-extension/tsconfig.app.json"
+		},
+		{
+			"path": "../link-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../linking-common/tsconfig.app.json"
+		},
+		{
+			"path": "../linking-types/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/logo/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/lozenge/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../../teamwork-ecosystem/outbound-auth-flow-client/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/popup/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/hitbox/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/react-drop-indicator/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/select/tsconfig.app.json"
+		},
+		{
+			"path": "../smart-card/tsconfig.app.json"
+		},
+		{
+			"path": "../../smart-experiences/smart-user-picker/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/spinner/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tag/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/theme/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../data/ufo-external/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/width-detector/tsconfig.app.json"
+		}
+	]
 }

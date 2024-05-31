@@ -1,5 +1,5 @@
 export function hasValue(str?: string): boolean {
-  return !!str && str.length > 0;
+	return !!str && str.length > 0;
 }
 
 export const IS_DEV = process.env.NODE_ENV === 'development';
@@ -8,11 +8,10 @@ export const IS_DUMMY = !window.webkit && !window.promiseBridge;
 // Webpack sets IS_ATLASKIT as a boolean when its the default value
 // If we override it it will be a string so we check both cases.
 export const IS_ATLASKIT =
-  (process.env.IS_ATLASKIT as unknown as boolean) === true ||
-  process.env.IS_ATLASKIT === 'true';
+	(process.env.IS_ATLASKIT as unknown as boolean) === true || process.env.IS_ATLASKIT === 'true';
 
 export interface DeferredValue<T> extends Promise<T> {
-  resolve(v: T): void;
+	resolve(v: T): void;
 }
 
 /**
@@ -27,14 +26,14 @@ export interface DeferredValue<T> extends Promise<T> {
  * get the resolved value.
  */
 export const createDeferred = <T>(): DeferredValue<T> => {
-  let resolve = (value: T) => {};
-  let isResolved = false;
-  const p = new Promise((r) => (resolve = r));
-  (p as any).resolve = (value: T) => {
-    if (!isResolved) {
-      isResolved = true;
-      resolve(value);
-    }
-  };
-  return p as DeferredValue<T>;
+	let resolve = (value: T) => {};
+	let isResolved = false;
+	const p = new Promise((r) => (resolve = r));
+	(p as any).resolve = (value: T) => {
+		if (!isResolved) {
+			isResolved = true;
+			resolve(value);
+		}
+	};
+	return p as DeferredValue<T>;
 };

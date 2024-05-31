@@ -11,20 +11,20 @@ export const DEFAULT_IMAGE_HEIGHT = 200;
 export const MEDIA_SINGLE_RESIZE_THROTTLE_TIME = 100;
 
 export enum Layout {
-  FULL_WIDTH = 'full-width',
-  WIDE = 'wide',
-  CENTER = 'center',
-  ALIGN_START = 'align-start',
-  ALIGN_END = 'align-end',
-  WRAP_RIGHT = 'wrap-right',
-  WRAP_LEFT = 'wrap-left',
+	FULL_WIDTH = 'full-width',
+	WIDE = 'wide',
+	CENTER = 'center',
+	ALIGN_START = 'align-start',
+	ALIGN_END = 'align-end',
+	WRAP_RIGHT = 'wrap-right',
+	WRAP_LEFT = 'wrap-left',
 }
 
 export const wrappedLayouts: RichMediaLayout[] = [
-  'wrap-left',
-  'wrap-right',
-  'align-end',
-  'align-start',
+	'wrap-left',
+	'wrap-right',
+	'align-end',
+	'align-start',
 ];
 
 export const DEFAULT_ROUNDING_INTERVAL = 0.5;

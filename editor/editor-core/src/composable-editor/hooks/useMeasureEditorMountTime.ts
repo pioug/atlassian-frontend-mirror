@@ -22,38 +22,33 @@ import useEditorConstructor from './useEditorMeasuresConstructor';
  * @param createAnalyticsEvent
  */
 export default function useMeasureEditorMountTime(
-  props: EditorProps | EditorNextProps,
-  getExperienceStore: () => ExperienceStore | undefined,
-  createAnalyticsEvent: CreateUIAnalyticsEvent,
+	props: EditorProps | EditorNextProps,
+	getExperienceStore: () => ExperienceStore | undefined,
+	createAnalyticsEvent: CreateUIAnalyticsEvent,
 ): void {
-  useEditorConstructor(
-    props.performanceTracking,
-    props.featureFlags,
-    getExperienceStore,
-    createAnalyticsEvent,
-  );
+	useEditorConstructor(
+		props.performanceTracking,
+		props.featureFlags,
+		getExperienceStore,
+		createAnalyticsEvent,
+	);
 
-  useEffect(() => {
-    stopMeasure(
-      measurements.EDITOR_MOUNTED,
-      sendDurationAnalytics(
-        ACTION.EDITOR_MOUNTED,
-        props,
-        getExperienceStore,
-        createAnalyticsEvent,
-      ),
-    );
-    return () => {
-      clearMeasure(measurements.EDITOR_MOUNTED);
-      props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled &&
-        clearMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+	useEffect(() => {
+		stopMeasure(
+			measurements.EDITOR_MOUNTED,
+			sendDurationAnalytics(ACTION.EDITOR_MOUNTED, props, getExperienceStore, createAnalyticsEvent),
+		);
+		return () => {
+			clearMeasure(measurements.EDITOR_MOUNTED);
+			props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled &&
+				clearMeasure(measurements.ON_EDITOR_READY_CALLBACK);
 
-      if (props.featureFlags?.ufo) {
-        getExperienceStore()?.abortAll({
-          reason: 'editor component unmounted',
-        });
-      }
-    };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  // Disable Exhaustive Deps here since we only want to stop the measure on mount.
+			if (props.featureFlags?.ufo) {
+				getExperienceStore()?.abortAll({
+					reason: 'editor component unmounted',
+				});
+			}
+		};
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	// Disable Exhaustive Deps here since we only want to stop the measure on mount.
 }

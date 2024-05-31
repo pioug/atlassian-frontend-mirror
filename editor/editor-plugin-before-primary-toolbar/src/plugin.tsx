@@ -6,26 +6,24 @@ import type { ReactComponents } from './types';
 import { BeforePrimaryToolbarWrapper } from './ui/BeforePrimaryToolbarWrapper';
 
 type Config = {
-  beforePrimaryToolbarComponents?: ReactComponents;
+	beforePrimaryToolbarComponents?: ReactComponents;
 };
 
 export type BeforePrimaryToolbarPlugin = NextEditorPlugin<
-  'beforePrimaryToolbar',
-  {
-    pluginConfiguration: Config;
-  }
+	'beforePrimaryToolbar',
+	{
+		pluginConfiguration: Config;
+	}
 >;
 
-export const beforePrimaryToolbarPlugin: BeforePrimaryToolbarPlugin = ({
-  config: props,
-}) => ({
-  name: 'beforePrimaryToolbar',
+export const beforePrimaryToolbarPlugin: BeforePrimaryToolbarPlugin = ({ config: props }) => ({
+	name: 'beforePrimaryToolbar',
 
-  primaryToolbarComponent() {
-    return (
-      <BeforePrimaryToolbarWrapper
-        beforePrimaryToolbarComponents={props?.beforePrimaryToolbarComponents}
-      />
-    );
-  },
+	primaryToolbarComponent() {
+		return (
+			<BeforePrimaryToolbarWrapper
+				beforePrimaryToolbarComponents={props?.beforePrimaryToolbarComponents}
+			/>
+		);
+	},
 });

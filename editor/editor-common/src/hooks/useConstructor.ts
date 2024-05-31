@@ -9,9 +9,9 @@ import { useRef } from 'react';
  * @param callback Callback function to run once
  */
 export default function useConstructor(callback: () => void): void {
-  const hasRun = useRef(false);
-  if (!hasRun.current) {
-    callback();
-    hasRun.current = true;
-  }
+	const hasRun = useRef(false);
+	if (!hasRun.current) {
+		callback();
+		hasRun.current = true;
+	}
 }

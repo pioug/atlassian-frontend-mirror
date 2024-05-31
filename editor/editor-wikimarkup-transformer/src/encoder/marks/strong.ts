@@ -6,5 +6,5 @@ import { baseMarkPattern } from './__base';
  * convert it to `*strong *. Instead, we need it to be `*strong* `
  */
 export const strong: MarkEncoder = (text: string): string => {
-  return baseMarkPattern(text, '*');
+	return baseMarkPattern(text, '*');
 };

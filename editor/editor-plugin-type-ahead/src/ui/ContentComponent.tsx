@@ -9,26 +9,22 @@ import type { PopupMountPointReference, TypeAheadPlugin } from '../types';
 import { TypeAheadMenu } from './TypeAheadMenu';
 
 interface ContentComponentProps {
-  api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
-  editorView: EditorView;
-  popupMountRef: PopupMountPointReference;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	editorView: EditorView;
+	popupMountRef: PopupMountPointReference;
 }
 
-export function ContentComponent({
-  api,
-  editorView,
-  popupMountRef,
-}: ContentComponentProps) {
-  const { typeAheadState } = useSharedPluginState(api, ['typeAhead']);
-  if (!typeAheadState) {
-    return null;
-  }
-  return (
-    <TypeAheadMenu
-      editorView={editorView}
-      popupMountRef={popupMountRef}
-      typeAheadState={typeAheadState}
-      api={api}
-    />
-  );
+export function ContentComponent({ api, editorView, popupMountRef }: ContentComponentProps) {
+	const { typeAheadState } = useSharedPluginState(api, ['typeAhead']);
+	if (!typeAheadState) {
+		return null;
+	}
+	return (
+		<TypeAheadMenu
+			editorView={editorView}
+			popupMountRef={popupMountRef}
+			typeAheadState={typeAheadState}
+			api={api}
+		/>
+	);
 }

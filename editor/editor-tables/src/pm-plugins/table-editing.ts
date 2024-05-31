@@ -1,8 +1,5 @@
 import { Plugin } from '@atlaskit/editor-prosemirror/state';
-import type {
-  ReadonlyTransaction,
-  Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { handlePaste } from '../utils';
@@ -30,68 +27,68 @@ import { tableEditingKey } from './plugin-key';
 type PluginState = number | null;
 
 export function tableEditing({
-  allowTableNodeSelection = false,
-  dragAndDropEnabled = false,
-  reportFixedTable,
+	allowTableNodeSelection = false,
+	dragAndDropEnabled = false,
+	reportFixedTable,
 }: {
-  allowTableNodeSelection?: boolean;
-  dragAndDropEnabled?: boolean;
-  reportFixedTable?: ReportFixedTable;
+	allowTableNodeSelection?: boolean;
+	dragAndDropEnabled?: boolean;
+	reportFixedTable?: ReportFixedTable;
 } = {}): Plugin<PluginState> {
-  return new Plugin({
-    key: tableEditingKey,
+	return new Plugin({
+		key: tableEditingKey,
 
-    // This piece of state is used to remember when a mouse-drag
-    // cell-selection is happening, so that it can continue even as
-    // transactions (which might move its anchor cell) come in.
-    state: {
-      init() {
-        return null;
-      },
-      apply(unsafeTr: Transaction | ReadonlyTransaction, cur: PluginState) {
-        const tr = unsafeTr as unknown as ReadonlyTransaction;
-        const set = tr.getMeta(tableEditingKey);
-        if (set != null) {
-          return set === -1 ? null : set;
-        }
-        if (cur == null || !tr.docChanged) {
-          return cur;
-        }
-        const { deleted, pos } = tr.mapping.mapResult(cur);
-        return deleted ? null : pos;
-      },
-    },
+		// This piece of state is used to remember when a mouse-drag
+		// cell-selection is happening, so that it can continue even as
+		// transactions (which might move its anchor cell) come in.
+		state: {
+			init() {
+				return null;
+			},
+			apply(unsafeTr: Transaction | ReadonlyTransaction, cur: PluginState) {
+				const tr = unsafeTr as unknown as ReadonlyTransaction;
+				const set = tr.getMeta(tableEditingKey);
+				if (set != null) {
+					return set === -1 ? null : set;
+				}
+				if (cur == null || !tr.docChanged) {
+					return cur;
+				}
+				const { deleted, pos } = tr.mapping.mapResult(cur);
+				return deleted ? null : pos;
+			},
+		},
 
-    props: {
-      decorations: drawCellSelection,
+		props: {
+			decorations: drawCellSelection,
 
-      handleDOMEvents: {
-        mousedown: (view: EditorView, event: Event) => {
-          handleMouseDown(view, event, dragAndDropEnabled);
-        },
-      },
+			handleDOMEvents: {
+				mousedown: (view: EditorView, event: Event) => {
+					handleMouseDown(view, event, dragAndDropEnabled);
+				},
+			},
 
-      createSelectionBetween(view) {
-        if (tableEditingKey.getState(view.state) != null) {
-          return view.state.selection;
-        }
+			createSelectionBetween(view) {
+				if (tableEditingKey.getState(view.state) != null) {
+					return view.state.selection;
+				}
 
-        return null;
-      },
+				return null;
+			},
 
-      handleTripleClick,
+			handleTripleClick,
 
-      handleKeyDown,
+			handleKeyDown,
 
-      handlePaste,
-    },
+			handlePaste,
+		},
 
-    appendTransaction(_, oldState, state) {
-      return normalizeSelection(
-        state,
-        fixTables(state, oldState, reportFixedTable),
-        allowTableNodeSelection,
-      );
-    },
-  });
+		appendTransaction(_, oldState, state) {
+			return normalizeSelection(
+				state,
+				fixTables(state, oldState, reportFixedTable),
+				allowTableNodeSelection,
+			);
+		},
+	});
 }

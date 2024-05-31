@@ -5,10 +5,10 @@ import { getDataProviderFactory } from '../example-helpers/MockProvider';
 import { ConversationResource } from '../src/api/ConversationResource';
 
 const provider = new ConversationResource({
-  url: 'http://localhost:8080',
-  user: MOCK_USERS[0],
+	url: 'http://localhost:8080',
+	user: MOCK_USERS[0],
 });
 
 export default function Example() {
-  return <Demo provider={provider} dataProviders={getDataProviderFactory()} />;
+	return <Demo provider={provider} dataProviders={getDataProviderFactory()} />;
 }

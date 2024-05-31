@@ -17,28 +17,28 @@ type AbortableEffect<T> = () => Promise<T> | undefined;
  * @param deps
  */
 export function useStateFromPromise<S>(
-  callback: AbortableEffect<S>,
-  deps: React.DependencyList,
-  initialValue?: S,
+	callback: AbortableEffect<S>,
+	deps: React.DependencyList,
+	initialValue?: S,
 ): [S | undefined, React.Dispatch<React.SetStateAction<S | undefined>>] {
-  // AFP-2511 TODO: Fix automatic suppressions below
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fn = useCallback(callback, deps);
-  const [value, setValue] = useState<S | undefined>(initialValue);
+	// AFP-2511 TODO: Fix automatic suppressions below
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const fn = useCallback(callback, deps);
+	const [value, setValue] = useState<S | undefined>(initialValue);
 
-  useAbortableEffect(
-    signal => {
-      Promise.resolve(fn()).then(result => {
-        if (signal.aborted) {
-          return;
-        }
+	useAbortableEffect(
+		(signal) => {
+			Promise.resolve(fn()).then((result) => {
+				if (signal.aborted) {
+					return;
+				}
 
-        setValue(result);
-      });
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [...deps],
-  );
+				setValue(result);
+			});
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[...deps],
+	);
 
-  return [value, setValue];
+	return [value, setValue];
 }

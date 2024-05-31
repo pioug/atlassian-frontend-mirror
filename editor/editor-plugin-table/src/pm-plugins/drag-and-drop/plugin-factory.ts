@@ -5,26 +5,29 @@ import { pluginKey as tablePluginKey } from '../plugin-key';
 import { pluginKey } from './plugin-key';
 import reducer from './reducer';
 
-export const { createPluginState, createCommand, getPluginState } =
-  pluginFactory(pluginKey, reducer, {
-    mapping: (tr, pluginState) => {
-      if (tr.docChanged) {
-        let decorationSet = pluginState.decorationSet;
+export const { createPluginState, createCommand, getPluginState } = pluginFactory(
+	pluginKey,
+	reducer,
+	{
+		mapping: (tr, pluginState) => {
+			if (tr.docChanged) {
+				let decorationSet = pluginState.decorationSet;
 
-        const meta = tr.getMeta(tablePluginKey);
-        if (meta && meta.data && meta.data.decorationSet) {
-          decorationSet = meta.data.decorationSet;
-        }
+				const meta = tr.getMeta(tablePluginKey);
+				if (meta && meta.data && meta.data.decorationSet) {
+					decorationSet = meta.data.decorationSet;
+				}
 
-        if (decorationSet) {
-          decorationSet = decorationSet.map(tr.mapping, tr.doc);
-        }
+				if (decorationSet) {
+					decorationSet = decorationSet.map(tr.mapping, tr.doc);
+				}
 
-        return {
-          ...pluginState,
-          ...{ decorationSet },
-        };
-      }
-      return pluginState;
-    },
-  });
+				return {
+					...pluginState,
+					...{ decorationSet },
+				};
+			}
+			return pluginState;
+		},
+	},
+);

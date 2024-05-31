@@ -7,26 +7,26 @@ import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import type { MarkProps } from '../types';
 
 export const wrapperStyles = css({
-  margin: `${blockNodesVerticalMargin} 0`,
-  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-  marginLeft: '50%',
-  transform: 'translateX(-50%)',
+	margin: `${blockNodesVerticalMargin} 0`,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginLeft: '50%',
+	transform: 'translateX(-50%)',
 });
 
 export default function Breakout(props: MarkProps<BreakoutMarkAttrs>) {
-  return (
-    <WidthConsumer>
-      {({ width }) => (
-        <div
-          css={wrapperStyles}
-          data-mode={props.mode}
-          style={{ width: calcBreakoutWidth(props.mode, width) }}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-          className="fabric-editor-breakout-mark fabric-editor-block-mark"
-        >
-          {props.children}
-        </div>
-      )}
-    </WidthConsumer>
-  );
+	return (
+		<WidthConsumer>
+			{({ width }) => (
+				<div
+					css={wrapperStyles}
+					data-mode={props.mode}
+					style={{ width: calcBreakoutWidth(props.mode, width) }}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className="fabric-editor-breakout-mark fabric-editor-block-mark"
+				>
+					{props.children}
+				</div>
+			)}
+		</WidthConsumer>
+	);
 }

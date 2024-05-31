@@ -10,8 +10,8 @@ import { N800 } from '@atlaskit/theme/colors';
  * @return CSS RGBA string with applied alpha channel
  */
 function setAlpha(color: string, alpha: number): string {
-  const { r, g, b } = chromatism.convert(color).rgb;
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+	const { r, g, b } = chromatism.convert(color).rgb;
+	return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 /** this is not new usage - old code extracted from editor-core */

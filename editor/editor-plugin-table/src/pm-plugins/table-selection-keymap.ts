@@ -1,12 +1,12 @@
 import {
-  bindKeymapArrayWithCommand,
-  bindKeymapWithCommand,
-  moveLeft,
-  moveRight,
-  selectColumn,
-  selectRow,
-  selectTable,
-  shiftArrowUp,
+	bindKeymapArrayWithCommand,
+	bindKeymapWithCommand,
+	moveLeft,
+	moveRight,
+	selectColumn,
+	selectRow,
+	selectTable,
+	shiftArrowUp,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -14,61 +14,35 @@ import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
-  arrowLeftFromTable,
-  arrowRightFromTable,
-  modASelectTable,
-  selectColumns,
-  selectRows,
-  shiftArrowUpFromTable,
+	arrowLeftFromTable,
+	arrowRightFromTable,
+	modASelectTable,
+	selectColumns,
+	selectRows,
+	shiftArrowUpFromTable,
 } from '../commands/selection';
 import type tablePlugin from '../plugin';
 
 export function tableSelectionKeymapPlugin(
-  editorSelectionAPI:
-    | ExtractInjectionAPI<typeof tablePlugin>['selection']
-    | undefined,
+	editorSelectionAPI: ExtractInjectionAPI<typeof tablePlugin>['selection'] | undefined,
 ): SafePlugin {
-  const list = {};
+	const list = {};
 
-  bindKeymapWithCommand(
-    moveRight.common!,
-    arrowRightFromTable(editorSelectionAPI)(),
-    list,
-  );
+	bindKeymapWithCommand(moveRight.common!, arrowRightFromTable(editorSelectionAPI)(), list);
 
-  bindKeymapWithCommand(
-    moveLeft.common!,
-    arrowLeftFromTable(editorSelectionAPI)(),
-    list,
-  );
+	bindKeymapWithCommand(moveLeft.common!, arrowLeftFromTable(editorSelectionAPI)(), list);
 
-  bindKeymapArrayWithCommand(
-    selectColumn,
-    selectColumns(editorSelectionAPI)(true),
-    list,
-  );
+	bindKeymapArrayWithCommand(selectColumn, selectColumns(editorSelectionAPI)(true), list);
 
-  bindKeymapArrayWithCommand(
-    selectRow,
-    selectRows(editorSelectionAPI)(true),
-    list,
-  );
+	bindKeymapArrayWithCommand(selectRow, selectRows(editorSelectionAPI)(true), list);
 
-  bindKeymapWithCommand(
-    shiftArrowUp.common!,
-    shiftArrowUpFromTable(editorSelectionAPI)(),
-    list,
-  );
+	bindKeymapWithCommand(shiftArrowUp.common!, shiftArrowUpFromTable(editorSelectionAPI)(), list);
 
-  if (getBooleanFF('platform.editor.table.cmd-a-select-table')) {
-    bindKeymapWithCommand(
-      selectTable.common!,
-      modASelectTable(editorSelectionAPI)(),
-      list,
-    );
-  }
+	if (getBooleanFF('platform.editor.table.cmd-a-select-table')) {
+		bindKeymapWithCommand(selectTable.common!, modASelectTable(editorSelectionAPI)(), list);
+	}
 
-  return keymap(list) as SafePlugin;
+	return keymap(list) as SafePlugin;
 }
 
 export default tableSelectionKeymapPlugin;

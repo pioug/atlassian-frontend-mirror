@@ -11,60 +11,60 @@ import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export type Error = {
-  entity: ADFEntity;
-  error: ValidationError;
+	entity: ADFEntity;
+	error: ValidationError;
 };
 
 export type Props = {
-  errors: Array<Error>;
+	errors: Array<Error>;
 };
 
 const reportContainer = css({
-  display: 'flex',
-  flexDirection: 'row',
-  overflowX: 'scroll',
+	display: 'flex',
+	flexDirection: 'row',
+	overflowX: 'scroll',
 });
 
 const styledReportEntry = css({
-  flex: 1,
-  padding: '1em',
-  borderRight: `1px solid ${token('color.border', N30)}`,
+	flex: 1,
+	padding: '1em',
+	borderRight: `1px solid ${token('color.border', N30)}`,
 });
 
 const ReportEntry = ({ error }: { error: Error }) => (
-  <div css={styledReportEntry}>
-    {error.error ? (
-      <Fragment>
-        <h4>{error.error.message}</h4>
-        <code>
-          <pre>{JSON.stringify(error.entity, null, 2)}</pre>
-        </code>
-        {error.error.meta && (
-          <Fragment>
-            <p>Meta: </p>
-            <pre>{JSON.stringify(error.error.meta)}</pre>
-          </Fragment>
-        )}
-      </Fragment>
-    ) : (
-      <Fragment>
-        <h4>Empty error?</h4>
-        <pre>{JSON.stringify(error)}</pre>
-      </Fragment>
-    )}
-  </div>
+	<div css={styledReportEntry}>
+		{error.error ? (
+			<Fragment>
+				<h4>{error.error.message}</h4>
+				<code>
+					<pre>{JSON.stringify(error.entity, null, 2)}</pre>
+				</code>
+				{error.error.meta && (
+					<Fragment>
+						<p>Meta: </p>
+						<pre>{JSON.stringify(error.error.meta)}</pre>
+					</Fragment>
+				)}
+			</Fragment>
+		) : (
+			<Fragment>
+				<h4>Empty error?</h4>
+				<pre>{JSON.stringify(error)}</pre>
+			</Fragment>
+		)}
+	</div>
 );
 
 export class ErrorReport extends React.Component<Props> {
-  render() {
-    return (
-      <div css={reportContainer}>
-        {this.props.errors.map((error, idx) => (
-          <ReportEntry key={idx} error={error} />
-        ))}
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div css={reportContainer}>
+				{this.props.errors.map((error, idx) => (
+					<ReportEntry key={idx} error={error} />
+				))}
+			</div>
+		);
+	}
 }
 
 export default ErrorReport;

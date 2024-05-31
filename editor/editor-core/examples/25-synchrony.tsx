@@ -1,22 +1,12 @@
 import React from 'react';
 
-import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
-import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-
-import { default as FullPageExample } from './5-full-page';
+import { DeletedExample } from '@af/editor-examples-helpers';
 
 export default function Example() {
-  const defaultValue = useExampleDocument();
-  const collabEditProvider = createCollabEditProvider(undefined, {
-    autoConnect: true,
-  });
-
-  return (
-    <FullPageExample
-      editorProps={{
-        defaultValue,
-        collabEditProvider,
-      }}
-    />
-  );
+	return (
+		<DeletedExample
+			commitId="443f72739ed1c42aeceee0debbe7c8c83d516f7b"
+			alternativeExample="Full page confluence"
+		/>
+	);
 }

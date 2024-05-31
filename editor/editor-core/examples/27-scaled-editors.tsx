@@ -11,86 +11,81 @@ import { token } from '@atlaskit/tokens';
 import { default as FullPageExample } from './5-full-page';
 
 const user = css({
-  width: '100%',
-  padding: `${token('space.150', '12px')} 0px`,
-  display: 'flex',
-  alignItems: 'center',
+	width: '100%',
+	padding: `${token('space.150', '12px')} 0px`,
+	display: 'flex',
+	alignItems: 'center',
 });
 
 const avatar = css({
-  marginRight: token('space.050', '4px'),
-  borderRadius: '50%',
-  height: '24px',
-  width: '24px',
+	marginRight: token('space.050', '4px'),
+	borderRadius: '50%',
+	height: '24px',
+	width: '24px',
 });
 const Author = () => (
-  <div css={user}>
-    <img css={avatar} src="https://i.imgur.com/zJi8dw9.jpg"></img>
-    <span>Philip J. Fry</span>
-  </div>
+	<div css={user}>
+		<img css={avatar} src="https://i.imgur.com/zJi8dw9.jpg"></img>
+		<span>Philip J. Fry</span>
+	</div>
 );
 
 const frame = css({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '280px',
-  maxWidth: '280px',
-  padding: `0px ${token('space.200', '16px')}`,
-  border: `1px solid ${token('color.border', N40)}`,
-  borderRadius: '4px',
-  boxShadow: token('elevation.shadow.overlay', `0 8px 16px -4px ${N50A}`),
+	display: 'flex',
+	flexDirection: 'column',
+	width: '280px',
+	maxWidth: '280px',
+	padding: `0px ${token('space.200', '16px')}`,
+	border: `1px solid ${token('color.border', N40)}`,
+	borderRadius: '4px',
+	boxShadow: token('elevation.shadow.overlay', `0 8px 16px -4px ${N50A}`),
 });
 
 function ButtonHack(props: ButtonProps) {
-  return <Button {...props} />;
+	return <Button {...props} />;
 }
 const paddedButton = css({
-  '&&': {
-    margin: `${token('space.150', '12px')} 0px ${token(
-      'space.150',
-      '12px',
-    )} auto`,
-  },
+	'&&': {
+		margin: `${token('space.150', '12px')} 0px ${token('space.150', '12px')} auto`,
+	},
 });
 
-const PaddedButton = (props: ButtonProps) => (
-  <ButtonHack {...props} css={paddedButton} />
-);
+const PaddedButton = (props: ButtonProps) => <ButtonHack {...props} css={paddedButton} />;
 
 const editorWrapper = css({
-  padding: token('space.100', '8px'),
-  backgroundColor: 'white',
-  border: `1px solid ${token('color.border', N40)}`,
-  borderRadius: '4px',
-  '.ProseMirror': {
-    minHeight: '125px',
-  },
+	padding: token('space.100', '8px'),
+	backgroundColor: 'white',
+	border: `1px solid ${token('color.border', N40)}`,
+	borderRadius: '4px',
+	'.ProseMirror': {
+		minHeight: '125px',
+	},
 });
 
 const InlineCommentEditor = (props: { editor: React.ReactNode }) => (
-  <div css={frame}>
-    <Author />
-    <div css={editorWrapper}>{props.editor}</div>
-    <PaddedButton appearance="primary">Save</PaddedButton>
-  </div>
+	<div css={frame}>
+		<Author />
+		<div css={editorWrapper}>{props.editor}</div>
+		<PaddedButton appearance="primary">Save</PaddedButton>
+	</div>
 );
 
 const editor = (
-  <FullPageExample
-    editorProps={{
-      appearance: 'chromeless',
-      placeholder: '',
-      contentComponents: undefined,
-      disabled: false,
-    }}
-  />
+	<FullPageExample
+		editorProps={{
+			appearance: 'chromeless',
+			placeholder: '',
+			contentComponents: undefined,
+			disabled: false,
+		}}
+	/>
 );
 
 const ScaledEditorsExample = () => (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-  <div style={{ padding: token('space.250', '20px') }}>
-    <InlineCommentEditor editor={editor} />
-  </div>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+	<div style={{ padding: token('space.250', '20px') }}>
+		<InlineCommentEditor editor={editor} />
+	</div>
 );
 
 export default ScaledEditorsExample;

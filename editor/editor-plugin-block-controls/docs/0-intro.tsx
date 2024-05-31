@@ -7,16 +7,18 @@ import { token } from '@atlaskit/tokens';
 export default md`
 
 ${createEditorUseOnlyNotice('Editor Plugin Block Controls', [
-  { name: 'Editor Core', link: '/packages/editor/editor-core' },
+	{ name: 'Editor Core', link: '/packages/editor/editor-core' },
 ])}
 
 
-  ${(
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    <div style={{ marginTop: token('space.100', '8px') }}>
-      <AtlassianInternalWarning />
-    </div>
-  )}
+  ${
+		(
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			<div style={{ marginTop: token('space.100', '8px') }}>
+				<AtlassianInternalWarning />
+			</div>
+		)
+	}
 
   This package includes the block controls plugin used by \`@atlaskit/editor-core\`.
 
@@ -45,48 +47,46 @@ For internal Atlassian, visit the slack channel [#help-editor](https://atlassian
 `;
 
 function AlternativePackagesMessage({
-  alternatePackages,
+	alternatePackages,
 }: React.PropsWithoutRef<{
-  alternatePackages?: { name: string; link: string }[];
+	alternatePackages?: { name: string; link: string }[];
 }>) {
-  if (!alternatePackages) {
-    return null;
-  }
-  if (alternatePackages.length === 1) {
-    return (
-      <p>
-        Consider using{' '}
-        <a href={alternatePackages[0].link}>{alternatePackages[0].name}</a>{' '}
-        instead.
-      </p>
-    );
-  }
-  return (
-    <p>
-      Consider using one of these packages instead:
-      <ul>
-        {alternatePackages.map(p => (
-          <li>
-            <a href={p.link}>{p.name}</a>
-          </li>
-        ))}
-      </ul>
-    </p>
-  );
+	if (!alternatePackages) {
+		return null;
+	}
+	if (alternatePackages.length === 1) {
+		return (
+			<p>
+				Consider using <a href={alternatePackages[0].link}>{alternatePackages[0].name}</a> instead.
+			</p>
+		);
+	}
+	return (
+		<p>
+			Consider using one of these packages instead:
+			<ul>
+				{alternatePackages.map((p) => (
+					<li>
+						<a href={p.link}>{p.name}</a>
+					</li>
+				))}
+			</ul>
+		</p>
+	);
 }
 
 export function createEditorUseOnlyNotice(
-  componentName: string,
-  alternatePackages?: { name: string; link: string }[],
+	componentName: string,
+	alternatePackages?: { name: string; link: string }[],
 ) {
-  return (
-    <SectionMessage title="Internal Editor Use Only" appearance="error">
-      <p>
-        {componentName} is intended for internal use by the Editor Platform as a
-        plugin dependency of the Editor within your product.
-      </p>
-      <p>Direct use of this component is not supported.</p>
-      <AlternativePackagesMessage alternatePackages={alternatePackages} />
-    </SectionMessage>
-  );
+	return (
+		<SectionMessage title="Internal Editor Use Only" appearance="error">
+			<p>
+				{componentName} is intended for internal use by the Editor Platform as a plugin dependency
+				of the Editor within your product.
+			</p>
+			<p>Direct use of this component is not supported.</p>
+			<AlternativePackagesMessage alternatePackages={alternatePackages} />
+		</SectionMessage>
+	);
 }

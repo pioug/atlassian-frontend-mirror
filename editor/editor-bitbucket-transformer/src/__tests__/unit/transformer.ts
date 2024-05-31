@@ -10,16 +10,16 @@ const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);
 
 describe('Bitbucket Transformer', () => {
-  describe('encode', () => {
-    const standardEmptyAdf: JSONDocNode = {
-      type: 'doc',
-      version: 1,
-      content: [],
-    };
+	describe('encode', () => {
+		const standardEmptyAdf: JSONDocNode = {
+			type: 'doc',
+			version: 1,
+			content: [],
+		};
 
-    it('should create a standard empty adf for empty Bitbucket', () => {
-      const bitbucketTransformer = new BitbucketTransformer(bitbucketSchema);
-      expect(toJSON(bitbucketTransformer.parse(''))).toEqual(standardEmptyAdf);
-    });
-  });
+		it('should create a standard empty adf for empty Bitbucket', () => {
+			const bitbucketTransformer = new BitbucketTransformer(bitbucketSchema);
+			expect(toJSON(bitbucketTransformer.parse(''))).toEqual(standardEmptyAdf);
+		});
+	});
 });

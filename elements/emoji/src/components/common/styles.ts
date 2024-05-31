@@ -494,30 +494,6 @@ export const addCustomEmojiButton = css({
   maxWidth: '285px',
 });
 
-export const uploadRetryButton = css({
-  maxWidth: '172px',
-  justifyContent: 'center',
-  fontWeight: 'bold',
-  marginRight: token('space.050', '4px'),
-  div: {
-    display: 'flex',
-  },
-});
-
-export const uploadEmojiButton = css({
-  maxWidth: '187px',
-  justifyContent: 'center',
-  marginRight: token('space.050', '4px'),
-
-  div: {
-    display: 'flex',
-  },
-});
-
-export const cancelButton = css({
-  maxWidth: '100px',
-});
-
 export const buttonSpinner = css({
   // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginRight: '10px',

@@ -8,15 +8,15 @@ import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 import type { UIComponentFactory } from './ui-components';
 
 export interface EditorInstance {
-  editorView: EditorView;
-  eventDispatcher: EventDispatcher;
-  contentComponents: UIComponentFactory[];
-  primaryToolbarComponents: ToolbarUIComponentFactory[];
-  secondaryToolbarComponents: UIComponentFactory[];
-  onEditorViewStateUpdatedCallbacks: {
-    pluginName: string;
-    callback: OnEditorViewStateUpdated;
-  }[];
-  contentTransformer?: Transformer<string>;
-  insertMenuItems?: MenuItem[];
+	editorView: EditorView;
+	eventDispatcher: EventDispatcher;
+	contentComponents: UIComponentFactory[];
+	primaryToolbarComponents: ToolbarUIComponentFactory[];
+	secondaryToolbarComponents: UIComponentFactory[];
+	onEditorViewStateUpdatedCallbacks: {
+		pluginName: string;
+		callback: OnEditorViewStateUpdated;
+	}[];
+	contentTransformer?: Transformer<string>;
+	insertMenuItems?: MenuItem[];
 }

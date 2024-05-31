@@ -1,37 +1,37 @@
 {
-  "extends": "../../../tsconfig.base.json",
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*"
-  ],
-  "compilerOptions": {
-    "baseUrl": "./",
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__adf-utils/app"
-  },
-  "references": [
-    {
-      "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-    }
-  ]
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*"
+	],
+	"compilerOptions": {
+		"baseUrl": "./",
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__adf-utils/app"
+	},
+	"references": [
+		{
+			"path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
+		}
+	]
 }

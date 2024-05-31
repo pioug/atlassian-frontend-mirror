@@ -1,10 +1,10 @@
 import type { LinkStepMetadata } from '@atlaskit/adf-schema/steps';
 import { LinkMetaStep } from '@atlaskit/adf-schema/steps';
 import type {
-  EditorState,
-  ReadonlyTransaction,
-  Selection,
-  Transaction,
+	EditorState,
+	ReadonlyTransaction,
+	Selection,
+	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -14,43 +14,41 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
  * the history for undo/redo.
  */
 export function addLinkMetadata(
-  initialSelection: Selection,
-  tr: Transaction,
-  metadata: LinkStepMetadata,
+	initialSelection: Selection,
+	tr: Transaction,
+	metadata: LinkStepMetadata,
 ) {
-  const { storedMarks } = tr;
-  const pos = tr.mapping.map(initialSelection.$from.pos);
-  tr.step(new LinkMetaStep(pos, metadata));
+	const { storedMarks } = tr;
+	const pos = tr.mapping.map(initialSelection.$from.pos);
+	tr.step(new LinkMetaStep(pos, metadata));
 
-  // When you add a new step all the storedMarks are removed it
-  if (storedMarks) {
-    tr.setStoredMarks(storedMarks);
-  }
+	// When you add a new step all the storedMarks are removed it
+	if (storedMarks) {
+		tr.setStoredMarks(storedMarks);
+	}
 
-  return tr;
+	return tr;
 }
 
-export function getLinkMetadataFromTransaction(
-  tr: Transaction | ReadonlyTransaction,
-) {
-  return tr.steps.reduce<LinkStepMetadata>((metadata, step) => {
-    if (!(step instanceof LinkMetaStep)) {
-      return metadata;
-    }
+export function getLinkMetadataFromTransaction(tr: Transaction | ReadonlyTransaction) {
+	return tr.steps.reduce<LinkStepMetadata>((metadata, step) => {
+		if (!(step instanceof LinkMetaStep)) {
+			return metadata;
+		}
 
-    return {
-      ...metadata,
-      ...step.getMetadata(),
-    };
-  }, {});
+		return {
+			...metadata,
+			...step.getMetadata(),
+		};
+	}, {});
 }
 
 export type CommandDispatch = (tr: Transaction) => void;
 
 export type Command = (
-  state: EditorState,
-  dispatch?: CommandDispatch,
-  view?: EditorView,
+	state: EditorState,
+	dispatch?: CommandDispatch,
+	view?: EditorView,
 ) => boolean;
 
 /**
@@ -58,22 +56,19 @@ export type Command = (
  * The metadata describes the user intent and input method
  * for executing the command
  */
-export const commandWithMetadata = (
-  command: Command,
-  metadata: LinkStepMetadata,
-): Command => {
-  return (state, dispatch, view) => {
-    if (!dispatch) {
-      return command(state, dispatch, view);
-    }
+export const commandWithMetadata = (command: Command, metadata: LinkStepMetadata): Command => {
+	return (state, dispatch, view) => {
+		if (!dispatch) {
+			return command(state, dispatch, view);
+		}
 
-    return command(
-      state,
-      (tr: Transaction) => {
-        addLinkMetadata(state.selection, tr, metadata);
-        dispatch(tr);
-      },
-      view,
-    );
-  };
+		return command(
+			state,
+			(tr: Transaction) => {
+				addLinkMetadata(state.selection, tr, metadata);
+				dispatch(tr);
+			},
+			view,
+		);
+	};
 };

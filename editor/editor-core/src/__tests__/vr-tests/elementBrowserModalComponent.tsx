@@ -11,66 +11,66 @@ import { default as EditorContext } from '../../ui/EditorContext';
 
 // Hiding the enter (⏎) key due to a bug in fonts for gemini on CI, causing tests to fail in CI but pass locally
 const hideEnterKey = css({
-  "div[data-testid='element_search__element_after_input']": {
-    visibility: 'hidden',
-  },
+	"div[data-testid='element_search__element_after_input']": {
+		visibility: 'hidden',
+	},
 });
 
 const RenderElementBrowser = (
-  props: {
-    getItems: (query?: string, category?: string) => QuickInsertItem[];
-  } & WrappedComponentProps,
+	props: {
+		getItems: (query?: string, category?: string) => QuickInsertItem[];
+	} & WrappedComponentProps,
 ) => (
-  // eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-  <div style={{ display: 'flex', height: '150px' }}>
-    <ElementBrowser
-      categories={getCategories(props.intl)}
-      getItems={props.getItems}
-      showSearch={true}
-      showCategories={true}
-      mode="full"
-      defaultCategory="all"
-      onInsertItem={() => {}}
-    />
-  </div>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+	<div style={{ display: 'flex', height: '150px' }}>
+		<ElementBrowser
+			categories={getCategories(props.intl)}
+			getItems={props.getItems}
+			showSearch={true}
+			showCategories={true}
+			mode="full"
+			defaultCategory="all"
+			onInsertItem={() => {}}
+		/>
+	</div>
 );
 
 const ElementBrowserWithIntl = injectIntl(RenderElementBrowser);
 
 const ElementBrowserComp = () => {
-  const getItems: () => QuickInsertItem[] = () => [
-    {
-      name: 'item-1',
-      title: 'Item 1',
-      action: () => false,
-      categories: ['category-2'],
-    },
-    {
-      name: 'item-2',
-      title: 'Item 2',
-      action: () => false,
-      categories: ['category-3'],
-    },
-    {
-      name: 'item-3',
-      title: 'Item 3',
-      action: () => false,
-      categories: ['category-3'],
-    },
-    {
-      name: 'item-4',
-      title: 'Item 4',
-      action: () => false,
-      categories: ['category-3'],
-    },
-  ];
+	const getItems: () => QuickInsertItem[] = () => [
+		{
+			name: 'item-1',
+			title: 'Item 1',
+			action: () => false,
+			categories: ['category-2'],
+		},
+		{
+			name: 'item-2',
+			title: 'Item 2',
+			action: () => false,
+			categories: ['category-3'],
+		},
+		{
+			name: 'item-3',
+			title: 'Item 3',
+			action: () => false,
+			categories: ['category-3'],
+		},
+		{
+			name: 'item-4',
+			title: 'Item 4',
+			action: () => false,
+			categories: ['category-3'],
+		},
+	];
 
-  return <ElementBrowserWithIntl getItems={getItems} />;
+	return <ElementBrowserWithIntl getItems={getItems} />;
 };
 export default () => (
-  <div css={hideEnterKey}>
-    <EditorContext>
-      <ElementBrowserComp />
-    </EditorContext>
-  </div>
+	<div css={hideEnterKey}>
+		<EditorContext>
+			<ElementBrowserComp />
+		</EditorContext>
+	</div>
 );

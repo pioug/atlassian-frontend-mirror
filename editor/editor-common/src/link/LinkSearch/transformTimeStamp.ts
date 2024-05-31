@@ -6,42 +6,42 @@ import { type IntlShape } from 'react-intl-next';
 import messages from '../../messages';
 
 const renderAbsoluteOrRelativeDate = (
-  timeStamp: Date,
-  pageAction: 'updated' | 'viewed',
-  intl: IntlShape,
+	timeStamp: Date,
+	pageAction: 'updated' | 'viewed',
+	intl: IntlShape,
 ) => {
-  let pageActionText: string = '';
-  switch (pageAction) {
-    case 'updated':
-      pageActionText = intl.formatMessage(messages.timeUpdated);
-      break;
-    case 'viewed':
-      pageActionText = intl.formatMessage(messages.timeViewed);
-      break;
-  }
+	let pageActionText: string = '';
+	switch (pageAction) {
+		case 'updated':
+			pageActionText = intl.formatMessage(messages.timeUpdated);
+			break;
+		case 'viewed':
+			pageActionText = intl.formatMessage(messages.timeViewed);
+			break;
+	}
 
-  if (differenceInCalendarDays(timeStamp, Date.now()) < -7) {
-    return {
-      pageAction: pageActionText,
-      dateString: format(timeStamp, 'MMMM dd, yyyy'),
-    };
-  }
-  return {
-    pageAction: pageActionText,
-    dateString: formatDistance(timeStamp, Date.now()),
-    timeSince: intl.formatMessage(messages.timeAgo),
-  };
+	if (differenceInCalendarDays(timeStamp, Date.now()) < -7) {
+		return {
+			pageAction: pageActionText,
+			dateString: format(timeStamp, 'MMMM dd, yyyy'),
+		};
+	}
+	return {
+		pageAction: pageActionText,
+		dateString: formatDistance(timeStamp, Date.now()),
+		timeSince: intl.formatMessage(messages.timeAgo),
+	};
 };
 
 export const transformTimeStamp = (
-  intl: IntlShape,
-  lastViewedDate?: Date,
-  lastUpdatedDate?: Date,
+	intl: IntlShape,
+	lastViewedDate?: Date,
+	lastUpdatedDate?: Date,
 ) => {
-  if (lastViewedDate) {
-    return renderAbsoluteOrRelativeDate(lastViewedDate, 'viewed', intl);
-  }
-  if (lastUpdatedDate) {
-    return renderAbsoluteOrRelativeDate(lastUpdatedDate, 'updated', intl);
-  }
+	if (lastViewedDate) {
+		return renderAbsoluteOrRelativeDate(lastViewedDate, 'viewed', intl);
+	}
+	if (lastUpdatedDate) {
+		return renderAbsoluteOrRelativeDate(lastUpdatedDate, 'updated', intl);
+	}
 };

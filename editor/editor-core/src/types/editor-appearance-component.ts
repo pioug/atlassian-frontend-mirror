@@ -12,9 +12,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type EditorActions from '../actions';
 import type { EventDispatcher } from '../event-dispatcher';
 import type {
-  ContentComponents,
-  PrimaryToolbarComponents,
-  ReactComponents,
+	ContentComponents,
+	PrimaryToolbarComponents,
+	ReactComponents,
 } from '../types/editor-props';
 import type { UIComponentFactory } from '../types/ui-components';
 import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
@@ -23,50 +23,50 @@ import type { EditorAppearance } from './editor-appearance';
 import type { FeatureFlags } from './feature-flags';
 
 export interface EditorAppearanceComponentProps {
-  appearance?: EditorAppearance;
-  onSave?: (editorView: EditorView) => void;
-  onCancel?: (editorView: EditorView) => void;
+	appearance?: EditorAppearance;
+	onSave?: (editorView: EditorView) => void;
+	onCancel?: (editorView: EditorView) => void;
 
-  providerFactory: ProviderFactory;
-  editorActions?: EditorActions;
-  editorDOMElement: JSX.Element;
-  editorView?: EditorView;
+	providerFactory: ProviderFactory;
+	editorActions?: EditorActions;
+	editorDOMElement: JSX.Element;
+	editorView?: EditorView;
 
-  eventDispatcher?: EventDispatcher;
-  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	eventDispatcher?: EventDispatcher;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 
-  maxHeight?: number;
-  minHeight?: number;
+	maxHeight?: number;
+	minHeight?: number;
 
-  contentComponents?: UIComponentFactory[];
-  pluginHooks?: ReactHookFactory[];
-  primaryToolbarComponents?: ToolbarUIComponentFactory[];
-  primaryToolbarIconBefore?: ReactElement;
-  secondaryToolbarComponents?: UIComponentFactory[];
+	contentComponents?: UIComponentFactory[];
+	pluginHooks?: ReactHookFactory[];
+	primaryToolbarComponents?: ToolbarUIComponentFactory[];
+	primaryToolbarIconBefore?: ReactElement;
+	secondaryToolbarComponents?: UIComponentFactory[];
 
-  customContentComponents?: ContentComponents;
-  customPrimaryToolbarComponents?: PrimaryToolbarComponents;
-  customSecondaryToolbarComponents?: ReactComponents;
-  insertMenuItems?: MenuItem[];
-  contextPanel?: ReactComponents;
+	customContentComponents?: ContentComponents;
+	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
+	customSecondaryToolbarComponents?: ReactComponents;
+	insertMenuItems?: MenuItem[];
+	contextPanel?: ReactComponents;
 
-  popupsMountPoint?: HTMLElement;
-  popupsBoundariesElement?: HTMLElement;
-  popupsScrollableElement?: HTMLElement;
+	popupsMountPoint?: HTMLElement;
+	popupsBoundariesElement?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
 
-  extensionHandlers?: ExtensionHandlers;
+	extensionHandlers?: ExtensionHandlers;
 
-  disabled?: boolean;
+	disabled?: boolean;
 
-  collabEdit?: CollabEditOptions;
+	collabEdit?: CollabEditOptions;
 
-  persistScrollGutter?: boolean;
+	persistScrollGutter?: boolean;
 
-  enableToolbarMinWidth?: boolean;
+	enableToolbarMinWidth?: boolean;
 
-  featureFlags: FeatureFlags;
-  useStickyToolbar?: UseStickyToolbarType;
+	featureFlags: FeatureFlags;
+	useStickyToolbar?: UseStickyToolbarType;
 
-  innerRef?: RefObject<HTMLDivElement>;
-  hideAvatarGroup?: boolean;
+	innerRef?: RefObject<HTMLDivElement>;
+	hideAvatarGroup?: boolean;
 }

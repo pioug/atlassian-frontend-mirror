@@ -11,7 +11,7 @@ const project = path.join(__dirname, '../tsconfig.json');
 const dev = fs.existsSync(project);
 
 if (dev) {
-  require('ts-node').register({ project });
+	require('ts-node').register({ project });
 }
 
 require(path.join('..', dev ? 'src/cli' : 'dist/cjs/cli'));

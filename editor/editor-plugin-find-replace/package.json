@@ -46,7 +46,7 @@
     "@atlaskit/form": "^10.2.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/textfield": "^6.3.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",
@@ -60,7 +60,6 @@
     "@af/visual-regression": "*",
     "@atlaskit/editor-plugin-block-type": "^3.4.0",
     "@atlaskit/editor-plugin-text-formatting": "^1.7.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
@@ -105,7 +104,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.a11y-find-replace": {
       "type": "boolean"

@@ -16,11 +16,11 @@ This transformer allows encoding ProseMirror Node in JSON format.
   serializer.encode(editorContent);`}
 
   ${(
-    <Example
-      packageName="@atlaskit/editor-json-transformer"
-      Component={require('../examples/0-json-transformer').default}
-      title="Json Transformer"
-      source={require('!!raw-loader!../examples/0-json-transformer')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/editor-json-transformer"
+			Component={require('../examples/0-json-transformer').default}
+			title="Json Transformer"
+			source={require('!!raw-loader!../examples/0-json-transformer')}
+		/>
+	)}
 `;

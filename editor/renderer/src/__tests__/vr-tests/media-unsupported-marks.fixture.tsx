@@ -4,5 +4,5 @@ import mediaWithUnsupportedMarksAndAttributes from '../__fixtures__/media-with-u
 import { MediaBaseRenderer } from '../__helpers/mediaRenderer';
 
 export const MediaWithUnsupportedMarks = () => {
-  return <MediaBaseRenderer adf={mediaWithUnsupportedMarksAndAttributes} />;
+	return <MediaBaseRenderer adf={mediaWithUnsupportedMarksAndAttributes} />;
 };

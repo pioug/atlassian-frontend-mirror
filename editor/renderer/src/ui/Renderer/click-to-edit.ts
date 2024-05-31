@@ -6,19 +6,17 @@ import { mediaViewerPopupClass } from '@atlaskit/media-viewer/classnames';
  * renderer to the editor in somewhere like the Jira description
  * @param element
  */
-export function isInteractiveElement(
-  element: HTMLElement | HTMLLinkElement,
-): boolean {
-  if ('href' in element && element.href != null) {
-    return true;
-  }
+export function isInteractiveElement(element: HTMLElement | HTMLLinkElement): boolean {
+	if ('href' in element && element.href != null) {
+		return true;
+	}
 
-  if (element.classList.contains(mediaViewerPopupClass)) {
-    return true;
-  }
+	if (element.classList.contains(mediaViewerPopupClass)) {
+		return true;
+	}
 
-  if (element.classList.contains(fileCardImageViewSelector)) {
-    return true;
-  }
-  return false;
+	if (element.classList.contains(fileCardImageViewSelector)) {
+		return true;
+	}
+	return false;
 }

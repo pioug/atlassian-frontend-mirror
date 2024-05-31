@@ -1,8 +1,8 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
-  EditorCommand,
-  NextEditorPlugin,
-  OptionalPlugin,
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -27,30 +27,27 @@ export type IsInsideListItem = (tr: Transaction) => boolean;
 export type FindRootParentListNode = ($pos: ResolvedPos) => ResolvedPos | null;
 
 export interface ListState {
-  bulletListActive: boolean;
-  bulletListDisabled: boolean;
-  orderedListActive: boolean;
-  orderedListDisabled: boolean;
-  decorationSet: DecorationSet; // used to add attributes representing indentation level
+	bulletListActive: boolean;
+	bulletListDisabled: boolean;
+	orderedListActive: boolean;
+	orderedListDisabled: boolean;
+	decorationSet: DecorationSet; // used to add attributes representing indentation level
 }
 
 export type ListPlugin = NextEditorPlugin<
-  'list',
-  {
-    dependencies: [
-      OptionalPlugin<FeatureFlagsPlugin>,
-      OptionalPlugin<AnalyticsPlugin>,
-    ];
-    actions: {
-      isInsideListItem: IsInsideListItem;
-      findRootParentListNode: FindRootParentListNode;
-    };
-    commands: {
-      indentList: IndentList;
-      outdentList: OutdentList;
-      toggleOrderedList: ToggleOrderedList;
-      toggleBulletList: ToggleBulletList;
-    };
-    sharedState: ListState | undefined;
-  }
+	'list',
+	{
+		dependencies: [OptionalPlugin<FeatureFlagsPlugin>, OptionalPlugin<AnalyticsPlugin>];
+		actions: {
+			isInsideListItem: IsInsideListItem;
+			findRootParentListNode: FindRootParentListNode;
+		};
+		commands: {
+			indentList: IndentList;
+			outdentList: OutdentList;
+			toggleOrderedList: ToggleOrderedList;
+			toggleBulletList: ToggleBulletList;
+		};
+		sharedState: ListState | undefined;
+	}
 >;

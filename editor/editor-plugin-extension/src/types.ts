@@ -1,26 +1,23 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
-  ExtensionAPI,
-  ExtensionHandlers,
-  ExtensionProvider,
-  Parameters,
-  TransformAfter,
-  TransformBefore,
-  UpdateExtension,
+	ExtensionAPI,
+	ExtensionHandlers,
+	ExtensionProvider,
+	Parameters,
+	TransformAfter,
+	TransformBefore,
+	UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
-  EditorAppearance,
-  LongPressSelectionPluginOptions,
-  NextEditorPlugin,
-  OptionalPlugin,
+	EditorAppearance,
+	LongPressSelectionPluginOptions,
+	NextEditorPlugin,
+	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
-import type {
-  ApplyChangeHandler,
-  ContextPanelPlugin,
-} from '@atlaskit/editor-plugin-context-panel';
+import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -34,76 +31,70 @@ import type { forceAutoSave } from './commands';
 export type RejectSave = (reason?: any) => void;
 
 export type ExtensionState<T extends Parameters = Parameters> = {
-  localId?: string;
-  autoSaveResolve?: () => void;
-  autoSaveReject?: RejectSave;
-  showEditButton: boolean;
-  showContextPanel: boolean;
-  updateExtension?: Promise<UpdateExtension<T> | void>;
-  element?: HTMLElement;
-  extensionProvider?: ExtensionProvider<T>;
-  processParametersBefore?: TransformBefore<T>;
-  processParametersAfter?: TransformAfter<T>;
-  positions?: Record<number, number>;
+	localId?: string;
+	autoSaveResolve?: () => void;
+	autoSaveReject?: RejectSave;
+	showEditButton: boolean;
+	showContextPanel: boolean;
+	updateExtension?: Promise<UpdateExtension<T> | void>;
+	element?: HTMLElement;
+	extensionProvider?: ExtensionProvider<T>;
+	processParametersBefore?: TransformBefore<T>;
+	processParametersAfter?: TransformAfter<T>;
+	positions?: Record<number, number>;
 };
 
 export type ExtensionAction<T extends Parameters = Parameters> = {
-  type: 'UPDATE_STATE';
-  data: Partial<ExtensionState<T>>;
+	type: 'UPDATE_STATE';
+	data: Partial<ExtensionState<T>>;
 };
 
 interface CreateExtensionAPIOptions {
-  editorView: EditorView;
-  applyChange: ApplyChangeHandler | undefined;
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-  editInLegacyMacroBrowser?: () => void;
+	editorView: EditorView;
+	applyChange: ApplyChangeHandler | undefined;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	editInLegacyMacroBrowser?: () => void;
 }
 
-export type CreateExtensionAPI = (
-  options: CreateExtensionAPIOptions,
-) => ExtensionAPI;
+export type CreateExtensionAPI = (options: CreateExtensionAPIOptions) => ExtensionAPI;
 
-export interface ExtensionPluginOptions
-  extends LongPressSelectionPluginOptions {
-  breakoutEnabled?: boolean;
-  extensionHandlers?: ExtensionHandlers;
-  appearance?: EditorAppearance;
+export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
+	breakoutEnabled?: boolean;
+	extensionHandlers?: ExtensionHandlers;
+	appearance?: EditorAppearance;
 }
 
 type InsertMacroFromMacroBrowser = (
-  macroProvider: MacroProvider,
-  macroNode?: PmNode,
-  isEditing?: boolean,
+	macroProvider: MacroProvider,
+	macroNode?: PmNode,
+	isEditing?: boolean,
 ) => (view: EditorView) => Promise<boolean>;
 
-export type RunMacroAutoConvert = (
-  state: EditorState,
-  text: string,
-) => PmNode | null;
+export type RunMacroAutoConvert = (state: EditorState, text: string) => PmNode | null;
 
 export type ExtensionPlugin = NextEditorPlugin<
-  'extension',
-  {
-    pluginConfiguration: ExtensionPluginOptions | undefined;
-    dependencies: [
-      OptionalPlugin<AnalyticsPlugin>,
-      OptionalPlugin<FeatureFlagsPlugin>,
-      WidthPlugin,
-      DecorationsPlugin,
-      OptionalPlugin<ContextPanelPlugin>,
-      OptionalPlugin<ContextIdentifierPlugin>,
-    ];
-    sharedState:
-      | {
-          showContextPanel: boolean | undefined;
-        }
-      | undefined;
-    actions: {
-      editSelectedExtension: () => boolean;
-      api: () => ExtensionAPI;
-      insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
-      runMacroAutoConvert: RunMacroAutoConvert;
-      forceAutoSave: typeof forceAutoSave;
-    };
-  }
+	'extension',
+	{
+		pluginConfiguration: ExtensionPluginOptions | undefined;
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<FeatureFlagsPlugin>,
+			WidthPlugin,
+			DecorationsPlugin,
+			OptionalPlugin<ContextPanelPlugin>,
+			OptionalPlugin<ContextIdentifierPlugin>,
+		];
+		sharedState:
+			| {
+					showContextPanel: boolean | undefined;
+			  }
+			| undefined;
+		actions: {
+			editSelectedExtension: () => boolean;
+			api: () => ExtensionAPI;
+			insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
+			runMacroAutoConvert: RunMacroAutoConvert;
+			forceAutoSave: typeof forceAutoSave;
+		};
+	}
 >;

@@ -1,54 +1,48 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
-  EditorCommand,
-  NextEditorPlugin,
-  OptionalPlugin,
-  TypeAheadHandler,
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type {
-  TypeAheadInputMethod,
-  TypeAheadPlugin,
-} from '@atlaskit/editor-plugin-type-ahead';
-import type {
-  EmojiDescription,
-  EmojiId,
-  EmojiProvider,
-  EmojiResourceConfig,
+	EmojiDescription,
+	EmojiId,
+	EmojiProvider,
+	EmojiResourceConfig,
 } from '@atlaskit/emoji';
 
 export interface EmojiPluginOptions {
-  headless?: boolean;
+	headless?: boolean;
 }
 
 export type EmojiPluginState = {
-  emojiProvider?: EmojiProvider;
-  emojiResourceConfig?: EmojiResourceConfig;
-  asciiMap?: Map<string, EmojiDescription>;
+	emojiProvider?: EmojiProvider;
+	emojiResourceConfig?: EmojiResourceConfig;
+	asciiMap?: Map<string, EmojiDescription>;
 };
 
 export type EmojiPluginSharedState = EmojiPluginState & {
-  typeAheadHandler: TypeAheadHandler;
+	typeAheadHandler: TypeAheadHandler;
 };
 
 export type EmojiPlugin = NextEditorPlugin<
-  'emoji',
-  {
-    pluginConfiguration: EmojiPluginOptions | undefined;
-    dependencies: [OptionalPlugin<AnalyticsPlugin>, TypeAheadPlugin];
-    sharedState: Omit<EmojiPluginSharedState, 'emojiProvider'> | undefined;
-    commands: {
-      insertEmoji: (
-        emojiId: EmojiId,
-        inputMethod?:
-          | INPUT_METHOD.PICKER
-          | INPUT_METHOD.ASCII
-          | INPUT_METHOD.TYPEAHEAD,
-      ) => EditorCommand;
-    };
+	'emoji',
+	{
+		pluginConfiguration: EmojiPluginOptions | undefined;
+		dependencies: [OptionalPlugin<AnalyticsPlugin>, TypeAheadPlugin];
+		sharedState: Omit<EmojiPluginSharedState, 'emojiProvider'> | undefined;
+		commands: {
+			insertEmoji: (
+				emojiId: EmojiId,
+				inputMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.ASCII | INPUT_METHOD.TYPEAHEAD,
+			) => EditorCommand;
+		};
 
-    actions: {
-      openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
-    };
-  }
+		actions: {
+			openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
+		};
+	}
 >;

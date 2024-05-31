@@ -6,9 +6,9 @@ import { editorCommandToPMCommand } from '../editor-commands';
 
 import { scheduleDocumentRequest } from './requestDocument';
 import type {
-  CorePlugin,
-  DefaultTransformerResultCallback,
-  InferTransformerResultCallback,
+	CorePlugin,
+	DefaultTransformerResultCallback,
+	InferTransformerResultCallback,
 } from './types';
 
 /**
@@ -16,63 +16,61 @@ import type {
  * Allows for executing `EditorCommand` and other core functionality.
  */
 export const corePlugin: CorePlugin = ({ config }) => {
-  return {
-    name: 'core',
-    actions: {
-      execute: (command) => {
-        const editorView = config?.getEditorView();
-        if (!editorView || !command) {
-          return false;
-        }
+	return {
+		name: 'core',
+		actions: {
+			execute: (command) => {
+				const editorView = config?.getEditorView();
+				if (!editorView || !command) {
+					return false;
+				}
 
-        const { state, dispatch } = editorView;
-        return editorCommandToPMCommand(command)(state, dispatch);
-      },
-      // Code copied from `EditorActions.focus()`
-      focus: () => {
-        const editorView = config?.getEditorView();
+				const { state, dispatch } = editorView;
+				return editorCommandToPMCommand(command)(state, dispatch);
+			},
+			// Code copied from `EditorActions.focus()`
+			focus: () => {
+				const editorView = config?.getEditorView();
 
-        if (!editorView || editorView.hasFocus()) {
-          return false;
-        }
+				if (!editorView || editorView.hasFocus()) {
+					return false;
+				}
 
-        editorView.focus();
-        editorView.dispatch(editorView.state.tr.scrollIntoView());
-        return true;
-      },
-      // Code copied from `EditorActions.blur()`
-      blur: () => {
-        const editorView = config?.getEditorView();
+				editorView.focus();
+				editorView.dispatch(editorView.state.tr.scrollIntoView());
+				return true;
+			},
+			// Code copied from `EditorActions.blur()`
+			blur: () => {
+				const editorView = config?.getEditorView();
 
-        if (!editorView || !editorView.hasFocus()) {
-          return false;
-        }
+				if (!editorView || !editorView.hasFocus()) {
+					return false;
+				}
 
-        (editorView.dom as HTMLElement).blur();
-        return true;
-      },
+				(editorView.dom as HTMLElement).blur();
+				return true;
+			},
 
-      requestDocument<
-        GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>,
-      >(
-        onReceive: GenericTransformer extends undefined
-          ? DefaultTransformerResultCallback
-          : InferTransformerResultCallback<GenericTransformer>,
-        options?: { transformer?: GenericTransformer },
-      ) {
-        const view = config?.getEditorView() ?? null;
-        scheduleDocumentRequest(view, onReceive, options?.transformer);
-      },
+			requestDocument<GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>>(
+				onReceive: GenericTransformer extends undefined
+					? DefaultTransformerResultCallback
+					: InferTransformerResultCallback<GenericTransformer>,
+				options?: { transformer?: GenericTransformer },
+			) {
+				const view = config?.getEditorView() ?? null;
+				scheduleDocumentRequest(view, onReceive, options?.transformer);
+			},
 
-      createTransformer<Format>(
-        cb: (schema: Schema) => Transformer<Format>,
-      ): Transformer<Format> | undefined {
-        const view = config?.getEditorView() ?? null;
-        if (!view?.state.schema) {
-          return undefined;
-        }
-        return cb(view?.state.schema);
-      },
-    },
-  };
+			createTransformer<Format>(
+				cb: (schema: Schema) => Transformer<Format>,
+			): Transformer<Format> | undefined {
+				const view = config?.getEditorView() ?? null;
+				if (!view?.state.schema) {
+					return undefined;
+				}
+				return cb(view?.state.schema);
+			},
+		},
+	};
 };

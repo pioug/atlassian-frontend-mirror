@@ -1,13 +1,13 @@
 export enum ActionSubject {
-  EDITOR = 'editor',
-  RENDERER = 'renderer',
+	EDITOR = 'editor',
+	RENDERER = 'renderer',
 }
 
 export enum ActionSubjectID {
-  COLLAB = 'collab',
+	COLLAB = 'collab',
 }
 
 export enum EventType {
-  TRACK = 'track',
-  OPERATIONAL = 'operational',
+	TRACK = 'track',
+	OPERATIONAL = 'operational',
 }

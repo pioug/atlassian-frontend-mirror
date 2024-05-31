@@ -54,8 +54,8 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@atlaskit/editor-plugin-highlight": "1.6.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlaskit/editor-plugin-background-color": "^1.1.0",
+    "@atlaskit/editor-plugin-highlight": "1.7.0",
     "react": "^16.8.0",
     "typescript": "~5.4.2"
   },
@@ -72,6 +72,5 @@
         "emotion"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

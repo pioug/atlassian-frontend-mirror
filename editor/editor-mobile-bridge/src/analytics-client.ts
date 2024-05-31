@@ -1,29 +1,24 @@
 import { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import {
-  type GasPurePayload,
-  type GasPureScreenEventPayload,
-  type EventType,
-  type GasPayload,
+	type GasPurePayload,
+	type GasPureScreenEventPayload,
+	type EventType,
+	type GasPayload,
 } from '@atlaskit/analytics-gas-types';
 
 export const analyticsBridgeClient = (
-  handleAnalyticsEvent: (
-    event: GasPurePayload | GasPureScreenEventPayload,
-  ) => void,
+	handleAnalyticsEvent: (event: GasPurePayload | GasPureScreenEventPayload) => void,
 ): AnalyticsWebClient => {
-  // Add the eventType to all events before sending them through
-  const handleEvent = (
-    eventType: EventType,
-    event: GasPurePayload | GasPureScreenEventPayload,
-  ) => {
-    (event as GasPayload).eventType = eventType;
-    handleAnalyticsEvent(event);
-  };
+	// Add the eventType to all events before sending them through
+	const handleEvent = (eventType: EventType, event: GasPurePayload | GasPureScreenEventPayload) => {
+		(event as GasPayload).eventType = eventType;
+		handleAnalyticsEvent(event);
+	};
 
-  return {
-    sendUIEvent: (event) => handleEvent('ui', event),
-    sendOperationalEvent: (event) => handleEvent('operational', event),
-    sendTrackEvent: (event) => handleEvent('track', event),
-    sendScreenEvent: (event) => handleEvent('screen', event),
-  };
+	return {
+		sendUIEvent: (event) => handleEvent('ui', event),
+		sendOperationalEvent: (event) => handleEvent('operational', event),
+		sendTrackEvent: (event) => handleEvent('track', event),
+		sendScreenEvent: (event) => handleEvent('screen', event),
+	};
 };

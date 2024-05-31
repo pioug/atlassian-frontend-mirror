@@ -39,9 +39,6 @@
     "@atlaskit/editor-prosemirror": "4.0.1",
     "@babel/runtime": "^7.0.0"
   },
-  "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
-  },
   "peerDependencies": {
     "react": "^16.8.0"
   },
@@ -77,6 +74,5 @@
         "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

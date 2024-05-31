@@ -20,19 +20,19 @@ export const styles = `
 `;
 
 export default function tableHeader({ attrs, text }: NodeSerializerOpts) {
-  const { colspan, rowspan, background } = attrs;
-  const style = serializeStyle({
-    'background-color': background ? background : N20,
-  });
+	const { colspan, rowspan, background } = attrs;
+	const style = serializeStyle({
+		'background-color': background ? background : N20,
+	});
 
-  return createTag(
-    'th',
-    {
-      colspan,
-      rowspan,
-      style,
-      class: createClassName('tableHeader'),
-    },
-    text,
-  );
+	return createTag(
+		'th',
+		{
+			colspan,
+			rowspan,
+			style,
+			class: createClassName('tableHeader'),
+		},
+		text,
+	);
 }

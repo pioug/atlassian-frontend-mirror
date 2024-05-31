@@ -6,31 +6,26 @@ import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 import codeBidiWarningDecorator from '@atlaskit/code/bidi-warning-decorator';
 
 interface Config {
-  enableWarningTooltip: boolean;
+	enableWarningTooltip: boolean;
 }
 
 interface Result {
-  renderBidiWarnings: (text: string) => ReactNode;
-  warningLabel: string;
+	renderBidiWarnings: (text: string) => ReactNode;
+	warningLabel: string;
 }
 
-export const useBidiWarnings = ({
-  enableWarningTooltip = true,
-}: Config): Result => {
-  const intl = useIntl();
-  const warningLabel = intl.formatMessage(codeBidiWarningMessages.label);
-  const renderBidiWarnings = (text: string): ReactNode => {
-    return codeBidiWarningDecorator<ReactNode>(
-      text,
-      ({ bidiCharacter, index }) => (
-        <CodeBidiWarning
-          bidiCharacter={bidiCharacter}
-          key={index}
-          label={warningLabel}
-          tooltipEnabled={enableWarningTooltip}
-        />
-      ),
-    );
-  };
-  return { renderBidiWarnings, warningLabel };
+export const useBidiWarnings = ({ enableWarningTooltip = true }: Config): Result => {
+	const intl = useIntl();
+	const warningLabel = intl.formatMessage(codeBidiWarningMessages.label);
+	const renderBidiWarnings = (text: string): ReactNode => {
+		return codeBidiWarningDecorator<ReactNode>(text, ({ bidiCharacter, index }) => (
+			<CodeBidiWarning
+				bidiCharacter={bidiCharacter}
+				key={index}
+				label={warningLabel}
+				tooltipEnabled={enableWarningTooltip}
+			/>
+		));
+	};
+	return { renderBidiWarnings, warningLabel };
 };

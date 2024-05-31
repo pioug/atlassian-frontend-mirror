@@ -1,15 +1,15 @@
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 export interface GetAttrsChange<T, V> {
-  node: Node;
-  prevAttrs?: T;
-  newAttrs: T | false | undefined;
-  options: V;
+	node: Node;
+	prevAttrs?: T;
+	newAttrs: T | false | undefined;
+	options: V;
 }
 
 export type GetAttrsWithChangesRecorder<T, V> = {
-  getAttrs(prevAttrs?: T | undefined, node?: Node): T | false | undefined;
-  getAndResetAttrsChanges(): GetAttrsChange<T, V>[];
+	getAttrs(prevAttrs?: T | undefined, node?: Node): T | false | undefined;
+	getAndResetAttrsChanges(): GetAttrsChange<T, V>[];
 };
 
 /**
@@ -24,33 +24,30 @@ export type GetAttrsWithChangesRecorder<T, V> = {
  * @property clear - Clear the changes
  */
 export default function getAttrsWithChangesRecorder<T, V>(
-  getAttrs: (prevAttrs?: T, node?: Node) => T | false | undefined,
-  options: V,
+	getAttrs: (prevAttrs?: T, node?: Node) => T | false | undefined,
+	options: V,
 ): GetAttrsWithChangesRecorder<T, V> {
-  let changes: GetAttrsChange<T, V>[] = [];
+	let changes: GetAttrsChange<T, V>[] = [];
 
-  function getAttrsWithChangesRecorder(
-    prevAttrs?: T,
-    node?: Node,
-  ): T | undefined | false {
-    const newAttrs = getAttrs(prevAttrs, node);
+	function getAttrsWithChangesRecorder(prevAttrs?: T, node?: Node): T | undefined | false {
+		const newAttrs = getAttrs(prevAttrs, node);
 
-    changes.push({
-      node: node!,
-      prevAttrs,
-      newAttrs,
-      options,
-    });
+		changes.push({
+			node: node!,
+			prevAttrs,
+			newAttrs,
+			options,
+		});
 
-    return newAttrs;
-  }
+		return newAttrs;
+	}
 
-  return {
-    getAttrs: getAttrsWithChangesRecorder,
-    getAndResetAttrsChanges() {
-      const oldChanges = changes;
-      changes = [];
-      return oldChanges;
-    },
-  };
+	return {
+		getAttrs: getAttrsWithChangesRecorder,
+		getAndResetAttrsChanges() {
+			const oldChanges = changes;
+			changes = [];
+			return oldChanges;
+		},
+	};
 }

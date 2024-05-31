@@ -1,10 +1,7 @@
 export {
-  TaskItemsFormatProvider,
-  TaskItemsFormatConsumer,
-  useTaskItemsFormatContext,
+	TaskItemsFormatProvider,
+	TaskItemsFormatConsumer,
+	useTaskItemsFormatContext,
 } from './TaskItemsFormatContext';
 
-export type {
-  TaskItemsDone,
-  TaskItemsFormatReducerAction,
-} from './TaskItemsFormatContext';
+export type { TaskItemsDone, TaskItemsFormatReducerAction } from './TaskItemsFormatContext';

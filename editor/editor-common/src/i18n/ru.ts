@@ -348,6 +348,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Действия со страницей',
   'fabric.editor.panel.backgroundColor': 'Цвет фона',
   'fabric.editor.panel.emoji': 'Добавить эмодзи',
+  'fabric.editor.panel.panelsGroup': 'Типы панелей',
   'fabric.editor.pasteOptions': 'Параметры вставки',
   'fabric.editor.pastePlainText': 'Вставить обычный текст',
   'fabric.editor.placeholderAltText': 'Альтернативный текст для описания изображения',

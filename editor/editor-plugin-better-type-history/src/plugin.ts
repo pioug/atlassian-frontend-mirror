@@ -7,23 +7,23 @@ import type { BetterTypeHistoryPlugin } from './types';
  * paste events, splitting blocks of text, new lines.
  */
 const betterTypeHistoryPlugin: BetterTypeHistoryPlugin = () => {
-  return {
-    name: 'betterTypeHistory',
-    actions: {
-      flagPasteEvent(tr) {
-        tr.setMeta(pluginKey, true);
-        return tr;
-      },
-    },
-    pmPlugins() {
-      return [
-        {
-          name: 'betterTypeHistory',
-          plugin: () => createPlugin(),
-        },
-      ];
-    },
-  };
+	return {
+		name: 'betterTypeHistory',
+		actions: {
+			flagPasteEvent(tr) {
+				tr.setMeta(pluginKey, true);
+				return tr;
+			},
+		},
+		pmPlugins() {
+			return [
+				{
+					name: 'betterTypeHistory',
+					plugin: () => createPlugin(),
+				},
+			];
+		},
+	};
 };
 
 export { betterTypeHistoryPlugin };

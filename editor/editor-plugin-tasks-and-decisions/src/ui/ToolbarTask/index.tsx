@@ -13,49 +13,48 @@ import { insertTaskDecisionCommand } from '../../commands';
 import type { TasksAndDecisionsPlugin } from '../../types';
 
 export interface Props {
-  editorView?: EditorView;
-  isDisabled?: boolean;
-  isReducedSpacing?: boolean;
-  editorAPI: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
+	editorView?: EditorView;
+	isDisabled?: boolean;
+	isReducedSpacing?: boolean;
+	editorAPI: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
 }
 
 export interface State {
-  disabled: boolean;
+	disabled: boolean;
 }
 
 const ToolbarTask = ({
-  isDisabled,
-  isReducedSpacing,
-  intl: { formatMessage },
-  editorAPI,
-  editorView,
+	isDisabled,
+	isReducedSpacing,
+	intl: { formatMessage },
+	editorAPI,
+	editorView,
 }: Props & WrappedComponentProps) => {
-  const label = formatMessage(messages.action);
+	const label = formatMessage(messages.action);
 
-  const handleInsertTask = () => {
-    if (!editorView) {
-      return false;
-    }
-    const getContextIdentifier = () =>
-      editorAPI?.contextIdentifier?.sharedState.currentState()
-        ?.contextIdentifierProvider;
-    insertTaskDecisionCommand(
-      editorAPI?.analytics?.actions,
-      getContextIdentifier,
-    )('taskList')(editorView.state, editorView.dispatch);
-    return true;
-  };
+	const handleInsertTask = () => {
+		if (!editorView) {
+			return false;
+		}
+		const getContextIdentifier = () =>
+			editorAPI?.contextIdentifier?.sharedState.currentState()?.contextIdentifierProvider;
+		insertTaskDecisionCommand(editorAPI?.analytics?.actions, getContextIdentifier)('taskList')(
+			editorView.state,
+			editorView.dispatch,
+		);
+		return true;
+	};
 
-  return (
-    <ToolbarButton
-      buttonId={TOOLBAR_BUTTON.TASK_LIST}
-      onClick={handleInsertTask}
-      disabled={isDisabled}
-      spacing={isReducedSpacing ? 'none' : 'default'}
-      title={`${label} []`}
-      iconBefore={<TaskIcon label={label} />}
-    />
-  );
+	return (
+		<ToolbarButton
+			buttonId={TOOLBAR_BUTTON.TASK_LIST}
+			onClick={handleInsertTask}
+			disabled={isDisabled}
+			spacing={isReducedSpacing ? 'none' : 'default'}
+			title={`${label} []`}
+			iconBefore={<TaskIcon label={label} />}
+		/>
+	);
 };
 
 export default injectIntl(ToolbarTask);

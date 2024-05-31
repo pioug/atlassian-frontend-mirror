@@ -18,11 +18,11 @@ This transformer allows encoding ProseMirror Node to Slack markdown.
   serializer.encode(editorContent);`}
 
   ${(
-    <Example
-      packageName="@atlaskit/editor-slack-transformer"
-      Component={require('../examples/0-slack-markdown').default}
-      title="ADF to Slack markdown"
-      source={require('!!raw-loader!../examples/0-slack-markdown')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/editor-slack-transformer"
+			Component={require('../examples/0-slack-markdown').default}
+			title="ADF to Slack markdown"
+			source={require('!!raw-loader!../examples/0-slack-markdown')}
+		/>
+	)}
 `;

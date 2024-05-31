@@ -11,25 +11,25 @@ export const styles = `
 }
 `;
 export default function link({ mark, text, context }: MarkSerializerOpts) {
-  const baseURL = context?.baseURL;
-  const { href, title } = mark.attrs;
+	const baseURL = context?.baseURL;
+	const { href, title } = mark.attrs;
 
-  const resolveRelativeOrAbsoluteURL = (href: string, baseURL: string) => {
-    try {
-      const url = new URL(href, baseURL);
-      return url.href;
-    } catch (e) {
-      return href;
-    }
-  };
+	const resolveRelativeOrAbsoluteURL = (href: string, baseURL: string) => {
+		try {
+			const url = new URL(href, baseURL);
+			return url.href;
+		} catch (e) {
+			return href;
+		}
+	};
 
-  return createTag(
-    'a',
-    {
-      href: resolveRelativeOrAbsoluteURL(href, baseURL),
-      title,
-      class: createClassName('mark-link'),
-    },
-    text,
-  );
+	return createTag(
+		'a',
+		{
+			href: resolveRelativeOrAbsoluteURL(href, baseURL),
+			title,
+			class: createClassName('mark-link'),
+		},
+		text,
+	);
 }

@@ -1,8 +1,3 @@
-export type {
-  PastePlugin,
-  PastePluginOptions,
-  PastePluginState,
-  LastContentPasted,
-} from './types';
+export type { PastePlugin, PastePluginOptions, PastePluginState, LastContentPasted } from './types';
 
 export { pastePlugin } from './plugin';

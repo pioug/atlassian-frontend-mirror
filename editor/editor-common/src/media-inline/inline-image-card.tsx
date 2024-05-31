@@ -13,70 +13,70 @@ import type { Dimensions } from './types';
 import { InlineImageCardLoadingView } from './views/loading-view';
 
 export const InlineImageCard = ({
-  dimensions,
-  identifier,
-  renderError,
-  alt,
-  isLazy,
-  ssr,
-  crop,
-  stretch,
+	dimensions,
+	identifier,
+	renderError,
+	alt,
+	isLazy,
+	ssr,
+	crop,
+	stretch,
 }: {
-  identifier: FileIdentifier;
-  renderError: (props: { error: Error }) => JSX.Element | null;
-  dimensions?: Dimensions;
-  isLazy?: boolean;
-  alt?: string;
-  ssr?: SSR;
-  crop?: boolean;
-  stretch?: boolean;
+	identifier: FileIdentifier;
+	renderError: (props: { error: Error }) => JSX.Element | null;
+	dimensions?: Dimensions;
+	isLazy?: boolean;
+	alt?: string;
+	ssr?: SSR;
+	crop?: boolean;
+	stretch?: boolean;
 }) => {
-  // Generate unique traceId for file
-  const traceContext = useMemo(
-    () => ({
-      traceId: getRandomHex(8),
-    }),
-    [],
-  );
+	// Generate unique traceId for file
+	const traceContext = useMemo(
+		() => ({
+			traceId: getRandomHex(8),
+		}),
+		[],
+	);
 
-  // TODO do we need to handle nonCriticalError
-  const {
-    preview,
-    error: previewError,
-    onImageError,
-    onImageLoad,
-    getSsrScriptProps,
-  } = useFilePreview({
-    identifier,
-    ssr,
-    dimensions,
-    traceContext,
-  });
+	// TODO do we need to handle nonCriticalError
+	const {
+		preview,
+		error: previewError,
+		onImageError,
+		onImageLoad,
+		getSsrScriptProps,
+	} = useFilePreview({
+		identifier,
+		ssr,
+		dimensions,
+		traceContext,
+	});
 
-  if (previewError) {
-    return renderError({ error: previewError });
-  }
+	if (previewError) {
+		return renderError({ error: previewError });
+	}
 
-  if (!preview) {
-    return <InlineImageCardLoadingView />;
-  }
+	if (!preview) {
+		return <InlineImageCardLoadingView />;
+	}
 
-  return (
-    <Fragment>
-      <MediaImage
-        dataURI={preview.dataURI}
-        alt={alt}
-        previewOrientation={preview.orientation}
-        onImageLoad={() => {
-          onImageLoad(preview);
-        }}
-        onImageError={onImageError}
-        loading={isLazy ? 'lazy' : undefined}
-        forceSyncDisplay={!!ssr}
-        crop={crop}
-        stretch={stretch}
-      />
-      {getSsrScriptProps && <script {...getSsrScriptProps()} />}
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			<MediaImage
+				dataURI={preview.dataURI}
+				alt={alt}
+				previewOrientation={preview.orientation}
+				onImageLoad={() => {
+					onImageLoad(preview);
+				}}
+				onImageError={onImageError}
+				loading={isLazy ? 'lazy' : undefined}
+				forceSyncDisplay={!!ssr}
+				crop={crop}
+				stretch={stretch}
+			/>
+			{getSsrScriptProps && <script {...getSsrScriptProps()} />}
+		</Fragment>
+	);
 };

@@ -24,40 +24,40 @@ import { type Context } from '../interfaces';
 export type MarkEncoder = (text: string, attrs: any) => string;
 export type NodeEncoder = (node: PMNode, opts?: NodeEncoderOpts) => string;
 export type NodeEncoderOpts = {
-  parent?: PMNode;
-  context?: Context;
+	parent?: PMNode;
+	context?: Context;
 };
 
 const nodeEncoderMapping: { [key: string]: NodeEncoder } = {
-  blockquote,
-  bulletList,
-  taskList,
-  decisionList,
-  codeBlock,
-  doc,
-  heading,
-  caption,
-  mediaGroup,
-  mediaInline,
-  mediaSingle: mediaGroup,
-  orderedList,
-  panel,
-  paragraph,
-  rule,
-  table,
-  blockCard,
-  embedCard,
-  expand,
+	blockquote,
+	bulletList,
+	taskList,
+	decisionList,
+	codeBlock,
+	doc,
+	heading,
+	caption,
+	mediaGroup,
+	mediaInline,
+	mediaSingle: mediaGroup,
+	orderedList,
+	panel,
+	paragraph,
+	rule,
+	table,
+	blockCard,
+	embedCard,
+	expand,
 };
 
 export function encode(node: PMNode, context?: Context): string {
-  const encoder = nodeEncoderMapping[node.type.name];
-  try {
-    if (encoder) {
-      return encoder(node, { context });
-    }
-    return unknown(node);
-  } catch (err) {
-    return unknown(node);
-  }
+	const encoder = nodeEncoderMapping[node.type.name];
+	try {
+		if (encoder) {
+			return encoder(node, { context });
+		}
+		return unknown(node);
+	} catch (err) {
+		return unknown(node);
+	}
 }

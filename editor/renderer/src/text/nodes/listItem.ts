@@ -2,13 +2,13 @@ import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/m
 import { reduce, type NodeReducer } from './';
 
 const listItem: NodeReducer = (node: PMNode, schema: Schema) => {
-  const result: string[] = [];
+	const result: string[] = [];
 
-  node.forEach((n) => {
-    result.push(reduce(n, schema));
-  });
+	node.forEach((n) => {
+		result.push(reduce(n, schema));
+	});
 
-  return result.join('\n');
+	return result.join('\n');
 };
 
 export default listItem;

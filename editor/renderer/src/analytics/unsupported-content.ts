@@ -1,14 +1,10 @@
 import {
-  getUnsupportedContentLevelData,
-  getAnalyticsAppearance,
+	getUnsupportedContentLevelData,
+	getAnalyticsAppearance,
 } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
 
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from './events';
 import { PLATFORM } from './events';
 
@@ -19,93 +15,86 @@ type DocumentData = { rendererId: string; doc: any; appearance?: string };
 let rendersMap: { [appearance: string]: Set<string> } = {};
 
 type ProcessLevelsAndTrack = (
-  item: DocumentData,
-  thresholds: UnsupportedContentLevelsTracking['thresholds'],
-  dispatchAnalyticsEvent: DispatchAnalyticsEvent,
+	item: DocumentData,
+	thresholds: UnsupportedContentLevelsTracking['thresholds'],
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 ) => void;
 
-const processLevelsAndTrack: ProcessLevelsAndTrack = (
-  item,
-  thresholds,
-  dispatchAnalyticsEvent,
-) => {
-  try {
-    const {
-      severity,
-      percentage,
-      counts: { supportedNodes, unsupportedNodes, unsupportedNodeTypeCount },
-    } = getUnsupportedContentLevelData(item.doc, thresholds);
+const processLevelsAndTrack: ProcessLevelsAndTrack = (item, thresholds, dispatchAnalyticsEvent) => {
+	try {
+		const {
+			severity,
+			percentage,
+			counts: { supportedNodes, unsupportedNodes, unsupportedNodeTypeCount },
+		} = getUnsupportedContentLevelData(item.doc, thresholds);
 
-    dispatchAnalyticsEvent({
-      action: ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED,
-      actionSubject: ACTION_SUBJECT.RENDERER,
-      attributes: {
-        appearance: getAnalyticsAppearance(item.appearance),
-        platform: PLATFORM.WEB,
-        unsupportedContentLevelSeverity: severity,
-        unsupportedContentLevelPercentage: percentage,
-        unsupportedNodesCount: unsupportedNodes,
-        supportedNodesCount: supportedNodes,
-        unsupportedNodeTypeCount: unsupportedNodeTypeCount,
-      },
-      eventType: EVENT_TYPE.OPERATIONAL,
-    });
-  } catch (err) {
-    dispatchAnalyticsEvent({
-      action: ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED,
-      actionSubject: ACTION_SUBJECT.RENDERER,
-      attributes: {
-        platform: PLATFORM.WEB,
-        error: err instanceof Error ? err.message : String(err),
-      },
-      eventType: EVENT_TYPE.OPERATIONAL,
-    });
-  }
+		dispatchAnalyticsEvent({
+			action: ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED,
+			actionSubject: ACTION_SUBJECT.RENDERER,
+			attributes: {
+				appearance: getAnalyticsAppearance(item.appearance),
+				platform: PLATFORM.WEB,
+				unsupportedContentLevelSeverity: severity,
+				unsupportedContentLevelPercentage: percentage,
+				unsupportedNodesCount: unsupportedNodes,
+				supportedNodesCount: supportedNodes,
+				unsupportedNodeTypeCount: unsupportedNodeTypeCount,
+			},
+			eventType: EVENT_TYPE.OPERATIONAL,
+		});
+	} catch (err) {
+		dispatchAnalyticsEvent({
+			action: ACTION.UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED,
+			actionSubject: ACTION_SUBJECT.RENDERER,
+			attributes: {
+				platform: PLATFORM.WEB,
+				error: err instanceof Error ? err.message : String(err),
+			},
+			eventType: EVENT_TYPE.OPERATIONAL,
+		});
+	}
 };
 
 const schedule = (fn: () => void) => {
-  if (typeof (window as any).requestIdleCallback === 'function') {
-    (window as any).requestIdleCallback(fn);
-  } else {
-    setTimeout(fn, 0);
-  }
+	if (typeof (window as any).requestIdleCallback === 'function') {
+		(window as any).requestIdleCallback(fn);
+	} else {
+		setTimeout(fn, 0);
+	}
 };
 
 const DEFAULT_SAMPLING_RATE = 100;
 
 export const trackUnsupportedContentLevels = (
-  item: DocumentData,
-  trackingOptions: UnsupportedContentLevelsTracking,
-  dispatchAnalyticsEvent: DispatchAnalyticsEvent,
+	item: DocumentData,
+	trackingOptions: UnsupportedContentLevelsTracking,
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 ) => {
-  const { thresholds, samplingRates } = trackingOptions;
+	const { thresholds, samplingRates } = trackingOptions;
 
-  const appearance = item.appearance ?? 'unknown';
+	const appearance = item.appearance ?? 'unknown';
 
-  if (!rendersMap[appearance]) {
-    rendersMap[appearance] = new Set();
-  }
+	if (!rendersMap[appearance]) {
+		rendersMap[appearance] = new Set();
+	}
 
-  // bail out if already processed a render from a given renderer instance
-  const didProcessRenderer = rendersMap[appearance].has(item.rendererId);
-  if (didProcessRenderer) {
-    return;
-  }
+	// bail out if already processed a render from a given renderer instance
+	const didProcessRenderer = rendersMap[appearance].has(item.rendererId);
+	if (didProcessRenderer) {
+		return;
+	}
 
-  // otherwise track the render
-  rendersMap[appearance].add(item.rendererId);
+	// otherwise track the render
+	rendersMap[appearance].add(item.rendererId);
 
-  const sampleRate =
-    (samplingRates && samplingRates[appearance]) || DEFAULT_SAMPLING_RATE;
+	const sampleRate = (samplingRates && samplingRates[appearance]) || DEFAULT_SAMPLING_RATE;
 
-  // sample from the first available tracked render
-  if (rendersMap[appearance].size === 1) {
-    schedule(() =>
-      processLevelsAndTrack(item, thresholds, dispatchAnalyticsEvent),
-    );
-  }
-  // cleanup/refresh tracked renders at the sampling rate
-  if (rendersMap[appearance].size % sampleRate === 0) {
-    rendersMap[appearance] = new Set();
-  }
+	// sample from the first available tracked render
+	if (rendersMap[appearance].size === 1) {
+		schedule(() => processLevelsAndTrack(item, thresholds, dispatchAnalyticsEvent));
+	}
+	// cleanup/refresh tracked renders at the sampling rate
+	if (rendersMap[appearance].size % sampleRate === 0) {
+		rendersMap[appearance] = new Set();
+	}
 };

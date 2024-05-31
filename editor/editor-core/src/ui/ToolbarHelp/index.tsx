@@ -12,33 +12,33 @@ import WithHelpTrigger from '../WithHelpTrigger';
 import { messages } from './messages';
 
 interface Props {
-  title?: string;
-  titlePosition?: PositionType;
+	title?: string;
+	titlePosition?: PositionType;
 }
 
 const TooltipHelpTrigger = ({
-  title = 'Open help dialog',
-  titlePosition = 'left',
-  intl,
+	title = 'Open help dialog',
+	titlePosition = 'left',
+	intl,
 }: Props & WrappedComponentProps) => {
-  // to have translation for the default tooltip helper
-  let displayTitle = title;
-  if (title === 'Open help dialog') {
-    displayTitle = intl.formatMessage(messages.toolbarHelpTitle);
-  }
+	// to have translation for the default tooltip helper
+	let displayTitle = title;
+	if (title === 'Open help dialog') {
+		displayTitle = intl.formatMessage(messages.toolbarHelpTitle);
+	}
 
-  return (
-    <WithHelpTrigger
-      render={(showHelp: () => void) => (
-        <ToolbarButton
-          onClick={showHelp}
-          title={displayTitle}
-          titlePosition={titlePosition}
-          iconBefore={<QuestionIcon label={displayTitle} />}
-        />
-      )}
-    />
-  );
+	return (
+		<WithHelpTrigger
+			render={(showHelp: () => void) => (
+				<ToolbarButton
+					onClick={showHelp}
+					title={displayTitle}
+					titlePosition={titlePosition}
+					iconBefore={<QuestionIcon label={displayTitle} />}
+				/>
+			)}
+		/>
+	);
 };
 
 export default injectIntl(TooltipHelpTrigger);

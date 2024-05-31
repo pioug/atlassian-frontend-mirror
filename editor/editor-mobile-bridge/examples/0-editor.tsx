@@ -19,49 +19,47 @@ import '../src/__tests__/integration-webview/_mocks/editorTestSetup';
 window.logBridge = window.logBridge || [];
 
 export default function Example() {
-  const bridge = getBridge();
-  const editorConfig = new MobileEditorConfiguration(
-    `{ "enableQuickInsert": "true" }`,
-  );
-  const editorConfiguration = useEditorConfiguration(bridge, editorConfig);
-  const emojiProvider = getEmojiResource();
+	const bridge = getBridge();
+	const editorConfig = new MobileEditorConfiguration(`{ "enableQuickInsert": "true" }`);
+	const editorConfiguration = useEditorConfiguration(bridge, editorConfig);
+	const emojiProvider = getEmojiResource();
 
-  useEffect(() => {
-    // This is the only reason bridge.updateSystemFontSize works in the tests
-    // I extracted this from the custom example mark-up here: atlassian-frontend/packages/editor/editor-mobile-bridge/public/editor.html.ejs
-    // Apparently there is something similar in how the webview is integrated in mobile that it makes font size dependent on the root element too
-    const style = document.createElement('style');
-    style.innerHTML = `
+	useEffect(() => {
+		// This is the only reason bridge.updateSystemFontSize works in the tests
+		// I extracted this from the custom example mark-up here: atlassian-frontend/packages/editor/editor-mobile-bridge/public/editor.html.ejs
+		// Apparently there is something similar in how the webview is integrated in mobile that it makes font size dependent on the root element too
+		const style = document.createElement('style');
+		style.innerHTML = `
 #editor .ProseMirror {
   font-size: 1rem !important;
 }
     `;
-    document.head.appendChild(style);
+		document.head.appendChild(style);
 
-    disableZooming();
-    // Set initial padding (this usually gets set by native)
-    if (window.bridge) {
-      window.bridge.setPadding(32, 16, 0, 16);
-    }
-  }, []);
+		disableZooming();
+		// Set initial padding (this usually gets set by native)
+		if (window.bridge) {
+			window.bridge.setPadding(32, 16, 0, 16);
+		}
+	}, []);
 
-  return (
-    <div id="editor">
-      <MobileEditor
-        bridge={bridge}
-        createCollabProvider={createCollabProviderFactory(fetchProxy)}
-        cardProvider={Promise.resolve(cardProvider)}
-        cardClient={createCardClient()}
-        emojiProvider={emojiProvider}
-        mentionProvider={createMentionProvider()}
-        mediaProvider={storyMediaProviderFactory({
-          collectionName: 'InitialCollectionForTesting',
-        })}
-        placeholder="Type something here"
-        shouldFocus={true}
-        editorConfiguration={editorConfiguration}
-        locale={editorConfiguration.getLocale()}
-      />
-    </div>
-  );
+	return (
+		<div id="editor">
+			<MobileEditor
+				bridge={bridge}
+				createCollabProvider={createCollabProviderFactory(fetchProxy)}
+				cardProvider={Promise.resolve(cardProvider)}
+				cardClient={createCardClient()}
+				emojiProvider={emojiProvider}
+				mentionProvider={createMentionProvider()}
+				mediaProvider={storyMediaProviderFactory({
+					collectionName: 'InitialCollectionForTesting',
+				})}
+				placeholder="Type something here"
+				shouldFocus={true}
+				editorConfiguration={editorConfiguration}
+				locale={editorConfiguration.getLocale()}
+			/>
+		</div>
+	);
 }

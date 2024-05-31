@@ -1,6 +1,2 @@
 export { primaryToolbarPlugin } from './plugin';
-export type {
-  PrimaryToolbarPlugin,
-  PrimaryToolbarPluginState,
-  ToolbarElementNames,
-} from './types';
+export type { PrimaryToolbarPlugin, PrimaryToolbarPluginState, ToolbarElementNames } from './types';

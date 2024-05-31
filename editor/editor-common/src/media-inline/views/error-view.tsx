@@ -12,33 +12,33 @@ import { Frame } from './frame';
 import { IconWrapper } from './icon-wrapper';
 
 type Props = {
-  message: string;
-  /** Error icon. Default to document icon. */
-  icon?: React.ReactNode;
-  testId?: string;
-  /** Container height */
-  height?: number;
+	message: string;
+	/** Error icon. Default to document icon. */
+	icon?: React.ReactNode;
+	testId?: string;
+	/** Container height */
+	height?: number;
 };
 
 export const InlineImageCardErrorView = ({
-  testId = 'media-inline-image-card-error-view',
-  message,
-  icon,
-  height = ICON_SIZE_THRESOLD,
+	testId = 'media-inline-image-card-error-view',
+	message,
+	icon,
+	height = ICON_SIZE_THRESOLD,
 }: Props) => {
-  return (
-    <Frame testId={testId}>
-      <Tooltip content={message} position="top" tag="span" hideTooltipOnClick>
-        <IconWrapper>
-          {icon || (
-            <WarningIcon
-              label="error"
-              size={height > ICON_SIZE_THRESOLD ? 'medium' : 'small'}
-              primaryColor={token('color.icon.danger', R300)}
-            />
-          )}
-        </IconWrapper>
-      </Tooltip>
-    </Frame>
-  );
+	return (
+		<Frame testId={testId}>
+			<Tooltip content={message} position="top" tag="span" hideTooltipOnClick>
+				<IconWrapper>
+					{icon || (
+						<WarningIcon
+							label="error"
+							size={height > ICON_SIZE_THRESOLD ? 'medium' : 'small'}
+							primaryColor={token('color.icon.danger', R300)}
+						/>
+					)}
+				</IconWrapper>
+			</Tooltip>
+		</Frame>
+	);
 };

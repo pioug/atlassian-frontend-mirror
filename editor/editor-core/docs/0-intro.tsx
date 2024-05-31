@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  AtlassianInternalWarning,
-  code,
-  Example,
-  md,
-  Props,
-} from '@atlaskit/docs';
+import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
 ${(<AtlassianInternalWarning />)}
@@ -392,20 +386,20 @@ function EditorInternal() {
 
 
 ${(
-  <Example
-    packageName="@atlaskit/editor-core/composable-editor"
-    Component={require('../examples/1-basic-composable-editor').default}
-    title="Basic"
-    source={require('!!raw-loader!../examples/1-basic-composable-editor')}
-  />
+	<Example
+		packageName="@atlaskit/editor-core/composable-editor"
+		Component={require('../examples/1-basic-composable-editor').default}
+		title="Basic"
+		source={require('!!raw-loader!../examples/1-basic-composable-editor')}
+	/>
 )}
 
   ${(
-    <Props
-      shouldCollapseProps
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/composable-editor/editor')}
-    />
-  )}
+		<Props
+			shouldCollapseProps
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/composable-editor/editor')}
+		/>
+	)}
 
 `;

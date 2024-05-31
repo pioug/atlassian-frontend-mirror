@@ -15,9 +15,5 @@ export const styles = `
 `;
 
 export default function alignment({ mark, text }: MarkSerializerOpts) {
-  return createTag(
-    'div',
-    { class: createClassName(`mark-alignment-${mark.attrs.align}`) },
-    text,
-  );
+	return createTag('div', { class: createClassName(`mark-alignment-${mark.attrs.align}`) }, text);
 }

@@ -14,88 +14,77 @@ import { token } from '@atlaskit/tokens';
 import type { BlockControlsPlugin } from '../types';
 
 const styleDropTarget = css({
-  height: token('space.100'),
-  marginTop: `calc(${token('space.negative.100')})`,
-  position: 'relative',
+	height: token('space.100', '8px'),
+	marginTop: token('space.negative.100', '-8px'),
+	position: 'relative',
 });
 
 export const DropTarget = ({
-  api,
-  index,
+	api,
+	index,
 }: {
-  api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
-  index: number;
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
+	index: number;
 }) => {
-  const ref = useRef(null);
-  const [isDraggedOver, setIsDraggedOver] = useState(false);
+	const ref = useRef(null);
+	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
-  useEffect(() => {
-    const element = ref.current;
+	useEffect(() => {
+		const element = ref.current;
 
-    if (!element) {
-      return;
-    }
+		if (!element) {
+			return;
+		}
 
-    const combined: CleanupFn[] = [];
+		const combined: CleanupFn[] = [];
 
-    const scrollable = (document.querySelector(
-      '.fabric-editor-popup-scroll-parent')) as HTMLElement;
+		const scrollable = document.querySelector('.fabric-editor-popup-scroll-parent') as HTMLElement;
 
-    if (scrollable) {
-      combined.push(autoScrollForElements({
-        element: scrollable,
-        canScroll: () => {
-          return true;
-        },
-      }));
-    }
+		if (scrollable) {
+			combined.push(
+				autoScrollForElements({
+					element: scrollable,
+				}),
+			);
+		}
 
-    combined.push(dropTargetForElements({
-      element,
-      getIsSticky: () => true,
-      onDrag: () => {
-        scrollable.style.setProperty(
-          'scroll-behavior',
-          'unset',
-        );
-      },
-      onDragEnter: () => setIsDraggedOver(true),
-      onDragLeave: () => setIsDraggedOver(false),
-      onDrop: () => {
-        scrollable.style.setProperty(
-          'scroll-behavior',
-          null,
-        );
+		combined.push(
+			dropTargetForElements({
+				element,
+				getIsSticky: () => true,
+				onDrag: () => {
+					scrollable.style.setProperty('scroll-behavior', 'unset');
+				},
+				onDragEnter: () => setIsDraggedOver(true),
+				onDragLeave: () => setIsDraggedOver(false),
+				onDrop: () => {
+					scrollable.style.setProperty('scroll-behavior', null);
 
-        const { activeNode, decorationState } =
-          api?.blockControls?.sharedState.currentState() || {};
-        if (!activeNode || !decorationState) {
-          return;
-        }
-        const { pos } = decorationState.find(dec => dec.index === index) || {};
+					const { activeNode, decorationState } =
+						api?.blockControls?.sharedState.currentState() || {};
+					if (!activeNode || !decorationState) {
+						return;
+					}
+					const { pos } = decorationState.find((dec) => dec.index === index) || {};
 
-        if (activeNode && pos !== undefined) {
-          const { pos: start } = activeNode;
-          api?.core?.actions.execute(
-            api?.blockControls?.commands?.moveNode(start, pos),
-          );
-        }
-      },
-    }));
+					if (activeNode && pos !== undefined) {
+						const { pos: start } = activeNode;
+						api?.core?.actions.execute(api?.blockControls?.commands?.moveNode(start, pos));
+					}
+				},
+			}),
+		);
 
-    return combine(...combined);
-  }, [index, api]);
+		return combine(...combined);
+	}, [index, api]);
 
-  return (
-    // Note: Firefox has trouble with using a button element as the handle for drag and drop
-    <div
-      css={styleDropTarget}
-      ref={ref}
-    >
-      {
-        //4px gap to clear expand node border
-        isDraggedOver && <DropIndicator edge="bottom" gap="4px" />
-      }
-    </div>
-  );
+	return (
+		// Note: Firefox has trouble with using a button element as the handle for drag and drop
+		<div css={styleDropTarget} ref={ref} data-testid="block-ctrl-drop-target">
+			{
+				//4px gap to clear expand node border
+				isDraggedOver && <DropIndicator edge="bottom" gap="4px" />
+			}
+		</div>
+	);
 };

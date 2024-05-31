@@ -1,100 +1,100 @@
 {
-  "extends": "../../../tsconfig.base.json",
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx",
-    "./example-helpers/**/*"
-  ],
-  "compilerOptions": {
-    "baseUrl": "",
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__link-picker/app"
-  },
-  "references": [
-    {
-      "path": "../analytics-codegen/tsconfig.app.json"
-    },
-    {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/button/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/empty-state/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/form/tsconfig.app.json"
-    },
-    {
-      "path": "../../helpers/frontend-utilities/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/heading/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/icon/tsconfig.app.json"
-    },
-    {
-      "path": "../../helpers/intl-messages-provider/tsconfig.app.json"
-    },
-    {
-      "path": "../linking-common/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/onboarding/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/primitives/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/spinner/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tabs/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/textfield/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/theme/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tooltip/tsconfig.app.json"
-    },
-    {
-      "path": "../../data/ufo-external/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/visually-hidden/tsconfig.app.json"
-    }
-  ]
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx",
+		"./example-helpers/**/*"
+	],
+	"compilerOptions": {
+		"baseUrl": "",
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__link-picker/app"
+	},
+	"references": [
+		{
+			"path": "../analytics-codegen/tsconfig.app.json"
+		},
+		{
+			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/empty-state/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/form/tsconfig.app.json"
+		},
+		{
+			"path": "../../helpers/frontend-utilities/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../helpers/intl-messages-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../linking-common/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/onboarding/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/spinner/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tabs/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/theme/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../data/ufo-external/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/visually-hidden/tsconfig.app.json"
+		}
+	]
 }

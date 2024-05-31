@@ -4,8 +4,8 @@
  * file in editor-core
  */
 export enum SelectionStyle {
-  Border,
-  BoxShadow,
-  Background,
-  Blanket,
+	Border,
+	BoxShadow,
+	Background,
+	Blanket,
 }

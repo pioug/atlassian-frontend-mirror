@@ -13,35 +13,24 @@ export const searchMatchClass = 'search-match';
 export const selectedSearchMatchClass = 'selected-search-match';
 
 export const findReplaceStyles = css({
-  [`.${searchMatchClass}`]: getBooleanFF('platform.editor.a11y-find-replace')
-    ? {
-        borderRadius: '3px',
-        backgroundColor: token(
-          'color.background.accent.teal.subtlest',
-          '#E7F9FF',
-        ),
-        boxShadow:
-          token(
-            'elevation.shadow.raised',
-            `0 1px 1px 0 ${N50A}, 0 0 1px 0 ${N60A}`,
-          ) +
-          ', inset 0 0 0 1px ' +
-          token('color.border.input', `${N40A}`),
-      }
-    : {
-        backgroundColor: B75,
-      },
-  [`.${selectedSearchMatchClass}`]: getBooleanFF(
-    'platform.editor.a11y-find-replace',
-  )
-    ? {
-        backgroundColor: token(
-          'color.background.accent.teal.subtle',
-          '#6CC3E0',
-        ),
-      }
-    : {
-        backgroundColor: B200,
-        color: 'white',
-      },
+	[`.${searchMatchClass}`]: getBooleanFF('platform.editor.a11y-find-replace')
+		? {
+				borderRadius: '3px',
+				backgroundColor: token('color.background.accent.teal.subtlest', '#E7F9FF'),
+				boxShadow:
+					token('elevation.shadow.raised', `0 1px 1px 0 ${N50A}, 0 0 1px 0 ${N60A}`) +
+					', inset 0 0 0 1px ' +
+					token('color.border.input', `${N40A}`),
+			}
+		: {
+				backgroundColor: B75,
+			},
+	[`.${selectedSearchMatchClass}`]: getBooleanFF('platform.editor.a11y-find-replace')
+		? {
+				backgroundColor: token('color.background.accent.teal.subtle', '#6CC3E0'),
+			}
+		: {
+				backgroundColor: B200,
+				color: 'white',
+			},
 });

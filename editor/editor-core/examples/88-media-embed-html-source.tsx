@@ -1,1 +1,7 @@
-export { MediaEmbedHtmlSource as default } from '@atlaskit/media-integration-test-helpers/media-embed-html-source';
+import React from 'react';
+
+import { DeletedExample } from '@af/editor-examples-helpers';
+
+export default function Example() {
+	return <DeletedExample commitId="443f72739ed1c42aeceee0debbe7c8c83d516f7b" />;
+}

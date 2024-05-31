@@ -6,30 +6,30 @@ import { network } from './singleton';
 const FAILED_RECONNECTS_WHILE_OFFLINE_THRESHOLD = 8;
 
 export default class ReconnectHelper {
-  failedReconnectCount: number = 0;
+	failedReconnectCount: number = 0;
 
-  constructor() {
-    window.addEventListener('online', this.onlineHandler);
-  }
+	constructor() {
+		window.addEventListener('online', this.onlineHandler);
+	}
 
-  private onlineHandler = () => {
-    this.failedReconnectCount = 0;
-  };
+	private onlineHandler = () => {
+		this.failedReconnectCount = 0;
+	};
 
-  countReconnectError() {
-    // Only count the reconnection attempts when offline
-    if (network.getStatus() === NetworkStatus.OFFLINE) {
-      this.failedReconnectCount++;
-    }
-  }
+	countReconnectError() {
+		// Only count the reconnection attempts when offline
+		if (network.getStatus() === NetworkStatus.OFFLINE) {
+			this.failedReconnectCount++;
+		}
+	}
 
-  isLikelyNetworkIssue(): boolean {
-    const isLikelyNetworkIssue =
-      this.failedReconnectCount >= FAILED_RECONNECTS_WHILE_OFFLINE_THRESHOLD;
-    return isLikelyNetworkIssue;
-  }
+	isLikelyNetworkIssue(): boolean {
+		const isLikelyNetworkIssue =
+			this.failedReconnectCount >= FAILED_RECONNECTS_WHILE_OFFLINE_THRESHOLD;
+		return isLikelyNetworkIssue;
+	}
 
-  destroy() {
-    window.removeEventListener('online', this.onlineHandler);
-  }
+	destroy() {
+		window.removeEventListener('online', this.onlineHandler);
+	}
 }

@@ -7,11 +7,11 @@ import { type FetchProxy } from '../utils/fetch-proxy';
 import { createCollabProviderFactory } from './collab-provider';
 
 export const createEditorProviders = (fetchProxy: FetchProxy) => ({
-  cardProvider: createCardProvider(),
-  cardClient: createCardClient(),
-  createCollabProvider: createCollabProviderFactory(fetchProxy),
-  emojiProvider: createEmojiProvider(fetchProxy),
-  mediaProvider: createMediaProvider(),
-  mentionProvider: createMentionProvider(),
-  taskDecisionProvider: createTaskDecisionProvider(),
+	cardProvider: createCardProvider(),
+	cardClient: createCardClient(),
+	createCollabProvider: createCollabProviderFactory(fetchProxy),
+	emojiProvider: createEmojiProvider(fetchProxy),
+	mediaProvider: createMediaProvider(),
+	mentionProvider: createMentionProvider(),
+	taskDecisionProvider: createTaskDecisionProvider(),
 });

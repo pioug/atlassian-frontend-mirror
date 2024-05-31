@@ -1,46 +1,46 @@
 {
-  "extends": "../../../tsconfig.base.json",
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx"
-  ],
-  "compilerOptions": {
-    "baseUrl": "./",
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__notification-indicator/app"
-  },
-  "references": [
-    {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/badge/tsconfig.app.json"
-    },
-    {
-      "path": "../notification-log-client/tsconfig.app.json"
-    }
-  ],
-  "files": []
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"compilerOptions": {
+		"baseUrl": "./",
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__notification-indicator/app"
+	},
+	"references": [
+		{
+			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/badge/tsconfig.app.json"
+		},
+		{
+			"path": "../notification-log-client/tsconfig.app.json"
+		}
+	],
+	"files": []
 }

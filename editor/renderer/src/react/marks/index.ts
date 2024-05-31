@@ -23,53 +23,51 @@ import Border from './border';
 import ConfluenceInlineComment from './confluence-inline-comment';
 
 export const markToReact: {
-  [key: string]: ComponentType<React.PropsWithChildren<any>>;
+	[key: string]: ComponentType<React.PropsWithChildren<any>>;
 } = {
-  code: Code,
-  em: Em,
-  link: Link,
-  strike: Strike,
-  strong: Strong,
-  subsup: Subsup,
-  textColor: TextColor,
-  backgroundColor: BackgroundColor,
-  underline: Underline,
-  annotation: Annotation,
-  border: Border,
+	code: Code,
+	em: Em,
+	link: Link,
+	strike: Strike,
+	strong: Strong,
+	subsup: Subsup,
+	textColor: TextColor,
+	backgroundColor: BackgroundColor,
+	underline: Underline,
+	annotation: Annotation,
+	border: Border,
 
-  // Stage0
-  confluenceInlineComment: ConfluenceInlineComment,
-  breakout: Breakout,
-  alignment: Alignment,
-  indentation: Indentation,
-  unsupportedMark: UnsupportedMark,
-  unsupportedNodeAttribute: UnsupportedNodeAttribute,
-  dataConsumer: DataConsumer,
-  fragment: FragmentMark,
+	// Stage0
+	confluenceInlineComment: ConfluenceInlineComment,
+	breakout: Breakout,
+	alignment: Alignment,
+	indentation: Indentation,
+	unsupportedMark: UnsupportedMark,
+	unsupportedNodeAttribute: UnsupportedNodeAttribute,
+	dataConsumer: DataConsumer,
+	fragment: FragmentMark,
 };
 
-export const toReact = (
-  mark: Mark,
-): ComponentType<React.PropsWithChildren<any>> => {
-  return markToReact[mark.type.name];
+export const toReact = (mark: Mark): ComponentType<React.PropsWithChildren<any>> => {
+	return markToReact[mark.type.name];
 };
 
 export {
-  Code,
-  Em,
-  Link,
-  Strike,
-  Strong,
-  Subsup,
-  TextColor,
-  BackgroundColor,
-  Underline,
-  Breakout,
-  Annotation,
-  Border,
-  UnsupportedMark,
-  isAnnotationMark,
-  UnsupportedNodeAttribute,
-  DataConsumer,
-  FragmentMark,
+	Code,
+	Em,
+	Link,
+	Strike,
+	Strong,
+	Subsup,
+	TextColor,
+	BackgroundColor,
+	Underline,
+	Breakout,
+	Annotation,
+	Border,
+	UnsupportedMark,
+	isAnnotationMark,
+	UnsupportedNodeAttribute,
+	DataConsumer,
+	FragmentMark,
 };

@@ -77,44 +77,42 @@ const attachments = `<span class="image-wrap" style="">
 </span>`;
 
 function getBody(html: string): HTMLBodyElement {
-  const dom = new DOMParser().parseFromString(html, 'text/html');
-  const fixedDOM = fixDoc(dom);
-  return fixedDOM.querySelector('body')!;
+	const dom = new DOMParser().parseFromString(html, 'text/html');
+	const fixedDOM = fixDoc(dom);
+	return fixedDOM.querySelector('body')!;
 }
 
 // @see https://extranet.atlassian.com/pages/viewpage.action?pageId=3280965835
 describe('fixDoc', () => {
-  it('should match case 1', () => {
-    const body = getBody(`<p>foo<br>${attachments}<br>bar</p>`);
-    expect(body.children.length).toEqual(3);
-  });
+	it('should match case 1', () => {
+		const body = getBody(`<p>foo<br>${attachments}<br>bar</p>`);
+		expect(body.children.length).toEqual(3);
+	});
 
-  it('should match case 3', () => {
-    const body = getBody(`<p>${attachments}<br>bar</p>`);
-    expect(body.children.length).toEqual(2);
-  });
+	it('should match case 3', () => {
+		const body = getBody(`<p>${attachments}<br>bar</p>`);
+		expect(body.children.length).toEqual(2);
+	});
 
-  it('should match case 3 - v2', () => {
-    const body = getBody(`<p>foo<br>${attachments}</p>`);
-    expect(body.children.length).toEqual(2);
-  });
+	it('should match case 3 - v2', () => {
+		const body = getBody(`<p>foo<br>${attachments}</p>`);
+		expect(body.children.length).toEqual(2);
+	});
 
-  it('should not match case 4', () => {
-    const body = getBody(`<p>foo${attachments}<br>bar</p>`);
-    expect(body.children.length).toEqual(1);
-  });
+	it('should not match case 4', () => {
+		const body = getBody(`<p>foo${attachments}<br>bar</p>`);
+		expect(body.children.length).toEqual(1);
+	});
 
-  it('should not match case 5', () => {
-    const body = getBody(`<p>${attachments}bar</p>`);
-    expect(body.children.length).toEqual(1);
-  });
+	it('should not match case 5', () => {
+		const body = getBody(`<p>${attachments}bar</p>`);
+		expect(body.children.length).toEqual(1);
+	});
 
-  it('should maintain the position of other nodes', () => {
-    const body = getBody(
-      `<p>Hello</p><p>foo<br>${attachments}<br>bar</p><p>World!</p>`,
-    );
-    expect(body.children.length).toEqual(5);
-    expect(body.children[0].textContent).toEqual('Hello');
-    expect(body.children[4].textContent).toEqual('World!');
-  });
+	it('should maintain the position of other nodes', () => {
+		const body = getBody(`<p>Hello</p><p>foo<br>${attachments}<br>bar</p><p>World!</p>`);
+		expect(body.children.length).toEqual(5);
+		expect(body.children[0].textContent).toEqual('Hello');
+		expect(body.children[4].textContent).toEqual('World!');
+	});
 });

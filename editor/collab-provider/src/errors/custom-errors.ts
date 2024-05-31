@@ -1,87 +1,84 @@
-import type {
-  CantSyncUpErrorAttributes,
-  DocumentUpdateErrorAttributes,
-} from '../helpers/const';
+import type { CantSyncUpErrorAttributes, DocumentUpdateErrorAttributes } from '../helpers/const';
 
 type ValidEventAttributeType = boolean | string | number;
 // Custom Errors
 export class CustomError extends Error {
-  extraEventAttributes?: { [key: string]: ValidEventAttributeType };
-  constructor(
-    message: string,
-    error?: unknown,
-    extraEventAttributes?: { [key: string]: ValidEventAttributeType },
-  ) {
-    super(message);
+	extraEventAttributes?: { [key: string]: ValidEventAttributeType };
+	constructor(
+		message: string,
+		error?: unknown,
+		extraEventAttributes?: { [key: string]: ValidEventAttributeType },
+	) {
+		super(message);
 
-    if (typeof (error as Error)?.message === 'string') {
-      this.message = (error as Error).message;
-    }
-    if (extraEventAttributes) {
-      this.extraEventAttributes = extraEventAttributes;
-    }
-  }
+		if (typeof (error as Error)?.message === 'string') {
+			this.message = (error as Error).message;
+		}
+		if (extraEventAttributes) {
+			this.extraEventAttributes = extraEventAttributes;
+		}
+	}
 
-  toJSON() {
-    return {
-      name: this.name,
-      message: this.message,
-    };
-  }
+	toJSON() {
+		return {
+			name: this.name,
+			message: this.message,
+		};
+	}
 
-  getExtraErrorEventAttributes = () => this.extraEventAttributes;
+	getExtraErrorEventAttributes = () => this.extraEventAttributes;
 }
 
 export class NotConnectedError extends CustomError {
-  name = 'NotConnectedError';
+	name = 'NotConnectedError';
 }
 
 export class NotInitializedError extends CustomError {
-  name = 'NotInitializedError';
+	name = 'NotInitializedError';
 }
 
 export class ProviderInitialisationError extends CustomError {
-  name = 'ProviderInitialisationError';
+	name = 'ProviderInitialisationError';
 }
 
 export class SendTransactionError extends CustomError {
-  name = 'SendTransactionError';
+	name = 'SendTransactionError';
 }
 
 export class DestroyError extends CustomError {
-  name = 'DestroyError';
+	name = 'DestroyError';
 }
 
 export class SetTitleError extends CustomError {
-  name = 'SetTitleError';
+	name = 'SetTitleError';
 }
 
 export class SetEditorWidthError extends CustomError {
-  name = 'SetEditorWidthError';
+	name = 'SetEditorWidthError';
 }
 
 export class SetMetadataError extends CustomError {
-  name = 'SetMetadataError';
+	name = 'SetMetadataError';
 }
 
 export class GetCurrentStateError extends CustomError {
-  name = 'GetCurrentStateError';
+	name = 'GetCurrentStateError';
 }
 
 export class GetFinalAcknowledgedStateError extends CustomError {
-  name = 'GetFinalAcknowledgedStateError';
+	name = 'GetFinalAcknowledgedStateError';
 }
 
 export class UpdateDocumentError extends CustomError {
-  name = 'UpdateDocumentError';
-  constructor(message: string, extraAttributes: DocumentUpdateErrorAttributes) {
-    super(message, undefined, extraAttributes);
-  }
+	name = 'UpdateDocumentError';
+	constructor(message: string, extraAttributes: DocumentUpdateErrorAttributes) {
+		super(message, undefined, extraAttributes);
+	}
 }
 
 export class CantSyncUpError extends CustomError {
-  name = 'CantSyncUpError';
-  constructor(message: string, extraAttributes: CantSyncUpErrorAttributes) {
-    super(message, undefined, extraAttributes);
-  }
+	name = 'CantSyncUpError';
+	constructor(message: string, extraAttributes: CantSyncUpErrorAttributes) {
+		super(message, undefined, extraAttributes);
+	}
 }

@@ -9,37 +9,32 @@ import type { MediaPluginState } from '../../pm-plugins/types';
 import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {
-  mediaState: MediaPluginState;
-  isOpen?: boolean;
-  onBrowseFn: (browse: () => void) => void;
-  featureFlags?: MediaFeatureFlags;
+	mediaState: MediaPluginState;
+	isOpen?: boolean;
+	onBrowseFn: (browse: () => void) => void;
+	featureFlags?: MediaFeatureFlags;
 };
 
-export const BrowserWrapper = ({
-  mediaState,
-  isOpen,
-  onBrowseFn,
-  featureFlags,
-}: Props) => (
-  <PickerFacadeProvider mediaState={mediaState} analyticsName="browser">
-    {({ mediaClientConfig, config, pickerFacadeInstance }) => {
-      const browserConfig: BrowserConfig = {
-        ...config,
-        multiple: true,
-      };
+export const BrowserWrapper = ({ mediaState, isOpen, onBrowseFn, featureFlags }: Props) => (
+	<PickerFacadeProvider mediaState={mediaState} analyticsName="browser">
+		{({ mediaClientConfig, config, pickerFacadeInstance }) => {
+			const browserConfig: BrowserConfig = {
+				...config,
+				multiple: true,
+			};
 
-      return (
-        <Browser
-          onBrowseFn={onBrowseFn}
-          isOpen={isOpen}
-          config={browserConfig}
-          mediaClientConfig={mediaClientConfig}
-          onEnd={pickerFacadeInstance.handleReady}
-          onError={pickerFacadeInstance.handleUploadError}
-          onPreviewUpdate={pickerFacadeInstance.handleUploadPreviewUpdate}
-          featureFlags={featureFlags}
-        />
-      );
-    }}
-  </PickerFacadeProvider>
+			return (
+				<Browser
+					onBrowseFn={onBrowseFn}
+					isOpen={isOpen}
+					config={browserConfig}
+					mediaClientConfig={mediaClientConfig}
+					onEnd={pickerFacadeInstance.handleReady}
+					onError={pickerFacadeInstance.handleUploadError}
+					onPreviewUpdate={pickerFacadeInstance.handleUploadPreviewUpdate}
+					featureFlags={featureFlags}
+				/>
+			);
+		}}
+	</PickerFacadeProvider>
 );

@@ -9,11 +9,11 @@
  * Do not use this type for ADF documents - they should use the JSONDocNode type.
  */
 export type JSONNode = {
-  type: string;
-  attrs?: object;
-  content?: Array<JSONNode | undefined>;
-  marks?: any[];
-  text?: string;
+	type: string;
+	attrs?: object;
+	content?: Array<JSONNode | undefined>;
+	marks?: any[];
+	text?: string;
 };
 
 /*
@@ -27,7 +27,7 @@ export type JSONNode = {
  * Use JSONNode instead for content nodes (any node other than the doc).
  */
 export type JSONDocNode = {
-  version: number;
-  type: 'doc';
-  content: JSONNode[];
+	version: number;
+	type: 'doc';
+	content: JSONNode[];
 };

@@ -1,4 +1,1 @@
-export type {
-  EmptyStateHandler,
-  EmptyStateHandlerParams,
-} from '@atlaskit/editor-common/types';
+export type { EmptyStateHandler, EmptyStateHandlerParams } from '@atlaskit/editor-common/types';

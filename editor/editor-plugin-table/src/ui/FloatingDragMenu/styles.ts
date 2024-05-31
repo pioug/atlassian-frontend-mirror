@@ -8,71 +8,68 @@ import { TableCssClassName as ClassName } from '../../types';
 import { dragMenuDropdownWidth } from '../consts';
 
 export const cellColourPreviewStyles = (selectedColor: string) =>
-  css({
-    '&::before': {
-      background: selectedColor,
-    },
-  });
+	css({
+		'&::before': {
+			background: selectedColor,
+		},
+	});
 
 export const elementBeforeIconStyles = css({
-  marginRight: token('space.negative.075', '-6px'),
-  display: 'flex',
+	marginRight: token('space.negative.075', '-6px'),
+	display: 'flex',
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const dragMenuBackgroundColorStyles = css`
-  .${ClassName.DRAG_SUBMENU} {
-    border-radius: ${token('border.radius', '3px')};
-    background: ${token('elevation.surface.overlay', 'white')};
-    box-shadow: ${token(
-      'elevation.shadow.overlay',
-      `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
-    )};
-    display: block;
-    position: absolute;
-    top: 0;
-    left: ${dragMenuDropdownWidth}px;
-    padding: ${token('space.100', '8px')};
+	.${ClassName.DRAG_SUBMENU} {
+		border-radius: ${token('border.radius', '3px')};
+		background: ${token('elevation.surface.overlay', 'white')};
+		box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
+		display: block;
+		position: absolute;
+		top: 0;
+		left: ${dragMenuDropdownWidth}px;
+		padding: ${token('space.100', '8px')};
 
-    > div {
-      padding: 0;
-    }
-  }
+		> div {
+			padding: 0;
+		}
+	}
 
-  .${ClassName.DRAG_SUBMENU_ICON} {
-    display: flex;
+	.${ClassName.DRAG_SUBMENU_ICON} {
+		display: flex;
 
-    &::before {
-      content: '';
-      display: block;
-      border: 1px solid ${tableBackgroundBorderColor};
-      border-radius: ${token('border.radius', '3px')};
-      width: 14px;
-      height: 14px;
-    }
+		&::before {
+			content: '';
+			display: block;
+			border: 1px solid ${tableBackgroundBorderColor};
+			border-radius: ${token('border.radius', '3px')};
+			width: 14px;
+			height: 14px;
+		}
 
-    &::after {
-      content: '›';
-      margin-left: ${token('space.050', '4px')};
-      line-height: 14px;
-      color: ${token('color.icon', N90)};
-    }
-  }
+		&::after {
+			content: '›';
+			margin-left: ${token('space.050', '4px')};
+			line-height: 14px;
+			color: ${token('color.icon', N90)};
+		}
+	}
 `;
 
 export const toggleStyles = css({
-  display: 'flex',
-  "input[type='checkbox']": {
-    width: '30px',
-    height: '14px',
-    pointerEvents: 'initial',
-    cursor: 'pointer',
-  },
-  '> label': {
-    margin: '0px',
-    pointerEvents: 'none',
-    '> span': {
-      pointerEvents: 'none',
-    },
-  },
+	display: 'flex',
+	"input[type='checkbox']": {
+		width: '30px',
+		height: '14px',
+		pointerEvents: 'initial',
+		cursor: 'pointer',
+	},
+	'> label': {
+		margin: '0px',
+		pointerEvents: 'none',
+		'> span': {
+			pointerEvents: 'none',
+		},
+	},
 });

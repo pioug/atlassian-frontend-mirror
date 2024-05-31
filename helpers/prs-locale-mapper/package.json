@@ -43,7 +43,6 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "typescript": "~5.4.2"
   },
   "techstack": {
@@ -83,6 +82,5 @@
         "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

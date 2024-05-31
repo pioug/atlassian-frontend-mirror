@@ -5,13 +5,7 @@ import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Step } from '@atlaskit/editor-prosemirror/transform';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  doc,
-  p,
-  table,
-  tdEmpty,
-  tr,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, table, tdEmpty, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 
 // inverted
 import * as addColumnAtZeroInvertedJson from './__fixtures__/merge-cells/rows/add-column-at-0-inverted.json';
@@ -29,102 +23,78 @@ import * as removeColumnAtOneJson from './__fixtures__/merge-cells/rows/remove-c
 import * as removeColumnAtTwoInvertedJson from './__fixtures__/merge-cells/rows/remove-column-at-2-inverted.json';
 import * as removeColumnAtTwoJson from './__fixtures__/merge-cells/rows/remove-column-at-2.json';
 import {
-  addColumnAtFactory,
-  applyAndInvertTransaction,
-  createCellColorA,
-  createCellColorB,
-  createCellColorC,
-  removeColumnAtFactory,
-  setup,
+	addColumnAtFactory,
+	applyAndInvertTransaction,
+	createCellColorA,
+	createCellColorB,
+	createCellColorC,
+	removeColumnAtFactory,
+	setup,
 } from './_utils';
 import type { CreateTransaction } from './_utils';
 
 // Possible documents
 const originalDoc = doc(
-  '{table}',
-  table()(
-    tr(
-      createCellColorA(undefined, 2),
-      createCellColorB(),
-      createCellColorC(undefined, 3),
-    ),
-    tr(createCellColorB(undefined, 2)),
-    tr(createCellColorA()),
-  ),
+	'{table}',
+	table()(
+		tr(createCellColorA(undefined, 2), createCellColorB(), createCellColorC(undefined, 3)),
+		tr(createCellColorB(undefined, 2)),
+		tr(createCellColorA()),
+	),
 );
 const docAfterAddColumnAtZero = doc(
-  '{table}',
-  table()(
-    tr(
-      tdEmpty,
-      createCellColorA(undefined, 2),
-      createCellColorB(),
-      createCellColorC(undefined, 3),
-    ),
-    tr(tdEmpty, createCellColorB(undefined, 2)),
-    tr(tdEmpty, createCellColorA()),
-  ),
+	'{table}',
+	table()(
+		tr(tdEmpty, createCellColorA(undefined, 2), createCellColorB(), createCellColorC(undefined, 3)),
+		tr(tdEmpty, createCellColorB(undefined, 2)),
+		tr(tdEmpty, createCellColorA()),
+	),
 );
 const docAfterAddColumnAtOne = doc(
-  '{table}',
-  table()(
-    tr(
-      createCellColorA(undefined, 2),
-      tdEmpty,
-      createCellColorB(),
-      createCellColorC(undefined, 3),
-    ),
-    tr(tdEmpty, createCellColorB(undefined, 2)),
-    tr(createCellColorA(), tdEmpty),
-  ),
+	'{table}',
+	table()(
+		tr(createCellColorA(undefined, 2), tdEmpty, createCellColorB(), createCellColorC(undefined, 3)),
+		tr(tdEmpty, createCellColorB(undefined, 2)),
+		tr(createCellColorA(), tdEmpty),
+	),
 );
 const docAfterAddColumnAtTwo = doc(
-  '{table}',
-  table()(
-    tr(
-      createCellColorA(undefined, 2),
-      createCellColorB(),
-      tdEmpty,
-      createCellColorC(undefined, 3),
-    ),
-    tr(createCellColorB(undefined, 2), tdEmpty),
-    tr(createCellColorA(), tdEmpty),
-  ),
+	'{table}',
+	table()(
+		tr(createCellColorA(undefined, 2), createCellColorB(), tdEmpty, createCellColorC(undefined, 3)),
+		tr(createCellColorB(undefined, 2), tdEmpty),
+		tr(createCellColorA(), tdEmpty),
+	),
 );
 const docAfterAddColumnAtThree = doc(
-  '{table}',
-  table()(
-    tr(
-      createCellColorA(undefined, 2),
-      createCellColorB(),
-      createCellColorC(undefined, 3),
-      tdEmpty,
-    ),
-    tr(createCellColorB(undefined, 2), tdEmpty),
-    tr(createCellColorA(), tdEmpty),
-  ),
+	'{table}',
+	table()(
+		tr(createCellColorA(undefined, 2), createCellColorB(), createCellColorC(undefined, 3), tdEmpty),
+		tr(createCellColorB(undefined, 2), tdEmpty),
+		tr(createCellColorA(), tdEmpty),
+	),
 );
 const docAfterRemoveColumnAtZero = doc(
-  '{table}',
-  table()(
-    tr(createCellColorB(), createCellColorC(undefined, 2)),
-    tr(createCellColorB(undefined, 1)),
-  ),
+	'{table}',
+	table()(
+		tr(createCellColorB(), createCellColorC(undefined, 2)),
+		tr(createCellColorB(undefined, 1)),
+	),
 );
 const docAfterRemoveColumnAtOne = doc(
-  '{table}',
-  table()(
-    tr(createCellColorA(undefined, 1), createCellColorC(undefined, 2)),
-    tr(createCellColorA()),
-  ),
+	'{table}',
+	table()(
+		tr(createCellColorA(undefined, 1), createCellColorC(undefined, 2)),
+		tr(createCellColorA()),
+	),
 );
 const docAfterRemoveColumnAtTwo = doc(
-  '{table}',
-  table()(
-    tr(createCellColorA(undefined, 2), createCellColorB()),
-    tr(createCellColorB(undefined, 2)),
-    tr(createCellColorA()),
-  ),
+	'{table}',
+	table()(
+		tr(createCellColorA(undefined, 2), createCellColorB()),
+		tr(createCellColorB(undefined, 2)),
+		tr(createCellColorA()),
+	),
 );
 
 /**
@@ -139,328 +109,272 @@ const docAfterRemoveColumnAtTwo = doc(
  *     0        1        2
  */
 describe('AddColumnStep', () => {
-  describe(`
+	describe(`
   Table 3x3 with merge rows
   | a | b | c |
   | _ | b |   |
   | a | _ | _ |
   `, () => {
-    let editorState: EditorState;
-    let refs: Refs;
+		let editorState: EditorState;
+		let refs: Refs;
 
-    beforeEach(() => {
-      ({ editorState, refs } = setup(originalDoc));
-    });
+		beforeEach(() => {
+			({ editorState, refs } = setup(originalDoc));
+		});
 
-    describe('add a column', () => {
-      it.each`
-        column | expectedDoc
-        ${0}   | ${docAfterAddColumnAtZero}
-        ${1}   | ${docAfterAddColumnAtOne}
-        ${2}   | ${docAfterAddColumnAtTwo}
-        ${3}   | ${docAfterAddColumnAtThree}
-      `(
-        'should add a column at $column of the table',
-        ({ column, expectedDoc }) => {
-          editorState = editorState.apply(
-            addColumnAtFactory('table', column)(editorState, refs),
-          );
+		describe('add a column', () => {
+			it.each`
+				column | expectedDoc
+				${0}   | ${docAfterAddColumnAtZero}
+				${1}   | ${docAfterAddColumnAtOne}
+				${2}   | ${docAfterAddColumnAtTwo}
+				${3}   | ${docAfterAddColumnAtThree}
+			`('should add a column at $column of the table', ({ column, expectedDoc }) => {
+				editorState = editorState.apply(addColumnAtFactory('table', column)(editorState, refs));
 
-          expect(editorState.doc.toJSON()).toEqual(
-            expectedDoc(defaultSchema).toJSON(),
-          );
-        },
-      );
-    });
+				expect(editorState.doc.toJSON()).toEqual(expectedDoc(defaultSchema).toJSON());
+			});
+		});
 
-    describe('remove a column', () => {
-      it.each`
-        column | expectedDoc
-        ${0}   | ${docAfterRemoveColumnAtZero}
-        ${1}   | ${docAfterRemoveColumnAtOne}
-        ${2}   | ${docAfterRemoveColumnAtTwo}
-      `(
-        'should remove a column at $column of the table',
-        ({ column, expectedDoc }) => {
-          editorState = editorState.apply(
-            removeColumnAtFactory('table', column)(editorState, refs),
-          );
+		describe('remove a column', () => {
+			it.each`
+				column | expectedDoc
+				${0}   | ${docAfterRemoveColumnAtZero}
+				${1}   | ${docAfterRemoveColumnAtOne}
+				${2}   | ${docAfterRemoveColumnAtTwo}
+			`('should remove a column at $column of the table', ({ column, expectedDoc }) => {
+				editorState = editorState.apply(removeColumnAtFactory('table', column)(editorState, refs));
 
-          expect(editorState.doc.toJSON()).toEqual(
-            expectedDoc(defaultSchema).toJSON(),
-          );
-        },
-      );
-    });
+				expect(editorState.doc.toJSON()).toEqual(expectedDoc(defaultSchema).toJSON());
+			});
+		});
 
-    describe('invert', () => {
-      let editorState: EditorState;
-      let refs: Refs;
-      let originalDocNode: ProseMirrorNode;
+		describe('invert', () => {
+			let editorState: EditorState;
+			let refs: Refs;
+			let originalDocNode: ProseMirrorNode;
 
-      beforeEach(() => {
-        ({ editorState, refs } = setup(originalDoc));
-        originalDocNode = editorState.doc;
-      });
+			beforeEach(() => {
+				({ editorState, refs } = setup(originalDoc));
+				originalDocNode = editorState.doc;
+			});
 
-      it.each`
-        description                                                             | setup
-        ${'add column that was removed at the end with the same content'}       | ${removeColumnAtFactory('table', 2)}
-        ${'add column that was removed at the beginning with the same content'} | ${removeColumnAtFactory('table', 0)}
-        ${'add column that was removed in the middle with the same content'}    | ${removeColumnAtFactory('table', 1)}
-        ${'remove a column that was added at the beginning'}                    | ${addColumnAtFactory('table', 0)}
-        ${'remove a column that was added at the middle'}                       | ${addColumnAtFactory('table', 1)}
-        ${'remove a column that was added at the almost end'}                   | ${addColumnAtFactory('table', 2)}
-        ${'remove a column that was added at the end'}                          | ${addColumnAtFactory('table', 3)}
-      `('should be able to $description', ({ setup }) => {
-        const transaction = setup(editorState, refs);
-        editorState = applyAndInvertTransaction(originalDocNode)(
-          transaction,
-          editorState,
-        );
-        expect(editorState.doc.toJSON()).toEqual(
-          originalDoc(defaultSchema).toJSON(),
-        );
-      });
-    });
+			it.each`
+				description                                                             | setup
+				${'add column that was removed at the end with the same content'}       | ${removeColumnAtFactory('table', 2)}
+				${'add column that was removed at the beginning with the same content'} | ${removeColumnAtFactory('table', 0)}
+				${'add column that was removed in the middle with the same content'}    | ${removeColumnAtFactory('table', 1)}
+				${'remove a column that was added at the beginning'}                    | ${addColumnAtFactory('table', 0)}
+				${'remove a column that was added at the middle'}                       | ${addColumnAtFactory('table', 1)}
+				${'remove a column that was added at the almost end'}                   | ${addColumnAtFactory('table', 2)}
+				${'remove a column that was added at the end'}                          | ${addColumnAtFactory('table', 3)}
+			`('should be able to $description', ({ setup }) => {
+				const transaction = setup(editorState, refs);
+				editorState = applyAndInvertTransaction(originalDocNode)(transaction, editorState);
+				expect(editorState.doc.toJSON()).toEqual(originalDoc(defaultSchema).toJSON());
+			});
+		});
 
-    describe('mapping', () => {
-      it.each<
-        [string, DocBuilder, CreateTransaction, CreateTransaction, DocBuilder]
-      >([
-        [
-          'add the column in the correct position after adding text at the beginning',
-          originalDoc,
-          (editorState) => editorState.tr.insertText('foo', 0),
-          addColumnAtFactory('table', 3),
-          doc(
-            p('foo'),
-            table()(
-              tr(
-                createCellColorA(undefined, 2),
-                createCellColorB(),
-                createCellColorC(undefined, 3),
-                tdEmpty,
-              ),
-              tr(createCellColorB(undefined, 2), tdEmpty),
-              tr(createCellColorA(), tdEmpty),
-            ),
-          ),
-        ],
-        [
-          'add the column in the correct position after adding a column at the beginning',
-          originalDoc,
-          addColumnAtFactory('table', 0),
-          addColumnAtFactory('table', 3),
-          doc(
-            table()(
-              tr(
-                tdEmpty,
-                createCellColorA(undefined, 2),
-                createCellColorB(),
-                createCellColorC(undefined, 3),
-                tdEmpty,
-              ),
-              tr(tdEmpty, createCellColorB(undefined, 2), tdEmpty),
-              tr(tdEmpty, createCellColorA(), tdEmpty),
-            ),
-          ),
-        ],
-        [
-          'add the column in the correct position after adding a column in the same position',
-          originalDoc,
-          addColumnAtFactory('table', 2),
-          addColumnAtFactory('table', 2),
-          doc(
-            table()(
-              tr(
-                createCellColorA(undefined, 2),
-                createCellColorB(),
-                tdEmpty,
-                tdEmpty,
-                createCellColorC(undefined, 3),
-              ),
-              tr(createCellColorB(undefined, 2), tdEmpty, tdEmpty),
-              tr(createCellColorA(), tdEmpty, tdEmpty),
-            ),
-          ),
-        ],
-        [
-          'add the column in the correct position after removing a column a previous position',
-          originalDoc,
-          removeColumnAtFactory('table', 1),
-          addColumnAtFactory('table', 2),
-          doc(
-            table()(
-              tr(
-                createCellColorA(undefined, 1),
-                tdEmpty,
-                createCellColorC(undefined, 2),
-              ),
-              tr(createCellColorA(), tdEmpty),
-            ),
-          ),
-        ],
-        [
-          'remove the column in the correct position after removing a column in a previous position',
-          originalDoc,
-          removeColumnAtFactory('table', 1),
-          removeColumnAtFactory('table', 2),
-          doc(table()(tr(createCellColorA()), tr(createCellColorA()))),
-        ],
-      ])(
-        'should %s',
-        (_, originalDoc, firstTransaction, secondTransaction, expectedDoc) => {
-          let { editorState, refs } = setup(originalDoc);
+		describe('mapping', () => {
+			it.each<[string, DocBuilder, CreateTransaction, CreateTransaction, DocBuilder]>([
+				[
+					'add the column in the correct position after adding text at the beginning',
+					originalDoc,
+					(editorState) => editorState.tr.insertText('foo', 0),
+					addColumnAtFactory('table', 3),
+					doc(
+						p('foo'),
+						table()(
+							tr(
+								createCellColorA(undefined, 2),
+								createCellColorB(),
+								createCellColorC(undefined, 3),
+								tdEmpty,
+							),
+							tr(createCellColorB(undefined, 2), tdEmpty),
+							tr(createCellColorA(), tdEmpty),
+						),
+					),
+				],
+				[
+					'add the column in the correct position after adding a column at the beginning',
+					originalDoc,
+					addColumnAtFactory('table', 0),
+					addColumnAtFactory('table', 3),
+					doc(
+						table()(
+							tr(
+								tdEmpty,
+								createCellColorA(undefined, 2),
+								createCellColorB(),
+								createCellColorC(undefined, 3),
+								tdEmpty,
+							),
+							tr(tdEmpty, createCellColorB(undefined, 2), tdEmpty),
+							tr(tdEmpty, createCellColorA(), tdEmpty),
+						),
+					),
+				],
+				[
+					'add the column in the correct position after adding a column in the same position',
+					originalDoc,
+					addColumnAtFactory('table', 2),
+					addColumnAtFactory('table', 2),
+					doc(
+						table()(
+							tr(
+								createCellColorA(undefined, 2),
+								createCellColorB(),
+								tdEmpty,
+								tdEmpty,
+								createCellColorC(undefined, 3),
+							),
+							tr(createCellColorB(undefined, 2), tdEmpty, tdEmpty),
+							tr(createCellColorA(), tdEmpty, tdEmpty),
+						),
+					),
+				],
+				[
+					'add the column in the correct position after removing a column a previous position',
+					originalDoc,
+					removeColumnAtFactory('table', 1),
+					addColumnAtFactory('table', 2),
+					doc(
+						table()(
+							tr(createCellColorA(undefined, 1), tdEmpty, createCellColorC(undefined, 2)),
+							tr(createCellColorA(), tdEmpty),
+						),
+					),
+				],
+				[
+					'remove the column in the correct position after removing a column in a previous position',
+					originalDoc,
+					removeColumnAtFactory('table', 1),
+					removeColumnAtFactory('table', 2),
+					doc(table()(tr(createCellColorA()), tr(createCellColorA()))),
+				],
+			])('should %s', (_, originalDoc, firstTransaction, secondTransaction, expectedDoc) => {
+				let { editorState, refs } = setup(originalDoc);
 
-          const transaction = firstTransaction(editorState, refs);
-          let addColumnStep: Step | null | undefined = secondTransaction(
-            editorState,
-            refs,
-          ).steps[0];
+				const transaction = firstTransaction(editorState, refs);
+				let addColumnStep: Step | null | undefined = secondTransaction(editorState, refs).steps[0];
 
-          editorState = editorState.apply(transaction);
+				editorState = editorState.apply(transaction);
 
-          // Map the step with the transaction
-          addColumnStep = addColumnStep.map(transaction.mapping);
+				// Map the step with the transaction
+				addColumnStep = addColumnStep.map(transaction.mapping);
 
-          // It should exist
-          expect(addColumnStep).toBeTruthy();
+				// It should exist
+				expect(addColumnStep).toBeTruthy();
 
-          editorState = editorState.apply(editorState.tr.step(addColumnStep!));
+				editorState = editorState.apply(editorState.tr.step(addColumnStep!));
 
-          expect(editorState.doc.toJSON()).toEqual(
-            expectedDoc(defaultSchema).toJSON(),
-          );
-        },
-      );
-    });
+				expect(editorState.doc.toJSON()).toEqual(expectedDoc(defaultSchema).toJSON());
+			});
+		});
 
-    describe('fromJson()', () => {
-      it.each`
-        column | startDoc       | jsonStep                | expectedDoc
-        ${0}   | ${originalDoc} | ${addColumnAtZeroJson}  | ${docAfterAddColumnAtZero}
-        ${1}   | ${originalDoc} | ${addColumnAtOneJson}   | ${docAfterAddColumnAtOne}
-        ${2}   | ${originalDoc} | ${addColumnAtTwoJson}   | ${docAfterAddColumnAtTwo}
-        ${3}   | ${originalDoc} | ${addColumnAtThreeJson} | ${docAfterAddColumnAtThree}
-      `(
-        'should parse JSON and add a column at $column column',
-        ({ startDoc, jsonStep, expectedDoc }) => {
-          ({ editorState } = setup(startDoc));
+		describe('fromJson()', () => {
+			it.each`
+				column | startDoc       | jsonStep                | expectedDoc
+				${0}   | ${originalDoc} | ${addColumnAtZeroJson}  | ${docAfterAddColumnAtZero}
+				${1}   | ${originalDoc} | ${addColumnAtOneJson}   | ${docAfterAddColumnAtOne}
+				${2}   | ${originalDoc} | ${addColumnAtTwoJson}   | ${docAfterAddColumnAtTwo}
+				${3}   | ${originalDoc} | ${addColumnAtThreeJson} | ${docAfterAddColumnAtThree}
+			`(
+				'should parse JSON and add a column at $column column',
+				({ startDoc, jsonStep, expectedDoc }) => {
+					({ editorState } = setup(startDoc));
 
-          const addColumnStep = Step.fromJSON(defaultSchema, jsonStep);
-          editorState = editorState.apply(editorState.tr.step(addColumnStep));
+					const addColumnStep = Step.fromJSON(defaultSchema, jsonStep);
+					editorState = editorState.apply(editorState.tr.step(addColumnStep));
 
-          expect(editorState.doc.toJSON()).toEqual(
-            expectedDoc(defaultSchema).toJSON(),
-          );
-        },
-      );
+					expect(editorState.doc.toJSON()).toEqual(expectedDoc(defaultSchema).toJSON());
+				},
+			);
 
-      it.each`
-        column | startDoc                    | jsonStep                        | expectedDoc
-        ${0}   | ${docAfterAddColumnAtZero}  | ${addColumnAtZeroInvertedJson}  | ${originalDoc}
-        ${1}   | ${docAfterAddColumnAtOne}   | ${addColumnAtOneInvertedJson}   | ${originalDoc}
-        ${2}   | ${docAfterAddColumnAtTwo}   | ${addColumnAtTwoInvertedJson}   | ${originalDoc}
-        ${3}   | ${docAfterAddColumnAtThree} | ${addColumnAtThreeInvertedJson} | ${originalDoc}
-      `(
-        'should parse JSON and remove a column that was added at $column column',
-        ({ startDoc, jsonStep, expectedDoc }) => {
-          ({ editorState } = setup(startDoc));
+			it.each`
+				column | startDoc                    | jsonStep                        | expectedDoc
+				${0}   | ${docAfterAddColumnAtZero}  | ${addColumnAtZeroInvertedJson}  | ${originalDoc}
+				${1}   | ${docAfterAddColumnAtOne}   | ${addColumnAtOneInvertedJson}   | ${originalDoc}
+				${2}   | ${docAfterAddColumnAtTwo}   | ${addColumnAtTwoInvertedJson}   | ${originalDoc}
+				${3}   | ${docAfterAddColumnAtThree} | ${addColumnAtThreeInvertedJson} | ${originalDoc}
+			`(
+				'should parse JSON and remove a column that was added at $column column',
+				({ startDoc, jsonStep, expectedDoc }) => {
+					({ editorState } = setup(startDoc));
 
-          const addColumnStep = Step.fromJSON(defaultSchema, jsonStep);
-          editorState = editorState.apply(editorState.tr.step(addColumnStep));
+					const addColumnStep = Step.fromJSON(defaultSchema, jsonStep);
+					editorState = editorState.apply(editorState.tr.step(addColumnStep));
 
-          expect(editorState.doc.toJSON()).toEqual(
-            expectedDoc(defaultSchema).toJSON(),
-          );
-        },
-      );
+					expect(editorState.doc.toJSON()).toEqual(expectedDoc(defaultSchema).toJSON());
+				},
+			);
 
-      it.each`
-        column | jsonStep                  | expectedDoc
-        ${0}   | ${removeColumnAtZeroJson} | ${docAfterRemoveColumnAtZero}
-        ${1}   | ${removeColumnAtOneJson}  | ${docAfterRemoveColumnAtOne}
-        ${2}   | ${removeColumnAtTwoJson}  | ${docAfterRemoveColumnAtTwo}
-      `(
-        'should parse JSON and remove a column at $column column',
-        ({ jsonStep, expectedDoc }) => {
-          const addColumnStep = Step.fromJSON(defaultSchema, jsonStep);
-          editorState = editorState.apply(editorState.tr.step(addColumnStep));
+			it.each`
+				column | jsonStep                  | expectedDoc
+				${0}   | ${removeColumnAtZeroJson} | ${docAfterRemoveColumnAtZero}
+				${1}   | ${removeColumnAtOneJson}  | ${docAfterRemoveColumnAtOne}
+				${2}   | ${removeColumnAtTwoJson}  | ${docAfterRemoveColumnAtTwo}
+			`('should parse JSON and remove a column at $column column', ({ jsonStep, expectedDoc }) => {
+				const addColumnStep = Step.fromJSON(defaultSchema, jsonStep);
+				editorState = editorState.apply(editorState.tr.step(addColumnStep));
 
-          expect(editorState.doc.toJSON()).toEqual(
-            expectedDoc(defaultSchema).toJSON(),
-          );
-        },
-      );
+				expect(editorState.doc.toJSON()).toEqual(expectedDoc(defaultSchema).toJSON());
+			});
 
-      it.each`
-        column | startDoc                      | jsonStep                          | expectedDoc
-        ${0}   | ${docAfterRemoveColumnAtZero} | ${removeColumnAtZeroInvertedJson} | ${originalDoc}
-        ${1}   | ${docAfterRemoveColumnAtOne}  | ${removeColumnAtOneInvertedJson}  | ${originalDoc}
-        ${2}   | ${docAfterRemoveColumnAtTwo}  | ${removeColumnAtTwoInvertedJson}  | ${originalDoc}
-      `(
-        'should parse JSON and add a column that was removed at $column column',
-        ({ startDoc, jsonStep, expectedDoc }) => {
-          ({ editorState } = setup(startDoc));
+			it.each`
+				column | startDoc                      | jsonStep                          | expectedDoc
+				${0}   | ${docAfterRemoveColumnAtZero} | ${removeColumnAtZeroInvertedJson} | ${originalDoc}
+				${1}   | ${docAfterRemoveColumnAtOne}  | ${removeColumnAtOneInvertedJson}  | ${originalDoc}
+				${2}   | ${docAfterRemoveColumnAtTwo}  | ${removeColumnAtTwoInvertedJson}  | ${originalDoc}
+			`(
+				'should parse JSON and add a column that was removed at $column column',
+				({ startDoc, jsonStep, expectedDoc }) => {
+					({ editorState } = setup(startDoc));
 
-          const addColumnStep = Step.fromJSON(defaultSchema, jsonStep);
-          editorState = editorState.apply(editorState.tr.step(addColumnStep));
+					const addColumnStep = Step.fromJSON(defaultSchema, jsonStep);
+					editorState = editorState.apply(editorState.tr.step(addColumnStep));
 
-          expect(editorState.doc.toJSON()).toEqual(
-            expectedDoc(defaultSchema).toJSON(),
-          );
-        },
-      );
-    });
+					expect(editorState.doc.toJSON()).toEqual(expectedDoc(defaultSchema).toJSON());
+				},
+			);
+		});
 
-    // Sanity check of the serialization process
-    describe('serialize/deserialize', () => {
-      it.each`
-        column
-        ${0}
-        ${1}
-        ${2}
-        ${3}
-      `(
-        'should serialize/deserialize a new column at $column',
-        ({ column }) => {
-          const { editorState, refs } = setup(originalDoc);
-          const addColumnStep = addColumnAtFactory('table', column)(
-            editorState,
-            refs,
-          ).steps[0];
+		// Sanity check of the serialization process
+		describe('serialize/deserialize', () => {
+			it.each`
+				column
+				${0}
+				${1}
+				${2}
+				${3}
+			`('should serialize/deserialize a new column at $column', ({ column }) => {
+				const { editorState, refs } = setup(originalDoc);
+				const addColumnStep = addColumnAtFactory('table', column)(editorState, refs).steps[0];
 
-          const json = addColumnStep.toJSON();
-          const stepFromJson = Step.fromJSON(defaultSchema, json);
-          expect(
-            editorState.apply(editorState.tr.step(addColumnStep)).doc,
-          ).toEqual(editorState.apply(editorState.tr.step(stepFromJson)).doc);
-        },
-      );
+				const json = addColumnStep.toJSON();
+				const stepFromJson = Step.fromJSON(defaultSchema, json);
+				expect(editorState.apply(editorState.tr.step(addColumnStep)).doc).toEqual(
+					editorState.apply(editorState.tr.step(stepFromJson)).doc,
+				);
+			});
 
-      it.each`
-        column
-        ${0}
-        ${1}
-        ${2}
-      `(
-        'should serialize/deserialize remove a column at $column',
-        ({ column }) => {
-          const { editorState, refs } = setup(originalDoc);
-          const addColumnStep = removeColumnAtFactory('table', column)(
-            editorState,
-            refs,
-          ).steps[0];
+			it.each`
+				column
+				${0}
+				${1}
+				${2}
+			`('should serialize/deserialize remove a column at $column', ({ column }) => {
+				const { editorState, refs } = setup(originalDoc);
+				const addColumnStep = removeColumnAtFactory('table', column)(editorState, refs).steps[0];
 
-          const json = addColumnStep.toJSON();
-          const stepFromJson = Step.fromJSON(defaultSchema, json);
+				const json = addColumnStep.toJSON();
+				const stepFromJson = Step.fromJSON(defaultSchema, json);
 
-          expect(
-            editorState.apply(editorState.tr.step(addColumnStep)).doc,
-          ).toEqual(editorState.apply(editorState.tr.step(stepFromJson)).doc);
-        },
-      );
-    });
-  });
+				expect(editorState.apply(editorState.tr.step(addColumnStep)).doc).toEqual(
+					editorState.apply(editorState.tr.step(stepFromJson)).doc,
+				);
+			});
+		});
+	});
 });

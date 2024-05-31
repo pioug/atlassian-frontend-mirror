@@ -7,42 +7,42 @@ import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { createRuleForListType } from './create-list-input-rule';
 
 export default function inputRulePlugin(
-  schema: Schema,
-  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	schema: Schema,
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): SafePlugin | undefined {
-  const {
-    nodes: { bulletList, orderedList },
-  } = schema;
-  const rules: InputRuleWrapper[] = [];
+	const {
+		nodes: { bulletList, orderedList },
+	} = schema;
+	const rules: InputRuleWrapper[] = [];
 
-  if (bulletList) {
-    rules.push(
-      createRuleForListType({
-        // Using UTF instead of • character
-        // because of issue where product converted the
-        // character into an escaped version.
-        expression: /^\s*([\*\-\u2022]) $/,
-        listType: bulletList,
-        editorAnalyticsApi,
-      }),
-    );
-  }
+	if (bulletList) {
+		rules.push(
+			createRuleForListType({
+				// Using UTF instead of • character
+				// because of issue where product converted the
+				// character into an escaped version.
+				expression: /^\s*([\*\-\u2022]) $/,
+				listType: bulletList,
+				editorAnalyticsApi,
+			}),
+		);
+	}
 
-  const expression = /((^[1-9]{1}[0-9]{0,2})|^(0))[\.\)] $/;
+	const expression = /((^[1-9]{1}[0-9]{0,2})|^(0))[\.\)] $/;
 
-  if (orderedList) {
-    rules.push(
-      createRuleForListType({
-        expression,
-        listType: orderedList,
-        editorAnalyticsApi,
-      }),
-    );
-  }
+	if (orderedList) {
+		rules.push(
+			createRuleForListType({
+				expression,
+				listType: orderedList,
+				editorAnalyticsApi,
+			}),
+		);
+	}
 
-  if (rules.length !== 0) {
-    return new SafePlugin(createPlugin('lists', rules));
-  }
+	if (rules.length !== 0) {
+		return new SafePlugin(createPlugin('lists', rules));
+	}
 
-  return;
+	return;
 }

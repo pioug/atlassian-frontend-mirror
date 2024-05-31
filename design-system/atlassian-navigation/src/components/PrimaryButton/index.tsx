@@ -16,31 +16,31 @@ const VAR_BUTTON_SELECTED_COLOR = '--button-selected-color';
 const VAR_BUTTON_SELECTED_BORDER_COLOR = '--button-selected-border-color';
 
 const buttonBaseStyles = css({
-  display: 'flex',
-  height: '100%',
-  position: 'relative',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexDirection: 'column',
+	display: 'flex',
+	height: '100%',
+	position: 'relative',
+	alignItems: 'center',
+	justifyContent: 'center',
+	flexDirection: 'column',
 });
 
 const buttonHighlightedStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '&& > *': {
-    color: `var(${VAR_BUTTON_SELECTED_COLOR})`,
-  },
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'&& > *': {
+		color: `var(${VAR_BUTTON_SELECTED_COLOR})`,
+	},
 
-  '&:after': {
-    height: 3,
-    position: 'absolute',
-    backgroundColor: `var(${VAR_BUTTON_SELECTED_BORDER_COLOR})`,
-    borderStartEndRadius: token('border.radius.050', '1px'),
-    borderStartStartRadius: token('border.radius.050', '1px'),
-    content: '""',
-    insetBlockEnd: 0,
-    insetInlineEnd: token('space.050', '4px'),
-    insetInlineStart: token('space.050', '4px'),
-  },
+	'&:after': {
+		height: 3,
+		position: 'absolute',
+		backgroundColor: `var(${VAR_BUTTON_SELECTED_BORDER_COLOR})`,
+		borderStartEndRadius: token('border.radius.050', '1px'),
+		borderStartStartRadius: token('border.radius.050', '1px'),
+		content: '""',
+		insetBlockEnd: 0,
+		insetInlineEnd: token('space.050', '4px'),
+		insetInlineStart: token('space.050', '4px'),
+	},
 });
 
 /**
@@ -53,55 +53,51 @@ const buttonHighlightedStyles = css({
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
-  (props: PrimaryButtonProps, ref: Ref<HTMLElement>) => {
-    const {
-      children,
-      testId,
-      tooltip,
-      isSelected,
-      isHighlighted,
-      ...buttonProps
-    } = props;
-    const theme = useTheme();
+	(props: PrimaryButtonProps, ref: Ref<HTMLElement>) => {
+		const { children, testId, tooltip, isSelected, isHighlighted, ...buttonProps } = props;
+		const theme = useTheme();
 
-    const button = (
-      <div
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        style={
-          {
-            [VAR_BUTTON_SELECTED_COLOR]:
-              theme.mode.primaryButton.selected.color,
-            [VAR_BUTTON_SELECTED_BORDER_COLOR]:
-              theme.mode.primaryButton.selected.borderColor,
-          } as React.CSSProperties
-        }
-        css={[buttonBaseStyles, isHighlighted && buttonHighlightedStyles]}
-        role="listitem"
-      >
-        <Button
-          appearance="primary"
-          testId={testId}
-          ref={ref}
-          isSelected={isSelected}
-          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-          theme={getPrimaryButtonTheme(theme)}
-          {...buttonProps}
-        >
-          {children}
-        </Button>
-      </div>
-    );
+		const button = (
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={
+					{
+						[VAR_BUTTON_SELECTED_COLOR]: theme.mode.primaryButton.selected.color,
+						[VAR_BUTTON_SELECTED_BORDER_COLOR]: theme.mode.primaryButton.selected.borderColor,
+					} as React.CSSProperties
+				}
+				css={[buttonBaseStyles, isHighlighted && buttonHighlightedStyles]}
+				role="listitem"
+			>
+				{
+					// @ts-ignore - This was added when `@atlaskit/page-layout` was enrolled into JFE local consumption
+					// There seems to be an incompatibility in the `css` prop between jira and platform
+					// The error goes away when we remove the spread ...buttonProps
+					<Button
+						appearance="primary"
+						testId={testId}
+						ref={ref}
+						isSelected={isSelected}
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+						theme={getPrimaryButtonTheme(theme)}
+						{...buttonProps}
+					>
+						{children}
+					</Button>
+				}
+			</div>
+		);
 
-    if (tooltip) {
-      return (
-        <Tooltip content={tooltip} hideTooltipOnClick>
-          {button}
-        </Tooltip>
-      );
-    }
+		if (tooltip) {
+			return (
+				<Tooltip content={tooltip} hideTooltipOnClick>
+					{button}
+				</Tooltip>
+			);
+		}
 
-    return button;
-  },
+		return button;
+	},
 );
 
 export default PrimaryButton;

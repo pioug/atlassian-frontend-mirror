@@ -73,7 +73,7 @@
     "@atlaskit/linking-common": "^5.7.0",
     "@atlaskit/onboarding": "^11.5.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/tabs": "^16.1.0",
     "@atlaskit/textfield": "^6.3.0",
@@ -102,7 +102,6 @@
     "@atlaskit/link-provider": "^1.9.0",
     "@atlaskit/link-test-helpers": "^7.0.0",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -149,6 +148,5 @@
     "stricter": [
       "@atlassian/tangerine/project-structure"
     ]
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

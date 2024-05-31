@@ -91,7 +91,6 @@
   "devDependencies": {
     "@af/integration-testing": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/react": "^11.7.1",
     "@testing-library/dom": "^8.17.1",
     "@types/raf-schd": "^4.0.1",
@@ -125,6 +124,5 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/"
 }

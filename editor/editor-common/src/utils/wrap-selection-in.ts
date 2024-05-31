@@ -11,11 +11,11 @@ import { createWrapSelectionTransaction } from './create-wrap-selection-transact
  *  and set selection on it.
  */
 export function wrapSelectionIn(type: NodeType): Command {
-  return function (state: EditorState, dispatch) {
-    let tr = createWrapSelectionTransaction({ state, type });
-    if (dispatch) {
-      dispatch(tr);
-    }
-    return true;
-  };
+	return function (state: EditorState, dispatch) {
+		let tr = createWrapSelectionTransaction({ state, type });
+		if (dispatch) {
+			dispatch(tr);
+		}
+		return true;
+	};
 }

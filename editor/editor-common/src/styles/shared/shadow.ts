@@ -26,53 +26,53 @@ const shadowWidth = 8;
  */
 
 const shadowSharedStyle = css({
-  [`& .${shadowClassNames.RIGHT_SHADOW}::before, .${shadowClassNames.RIGHT_SHADOW}::after, .${shadowClassNames.LEFT_SHADOW}::before, .${shadowClassNames.LEFT_SHADOW}::after`]:
-    {
-      display: 'none',
-      position: 'absolute',
-      pointerEvents: 'none',
-      zIndex: akEditorShadowZIndex,
-      width: `${shadowWidth}px`,
-      content: "''",
-      height: 'calc(100%)',
-    },
-  [`& .${shadowClassNames.RIGHT_SHADOW}, .${shadowClassNames.LEFT_SHADOW}`]: {
-    position: 'relative',
-  },
-  [`& .${shadowClassNames.LEFT_SHADOW}::before`]: {
-    background: `linear-gradient( to left, transparent 0, ${token(
-      'elevation.shadow.overflow.spread',
-      N40A,
-    )} 140% ), linear-gradient( to right, ${token(
-      'elevation.shadow.overflow.perimeter',
-      'transparent',
-    )} 0px, transparent 1px )`,
-    top: '0px',
-    left: 0,
-    display: 'block',
-  },
-  [`& .${shadowClassNames.RIGHT_SHADOW}::after`]: {
-    background: `linear-gradient( to right, transparent 0, ${token(
-      'elevation.shadow.overflow.spread',
-      N40A,
-    )} 140% ), linear-gradient( to left, ${token(
-      'elevation.shadow.overflow.perimeter',
-      'transparent',
-    )} 0px, transparent 1px )`,
-    right: '0px',
-    top: '0px',
-    display: 'block',
-  },
-  [`& .${shadowObserverClassNames.SENTINEL_LEFT}`]: {
-    height: '100%',
-    width: '0px',
-    minWidth: '0px',
-  },
-  [`& .${shadowObserverClassNames.SENTINEL_RIGHT}`]: {
-    height: '100%',
-    width: '0px',
-    minWidth: '0px',
-  },
+	[`& .${shadowClassNames.RIGHT_SHADOW}::before, .${shadowClassNames.RIGHT_SHADOW}::after, .${shadowClassNames.LEFT_SHADOW}::before, .${shadowClassNames.LEFT_SHADOW}::after`]:
+		{
+			display: 'none',
+			position: 'absolute',
+			pointerEvents: 'none',
+			zIndex: akEditorShadowZIndex,
+			width: `${shadowWidth}px`,
+			content: "''",
+			height: 'calc(100%)',
+		},
+	[`& .${shadowClassNames.RIGHT_SHADOW}, .${shadowClassNames.LEFT_SHADOW}`]: {
+		position: 'relative',
+	},
+	[`& .${shadowClassNames.LEFT_SHADOW}::before`]: {
+		background: `linear-gradient( to left, transparent 0, ${token(
+			'elevation.shadow.overflow.spread',
+			N40A,
+		)} 140% ), linear-gradient( to right, ${token(
+			'elevation.shadow.overflow.perimeter',
+			'transparent',
+		)} 0px, transparent 1px )`,
+		top: '0px',
+		left: 0,
+		display: 'block',
+	},
+	[`& .${shadowClassNames.RIGHT_SHADOW}::after`]: {
+		background: `linear-gradient( to right, transparent 0, ${token(
+			'elevation.shadow.overflow.spread',
+			N40A,
+		)} 140% ), linear-gradient( to left, ${token(
+			'elevation.shadow.overflow.perimeter',
+			'transparent',
+		)} 0px, transparent 1px )`,
+		right: '0px',
+		top: '0px',
+		display: 'block',
+	},
+	[`& .${shadowObserverClassNames.SENTINEL_LEFT}`]: {
+		height: '100%',
+		width: '0px',
+		minWidth: '0px',
+	},
+	[`& .${shadowObserverClassNames.SENTINEL_RIGHT}`]: {
+		height: '100%',
+		width: '0px',
+		minWidth: '0px',
+	},
 });
 
 export { shadowSharedStyle };

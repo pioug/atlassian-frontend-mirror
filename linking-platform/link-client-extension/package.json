@@ -48,7 +48,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "react-dom": "^16.8.0",
@@ -92,6 +91,5 @@
         "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

@@ -20,187 +20,177 @@ import commonMessages from '../messages';
 import { Modes } from '../types';
 
 interface Props {
-  onSearch: (value: string) => void;
-  mode: keyof typeof Modes;
-  focus: boolean;
-  onClick: (e: React.MouseEvent) => void;
-  onKeyDown: (e: React.KeyboardEvent) => void;
-  searchTerm?: string;
-  items: QuickInsertItem[];
-  selectedItemIndex?: number;
+	onSearch: (value: string) => void;
+	mode: keyof typeof Modes;
+	focus: boolean;
+	onClick: (e: React.MouseEvent) => void;
+	onKeyDown: (e: React.KeyboardEvent) => void;
+	searchTerm?: string;
+	items: QuickInsertItem[];
+	selectedItemIndex?: number;
 }
 
 function ElementSearch({
-  onSearch,
-  mode,
-  intl: { formatMessage },
-  focus,
-  onClick,
-  onKeyDown,
-  searchTerm,
-  items,
-  selectedItemIndex,
+	onSearch,
+	mode,
+	intl: { formatMessage },
+	focus,
+	onClick,
+	onKeyDown,
+	searchTerm,
+	items,
+	selectedItemIndex,
 }: Props & WrappedComponentProps): JSX.Element {
-  const ref = useFocus(focus);
-  const assistiveTextRef = useRef<HTMLDivElement>(null);
+	const ref = useFocus(focus);
+	const assistiveTextRef = useRef<HTMLDivElement>(null);
 
-  const [inputFocused, setInputFocused] = useState(false);
+	const [inputFocused, setInputFocused] = useState(false);
 
-  useLayoutEffect(() => {
-    if (assistiveTextRef) {
-      const assistiveDiv = assistiveTextRef.current;
-      /**
-       * We need to remove and set attributes, for the proper working of screen readers.
-       */
-      assistiveDiv?.removeAttribute('aria-live');
-      assistiveDiv?.setAttribute('aria-live', 'polite');
-    }
-  }, [items, formatMessage]);
+	useLayoutEffect(() => {
+		if (assistiveTextRef) {
+			const assistiveDiv = assistiveTextRef.current;
+			/**
+			 * We need to remove and set attributes, for the proper working of screen readers.
+			 */
+			assistiveDiv?.removeAttribute('aria-live');
+			assistiveDiv?.setAttribute('aria-live', 'polite');
+		}
+	}, [items, formatMessage]);
 
-  const onChange = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    onSearch(value);
-  };
-  const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    setInputFocused(true);
-  };
-  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    setInputFocused(false);
-  };
+	const onChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+		onSearch(value);
+	};
+	const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+		setInputFocused(true);
+	};
+	const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+		setInputFocused(false);
+	};
 
-  const getFormattedMessage = (itemsCount: number): string => {
-    if (searchTerm === '') {
-      return `${formatMessage(commonMessages.assistiveTextDefault, {
-        count: itemsCount,
-      })}`;
-    }
-    if (itemsCount > 1) {
-      return `${formatMessage(commonMessages.assistiveTextResult, {
-        count: itemsCount,
-      })}`;
-    }
-    if (itemsCount === 1) {
-      return `${formatMessage(commonMessages.assistiveTextResult, {
-        count: itemsCount,
-      })}`;
-    }
-    return formatMessage(commonMessages.assistiveTextResult, {
-      count: itemsCount,
-    });
-  };
+	const getFormattedMessage = (itemsCount: number): string => {
+		if (searchTerm === '') {
+			return `${formatMessage(commonMessages.assistiveTextDefault, {
+				count: itemsCount,
+			})}`;
+		}
+		if (itemsCount > 1) {
+			return `${formatMessage(commonMessages.assistiveTextResult, {
+				count: itemsCount,
+			})}`;
+		}
+		if (itemsCount === 1) {
+			return `${formatMessage(commonMessages.assistiveTextResult, {
+				count: itemsCount,
+			})}`;
+		}
+		return formatMessage(commonMessages.assistiveTextResult, {
+			count: itemsCount,
+		});
+	};
 
-  const assistiveMessage = getFormattedMessage(items?.length);
+	const assistiveMessage = getFormattedMessage(items?.length);
 
-  const isInputNotFocusedAndItemSelected =
-    !inputFocused && selectedItemIndex !== undefined;
-  const ariaActiveDescendant = isInputNotFocusedAndItemSelected
-    ? `searched-item-${selectedItemIndex}`
-    : undefined;
+	const isInputNotFocusedAndItemSelected = !inputFocused && selectedItemIndex !== undefined;
+	const ariaActiveDescendant = isInputNotFocusedAndItemSelected
+		? `searched-item-${selectedItemIndex}`
+		: undefined;
 
-  return (
-    <div css={[wrapper, mode === Modes.inline && wrapperInline]}>
-      <Textfield
-        ref={ref}
-        onChange={onChange}
-        onClick={onClick}
-        onFocus={onFocus}
-        onKeyDown={onKeyDown}
-        onBlur={onBlur}
-        elemBeforeInput={
-          <div
-            css={elementBeforeInput}
-            data-testid="element_search__element_before_input"
-            aria-hidden="true"
-          >
-            <SearchIcon
-              size="medium"
-              label="Advanced search"
-              primaryColor="inherit"
-            />
-          </div>
-        }
-        elemAfterInput={
-          <div
-            css={elementAfterInput}
-            data-testid="element_search__element_after_input"
-          >
-            <div css={styledShortcut}>
-              &#9166; {formatMessage(commonMessages.elementAfterInputMessage)}
-            </div>
-          </div>
-        }
-        placeholder={formatMessage(commonMessages.placeHolderMessage)}
-        aria-label="search"
-        aria-labelledby="search-assistive"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className="js-search-input"
-        role="combobox"
-        aria-activedescendant={ariaActiveDescendant}
-        value={searchTerm}
-      />
-      <span
-        id="search-assistive"
-        ref={assistiveTextRef}
-        aria-live="polite"
-        aria-atomic="true"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className="assistive"
-      >
-        {assistiveMessage}
-      </span>
-    </div>
-  );
+	return (
+		<div css={[wrapper, mode === Modes.inline && wrapperInline]}>
+			<Textfield
+				ref={ref}
+				onChange={onChange}
+				onClick={onClick}
+				onFocus={onFocus}
+				onKeyDown={onKeyDown}
+				onBlur={onBlur}
+				elemBeforeInput={
+					<div
+						css={elementBeforeInput}
+						data-testid="element_search__element_before_input"
+						aria-hidden="true"
+					>
+						<SearchIcon size="medium" label="Advanced search" primaryColor="inherit" />
+					</div>
+				}
+				elemAfterInput={
+					<div css={elementAfterInput} data-testid="element_search__element_after_input">
+						<div css={styledShortcut}>
+							&#9166; {formatMessage(commonMessages.elementAfterInputMessage)}
+						</div>
+					</div>
+				}
+				placeholder={formatMessage(commonMessages.placeHolderMessage)}
+				aria-label="search"
+				aria-labelledby="search-assistive"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="js-search-input"
+				role="combobox"
+				aria-activedescendant={ariaActiveDescendant}
+				value={searchTerm}
+			/>
+			<span
+				id="search-assistive"
+				ref={assistiveTextRef}
+				aria-live="polite"
+				aria-atomic="true"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="assistive"
+			>
+				{assistiveMessage}
+			</span>
+		</div>
+	);
 }
 
 const styledShortcut = css(shortcutStyle, {
-  padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
-  width: token('space.600', '48px'),
+	padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
+	width: token('space.600', '48px'),
 });
 
 const wrapper = css({
-  '& > [data-ds--text-field--container]': {
-    height: `${GRID_SIZE * 6}px`,
-    borderRadius: `${GRID_SIZE}px`,
-    flex: '1 1 100%',
-    overflow: 'visible',
-    '& > [data-ds--text-field--input]': {
-      fontSize: relativeFontSizeToBase16(14),
-      padding: `${token('space.100', '8px')} ${token(
-        'space.075',
-        '6px',
-      )} ${token('space.100', '8px')} 0`,
-    },
-  },
+	'& > [data-ds--text-field--container]': {
+		height: `${GRID_SIZE * 6}px`,
+		borderRadius: `${GRID_SIZE}px`,
+		flex: '1 1 100%',
+		overflow: 'visible',
+		'& > [data-ds--text-field--input]': {
+			fontSize: relativeFontSizeToBase16(14),
+			padding: `${token('space.100', '8px')} ${token(
+				'space.075',
+				'6px',
+			)} ${token('space.100', '8px')} 0`,
+		},
+	},
 });
 
 const wrapperInline = css({
-  '& > [data-ds--text-field--container]': {
-    height: `${GRID_SIZE * 5}px`,
-    flex: 'none',
-    overflow: 'revert',
-  },
+	'& > [data-ds--text-field--container]': {
+		height: `${GRID_SIZE * 5}px`,
+		flex: 'none',
+		overflow: 'revert',
+	},
 });
 
 const elementBeforeInput = css({
-  margin: `1px ${token('space.075', '6px')} 0 ${token('space.100', '8px')}`,
-  color: token('color.icon', N200),
-  'span, svg': {
-    height: '20px',
-    width: '20px',
-  },
+	margin: `1px ${token('space.075', '6px')} 0 ${token('space.100', '8px')}`,
+	color: token('color.icon', N200),
+	'span, svg': {
+		height: '20px',
+		width: '20px',
+	},
 });
 
 const elementAfterInput = css({
-  margin: `0 ${token('space.100', '8px')}`,
-  height: SEARCH_ITEM_HEIGHT_WIDTH,
-  textAlign: 'center',
+	margin: `0 ${token('space.100', '8px')}`,
+	height: SEARCH_ITEM_HEIGHT_WIDTH,
+	textAlign: 'center',
 });
 
 const MemoizedElementSearchWithAnalytics = memo(
-  withAnalyticsContext({
-    component: 'Searchbar',
-  })(injectIntl(ElementSearch)),
+	withAnalyticsContext({
+		component: 'Searchbar',
+	})(injectIntl(ElementSearch)),
 );
 
 export default MemoizedElementSearchWithAnalytics;

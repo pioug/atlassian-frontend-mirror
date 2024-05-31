@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  md,
-  Example,
-  Props,
-  code,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
+import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
 export default md`
 ${(<AtlassianInternalWarning />)}
@@ -24,11 +18,11 @@ ReactDOM.render(<ReactRenderer document={DOCUMENT} />, container);
 ## Example
 
 ${(
-  <Example
-    Component={require('../examples/1-with-providers').default}
-    title="With Providers"
-    source={require('!!raw-loader!../examples/1-with-providers')}
-  />
+	<Example
+		Component={require('../examples/1-with-providers').default}
+		title="With Providers"
+		source={require('!!raw-loader!../examples/1-with-providers')}
+	/>
 )}
 
 ## Best practices to prevent performance issues
@@ -130,11 +124,11 @@ ReactDOM.render(<ReactRenderer document={DOCUMENT} truncated={true} maxHeight={7
 `}
 
 ${(
-  <Example
-    Component={require('../examples/15-truncated').default}
-    title="Truncated"
-    source={require('!!raw-loader!../examples/15-truncated')}
-  />
+	<Example
+		Component={require('../examples/15-truncated').default}
+		title="Truncated"
+		source={require('!!raw-loader!../examples/15-truncated')}
+	/>
 )}
 
 ## Theming and dark mode support
@@ -146,9 +140,6 @@ Full light and dark mode support for the Editor is a work in progress. Currently
 - Custom table backgrounds
 
 ${(
-  <Props
-    heading="Props"
-    props={require('!!extract-react-types-loader!../src/ui/Renderer/index')}
-  />
+	<Props heading="Props" props={require('!!extract-react-types-loader!../src/ui/Renderer/index')} />
 )}
 `;

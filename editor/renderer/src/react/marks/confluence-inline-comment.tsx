@@ -3,19 +3,16 @@ import { Component } from 'react';
 import { type MarkProps } from '../types';
 
 export interface Props {
-  reference: string;
+	reference: string;
 }
 
-export default class ConfluenceInlineComment extends Component<
-  MarkProps<Props>,
-  {}
-> {
-  render() {
-    const { reference, children } = this.props;
-    return (
-      <span data-mark-type="confluenceInlineComment" data-reference={reference}>
-        {children}
-      </span>
-    );
-  }
+export default class ConfluenceInlineComment extends Component<MarkProps<Props>, {}> {
+	render() {
+		const { reference, children } = this.props;
+		return (
+			<span data-mark-type="confluenceInlineComment" data-reference={reference}>
+				{children}
+			</span>
+		);
+	}
 }

@@ -19,35 +19,30 @@ import type { LengthGuide } from './types';
  * @returns A collection of LengthGuide objects which can be used to draw left & right guides
  */
 export const createGuidesFromLengths = (
-  lengths: number[],
-  hasFullWidthGuide: boolean = false,
+	lengths: number[],
+	hasFullWidthGuide: boolean = false,
 ): LengthGuide[] => {
-  return Array.from(new Set(lengths)).reduce<LengthGuide[]>(
-    (acc, length, index) => {
-      const h = length * 0.5;
-      if (length === 0) {
-        return [...acc, { left: 0, right: 0, length }];
-      }
-      if (!h || !Number.isFinite(length)) {
-        // Filter out nonsensical values, null, undefined, NaN, empty string
-        return acc;
-      }
+	return Array.from(new Set(lengths)).reduce<LengthGuide[]>((acc, length, index) => {
+		const h = length * 0.5;
+		if (length === 0) {
+			return [...acc, { left: 0, right: 0, length }];
+		}
+		if (!h || !Number.isFinite(length)) {
+			// Filter out nonsensical values, null, undefined, NaN, empty string
+			return acc;
+		}
 
-      return [
-        ...acc,
-        {
-          left: -h,
-          right: h,
-          length,
-          // Assumes the full width guide is always the last length in the array
-          ...(hasFullWidthGuide && index === lengths.length - 1
-            ? { isFullWidth: true }
-            : {}),
-        },
-      ];
-    },
-    [],
-  );
+		return [
+			...acc,
+			{
+				left: -h,
+				right: h,
+				length,
+				// Assumes the full width guide is always the last length in the array
+				...(hasFullWidthGuide && index === lengths.length - 1 ? { isFullWidth: true } : {}),
+			},
+		];
+	}, []);
 };
 
 /**
@@ -57,40 +52,40 @@ export const createGuidesFromLengths = (
  *
  */
 export const createFixedGuidelinesFromLengths = (
-  lengths: number[],
-  key: string = 'guide',
-  hasFullWidthGuide: boolean = false,
+	lengths: number[],
+	key: string = 'guide',
+	hasFullWidthGuide: boolean = false,
 ): { key: string; position: { x: number } }[] => {
-  return createGuidesFromLengths(lengths, hasFullWidthGuide).reduce<
-    { key: string; position: { x: number } }[]
-  >((acc, { left, right, length, isFullWidth }) => {
-    if (length === 0) {
-      return [
-        ...acc,
-        {
-          key: `${key}-${length}-centre`,
-          position: {
-            x: left,
-          },
-        },
-      ];
-    } else {
-      return [
-        ...acc,
-        {
-          key: `${key}-${length}-left`,
-          position: {
-            x: left,
-          },
-        },
-        {
-          key: `${key}-${length}-right`,
-          position: {
-            x: right,
-          },
-          ...(isFullWidth ? { isFullWidth: true } : {}),
-        },
-      ];
-    }
-  }, []);
+	return createGuidesFromLengths(lengths, hasFullWidthGuide).reduce<
+		{ key: string; position: { x: number } }[]
+	>((acc, { left, right, length, isFullWidth }) => {
+		if (length === 0) {
+			return [
+				...acc,
+				{
+					key: `${key}-${length}-centre`,
+					position: {
+						x: left,
+					},
+				},
+			];
+		} else {
+			return [
+				...acc,
+				{
+					key: `${key}-${length}-left`,
+					position: {
+						x: left,
+					},
+				},
+				{
+					key: `${key}-${length}-right`,
+					position: {
+						x: right,
+					},
+					...(isFullWidth ? { isFullWidth: true } : {}),
+				},
+			];
+		}
+	}, []);
 };

@@ -337,6 +337,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Sivun toiminnot',
   'fabric.editor.panel.backgroundColor': 'Taustaväri',
   'fabric.editor.panel.emoji': 'Lisää emoji',
+  'fabric.editor.panel.panelsGroup': 'Paneelityypit',
   'fabric.editor.pasteOptions': 'Liittämisasetukset',
   'fabric.editor.pastePlainText': 'Liimaa tavallinen teksti',
   'fabric.editor.placeholderAltText': 'Kuvaile tätä kuvaa vaihtoehtoisella tekstillä',
@@ -414,7 +415,7 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} x {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Taulukon koon valitsin',
   'fabric.editor.tables.adjustColumn': 'Säädä saraketta',
-  'fabric.editor.tables.columnResizeLast': 'Voit muuttaa tämän sarakkeen kokoa vain vasemmalla.',
+  'fabric.editor.tables.columnResizeLast': 'Voit muuttaa tämän sarakkeen kokoa vain vasemmalta puolelta.',
   'fabric.editor.tables.columnResizeOverflow':
     'Voit muuttaa tämän sarakkeen kokoa vain, kun taulukossa on vierityspalkki.',
   'fabric.editor.tables.columnWidth':

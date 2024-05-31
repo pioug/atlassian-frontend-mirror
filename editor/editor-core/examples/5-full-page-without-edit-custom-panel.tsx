@@ -5,13 +5,13 @@ import { exampleDocument } from '../example-helpers/example-doc-with-custom-pane
 import { default as FullPageExample } from './5-full-page';
 
 const editorProps = {
-  defaultValue: exampleDocument,
-  allowPanel: {
-    allowCustomPanel: true,
-    allowCustomPanelEdit: false,
-  },
+	defaultValue: exampleDocument,
+	allowPanel: {
+		allowCustomPanel: true,
+		allowCustomPanelEdit: false,
+	},
 };
 
 export default function Example() {
-  return <FullPageExample editorProps={editorProps} />;
+	return <FullPageExample editorProps={editorProps} />;
 }

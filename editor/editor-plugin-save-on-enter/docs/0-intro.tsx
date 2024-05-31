@@ -7,16 +7,16 @@ import { createEditorUseOnlyNotice } from './editor-use-only';
 
 export default md`
   ${createEditorUseOnlyNotice('Editor Plugin Save-on-enter', [
-    { name: 'Editor Core', link: '/packages/editor/editor-core' },
-  ])}
+		{ name: 'Editor Core', link: '/packages/editor/editor-core' },
+	])}
   ${(
-    <>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ marginTop: token('space.100', '8px') }}>
-        <AtlassianInternalWarning />
-      </div>
-    </>
-  )}
+		<>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ marginTop: token('space.100', '8px') }}>
+				<AtlassianInternalWarning />
+			</div>
+		</>
+	)}
   This package includes the Save-on-enter plugin used by @atlaskit/editor-core.
   ## Usage
 ---

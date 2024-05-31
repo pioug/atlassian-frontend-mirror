@@ -339,6 +339,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Sidåtgärder',
   'fabric.editor.panel.backgroundColor': 'Bakgrundsfärg',
   'fabric.editor.panel.emoji': 'Lägg till emoji',
+  'fabric.editor.panel.panelsGroup': 'Paneltyper',
   'fabric.editor.pasteOptions': 'Inklistringsalternativ',
   'fabric.editor.pastePlainText': 'Klistra in oformaterad text',
   'fabric.editor.placeholderAltText': 'Beskriv den här bilden med alternativ text',

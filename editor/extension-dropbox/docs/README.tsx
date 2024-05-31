@@ -50,12 +50,10 @@ In the dropbox form, you will need to add the domains you wish the plugin to run
 
 ### Final important step
 ${(
-  <>
-    <p />
-    <SectionMessage>
-      Without this step, your extension will not render
-    </SectionMessage>
-  </>
+	<>
+		<p />
+		<SectionMessage>Without this step, your extension will not render</SectionMessage>
+	</>
 )}
 
 As we are mounting the dropbox picker in an iframe, dropbox needs to whitelist the domains on which it will run. You will need to
@@ -65,12 +63,12 @@ few days to get the domains whitelisted for your app.
 In addition to this, you need to make sure your security permissions for \`X-Frame-Options\` and a \`Content-Security-Policy\`, otherwise dropbox will deny permissiones for the app.
 
 ${(
-  <>
-    <p />
-    <SectionMessage>
-      You should likely set up two apps, one for local testing, and one for
-      production - make sure each has its needed domains allowed.
-    </SectionMessage>
-  </>
+	<>
+		<p />
+		<SectionMessage>
+			You should likely set up two apps, one for local testing, and one for production - make sure
+			each has its needed domains allowed.
+		</SectionMessage>
+	</>
 )}
 `;

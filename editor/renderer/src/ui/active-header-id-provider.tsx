@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 
-const { Provider, Consumer } = React.createContext<string | undefined>(
-  undefined,
-);
+const { Provider, Consumer } = React.createContext<string | undefined>(undefined);
 
 type Props = {
-  nestedHeaderIds: string[];
-  onNestedHeaderIdMatch: () => void;
+	nestedHeaderIds: string[];
+	onNestedHeaderIdMatch: () => void;
 };
 
 /**
@@ -19,32 +17,26 @@ type Props = {
  * By exposing `onNestedHeaderIdMatch` here we can control when will consumers be notified:
  * only when a `newActiveHeaderId` comes in from the Provider and the list of header ids includes it.
  */
-const ActiveHeaderIdConsumer = ({
-  nestedHeaderIds,
-  onNestedHeaderIdMatch,
-}: Props) => {
-  const [activeHeaderId, setActiveHeaderId] = useState<string | undefined>();
+const ActiveHeaderIdConsumer = ({ nestedHeaderIds, onNestedHeaderIdMatch }: Props) => {
+	const [activeHeaderId, setActiveHeaderId] = useState<string | undefined>();
 
-  return (
-    <Consumer>
-      {(newActiveHeaderId) => {
-        if (
-          !newActiveHeaderId ||
-          !nestedHeaderIds.includes(newActiveHeaderId)
-        ) {
-          setActiveHeaderId(undefined);
-        } else if (
-          newActiveHeaderId !== activeHeaderId &&
-          nestedHeaderIds.includes(newActiveHeaderId)
-        ) {
-          setActiveHeaderId(newActiveHeaderId);
-          onNestedHeaderIdMatch();
-        }
+	return (
+		<Consumer>
+			{(newActiveHeaderId) => {
+				if (!newActiveHeaderId || !nestedHeaderIds.includes(newActiveHeaderId)) {
+					setActiveHeaderId(undefined);
+				} else if (
+					newActiveHeaderId !== activeHeaderId &&
+					nestedHeaderIds.includes(newActiveHeaderId)
+				) {
+					setActiveHeaderId(newActiveHeaderId);
+					onNestedHeaderIdMatch();
+				}
 
-        return null;
-      }}
-    </Consumer>
-  );
+				return null;
+			}}
+		</Consumer>
+	);
 };
 
 export { Provider as ActiveHeaderIdProvider, ActiveHeaderIdConsumer };

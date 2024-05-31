@@ -8,63 +8,63 @@ import { SmartCardContext } from '@atlaskit/link-provider';
 import type { CardContext as CardContextType } from '@atlaskit/link-provider';
 
 function useContextMemoized<T>(reactContext: React.Context<T>) {
-  const value = React.useContext(reactContext);
-  const context = React.useMemo(
-    () => ({
-      Provider: reactContext.Provider,
-      Consumer: reactContext.Consumer,
-      value,
-    }),
-    [value, reactContext],
-  );
-  return context;
+	const value = React.useContext(reactContext);
+	const context = React.useMemo(
+		() => ({
+			Provider: reactContext.Provider,
+			Consumer: reactContext.Consumer,
+			value,
+		}),
+		[value, reactContext],
+	);
+	return context;
 }
 
 // injects contexts via old context API to children
 // and gives access to the original Provider so that
 // the child can re-emit it
 export const ContextAdapter = ({ children }: React.PropsWithChildren<{}>) => {
-  const card = useContextMemoized(SmartCardContext);
-  const analytics = useContextMemoized(AnalyticsReactContext);
-  return (
-    <LegacyContextAdapter card={card} analytics={analytics}>
-      {children}
-    </LegacyContextAdapter>
-  );
+	const card = useContextMemoized(SmartCardContext);
+	const analytics = useContextMemoized(AnalyticsReactContext);
+	return (
+		<LegacyContextAdapter card={card} analytics={analytics}>
+			{children}
+		</LegacyContextAdapter>
+	);
 };
 
 type ContextWrapper<T> = {
-  Provider: React.Provider<T>;
-  Consumer: React.Consumer<T>;
-  value: T;
+	Provider: React.Provider<T>;
+	Consumer: React.Consumer<T>;
+	value: T;
 };
 
 type LegacyContextAdapterProps = {
-  card?: ContextWrapper<CardContextType | undefined>;
-  analytics?: ContextWrapper<AnalyticsReactContextInterface>;
-  children?: React.ReactNode;
+	card?: ContextWrapper<CardContextType | undefined>;
+	analytics?: ContextWrapper<AnalyticsReactContextInterface>;
+	children?: React.ReactNode;
 };
 
 class LegacyContextAdapter extends React.PureComponent<
-  React.PropsWithChildren<LegacyContextAdapterProps>,
-  {}
+	React.PropsWithChildren<LegacyContextAdapterProps>,
+	{}
 > {
-  static childContextTypes = {
-    contextAdapter: PropTypes.object,
-  };
+	static childContextTypes = {
+		contextAdapter: PropTypes.object,
+	};
 
-  contextState: LegacyContextAdapterProps = {};
+	contextState: LegacyContextAdapterProps = {};
 
-  getChildContext() {
-    return {
-      contextAdapter: {
-        card: this.props.card,
-        analytics: this.props.analytics,
-      },
-    };
-  }
+	getChildContext() {
+		return {
+			contextAdapter: {
+				card: this.props.card,
+				analytics: this.props.analytics,
+			},
+		};
+	}
 
-  render() {
-    return this.props.children;
-  }
+	render() {
+		return this.props.children;
+	}
 }

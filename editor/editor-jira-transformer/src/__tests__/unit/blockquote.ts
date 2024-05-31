@@ -7,26 +7,21 @@ const schema = createJIRASchema({ allowBlockQuote: true, allowLists: true });
 // Nodes
 
 describe('JIRATransformer', () => {
-  describe('blockquote', () => {
-    checkParseEncodeRoundTrips(
-      'simple content',
-      schema,
-      `<blockquote><p>content</p></blockquote>`,
-      doc(blockquote(p('content'))),
-    );
+	describe('blockquote', () => {
+		checkParseEncodeRoundTrips(
+			'simple content',
+			schema,
+			`<blockquote><p>content</p></blockquote>`,
+			doc(blockquote(p('content'))),
+		);
 
-    checkParse(
-      'empty node',
-      schema,
-      [`<blockquote></blockquote>`],
-      doc(blockquote(p(''))),
-    );
+		checkParse('empty node', schema, [`<blockquote></blockquote>`], doc(blockquote(p(''))));
 
-    checkParseEncodeRoundTrips(
-      'no content',
-      schema,
-      `<blockquote><p></p></blockquote>`,
-      doc(blockquote(p(''))),
-    );
-  });
+		checkParseEncodeRoundTrips(
+			'no content',
+			schema,
+			`<blockquote><p></p></blockquote>`,
+			doc(blockquote(p(''))),
+		);
+	});
 });

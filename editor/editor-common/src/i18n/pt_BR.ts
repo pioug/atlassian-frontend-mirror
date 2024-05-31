@@ -342,6 +342,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Ações de página',
   'fabric.editor.panel.backgroundColor': 'Cor de fundo',
   'fabric.editor.panel.emoji': 'Adicionar emoji',
+  'fabric.editor.panel.panelsGroup': 'Tipos de painel',
   'fabric.editor.pasteOptions': 'Colar opções',
   'fabric.editor.pastePlainText': 'Colar texto sem formatação',
   'fabric.editor.placeholderAltText': 'Descrever esta imagem com texto alt',

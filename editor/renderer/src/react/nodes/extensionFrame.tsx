@@ -10,34 +10,30 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 const containerCSS = css({
-  minHeight: '100px',
+	minHeight: '100px',
 });
 
 export type Props = React.PropsWithChildren<{
-  serializer: Serializer<any>;
-  extensionHandlers?: ExtensionHandlers;
-  rendererContext: RendererContext;
-  providers: ProviderFactory;
-  extensionType: string;
-  extensionKey: string;
-  path?: PMNode[];
-  originalContent?: any;
-  parameters?: any;
-  content?: any;
-  layout?: ExtensionLayout;
-  localId?: string;
+	serializer: Serializer<any>;
+	extensionHandlers?: ExtensionHandlers;
+	rendererContext: RendererContext;
+	providers: ProviderFactory;
+	extensionType: string;
+	extensionKey: string;
+	path?: PMNode[];
+	originalContent?: any;
+	parameters?: any;
+	content?: any;
+	layout?: ExtensionLayout;
+	localId?: string;
 }>;
 
 const ExtensionFrame = (props: Props) => {
-  return (
-    <div
-      css={containerCSS}
-      data-extension-frame="true"
-      style={{ flexBasis: `100%` }}
-    >
-      {props.children}
-    </div>
-  );
+	return (
+		<div css={containerCSS} data-extension-frame="true" style={{ flexBasis: `100%` }}>
+			{props.children}
+		</div>
+	);
 };
 
 export default ExtensionFrame;

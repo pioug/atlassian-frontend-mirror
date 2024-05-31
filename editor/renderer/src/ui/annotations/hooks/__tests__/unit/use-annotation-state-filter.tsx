@@ -7,87 +7,87 @@ import { useInlineCommentsFilter } from '../../use-inline-comments-filter';
 
 let container: HTMLElement | null;
 beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
+	container = document.createElement('div');
+	document.body.appendChild(container);
 });
 
 afterEach(() => {
-  document.body.removeChild(container!);
-  container = null;
+	document.body.removeChild(container!);
+	container = null;
 });
 
 describe('Annotations: Hooks/useInlineCommentsFilter', () => {
-  beforeEach(() => {});
+	beforeEach(() => {});
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 
-  const Wrapper = ({
-    children,
-    states,
-  }: React.PropsWithChildren<{ states: any; children?: ReactNode }>) => {
-    return (
-      <InlineCommentsStateContext.Provider value={states}>
-        {children}
-      </InlineCommentsStateContext.Provider>
-    );
-  };
-  describe('#useInlineCommentsFilter', () => {
-    describe('when there is InlineCommentsStateContext', () => {
-      it('should filter the annotations', () => {
-        const state = AnnotationMarkStates.ACTIVE;
-        const annotationIds: string[] = ['lol1', 'lol2'];
-        const fakeFunction = jest.fn();
+	const Wrapper = ({
+		children,
+		states,
+	}: React.PropsWithChildren<{ states: any; children?: ReactNode }>) => {
+		return (
+			<InlineCommentsStateContext.Provider value={states}>
+				{children}
+			</InlineCommentsStateContext.Provider>
+		);
+	};
+	describe('#useInlineCommentsFilter', () => {
+		describe('when there is InlineCommentsStateContext', () => {
+			it('should filter the annotations', () => {
+				const state = AnnotationMarkStates.ACTIVE;
+				const annotationIds: string[] = ['lol1', 'lol2'];
+				const fakeFunction = jest.fn();
 
-        const CustomComp = ({ annotationIds, state }: any) => {
-          const result = useInlineCommentsFilter({
-            annotationIds,
-            filter: {
-              state,
-            },
-          });
-          fakeFunction(result);
-          return null;
-        };
+				const CustomComp = ({ annotationIds, state }: any) => {
+					const result = useInlineCommentsFilter({
+						annotationIds,
+						filter: {
+							state,
+						},
+					});
+					fakeFunction(result);
+					return null;
+				};
 
-        render(
-          <Wrapper states={{}}>
-            <CustomComp annotationIds={annotationIds} state={state} />
-          </Wrapper>,
-        );
+				render(
+					<Wrapper states={{}}>
+						<CustomComp annotationIds={annotationIds} state={state} />
+					</Wrapper>,
+				);
 
-        expect(fakeFunction).toHaveBeenCalledWith([]);
+				expect(fakeFunction).toHaveBeenCalledWith([]);
 
-        let nextState: Record<string, AnnotationMarkStates> = {
-          lol1: AnnotationMarkStates.ACTIVE,
-        };
-        render(
-          <Wrapper states={nextState}>
-            <CustomComp annotationIds={annotationIds} state={state} />
-          </Wrapper>,
-        );
-        expect(fakeFunction).toHaveBeenCalledWith(['lol1']);
+				let nextState: Record<string, AnnotationMarkStates> = {
+					lol1: AnnotationMarkStates.ACTIVE,
+				};
+				render(
+					<Wrapper states={nextState}>
+						<CustomComp annotationIds={annotationIds} state={state} />
+					</Wrapper>,
+				);
+				expect(fakeFunction).toHaveBeenCalledWith(['lol1']);
 
-        nextState = {
-          lol2: AnnotationMarkStates.ACTIVE,
-          lol1: AnnotationMarkStates.ACTIVE,
-        };
-        render(
-          <Wrapper states={nextState}>
-            <CustomComp annotationIds={annotationIds} state={state} />
-          </Wrapper>,
-        );
-        expect(fakeFunction).toHaveBeenCalledWith(['lol1', 'lol2']);
+				nextState = {
+					lol2: AnnotationMarkStates.ACTIVE,
+					lol1: AnnotationMarkStates.ACTIVE,
+				};
+				render(
+					<Wrapper states={nextState}>
+						<CustomComp annotationIds={annotationIds} state={state} />
+					</Wrapper>,
+				);
+				expect(fakeFunction).toHaveBeenCalledWith(['lol1', 'lol2']);
 
-        render(
-          <Wrapper states={{}}>
-            <CustomComp annotationIds={annotationIds} state={state} />
-          </Wrapper>,
-        );
+				render(
+					<Wrapper states={{}}>
+						<CustomComp annotationIds={annotationIds} state={state} />
+					</Wrapper>,
+				);
 
-        expect(fakeFunction).toHaveBeenCalledWith([]);
-      });
-    });
-  });
+				expect(fakeFunction).toHaveBeenCalledWith([]);
+			});
+		});
+	});
 });

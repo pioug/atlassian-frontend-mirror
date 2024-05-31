@@ -10,43 +10,41 @@ import type { BlockTypePlugin } from '../index';
 import ToolbarBlockType from './ToolbarBlockType';
 
 interface PrimaryToolbarComponentProps {
-  isSmall: boolean;
-  isToolbarReducedSpacing: boolean;
-  disabled: boolean;
-  api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
-  popupsMountPoint?: HTMLElement;
-  popupsBoundariesElement?: HTMLElement;
-  popupsScrollableElement?: HTMLElement;
-  shouldUseDefaultRole: boolean;
+	isSmall: boolean;
+	isToolbarReducedSpacing: boolean;
+	disabled: boolean;
+	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
+	popupsMountPoint?: HTMLElement;
+	popupsBoundariesElement?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	shouldUseDefaultRole: boolean;
 }
 
 export function PrimaryToolbarComponent({
-  api,
-  isSmall,
-  disabled,
-  isToolbarReducedSpacing,
-  popupsMountPoint,
-  popupsBoundariesElement,
-  popupsScrollableElement,
-  shouldUseDefaultRole,
+	api,
+	isSmall,
+	disabled,
+	isToolbarReducedSpacing,
+	popupsMountPoint,
+	popupsBoundariesElement,
+	popupsScrollableElement,
+	shouldUseDefaultRole,
 }: PrimaryToolbarComponentProps) {
-  const { blockTypeState } = useSharedPluginState(api, ['blockType']);
-  const boundSetBlockType = (name: TextBlockTypes) =>
-    api?.core?.actions.execute(
-      api?.blockType?.commands?.setTextLevel(name, INPUT_METHOD.TOOLBAR),
-    );
-  return (
-    <ToolbarBlockType
-      isSmall={isSmall}
-      isDisabled={disabled}
-      isReducedSpacing={isToolbarReducedSpacing}
-      setTextLevel={boundSetBlockType}
-      pluginState={blockTypeState!}
-      popupsMountPoint={popupsMountPoint}
-      popupsBoundariesElement={popupsBoundariesElement}
-      popupsScrollableElement={popupsScrollableElement}
-      shouldUseDefaultRole={shouldUseDefaultRole}
-      api={api}
-    />
-  );
+	const { blockTypeState } = useSharedPluginState(api, ['blockType']);
+	const boundSetBlockType = (name: TextBlockTypes) =>
+		api?.core?.actions.execute(api?.blockType?.commands?.setTextLevel(name, INPUT_METHOD.TOOLBAR));
+	return (
+		<ToolbarBlockType
+			isSmall={isSmall}
+			isDisabled={disabled}
+			isReducedSpacing={isToolbarReducedSpacing}
+			setTextLevel={boundSetBlockType}
+			pluginState={blockTypeState!}
+			popupsMountPoint={popupsMountPoint}
+			popupsBoundariesElement={popupsBoundariesElement}
+			popupsScrollableElement={popupsScrollableElement}
+			shouldUseDefaultRole={shouldUseDefaultRole}
+			api={api}
+		/>
+	);
 }

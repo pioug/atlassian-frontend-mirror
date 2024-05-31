@@ -11,15 +11,15 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
  * is usually inside the text content.
  */
 const isNthParentOfType = (
-  nodeType: string,
-  depthAway: number,
+	nodeType: string,
+	depthAway: number,
 ): ((state: EditorState, view?: EditorView) => boolean) => {
-  return (state: EditorState): boolean => {
-    const { $from } = state.selection;
-    const parent = $from.node($from.depth - depthAway);
+	return (state: EditorState): boolean => {
+		const { $from } = state.selection;
+		const parent = $from.node($from.depth - depthAway);
 
-    return !!parent && parent.type === state.schema.nodes[nodeType];
-  };
+		return !!parent && parent.type === state.schema.nodes[nodeType];
+	};
 };
 
 export { isNthParentOfType };

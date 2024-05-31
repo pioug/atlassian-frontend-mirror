@@ -1,30 +1,29 @@
 export enum ResultStatus {
-  FULFILLED = 'fulfilled',
-  FAILED = 'failed',
+	FULFILLED = 'fulfilled',
+	FAILED = 'failed',
 }
 
 type FulfiledResult<T> = {
-  status: ResultStatus.FULFILLED;
-  value: T;
+	status: ResultStatus.FULFILLED;
+	value: T;
 };
 
 type RejectedResult = {
-  status: ResultStatus.FAILED;
-  reason: any;
+	status: ResultStatus.FAILED;
+	reason: any;
 };
 
-const isFullfilled = <T>(
-  result: FulfiledResult<T> | RejectedResult,
-): result is FulfiledResult<T> => result.status === ResultStatus.FULFILLED;
+const isFullfilled = <T>(result: FulfiledResult<T> | RejectedResult): result is FulfiledResult<T> =>
+	result.status === ResultStatus.FULFILLED;
 
 const markFullfilled = <T>(value: T): FulfiledResult<T> => ({
-  status: ResultStatus.FULFILLED,
-  value: value,
+	status: ResultStatus.FULFILLED,
+	value: value,
 });
 
 const markRejected = (error: any): RejectedResult => ({
-  status: ResultStatus.FAILED,
-  reason: error,
+	status: ResultStatus.FAILED,
+	reason: error,
 });
 
 /**
@@ -35,13 +34,11 @@ const markRejected = (error: any): RejectedResult => ({
  * @param promises
  */
 export const waitForAllPromises = <T>(
-  promises: Promise<T>[],
+	promises: Promise<T>[],
 ): Promise<(FulfiledResult<T> | RejectedResult)[]> => {
-  return Promise.all(
-    promises.map((result: Promise<T>) =>
-      result.then(markFullfilled).catch(markRejected),
-    ),
-  );
+	return Promise.all(
+		promises.map((result: Promise<T>) => result.then(markFullfilled).catch(markRejected)),
+	);
 };
 
 /**
@@ -49,37 +46,34 @@ export const waitForAllPromises = <T>(
  * care about rejected promises.
  * @param promises
  */
-export const waitForFirstFulfilledPromise = <T>(
-  promises: Promise<T>[],
-): Promise<T> => {
-  const rejectReasons: string[] = [];
+export const waitForFirstFulfilledPromise = <T>(promises: Promise<T>[]): Promise<T> => {
+	const rejectReasons: string[] = [];
 
-  return new Promise((resolve, reject) => {
-    promises.forEach((promise: Promise<T>) =>
-      promise
-        .then((value) => {
-          if (typeof value === 'undefined' || value === null) {
-            throw new Error(
-              `Result was not found but the method didn't reject/throw. Please ensure that it doesn't return null or undefined.`,
-            );
-          }
+	return new Promise((resolve, reject) => {
+		promises.forEach((promise: Promise<T>) =>
+			promise
+				.then((value) => {
+					if (typeof value === 'undefined' || value === null) {
+						throw new Error(
+							`Result was not found but the method didn't reject/throw. Please ensure that it doesn't return null or undefined.`,
+						);
+					}
 
-          resolve(value);
-        })
-        .catch((reason) => {
-          rejectReasons.push(reason);
-          if (rejectReasons.length === promises.length) {
-            reject(reason);
-          }
-        }),
-    );
-  });
+					resolve(value);
+				})
+				.catch((reason) => {
+					rejectReasons.push(reason);
+					if (rejectReasons.length === promises.length) {
+						reject(reason);
+					}
+				}),
+		);
+	});
 };
 
 /**
  * Find all fullfilled promises and return their values
  * @param results
  */
-export const getOnlyFulfilled = <T>(
-  results: (FulfiledResult<T> | RejectedResult)[],
-): T[] => results.filter(isFullfilled).map((result) => result.value);
+export const getOnlyFulfilled = <T>(results: (FulfiledResult<T> | RejectedResult)[]): T[] =>
+	results.filter(isFullfilled).map((result) => result.value);

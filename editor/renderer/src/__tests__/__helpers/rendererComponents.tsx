@@ -33,187 +33,187 @@ import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-cli
 
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 const providerFactory = ProviderFactory.create({
-  contextIdentifierProvider,
+	contextIdentifierProvider,
 });
 
 const defaultBaseRendererProps: Omit<RendererProps, 'document'> = {
-  adfStage: 'stage0',
-  dataProviders: providerFactory,
-  schema: getSchemaBasedOnStage('stage0'),
-  media: { allowLinking: true, allowCaptions: true },
+	adfStage: 'stage0',
+	dataProviders: providerFactory,
+	schema: getSchemaBasedOnStage('stage0'),
+	media: { allowLinking: true, allowCaptions: true },
 };
 
 export const generateRendererComponent = (
-  props: RendererProps,
-  options?: {
-    viewport?: { height?: number; width?: number };
-    mockDatasources?: boolean;
-  },
+	props: RendererProps,
+	options?: {
+		viewport?: { height?: number; width?: number };
+		mockDatasources?: boolean;
+	},
 ): ComponentType<React.PropsWithChildren<any>> => {
-  const renderProps = {
-    ...defaultBaseRendererProps,
-    ...props,
-  };
+	const renderProps = {
+		...defaultBaseRendererProps,
+		...props,
+	};
 
-  const mockDatasources = options?.mockDatasources ?? false;
+	const mockDatasources = options?.mockDatasources ?? false;
 
-  return () => {
-    const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
-    const datasourcesMocked = React.useRef(false);
-    if (mockDatasources && !datasourcesMocked.current) {
-      datasourcesMocked.current = true;
-      mockDatasourceFetchRequests({
-        initialVisibleColumnKeys: ['key', 'assignee', 'summary', 'description'],
-        delayedResponse: false,
-      });
-    }
+	return () => {
+		const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
+		const datasourcesMocked = React.useRef(false);
+		if (mockDatasources && !datasourcesMocked.current) {
+			datasourcesMocked.current = true;
+			mockDatasourceFetchRequests({
+				initialVisibleColumnKeys: ['key', 'assignee', 'summary', 'description'],
+				delayedResponse: false,
+			});
+		}
 
-    return (
-      <div
-        style={{
-          width: options?.viewport?.width ?? 'unset',
-          height: options?.viewport?.height ?? 'unset',
-        }}
-      >
-        <IntlProvider locale="en">
-          <SmartCardProvider client={smartCardClient}>
-            <MockMediaClientProvider>
-              <Renderer {...renderProps} />
-            </MockMediaClientProvider>
-          </SmartCardProvider>
-        </IntlProvider>
-      </div>
-    );
-  };
+		return (
+			<div
+				style={{
+					width: options?.viewport?.width ?? 'unset',
+					height: options?.viewport?.height ?? 'unset',
+				}}
+			>
+				<IntlProvider locale="en">
+					<SmartCardProvider client={smartCardClient}>
+						<MockMediaClientProvider>
+							<Renderer {...renderProps} />
+						</MockMediaClientProvider>
+					</SmartCardProvider>
+				</IntlProvider>
+			</div>
+		);
+	};
 };
 
 export const TableRendererOverflow = generateRendererComponent({
-  document: overflowTable,
-  appearance: 'full-page',
+	document: overflowTable,
+	appearance: 'full-page',
 });
 
 export const TableRendererWithInlineComments = () => (
-  <>
-    <TableRendererOverflow />
-    <div
-      style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        position: 'absolute',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        right: '200px',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        top: '70px',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        width: '300px',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        height: '50px',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        background: 'white',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        border: '1px solid red',
-      }}
-    >
-      Inline comments
-    </div>
-  </>
+	<>
+		<TableRendererOverflow />
+		<div
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				position: 'absolute',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				right: '200px',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				top: '70px',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				width: '300px',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				height: '50px',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				background: 'white',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				border: '1px solid red',
+			}}
+		>
+			Inline comments
+		</div>
+	</>
 );
 
 export const PixelWidthGreaterThenDefault = generateRendererComponent({
-  document: pixelWidthGreaterThenDefault,
-  appearance: 'full-page',
+	document: pixelWidthGreaterThenDefault,
+	appearance: 'full-page',
 });
 
 export const PixelWidthGreaterThenDefaultFullWidth = generateRendererComponent({
-  document: pixelWidthGreaterThenDefault,
-  appearance: 'full-width',
+	document: pixelWidthGreaterThenDefault,
+	appearance: 'full-width',
 });
 
 export const MediaWithPixelWidth = generateRendererComponent({
-  document: pixelWidthMedia,
-  appearance: 'full-page',
+	document: pixelWidthMedia,
+	appearance: 'full-page',
 });
 
 export const MediaWithPixelWidthFullWidth = generateRendererComponent({
-  document: pixelWidthMedia,
-  appearance: 'full-width',
+	document: pixelWidthMedia,
+	appearance: 'full-width',
 });
 
 export const MediaWithPixelWidthNested = generateRendererComponent({
-  document: pixelWidthMediaNested,
-  appearance: 'full-page',
+	document: pixelWidthMediaNested,
+	appearance: 'full-page',
 });
 
 export const MediaWithPixelWidthFullWidthNested = generateRendererComponent({
-  document: pixelWidthMediaNested,
-  appearance: 'full-width',
+	document: pixelWidthMediaNested,
+	appearance: 'full-width',
 });
 
 export const MediaImageInlineDefault = generateRendererComponent({
-  document: inlineImageDefault,
-  appearance: 'full-page',
+	document: inlineImageDefault,
+	appearance: 'full-page',
 });
 
 export const MediaImageInlineError = generateRendererComponent({
-  document: inlineImageError,
-  appearance: 'full-page',
+	document: inlineImageError,
+	appearance: 'full-page',
 });
 
 export const MediaImageInlineWithBorders = generateRendererComponent({
-  document: inlineImageWithBorders,
-  appearance: 'full-page',
+	document: inlineImageWithBorders,
+	appearance: 'full-page',
 });
 
 export const MediaImageInlineWithLinks = generateRendererComponent({
-  document: inlineImageWithLinks,
-  appearance: 'full-page',
+	document: inlineImageWithLinks,
+	appearance: 'full-page',
 });
 
 export const MediaImageInlineWithWideLayout = generateRendererComponent({
-  document: inlineImageWideLayout,
-  appearance: 'full-page',
+	document: inlineImageWideLayout,
+	appearance: 'full-page',
 });
 
 export const MediaImageInlineWithLinksAndBorders = generateRendererComponent({
-  document: inlineImageWithLinksAndBorders,
-  appearance: 'full-page',
+	document: inlineImageWithLinksAndBorders,
+	appearance: 'full-page',
 });
 
 export const DatasourceWithRichTextFullPage = generateRendererComponent(
-  {
-    document: datasourceWithRichtext,
-    appearance: 'full-page',
-  },
-  {
-    mockDatasources: true,
-  },
+	{
+		document: datasourceWithRichtext,
+		appearance: 'full-page',
+	},
+	{
+		mockDatasources: true,
+	},
 );
 
 export const DatasourceWithRichTextFullWidth = generateRendererComponent(
-  {
-    document: datasourceWithRichtext,
-    appearance: 'full-width',
-  },
-  {
-    mockDatasources: true,
-  },
+	{
+		document: datasourceWithRichtext,
+		appearance: 'full-width',
+	},
+	{
+		mockDatasources: true,
+	},
 );
 
 export const ListInsideBlockquote = generateRendererComponent(
-  {
-    document: listInBlockquote,
-    appearance: 'full-width',
-  },
-  {
-    mockDatasources: true,
-  },
+	{
+		document: listInBlockquote,
+		appearance: 'full-width',
+	},
+	{
+		mockDatasources: true,
+	},
 );
 
 export const MediaInsidePanelFullPage = generateRendererComponent(
-  {
-    document: panelWithMedia,
-    appearance: 'full-page',
-  },
-  {
-    mockDatasources: true,
-  },
+	{
+		document: panelWithMedia,
+		appearance: 'full-page',
+	},
+	{
+		mockDatasources: true,
+	},
 );

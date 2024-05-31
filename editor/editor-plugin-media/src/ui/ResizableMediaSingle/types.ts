@@ -11,20 +11,18 @@ import type { getPosHandler } from '../../types';
 export type EnabledHandles = { left?: boolean; right?: boolean };
 
 export type Props = MediaSingleProps & {
-  updateSize: (width: number | null, layout: MediaSingleLayout) => void;
-  getPos: getPosHandler;
-  view: EditorView;
-  lineLength: number;
-  gridSize: number;
-  containerWidth: number;
-  allowBreakoutSnapPoints?: boolean;
-  selected: boolean;
-  viewMediaClientConfig?: MediaClientConfig;
-  fullWidthMode?: boolean;
-  dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-  mediaSingleWidth?: number;
-  pluginInjectionApi:
-    | ExtractInjectionAPI<MediaNextEditorPluginType>
-    | undefined;
-  disableHandles?: boolean;
+	updateSize: (width: number | null, layout: MediaSingleLayout) => void;
+	getPos: getPosHandler;
+	view: EditorView;
+	lineLength: number;
+	gridSize: number;
+	containerWidth: number;
+	allowBreakoutSnapPoints?: boolean;
+	selected: boolean;
+	viewMediaClientConfig?: MediaClientConfig;
+	fullWidthMode?: boolean;
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	mediaSingleWidth?: number;
+	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	disableHandles?: boolean;
 };

@@ -5,22 +5,22 @@ import reducer from './reducer';
 import type { ExtensionState } from './types';
 
 const factory = pluginFactory(pluginKey, reducer, {
-  mapping(tr, state) {
-    const { positions: previousPositions } = state as ExtensionState;
-    if (!previousPositions) {
-      return state;
-    }
+	mapping(tr, state) {
+		const { positions: previousPositions } = state as ExtensionState;
+		if (!previousPositions) {
+			return state;
+		}
 
-    const positions = { ...previousPositions };
-    for (const key in positions) {
-      positions[key] = tr.mapping.map(positions[key]);
-    }
+		const positions = { ...previousPositions };
+		for (const key in positions) {
+			positions[key] = tr.mapping.map(positions[key]);
+		}
 
-    return {
-      ...state,
-      positions,
-    };
-  },
+		return {
+			...state,
+			positions,
+		};
+	},
 });
 
 export const createPluginState = factory.createPluginState;

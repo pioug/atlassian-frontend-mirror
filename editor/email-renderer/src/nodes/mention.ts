@@ -24,25 +24,25 @@ export const styles = `
 `;
 
 const ishighlightedMentionNode = (node: NodeSerializerOpts) => {
-  const highlightedMentionNodeID = node.context?.highlightedMentionNodeID;
-  return highlightedMentionNodeID && highlightedMentionNodeID === node.attrs.id;
+	const highlightedMentionNodeID = node.context?.highlightedMentionNodeID;
+	return highlightedMentionNodeID && highlightedMentionNodeID === node.attrs.id;
 };
 
 const resolveMention = (node: NodeSerializerOpts) => {
-  if (['all', 'here'].includes(node.attrs.id)) {
-    return '@' + node.attrs.id;
-  }
-  return node.text || '@unknown';
+	if (['all', 'here'].includes(node.attrs.id)) {
+		return '@' + node.attrs.id;
+	}
+	return node.text || '@unknown';
 };
 
 export default function mention(node: NodeSerializerOpts) {
-  const className = ishighlightedMentionNode(node)
-    ? createClassName('mention-highlighted')
-    : createClassName('mention');
+	const className = ishighlightedMentionNode(node)
+		? createClassName('mention-highlighted')
+		: createClassName('mention');
 
-  return createTag(
-    'span',
-    { class: className, 'data-user-id': node.attrs.id },
-    resolveMention(node),
-  );
+	return createTag(
+		'span',
+		{ class: className, 'data-user-id': node.attrs.id },
+		resolveMention(node),
+	);
 }

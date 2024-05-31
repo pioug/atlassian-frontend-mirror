@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "27.3.0",
+  "version": "27.4.1",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,8 @@
     "@atlaskit/outbound-auth-flow-client": "^3.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/popup": "^1.17.0",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
+    "@atlaskit/section-message": "^6.5.0",
     "@atlaskit/select": "^17.10.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/textarea": "^5.4.0",
@@ -96,7 +97,6 @@
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/analytics-tooling": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -201,6 +201,5 @@
     "platform.linking-platform.smart-card.enable-view-related-urls-action": {
       "type": "boolean"
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

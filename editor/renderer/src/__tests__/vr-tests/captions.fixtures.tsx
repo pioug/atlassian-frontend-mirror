@@ -12,27 +12,27 @@ import { Renderer } from '../../ui';
 import type { DocNode } from '@atlaskit/adf-schema';
 
 const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {
-  return (
-    <MockMediaClientProvider>
-      <Renderer
-        document={adf}
-        // @ts-expect-error
-        appearance={appearance}
-        adfStage={'stage0'}
-        media={{ allowLinking: true, allowCaptions: true }}
-      />
-    </MockMediaClientProvider>
-  );
+	return (
+		<MockMediaClientProvider>
+			<Renderer
+				document={adf}
+				// @ts-expect-error
+				appearance={appearance}
+				adfStage={'stage0'}
+				media={{ allowLinking: true, allowCaptions: true }}
+			/>
+		</MockMediaClientProvider>
+	);
 };
 
 export const Caption = () => {
-  return <Media adf={caption} appearance={'full-width'} />;
+	return <Media adf={caption} appearance={'full-width'} />;
 };
 
 export const CaptionLong = () => {
-  return <Media adf={captionLong} appearance={'full-width'} />;
+	return <Media adf={captionLong} appearance={'full-width'} />;
 };
 
 export const CaptionComplicated = () => {
-  return <Media adf={captionComplicated} appearance={'full-width'} />;
+	return <Media adf={captionComplicated} appearance={'full-width'} />;
 };

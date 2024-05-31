@@ -41,9 +41,6 @@
     "@babel/runtime": "^7.0.0",
     "memoize-one": "^6.0.0"
   },
-  "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1"
-  },
   "techstack": {
     "@atlassian/frontend": {
       "circular-dependencies": [
@@ -56,6 +53,5 @@
         "emotion"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

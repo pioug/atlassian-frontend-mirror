@@ -5,26 +5,22 @@ import { useCollabProvider } from '../../providers/collab-provider';
 import type EditorConfiguration from '../../editor/editor-configuration';
 
 export function useCollabEdit(
-  bridge: WebBridgeImpl,
-  configuration: EditorConfiguration,
-  createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>,
+	bridge: WebBridgeImpl,
+	configuration: EditorConfiguration,
+	createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>,
 ) {
-  const collabProvider = useCollabProvider(
-    bridge,
-    configuration,
-    createCollabProvider,
-  );
+	const collabProvider = useCollabProvider(bridge, configuration, createCollabProvider);
 
-  useEffect(() => {
-    bridge.setCollabProviderPromise(collabProvider);
-  }, [bridge, collabProvider]);
+	useEffect(() => {
+		bridge.setCollabProviderPromise(collabProvider);
+	}, [bridge, collabProvider]);
 
-  return useMemo(() => {
-    return collabProvider
-      ? {
-          useNativePlugin: true,
-          provider: collabProvider,
-        }
-      : undefined;
-  }, [collabProvider]);
+	return useMemo(() => {
+		return collabProvider
+			? {
+					useNativePlugin: true,
+					provider: collabProvider,
+				}
+			: undefined;
+	}, [collabProvider]);
 }

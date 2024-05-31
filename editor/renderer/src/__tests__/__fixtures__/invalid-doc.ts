@@ -1,4 +1,4 @@
 export const invalidDoc = {
-  type: 'doc',
-  content: 'foo',
+	type: 'doc',
+	content: 'foo',
 };

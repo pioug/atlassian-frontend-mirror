@@ -1,47 +1,12 @@
 import React from 'react';
 
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
-import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
-
-import { exampleDocument } from '../example-helpers/example-doc-with-connected-extension';
-import type { EditorActions } from '../src';
-import { usePresetContext } from '../src/presets/context';
-import { default as EditorContext } from '../src/ui/EditorContext';
-
-import { default as FullPageExample } from './5-full-page';
-
-type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
-const Comp = () => {
-  const editorApi = usePresetContext<StackPlugins>();
-  const editorProps = React.useMemo(() => {
-    return {
-      defaultValue: exampleDocument,
-      macroProvider: undefined,
-      extensionProviders: (editorActions?: EditorActions) => [
-        getExampleExtensionProviders(editorApi, editorActions),
-      ],
-      allowExtension: {
-        allowExtendFloatingToolbars: true,
-      },
-      elementBrowser: {
-        showModal: true,
-        replacePlusMenu: true,
-        helpUrl:
-          'https://support.atlassian.com/confluence-cloud/docs/what-are-macros/',
-      },
-      insertMenuItems: [],
-      allowFragmentMark: true,
-    };
-  }, [editorApi]);
-
-  return <FullPageExample editorProps={editorProps} />;
-};
+import { DeletedExample } from '@af/editor-examples-helpers';
 
 export default function Example() {
-  return (
-    <EditorContext>
-      <Comp />
-    </EditorContext>
-  );
+	return (
+		<DeletedExample
+			commitId="443f72739ed1c42aeceee0debbe7c8c83d516f7b"
+			alternativeExample="Full page with x extensions"
+		/>
+	);
 }

@@ -1,7 +1,7 @@
 // This is another layer on top of the AFE ManualRulesContainer.
 // It is necessary that this container wraps the entire "automation" component and not nested. Else the user input form will not render correctly.
 // This container provides an automation context to all children components through the useAutomationMenu hook.
-import React, { createContext, type ReactNode, useContext } from 'react';
+import React, { createContext, type ReactNode, useContext, useState } from 'react';
 
 import {
   ManualRulesContainer,
@@ -22,13 +22,17 @@ type AutomationMenuContextContainerProps = {
   onRuleInvocationLifecycleDone?: () => void;
 };
 
-export type MenuContext = ManualRulesData & {
+export type RuleExecutionState = 'SUCCEED' | 'FAILURE' | 'NONE';
+
+export type MenuContext = Omit<ManualRulesData, 'error'> & {
+  fetchError: any;
   analyticsSource: string;
   objectAri: string;
   baseAutomationUrl: string;
   canManageAutomation: boolean;
   emptyStateDescription?: React.ReactNode;
   emptyStateAdminDescription?: React.ReactNode;
+  ruleExecutionState: RuleExecutionState;
 };
 
 type AutomationProviderProps = {
@@ -72,25 +76,35 @@ export const AutomationMenuContextContainer = ({
   onRuleInvocationFailure,
   onRuleInvocationLifecycleDone,
 }: AutomationMenuContextContainerProps) => {
+  const [ruleExecutionState, setRuleExecutionState] = useState<RuleExecutionState>('NONE');
   return (
     <ManualRulesContainer
       site={siteAri}
       query={{
         objects: [objectAri],
       }}
+      onRuleInvocationLifecycleStarted={() => {
+        setRuleExecutionState('NONE');
+      }}
       onRuleInvocationLifecycleDone={onRuleInvocationLifecycleDone}
-      onRuleInvocationSuccess={onRuleInvocationSuccess}
-      onRuleInvocationFailure={onRuleInvocationFailure}
+      onRuleInvocationSuccess={() => {
+        setRuleExecutionState('SUCCEED');
+        onRuleInvocationSuccess?.()}}
+      onRuleInvocationFailure={() => {
+        setRuleExecutionState('FAILURE');
+        onRuleInvocationFailure?.()}}
     >
       {(props: ManualRulesData) => {
         const contextValue: MenuContext = {
           ...props,
+          fetchError: props.error,
           analyticsSource,
           objectAri,
           baseAutomationUrl,
           canManageAutomation,
           emptyStateDescription,
-          emptyStateAdminDescription
+          emptyStateAdminDescription,
+          ruleExecutionState,
         };
 
         return (

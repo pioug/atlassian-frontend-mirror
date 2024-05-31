@@ -2,6 +2,5 @@ import { type TextColorDefinition, type TextColorAttributes } from '@atlaskit/ad
 import { applyMark } from '../utils/apply-mark';
 import { type WithMark } from '../types';
 
-export const textColor =
-  (attrs: TextColorAttributes) => (maybeNode: WithMark | string) =>
-    applyMark<TextColorDefinition>({ type: 'textColor', attrs }, maybeNode);
+export const textColor = (attrs: TextColorAttributes) => (maybeNode: WithMark | string) =>
+	applyMark<TextColorDefinition>({ type: 'textColor', attrs }, maybeNode);

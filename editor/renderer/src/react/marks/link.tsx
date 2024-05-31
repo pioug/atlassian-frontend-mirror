@@ -6,11 +6,7 @@ import type { LinkAttributes } from '@atlaskit/adf-schema';
 
 import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { MarkProps } from '../types';
 
 import { token } from '@atlaskit/tokens';
@@ -18,81 +14,74 @@ import LinkUrl from '@atlaskit/smart-card/link-url';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 const anchorStyles = css({
-  color: token('color.link', B400),
-  '&:hover': {
-    color: token('color.link', B300),
-    textDecoration: 'underline',
-  },
-  '&:active': {
-    color: token('color.link.pressed', B500),
-  },
+	color: token('color.link', B400),
+	'&:hover': {
+		color: token('color.link', B300),
+		textDecoration: 'underline',
+	},
+	'&:active': {
+		color: token('color.link.pressed', B500),
+	},
 });
 
 interface LinkProps extends LinkAttributes {
-  target?: string;
-  isMediaLink?: boolean;
+	target?: string;
+	isMediaLink?: boolean;
 }
 
 export default function Link(props: MarkProps<LinkProps>) {
-  const {
-    href,
-    target,
-    eventHandlers,
-    fireAnalyticsEvent,
-    isMediaLink,
-    dataAttributes,
-  } = props;
+	const { href, target, eventHandlers, fireAnalyticsEvent, isMediaLink, dataAttributes } = props;
 
-  const anchorProps: React.AnchorHTMLAttributes<HTMLAnchorElement> = {
-    href,
-    target,
-    title: href,
-  };
+	const anchorProps: React.AnchorHTMLAttributes<HTMLAnchorElement> = {
+		href,
+		target,
+		title: href,
+	};
 
-  if (target === '_blank') {
-    anchorProps.rel = 'noreferrer noopener';
-  }
+	if (target === '_blank') {
+		anchorProps.rel = 'noreferrer noopener';
+	}
 
-  const handler = getEventHandler(eventHandlers, 'link');
+	const handler = getEventHandler(eventHandlers, 'link');
 
-  if (isMediaLink) {
-    return <Fragment>{props.children}</Fragment>;
-  }
+	if (isMediaLink) {
+		return <Fragment>{props.children}</Fragment>;
+	}
 
-  const analyticsData = {
-    attributes: {
-      location: 'renderer',
-    },
-    // Below is added for the future implementation of Linking Platform namespaced analytic context
-    location: 'renderer',
-  };
+	const analyticsData = {
+		attributes: {
+			location: 'renderer',
+		},
+		// Below is added for the future implementation of Linking Platform namespaced analytic context
+		location: 'renderer',
+	};
 
-  return (
-    <AnalyticsContext data={analyticsData}>
-      <LinkUrl
-        css={anchorStyles}
-        onClick={(e) => {
-          if (fireAnalyticsEvent) {
-            fireAnalyticsEvent({
-              action: ACTION.VISITED,
-              actionSubject: ACTION_SUBJECT.LINK,
-              eventType: EVENT_TYPE.TRACK,
-              attributes: {
-                platform: PLATFORM.WEB,
-                mode: MODE.RENDERER,
-              },
-            });
-          }
+	return (
+		<AnalyticsContext data={analyticsData}>
+			<LinkUrl
+				css={anchorStyles}
+				onClick={(e) => {
+					if (fireAnalyticsEvent) {
+						fireAnalyticsEvent({
+							action: ACTION.VISITED,
+							actionSubject: ACTION_SUBJECT.LINK,
+							eventType: EVENT_TYPE.TRACK,
+							attributes: {
+								platform: PLATFORM.WEB,
+								mode: MODE.RENDERER,
+							},
+						});
+					}
 
-          if (handler) {
-            handler(e, href);
-          }
-        }}
-        {...anchorProps}
-        {...dataAttributes}
-      >
-        {props.children}
-      </LinkUrl>
-    </AnalyticsContext>
-  );
+					if (handler) {
+						handler(e, href);
+					}
+				}}
+				{...anchorProps}
+				{...dataAttributes}
+			>
+				{props.children}
+			</LinkUrl>
+		</AnalyticsContext>
+	);
 }

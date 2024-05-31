@@ -342,6 +342,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Acciones de la página',
   'fabric.editor.panel.backgroundColor': 'Color de fondo',
   'fabric.editor.panel.emoji': 'Añadir emoji',
+  'fabric.editor.panel.panelsGroup': 'Tipos de paneles',
   'fabric.editor.pasteOptions': 'Opciones de pegado',
   'fabric.editor.pastePlainText': 'Pegar texto sin formato',
   'fabric.editor.placeholderAltText': 'Describir esta imagen con texto alternativo',
@@ -424,7 +425,7 @@ export default {
   'fabric.editor.tables.adjustColumn': 'Ajustar columna',
   'fabric.editor.tables.columnResizeLast': 'Solo puedes cambiar el tamaño de la columna hacia la izquierda.',
   'fabric.editor.tables.columnResizeOverflow':
-    'Solo puedes cambiar el tamaño de la columna mientras la tabla tiene una barra desplazamiento.',
+    'Solo puedes cambiar el tamaño de la columna mientras la tabla tiene una barra de desplazamiento.',
   'fabric.editor.tables.columnWidth':
     '{width, plural, one {Ancho de columna cambiado a {width} píxel} other {Ancho de columna cambiado a {width} píxeles}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':

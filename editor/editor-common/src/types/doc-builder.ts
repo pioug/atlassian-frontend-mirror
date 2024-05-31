@@ -18,9 +18,9 @@ export type Refs = { [name: string]: position };
  * A standard ProseMirror Node that also tracks refs.
  */
 export interface RefsNode extends Node {
-  refs: Refs;
-  ignoreContent?: boolean;
-  originalAttributes?: unknown;
+	refs: Refs;
+	ignoreContent?: boolean;
+	originalAttributes?: unknown;
 }
 
 export type DocBuilder = (schema: Schema) => RefsNode;

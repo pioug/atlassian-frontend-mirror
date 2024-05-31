@@ -4,18 +4,18 @@ export { ServiceProvider };
 export type { Provider };
 
 export interface ProviderProps {
-  provider?: Provider;
-  url?: string;
+	provider?: Provider;
+	url?: string;
 }
 
 export const getProvider = ({ provider, url }: ProviderProps): Provider => {
-  if (provider) {
-    return provider;
-  }
+	if (provider) {
+		return provider;
+	}
 
-  if (url) {
-    return new ServiceProvider({ url });
-  }
+	if (url) {
+		return new ServiceProvider({ url });
+	}
 
-  throw new Error('Missing provider');
+	throw new Error('Missing provider');
 };

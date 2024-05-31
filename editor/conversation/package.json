@@ -55,13 +55,11 @@
   },
   "devDependencies": {
     "@atlaskit/util-data-test": "^17.9.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@types/react-redux": "^5.0.0",
     "enzyme": "^3.10.0",
     "typescript": "~5.4.2"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "af:exports": {
     ".": "./src/index.ts"
   },

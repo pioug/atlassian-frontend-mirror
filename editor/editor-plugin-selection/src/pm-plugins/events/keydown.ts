@@ -1,8 +1,5 @@
 import { expandedState } from '@atlaskit/editor-common/expand';
-import type {
-  Node as PMNode,
-  ResolvedPos,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -19,30 +16,28 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
  * If that is true, we create a new TextSelection and stop the event bubble
  */
 const isCollapsedExpand = (
-  node: PMNode | null | undefined,
-  { __livePage }: { __livePage: boolean },
+	node: PMNode | null | undefined,
+	{ __livePage }: { __livePage: boolean },
 ): boolean => {
-  let currentExpandedState;
-  if (__livePage && getBooleanFF('platform.editor.single-player-expand')) {
-    currentExpandedState = node ? !expandedState.get(node) : undefined;
-  } else if (__livePage) {
-    currentExpandedState = node?.attrs.__expanded;
-  } else {
-    currentExpandedState = !node?.attrs.__expanded;
-  }
+	let currentExpandedState;
+	if (__livePage && getBooleanFF('platform.editor.single-player-expand')) {
+		currentExpandedState = node ? !expandedState.get(node) : undefined;
+	} else if (__livePage) {
+		currentExpandedState = node?.attrs.__expanded;
+	} else {
+		currentExpandedState = !node?.attrs.__expanded;
+	}
 
-  return Boolean(
-    node &&
-      ['expand', 'nestedExpand'].includes(node.type.name) &&
-      currentExpandedState,
-  );
+	return Boolean(
+		node && ['expand', 'nestedExpand'].includes(node.type.name) && currentExpandedState,
+	);
 };
 
 /**
  * ED-18072 - Cannot shift + arrow past bodied extension if it is not empty
  */
 const isBodiedExtension = (node: PMNode | null | undefined): boolean => {
-  return Boolean(node && ['bodiedExtension'].includes(node.type.name));
+	return Boolean(node && ['bodiedExtension'].includes(node.type.name));
 };
 
 /**
@@ -54,214 +49,178 @@ const isBodiedExtension = (node: PMNode | null | undefined): boolean => {
  * correctly, so to fix that table was added here.
  */
 const isTable = (node: PMNode | null | undefined): boolean => {
-  return Boolean(node && ['table'].includes(node.type.name));
+	return Boolean(node && ['table'].includes(node.type.name));
 };
 
 const isProblematicNode = (
-  node: PMNode | null | undefined,
-  { __livePage }: { __livePage: boolean },
+	node: PMNode | null | undefined,
+	{ __livePage }: { __livePage: boolean },
 ): boolean => {
-  return (
-    isCollapsedExpand(node, { __livePage }) ||
-    isBodiedExtension(node) ||
-    isTable(node)
-  );
+	return isCollapsedExpand(node, { __livePage }) || isBodiedExtension(node) || isTable(node);
 };
 
 const findFixedProblematicNodePosition = (
-  doc: PMNode,
-  $head: ResolvedPos,
-  direction: 'down' | 'up',
-  { __livePage }: { __livePage: boolean },
+	doc: PMNode,
+	$head: ResolvedPos,
+	direction: 'down' | 'up',
+	{ __livePage }: { __livePage: boolean },
 ): ResolvedPos | null => {
-  if ($head.pos === 0 || $head.depth === 0) {
-    return null;
-  }
+	if ($head.pos === 0 || $head.depth === 0) {
+		return null;
+	}
 
-  if (direction === 'up') {
-    const pos = $head.before();
-    const $posResolved = $head.doc.resolve(pos);
-    const maybeProblematicNode = $posResolved.nodeBefore;
+	if (direction === 'up') {
+		const pos = $head.before();
+		const $posResolved = $head.doc.resolve(pos);
+		const maybeProblematicNode = $posResolved.nodeBefore;
 
-    if (
-      maybeProblematicNode &&
-      isProblematicNode(maybeProblematicNode, { __livePage })
-    ) {
-      const nodeSize = maybeProblematicNode.nodeSize;
-      const nodeStartPosition = pos - nodeSize;
+		if (maybeProblematicNode && isProblematicNode(maybeProblematicNode, { __livePage })) {
+			const nodeSize = maybeProblematicNode.nodeSize;
+			const nodeStartPosition = pos - nodeSize;
 
-      // ($head.pos - 1) will correspond to (nodeStartPosition + nodeSize) when we are at the start of the text node
-      const isAtEndOfProblematicNode =
-        $head.pos - 1 === nodeStartPosition + nodeSize;
-      if (isAtEndOfProblematicNode) {
-        const startPosNode = Math.max(nodeStartPosition, 0);
-        const $startPosNode = $head.doc.resolve(
-          Math.min(startPosNode, $head.doc.content.size),
-        );
-        return $startPosNode;
-      }
-    }
-  }
+			// ($head.pos - 1) will correspond to (nodeStartPosition + nodeSize) when we are at the start of the text node
+			const isAtEndOfProblematicNode = $head.pos - 1 === nodeStartPosition + nodeSize;
+			if (isAtEndOfProblematicNode) {
+				const startPosNode = Math.max(nodeStartPosition, 0);
+				const $startPosNode = $head.doc.resolve(Math.min(startPosNode, $head.doc.content.size));
+				return $startPosNode;
+			}
+		}
+	}
 
-  if (direction === 'down') {
-    const pos = $head.after();
-    const maybeProblematicNode = doc.nodeAt(pos);
+	if (direction === 'down') {
+		const pos = $head.after();
+		const maybeProblematicNode = doc.nodeAt(pos);
 
-    if (
-      maybeProblematicNode &&
-      isProblematicNode(maybeProblematicNode, { __livePage }) &&
-      $head.pos + 1 === pos
-    ) {
-      const nodeSize = maybeProblematicNode.nodeSize;
-      const nodePosition = pos + nodeSize;
-      const startPosNode = Math.max(nodePosition, 0);
-      const $startPosNode = $head.doc.resolve(
-        Math.min(startPosNode, $head.doc.content.size),
-      );
-      return $startPosNode;
-    }
-  }
+		if (
+			maybeProblematicNode &&
+			isProblematicNode(maybeProblematicNode, { __livePage }) &&
+			$head.pos + 1 === pos
+		) {
+			const nodeSize = maybeProblematicNode.nodeSize;
+			const nodePosition = pos + nodeSize;
+			const startPosNode = Math.max(nodePosition, 0);
+			const $startPosNode = $head.doc.resolve(Math.min(startPosNode, $head.doc.content.size));
+			return $startPosNode;
+		}
+	}
 
-  return null;
+	return null;
 };
 
 const isSelectionLineShortcutWhenCursorIsInsideInlineNode = (
-  view: EditorView,
-  event: KeyboardEvent,
+	view: EditorView,
+	event: KeyboardEvent,
 ): boolean => {
-  if (!event.shiftKey || !event.metaKey) {
-    return false;
-  }
+	if (!event.shiftKey || !event.metaKey) {
+		return false;
+	}
 
-  const selection = view.state.selection;
-  if (!(selection instanceof TextSelection)) {
-    return false;
-  }
+	const selection = view.state.selection;
+	if (!(selection instanceof TextSelection)) {
+		return false;
+	}
 
-  if (!selection.$cursor) {
-    return false;
-  }
+	if (!selection.$cursor) {
+		return false;
+	}
 
-  const isSelectingInlineNodeForward =
-    event.key === 'ArrowRight' &&
-    Boolean(selection.$cursor.nodeAfter?.isInline);
-  const isSelectingInlineNodeBackward =
-    event.key === 'ArrowLeft' &&
-    Boolean(selection.$cursor.nodeBefore?.isInline);
+	const isSelectingInlineNodeForward =
+		event.key === 'ArrowRight' && Boolean(selection.$cursor.nodeAfter?.isInline);
+	const isSelectingInlineNodeBackward =
+		event.key === 'ArrowLeft' && Boolean(selection.$cursor.nodeBefore?.isInline);
 
-  return isSelectingInlineNodeForward || isSelectingInlineNodeBackward;
+	return isSelectingInlineNodeForward || isSelectingInlineNodeBackward;
 };
 
 const isNavigatingVerticallyWhenCursorIsInsideInlineNode = (
-  view: EditorView,
-  event: KeyboardEvent,
+	view: EditorView,
+	event: KeyboardEvent,
 ): boolean => {
-  if (event.shiftKey || event.metaKey) {
-    return false;
-  }
-  const selection = view.state?.selection;
-  if (!(selection instanceof TextSelection)) {
-    return false;
-  }
+	if (event.shiftKey || event.metaKey) {
+		return false;
+	}
+	const selection = view.state?.selection;
+	if (!(selection instanceof TextSelection)) {
+		return false;
+	}
 
-  if (!selection.$cursor) {
-    return false;
-  }
+	if (!selection.$cursor) {
+		return false;
+	}
 
-  const isNavigatingInlineNodeDownward =
-    event.key === 'ArrowDown' &&
-    Boolean(selection.$cursor.nodeBefore?.isInline) &&
-    Boolean(selection.$cursor.nodeAfter?.isInline);
+	const isNavigatingInlineNodeDownward =
+		event.key === 'ArrowDown' &&
+		Boolean(selection.$cursor.nodeBefore?.isInline) &&
+		Boolean(selection.$cursor.nodeAfter?.isInline);
 
-  return isNavigatingInlineNodeDownward;
+	return isNavigatingInlineNodeDownward;
 };
 
-export function createOnKeydown({
-  __livePage = false,
-}: {
-  __livePage?: boolean;
-}) {
-  function onKeydown(view: EditorView, event: Event): boolean {
-    /*
-     * This workaround is needed for some specific situations.
-     * - expand collapse
-     * - bodied extension
-     */
-    if (!(event instanceof KeyboardEvent)) {
-      return false;
-    }
+export function createOnKeydown({ __livePage = false }: { __livePage?: boolean }) {
+	function onKeydown(view: EditorView, event: Event): boolean {
+		/*
+		 * This workaround is needed for some specific situations.
+		 * - expand collapse
+		 * - bodied extension
+		 */
+		if (!(event instanceof KeyboardEvent)) {
+			return false;
+		}
 
-    if (isSelectionLineShortcutWhenCursorIsInsideInlineNode(view, event)) {
-      return true;
-    }
+		if (isSelectionLineShortcutWhenCursorIsInsideInlineNode(view, event)) {
+			return true;
+		}
 
-    if (isNavigatingVerticallyWhenCursorIsInsideInlineNode(view, event)) {
-      return true;
-    }
+		if (isNavigatingVerticallyWhenCursorIsInsideInlineNode(view, event)) {
+			return true;
+		}
 
-    if (!event.shiftKey || event.ctrlKey || event.metaKey) {
-      return false;
-    }
+		if (!event.shiftKey || event.ctrlKey || event.metaKey) {
+			return false;
+		}
 
-    if (
-      ![
-        'ArrowUp',
-        'ArrowDown',
-        'ArrowRight',
-        'ArrowLeft',
-        'Home',
-        'End',
-      ].includes(event.key)
-    ) {
-      return false;
-    }
+		if (!['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) {
+			return false;
+		}
 
-    const {
-      doc,
-      selection: { $head, $anchor },
-    } = view.state;
+		const {
+			doc,
+			selection: { $head, $anchor },
+		} = view.state;
 
-    if (
-      (event.key === 'ArrowRight' && $head.nodeAfter) ||
-      (event.key === 'ArrowLeft' && $head.nodeBefore)
-    ) {
-      return false;
-    }
+		if (
+			(event.key === 'ArrowRight' && $head.nodeAfter) ||
+			(event.key === 'ArrowLeft' && $head.nodeBefore)
+		) {
+			return false;
+		}
 
-    const direction = ['ArrowLeft', 'ArrowUp', 'Home'].includes(event.key)
-      ? 'up'
-      : 'down';
-    const $fixedProblematicNodePosition = findFixedProblematicNodePosition(
-      doc,
-      $head,
-      direction,
-      { __livePage },
-    );
+		const direction = ['ArrowLeft', 'ArrowUp', 'Home'].includes(event.key) ? 'up' : 'down';
+		const $fixedProblematicNodePosition = findFixedProblematicNodePosition(doc, $head, direction, {
+			__livePage,
+		});
 
-    if ($fixedProblematicNodePosition) {
-      // an offset is used here so that left arrow selects the first character before the node (consistent with arrow right)
-      const headOffset = event.key === 'ArrowLeft' ? -1 : 0;
-      const head = $fixedProblematicNodePosition.pos + headOffset;
+		if ($fixedProblematicNodePosition) {
+			// an offset is used here so that left arrow selects the first character before the node (consistent with arrow right)
+			const headOffset = event.key === 'ArrowLeft' ? -1 : 0;
+			const head = $fixedProblematicNodePosition.pos + headOffset;
 
-      const forcedTextSelection = TextSelection.create(
-        view.state.doc,
-        $anchor.pos,
-        head,
-      );
+			const forcedTextSelection = TextSelection.create(view.state.doc, $anchor.pos, head);
 
-      const tr = view.state.tr;
+			const tr = view.state.tr;
 
-      tr.setSelection(forcedTextSelection);
+			tr.setSelection(forcedTextSelection);
 
-      view.dispatch(tr);
+			view.dispatch(tr);
 
-      event.preventDefault();
+			event.preventDefault();
 
-      return true;
-    }
+			return true;
+		}
 
-    return false;
-  }
+		return false;
+	}
 
-  return onKeydown;
+	return onKeydown;
 }

@@ -5,23 +5,21 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('Chromeless editor', () => {
-  const createEditor = createEditorFactory();
-  const editor = (doc: DocBuilder) =>
-    createEditor({
-      doc,
-      editorProps: {
-        allowPanel: true,
-        appearance: 'chromeless',
-        quickInsert: true,
-      },
-    });
+	const createEditor = createEditorFactory();
+	const editor = (doc: DocBuilder) =>
+		createEditor({
+			doc,
+			editorProps: {
+				allowPanel: true,
+				appearance: 'chromeless',
+				quickInsert: true,
+			},
+		});
 
-  it('should keep paragraph as the last node', async () => {
-    const { editorView, typeAheadTool } = editor(doc(p('{<>}')));
-    await typeAheadTool.searchQuickInsert('info')?.insert({ index: 0 });
+	it('should keep paragraph as the last node', async () => {
+		const { editorView, typeAheadTool } = editor(doc(p('{<>}')));
+		await typeAheadTool.searchQuickInsert('info')?.insert({ index: 0 });
 
-    expect(editorView.state.doc).toEqualDocument(
-      doc(panel({ panelType: 'info' })(p('')), p('')),
-    );
-  });
+		expect(editorView.state.doc).toEqualDocument(doc(panel({ panelType: 'info' })(p('')), p('')));
+	});
 });

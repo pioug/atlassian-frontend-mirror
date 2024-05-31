@@ -341,6 +341,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Pagina-acties',
   'fabric.editor.panel.backgroundColor': 'Achtergrondkleur',
   'fabric.editor.panel.emoji': 'Emoticon toevoegen',
+  'fabric.editor.panel.panelsGroup': 'Typen panelen',
   'fabric.editor.pasteOptions': 'Opties voor plakken',
   'fabric.editor.pastePlainText': 'Plak als platte tekst',
   'fabric.editor.placeholderAltText': 'Beschrijf deze afbeelding met alt-tekst',

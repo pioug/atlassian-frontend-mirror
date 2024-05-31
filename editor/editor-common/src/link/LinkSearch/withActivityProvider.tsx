@@ -8,43 +8,35 @@ import type { Providers } from '../../provider-factory';
 import type { Diff } from '../../utils';
 
 export interface ExpandedActivityProviderProps {
-  providerFactory: ProviderFactory;
+	providerFactory: ProviderFactory;
 }
 
 export interface WithActivityProviderProps {
-  activityProvider: ActivityProvider;
+	activityProvider: ActivityProvider;
 }
 
 export default function withActivityProvider<Props>(
-  WrappedComponent: React.ComponentType<
-    React.PropsWithChildren<Props & WithActivityProviderProps>
-  >,
+	WrappedComponent: React.ComponentType<React.PropsWithChildren<Props & WithActivityProviderProps>>,
 ) {
-  return class WithActivityProvider extends React.Component<
-    Diff<Props, WithActivityProviderProps> & ExpandedActivityProviderProps
-  > {
-    renderNode = (providers: Providers) => {
-      const { providerFactory, ...props } = this
-        .props as ExpandedActivityProviderProps;
-      const { activityProvider } = providers;
+	return class WithActivityProvider extends React.Component<
+		Diff<Props, WithActivityProviderProps> & ExpandedActivityProviderProps
+	> {
+		renderNode = (providers: Providers) => {
+			const { providerFactory, ...props } = this.props as ExpandedActivityProviderProps;
+			const { activityProvider } = providers;
 
-      return (
-        <WrappedComponent
-          activityProvider={activityProvider as any}
-          {...(props as Props)}
-        />
-      );
-    };
+			return <WrappedComponent activityProvider={activityProvider as any} {...(props as Props)} />;
+		};
 
-    render() {
-      const { providerFactory } = this.props;
-      return (
-        <WithProviders
-          providers={['activityProvider']}
-          providerFactory={providerFactory}
-          renderNode={this.renderNode}
-        />
-      );
-    }
-  };
+		render() {
+			const { providerFactory } = this.props;
+			return (
+				<WithProviders
+					providers={['activityProvider']}
+					providerFactory={providerFactory}
+					renderNode={this.renderNode}
+				/>
+			);
+		}
+	};
 }

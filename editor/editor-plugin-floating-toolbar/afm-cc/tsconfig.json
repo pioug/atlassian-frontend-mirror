@@ -34,6 +34,9 @@
             "path": "../../editor-palette/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-block-controls/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-context-panel/afm-cc/tsconfig.json"
         },
         {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-floating-toolbar",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Floating toolbar plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,6 +32,7 @@
     "@atlaskit/checkbox": "^13.4.0",
     "@atlaskit/editor-common": "^81.1.0",
     "@atlaskit/editor-palette": "1.6.0",
+    "@atlaskit/editor-plugin-block-controls": "^1.4.1",
     "@atlaskit/editor-plugin-context-panel": "^1.1.0",
     "@atlaskit/editor-plugin-copy-button": "^1.1.0",
     "@atlaskit/editor-plugin-decorations": "^1.1.0",
@@ -61,7 +62,6 @@
   },
   "devDependencies": {
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
@@ -108,12 +108,14 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.a11y-floating-toolbar-markup_vexmo": {
       "type": "boolean"
     },
     "platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33": {
+      "type": "boolean"
+    },
+    "platform.editor.drag-and-drop_wmv9t": {
       "type": "boolean"
     }
   }

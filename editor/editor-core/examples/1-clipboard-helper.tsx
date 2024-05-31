@@ -1,53 +1,7 @@
 import React from 'react';
 
-import * as clipboard from 'clipboard-polyfill';
+import { DeletedExample } from '@af/editor-examples-helpers';
 
-
-export interface State {
-  value: string;
-}
-export default class ClipboardHelper extends React.Component<{}, State> {
-  state = { value: '' };
-
-  handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    this.setState({ value: e.target.value });
-  };
-  clearValue = () => {
-    this.setState({ value: '' });
-  };
-
-  copyAs = async (type = 'text/plain') =>  {
-    const blob = new Blob([this.state.value], { type });
-    const dt = new ClipboardItem({
-      [type]: blob
-    });
-    await clipboard.write([dt]);
-  };
-
-  render() {
-    return (
-      <div>
-        <textarea
-          id="input"
-          onFocus={this.clearValue}
-          onChange={this.handleChange}
-          value={this.state.value}
-        />
-        <button
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-          className="copy-as-plaintext"
-          onClick={() => this.copyAs('text/plain')}
-        >
-          Copy Plain Text
-        </button>
-        <button
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-          className="copy-as-html"
-          onClick={() => this.copyAs('text/html')}
-        >
-          Copy HTML
-        </button>
-      </div>
-    );
-  }
+export default function Example() {
+	return <DeletedExample commitId="443f72739ed1c42aeceee0debbe7c8c83d516f7b" />;
 }

@@ -4,12 +4,12 @@ import { type Schema, type Node as PMNode } from '@atlaskit/editor-prosemirror/m
 import { type Context } from '../../../interfaces';
 
 export function attachmentLinkResolver(
-  link: ContentLink,
-  schema: Schema,
-  context: Context,
+	link: ContentLink,
+	schema: Schema,
+	context: Context,
 ): PMNode[] | undefined {
-  if (link.attachmentName) {
-    return [getMediaGroupNodeView(schema, link.attachmentName, context)];
-  }
-  return;
+	if (link.attachmentName) {
+		return [getMediaGroupNodeView(schema, link.attachmentName, context)];
+	}
+	return;
 }

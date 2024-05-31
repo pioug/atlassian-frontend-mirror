@@ -6,26 +6,25 @@ import { type ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Emoji } from '@atlaskit/editor-common/emoji';
 
 export interface EmojiProps extends EmojiAttributes {
-  providers?: ProviderFactory;
-  resourceConfig?: EmojiResourceConfig;
-  fitToHeight?: number;
+	providers?: ProviderFactory;
+	resourceConfig?: EmojiResourceConfig;
+	fitToHeight?: number;
 }
 
 export default class EmojiItem extends PureComponent<EmojiProps, {}> {
-  render() {
-    const { id, providers, shortName, text, fitToHeight, resourceConfig } =
-      this.props;
+	render() {
+		const { id, providers, shortName, text, fitToHeight, resourceConfig } = this.props;
 
-    return (
-      <Emoji
-        allowTextFallback={true}
-        id={id}
-        shortName={shortName}
-        fallback={text}
-        providers={providers}
-        fitToHeight={fitToHeight}
-        resourceConfig={resourceConfig}
-      />
-    );
-  }
+		return (
+			<Emoji
+				allowTextFallback={true}
+				id={id}
+				shortName={shortName}
+				fallback={text}
+				providers={providers}
+				fitToHeight={fitToHeight}
+				resourceConfig={resourceConfig}
+			/>
+		);
+	}
 }

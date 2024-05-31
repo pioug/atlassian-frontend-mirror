@@ -8,28 +8,28 @@ export type Props = {};
 export type State = { locale: string; messages: { [key: string]: string } };
 
 export default class Example extends React.Component<Props, State> {
-  state: State = {
-    locale: 'en',
-    messages: {},
-  };
+	state: State = {
+		locale: 'en',
+		messages: {},
+	};
 
-  render() {
-    const { locale, messages } = this.state;
-    return (
-      <IntlProvider locale={locale} messages={messages}>
-        <RendererDemo
-          appearance="full-page"
-          serializer="react"
-          allowHeadingAnchorLinks
-          allowColumnSorting={true}
-          useSpecBasedValidator={true}
-          adfStage={'stage0'}
-          schema={getSchemaBasedOnStage('stage0')}
-          document={exampleDocument}
-          allowCustomPanels={true}
-          withProviders
-        />
-      </IntlProvider>
-    );
-  }
+	render() {
+		const { locale, messages } = this.state;
+		return (
+			<IntlProvider locale={locale} messages={messages}>
+				<RendererDemo
+					appearance="full-page"
+					serializer="react"
+					allowHeadingAnchorLinks
+					allowColumnSorting={true}
+					useSpecBasedValidator={true}
+					adfStage={'stage0'}
+					schema={getSchemaBasedOnStage('stage0')}
+					document={exampleDocument}
+					allowCustomPanels={true}
+					withProviders
+				/>
+			</IntlProvider>
+		);
+	}
 }

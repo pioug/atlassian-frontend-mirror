@@ -6,31 +6,28 @@ import type { ListState } from '@atlaskit/editor-plugin-list';
 import type WebBridgeImpl from '../native-to-web';
 import { valueOf as valueOfListState } from '../web-to-native/listState';
 
-export const useListListener = (
-  listState: ListState | undefined,
-  bridge: WebBridgeImpl,
-) => {
-  const { decorationSet, ...initialListState } = listState ?? {};
-  const prevListState = useRef(initialListState);
+export const useListListener = (listState: ListState | undefined, bridge: WebBridgeImpl) => {
+	const { decorationSet, ...initialListState } = listState ?? {};
+	const prevListState = useRef(initialListState);
 
-  useListener(
-    () => {
-      if (listState === undefined) {
-        return;
-      }
+	useListener(
+		() => {
+			if (listState === undefined) {
+				return;
+			}
 
-      const { decorationSet, ...newListState } = listState;
+			const { decorationSet, ...newListState } = listState;
 
-      if (isEqual(prevListState.current, newListState)) {
-        return;
-      }
-      prevListState.current = newListState;
+			if (isEqual(prevListState.current, newListState)) {
+				return;
+			}
+			prevListState.current = newListState;
 
-      toNativeBridge.call('listBridge', 'updateListState', {
-        states: JSON.stringify(valueOfListState(listState)),
-      });
-    },
-    [listState],
-    { bridge, key: 'listBridgeState', state: listState ?? null },
-  );
+			toNativeBridge.call('listBridge', 'updateListState', {
+				states: JSON.stringify(valueOfListState(listState)),
+			});
+		},
+		[listState],
+		{ bridge, key: 'listBridgeState', state: listState ?? null },
+	);
 };

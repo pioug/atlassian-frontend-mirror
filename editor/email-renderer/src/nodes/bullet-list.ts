@@ -12,32 +12,30 @@ export const styles = `
   margin-bottom: 0px;
 }
 .${createClassName('ul')} > .${createClassName('li')} > .${createClassName(
-  'ul',
+	'ul',
 )} > .${createClassName('li')} > .${createClassName('ul')} > .${createClassName(
-  'li',
+	'li',
 )} > .${createClassName('ul')} {
   list-style-type: disc;
 }
 .${createClassName('ul')} > .${createClassName('li')} > .${createClassName(
-  'ul',
+	'ul',
 )} > .${createClassName('li')} > .${createClassName('ul')} > .${createClassName(
-  'li',
-)} > .${createClassName('ul')} > .${createClassName('li')} > .${createClassName(
-  'ul',
-)} {
+	'li',
+)} > .${createClassName('ul')} > .${createClassName('li')} > .${createClassName('ul')} {
   list-style-type: circle;
 }
 .${createClassName('ul')} > .${createClassName('li')} > .${createClassName(
-  'ul',
+	'ul',
 )} > .${createClassName('li')} > .${createClassName('ul')} > .${createClassName(
-  'li',
+	'li',
 )} > .${createClassName('ul')} > .${createClassName('li')} > .${createClassName(
-  'ul',
+	'ul',
 )} > .${createClassName('li')} > .${createClassName('ul')} {
   list-style-type: square;
 }
 `;
 
 export default function bulletList({ text }: NodeSerializerOpts) {
-  return createTag('ul', { class: createClassName('ul') }, text);
+	return createTag('ul', { class: createClassName('ul') }, text);
 }

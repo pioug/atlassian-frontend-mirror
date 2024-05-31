@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/util-data-test",
-  "version": "17.9.34",
+  "version": "17.9.35",
   "description": "Shared test and story data",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -116,7 +116,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/emoji": "67.6.22",
+    "@atlaskit/emoji": "67.6.23",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/mention": "23.0.4",
     "@atlaskit/profilecard": "^19.14.0",
@@ -136,7 +136,6 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "typescript": "~5.4.2"
   },
   "keywords": [
@@ -145,6 +144,5 @@
     "test",
     "data",
     "sample"
-  ],
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  ]
 }

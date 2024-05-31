@@ -19,13 +19,10 @@ import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
-  defaultCollectionName,
-  defaultMediaPickerCollectionName,
+	defaultCollectionName,
+	defaultMediaPickerCollectionName,
 } from '@atlaskit/media-test-helpers/collectionNames';
-import {
-  currentUser,
-  getEmojiProvider,
-} from '@atlaskit/util-data-test/get-emoji-provider';
+import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
@@ -42,346 +39,329 @@ const mediaMock = createEditorMediaMock();
 mediaMock.enable();
 
 const wrapper = css({
-  boxSizing: 'border-box',
-  height: 'calc(100vh - 32px)',
-  display: 'flex',
+	boxSizing: 'border-box',
+	height: 'calc(100vh - 32px)',
+	display: 'flex',
 });
 const content = css({
-  padding: 0,
-  height: '100%',
-  width: '50%',
-  border: '2px solid #ccc',
-  boxSizing: 'border-box',
+	padding: 0,
+	height: '100%',
+	width: '50%',
+	border: '2px solid #ccc',
+	boxSizing: 'border-box',
 });
 
 const getLocalStorageKey = (collectionName: string) =>
-  `fabric.editor.example.copypaste-${collectionName}`;
+	`fabric.editor.example.copypaste-${collectionName}`;
 // eslint-disable-next-line no-console
-const analyticsHandler = (actionName: string, props?: {}) =>
-  console.log(actionName, props);
+const analyticsHandler = (actionName: string, props?: {}) => console.log(actionName, props);
 
 const LOCALSTORAGE_defaultTitleKey = 'fabric.editor.example.full-page.title';
 const createSaveAndCancelButtons =
-  (collectionName: string) => (props: { editorActions?: EditorActions }) =>
-    (
-      <ButtonGroup>
-        <Button
-          tabIndex={-1}
-          appearance="primary"
-          onClick={() => {
-            if (!props.editorActions) {
-              return;
-            }
+	(collectionName: string) => (props: { editorActions?: EditorActions }) => (
+		<ButtonGroup>
+			<Button
+				tabIndex={-1}
+				appearance="primary"
+				onClick={() => {
+					if (!props.editorActions) {
+						return;
+					}
 
-            props.editorActions.getValue().then((value) => {
-              // eslint-disable-next-line no-console
-              console.log(value);
-              localStorage.setItem(
-                getLocalStorageKey(collectionName),
-                JSON.stringify(value),
-              );
-            });
-          }}
-        >
-          Publish
-        </Button>
-        <Button
-          tabIndex={-1}
-          appearance="subtle"
-          onClick={() => {
-            if (!props.editorActions) {
-              return;
-            }
-            props.editorActions.clear();
-            localStorage.removeItem(getLocalStorageKey(collectionName));
-            localStorage.removeItem(LOCALSTORAGE_defaultTitleKey);
-          }}
-        >
-          Close
-        </Button>
-      </ButtonGroup>
-    );
+					props.editorActions.getValue().then((value) => {
+						// eslint-disable-next-line no-console
+						console.log(value);
+						localStorage.setItem(getLocalStorageKey(collectionName), JSON.stringify(value));
+					});
+				}}
+			>
+				Publish
+			</Button>
+			<Button
+				tabIndex={-1}
+				appearance="subtle"
+				onClick={() => {
+					if (!props.editorActions) {
+						return;
+					}
+					props.editorActions.clear();
+					localStorage.removeItem(getLocalStorageKey(collectionName));
+					localStorage.removeItem(LOCALSTORAGE_defaultTitleKey);
+				}}
+			>
+				Close
+			</Button>
+		</ButtonGroup>
+	);
 
 export type State = {
-  disabled: boolean;
-  title?: string;
-  appearance: EditorAppearance;
-  mediaOptions: Map<string, Providers>;
+	disabled: boolean;
+	title?: string;
+	appearance: EditorAppearance;
+	mediaOptions: Map<string, Providers>;
 };
 interface Providers {
-  mediaProvider: Promise<MediaProvider>;
-  editorProviders: any;
+	mediaProvider: Promise<MediaProvider>;
+	editorProviders: any;
 }
 
 const mediaProviders = new Map<string, Providers>();
 const getProviders = (collectionName: string): Providers => {
-  // It's important to keep the same provider instance for Editor
-  let providers = mediaProviders.get(collectionName);
-  if (providers) {
-    return providers;
-  } else {
-    const contextIdentifierProvider = storyContextIdentifierProviderFactory({
-      objectId: `${collectionName}-OBJECT-ID`,
-      containerId: `${collectionName}-CONTAINER-ID`,
-      childObjectId: `${collectionName}-CHILD-OBJECT-ID`,
-      product: `${collectionName}-atlaskit-examples`,
-    });
-    const editorProviders: any = {
-      emojiProvider: getEmojiProvider({
-        uploadSupported: true,
-        currentUser,
-      }),
-      mentionProvider: Promise.resolve(mentionResourceProvider),
-      taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
-      contextIdentifierProvider,
-      activityProvider: Promise.resolve(new MockActivityResource()),
-      macroProvider: Promise.resolve(macroProvider),
-      autoformattingProvider: Promise.resolve(autoformattingProvider),
-    };
-    const mediaProvider = storyMediaProviderFactory({
-      collectionName,
-    });
-    providers = {
-      mediaProvider,
-      editorProviders,
-    };
+	// It's important to keep the same provider instance for Editor
+	let providers = mediaProviders.get(collectionName);
+	if (providers) {
+		return providers;
+	} else {
+		const contextIdentifierProvider = storyContextIdentifierProviderFactory({
+			objectId: `${collectionName}-OBJECT-ID`,
+			containerId: `${collectionName}-CONTAINER-ID`,
+			childObjectId: `${collectionName}-CHILD-OBJECT-ID`,
+			product: `${collectionName}-atlaskit-examples`,
+		});
+		const editorProviders: any = {
+			emojiProvider: getEmojiProvider({
+				uploadSupported: true,
+				currentUser,
+			}),
+			mentionProvider: Promise.resolve(mentionResourceProvider),
+			taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
+			contextIdentifierProvider,
+			activityProvider: Promise.resolve(new MockActivityResource()),
+			macroProvider: Promise.resolve(macroProvider),
+			autoformattingProvider: Promise.resolve(autoformattingProvider),
+		};
+		const mediaProvider = storyMediaProviderFactory({
+			collectionName,
+		});
+		providers = {
+			mediaProvider,
+			editorProviders,
+		};
 
-    mediaProviders.set(collectionName, providers);
+		mediaProviders.set(collectionName, providers);
 
-    return providers;
-  }
+		return providers;
+	}
 };
 
 const quickInsertProvider = quickInsertProviderFactory();
 
 export interface ExampleProps {
-  onTitleChange?: (title: string) => void;
+	onTitleChange?: (title: string) => void;
 }
 
 const doc = {
-  version: 1,
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          text: ' ',
-        },
-        {
-          type: 'mediaInline',
-          attrs: {
-            type: 'file',
-            id: 'a3d20d67-14b1-4cfc-8ba8-918bbc8d71e1',
-            collection: 'MediaServicesSample',
-            alt: '',
-          },
-        },
-        {
-          type: 'text',
-          text: ' ',
-        },
-      ],
-    },
-    {
-      type: 'paragraph',
-      content: [],
-    },
-  ],
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: ' ',
+				},
+				{
+					type: 'mediaInline',
+					attrs: {
+						type: 'file',
+						id: 'a3d20d67-14b1-4cfc-8ba8-918bbc8d71e1',
+						collection: 'MediaServicesSample',
+						alt: '',
+					},
+				},
+				{
+					type: 'text',
+					text: ' ',
+				},
+			],
+		},
+		{
+			type: 'paragraph',
+			content: [],
+		},
+	],
 };
 
-class ExampleEditorComponent extends React.Component<
-  EditorProps & ExampleProps,
-  State
-> {
-  state: State = {
-    disabled: true,
-    title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
-    appearance: 'full-page',
-    mediaOptions: new Map(),
-  };
+class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps, State> {
+	state: State = {
+		disabled: true,
+		title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
+		appearance: 'full-page',
+		mediaOptions: new Map(),
+	};
 
-  private mediaProviderTimeoutId: number | undefined;
+	private mediaProviderTimeoutId: number | undefined;
 
-  async componentDidMount() {
-    const { mediaOptions } = this.state;
-    // Simulate adding mediaProvider async
-    await new Promise((resolve) => {
-      this.mediaProviderTimeoutId = window.setTimeout(resolve, 1000);
-    });
-    mediaOptions.set(
-      defaultCollectionName,
-      getProviders(defaultCollectionName),
-    );
-    mediaOptions.set(
-      defaultMediaPickerCollectionName,
-      getProviders(defaultMediaPickerCollectionName),
-    );
-    this.setState({ mediaOptions });
-  }
+	async componentDidMount() {
+		const { mediaOptions } = this.state;
+		// Simulate adding mediaProvider async
+		await new Promise((resolve) => {
+			this.mediaProviderTimeoutId = window.setTimeout(resolve, 1000);
+		});
+		mediaOptions.set(defaultCollectionName, getProviders(defaultCollectionName));
+		mediaOptions.set(
+			defaultMediaPickerCollectionName,
+			getProviders(defaultMediaPickerCollectionName),
+		);
+		this.setState({ mediaOptions });
+	}
 
-  componentWillUnmount() {
-    window.clearTimeout(this.mediaProviderTimeoutId);
-  }
+	componentWillUnmount() {
+		window.clearTimeout(this.mediaProviderTimeoutId);
+	}
 
-  componentDidUpdate(prevProps: EditorProps) {
-    if (prevProps.appearance !== this.props.appearance) {
-      this.setState(() => ({
-        appearance: this.props.appearance || 'full-page',
-      }));
-    }
-  }
+	componentDidUpdate(prevProps: EditorProps) {
+		if (prevProps.appearance !== this.props.appearance) {
+			this.setState(() => ({
+				appearance: this.props.appearance || 'full-page',
+			}));
+		}
+	}
 
-  private setFullWidthMode = (fullWidthMode: boolean) => {
-    this.setState({ appearance: fullWidthMode ? 'full-width' : 'full-page' });
-  };
+	private setFullWidthMode = (fullWidthMode: boolean) => {
+		this.setState({ appearance: fullWidthMode ? 'full-width' : 'full-page' });
+	};
 
-  private onKeyPressed = (e: KeyboardEvent, actions: EditorActions) => {
-    if (e.key === 'Tab' && !e.shiftKey) {
-      this.setState({
-        disabled: false,
-      });
-      actions.focus();
-      return false;
-    }
-    return;
-  };
+	private onKeyPressed = (e: KeyboardEvent, actions: EditorActions) => {
+		if (e.key === 'Tab' && !e.shiftKey) {
+			this.setState({
+				disabled: false,
+			});
+			actions.focus();
+			return false;
+		}
+		return;
+	};
 
-  private handleTitleChange = (e: FormEvent<HTMLTextAreaElement>) => {
-    const title = (e.target as HTMLInputElement).value;
-    this.setState({
-      title,
-    });
+	private handleTitleChange = (e: FormEvent<HTMLTextAreaElement>) => {
+		const title = (e.target as HTMLInputElement).value;
+		this.setState({
+			title,
+		});
 
-    if (this.props.onTitleChange) {
-      this.props.onTitleChange(title);
-    }
-  };
+		if (this.props.onTitleChange) {
+			this.props.onTitleChange(title);
+		}
+	};
 
-  private handleTitleOnFocus = () => this.setState({ disabled: true });
-  private handleTitleOnBlur = () => this.setState({ disabled: false });
-  private handleTitleRef = (ref?: HTMLElement) => {
-    if (ref) {
-      ref.focus();
-    }
-  };
+	private handleTitleOnFocus = () => this.setState({ disabled: true });
+	private handleTitleOnBlur = () => this.setState({ disabled: false });
+	private handleTitleRef = (ref?: HTMLElement) => {
+		if (ref) {
+			ref.focus();
+		}
+	};
 
-  renderEditor = (
-    collectionName: string,
-    doc: Object | undefined = undefined,
-  ) => {
-    const SaveAndCancelButtons = createSaveAndCancelButtons(collectionName);
-    const { mediaOptions } = this.state;
-    const providers = mediaOptions.get(collectionName);
-    if (!providers) {
-      return null;
-    }
+	renderEditor = (collectionName: string, doc: Object | undefined = undefined) => {
+		const SaveAndCancelButtons = createSaveAndCancelButtons(collectionName);
+		const { mediaOptions } = this.state;
+		const providers = mediaOptions.get(collectionName);
+		if (!providers) {
+			return null;
+		}
 
-    const media: MediaOptions = {
-      provider: providers.mediaProvider,
-      allowMediaSingle: true,
-      featureFlags: {
-        mediaInline: true,
-      },
-    };
+		const media: MediaOptions = {
+			provider: providers.mediaProvider,
+			allowMediaSingle: true,
+			featureFlags: {
+				mediaInline: true,
+			},
+		};
 
-    return (
-      <EditorContext key={collectionName}>
-        <div data-testid={`editor-${collectionName}`} css={content}>
-          <h2>Editor ({collectionName})</h2>
-          <SmartCardProvider>
-            <WithEditorActions
-              render={(actions) => (
-                <Editor
-                  analyticsHandler={analyticsHandler}
-                  allowAnalyticsGASV3={true}
-                  quickInsert={{
-                    provider: Promise.resolve(quickInsertProvider),
-                  }}
-                  allowTextColor={true}
-                  allowTables={{
-                    advanced: true,
-                  }}
-                  allowBreakout={true}
-                  allowPanel={true}
-                  allowExtension={{
-                    allowBreakout: true,
-                  }}
-                  allowRule={true}
-                  allowDate={true}
-                  allowLayouts={{
-                    allowBreakout: true,
-                    UNSAFE_addSidebarLayouts: true,
-                  }}
-                  allowTextAlignment={true}
-                  allowIndentation={true}
-                  allowTemplatePlaceholders={{ allowInserting: true }}
-                  smartLinks={{
-                    provider: Promise.resolve(cardProvider),
-                  }}
-                  allowStatus={true}
-                  {...providers.editorProviders}
-                  editorActions={actions}
-                  media={media}
-                  placeholder="Use markdown shortcuts to format your page as you type, like * for lists, # for headers, and *** for a horizontal rule."
-                  shouldFocus={false}
-                  disabled={this.state.disabled}
-                  defaultValue={doc}
-                  contentComponents={
-                    <React.Fragment>
-                      <BreadcrumbsMiscActions
-                        appearance={this.state.appearance}
-                        onFullWidthChange={this.setFullWidthMode}
-                      />
-                      <TitleInput
-                        value={this.state.title}
-                        onChange={this.handleTitleChange}
-                        innerRef={this.handleTitleRef}
-                        onFocus={this.handleTitleOnFocus}
-                        onBlur={this.handleTitleOnBlur}
-                        onKeyDown={(e: KeyboardEvent) => {
-                          this.onKeyPressed(e, actions);
-                        }}
-                      />
-                    </React.Fragment>
-                  }
-                  primaryToolbarComponents={[
-                    <SaveAndCancelButtons
-                      key={collectionName}
-                      editorActions={actions}
-                    />,
-                  ]}
-                  insertMenuItems={customInsertMenuItems}
-                  extensionHandlers={extensionHandlers}
-                  {...this.props}
-                  appearance={this.state.appearance}
-                />
-              )}
-            />
-          </SmartCardProvider>
-        </div>
-      </EditorContext>
-    );
-  };
+		return (
+			<EditorContext key={collectionName}>
+				<div data-testid={`editor-${collectionName}`} css={content}>
+					<h2>Editor ({collectionName})</h2>
+					<SmartCardProvider>
+						<WithEditorActions
+							render={(actions) => (
+								<Editor
+									analyticsHandler={analyticsHandler}
+									allowAnalyticsGASV3={true}
+									quickInsert={{
+										provider: Promise.resolve(quickInsertProvider),
+									}}
+									allowTextColor={true}
+									allowTables={{
+										advanced: true,
+									}}
+									allowBreakout={true}
+									allowPanel={true}
+									allowExtension={{
+										allowBreakout: true,
+									}}
+									allowRule={true}
+									allowDate={true}
+									allowLayouts={{
+										allowBreakout: true,
+										UNSAFE_addSidebarLayouts: true,
+									}}
+									allowTextAlignment={true}
+									allowIndentation={true}
+									allowTemplatePlaceholders={{ allowInserting: true }}
+									smartLinks={{
+										provider: Promise.resolve(cardProvider),
+									}}
+									allowStatus={true}
+									{...providers.editorProviders}
+									editorActions={actions}
+									media={media}
+									placeholder="Use markdown shortcuts to format your page as you type, like * for lists, # for headers, and *** for a horizontal rule."
+									shouldFocus={false}
+									disabled={this.state.disabled}
+									defaultValue={doc}
+									contentComponents={
+										<React.Fragment>
+											<BreadcrumbsMiscActions
+												appearance={this.state.appearance}
+												onFullWidthChange={this.setFullWidthMode}
+											/>
+											<TitleInput
+												value={this.state.title}
+												onChange={this.handleTitleChange}
+												innerRef={this.handleTitleRef}
+												onFocus={this.handleTitleOnFocus}
+												onBlur={this.handleTitleOnBlur}
+												onKeyDown={(e: KeyboardEvent) => {
+													this.onKeyPressed(e, actions);
+												}}
+											/>
+										</React.Fragment>
+									}
+									primaryToolbarComponents={[
+										<SaveAndCancelButtons key={collectionName} editorActions={actions} />,
+									]}
+									insertMenuItems={customInsertMenuItems}
+									extensionHandlers={extensionHandlers}
+									{...this.props}
+									appearance={this.state.appearance}
+								/>
+							)}
+						/>
+					</SmartCardProvider>
+				</div>
+			</EditorContext>
+		);
+	};
 
-  render() {
-    return (
-      <div>
-        <div css={wrapper}>
-          {this.renderEditor(defaultCollectionName, doc)}
-          {this.renderEditor(defaultMediaPickerCollectionName)}
-        </div>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<div css={wrapper}>
+					{this.renderEditor(defaultCollectionName, doc)}
+					{this.renderEditor(defaultMediaPickerCollectionName)}
+				</div>
+			</div>
+		);
+	}
 }
 
 export default function Example(props: EditorProps & ExampleProps) {
-  return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    <div style={{ height: '100%' }}>
-      <ExampleEditorComponent {...props} />
-    </div>
-  );
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ height: '100%' }}>
+			<ExampleEditorComponent {...props} />
+		</div>
+	);
 }

@@ -3,10 +3,10 @@ import transformer from '../17.0.0-update-imports-to-new-entry-points';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('updates adf-util imports to new child entry points', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import { traverse } from "@atlaskit/adf-utils";
     import { ADFEntity, ADFEntityMark } from "@atlaskit/adf-utils";
     import { validateAttrs, validator, ValidationErrorMap } from '@atlaskit/adf-utils';
@@ -19,7 +19,7 @@ describe('updates adf-util imports to new child entry points', () => {
       </div>
     );
     `,
-    `
+		`
     import type { ValidationErrorMap, ValidationMode, NodeValidationResult } from "@atlaskit/adf-utils/validatorTypes";
     import type { ADFEntity, ADFEntityMark } from "@atlaskit/adf-utils/types";
     import { traverse } from "@atlaskit/adf-utils/traverse";
@@ -31,13 +31,13 @@ describe('updates adf-util imports to new child entry points', () => {
       </div>
     );
     `,
-    'should handle migrating any combination of old entry points (including type imports and imports with type modifiers) to new child entry points',
-  );
+		'should handle migrating any combination of old entry points (including type imports and imports with type modifiers) to new child entry points',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import { traverse, teamRocketAndMeowth, scrubAdf } from "@atlaskit/adf-utils";
     import { Pokemon, ADFEntityMark, AshKetchum } from "@atlaskit/adf-utils";
     import type { PsyDuck } from "@atlaskit/adf-utils/pokemon-types";
@@ -49,7 +49,7 @@ describe('updates adf-util imports to new child entry points', () => {
       </div>
     );
     `,
-    `
+		`
     import type { ADFEntityMark } from "@atlaskit/adf-utils/types";
     import { traverse } from "@atlaskit/adf-utils/traverse";
     import { scrubAdf } from "@atlaskit/adf-utils/scrub";
@@ -64,13 +64,13 @@ describe('updates adf-util imports to new child entry points', () => {
       </div>
     );
     `,
-    'should leave unknown entry points or import specifiers untouched (and unmerged if initially unmerged)',
-  );
+		'should leave unknown entry points or import specifiers untouched (and unmerged if initially unmerged)',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import { VisitorCollection } from "@atlaskit/adf-utils/types";
     import type { Visitor } from "@atlaskit/adf-utils";
 
@@ -80,7 +80,7 @@ describe('updates adf-util imports to new child entry points', () => {
       </div>
     );
     `,
-    `
+		`
     import type { VisitorCollection, Visitor } from "@atlaskit/adf-utils/types";
 
     export default () => (
@@ -89,13 +89,13 @@ describe('updates adf-util imports to new child entry points', () => {
       </div>
     );
     `,
-    'should handle migrating new child entry points with mismatched importKinds (e.g. non-type when should be type import)',
-  );
+		'should handle migrating new child entry points with mismatched importKinds (e.g. non-type when should be type import)',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import { scrubAdf, doc, p, link } from "@atlaskit/adf-utils";
       import { blockCard, paragraph } from "@atlaskit/adf-utils/builders";
       import { placeholder, transformDedupeMarks } from "@atlaskit/adf-utils";
@@ -109,7 +109,7 @@ describe('updates adf-util imports to new child entry points', () => {
         </div>
       );
       `,
-    `
+		`
       import { transformDedupeMarks } from "@atlaskit/adf-utils/transforms";
       import { getEmptyADF } from "@atlaskit/adf-utils/empty-adf";
       import { scrubAdf } from "@atlaskit/adf-utils/scrub";
@@ -122,13 +122,13 @@ describe('updates adf-util imports to new child entry points', () => {
         </div>
       );
       `,
-    'should handle migrating any combination of old and new entry points to new child entry points',
-  );
+		'should handle migrating any combination of old and new entry points to new child entry points',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     const { scrubAdf } = require("@atlaskit/adf-utils");
     import * as adfUtils from "@atlaskit/adf-utils";
 
@@ -149,7 +149,7 @@ describe('updates adf-util imports to new child entry points', () => {
         )
       }
     `,
-    `
+		`
     const { scrubAdf } = require("@atlaskit/adf-utils");
     import * as adfUtils from "@atlaskit/adf-utils";
 
@@ -170,6 +170,6 @@ describe('updates adf-util imports to new child entry points', () => {
         )
       }
     `,
-    'should skip migrating other import syntaxes (namespace imports, CJS, dyamic imports)',
-  );
+		'should skip migrating other import syntaxes (namespace imports, CJS, dyamic imports)',
+	);
 });

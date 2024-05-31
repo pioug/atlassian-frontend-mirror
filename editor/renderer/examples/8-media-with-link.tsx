@@ -8,32 +8,32 @@ const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });
 
 export default function Example() {
-  const [allowLinking, setAllowLinking] = React.useState(true);
+	const [allowLinking, setAllowLinking] = React.useState(true);
 
-  return (
-    <>
-      <label>
-        <input
-          type="checkbox"
-          checked={allowLinking}
-          onChange={() => setAllowLinking(!allowLinking)}
-        />
-        Allow media linking
-      </label>
-      <Renderer
-        dataProviders={providerFactory}
-        document={document}
-        appearance="full-page"
-        media={{ allowLinking }}
-        eventHandlers={{
-          link: {
-            onClick: () => console.log('onLinkClick'),
-          },
-          media: {
-            onClick: () => console.log('onMediaLink'),
-          },
-        }}
-      />
-    </>
-  );
+	return (
+		<>
+			<label>
+				<input
+					type="checkbox"
+					checked={allowLinking}
+					onChange={() => setAllowLinking(!allowLinking)}
+				/>
+				Allow media linking
+			</label>
+			<Renderer
+				dataProviders={providerFactory}
+				document={document}
+				appearance="full-page"
+				media={{ allowLinking }}
+				eventHandlers={{
+					link: {
+						onClick: () => console.log('onLinkClick'),
+					},
+					media: {
+						onClick: () => console.log('onMediaLink'),
+					},
+				}}
+			/>
+		</>
+	);
 }

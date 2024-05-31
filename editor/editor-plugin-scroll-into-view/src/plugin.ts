@@ -19,35 +19,35 @@ export const scrollIntoViewPluginKey = new PluginKey('scrollIntoViewPlugin');
 type TransactionWithScroll = Transaction & { scrolledIntoView: boolean };
 
 const createPlugin = () =>
-  new SafePlugin({
-    key: scrollIntoViewPluginKey,
-    appendTransaction: (transactions, _oldState, newState) => {
-      if (!transactions.length) {
-        return;
-      }
+	new SafePlugin({
+		key: scrollIntoViewPluginKey,
+		appendTransaction: (transactions, _oldState, newState) => {
+			if (!transactions.length) {
+				return;
+			}
 
-      const tr = transactions[0] as TransactionWithScroll;
-      if (
-        (tr.docChanged || tr.storedMarksSet) &&
-        !tr.scrolledIntoView &&
-        tr.getMeta('scrollIntoView') !== false &&
-        // ignore anything we would not want to undo
-        // this covers things like autofixing layouts, hovering table rows/cols
-        tr.getMeta('addToHistory') !== false &&
-        // ignore collab changes from another user
-        !tr.getMeta('isRemote') &&
-        // ignore any transaction coming from the input text rule plugin
-        !tr.getMeta(TEXT_INPUT_RULE_TRANSACTION_KEY)
-      ) {
-        return newState.tr.scrollIntoView();
-      }
-    },
-  });
+			const tr = transactions[0] as TransactionWithScroll;
+			if (
+				(tr.docChanged || tr.storedMarksSet) &&
+				!tr.scrolledIntoView &&
+				tr.getMeta('scrollIntoView') !== false &&
+				// ignore anything we would not want to undo
+				// this covers things like autofixing layouts, hovering table rows/cols
+				tr.getMeta('addToHistory') !== false &&
+				// ignore collab changes from another user
+				!tr.getMeta('isRemote') &&
+				// ignore any transaction coming from the input text rule plugin
+				!tr.getMeta(TEXT_INPUT_RULE_TRANSACTION_KEY)
+			) {
+				return newState.tr.scrollIntoView();
+			}
+		},
+	});
 export type ScrollIntoViewPlugin = NextEditorPlugin<'scrollIntoView'>;
 
 export const scrollIntoViewPlugin: ScrollIntoViewPlugin = () => ({
-  name: 'scrollIntoView',
-  pmPlugins() {
-    return [{ name: 'scrollIntoView', plugin: () => createPlugin() }];
-  },
+	name: 'scrollIntoView',
+	pmPlugins() {
+		return [{ name: 'scrollIntoView', plugin: () => createPlugin() }];
+	},
 });

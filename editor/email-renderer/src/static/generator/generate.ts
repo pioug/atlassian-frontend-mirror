@@ -17,57 +17,53 @@ const generatedWarning = `
 `;
 
 const exportOpts = imageSources.map((file) => ({
-  name: file.name,
-  outputPath: resolve(tempFolder, `./${file.name}.${imageOutputType}`),
-  input: resolve(coreIconSrc, `${file.input}.svg`),
-  output:
-    resolve(tempFolder, `./${file.name}.${imageOutputType}`) +
-    ` ${file.exportSize} 80%`,
+	name: file.name,
+	outputPath: resolve(tempFolder, `./${file.name}.${imageOutputType}`),
+	input: resolve(coreIconSrc, `${file.input}.svg`),
+	output: resolve(tempFolder, `./${file.name}.${imageOutputType}`) + ` ${file.exportSize} 80%`,
 }));
 
 const createIcons = () => {
-  svgexport.render(exportOpts, () => {
-    createIndividualIconModules();
+	svgexport.render(exportOpts, () => {
+		createIndividualIconModules();
 
-    const indexFileExports = exportOpts
-      .map((icon) => `export { ${icon.name} } from './${icon.name}'`)
-      .join('\n');
+		const indexFileExports = exportOpts
+			.map((icon) => `export { ${icon.name} } from './${icon.name}'`)
+			.join('\n');
 
-    const indexFileEnum = `
+		const indexFileEnum = `
       export enum IconName {
         ${exportOpts.map((icon) => `${icon.name} = '${icon.name}',`).join('\n')}
       }`;
 
-    const indexFileIconNameType = `
+		const indexFileIconNameType = `
       export type IconString =
         ${exportOpts.map((icon) => `'${icon.name}'`).join(' | ')}
       `;
 
-    const indexFileContents = [
-      generatedWarning,
-      indexFileExports,
-      indexFileEnum,
-      indexFileIconNameType,
-    ].join('\n');
+		const indexFileContents = [
+			generatedWarning,
+			indexFileExports,
+			indexFileEnum,
+			indexFileIconNameType,
+		].join('\n');
 
-    writeFileSync(resolve(__dirname, `../icons/index.ts`), indexFileContents);
+		writeFileSync(resolve(__dirname, `../icons/index.ts`), indexFileContents);
 
-    rimraf(tempFolder, () => {
-      // if (err) return console.log(err);
-    });
-  });
+		rimraf(tempFolder, () => {
+			// if (err) return console.log(err);
+		});
+	});
 };
 
 const createIndividualIconModules = () => {
-  exportOpts.map((icon) =>
-    writeFileSync(
-      resolve(__dirname, `../icons/${icon.name}.ts`),
-      `${generatedWarning}
-      export const ${icon.name} = '${readFileSync(icon.outputPath).toString(
-        'base64',
-      )}'`,
-    ),
-  );
+	exportOpts.map((icon) =>
+		writeFileSync(
+			resolve(__dirname, `../icons/${icon.name}.ts`),
+			`${generatedWarning}
+      export const ${icon.name} = '${readFileSync(icon.outputPath).toString('base64')}'`,
+		),
+	);
 };
 
 createIcons();

@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  AtlassianInternalWarning,
-  code,
-  Example,
-  md,
-  Props,
-} from '@atlaskit/docs';
+import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
 ${(<AtlassianInternalWarning />)}
@@ -251,19 +245,19 @@ ${code`
 `}
 
 ${(
-  <Example
-    packageName="@atlaskit/editor-core"
-    Component={require('../examples/1-basic').default}
-    title="Basic"
-    source={require('!!raw-loader!../examples/1-basic')}
-  />
+	<Example
+		packageName="@atlaskit/editor-core"
+		Component={require('../examples/1-basic').default}
+		title="Basic"
+		source={require('!!raw-loader!../examples/1-basic')}
+	/>
 )}
 
   ${(
-    <Props
-      shouldCollapseProps
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/editor')}
-    />
-  )}
+		<Props
+			shouldCollapseProps
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/editor')}
+		/>
+	)}
 `;

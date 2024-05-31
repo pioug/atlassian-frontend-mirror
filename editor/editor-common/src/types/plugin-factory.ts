@@ -14,22 +14,20 @@ import type { EditorReactContext } from './editor-react-context';
 import type { FeatureFlags } from './feature-flags';
 
 export type PMPluginFactoryParams = {
-  schema: Schema;
-  dispatch: Dispatch;
-  eventDispatcher: EventDispatcher;
-  providerFactory: ProviderFactory;
-  errorReporter?: ErrorReporter;
-  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
-  reactContext: () => EditorReactContext;
-  dispatchAnalyticsEvent: DispatchAnalyticsEvent;
-  featureFlags: FeatureFlags;
-  getIntl: () => IntlShape;
+	schema: Schema;
+	dispatch: Dispatch;
+	eventDispatcher: EventDispatcher;
+	providerFactory: ProviderFactory;
+	errorReporter?: ErrorReporter;
+	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
+	reactContext: () => EditorReactContext;
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+	featureFlags: FeatureFlags;
+	getIntl: () => IntlShape;
 };
 
-export type PMPluginFactory = (
-  params: PMPluginFactoryParams,
-) => SafePlugin | undefined;
+export type PMPluginFactory = (params: PMPluginFactoryParams) => SafePlugin | undefined;
 export type PMPlugin = {
-  name: string;
-  plugin: PMPluginFactory;
+	name: string;
+	plugin: PMPluginFactory;
 };

@@ -3,24 +3,24 @@ import { createPlugin, primaryToolbarPluginKey } from './pm-plugin';
 import type { PrimaryToolbarPlugin } from './types';
 
 export const primaryToolbarPlugin: PrimaryToolbarPlugin = () => ({
-  name: 'primaryToolbar',
+	name: 'primaryToolbar',
 
-  commands: {
-    registerComponent,
-  },
+	commands: {
+		registerComponent,
+	},
 
-  pmPlugins: () => [
-    {
-      name: 'primaryToolbar',
-      plugin: () => createPlugin(),
-    },
-  ],
+	pmPlugins: () => [
+		{
+			name: 'primaryToolbar',
+			plugin: () => createPlugin(),
+		},
+	],
 
-  getSharedState(editorState) {
-    if (!editorState) {
-      return;
-    }
+	getSharedState(editorState) {
+		if (!editorState) {
+			return;
+		}
 
-    return primaryToolbarPluginKey.getState(editorState);
-  },
+		return primaryToolbarPluginKey.getState(editorState);
+	},
 });

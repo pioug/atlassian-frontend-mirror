@@ -1,11 +1,8 @@
-import {
-  type LayoutColumnDefinition,
-  type LayoutSectionDefinition,
-} from '@atlaskit/adf-schema';
+import { type LayoutColumnDefinition, type LayoutSectionDefinition } from '@atlaskit/adf-schema';
 
 export const layoutSection =
-  () =>
-  (content: Array<LayoutColumnDefinition>): LayoutSectionDefinition => ({
-    type: 'layoutSection',
-    content,
-  });
+	() =>
+	(content: Array<LayoutColumnDefinition>): LayoutSectionDefinition => ({
+		type: 'layoutSection',
+		content,
+	});

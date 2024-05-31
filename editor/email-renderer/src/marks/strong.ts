@@ -9,5 +9,5 @@ export const styles = `
 `;
 
 export default function strong({ text }: MarkSerializerOpts) {
-  return createTag('span', { class: createClassName('mark-strong') }, text);
+	return createTag('span', { class: createClassName('mark-strong') }, text);
 }

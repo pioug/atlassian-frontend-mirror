@@ -7,75 +7,69 @@ import { token } from '@atlaskit/tokens';
 import { N0, N20, N30, N700 } from '@atlaskit/theme/colors';
 
 export interface CodeBlockButtonContainerProps {
-  allowCopyToClipboard?: boolean;
-  allowWrapCodeBlock?: boolean;
-  setWrapLongLines: Dispatch<SetStateAction<boolean>>;
-  text: string;
-  wrapLongLines: boolean;
+	allowCopyToClipboard?: boolean;
+	allowWrapCodeBlock?: boolean;
+	setWrapLongLines: Dispatch<SetStateAction<boolean>>;
+	text: string;
+	wrapLongLines: boolean;
 }
 
 const codeBlockButtonsWrapper = css({
-  position: 'sticky',
-  top: '0px',
-  background: `${token('elevation.surface', N20)}`,
+	position: 'sticky',
+	top: '0px',
+	background: `${token('elevation.surface', N20)}`,
 });
 
 const codeBlockButtonsStyle = css({
-  display: 'flex',
-  justifyContent: 'flex-end',
-  position: 'absolute',
-  height: '0',
-  width: '100%',
-  right: token('space.075', '6px'),
-  top: token('space.050', '4px'),
-  padding: token('space.025', '2px'),
-  button: {
-    height: '32px',
-    width: '32px',
-    border: `2px solid ${token('color.border', N0)}`,
-    borderRadius: '4px',
-    marginLeft: token('space.050', '4px'),
-    padding: token('space.025', '2px'),
-    background: `${token('elevation.surface.overlay', N20)}`,
-    color: `${token('color.icon', 'rgb(66, 82, 110)')}`,
+	display: 'flex',
+	justifyContent: 'flex-end',
+	position: 'absolute',
+	height: '0',
+	width: '100%',
+	right: token('space.075', '6px'),
+	top: token('space.050', '4px'),
+	padding: token('space.025', '2px'),
+	button: {
+		height: '32px',
+		width: '32px',
+		border: `2px solid ${token('color.border', N0)}`,
+		borderRadius: '4px',
+		marginLeft: token('space.050', '4px'),
+		padding: token('space.025', '2px'),
+		background: `${token('elevation.surface.overlay', N20)}`,
+		color: `${token('color.icon', 'rgb(66, 82, 110)')}`,
 
-    '&:hover': {
-      borderWidth: '2px',
-      backgroundColor: `${token('elevation.surface.overlay.hovered', N30)}`,
-      height: '32px',
-      width: '32px',
-    },
-    '&.clicked': {
-      backgroundColor: `${token(
-        'color.background.neutral.bold.pressed',
-        N700,
-      )}`,
-      borderRadius: '4px',
-      color: `${token('color.icon.inverse', N0)} !important`,
-    },
-  },
+		'&:hover': {
+			borderWidth: '2px',
+			backgroundColor: `${token('elevation.surface.overlay.hovered', N30)}`,
+			height: '32px',
+			width: '32px',
+		},
+		'&.clicked': {
+			backgroundColor: `${token('color.background.neutral.bold.pressed', N700)}`,
+			borderRadius: '4px',
+			color: `${token('color.icon.inverse', N0)} !important`,
+		},
+	},
 });
 
 const CodeBlockButtonContainer = ({
-  allowCopyToClipboard,
-  allowWrapCodeBlock,
-  setWrapLongLines,
-  text,
-  wrapLongLines,
+	allowCopyToClipboard,
+	allowWrapCodeBlock,
+	setWrapLongLines,
+	text,
+	wrapLongLines,
 }: CodeBlockButtonContainerProps) => {
-  return (
-    <div css={codeBlockButtonsWrapper}>
-      <div css={codeBlockButtonsStyle}>
-        {allowWrapCodeBlock && (
-          <CodeWrapButton
-            setWrapLongLines={setWrapLongLines}
-            wrapLongLines={wrapLongLines}
-          />
-        )}
-        {allowCopyToClipboard && <CopyButton content={text} />}
-      </div>
-    </div>
-  );
+	return (
+		<div css={codeBlockButtonsWrapper}>
+			<div css={codeBlockButtonsStyle}>
+				{allowWrapCodeBlock && (
+					<CodeWrapButton setWrapLongLines={setWrapLongLines} wrapLongLines={wrapLongLines} />
+				)}
+				{allowCopyToClipboard && <CopyButton content={text} />}
+			</div>
+		</div>
+	);
 };
 
 export default CodeBlockButtonContainer;

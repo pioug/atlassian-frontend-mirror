@@ -8,30 +8,23 @@ import reducer from './reducer';
 
 export const pluginKey = new PluginKey('mediaAltTextPlugin');
 
-const { createPluginState, createCommand, getPluginState } = pluginFactory(
-  pluginKey,
-  reducer,
-  {
-    onSelectionChanged: (tr, newState) => {
-      // dont close alt text for undo/redo transactions (if it comes from prosemirror-history)
-      if (tr.getMeta(pmHistoryPluginKey)) {
-        return newState;
-      }
-      return {
-        isAltTextEditorOpen: false,
-      };
-    },
-  },
-);
+const { createPluginState, createCommand, getPluginState } = pluginFactory(pluginKey, reducer, {
+	onSelectionChanged: (tr, newState) => {
+		// dont close alt text for undo/redo transactions (if it comes from prosemirror-history)
+		if (tr.getMeta(pmHistoryPluginKey)) {
+			return newState;
+		}
+		return {
+			isAltTextEditorOpen: false,
+		};
+	},
+});
 
-export const createPlugin = ({
-  dispatch,
-  providerFactory,
-}: PMPluginFactoryParams) => {
-  return new SafePlugin({
-    state: createPluginState(dispatch, { isAltTextEditorOpen: false }),
-    key: pluginKey,
-  });
+export const createPlugin = ({ dispatch, providerFactory }: PMPluginFactoryParams) => {
+	return new SafePlugin({
+		state: createPluginState(dispatch, { isAltTextEditorOpen: false }),
+		key: pluginKey,
+	});
 };
 
 export { createCommand, getPluginState };

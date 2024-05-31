@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 27.4.1
+
+### Patch Changes
+
+- [#105414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105414)
+  [`23d96f7c2ad9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23d96f7c2ad9) -
+  Remove product and resourceType logic from the FE.
+
+## 27.4.0
+
+### Minor Changes
+
+- [#104944](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104944)
+  [`2254e1b73d47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2254e1b73d47) -
+  [ux] Error message for failed automation rule invocation.
+
 ## 27.3.0
 
 ### Minor Changes

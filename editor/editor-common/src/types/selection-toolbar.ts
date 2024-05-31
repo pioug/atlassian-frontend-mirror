@@ -7,12 +7,12 @@ import type { ProviderFactory } from '../provider-factory';
 import type { Command } from './command';
 import type { FloatingToolbarItem } from './floating-toolbar';
 export type SelectionToolbarGroup = {
-  /**
-   * by default these will be added in the order the plugin adds them
-   * To override this a rank can be provided
-   */
-  rank?: number;
-  items: Array<FloatingToolbarItem<Command>>;
+	/**
+	 * by default these will be added in the order the plugin adds them
+	 * To override this a rank can be provided
+	 */
+	rank?: number;
+	items: Array<FloatingToolbarItem<Command>>;
 };
 /**
  * The selection toolbar is a floating toolbar that is displayed for
@@ -20,7 +20,7 @@ export type SelectionToolbarGroup = {
  * items.
  */
 export type SelectionToolbarHandler = (
-  state: EditorState,
-  intl: IntlShape,
-  providerFactory: ProviderFactory,
+	state: EditorState,
+	intl: IntlShape,
+	providerFactory: ProviderFactory,
 ) => SelectionToolbarGroup | undefined;

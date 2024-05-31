@@ -4,11 +4,11 @@ import * as decisionAdf from '../__fixtures__/decision-adf.json';
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 export const DecisionRenderer = generateRendererComponent({
-  document: decisionNodeAdf,
-  appearance: 'full-width',
+	document: decisionNodeAdf,
+	appearance: 'full-width',
 });
 
 export const DecisionHoverRenderer = generateRendererComponent({
-  document: decisionAdf,
-  appearance: 'full-width',
+	document: decisionAdf,
+	appearance: 'full-width',
 });

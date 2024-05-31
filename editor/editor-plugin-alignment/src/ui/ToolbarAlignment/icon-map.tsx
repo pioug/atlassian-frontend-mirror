@@ -10,23 +10,23 @@ import EditorAlignRightIcon from '@atlaskit/icon/glyph/editor/align-right';
 import type { GlyphProps } from '@atlaskit/icon/types';
 
 const iconAndMessageMap: {
-  [key: string]: {
-    Component: React.ComponentType<React.PropsWithChildren<GlyphProps>>;
-    label: MessageDescriptor;
-  };
+	[key: string]: {
+		Component: React.ComponentType<React.PropsWithChildren<GlyphProps>>;
+		label: MessageDescriptor;
+	};
 } = {
-  start: { Component: EditorAlignLeftIcon, label: messages.alignLeft },
-  end: { Component: EditorAlignRightIcon, label: messages.alignRight },
-  center: { Component: EditorAlignCenterIcon, label: messages.alignCenter },
+	start: { Component: EditorAlignLeftIcon, label: messages.alignLeft },
+	end: { Component: EditorAlignRightIcon, label: messages.alignRight },
+	center: { Component: EditorAlignCenterIcon, label: messages.alignCenter },
 };
 
 type Props = {
-  alignment: string;
+	alignment: string;
 };
 
 export const IconMap = (props: Props) => {
-  const { Component, label } = iconAndMessageMap[props.alignment];
-  const intl = useIntl();
+	const { Component, label } = iconAndMessageMap[props.alignment];
+	const intl = useIntl();
 
-  return <Component label={intl.formatMessage(label)} />;
+	return <Component label={intl.formatMessage(label)} />;
 };

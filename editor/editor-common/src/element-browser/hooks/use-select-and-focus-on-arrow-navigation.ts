@@ -44,395 +44,369 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
  */
 
 type ReducerState = {
-  focusOnSearch: boolean;
-  focusOnViewMore: boolean;
-  selectedItemIndex?: number;
-  focusedItemIndex?: number;
-  listSize: number;
-  canFocusViewMore?: boolean;
-  focusedCategoryIndex?: number;
+	focusOnSearch: boolean;
+	focusOnViewMore: boolean;
+	selectedItemIndex?: number;
+	focusedItemIndex?: number;
+	listSize: number;
+	canFocusViewMore?: boolean;
+	focusedCategoryIndex?: number;
 };
 
 export enum ACTIONS {
-  FOCUS_SEARCH = 'focusOnSearch',
-  UPDATE_STATE = 'updateState',
-  MOVE = 'move',
+	FOCUS_SEARCH = 'focusOnSearch',
+	UPDATE_STATE = 'updateState',
+	MOVE = 'move',
 }
 
 export type ReducerAction = {
-  type: ACTIONS;
-  payload: Partial<ReducerState> & {
-    positions?: number;
-    step?: number;
-  };
+	type: ACTIONS;
+	payload: Partial<ReducerState> & {
+		positions?: number;
+		step?: number;
+	};
 };
 
 const reducer = (state: ReducerState, action: ReducerAction) => {
-  switch (action.type) {
-    case ACTIONS.UPDATE_STATE:
-      return {
-        ...state,
-        ...action.payload,
-      };
+	switch (action.type) {
+		case ACTIONS.UPDATE_STATE:
+			return {
+				...state,
+				...action.payload,
+			};
 
-    case ACTIONS.FOCUS_SEARCH:
-      return {
-        ...state,
-        focusedItemIndex: undefined,
-        focusedCategoryIndex: undefined,
-        focusOnSearch: true,
-        focusOnViewMore: false,
-      };
+		case ACTIONS.FOCUS_SEARCH:
+			return {
+				...state,
+				focusedItemIndex: undefined,
+				focusedCategoryIndex: undefined,
+				focusOnSearch: true,
+				focusOnViewMore: false,
+			};
 
-    case ACTIONS.MOVE:
-      return moveReducer(state, action);
-  }
-  return state;
+		case ACTIONS.MOVE:
+			return moveReducer(state, action);
+	}
+	return state;
 };
 
-const moveReducer = (
-  state: ReducerState,
-  action: ReducerAction,
-): ReducerState => {
-  const { listSize, canFocusViewMore } = state;
-  if (state.focusOnSearch) {
-    // up arrow
-    if (action.payload.positions && action.payload.positions <= -1) {
-      return {
-        ...state,
-        focusOnSearch: false,
-        focusOnViewMore: !!canFocusViewMore,
-        focusedItemIndex: canFocusViewMore ? undefined : listSize,
-        selectedItemIndex: canFocusViewMore ? undefined : listSize,
-      };
-    } else {
-      return {
-        ...state,
-        focusOnSearch: false,
-        focusOnViewMore: false,
-        focusedItemIndex: 0,
-        selectedItemIndex: 0,
-      };
-    }
-  }
+const moveReducer = (state: ReducerState, action: ReducerAction): ReducerState => {
+	const { listSize, canFocusViewMore } = state;
+	if (state.focusOnSearch) {
+		// up arrow
+		if (action.payload.positions && action.payload.positions <= -1) {
+			return {
+				...state,
+				focusOnSearch: false,
+				focusOnViewMore: !!canFocusViewMore,
+				focusedItemIndex: canFocusViewMore ? undefined : listSize,
+				selectedItemIndex: canFocusViewMore ? undefined : listSize,
+			};
+		} else {
+			return {
+				...state,
+				focusOnSearch: false,
+				focusOnViewMore: false,
+				focusedItemIndex: 0,
+				selectedItemIndex: 0,
+			};
+		}
+	}
 
-  if (state.focusOnViewMore) {
-    // down arrow
-    if (action.payload.positions === 1) {
-      return {
-        ...state,
-        focusOnSearch: true,
-        focusOnViewMore: false,
-        focusedItemIndex: undefined,
-        // if search is focused then select first item.
-        selectedItemIndex: 0,
-      };
-    } else {
-      return {
-        ...state,
-        focusOnSearch: false,
-        focusOnViewMore: false,
-        focusedItemIndex: listSize,
-        selectedItemIndex: listSize,
-      };
-    }
-  }
+	if (state.focusOnViewMore) {
+		// down arrow
+		if (action.payload.positions === 1) {
+			return {
+				...state,
+				focusOnSearch: true,
+				focusOnViewMore: false,
+				focusedItemIndex: undefined,
+				// if search is focused then select first item.
+				selectedItemIndex: 0,
+			};
+		} else {
+			return {
+				...state,
+				focusOnSearch: false,
+				focusOnViewMore: false,
+				focusedItemIndex: listSize,
+				selectedItemIndex: listSize,
+			};
+		}
+	}
 
-  const newIndex = state.selectedItemIndex
-    ? state.selectedItemIndex + action.payload.positions!
-    : action.payload.positions!;
+	const newIndex = state.selectedItemIndex
+		? state.selectedItemIndex + action.payload.positions!
+		: action.payload.positions!;
 
-  const safeIndex = ensureSafeIndex(newIndex, state.listSize);
-  // down arrow key is pressed or right arrow key is pressed.
-  if (
-    state.focusedItemIndex !== undefined &&
-    action.payload.positions &&
-    action.payload.positions >= 1
-  ) {
-    // when multi column element browser is open and we are in last
-    //  row then newIndex will be greater than listSize when
-    //  down arrow key is pressed.
-    // Or when last item is focused and down or right arrow key is pressed.
-    const isLastItemFocused = newIndex > listSize;
-    const focusOnSearch = isLastItemFocused && !canFocusViewMore;
-    const focusOnViewMore = isLastItemFocused && !!canFocusViewMore;
-    // if search is focused, then select first item.
-    // otherwise if view more is focused then select item should be undefined.
-    const selectedItemIndex = focusOnSearch
-      ? 0
-      : focusOnViewMore
-      ? undefined
-      : safeIndex;
-    return {
-      ...state,
-      focusOnSearch,
-      focusOnViewMore,
-      selectedItemIndex,
-      focusedItemIndex: isLastItemFocused ? undefined : safeIndex,
-    };
-  }
+	const safeIndex = ensureSafeIndex(newIndex, state.listSize);
+	// down arrow key is pressed or right arrow key is pressed.
+	if (
+		state.focusedItemIndex !== undefined &&
+		action.payload.positions &&
+		action.payload.positions >= 1
+	) {
+		// when multi column element browser is open and we are in last
+		//  row then newIndex will be greater than listSize when
+		//  down arrow key is pressed.
+		// Or when last item is focused and down or right arrow key is pressed.
+		const isLastItemFocused = newIndex > listSize;
+		const focusOnSearch = isLastItemFocused && !canFocusViewMore;
+		const focusOnViewMore = isLastItemFocused && !!canFocusViewMore;
+		// if search is focused, then select first item.
+		// otherwise if view more is focused then select item should be undefined.
+		const selectedItemIndex = focusOnSearch ? 0 : focusOnViewMore ? undefined : safeIndex;
+		return {
+			...state,
+			focusOnSearch,
+			focusOnViewMore,
+			selectedItemIndex,
+			focusedItemIndex: isLastItemFocused ? undefined : safeIndex,
+		};
+	}
 
-  // up arrow key is pressed or left arrow key is pressed.
-  if (
-    state.focusedItemIndex !== undefined &&
-    action.payload.positions &&
-    action.payload.positions <= -1
-  ) {
-    // if arrow up key is pressed when focus is in first row,
-    //  or, arrow left key is pressed when first item is focused,
-    //  then newIndex will become less than zero.
-    // In this case, focus search, and, kept previously selected item.
-    const isFirstRowFocused = newIndex < 0;
-    // if focus goes to search then kept last selected item in first row.
-    const selectedItemIndex = isFirstRowFocused
-      ? state.selectedItemIndex
-      : safeIndex;
-    return {
-      ...state,
-      // focus search if first item is focused on up or left arrow key
-      focusOnSearch: isFirstRowFocused,
-      focusOnViewMore: false,
-      focusedItemIndex: isFirstRowFocused ? undefined : safeIndex,
-      selectedItemIndex,
-    };
-  }
-  return {
-    ...state,
-    focusOnSearch: false,
-    focusOnViewMore: false,
-    selectedItemIndex: safeIndex,
-    focusedItemIndex: safeIndex,
-  };
+	// up arrow key is pressed or left arrow key is pressed.
+	if (
+		state.focusedItemIndex !== undefined &&
+		action.payload.positions &&
+		action.payload.positions <= -1
+	) {
+		// if arrow up key is pressed when focus is in first row,
+		//  or, arrow left key is pressed when first item is focused,
+		//  then newIndex will become less than zero.
+		// In this case, focus search, and, kept previously selected item.
+		const isFirstRowFocused = newIndex < 0;
+		// if focus goes to search then kept last selected item in first row.
+		const selectedItemIndex = isFirstRowFocused ? state.selectedItemIndex : safeIndex;
+		return {
+			...state,
+			// focus search if first item is focused on up or left arrow key
+			focusOnSearch: isFirstRowFocused,
+			focusOnViewMore: false,
+			focusedItemIndex: isFirstRowFocused ? undefined : safeIndex,
+			selectedItemIndex,
+		};
+	}
+	return {
+		...state,
+		focusOnSearch: false,
+		focusOnViewMore: false,
+		selectedItemIndex: safeIndex,
+		focusedItemIndex: safeIndex,
+	};
 };
 
 const initialState = {
-  focusOnSearch: true,
-  focusOnViewMore: false,
-  selectedItemIndex: 0,
-  focusedItemIndex: undefined,
-  listSize: 0,
+	focusOnSearch: true,
+	focusOnViewMore: false,
+	selectedItemIndex: 0,
+	focusedItemIndex: undefined,
+	listSize: 0,
 };
 
 const getInitialState =
-  (listSize: number, canFocusViewMore: boolean) =>
-  (initialState: ReducerState) => ({
-    ...initialState,
-    listSize,
-    canFocusViewMore,
-  });
+	(listSize: number, canFocusViewMore: boolean) => (initialState: ReducerState) => ({
+		...initialState,
+		listSize,
+		canFocusViewMore,
+	});
 
 export type useSelectAndFocusReturnType = {
-  selectedItemIndex?: number;
-  onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
-  focusOnSearch: boolean;
-  focusOnViewMore: boolean;
-  focusedItemIndex?: number;
-  focusedCategoryIndex?: number;
-  setFocusedItemIndex: (index?: number) => void;
-  setFocusedCategoryIndex: (index?: number) => void;
-  setFocusOnSearch: () => void;
+	selectedItemIndex?: number;
+	onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+	focusOnSearch: boolean;
+	focusOnViewMore: boolean;
+	focusedItemIndex?: number;
+	focusedCategoryIndex?: number;
+	setFocusedItemIndex: (index?: number) => void;
+	setFocusedCategoryIndex: (index?: number) => void;
+	setFocusOnSearch: () => void;
 };
 
 function useSelectAndFocusOnArrowNavigation(
-  listSize: number,
-  step: number,
-  canFocusViewMore: boolean,
-  isFocusSearch?: boolean,
+	listSize: number,
+	step: number,
+	canFocusViewMore: boolean,
+	isFocusSearch?: boolean,
 ): useSelectAndFocusReturnType {
-  const [state, dispatch] = useReducer(
-    reducer,
-    initialState,
-    getInitialState(listSize, canFocusViewMore),
-  );
+	const [state, dispatch] = useReducer(
+		reducer,
+		initialState,
+		getInitialState(listSize, canFocusViewMore),
+	);
 
-  useEffect(() => {
-    dispatch({
-      type: ACTIONS.UPDATE_STATE,
-      payload: { canFocusViewMore },
-    });
-  }, [canFocusViewMore]);
+	useEffect(() => {
+		dispatch({
+			type: ACTIONS.UPDATE_STATE,
+			payload: { canFocusViewMore },
+		});
+	}, [canFocusViewMore]);
 
-  const {
-    selectedItemIndex,
-    focusedItemIndex,
-    focusOnSearch,
-    focusOnViewMore,
-    focusedCategoryIndex,
-  } = state;
+	const {
+		selectedItemIndex,
+		focusedItemIndex,
+		focusOnSearch,
+		focusOnViewMore,
+		focusedCategoryIndex,
+	} = state;
 
-  // calls if items size changed
-  const reset = useCallback(
-    (listSize: number) => {
-      let payload = {
-        ...initialState,
-        listSize,
-      };
-      if (
-        getBooleanFF(
-          'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
-        )
-      ) {
-        // A11Y: if categories exist ,on the initial render search element should receive focus.
-        // After user pick some category the category should stay focused.
-        payload = Object.assign(payload, {
-          focusOnSearch: isFocusSearch ?? initialState.focusOnSearch,
-        });
-      }
+	// calls if items size changed
+	const reset = useCallback(
+		(listSize: number) => {
+			let payload = {
+				...initialState,
+				listSize,
+			};
+			if (getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
+				// A11Y: if categories exist ,on the initial render search element should receive focus.
+				// After user pick some category the category should stay focused.
+				payload = Object.assign(payload, {
+					focusOnSearch: isFocusSearch ?? initialState.focusOnSearch,
+				});
+			}
 
-      dispatch({
-        type: ACTIONS.UPDATE_STATE,
-        payload,
-      });
-    },
-    [isFocusSearch],
-  );
+			dispatch({
+				type: ACTIONS.UPDATE_STATE,
+				payload,
+			});
+		},
+		[isFocusSearch],
+	);
 
-  const removeFocusFromSearchAndSetOnItem = useCallback(
-    (index?: number) => {
-      let payload: Partial<ReducerState> = {
-        focusedItemIndex: index,
-        selectedItemIndex: index,
-        focusOnSearch: false,
-        focusOnViewMore: false,
-      };
-      if (
-        getBooleanFF(
-          'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
-        )
-      ) {
-        payload = Object.assign(payload, {
-          focusedCategoryIndex: undefined,
-        });
-      }
+	const removeFocusFromSearchAndSetOnItem = useCallback(
+		(index?: number) => {
+			let payload: Partial<ReducerState> = {
+				focusedItemIndex: index,
+				selectedItemIndex: index,
+				focusOnSearch: false,
+				focusOnViewMore: false,
+			};
+			if (getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
+				payload = Object.assign(payload, {
+					focusedCategoryIndex: undefined,
+				});
+			}
 
-      dispatch({
-        type: ACTIONS.UPDATE_STATE,
-        payload,
-      });
-    },
-    [dispatch],
-  );
+			dispatch({
+				type: ACTIONS.UPDATE_STATE,
+				payload,
+			});
+		},
+		[dispatch],
+	);
 
-  const setFocusedCategoryIndex = useCallback(
-    (index?: number) => {
-      if (
-        !getBooleanFF(
-          'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
-        )
-      ) {
-        return;
-      }
-      const payload: Partial<ReducerState> = {
-        focusOnSearch: false,
-        focusOnViewMore: false,
-        focusedCategoryIndex: index,
-        focusedItemIndex: undefined,
-      };
+	const setFocusedCategoryIndex = useCallback(
+		(index?: number) => {
+			if (!getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
+				return;
+			}
+			const payload: Partial<ReducerState> = {
+				focusOnSearch: false,
+				focusOnViewMore: false,
+				focusedCategoryIndex: index,
+				focusedItemIndex: undefined,
+			};
 
-      dispatch({
-        type: ACTIONS.UPDATE_STATE,
-        payload,
-      });
-    },
-    [dispatch],
-  );
+			dispatch({
+				type: ACTIONS.UPDATE_STATE,
+				payload,
+			});
+		},
+		[dispatch],
+	);
 
-  const setFocusOnSearch = useCallback(() => {
-    dispatch({
-      type: ACTIONS.FOCUS_SEARCH,
-      payload: {},
-    });
-  }, [dispatch]);
+	const setFocusOnSearch = useCallback(() => {
+		dispatch({
+			type: ACTIONS.FOCUS_SEARCH,
+			payload: {},
+		});
+	}, [dispatch]);
 
-  const isMoving = useRef(false);
+	const isMoving = useRef(false);
 
-  const move = useCallback(
-    (
-      e: React.KeyboardEvent<HTMLDivElement>,
-      positions: number,
-      actualStep?: number,
-    ) => {
-      e.preventDefault();
-      e.stopPropagation();
+	const move = useCallback(
+		(e: React.KeyboardEvent<HTMLDivElement>, positions: number, actualStep?: number) => {
+			e.preventDefault();
+			e.stopPropagation();
 
-      // avoid firing 2 moves at the same time when holding an arrow down as this can freeze the screen
-      if (!isMoving.current) {
-        isMoving.current = true;
-        requestAnimationFrame(() => {
-          isMoving.current = false;
-          dispatch({
-            type: ACTIONS.MOVE,
-            payload: {
-              positions,
-              step: actualStep,
-            },
-          });
-        });
-      }
-    },
-    [],
-  );
+			// avoid firing 2 moves at the same time when holding an arrow down as this can freeze the screen
+			if (!isMoving.current) {
+				isMoving.current = true;
+				requestAnimationFrame(() => {
+					isMoving.current = false;
+					dispatch({
+						type: ACTIONS.MOVE,
+						payload: {
+							positions,
+							step: actualStep,
+						},
+					});
+				});
+			}
+		},
+		[],
+	);
 
-  const onKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      const avoidKeysWhileSearching = [
-        '/', // While already focused on search bar, let users type in.
-        'ArrowRight',
-        'ArrowLeft',
-      ];
-      if (focusOnSearch && avoidKeysWhileSearching.includes(e.key)) {
-        return;
-      }
-      switch (e.key) {
-        case '/':
-          e.preventDefault();
-          e.stopPropagation();
-          return setFocusOnSearch();
+	const onKeyDown = useCallback(
+		(e: React.KeyboardEvent<HTMLDivElement>) => {
+			const avoidKeysWhileSearching = [
+				'/', // While already focused on search bar, let users type in.
+				'ArrowRight',
+				'ArrowLeft',
+			];
+			if (focusOnSearch && avoidKeysWhileSearching.includes(e.key)) {
+				return;
+			}
+			switch (e.key) {
+				case '/':
+					e.preventDefault();
+					e.stopPropagation();
+					return setFocusOnSearch();
 
-        case 'ArrowRight':
-          return move(e, +1);
+				case 'ArrowRight':
+					return move(e, +1);
 
-        case 'ArrowLeft':
-          return move(e, -1);
+				case 'ArrowLeft':
+					return move(e, -1);
 
-        case 'ArrowDown':
-          return move(e, +step);
+				case 'ArrowDown':
+					return move(e, +step);
 
-        case 'ArrowUp':
-          return move(e, -step, step);
-      }
-    },
-    [focusOnSearch, setFocusOnSearch, move, step],
-  );
+				case 'ArrowUp':
+					return move(e, -step, step);
+			}
+		},
+		[focusOnSearch, setFocusOnSearch, move, step],
+	);
 
-  useEffect(() => {
-    // To reset selection when user filters
-    reset(listSize);
-  }, [listSize, reset]);
+	useEffect(() => {
+		// To reset selection when user filters
+		reset(listSize);
+	}, [listSize, reset]);
 
-  return {
-    selectedItemIndex,
-    onKeyDown,
-    focusOnSearch,
-    focusOnViewMore,
-    setFocusOnSearch,
-    focusedItemIndex,
-    setFocusedItemIndex: removeFocusFromSearchAndSetOnItem,
-    focusedCategoryIndex,
-    setFocusedCategoryIndex: setFocusedCategoryIndex,
-  };
+	return {
+		selectedItemIndex,
+		onKeyDown,
+		focusOnSearch,
+		focusOnViewMore,
+		setFocusOnSearch,
+		focusedItemIndex,
+		setFocusedItemIndex: removeFocusFromSearchAndSetOnItem,
+		focusedCategoryIndex,
+		setFocusedCategoryIndex: setFocusedCategoryIndex,
+	};
 }
 
 export const ensureSafeIndex = (index: number, listSize: number): number => {
-  if (index < 0) {
-    return 0;
-  }
+	if (index < 0) {
+		return 0;
+	}
 
-  if (index > listSize) {
-    return listSize;
-  }
+	if (index > listSize) {
+		return listSize;
+	}
 
-  return index;
+	return index;
 };
 
 export default useSelectAndFocusOnArrowNavigation;

@@ -10,59 +10,59 @@ import { CornerControls } from './CornerControls';
 import { RowControls } from './RowControls';
 
 type FloatingControlsWithSelectionProps = {
-  editorView: EditorView;
-  tableRef: HTMLTableElement;
-  isInDanger?: boolean;
-  isResizing?: boolean;
-  isHeaderRowEnabled?: boolean;
-  isHeaderColumnEnabled?: boolean;
-  hoveredRows?: number[];
-  stickyTop?: number;
-  hoverRows: (rows: number[]) => void;
-  selectRow: (row: number, expand: boolean) => void;
-  tableActive: boolean;
-  api?: ExtractInjectionAPI<TablePlugin>;
+	editorView: EditorView;
+	tableRef: HTMLTableElement;
+	isInDanger?: boolean;
+	isResizing?: boolean;
+	isHeaderRowEnabled?: boolean;
+	isHeaderColumnEnabled?: boolean;
+	hoveredRows?: number[];
+	stickyTop?: number;
+	hoverRows: (rows: number[]) => void;
+	selectRow: (row: number, expand: boolean) => void;
+	tableActive: boolean;
+	api?: ExtractInjectionAPI<TablePlugin>;
 };
 
 export const FloatingControlsWithSelection = ({
-  editorView,
-  tableRef,
-  isInDanger,
-  isResizing,
-  isHeaderRowEnabled,
-  isHeaderColumnEnabled,
-  hoveredRows,
-  stickyTop,
-  hoverRows,
-  selectRow,
-  tableActive,
-  api,
+	editorView,
+	tableRef,
+	isInDanger,
+	isResizing,
+	isHeaderRowEnabled,
+	isHeaderColumnEnabled,
+	hoveredRows,
+	stickyTop,
+	hoverRows,
+	selectRow,
+	tableActive,
+	api,
 }: FloatingControlsWithSelectionProps) => {
-  const { selectionState } = useSharedPluginState(api, ['selection']);
+	const { selectionState } = useSharedPluginState(api, ['selection']);
 
-  return (
-    <>
-      <CornerControls
-        editorView={editorView}
-        tableRef={tableRef}
-        isInDanger={isInDanger}
-        isResizing={isResizing}
-        isHeaderRowEnabled={isHeaderRowEnabled}
-        isHeaderColumnEnabled={isHeaderColumnEnabled}
-        hoveredRows={hoveredRows}
-        stickyTop={tableActive ? stickyTop : undefined}
-      />
-      <RowControls
-        selection={selectionState?.selection}
-        editorView={editorView}
-        tableRef={tableRef}
-        hoverRows={hoverRows}
-        hoveredRows={hoveredRows}
-        isInDanger={isInDanger}
-        isResizing={isResizing}
-        selectRow={selectRow}
-        stickyTop={tableActive ? stickyTop : undefined}
-      />
-    </>
-  );
+	return (
+		<>
+			<CornerControls
+				editorView={editorView}
+				tableRef={tableRef}
+				isInDanger={isInDanger}
+				isResizing={isResizing}
+				isHeaderRowEnabled={isHeaderRowEnabled}
+				isHeaderColumnEnabled={isHeaderColumnEnabled}
+				hoveredRows={hoveredRows}
+				stickyTop={tableActive ? stickyTop : undefined}
+			/>
+			<RowControls
+				selection={selectionState?.selection}
+				editorView={editorView}
+				tableRef={tableRef}
+				hoverRows={hoverRows}
+				hoveredRows={hoveredRows}
+				isInDanger={isInDanger}
+				isResizing={isResizing}
+				selectRow={selectRow}
+				stickyTop={tableActive ? stickyTop : undefined}
+			/>
+		</>
+	);
 };

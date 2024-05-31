@@ -9,26 +9,22 @@ import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
 
 function Editor() {
-  const { preset } = usePreset((builder) =>
-    builder
-      .add(basePlugin)
-      .add([analyticsPlugin, {}])
-      .add(blockTypePlugin)
-      .add(listPlugin),
-  );
+	const { preset } = usePreset((builder) =>
+		builder.add(basePlugin).add([analyticsPlugin, {}]).add(blockTypePlugin).add(listPlugin),
+	);
 
-  return <ComposableEditor preset={preset} />;
+	return <ComposableEditor preset={preset} />;
 }
 
 export default function Example() {
-  return (
-    <div>
-      <p>
-        {
-          'A basic example of the Composable Editor which has basic text formatting, analytics, headings, and lists.'
-        }
-      </p>
-      {code`import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+	return (
+		<div>
+			<p>
+				{
+					'A basic example of the Composable Editor which has basic text formatting, analytics, headings, and lists.'
+				}
+			</p>
+			{code`import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
@@ -48,8 +44,8 @@ function Editor() {
 
   return <ComposableEditor preset={preset} />;
 }`}
-      <br />
-      <Editor />
-    </div>
-  );
+			<br />
+			<Editor />
+		</div>
+	);
 }

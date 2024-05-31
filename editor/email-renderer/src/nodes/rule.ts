@@ -10,5 +10,5 @@ export const styles = `
 `;
 
 export default function rule() {
-  return createTag('hr', { class: createClassName('rule') });
+	return createTag('hr', { class: createClassName('rule') });
 }

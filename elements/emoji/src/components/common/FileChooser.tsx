@@ -1,6 +1,6 @@
 import React, { useRef, type ChangeEventHandler } from 'react';
 
-import AkButton from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 export interface Props {
   label: string;
@@ -34,7 +34,7 @@ const FileChooser = (props: Props) => {
 
   return (
     <span>
-      <AkButton
+      <Button
         onClick={handleOnChooseFile}
         isDisabled={isDisabled}
         aria-describedby={ariaDescribedBy}
@@ -42,7 +42,7 @@ const FileChooser = (props: Props) => {
         ref={fileButtonRef}
       >
         {label}
-      </AkButton>
+      </Button>
       <input
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
         className="emojiUploadFileInput"

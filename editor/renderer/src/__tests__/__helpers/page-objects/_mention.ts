@@ -1,3 +1,3 @@
 export const selectors = {
-  mentionContainer: `[data-mention-id]`,
+	mentionContainer: `[data-mention-id]`,
 };

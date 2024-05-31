@@ -13,120 +13,120 @@ export default md`
   an ADF document.
 
   ${(
-    <Props
-      heading={'Traverse#traverse'}
-      props={{
-        kind: 'program',
-        classes: [
-          {
-            kind: 'generic',
-            name: {
-              kind: 'id',
-              name: 'Traverse API',
-              type: null,
-            },
-            value: {
-              kind: 'object',
-              members: [
-                {
-                  key: {
-                    kind: 'id',
-                    name: 'traverse',
-                  },
-                  kind: 'property',
-                  optional: true,
-                  value: {
-                    kind: 'generic',
-                    value: {
-                      kind: 'function',
-                      returnType: {
-                        kind: 'generic',
-                        value: {
-                          kind: 'id',
-                          name: 'ADFEntity',
-                        },
-                      },
-                      parameters: [
-                        {
-                          kind: 'param',
-                          type: null,
-                          value: {
-                            kind: 'generic',
-                            value: {
-                              kind: 'id',
-                              name: 'ADFEntity',
-                            },
-                          },
-                        },
-                        {
-                          kind: 'param',
-                          type: null,
-                          value: {
-                            kind: 'object',
-                            members: [
-                              {
-                                key: {
-                                  kind: 'id',
-                                  name: 'node_type',
-                                },
-                                kind: 'property',
-                                optional: true,
-                                value: {
-                                  kind: 'function',
-                                  returnType: {
-                                    kind: 'generic',
-                                    value: {
-                                      kind: 'id',
-                                      name: 'ADFEntity | false | undefined',
-                                    },
-                                  },
-                                  parameters: [
-                                    {
-                                      kind: 'param',
-                                      type: null,
-                                      value: {
-                                        kind: 'generic',
-                                        value: {
-                                          kind: 'id',
-                                          name: 'ADFEntity',
-                                        },
-                                      },
-                                    },
-                                    {
-                                      kind: 'param',
-                                      type: null,
-                                      value: {
-                                        kind: 'generic',
-                                        value: {
-                                          kind: 'id',
-                                          name: 'ParentRef',
-                                        },
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  leadingComments: [
-                    {
-                      type: 'commentBlock',
-                      value:
-                        'An implementation of the [visitor pattern](https://en.wikipedia.org/wiki/Visitor_pattern) for traversing ADF documents.',
-                    },
-                  ],
-                },
-              ],
-            },
-          },
-        ],
-      }}
-    />
-  )}
+		<Props
+			heading={'Traverse#traverse'}
+			props={{
+				kind: 'program',
+				classes: [
+					{
+						kind: 'generic',
+						name: {
+							kind: 'id',
+							name: 'Traverse API',
+							type: null,
+						},
+						value: {
+							kind: 'object',
+							members: [
+								{
+									key: {
+										kind: 'id',
+										name: 'traverse',
+									},
+									kind: 'property',
+									optional: true,
+									value: {
+										kind: 'generic',
+										value: {
+											kind: 'function',
+											returnType: {
+												kind: 'generic',
+												value: {
+													kind: 'id',
+													name: 'ADFEntity',
+												},
+											},
+											parameters: [
+												{
+													kind: 'param',
+													type: null,
+													value: {
+														kind: 'generic',
+														value: {
+															kind: 'id',
+															name: 'ADFEntity',
+														},
+													},
+												},
+												{
+													kind: 'param',
+													type: null,
+													value: {
+														kind: 'object',
+														members: [
+															{
+																key: {
+																	kind: 'id',
+																	name: 'node_type',
+																},
+																kind: 'property',
+																optional: true,
+																value: {
+																	kind: 'function',
+																	returnType: {
+																		kind: 'generic',
+																		value: {
+																			kind: 'id',
+																			name: 'ADFEntity | false | undefined',
+																		},
+																	},
+																	parameters: [
+																		{
+																			kind: 'param',
+																			type: null,
+																			value: {
+																				kind: 'generic',
+																				value: {
+																					kind: 'id',
+																					name: 'ADFEntity',
+																				},
+																			},
+																		},
+																		{
+																			kind: 'param',
+																			type: null,
+																			value: {
+																				kind: 'generic',
+																				value: {
+																					kind: 'id',
+																					name: 'ParentRef',
+																				},
+																			},
+																		},
+																	],
+																},
+															},
+														],
+													},
+												},
+											],
+										},
+									},
+									leadingComments: [
+										{
+											type: 'commentBlock',
+											value:
+												'An implementation of the [visitor pattern](https://en.wikipedia.org/wiki/Visitor_pattern) for traversing ADF documents.',
+										},
+									],
+								},
+							],
+						},
+					},
+				],
+			}}
+		/>
+	)}
 
   ### Example:
 
@@ -152,96 +152,96 @@ export default md`
   `}
 
   ${(
-    <Props
-      heading={'Traverse#map'}
-      props={{
-        kind: 'program',
-        classes: [
-          {
-            kind: 'generic',
-            name: {
-              kind: 'id',
-              name: 'Traverse#map',
-              type: null,
-            },
-            value: {
-              kind: 'object',
-              members: [
-                {
-                  key: {
-                    kind: 'id',
-                    name: 'map',
-                  },
-                  kind: 'property',
-                  optional: true,
-                  value: {
-                    kind: 'generic',
-                    value: {
-                      kind: 'function',
-                      returnType: {
-                        kind: 'generic',
-                        value: {
-                          kind: 'id',
-                          name: 'Array<any>',
-                        },
-                      },
-                      parameters: [
-                        {
-                          kind: 'param',
-                          type: null,
-                          value: {
-                            kind: 'generic',
-                            value: {
-                              kind: 'id',
-                              name: 'ADFEntity',
-                            },
-                          },
-                        },
-                        {
-                          kind: 'param',
-                          type: null,
-                          value: {
-                            kind: 'function',
-                            returnType: {
-                              kind: 'generic',
-                              value: {
-                                kind: 'id',
-                                name: 'any',
-                              },
-                            },
-                            parameters: [
-                              {
-                                kind: 'param',
-                                type: null,
-                                value: {
-                                  kind: 'generic',
-                                  value: {
-                                    kind: 'id',
-                                    name: 'ADFEntity',
-                                  },
-                                },
-                              },
-                            ],
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  leadingComments: [
-                    {
-                      type: 'commentBlock',
-                      value:
-                        "[Array like](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to map over ADF nodes. Non-destructive – meaning that ADF can't be changed from the callback.",
-                    },
-                  ],
-                },
-              ],
-            },
-          },
-        ],
-      }}
-    />
-  )}
+		<Props
+			heading={'Traverse#map'}
+			props={{
+				kind: 'program',
+				classes: [
+					{
+						kind: 'generic',
+						name: {
+							kind: 'id',
+							name: 'Traverse#map',
+							type: null,
+						},
+						value: {
+							kind: 'object',
+							members: [
+								{
+									key: {
+										kind: 'id',
+										name: 'map',
+									},
+									kind: 'property',
+									optional: true,
+									value: {
+										kind: 'generic',
+										value: {
+											kind: 'function',
+											returnType: {
+												kind: 'generic',
+												value: {
+													kind: 'id',
+													name: 'Array<any>',
+												},
+											},
+											parameters: [
+												{
+													kind: 'param',
+													type: null,
+													value: {
+														kind: 'generic',
+														value: {
+															kind: 'id',
+															name: 'ADFEntity',
+														},
+													},
+												},
+												{
+													kind: 'param',
+													type: null,
+													value: {
+														kind: 'function',
+														returnType: {
+															kind: 'generic',
+															value: {
+																kind: 'id',
+																name: 'any',
+															},
+														},
+														parameters: [
+															{
+																kind: 'param',
+																type: null,
+																value: {
+																	kind: 'generic',
+																	value: {
+																		kind: 'id',
+																		name: 'ADFEntity',
+																	},
+																},
+															},
+														],
+													},
+												},
+											],
+										},
+									},
+									leadingComments: [
+										{
+											type: 'commentBlock',
+											value:
+												"[Array like](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method to map over ADF nodes. Non-destructive – meaning that ADF can't be changed from the callback.",
+										},
+									],
+								},
+							],
+						},
+					},
+				],
+			}}
+		/>
+	)}
 
   ### Example:
 
@@ -254,96 +254,96 @@ export default md`
   `}
 
   ${(
-    <Props
-      heading={'Traverse#filter'}
-      props={{
-        kind: 'program',
-        classes: [
-          {
-            kind: 'generic',
-            name: {
-              kind: 'id',
-              name: 'Traverse#filter',
-              type: null,
-            },
-            value: {
-              kind: 'object',
-              members: [
-                {
-                  key: {
-                    kind: 'id',
-                    name: 'filter',
-                  },
-                  kind: 'property',
-                  optional: true,
-                  value: {
-                    kind: 'generic',
-                    value: {
-                      kind: 'function',
-                      returnType: {
-                        kind: 'generic',
-                        value: {
-                          kind: 'id',
-                          name: 'Array<ADFEntity>',
-                        },
-                      },
-                      parameters: [
-                        {
-                          kind: 'param',
-                          type: null,
-                          value: {
-                            kind: 'generic',
-                            value: {
-                              kind: 'id',
-                              name: 'ADFEntity',
-                            },
-                          },
-                        },
-                        {
-                          kind: 'param',
-                          type: null,
-                          value: {
-                            kind: 'function',
-                            returnType: {
-                              kind: 'generic',
-                              value: {
-                                kind: 'id',
-                                name: 'boolean',
-                              },
-                            },
-                            parameters: [
-                              {
-                                kind: 'param',
-                                type: null,
-                                value: {
-                                  kind: 'generic',
-                                  value: {
-                                    kind: 'id',
-                                    name: 'ADFEntity',
-                                  },
-                                },
-                              },
-                            ],
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  leadingComments: [
-                    {
-                      type: 'commentBlock',
-                      value:
-                        "[Array like](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) method to filter out nodes that don't match a predicate. Non-destructive – meaning that ADF can't be changed from the callback.",
-                    },
-                  ],
-                },
-              ],
-            },
-          },
-        ],
-      }}
-    />
-  )}
+		<Props
+			heading={'Traverse#filter'}
+			props={{
+				kind: 'program',
+				classes: [
+					{
+						kind: 'generic',
+						name: {
+							kind: 'id',
+							name: 'Traverse#filter',
+							type: null,
+						},
+						value: {
+							kind: 'object',
+							members: [
+								{
+									key: {
+										kind: 'id',
+										name: 'filter',
+									},
+									kind: 'property',
+									optional: true,
+									value: {
+										kind: 'generic',
+										value: {
+											kind: 'function',
+											returnType: {
+												kind: 'generic',
+												value: {
+													kind: 'id',
+													name: 'Array<ADFEntity>',
+												},
+											},
+											parameters: [
+												{
+													kind: 'param',
+													type: null,
+													value: {
+														kind: 'generic',
+														value: {
+															kind: 'id',
+															name: 'ADFEntity',
+														},
+													},
+												},
+												{
+													kind: 'param',
+													type: null,
+													value: {
+														kind: 'function',
+														returnType: {
+															kind: 'generic',
+															value: {
+																kind: 'id',
+																name: 'boolean',
+															},
+														},
+														parameters: [
+															{
+																kind: 'param',
+																type: null,
+																value: {
+																	kind: 'generic',
+																	value: {
+																		kind: 'id',
+																		name: 'ADFEntity',
+																	},
+																},
+															},
+														],
+													},
+												},
+											],
+										},
+									},
+									leadingComments: [
+										{
+											type: 'commentBlock',
+											value:
+												"[Array like](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) method to filter out nodes that don't match a predicate. Non-destructive – meaning that ADF can't be changed from the callback.",
+										},
+									],
+								},
+							],
+						},
+					},
+				],
+			}}
+		/>
+	)}
 
   ### Example:
 
@@ -360,118 +360,118 @@ export default md`
   `}
 
   ${(
-    <Props
-      heading={'Traverse#reduce'}
-      props={{
-        kind: 'program',
-        classes: [
-          {
-            kind: 'generic',
-            name: {
-              kind: 'id',
-              name: 'Traverse#reduce',
-              type: null,
-            },
-            value: {
-              kind: 'object',
-              members: [
-                {
-                  key: {
-                    kind: 'id',
-                    name: 'reduce',
-                  },
-                  kind: 'property',
-                  optional: true,
-                  value: {
-                    kind: 'generic',
-                    value: {
-                      kind: 'function',
-                      returnType: {
-                        kind: 'generic',
-                        value: {
-                          kind: 'id',
-                          name: 'accumulator',
-                        },
-                      },
-                      parameters: [
-                        {
-                          kind: 'param',
-                          type: null,
-                          value: {
-                            kind: 'generic',
-                            value: {
-                              kind: 'id',
-                              name: 'ADFEntity',
-                            },
-                          },
-                        },
-                        {
-                          kind: 'param',
-                          type: null,
-                          value: {
-                            kind: 'function',
-                            returnType: {
-                              kind: 'generic',
-                              value: {
-                                kind: 'id',
-                                name: 'accumulator',
-                              },
-                            },
-                            parameters: [
-                              {
-                                kind: 'param',
-                                type: null,
-                                value: {
-                                  kind: 'generic',
-                                  value: {
-                                    kind: 'id',
-                                    name: 'accumulator',
-                                  },
-                                },
-                              },
-                              {
-                                kind: 'param',
-                                type: null,
-                                value: {
-                                  kind: 'generic',
-                                  value: {
-                                    kind: 'id',
-                                    name: 'ADFEntity',
-                                  },
-                                },
-                              },
-                            ],
-                          },
-                        },
-                        {
-                          kind: 'param',
-                          type: null,
-                          value: {
-                            kind: 'generic',
-                            value: {
-                              kind: 'id',
-                              name: 'initial',
-                            },
-                          },
-                        },
-                      ],
-                    },
-                  },
-                  leadingComments: [
-                    {
-                      type: 'commentBlock',
-                      value:
-                        "[Array like](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) redcue method – applies a function against an accumulator and each node in the ADF (from left to right) to reduce it to a single value. Non-destructive – meaning that ADF can't be changed from the callback.",
-                    },
-                  ],
-                },
-              ],
-            },
-          },
-        ],
-      }}
-    />
-  )}
+		<Props
+			heading={'Traverse#reduce'}
+			props={{
+				kind: 'program',
+				classes: [
+					{
+						kind: 'generic',
+						name: {
+							kind: 'id',
+							name: 'Traverse#reduce',
+							type: null,
+						},
+						value: {
+							kind: 'object',
+							members: [
+								{
+									key: {
+										kind: 'id',
+										name: 'reduce',
+									},
+									kind: 'property',
+									optional: true,
+									value: {
+										kind: 'generic',
+										value: {
+											kind: 'function',
+											returnType: {
+												kind: 'generic',
+												value: {
+													kind: 'id',
+													name: 'accumulator',
+												},
+											},
+											parameters: [
+												{
+													kind: 'param',
+													type: null,
+													value: {
+														kind: 'generic',
+														value: {
+															kind: 'id',
+															name: 'ADFEntity',
+														},
+													},
+												},
+												{
+													kind: 'param',
+													type: null,
+													value: {
+														kind: 'function',
+														returnType: {
+															kind: 'generic',
+															value: {
+																kind: 'id',
+																name: 'accumulator',
+															},
+														},
+														parameters: [
+															{
+																kind: 'param',
+																type: null,
+																value: {
+																	kind: 'generic',
+																	value: {
+																		kind: 'id',
+																		name: 'accumulator',
+																	},
+																},
+															},
+															{
+																kind: 'param',
+																type: null,
+																value: {
+																	kind: 'generic',
+																	value: {
+																		kind: 'id',
+																		name: 'ADFEntity',
+																	},
+																},
+															},
+														],
+													},
+												},
+												{
+													kind: 'param',
+													type: null,
+													value: {
+														kind: 'generic',
+														value: {
+															kind: 'id',
+															name: 'initial',
+														},
+													},
+												},
+											],
+										},
+									},
+									leadingComments: [
+										{
+											type: 'commentBlock',
+											value:
+												"[Array like](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) redcue method – applies a function against an accumulator and each node in the ADF (from left to right) to reduce it to a single value. Non-destructive – meaning that ADF can't be changed from the callback.",
+										},
+									],
+								},
+							],
+						},
+					},
+				],
+			}}
+		/>
+	)}
 
   ### Example:
 

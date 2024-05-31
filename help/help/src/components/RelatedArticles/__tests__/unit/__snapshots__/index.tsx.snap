@@ -17,7 +17,7 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   border-radius: 3px;
   background-color: var(--ds-background-neutral-subtle, transparent);
   border: 0;
-  padding: var(--ds-space-100, 8px);
+  padding: var(--ds-space-150, 12px);
   margin-bottom: 0;
 }
 

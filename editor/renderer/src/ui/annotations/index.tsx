@@ -12,62 +12,47 @@ import { AnnotationRangeProvider } from './contexts/AnnotationRangeContext';
 import { AnnotationHoverContext } from './contexts/AnnotationHoverContext';
 
 type LoadAnnotationsProps = {
-  adfDocument: JSONDocNode;
-  isNestedRender: boolean;
+	adfDocument: JSONDocNode;
+	isNestedRender: boolean;
 };
 
-const LoadAnnotations = React.memo<LoadAnnotationsProps>(
-  ({ adfDocument, isNestedRender }) => {
-    useLoadAnnotations({ adfDocument, isNestedRender });
-    return null;
-  },
-);
+const LoadAnnotations = React.memo<LoadAnnotationsProps>(({ adfDocument, isNestedRender }) => {
+	useLoadAnnotations({ adfDocument, isNestedRender });
+	return null;
+});
 
 export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
-  const {
-    children,
-    annotationProvider,
-    rendererRef,
-    adfDocument,
-    isNestedRender,
-  } = props;
-  const updateSubscriber =
-    annotationProvider &&
-    annotationProvider.inlineComment &&
-    annotationProvider.inlineComment.updateSubscriber;
-  const inlineCommentAnnotationsState = useAnnotationStateByTypeEvent({
-    type: AnnotationTypes.INLINE_COMMENT,
-    updateSubscriber: updateSubscriber || null,
-  });
-  const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender } = props;
+	const updateSubscriber =
+		annotationProvider &&
+		annotationProvider.inlineComment &&
+		annotationProvider.inlineComment.updateSubscriber;
+	const inlineCommentAnnotationsState = useAnnotationStateByTypeEvent({
+		type: AnnotationTypes.INLINE_COMMENT,
+		updateSubscriber: updateSubscriber || null,
+	});
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  return (
-    <ProvidersContext.Provider value={annotationProvider}>
-      <InlineCommentsStateContext.Provider
-        value={inlineCommentAnnotationsState}
-      >
-        <AnnotationRangeProvider
-          allowCommentsOnMedia={
-            annotationProvider?.inlineComment?.allowCommentsOnMedia ?? false
-          }
-        >
-          <AnnotationHoverContext>
-            <AnnotationsContextWrapper
-              createAnalyticsEvent={createAnalyticsEvent}
-              rendererRef={rendererRef}
-            >
-              <LoadAnnotations
-                adfDocument={adfDocument}
-                isNestedRender={isNestedRender}
-              />
-              <AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
-              {children}
-            </AnnotationsContextWrapper>
-          </AnnotationHoverContext>
-        </AnnotationRangeProvider>
-      </InlineCommentsStateContext.Provider>
-    </ProvidersContext.Provider>
-  );
+	return (
+		<ProvidersContext.Provider value={annotationProvider}>
+			<InlineCommentsStateContext.Provider value={inlineCommentAnnotationsState}>
+				<AnnotationRangeProvider
+					allowCommentsOnMedia={annotationProvider?.inlineComment?.allowCommentsOnMedia ?? false}
+				>
+					<AnnotationHoverContext>
+						<AnnotationsContextWrapper
+							createAnalyticsEvent={createAnalyticsEvent}
+							rendererRef={rendererRef}
+						>
+							<LoadAnnotations adfDocument={adfDocument} isNestedRender={isNestedRender} />
+							<AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
+							{children}
+						</AnnotationsContextWrapper>
+					</AnnotationHoverContext>
+				</AnnotationRangeProvider>
+			</InlineCommentsStateContext.Provider>
+		</ProvidersContext.Provider>
+	);
 };
 
 export { TextWithAnnotationDraft } from './draft';

@@ -3,10 +3,7 @@ import React from 'react';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import type {
-  MentionDescription,
-  MentionProvider,
-} from '@atlaskit/mention/resource';
+import type { MentionDescription, MentionProvider } from '@atlaskit/mention/resource';
 
 import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
@@ -16,44 +13,44 @@ const cardClient = new ConfluenceCardClient('staging');
 const cardProvider = new ConfluenceCardProvider('staging');
 
 class MentionProviderImpl implements MentionProvider {
-  filter(_query?: string): void {}
-  recordMentionSelection(_mention: MentionDescription): void {}
-  shouldHighlightMention(_mention: MentionDescription): boolean {
-    return false;
-  }
-  isFiltering(_query: string): boolean {
-    return false;
-  }
-  subscribe(): void {}
-  unsubscribe(_key: string): void {}
+	filter(_query?: string): void {}
+	recordMentionSelection(_mention: MentionDescription): void {}
+	shouldHighlightMention(_mention: MentionDescription): boolean {
+		return false;
+	}
+	isFiltering(_query: string): boolean {
+		return false;
+	}
+	subscribe(): void {}
+	unsubscribe(_key: string): void {}
 }
 
 export function mobileEditor() {
-  return (
-    <SmartCardProvider client={cardClient}>
-      <EditorContext>
-        <div>
-          <WithEditorActions render={() => <div />} />
-          <Editor
-            appearance="mobile"
-            mentionProvider={Promise.resolve(new MentionProviderImpl())}
-            quickInsert={true}
-            smartLinks={{
-              provider: Promise.resolve(cardProvider),
-              allowBlockCards: true,
-            }}
-          />
-        </div>
-      </EditorContext>
-    </SmartCardProvider>
-  );
+	return (
+		<SmartCardProvider client={cardClient}>
+			<EditorContext>
+				<div>
+					<WithEditorActions render={() => <div />} />
+					<Editor
+						appearance="mobile"
+						mentionProvider={Promise.resolve(new MentionProviderImpl())}
+						quickInsert={true}
+						smartLinks={{
+							provider: Promise.resolve(cardProvider),
+							allowBlockCards: true,
+						}}
+					/>
+				</div>
+			</EditorContext>
+		</SmartCardProvider>
+	);
 }
 
 export default function Example() {
-  return (
-    <div>
-      <p>Editor that is used by mobile applications.</p>
-      {mobileEditor()}
-    </div>
-  );
+	return (
+		<div>
+			<p>Editor that is used by mobile applications.</p>
+			{mobileEditor()}
+		</div>
+	);
 }

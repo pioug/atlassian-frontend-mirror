@@ -1,6 +1,6 @@
 export {
-  findExpand,
-  transformSliceToRemoveOpenExpand,
-  transformSliceToRemoveOpenNestedExpand,
-  transformSliceNestedExpandToExpand,
+	findExpand,
+	transformSliceToRemoveOpenExpand,
+	transformSliceToRemoveOpenNestedExpand,
+	transformSliceNestedExpandToExpand,
 } from '@atlaskit/editor-common/transforms';

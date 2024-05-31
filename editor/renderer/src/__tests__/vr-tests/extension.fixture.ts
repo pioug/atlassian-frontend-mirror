@@ -1,46 +1,46 @@
 import {
-  extensionAwesomeList,
-  extensionBlockEh,
-  extensionsWithLayout,
-  extensionsWithinExpand,
-  extensionsWithinTable,
+	extensionAwesomeList,
+	extensionBlockEh,
+	extensionsWithLayout,
+	extensionsWithinExpand,
+	extensionsWithinTable,
 } from '../__fixtures__/extension-layouts';
 import * as nestedIframe from '../__fixtures__/extension-iframe-nested.adf.json';
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
 export const ExtensionAwesomeList = generateRendererComponent({
-  document: extensionAwesomeList,
-  appearance: 'full-page',
-  extensionHandlers,
+	document: extensionAwesomeList,
+	appearance: 'full-page',
+	extensionHandlers,
 });
 
 export const ExtensionBlockEh = generateRendererComponent({
-  document: extensionBlockEh,
-  appearance: 'full-page',
-  extensionHandlers,
+	document: extensionBlockEh,
+	appearance: 'full-page',
+	extensionHandlers,
 });
 
 export const ExtensionsWithLayout = generateRendererComponent({
-  document: extensionsWithLayout,
-  appearance: 'full-page',
-  extensionHandlers,
+	document: extensionsWithLayout,
+	appearance: 'full-page',
+	extensionHandlers,
 });
 
 export const ExtensionsWithinExpand = generateRendererComponent({
-  document: extensionsWithinExpand,
-  appearance: 'full-page',
-  extensionHandlers,
+	document: extensionsWithinExpand,
+	appearance: 'full-page',
+	extensionHandlers,
 });
 
 export const ExtensionsWithinTable = generateRendererComponent({
-  document: extensionsWithinTable,
-  appearance: 'full-page',
-  extensionHandlers,
+	document: extensionsWithinTable,
+	appearance: 'full-page',
+	extensionHandlers,
 });
 
 export const ExtensionIframeNested = generateRendererComponent({
-  document: nestedIframe,
-  appearance: 'full-width',
-  extensionHandlers,
+	document: nestedIframe,
+	appearance: 'full-width',
+	extensionHandlers,
 });

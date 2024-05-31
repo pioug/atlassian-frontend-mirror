@@ -10,6 +10,4 @@ import type { HistoryPluginState } from './types';
  * https://github.com/ProseMirror/prosemirror-history
  */
 
-export const historyPluginKey = new PluginKey<HistoryPluginState>(
-  'historyPlugin',
-);
+export const historyPluginKey = new PluginKey<HistoryPluginState>('historyPlugin');

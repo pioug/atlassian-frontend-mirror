@@ -11,34 +11,27 @@ import type { OnCloseHandler } from '@atlaskit/modal-dialog';
 import { dialogHeader, header } from './styles';
 
 interface ModalHeaderProps extends WrappedComponentProps {
-  onClose: OnCloseHandler | undefined;
+	onClose: OnCloseHandler | undefined;
 }
 
-const ModalHeader = injectIntl(
-  ({ intl: { formatMessage }, onClose }: ModalHeaderProps) => {
-    return (
-      <div css={header}>
-        <h1 css={dialogHeader}>
-          <FormattedMessage {...messages.editorHelp} />
-        </h1>
+const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeaderProps) => {
+	return (
+		<div css={header}>
+			<h1 css={dialogHeader}>
+				<FormattedMessage {...messages.editorHelp} />
+			</h1>
 
-        <div>
-          <ToolbarButton
-            // @ts-expect-error modal onClose handler requires second parameter of UIAnalyticsEvent, which we don't want to pass
-            onClick={onClose}
-            title={formatMessage(messages.closeHelpDialog)}
-            spacing="compact"
-            iconBefore={
-              <CrossIcon
-                label={formatMessage(messages.closeHelpDialog)}
-                size="medium"
-              />
-            }
-          />
-        </div>
-      </div>
-    );
-  },
-);
+			<div>
+				<ToolbarButton
+					// @ts-expect-error modal onClose handler requires second parameter of UIAnalyticsEvent, which we don't want to pass
+					onClick={onClose}
+					title={formatMessage(messages.closeHelpDialog)}
+					spacing="compact"
+					iconBefore={<CrossIcon label={formatMessage(messages.closeHelpDialog)} size="medium" />}
+				/>
+			</div>
+		</div>
+	);
+});
 
 export default ModalHeader;

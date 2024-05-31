@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { FormattedMessage } from 'react-intl-next';
 import { jsx } from '@emotion/react';
-import AkButton from '@atlaskit/button/custom-theme-button';
+import AkButton from '@atlaskit/button/new';
 import Spinner from '@atlaskit/spinner';
+import { Box } from '@atlaskit/primitives';
 import { messages } from '../i18n';
-import { buttonSpinner, uploadEmojiButton, uploadRetryButton } from './styles';
+import { buttonSpinner } from './styles';
 
 export interface Props {
   label: string;
@@ -33,17 +34,18 @@ const RetryButton = (props: Props) => {
   return (
     <FormattedMessage {...messages.retryLabel}>
       {(retryLabel) => (
-        <AkButton
-          css={uploadRetryButton}
-          appearance="warning"
-          onClick={onSubmit}
-          testId={retryUploadButtonTestId}
-          aria-describedby={ariaDescribedBy}
-          aria-labelledby={ariaLabelledBy}
-          autoFocus
-        >
-          {retryLabel}
-        </AkButton>
+        <Box paddingInlineEnd="space.050">
+          <AkButton
+            appearance="warning"
+            onClick={onSubmit}
+            testId={retryUploadButtonTestId}
+            aria-describedby={ariaDescribedBy}
+            aria-labelledby={ariaLabelledBy}
+            autoFocus
+          >
+            {retryLabel}
+          </AkButton>
+        </Box>
       )}
     </FormattedMessage>
   );
@@ -54,17 +56,18 @@ const UploadButton = (props: Props) => {
     props;
 
   return (
-    <AkButton
-      css={uploadEmojiButton}
-      appearance={appearance as any}
-      onClick={onSubmit}
-      testId={uploadEmojiButtonTestId}
-      aria-describedby={ariaDescribedBy}
-      aria-labelledby={ariaLabelledBy}
-      autoFocus
-    >
-      {label}
-    </AkButton>
+    <Box paddingInlineEnd="space.050">
+      <AkButton
+        appearance={appearance as any}
+        onClick={onSubmit}
+        testId={uploadEmojiButtonTestId}
+        aria-describedby={ariaDescribedBy}
+        aria-labelledby={ariaLabelledBy}
+        autoFocus
+      >
+        {label}
+      </AkButton>
+    </Box>
   );
 };
 

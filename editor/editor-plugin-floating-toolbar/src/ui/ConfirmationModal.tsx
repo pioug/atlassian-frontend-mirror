@@ -9,23 +9,15 @@ import { ModalTransition } from '@atlaskit/modal-dialog';
 import { CheckboxModal } from './CheckboxModal';
 import { SimpleModal } from './SimpleModal';
 
-const ConfirmationModalImpl = (
-  props: ConfirmationDialogProps & WrappedComponentProps,
-) => {
-  const { options } = props;
+const ConfirmationModalImpl = (props: ConfirmationDialogProps & WrappedComponentProps) => {
+	const { options } = props;
 
-  const renderModel = (isReferentialityDialog: boolean = false) =>
-    isReferentialityDialog ? (
-      <CheckboxModal {...props} />
-    ) : (
-      <SimpleModal {...props} />
-    );
+	const renderModel = (isReferentialityDialog: boolean = false) =>
+		isReferentialityDialog ? <CheckboxModal {...props} /> : <SimpleModal {...props} />;
 
-  return options ? (
-    <ModalTransition>
-      {renderModel(options?.isReferentialityDialog)}
-    </ModalTransition>
-  ) : null;
+	return options ? (
+		<ModalTransition>{renderModel(options?.isReferentialityDialog)}</ModalTransition>
+	) : null;
 };
 
 export const ConfirmationModal = injectIntl(ConfirmationModalImpl);

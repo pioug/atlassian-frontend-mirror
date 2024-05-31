@@ -14,85 +14,80 @@ import { isNotBlank } from '../utils/text';
 export const INLINE_CARD_FROM_TEXT_STAMP = /(#icft=)([A-Z][A-Z]+-[0-9]+)/;
 
 export interface Issue {
-  key: string;
-  url: string;
+	key: string;
+	url: string;
 }
 
 export const issueKey: TokenParser = ({ input, position, schema, context }) => {
-  // This scenario happens when context is empty
-  if (!context.issueKeyRegex) {
-    return fallback(input, position);
-  }
+	// This scenario happens when context is empty
+	if (!context.issueKeyRegex) {
+		return fallback(input, position);
+	}
 
-  const match = input.substring(position).match(context.issueKeyRegex);
+	const match = input.substring(position).match(context.issueKeyRegex);
 
-  if (!match) {
-    return fallback(input, position);
-  }
+	if (!match) {
+		return fallback(input, position);
+	}
 
-  const issue: Issue | null = getIssue(context, match[0]);
+	const issue: Issue | null = getIssue(context, match[0]);
 
-  // This scenario happens when context doesn't has all the issues inside a markup
-  if (!issue) {
-    return fallback(input, position);
-  }
+	// This scenario happens when context doesn't has all the issues inside a markup
+	if (!issue) {
+		return fallback(input, position);
+	}
 
-  const charBefore = input.charAt(position - 1);
-  const charAfter = input.charAt(position + issue.key.length);
-  if (
-    (isNotBlank(charBefore) && isNotAllowedChars(charBefore)) ||
-    (isNotBlank(charAfter) && isNotAllowedChars(charAfter))
-  ) {
-    return fallback(input, position);
-  }
+	const charBefore = input.charAt(position - 1);
+	const charAfter = input.charAt(position + issue.key.length);
+	if (
+		(isNotBlank(charBefore) && isNotAllowedChars(charBefore)) ||
+		(isNotBlank(charAfter) && isNotAllowedChars(charAfter))
+	) {
+		return fallback(input, position);
+	}
 
-  return {
-    type: 'pmnode',
-    nodes: buildInlineCard(schema, issue),
-    length: match[0].length,
-  };
+	return {
+		type: 'pmnode',
+		nodes: buildInlineCard(schema, issue),
+		length: match[0].length,
+	};
 };
 
 const fallback = (input: string, position: number): Token => ({
-  type: 'text',
-  text: input.substr(position, 1),
-  length: 1,
+	type: 'text',
+	text: input.substr(position, 1),
+	length: 1,
 });
 
 export const getIssue = (context: Context, key: string): Issue | null =>
-  context.conversion &&
-  context.conversion.inlineCardConversion &&
-  context.conversion.inlineCardConversion[key]
-    ? { key, url: context.conversion.inlineCardConversion[key] }
-    : null;
+	context.conversion &&
+	context.conversion.inlineCardConversion &&
+	context.conversion.inlineCardConversion[key]
+		? { key, url: context.conversion.inlineCardConversion[key] }
+		: null;
 
 export const buildInlineCard = (schema: Schema, issue: Issue): PMNode[] => {
-  return [
-    schema.nodes.inlineCard.createChecked({
-      url: withInlineCardFromTextStamp(issue),
-    }),
-  ];
+	return [
+		schema.nodes.inlineCard.createChecked({
+			url: withInlineCardFromTextStamp(issue),
+		}),
+	];
 };
 
 const withInlineCardFromTextStamp = (issue: Issue): string =>
-  INLINE_CARD_FROM_TEXT_STAMP.test(issue.url)
-    ? issue.url
-    : `${issue.url}#icft=${issue.key}`;
+	INLINE_CARD_FROM_TEXT_STAMP.test(issue.url) ? issue.url : `${issue.url}#icft=${issue.key}`;
 
-const isNotAllowedChars = (char: string): boolean =>
-  !/\s|\(|\)|!|\.|\,|\/|\:/.test(char);
+const isNotAllowedChars = (char: string): boolean => !/\s|\(|\)|!|\.|\,|\/|\:/.test(char);
 
-export const buildIssueKeyRegex = (
-  inlineCardConversion?: ConversionMap,
-): RegExp | undefined => {
-  if (!inlineCardConversion) {
-    return undefined;
-  }
+export const buildIssueKeyRegex = (inlineCardConversion?: ConversionMap): RegExp | undefined => {
+	if (!inlineCardConversion) {
+		return undefined;
+	}
 
-  const pattern: string = Object.keys(inlineCardConversion).join('|');
+	const pattern: string = Object.keys(inlineCardConversion).join('|');
 
-  if (!pattern) {
-    return undefined;
-  }
-  return new RegExp(`^(${pattern})`);
+	if (!pattern) {
+		return undefined;
+	}
+	return new RegExp(`^(${pattern})`);
 };

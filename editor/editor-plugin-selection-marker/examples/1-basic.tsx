@@ -11,15 +11,15 @@ import { selectionMarkerPlugin } from '@atlaskit/editor-plugins/selection-marker
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 
 export default function Editor() {
-  const { preset } = usePreset(() =>
-    new EditorPresetBuilder()
-      .add(basePlugin)
-      .add(blockTypePlugin)
-      .add(focusPlugin)
-      .add(typeAheadPlugin)
-      .add(quickInsertPlugin)
-      .add(selectionMarkerPlugin),
-  );
+	const { preset } = usePreset(() =>
+		new EditorPresetBuilder()
+			.add(basePlugin)
+			.add(blockTypePlugin)
+			.add(focusPlugin)
+			.add(typeAheadPlugin)
+			.add(quickInsertPlugin)
+			.add(selectionMarkerPlugin),
+	);
 
-  return <ComposableEditor preset={preset} />;
+	return <ComposableEditor preset={preset} />;
 }

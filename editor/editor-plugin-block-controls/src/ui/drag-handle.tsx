@@ -13,124 +13,114 @@ import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin } from '../types';
 import { getSelection } from '../utils/getSelection';
 
-import {
-  DRAG_HANDLE_BORDER_RADIUS,
-  DRAG_HANDLE_HEIGHT,
-  DRAG_HANDLE_WIDTH,
-} from './consts';
+import { DRAG_HANDLE_BORDER_RADIUS, DRAG_HANDLE_HEIGHT, DRAG_HANDLE_WIDTH } from './consts';
 import { dragPreview } from './drag-preview';
 
 const dragHandleButtonStyles = css({
-  padding: `${token('space.025', '2px')} 0`,
-  boxSizing: 'border-box',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: DRAG_HANDLE_HEIGHT,
-  width: DRAG_HANDLE_WIDTH,
-  border: 'none',
-  background: 'transparent',
-  borderRadius: DRAG_HANDLE_BORDER_RADIUS,
-  color: token('color.icon', '#44546F'),
-  cursor: 'grab',
+	padding: `${token('space.025', '2px')} 0`,
+	boxSizing: 'border-box',
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
+	height: DRAG_HANDLE_HEIGHT,
+	width: DRAG_HANDLE_WIDTH,
+	border: 'none',
+	background: 'transparent',
+	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
+	color: token('color.icon', '#44546F'),
+	cursor: 'grab',
 
-  ':hover': {
-    backgroundColor: token(
-      'color.background.neutral.subtle.hovered',
-      '#091E420F',
-    ),
-  },
+	':hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered', '#091E420F'),
+	},
 
-  ':active': {
-    backgroundColor: token(
-      'color.background.neutral.subtle.pressed',
-      '#091E4224',
-    ),
-  },
+	':active': {
+		backgroundColor: token('color.background.neutral.subtle.pressed', '#091E4224'),
+	},
 });
 
 const selectedStyles = css({
-  backgroundColor: token('color.background.selected', '#E9F2FF'),
-  color: token('color.icon.selected', '#0C66E4'),
+	backgroundColor: token('color.background.selected', '#E9F2FF'),
+	color: token('color.icon.selected', '#0C66E4'),
 });
 
 export const DragHandle = ({
-  dom,
-  api,
-  start,
+	dom,
+	api,
+	start,
 }: {
-  dom: HTMLElement;
-  api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
-  start: number;
+	dom: HTMLElement;
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
+	start: number;
 }) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const domRef = useRef<HTMLElement>(dom);
-  const [dragHandleSelected, setDragHandleSelected] = useState(false);
+	const buttonRef = useRef<HTMLButtonElement>(null);
+	const domRef = useRef<HTMLElement>(dom);
+	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 
-  const handleClick = useCallback(() => {
-    setDragHandleSelected(!dragHandleSelected);
-    // TODO - add drag menu
-    // api?.core?.actions.execute(({ tr }) =>
-    //   tr.setMeta(key, {
-    //     toggleMenu: true,
-    //   }),
-    // );
-    api?.core?.actions.execute(({ tr }) => {
-      tr.setSelection(getSelection(tr, start));
-      return tr;
-    });
-    api?.core?.actions.focus();
-  }, [start, api, dragHandleSelected, setDragHandleSelected]);
+	const handleClick = useCallback(() => {
+		setDragHandleSelected(!dragHandleSelected);
+		// TODO - add drag menu
+		// api?.core?.actions.execute(({ tr }) =>
+		//   tr.setMeta(key, {
+		//     toggleMenu: true,
+		//   }),
+		// );
+		api?.core?.actions.execute(({ tr }) => {
+			tr.setSelection(getSelection(tr, start));
+			return tr;
+		});
+		api?.core?.actions.focus();
+	}, [start, api, dragHandleSelected, setDragHandleSelected]);
 
-  useEffect(() => {
-    const element = buttonRef.current;
-    if (!element) {
-      return;
-    }
+	useEffect(() => {
+		const element = buttonRef.current;
+		if (!element) {
+			return;
+		}
 
-    return draggable({
-      element,
+		return draggable({
+			element,
 
-      onGenerateDragPreview: ({ nativeSetDragImage }) => {
-        setCustomNativeDragPreview({
-          render: ({ container }) => {
-            return dragPreview(container, domRef);
-          },
-          nativeSetDragImage,
-        });
-      },
-      onDragStart() {
-        api?.core?.actions.execute(({ tr }) => {
-          const newTr = tr;
-          newTr.setSelection(getSelection(newTr, start));
-          newTr.setMeta(key, {
-            isDragging: true,
-            start,
-          });
-          return newTr;
-        });
-        api?.core?.actions.focus();
-      },
-      onDrop() {
-        api?.core?.actions.execute(({ tr }) =>
-          tr.setMeta(key, {
-            isDragging: false,
-          }),
-        );
-      },
-    });
-  }, [api, start]);
+			onGenerateDragPreview: ({ nativeSetDragImage }) => {
+				setCustomNativeDragPreview({
+					render: ({ container }) => {
+						return dragPreview(container, domRef);
+					},
+					nativeSetDragImage,
+				});
+			},
+			onDragStart() {
+				api?.core?.actions.execute(({ tr }) => {
+					const newTr = tr;
+					newTr.setSelection(getSelection(newTr, start));
+					newTr.setMeta(key, {
+						isDragging: true,
+						start,
+					});
+					return newTr;
+				});
+				api?.core?.actions.focus();
+			},
+			onDrop() {
+				api?.core?.actions.execute(({ tr }) =>
+					tr.setMeta(key, {
+						isDragging: false,
+					}),
+				);
+			},
+		});
+	}, [api, start]);
 
-  return (
-    <button
-      type="button"
-      css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
-      ref={buttonRef}
-      onClick={handleClick}
-      data-testid="block-ctrl-drag-handle"
-    >
-      <DragHandlerIcon label="" size="medium" />
-    </button>
-  );
+	return (
+		<button
+			type="button"
+			css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
+			ref={buttonRef}
+			onClick={handleClick}
+			data-testid="block-ctrl-drag-handle"
+		>
+			<DragHandlerIcon label="" size="medium" />
+		</button>
+	);
 };

@@ -9,11 +9,5 @@ const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });
 
 export default function Example() {
-  return (
-    <Renderer
-      dataProviders={providerFactory}
-      document={document}
-      appearance="full-page"
-    />
-  );
+	return <Renderer dataProviders={providerFactory} document={document} appearance="full-page" />;
 }

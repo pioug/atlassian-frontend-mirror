@@ -55,7 +55,6 @@
     "@atlaskit/editor-plugin-composition": "^1.1.0",
     "@atlaskit/editor-plugin-decorations": "^1.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.1.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "typescript": "~5.4.2"
   },
@@ -91,6 +90,5 @@
         "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

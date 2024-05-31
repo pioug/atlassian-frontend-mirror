@@ -1,8 +1,5 @@
 import React from 'react';
-import type {
-  Mark as PMMark,
-  Node as PMNode,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererContext } from '../types';
 import type { Serializer } from '../..';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
@@ -16,78 +13,68 @@ import { ACTION_SUBJECT } from '../../analytics/enums';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 
 export interface Props {
-  serializer: Serializer<any>;
-  extensionHandlers?: ExtensionHandlers;
-  rendererContext: RendererContext;
-  providers: ProviderFactory;
-  extensionType: string;
-  extensionKey: string;
-  path?: PMNode[];
-  originalContent?: any;
-  parameters?: any;
-  content?: any;
-  layout?: ExtensionLayout;
-  localId?: string;
-  marks?: PMMark[];
+	serializer: Serializer<any>;
+	extensionHandlers?: ExtensionHandlers;
+	rendererContext: RendererContext;
+	providers: ProviderFactory;
+	extensionType: string;
+	extensionKey: string;
+	path?: PMNode[];
+	originalContent?: any;
+	parameters?: any;
+	content?: any;
+	layout?: ExtensionLayout;
+	localId?: string;
+	marks?: PMMark[];
 }
 
 const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
-  const {
-    children,
-    layout = 'default',
-    path = [],
-    extensionKey,
-    extensionType,
-  } = props;
-  const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { children, layout = 'default', path = [], extensionKey, extensionType } = props;
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const removeOverflow = React.Children.toArray(children)
-    .map((child) =>
-      React.isValidElement<any>(child)
-        ? child.props.nodeType === 'table'
-        : false,
-    )
-    .every(Boolean);
+	const removeOverflow = React.Children.toArray(children)
+		.map((child) => (React.isValidElement<any>(child) ? child.props.nodeType === 'table' : false))
+		.every(Boolean);
 
-  return (
-    <ErrorBoundary
-      component={ACTION_SUBJECT.RENDERER}
-      componentId={ACTION_SUBJECT_ID.EXTENSION_BODIED}
-      createAnalyticsEvent={createAnalyticsEvent}
-      additionalInfo={`${extensionType}: ${extensionKey} `}
-    >
-      <ExtensionRenderer {...props} type="bodiedExtension">
-        {({ result }) => {
-          try {
-            if (result && React.isValidElement(result)) {
-              // Return the content directly if it's a valid JSX.Element
-              return renderExtension(
-                result,
-                layout,
-                {
-                  isTopLevel: path.length < 1,
-                },
-                removeOverflow,
-              );
-            }
-          } catch (e) {
-            /** We don't want this error to block renderer */
-            /** We keep rendering the default content */
-          }
+	return (
+		<ErrorBoundary
+			component={ACTION_SUBJECT.RENDERER}
+			componentId={ACTION_SUBJECT_ID.EXTENSION_BODIED}
+			createAnalyticsEvent={createAnalyticsEvent}
+			additionalInfo={`${extensionType}: ${extensionKey} `}
+		>
+			<ExtensionRenderer {...props} type="bodiedExtension">
+				{({ result }) => {
+					try {
+						if (result && React.isValidElement(result)) {
+							// Return the content directly if it's a valid JSX.Element
+							return renderExtension(
+								result,
+								layout,
+								{
+									isTopLevel: path.length < 1,
+								},
+								removeOverflow,
+							);
+						}
+					} catch (e) {
+						/** We don't want this error to block renderer */
+						/** We keep rendering the default content */
+					}
 
-          // Always return default content if anything goes wrong
-          return renderExtension(
-            children,
-            layout,
-            {
-              isTopLevel: path.length < 1,
-            },
-            removeOverflow,
-          );
-        }}
-      </ExtensionRenderer>
-    </ErrorBoundary>
-  );
+					// Always return default content if anything goes wrong
+					return renderExtension(
+						children,
+						layout,
+						{
+							isTopLevel: path.length < 1,
+						},
+						removeOverflow,
+					);
+				}}
+			</ExtensionRenderer>
+		</ErrorBoundary>
+	);
 };
 
 export default BodiedExtension;

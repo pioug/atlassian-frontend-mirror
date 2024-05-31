@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 import {
-  RendererWithTextHighlighter,
-  RendererWithFilteredTextHighlighter,
+	RendererWithTextHighlighter,
+	RendererWithFilteredTextHighlighter,
 } from '../__helpers/renderer-with-text-highlighter';
 
 snapshot(RendererWithTextHighlighter);

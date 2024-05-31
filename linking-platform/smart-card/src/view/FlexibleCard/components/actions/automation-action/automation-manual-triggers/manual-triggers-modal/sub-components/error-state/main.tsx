@@ -3,7 +3,6 @@ import React from 'react';
 import { defineMessages, useIntl } from 'react-intl-next';
 
 import { Box, Stack, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import ErrorIcon from './error-icon'
 
@@ -31,7 +30,7 @@ const imageContainerStyles = xcss({
   display: 'block',
   maxWidth: '116px',
   maxHeight: '156px',
-  marginBottom: token('space.300', '24px'),
+  marginBottom: 'space.300',
   marginTop: 'space.050',
 });
 

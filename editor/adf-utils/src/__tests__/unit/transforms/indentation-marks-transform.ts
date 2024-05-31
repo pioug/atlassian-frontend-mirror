@@ -7,43 +7,43 @@ import tableHeaderWithIndentedHeadingInvalidAdf from './__fixtures__/table-heade
 import tableHeaderWithIndentedHeadingAndContentInvalidAdf from './__fixtures__/table-header-with-indented-heading-and-content-invalid-adf.json';
 
 describe('transformIndentationMarks', () => {
-  it('should remove indentation marks from headings inside table cells', () => {
-    let { isTransformed, transformedAdf } = transformIndentationMarks(
-      tableCellWithIndentedHeadingInvalidAdf,
-    );
-    expect(isTransformed).toEqual(true);
-    expect(transformedAdf).toMatchSnapshot();
-  });
+	it('should remove indentation marks from headings inside table cells', () => {
+		let { isTransformed, transformedAdf } = transformIndentationMarks(
+			tableCellWithIndentedHeadingInvalidAdf,
+		);
+		expect(isTransformed).toEqual(true);
+		expect(transformedAdf).toMatchSnapshot();
+	});
 
-  it('should remove indentation marks from headings (mutiple content) inside table cells', () => {
-    let { isTransformed, transformedAdf } = transformIndentationMarks(
-      tableCellWithIndentedHeadingAndContentInvalidAdf,
-    );
-    expect(isTransformed).toEqual(true);
-    expect(transformedAdf).toMatchSnapshot();
-  });
+	it('should remove indentation marks from headings (mutiple content) inside table cells', () => {
+		let { isTransformed, transformedAdf } = transformIndentationMarks(
+			tableCellWithIndentedHeadingAndContentInvalidAdf,
+		);
+		expect(isTransformed).toEqual(true);
+		expect(transformedAdf).toMatchSnapshot();
+	});
 
-  it('should remove indentation marks from headings inside table headers', () => {
-    let { isTransformed, transformedAdf } = transformIndentationMarks(
-      tableHeaderWithIndentedHeadingInvalidAdf,
-    );
-    expect(isTransformed).toEqual(true);
-    expect(transformedAdf).toMatchSnapshot();
-  });
+	it('should remove indentation marks from headings inside table headers', () => {
+		let { isTransformed, transformedAdf } = transformIndentationMarks(
+			tableHeaderWithIndentedHeadingInvalidAdf,
+		);
+		expect(isTransformed).toEqual(true);
+		expect(transformedAdf).toMatchSnapshot();
+	});
 
-  it('should remove indentation marks from headings (mutiple content) inside table headers', () => {
-    let { isTransformed, transformedAdf } = transformIndentationMarks(
-      tableHeaderWithIndentedHeadingAndContentInvalidAdf,
-    );
-    expect(isTransformed).toEqual(true);
-    expect(transformedAdf).toMatchSnapshot();
-  });
+	it('should remove indentation marks from headings (mutiple content) inside table headers', () => {
+		let { isTransformed, transformedAdf } = transformIndentationMarks(
+			tableHeaderWithIndentedHeadingAndContentInvalidAdf,
+		);
+		expect(isTransformed).toEqual(true);
+		expect(transformedAdf).toMatchSnapshot();
+	});
 
-  it('should not remove indentation marks in valid complex doc, transformedAdf should be unchanged', () => {
-    let { isTransformed, transformedAdf } = transformIndentationMarks(
-      complexDocWithIndentationMarksValidAdf,
-    );
-    expect(isTransformed).toEqual(false);
-    expect(transformedAdf).toEqual(complexDocWithIndentationMarksValidAdf);
-  });
+	it('should not remove indentation marks in valid complex doc, transformedAdf should be unchanged', () => {
+		let { isTransformed, transformedAdf } = transformIndentationMarks(
+			complexDocWithIndentationMarksValidAdf,
+		);
+		expect(isTransformed).toEqual(false);
+		expect(transformedAdf).toEqual(complexDocWithIndentationMarksValidAdf);
+	});
 });

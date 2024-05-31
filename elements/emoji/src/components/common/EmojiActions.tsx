@@ -82,6 +82,7 @@ const AddOwnEmoji = (props: AddOwnEmojiProps) => {
                 onClick={onOpenUpload}
                 iconBefore={<AddIcon label="" size="small" />}
                 appearance="subtle"
+                // TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
                 css={addCustomEmojiButton}
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
                 className={emojiPickerAddEmoji}

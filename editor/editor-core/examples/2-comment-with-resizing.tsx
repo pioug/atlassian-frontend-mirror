@@ -15,27 +15,27 @@ const smartCardClient = new ConfluenceCardClient('stg');
 const cardProvider = Promise.resolve(new ConfluenceCardProvider('stg'));
 
 export default function CommentWithResizingExample() {
-  return (
-    <SmartCardProvider client={smartCardClient}>
-      <CommentExample
-        replacementDoc={exampleDocument}
-        editorProps={{
-          defaultValue: exampleDocument,
-          appearance: 'chromeless',
-          media: {
-            provider: mediaProvider,
-            allowMediaSingle: true,
-            allowResizing: true,
-            allowLinking: true,
-          },
-          allowLayouts: true,
-          smartLinks: {
-            provider: cardProvider,
-            allowBlockCards: true,
-            allowEmbeds: true,
-          },
-        }}
-      />
-    </SmartCardProvider>
-  );
+	return (
+		<SmartCardProvider client={smartCardClient}>
+			<CommentExample
+				replacementDoc={exampleDocument}
+				editorProps={{
+					defaultValue: exampleDocument,
+					appearance: 'chromeless',
+					media: {
+						provider: mediaProvider,
+						allowMediaSingle: true,
+						allowResizing: true,
+						allowLinking: true,
+					},
+					allowLayouts: true,
+					smartLinks: {
+						provider: cardProvider,
+						allowBlockCards: true,
+						allowEmbeds: true,
+					},
+				}}
+			/>
+		</SmartCardProvider>
+	);
 }

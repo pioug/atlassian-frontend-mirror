@@ -7,21 +7,21 @@ import { stateKey } from './pm-plugins/plugin-key';
 import type { UploadHandlerReference } from './types';
 
 type ImageUploadActions = {
-  startUpload: () => Command;
+	startUpload: () => Command;
 };
 
 type ImageUploadSharedState = {
-  active: boolean;
-  enabled: boolean;
-  hidden: boolean;
+	active: boolean;
+	enabled: boolean;
+	hidden: boolean;
 };
 
 export type ImageUploadPlugin = NextEditorPlugin<
-  'imageUpload',
-  {
-    actions: ImageUploadActions;
-    sharedState: ImageUploadSharedState | undefined;
-  }
+	'imageUpload',
+	{
+		actions: ImageUploadActions;
+		sharedState: ImageUploadSharedState | undefined;
+	}
 >;
 
 /**
@@ -29,38 +29,36 @@ export type ImageUploadPlugin = NextEditorPlugin<
  * from `@atlaskit/editor-core`.
  */
 export const imageUploadPlugin: ImageUploadPlugin = () => {
-  let uploadHandlerReference: UploadHandlerReference = {
-    current: null,
-  };
+	let uploadHandlerReference: UploadHandlerReference = {
+		current: null,
+	};
 
-  return {
-    name: 'imageUpload',
+	return {
+		name: 'imageUpload',
 
-    getSharedState(editorState) {
-      if (!editorState) {
-        return undefined;
-      }
+		getSharedState(editorState) {
+			if (!editorState) {
+				return undefined;
+			}
 
-      return stateKey.getState(editorState);
-    },
+			return stateKey.getState(editorState);
+		},
 
-    actions: {
-      startUpload: (): Command =>
-        insertActionForToolbar(uploadHandlerReference),
-    },
+		actions: {
+			startUpload: (): Command => insertActionForToolbar(uploadHandlerReference),
+		},
 
-    pmPlugins() {
-      return [
-        {
-          name: 'imageUpload',
-          plugin: createPlugin(uploadHandlerReference),
-        },
-        {
-          name: 'imageUploadInputRule',
-          plugin: ({ schema, featureFlags }) =>
-            inputRulePlugin(schema, featureFlags),
-        },
-      ];
-    },
-  };
+		pmPlugins() {
+			return [
+				{
+					name: 'imageUpload',
+					plugin: createPlugin(uploadHandlerReference),
+				},
+				{
+					name: 'imageUploadInputRule',
+					plugin: ({ schema, featureFlags }) => inputRulePlugin(schema, featureFlags),
+				},
+			];
+		},
+	};
 };

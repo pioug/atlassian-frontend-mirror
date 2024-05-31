@@ -4,15 +4,12 @@ import { css } from '@emotion/react';
 
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type {
-  EditorState,
-  ReadonlyTransaction,
-  Transaction,
+	EditorState,
+	ReadonlyTransaction,
+	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import {
-  avatarColors,
-  relativeFontSizeToBase16,
-} from '@atlaskit/editor-shared-styles';
+import { avatarColors, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { getGlobalTheme, token } from '@atlaskit/tokens';
 
 import type { Providers } from '../provider-factory';
@@ -20,35 +17,35 @@ import type { Providers } from '../provider-factory';
 // Format of the payload returned by the callback function passed to the collab provider
 // that gets called when syncing with the back-end service fails.
 export type NewCollabSyncUpErrorAttributes = {
-  lengthOfUnconfirmedSteps?: number;
-  tries: number;
-  maxRetries: number;
-  clientId?: number | string;
-  version: number;
+	lengthOfUnconfirmedSteps?: number;
+	tries: number;
+	maxRetries: number;
+	clientId?: number | string;
+	version: number;
 };
 
 // Format of the document and its metadata returned from the collab provider
 // after editing and for draft sync
 export type ResolvedEditorState<T = any> = {
-  content: JSONDocNode | T;
-  title: string | null;
-  stepVersion: number;
+	content: JSONDocNode | T;
+	title: string | null;
+	stepVersion: number;
 };
 
 // Provider Errors
 // Emitted errors
 export enum PROVIDER_ERROR_CODE {
-  NO_PERMISSION_ERROR = 'NO_PERMISSION_ERROR',
-  INVALID_USER_TOKEN = 'INVALID_USER_TOKEN',
-  DOCUMENT_NOT_FOUND = 'DOCUMENT_NOT_FOUND',
-  LOCKED = 'LOCKED',
-  FAIL_TO_SAVE = 'FAIL_TO_SAVE',
-  DOCUMENT_RESTORE_ERROR = 'DOCUMENT_RESTORE_ERROR',
-  INITIALISATION_ERROR = 'INITIALISATION_ERROR',
-  NETWORK_ISSUE = 'NETWORK_ISSUE',
-  INVALID_PROVIDER_CONFIGURATION = 'INVALID_PROVIDER_CONFIGURATION',
-  INTERNAL_SERVICE_ERROR = 'INTERNAL_SERVICE_ERROR',
-  DOCUMENT_UPDATE_ERROR = 'DOCUMENT_UPDATE_ERROR',
+	NO_PERMISSION_ERROR = 'NO_PERMISSION_ERROR',
+	INVALID_USER_TOKEN = 'INVALID_USER_TOKEN',
+	DOCUMENT_NOT_FOUND = 'DOCUMENT_NOT_FOUND',
+	LOCKED = 'LOCKED',
+	FAIL_TO_SAVE = 'FAIL_TO_SAVE',
+	DOCUMENT_RESTORE_ERROR = 'DOCUMENT_RESTORE_ERROR',
+	INITIALISATION_ERROR = 'INITIALISATION_ERROR',
+	NETWORK_ISSUE = 'NETWORK_ISSUE',
+	INVALID_PROVIDER_CONFIGURATION = 'INVALID_PROVIDER_CONFIGURATION',
+	INTERNAL_SERVICE_ERROR = 'INTERNAL_SERVICE_ERROR',
+	DOCUMENT_UPDATE_ERROR = 'DOCUMENT_UPDATE_ERROR',
 }
 /**
  * This occurs when the provided user token is considered invalid for the given document ARI.
@@ -58,14 +55,14 @@ export enum PROVIDER_ERROR_CODE {
  * @recoverable It is recoverable, as we will try to refresh the token.
  */
 type InsufficientEditingPermission = {
-  code: PROVIDER_ERROR_CODE.NO_PERMISSION_ERROR;
-  message: string;
-  recoverable: boolean;
-  reason?: string;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.NO_PERMISSION_ERROR;
+	message: string;
+	recoverable: boolean;
+	reason?: string;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 /**
@@ -76,13 +73,13 @@ type InsufficientEditingPermission = {
  * @recoverable It is recoverable, as we will try to refresh the token.
  */
 type InvalidUserToken = {
-  code: PROVIDER_ERROR_CODE.INVALID_USER_TOKEN;
-  message: string;
-  recoverable: boolean;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.INVALID_USER_TOKEN;
+	message: string;
+	recoverable: boolean;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 /**
@@ -93,13 +90,13 @@ type InvalidUserToken = {
  * @recoverable It is recoverable, as the provider can try again later.
  */
 type DocumentNotFound = {
-  code: PROVIDER_ERROR_CODE.DOCUMENT_NOT_FOUND;
-  message: string;
-  recoverable: boolean;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.DOCUMENT_NOT_FOUND;
+	message: string;
+	recoverable: boolean;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 /**
@@ -109,10 +106,10 @@ type DocumentNotFound = {
  * @recoverable It is recoverable, as the provider can try again later.
  */
 type Locked = {
-  code: PROVIDER_ERROR_CODE.LOCKED;
-  message: string;
-  recoverable: boolean;
-  status?: number;
+	code: PROVIDER_ERROR_CODE.LOCKED;
+	message: string;
+	recoverable: boolean;
+	status?: number;
 };
 
 /**
@@ -123,13 +120,13 @@ type Locked = {
  * @recoverable It is not recoverable, as we don't want the user to continue editing a document that is not being saved.
  */
 type FailToSave = {
-  code: PROVIDER_ERROR_CODE.FAIL_TO_SAVE;
-  message: string;
-  recoverable: boolean;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.FAIL_TO_SAVE;
+	message: string;
+	recoverable: boolean;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 /**
@@ -142,13 +139,13 @@ type FailToSave = {
  * The user will need to refresh the page to try again.
  */
 type DocumentNotRestore = {
-  code: PROVIDER_ERROR_CODE.DOCUMENT_RESTORE_ERROR;
-  message: string;
-  recoverable: boolean;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.DOCUMENT_RESTORE_ERROR;
+	message: string;
+	recoverable: boolean;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 /**
@@ -160,13 +157,13 @@ type DocumentNotRestore = {
  * The user will need to refresh the page to try again.
  */
 type InitialisationError = {
-  code: PROVIDER_ERROR_CODE.INITIALISATION_ERROR;
-  message: string;
-  recoverable: boolean;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.INITIALISATION_ERROR;
+	message: string;
+	recoverable: boolean;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 /**
@@ -177,13 +174,13 @@ type InitialisationError = {
  * @recoverable It is recoverable, as the provider will try to reconnect.
  */
 type NetworkIssue = {
-  code: PROVIDER_ERROR_CODE.NETWORK_ISSUE;
-  message: string;
-  recoverable: boolean;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.NETWORK_ISSUE;
+	message: string;
+	recoverable: boolean;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 /**
@@ -198,14 +195,14 @@ type NetworkIssue = {
  * The service using the provider will need to fix the configuration.
  */
 type InvalidProviderConfiguration = {
-  code: PROVIDER_ERROR_CODE.INVALID_PROVIDER_CONFIGURATION;
-  message: string;
-  recoverable: boolean;
-  reason: string;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.INVALID_PROVIDER_CONFIGURATION;
+	message: string;
+	recoverable: boolean;
+	reason: string;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 /**
@@ -214,283 +211,274 @@ type InvalidProviderConfiguration = {
  * @recoverable It is not recoverable, as the provider cannot do anything to fix it.
  */
 type InternalServiceError = {
-  code: PROVIDER_ERROR_CODE.INTERNAL_SERVICE_ERROR;
-  message: string;
-  recoverable: boolean;
-  reason: string;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.INTERNAL_SERVICE_ERROR;
+	message: string;
+	recoverable: boolean;
+	reason: string;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 type ProviderDocumentUpdateError = {
-  code: PROVIDER_ERROR_CODE.DOCUMENT_UPDATE_ERROR;
-  message: 'The provider failed to apply changes to the editor';
-  recoverable: boolean;
-  /**
-   * @deprecated switch to using either the error code or the recoverable flag
-   */
-  status?: number;
+	code: PROVIDER_ERROR_CODE.DOCUMENT_UPDATE_ERROR;
+	message: 'The provider failed to apply changes to the editor';
+	recoverable: boolean;
+	/**
+	 * @deprecated switch to using either the error code or the recoverable flag
+	 */
+	status?: number;
 };
 
 /**
  * A union of all possible provider errors that can be emitted back to the editor.
  */
 export type ProviderError =
-  | InsufficientEditingPermission
-  | InvalidUserToken
-  | DocumentNotFound
-  | Locked
-  | FailToSave
-  | DocumentNotRestore
-  | InitialisationError
-  | NetworkIssue
-  | InvalidProviderConfiguration
-  | InternalServiceError
-  | ProviderDocumentUpdateError;
+	| InsufficientEditingPermission
+	| InvalidUserToken
+	| DocumentNotFound
+	| Locked
+	| FailToSave
+	| DocumentNotRestore
+	| InitialisationError
+	| NetworkIssue
+	| InvalidProviderConfiguration
+	| InternalServiceError
+	| ProviderDocumentUpdateError;
 
 // Collab Provider interface
 export interface Metadata {
-  [key: string]: string | number | boolean;
+	[key: string]: string | number | boolean;
 }
 
 // TODO: Deprecate redundant payload types
 export type CollabMetadataPayload = Metadata;
 
 export interface CollabEventInitData {
-  doc?: any;
-  json?: any;
-  version?: number;
-  sid?: string;
-  reserveCursor?: boolean;
+	doc?: any;
+	json?: any;
+	version?: number;
+	sid?: string;
+	reserveCursor?: boolean;
 }
 
 export interface CollabInitPayload extends CollabEventInitData {
-  doc: any;
-  version: number;
-  metadata?: Metadata;
-  reserveCursor?: boolean;
+	doc: any;
+	version: number;
+	metadata?: Metadata;
+	reserveCursor?: boolean;
 }
 
 export interface CollabEventConnectionData {
-  sid: string;
-  initial: boolean;
+	sid: string;
+	initial: boolean;
 }
 
 export type CollabConnectedPayload = CollabEventConnectionData;
 
 export enum DisconnectReason {
-  CLIENT_DISCONNECT = 'CLIENT_DISCONNECT',
-  SERVER_DISCONNECT = 'SERVER_DISCONNECT',
-  SOCKET_CLOSED = 'SOCKET_CLOSED',
-  SOCKET_ERROR = 'SOCKET_ERROR',
-  SOCKET_TIMEOUT = 'SOCKET_TIMEOUT',
-  UNKNOWN_DISCONNECT = 'UNKNOWN_DISCONNECT',
+	CLIENT_DISCONNECT = 'CLIENT_DISCONNECT',
+	SERVER_DISCONNECT = 'SERVER_DISCONNECT',
+	SOCKET_CLOSED = 'SOCKET_CLOSED',
+	SOCKET_ERROR = 'SOCKET_ERROR',
+	SOCKET_TIMEOUT = 'SOCKET_TIMEOUT',
+	UNKNOWN_DISCONNECT = 'UNKNOWN_DISCONNECT',
 }
 
 export interface CollabDisconnectedPayload {
-  reason: DisconnectReason;
-  sid: string;
+	reason: DisconnectReason;
+	sid: string;
 }
 
 export interface CollabEventRemoteData {
-  json?: any;
-  newState?: EditorState;
-  userIds?: (number | string)[];
+	json?: any;
+	newState?: EditorState;
+	userIds?: (number | string)[];
 }
 
 type MarkJson = {
-  type: string;
-  attrs: { [key: string]: any };
+	type: string;
+	attrs: { [key: string]: any };
 };
 
 type NodeJson = {
-  type: string;
-  attrs: { [key: string]: any };
-  content: NodeJson[];
-  marks: MarkJson[];
-  text?: string;
+	type: string;
+	attrs: { [key: string]: any };
+	content: NodeJson[];
+	marks: MarkJson[];
+	text?: string;
 };
 
 type SliceJson = {
-  content: NodeJson[];
-  openStart: number;
-  openEnd: number;
+	content: NodeJson[];
+	openStart: number;
+	openEnd: number;
 };
 
 export type StepJson = {
-  stepType?: string; // Likely required
-  from?: number;
-  to?: number;
-  slice?: SliceJson;
-  clientId: number | string;
-  userId: string;
-  createdAt?: number; // Potentially required?
-  structure?: boolean;
+	stepType?: string; // Likely required
+	from?: number;
+	to?: number;
+	slice?: SliceJson;
+	clientId: number | string;
+	userId: string;
+	createdAt?: number; // Potentially required?
+	structure?: boolean;
 };
 
 export interface CollabDataPayload extends CollabEventRemoteData {
-  version: number;
-  json: StepJson[];
-  userIds: (number | string)[];
+	version: number;
+	json: StepJson[];
+	userIds: (number | string)[];
 }
 
 export interface CollabSendableSelection {
-  type: 'textSelection' | 'nodeSelection';
-  // JWM does some weird serialisation stuff:
-  // eg. {"type":"nodeSelection","head":"{\"nodeId\":\"project:10002:view/list/node/summary-10000\"}"}
-  anchor?: number | string;
-  head?: number | string;
+	type: 'textSelection' | 'nodeSelection';
+	// JWM does some weird serialisation stuff:
+	// eg. {"type":"nodeSelection","head":"{\"nodeId\":\"project:10002:view/list/node/summary-10000\"}"}
+	anchor?: number | string;
+	head?: number | string;
 }
 
 export interface CollabEventTelepointerData {
-  type: 'telepointer';
-  selection: CollabSendableSelection;
-  sessionId: string;
+	type: 'telepointer';
+	selection: CollabSendableSelection;
+	sessionId: string;
 }
 
 export type CollabTelepointerPayload = CollabEventTelepointerData;
 
 type ProviderParticipantPermitLevel = {
-  isPermittedToView?: boolean;
-  isPermittedToComment?: boolean;
-  isPermittedToEdit?: boolean;
+	isPermittedToView?: boolean;
+	isPermittedToComment?: boolean;
+	isPermittedToEdit?: boolean;
 };
 
 export interface CollabParticipant {
-  lastActive: number;
-  sessionId: string;
-  avatar: string;
-  name: string;
-  cursorPos?: number;
-  permit?: ProviderParticipantPermitLevel;
+	lastActive: number;
+	sessionId: string;
+	avatar: string;
+	name: string;
+	cursorPos?: number;
+	permit?: ProviderParticipantPermitLevel;
 }
 
 export type ProviderParticipant = CollabParticipant & {
-  userId: string;
-  clientId: number | string;
-  email: string;
+	userId: string;
+	clientId: number | string;
+	email: string;
 };
 
 export interface CollabEventPresenceData {
-  joined?: ProviderParticipant[];
-  left?: { sessionId: string }[];
+	joined?: ProviderParticipant[];
+	left?: { sessionId: string }[];
 }
 
 export type CollabPresencePayload = CollabEventPresenceData;
 
 export type CollabLocalStepsPayload = {
-  steps: readonly Step[];
+	steps: readonly Step[];
 };
 
 export interface CollabEventConnectingData {
-  initial: boolean;
+	initial: boolean;
 }
 
 export type CollabConnectingPayload = CollabEventConnectingData;
 
 export type CollabCommitStatusEventPayload = {
-  status: 'attempt' | 'success' | 'failure';
-  version: number;
+	status: 'attempt' | 'success' | 'failure';
+	version: number;
 };
 
 export type UserPermitType = {
-  isPermittedToView: boolean;
-  isPermittedToComment: boolean;
-  isPermittedToEdit: boolean;
+	isPermittedToView: boolean;
+	isPermittedToComment: boolean;
+	isPermittedToEdit: boolean;
 };
 
 export type CollabPermissionEventPayload = UserPermitType;
 
 export interface CollabEvents {
-  'metadata:changed': Metadata;
-  init: CollabInitPayload;
-  connected: CollabConnectedPayload;
-  disconnected: CollabDisconnectedPayload;
-  data: CollabDataPayload;
-  telepointer: CollabTelepointerPayload;
-  presence: CollabPresencePayload;
-  'local-steps': CollabLocalStepsPayload;
-  error: ProviderError;
-  entity: any;
-  connecting: CollabConnectingPayload;
-  permission: CollabPermissionEventPayload;
-  'commit-status': CollabCommitStatusEventPayload;
+	'metadata:changed': Metadata;
+	init: CollabInitPayload;
+	connected: CollabConnectedPayload;
+	disconnected: CollabDisconnectedPayload;
+	data: CollabDataPayload;
+	telepointer: CollabTelepointerPayload;
+	presence: CollabPresencePayload;
+	'local-steps': CollabLocalStepsPayload;
+	error: ProviderError;
+	entity: any;
+	connecting: CollabConnectingPayload;
+	permission: CollabPermissionEventPayload;
+	'commit-status': CollabCommitStatusEventPayload;
 }
 
-export type SyncUpErrorFunction = (
-  attributes: NewCollabSyncUpErrorAttributes,
-) => void;
+export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) => void;
 
-export interface CollabEditProvider<
-  Events extends CollabEvents = CollabEvents,
-> {
-  initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: deprecate this
+export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> {
+	initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: deprecate this
 
-  setup(props: {
-    getState?: () => EditorState;
-    onSyncUpError?: SyncUpErrorFunction;
-  }): this;
+	setup(props: { getState?: () => EditorState; onSyncUpError?: SyncUpErrorFunction }): this;
 
-  send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
+	send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
 
-  on(evt: keyof Events, handler: (...args: any) => void): this;
+	on(evt: keyof Events, handler: (...args: any) => void): this;
 
-  off(evt: keyof Events, handler: (...args: any) => void): this;
+	off(evt: keyof Events, handler: (...args: any) => void): this;
 
-  unsubscribeAll(evt: keyof Events): this;
+	unsubscribeAll(evt: keyof Events): this;
 
-  sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
+	sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
 
-  getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
+	getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
 }
 
 export type CollabEditOptions = {
-  provider?: Providers['collabEditProvider'];
-  userId?: string;
-  useNativePlugin?: boolean;
+	provider?: Providers['collabEditProvider'];
+	userId?: string;
+	useNativePlugin?: boolean;
 } & CollabInviteToEditProps &
-  CollabAnalyticsProps;
+	CollabAnalyticsProps;
 
 export type InviteToEditButtonProps = {
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
-  selected: boolean;
+	onClick: (event: React.MouseEvent<HTMLElement>) => void;
+	selected: boolean;
 };
 
 export type InviteToEditComponentProps = {
-  children: ReactElement<InviteToEditButtonProps>;
+	children: ReactElement<InviteToEditButtonProps>;
 };
 export interface CollabInviteToEditProps {
-  inviteToEditHandler?: (event: React.MouseEvent<HTMLElement>) => void;
-  isInviteToEditButtonSelected?: boolean;
-  inviteToEditComponent?: React.ComponentType<
-    React.PropsWithChildren<InviteToEditComponentProps>
-  >;
+	inviteToEditHandler?: (event: React.MouseEvent<HTMLElement>) => void;
+	isInviteToEditButtonSelected?: boolean;
+	inviteToEditComponent?: React.ComponentType<React.PropsWithChildren<InviteToEditComponentProps>>;
 }
 
 export interface CollabAnalyticsProps {
-  /**
-   * @description Control whether Synchrony entity error events are tracked
-   */
-  EXPERIMENTAL_allowInternalErrorAnalytics?: boolean;
+	/**
+	 * @description Control whether Synchrony entity error events are tracked
+	 */
+	EXPERIMENTAL_allowInternalErrorAnalytics?: boolean;
 }
 
 export interface CollabEventLocalStepData {
-  steps: Array<Step>;
+	steps: Array<Step>;
 }
 
 export type Color = ReturnType<typeof token>;
 
 const telepointerColorStyle = (color: Color, index: number) => {
-  const { colorMode } = getGlobalTheme();
+	const { colorMode } = getGlobalTheme();
 
-  const backgroundStyle =
-    colorMode === 'dark'
-      ? `linear-gradient(to bottom, ${color} -800000%, transparent 200000%)`
-      : `linear-gradient(to bottom, ${color} -850000%, transparent 150000%)`;
+	const backgroundStyle =
+		colorMode === 'dark'
+			? `linear-gradient(to bottom, ${color} -800000%, transparent 200000%)`
+			: `linear-gradient(to bottom, ${color} -850000%, transparent 150000%)`;
 
-  return `
+	return `
     &.color-${index} {
       background: ${backgroundStyle};
       &::after {
@@ -508,48 +496,46 @@ export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
 // Disable top: -14px since it is necessary to align to cursor
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css
 export const telepointerStyle = css`
-  .ProseMirror .telepointer {
-    position: relative;
-    transition: opacity 200ms;
+	.ProseMirror .telepointer {
+		position: relative;
+		transition: opacity 200ms;
 
-    &.telepointer-selection {
-      line-height: 1.2;
-      pointer-events: none;
-      user-select: none;
-    }
+		&.telepointer-selection {
+			line-height: 1.2;
+			pointer-events: none;
+			user-select: none;
+		}
 
-    &.telepointer-selection-badge::after {
-      content: attr(data-initial);
-      position: absolute;
-      display: block;
-      top: -14px;
-      font-size: ${relativeFontSizeToBase16(9)};
-      padding: ${token('space.025', '2px')};
-      color: ${token('color.text.inverse', '#FFFFFF')};
-      left: 0px;
-      border-radius: 2px 2px 2px 0;
-      line-height: initial;
-    }
+		&.telepointer-selection-badge::after {
+			content: attr(data-initial);
+			position: absolute;
+			display: block;
+			top: -14px;
+			font-size: ${relativeFontSizeToBase16(9)};
+			padding: ${token('space.025', '2px')};
+			color: ${token('color.text.inverse', '#FFFFFF')};
+			left: 0px;
+			border-radius: 2px 2px 2px 0;
+			line-height: initial;
+		}
 
-    &.${TELEPOINTER_DIM_CLASS} {
-      opacity: 0.2;
-    }
+		&.${TELEPOINTER_DIM_CLASS} {
+			opacity: 0.2;
+		}
 
-    ${avatarColors.map((color, index) => telepointerColorStyle(color, index))};
-  }
+		${avatarColors.map((color, index) => telepointerColorStyle(color, index))};
+	}
 `;
 
 const tintKey = 'collab:isDirtyTransaction';
 
-export const isDirtyTransaction = (
-  tr: Transaction | ReadonlyTransaction,
-): boolean => {
-  return Boolean(tr.getMeta(tintKey));
+export const isDirtyTransaction = (tr: Transaction | ReadonlyTransaction): boolean => {
+	return Boolean(tr.getMeta(tintKey));
 };
 /*
  * This function is used to mark which commands that are dispatching
  * unnecessary changes on Editor.
  */
 export const tintDirtyTransaction = (tr: Transaction) => {
-  tr.setMeta(tintKey, true);
+	tr.setMeta(tintKey, true);
 };

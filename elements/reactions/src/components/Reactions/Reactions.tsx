@@ -8,13 +8,16 @@ import React, {
 } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import {
+  type UIAnalyticsEvent,
+  useAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 import {
   type KeyboardOrMouseEvent,
   ModalTransition,
   type OnCloseHandler,
 } from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
@@ -425,8 +428,11 @@ export const Reactions = React.memo(
             hideTooltipOnClick
           >
             <Button
+              // TODO: (from codemod) "link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.
+              // https://product-fabric.atlassian.net/browse/DSP-18982
               appearance="subtle-link"
               onClick={handleOpenAllReactionsDialog}
+              // TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
               css={seeWhoReactedStyle}
               testId={RENDER_VIEWALL_REACTED_USERS_DIALOG}
             >

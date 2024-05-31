@@ -1,51 +1,51 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import {
-  B100,
-  B300,
-  B400,
-  B50,
-  B500,
-  B75,
-  DN50,
-  DN70,
-  G100,
-  G300,
-  G500,
-  N0,
-  N100,
-  N20,
-  N200,
-  N30,
-  N40,
-  N50,
-  N500,
-  N70,
-  N700,
-  N800,
-  N900,
-  P100,
-  P300,
-  P500,
-  R100,
-  R300,
-  R400,
-  R50,
-  R500,
-  R75,
-  T100,
-  T300,
-  T500,
-  Y100,
-  Y300,
-  Y500,
+	B100,
+	B300,
+	B400,
+	B50,
+	B500,
+	B75,
+	DN50,
+	DN70,
+	G100,
+	G300,
+	G500,
+	N0,
+	N100,
+	N20,
+	N200,
+	N30,
+	N40,
+	N50,
+	N500,
+	N70,
+	N700,
+	N800,
+	N900,
+	P100,
+	P300,
+	P500,
+	R100,
+	R300,
+	R400,
+	R50,
+	R500,
+	R75,
+	T100,
+	T300,
+	T500,
+	Y100,
+	Y300,
+	Y500,
 } from '@atlaskit/theme/colors';
 import {
-  codeFontFamily,
-  fontSize as defaultFontSize,
-  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-  gridSize,
-  layers,
+	codeFontFamily,
+	fontSize as defaultFontSize,
+	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+	gridSize,
+	layers,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -77,12 +77,12 @@ export const akEditorSelectedBgColor = B50;
 export const akEditorSelectedBlanketColor = B75;
 export const akEditorSelectedBorderSize = 1;
 export const akEditorSelectedBorder = `${akEditorSelectedBorderSize}px solid ${token(
-  'color.border.selected',
-  akEditorSelectedBorderColor,
+	'color.border.selected',
+	akEditorSelectedBorderColor,
 )}`;
 export const akEditorSelectedBoxShadow = `0 0 0 ${akEditorSelectedBorderSize}px ${token(
-  'color.border.selected',
-  akEditorSelectedBorderColor,
+	'color.border.selected',
+	akEditorSelectedBorderColor,
 )}`;
 export const akEditorSelectedIconColor = B400;
 export const akEditorSelectedBorderBoldSize = 2;
@@ -100,11 +100,9 @@ export const akEditorFloatingPanelZIndex = layers.layer();
 // z-index used for pickers (date, emoji, mentions) and type-aheads, hyperlinks
 export const akEditorFloatingDialogZIndex = akEditorMenuZIndex + 10;
 // z-index used for table cell menu options button on a sticky header
-export const akEditorTableCellOnStickyHeaderZIndex =
-  akEditorFloatingDialogZIndex - 5;
+export const akEditorTableCellOnStickyHeaderZIndex = akEditorFloatingDialogZIndex - 5;
 // z-index used for floating toolbars table cell menu which are above block toolbars
-export const akEditorFloatingOverlapPanelZIndex =
-  akEditorFloatingPanelZIndex + 5;
+export const akEditorFloatingOverlapPanelZIndex = akEditorFloatingPanelZIndex + 5;
 export const akEditorMentionSelected = N100;
 export const akEditorTableToolbarSize = 11;
 export const akEditorTableBorder = N50;
@@ -161,76 +159,76 @@ export const MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
 export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 
 export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () =>
-  getBooleanFF('platform.confluence.frontend.narrow-full-page-editor-toolbar') ? token('space.500', '40px') : '56px';
+	getBooleanFF('platform.confluence.frontend.narrow-full-page-editor-toolbar')
+		? token('space.500', '40px')
+		: '56px';
 
 export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const editorFontSize = ({ theme }: { theme: EditorTheme }) =>
-  theme && theme.baseFontSize ? theme.baseFontSize : defaultFontSize();
+	theme && theme.baseFontSize ? theme.baseFontSize : defaultFontSize();
 
 export const relativeSize =
-  (multiplier: number) =>
-  ({ theme }: { theme: EditorTheme }) =>
-    editorFontSize({ theme }) * multiplier;
+	(multiplier: number) =>
+	({ theme }: { theme: EditorTheme }) =>
+		editorFontSize({ theme }) * multiplier;
 
 export const relativeFontSizeToBase16 = (px: number | string) => {
-  if (typeof px === 'string') {
-    px = parseInt(px);
-  }
-  if (isNaN(px)) {
-    throw new Error(`Invalid font size: '${px}'`);
-  }
-  return `${px / 16}rem`;
+	if (typeof px === 'string') {
+		px = parseInt(px);
+	}
+	if (isNaN(px)) {
+		throw new Error(`Invalid font size: '${px}'`);
+	}
+	return `${px / 16}rem`;
 };
 
 export const VIEWPORT_SIZES = {
-  laptopHiDPI: { width: 1440, height: 900 },
-  laptopMDPI: { width: 1280, height: 800 },
-  tabletL: { width: 1024, height: 1366 },
-  tabletS: { width: 768, height: 1024 },
-  mobileM: { width: 414, height: 736 },
-  mobileS: { width: 375, height: 667 },
-  mobileXS: { width: 320, height: 568 },
+	laptopHiDPI: { width: 1440, height: 900 },
+	laptopMDPI: { width: 1280, height: 800 },
+	tabletL: { width: 1024, height: 1366 },
+	tabletS: { width: 768, height: 1024 },
+	mobileM: { width: 414, height: 736 },
+	mobileS: { width: 375, height: 667 },
+	mobileXS: { width: 320, height: 568 },
 };
 
 // to be updated in ED-10790: this should be variable threshold based on how many buttons enabled on main toolbar
 export const akEditorMobileMaxWidth = 0;
 
 export const getTableCellBackgroundDarkModeColors = [
-  ['White', '#000000'],
-  ['Light blue', '#0C294F'],
-  ['Light teal', '#0C343B'],
-  ['Light green', '#052E21'],
-  ['Light yellow', '#484123'],
-  ['Light red', '#441C13'],
-  ['Light purple', '#282249'],
+	['White', '#000000'],
+	['Light blue', '#0C294F'],
+	['Light teal', '#0C343B'],
+	['Light green', '#052E21'],
+	['Light yellow', '#484123'],
+	['Light red', '#441C13'],
+	['Light purple', '#282249'],
 
-  ['Light gray', '#202328'],
-  ['Blue', '#0B3165'],
-  ['Teal', '#044853'],
-  ['Green', '#053927'],
-  ['Yellow', '#6F5C25'],
-  ['Red', '#582013'],
-  ['Purple', '#3E327B'],
+	['Light gray', '#202328'],
+	['Blue', '#0B3165'],
+	['Teal', '#044853'],
+	['Green', '#053927'],
+	['Yellow', '#6F5C25'],
+	['Red', '#582013'],
+	['Purple', '#3E327B'],
 
-  ['Gray', '#475262'],
-  ['Dark blue', '#003884'],
-  ['Dark teal', '#055866'],
-  ['Dark green', '#044932'],
-  ['Dark yellow', '#82641C'],
-  ['Dark red', '#6B2A19'],
-  ['Dark purple', '#4D38B2'],
+	['Gray', '#475262'],
+	['Dark blue', '#003884'],
+	['Dark teal', '#055866'],
+	['Dark green', '#044932'],
+	['Dark yellow', '#82641C'],
+	['Dark red', '#6B2A19'],
+	['Dark purple', '#4D38B2'],
 ]
-  .map(([colorName, colorValue]) =>
-    getTableCellBackgroundDarkModeColorCSS(colorName, colorValue),
-  )
-  .join('\n');
+	.map(([colorName, colorValue]) => getTableCellBackgroundDarkModeColorCSS(colorName, colorValue))
+	.join('\n');
 
 export function getTableCellBackgroundDarkModeColorCSS(
-  colorName: string,
-  colorValue: string,
+	colorName: string,
+	colorValue: string,
 ): string {
-  return `
+	return `
   &[colorname="${colorName}"] {
     background-color: ${colorValue} !important; // !important to override default style color
   }
@@ -238,25 +236,25 @@ export function getTableCellBackgroundDarkModeColorCSS(
 }
 
 export const avatarColors = [
-  token('color.icon.accent.red', R100),
-  token('color.background.accent.red.bolder.hovered', R300),
-  token('color.icon.accent.magenta', R500),
-  token('color.background.accent.magenta.bolder.hovered', Y100),
-  token('color.icon.accent.orange', Y300),
-  token('color.background.accent.orange.bolder.hovered', Y500),
-  token('color.icon.accent.green', G100),
-  token('color.background.accent.green.bolder.hovered', G300),
-  token('color.icon.accent.blue', G500),
-  token('color.background.accent.blue.bolder.hovered', T100),
-  token('color.icon.accent.teal', T300),
-  token('color.background.accent.teal.bolder.hovered', T500),
-  token('color.icon.accent.lime', B100),
-  token('color.background.accent.lime.bolder.hovered', B300),
-  token('color.icon.accent.purple', B500),
-  token('color.background.accent.purple.bolder.hovered', N70),
-  token('color.icon.accent.gray', N200),
-  token('color.background.accent.gray.bolder.hovered', N800),
-  token('color.icon.accent.yellow', P100),
-  token('color.background.accent.yellow.bolder.hovered', P300),
-  token('color.background.accent.yellow.bolder.pressed', P500),
+	token('color.icon.accent.red', R100),
+	token('color.background.accent.red.bolder.hovered', R300),
+	token('color.icon.accent.magenta', R500),
+	token('color.background.accent.magenta.bolder.hovered', Y100),
+	token('color.icon.accent.orange', Y300),
+	token('color.background.accent.orange.bolder.hovered', Y500),
+	token('color.icon.accent.green', G100),
+	token('color.background.accent.green.bolder.hovered', G300),
+	token('color.icon.accent.blue', G500),
+	token('color.background.accent.blue.bolder.hovered', T100),
+	token('color.icon.accent.teal', T300),
+	token('color.background.accent.teal.bolder.hovered', T500),
+	token('color.icon.accent.lime', B100),
+	token('color.background.accent.lime.bolder.hovered', B300),
+	token('color.icon.accent.purple', B500),
+	token('color.background.accent.purple.bolder.hovered', N70),
+	token('color.icon.accent.gray', N200),
+	token('color.background.accent.gray.bolder.hovered', N800),
+	token('color.icon.accent.yellow', P100),
+	token('color.background.accent.yellow.bolder.hovered', P300),
+	token('color.background.accent.yellow.bolder.pressed', P500),
 ];

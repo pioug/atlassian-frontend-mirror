@@ -9,70 +9,65 @@ import { isBlank, isDigit, isNotBlank, StringBuffer } from '../../utils/text';
  */
 
 function trimIfPossible(s: string | null): string | null {
-  if (s === null) {
-    return null;
-  }
+	if (s === null) {
+		return null;
+	}
 
-  return s.trim();
+	return s.trim();
 }
 
 function extractLinkBody(buffer: StringBuffer): string | null {
-  const indexOfBang = buffer.indexOf('!');
-  const indexOfPipe = buffer.indexOf('|');
-  const lastIndexOfBang = buffer.lastIndexOf('!');
-  const notEscaped =
-    indexOfBang === -1 ||
-    indexOfBang > indexOfPipe ||
-    indexOfBang === lastIndexOfBang;
+	const indexOfBang = buffer.indexOf('!');
+	const indexOfPipe = buffer.indexOf('|');
+	const lastIndexOfBang = buffer.lastIndexOf('!');
+	const notEscaped =
+		indexOfBang === -1 || indexOfBang > indexOfPipe || indexOfBang === lastIndexOfBang;
 
-  if (notEscaped) {
-    return divideOn(buffer, '|');
-  }
+	if (notEscaped) {
+		return divideOn(buffer, '|');
+	}
 
-  const body = new StringBuffer();
-  let inEscape = false;
+	const body = new StringBuffer();
+	let inEscape = false;
 
-  for (let i = 0; i < buffer.length(); i++) {
-    const c = buffer.charAt(i);
-    if (c === '!') {
-      inEscape = !inEscape;
-    }
-    if (c === '|' && !inEscape) {
-      buffer.delete(0, i + 1);
-      return body.toString();
-    }
-    body.append(c);
-  }
+	for (let i = 0; i < buffer.length(); i++) {
+		const c = buffer.charAt(i);
+		if (c === '!') {
+			inEscape = !inEscape;
+		}
+		if (c === '|' && !inEscape) {
+			buffer.delete(0, i + 1);
+			return body.toString();
+		}
+		body.append(c);
+	}
 
-  return null;
+	return null;
 }
 
 function divideAfterLast(buffer: StringBuffer, divider: string): string | null {
-  if (buffer.length() === 0) {
-    return null;
-  }
+	if (buffer.length() === 0) {
+		return null;
+	}
 
-  return divideAfter(buffer, buffer.lastIndexOf(divider));
+	return divideAfter(buffer, buffer.lastIndexOf(divider));
 }
 
-function divideAfter(
-  buffer: StringBuffer,
-  index: number | string,
-): string | null {
-  if (typeof index === 'string') {
-    index = buffer.indexOf(index);
-  }
+function divideAfter(buffer: StringBuffer, index: number | string): string | null {
+	if (typeof index === 'string') {
+		index = buffer.indexOf(index);
+	}
 
-  if (index < 0) {
-    return null;
-  } else if (index === buffer.length() - 1) {
-    buffer.deleteCharAt(buffer.length() - 1);
-    return null;
-  } else {
-    const body = buffer.substring(index + 1);
-    buffer.delete(index, buffer.length());
-    return body;
-  }
+	if (index < 0) {
+		return null;
+	} else if (index === buffer.length() - 1) {
+		buffer.deleteCharAt(buffer.length() - 1);
+		return null;
+	} else {
+		const body = buffer.substring(index + 1);
+		buffer.delete(index, buffer.length());
+		return body;
+	}
 }
 
 /**
@@ -89,145 +84,145 @@ function divideAfter(
  * @return the characters before the divider, or the default if there are none
  */
 function divideOn(buffer: StringBuffer, divider: string): string | null {
-  if (buffer.length() === 0) {
-    return null;
-  }
+	if (buffer.length() === 0) {
+		return null;
+	}
 
-  const i = buffer.indexOf(divider);
+	const i = buffer.indexOf(divider);
 
-  if (i < 0) {
-    return null;
-  } else if (i === 0) {
-    buffer.deleteCharAt(0);
-    return null;
-  } else {
-    const body = buffer.substring(0, i);
-    buffer.delete(0, i + 1);
-    return body;
-  }
+	if (i < 0) {
+		return null;
+	} else if (i === 0) {
+		buffer.deleteCharAt(0);
+		return null;
+	} else {
+		const body = buffer.substring(0, i);
+		buffer.delete(0, i + 1);
+		return body;
+	}
 }
 
 function extractNumber(buf: StringBuffer): number {
-  const digits = new StringBuffer();
-  let i = 0;
+	const digits = new StringBuffer();
+	let i = 0;
 
-  for (; i < buf.length() && isDigit(buf.charAt(i)); i++) {
-    digits.append(buf.charAt(i));
-  }
+	for (; i < buf.length() && isDigit(buf.charAt(i)); i++) {
+		digits.append(buf.charAt(i));
+	}
 
-  if (i > 0) {
-    buf.delete(0, i);
-  }
+	if (i > 0) {
+		buf.delete(0, i);
+	}
 
-  try {
-    return parseInt(digits.toString(), 10);
-  } catch (e) {
-    return 0;
-  }
+	try {
+		return parseInt(digits.toString(), 10);
+	} catch (e) {
+		return 0;
+	}
 }
 
 export interface Link {
-  readonly originalLinkText: string;
-  readonly linkBody: string | null;
-  readonly notLinkBody: string;
-  readonly linkTitle: string | null;
+	readonly originalLinkText: string;
+	readonly linkBody: string | null;
+	readonly notLinkBody: string;
+	readonly linkTitle: string | null;
 }
 
 export function parseLink(linkText: string): Link {
-  const originalLinkText = linkText;
+	const originalLinkText = linkText;
 
-  // we want to decode single quotes (represented by &#039;) back before parsing the link test
-  if (linkText.indexOf('&#039;') !== -1) {
-    linkText = linkText.replace('&#039;', "'");
-  }
+	// we want to decode single quotes (represented by &#039;) back before parsing the link test
+	if (linkText.indexOf('&#039;') !== -1) {
+		linkText = linkText.replace('&#039;', "'");
+	}
 
-  const buf = new StringBuffer(linkText);
-  const linkBody = extractLinkBody(buf);
-  const linkTitle = trimIfPossible(divideAfter(buf, '|'));
-  const notLinkBody = buf.toString().trim();
+	const buf = new StringBuffer(linkText);
+	const linkBody = extractLinkBody(buf);
+	const linkTitle = trimIfPossible(divideAfter(buf, '|'));
+	const notLinkBody = buf.toString().trim();
 
-  return {
-    originalLinkText,
-    linkBody,
-    linkTitle,
-    notLinkBody,
-  };
+	return {
+		originalLinkText,
+		linkBody,
+		linkTitle,
+		notLinkBody,
+	};
 }
 
 export interface ContentLink extends Link {
-  readonly spaceKey: string | null;
-  readonly destinationTitle: string;
-  readonly anchor: string | null;
-  readonly shortcutName: string | null;
-  readonly shortcutValue: string | null;
-  readonly attachmentName: string | null;
-  readonly contentId: number;
+	readonly spaceKey: string | null;
+	readonly destinationTitle: string;
+	readonly anchor: string | null;
+	readonly shortcutName: string | null;
+	readonly shortcutValue: string | null;
+	readonly attachmentName: string | null;
+	readonly contentId: number;
 }
 
 export function parseContentLink(link: Link | string): ContentLink {
-  if (typeof link === 'string') {
-    link = parseLink(link);
-  }
+	if (typeof link === 'string') {
+		link = parseLink(link);
+	}
 
-  const { notLinkBody } = link;
+	const { notLinkBody } = link;
 
-  let shortcutName: string | null = null;
-  let shortcutValue: string | null = null;
-  let spaceKey: string | null = null;
-  let attachmentName: string | null = null;
-  let anchor: string | null = null;
-  let destinationTitle: string = '';
+	let shortcutName: string | null = null;
+	let shortcutValue: string | null = null;
+	let spaceKey: string | null = null;
+	let attachmentName: string | null = null;
+	let anchor: string | null = null;
+	let destinationTitle: string = '';
 
-  let contentId = 0;
+	let contentId = 0;
 
-  // Don't treat it as a short link when it starts with "~"
-  if (!notLinkBody.startsWith('~')) {
-    const shortcutBuf = new StringBuffer(notLinkBody);
-    shortcutName = trimIfPossible(divideAfterLast(shortcutBuf, '@'));
+	// Don't treat it as a short link when it starts with "~"
+	if (!notLinkBody.startsWith('~')) {
+		const shortcutBuf = new StringBuffer(notLinkBody);
+		shortcutName = trimIfPossible(divideAfterLast(shortcutBuf, '@'));
 
-    if (isNotBlank(shortcutName)) {
-      shortcutValue = shortcutBuf.toString();
-    }
-  }
+		if (isNotBlank(shortcutName)) {
+			shortcutValue = shortcutBuf.toString();
+		}
+	}
 
-  const buf = new StringBuffer(notLinkBody);
+	const buf = new StringBuffer(notLinkBody);
 
-  if (isBlank(shortcutName)) {
-    spaceKey = trimIfPossible(divideOn(buf, ':'));
+	if (isBlank(shortcutName)) {
+		spaceKey = trimIfPossible(divideOn(buf, ':'));
 
-    if (buf.indexOf('$') === 0) {
-      buf.deleteCharAt(0);
-      contentId = extractNumber(buf);
-      if (contentId === 0) {
-        return {
-          ...link,
-          shortcutName,
-          shortcutValue,
-          spaceKey,
-          contentId,
-          attachmentName,
-          anchor,
-          destinationTitle,
-        };
-      }
-    }
+		if (buf.indexOf('$') === 0) {
+			buf.deleteCharAt(0);
+			contentId = extractNumber(buf);
+			if (contentId === 0) {
+				return {
+					...link,
+					shortcutName,
+					shortcutValue,
+					spaceKey,
+					contentId,
+					attachmentName,
+					anchor,
+					destinationTitle,
+				};
+			}
+		}
 
-    attachmentName = trimIfPossible(divideAfter(buf, '^'));
-    anchor = trimIfPossible(divideAfter(buf, '#'));
-  }
+		attachmentName = trimIfPossible(divideAfter(buf, '^'));
+		anchor = trimIfPossible(divideAfter(buf, '#'));
+	}
 
-  if (contentId === 0) {
-    destinationTitle = buf.toString().trim();
-  }
+	if (contentId === 0) {
+		destinationTitle = buf.toString().trim();
+	}
 
-  return {
-    ...link,
-    shortcutName,
-    shortcutValue,
-    spaceKey,
-    contentId,
-    attachmentName,
-    anchor,
-    destinationTitle,
-  };
+	return {
+		...link,
+		shortcutName,
+		shortcutValue,
+		spaceKey,
+		contentId,
+		attachmentName,
+		anchor,
+		destinationTitle,
+	};
 }

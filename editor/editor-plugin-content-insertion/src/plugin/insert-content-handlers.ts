@@ -6,22 +6,22 @@ import type { InsertNodeConfig } from '../types';
 import { insertProseMirrorContent } from './insert-node-helpers';
 
 export const handleInsertContent =
-  ({ node, options }: Omit<InsertNodeConfig, 'state' | 'dispatch'>) =>
-  (tr: Transaction): boolean => {
-    const position = tr.selection;
+	({ node, options }: Omit<InsertNodeConfig, 'state' | 'dispatch'>) =>
+	(tr: Transaction): boolean => {
+		const position = tr.selection;
 
-    if (!(node instanceof PMNode || node instanceof Fragment)) {
-      return false;
-    }
+		if (!(node instanceof PMNode || node instanceof Fragment)) {
+			return false;
+		}
 
-    insertProseMirrorContent({
-      tr,
-      node,
-      position,
-      selectNodeInserted: options.selectNodeInserted,
-    });
+		insertProseMirrorContent({
+			tr,
+			node,
+			position,
+			selectNodeInserted: options.selectNodeInserted,
+		});
 
-    tr.scrollIntoView();
+		tr.scrollIntoView();
 
-    return true;
-  };
+		return true;
+	};

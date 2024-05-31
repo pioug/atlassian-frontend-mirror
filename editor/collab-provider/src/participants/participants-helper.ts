@@ -7,32 +7,28 @@ export type ParticipantsMap = Map<string, ProviderParticipant>;
 
 // Names are hard
 export type GetUserType =
-  | ((
-      userId: string,
-    ) => Promise<
-      Pick<ProviderParticipant, 'name' | 'avatar' | 'userId' | 'email'>
-    >)
-  | undefined;
+	| ((userId: string) => Promise<Pick<ProviderParticipant, 'name' | 'avatar' | 'userId' | 'email'>>)
+	| undefined;
 
 export const createParticipantFromPayload = async (
-  // userId must be defined, unlike in PresencePayload
-  payload: PresencePayload & { userId: string },
-  getUser: GetUserType,
+	// userId must be defined, unlike in PresencePayload
+	payload: PresencePayload & { userId: string },
+	getUser: GetUserType,
 ): Promise<ProviderParticipant> => {
-  const { sessionId, timestamp, clientId, userId, permit } = payload;
+	const { sessionId, timestamp, clientId, userId, permit } = payload;
 
-  const user = await getUser?.(userId);
+	const user = await getUser?.(userId);
 
-  const participant: ProviderParticipant = {
-    name: user?.name || '',
-    avatar: user?.avatar || '',
-    email: user?.email || '',
-    sessionId,
-    lastActive: timestamp,
-    userId,
-    clientId,
-    permit,
-  };
+	const participant: ProviderParticipant = {
+		name: user?.name || '',
+		avatar: user?.avatar || '',
+		email: user?.email || '',
+		sessionId,
+		lastActive: timestamp,
+		userId,
+		clientId,
+		permit,
+	};
 
-  return participant;
+	return participant;
 };

@@ -53,7 +53,6 @@
     "@af/visual-regression": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
@@ -93,7 +92,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.enable-selection-toolbar_ucdwd": {
       "type": "boolean"

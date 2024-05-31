@@ -51,7 +51,6 @@
   "devDependencies": {
     "@atlaskit/link-test-helpers": "^7.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/linkify-it": "^3.0.2",
@@ -81,6 +80,5 @@
     "./sentry": "./src/sentry/index.ts",
     ".": "./src/index.ts"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {}
 }

@@ -2,7 +2,7 @@ import { renameUnsafeAllowUndoRedoButtonsProp } from './migrates/rename-unsafe-a
 import { createTransformer } from './utils';
 
 const transformer = createTransformer('@atlaskit/editor-core', [
-  renameUnsafeAllowUndoRedoButtonsProp,
+	renameUnsafeAllowUndoRedoButtonsProp,
 ]);
 
 export default transformer;

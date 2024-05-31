@@ -4,499 +4,446 @@ import uuid from 'uuid';
 
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
-  ExtractInjectionAPI,
-  TypeAheadHandler,
-  TypeAheadItem,
+	ExtractInjectionAPI,
+	TypeAheadHandler,
+	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
-import type {
-  Node as PMNode,
-  Schema,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { MentionStats } from '@atlaskit/mention';
 import { MENTION_ITEM_HEIGHT, MentionItem } from '@atlaskit/mention/item';
-import type {
-  MentionDescription,
-  MentionProvider,
-} from '@atlaskit/mention/resource';
+import type { MentionDescription, MentionProvider } from '@atlaskit/mention/resource';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { TeamMember } from '@atlaskit/mention/team-resource';
 
 import {
-  buildTypeAheadCancelPayload,
-  buildTypeAheadInsertedPayload,
-  buildTypeAheadInviteItemClickedPayload,
-  buildTypeAheadInviteItemViewedPayload,
-  buildTypeAheadRenderedPayload,
+	buildTypeAheadCancelPayload,
+	buildTypeAheadInsertedPayload,
+	buildTypeAheadInviteItemClickedPayload,
+	buildTypeAheadInviteItemViewedPayload,
+	buildTypeAheadRenderedPayload,
 } from '../analytics';
 import { getMentionPluginState } from '../pm-plugins/utils';
-import type {
-  FireElementsChannelEvent,
-  MentionsPlugin,
-  TeamInfoAttrAnalytics,
-} from '../types';
+import type { FireElementsChannelEvent, MentionsPlugin, TeamInfoAttrAnalytics } from '../types';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from '../ui/InviteItem';
-import {
-  isInviteItem,
-  isTeamStats,
-  isTeamType,
-  shouldKeepInviteItem,
-} from '../utils';
+import { isInviteItem, isTeamStats, isTeamType, shouldKeepInviteItem } from '../utils';
 
 const createInviteItem = ({
-  mentionProvider,
-  onInviteItemMount,
+	mentionProvider,
+	onInviteItemMount,
 }: {
-  mentionProvider: MentionProvider;
-  onInviteItemMount: () => void;
+	mentionProvider: MentionProvider;
+	onInviteItemMount: () => void;
 }): TypeAheadItem => ({
-  title: INVITE_ITEM_DESCRIPTION.id,
-  render: ({ isSelected, onClick, onHover }) => (
-    <InviteItem
-      productName={mentionProvider ? mentionProvider.productName : undefined}
-      selected={isSelected}
-      onMount={onInviteItemMount}
-      onMouseEnter={onHover}
-      onSelection={onClick}
-      userRole={mentionProvider.userRole}
-    />
-  ),
-  mention: INVITE_ITEM_DESCRIPTION,
+	title: INVITE_ITEM_DESCRIPTION.id,
+	render: ({ isSelected, onClick, onHover }) => (
+		<InviteItem
+			productName={mentionProvider ? mentionProvider.productName : undefined}
+			selected={isSelected}
+			onMount={onInviteItemMount}
+			onMouseEnter={onHover}
+			onSelection={onClick}
+			userRole={mentionProvider.userRole}
+		/>
+	),
+	mention: INVITE_ITEM_DESCRIPTION,
 });
 
 const withInviteItem =
-  ({
-    mentionProvider,
-    firstQueryWithoutResults,
-    currentQuery,
-    onInviteItemMount,
-  }: {
-    firstQueryWithoutResults: string;
-    currentQuery: string;
-    mentionProvider: MentionProvider;
-    onInviteItemMount: () => void;
-  }) =>
-  (mentionItems: Array<TypeAheadItem>) => {
-    const inviteItem = createInviteItem({ mentionProvider, onInviteItemMount });
-    const keepInviteItem = shouldKeepInviteItem(
-      currentQuery,
-      firstQueryWithoutResults,
-    );
-    if (mentionItems.length === 0) {
-      return keepInviteItem ? [inviteItem] : [];
-    }
+	({
+		mentionProvider,
+		firstQueryWithoutResults,
+		currentQuery,
+		onInviteItemMount,
+	}: {
+		firstQueryWithoutResults: string;
+		currentQuery: string;
+		mentionProvider: MentionProvider;
+		onInviteItemMount: () => void;
+	}) =>
+	(mentionItems: Array<TypeAheadItem>) => {
+		const inviteItem = createInviteItem({ mentionProvider, onInviteItemMount });
+		const keepInviteItem = shouldKeepInviteItem(currentQuery, firstQueryWithoutResults);
+		if (mentionItems.length === 0) {
+			return keepInviteItem ? [inviteItem] : [];
+		}
 
-    return [
-      ...mentionItems,
-      // invite item should be shown at the bottom
-      inviteItem,
-    ];
-  };
+		return [
+			...mentionItems,
+			// invite item should be shown at the bottom
+			inviteItem,
+		];
+	};
 
-export const mentionToTypeaheadItem = (
-  mention: MentionDescription,
-): TypeAheadItem => {
-  return {
-    title: mention.id,
-    render: ({ isSelected, onClick, onHover }) => (
-      <MentionItem
-        mention={mention}
-        selected={isSelected}
-        onMouseEnter={onHover}
-        onSelection={onClick}
-      />
-    ),
-    getCustomComponentHeight: () => {
-      return MENTION_ITEM_HEIGHT;
-    },
-    mention,
-  };
+export const mentionToTypeaheadItem = (mention: MentionDescription): TypeAheadItem => {
+	return {
+		title: mention.id,
+		render: ({ isSelected, onClick, onHover }) => (
+			<MentionItem
+				mention={mention}
+				selected={isSelected}
+				onMouseEnter={onHover}
+				onSelection={onClick}
+			/>
+		),
+		getCustomComponentHeight: () => {
+			return MENTION_ITEM_HEIGHT;
+		},
+		mention,
+	};
 };
 
-export function memoize<
-  ResultFn extends (mention: MentionDescription) => TypeAheadItem,
->(fn: ResultFn): { call: ResultFn; clear(): void } {
-  // Cache results here
-  const seen = new Map<string, TypeAheadItem>();
+export function memoize<ResultFn extends (mention: MentionDescription) => TypeAheadItem>(
+	fn: ResultFn,
+): { call: ResultFn; clear(): void } {
+	// Cache results here
+	const seen = new Map<string, TypeAheadItem>();
 
-  function memoized(mention: MentionDescription): TypeAheadItem {
-    // Check cache for hits
-    const hit = seen.get(mention.id);
+	function memoized(mention: MentionDescription): TypeAheadItem {
+		// Check cache for hits
+		const hit = seen.get(mention.id);
 
-    if (hit) {
-      return hit;
-    }
+		if (hit) {
+			return hit;
+		}
 
-    // Generate new result and cache it
-    const result = fn(mention);
-    seen.set(mention.id, result);
-    return result;
-  }
+		// Generate new result and cache it
+		const result = fn(mention);
+		seen.set(mention.id, result);
+		return result;
+	}
 
-  return {
-    call: memoized as ResultFn,
-    clear: seen.clear.bind(seen),
-  };
+	return {
+		call: memoized as ResultFn,
+		clear: seen.clear.bind(seen),
+	};
 }
 
 const memoizedToItem = memoize(mentionToTypeaheadItem);
 
 const buildAndSendElementsTypeAheadAnalytics =
-  (fireEvent: FireElementsChannelEvent) =>
-  ({
-    query,
-    mentions,
-    stats,
-  }: {
-    query: string;
-    mentions: MentionDescription[];
-    stats?: MentionStats;
-  }) => {
-    let duration: number = 0;
-    let userOrTeamIds: string[] | null = null;
-    let teams: TeamInfoAttrAnalytics[] | null = null;
+	(fireEvent: FireElementsChannelEvent) =>
+	({
+		query,
+		mentions,
+		stats,
+	}: {
+		query: string;
+		mentions: MentionDescription[];
+		stats?: MentionStats;
+	}) => {
+		let duration: number = 0;
+		let userOrTeamIds: string[] | null = null;
+		let teams: TeamInfoAttrAnalytics[] | null = null;
 
-    if (!isTeamStats(stats)) {
-      // is from primary mention endpoint which could be just user mentions or user/team mentions
-      duration = stats && stats.duration;
-      teams = null;
-      userOrTeamIds = mentions.map(mention => mention.id);
-    } else {
-      // is from dedicated team-only mention endpoint
-      duration = stats && stats.teamMentionDuration;
-      userOrTeamIds = null;
-      teams = mentions
-        .map(mention =>
-          isTeamType(mention.userType)
-            ? {
-                teamId: mention.id,
-                includesYou: mention.context!.includesYou,
-                memberCount: mention.context!.memberCount,
-              }
-            : null,
-        )
-        .filter(m => !!m) as TeamInfoAttrAnalytics[];
-    }
+		if (!isTeamStats(stats)) {
+			// is from primary mention endpoint which could be just user mentions or user/team mentions
+			duration = stats && stats.duration;
+			teams = null;
+			userOrTeamIds = mentions.map((mention) => mention.id);
+		} else {
+			// is from dedicated team-only mention endpoint
+			duration = stats && stats.teamMentionDuration;
+			userOrTeamIds = null;
+			teams = mentions
+				.map((mention) =>
+					isTeamType(mention.userType)
+						? {
+								teamId: mention.id,
+								includesYou: mention.context!.includesYou,
+								memberCount: mention.context!.memberCount,
+							}
+						: null,
+				)
+				.filter((m) => !!m) as TeamInfoAttrAnalytics[];
+		}
 
-    const payload = buildTypeAheadRenderedPayload(
-      duration,
-      userOrTeamIds,
-      query,
-      teams,
-    );
-    fireEvent(payload);
-  };
+		const payload = buildTypeAheadRenderedPayload(duration, userOrTeamIds, query, teams);
+		fireEvent(payload);
+	};
 
 /**
  * When a team mention is selected, we render a team link and list of member/user mentions
  * in editor content
  */
 const buildNodesForTeamMention = (
-  schema: Schema,
-  selectedMention: MentionDescription,
-  mentionProvider: MentionProvider,
-  sanitizePrivateContent?: boolean,
+	schema: Schema,
+	selectedMention: MentionDescription,
+	mentionProvider: MentionProvider,
+	sanitizePrivateContent?: boolean,
 ): Fragment => {
-  const { nodes, marks } = schema;
-  const { name, id: teamId, accessLevel, context } = selectedMention;
+	const { nodes, marks } = schema;
+	const { name, id: teamId, accessLevel, context } = selectedMention;
 
-  // build team link
-  const defaultTeamLink = `${window.location.origin}/people/team/${teamId}`;
-  const teamLink =
-    context && context.teamLink ? context.teamLink : defaultTeamLink;
-  const teamLinkNode = schema.text(name!, [
-    marks.link.create({ href: teamLink }),
-  ]);
+	// build team link
+	const defaultTeamLink = `${window.location.origin}/people/team/${teamId}`;
+	const teamLink = context && context.teamLink ? context.teamLink : defaultTeamLink;
+	const teamLinkNode = schema.text(name!, [marks.link.create({ href: teamLink })]);
 
-  const openBracketText = schema.text('(');
-  const closeBracketText = schema.text(')');
-  const emptySpaceText = schema.text(' ');
+	const openBracketText = schema.text('(');
+	const closeBracketText = schema.text(')');
+	const emptySpaceText = schema.text(' ');
 
-  const inlineNodes: PMNode[] = [teamLinkNode, emptySpaceText, openBracketText];
+	const inlineNodes: PMNode[] = [teamLinkNode, emptySpaceText, openBracketText];
 
-  const members: TeamMember[] =
-    context && context.members ? context.members : [];
-  members.forEach((member: TeamMember, index) => {
-    const { name, id } = member;
-    const mentionName = `@${name}`;
-    const text = sanitizePrivateContent ? '' : mentionName;
-    if (sanitizePrivateContent && isResolvingMentionProvider(mentionProvider)) {
-      mentionProvider.cacheMentionName(id, name);
-    }
-    const userMentionNode = nodes.mention.createChecked({
-      text,
-      id: member.id,
-      accessLevel,
-      userType: 'DEFAULT',
-      localId: uuid(),
-    });
+	const members: TeamMember[] = context && context.members ? context.members : [];
+	members.forEach((member: TeamMember, index) => {
+		const { name, id } = member;
+		const mentionName = `@${name}`;
+		const text = sanitizePrivateContent ? '' : mentionName;
+		if (sanitizePrivateContent && isResolvingMentionProvider(mentionProvider)) {
+			mentionProvider.cacheMentionName(id, name);
+		}
+		const userMentionNode = nodes.mention.createChecked({
+			text,
+			id: member.id,
+			accessLevel,
+			userType: 'DEFAULT',
+			localId: uuid(),
+		});
 
-    inlineNodes.push(userMentionNode);
-    // should not add empty space after the last user mention.
-    if (index !== members.length - 1) {
-      inlineNodes.push(emptySpaceText);
-    }
-  });
+		inlineNodes.push(userMentionNode);
+		// should not add empty space after the last user mention.
+		if (index !== members.length - 1) {
+			inlineNodes.push(emptySpaceText);
+		}
+	});
 
-  inlineNodes.push(closeBracketText);
-  return Fragment.fromArray(inlineNodes);
+	inlineNodes.push(closeBracketText);
+	return Fragment.fromArray(inlineNodes);
 };
 
 type Props = {
-  sanitizePrivateContent?: boolean;
-  mentionInsertDisplayName?: boolean;
-  HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
-  fireEvent: FireElementsChannelEvent;
-  api: ExtractInjectionAPI<MentionsPlugin> | undefined;
+	sanitizePrivateContent?: boolean;
+	mentionInsertDisplayName?: boolean;
+	HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
+	fireEvent: FireElementsChannelEvent;
+	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 };
 export const createTypeAheadConfig = ({
-  sanitizePrivateContent,
-  mentionInsertDisplayName,
-  fireEvent,
-  HighlightComponent,
-  api,
+	sanitizePrivateContent,
+	mentionInsertDisplayName,
+	fireEvent,
+	HighlightComponent,
+	api,
 }: Props) => {
-  let sessionId = uuid();
-  let firstQueryWithoutResults: string | null = null;
-  const subscriptionKeys = new Set<string>();
+	let sessionId = uuid();
+	let firstQueryWithoutResults: string | null = null;
+	const subscriptionKeys = new Set<string>();
 
-  const typeAhead: TypeAheadHandler = {
-    id: TypeAheadAvailableNodes.MENTION,
-    trigger: '@',
-    // Custom regex must have a capture group around trigger
-    // so it's possible to use it without needing to scan through all triggers again
-    customRegex: '\\(?(@)',
-    getHighlight: (state: EditorState) => {
-      const CustomHighlightComponent = HighlightComponent;
-      if (CustomHighlightComponent) {
-        return <CustomHighlightComponent />;
-      }
+	const typeAhead: TypeAheadHandler = {
+		id: TypeAheadAvailableNodes.MENTION,
+		trigger: '@',
+		// Custom regex must have a capture group around trigger
+		// so it's possible to use it without needing to scan through all triggers again
+		customRegex: '\\(?(@)',
+		getHighlight: (state: EditorState) => {
+			const CustomHighlightComponent = HighlightComponent;
+			if (CustomHighlightComponent) {
+				return <CustomHighlightComponent />;
+			}
 
-      return null;
-    },
-    getItems({ query, editorState }) {
-      const pluginState = getMentionPluginState(editorState);
+			return null;
+		},
+		getItems({ query, editorState }) {
+			const pluginState = getMentionPluginState(editorState);
 
-      if (!pluginState?.mentionProvider) {
-        return Promise.resolve([]);
-      }
-      const { mentionProvider } = pluginState;
-      const { contextIdentifierProvider } =
-        api?.contextIdentifier?.sharedState.currentState() ?? {};
+			if (!pluginState?.mentionProvider) {
+				return Promise.resolve([]);
+			}
+			const { mentionProvider } = pluginState;
+			const { contextIdentifierProvider } =
+				api?.contextIdentifier?.sharedState.currentState() ?? {};
 
-      return new Promise(resolve => {
-        const key = `loadingMentionsForTypeAhead_${uuid()}`;
-        const mentionsSubscribeCallback = (
-          mentions: MentionDescription[],
-          resultQuery: string = '',
-          stats?: MentionStats,
-        ) => {
-          if (query !== resultQuery) {
-            return;
-          }
+			return new Promise((resolve) => {
+				const key = `loadingMentionsForTypeAhead_${uuid()}`;
+				const mentionsSubscribeCallback = (
+					mentions: MentionDescription[],
+					resultQuery: string = '',
+					stats?: MentionStats,
+				) => {
+					if (query !== resultQuery) {
+						return;
+					}
 
-          mentionProvider.unsubscribe(key);
-          subscriptionKeys.delete(key);
-          const mentionItems = mentions.map(mention =>
-            memoizedToItem.call(mention),
-          );
+					mentionProvider.unsubscribe(key);
+					subscriptionKeys.delete(key);
+					const mentionItems = mentions.map((mention) => memoizedToItem.call(mention));
 
-          buildAndSendElementsTypeAheadAnalytics(fireEvent)({
-            query,
-            mentions,
-            stats,
-          });
+					buildAndSendElementsTypeAheadAnalytics(fireEvent)({
+						query,
+						mentions,
+						stats,
+					});
 
-          if (mentions.length === 0 && firstQueryWithoutResults === null) {
-            firstQueryWithoutResults = query;
-          }
+					if (mentions.length === 0 && firstQueryWithoutResults === null) {
+						firstQueryWithoutResults = query;
+					}
 
-          if (!mentionProvider.shouldEnableInvite || mentionItems.length > 2) {
-            resolve(mentionItems);
-          } else {
-            const items = withInviteItem({
-              mentionProvider,
-              firstQueryWithoutResults: firstQueryWithoutResults || '',
-              currentQuery: query,
-              onInviteItemMount: () => {
-                fireEvent(
-                  buildTypeAheadInviteItemViewedPayload(
-                    sessionId,
-                    contextIdentifierProvider,
-                    mentionProvider.userRole,
-                  ),
-                );
-              },
-            })(mentionItems);
+					if (!mentionProvider.shouldEnableInvite || mentionItems.length > 2) {
+						resolve(mentionItems);
+					} else {
+						const items = withInviteItem({
+							mentionProvider,
+							firstQueryWithoutResults: firstQueryWithoutResults || '',
+							currentQuery: query,
+							onInviteItemMount: () => {
+								fireEvent(
+									buildTypeAheadInviteItemViewedPayload(
+										sessionId,
+										contextIdentifierProvider,
+										mentionProvider.userRole,
+									),
+								);
+							},
+						})(mentionItems);
 
-            resolve(items);
-          }
-        };
+						resolve(items);
+					}
+				};
 
-        subscriptionKeys.add(key);
-        mentionProvider.subscribe(key, mentionsSubscribeCallback);
-        mentionProvider.filter(query || '', {
-          ...contextIdentifierProvider,
-          sessionId,
-        });
-      });
-    },
-    onOpen: () => {
-      firstQueryWithoutResults = null;
-    },
-    selectItem(state, item, insert, { mode, stats, query, sourceListItem }) {
-      const { schema } = state;
+				subscriptionKeys.add(key);
+				mentionProvider.subscribe(key, mentionsSubscribeCallback);
+				mentionProvider.filter(query || '', {
+					...contextIdentifierProvider,
+					sessionId,
+				});
+			});
+		},
+		onOpen: () => {
+			firstQueryWithoutResults = null;
+		},
+		selectItem(state, item, insert, { mode, stats, query, sourceListItem }) {
+			const { schema } = state;
 
-      const pluginState = getMentionPluginState(state);
-      const { mentionProvider } = pluginState;
-      const { id, name, nickname, accessLevel, userType } = item.mention;
-      const trimmedNickname =
-        nickname && nickname.startsWith('@') ? nickname.slice(1) : nickname;
-      const renderName =
-        mentionInsertDisplayName || !trimmedNickname ? name : trimmedNickname;
-      const { contextIdentifierProvider } =
-        api?.contextIdentifier?.sharedState.currentState() ?? {};
+			const pluginState = getMentionPluginState(state);
+			const { mentionProvider } = pluginState;
+			const { id, name, nickname, accessLevel, userType } = item.mention;
+			const trimmedNickname = nickname && nickname.startsWith('@') ? nickname.slice(1) : nickname;
+			const renderName = mentionInsertDisplayName || !trimmedNickname ? name : trimmedNickname;
+			const { contextIdentifierProvider } =
+				api?.contextIdentifier?.sharedState.currentState() ?? {};
 
-      const mentionContext = {
-        ...contextIdentifierProvider,
-        sessionId,
-      };
+			const mentionContext = {
+				...contextIdentifierProvider,
+				sessionId,
+			};
 
-      if (mentionProvider && !isInviteItem(item.mention)) {
-        mentionProvider.recordMentionSelection(item.mention, mentionContext);
-      }
+			if (mentionProvider && !isInviteItem(item.mention)) {
+				mentionProvider.recordMentionSelection(item.mention, mentionContext);
+			}
 
-      // use same timer as StatsModifier
-      const pickerElapsedTime = stats.startedAt
-        ? performance.now() - stats.startedAt
-        : 0;
+			// use same timer as StatsModifier
+			const pickerElapsedTime = stats.startedAt ? performance.now() - stats.startedAt : 0;
 
-      if (
-        mentionProvider &&
-        mentionProvider.shouldEnableInvite &&
-        isInviteItem(item.mention)
-      ) {
-        // Don't fire event and the callback with selection by space press
-        if (mode !== 'space') {
-          fireEvent(
-            buildTypeAheadInviteItemClickedPayload(
-              pickerElapsedTime,
-              stats.keyCount.arrowUp,
-              stats.keyCount.arrowDown,
-              sessionId,
-              mode,
-              query,
-              contextIdentifierProvider,
-              mentionProvider.userRole,
-            ),
-          );
+			if (mentionProvider && mentionProvider.shouldEnableInvite && isInviteItem(item.mention)) {
+				// Don't fire event and the callback with selection by space press
+				if (mode !== 'space') {
+					fireEvent(
+						buildTypeAheadInviteItemClickedPayload(
+							pickerElapsedTime,
+							stats.keyCount.arrowUp,
+							stats.keyCount.arrowDown,
+							sessionId,
+							mode,
+							query,
+							contextIdentifierProvider,
+							mentionProvider.userRole,
+						),
+					);
 
-          if (mentionProvider.onInviteItemClick) {
-            mentionProvider.onInviteItemClick('mention');
-          }
-        }
-        return state.tr;
-      }
+					if (mentionProvider.onInviteItemClick) {
+						mentionProvider.onInviteItemClick('mention');
+					}
+				}
+				return state.tr;
+			}
 
-      let taskListId: string | undefined, taskItemId: string | undefined;
-      const taskList = findParentNodeOfType(state.schema.nodes.taskList)(
-        state.selection,
-      );
-      if (taskList) {
-        taskListId = taskList.node.attrs.localId;
-        const taskItem = findParentNodeOfType(state.schema.nodes.taskItem)(
-          state.selection,
-        );
-        if (taskItem) {
-          taskItemId = taskItem.node.attrs.localId;
-        }
-      }
+			let taskListId: string | undefined, taskItemId: string | undefined;
+			const taskList = findParentNodeOfType(state.schema.nodes.taskList)(state.selection);
+			if (taskList) {
+				taskListId = taskList.node.attrs.localId;
+				const taskItem = findParentNodeOfType(state.schema.nodes.taskItem)(state.selection);
+				if (taskItem) {
+					taskItemId = taskItem.node.attrs.localId;
+				}
+			}
 
-      fireEvent(
-        buildTypeAheadInsertedPayload(
-          pickerElapsedTime,
-          stats.keyCount.arrowUp,
-          stats.keyCount.arrowDown,
-          sessionId,
-          mode,
-          item.mention,
-          sourceListItem.map(x => x.mention),
-          query,
-          contextIdentifierProvider,
-          taskListId,
-          taskItemId,
-        ),
-      );
+			fireEvent(
+				buildTypeAheadInsertedPayload(
+					pickerElapsedTime,
+					stats.keyCount.arrowUp,
+					stats.keyCount.arrowDown,
+					sessionId,
+					mode,
+					item.mention,
+					sourceListItem.map((x) => x.mention),
+					query,
+					contextIdentifierProvider,
+					taskListId,
+					taskItemId,
+				),
+			);
 
-      sessionId = uuid();
+			sessionId = uuid();
 
-      if (mentionProvider && isTeamType(userType)) {
-        return insert(
-          buildNodesForTeamMention(
-            schema,
-            item.mention,
-            mentionProvider,
-            sanitizePrivateContent,
-          ),
-        );
-      }
+			if (mentionProvider && isTeamType(userType)) {
+				return insert(
+					buildNodesForTeamMention(schema, item.mention, mentionProvider, sanitizePrivateContent),
+				);
+			}
 
-      // Don't insert into document if document data is sanitized.
-      const text = sanitizePrivateContent ? '' : `@${renderName}`;
+			// Don't insert into document if document data is sanitized.
+			const text = sanitizePrivateContent ? '' : `@${renderName}`;
 
-      if (
-        sanitizePrivateContent &&
-        isResolvingMentionProvider(mentionProvider)
-      ) {
-        // Cache (locally) for later rendering
-        mentionProvider.cacheMentionName(id, renderName);
-      }
+			if (sanitizePrivateContent && isResolvingMentionProvider(mentionProvider)) {
+				// Cache (locally) for later rendering
+				mentionProvider.cacheMentionName(id, renderName);
+			}
 
-      const mentionNode = schema.nodes.mention.createChecked({
-        text,
-        id,
-        accessLevel,
-        userType: userType === 'DEFAULT' ? null : userType,
-        localId: uuid(),
-      });
-      const space = schema.text(' ');
+			const mentionNode = schema.nodes.mention.createChecked({
+				text,
+				id,
+				accessLevel,
+				userType: userType === 'DEFAULT' ? null : userType,
+				localId: uuid(),
+			});
+			const space = schema.text(' ');
 
-      return insert(Fragment.from([mentionNode, space]));
-    },
-    dismiss({ editorState, query, stats, wasItemInserted }) {
-      firstQueryWithoutResults = null;
-      const pickerElapsedTime = stats.startedAt
-        ? performance.now() - stats.startedAt
-        : 0;
+			return insert(Fragment.from([mentionNode, space]));
+		},
+		dismiss({ editorState, query, stats, wasItemInserted }) {
+			firstQueryWithoutResults = null;
+			const pickerElapsedTime = stats.startedAt ? performance.now() - stats.startedAt : 0;
 
-      if (!wasItemInserted) {
-        fireEvent(
-          buildTypeAheadCancelPayload(
-            pickerElapsedTime,
-            stats.keyCount.arrowUp,
-            stats.keyCount.arrowDown,
-            sessionId,
-            query || '',
-          ),
-        );
-      }
+			if (!wasItemInserted) {
+				fireEvent(
+					buildTypeAheadCancelPayload(
+						pickerElapsedTime,
+						stats.keyCount.arrowUp,
+						stats.keyCount.arrowDown,
+						sessionId,
+						query || '',
+					),
+				);
+			}
 
-      const pluginState = getMentionPluginState(editorState);
+			const pluginState = getMentionPluginState(editorState);
 
-      if (pluginState?.mentionProvider) {
-        const mentionProvider = pluginState.mentionProvider;
+			if (pluginState?.mentionProvider) {
+				const mentionProvider = pluginState.mentionProvider;
 
-        for (let key of subscriptionKeys) {
-          mentionProvider.unsubscribe(key);
-        }
-      }
-      subscriptionKeys.clear();
+				for (let key of subscriptionKeys) {
+					mentionProvider.unsubscribe(key);
+				}
+			}
+			subscriptionKeys.clear();
 
-      sessionId = uuid();
-    },
-  };
+			sessionId = uuid();
+		},
+	};
 
-  return typeAhead;
+	return typeAhead;
 };

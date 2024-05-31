@@ -9,20 +9,20 @@ import EmptyState from '@atlaskit/empty-state';
 import ErrorImage from './ErrorImage';
 
 type Props = {
-  errorMessage: string;
+	errorMessage: string;
 } & WrappedComponentProps;
 
 const ConfigPanelErrorMessage = ({ errorMessage, intl }: Props) => {
-  return (
-    <EmptyState
-      header={intl.formatMessage(messages.configFailedToLoad)}
-      description={errorMessage}
-      renderImage={() => <ErrorImage />}
-      size="narrow"
-      imageHeight={80}
-      testId="config-panel-error-message"
-    />
-  );
+	return (
+		<EmptyState
+			header={intl.formatMessage(messages.configFailedToLoad)}
+			description={errorMessage}
+			renderImage={() => <ErrorImage />}
+			size="narrow"
+			imageHeight={80}
+			testId="config-panel-error-message"
+		/>
+	);
 };
 
 export default injectIntl(ConfigPanelErrorMessage);

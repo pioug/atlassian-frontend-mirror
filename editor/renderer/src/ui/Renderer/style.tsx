@@ -9,48 +9,45 @@ import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 import { getGlobalTheme, token } from '@atlaskit/tokens';
 import { mediaInlineImageStyles } from '@atlaskit/editor-common/media-inline';
 import {
-  tableSharedStyle,
-  columnLayoutSharedStyle,
-  blockquoteSharedStyles,
-  headingsSharedStyles,
-  ruleSharedStyles,
-  whitespaceSharedStyles,
-  paragraphSharedStyles,
-  listsSharedStyles,
-  indentationSharedStyles,
-  blockMarksSharedStyles,
-  mediaSingleSharedStyle,
-  TableSharedCssClassName,
-  tableMarginTop,
-  codeMarkSharedStyles,
-  shadowSharedStyle,
-  dateSharedStyle,
-  richMediaClassName,
-  tasksAndDecisionsStyles,
-  smartCardSharedStyles,
-  tableCellPadding,
-  textColorStyles,
-  backgroundColorStyles,
-  codeBlockInListSafariFix,
-  SmartCardSharedCssClassName,
+	tableSharedStyle,
+	columnLayoutSharedStyle,
+	blockquoteSharedStyles,
+	headingsSharedStyles,
+	ruleSharedStyles,
+	whitespaceSharedStyles,
+	paragraphSharedStyles,
+	listsSharedStyles,
+	indentationSharedStyles,
+	blockMarksSharedStyles,
+	mediaSingleSharedStyle,
+	TableSharedCssClassName,
+	tableMarginTop,
+	codeMarkSharedStyles,
+	shadowSharedStyle,
+	dateSharedStyle,
+	richMediaClassName,
+	tasksAndDecisionsStyles,
+	smartCardSharedStyles,
+	tableCellPadding,
+	textColorStyles,
+	backgroundColorStyles,
+	codeBlockInListSafariFix,
+	SmartCardSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 
-import {
-  shadowClassNames,
-  shadowObserverClassNames,
-} from '@atlaskit/editor-common/ui';
+import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 
 import { browser } from '@atlaskit/editor-common/utils';
 import {
-  editorFontSize,
-  blockNodesVerticalMargin,
-  akEditorTableToolbar,
-  akEditorTableBorder,
-  akEditorTableNumberColumnWidth,
-  gridMediumMaxWidth,
-  akEditorFullWidthLayoutWidth,
-  akEditorStickyHeaderZIndex,
-  relativeFontSizeToBase16,
+	editorFontSize,
+	blockNodesVerticalMargin,
+	akEditorTableToolbar,
+	akEditorTableBorder,
+	akEditorTableNumberColumnWidth,
+	gridMediumMaxWidth,
+	akEditorFullWidthLayoutWidth,
+	akEditorStickyHeaderZIndex,
+	relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
 import { N40A } from '@atlaskit/theme/colors';
 import { RendererCssClassName } from '../../consts';
@@ -65,101 +62,101 @@ export const FullPagePadding = 32;
 const tableShadowWidth = 32;
 
 export type RendererWrapperProps = {
-  appearance?: RendererAppearance;
-  allowNestedHeaderLinks: boolean;
-  allowColumnSorting: boolean;
-  useBlockRenderForCodeBlock: boolean;
+	appearance?: RendererAppearance;
+	allowNestedHeaderLinks: boolean;
+	allowColumnSorting: boolean;
+	useBlockRenderForCodeBlock: boolean;
 };
 
 export const TELEPOINTER_ID = 'ai-streaming-telepointer';
 
 const telepointerStyles = (colorMode?: 'light' | 'dark') => {
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-  return css`
-    #${TELEPOINTER_ID} {
-      display: inline-block;
-      position: relative;
-      width: 1.5px;
-      height: 25px;
-      background: linear-gradient(
-        45deg,
-        ${colorMode === 'dark' ? '#f5cd47' : '#f8e6a0'} -12.02%,
-        ${colorMode === 'dark' ? '#60c6d2' : '#8bdbe5'} 19.18%,
-        ${colorMode === 'dark' ? '#388bff' : '#0c66e4'} 71.87%
-      );
-      margin-left: ${token('space.025', '2px')};
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+	return css`
+		#${TELEPOINTER_ID} {
+			display: inline-block;
+			position: relative;
+			width: 1.5px;
+			height: 25px;
+			background: linear-gradient(
+				45deg,
+				${colorMode === 'dark' ? '#f5cd47' : '#f8e6a0'} -12.02%,
+				${colorMode === 'dark' ? '#60c6d2' : '#8bdbe5'} 19.18%,
+				${colorMode === 'dark' ? '#388bff' : '#0c66e4'} 71.87%
+			);
+			margin-left: ${token('space.025', '2px')};
 
-      &::after {
-        content: 'AI';
-        position: absolute;
-        display: block;
-        top: 0;
-        left: 0;
-        font-size: 10px;
-        font-weight: 700;
-        width: 12.5px;
-        height: 13px;
-        padding-top: 1px;
-        padding-left: 1.5px;
-        line-height: initial;
-        border-radius: 0px 2px 2px 0px;
-        color: ${token('color.text.inverse', 'white')};
-        background: linear-gradient(
-          45deg,
-          ${colorMode === 'dark' ? '#60c6d2' : '#8bdbe5'} -57%,
-          ${colorMode === 'dark' ? '#388bff' : '#0c66e4'} 71.87%
-        );
-      }
-    }
-  `;
+			&::after {
+				content: 'AI';
+				position: absolute;
+				display: block;
+				top: 0;
+				left: 0;
+				font-size: 10px;
+				font-weight: 700;
+				width: 12.5px;
+				height: 13px;
+				padding-top: 1px;
+				padding-left: 1.5px;
+				line-height: initial;
+				border-radius: 0px 2px 2px 0px;
+				color: ${token('color.text.inverse', 'white')};
+				background: linear-gradient(
+					45deg,
+					${colorMode === 'dark' ? '#60c6d2' : '#8bdbe5'} -57%,
+					${colorMode === 'dark' ? '#388bff' : '#0c66e4'} 71.87%
+				);
+			}
+		}
+	`;
 };
 
 type HeadingSizes = keyof typeof headingSizesImport;
 
 const getLineHeight = <T extends HeadingSizes>(fontCode: T): number =>
-  headingSizesImport[fontCode].lineHeight / headingSizesImport[fontCode].size;
+	headingSizesImport[fontCode].lineHeight / headingSizesImport[fontCode].size;
 
 export const headingSizes: { [key: string]: { [key: string]: number } } = {
-  h1: {
-    lineHeight: getLineHeight('h700'),
-  },
-  h2: {
-    lineHeight: getLineHeight('h600'),
-  },
-  h3: {
-    lineHeight: getLineHeight('h500'),
-  },
-  h4: {
-    lineHeight: getLineHeight('h400'),
-  },
-  h5: {
-    lineHeight: getLineHeight('h300'),
-  },
-  h6: {
-    lineHeight: getLineHeight('h100'),
-  },
+	h1: {
+		lineHeight: getLineHeight('h700'),
+	},
+	h2: {
+		lineHeight: getLineHeight('h600'),
+	},
+	h3: {
+		lineHeight: getLineHeight('h500'),
+	},
+	h4: {
+		lineHeight: getLineHeight('h400'),
+	},
+	h5: {
+		lineHeight: getLineHeight('h300'),
+	},
+	h6: {
+		lineHeight: getLineHeight('h100'),
+	},
 };
 
 const headingAnchorStyle = (headingTag: string) =>
-  // TODO Delete this comment after verifying space token -> previous value `margin-left: 6px`
-  css`
-    /**
+	// TODO Delete this comment after verifying space token -> previous value `margin-left: 6px`
+	css`
+		/**
      * The copy link button doesn't reserve space in the DOM so that
      * the text alignment isn't impacted by the button/icon's space.
      */
-    .${HeadingAnchorWrapperClassName} {
-      position: absolute;
-      height: ${headingSizes[headingTag].lineHeight}em;
+		.${HeadingAnchorWrapperClassName} {
+			position: absolute;
+			height: ${headingSizes[headingTag].lineHeight}em;
 
-      margin-left: ${token('space.075', '6px')};
+			margin-left: ${token('space.075', '6px')};
 
-      button {
-        padding-left: 0;
-        padding-right: 0;
-      }
-    }
+			button {
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
 
-    /**
+		/**
      * Applies hover effects to the heading anchor link button
      * to fade in when the user rolls over the heading.
      *
@@ -168,116 +165,114 @@ const headingAnchorStyle = (headingTag: string) =>
      *
      * @see https://caniuse.com/mdn-css_at-rules_media_hover
      */
-    @media (hover: hover) and (pointer: fine) {
-      .${HeadingAnchorWrapperClassName} {
-        > button {
-          opacity: 0;
-          transform: translate(-8px, 0px);
-          transition:
-            opacity 0.2s ease 0s,
-            transform 0.2s ease 0s;
-        }
-      }
+		@media (hover: hover) and (pointer: fine) {
+			.${HeadingAnchorWrapperClassName} {
+				> button {
+					opacity: 0;
+					transform: translate(-8px, 0px);
+					transition:
+						opacity 0.2s ease 0s,
+						transform 0.2s ease 0s;
+				}
+			}
 
-      &:hover {
-        .${HeadingAnchorWrapperClassName} > button {
-          opacity: 1;
-          transform: none !important;
-        }
-      }
-    }
+			&:hover {
+				.${HeadingAnchorWrapperClassName} > button {
+					opacity: 1;
+					transform: none !important;
+				}
+			}
+		}
 
-    /**
+		/**
      * Adds the visibility of the button when in focus through keyboard navigation.
      */
-    .${HeadingAnchorWrapperClassName} {
-      button:focus {
-        opacity: 1;
-        transform: none !important;
-      }
-    }
-  `;
+		.${HeadingAnchorWrapperClassName} {
+			button:focus {
+				opacity: 1;
+				transform: none !important;
+			}
+		}
+	`;
 
-const alignedHeadingAnchorStyle = ({
-  allowNestedHeaderLinks,
-}: RendererWrapperProps) => {
-  if (!allowNestedHeaderLinks) {
-    return '';
-  }
-  // TODO Delete this comment after verifying space token -> previous value `margin: 6px`
-  return css`
-    .fabric-editor-block-mark[data-align] > {
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        position: relative;
-      }
-    }
+const alignedHeadingAnchorStyle = ({ allowNestedHeaderLinks }: RendererWrapperProps) => {
+	if (!allowNestedHeaderLinks) {
+		return '';
+	}
+	// TODO Delete this comment after verifying space token -> previous value `margin: 6px`
+	return css`
+		.fabric-editor-block-mark[data-align] > {
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				position: relative;
+			}
+		}
 
-    /**
+		/**
      * For right-alignment we flip the link to be before the heading
      * text so that the text is flush up against the edge of the editor's
      * container edge.
      */
-    .fabric-editor-block-mark:not([data-align='center'])[data-align] {
-      > {
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          // Using right to left text to achieve the inverse effect
-          // of where the copy link button icon sits for left/center
-          // alignment.
-          // Although this is unorthodox it's the only approach which
-          // allows the button to sit flush against the left edge of
-          // bottom line of text.
-          direction: rtl;
+		.fabric-editor-block-mark:not([data-align='center'])[data-align] {
+			> {
+				h1,
+				h2,
+				h3,
+				h4,
+				h5,
+				h6 {
+					// Using right to left text to achieve the inverse effect
+					// of where the copy link button icon sits for left/center
+					// alignment.
+					// Although this is unorthodox it's the only approach which
+					// allows the button to sit flush against the left edge of
+					// bottom line of text.
+					direction: rtl;
 
-          // By default RTL will negatively impact the layout of special
-          // characters within the heading text, and potentially other
-          // nested inline nodes. To prevent this we insert pseudo elements
-          // containing HTML entities to retain LTR for all heading content
-          // except for the copy link button.
-          > *:not(.${HeadingAnchorWrapperClassName}):not(br) {
-            ::before {
-              // Open LTR: https://www.fileformat.info/info/unicode/char/202a/index.htm
-              content: '\u202A';
-            }
-            ::after {
-              // Close LTR: https://www.fileformat.info/info/unicode/char/202c/index.htm
-              content: '\u202C';
-            }
-          }
-        }
-      }
-      .${HeadingAnchorWrapperClassName} {
-        margin: 0 ${token('space.075', '6px')} 0 0;
-      }
+					// By default RTL will negatively impact the layout of special
+					// characters within the heading text, and potentially other
+					// nested inline nodes. To prevent this we insert pseudo elements
+					// containing HTML entities to retain LTR for all heading content
+					// except for the copy link button.
+					> *:not(.${HeadingAnchorWrapperClassName}):not(br) {
+						::before {
+							// Open LTR: https://www.fileformat.info/info/unicode/char/202a/index.htm
+							content: '\u202A';
+						}
+						::after {
+							// Close LTR: https://www.fileformat.info/info/unicode/char/202c/index.htm
+							content: '\u202C';
+						}
+					}
+				}
+			}
+			.${HeadingAnchorWrapperClassName} {
+				margin: 0 ${token('space.075', '6px')} 0 0;
+			}
 
-      @media (hover: hover) and (pointer: fine) {
-        .${HeadingAnchorWrapperClassName} > button {
-          transform: translate(8px, 0px);
-        }
-      }
-    }
-  `;
+			@media (hover: hover) and (pointer: fine) {
+				.${HeadingAnchorWrapperClassName} > button {
+					transform: translate(8px, 0px);
+				}
+			}
+		}
+	`;
 };
 
 const tableSortableColumnStyle = ({
-  allowColumnSorting,
-  allowNestedHeaderLinks,
+	allowColumnSorting,
+	allowNestedHeaderLinks,
 }: RendererWrapperProps) => {
-  if (!allowColumnSorting) {
-    return '';
-  }
-  let headingsCss = '';
-  if (allowNestedHeaderLinks) {
-    headingsCss = `
+	if (!allowColumnSorting) {
+		return '';
+	}
+	let headingsCss = '';
+	if (allowNestedHeaderLinks) {
+		headingsCss = `
       /**
        * When the sort button is enabled we want the heading's copy link button
        * to reserve space so that it can prematurely wrap to avoid the button
@@ -300,558 +295,536 @@ const tableSortableColumnStyle = ({
         }
       }
     `;
-  }
-  return css`
-    .${RendererCssClassName.SORTABLE_COLUMN_WRAPPER} {
-      padding: 0;
+	}
+	return css`
+		.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER} {
+			padding: 0;
 
-      .${RendererCssClassName.SORTABLE_COLUMN} {
-        width: 100%;
-        height: 100%;
-        padding: ${tableCellPadding}px;
-        border-width: 1.5px;
-        border-style: solid;
-        border-color: transparent;
+			.${RendererCssClassName.SORTABLE_COLUMN} {
+				width: 100%;
+				height: 100%;
+				padding: ${tableCellPadding}px;
+				border-width: 1.5px;
+				border-style: solid;
+				border-color: transparent;
 
-        > *:first-child {
-          margin-top: 0;
-        }
+				> *:first-child {
+					margin-top: 0;
+				}
 
-        > .ProseMirror-gapcursor:first-child + *,
-        > style:first-child + .ProseMirror-gapcursor + * {
-          margin-top: 0;
-        }
+				> .ProseMirror-gapcursor:first-child + *,
+				> style:first-child + .ProseMirror-gapcursor + * {
+					margin-top: 0;
+				}
 
-        > .ProseMirror-gapcursor:first-child + span + *,
-        > style:first-child + .ProseMirror-gapcursor + span + * {
-          margin-top: 0;
-        }
+				> .ProseMirror-gapcursor:first-child + span + *,
+				> style:first-child + .ProseMirror-gapcursor + span + * {
+					margin-top: 0;
+				}
 
-        @supports selector(:focus-visible) {
-          &:focus {
-            outline: unset;
-          }
-          &:focus-visible {
-            border-color: ${token('color.border.focused', colors.B300)};
-          }
-        }
+				@supports selector(:focus-visible) {
+					&:focus {
+						outline: unset;
+					}
+					&:focus-visible {
+						border-color: ${token('color.border.focused', colors.B300)};
+					}
+				}
 
-        ${headingsCss}
-      }
+				${headingsCss}
+			}
 
-      .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
-        margin: 0;
-        .${SORTABLE_COLUMN_ICON_CLASSNAME} {
-          opacity: 1;
-          transition: opacity 0.2s ease-in-out;
-        }
-      }
+			.${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
+				margin: 0;
+				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+					opacity: 1;
+					transition: opacity 0.2s ease-in-out;
+				}
+			}
 
-      .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-        .${SORTABLE_COLUMN_ICON_CLASSNAME} {
-          opacity: 0;
-          &:focus {
-            opacity: 1;
-          }
-        }
-      }
+			.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+					opacity: 0;
+					&:focus {
+						opacity: 1;
+					}
+				}
+			}
 
-      &:hover {
-        .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-          .${SORTABLE_COLUMN_ICON_CLASSNAME} {
-            opacity: 1;
-          }
-        }
-      }
-    }
-  `;
+			&:hover {
+				.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+						opacity: 1;
+					}
+				}
+			}
+		}
+	`;
 };
 
 const fullPageStyles = (
-  { appearance }: RendererWrapperProps,
-  { theme }: { [index: string]: any },
+	{ appearance }: RendererWrapperProps,
+	{ theme }: { [index: string]: any },
 ) => {
-  if (appearance !== 'full-page' && appearance !== 'mobile') {
-    return '';
-  }
+	if (appearance !== 'full-page' && appearance !== 'mobile') {
+		return '';
+	}
 
-  return css`
-    max-width: ${theme && theme.layoutMaxWidth
-      ? `${theme.layoutMaxWidth}px`
-      : 'none'};
-    margin: 0 auto;
-    padding: 0 ${appearance === 'full-page' ? FullPagePadding : 0}px;
-  `;
+	return css`
+		max-width: ${theme && theme.layoutMaxWidth ? `${theme.layoutMaxWidth}px` : 'none'};
+		margin: 0 auto;
+		padding: 0 ${appearance === 'full-page' ? FullPagePadding : 0}px;
+	`;
 };
 
 const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
-  if (appearance !== 'full-width') {
-    return '';
-  }
+	if (appearance !== 'full-width') {
+		return '';
+	}
 
-  return css`
-    max-width: ${akEditorFullWidthLayoutWidth}px;
-    margin: 0 auto;
+	return css`
+		max-width: ${akEditorFullWidthLayoutWidth}px;
+		margin: 0 auto;
 
-    .fabric-editor-breakout-mark,
-    .ak-renderer-extension {
-      width: 100% !important;
-    }
+		.fabric-editor-breakout-mark,
+		.ak-renderer-extension {
+			width: 100% !important;
+		}
 
-    ${isTableResizingEnabled(appearance)
-      ? ''
-      : `
+		${isTableResizingEnabled(appearance)
+			? ''
+			: `
       .pm-table-container {
         width: 100% !important;
       }
     `}
-  `;
+	`;
 };
 
 const breakoutWidthStyle = () => {
-  return css`
-    *:not([data-mark-type='fragment'])
-      .${TableSharedCssClassName.TABLE_CONTAINER} {
-      // TODO - improve inline style logic on table container so important styles aren't required here
-      width: 100% !important;
-      left: 0 !important;
-    }
+	return css`
+		*:not([data-mark-type='fragment']) .${TableSharedCssClassName.TABLE_CONTAINER} {
+			// TODO - improve inline style logic on table container so important styles aren't required here
+			width: 100% !important;
+			left: 0 !important;
+		}
 
-    [data-mark-type='fragment'] * .${TableSharedCssClassName.TABLE_CONTAINER} {
-      // TODO - improve inline style logic on table container so important styles aren't required here
-      width: 100% !important;
-      left: 0 !important;
-    }
-  `;
+		[data-mark-type='fragment'] * .${TableSharedCssClassName.TABLE_CONTAINER} {
+			// TODO - improve inline style logic on table container so important styles aren't required here
+			width: 100% !important;
+			left: 0 !important;
+		}
+	`;
 };
 
 const getShadowOverrides = () => {
-  return css`
-    /** Shadow overrides */
-    &.${shadowClassNames.RIGHT_SHADOW}::after,
-      &.${shadowClassNames.LEFT_SHADOW}::before {
-      width: ${tableShadowWidth}px;
-      background: linear-gradient(
-          to left,
-          transparent 0,
-          ${token('elevation.shadow.overflow.spread', N40A)} 140%
-        ),
-        linear-gradient(
-          to right,
-          ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
-          transparent 1px
-        );
-    }
+	return css`
+		/** Shadow overrides */
+		&.${shadowClassNames.RIGHT_SHADOW}::after, &.${shadowClassNames.LEFT_SHADOW}::before {
+			width: ${tableShadowWidth}px;
+			background: linear-gradient(
+					to left,
+					transparent 0,
+					${token('elevation.shadow.overflow.spread', N40A)} 140%
+				),
+				linear-gradient(
+					to right,
+					${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+					transparent 1px
+				);
+		}
 
-    &.${shadowClassNames.RIGHT_SHADOW}::after {
-      background: linear-gradient(
-          to right,
-          transparent 0,
-          ${token('elevation.shadow.overflow.spread', N40A)} 140%
-        ),
-        linear-gradient(
-          to left,
-          ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
-          transparent 1px
-        );
-      right: 0px;
-    }
-  `;
+		&.${shadowClassNames.RIGHT_SHADOW}::after {
+			background: linear-gradient(
+					to right,
+					transparent 0,
+					${token('elevation.shadow.overflow.spread', N40A)} 140%
+				),
+				linear-gradient(
+					to left,
+					${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+					transparent 1px
+				);
+			right: 0px;
+		}
+	`;
 };
 
-export const rendererStyles =
-  (wrapperProps: RendererWrapperProps) => (theme: Theme) => {
-    const { colorMode } = getGlobalTheme();
-    // This is required to be compatible with styled-components prop structure.
-    const themeProps = { theme };
-    const { useBlockRenderForCodeBlock } = wrapperProps;
+export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: Theme) => {
+	const { colorMode } = getGlobalTheme();
+	// This is required to be compatible with styled-components prop structure.
+	const themeProps = { theme };
+	const { useBlockRenderForCodeBlock } = wrapperProps;
 
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression
-    return css`
-      font-size: ${editorFontSize(themeProps)}px;
-      line-height: 1.5rem;
-      color: ${token('color.text', colors.N800)};
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression
+	return css`
+		font-size: ${editorFontSize(themeProps)}px;
+		line-height: 1.5rem;
+		color: ${token('color.text', colors.N800)};
 
-      .${RendererCssClassName.DOCUMENT}::after {
-        // we add a clearfix after ak-renderer-document in order to
-        // contain internal floats (such as media images that are "wrap-left")
-        // to just the renderer (and not spill outside of it)
-        content: '';
-        visibility: hidden;
-        display: block;
-        height: 0;
-        clear: both;
-      }
+		.${RendererCssClassName.DOCUMENT}::after {
+			// we add a clearfix after ak-renderer-document in order to
+			// contain internal floats (such as media images that are "wrap-left")
+			// to just the renderer (and not spill outside of it)
+			content: '';
+			visibility: hidden;
+			display: block;
+			height: 0;
+			clear: both;
+		}
 
-      ${fullPageStyles(wrapperProps, themeProps)}
-      ${fullWidthStyles(wrapperProps)}
+		${fullPageStyles(wrapperProps, themeProps)}
+		${fullWidthStyles(wrapperProps)}
 
       .${RendererCssClassName.DOCUMENT} {
-        ${mediaInlineImageStyles}
-      }
+			${mediaInlineImageStyles}
+		}
 
-      & h1 {
-        ${headingAnchorStyle('h1')}
-      }
+		& h1 {
+			${headingAnchorStyle('h1')}
+		}
 
-      & h2 {
-        ${headingAnchorStyle('h2')}
-      }
+		& h2 {
+			${headingAnchorStyle('h2')}
+		}
 
-      & h3 {
-        ${headingAnchorStyle('h3')}
-      }
+		& h3 {
+			${headingAnchorStyle('h3')}
+		}
 
-      & h4 {
-        ${headingAnchorStyle('h4')}
-      }
+		& h4 {
+			${headingAnchorStyle('h4')}
+		}
 
-      & h5 {
-        ${headingAnchorStyle('h5')}
-      }
+		& h5 {
+			${headingAnchorStyle('h5')}
+		}
 
-      & h6 {
-        ${headingAnchorStyle('h6')}
-      }
+		& h6 {
+			${headingAnchorStyle('h6')}
+		}
 
-      & span.akActionMark {
-        color: ${token('color.link', colors.B400)};
-        text-decoration: none;
+		& span.akActionMark {
+			color: ${token('color.link', colors.B400)};
+			text-decoration: none;
 
-        &:hover {
-          color: ${token('color.link', colors.B300)};
-          text-decoration: underline;
-        }
+			&:hover {
+				color: ${token('color.link', colors.B300)};
+				text-decoration: underline;
+			}
 
-        &:active {
-          color: ${token('color.link.pressed', colors.B500)};
-        }
-      }
+			&:active {
+				color: ${token('color.link.pressed', colors.B500)};
+			}
+		}
 
-      & span.akActionMark {
-        cursor: pointer;
-      }
+		& span.akActionMark {
+			cursor: pointer;
+		}
 
-      & span[data-placeholder] {
-        color: ${token('color.text.subtlest', colors.N200)};
-      }
+		& span[data-placeholder] {
+			color: ${token('color.text.subtlest', colors.N200)};
+		}
 
-      ${telepointerStyles(colorMode)}
-      ${whitespaceSharedStyles};
-      ${blockquoteSharedStyles};
-      ${headingsSharedStyles()};
-      ${ruleSharedStyles()};
-      ${paragraphSharedStyles};
-      ${listsSharedStyles};
-      ${indentationSharedStyles};
-      ${blockMarksSharedStyles};
-      ${codeMarkSharedStyles()};
-      ${shadowSharedStyle};
-      ${dateSharedStyle};
-      ${textColorStyles};
-      ${backgroundColorStyles(colorMode)};
-      ${tasksAndDecisionsStyles};
-      ${smartCardSharedStyles}
+		${telepointerStyles(colorMode)}
+		${whitespaceSharedStyles};
+		${blockquoteSharedStyles};
+		${headingsSharedStyles()};
+		${ruleSharedStyles()};
+		${paragraphSharedStyles};
+		${listsSharedStyles};
+		${indentationSharedStyles};
+		${blockMarksSharedStyles};
+		${codeMarkSharedStyles()};
+		${shadowSharedStyle};
+		${dateSharedStyle};
+		${textColorStyles};
+		${backgroundColorStyles(colorMode)};
+		${tasksAndDecisionsStyles};
+		${smartCardSharedStyles}
 
-      & .UnknownBlock {
-        font-family: ${fontFamily()};
-        font-size: ${relativeFontSizeToBase16(fontSize())};
-        font-weight: 400;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-      }
+		& .UnknownBlock {
+			font-family: ${fontFamily()};
+			font-size: ${relativeFontSizeToBase16(fontSize())};
+			font-weight: 400;
+			white-space: pre-wrap;
+			word-wrap: break-word;
+		}
 
-      & span.date-node {
-        background: ${token('color.background.neutral', colors.N30A)};
-        border-radius: ${token('border.radius.100', '3px')};
-        color: ${token('color.text', colors.N800)};
-        padding: ${token('space.025', '2px')} ${token('space.050', '4px')};
-        margin: 0 1px;
-        transition: background 0.3s;
-      }
+		& span.date-node {
+			background: ${token('color.background.neutral', colors.N30A)};
+			border-radius: ${token('border.radius.100', '3px')};
+			color: ${token('color.text', colors.N800)};
+			padding: ${token('space.025', '2px')} ${token('space.050', '4px')};
+			margin: 0 1px;
+			transition: background 0.3s;
+		}
 
-      & span.date-node-highlighted {
-        background: ${token('color.background.danger', colors.R50)};
-        color: ${token('color.text.danger', colors.R500)};
-      }
+		& span.date-node-highlighted {
+			background: ${token('color.background.danger', colors.R50)};
+			color: ${token('color.text.danger', colors.R500)};
+		}
 
-      & .renderer-image {
-        max-width: 100%;
-        display: block;
-        margin: ${token('space.300', '24px')} 0;
-      }
+		& .renderer-image {
+			max-width: 100%;
+			display: block;
+			margin: ${token('space.300', '24px')} 0;
+		}
 
-      .${richMediaClassName}.rich-media-wrapped
-        + .${richMediaClassName}:not(.rich-media-wrapped) {
-        clear: both;
-      }
+		.${richMediaClassName}.rich-media-wrapped + .${richMediaClassName}:not(.rich-media-wrapped) {
+			clear: both;
+		}
 
-      & .code-block,
-      & blockquote,
-      & hr,
-      & > div > div:not(.rich-media-wrapped),
-      .${richMediaClassName}.rich-media-wrapped
-        + .rich-media-wrapped
-        + *:not(.rich-media-wrapped),
-      .${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped),
-      .${richMediaClassName}.image-align-start,
-        .${richMediaClassName}.image-center,
-        .${richMediaClassName}.image-align-end {
-        clear: both;
-      }
+		& .code-block,
+		& blockquote,
+		& hr,
+		& > div > div:not(.rich-media-wrapped),
+		.${richMediaClassName}.rich-media-wrapped + .rich-media-wrapped + *:not(.rich-media-wrapped),
+		.${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped),
+		.${richMediaClassName}.image-align-start,
+			.${richMediaClassName}.image-center,
+			.${richMediaClassName}.image-align-end {
+			clear: both;
+		}
 
-      & .rich-media-wrapped {
-        & + h1,
-        & + h2,
-        & + h3,
-        & + h4,
-        & + h5,
-        & + h6 {
-          margin-top: ${token('space.100', '8px')};
-        }
-      }
+		& .rich-media-wrapped {
+			& + h1,
+			& + h2,
+			& + h3,
+			& + h4,
+			& + h5,
+			& + h6 {
+				margin-top: ${token('space.100', '8px')};
+			}
+		}
 
-      ${alignedHeadingAnchorStyle(wrapperProps)}
-      /* plugin styles */
+		${alignedHeadingAnchorStyle(wrapperProps)}
+		/* plugin styles */
     ${mediaSingleSharedStyle} &
     div[class^='image-wrap-'] + div[class^='image-wrap-'] {
-        margin-left: 0;
-        margin-right: 0;
-      }
+			margin-left: 0;
+			margin-right: 0;
+		}
 
-      /* Breakout for tables and extensions */
-      .${RendererCssClassName.DOCUMENT} > {
-        ${breakoutWidthStyle()}
+		/* Breakout for tables and extensions */
+		.${RendererCssClassName.DOCUMENT} > {
+			${breakoutWidthStyle()}
 
-        * .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
-          overflow-x: auto;
-        }
+			* .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER} {
+				overflow-x: auto;
+			}
 
-        & .${RendererCssClassName.EXTENSION}:first-child {
-          margin-top: 0;
-        }
-      }
+			& .${RendererCssClassName.EXTENSION}:first-child {
+				margin-top: 0;
+			}
+		}
 
-      .${RendererCssClassName.DOCUMENT} {
-        .${RendererCssClassName.EXTENSION} {
-          margin-top: ${blockNodesVerticalMargin};
-        }
+		.${RendererCssClassName.DOCUMENT} {
+			.${RendererCssClassName.EXTENSION} {
+				margin-top: ${blockNodesVerticalMargin};
+			}
 
-        .${RendererCssClassName.EXTENSION_CENTER_ALIGN} {
-          margin-left: 50%;
-          transform: translateX(-50%);
-        }
+			.${RendererCssClassName.EXTENSION_CENTER_ALIGN} {
+				margin-left: 50%;
+				transform: translateX(-50%);
+			}
 
-        .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
-          overflow-x: auto;
-        }
+			.${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
+				overflow-x: auto;
+			}
 
-        .${shadowObserverClassNames.SHADOW_CONTAINER}
-          .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
-          display: flex;
-        }
-      }
+			.${shadowObserverClassNames.SHADOW_CONTAINER} .${TableSharedCssClassName.TABLE_NODE_WRAPPER} {
+				display: flex;
+			}
+		}
 
-      ${tableSharedStyle()}
+		${tableSharedStyle()}
 
-      .${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER} {
-        z-index: 0;
-        transition: all 0.1s linear;
-        display: flex; /* needed to avoid position: fixed jumpiness in Chrome */
+		.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER} {
+			z-index: 0;
+			transition: all 0.1s linear;
+			display: flex; /* needed to avoid position: fixed jumpiness in Chrome */
 
-        /** Shadow overrides */
-        &.${shadowClassNames.RIGHT_SHADOW}::after,
-          &.${shadowClassNames.LEFT_SHADOW}::before {
-          top: ${tableMarginTop - 1}px;
-          height: calc(100% - ${tableMarginTop}px);
-          z-index: ${akEditorStickyHeaderZIndex};
-        }
+			/** Shadow overrides */
+			&.${shadowClassNames.RIGHT_SHADOW}::after, &.${shadowClassNames.LEFT_SHADOW}::before {
+				top: ${tableMarginTop - 1}px;
+				height: calc(100% - ${tableMarginTop}px);
+				z-index: ${akEditorStickyHeaderZIndex};
+			}
 
-        ${getShadowOverrides()}
+			${getShadowOverrides()}
 
-        &
+			&
           .${shadowObserverClassNames.SENTINEL_LEFT},
           &
           .${shadowObserverClassNames.SENTINEL_RIGHT} {
-          height: calc(100% - ${tableMarginTop}px);
-        }
+				height: calc(100% - ${tableMarginTop}px);
+			}
 
-        /**
+			/**
      * A hack for making all the <th /> heights equal in case some have shorter
      * content than others.
      *
      * This is done to make sort buttons fill entire <th />.
      */
-        table {
-          height: 1px; /* will be ignored */
-          ${tableSortableColumnStyle(wrapperProps)};
-          margin-left: 0;
-          margin-right: 0;
-        }
+			table {
+				height: 1px; /* will be ignored */
+				${tableSortableColumnStyle(wrapperProps)};
+				margin-left: 0;
+				margin-right: 0;
+			}
 
-        table tr:first-of-type {
-          height: 100%;
+			table tr:first-of-type {
+				height: 100%;
 
-          td,
-          th {
-            position: relative;
-          }
-        }
+				td,
+				th {
+					position: relative;
+				}
+			}
 
-        table[data-number-column='true'] {
-          .${RendererCssClassName.NUMBER_COLUMN} {
-            background-color: ${token(
-              'color.background.neutral',
-              akEditorTableToolbar,
-            )};
-            border-right: 1px solid
-              ${token(
-                'color.background.accent.gray.subtler',
-                akEditorTableBorder,
-              )};
-            width: ${akEditorTableNumberColumnWidth}px;
-            text-align: center;
-            color: ${token('color.text.subtlest', colors.N200)};
-            font-size: ${relativeFontSizeToBase16(fontSize())};
-          }
+			table[data-number-column='true'] {
+				.${RendererCssClassName.NUMBER_COLUMN} {
+					background-color: ${token('color.background.neutral', akEditorTableToolbar)};
+					border-right: 1px solid
+						${token('color.background.accent.gray.subtler', akEditorTableBorder)};
+					width: ${akEditorTableNumberColumnWidth}px;
+					text-align: center;
+					color: ${token('color.text.subtlest', colors.N200)};
+					font-size: ${relativeFontSizeToBase16(fontSize())};
+				}
 
-          .fixed .${RendererCssClassName.NUMBER_COLUMN} {
-            border-right: 0px none;
-          }
-        }
-      }
+				.fixed .${RendererCssClassName.NUMBER_COLUMN} {
+					border-right: 0px none;
+				}
+			}
+		}
 
-      tr[data-header-row].fixed {
-        position: fixed !important;
-        display: flex;
-        overflow: hidden;
-        z-index: ${akEditorStickyHeaderZIndex};
+		tr[data-header-row].fixed {
+			position: fixed !important;
+			display: flex;
+			overflow: hidden;
+			z-index: ${akEditorStickyHeaderZIndex};
 
-        border-right: 1px solid
-          ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
-        border-bottom: 1px solid
-          ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
+			border-right: 1px solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
+			border-bottom: 1px solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
 
-        /* this is to compensate for the table border */
-        transform: translateX(-1px);
-      }
+			/* this is to compensate for the table border */
+			transform: translateX(-1px);
+		}
 
-      .sticky > th {
-        z-index: ${akEditorStickyHeaderZIndex};
-        position: sticky !important;
-        top: 0;
-      }
+		.sticky > th {
+			z-index: ${akEditorStickyHeaderZIndex};
+			position: sticky !important;
+			top: 0;
+		}
 
-      /* Make the number column header sticky */
-      .sticky > td {
-        position: sticky !important;
-        top: 0;
-      }
+		/* Make the number column header sticky */
+		.sticky > td {
+			position: sticky !important;
+			top: 0;
+		}
 
-      /* add border for position: sticky
+		/* add border for position: sticky
      and work around background-clip: padding-box
      bug for FF causing box-shadow bug in Chrome */
-      .sticky th,
-      .sticky td {
-        box-shadow:
-          0px 1px
-            ${token(
-              'color.background.accent.gray.subtler',
-              akEditorTableBorder,
-            )},
-          0px -0.5px ${token('color.background.accent.gray.subtler', akEditorTableBorder)},
-          inset -1px 0px ${token('color.background.accent.gray.subtler', akEditorTableToolbar)},
-          0px -1px ${token('color.background.accent.gray.subtler', akEditorTableToolbar)};
-      }
+		.sticky th,
+		.sticky td {
+			box-shadow:
+				0px 1px ${token('color.background.accent.gray.subtler', akEditorTableBorder)},
+				0px -0.5px ${token('color.background.accent.gray.subtler', akEditorTableBorder)},
+				inset -1px 0px ${token('color.background.accent.gray.subtler', akEditorTableToolbar)},
+				0px -1px ${token('color.background.accent.gray.subtler', akEditorTableToolbar)};
+		}
 
-      /* this will remove jumpiness caused in Chrome for sticky headers */
-      .fixed + tr {
-        min-height: 0px;
-      }
+		/* this will remove jumpiness caused in Chrome for sticky headers */
+		.fixed + tr {
+			min-height: 0px;
+		}
 
-      /*
+		/*
    * We wrap CodeBlock in a grid to prevent it from overflowing the container of the renderer.
    * See ED-4159.
    */
-      & .code-block {
-        max-width: 100%;
-        /* -ms- properties are necessary until MS supports the latest version of the grid spec */
-        /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
-        display: block;
-        /* stylelint-enable */
+		& .code-block {
+			max-width: 100%;
+			/* -ms- properties are necessary until MS supports the latest version of the grid spec */
+			/* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
+			display: block;
+			/* stylelint-enable */
 
-        position: relative;
-        border-radius: ${token('border.radius.100', '3px')};
+			position: relative;
+			border-radius: ${token('border.radius.100', '3px')};
 
-        /*
+			/*
      * The overall renderer has word-wrap: break; which causes issues with
      * code block line numbers in Safari / iOS.
      */
-        word-wrap: normal;
-      }
+			word-wrap: normal;
+		}
 
-      & .MediaGroup,
-      & .code-block {
-        margin-top: ${blockNodesVerticalMargin};
+		& .MediaGroup,
+		& .code-block {
+			margin-top: ${blockNodesVerticalMargin};
 
-        &:first-child {
-          margin-top: 0;
-        }
-      }
+			&:first-child {
+				margin-top: 0;
+			}
+		}
 
-      ${useGridRenderForCodeBlock(useBlockRenderForCodeBlock)}
+		${useGridRenderForCodeBlock(useBlockRenderForCodeBlock)}
 
-      ${getLightWeightCodeBlockStylesForRootRendererStyleSheet()}
+		${getLightWeightCodeBlockStylesForRootRendererStyleSheet()}
 
       ${columnLayoutSharedStyle};
-      & [data-layout-section] {
-        margin-top: ${token('space.250', '20px')};
-        & > div + div {
-          margin-left: ${token('space.400', '32px')};
-        }
+		& [data-layout-section] {
+			margin-top: ${token('space.250', '20px')};
+			& > div + div {
+				margin-left: ${token('space.400', '32px')};
+			}
 
-        @media screen and (max-width: ${gridMediumMaxWidth}px) {
-          & > div + div {
-            margin-left: 0;
-          }
-        }
+			@media screen and (max-width: ${gridMediumMaxWidth}px) {
+				& > div + div {
+					margin-left: 0;
+				}
+			}
 
-        & .MediaGroup,
-        & .code-block {
-          margin-top: ${blockNodesVerticalMargin};
+			& .MediaGroup,
+			& .code-block {
+				margin-top: ${blockNodesVerticalMargin};
 
-          &:first-child {
-            margin-top: 0;
-          }
-        }
-      }
+				&:first-child {
+					margin-top: 0;
+				}
+			}
+		}
 
-      & li {
-        > .code-block {
-          margin: ${blockNodesVerticalMargin} 0 0 0;
-        }
-        > .code-block:first-child {
-          margin-top: 0;
-        }
+		& li {
+			> .code-block {
+				margin: ${blockNodesVerticalMargin} 0 0 0;
+			}
+			> .code-block:first-child {
+				margin-top: 0;
+			}
 
-        > div:last-of-type.code-block {
-          margin-bottom: ${blockNodesVerticalMargin};
-        }
-      }
+			> div:last-of-type.code-block {
+				margin-bottom: ${blockNodesVerticalMargin};
+			}
+		}
 
-      &:not([data-node-type='decisionList']) > li,
+		&:not([data-node-type='decisionList']) > li,
       // This prevents https://product-fabric.atlassian.net/browse/ED-20924
       &:not(.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}) > li {
-        ${browser.safari ? codeBlockInListSafariFix : ''}
-      }
-    `;
-  };
+			${browser.safari ? codeBlockInListSafariFix : ''}
+		}
+	`;
+};
 
 const useGridRenderForCodeBlock = (codeBlockRenderAsBlock: boolean) => {
-  if (codeBlockRenderAsBlock) {
-    return '';
-  }
-  return `& .code-block {
+	if (codeBlockRenderAsBlock) {
+		return '';
+	}
+	return `& .code-block {
        /* -ms- properties are necessary until MS supports the latest version of the grid spec */
        /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
        display: -ms-grid;

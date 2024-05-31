@@ -6,17 +6,17 @@ import { PortalBucket } from './PortalBucket';
 import { PortalManager } from './PortalManager';
 
 type RenderFn = (
-  children: () => React.ReactChild | JSX.Element | null,
-  container: HTMLElement,
-  key: string,
+	children: () => React.ReactChild | JSX.Element | null,
+	container: HTMLElement,
+	key: string,
 ) => void;
 type RemoveFn = (key: string) => void;
 type DestoryFn = () => void;
 
 export interface PortalProviderAPI {
-  render: RenderFn;
-  remove: RemoveFn;
-  destroy: DestoryFn;
+	render: RenderFn;
+	remove: RemoveFn;
+	destroy: DestoryFn;
 }
 
 type PortalRendererComponent = () => JSX.Element;
@@ -24,25 +24,21 @@ type PortalRendererComponent = () => JSX.Element;
 type UsePortalProviderReturnType = [PortalProviderAPI, PortalRendererComponent];
 
 export function createPortalRendererComponent(portalManager: PortalManager) {
-  return function PortalRenderer() {
-    const [buckets, setBuckets] = useState(portalManager.getBuckets());
-    useLayoutEffect(() => {
-      portalManager.registerPortalRenderer(setBuckets);
-      return () => {
-        portalManager.unregisterPortalRenderer();
-      };
-    }, []);
-    const portalsElements = useMemo(
-      () =>
-        buckets.map((_, i) => (
-          <PortalBucket key={i} id={i} portalManager={portalManager} />
-        )),
-      [buckets],
-    );
-    return <>{portalsElements}</>;
-  };
+	return function PortalRenderer() {
+		const [buckets, setBuckets] = useState(portalManager.getBuckets());
+		useLayoutEffect(() => {
+			portalManager.registerPortalRenderer(setBuckets);
+			return () => {
+				portalManager.unregisterPortalRenderer();
+			};
+		}, []);
+		const portalsElements = useMemo(
+			() => buckets.map((_, i) => <PortalBucket key={i} id={i} portalManager={portalManager} />),
+			[buckets],
+		);
+		return <>{portalsElements}</>;
+	};
 }
-
 
 /**
  * Creates a portal provider for managing multiple React portals. The provider
@@ -63,26 +59,22 @@ export function createPortalRendererComponent(portalManager: PortalManager) {
  *
  */
 export const getPortalProviderAPI = (portalManager: PortalManager): PortalProviderAPI => {
-  const portalsMap = new Map();
-  return {
-    render: (
-      children: () => React.ReactNode,
-      container: HTMLElement,
-      key: string,
-    ) => {
-      const portal = createPortal(children(), container, key);
-      portalsMap.set(key, portalManager.registerPortal(key, portal));
-    },
-    remove: (key: string) => {
-      portalsMap.get(key)?.();
-      portalsMap.delete(key);
-    },
-    destroy: () => {
-      portalsMap.clear();
-      portalManager.destroy();
-    },
-  };
-}
+	const portalsMap = new Map();
+	return {
+		render: (children: () => React.ReactNode, container: HTMLElement, key: string) => {
+			const portal = createPortal(children(), container, key);
+			portalsMap.set(key, portalManager.registerPortal(key, portal));
+		},
+		remove: (key: string) => {
+			portalsMap.get(key)?.();
+			portalsMap.delete(key);
+		},
+		destroy: () => {
+			portalsMap.clear();
+			portalManager.destroy();
+		},
+	};
+};
 
 /**
  * Initializes PortalManager and creates PortalRendererComponent. Offers an API (portalProviderAPI) for managing portals.
@@ -91,20 +83,23 @@ export const getPortalProviderAPI = (portalManager: PortalManager): PortalProvid
  *         2. PortalRenderer: A React component responsible for rendering the portal content.
  */
 export function usePortalProvider(): UsePortalProviderReturnType {
-  const portalManager = useMemo(() => new PortalManager(), []);
-  const PortalRenderer: PortalRendererComponent = useMemo(
-    () => createPortalRendererComponent(portalManager),
-    [portalManager],
-  );
+	const portalManager = useMemo(() => new PortalManager(), []);
+	const PortalRenderer: PortalRendererComponent = useMemo(
+		() => createPortalRendererComponent(portalManager),
+		[portalManager],
+	);
 
-  const portalProviderAPI: PortalProviderAPI  = useMemo(() => getPortalProviderAPI(portalManager), [portalManager]);
+	const portalProviderAPI: PortalProviderAPI = useMemo(
+		() => getPortalProviderAPI(portalManager),
+		[portalManager],
+	);
 
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      portalProviderAPI.destroy();
-    };
-  }, [portalManager, portalProviderAPI]);
+	// Cleanup on unmount
+	useEffect(() => {
+		return () => {
+			portalProviderAPI.destroy();
+		};
+	}, [portalManager, portalProviderAPI]);
 
-  return [portalProviderAPI, PortalRenderer];
+	return [portalProviderAPI, PortalRenderer];
 }

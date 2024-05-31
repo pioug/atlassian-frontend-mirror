@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { shallow } from 'enzyme';
 import { FormattedMessage, IntlProvider } from 'react-intl-next';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/new';
 import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import Form, { type FormProps, HelperMessage } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -36,8 +36,9 @@ jest.mock('react-intl-next', () => {
     FormattedMessage: (descriptor: any) => (
       <span>{descriptor.defaultMessage}</span>
     ),
-    injectIntl: (Node: any) => (props: any) =>
-      <Node {...props} intl={mockIntl} />,
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
   };
 });
 

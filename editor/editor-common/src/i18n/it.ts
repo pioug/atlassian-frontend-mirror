@@ -344,6 +344,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Azioni sulla pagina',
   'fabric.editor.panel.backgroundColor': 'Colore di sfondo',
   'fabric.editor.panel.emoji': 'Aggiungi emoji',
+  'fabric.editor.panel.panelsGroup': 'Tipi di riquadri',
   'fabric.editor.pasteOptions': 'Opzioni Incolla',
   'fabric.editor.pastePlainText': 'Incolla testo non formattato',
   'fabric.editor.placeholderAltText': 'Descrivi questa immagine con testo alternativo',

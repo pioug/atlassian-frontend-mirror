@@ -1,12 +1,6 @@
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
-import type {
-  AnnotationProviders,
-  AnnotationState,
-} from '@atlaskit/editor-common/types';
-import {
-  AnnotationUpdateEmitter,
-  AnnotationUpdateEvent,
-} from '@atlaskit/editor-common/types';
+import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-common/types';
+import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import React from 'react';
@@ -18,349 +12,335 @@ import { ProvidersContext } from '../../../context';
 import { useLoadAnnotations } from '../../use-load-annotations';
 
 function createFakeMark(id: string): Mark {
-  // @ts-ignore
-  const fakeMark: Mark = {
-    attrs: {
-      id,
-    },
-  };
+	// @ts-ignore
+	const fakeMark: Mark = {
+		attrs: {
+			id,
+		},
+	};
 
-  return fakeMark;
+	return fakeMark;
 }
 
-function createFakeAnnotationState(
-  id: string,
-): AnnotationState<AnnotationTypes.INLINE_COMMENT> {
-  return {
-    id,
-    annotationType: AnnotationTypes.INLINE_COMMENT,
-    state: AnnotationMarkStates.ACTIVE,
-  };
+function createFakeAnnotationState(id: string): AnnotationState<AnnotationTypes.INLINE_COMMENT> {
+	return {
+		id,
+		annotationType: AnnotationTypes.INLINE_COMMENT,
+		state: AnnotationMarkStates.ACTIVE,
+	};
 }
 
 describe('Annotations: Hooks/useLoadAnnotations', () => {
-  let container: HTMLElement | null;
-  let root: any; // Change to Root once we go full React 18
+	let container: HTMLElement | null;
+	let root: any; // Change to Root once we go full React 18
 
-  const defaultAdfDocument: JSONDocNode = {
-    version: 1,
-    type: 'doc',
-    content: [],
-  };
+	const defaultAdfDocument: JSONDocNode = {
+		version: 1,
+		type: 'doc',
+		content: [],
+	};
 
+	const adfDocumentForExcerptMacro: JSONDocNode = {
+		type: 'doc',
+		content: [
+			{
+				type: 'bodiedExtension',
+				attrs: {
+					layout: 'default',
+					extensionType: 'com.atlassian.confluence.macro.core',
+					extensionKey: 'excerpt',
+					parameters: {},
+				},
+				content: [
+					{
+						type: 'paragraph',
+						content: [
+							{
+								text: 'excerpt',
+								type: 'text',
+							},
+						],
+					},
+				],
+			},
+		],
+		version: 1,
+	};
 
-const adfDocumentForExcerptMacro: JSONDocNode = {
-  type: "doc",
-  content: [
-      {
-          type: "bodiedExtension",
-          attrs: {
-              layout: "default",
-              extensionType: "com.atlassian.confluence.macro.core",
-              extensionKey: "excerpt",
-              parameters: {}
-          },
-          content: [
-              {
-                  type: "paragraph",
-                  content: [
-                      {
-                          text: "excerpt",
-                          type: "text"
-                      }
-                  ]
-              }
-          ]
-      }
-  ],
-  version: 1
-}
+	beforeEach(async () => {
+		container = document.createElement('div');
+		document.body.appendChild(container);
+		if (process.env.IS_REACT_18 === 'true') {
+			// @ts-ignore react-dom/client only available in react 18
+			// eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+			const { createRoot } = await import('react-dom/client');
+			root = createRoot(container!);
+		}
+	});
 
-  beforeEach(async () => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-    if (process.env.IS_REACT_18 === 'true') {
-      // @ts-ignore react-dom/client only available in react 18
-      // eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
-      const { createRoot } = await import('react-dom/client');
-      root = createRoot(container!);
-    }
-  });
+	afterEach(() => {
+		document.body.removeChild(container!);
+		container = null;
+	});
 
-  afterEach(() => {
-    document.body.removeChild(container!);
-    container = null;
-  });
+	describe('#useLoadAnnotations', () => {
+		const CustomComp = ({ adfDocument = defaultAdfDocument, isNestedRender = false }) => {
+			useLoadAnnotations({ adfDocument, isNestedRender });
+			return null;
+		};
 
-  describe('#useLoadAnnotations', () => {
-    const CustomComp = ({adfDocument = defaultAdfDocument, isNestedRender = false}) => {
-      useLoadAnnotations({ adfDocument, isNestedRender });
-      return null;
-    };
+		const fakeMarksIds = ['lol1', 'lol2', 'lol3'];
+		const fakeMarks: Mark[] = fakeMarksIds.map(createFakeMark);
+		const fakeDataReturn = fakeMarksIds.map(createFakeAnnotationState);
 
-    const fakeMarksIds = ['lol1', 'lol2', 'lol3'];
-    const fakeMarks: Mark[] = fakeMarksIds.map(createFakeMark);
-    const fakeDataReturn = fakeMarksIds.map(createFakeAnnotationState);
+		let getStateFake: jest.Mock;
+		let actionsFake: RendererActions;
+		let providers: AnnotationProviders;
+		let updateSubscriberFake: AnnotationUpdateEmitter;
+		beforeEach(() => {
+			getStateFake = jest.fn().mockReturnValue(Promise.resolve(fakeDataReturn));
+			jest.spyOn(RendererActions.prototype, 'getAnnotationMarks').mockReturnValue(fakeMarks);
+			jest.spyOn(AnnotationUpdateEmitter.prototype, 'emit');
 
-    let getStateFake: jest.Mock;
-    let actionsFake: RendererActions;
-    let providers: AnnotationProviders;
-    let updateSubscriberFake: AnnotationUpdateEmitter;
-    beforeEach(() => {
-      getStateFake = jest.fn().mockReturnValue(Promise.resolve(fakeDataReturn));
-      jest
-        .spyOn(RendererActions.prototype, 'getAnnotationMarks')
-        .mockReturnValue(fakeMarks);
-      jest.spyOn(AnnotationUpdateEmitter.prototype, 'emit');
+			actionsFake = new RendererActions();
+			updateSubscriberFake = new AnnotationUpdateEmitter();
+			providers = {
+				inlineComment: {
+					getState: getStateFake,
+					updateSubscriber: updateSubscriberFake,
+				},
+			};
+		});
 
-      actionsFake = new RendererActions();
-      updateSubscriberFake = new AnnotationUpdateEmitter();
-      providers = {
-        inlineComment: {
-          getState: getStateFake,
-          updateSubscriber: updateSubscriberFake,
-        },
-      };
-    });
+		afterEach(() => {
+			jest.clearAllMocks();
+		});
 
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
+		describe('when the document changes', () => {
+			it('should call getState again', () => {
+				const CustomComp = ({
+					myAdfDocument,
+				}: React.PropsWithChildren<Record<'myAdfDocument', JSONDocNode>>) => {
+					useLoadAnnotations({
+						adfDocument: myAdfDocument,
+						isNestedRender: false,
+					});
+					return null;
+				};
 
-    describe('when the document changes', () => {
-      it('should call getState again', () => {
-        const CustomComp = ({
-          myAdfDocument,
-        }: React.PropsWithChildren<Record<'myAdfDocument', JSONDocNode>>) => {
-          useLoadAnnotations({
-            adfDocument: myAdfDocument,
-            isNestedRender: false,
-          });
-          return null;
-        };
+				expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
+				if (process.env.IS_REACT_18 === 'true') {
+					act(() => {
+						root.render(
+							<RendererContext.Provider value={actionsFake}>
+								<ProvidersContext.Provider value={providers}>
+									<CustomComp myAdfDocument={defaultAdfDocument} />
+								</ProvidersContext.Provider>
+							</RendererContext.Provider>,
+						);
+					});
+				} else {
+					act(() => {
+						render(
+							<RendererContext.Provider value={actionsFake}>
+								<ProvidersContext.Provider value={providers}>
+									<CustomComp myAdfDocument={defaultAdfDocument} />
+								</ProvidersContext.Provider>
+							</RendererContext.Provider>,
+							container,
+						);
+					});
+				}
+				expect(providers.inlineComment.getState).toHaveBeenCalledTimes(1);
 
-        expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
-        if (process.env.IS_REACT_18 === 'true') {
-          act(() => {
-            root.render(
-              <RendererContext.Provider value={actionsFake}>
-                <ProvidersContext.Provider value={providers}>
-                  <CustomComp myAdfDocument={defaultAdfDocument} />
-                </ProvidersContext.Provider>
-              </RendererContext.Provider>,
-            );
-          });
-        } else {
-          act(() => {
-            render(
-              <RendererContext.Provider value={actionsFake}>
-                <ProvidersContext.Provider value={providers}>
-                  <CustomComp myAdfDocument={defaultAdfDocument} />
-                </ProvidersContext.Provider>
-              </RendererContext.Provider>,
-              container,
-            );
-          });
-        }
-        expect(providers.inlineComment.getState).toHaveBeenCalledTimes(1);
+				const sameDocument = defaultAdfDocument;
 
-        const sameDocument = defaultAdfDocument;
+				if (process.env.IS_REACT_18 === 'true') {
+					act(() => {
+						root.render(
+							<RendererContext.Provider value={actionsFake}>
+								<ProvidersContext.Provider value={providers}>
+									<CustomComp myAdfDocument={sameDocument} />
+								</ProvidersContext.Provider>
+							</RendererContext.Provider>,
+						);
+					});
+				} else {
+					act(() => {
+						render(
+							<RendererContext.Provider value={actionsFake}>
+								<ProvidersContext.Provider value={providers}>
+									<CustomComp myAdfDocument={sameDocument} />
+								</ProvidersContext.Provider>
+							</RendererContext.Provider>,
+							container,
+						);
+					});
+				}
+				expect(providers.inlineComment.getState).toHaveBeenCalledTimes(1);
 
-        if (process.env.IS_REACT_18 === 'true') {
-          act(() => {
-            root.render(
-              <RendererContext.Provider value={actionsFake}>
-                <ProvidersContext.Provider value={providers}>
-                  <CustomComp myAdfDocument={sameDocument} />
-                </ProvidersContext.Provider>
-              </RendererContext.Provider>,
-            );
-          });
-        } else {
-          act(() => {
-            render(
-              <RendererContext.Provider value={actionsFake}>
-                <ProvidersContext.Provider value={providers}>
-                  <CustomComp myAdfDocument={sameDocument} />
-                </ProvidersContext.Provider>
-              </RendererContext.Provider>,
-              container,
-            );
-          });
-        }
-        expect(providers.inlineComment.getState).toHaveBeenCalledTimes(1);
+				const newAdfDocument: JSONDocNode = {
+					version: 1,
+					type: 'doc',
+					content: [],
+				};
 
-        const newAdfDocument: JSONDocNode = {
-          version: 1,
-          type: 'doc',
-          content: [],
-        };
+				if (process.env.IS_REACT_18 === 'true') {
+					act(() => {
+						root.render(
+							<RendererContext.Provider value={actionsFake}>
+								<ProvidersContext.Provider value={providers}>
+									<CustomComp myAdfDocument={newAdfDocument} />
+								</ProvidersContext.Provider>
+							</RendererContext.Provider>,
+						);
+					});
+				} else {
+					act(() => {
+						render(
+							<RendererContext.Provider value={actionsFake}>
+								<ProvidersContext.Provider value={providers}>
+									<CustomComp myAdfDocument={newAdfDocument} />
+								</ProvidersContext.Provider>
+							</RendererContext.Provider>,
+							container,
+						);
+					});
+				}
+				expect(providers.inlineComment.getState).toHaveBeenCalledTimes(2);
+			});
+		});
 
-        if (process.env.IS_REACT_18 === 'true') {
-          act(() => {
-            root.render(
-              <RendererContext.Provider value={actionsFake}>
-                <ProvidersContext.Provider value={providers}>
-                  <CustomComp myAdfDocument={newAdfDocument} />
-                </ProvidersContext.Provider>
-              </RendererContext.Provider>,
-            );
-          });
-        } else {
-          act(() => {
-            render(
-              <RendererContext.Provider value={actionsFake}>
-                <ProvidersContext.Provider value={providers}>
-                  <CustomComp myAdfDocument={newAdfDocument} />
-                </ProvidersContext.Provider>
-              </RendererContext.Provider>,
-              container,
-            );
-          });
-        }
-        expect(providers.inlineComment.getState).toHaveBeenCalledTimes(2);
-      });
-    });
+		it('should call getState from Inline Comment provider with Annotations from action', () => {
+			expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
 
-    it('should call getState from Inline Comment provider with Annotations from action', () => {
-      expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
+			if (process.env.IS_REACT_18 === 'true') {
+				act(() => {
+					root.render(
+						<RendererContext.Provider value={actionsFake}>
+							<ProvidersContext.Provider value={providers}>
+								<CustomComp />
+							</ProvidersContext.Provider>
+						</RendererContext.Provider>,
+					);
+				});
+			} else {
+				act(() => {
+					render(
+						<RendererContext.Provider value={actionsFake}>
+							<ProvidersContext.Provider value={providers}>
+								<CustomComp />
+							</ProvidersContext.Provider>
+						</RendererContext.Provider>,
+						container,
+					);
+				});
+			}
 
-      if (process.env.IS_REACT_18 === 'true') {
-        act(() => {
-          root.render(
-            <RendererContext.Provider value={actionsFake}>
-              <ProvidersContext.Provider value={providers}>
-                <CustomComp />
-              </ProvidersContext.Provider>
-            </RendererContext.Provider>,
-          );
-        });
-      } else {
-        act(() => {
-          render(
-            <RendererContext.Provider value={actionsFake}>
-              <ProvidersContext.Provider value={providers}>
-                <CustomComp />
-              </ProvidersContext.Provider>
-            </RendererContext.Provider>,
-            container,
-          );
-        });
-      }
+			expect(providers.inlineComment.getState).toHaveBeenCalledWith(fakeMarksIds, false);
+		});
 
-      expect(providers.inlineComment.getState).toHaveBeenCalledWith(
-        fakeMarksIds,
-        false,
-      );
-    });
+		it('should call getState from Inline Comment provider with isNestedRender: true when the adf is a bodiedExtention macro', () => {
+			expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
 
+			if (process.env.IS_REACT_18 === 'true') {
+				act(() => {
+					root.render(
+						<RendererContext.Provider value={actionsFake}>
+							<ProvidersContext.Provider value={providers}>
+								<CustomComp adfDocument={adfDocumentForExcerptMacro} isNestedRender />
+							</ProvidersContext.Provider>
+						</RendererContext.Provider>,
+					);
+				});
+			} else {
+				act(() => {
+					render(
+						<RendererContext.Provider value={actionsFake}>
+							<ProvidersContext.Provider value={providers}>
+								<CustomComp adfDocument={adfDocumentForExcerptMacro} isNestedRender />
+							</ProvidersContext.Provider>
+						</RendererContext.Provider>,
+						container,
+					);
+				});
+			}
 
-    it('should call getState from Inline Comment provider with isNestedRender: true when the adf is a bodiedExtention macro', () => {
-      expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
+			expect(providers.inlineComment.getState).toHaveBeenCalledWith(fakeMarksIds, true);
+		});
 
-      if (process.env.IS_REACT_18 === 'true') { 
-        act(() => {
-          root.render(
-            <RendererContext.Provider value={actionsFake}>
-              <ProvidersContext.Provider value={providers}>
-                <CustomComp adfDocument={adfDocumentForExcerptMacro} isNestedRender/>
-              </ProvidersContext.Provider>
-            </RendererContext.Provider>,
-          );
-        });
-      } else {
-        act(() => {
-          render(
-            <RendererContext.Provider value={actionsFake}>
-              <ProvidersContext.Provider value={providers}>
-              <CustomComp adfDocument={adfDocumentForExcerptMacro} isNestedRender/> 
-              </ProvidersContext.Provider>
-            </RendererContext.Provider>,
-            container,
-          );
-        });
-      }
+		it('should not call getState when there is no annotations', () => {
+			jest.spyOn(RendererActions.prototype, 'getAnnotationMarks').mockReturnValue([]);
 
-      expect(providers.inlineComment.getState).toHaveBeenCalledWith(
-        fakeMarksIds,
-        true,
-      );
-    });
+			expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
 
-    it('should not call getState when there is no annotations', () => {
-      jest
-        .spyOn(RendererActions.prototype, 'getAnnotationMarks')
-        .mockReturnValue([]);
+			if (process.env.IS_REACT_18 === 'true') {
+				act(() => {
+					root.render(
+						<RendererContext.Provider value={actionsFake}>
+							<ProvidersContext.Provider value={providers}>
+								<CustomComp />
+							</ProvidersContext.Provider>
+						</RendererContext.Provider>,
+					);
+				});
+			} else {
+				act(() => {
+					render(
+						<RendererContext.Provider value={actionsFake}>
+							<ProvidersContext.Provider value={providers}>
+								<CustomComp />
+							</ProvidersContext.Provider>
+						</RendererContext.Provider>,
+						container,
+					);
+				});
+			}
 
-      expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
+			expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
+		});
 
-      if (process.env.IS_REACT_18 === 'true') {
-        act(() => {
-          root.render(
-            <RendererContext.Provider value={actionsFake}>
-              <ProvidersContext.Provider value={providers}>
-                <CustomComp />
-              </ProvidersContext.Provider>
-            </RendererContext.Provider>,
-          );
-        });
-      } else {
-        act(() => {
-          render(
-            <RendererContext.Provider value={actionsFake}>
-              <ProvidersContext.Provider value={providers}>
-                <CustomComp />
-              </ProvidersContext.Provider>
-            </RendererContext.Provider>,
-            container,
-          );
-        });
-      }
+		describe('when the getState is resolved', () => {
+			it('should emit SET_ANNOTATION_STATE event on updateSubscriber', (done) => {
+				expect(updateSubscriberFake.emit).toHaveBeenCalledTimes(0);
 
-      expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
-    });
+				if (process.env.IS_REACT_18 === 'true') {
+					act(() => {
+						root.render(
+							<RendererContext.Provider value={actionsFake}>
+								<ProvidersContext.Provider value={providers}>
+									<CustomComp />
+								</ProvidersContext.Provider>
+							</RendererContext.Provider>,
+						);
+					});
+				} else {
+					act(() => {
+						render(
+							<RendererContext.Provider value={actionsFake}>
+								<ProvidersContext.Provider value={providers}>
+									<CustomComp />
+								</ProvidersContext.Provider>
+							</RendererContext.Provider>,
+							container,
+						);
+					});
+				}
 
-    describe('when the getState is resolved', () => {
-      it('should emit SET_ANNOTATION_STATE event on updateSubscriber', (done) => {
-        expect(updateSubscriberFake.emit).toHaveBeenCalledTimes(0);
-
-        if (process.env.IS_REACT_18 === 'true') {
-          act(() => {
-            root.render(
-              <RendererContext.Provider value={actionsFake}>
-                <ProvidersContext.Provider value={providers}>
-                  <CustomComp />
-                </ProvidersContext.Provider>
-              </RendererContext.Provider>,
-            );
-          });
-        } else {
-          act(() => {
-            render(
-              <RendererContext.Provider value={actionsFake}>
-                <ProvidersContext.Provider value={providers}>
-                  <CustomComp />
-                </ProvidersContext.Provider>
-              </RendererContext.Provider>,
-              container,
-            );
-          });
-        }
-
-        const expected = fakeDataReturn.reduce((acc, cur) => {
-          return {
-            ...acc,
-            [cur.id]: cur,
-          };
-        }, {});
-        process.nextTick(() => {
-          expect(updateSubscriberFake.emit).toHaveBeenCalledWith(
-            AnnotationUpdateEvent.SET_ANNOTATION_STATE,
-            expected,
-          );
-          done();
-        });
-      });
-    });
-  });
+				const expected = fakeDataReturn.reduce((acc, cur) => {
+					return {
+						...acc,
+						[cur.id]: cur,
+					};
+				}, {});
+				process.nextTick(() => {
+					expect(updateSubscriberFake.emit).toHaveBeenCalledWith(
+						AnnotationUpdateEvent.SET_ANNOTATION_STATE,
+						expected,
+					);
+					done();
+				});
+			});
+		});
+	});
 });

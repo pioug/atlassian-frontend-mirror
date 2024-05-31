@@ -11,25 +11,23 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 const placeholder = css`
-  color: ${token('color.text.subtlest', N200)};
-  width: 100%;
-  text-align: center;
-  margin-top: ${token('space.100', '8px')} !important;
-  display: block;
+	color: ${token('color.text.subtlest', N200)};
+	width: 100%;
+	text-align: center;
+	margin-top: ${token('space.100', '8px')} !important;
+	display: block;
 `;
 
-export default React.forwardRef<HTMLSpanElement, { onClick: () => void }>(
-  ({ onClick }, ref) => {
-    return (
-      <span
-        ref={ref}
-        css={placeholder}
-        onClick={onClick}
-        data-id={CAPTION_PLACEHOLDER_ID}
-        data-testid="caption-placeholder"
-      >
-        <FormattedMessage {...messages.placeholder} />
-      </span>
-    );
-  },
-);
+export default React.forwardRef<HTMLSpanElement, { onClick: () => void }>(({ onClick }, ref) => {
+	return (
+		<span
+			ref={ref}
+			css={placeholder}
+			onClick={onClick}
+			data-id={CAPTION_PLACEHOLDER_ID}
+			data-testid="caption-placeholder"
+		>
+			<FormattedMessage {...messages.placeholder} />
+		</span>
+	);
+});

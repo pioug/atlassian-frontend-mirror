@@ -28,18 +28,10 @@ export const styles = `
 `;
 
 export default function tableRow({ text, attrs }: NodeSerializerOpts) {
-  let numberedColumn = '';
-  if (attrs && attrs.isNumberColumnEnabled) {
-    const paragraph = createTag(
-      'p',
-      { class: createClassName('tableRow-numCol-p') },
-      attrs.index,
-    );
-    numberedColumn = createTag(
-      'td',
-      { class: createClassName('tableRow-numCol') },
-      paragraph,
-    );
-  }
-  return createTag('tr', {}, numberedColumn + text);
+	let numberedColumn = '';
+	if (attrs && attrs.isNumberColumnEnabled) {
+		const paragraph = createTag('p', { class: createClassName('tableRow-numCol-p') }, attrs.index);
+		numberedColumn = createTag('td', { class: createClassName('tableRow-numCol') }, paragraph);
+	}
+	return createTag('tr', {}, numberedColumn + text);
 }

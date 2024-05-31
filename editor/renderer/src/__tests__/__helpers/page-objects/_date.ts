@@ -1,3 +1,3 @@
 export const selectors = {
-  date: '[data-node-type="date"]',
+	date: '[data-node-type="date"]',
 };

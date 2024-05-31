@@ -12,101 +12,101 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 type BasicDogConfig = { lovesTreats?: boolean; treatsPerBite?: number };
 
 const PluginDog: NextEditorPlugin<
-  'dog',
-  {
-    sharedState: { something: number; goodDog: boolean };
-    pluginConfiguration: BasicDogConfig | undefined;
-  }
+	'dog',
+	{
+		sharedState: { something: number; goodDog: boolean };
+		pluginConfiguration: BasicDogConfig | undefined;
+	}
 > = () => ({
-  name: 'dog',
-  getSharedState: () => {
-    return {
-      something: 1,
-      goodDog: true,
-    };
-  },
+	name: 'dog',
+	getSharedState: () => {
+		return {
+			something: 1,
+			goodDog: true,
+		};
+	},
 });
 
 type BarkState = Record<'coisa', string>;
 const PluginBark: NextEditorPlugin<
-  'bark',
-  {
-    sharedState: BarkState;
-    dependencies: [typeof PluginDog];
-  }
+	'bark',
+	{
+		sharedState: BarkState;
+		dependencies: [typeof PluginDog];
+	}
 > = () => {
-  return {
-    name: 'bark',
-    getSharedState: () => {
-      return {
-        coisa: 'dasdas',
-      };
-    },
-  };
+	return {
+		name: 'bark',
+		getSharedState: () => {
+			return {
+				coisa: 'dasdas',
+			};
+		},
+	};
 };
 
 const PluginBarkLoud: NextEditorPlugin<
-  'bark-loud',
-  {
-    dependencies: [typeof PluginBark];
-  }
+	'bark-loud',
+	{
+		dependencies: [typeof PluginBark];
+	}
 > = () => {
-  return {
-    name: 'bark-loud',
-  };
+	return {
+		name: 'bark-loud',
+	};
 };
 
 describe('Preset implementation of builder', () => {
-  describe('calling build after creating a preset', () => {
-    it('errors out when adding a plugin twice', () => {
-      const basePreset = new EditorPresetBuilder().add(PluginDog);
+	describe('calling build after creating a preset', () => {
+		it('errors out when adding a plugin twice', () => {
+			const basePreset = new EditorPresetBuilder().add(PluginDog);
 
-      const finalPreset = basePreset
-        // @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
-        .add(PluginDog)
-        .add(PluginBark)
-        .add(PluginBarkLoud)
-        // @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
-        .add(PluginBarkLoud);
-      expect(() => {
-        finalPreset.build();
-      }).toThrow();
-    });
-    describe('when is the same plugin with multiple configurations', () => {
-      it('errors out when adding a plugin twice', () => {
-        const basePreset = new EditorPresetBuilder().add(PluginDog);
+			const finalPreset = basePreset
+				// @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
+				.add(PluginDog)
+				.add(PluginBark)
+				.add(PluginBarkLoud)
+				// @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
+				.add(PluginBarkLoud);
+			expect(() => {
+				finalPreset.build();
+			}).toThrow();
+		});
+		describe('when is the same plugin with multiple configurations', () => {
+			it('errors out when adding a plugin twice', () => {
+				const basePreset = new EditorPresetBuilder().add(PluginDog);
 
-        const finalPreset = basePreset
-          // @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
-          .add(PluginDog)
-          // @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
-          .add([PluginDog, { lovesTreats: true }]);
-        expect(() => {
-          finalPreset.build();
-        }).toThrow();
-      });
-    });
-  });
+				const finalPreset = basePreset
+					// @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
+					.add(PluginDog)
+					// @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
+					.add([PluginDog, { lovesTreats: true }]);
+				expect(() => {
+					finalPreset.build();
+				}).toThrow();
+			});
+		});
+	});
 
-  describe('expects a typescript error', () => {
-    it('when a plugin is missing', () => {
-      expect(() => {
-        const basePreset = new EditorPresetBuilder();
+	describe('expects a typescript error', () => {
+		it('when a plugin is missing', () => {
+			expect(() => {
+				const basePreset = new EditorPresetBuilder();
 
-        basePreset
-          // @ts-expect-error
-          .add(PluginBark);
-      }).not.toThrow();
-    });
-    it('when a plugin is missing in a multi-chain of dependencies', () => {
-      expect(() => {
-        const basePreset = new EditorPresetBuilder().add(PluginDog);
+				basePreset
+					// @ts-expect-error
+					.add(PluginBark);
+			}).not.toThrow();
+		});
+		it('when a plugin is missing in a multi-chain of dependencies', () => {
+			expect(() => {
+				const basePreset = new EditorPresetBuilder().add(PluginDog);
 
-        basePreset
-          // .add(PluginBark)
-          // @ts-expect-error
-          .add(PluginBarkLoud);
-      }).not.toThrow();
-    });
-  });
+				basePreset
+					// .add(PluginBark)
+					// @ts-expect-error
+					.add(PluginBarkLoud);
+			}).not.toThrow();
+		});
+	});
 });

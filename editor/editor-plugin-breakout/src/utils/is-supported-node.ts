@@ -7,5 +7,5 @@ const supportedNodesForBreakout = ['codeBlock', 'layoutSection', 'expand'];
  * @param node Node to check
  */
 export function isSupportedNodeForBreakout(node: PMNode): boolean {
-  return supportedNodesForBreakout.indexOf(node.type.name) !== -1;
+	return supportedNodesForBreakout.indexOf(node.type.name) !== -1;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount, type ReactWrapper, shallow, type ShallowWrapper } from 'enzyme';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 
 import ShareButton, { type Props } from '../../../components/ShareButton';
 

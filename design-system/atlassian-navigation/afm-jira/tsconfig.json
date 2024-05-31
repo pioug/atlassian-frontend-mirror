@@ -1,0 +1,58 @@
+{
+  "extends": "../../../../tsconfig.products.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__atlassian-navigation/app",
+    "composite": true,
+    "rootDir": "../",
+    "baseUrl": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../../analytics/analytics-namespaced-context/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../button/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../ds-lib/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../logo/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../popup/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../primitives/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../tokens/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../tooltip/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../width-detector/afm-jira/tsconfig.json"
+    }
+  ]
+}

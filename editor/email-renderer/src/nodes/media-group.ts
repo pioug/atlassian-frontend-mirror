@@ -3,9 +3,9 @@ import { createTag } from '../create-tag';
 import { serializeStyle } from '../serialize-style';
 
 export default function mediaGroup({ text }: NodeSerializerOpts) {
-  const style = serializeStyle({
-    width: '100%',
-  });
+	const style = serializeStyle({
+		width: '100%',
+	});
 
-  return createTag('div', { style }, text);
+	return createTag('div', { style }, text);
 }

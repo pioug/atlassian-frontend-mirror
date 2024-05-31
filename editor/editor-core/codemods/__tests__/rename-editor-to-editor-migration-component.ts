@@ -6,15 +6,13 @@ import { createTransformer } from '../utils';
 // This stays as require() since changing to import will trigger a linter error
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
-const transformer = createTransformer('@atlaskit/editor-core', [
-  renameEditorToMigrationComponent,
-]);
+const transformer = createTransformer('@atlaskit/editor-core', [renameEditorToMigrationComponent]);
 
 describe('Update Editor to EditorMigrationComponent', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -22,7 +20,7 @@ describe('Update Editor to EditorMigrationComponent', () => {
       <Editor />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { EditorMigrationComponent as Editor } from '@atlaskit/editor-core';
 
@@ -30,13 +28,13 @@ describe('Update Editor to EditorMigrationComponent', () => {
       <Editor />
     );
     `, // -----
-    'update editor component',
-  );
+		'update editor component',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor as AkEditor } from '@atlaskit/editor-core';
 
@@ -44,7 +42,7 @@ describe('Update Editor to EditorMigrationComponent', () => {
       <AkEditor />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { EditorMigrationComponent as AkEditor } from '@atlaskit/editor-core';
 
@@ -52,13 +50,13 @@ describe('Update Editor to EditorMigrationComponent', () => {
       <AkEditor />
     );
     `, // -----
-    'update editor component to keep same local name',
-  );
+		'update editor component to keep same local name',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor as AkEditor, ContextPanel } from '@atlaskit/editor-core';
 
@@ -66,7 +64,7 @@ describe('Update Editor to EditorMigrationComponent', () => {
       <AkEditor />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { EditorMigrationComponent as AkEditor, ContextPanel } from '@atlaskit/editor-core';
 
@@ -74,13 +72,13 @@ describe('Update Editor to EditorMigrationComponent', () => {
       <AkEditor />
     );
     `, // -----
-    'update editor component to not modify other components',
-  );
+		'update editor component to not modify other components',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { ContextPanel } from '@atlaskit/editor-core';
 
@@ -88,7 +86,7 @@ describe('Update Editor to EditorMigrationComponent', () => {
       <div />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { ContextPanel } from '@atlaskit/editor-core';
 
@@ -96,13 +94,13 @@ describe('Update Editor to EditorMigrationComponent', () => {
       <div />
     );
     `, // -----
-    'nothing should change if there is no editor',
-  );
+		'nothing should change if there is no editor',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SomethingElse, { Editor } from 'cool-package'
     import { Editor as AkEditor } from '@atlaskit/editor-core';
@@ -113,7 +111,7 @@ describe('Update Editor to EditorMigrationComponent', () => {
       </AkEditor>
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import SomethingElse, { Editor } from 'cool-package'
     import { EditorMigrationComponent as AkEditor } from '@atlaskit/editor-core';
@@ -124,13 +122,13 @@ describe('Update Editor to EditorMigrationComponent', () => {
       </AkEditor>
     );
     `, // -----
-    'should not change named exports from other packages that are called Editor',
-  );
+		'should not change named exports from other packages that are called Editor',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Editor from 'cool-package'
     import { Editor as AkEditor } from '@atlaskit/editor-core';
@@ -141,7 +139,7 @@ describe('Update Editor to EditorMigrationComponent', () => {
       </AkEditor>
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import Editor from 'cool-package'
     import { EditorMigrationComponent as AkEditor } from '@atlaskit/editor-core';
@@ -152,6 +150,6 @@ describe('Update Editor to EditorMigrationComponent', () => {
       </AkEditor>
     );
     `, // -----
-    'should not change exports from other packages that has a default export of Editor',
-  );
+		'should not change exports from other packages that has a default export of Editor',
+	);
 });

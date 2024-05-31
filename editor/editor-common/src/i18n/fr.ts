@@ -347,6 +347,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Actions de page',
   'fabric.editor.panel.backgroundColor': "Couleur d'arrière-plan",
   'fabric.editor.panel.emoji': 'Ajouter une émoticône',
+  'fabric.editor.panel.panelsGroup': 'Types de panneaux',
   'fabric.editor.pasteOptions': 'Options de collage',
   'fabric.editor.pastePlainText': 'Coller le texte brut',
   'fabric.editor.placeholderAltText': 'Décrire cette image avec un texte alternatif',

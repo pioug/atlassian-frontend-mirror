@@ -1,9 +1,9 @@
 import {
-  ExtensionAwesomeList,
-  ExtensionBlockEh,
-  ExtensionsWithLayout,
-  ExtensionsWithinTable,
-  ExtensionIframeNested,
+	ExtensionAwesomeList,
+	ExtensionBlockEh,
+	ExtensionsWithLayout,
+	ExtensionsWithinTable,
+	ExtensionIframeNested,
 } from './extension.fixture';
 import { snapshot } from '@af/visual-regression';
 

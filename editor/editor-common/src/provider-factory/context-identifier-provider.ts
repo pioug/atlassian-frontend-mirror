@@ -1,6 +1,6 @@
 export interface ContextIdentifierProvider {
-  containerId: string;
-  objectId: string;
-  childObjectId?: string;
-  product?: string;
+	containerId: string;
+	objectId: string;
+	childObjectId?: string;
+	product?: string;
 }

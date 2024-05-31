@@ -5,40 +5,36 @@ import { Consumer } from '../consumers/consumer';
 import { type Document as DocumentModel } from '../model';
 
 export interface Props {
-  render(actions: DocumentActions): React.ReactNode;
+	render(actions: DocumentActions): React.ReactNode;
 }
 
 export interface DocumentActions {
-  createDocument(value: any): Promise<DocumentModel>;
-  editDocument(): void;
-  cancelEdit(): void;
-  updateDocument(value: any): Promise<DocumentModel>;
+	createDocument(value: any): Promise<DocumentModel>;
+	editDocument(): void;
+	cancelEdit(): void;
+	updateDocument(value: any): Promise<DocumentModel>;
 }
 
 export default class WithDocumentActions extends PureComponent<Props> {
-  private actionsMapper = (actions: Actions): DocumentActions => ({
-    async createDocument(value: any) {
-      return actions.createDocument(value);
-    },
+	private actionsMapper = (actions: Actions): DocumentActions => ({
+		async createDocument(value: any) {
+			return actions.createDocument(value);
+		},
 
-    async editDocument() {
-      actions.setDocumentMode('edit');
-    },
+		async editDocument() {
+			actions.setDocumentMode('edit');
+		},
 
-    async updateDocument(value: any) {
-      return actions.updateDocument(value);
-    },
+		async updateDocument(value: any) {
+			return actions.updateDocument(value);
+		},
 
-    async cancelEdit() {
-      actions.setDocumentMode('view');
-    },
-  });
+		async cancelEdit() {
+			actions.setDocumentMode('view');
+		},
+	});
 
-  render() {
-    return (
-      <Consumer actionsMapper={this.actionsMapper}>
-        {this.props.render}
-      </Consumer>
-    );
-  }
+	render() {
+		return <Consumer actionsMapper={this.actionsMapper}>{this.props.render}</Consumer>;
+	}
 }

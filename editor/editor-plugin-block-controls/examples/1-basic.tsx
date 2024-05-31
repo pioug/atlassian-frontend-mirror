@@ -38,83 +38,83 @@ import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { defaultValue } from './default-value';
 
 export default function Editor() {
-  const { preset } = usePreset(builder =>
-    builder
-      .add(basePlugin)
-      .add(blockTypePlugin)
-      .add(focusPlugin)
-      .add(typeAheadPlugin)
-      .add(quickInsertPlugin)
-      .add(selectionPlugin)
-      .add(decorationsPlugin)
-      .add(layoutPlugin)
-      .add(listPlugin)
-      .add([analyticsPlugin, {}])
-      .add(contentInsertionPlugin)
-      .add(widthPlugin)
-      .add(guidelinePlugin)
-      .add(textFormattingPlugin)
-      .add([
-        tablesPlugin,
-        {
-          tableOptions: {
-            advanced: true,
-            allowColumnResizing: true,
-            allowHeaderRow: true,
-          },
-          tableResizingEnabled: true,
-          isTableScalingEnabled: true,
-          dragAndDropEnabled: true,
-          allowContextualMenu: true,
-          fullWidthEnabled: true,
-        },
-      ])
-      .add(panelPlugin)
-      .add(rulePlugin)
-      .add(tasksAndDecisionsPlugin)
-      .add([expandPlugin, { allowInsertion: true, appearance: 'full-page' }])
-      .add(editorDisabledPlugin)
-      .add(copyButtonPlugin)
-      .add(compositionPlugin)
-      .add(codeBlockPlugin)
-      .add(blockControlsPlugin)
-      .add(gridPlugin)
-      .add(floatingToolbarPlugin)
-      .add([selectionToolbarPlugin, { preferenceToolbarAboveSelection: true }])
-      .add([
-        mediaPlugin,
-        {
-          allowMediaSingle: { disableLayout: true },
-          allowMediaGroup: false,
-          allowResizing: true,
-          isCopyPasteEnabled: true,
-          allowBreakoutSnapPoints: true,
-          allowAdvancedToolBarOptions: true,
-          allowDropzoneDropLine: true,
-          allowMediaSingleEditable: true,
-          allowImagePreview: true,
-          fullWidthEnabled: true,
-          waitForMediaUpload: true,
-        },
-      ])
-      .add([
-        annotationPlugin,
-        {
-          inlineComment: {},
-        } as AnnotationProviders,
-      ]),
-  );
+	const { preset } = usePreset((builder) =>
+		builder
+			.add(basePlugin)
+			.add(blockTypePlugin)
+			.add(focusPlugin)
+			.add(typeAheadPlugin)
+			.add(quickInsertPlugin)
+			.add(selectionPlugin)
+			.add(decorationsPlugin)
+			.add(layoutPlugin)
+			.add(listPlugin)
+			.add([analyticsPlugin, {}])
+			.add(contentInsertionPlugin)
+			.add(widthPlugin)
+			.add(guidelinePlugin)
+			.add(textFormattingPlugin)
+			.add([
+				tablesPlugin,
+				{
+					tableOptions: {
+						advanced: true,
+						allowColumnResizing: true,
+						allowHeaderRow: true,
+					},
+					tableResizingEnabled: true,
+					isTableScalingEnabled: true,
+					dragAndDropEnabled: true,
+					allowContextualMenu: true,
+					fullWidthEnabled: true,
+				},
+			])
+			.add(panelPlugin)
+			.add(rulePlugin)
+			.add(tasksAndDecisionsPlugin)
+			.add([expandPlugin, { allowInsertion: true, appearance: 'full-page' }])
+			.add(editorDisabledPlugin)
+			.add(copyButtonPlugin)
+			.add(compositionPlugin)
+			.add(codeBlockPlugin)
+			.add(blockControlsPlugin)
+			.add(gridPlugin)
+			.add(floatingToolbarPlugin)
+			.add([selectionToolbarPlugin, { preferenceToolbarAboveSelection: true }])
+			.add([
+				mediaPlugin,
+				{
+					allowMediaSingle: { disableLayout: true },
+					allowMediaGroup: false,
+					allowResizing: true,
+					isCopyPasteEnabled: true,
+					allowBreakoutSnapPoints: true,
+					allowAdvancedToolBarOptions: true,
+					allowDropzoneDropLine: true,
+					allowMediaSingleEditable: true,
+					allowImagePreview: true,
+					fullWidthEnabled: true,
+					waitForMediaUpload: true,
+				},
+			])
+			.add([
+				annotationPlugin,
+				{
+					inlineComment: {},
+				} as AnnotationProviders,
+			]),
+	);
 
-  return (
-    <ComposableEditor
-      appearance="full-page"
-      onEditorReady={editorAction => {
-        editorAction.replaceDocument(defaultValue);
-      }}
-      onChange={view => {
-        applyDevTools(view);
-      }}
-      preset={preset}
-    />
-  );
+	return (
+		<ComposableEditor
+			appearance="full-page"
+			onEditorReady={(editorAction) => {
+				editorAction.replaceDocument(defaultValue);
+			}}
+			onChange={(view) => {
+				applyDevTools(view);
+			}}
+			preset={preset}
+		/>
+	);
 }

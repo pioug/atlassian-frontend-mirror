@@ -4,19 +4,19 @@ import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import adf from './helper/media-with-caption.adf.json';
 
 const Example = () => {
-  return (
-    <RendererDemo
-      appearance="full-page"
-      serializer="react"
-      allowHeadingAnchorLinks
-      allowColumnSorting={true}
-      useSpecBasedValidator={true}
-      adfStage={'stage0'}
-      schema={getSchemaBasedOnStage('stage0')}
-      mediaOptions={{ allowCaptions: true }}
-      document={adf}
-    />
-  );
+	return (
+		<RendererDemo
+			appearance="full-page"
+			serializer="react"
+			allowHeadingAnchorLinks
+			allowColumnSorting={true}
+			useSpecBasedValidator={true}
+			adfStage={'stage0'}
+			schema={getSchemaBasedOnStage('stage0')}
+			mediaOptions={{ allowCaptions: true }}
+			document={adf}
+		/>
+	);
 };
 
 export default Example;

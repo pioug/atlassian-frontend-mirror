@@ -10,12 +10,9 @@ import { useRef } from 'react';
  * @param initialValue Optional parameter for the inital state of the component
  * @returns
  */
-export default function usePreviousState<T>(
-  value: T,
-  initialValue?: T,
-): T | undefined {
-  const ref = useRef<T | undefined>(initialValue);
-  const prevValue = ref.current;
-  ref.current = value;
-  return prevValue;
+export default function usePreviousState<T>(value: T, initialValue?: T): T | undefined {
+	const ref = useRef<T | undefined>(initialValue);
+	const prevValue = ref.current;
+	ref.current = value;
+	return prevValue;
 }

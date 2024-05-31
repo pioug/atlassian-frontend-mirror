@@ -12,34 +12,33 @@ import { default as FullPageExample } from './5-full-page';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 const Comp = () => {
-  const editorApi = usePresetContext<StackPlugins>();
-  const editorProps = React.useMemo(() => {
-    return {
-      macroProvider: undefined,
-      extensionProviders: (editorActions?: EditorActions) => [
-        getExampleExtensionProviders(editorApi, editorActions),
-      ],
-      allowExtension: {
-        allowExtendFloatingToolbars: true,
-      },
-      elementBrowser: {
-        showModal: true,
-        replacePlusMenu: true,
-        helpUrl:
-          'https://support.atlassian.com/confluence-cloud/docs/what-are-macros/',
-      },
-      insertMenuItems: [],
-      allowFragmentMark: true,
-    };
-  }, [editorApi]);
+	const editorApi = usePresetContext<StackPlugins>();
+	const editorProps = React.useMemo(() => {
+		return {
+			macroProvider: undefined,
+			extensionProviders: (editorActions?: EditorActions) => [
+				getExampleExtensionProviders(editorApi, editorActions),
+			],
+			allowExtension: {
+				allowExtendFloatingToolbars: true,
+			},
+			elementBrowser: {
+				showModal: true,
+				replacePlusMenu: true,
+				helpUrl: 'https://support.atlassian.com/confluence-cloud/docs/what-are-macros/',
+			},
+			insertMenuItems: [],
+			allowFragmentMark: true,
+		};
+	}, [editorApi]);
 
-  return <FullPageExample editorProps={editorProps} />;
+	return <FullPageExample editorProps={editorProps} />;
 };
 
 export default function Example() {
-  return (
-    <EditorContext>
-      <Comp />
-    </EditorContext>
-  );
+	return (
+		<EditorContext>
+			<Comp />
+		</EditorContext>
+	);
 }

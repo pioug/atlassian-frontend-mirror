@@ -1,17 +1,15 @@
 import { isPerformanceAPIAvailable } from './is-performance-api-available';
 
 export function getResponseEndTime(): number | undefined {
-  if (!isPerformanceAPIAvailable()) {
-    return;
-  }
+	if (!isPerformanceAPIAvailable()) {
+		return;
+	}
 
-  const nav = performance.getEntriesByType(
-    'navigation',
-  )[0] as PerformanceNavigationTiming;
+	const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
 
-  if (nav) {
-    return nav.responseEnd;
-  }
+	if (nav) {
+		return nav.responseEnd;
+	}
 
-  return;
+	return;
 }

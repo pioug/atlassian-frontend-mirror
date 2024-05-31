@@ -338,6 +338,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Sidehandlinger',
   'fabric.editor.panel.backgroundColor': 'Bakgrunnsfarge',
   'fabric.editor.panel.emoji': 'Legg til emoji',
+  'fabric.editor.panel.panelsGroup': 'Paneltyper',
   'fabric.editor.pasteOptions': 'Alternativer for innliming',
   'fabric.editor.pastePlainText': 'Lim inn ren tekst',
   'fabric.editor.placeholderAltText': 'Beskriv dette bildet med alternativ tekst',

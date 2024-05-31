@@ -1,67 +1,54 @@
 import { css } from '@emotion/react';
 
+import { PanelSharedCssClassName, panelSharedStyles } from '@atlaskit/editor-common/panel';
 import {
-  PanelSharedCssClassName,
-  panelSharedStyles,
-} from '@atlaskit/editor-common/panel';
-import {
-  akEditorDeleteBackground,
-  akEditorDeleteBackgroundWithOpacity,
-  akEditorDeleteBorder,
-  akEditorDeleteIconColor,
-  akEditorSelectedBorderSize,
-  akEditorSelectedNodeClassName,
-  getSelectionStyles,
-  SelectionStyle,
+	akEditorDeleteBackground,
+	akEditorDeleteBackgroundWithOpacity,
+	akEditorDeleteBorder,
+	akEditorDeleteIconColor,
+	akEditorSelectedBorderSize,
+	akEditorSelectedNodeClassName,
+	getSelectionStyles,
+	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to mixin usage
 export const panelStyles = () => css`
-  .ProseMirror {
-    .${PanelSharedCssClassName.prefix} {
-      cursor: pointer;
+	.ProseMirror {
+		.${PanelSharedCssClassName.prefix} {
+			cursor: pointer;
 
-      /* Danger when top level node */
-      &.danger {
-        box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
-          ${akEditorDeleteBorder};
-        background-color: ${token(
-          'color.background.danger',
-          akEditorDeleteBackground,
-        )} !important;
+			/* Danger when top level node */
+			&.danger {
+				box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
+				background-color: ${token('color.background.danger', akEditorDeleteBackground)} !important;
 
-        .${PanelSharedCssClassName.icon} {
-          color: ${token(
-            'color.icon.danger',
-            akEditorDeleteIconColor,
-          )} !important;
-        }
-      }
-    }
+				.${PanelSharedCssClassName.icon} {
+					color: ${token('color.icon.danger', akEditorDeleteIconColor)} !important;
+				}
+			}
+		}
 
-    .${PanelSharedCssClassName.content} {
-      cursor: text;
-    }
+		.${PanelSharedCssClassName.content} {
+			cursor: text;
+		}
 
-    /* Danger when nested node */
-    .danger .${PanelSharedCssClassName.prefix} {
-      &[data-panel-type] {
-        background-color: ${token(
-          'color.blanket.danger',
-          akEditorDeleteBackgroundWithOpacity,
-        )};
+		/* Danger when nested node */
+		.danger .${PanelSharedCssClassName.prefix} {
+			&[data-panel-type] {
+				background-color: ${token('color.blanket.danger', akEditorDeleteBackgroundWithOpacity)};
 
-        .${PanelSharedCssClassName.icon} {
-          color: ${token('color.icon.danger', akEditorDeleteIconColor)};
-        }
-      }
-    }
+				.${PanelSharedCssClassName.icon} {
+					color: ${token('color.icon.danger', akEditorDeleteIconColor)};
+				}
+			}
+		}
 
-    ${panelSharedStyles()};
-  }
+		${panelSharedStyles()};
+	}
 
-  .${PanelSharedCssClassName.prefix}.${akEditorSelectedNodeClassName}:not(.danger) {
-    ${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
-  }
+	.${PanelSharedCssClassName.prefix}.${akEditorSelectedNodeClassName}:not(.danger) {
+		${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Blanket])}
+	}
 `;

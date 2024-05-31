@@ -1,3 +1,3 @@
 export interface LongPressSelectionPluginOptions {
-  useLongPressSelection?: boolean;
+	useLongPressSelection?: boolean;
 }

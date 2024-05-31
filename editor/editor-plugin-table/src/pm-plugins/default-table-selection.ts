@@ -1,6 +1,6 @@
 export const defaultTableSelection = {
-  hoveredColumns: [],
-  hoveredRows: [],
+	hoveredColumns: [],
+	hoveredRows: [],
 };
 
 /**
@@ -10,5 +10,5 @@ export const defaultTableSelection = {
  * when doc changes.
  */
 export const defaultHoveredCell = {
-  hoveredCell: { rowIndex: undefined, colIndex: undefined },
+	hoveredCell: { rowIndex: undefined, colIndex: undefined },
 };

@@ -25,10 +25,10 @@ export const styles = `
 `;
 
 export default function bodiedExtension({ attrs }: NodeSerializerOpts) {
-  const inner = createTag(
-    'div',
-    { class: className + '-inner' },
-    `&nbsp;${attrs.extensionKey}&nbsp;`,
-  );
-  return createTag('div', { class: className + '-outer' }, inner);
+	const inner = createTag(
+		'div',
+		{ class: className + '-inner' },
+		`&nbsp;${attrs.extensionKey}&nbsp;`,
+	);
+	return createTag('div', { class: className + '-outer' }, inner);
 }

@@ -39,8 +39,7 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
+    "@atlaskit/adf-schema": "^36.10.7"
   },
   "techstack": {
     "@atlassian/frontend": {
@@ -57,6 +56,5 @@
         "emotion"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

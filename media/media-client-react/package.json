@@ -51,7 +51,6 @@
   },
   "devDependencies": {
     "@atlaskit/media-state": "^1.1.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "jest-fetch-mock": "^3.0.3",
@@ -68,6 +67,5 @@
         "file-and-folder-level"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

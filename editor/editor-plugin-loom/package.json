@@ -61,7 +61,6 @@
     "@atlaskit/editor-plugin-floating-toolbar": "^1.4.0",
     "@atlaskit/editor-plugin-grid": "^1.1.0",
     "@atlaskit/editor-plugin-width": "^1.1.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "raf-stub": "^2.0.1",
@@ -100,6 +99,5 @@
         "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

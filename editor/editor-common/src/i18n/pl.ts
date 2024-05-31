@@ -346,6 +346,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Czynności na stronie',
   'fabric.editor.panel.backgroundColor': 'Kolor tła',
   'fabric.editor.panel.emoji': 'Dodaj emoji',
+  'fabric.editor.panel.panelsGroup': 'Rodzaje paneli',
   'fabric.editor.pasteOptions': 'Opcje wklejania',
   'fabric.editor.pastePlainText': 'Wklej zwykły tekst',
   'fabric.editor.placeholderAltText': 'Opisz ten obraz przy użyciu tekstu alternatywnego',

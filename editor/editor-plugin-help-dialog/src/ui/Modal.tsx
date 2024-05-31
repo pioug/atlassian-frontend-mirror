@@ -7,12 +7,12 @@ import type Format from './Format';
 import { ModalContent } from './ModalContent';
 
 interface ModalProps {
-  formatting: Format[];
+	formatting: Format[];
 }
 
 const Modal = ({ formatting }: ModalProps) => {
-  const { onClose } = useModal();
-  return <ModalContent formatting={formatting} onClose={onClose} />;
+	const { onClose } = useModal();
+	return <ModalContent formatting={formatting} onClose={onClose} />;
 };
 
 export default Modal;

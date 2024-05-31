@@ -2,20 +2,20 @@ import type React from 'react';
 import { useCallback, useEffect, useMemo } from 'react';
 
 const safeError = (message: string) => {
-  if (process.env.NODE_ENV !== 'production') {
-    throw new Error(message);
-  }
+	if (process.env.NODE_ENV !== 'production') {
+		throw new Error(message);
+	}
 
-  // eslint-disable-next-line no-console
-  console.error(message);
+	// eslint-disable-next-line no-console
+	console.error(message);
 };
 
 const createAbortController = (): AbortController => {
-  if (typeof AbortController === 'undefined') {
-    safeError('Missing AbortController');
-  }
+	if (typeof AbortController === 'undefined') {
+		safeError('Missing AbortController');
+	}
 
-  return new AbortController();
+	return new AbortController();
 };
 
 type AbortableEffectWithCancel = (signal: AbortSignal) => () => void;
@@ -33,34 +33,34 @@ type AbortableEffect = (signal: AbortSignal) => void;
  * @param deps
  */
 export function useAbortableEffect(
-  callback: AbortableEffectWithCancel | AbortableEffect,
-  deps: React.DependencyList,
+	callback: AbortableEffectWithCancel | AbortableEffect,
+	deps: React.DependencyList,
 ) {
-  const abortController = useMemo(
-    () => createAbortController(),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    deps,
-  );
-  const abort = useCallback(() => abortController.abort(), [abortController]);
-  // AFP-2511 TODO: Fix automatic suppressions below
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fn = useCallback(callback, deps);
+	const abortController = useMemo(
+		() => createAbortController(),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		deps,
+	);
+	const abort = useCallback(() => abortController.abort(), [abortController]);
+	// AFP-2511 TODO: Fix automatic suppressions below
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const fn = useCallback(callback, deps);
 
-  useEffect(() => {
-    const teardown = fn(abortController.signal);
+	useEffect(() => {
+		const teardown = fn(abortController.signal);
 
-    return () => {
-      if (typeof teardown === 'function') {
-        teardown();
-      }
+		return () => {
+			if (typeof teardown === 'function') {
+				teardown();
+			}
 
-      abort();
-    };
-  }, [
-    abortController,
-    abort,
-    fn,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    ...deps,
-  ]);
+			abort();
+		};
+	}, [
+		abortController,
+		abort,
+		fn,
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		...deps,
+	]);
 }

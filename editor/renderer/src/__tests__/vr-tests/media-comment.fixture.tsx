@@ -5,11 +5,9 @@ import { wrappedCommentRendererAdf } from '../__fixtures__/comment-renderer-wrap
 import { MediaBaseRenderer } from '../__helpers/mediaRenderer';
 
 export const MediaComment = () => {
-  return <MediaBaseRenderer adf={commentRendererAdf} appearance="comment" />;
+	return <MediaBaseRenderer adf={commentRendererAdf} appearance="comment" />;
 };
 
 export const MediaCommentWrapped = () => {
-  return (
-    <MediaBaseRenderer adf={wrappedCommentRendererAdf} appearance="comment" />
-  );
+	return <MediaBaseRenderer adf={wrappedCommentRendererAdf} appearance="comment" />;
 };

@@ -20,20 +20,20 @@ This transformer allows encoding ProseMirror Node to markdown or converting Bitb
   serializer.parse(html);`}
 
   ${(
-    <Example
-      packageName="@atlaskit/editor-bitbucket-transformer"
-      Component={require('../examples/2-bitbucket-markdown').default}
-      title="Bitbucket Markdown"
-      source={require('!!raw-loader!../examples/2-bitbucket-markdown')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/editor-bitbucket-transformer"
+			Component={require('../examples/2-bitbucket-markdown').default}
+			title="Bitbucket Markdown"
+			source={require('!!raw-loader!../examples/2-bitbucket-markdown')}
+		/>
+	)}
 
   ${(
-    <Example
-      packageName="@atlaskit/editor-bitbucket-transformer"
-      Component={require('../examples/1-bitbucket-html').default}
-      title="Bitbucket HTML"
-      source={require('!!raw-loader!../examples/1-bitbucket-html')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/editor-bitbucket-transformer"
+			Component={require('../examples/1-bitbucket-html').default}
+			title="Bitbucket HTML"
+			source={require('!!raw-loader!../examples/1-bitbucket-html')}
+		/>
+	)}
 `;

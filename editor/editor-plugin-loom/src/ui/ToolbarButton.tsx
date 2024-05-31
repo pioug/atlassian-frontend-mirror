@@ -14,38 +14,42 @@ import { recordVideo } from '../commands';
 import type { LoomPlugin } from '../plugin';
 
 const LoomToolbarButton = ({
-  disabled,
-  api,
-  appearance,
-  intl: { formatMessage },
+	disabled,
+	api,
+	appearance,
+	intl: { formatMessage },
 }: {
-  disabled: boolean;
-  appearance: EditorAppearance;
-  api: ExtractInjectionAPI<LoomPlugin> | undefined;
+	disabled: boolean;
+	appearance: EditorAppearance;
+	api: ExtractInjectionAPI<LoomPlugin> | undefined;
 } & WrappedComponentProps) => {
-  const { loomState } = useSharedPluginState(api, ['loom']);
-  if (!loomState) {
-    return null;
-  }
-  const label = formatMessage(appearance === 'comment' ? toolbarInsertBlockMessages.addLoomVideoComment : toolbarInsertBlockMessages.addLoomVideo);
+	const { loomState } = useSharedPluginState(api, ['loom']);
+	if (!loomState) {
+		return null;
+	}
+	const label = formatMessage(
+		appearance === 'comment'
+			? toolbarInsertBlockMessages.addLoomVideoComment
+			: toolbarInsertBlockMessages.addLoomVideo,
+	);
 
-  return (
-    <ToolbarButton
-      buttonId={TOOLBAR_BUTTON.RECORD_VIDEO}
-      onClick={() =>
-        api?.core?.actions.execute(
-          recordVideo({
-            inputMethod: INPUT_METHOD.TOOLBAR,
-            editorAnalyticsAPI: api?.analytics?.actions,
-          }),
-        )
-      }
-      // Disable the icon while the SDK isn't initialised
-      disabled={disabled || !loomState?.isEnabled}
-      title={label}
-      iconBefore={<LoomIcon label={label} size="small" />}
-    />
-  );
+	return (
+		<ToolbarButton
+			buttonId={TOOLBAR_BUTTON.RECORD_VIDEO}
+			onClick={() =>
+				api?.core?.actions.execute(
+					recordVideo({
+						inputMethod: INPUT_METHOD.TOOLBAR,
+						editorAnalyticsAPI: api?.analytics?.actions,
+					}),
+				)
+			}
+			// Disable the icon while the SDK isn't initialised
+			disabled={disabled || !loomState?.isEnabled}
+			title={label}
+			iconBefore={<LoomIcon label={label} size="small" />}
+		/>
+	);
 };
 
 export default injectIntl(LoomToolbarButton);

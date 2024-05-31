@@ -2,104 +2,100 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
-import {
-  androidComposeStart,
-  androidComposeContinue,
-  androidComposeEnd,
-} from '../../_utils';
+import { androidComposeStart, androidComposeContinue, androidComposeEnd } from '../../_utils';
 
 import type { EditorViewWithComposition } from '../../../../types';
 
 describe('composition events on mobile', () => {
-  const createEditor = createEditorFactory();
+	const createEditor = createEditorFactory();
 
-  const editor = (doc: DocBuilder): EditorViewWithComposition => {
-    const { editorView } = createEditor({
-      doc,
-    });
+	const editor = (doc: DocBuilder): EditorViewWithComposition => {
+		const { editorView } = createEditor({
+			doc,
+		});
 
-    return editorView as EditorViewWithComposition;
-  };
+		return editorView as EditorViewWithComposition;
+	};
 
-  beforeEach(() => jest.useFakeTimers());
+	beforeEach(() => jest.useFakeTimers());
 
-  it('updates PM state on compositionstart', () => {
-    const editorView = editor(doc(p()));
-    expect(editorView.composing).toBeFalsy();
+	it('updates PM state on compositionstart', () => {
+		const editorView = editor(doc(p()));
+		expect(editorView.composing).toBeFalsy();
 
-    // mutate DOM to final state
-    editorView.dom.children[0].innerHTML = 'hello';
+		// mutate DOM to final state
+		editorView.dom.children[0].innerHTML = 'hello';
 
-    // start composition
-    androidComposeStart(editorView, 'hello');
-    expect(editorView.composing).toBeTruthy();
+		// start composition
+		androidComposeStart(editorView, 'hello');
+		expect(editorView.composing).toBeTruthy();
 
-    jest.runOnlyPendingTimers();
+		jest.runOnlyPendingTimers();
 
-    expect(editorView.composing).toBeFalsy();
-    expect(editorView.state.doc).toEqualDocument(doc(p('hello')));
-  });
+		expect(editorView.composing).toBeFalsy();
+		expect(editorView.state.doc).toEqualDocument(doc(p('hello')));
+	});
 
-  it('updates PM state on single compositionupdate', () => {
-    const editorView = editor(doc(p('hello ')));
-    expect(editorView.composing).toBeFalsy();
+	it('updates PM state on single compositionupdate', () => {
+		const editorView = editor(doc(p('hello ')));
+		expect(editorView.composing).toBeFalsy();
 
-    // mutate DOM to final state
-    editorView.dom.children[0].innerHTML = "hello I'm";
+		// mutate DOM to final state
+		editorView.dom.children[0].innerHTML = "hello I'm";
 
-    // continue composition
-    androidComposeContinue(editorView, "I'm");
-    expect(editorView.composing).toBeTruthy();
+		// continue composition
+		androidComposeContinue(editorView, "I'm");
+		expect(editorView.composing).toBeTruthy();
 
-    jest.runOnlyPendingTimers();
+		jest.runOnlyPendingTimers();
 
-    expect(editorView.composing).toBeFalsy();
-    expect(editorView.state.doc).toEqualDocument(doc(p('hello I’m')));
-  });
+		expect(editorView.composing).toBeFalsy();
+		expect(editorView.state.doc).toEqualDocument(doc(p('hello I’m')));
+	});
 
-  it('updates PM state on multiple compositionupdate', () => {
-    const editorView = editor(doc(p('hello ')));
-    expect(editorView.composing).toBeFalsy();
+	it('updates PM state on multiple compositionupdate', () => {
+		const editorView = editor(doc(p('hello ')));
+		expect(editorView.composing).toBeFalsy();
 
-    // mutate DOM to final state
-    editorView.dom.children[0].innerHTML = 'hello it';
+		// mutate DOM to final state
+		editorView.dom.children[0].innerHTML = 'hello it';
 
-    // continue multiple compositions
-    androidComposeContinue(editorView, "I'm");
-    expect(editorView.composing).toBeTruthy();
+		// continue multiple compositions
+		androidComposeContinue(editorView, "I'm");
+		expect(editorView.composing).toBeTruthy();
 
-    jest.runOnlyPendingTimers();
+		jest.runOnlyPendingTimers();
 
-    androidComposeContinue(editorView, 'it');
-    expect(editorView.composing).toBeTruthy();
+		androidComposeContinue(editorView, 'it');
+		expect(editorView.composing).toBeTruthy();
 
-    jest.runOnlyPendingTimers();
+		jest.runOnlyPendingTimers();
 
-    expect(editorView.composing).toBeFalsy();
-    expect(editorView.state.doc).toEqualDocument(doc(p('hello it')));
-  });
+		expect(editorView.composing).toBeFalsy();
+		expect(editorView.state.doc).toEqualDocument(doc(p('hello it')));
+	});
 
-  it('updates PM state on compositionend', () => {
-    const editorView = editor(doc(p('hello it')));
-    expect(editorView.composing).toBeFalsy();
+	it('updates PM state on compositionend', () => {
+		const editorView = editor(doc(p('hello it')));
+		expect(editorView.composing).toBeFalsy();
 
-    // mutate DOM to final state
-    editorView.dom.children[0].innerHTML = 'hello it works!';
+		// mutate DOM to final state
+		editorView.dom.children[0].innerHTML = 'hello it works!';
 
-    // continue composition till end
-    androidComposeContinue(editorView, 'workz');
-    expect(editorView.composing).toBeTruthy();
+		// continue composition till end
+		androidComposeContinue(editorView, 'workz');
+		expect(editorView.composing).toBeTruthy();
 
-    jest.runOnlyPendingTimers();
+		jest.runOnlyPendingTimers();
 
-    androidComposeContinue(editorView, 'workgrrrbbrrr');
-    expect(editorView.composing).toBeTruthy();
+		androidComposeContinue(editorView, 'workgrrrbbrrr');
+		expect(editorView.composing).toBeTruthy();
 
-    jest.runOnlyPendingTimers();
+		jest.runOnlyPendingTimers();
 
-    androidComposeEnd(editorView, 'works!');
+		androidComposeEnd(editorView, 'works!');
 
-    expect(editorView.composing).toBeFalsy();
-    expect(editorView.state.doc).toEqualDocument(doc(p('hello it works!')));
-  });
+		expect(editorView.composing).toBeFalsy();
+		expect(editorView.state.doc).toEqualDocument(doc(p('hello it works!')));
+	});
 });

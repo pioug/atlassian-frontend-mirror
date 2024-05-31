@@ -1,7 +1,7 @@
 import {
-  type NodeSerializerOpts,
-  type SmartCardWithDataAttributes,
-  type SmartCardWithUrlAttributes,
+	type NodeSerializerOpts,
+	type SmartCardWithDataAttributes,
+	type SmartCardWithUrlAttributes,
 } from '../interfaces';
 import { createTag } from '../create-tag';
 import { createTable } from '../table-util';
@@ -76,78 +76,63 @@ export const styles = `
 `;
 
 const renderBlockCardWithData = (attrs: SmartCardWithDataAttributes) => {
-  const name = attrs.data.name;
-  const summary = attrs.data.summary;
-  const heading = createTag('div', { class: className + '-headingData' }, name);
-  const text = createTag(
-    'div',
-    { class: className + '-contentTextWithData' },
-    summary,
-  );
+	const name = attrs.data.name;
+	const summary = attrs.data.summary;
+	const heading = createTag('div', { class: className + '-headingData' }, name);
+	const text = createTag('div', { class: className + '-contentTextWithData' }, summary);
 
-  const blockContent = createTable(
-    [
-      [
-        {
-          attrs: { class: className + '-cardHeaderTd' },
-          text: attrs.data.generator.name,
-        },
-      ],
-      [
-        {
-          attrs: { class: className + '-cardContentTd' },
-          text: `${heading}${text}`,
-        },
-      ],
-    ],
-    {},
-    { class: className + '-block' },
-  );
+	const blockContent = createTable(
+		[
+			[
+				{
+					attrs: { class: className + '-cardHeaderTd' },
+					text: attrs.data.generator.name,
+				},
+			],
+			[
+				{
+					attrs: { class: className + '-cardContentTd' },
+					text: `${heading}${text}`,
+				},
+			],
+		],
+		{},
+		{ class: className + '-block' },
+	);
 
-  return createTable(
-    [
-      [
-        {
-          text: blockContent,
-          attrs: { class: className + '-outerTd' },
-        },
-      ],
-    ],
-    {},
-    { class: className + '-block' },
-  );
+	return createTable(
+		[
+			[
+				{
+					text: blockContent,
+					attrs: { class: className + '-outerTd' },
+				},
+			],
+		],
+		{},
+		{ class: className + '-block' },
+	);
 };
 
-const renderBlockCard = (
-  attrs: SmartCardWithUrlAttributes,
-  text?: string | null,
-) => {
-  const title = text || attrs.url;
-  const heading = createTag(
-    'div',
-    { class: `${className}-block ${className}-headingUrl` },
-    title,
-  );
+const renderBlockCard = (attrs: SmartCardWithUrlAttributes, text?: string | null) => {
+	const title = text || attrs.url;
+	const heading = createTag('div', { class: `${className}-block ${className}-headingUrl` }, title);
 
-  return createTable(
-    [[{ attrs: { class: className + '-outerTd' }, text: heading }]],
-    {},
-    { class: className + '-block' },
-  );
+	return createTable(
+		[[{ attrs: { class: className + '-outerTd' }, text: heading }]],
+		{},
+		{ class: className + '-block' },
+	);
 };
 
 export default function blockCard({ attrs, text }: NodeSerializerOpts) {
-  if (attrs.data) {
-    const href = attrs.data.url;
-    const card = renderBlockCardWithData(attrs as SmartCardWithDataAttributes);
-    return href
-      ? createTag('a', { href, class: className + '-link' }, card)
-      : card;
-  }
+	if (attrs.data) {
+		const href = attrs.data.url;
+		const card = renderBlockCardWithData(attrs as SmartCardWithDataAttributes);
+		return href ? createTag('a', { href, class: className + '-link' }, card) : card;
+	}
 
-  const href = attrs.url;
-  const card = renderBlockCard(attrs as SmartCardWithUrlAttributes, text);
-  return href
-    ? createTag('a', { href, class: className + '-link' }, card)
-    : card;
+	const href = attrs.url;
+	const card = renderBlockCard(attrs as SmartCardWithUrlAttributes, text);
+	return href ? createTag('a', { href, class: className + '-link' }, card) : card;
 }

@@ -3,6 +3,6 @@ import * as unsupportedInlineAdf from '../__fixtures__/unsupported-inline.adf.js
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 export const UnsupportedInlineRenderer = generateRendererComponent({
-  document: unsupportedInlineAdf,
-  appearance: 'full-width',
+	document: unsupportedInlineAdf,
+	appearance: 'full-width',
 });

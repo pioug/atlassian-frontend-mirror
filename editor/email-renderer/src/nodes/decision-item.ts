@@ -5,7 +5,7 @@ import { createContentId } from '../static';
 import { createClassName } from '../styles/util';
 
 enum DecisionState {
-  DECIDED = 'DECIDED',
+	DECIDED = 'DECIDED',
 }
 
 const className = createClassName('decision');
@@ -35,47 +35,43 @@ export const styles = `
 `;
 
 const icons: { [K in DecisionState]: string } = {
-  DECIDED: createTag('img', {
-    class: className + '-icon',
-    src: createContentId('decision'),
-  }),
+	DECIDED: createTag('img', {
+		class: className + '-icon',
+		src: createContentId('decision'),
+	}),
 };
 
 interface DecisionItemAttrs {
-  state: DecisionState;
-  localId: string;
+	state: DecisionState;
+	localId: string;
 }
 
 export default function decisionItem({ attrs, text }: NodeSerializerOpts) {
-  // If there is no content, we shouldn't render anything
-  if (!text) {
-    return '';
-  }
+	// If there is no content, we shouldn't render anything
+	if (!text) {
+		return '';
+	}
 
-  const state = (attrs as DecisionItemAttrs).state;
+	const state = (attrs as DecisionItemAttrs).state;
 
-  const iconTd: TableData = {
-    text: icons[state],
-    attrs: { class: className + '-iconTd' },
-  };
+	const iconTd: TableData = {
+		text: icons[state],
+		attrs: { class: className + '-iconTd' },
+	};
 
-  const textTd: TableData = {
-    text,
-    attrs: { class: className + '-textTd' },
-  };
+	const textTd: TableData = {
+		text,
+		attrs: { class: className + '-textTd' },
+	};
 
-  const mainContentTable = createTable(
-    [[iconTd, textTd]],
-    {},
-    { class: className + '-content' },
-  );
+	const mainContentTable = createTable([[iconTd, textTd]], {}, { class: className + '-content' });
 
-  return createTable([
-    [
-      {
-        text: mainContentTable,
-        attrs: { class: className },
-      },
-    ],
-  ]);
+	return createTable([
+		[
+			{
+				text: mainContentTable,
+				attrs: { class: className },
+			},
+		],
+	]);
 }

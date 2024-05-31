@@ -6,9 +6,8 @@ import reducer from './reducer';
 
 export const mobileDimensionsPluginKey = new PluginKey('mobileDimensions');
 
-export const { createPluginState, getPluginState, createCommand } =
-  pluginFactory<
-    MobileDimensionsPluginState,
-    MobileDimensionsAction,
-    MobileDimensionsPluginState
-  >(mobileDimensionsPluginKey, reducer);
+export const { createPluginState, getPluginState, createCommand } = pluginFactory<
+	MobileDimensionsPluginState,
+	MobileDimensionsAction,
+	MobileDimensionsPluginState
+>(mobileDimensionsPluginKey, reducer);

@@ -15,157 +15,141 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const toolbarScrollButtons = css({
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  gridGap: token('space.050', '4px'),
-  padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
-  borderLeft: `solid ${token('color.border', N30)} 1px`,
-  flexShrink: 0,
-  alignItems: 'center',
+	display: 'grid',
+	gridTemplateColumns: '1fr 1fr',
+	gridGap: token('space.050', '4px'),
+	padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
+	borderLeft: `solid ${token('color.border', N30)} 1px`,
+	flexShrink: 0,
+	alignItems: 'center',
 });
 
 const LeftIcon = ChevronLeftLargeIcon as React.ComponentClass<any>;
 const RightIcon = ChevronRightLargeIcon as React.ComponentClass<any>;
 
 interface ScrollButtonsProps {
-  intl: IntlShape;
-  scrollContainerRef: React.RefObject<HTMLDivElement>;
-  node: Node;
-  disabled: boolean;
+	intl: IntlShape;
+	scrollContainerRef: React.RefObject<HTMLDivElement>;
+	node: Node;
+	disabled: boolean;
 }
 
-export const ScrollButtons = ({
-  intl,
-  scrollContainerRef,
-  node,
-  disabled,
-}: ScrollButtonsProps) => {
-  const buttonsContainerRef = useRef<HTMLDivElement>(null);
-  const [needScroll, setNeedScroll] = useState(false);
-  const [canScrollLeft, setCanScrollLeft] = useState(true);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+export const ScrollButtons = ({ intl, scrollContainerRef, node, disabled }: ScrollButtonsProps) => {
+	const buttonsContainerRef = useRef<HTMLDivElement>(null);
+	const [needScroll, setNeedScroll] = useState(false);
+	const [canScrollLeft, setCanScrollLeft] = useState(true);
+	const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const setCanScrollDebounced = rafSchedule(() => {
-    // Refs are null before mounting and after unmount
-    if (!scrollContainerRef.current) {
-      return;
-    }
-    const { scrollLeft, scrollWidth, offsetWidth } = scrollContainerRef.current;
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft + offsetWidth < scrollWidth - 1); // -1 to account for half pixel
-  });
+	const setCanScrollDebounced = rafSchedule(() => {
+		// Refs are null before mounting and after unmount
+		if (!scrollContainerRef.current) {
+			return;
+		}
+		const { scrollLeft, scrollWidth, offsetWidth } = scrollContainerRef.current;
+		setCanScrollLeft(scrollLeft > 0);
+		setCanScrollRight(scrollLeft + offsetWidth < scrollWidth - 1); // -1 to account for half pixel
+	});
 
-  const onScroll = () => setCanScrollDebounced();
+	const onScroll = () => setCanScrollDebounced();
 
-  const scrollLeft = () => {
-    const { width: scrollContainerWidth = 0 } =
-      scrollContainerRef.current?.getBoundingClientRect() || {};
+	const scrollLeft = () => {
+		const { width: scrollContainerWidth = 0 } =
+			scrollContainerRef.current?.getBoundingClientRect() || {};
 
-    const scrollLeft = scrollContainerRef.current?.scrollLeft || 0;
+		const scrollLeft = scrollContainerRef.current?.scrollLeft || 0;
 
-    // scroll to current position - scroll container width
-    let scrollTo = scrollLeft - scrollContainerWidth;
+		// scroll to current position - scroll container width
+		let scrollTo = scrollLeft - scrollContainerWidth;
 
-    scrollContainerRef.current?.scrollTo({
-      top: 0,
-      left: scrollTo,
-      behavior: 'smooth',
-    });
-  };
+		scrollContainerRef.current?.scrollTo({
+			top: 0,
+			left: scrollTo,
+			behavior: 'smooth',
+		});
+	};
 
-  const scrollRight = () => {
-    const { width: scrollContainerWidth = 0 } =
-      scrollContainerRef.current?.getBoundingClientRect() || {};
+	const scrollRight = () => {
+		const { width: scrollContainerWidth = 0 } =
+			scrollContainerRef.current?.getBoundingClientRect() || {};
 
-    const scrollLeft = scrollContainerRef.current?.scrollLeft || 0;
+		const scrollLeft = scrollContainerRef.current?.scrollLeft || 0;
 
-    // scroll to current position + scroll container width
-    let scrollTo = scrollLeft + scrollContainerWidth;
+		// scroll to current position + scroll container width
+		let scrollTo = scrollLeft + scrollContainerWidth;
 
-    scrollContainerRef.current?.scrollTo({
-      top: 0,
-      left: scrollTo,
-      behavior: 'smooth',
-    });
-  };
+		scrollContainerRef.current?.scrollTo({
+			top: 0,
+			left: scrollTo,
+			behavior: 'smooth',
+		});
+	};
 
-  const resizeObserver = new ResizeObserver(t => {
-    const widthNeededToShowAllItems =
-      scrollContainerRef.current?.scrollWidth || 0;
-    const availableSpace = (
-      scrollContainerRef.current?.parentNode as HTMLElement
-    )?.offsetWidth;
+	const resizeObserver = new ResizeObserver((t) => {
+		const widthNeededToShowAllItems = scrollContainerRef.current?.scrollWidth || 0;
+		const availableSpace = (scrollContainerRef.current?.parentNode as HTMLElement)?.offsetWidth;
 
-    if (availableSpace >= widthNeededToShowAllItems) {
-      setNeedScroll(false);
-    } else {
-      setNeedScroll(true);
-      onScroll();
-    }
-  });
+		if (availableSpace >= widthNeededToShowAllItems) {
+			setNeedScroll(false);
+		} else {
+			setNeedScroll(true);
+			onScroll();
+		}
+	});
 
-  useEffect(() => {
-    onScroll();
-    const scrollContainerRefCurrent = scrollContainerRef.current;
-    if (scrollContainerRefCurrent) {
-      // enable/disable scroll buttons depending on scroll position
-      // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-      scrollContainerRefCurrent.addEventListener('scroll', onScroll);
+	useEffect(() => {
+		onScroll();
+		const scrollContainerRefCurrent = scrollContainerRef.current;
+		if (scrollContainerRefCurrent) {
+			// enable/disable scroll buttons depending on scroll position
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			scrollContainerRefCurrent.addEventListener('scroll', onScroll);
 
-      // watch for toolbar resize and show/hide scroll buttons if needed
-      resizeObserver.observe(scrollContainerRefCurrent);
-    }
+			// watch for toolbar resize and show/hide scroll buttons if needed
+			resizeObserver.observe(scrollContainerRefCurrent);
+		}
 
-    return () => {
-      if (scrollContainerRefCurrent) {
-        // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-        scrollContainerRefCurrent.removeEventListener('scroll', onScroll);
-        resizeObserver.unobserve(scrollContainerRefCurrent);
-      }
-      setCanScrollDebounced.cancel();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+		return () => {
+			if (scrollContainerRefCurrent) {
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+				scrollContainerRefCurrent.removeEventListener('scroll', onScroll);
+				resizeObserver.unobserve(scrollContainerRefCurrent);
+			}
+			setCanScrollDebounced.cancel();
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-  useEffect(() => {
-    const scrollContainerRefCurrent = scrollContainerRef.current;
-    if (scrollContainerRefCurrent) {
-      // reset scroll position when switching from one node with toolbar to another
-      // scroll to made optional as it may not be rendered in testing env
-      scrollContainerRefCurrent.scrollTo?.({
-        left: 0,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [node.type]);
+	useEffect(() => {
+		const scrollContainerRefCurrent = scrollContainerRef.current;
+		if (scrollContainerRefCurrent) {
+			// reset scroll position when switching from one node with toolbar to another
+			// scroll to made optional as it may not be rendered in testing env
+			scrollContainerRefCurrent.scrollTo?.({
+				left: 0,
+			});
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [node.type]);
 
-  return needScroll ? (
-    <div
-      ref={buttonsContainerRef}
-      css={toolbarScrollButtons}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className="scroll-buttons"
-    >
-      <Button
-        title={intl.formatMessage(messages.floatingToolbarScrollLeft)}
-        icon={
-          <LeftIcon
-            label={intl.formatMessage(messages.floatingToolbarScrollLeft)}
-          />
-        }
-        onClick={scrollLeft}
-        disabled={!canScrollLeft || disabled}
-      />
-      <Button
-        title={intl.formatMessage(messages.floatingToolbarScrollRight)}
-        icon={
-          <RightIcon
-            label={intl.formatMessage(messages.floatingToolbarScrollRight)}
-          />
-        }
-        onClick={scrollRight}
-        disabled={!canScrollRight || disabled}
-      />
-    </div>
-  ) : null;
+	return needScroll ? (
+		<div
+			ref={buttonsContainerRef}
+			css={toolbarScrollButtons}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="scroll-buttons"
+		>
+			<Button
+				title={intl.formatMessage(messages.floatingToolbarScrollLeft)}
+				icon={<LeftIcon label={intl.formatMessage(messages.floatingToolbarScrollLeft)} />}
+				onClick={scrollLeft}
+				disabled={!canScrollLeft || disabled}
+			/>
+			<Button
+				title={intl.formatMessage(messages.floatingToolbarScrollRight)}
+				icon={<RightIcon label={intl.formatMessage(messages.floatingToolbarScrollRight)} />}
+				onClick={scrollRight}
+				disabled={!canScrollRight || disabled}
+			/>
+		</div>
+	) : null;
 };

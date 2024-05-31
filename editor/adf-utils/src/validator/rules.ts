@@ -1,7 +1,7 @@
 import { isSafeUrl } from '@atlaskit/adf-schema/url';
 
 export const validatorFnMap: {
-  [key: string]: (value: string) => boolean;
+	[key: string]: (value: string) => boolean;
 } = {
-  safeUrl: isSafeUrl,
+	safeUrl: isSafeUrl,
 };

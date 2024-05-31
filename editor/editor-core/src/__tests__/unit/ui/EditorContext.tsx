@@ -7,40 +7,38 @@ import EditorActions from '../../../actions';
 import EditorContext from '../../../ui/EditorContext';
 
 class EditorContextReceiver extends React.Component {
-  static contextTypes = {
-    editorActions: PropTypes.object,
-  };
+	static contextTypes = {
+		editorActions: PropTypes.object,
+	};
 
-  render() {
-    return null;
-  }
+	render() {
+		return null;
+	}
 }
 
 describe('EditorContext', () => {
-  it('should create new EditorActions and pass it down using context', () => {
-    const wrapper = mount(
-      <EditorContext>
-        <EditorContextReceiver />
-      </EditorContext>,
-    );
-    expect(
-      (wrapper.find(EditorContextReceiver).instance().context as any)
-        .editorActions,
-    ).toBeDefined();
-    wrapper.unmount();
-  });
+	it('should create new EditorActions and pass it down using context', () => {
+		const wrapper = mount(
+			<EditorContext>
+				<EditorContextReceiver />
+			</EditorContext>,
+		);
+		expect(
+			(wrapper.find(EditorContextReceiver).instance().context as any).editorActions,
+		).toBeDefined();
+		wrapper.unmount();
+	});
 
-  it('should re-use EditorActions passed as a property', () => {
-    const editorActions = new EditorActions();
-    const wrapper = mount(
-      <EditorContext editorActions={editorActions}>
-        <EditorContextReceiver />
-      </EditorContext>,
-    );
-    expect(
-      (wrapper.find(EditorContextReceiver).instance().context as any)
-        .editorActions,
-    ).toBe(editorActions);
-    wrapper.unmount();
-  });
+	it('should re-use EditorActions passed as a property', () => {
+		const editorActions = new EditorActions();
+		const wrapper = mount(
+			<EditorContext editorActions={editorActions}>
+				<EditorContextReceiver />
+			</EditorContext>,
+		);
+		expect((wrapper.find(EditorContextReceiver).instance().context as any).editorActions).toBe(
+			editorActions,
+		);
+		wrapper.unmount();
+	});
 });

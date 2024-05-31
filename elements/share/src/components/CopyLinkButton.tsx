@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
+import { Box, xcss } from '@atlaskit/primitives';
 import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -20,16 +21,16 @@ const AUTO_DISMISS_SECONDS = 8;
 
 export const AUTO_DISMISS_MS = AUTO_DISMISS_SECONDS * 1000;
 
-export const messageContainerStyle = css`
-  display: flex;
-  align-items: center;
-  margin: ${token('space.negative.100', '-8px')}
-    ${token('space.negative.200', '-16px')};
-`;
+export const messageContainerStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  margin: `${token('space.negative.100', '-8px')}
+    ${token('space.negative.200', '-16px')}`,
+});
 
-const messageTextStyle = css`
-  text-indent: ${token('space.075', '6px')};
-`;
+const messageTextStyle = xcss({
+  textIndent: 'space.075',
+});
 
 const isSafari = navigator.userAgent.indexOf('Safari');
 
@@ -114,6 +115,8 @@ export class CopyLinkButton extends React.Component<Props, State> {
       <Button
         aria-label={copyLinkButtonText}
         isDisabled={isDisabled}
+        // TODO: (from codemod)"link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.
+        // https://product-fabric.atlassian.net/browse/DSP-18980
         appearance="subtle-link"
         iconBefore={iconBefore || <LinkFilledIcon label="" size="medium" />}
         onClick={this.handleClick}
@@ -150,7 +153,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
                     label=""
                     primaryColor={token('color.icon.success', G300)}
                   />
-                  <div css={messageTextStyle}>{copiedToClipboardText}</div>
+                  <Box xcss={messageTextStyle}>{copiedToClipboardText}</Box>
                 </React.Fragment>
               </div>
             </InlineDialogContentWrapper>

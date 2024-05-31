@@ -13,5 +13,5 @@ export type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 export { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 
 export function isPuppeteer(page: TestPage): page is PuppeteerPage {
-  return isVisualRegression();
+	return isVisualRegression();
 }

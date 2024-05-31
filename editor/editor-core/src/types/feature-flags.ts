@@ -1,4 +1,1 @@
-export type {
-  FeatureFlags,
-  FeatureFlagKey,
-} from '@atlaskit/editor-common/types';
+export type { FeatureFlags, FeatureFlagKey } from '@atlaskit/editor-common/types';

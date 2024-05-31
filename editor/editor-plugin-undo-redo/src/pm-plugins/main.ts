@@ -4,7 +4,7 @@ import type { PMPluginFactory } from '@atlaskit/editor-common/types';
 import { pluginKey } from './plugin-key';
 
 export const createPlugin: PMPluginFactory = ({ dispatch }) => {
-  return new SafePlugin({
-    key: pluginKey,
-  });
+	return new SafePlugin({
+		key: pluginKey,
+	});
 };

@@ -30,274 +30,274 @@ import type { DisableSpellcheckByBrowser } from './supported-browsers';
  * Example: name = "newInsertionBehaviour" -> "Enable new insertion behaviour"
  */
 export type FeatureFlags = {
-  /**
-   * @description
-   * Whether a placeholder bracket hint was provided (`string => boolean`)
-   * Placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
-   * This is used to aid migration for TinyMCE power users to the new Fabric editor power user shortcuts.
-   *
-   * @see https://product-fabric.atlassian.net/l/c/4JLjusAP
-   * @default true
-   */
-  placeholderBracketHint?: boolean;
+	/**
+	 * @description
+	 * Whether a placeholder bracket hint was provided (`string => boolean`)
+	 * Placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
+	 * This is used to aid migration for TinyMCE power users to the new Fabric editor power user shortcuts.
+	 *
+	 * @see https://product-fabric.atlassian.net/l/c/4JLjusAP
+	 * @default true
+	 */
+	placeholderBracketHint?: boolean;
 
-  /**
-   * @description
-   * Whether placeholder hints were provided (`string[] => boolean`)
-   * Placeholder text values to display on new empty lines.
-   *
-   * @see https://product-fabric.atlassian.net/l/c/GG1Yv9cK
-   * @default false
-   */
-  placeholderHints?: boolean;
+	/**
+	 * @description
+	 * Whether placeholder hints were provided (`string[] => boolean`)
+	 * Placeholder text values to display on new empty lines.
+	 *
+	 * @see https://product-fabric.atlassian.net/l/c/GG1Yv9cK
+	 * @default false
+	 */
+	placeholderHints?: boolean;
 
-  /**
-   * @description
-   * Enable `localId` generation for extensions.
-   *
-   * @see https://product-fabric.atlassian.net/l/c/2m0i9jLX
-   * @default false
-   */
-  extensionLocalIdGeneration?: boolean;
+	/**
+	 * @description
+	 * Enable `localId` generation for extensions.
+	 *
+	 * @see https://product-fabric.atlassian.net/l/c/2m0i9jLX
+	 * @default false
+	 */
+	extensionLocalIdGeneration?: boolean;
 
-  /**
-   * @description
-   * Enable add column custom step
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-8856
-   * @default false
-   */
-  addColumnWithCustomStep?: boolean;
+	/**
+	 * @description
+	 * Enable add column custom step
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-8856
+	 * @default false
+	 */
+	addColumnWithCustomStep?: boolean;
 
-  /**
-   * @description
-   * Enable undo/redo buttons and functionality within the editor
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-9537
-   * @default false
-   */
-  undoRedoButtons?: boolean;
+	/**
+	 * @description
+	 * Enable undo/redo buttons and functionality within the editor
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-9537
+	 * @default false
+	 */
+	undoRedoButtons?: boolean;
 
-  /**
-   * @description
-   * Measure render performance for all tracked analytics events
-   *
-   * @default false
-   */
-  catchAllTracking?: boolean;
+	/**
+	 * @description
+	 * Measure render performance for all tracked analytics events
+	 *
+	 * @default false
+	 */
+	catchAllTracking?: boolean;
 
-  /**
-   * @private
-   * @deprecated This is always on now and this prop is no longer required.
-   * @description
-   * Yield to user interaction work before sending analytics
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-10584
-   * @default false
-   */
-  queueAnalytics?: boolean;
+	/**
+	 * @private
+	 * @deprecated This is always on now and this prop is no longer required.
+	 * @description
+	 * Yield to user interaction work before sending analytics
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-10584
+	 * @default false
+	 */
+	queueAnalytics?: boolean;
 
-  /**
-   * Show the avatar group as a plugin
-   * @see https://product-fabric.atlassian.net/browse/CERN-747
-   * @default false
-   */
-  showAvatarGroupAsPlugin?: boolean;
+	/**
+	 * Show the avatar group as a plugin
+	 * @see https://product-fabric.atlassian.net/browse/CERN-747
+	 * @default false
+	 */
+	showAvatarGroupAsPlugin?: boolean;
 
-  /**
-   * @description
-   * Enables docStructure for unhandleErrorEvents
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-12998
-   * @default false
-   */
-  errorBoundaryDocStructure?: boolean;
+	/**
+	 * @description
+	 * Enables docStructure for unhandleErrorEvents
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-12998
+	 * @default false
+	 */
+	errorBoundaryDocStructure?: boolean;
 
-  /**
-   * @description
-   * Enables docStructure for synchronyError
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-12998
-   * @default false
-   */
-  synchronyErrorDocStructure?: boolean;
+	/**
+	 * @description
+	 * Enables docStructure for synchronyError
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-12998
+	 * @default false
+	 */
+	synchronyErrorDocStructure?: boolean;
 
-  /**
-   * @decsription
-   * Enables the view update subscription plugin
-   *
-   * @default false
-   */
-  enableViewUpdateSubscription?: boolean;
+	/**
+	 * @decsription
+	 * Enables the view update subscription plugin
+	 *
+	 * @default false
+	 */
+	enableViewUpdateSubscription?: boolean;
 
-  /**
-   * @description
-   * Enable scroll-to-telepointer for collab avatars
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-12460
-   * @default false
-   */
-  collabAvatarScroll?: boolean;
+	/**
+	 * @description
+	 * Enable scroll-to-telepointer for collab avatars
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-12460
+	 * @default false
+	 */
+	collabAvatarScroll?: boolean;
 
-  /**
-   * @description
-   * Enable UFO experiences
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-13059
-   * @default false
-   */
-  ufo?: boolean;
+	/**
+	 * @description
+	 * Enable UFO experiences
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-13059
+	 * @default false
+	 */
+	ufo?: boolean;
 
-  /**
-   * Split editor toolbar to two lines when viewport is small
-   * @see https://product-fabric.atlassian.net/browse/CERN-1124
-   * @default false
-   */
-  twoLineEditorToolbar?: boolean;
+	/**
+	 * Split editor toolbar to two lines when viewport is small
+	 * @see https://product-fabric.atlassian.net/browse/CERN-1124
+	 * @default false
+	 */
+	twoLineEditorToolbar?: boolean;
 
-  /**
-   * @description
-   * Enable new collab service
-   * @see https://product-fabric.atlassian.net/browse/ED-14097
-   * @default false
-   */
-  useNativeCollabPlugin?: boolean;
+	/**
+	 * @description
+	 * Enable new collab service
+	 * @see https://product-fabric.atlassian.net/browse/ED-14097
+	 * @default false
+	 */
+	useNativeCollabPlugin?: boolean;
 
-  /**
-   * Enable custom up/down key handler when cursor below/above an inline media
-   * @see https://product-fabric.atlassian.net/browse/ED-13066
-   * Chrome bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1227468
-   * @default undefined
-   */
-  chromeCursorHandlerFixedVersion?: number;
+	/**
+	 * Enable custom up/down key handler when cursor below/above an inline media
+	 * @see https://product-fabric.atlassian.net/browse/ED-13066
+	 * Chrome bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1227468
+	 * @default undefined
+	 */
+	chromeCursorHandlerFixedVersion?: number;
 
-  /**
-   * @description
-   * Generic way of disabling spellcheck per browser by version range
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-14510
-   * @default {}
-   * Example:
-   * {
-   *    ie: {
-   *      minimum: 101,
-   *    },
-   *    chrome: {
-   *      minimum: 96,
-   *      maximum: 109,
-   *    },
-   * };
-   */
-  disableSpellcheckByBrowser?: DisableSpellcheckByBrowser | undefined;
+	/**
+	 * @description
+	 * Generic way of disabling spellcheck per browser by version range
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-14510
+	 * @default {}
+	 * Example:
+	 * {
+	 *    ie: {
+	 *      minimum: 101,
+	 *    },
+	 *    chrome: {
+	 *      minimum: 96,
+	 *      maximum: 109,
+	 *    },
+	 * };
+	 */
+	disableSpellcheckByBrowser?: DisableSpellcheckByBrowser | undefined;
 
-  /**
-   * @description
-   * Use the linking platform link picker for link insertion and edit
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone
-   * @see https://product-fabric.atlassian.net/browse/EDM-2577
-   * @default false
-   */
-  lpLinkPicker?: boolean;
+	/**
+	 * @description
+	 * Use the linking platform link picker for link insertion and edit
+	 *
+	 * @see https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3158246501/PP+Link+Picker+-+Standalone
+	 * @see https://product-fabric.atlassian.net/browse/EDM-2577
+	 * @default false
+	 */
+	lpLinkPicker?: boolean;
 
-  /**
-   * @description
-   * Enable the new editor media resize experience.
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-18316
-   * @default false
-   */
-  extendedMediaResizeExperience?: boolean | undefined;
+	/**
+	 * @description
+	 * Enable the new editor media resize experience.
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-18316
+	 * @default false
+	 */
+	extendedMediaResizeExperience?: boolean | undefined;
 
-  /**
-   * @description
-   * Enables the sticky scrollbar for tables
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-19773
-   * @default false
-   */
-  stickyScrollbar?: boolean | undefined;
+	/**
+	 * @description
+	 * Enables the sticky scrollbar for tables
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-19773
+	 * @default false
+	 */
+	stickyScrollbar?: boolean | undefined;
 
-  /**
-   * @description
-   * Enables the drag and drop rows/columns for tables
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-21807
-   * @default false
-   */
-  tableDragAndDrop?: boolean;
+	/**
+	 * @description
+	 * Enables the drag and drop rows/columns for tables
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-21807
+	 * @default false
+	 */
+	tableDragAndDrop?: boolean;
 
-  /**
-   * @description
-   * Enables the table selector button and popup in toolbar
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-21435
-   * @default false
-   */
-  tableSelector?: boolean;
+	/**
+	 * @description
+	 * Enables the table selector button and popup in toolbar
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-21435
+	 * @default false
+	 */
+	tableSelector?: boolean;
 
-  /**
-   * @description
-   * Enables table to scale in the same way as renderer
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-22364
-   * @default false
-   */
-  tablePreserveWidth?: boolean;
+	/**
+	 * @description
+	 * Enables table to scale in the same way as renderer
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-22364
+	 * @default false
+	 */
+	tablePreserveWidth?: boolean;
 
-  /**
-   * @description
-   * Enables new table columns and rows added to duplicate neighbouring cell colouring
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-22849
-   * @default false
-   */
-  tableDuplicateCellColouring?: boolean;
+	/**
+	 * @description
+	 * Enables new table columns and rows added to duplicate neighbouring cell colouring
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-22849
+	 * @default false
+	 */
+	tableDuplicateCellColouring?: boolean;
 
-  /**
-   * @description
-   * Enables commenting on media
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-22102
-   * @default false
-   */
-  commentsOnMedia?: boolean;
+	/**
+	 * @description
+	 * Enables commenting on media
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-22102
+	 * @default false
+	 */
+	commentsOnMedia?: boolean;
 
-  /**
-   * @description
-   * Enables macro interaction visual updates
-   *
-   * @see https://product-fabric.atlassian.net/browse/PGXT-4910
-   * @default false
-   */
-  macroInteractionUpdates?: boolean;
+	/**
+	 * @description
+	 * Enables macro interaction visual updates
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/PGXT-4910
+	 * @default false
+	 */
+	macroInteractionUpdates?: boolean;
 
-  /**
+	/**
    * @description
    * Enables bug fix on media comments
    *
   //  * @see https://product-fabric.atlassian.net/browse/ED-23093
    * @default false
    */
-  commentsOnMediaBugFix?: boolean;
+	commentsOnMediaBugFix?: boolean;
 
-  /**
-   * @description
-   * Toggle fix to mediaInline node with annotation
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-23094
-   * @default false
-   */
-  commentsOnMediaMediaInlineBugFix?: boolean;
+	/**
+	 * @description
+	 * Toggle fix to mediaInline node with annotation
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-23094
+	 * @default false
+	 */
+	commentsOnMediaMediaInlineBugFix?: boolean;
 
-  /**
-   * @description
-   * Enables extra analytics to be added for comments on media
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-23355
-   * @default false
-   */
-  commentsOnMediaAnalytics?: boolean;
+	/**
+	 * @description
+	 * Enables extra analytics to be added for comments on media
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-23355
+	 * @default false
+	 */
+	commentsOnMediaAnalytics?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

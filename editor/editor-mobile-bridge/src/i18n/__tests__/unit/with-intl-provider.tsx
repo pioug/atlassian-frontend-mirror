@@ -5,112 +5,98 @@ import { useIntl } from 'react-intl-next';
 import * as UseTranslationsHook from '../../use-translations';
 
 const TestComponent = withIntlProvider<{}>(
-  () => {
-    const intl = useIntl();
-    return (
-      <div>
-        <span>default locale: {intl.locale}</span>
-        <span>default messages: {JSON.stringify(intl.messages)}</span>
-      </div>
-    );
-  },
-  jest.fn(() => Promise.resolve({})),
+	() => {
+		const intl = useIntl();
+		return (
+			<div>
+				<span>default locale: {intl.locale}</span>
+				<span>default messages: {JSON.stringify(intl.messages)}</span>
+			</div>
+		);
+	},
+	jest.fn(() => Promise.resolve({})),
 );
 
 describe('i18n', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 
-  describe('with locale query params set', () => {
-    it('should load proper locale', () => {
-      const result = render(<TestComponent locale="es" />);
+	describe('with locale query params set', () => {
+		it('should load proper locale', () => {
+			const result = render(<TestComponent locale="es" />);
 
-      return expect(
-        result.findByText('default locale: es'),
-      ).resolves.toBeDefined();
-    });
+			return expect(result.findByText('default locale: es')).resolves.toBeDefined();
+		});
 
-    it('should load locale with region that is on whitelist', async () => {
-      let result = render(<TestComponent locale="es-MX" />);
+		it('should load locale with region that is on whitelist', async () => {
+			let result = render(<TestComponent locale="es-MX" />);
 
-      return expect(
-        result!.findByText('default locale: es-MX'),
-      ).resolves.toBeDefined();
-    });
+			return expect(result!.findByText('default locale: es-MX')).resolves.toBeDefined();
+		});
 
-    it('should fallback to english when translation is not loaded', () => {
-      const result = render(<TestComponent locale="xx" />);
+		it('should fallback to english when translation is not loaded', () => {
+			const result = render(<TestComponent locale="xx" />);
 
-      return expect(
-        result.findByText('default messages: {}'),
-      ).resolves.toBeDefined();
-    });
-  });
+			return expect(result.findByText('default messages: {}')).resolves.toBeDefined();
+		});
+	});
 
-  describe('Locale change callbacks', () => {
-    it('should call useTranslations hook with locale change callback if passed', () => {
-      const onLocaleChanged = () => {};
-      const onWillLocaleChange = () => {};
-      const useTransaltionsSpy = jest.spyOn(
-        UseTranslationsHook,
-        'useTranslations',
-      );
+	describe('Locale change callbacks', () => {
+		it('should call useTranslations hook with locale change callback if passed', () => {
+			const onLocaleChanged = () => {};
+			const onWillLocaleChange = () => {};
+			const useTransaltionsSpy = jest.spyOn(UseTranslationsHook, 'useTranslations');
 
-      render(
-        <TestComponent
-          locale="fr"
-          onLocaleChanged={onLocaleChanged}
-          onWillLocaleChange={onWillLocaleChange}
-        />,
-      );
+			render(
+				<TestComponent
+					locale="fr"
+					onLocaleChanged={onLocaleChanged}
+					onWillLocaleChange={onWillLocaleChange}
+				/>,
+			);
 
-      return expect(useTransaltionsSpy).toHaveBeenCalledWith(
-        'fr',
-        expect.anything(),
-        onLocaleChanged,
-        onWillLocaleChange,
-      );
-    });
-  });
+			return expect(useTransaltionsSpy).toHaveBeenCalledWith(
+				'fr',
+				expect.anything(),
+				onLocaleChanged,
+				onWillLocaleChange,
+			);
+		});
+	});
 
-  describe('get messages', () => {
-    let TestComponentWithMessageCallback: React.ComponentType<
-      React.PropsWithChildren<{
-        locale: string;
-      }>
-    >;
-    let geti18NMessages: (localeFileName: string) => Promise<Object>;
-    let useTransaltionsSpy: any;
-    beforeEach(() => {
-      useTransaltionsSpy = jest.spyOn(UseTranslationsHook, 'useTranslations');
-      useTransaltionsSpy.mockImplementation(
-        jest.fn().mockReturnValue({
-          locale: 'en',
-          messages: {},
-        }),
-      );
-      geti18NMessages = jest.fn(() => Promise.resolve({ messages: {} }));
-      TestComponentWithMessageCallback = withIntlProvider<{}>(() => {
-        const intl = useIntl();
-        return (
-          <div>
-            <span>default locale: {intl.locale}</span>
-          </div>
-        );
-      }, geti18NMessages);
-    });
-    afterEach(() => {
-      jest.restoreAllMocks();
-    });
-    it('should call useTranslations hook with geti18NMessages callback if passed', () => {
-      render(<TestComponentWithMessageCallback locale="en" />);
-      expect(useTransaltionsSpy).toHaveBeenCalledWith(
-        'en',
-        geti18NMessages,
-        undefined,
-        undefined,
-      );
-    });
-  });
+	describe('get messages', () => {
+		let TestComponentWithMessageCallback: React.ComponentType<
+			React.PropsWithChildren<{
+				locale: string;
+			}>
+		>;
+		let geti18NMessages: (localeFileName: string) => Promise<Object>;
+		let useTransaltionsSpy: any;
+		beforeEach(() => {
+			useTransaltionsSpy = jest.spyOn(UseTranslationsHook, 'useTranslations');
+			useTransaltionsSpy.mockImplementation(
+				jest.fn().mockReturnValue({
+					locale: 'en',
+					messages: {},
+				}),
+			);
+			geti18NMessages = jest.fn(() => Promise.resolve({ messages: {} }));
+			TestComponentWithMessageCallback = withIntlProvider<{}>(() => {
+				const intl = useIntl();
+				return (
+					<div>
+						<span>default locale: {intl.locale}</span>
+					</div>
+				);
+			}, geti18NMessages);
+		});
+		afterEach(() => {
+			jest.restoreAllMocks();
+		});
+		it('should call useTranslations hook with geti18NMessages callback if passed', () => {
+			render(<TestComponentWithMessageCallback locale="en" />);
+			expect(useTransaltionsSpy).toHaveBeenCalledWith('en', geti18NMessages, undefined, undefined);
+		});
+	});
 });

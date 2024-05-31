@@ -1,90 +1,86 @@
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
-import type {
-  Node as PMNode,
-  ResolvedPos,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 
 export function findFirstParentListNode($pos: ResolvedPos): {
-  pos: number;
-  node: PMNode;
+	pos: number;
+	node: PMNode;
 } | null {
-  const currentNode = $pos.doc.nodeAt($pos.pos);
-  let listNodePosition: number | undefined | null = null;
-  if (isListNode(currentNode)) {
-    listNodePosition = $pos.pos;
-  } else {
-    const result = findParentNodeClosestToPos($pos, isListNode);
-    listNodePosition = result && result.pos;
-  }
+	const currentNode = $pos.doc.nodeAt($pos.pos);
+	let listNodePosition: number | undefined | null = null;
+	if (isListNode(currentNode)) {
+		listNodePosition = $pos.pos;
+	} else {
+		const result = findParentNodeClosestToPos($pos, isListNode);
+		listNodePosition = result && result.pos;
+	}
 
-  if (listNodePosition == null) {
-    return null;
-  }
-  const node = $pos.doc.nodeAt(listNodePosition);
+	if (listNodePosition == null) {
+		return null;
+	}
+	const node = $pos.doc.nodeAt(listNodePosition);
 
-  if (!node) {
-    return null;
-  }
+	if (!node) {
+		return null;
+	}
 
-  return { node, pos: listNodePosition };
+	return { node, pos: listNodePosition };
 }
 
 export function findFirstParentListItemNode($pos: ResolvedPos): {
-  pos: number;
-  node: PMNode;
+	pos: number;
+	node: PMNode;
 } | null {
-  const currentNode = $pos.doc.nodeAt($pos.pos);
+	const currentNode = $pos.doc.nodeAt($pos.pos);
 
-  const listItemNodePosition: ResolvedPos | ContentNodeWithPos | undefined =
-    isListItemNode(currentNode)
-      ? $pos
-      : findParentNodeClosestToPos($pos, isListItemNode);
+	const listItemNodePosition: ResolvedPos | ContentNodeWithPos | undefined = isListItemNode(
+		currentNode,
+	)
+		? $pos
+		: findParentNodeClosestToPos($pos, isListItemNode);
 
-  if (!listItemNodePosition || listItemNodePosition.pos === null) {
-    return null;
-  }
+	if (!listItemNodePosition || listItemNodePosition.pos === null) {
+		return null;
+	}
 
-  const node = $pos.doc.nodeAt(listItemNodePosition.pos);
+	const node = $pos.doc.nodeAt(listItemNodePosition.pos);
 
-  if (!node) {
-    return null;
-  }
+	if (!node) {
+		return null;
+	}
 
-  return {
-    node: node,
-    pos: listItemNodePosition.pos,
-  };
+	return {
+		node: node,
+		pos: listItemNodePosition.pos,
+	};
 }
 
-export const findRootParentListNode = (
-  $pos: ResolvedPos,
-): ResolvedPos | null => {
-  const { doc } = $pos;
+export const findRootParentListNode = ($pos: ResolvedPos): ResolvedPos | null => {
+	const { doc } = $pos;
 
-  if ($pos.pos + 1 > doc.content.size) {
-    return null;
-  }
+	if ($pos.pos + 1 > doc.content.size) {
+		return null;
+	}
 
-  if ($pos.depth === 0) {
-    return doc.resolve($pos.pos + 1);
-  }
+	if ($pos.depth === 0) {
+		return doc.resolve($pos.pos + 1);
+	}
 
-  const currentNode = doc.nodeAt($pos.pos);
-  const beforePosition = $pos.before();
-  const nodeBefore = doc.nodeAt(beforePosition);
+	const currentNode = doc.nodeAt($pos.pos);
+	const beforePosition = $pos.before();
+	const nodeBefore = doc.nodeAt(beforePosition);
 
-  if (isListNode(currentNode) && !isListItemNode(nodeBefore)) {
-    return doc.resolve($pos.pos + 1);
-  }
+	if (isListNode(currentNode) && !isListItemNode(nodeBefore)) {
+		return doc.resolve($pos.pos + 1);
+	}
 
-  const parentList = findParentNodeClosestToPos($pos, isListNode);
+	const parentList = findParentNodeClosestToPos($pos, isListNode);
 
-  if (!parentList) {
-    return null;
-  }
-  const listNodePosition = doc.resolve(parentList.pos);
+	if (!parentList) {
+		return null;
+	}
+	const listNodePosition = doc.resolve(parentList.pos);
 
-  return findRootParentListNode(listNodePosition);
+	return findRootParentListNode(listNodePosition);
 };

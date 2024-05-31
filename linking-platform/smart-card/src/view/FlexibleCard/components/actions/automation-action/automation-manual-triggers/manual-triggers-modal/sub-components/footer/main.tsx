@@ -52,7 +52,7 @@ export const AutomationModalFooter = ({
     invokeRuleOrShowDialog,
     invokingRuleId,
     rules,
-    error,
+    fetchError,
     baseAutomationUrl,
     analyticsSource,
   } = useAutomationMenu();
@@ -145,7 +145,7 @@ export const AutomationModalFooter = ({
   // Empty admin scenario -> cancel and Create Automation buttons
   // Empty end user and error scenario -> Ok button
   if (rules.length < 1) {
-    if (error || !canManageAutomation) {
+    if (fetchError|| !canManageAutomation) {
       modalButtons.push(okButton);
     } else {
       modalButtons.push(cancelButton, createAutomationButton);

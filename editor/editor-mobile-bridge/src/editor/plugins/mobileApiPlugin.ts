@@ -1,15 +1,12 @@
 import { useLayoutEffect, useEffect } from 'react';
 import type { IntlShape } from 'react-intl-next';
 import type {
-  OptionalPlugin,
-  NextEditorPlugin,
-  ExtractInjectionAPI,
+	OptionalPlugin,
+	NextEditorPlugin,
+	ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import type WebBridgeImpl from '../native-to-web';
-import {
-  useSharedPluginState,
-  usePreviousState,
-} from '@atlaskit/editor-common/hooks';
+import { useSharedPluginState, usePreviousState } from '@atlaskit/editor-common/hooks';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -41,138 +38,133 @@ import type EditorConfiguration from '../editor-configuration';
 import { toNativeBridge } from '../web-to-native';
 
 const useListeners = (
-  pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
-  editorView: EditorView,
-  bridge: WebBridgeImpl,
-  intl: IntlShape,
+	pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
+	editorView: EditorView,
+	bridge: WebBridgeImpl,
+	intl: IntlShape,
 ) => {
-  const {
-    hyperlinkState,
-    textFormattingState,
-    blockTypeState,
-    listState,
-    quickInsertState,
-    textColorState,
-  } = useSharedPluginState(pluginInjectionApi, [
-    'hyperlink',
-    'textFormatting',
-    'blockType',
-    'list',
-    'quickInsert',
-    'textColor',
-  ]);
-  useHyperlinkListener(editorView, hyperlinkState);
-  useTextFormattingListener(textFormattingState, bridge);
-  useListListener(listState, bridge);
-  useQuickInsertListener(quickInsertState, bridge, intl);
-  useBlockTypeListener(blockTypeState);
-  useTextColorListener(textColorState, bridge);
+	const {
+		hyperlinkState,
+		textFormattingState,
+		blockTypeState,
+		listState,
+		quickInsertState,
+		textColorState,
+	} = useSharedPluginState(pluginInjectionApi, [
+		'hyperlink',
+		'textFormatting',
+		'blockType',
+		'list',
+		'quickInsert',
+		'textColor',
+	]);
+	useHyperlinkListener(editorView, hyperlinkState);
+	useTextFormattingListener(textFormattingState, bridge);
+	useListListener(listState, bridge);
+	useQuickInsertListener(quickInsertState, bridge, intl);
+	useBlockTypeListener(blockTypeState);
+	useTextColorListener(textColorState, bridge);
 };
 
 function useTypeAheadSubscription(
-  pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
-  editorConfiguration: EditorConfiguration,
+	pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
+	editorConfiguration: EditorConfiguration,
 ) {
-  const { typeAheadState } = useSharedPluginState(pluginInjectionApi, [
-    'typeAhead',
-  ]);
-  const previousTypeAheadState = usePreviousState(typeAheadState);
+	const { typeAheadState } = useSharedPluginState(pluginInjectionApi, ['typeAhead']);
+	const previousTypeAheadState = usePreviousState(typeAheadState);
 
-  const newPluginState = typeAheadState;
-  const oldPluginState = previousTypeAheadState;
+	const newPluginState = typeAheadState;
+	const oldPluginState = previousTypeAheadState;
 
-  useEffect(() => {
-    if (!newPluginState || !oldPluginState) {
-      return;
-    }
+	useEffect(() => {
+		if (!newPluginState || !oldPluginState) {
+			return;
+		}
 
-    const wasClosed = !newPluginState.isOpen && oldPluginState.isOpen;
+		const wasClosed = !newPluginState.isOpen && oldPluginState.isOpen;
 
-    if (wasClosed) {
-      toNativeBridge.call('typeAheadBridge', 'dismissTypeAhead');
-      return;
-    }
+		if (wasClosed) {
+			toNativeBridge.call('typeAheadBridge', 'dismissTypeAhead');
+			return;
+		}
 
-    if (!newPluginState.currentHandler) {
-      return;
-    }
-    const {
-      currentHandler: { trigger },
-    } = newPluginState;
+		if (!newPluginState.currentHandler) {
+			return;
+		}
+		const {
+			currentHandler: { trigger },
+		} = newPluginState;
 
-    const wasOpened =
-      oldPluginState.currentHandler !== newPluginState.currentHandler;
-    const hasQueryChanged = newPluginState.query !== oldPluginState.query;
-    const isQuickInsert =
-      newPluginState.currentHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
-    const query = newPluginState.query;
+		const wasOpened = oldPluginState.currentHandler !== newPluginState.currentHandler;
+		const hasQueryChanged = newPluginState.query !== oldPluginState.query;
+		const isQuickInsert = newPluginState.currentHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
+		const query = newPluginState.query;
 
-    if (isQuickInsert && (wasOpened || hasQueryChanged)) {
-      const quickInsertList =
-        pluginInjectionApi?.quickInsert?.actions.getSuggestions({
-          query,
-          disableDefaultItems: true,
-        });
-      const quickInsertItems = quickInsertList?.map(({ id, title }) => ({
-        id,
-        title,
-      }));
+		if (isQuickInsert && (wasOpened || hasQueryChanged)) {
+			const quickInsertList = pluginInjectionApi?.quickInsert?.actions.getSuggestions({
+				query,
+				disableDefaultItems: true,
+			});
+			const quickInsertItems = quickInsertList?.map(({ id, title }) => ({
+				id,
+				title,
+			}));
 
-      toNativeBridge.call('typeAheadBridge', 'typeAheadDisplayItems', {
-        query,
-        trigger,
-        items: JSON.stringify(quickInsertItems),
-      });
-    } else if (hasQueryChanged || wasOpened) {
-      toNativeBridge.call('typeAheadBridge', 'typeAheadQuery', {
-        query,
-        trigger,
-      });
-    }
-    // We need to recreate the hook when there is a new editorConfiguration
-  }, [editorConfiguration, newPluginState, oldPluginState, pluginInjectionApi]); // eslint-disable-line react-hooks/exhaustive-deps
-  // }, [editorReady, editorConfiguration, editorView, bridge]); // eslint-disable-line react-hooks/exhaustive-deps
+			toNativeBridge.call('typeAheadBridge', 'typeAheadDisplayItems', {
+				query,
+				trigger,
+				items: JSON.stringify(quickInsertItems),
+			});
+		} else if (hasQueryChanged || wasOpened) {
+			toNativeBridge.call('typeAheadBridge', 'typeAheadQuery', {
+				query,
+				trigger,
+			});
+		}
+		// We need to recreate the hook when there is a new editorConfiguration
+	}, [editorConfiguration, newPluginState, oldPluginState, pluginInjectionApi]); // eslint-disable-line react-hooks/exhaustive-deps
+	// }, [editorReady, editorConfiguration, editorView, bridge]); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
 export const mobileApiPlugin: NextEditorPlugin<
-  'mobile',
-  {
-    dependencies: [
-      BasePlugin,
-      OptionalPlugin<AnalyticsPlugin>,
-      HyperlinkPlugin,
-      BlockTypePlugin,
-      OptionalPlugin<CodeBlockPlugin>,
-      PanelPlugin,
-      TextFormattingPlugin,
-      ListPlugin,
-      TypeAheadPlugin,
-      OptionalPlugin<QuickInsertPlugin>,
-      OptionalPlugin<RulePlugin>,
-      EmojiPlugin,
-      MentionsPlugin,
-      EditorDisabledPlugin,
-      DatePlugin,
-      StatusPlugin,
-      TextColorPlugin,
-      OptionalPlugin<ExpandPlugin>,
-      TasksAndDecisionsPlugin,
-    ];
-    pluginConfiguration: {
-      editorConfiguration: EditorConfiguration;
-      bridge: WebBridgeImpl;
-      intl: IntlShape;
-    };
-  }
+	'mobile',
+	{
+		dependencies: [
+			BasePlugin,
+			OptionalPlugin<AnalyticsPlugin>,
+			HyperlinkPlugin,
+			BlockTypePlugin,
+			OptionalPlugin<CodeBlockPlugin>,
+			PanelPlugin,
+			TextFormattingPlugin,
+			ListPlugin,
+			TypeAheadPlugin,
+			OptionalPlugin<QuickInsertPlugin>,
+			OptionalPlugin<RulePlugin>,
+			EmojiPlugin,
+			MentionsPlugin,
+			EditorDisabledPlugin,
+			DatePlugin,
+			StatusPlugin,
+			TextColorPlugin,
+			OptionalPlugin<ExpandPlugin>,
+			TasksAndDecisionsPlugin,
+		];
+		pluginConfiguration: {
+			editorConfiguration: EditorConfiguration;
+			bridge: WebBridgeImpl;
+			intl: IntlShape;
+		};
+	}
 > = ({ config: { bridge, intl, editorConfiguration }, api }) => ({
-  name: 'mobile',
+	name: 'mobile',
 
-  usePluginHook({ editorView }) {
-    useLayoutEffect(() => {
-      bridge.setPluginInjectionApi(api);
-    }, []);
+	usePluginHook({ editorView }) {
+		useLayoutEffect(() => {
+			bridge.setPluginInjectionApi(api);
+		}, []);
 
-    useListeners(api, editorView, bridge, intl);
-    useTypeAheadSubscription(api, editorConfiguration);
-  },
+		useListeners(api, editorView, bridge, intl);
+		useTypeAheadSubscription(api, editorConfiguration);
+	},
 });

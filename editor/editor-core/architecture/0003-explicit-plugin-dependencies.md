@@ -16,22 +16,34 @@ This has many massive side effects, to name just a few:
 
 - Complexity!
   - devs not being able to clearly reason about the implicit dependencies between plugins
-  - extremely difficult to ship features, bug fixes, without breaking something unintended or even unrelated
+  - extremely difficult to ship features, bug fixes, without breaking something unintended or even
+    unrelated
 - Performance!
   - products not being able to integrate a lighter weight of the Atlassian Editor
-  - single bundle size whether you only use a handful of features in a small Editor, or the entire weight of the Full Page Editor
+  - single bundle size whether you only use a handful of features in a small Editor, or the entire
+    weight of the Full Page Editor
 
-We learned from the [table extraction effort](https://product-fabric.atlassian.net/wiki/spaces/E/pages/3289779107/Editor+DACI+019+Bring+Tables+back) that it was feasible to extract and untangle one of our most complex Editor Plugins, with some temporary APIs to prevent cross importing.
+We learned from the
+[table extraction effort](https://product-fabric.atlassian.net/wiki/spaces/E/pages/3289779107/Editor+DACI+019+Bring+Tables+back)
+that it was feasible to extract and untangle one of our most complex Editor Plugins, with some
+temporary APIs to prevent cross importing.
 
 ## Decision
 
-We must now prevent plugins from importing one another to reduce complexity within the Editor. In doing so, we can eliminate intricate dependency chains and, using the `getSharedState()` and `actions()` APIs, offer a clear understanding of how different plugins share their state.
+We must now prevent plugins from importing one another to reduce complexity within the Editor. In
+doing so, we can eliminate intricate dependency chains and, using the `getSharedState()` and
+`actions()` APIs, offer a clear understanding of how different plugins share their state.
 
-Although making this choice is essential, the aim is to address the initial necessity for cross imports to begin with by outlining some "migration examples" and documentation below. This ADR outlines two of the APIs that are now in place, to address some of the challenges and insights gained from the initial table plugin extraction.
+Although making this choice is essential, the aim is to address the initial necessity for cross
+imports to begin with by outlining some "migration examples" and documentation below. This ADR
+outlines two of the APIs that are now in place, to address some of the challenges and insights
+gained from the initial table plugin extraction.
 
 ### Prevention
 
-Linting errors will now be present for any new code that gets added, where we continue to attempt importing from one plugin into another. (See `ELR101`, `ELR102` in `repo-docs/content/cloud/framework/atlassian-frontend/editor/lint.md`).
+Linting errors will now be present for any new code that gets added, where we continue to attempt
+importing from one plugin into another. (See `ELR101`, `ELR102` in
+`repo-docs/content/cloud/framework/atlassian-frontend/editor/lint.md`).
 
 ### Other resources
 
@@ -42,15 +54,21 @@ Linting errors will now be present for any new code that gets added, where we co
 
 ## Consequences
 
-Devs will need to stop importing from one plugin into another, and eventually be blocked on it when we upgrade the lint error from warning to erroring.
+Devs will need to stop importing from one plugin into another, and eventually be blocked on it when
+we upgrade the lint error from warning to erroring.
 
-We are mitigating this, by presenting some samples of how to quickly migrate / "turn on" a plugin into utilising the new `actions()` and `getSharedState()` APIs in EditorPlugin.
+We are mitigating this, by presenting some samples of how to quickly migrate / "turn on" a plugin
+into utilising the new `actions()` and `getSharedState()` APIs in EditorPlugin.
 
-A brief "HOWTO" / "HOW TO" guide of how you can migrate existing or new "cross imports", and get the same functionality:
+A brief "HOWTO" / "HOW TO" guide of how you can migrate existing or new "cross imports", and get the
+same functionality:
 
 ## 1. `getSharedState()` (and `useSharedPluginState()` hook for React Components)
 
-**Problem**: Let's say you want to access the state from `Foo` plugin, into a second Plugin `Bar`. Something like `previouslyInternalStateA`. Previously, you needed to import that plugin key, and then use it. Now we can use `getSharedState()` and 2 methods `currentState()` & `onChange` methods on `api.dependencies.[plugin-name].sharedState`.
+**Problem**: Let's say you want to access the state from `Foo` plugin, into a second Plugin `Bar`.
+Something like `previouslyInternalStateA`. Previously, you needed to import that plugin key, and
+then use it. Now we can use `getSharedState()` and 2 methods `currentState()` & `onChange` methods
+on `api.dependencies.[plugin-name].sharedState`.
 
 ### **Before**
 
@@ -67,7 +85,8 @@ doSomethingBasedOnAnotherPluginInternalState(previouslyInternalStateC);
 
 ### **After**
 
-**Explicit state dependency**, `Foo` plugin "pushes" out, explicitly publicly, shares state surfaced from `internalFooPlugin` prosemirror state internals, for _any_ plugin to use.
+**Explicit state dependency**, `Foo` plugin "pushes" out, explicitly publicly, shares state surfaced
+from `internalFooPlugin` prosemirror state internals, for _any_ plugin to use.
 
 ### Usage inside general `EditorPlugin` and prosemirror plugins:
 
@@ -172,7 +191,8 @@ const fooPlugin: NextEditorPlugin <...> {
 
 ### Usage inside a React component
 
-(See date plugin at `packages/editor/editor-plugin-date/src/plugin.tsx` for a full code sample of using `useSharedPluginState`)
+(See date plugin at `packages/editor/editor-plugin-date/src/plugin.tsx` for a full code sample of
+using `useSharedPluginState`)
 
 ```ts
 // editor-core/src/plugins/bar-some-react-component-based-plugin/index.tsx
@@ -204,19 +224,28 @@ const barPlugin: NextEditorPlugin<
 
 Important parts to note:
 
-1. You will need to implement a new `getSharedState()` function inside the current `EditorPlugin` that you require the state from, to expose any "public state" that you would like to make available to other plugins. **Treat this state as "public API" for other plugins**, as any plugin will be able to depend on this and react to it.
+1. You will need to implement a new `getSharedState()` function inside the current `EditorPlugin`
+   that you require the state from, to expose any "public state" that you would like to make
+   available to other plugins. **Treat this state as "public API" for other plugins**, as any plugin
+   will be able to depend on this and react to it.
 
-2. You _may_ need to update `packages/editor/editor-core/src/labs/next/presets/universal.ts`, if you are creating a new EditorPlugin to depend on.
+2. You _may_ need to update `packages/editor/editor-core/src/labs/next/presets/universal.ts`, if you
+   are creating a new EditorPlugin to depend on.
 
-3. Anywhere where we used to use `WithPluginState` and import plugin keys, you can now use `useSharedPluginState`
+3. Anywhere where we used to use `WithPluginState` and import plugin keys, you can now use
+   `useSharedPluginState`
 
 ## 2. `actions()`
 
-For a full code sample, please see `actions()` implementation in https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31264?w=1#chg_packages/editor/editor-core/src/plugins/analytics/plugin.ts_newline116
+For a full code sample, please see `actions()` implementation in
+https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31264?w=1#chg_packages/editor/editor-core/src/plugins/analytics/plugin.ts_newline116
 
-Our first attempt with actions, was on the analytics plugin, which touches almost all plugins and surfaced some other issues. However the same approach can be applied at a smaller scale, for smaller plugins that have "cross action dependencies".
+Our first attempt with actions, was on the analytics plugin, which touches almost all plugins and
+surfaced some other issues. However the same approach can be applied at a smaller scale, for smaller
+plugins that have "cross action dependencies".
 
-**Problem**: Let's say you had an "`addAnalytics()`" action, used in the `Foo` plugin, and wanted to use it inside of a second, `Bar` plugin.
+**Problem**: Let's say you had an "`addAnalytics()`" action, used in the `Foo` plugin, and wanted to
+use it inside of a second, `Bar` plugin.
 
 ### **Before**
 

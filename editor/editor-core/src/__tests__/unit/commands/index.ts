@@ -6,16 +6,16 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('commands', () => {
-  const createEditor = (doc: DocBuilder) =>
-    createEditorFactory()({
-      doc,
-    });
+	const createEditor = (doc: DocBuilder) =>
+		createEditorFactory()({
+			doc,
+		});
 
-  describe('clearEditorContent', () => {
-    it('clears editor content', () => {
-      const { editorView } = createEditor(doc(p('text{<>}')));
-      clearEditorContent(editorView.state, editorView.dispatch);
-      expect(editorView.state.doc).toEqualDocument(doc(p()));
-    });
-  });
+	describe('clearEditorContent', () => {
+		it('clears editor content', () => {
+			const { editorView } = createEditor(doc(p('text{<>}')));
+			clearEditorContent(editorView.state, editorView.dispatch);
+			expect(editorView.state.doc).toEqualDocument(doc(p()));
+		});
+	});
 });

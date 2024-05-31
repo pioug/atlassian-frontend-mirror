@@ -9,223 +9,222 @@ import { token } from '@atlaskit/tokens';
 import { Editor } from '../src';
 
 const initialExample = {
-  version: 1,
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          text: 'For Q1, our main ',
-        },
-        {
-          type: 'text',
-          text: 'areas of focus are:',
-          marks: [
-            {
-              type: 'annotation',
-              attrs: {
-                id: 'b81e1de8-9df7-4210-861d-89e13512ce33',
-                annotationType: 'inlineComment',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: 'bulletList',
-      content: [
-        {
-          type: 'listItem',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Performance',
-                  marks: [
-                    {
-                      type: 'strong',
-                    },
-                    {
-                      type: 'annotation',
-                      attrs: {
-                        id: '5551fe04-3517-4821-8330-b7c506a43bd5',
-                        annotationType: 'inlineComment',
-                      },
-                    },
-                  ],
-                },
-                {
-                  type: 'text',
-                  text: ': Instrument key performance metrics and improve typing speed in the editor.',
-                  marks: [
-                    {
-                      type: 'annotation',
-                      attrs: {
-                        id: '5551fe04-3517-4821-8330-b7c506a43bd5',
-                        annotationType: 'inlineComment',
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          type: 'listItem',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Insertion & nesting logic:',
-                  marks: [
-                    {
-                      type: 'strong',
-                    },
-                  ],
-                },
-                {
-                  type: 'text',
-                  text: ' Remove invisible barriers by enabling more content to be placed ',
-                },
-                {
-                  type: 'text',
-                  text: 'inside each other.',
-                  marks: [
-                    {
-                      type: 'annotation',
-                      attrs: {
-                        id: '42497172-2e64-4aa6-b8b1-5a37270ee1f9',
-                        annotationType: 'inlineComment',
-                      },
-                    },
-                  ],
-                },
-                {
-                  type: 'text',
-                  text: ' E.g. allow users to paste an image inside a panel.',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ],
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: 'For Q1, our main ',
+				},
+				{
+					type: 'text',
+					text: 'areas of focus are:',
+					marks: [
+						{
+							type: 'annotation',
+							attrs: {
+								id: 'b81e1de8-9df7-4210-861d-89e13512ce33',
+								annotationType: 'inlineComment',
+							},
+						},
+					],
+				},
+			],
+		},
+		{
+			type: 'bulletList',
+			content: [
+				{
+					type: 'listItem',
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: 'Performance',
+									marks: [
+										{
+											type: 'strong',
+										},
+										{
+											type: 'annotation',
+											attrs: {
+												id: '5551fe04-3517-4821-8330-b7c506a43bd5',
+												annotationType: 'inlineComment',
+											},
+										},
+									],
+								},
+								{
+									type: 'text',
+									text: ': Instrument key performance metrics and improve typing speed in the editor.',
+									marks: [
+										{
+											type: 'annotation',
+											attrs: {
+												id: '5551fe04-3517-4821-8330-b7c506a43bd5',
+												annotationType: 'inlineComment',
+											},
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'listItem',
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{
+									type: 'text',
+									text: 'Insertion & nesting logic:',
+									marks: [
+										{
+											type: 'strong',
+										},
+									],
+								},
+								{
+									type: 'text',
+									text: ' Remove invisible barriers by enabling more content to be placed ',
+								},
+								{
+									type: 'text',
+									text: 'inside each other.',
+									marks: [
+										{
+											type: 'annotation',
+											attrs: {
+												id: '42497172-2e64-4aa6-b8b1-5a37270ee1f9',
+												annotationType: 'inlineComment',
+											},
+										},
+									],
+								},
+								{
+									type: 'text',
+									text: ' E.g. allow users to paste an image inside a panel.',
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+	],
 };
 
 const nestedExample = {
-  version: 1,
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          marks: [
-            {
-              type: 'annotation',
-              attrs: {
-                id: 'c7052cd7-5119-4837-85ce-45ba5207764c',
-                annotationType: 'inlineComment',
-              },
-            },
-          ],
-          text: 'This is a paragraph with a outer comment ',
-        },
-        {
-          type: 'text',
-          marks: [
-            {
-              type: 'annotation',
-              attrs: {
-                id: 'a5ee9b09-f302-4fa6-89cb-d5703cb6ccdd',
-                annotationType: 'inlineComment',
-              },
-            },
-            {
-              type: 'annotation',
-              attrs: {
-                id: 'c7052cd7-5119-4837-85ce-45ba5207764c',
-                annotationType: 'inlineComment',
-              },
-            },
-          ],
-          text: 'that also contains a nested comment',
-        },
-        {
-          type: 'text',
-          text: ', where the nested comment has two annotation marks applied.',
-        },
-      ],
-    },
-  ],
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					marks: [
+						{
+							type: 'annotation',
+							attrs: {
+								id: 'c7052cd7-5119-4837-85ce-45ba5207764c',
+								annotationType: 'inlineComment',
+							},
+						},
+					],
+					text: 'This is a paragraph with a outer comment ',
+				},
+				{
+					type: 'text',
+					marks: [
+						{
+							type: 'annotation',
+							attrs: {
+								id: 'a5ee9b09-f302-4fa6-89cb-d5703cb6ccdd',
+								annotationType: 'inlineComment',
+							},
+						},
+						{
+							type: 'annotation',
+							attrs: {
+								id: 'c7052cd7-5119-4837-85ce-45ba5207764c',
+								annotationType: 'inlineComment',
+							},
+						},
+					],
+					text: 'that also contains a nested comment',
+				},
+				{
+					type: 'text',
+					text: ', where the nested comment has two annotation marks applied.',
+				},
+			],
+		},
+	],
 };
 
-const inlineCommentEditor = (
-  adf: Object,
-  onChange?: (editorView: EditorView) => void,
-) => <Editor appearance="chromeless" defaultValue={adf} onChange={onChange} />;
+const inlineCommentEditor = (adf: Object, onChange?: (editorView: EditorView) => void) => (
+	<Editor appearance="chromeless" defaultValue={adf} onChange={onChange} />
+);
 
 class SplitExample extends React.Component<{ initialAdf: object }> {
-  state = {
-    adf: this.props.initialAdf,
-  };
+	state = {
+		adf: this.props.initialAdf,
+	};
 
-  onChange = (view: EditorView) => {
-    this.setState({ adf: view.state.doc.toJSON() });
-  };
+	onChange = (view: EditorView) => {
+		this.setState({ adf: view.state.doc.toJSON() });
+	};
 
-  render() {
-    const { adf } = this.state;
-    return (
-      <div
-        style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          display: 'flex',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          maxHeight: '400px',
-        }}
-      >
-        <div
-          style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            margin: token('space.100', '8px'),
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            padding: token('space.100', '8px'),
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            backgroundColor: N20,
-            border: `1px solid ${N30}`,
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            flex: 1,
-          }}
-        >
-          {inlineCommentEditor(nestedExample, this.onChange)}
-        </div>
-        <div
-          style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            flex: 2,
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            overflow: 'auto',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            margin: token('space.100', '8px'),
-          }}
-        >
-          <p>Paragraph node's content:</p>
-          {code`${JSON.stringify((adf as any).content[0].content, null, 2)}`}
-        </div>
-      </div>
-    );
-  }
+	render() {
+		const { adf } = this.state;
+		return (
+			<div
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					display: 'flex',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					maxHeight: '400px',
+				}}
+			>
+				<div
+					style={{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						margin: token('space.100', '8px'),
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						padding: token('space.100', '8px'),
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						backgroundColor: N20,
+						border: `1px solid ${N30}`,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						flex: 1,
+					}}
+				>
+					{inlineCommentEditor(nestedExample, this.onChange)}
+				</div>
+				<div
+					style={{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						flex: 2,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						overflow: 'auto',
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						margin: token('space.100', '8px'),
+					}}
+				>
+					<p>Paragraph node's content:</p>
+					{code`${JSON.stringify((adf as any).content[0].content, null, 2)}`}
+				</div>
+			</div>
+		);
+	}
 }
 
 export default md`
@@ -242,19 +241,19 @@ Currently, there is only the \`inlineComment\` type of annotation. In the future
 These denote a comment thread about the given text, and are denoted by a yellow highlight. This is commonly seen within Confluence after selecting some text in View mode.
 
 ${(
-  <div
-    style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      margin: token('space.100', '8px'),
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      padding: token('space.100', '8px'),
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      backgroundColor: N20,
-      border: `1px solid ${N30}`,
-    }}
-  >
-    {inlineCommentEditor(initialExample)}
-  </div>
+	<div
+		style={{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			margin: token('space.100', '8px'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			padding: token('space.100', '8px'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			backgroundColor: N20,
+			border: `1px solid ${N30}`,
+		}}
+	>
+		{inlineCommentEditor(initialExample)}
+	</div>
 )}
 
 ### Example ADF

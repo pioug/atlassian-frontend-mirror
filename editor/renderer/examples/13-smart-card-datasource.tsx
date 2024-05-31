@@ -9,9 +9,9 @@ import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasou
 mockDatasourceFetchRequests();
 
 export default function Example() {
-  return (
-    <SmartCardProvider>
-      <Renderer document={document} appearance="full-page" />
-    </SmartCardProvider>
-  );
+	return (
+		<SmartCardProvider>
+			<Renderer document={document} appearance="full-page" />
+		</SmartCardProvider>
+	);
 }

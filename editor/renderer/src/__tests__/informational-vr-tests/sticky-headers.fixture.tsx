@@ -1,110 +1,104 @@
 import React from 'react';
 import {
-  stickyHeadersAllTables,
-  stickyHeadersBrokenOutTableNoResize,
-  stickyHeadersBrokenOutTableOverflowing,
-  stickyHeadersBrokenOutTableResized,
-  stickyHeadersRowWithOnlyHeader,
-  stickyHeadersRowWithOnlyNonHeader,
-  stickyHeadersRowWithResizedColumns,
-  stickyHeadersTableInsideLayout,
-  stickyHeadersTableInsideLayoutBrokenOut,
-  stickyHeadersTableMergedRows,
-  stickyHeadersTableMultipleHeaderRows,
-  stickyHeadersTableOverflowing,
-  stickyHeadersTableOverflowingNumberedColumn,
-  stickyHeadersUnresizedTable,
-  stickyHeadersUnresizedTableNumberedColumn,
-  stickyHeadersUnresizedTableWithoutHeaderRow,
+	stickyHeadersAllTables,
+	stickyHeadersBrokenOutTableNoResize,
+	stickyHeadersBrokenOutTableOverflowing,
+	stickyHeadersBrokenOutTableResized,
+	stickyHeadersRowWithOnlyHeader,
+	stickyHeadersRowWithOnlyNonHeader,
+	stickyHeadersRowWithResizedColumns,
+	stickyHeadersTableInsideLayout,
+	stickyHeadersTableInsideLayoutBrokenOut,
+	stickyHeadersTableMergedRows,
+	stickyHeadersTableMultipleHeaderRows,
+	stickyHeadersTableOverflowing,
+	stickyHeadersTableOverflowingNumberedColumn,
+	stickyHeadersUnresizedTable,
+	stickyHeadersUnresizedTableNumberedColumn,
+	stickyHeadersUnresizedTableWithoutHeaderRow,
 } from '../__fixtures__/sticky-header-adf';
 import { Renderer } from '../../ui';
 import type { DocNode } from '@atlaskit/adf-schema';
 
 function StickyHeaderFixture({ adf }: { adf: unknown }) {
-  return (
-    <div
-      id="testscrollcontainer"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      style={{ overflow: 'scroll', width: 1280, height: 868 }}
-    >
-      <Renderer
-        adfStage={'stage0'}
-        document={adf as DocNode}
-        appearance={'full-width'}
-        stickyHeaders={{
-          offsetTop: 0,
-        }}
-      />
-    </div>
-  );
+	return (
+		<div
+			id="testscrollcontainer"
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={{ overflow: 'scroll', width: 1280, height: 868 }}
+		>
+			<Renderer
+				adfStage={'stage0'}
+				document={adf as DocNode}
+				appearance={'full-width'}
+				stickyHeaders={{
+					offsetTop: 0,
+				}}
+			/>
+		</div>
+	);
 }
 
 export function StickyHeaderRenderer() {
-  return <StickyHeaderFixture adf={stickyHeadersAllTables} />;
+	return <StickyHeaderFixture adf={stickyHeadersAllTables} />;
 }
 
 export function StickyHeaderUnResizedTableRenderer() {
-  return <StickyHeaderFixture adf={stickyHeadersUnresizedTable} />;
+	return <StickyHeaderFixture adf={stickyHeadersUnresizedTable} />;
 }
 
 export function StickyHeaderUnResizedTableNumberedColumnRenderer() {
-  return (
-    <StickyHeaderFixture adf={stickyHeadersUnresizedTableNumberedColumn} />
-  );
+	return <StickyHeaderFixture adf={stickyHeadersUnresizedTableNumberedColumn} />;
 }
 
 export function StickyHeaderUnResizedTableWithoutHeaderRowRenderer() {
-  return (
-    <StickyHeaderFixture adf={stickyHeadersUnresizedTableWithoutHeaderRow} />
-  );
+	return <StickyHeaderFixture adf={stickyHeadersUnresizedTableWithoutHeaderRow} />;
 }
 
 export function StickyHeaderRowWithOnlyHeader() {
-  return <StickyHeaderFixture adf={stickyHeadersRowWithOnlyHeader} />;
+	return <StickyHeaderFixture adf={stickyHeadersRowWithOnlyHeader} />;
 }
 
 export function StickyHeaderRowWithOnlyNonHeader() {
-  return <StickyHeaderFixture adf={stickyHeadersRowWithOnlyNonHeader} />;
+	return <StickyHeaderFixture adf={stickyHeadersRowWithOnlyNonHeader} />;
 }
 
 export function StickyHeaderRowWithResizedColumns() {
-  return <StickyHeaderFixture adf={stickyHeadersRowWithResizedColumns} />;
+	return <StickyHeaderFixture adf={stickyHeadersRowWithResizedColumns} />;
 }
 
 export function StickyHeadersBrokenOutTableNoResize() {
-  return <StickyHeaderFixture adf={stickyHeadersBrokenOutTableNoResize} />;
+	return <StickyHeaderFixture adf={stickyHeadersBrokenOutTableNoResize} />;
 }
 
 export function StickyHeadersBrokenOutTableResized() {
-  return <StickyHeaderFixture adf={stickyHeadersBrokenOutTableResized} />;
+	return <StickyHeaderFixture adf={stickyHeadersBrokenOutTableResized} />;
 }
 
 export function StickyHeadersBrokenOutTableOverflowing() {
-  return <StickyHeaderFixture adf={stickyHeadersBrokenOutTableOverflowing} />;
+	return <StickyHeaderFixture adf={stickyHeadersBrokenOutTableOverflowing} />;
 }
 
 export function StickyHeadersTableOverflowing() {
-  return <StickyHeaderFixture adf={stickyHeadersTableOverflowing} />;
+	return <StickyHeaderFixture adf={stickyHeadersTableOverflowing} />;
 }
 
 export function StickyHeadersTableOverflowingNumberedColumn() {
-  return (
-    <StickyHeaderFixture adf={stickyHeadersTableOverflowingNumberedColumn} />
-  );
+	return <StickyHeaderFixture adf={stickyHeadersTableOverflowingNumberedColumn} />;
 }
 
 export function StickyHeadersTableInsideLayout() {
-  return <StickyHeaderFixture adf={stickyHeadersTableInsideLayout} />;
+	return <StickyHeaderFixture adf={stickyHeadersTableInsideLayout} />;
 }
 
 export function StickyHeadersTableInsideLayoutBrokenOut() {
-  return <StickyHeaderFixture adf={stickyHeadersTableInsideLayoutBrokenOut} />;
+	return <StickyHeaderFixture adf={stickyHeadersTableInsideLayoutBrokenOut} />;
 }
 
 export function StickyHeadersTableMultipleHeaderRows() {
-  return <StickyHeaderFixture adf={stickyHeadersTableMultipleHeaderRows} />;
+	return <StickyHeaderFixture adf={stickyHeadersTableMultipleHeaderRows} />;
 }
 
 export function StickyHeadersTableMergedRows() {
-  return <StickyHeaderFixture adf={stickyHeadersTableMergedRows} />;
+	return <StickyHeaderFixture adf={stickyHeadersTableMergedRows} />;
 }

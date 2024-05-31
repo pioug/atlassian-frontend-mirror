@@ -2,105 +2,100 @@ import { traverse } from '@atlaskit/adf-utils/traverse';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 export enum UNSUPPORTED_CONTENT_LEVEL_SEVERITY {
-  NORMAL = 'normal',
-  DEGRADED = 'degraded',
-  BLOCKING = 'blocking',
+	NORMAL = 'normal',
+	DEGRADED = 'degraded',
+	BLOCKING = 'blocking',
 }
 
 type UnsupportedContentLevelThresholds = {
-  blocking: number;
-  degraded: number;
+	blocking: number;
+	degraded: number;
 };
 
 export type UnsupportedContentLevelsTracking = {
-  enabled: boolean;
-  thresholds?: Partial<UnsupportedContentLevelThresholds>;
-  samplingRates?: {
-    [key: string]: number;
-  };
+	enabled: boolean;
+	thresholds?: Partial<UnsupportedContentLevelThresholds>;
+	samplingRates?: {
+		[key: string]: number;
+	};
 };
 
 export const UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS = {
-  DEGRADED: 10,
-  BLOCKING: 25,
+	DEGRADED: 10,
+	BLOCKING: 25,
 };
 
 const buildUnsupportedContentLevelThresholds = (
-  customThresholds?: UnsupportedContentLevelsTracking['thresholds'],
+	customThresholds?: UnsupportedContentLevelsTracking['thresholds'],
 ): UnsupportedContentLevelThresholds => {
-  return {
-    degraded:
-      customThresholds?.degraded ||
-      UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED,
-    blocking:
-      customThresholds?.blocking ||
-      UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS.BLOCKING,
-  };
+	return {
+		degraded:
+			customThresholds?.degraded || UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS.DEGRADED,
+		blocking:
+			customThresholds?.blocking || UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS.BLOCKING,
+	};
 };
 
 const countSupportedUnsupportedNodes = (validDocument: ADFEntity) => {
-  let unsupportedNodes = 0;
-  let supportedNodes = 0;
-  const unsupportedNodeTypeCount: Record<string, number> = {};
+	let unsupportedNodes = 0;
+	let supportedNodes = 0;
+	const unsupportedNodeTypeCount: Record<string, number> = {};
 
-  const unsupportedNodeTypes = [
-    'unsupportedInline',
-    'unsupportedBlock',
-    'confluenceUnsupportedInline',
-    'confluenceUnsupportedBlock',
-  ];
+	const unsupportedNodeTypes = [
+		'unsupportedInline',
+		'unsupportedBlock',
+		'confluenceUnsupportedInline',
+		'confluenceUnsupportedBlock',
+	];
 
-  traverse(validDocument, {
-    any: (node) => {
-      if (unsupportedNodeTypes.includes(node.type)) {
-        const originalNode = node.attrs?.originalValue;
-        if (originalNode) {
-          // start an independent traversal for the purpose of counting
-          // unsupported content nodes (with nested children contributing towards
-          // that count)
-          traverse(originalNode, {
-            any: (unsupportedNode, parent) => {
-              unsupportedNodes++;
+	traverse(validDocument, {
+		any: (node) => {
+			if (unsupportedNodeTypes.includes(node.type)) {
+				const originalNode = node.attrs?.originalValue;
+				if (originalNode) {
+					// start an independent traversal for the purpose of counting
+					// unsupported content nodes (with nested children contributing towards
+					// that count)
+					traverse(originalNode, {
+						any: (unsupportedNode, parent) => {
+							unsupportedNodes++;
 
-              // Count the types of unsupported nodes
-              const parentType = parent.parent?.node?.type ?? 'unknown';
-              const type = `${parentType}/${
-                unsupportedNode?.type ?? 'unknown'
-              }`;
-              unsupportedNodeTypeCount[type] =
-                (unsupportedNodeTypeCount?.[type] ?? 0) + 1;
-            },
-          });
-        }
-        // force the parent traversal (which is counting supported content nodes)
-        // to skip traversal/counting of nested children of the unsupported nodes
-        return false;
-      } else {
-        supportedNodes++;
-      }
-    },
-  });
-  return {
-    unsupportedNodes,
-    supportedNodes,
-    unsupportedNodeTypeCount,
-  };
+							// Count the types of unsupported nodes
+							const parentType = parent.parent?.node?.type ?? 'unknown';
+							const type = `${parentType}/${unsupportedNode?.type ?? 'unknown'}`;
+							unsupportedNodeTypeCount[type] = (unsupportedNodeTypeCount?.[type] ?? 0) + 1;
+						},
+					});
+				}
+				// force the parent traversal (which is counting supported content nodes)
+				// to skip traversal/counting of nested children of the unsupported nodes
+				return false;
+			} else {
+				supportedNodes++;
+			}
+		},
+	});
+	return {
+		unsupportedNodes,
+		supportedNodes,
+		unsupportedNodeTypeCount,
+	};
 };
 
 const mapUnsupportedContentLevelToSeverity = (
-  unsupportedContentLevelPercent: number,
-  thresholds: UnsupportedContentLevelThresholds,
+	unsupportedContentLevelPercent: number,
+	thresholds: UnsupportedContentLevelThresholds,
 ) => {
-  if (
-    thresholds.degraded <= unsupportedContentLevelPercent &&
-    unsupportedContentLevelPercent < thresholds.blocking
-  ) {
-    return UNSUPPORTED_CONTENT_LEVEL_SEVERITY.DEGRADED;
-  }
-  if (thresholds.blocking <= unsupportedContentLevelPercent) {
-    return UNSUPPORTED_CONTENT_LEVEL_SEVERITY.BLOCKING;
-  }
-  return UNSUPPORTED_CONTENT_LEVEL_SEVERITY.NORMAL;
+	if (
+		thresholds.degraded <= unsupportedContentLevelPercent &&
+		unsupportedContentLevelPercent < thresholds.blocking
+	) {
+		return UNSUPPORTED_CONTENT_LEVEL_SEVERITY.DEGRADED;
+	}
+	if (thresholds.blocking <= unsupportedContentLevelPercent) {
+		return UNSUPPORTED_CONTENT_LEVEL_SEVERITY.BLOCKING;
+	}
+	return UNSUPPORTED_CONTENT_LEVEL_SEVERITY.NORMAL;
 };
 
 /**
@@ -131,23 +126,21 @@ const mapUnsupportedContentLevelToSeverity = (
  *
  */
 export const getUnsupportedContentLevelData = (
-  validDocument: ADFEntity,
-  customThresholds: UnsupportedContentLevelsTracking['thresholds'],
+	validDocument: ADFEntity,
+	customThresholds: UnsupportedContentLevelsTracking['thresholds'],
 ) => {
-  const { unsupportedNodes, supportedNodes, unsupportedNodeTypeCount } =
-    countSupportedUnsupportedNodes(validDocument);
-  const thresholds = buildUnsupportedContentLevelThresholds(customThresholds);
-  const percentage = Math.round(
-    (unsupportedNodes / (unsupportedNodes + supportedNodes)) * 100,
-  );
-  const severity = mapUnsupportedContentLevelToSeverity(percentage, thresholds);
-  return {
-    severity,
-    percentage,
-    counts: {
-      supportedNodes,
-      unsupportedNodes,
-      unsupportedNodeTypeCount,
-    },
-  };
+	const { unsupportedNodes, supportedNodes, unsupportedNodeTypeCount } =
+		countSupportedUnsupportedNodes(validDocument);
+	const thresholds = buildUnsupportedContentLevelThresholds(customThresholds);
+	const percentage = Math.round((unsupportedNodes / (unsupportedNodes + supportedNodes)) * 100);
+	const severity = mapUnsupportedContentLevelToSeverity(percentage, thresholds);
+	return {
+		severity,
+		percentage,
+		counts: {
+			supportedNodes,
+			unsupportedNodes,
+			unsupportedNodeTypeCount,
+		},
+	};
 };

@@ -11,7 +11,7 @@ import { PrimaryButton } from '../PrimaryButton';
 import { type PrimaryDropdownButtonProps } from './types';
 
 const chevronIconStylesWithSpacingFixStyles = xcss({
-  marginInlineEnd: 'space.negative.050',
+	marginInlineEnd: 'space.negative.050',
 });
 
 /**
@@ -23,21 +23,23 @@ const chevronIconStylesWithSpacingFixStyles = xcss({
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const PrimaryDropdownButton = forwardRef<
-  HTMLElement,
-  PrimaryDropdownButtonProps
->((props: PrimaryDropdownButtonProps, ref: Ref<HTMLElement>) => {
-  return (
-    <PrimaryButton
-      iconAfter={
-        <Bleed xcss={chevronIconStylesWithSpacingFixStyles} inline="space.100">
-          <ChevronIcon label="" />
-        </Bleed>
-      }
-      ref={ref}
-      {...props}
-    />
-  );
-});
+export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButtonProps>(
+	(props: PrimaryDropdownButtonProps, ref: Ref<HTMLElement>) => {
+		return (
+			// @ts-ignore - This was added when `@atlaskit/page-layout` was enrolled into JFE local consumption
+			// There seems to be an incompatibility in the `css` prop between jira and platform
+			// The error goes away when we remove the spread ...props
+			<PrimaryButton
+				iconAfter={
+					<Bleed xcss={chevronIconStylesWithSpacingFixStyles} inline="space.100">
+						<ChevronIcon label="" />
+					</Bleed>
+				}
+				ref={ref}
+				{...props}
+			/>
+		);
+	},
+);
 
 export default PrimaryDropdownButton;

@@ -23,11 +23,11 @@ This package provides a transformer for ProseMirror Node <-> Wikimarkup conversi
 
 
   ${(
-    <Example
-      packageName="@atlaskit/editor-wikimarkup-transformer"
-      Component={require('../examples/0-adf-to-wikimarkup').default}
-      title="ADF to Wikimarkup"
-      source={require('!!raw-loader!../examples/0-adf-to-wikimarkup')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/editor-wikimarkup-transformer"
+			Component={require('../examples/0-adf-to-wikimarkup').default}
+			title="ADF to Wikimarkup"
+			source={require('!!raw-loader!../examples/0-adf-to-wikimarkup')}
+		/>
+	)}
 `;

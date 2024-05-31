@@ -1,22 +1,17 @@
-export function error(
-  message: string,
-  _input: string,
-  line: number,
-  column: number,
-) {
-  throw createError({
-    message,
-    line,
-    column,
-  });
+export function error(message: string, _input: string, line: number, column: number) {
+	throw createError({
+		message,
+		line,
+		column,
+	});
 }
 
 function createError(props: any) {
-  const err = Object.create(SyntaxError.prototype);
+	const err = Object.create(SyntaxError.prototype);
 
-  Object.assign(err, props, {
-    name: 'SyntaxError',
-  });
+	Object.assign(err, props, {
+		name: 'SyntaxError',
+	});
 
-  return err;
+	return err;
 }

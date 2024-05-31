@@ -9,19 +9,18 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 // As table cell backgrounds are set inline, this should not break mobile as
 // hexToEditorBackgroundPaletteColor() outputs a css variable with fallback hex.
 const mapBackgroundColors = () => {
-  let cssString = '';
-  tableBackgroundColorNames.forEach((value, key) => {
-    const paletteColorValue = hexToEditorBackgroundPaletteColor(value);
-    if (paletteColorValue) {
-      cssString += `
+	let cssString = '';
+	tableBackgroundColorNames.forEach((value, key) => {
+		const paletteColorValue = hexToEditorBackgroundPaletteColor(value);
+		if (paletteColorValue) {
+			cssString += `
         td[colorname='${key}' i],
         th[colorname='${key}' i] {
           background-color: ${paletteColorValue} !important;
         }
       `;
-    }
-  });
-  return cssString;
+		}
+	});
+	return cssString;
 };
-export const tableCellBackgroundStyleOverride = () =>
-  css(mapBackgroundColors());
+export const tableCellBackgroundStyleOverride = () => css(mapBackgroundColors());

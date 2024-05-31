@@ -4,15 +4,15 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/dist/types
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const updateExpandedState = (
-  tr: Transaction,
-  node: ContentNodeWithPos,
-  isLivePage?: boolean,
+	tr: Transaction,
+	node: ContentNodeWithPos,
+	isLivePage?: boolean,
 ) => {
-  if (getBooleanFF('platform.editor.single-player-expand') && isLivePage) {
-    const wasExpandExpanded = expandedState.get(node.node);
-    const newExpand = tr.doc.nodeAt(node.pos);
-    if (wasExpandExpanded !== undefined && newExpand) {
-      expandedState.set(newExpand, wasExpandExpanded);
-    }
-  }
+	if (getBooleanFF('platform.editor.single-player-expand') && isLivePage) {
+		const wasExpandExpanded = expandedState.get(node.node);
+		const newExpand = tr.doc.nodeAt(node.pos);
+		if (wasExpandExpanded !== undefined && newExpand) {
+			expandedState.set(newExpand, wasExpandExpanded);
+		}
+	}
 };

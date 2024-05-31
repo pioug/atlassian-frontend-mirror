@@ -1,34 +1,34 @@
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 
 export interface TableSideEffect {
-  from: number;
-  to: number;
-  node: ProseMirrorNode;
+	from: number;
+	to: number;
+	node: ProseMirrorNode;
 }
 
 export interface RowSideEffect {
-  from: number;
-  to: number;
-  rowNode: ProseMirrorNode;
+	from: number;
+	to: number;
+	rowNode: ProseMirrorNode;
 }
 
 export interface TableSideEffectJSON {
-  from: number;
-  to: number;
-  node: { [key: string]: any }; // ToJson type of ProseMirrorNode.toJson()
+	from: number;
+	to: number;
+	node: { [key: string]: any }; // ToJson type of ProseMirrorNode.toJson()
 }
 
 export interface RowSideEffectJSON {
-  from: number;
-  to: number;
-  rowNode: { [key: string]: any }; // ToJson type of ProseMirrorNode.toJson()
+	from: number;
+	to: number;
+	rowNode: { [key: string]: any }; // ToJson type of ProseMirrorNode.toJson()
 }
 
 export type SideEffects = {
-  table?: TableSideEffect;
-  rows?: RowSideEffect[];
+	table?: TableSideEffect;
+	rows?: RowSideEffect[];
 };
 export type SideEffectsJSON = {
-  table?: TableSideEffectJSON;
-  rows?: RowSideEffectJSON[];
+	table?: TableSideEffectJSON;
+	rows?: RowSideEffectJSON[];
 };

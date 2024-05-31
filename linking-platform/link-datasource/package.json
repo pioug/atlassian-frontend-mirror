@@ -67,9 +67,9 @@
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.1.0",
     "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/select": "^17.10.0",
-    "@atlaskit/smart-card": "^27.3.0",
+    "@atlaskit/smart-card": "^27.4.0",
     "@atlaskit/smart-user-picker": "6.9.3",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/tag": "^12.2.0",
@@ -100,7 +100,6 @@
     "@atlaskit/link-test-helpers": "^7.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@faker-js/faker": "^7.5.0",
     "@testing-library/dom": "^8.17.1",
@@ -156,7 +155,6 @@
     "./elements": "./src/elements.ts",
     "./i18n/*": "./src/i18n/*.ts"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.linking-platform.datasource.show-jlol-basic-filters": {
       "type": "boolean"

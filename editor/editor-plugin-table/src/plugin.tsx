@@ -3,12 +3,12 @@ import React from 'react';
 import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-  INPUT_METHOD,
-  TABLE_ACTION,
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+	INPUT_METHOD,
+	TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { IconTable } from '@atlaskit/editor-common/icons';
@@ -16,13 +16,13 @@ import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
-  Command,
-  EditorCommand,
-  EditorPlugin,
-  GetEditorContainerWidth,
-  GetEditorFeatureFlags,
-  NextEditorPlugin,
-  OptionalPlugin,
+	Command,
+	EditorCommand,
+	EditorPlugin,
+	GetEditorContainerWidth,
+	GetEditorFeatureFlags,
+	NextEditorPlugin,
+	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
@@ -45,8 +45,8 @@ import { createPlugin as createTableAnalyticsPlugin } from './pm-plugins/analyti
 import { pluginKey as tableAnalyticsPluginKey } from './pm-plugins/analytics/plugin-key';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import {
-  createPlugin as createDragAndDropPlugin,
-  pluginKey as dragAndDropPluginKey,
+	createPlugin as createDragAndDropPlugin,
+	pluginKey as dragAndDropPluginKey,
 } from './pm-plugins/drag-and-drop';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
@@ -54,29 +54,25 @@ import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
 import {
-  createPlugin as createStickyHeadersPlugin,
-  findStickyHeaderForTable,
-  pluginKey as stickyHeadersPluginKey,
+	createPlugin as createStickyHeadersPlugin,
+	findStickyHeaderForTable,
+	pluginKey as stickyHeadersPluginKey,
 } from './pm-plugins/sticky-headers';
 import { createPlugin as createTableOverflowAnalyticsPlugin } from './pm-plugins/table-analytics';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
 import {
-  createPlugin as createFlexiResizingPlugin,
-  getPluginState as getFlexiResizingPlugin,
-  pluginKey as tableResizingPluginKey,
+	createPlugin as createFlexiResizingPlugin,
+	getPluginState as getFlexiResizingPlugin,
+	pluginKey as tableResizingPluginKey,
 } from './pm-plugins/table-resizing';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
 import {
-  createPlugin as createTableWidthPlugin,
-  pluginKey as tableWidthPluginKey,
+	createPlugin as createTableWidthPlugin,
+	pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
 import { createPlugin as createViewModeSortPlugin } from './pm-plugins/view-mode-sort';
 import { getToolbarConfig } from './toolbar';
-import type {
-  ColumnResizingPluginState,
-  PluginConfig,
-  TableSharedState,
-} from './types';
+import type { ColumnResizingPluginState, PluginConfig, TableSharedState } from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
 import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
@@ -87,16 +83,16 @@ import { FullWidthDisplay } from './ui/TableFullWidthLabel';
 import { createTableWithWidth } from './utils';
 
 export interface TablePluginOptions {
-  tableOptions: PluginConfig;
-  tableResizingEnabled?: boolean;
-  dragAndDropEnabled?: boolean;
-  allowContextualMenu?: boolean;
-  // TODO these two need to be rethought
-  fullWidthEnabled?: boolean;
-  wasFullWidthEnabled?: boolean;
-  getEditorFeatureFlags?: GetEditorFeatureFlags;
-  isTableScalingEnabled?: boolean;
-  isTableAlignmentEnabled?: boolean;
+	tableOptions: PluginConfig;
+	tableResizingEnabled?: boolean;
+	dragAndDropEnabled?: boolean;
+	allowContextualMenu?: boolean;
+	// TODO these two need to be rethought
+	fullWidthEnabled?: boolean;
+	wasFullWidthEnabled?: boolean;
+	getEditorFeatureFlags?: GetEditorFeatureFlags;
+	isTableScalingEnabled?: boolean;
+	isTableAlignmentEnabled?: boolean;
 }
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
@@ -105,41 +101,41 @@ const defaultGetEditorFeatureFlags = () => ({});
 
 // TODO: duplicating type instead of importing media plugin causing a circular dependency
 type MediaPlugin = NextEditorPlugin<
-  'media',
-  {
-    pluginConfiguration: any;
-    dependencies: any;
-    sharedState: any;
-    actions: any;
-  }
+	'media',
+	{
+		pluginConfiguration: any;
+		dependencies: any;
+		sharedState: any;
+		actions: any;
+	}
 >;
 
 export type TablePlugin = NextEditorPlugin<
-  'table',
-  {
-    pluginConfiguration: TablePluginOptions | undefined;
-    actions: {
-      insertTable: InsertTableAction;
-    };
-    sharedState?: TableSharedState;
-    commands: {
-      insertTableWithSize: (
-        rowsCount: number,
-        colsCount: number,
-        inputMethod?: INPUT_METHOD.PICKER,
-      ) => EditorCommand;
-    };
-    dependencies: [
-      AnalyticsPlugin,
-      ContentInsertionPlugin,
-      WidthPlugin,
-      GuidelinePlugin,
-      SelectionPlugin,
-      OptionalPlugin<AccessibilityUtilsPlugin>,
-      OptionalPlugin<MediaPlugin>,
-      OptionalPlugin<EditorViewModePlugin>,
-    ];
-  }
+	'table',
+	{
+		pluginConfiguration: TablePluginOptions | undefined;
+		actions: {
+			insertTable: InsertTableAction;
+		};
+		sharedState?: TableSharedState;
+		commands: {
+			insertTableWithSize: (
+				rowsCount: number,
+				colsCount: number,
+				inputMethod?: INPUT_METHOD.PICKER,
+			) => EditorCommand;
+		};
+		dependencies: [
+			AnalyticsPlugin,
+			ContentInsertionPlugin,
+			WidthPlugin,
+			GuidelinePlugin,
+			SelectionPlugin,
+			OptionalPlugin<AccessibilityUtilsPlugin>,
+			OptionalPlugin<MediaPlugin>,
+			OptionalPlugin<EditorViewModePlugin>,
+		];
+	}
 >;
 
 /**
@@ -147,539 +143,518 @@ export type TablePlugin = NextEditorPlugin<
  * from `@atlaskit/editor-core`.
  */
 const tablesPlugin: TablePlugin = ({ config: options, api }) => {
-  const editorViewRef: Record<'current', EditorView | null> = { current: null };
-  const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {
-    return (
-      api?.width?.sharedState.currentState() ?? {
-        width: document?.body?.offsetWidth ?? 500,
-      }
-    );
-  };
-  const editorAnalyticsAPI = api?.analytics?.actions;
+	const editorViewRef: Record<'current', EditorView | null> = { current: null };
+	const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {
+		return (
+			api?.width?.sharedState.currentState() ?? {
+				width: document?.body?.offsetWidth ?? 500,
+			}
+		);
+	};
+	const editorAnalyticsAPI = api?.analytics?.actions;
 
-  return {
-    name: 'table',
+	return {
+		name: 'table',
 
-    // Use getSharedState to store fullWidthEnabled and wasFullWidthModeEnabled to guarantee access
-    // to most up to date values - passing to createPluginState will not re-initialise the state
-    getSharedState: (editorState) => {
-      if (!editorState) {
-        return undefined;
-      }
+		// Use getSharedState to store fullWidthEnabled and wasFullWidthModeEnabled to guarantee access
+		// to most up to date values - passing to createPluginState will not re-initialise the state
+		getSharedState: (editorState) => {
+			if (!editorState) {
+				return undefined;
+			}
 
-      const tablePluginState = getPluginState(editorState);
-      const tableResizingPluginState = getFlexiResizingPlugin(editorState);
-      const tableWidthResizingPluginState =
-        tableWidthPluginKey.getState(editorState);
+			const tablePluginState = getPluginState(editorState);
+			const tableResizingPluginState = getFlexiResizingPlugin(editorState);
+			const tableWidthResizingPluginState = tableWidthPluginKey.getState(editorState);
 
-      return {
-        isFullWidthModeEnabled: !!options?.fullWidthEnabled,
-        wasFullWidthModeEnabled: !!options?.wasFullWidthEnabled,
-        isHeaderRowEnabled: tablePluginState.isHeaderRowEnabled,
-        isHeaderColumnEnabled: tablePluginState.isHeaderColumnEnabled,
-        ordering: tablePluginState.ordering,
-        isResizing: !!(
-          tableResizingPluginState?.dragging ||
-          tableWidthResizingPluginState?.resizing
-        ),
-        isTableResizing: tableWidthResizingPluginState?.resizing,
-        isInDanger: tablePluginState.isInDanger,
-        hoveredRows: tablePluginState.hoveredRows,
-        hoveredCell: tablePluginState.hoveredCell,
-        isTableHovered: tablePluginState.isTableHovered,
-        isWholeTableInDanger: tablePluginState.isWholeTableInDanger,
-        // IMPORTANT: Need to continue to pass tableNode to control re-renders
-        // TableComponent listens for node attribute changes to update colgroups
-        tableNode: tablePluginState.tableNode,
-        widthToWidest: tablePluginState.widthToWidest,
-      };
-    },
+			return {
+				isFullWidthModeEnabled: !!options?.fullWidthEnabled,
+				wasFullWidthModeEnabled: !!options?.wasFullWidthEnabled,
+				isHeaderRowEnabled: tablePluginState.isHeaderRowEnabled,
+				isHeaderColumnEnabled: tablePluginState.isHeaderColumnEnabled,
+				ordering: tablePluginState.ordering,
+				isResizing: !!(
+					tableResizingPluginState?.dragging || tableWidthResizingPluginState?.resizing
+				),
+				isTableResizing: tableWidthResizingPluginState?.resizing,
+				isInDanger: tablePluginState.isInDanger,
+				hoveredRows: tablePluginState.hoveredRows,
+				hoveredCell: tablePluginState.hoveredCell,
+				isTableHovered: tablePluginState.isTableHovered,
+				isWholeTableInDanger: tablePluginState.isWholeTableInDanger,
+				// IMPORTANT: Need to continue to pass tableNode to control re-renders
+				// TableComponent listens for node attribute changes to update colgroups
+				tableNode: tablePluginState.tableNode,
+				widthToWidest: tablePluginState.widthToWidest,
+			};
+		},
 
-    actions: {
-      insertTable:
-        (analyticsPayload): Command =>
-        (state, dispatch) => {
-          const node = createTableWithWidth({
-            isTableScalingEnabled: options?.isTableScalingEnabled,
-            isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
-            isFullWidthModeEnabled: options?.fullWidthEnabled,
-          })(state.schema);
+		actions: {
+			insertTable:
+				(analyticsPayload): Command =>
+				(state, dispatch) => {
+					const node = createTableWithWidth({
+						isTableScalingEnabled: options?.isTableScalingEnabled,
+						isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
+						isFullWidthModeEnabled: options?.fullWidthEnabled,
+					})(state.schema);
 
-          return (
-            api?.contentInsertion?.actions?.insert({
-              state,
-              dispatch,
-              node,
+					return (
+						api?.contentInsertion?.actions?.insert({
+							state,
+							dispatch,
+							node,
 
-              options: {
-                selectNodeInserted: false,
-                analyticsPayload: {
-                  ...analyticsPayload,
-                  attributes: {
-                    ...analyticsPayload.attributes,
-                    localId: node.attrs.localId,
-                  },
-                },
-              },
-            }) ?? false
-          );
-        },
-    },
+							options: {
+								selectNodeInserted: false,
+								analyticsPayload: {
+									...analyticsPayload,
+									attributes: {
+										...analyticsPayload.attributes,
+										localId: node.attrs.localId,
+									},
+								},
+							},
+						}) ?? false
+					);
+				},
+		},
 
-    commands: {
-      insertTableWithSize: insertTableWithSize(
-        options?.fullWidthEnabled,
-        options?.isTableScalingEnabled,
-        options?.isTableAlignmentEnabled,
-        api?.analytics?.actions,
-      ),
-    },
+		commands: {
+			insertTableWithSize: insertTableWithSize(
+				options?.fullWidthEnabled,
+				options?.isTableScalingEnabled,
+				options?.isTableAlignmentEnabled,
+				api?.analytics?.actions,
+			),
+		},
 
-    nodes() {
-      return [
-        { name: 'table', node: table },
-        { name: 'tableHeader', node: tableHeader },
-        { name: 'tableRow', node: tableRow },
-        { name: 'tableCell', node: tableCell },
-      ];
-    },
+		nodes() {
+			return [
+				{ name: 'table', node: table },
+				{ name: 'tableHeader', node: tableHeader },
+				{ name: 'tableRow', node: tableRow },
+				{ name: 'tableCell', node: tableCell },
+			];
+		},
 
-    pmPlugins() {
-      const plugins: ReturnType<NonNullable<EditorPlugin['pmPlugins']>> = [
-        {
-          name: 'table',
-          plugin: ({
-            dispatchAnalyticsEvent,
-            dispatch,
-            portalProviderAPI,
-            eventDispatcher,
-            getIntl,
-          }) => {
-            const {
-              fullWidthEnabled,
-              wasFullWidthEnabled,
-              tableResizingEnabled,
+		pmPlugins() {
+			const plugins: ReturnType<NonNullable<EditorPlugin['pmPlugins']>> = [
+				{
+					name: 'table',
+					plugin: ({
+						dispatchAnalyticsEvent,
+						dispatch,
+						portalProviderAPI,
+						eventDispatcher,
+						getIntl,
+					}) => {
+						const {
+							fullWidthEnabled,
+							wasFullWidthEnabled,
+							tableResizingEnabled,
 
-              tableOptions,
-              getEditorFeatureFlags,
-              dragAndDropEnabled,
-              isTableScalingEnabled,
-              isTableAlignmentEnabled,
-            } = options || ({} as TablePluginOptions);
+							tableOptions,
+							getEditorFeatureFlags,
+							dragAndDropEnabled,
+							isTableScalingEnabled,
+							isTableAlignmentEnabled,
+						} = options || ({} as TablePluginOptions);
 
-            return createPlugin(
-              dispatchAnalyticsEvent,
-              dispatch,
-              portalProviderAPI,
-              eventDispatcher,
-              pluginConfig(tableOptions),
-              defaultGetEditorContainerWidth,
-              getEditorFeatureFlags || defaultGetEditorFeatureFlags,
-              getIntl,
-              tableResizingEnabled,
-              fullWidthEnabled,
-              wasFullWidthEnabled,
-              dragAndDropEnabled,
-              editorAnalyticsAPI,
-              api,
-              isTableScalingEnabled,
-              isTableAlignmentEnabled,
-            );
-          },
-        },
-        {
-          name: 'tablePMColResizing',
-          plugin: ({ dispatch }) => {
-            const {
-              fullWidthEnabled,
-              tableOptions,
-              getEditorFeatureFlags,
-              isTableScalingEnabled,
-            } = options || ({} as TablePluginOptions);
-            const { allowColumnResizing } = pluginConfig(tableOptions);
-            return allowColumnResizing
-              ? createFlexiResizingPlugin(
-                  dispatch,
-                  {
-                    lastColumnResizable: !fullWidthEnabled,
-                  } as ColumnResizingPluginState,
-                  defaultGetEditorContainerWidth,
-                  getEditorFeatureFlags || defaultGetEditorFeatureFlags,
-                  editorAnalyticsAPI,
-                  isTableScalingEnabled || false,
-                )
-              : undefined;
-          },
-        },
-        { name: 'tableEditing', plugin: () => createDecorationsPlugin() },
-        // Needs to be lower priority than editor-tables.tableEditing
-        // plugin as it is currently swallowing backspace events inside tables
-        {
-          name: 'tableKeymap',
-          plugin: ({ getIntl }) => {
-            const {
-              dragAndDropEnabled,
-              isTableScalingEnabled = false,
-              isTableAlignmentEnabled = false,
-              fullWidthEnabled = false,
-            } = options || ({} as TablePluginOptions);
-            return keymapPlugin(
-              defaultGetEditorContainerWidth,
-              editorAnalyticsAPI,
-              dragAndDropEnabled,
-              isTableScalingEnabled,
-              isTableAlignmentEnabled,
-              fullWidthEnabled,
-              api,
-              getIntl,
-            );
-          },
-        },
-        {
-          name: 'tableSelectionKeymap',
-          plugin: () => tableSelectionKeymapPlugin(api?.selection),
-        },
-        {
-          name: 'tableEditing',
-          plugin: () => {
-            const { dragAndDropEnabled } =
-              options || ({} as TablePluginOptions);
+						return createPlugin(
+							dispatchAnalyticsEvent,
+							dispatch,
+							portalProviderAPI,
+							eventDispatcher,
+							pluginConfig(tableOptions),
+							defaultGetEditorContainerWidth,
+							getEditorFeatureFlags || defaultGetEditorFeatureFlags,
+							getIntl,
+							tableResizingEnabled,
+							fullWidthEnabled,
+							wasFullWidthEnabled,
+							dragAndDropEnabled,
+							editorAnalyticsAPI,
+							api,
+							isTableScalingEnabled,
+							isTableAlignmentEnabled,
+						);
+					},
+				},
+				{
+					name: 'tablePMColResizing',
+					plugin: ({ dispatch }) => {
+						const { fullWidthEnabled, tableOptions, getEditorFeatureFlags, isTableScalingEnabled } =
+							options || ({} as TablePluginOptions);
+						const { allowColumnResizing } = pluginConfig(tableOptions);
+						return allowColumnResizing
+							? createFlexiResizingPlugin(
+									dispatch,
+									{
+										lastColumnResizable: !fullWidthEnabled,
+									} as ColumnResizingPluginState,
+									defaultGetEditorContainerWidth,
+									getEditorFeatureFlags || defaultGetEditorFeatureFlags,
+									editorAnalyticsAPI,
+									isTableScalingEnabled || false,
+								)
+							: undefined;
+					},
+				},
+				{ name: 'tableEditing', plugin: () => createDecorationsPlugin() },
+				// Needs to be lower priority than editor-tables.tableEditing
+				// plugin as it is currently swallowing backspace events inside tables
+				{
+					name: 'tableKeymap',
+					plugin: ({ getIntl }) => {
+						const {
+							dragAndDropEnabled,
+							isTableScalingEnabled = false,
+							isTableAlignmentEnabled = false,
+							fullWidthEnabled = false,
+						} = options || ({} as TablePluginOptions);
+						return keymapPlugin(
+							defaultGetEditorContainerWidth,
+							editorAnalyticsAPI,
+							dragAndDropEnabled,
+							isTableScalingEnabled,
+							isTableAlignmentEnabled,
+							fullWidthEnabled,
+							api,
+							getIntl,
+						);
+					},
+				},
+				{
+					name: 'tableSelectionKeymap',
+					plugin: () => tableSelectionKeymapPlugin(api?.selection),
+				},
+				{
+					name: 'tableEditing',
+					plugin: () => {
+						const { dragAndDropEnabled } = options || ({} as TablePluginOptions);
 
-            return tableEditing({
-              reportFixedTable: ({
-                tr,
-                reason,
-              }: {
-                tr: Transaction;
-                reason: string;
-              }) => {
-                editorAnalyticsAPI?.attachAnalyticsEvent({
-                  action: TABLE_ACTION.FIXED,
-                  actionSubject: ACTION_SUBJECT.TABLE,
-                  actionSubjectId: null,
-                  attributes: {
-                    reason,
-                  },
-                  eventType: EVENT_TYPE.TRACK,
-                })(tr);
-              },
-              dragAndDropEnabled,
-            }) as SafePlugin;
-          },
-        },
-        {
-          name: 'tableStickyHeaders',
-          plugin: ({ dispatch, eventDispatcher }) =>
-            options && options.tableOptions.stickyHeaders
-              ? createStickyHeadersPlugin(dispatch, () => [])
-              : undefined,
-        },
-        {
-          name: 'tableDragAndDrop',
-          plugin: ({ dispatch }) => {
-            return options?.dragAndDropEnabled
-              ? createDragAndDropPlugin(dispatch, editorAnalyticsAPI)
-              : undefined;
-          },
-        },
-        {
-          name: 'tableViewModeSort',
-          plugin: () => {
-            return getBooleanFF(
-              'platform.editor.table.live-pages-sorting_4malx',
-            ) && api?.editorViewMode
-              ? createViewModeSortPlugin(api.editorViewMode)
-              : undefined;
-          },
-        },
-        {
-          name: 'tableLocalId',
-          plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),
-        },
-        {
-          name: 'tableWidth',
-          plugin: ({ dispatchAnalyticsEvent, dispatch }) =>
-            options?.tableResizingEnabled
-              ? createTableWidthPlugin(
-                  dispatch,
-                  dispatchAnalyticsEvent,
-                  options?.fullWidthEnabled ?? false,
-                  options?.isTableScalingEnabled ?? false,
-                  options?.isTableAlignmentEnabled ?? false,
-                )
-              : undefined,
-        },
-        // TODO: should be deprecated and eventually replaced with 'tableAnalyticsPlugin'
-        {
-          name: 'tableOverflowAnalyticsPlugin',
-          plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
-            createTableOverflowAnalyticsPlugin(
-              dispatch,
-              dispatchAnalyticsEvent,
-              options?.tableResizingEnabled ?? false,
-            ),
-        },
-        {
-          name: 'tableAnalyticsPlugin',
-          plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
-            createTableAnalyticsPlugin(dispatch, dispatchAnalyticsEvent),
-        },
-        {
-          name: 'tableGetEditorViewReferencePlugin',
-          plugin: () => {
-            return new SafePlugin({
-              view: (editorView) => {
-                editorViewRef.current = editorView;
-                return {
-                  destroy: () => {
-                    editorViewRef.current = null;
-                  },
-                };
-              },
-            });
-          },
-        },
-      ];
+						return tableEditing({
+							reportFixedTable: ({ tr, reason }: { tr: Transaction; reason: string }) => {
+								editorAnalyticsAPI?.attachAnalyticsEvent({
+									action: TABLE_ACTION.FIXED,
+									actionSubject: ACTION_SUBJECT.TABLE,
+									actionSubjectId: null,
+									attributes: {
+										reason,
+									},
+									eventType: EVENT_TYPE.TRACK,
+								})(tr);
+							},
+							dragAndDropEnabled,
+						}) as SafePlugin;
+					},
+				},
+				{
+					name: 'tableStickyHeaders',
+					plugin: ({ dispatch, eventDispatcher }) =>
+						options && options.tableOptions.stickyHeaders
+							? createStickyHeadersPlugin(dispatch, () => [])
+							: undefined,
+				},
+				{
+					name: 'tableDragAndDrop',
+					plugin: ({ dispatch }) => {
+						return options?.dragAndDropEnabled
+							? createDragAndDropPlugin(dispatch, editorAnalyticsAPI)
+							: undefined;
+					},
+				},
+				{
+					name: 'tableViewModeSort',
+					plugin: () => {
+						return getBooleanFF('platform.editor.table.live-pages-sorting_4malx') &&
+							api?.editorViewMode
+							? createViewModeSortPlugin(api.editorViewMode)
+							: undefined;
+					},
+				},
+				{
+					name: 'tableLocalId',
+					plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),
+				},
+				{
+					name: 'tableWidth',
+					plugin: ({ dispatchAnalyticsEvent, dispatch }) =>
+						options?.tableResizingEnabled
+							? createTableWidthPlugin(
+									dispatch,
+									dispatchAnalyticsEvent,
+									options?.fullWidthEnabled ?? false,
+									options?.isTableScalingEnabled ?? false,
+									options?.isTableAlignmentEnabled ?? false,
+								)
+							: undefined,
+				},
+				// TODO: should be deprecated and eventually replaced with 'tableAnalyticsPlugin'
+				{
+					name: 'tableOverflowAnalyticsPlugin',
+					plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
+						createTableOverflowAnalyticsPlugin(
+							dispatch,
+							dispatchAnalyticsEvent,
+							options?.tableResizingEnabled ?? false,
+						),
+				},
+				{
+					name: 'tableAnalyticsPlugin',
+					plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
+						createTableAnalyticsPlugin(dispatch, dispatchAnalyticsEvent),
+				},
+				{
+					name: 'tableGetEditorViewReferencePlugin',
+					plugin: () => {
+						return new SafePlugin({
+							view: (editorView) => {
+								editorViewRef.current = editorView;
+								return {
+									destroy: () => {
+										editorViewRef.current = null;
+									},
+								};
+							},
+						});
+					},
+				},
+			];
 
-      // Workaround for table element breaking issue caused by composition event with an inputType of deleteCompositionText.
-      // https://github.com/ProseMirror/prosemirror/issues/934
-      if (browser.safari) {
-        plugins.push({
-          name: 'tableSafariDeleteCompositionTextIssueWorkaround',
-          plugin: () => {
-            return createTableSafariDeleteCompositionTextIssueWorkaroundPlugin();
-          },
-        });
-      }
+			// Workaround for table element breaking issue caused by composition event with an inputType of deleteCompositionText.
+			// https://github.com/ProseMirror/prosemirror/issues/934
+			if (browser.safari) {
+				plugins.push({
+					name: 'tableSafariDeleteCompositionTextIssueWorkaround',
+					plugin: () => {
+						return createTableSafariDeleteCompositionTextIssueWorkaroundPlugin();
+					},
+				});
+			}
 
-      return plugins;
-    },
+			return plugins;
+		},
 
-    contentComponent({
-      editorView,
-      popupsMountPoint,
-      popupsBoundariesElement,
-      popupsScrollableElement,
-      dispatchAnalyticsEvent,
-    }) {
-      return (
-        <ErrorBoundary
-          component={ACTION_SUBJECT.TABLES_PLUGIN}
-          dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-          fallbackComponent={null}
-        >
-          <WithPluginState
-            plugins={{
-              tableAnalyticsPluginState: tableAnalyticsPluginKey,
-              tablePluginState: pluginKey,
-              tableWidthPluginState: tableWidthPluginKey,
-              tableResizingPluginState: tableResizingPluginKey,
-              stickyHeadersState: stickyHeadersPluginKey,
-              dragAndDropState: dragAndDropPluginKey,
-            }}
-            render={({
-              tableResizingPluginState: resizingPluginState,
-              stickyHeadersState,
-              tablePluginState,
-              tableWidthPluginState,
-              dragAndDropState,
-            }) => {
-              const isColumnResizing = resizingPluginState?.dragging;
-              const isTableResizing = tableWidthPluginState?.resizing;
-              const resizingTableLocalId = tableWidthPluginState?.tableLocalId;
-              const resizingTableRef = tableWidthPluginState?.tableRef;
-              const isResizing = isColumnResizing || isTableResizing;
-              const widthToWidest = tablePluginState?.widthToWidest;
+		contentComponent({
+			editorView,
+			popupsMountPoint,
+			popupsBoundariesElement,
+			popupsScrollableElement,
+			dispatchAnalyticsEvent,
+		}) {
+			return (
+				<ErrorBoundary
+					component={ACTION_SUBJECT.TABLES_PLUGIN}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					fallbackComponent={null}
+				>
+					<WithPluginState
+						plugins={{
+							tableAnalyticsPluginState: tableAnalyticsPluginKey,
+							tablePluginState: pluginKey,
+							tableWidthPluginState: tableWidthPluginKey,
+							tableResizingPluginState: tableResizingPluginKey,
+							stickyHeadersState: stickyHeadersPluginKey,
+							dragAndDropState: dragAndDropPluginKey,
+						}}
+						render={({
+							tableResizingPluginState: resizingPluginState,
+							stickyHeadersState,
+							tablePluginState,
+							tableWidthPluginState,
+							dragAndDropState,
+						}) => {
+							const isColumnResizing = resizingPluginState?.dragging;
+							const isTableResizing = tableWidthPluginState?.resizing;
+							const resizingTableLocalId = tableWidthPluginState?.tableLocalId;
+							const resizingTableRef = tableWidthPluginState?.tableRef;
+							const isResizing = isColumnResizing || isTableResizing;
+							const widthToWidest = tablePluginState?.widthToWidest;
 
-              const {
-                tableNode,
-                tablePos,
-                targetCellPosition,
-                isContextualMenuOpen,
-                tableRef,
-                pluginConfig,
-                insertColumnButtonIndex,
-                insertRowButtonIndex,
-                isHeaderColumnEnabled,
-                isHeaderRowEnabled,
-                isDragAndDropEnabled,
-                tableWrapperTarget,
-              } = tablePluginState!;
+							const {
+								tableNode,
+								tablePos,
+								targetCellPosition,
+								isContextualMenuOpen,
+								tableRef,
+								pluginConfig,
+								insertColumnButtonIndex,
+								insertRowButtonIndex,
+								isHeaderColumnEnabled,
+								isHeaderRowEnabled,
+								isDragAndDropEnabled,
+								tableWrapperTarget,
+							} = tablePluginState!;
 
-              const { allowControls } = pluginConfig;
+							const { allowControls } = pluginConfig;
 
-              const stickyHeader = stickyHeadersState
-                ? findStickyHeaderForTable(stickyHeadersState, tablePos)
-                : undefined;
+							const stickyHeader = stickyHeadersState
+								? findStickyHeaderForTable(stickyHeadersState, tablePos)
+								: undefined;
 
-              return (
-                <>
-                  {targetCellPosition &&
-                    tableRef &&
-                    !isResizing &&
-                    options &&
-                    options.allowContextualMenu && (
-                      <FloatingContextualButton
-                        isNumberColumnEnabled={
-                          tableNode && tableNode.attrs.isNumberColumnEnabled
-                        }
-                        editorView={editorView}
-                        tableNode={tableNode}
-                        mountPoint={popupsMountPoint}
-                        targetCellPosition={targetCellPosition}
-                        scrollableElement={popupsScrollableElement}
-                        dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-                        isContextualMenuOpen={isContextualMenuOpen}
-                        stickyHeader={stickyHeader}
-                        tableWrapper={tableWrapperTarget}
-                      />
-                    )}
-                  {allowControls && (
-                    <FloatingInsertButton
-                      tableNode={tableNode}
-                      tableRef={tableRef}
-                      insertColumnButtonIndex={insertColumnButtonIndex}
-                      insertRowButtonIndex={insertRowButtonIndex}
-                      isHeaderColumnEnabled={isHeaderColumnEnabled}
-                      isHeaderRowEnabled={isHeaderRowEnabled}
-                      isDragAndDropEnabled={isDragAndDropEnabled}
-                      editorView={editorView}
-                      mountPoint={popupsMountPoint}
-                      boundariesElement={popupsBoundariesElement}
-                      scrollableElement={popupsScrollableElement}
-                      hasStickyHeaders={stickyHeader && stickyHeader.sticky}
-                      dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-                      editorAnalyticsAPI={editorAnalyticsAPI}
-                      getEditorContainerWidth={defaultGetEditorContainerWidth}
-                      getEditorFeatureFlags={
-                        options?.getEditorFeatureFlags ||
-                        defaultGetEditorFeatureFlags
-                      }
-                    />
-                  )}
-                  {options?.allowContextualMenu && (
-                    <FloatingContextualMenu
-                      editorView={editorView}
-                      mountPoint={popupsMountPoint}
-                      boundariesElement={popupsBoundariesElement}
-                      targetCellPosition={targetCellPosition}
-                      isOpen={Boolean(isContextualMenuOpen) && !isResizing}
-                      pluginConfig={pluginConfig}
-                      editorAnalyticsAPI={editorAnalyticsAPI}
-                      getEditorContainerWidth={defaultGetEditorContainerWidth}
-                      getEditorFeatureFlags={
-                        options?.getEditorFeatureFlags ||
-                        defaultGetEditorFeatureFlags
-                      }
-                    />
-                  )}
-                  {isDragAndDropEnabled && (
-                    <FloatingDragMenu
-                      editorView={editorView}
-                      mountPoint={popupsMountPoint}
-                      boundariesElement={popupsBoundariesElement}
-                      tableRef={tableRef as HTMLTableElement}
-                      tableNode={tableNode}
-                      targetCellPosition={targetCellPosition}
-                      direction={dragAndDropState?.dragMenuDirection}
-                      index={dragAndDropState?.dragMenuIndex}
-                      isOpen={!!dragAndDropState?.isDragMenuOpen && !isResizing}
-                      getEditorContainerWidth={defaultGetEditorContainerWidth}
-                      editorAnalyticsAPI={editorAnalyticsAPI}
-                      stickyHeaders={stickyHeader}
-                      pluginConfig={pluginConfig}
-                      isTableScalingEnabled={options?.isTableScalingEnabled}
-                      getEditorFeatureFlags={
-                        options?.getEditorFeatureFlags ||
-                        defaultGetEditorFeatureFlags
-                      }
-                    />
-                  )}
-                  {allowControls && !isDragAndDropEnabled && !isResizing && (
-                    <FloatingDeleteButton
-                      editorView={editorView}
-                      selection={editorView.state.selection}
-                      tableRef={tableRef as HTMLTableElement}
-                      mountPoint={popupsMountPoint}
-                      boundariesElement={popupsBoundariesElement}
-                      scrollableElement={popupsScrollableElement}
-                      stickyHeaders={stickyHeader}
-                      isNumberColumnEnabled={
-                        tableNode && tableNode.attrs.isNumberColumnEnabled
-                      }
-                      editorAnalyticsAPI={editorAnalyticsAPI}
-                    />
-                  )}
-                  {options?.isTableScalingEnabled &&
-                    isTableResizing &&
-                    widthToWidest &&
-                    resizingTableLocalId &&
-                    resizingTableRef &&
-                    widthToWidest[resizingTableLocalId] && (
-                      <FloatingToolbarLabel
-                        target={resizingTableRef}
-                        content={<FullWidthDisplay />}
-                        alignX={'center'}
-                        alignY={'bottom'}
-                        stick={true}
-                        forcePlacement={true}
-                        zIndex={akEditorFloatingPanelZIndex}
-                        offset={[0, 10]}
-                      />
-                    )}
-                </>
-              );
-            }}
-          />
-        </ErrorBoundary>
-      );
-    },
+							return (
+								<>
+									{targetCellPosition &&
+										tableRef &&
+										!isResizing &&
+										options &&
+										options.allowContextualMenu && (
+											<FloatingContextualButton
+												isNumberColumnEnabled={tableNode && tableNode.attrs.isNumberColumnEnabled}
+												editorView={editorView}
+												tableNode={tableNode}
+												mountPoint={popupsMountPoint}
+												targetCellPosition={targetCellPosition}
+												scrollableElement={popupsScrollableElement}
+												dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+												isContextualMenuOpen={isContextualMenuOpen}
+												stickyHeader={stickyHeader}
+												tableWrapper={tableWrapperTarget}
+											/>
+										)}
+									{allowControls && (
+										<FloatingInsertButton
+											tableNode={tableNode}
+											tableRef={tableRef}
+											insertColumnButtonIndex={insertColumnButtonIndex}
+											insertRowButtonIndex={insertRowButtonIndex}
+											isHeaderColumnEnabled={isHeaderColumnEnabled}
+											isHeaderRowEnabled={isHeaderRowEnabled}
+											isDragAndDropEnabled={isDragAndDropEnabled}
+											editorView={editorView}
+											mountPoint={popupsMountPoint}
+											boundariesElement={popupsBoundariesElement}
+											scrollableElement={popupsScrollableElement}
+											hasStickyHeaders={stickyHeader && stickyHeader.sticky}
+											dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+											editorAnalyticsAPI={editorAnalyticsAPI}
+											getEditorContainerWidth={defaultGetEditorContainerWidth}
+											getEditorFeatureFlags={
+												options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags
+											}
+										/>
+									)}
+									{options?.allowContextualMenu && (
+										<FloatingContextualMenu
+											editorView={editorView}
+											mountPoint={popupsMountPoint}
+											boundariesElement={popupsBoundariesElement}
+											targetCellPosition={targetCellPosition}
+											isOpen={Boolean(isContextualMenuOpen) && !isResizing}
+											pluginConfig={pluginConfig}
+											editorAnalyticsAPI={editorAnalyticsAPI}
+											getEditorContainerWidth={defaultGetEditorContainerWidth}
+											getEditorFeatureFlags={
+												options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags
+											}
+										/>
+									)}
+									{isDragAndDropEnabled && (
+										<FloatingDragMenu
+											editorView={editorView}
+											mountPoint={popupsMountPoint}
+											boundariesElement={popupsBoundariesElement}
+											tableRef={tableRef as HTMLTableElement}
+											tableNode={tableNode}
+											targetCellPosition={targetCellPosition}
+											direction={dragAndDropState?.dragMenuDirection}
+											index={dragAndDropState?.dragMenuIndex}
+											isOpen={!!dragAndDropState?.isDragMenuOpen && !isResizing}
+											getEditorContainerWidth={defaultGetEditorContainerWidth}
+											editorAnalyticsAPI={editorAnalyticsAPI}
+											stickyHeaders={stickyHeader}
+											pluginConfig={pluginConfig}
+											isTableScalingEnabled={options?.isTableScalingEnabled}
+											getEditorFeatureFlags={
+												options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags
+											}
+										/>
+									)}
+									{allowControls && !isDragAndDropEnabled && !isResizing && (
+										<FloatingDeleteButton
+											editorView={editorView}
+											selection={editorView.state.selection}
+											tableRef={tableRef as HTMLTableElement}
+											mountPoint={popupsMountPoint}
+											boundariesElement={popupsBoundariesElement}
+											scrollableElement={popupsScrollableElement}
+											stickyHeaders={stickyHeader}
+											isNumberColumnEnabled={tableNode && tableNode.attrs.isNumberColumnEnabled}
+											editorAnalyticsAPI={editorAnalyticsAPI}
+										/>
+									)}
+									{options?.isTableScalingEnabled &&
+										isTableResizing &&
+										widthToWidest &&
+										resizingTableLocalId &&
+										resizingTableRef &&
+										widthToWidest[resizingTableLocalId] && (
+											<FloatingToolbarLabel
+												target={resizingTableRef}
+												content={<FullWidthDisplay />}
+												alignX={'center'}
+												alignY={'bottom'}
+												stick={true}
+												forcePlacement={true}
+												zIndex={akEditorFloatingPanelZIndex}
+												offset={[0, 10]}
+											/>
+										)}
+								</>
+							);
+						}}
+					/>
+				</ErrorBoundary>
+			);
+		},
 
-    pluginsOptions: {
-      quickInsert: ({ formatMessage }) => [
-        {
-          id: 'table',
-          title: formatMessage(messages.table),
-          description: formatMessage(messages.tableDescription),
-          keywords: ['cell', 'table'],
-          priority: 600,
-          keyshortcut: tooltip(toggleTable),
-          icon: () => <IconTable />,
-          action(insert, state) {
-            // see comment on tablesPlugin.getSharedState on usage
-            const tableState = api?.table?.sharedState.currentState();
+		pluginsOptions: {
+			quickInsert: ({ formatMessage }) => [
+				{
+					id: 'table',
+					title: formatMessage(messages.table),
+					description: formatMessage(messages.tableDescription),
+					keywords: ['cell', 'table'],
+					priority: 600,
+					keyshortcut: tooltip(toggleTable),
+					icon: () => <IconTable />,
+					action(insert, state) {
+						// see comment on tablesPlugin.getSharedState on usage
+						const tableState = api?.table?.sharedState.currentState();
 
-            const tableNode = createTableWithWidth({
-              isTableScalingEnabled: options?.isTableScalingEnabled,
-              isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
-              isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
-            })(state.schema);
+						const tableNode = createTableWithWidth({
+							isTableScalingEnabled: options?.isTableScalingEnabled,
+							isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
+							isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
+						})(state.schema);
 
-            const tr = insert(tableNode);
+						const tr = insert(tableNode);
 
-            editorAnalyticsAPI?.attachAnalyticsEvent({
-              action: ACTION.INSERTED,
-              actionSubject: ACTION_SUBJECT.DOCUMENT,
-              actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-              attributes: {
-                inputMethod: INPUT_METHOD.QUICK_INSERT,
-                localId: tableNode.attrs.localId,
-              },
-              eventType: EVENT_TYPE.TRACK,
-            })(tr);
-            return tr;
-          },
-        },
-      ],
-      floatingToolbar: getToolbarConfig(
-        defaultGetEditorContainerWidth,
-        editorAnalyticsAPI,
-        options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
-        () => editorViewRef.current,
-        options,
-      )(pluginConfig(options?.tableOptions)),
-    },
-  };
+						editorAnalyticsAPI?.attachAnalyticsEvent({
+							action: ACTION.INSERTED,
+							actionSubject: ACTION_SUBJECT.DOCUMENT,
+							actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+							attributes: {
+								inputMethod: INPUT_METHOD.QUICK_INSERT,
+								localId: tableNode.attrs.localId,
+							},
+							eventType: EVENT_TYPE.TRACK,
+						})(tr);
+						return tr;
+					},
+				},
+			],
+			floatingToolbar: getToolbarConfig(
+				defaultGetEditorContainerWidth,
+				editorAnalyticsAPI,
+				options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
+				() => editorViewRef.current,
+				options,
+			)(pluginConfig(options?.tableOptions)),
+		},
+	};
 };
 
 export default tablesPlugin;

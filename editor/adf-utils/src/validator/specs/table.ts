@@ -1,32 +1,25 @@
 export default {
-  props: {
-    type: { type: 'enum', values: ['table'] },
-    attrs: {
-      props: {
-        isNumberColumnEnabled: { type: 'boolean', optional: true },
-        layout: {
-          type: 'enum',
-          values: [
-            'wide',
-            'full-width',
-            'center',
-            'align-end',
-            'align-start',
-            'default',
-          ],
-          optional: true,
-        },
-        localId: { type: 'string', minLength: 1, optional: true },
-        width: { type: 'number', optional: true },
-        displayMode: {
-          type: 'enum',
-          values: ['default', 'fixed'],
-          optional: true,
-        },
-      },
-      optional: true,
-    },
-    content: { type: 'array', items: ['tableRow'], minItems: 1 },
-    marks: { type: 'array', items: ['fragment'], optional: true },
-  },
+	props: {
+		type: { type: 'enum', values: ['table'] },
+		attrs: {
+			props: {
+				isNumberColumnEnabled: { type: 'boolean', optional: true },
+				layout: {
+					type: 'enum',
+					values: ['wide', 'full-width', 'center', 'align-end', 'align-start', 'default'],
+					optional: true,
+				},
+				localId: { type: 'string', minLength: 1, optional: true },
+				width: { type: 'number', optional: true },
+				displayMode: {
+					type: 'enum',
+					values: ['default', 'fixed'],
+					optional: true,
+				},
+			},
+			optional: true,
+		},
+		content: { type: 'array', items: ['tableRow'], minItems: 1 },
+		marks: { type: 'array', items: ['fragment'], optional: true },
+	},
 };

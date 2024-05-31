@@ -9,48 +9,46 @@ import type { UndoRedoPlugin } from './types';
 import ToolbarUndoRedo from './ui/ToolbarUndoRedo';
 
 export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
-  const primaryToolbarComponent: ToolbarUIComponentFactory = ({
-    editorView,
-    disabled,
-    isToolbarReducedSpacing,
-  }) => {
-    return (
-      <ToolbarUndoRedo
-        isReducedSpacing={isToolbarReducedSpacing}
-        disabled={disabled}
-        editorView={editorView}
-        api={api}
-      />
-    );
-  };
+	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
+		editorView,
+		disabled,
+		isToolbarReducedSpacing,
+	}) => {
+		return (
+			<ToolbarUndoRedo
+				isReducedSpacing={isToolbarReducedSpacing}
+				disabled={disabled}
+				editorView={editorView}
+				api={api}
+			/>
+		);
+	};
 
-  return {
-    name: 'undoRedoPlugin',
+	return {
+		name: 'undoRedoPlugin',
 
-    pmPlugins() {
-      return [
-        {
-          name: 'undoRedoKeyMap',
-          plugin: () => keymapPlugin(),
-        },
-        {
-          name: 'undoRedoPlugin',
-          plugin: options => createPlugin(options),
-        },
-      ];
-    },
+		pmPlugins() {
+			return [
+				{
+					name: 'undoRedoKeyMap',
+					plugin: () => keymapPlugin(),
+				},
+				{
+					name: 'undoRedoPlugin',
+					plugin: (options) => createPlugin(options),
+				},
+			];
+		},
 
-    usePluginHook: () => {
-      api?.core?.actions.execute(
-        api?.primaryToolbar?.commands.registerComponent({
-          name: 'undoRedoPlugin',
-          component: primaryToolbarComponent,
-        }),
-      );
-    },
+		usePluginHook: () => {
+			api?.core?.actions.execute(
+				api?.primaryToolbar?.commands.registerComponent({
+					name: 'undoRedoPlugin',
+					component: primaryToolbarComponent,
+				}),
+			);
+		},
 
-    primaryToolbarComponent: !api?.primaryToolbar
-      ? primaryToolbarComponent
-      : undefined,
-  };
+		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
+	};
 };

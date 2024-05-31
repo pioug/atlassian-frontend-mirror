@@ -11,6 +11,7 @@ import { type AutomationActionData } from '../../../../../state/flexible-ui-cont
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { type LinkActionProps } from '../types';
+import { getModalContent } from './utils';
 
 const AutomationModal = lazy(
   () => import( /* webpackChunkName: "@atlaskit-internal_smart-card-automation-modal" */ './automation-manual-triggers/manual-triggers-modal')
@@ -19,24 +20,27 @@ const AutomationModal = lazy(
 const AutomationAction = (props: LinkActionProps) => {
   const { formatMessage } = useIntl();
   const modal = useSmartLinkModal();
+  const { onClick: onClickCallback } = props;
 
   const context = useFlexibleUiContext();
   const automationActionData = context?.actions?.[ActionName.AutomationAction];
 
   const automationActionOnClick = useCallback((automationActionData: AutomationActionData) => {
     const {
+      product,
+      resourceType,
       baseAutomationUrl,
       objectAri,
       siteAri,
       canManageAutomation,
       analyticsSource,
-      modalTitle,
-      modalDescription,
       objectName
     } = automationActionData;
 
-    const automationModalTitle = <FormattedMessage {...modalTitle} />
-    const automationModalDescription =
+    const { modalTitle, modalDescription } = getModalContent(product, resourceType) || {};
+
+    const automationModalTitle = modalTitle ? <FormattedMessage {...modalTitle} /> : undefined;
+    const automationModalDescription = modalDescription ?
       <FormattedMessage
         {...modalDescription}
         values={{
@@ -44,7 +48,7 @@ const AutomationAction = (props: LinkActionProps) => {
           b: (chunks: React.ReactNode[]) => <strong>{chunks}</strong>,
           br: <br />
         }}
-      />
+      /> : undefined;
 
     modal.open(
         <AutomationModal
@@ -58,7 +62,9 @@ const AutomationAction = (props: LinkActionProps) => {
           onClose={() => modal.close()}
         />
     )
-  }, [modal])
+
+    onClickCallback?.();
+  }, [modal, onClickCallback])
 
   if (!automationActionData) {
     return null;
@@ -76,7 +82,6 @@ const AutomationAction = (props: LinkActionProps) => {
         icon={<AutomationManualTriggersGlyph label={automationActionIconLabel}/>}
         testId="smart-action-automation-action"
         tooltipMessage={automationActionTooltip}
-        {...automationActionData}
         {...props}
         onClick={() => automationActionOnClick(automationActionData)}
       />

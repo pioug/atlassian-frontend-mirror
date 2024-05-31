@@ -3,18 +3,16 @@ import { useLayoutEffect, useMemo, useState } from 'react';
 
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
-  AllEditorPresetPluginTypes,
-  ExtractPublicEditorAPI,
+	AllEditorPresetPluginTypes,
+	ExtractPublicEditorAPI,
 } from '@atlaskit/editor-common/types';
 
 interface PresetAPI<
-  PluginNames extends string[] = [],
-  StackPlugins extends AllEditorPresetPluginTypes[] = [],
+	PluginNames extends string[] = [],
+	StackPlugins extends AllEditorPresetPluginTypes[] = [],
 > {
-  editorApi:
-    | ExtractPublicEditorAPI<EditorPresetBuilder<PluginNames, StackPlugins>>
-    | undefined;
-  preset: EditorPresetBuilder<PluginNames, StackPlugins>;
+	editorApi: ExtractPublicEditorAPI<EditorPresetBuilder<PluginNames, StackPlugins>> | undefined;
+	preset: EditorPresetBuilder<PluginNames, StackPlugins>;
 }
 
 /**
@@ -51,30 +49,28 @@ interface PresetAPI<
  * ```
  */
 export function usePreset<
-  PluginNames extends string[] = [],
-  StackPlugins extends AllEditorPresetPluginTypes[] = [],
+	PluginNames extends string[] = [],
+	StackPlugins extends AllEditorPresetPluginTypes[] = [],
 >(
-  createPreset: (
-    builder: EditorPresetBuilder,
-  ) => EditorPresetBuilder<PluginNames, StackPlugins>,
-  dependencies: DependencyList = [],
+	createPreset: (builder: EditorPresetBuilder) => EditorPresetBuilder<PluginNames, StackPlugins>,
+	dependencies: DependencyList = [],
 ): PresetAPI<PluginNames, StackPlugins> {
-  const [editorApi, setAPI] = useState<
-    PresetAPI<PluginNames, StackPlugins>['editorApi'] | undefined
-  >(undefined);
-  const preset = useMemo(
-    () => createPreset(new EditorPresetBuilder()),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    dependencies,
-  );
-  useLayoutEffect(() => {
-    preset.apiPromise.then((api) => {
-      setAPI(api);
-    });
-  }, [preset.apiPromise]);
+	const [editorApi, setAPI] = useState<
+		PresetAPI<PluginNames, StackPlugins>['editorApi'] | undefined
+	>(undefined);
+	const preset = useMemo(
+		() => createPreset(new EditorPresetBuilder()),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		dependencies,
+	);
+	useLayoutEffect(() => {
+		preset.apiPromise.then((api) => {
+			setAPI(api);
+		});
+	}, [preset.apiPromise]);
 
-  return {
-    editorApi,
-    preset,
-  };
+	return {
+		editorApi,
+		preset,
+	};
 }

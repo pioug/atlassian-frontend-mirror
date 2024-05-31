@@ -47,7 +47,6 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
@@ -91,6 +90,5 @@
         "util"
       ]
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

@@ -4,11 +4,11 @@ import { type NodeEncoder } from '..';
 import { inlines } from './inlines';
 
 export const heading: NodeEncoder = (node: PMNode): string => {
-  let result = '';
+	let result = '';
 
-  node.forEach((n) => {
-    result += inlines(n);
-  });
+	node.forEach((n) => {
+		result += inlines(n);
+	});
 
-  return `h${node.attrs.level}. ${result}`;
+	return `h${node.attrs.level}. ${result}`;
 };

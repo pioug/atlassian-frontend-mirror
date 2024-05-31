@@ -337,6 +337,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'ページ操作',
   'fabric.editor.panel.backgroundColor': '背景色',
   'fabric.editor.panel.emoji': '絵文字を追加',
+  'fabric.editor.panel.panelsGroup': 'パネル タイプ',
   'fabric.editor.pasteOptions': '貼り付けオプション',
   'fabric.editor.pastePlainText': 'プレーン テキストを貼り付け',
   'fabric.editor.placeholderAltText': '代替テキストでこの画像を説明',
@@ -421,7 +422,7 @@ export default {
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     '{nodeName} を削除すると、接続されているすべてが破棄されます。',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': '削除',
-  'fabric.editor.tables.resizeStop': 'リサイズを中止しました',
+  'fabric.editor.tables.resizeStop': 'サイズ変更を中止しました',
   'fabric.editor.tables.resizeTable': 'テーブルのサイズを変更する',
   'fabric.editor.tables.startedColumnResize': '列のサイズ変更を開始しました',
   'fabric.editor.task': 'タスク',

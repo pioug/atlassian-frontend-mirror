@@ -17,19 +17,19 @@ export const styles = `
 }
 `;
 export default function tableCell({ attrs, text }: NodeSerializerOpts) {
-  const { colspan, rowspan, background } = attrs;
-  const style = serializeStyle({
-    'background-color': background || 'white',
-  });
+	const { colspan, rowspan, background } = attrs;
+	const style = serializeStyle({
+		'background-color': background || 'white',
+	});
 
-  return createTag(
-    'td',
-    {
-      colspan,
-      rowspan,
-      style,
-      class: createClassName('tableCell'),
-    },
-    text,
-  );
+	return createTag(
+		'td',
+		{
+			colspan,
+			rowspan,
+			style,
+			class: createClassName('tableCell'),
+		},
+		text,
+	);
 }

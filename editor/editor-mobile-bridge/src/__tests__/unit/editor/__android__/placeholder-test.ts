@@ -9,109 +9,105 @@ import { androidComposeContinue, androidComposeEnd } from '../../_utils';
 import type { EditorViewWithComposition } from '../../../../types';
 
 describe('placeholder on mobile', () => {
-  const createEditor = createEditorFactory();
+	const createEditor = createEditorFactory();
 
-  const editor = (doc: DocBuilder): EditorViewWithComposition => {
-    const { editorView } = createEditor({
-      doc,
-      editorProps: {
-        placeholder: 'potato',
-      },
-    });
+	const editor = (doc: DocBuilder): EditorViewWithComposition => {
+		const { editorView } = createEditor({
+			doc,
+			editorProps: {
+				placeholder: 'potato',
+			},
+		});
 
-    return editorView as EditorViewWithComposition;
-  };
+		return editorView as EditorViewWithComposition;
+	};
 
-  // https://github.com/ProseMirror/prosemirror-view/commit/00c3dc9c3e7f5edcd71f24f4a8a8cf3fda4b2ac7
+	// https://github.com/ProseMirror/prosemirror-view/commit/00c3dc9c3e7f5edcd71f24f4a8a8cf3fda4b2ac7
 
-  const placeholderHtmlRegex = new RegExp(
-    `<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato</span><img class=\"ProseMirror-separator\" alt=\"\"><br class=\"ProseMirror-trailingBreak\"></p>`,
-  );
+	const placeholderHtmlRegex = new RegExp(
+		`<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato</span><img class=\"ProseMirror-separator\" alt=\"\"><br class=\"ProseMirror-trailingBreak\"></p>`,
+	);
 
-  const placeholderHtmlOnAndroidChromeRegex = new RegExp(
-    `<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato<span class=\"placeholder-android\" contenteditable=\"true\"> </span></span><img class=\"ProseMirror-separator\" alt=\"\"><br class=\"ProseMirror-trailingBreak\"></p>`,
-  );
+	const placeholderHtmlOnAndroidChromeRegex = new RegExp(
+		`<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato<span class=\"placeholder-android\" contenteditable=\"true\"> </span></span><img class=\"ProseMirror-separator\" alt=\"\"><br class=\"ProseMirror-trailingBreak\"></p>`,
+	);
 
-  beforeEach(() => jest.useFakeTimers());
+	beforeEach(() => jest.useFakeTimers());
 
-  it('renders a placeholder on a blank document', () => {
-    const editorView = editor(doc(p()));
-    expect(editorView.dom.innerHTML).toMatch(placeholderHtmlRegex);
-  });
+	it('renders a placeholder on a blank document', () => {
+		const editorView = editor(doc(p()));
+		expect(editorView.dom.innerHTML).toMatch(placeholderHtmlRegex);
+	});
 
-  it('renders a placeholder on a blank document on Android Chrome', () => {
-    const androidOldValue = browser.android;
-    const chromeOldValue = browser.chrome;
+	it('renders a placeholder on a blank document on Android Chrome', () => {
+		const androidOldValue = browser.android;
+		const chromeOldValue = browser.chrome;
 
-    browser.android = true;
-    browser.chrome = true;
+		browser.android = true;
+		browser.chrome = true;
 
-    const editorView = editor(doc(p()));
-    expect(editorView.dom.innerHTML).toMatch(
-      placeholderHtmlOnAndroidChromeRegex,
-    );
+		const editorView = editor(doc(p()));
+		expect(editorView.dom.innerHTML).toMatch(placeholderHtmlOnAndroidChromeRegex);
 
-    browser.android = androidOldValue;
-    browser.chrome = chromeOldValue;
-  });
+		browser.android = androidOldValue;
+		browser.chrome = chromeOldValue;
+	});
 
-  it('disappears when content is added to document', () => {
-    const editorView = editor(doc(p()));
+	it('disappears when content is added to document', () => {
+		const editorView = editor(doc(p()));
 
-    insertText(editorView, 'a', 0);
-    expect(editorView.dom.innerHTML).toEqual(
-      '<p>a</p><p><br class="ProseMirror-trailingBreak"></p>',
-    );
-  });
+		insertText(editorView, 'a', 0);
+		expect(editorView.dom.innerHTML).toEqual(
+			'<p>a</p><p><br class="ProseMirror-trailingBreak"></p>',
+		);
+	});
 
-  it('reappears after text is backspaced', () => {
-    const editorView = editor(doc(p('ab')));
-    expect(editorView.dom.innerHTML).toEqual('<p>ab</p>');
+	it('reappears after text is backspaced', () => {
+		const editorView = editor(doc(p('ab')));
+		expect(editorView.dom.innerHTML).toEqual('<p>ab</p>');
 
-    // mutate DOM to final state
-    editorView.dom.innerHTML = '';
+		// mutate DOM to final state
+		editorView.dom.innerHTML = '';
 
-    // continue composition
-    androidComposeContinue(editorView, '');
-    expect(editorView.composing).toBeTruthy();
+		// continue composition
+		androidComposeContinue(editorView, '');
+		expect(editorView.composing).toBeTruthy();
 
-    jest.runOnlyPendingTimers();
+		jest.runOnlyPendingTimers();
 
-    // end composition
-    androidComposeEnd(editorView, '');
+		// end composition
+		androidComposeEnd(editorView, '');
 
-    expect(editorView.dom.innerHTML).toMatch(placeholderHtmlRegex);
-    expect(editorView.state.doc).toEqualDocument(doc(p()));
-  });
+		expect(editorView.dom.innerHTML).toMatch(placeholderHtmlRegex);
+		expect(editorView.state.doc).toEqualDocument(doc(p()));
+	});
 
-  it('reappears after text is backspaced on Android Chrome', () => {
-    const androidOldValue = browser.android;
-    const chromeOldValue = browser.chrome;
+	it('reappears after text is backspaced on Android Chrome', () => {
+		const androidOldValue = browser.android;
+		const chromeOldValue = browser.chrome;
 
-    browser.android = true;
-    browser.chrome = true;
+		browser.android = true;
+		browser.chrome = true;
 
-    const editorView = editor(doc(p('ab')));
-    expect(editorView.dom.innerHTML).toEqual('<p>ab</p>');
+		const editorView = editor(doc(p('ab')));
+		expect(editorView.dom.innerHTML).toEqual('<p>ab</p>');
 
-    // mutate DOM to final state
-    editorView.dom.innerHTML = '';
+		// mutate DOM to final state
+		editorView.dom.innerHTML = '';
 
-    // continue composition
-    androidComposeContinue(editorView, '');
-    expect(editorView.composing).toBeTruthy();
+		// continue composition
+		androidComposeContinue(editorView, '');
+		expect(editorView.composing).toBeTruthy();
 
-    jest.runOnlyPendingTimers();
+		jest.runOnlyPendingTimers();
 
-    // end composition
-    androidComposeEnd(editorView, '');
+		// end composition
+		androidComposeEnd(editorView, '');
 
-    expect(editorView.dom.innerHTML).toMatch(
-      placeholderHtmlOnAndroidChromeRegex,
-    );
-    expect(editorView.state.doc).toEqualDocument(doc(p()));
+		expect(editorView.dom.innerHTML).toMatch(placeholderHtmlOnAndroidChromeRegex);
+		expect(editorView.state.doc).toEqualDocument(doc(p()));
 
-    browser.android = androidOldValue;
-    browser.chrome = chromeOldValue;
-  });
+		browser.android = androidOldValue;
+		browser.chrome = chromeOldValue;
+	});
 });

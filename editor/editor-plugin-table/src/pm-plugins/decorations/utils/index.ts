@@ -1,9 +1,6 @@
 export {
-  buildColumnControlsDecorations,
-  maybeUpdateColumnControlsSelectedDecoration,
+	buildColumnControlsDecorations,
+	maybeUpdateColumnControlsSelectedDecoration,
 } from './column-controls';
-export {
-  buildColumnResizingDecorations,
-  clearColumnResizingDecorations,
-} from './column-resizing';
+export { buildColumnResizingDecorations, clearColumnResizingDecorations } from './column-resizing';
 export { composeDecorations } from './compose-decorations';

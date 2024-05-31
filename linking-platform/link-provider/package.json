@@ -57,7 +57,6 @@
   },
   "devDependencies": {
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/async-retry": "^1.4.1",
@@ -65,6 +64,5 @@
     "react-dom": "^16.8.0",
     "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

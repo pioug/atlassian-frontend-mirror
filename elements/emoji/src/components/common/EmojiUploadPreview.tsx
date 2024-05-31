@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
-import AkButton from '@atlaskit/button/custom-theme-button';
+import AkButton from '@atlaskit/button/standard-button';
 import {
   FormattedMessage,
   injectIntl,
@@ -16,7 +16,6 @@ import { UploadStatus } from './internal-types';
 import RetryableButton from './RetryableButton';
 import {
   bigEmojiPreview,
-  cancelButton,
   emojiPreviewErrorMessage,
   uploadAddRow,
   uploadPreview,
@@ -112,7 +111,6 @@ class EmojiUploadPreview extends PureComponent<
             onClick={onUploadCancelled}
             appearance="subtle"
             isDisabled={uploading}
-            css={cancelButton}
             testId={cancelUploadButtonTestId}
           >
             <FormattedMessage {...messages.cancelLabel} />

@@ -35,7 +35,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "typescript": "~5.4.2"
   },
   "techstack": {
@@ -68,7 +67,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "stricter": {
     "no-unused-dependencies": {
       "checkDevDependencies": true

@@ -338,6 +338,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Thao tác trang',
   'fabric.editor.panel.backgroundColor': 'Màu nền',
   'fabric.editor.panel.emoji': 'Thêm biểu tượng cảm xúc',
+  'fabric.editor.panel.panelsGroup': 'Các loại bảng điều khiển',
   'fabric.editor.pasteOptions': 'Tùy chọn dán',
   'fabric.editor.pastePlainText': 'Dán văn bản thuần túy',
   'fabric.editor.placeholderAltText': 'Mô tả hình ảnh này bằng văn bản thay thế',

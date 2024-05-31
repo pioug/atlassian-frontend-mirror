@@ -2,32 +2,19 @@
 // If changes are made to this file, please make the same update in the linked file.
 
 import type { Match } from '@atlaskit/adf-schema';
-import {
-  isSafeUrl,
-  linkify,
-  normalizeUrl as normaliseLinkHref,
-} from '@atlaskit/adf-schema';
+import { isSafeUrl, linkify, normalizeUrl as normaliseLinkHref } from '@atlaskit/adf-schema';
 import type { Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import type {
-  AnalyticsEventPayload,
-  InputMethodInsertLink,
-} from '../analytics/types';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-} from '../analytics/types';
+import type { AnalyticsEventPayload, InputMethodInsertLink } from '../analytics/types';
+import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics/types';
 
 import { shouldAutoLinkifyMatch } from './should-auto-linkify-tld';
 import { mapSlice } from './slice';
 
 // Regular expression for a windows filepath in the format <DRIVE LETTER>:\<folder name>\
-export const FILEPATH_REGEXP =
-  /([a-zA-Z]:|\\)([^\/:*?<>"|]+\\)?([^\/:*?<>"| ]+(?=\s?))?/gim;
+export const FILEPATH_REGEXP = /([a-zA-Z]:|\\)([^\/:*?<>"|]+\\)?([^\/:*?<>"| ]+(?=\s?))?/gim;
 
 // Don't linkify if starts with $ or {
 export const DONTLINKIFY_REGEXP = /^(\$|{)/;
@@ -38,176 +25,163 @@ export const DONTLINKIFY_REGEXP = /^(\$|{)/;
  * Extending it directly from class Regex was introducing some issues, thus that has been avoided.
  */
 export class LinkMatcher {
-  static create(): RegExp {
-    class LinkMatcherRegex {
-      exec(str: string): Match | null {
-        const stringsBySpace = str.slice(0, str.length - 1).split(' ');
-        const lastStringBeforeSpace = stringsBySpace[stringsBySpace.length - 1];
-        const isLastStringValid = lastStringBeforeSpace.length > 0;
+	static create(): RegExp {
+		class LinkMatcherRegex {
+			exec(str: string): Match | null {
+				const stringsBySpace = str.slice(0, str.length - 1).split(' ');
+				const lastStringBeforeSpace = stringsBySpace[stringsBySpace.length - 1];
+				const isLastStringValid = lastStringBeforeSpace.length > 0;
 
-        if (!str.endsWith(' ') || !isLastStringValid) {
-          return null;
-        }
+				if (!str.endsWith(' ') || !isLastStringValid) {
+					return null;
+				}
 
-        if (DONTLINKIFY_REGEXP.test(lastStringBeforeSpace)) {
-          return null;
-        }
+				if (DONTLINKIFY_REGEXP.test(lastStringBeforeSpace)) {
+					return null;
+				}
 
-        const links: null | Match[] = linkify.match(lastStringBeforeSpace);
-        if (!links || links.length === 0) {
-          return null;
-        }
-        const lastMatch = links[links.length - 1];
-        const lastLink: Match = links[links.length - 1];
+				const links: null | Match[] = linkify.match(lastStringBeforeSpace);
+				if (!links || links.length === 0) {
+					return null;
+				}
+				const lastMatch = links[links.length - 1];
+				const lastLink: Match = links[links.length - 1];
 
-        lastLink.input = str.substring(lastMatch.index);
-        lastLink.length = lastLink.lastIndex - lastLink.index + 1;
-        lastLink.index =
-          str.lastIndexOf(lastStringBeforeSpace) + lastMatch.index;
+				lastLink.input = str.substring(lastMatch.index);
+				lastLink.length = lastLink.lastIndex - lastLink.index + 1;
+				lastLink.index = str.lastIndexOf(lastStringBeforeSpace) + lastMatch.index;
 
-        return lastLink;
-      }
-    }
+				return lastLink;
+			}
+		}
 
-    return new LinkMatcherRegex() as RegExp;
-  }
+		return new LinkMatcherRegex() as RegExp;
+	}
 }
 
 /**
  * Adds protocol to url if needed.
  */
 export function normalizeUrl(url?: string | null) {
-  if (!url) {
-    return '';
-  }
+	if (!url) {
+		return '';
+	}
 
-  if (isSafeUrl(url)) {
-    return url;
-  }
-  return normaliseLinkHref(url);
+	if (isSafeUrl(url)) {
+		return url;
+	}
+	return normaliseLinkHref(url);
 }
 
 export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
-  if (
-    getBooleanFF('platform.linking-platform.prevent-suspicious-linkification')
-  ) {
-    return linkifyContentNew(schema);
-  }
+	if (getBooleanFF('platform.linking-platform.prevent-suspicious-linkification')) {
+		return linkifyContentNew(schema);
+	}
 
-  return linkifyContentOld(schema);
+	return linkifyContentOld(schema);
 }
 
 /**
  * Linkify content in a slice (eg. after a rich text paste)
  */
 export function linkifyContentOld(schema: Schema): (slice: Slice) => Slice {
-  return (slice: Slice): Slice =>
-    mapSlice(slice, (node, parent) => {
-      const isAllowedInParent =
-        !parent || parent.type !== schema.nodes.codeBlock;
-      const link = node.type.schema.marks.link;
-      if (link === undefined) {
-        throw new Error('Link not in schema - unable to linkify content');
-      }
-      if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
-        const linkified = [] as Node[];
-        const text = node.text!;
-        const matches = findLinkMatchesOld(text);
+	return (slice: Slice): Slice =>
+		mapSlice(slice, (node, parent) => {
+			const isAllowedInParent = !parent || parent.type !== schema.nodes.codeBlock;
+			const link = node.type.schema.marks.link;
+			if (link === undefined) {
+				throw new Error('Link not in schema - unable to linkify content');
+			}
+			if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
+				const linkified = [] as Node[];
+				const text = node.text!;
+				const matches = findLinkMatchesOld(text);
 
-        let pos = 0;
-        const filepaths = findFilepaths(text);
-        matches.forEach((match) => {
-          if (isLinkInMatches(match.start, filepaths)) {
-            return;
-          }
+				let pos = 0;
+				const filepaths = findFilepaths(text);
+				matches.forEach((match) => {
+					if (isLinkInMatches(match.start, filepaths)) {
+						return;
+					}
 
-          if (match.start > 0) {
-            linkified.push(node.cut(pos, match.start));
-          }
-          linkified.push(
-            node
-              .cut(match.start, match.end)
-              .mark(
-                link
-                  .create({ href: normalizeUrl(match.href) })
-                  .addToSet(node.marks),
-              ),
-          );
-          pos = match.end;
-        });
-        if (pos < text.length) {
-          linkified.push(node.cut(pos));
-        }
-        return linkified;
-      }
-      return node;
-    });
+					if (match.start > 0) {
+						linkified.push(node.cut(pos, match.start));
+					}
+					linkified.push(
+						node
+							.cut(match.start, match.end)
+							.mark(link.create({ href: normalizeUrl(match.href) }).addToSet(node.marks)),
+					);
+					pos = match.end;
+				});
+				if (pos < text.length) {
+					linkified.push(node.cut(pos));
+				}
+				return linkified;
+			}
+			return node;
+		});
 }
 
 /**
  * Linkify content in a slice (eg. after a rich text paste)
  */
 export function linkifyContentNew(schema: Schema): (slice: Slice) => Slice {
-  return (slice: Slice): Slice =>
-    mapSlice(slice, (node, parent) => {
-      const isAllowedInParent =
-        !parent || parent.type !== schema.nodes.codeBlock;
-      const link = node.type.schema.marks.link;
-      if (link === undefined) {
-        throw new Error('Link not in schema - unable to linkify content');
-      }
-      if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
-        const linkified = [] as Node[];
-        const text = node.text!;
+	return (slice: Slice): Slice =>
+		mapSlice(slice, (node, parent) => {
+			const isAllowedInParent = !parent || parent.type !== schema.nodes.codeBlock;
+			const link = node.type.schema.marks.link;
+			if (link === undefined) {
+				throw new Error('Link not in schema - unable to linkify content');
+			}
+			if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
+				const linkified = [] as Node[];
+				const text = node.text!;
 
-        const matches = findLinkMatches(text).filter(shouldAutoLinkifyMatch);
+				const matches = findLinkMatches(text).filter(shouldAutoLinkifyMatch);
 
-        let pos = 0;
-        const filepaths = findFilepaths(text);
-        matches.forEach((match) => {
-          if (isLinkInMatches(match.index, filepaths)) {
-            return;
-          }
+				let pos = 0;
+				const filepaths = findFilepaths(text);
+				matches.forEach((match) => {
+					if (isLinkInMatches(match.index, filepaths)) {
+						return;
+					}
 
-          if (match.index > 0) {
-            linkified.push(node.cut(pos, match.index));
-          }
-          linkified.push(
-            node
-              .cut(match.index, match.lastIndex)
-              .mark(
-                link
-                  .create({ href: normalizeUrl(match.url) })
-                  .addToSet(node.marks),
-              ),
-          );
-          pos = match.lastIndex;
-        });
-        if (pos < text.length) {
-          linkified.push(node.cut(pos));
-        }
-        return linkified;
-      }
-      return node;
-    });
+					if (match.index > 0) {
+						linkified.push(node.cut(pos, match.index));
+					}
+					linkified.push(
+						node
+							.cut(match.index, match.lastIndex)
+							.mark(link.create({ href: normalizeUrl(match.url) }).addToSet(node.marks)),
+					);
+					pos = match.lastIndex;
+				});
+				if (pos < text.length) {
+					linkified.push(node.cut(pos));
+				}
+				return linkified;
+			}
+			return node;
+		});
 }
 
 export function getLinkDomain(url: string): string {
-  // Remove protocol and www., if either exists
-  const withoutProtocol = url.toLowerCase().replace(/^(.*):\/\//, '');
-  const withoutWWW = withoutProtocol.replace(/^(www\.)/, '');
+	// Remove protocol and www., if either exists
+	const withoutProtocol = url.toLowerCase().replace(/^(.*):\/\//, '');
+	const withoutWWW = withoutProtocol.replace(/^(www\.)/, '');
 
-  // Remove port, fragment, path, query string
-  return withoutWWW.replace(/[:\/?#](.*)$/, '');
+	// Remove port, fragment, path, query string
+	return withoutWWW.replace(/[:\/?#](.*)$/, '');
 }
 
 export function isFromCurrentDomain(url: string): boolean {
-  if (!window || !window.location) {
-    return false;
-  }
-  const currentDomain = window.location.hostname;
-  const linkDomain = getLinkDomain(url);
-  return currentDomain === linkDomain;
+	if (!window || !window.location) {
+		return false;
+	}
+	const currentDomain = window.location.hostname;
+	const linkDomain = getLinkDomain(url);
+	return currentDomain === linkDomain;
 }
 
 /**
@@ -216,110 +190,100 @@ export function isFromCurrentDomain(url: string): boolean {
  * @returns Array of linkify matches. Returns empty array if text is empty or no matches found;
  */
 function findLinkMatches(text: string): Match[] {
-  if (text === '') {
-    return [];
-  }
-  return linkify.match(text) || [];
+	if (text === '') {
+		return [];
+	}
+	return linkify.match(text) || [];
 }
 
 interface LinkMatch {
-  start: number;
-  end: number;
-  title: string;
-  href: string;
+	start: number;
+	end: number;
+	title: string;
+	href: string;
 }
 
 function findLinkMatchesOld(text: string): LinkMatch[] {
-  const matches: LinkMatch[] = [];
-  let linkMatches: '' | null | Match[] = text && linkify.match(text);
-  if (linkMatches && linkMatches.length > 0) {
-    linkMatches.forEach((match) => {
-      matches.push({
-        start: match.index,
-        end: match.lastIndex,
-        title: match.raw,
-        href: match.url,
-      });
-    });
-  }
-  return matches;
+	const matches: LinkMatch[] = [];
+	let linkMatches: '' | null | Match[] = text && linkify.match(text);
+	if (linkMatches && linkMatches.length > 0) {
+		linkMatches.forEach((match) => {
+			matches.push({
+				start: match.index,
+				end: match.lastIndex,
+				title: match.raw,
+				href: match.url,
+			});
+		});
+	}
+	return matches;
 }
 
 interface filepathMatch {
-  startIndex: number;
-  endIndex: number;
+	startIndex: number;
+	endIndex: number;
 }
 
-export const findFilepaths = (
-  text: string,
-  offset: number = 0,
-): Array<filepathMatch> => {
-  // Creation of a copy of the RegExp is necessary as lastIndex is stored on it when we run .exec()
-  const localRegExp = new RegExp(FILEPATH_REGEXP);
-  let match;
-  const matchesList = [];
-  const maxFilepathSize = 260;
-  while ((match = localRegExp.exec(text)) !== null) {
-    const start = match.index + offset;
-    let end = localRegExp.lastIndex + offset;
-    if (end - start > maxFilepathSize) {
-      end = start + maxFilepathSize;
-    } // We don't care about big strings of text that are pretending to be filepaths!!
-    matchesList.push({
-      startIndex: start,
-      endIndex: end,
-    });
-  }
-  return matchesList;
+export const findFilepaths = (text: string, offset: number = 0): Array<filepathMatch> => {
+	// Creation of a copy of the RegExp is necessary as lastIndex is stored on it when we run .exec()
+	const localRegExp = new RegExp(FILEPATH_REGEXP);
+	let match;
+	const matchesList = [];
+	const maxFilepathSize = 260;
+	while ((match = localRegExp.exec(text)) !== null) {
+		const start = match.index + offset;
+		let end = localRegExp.lastIndex + offset;
+		if (end - start > maxFilepathSize) {
+			end = start + maxFilepathSize;
+		} // We don't care about big strings of text that are pretending to be filepaths!!
+		matchesList.push({
+			startIndex: start,
+			endIndex: end,
+		});
+	}
+	return matchesList;
 };
 
-export const isLinkInMatches = (
-  linkStart: number,
-  matchesList: Array<filepathMatch>,
-): boolean => {
-  for (let i = 0; i < matchesList.length; i++) {
-    if (
-      linkStart >= matchesList[i].startIndex &&
-      linkStart < matchesList[i].endIndex
-    ) {
-      return true;
-    }
-  }
-  return false;
+export const isLinkInMatches = (linkStart: number, matchesList: Array<filepathMatch>): boolean => {
+	for (let i = 0; i < matchesList.length; i++) {
+		if (linkStart >= matchesList[i].startIndex && linkStart < matchesList[i].endIndex) {
+			return true;
+		}
+	}
+	return false;
 };
 
 export function getLinkCreationAnalyticsEvent(
-  inputMethod: InputMethodInsertLink,
-  url: string,
+	inputMethod: InputMethodInsertLink,
+	url: string,
 ): AnalyticsEventPayload {
-  return {
-    action: ACTION.INSERTED,
-    actionSubject: ACTION_SUBJECT.DOCUMENT,
-    actionSubjectId: ACTION_SUBJECT_ID.LINK,
-    attributes: { inputMethod, fromCurrentDomain: isFromCurrentDomain(url) },
-    eventType: EVENT_TYPE.TRACK,
-    nonPrivacySafeAttributes: {
-      linkDomain: getLinkDomain(url),
-    },
-  };
+	return {
+		action: ACTION.INSERTED,
+		actionSubject: ACTION_SUBJECT.DOCUMENT,
+		actionSubjectId: ACTION_SUBJECT_ID.LINK,
+		attributes: { inputMethod, fromCurrentDomain: isFromCurrentDomain(url) },
+		eventType: EVENT_TYPE.TRACK,
+		nonPrivacySafeAttributes: {
+			linkDomain: getLinkDomain(url),
+		},
+	};
 }
 
-export const canLinkBeCreatedInRange =
-  (from: number, to: number) => (state: EditorState) => {
-    if (!state.doc.rangeHasMark(from, to, state.schema.marks.link)) {
-      const $from = state.doc.resolve(from);
-      const $to = state.doc.resolve(to);
-      const link = state.schema.marks.link;
-      if ($from.parent === $to.parent && $from.parent.isTextblock) {
-        if ($from.parent.type.allowsMarkType(link)) {
-          let allowed = true;
-          state.doc.nodesBetween(from, to, (node) => {
-            allowed = allowed && !node.marks.some((m) => m.type.excludes(link));
-            return allowed;
-          });
-          return allowed;
-        }
-      }
-    }
-    return false;
-  };
+export const canLinkBeCreatedInRange = (from: number, to: number) => (state: EditorState) => {
+	if (!state.doc.rangeHasMark(from, to, state.schema.marks.link)) {
+		const $from = state.doc.resolve(from);
+		const $to = state.doc.resolve(to);
+		const link = state.schema.marks.link;
+		if ($from.parent === $to.parent && $from.parent.isTextblock) {
+			if ($from.parent.type.allowsMarkType(link)) {
+				let allowed = true;
+				state.doc.nodesBetween(from, to, (node) => {
+					allowed = allowed && !node.marks.some((m) => m.type.excludes(link));
+					return allowed;
+				});
+				return allowed;
+			}
+		}
+	}
+	return false;
+};

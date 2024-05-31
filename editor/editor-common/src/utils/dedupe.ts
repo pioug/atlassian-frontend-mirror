@@ -1,8 +1,5 @@
-export function dedupe<T>(
-  list: T[] = [],
-  iteratee: (p: T) => T[keyof T] | T = (p) => p,
-): T[] {
-  /**
+export function dedupe<T>(list: T[] = [], iteratee: (p: T) => T[keyof T] | T = (p) => p): T[] {
+	/**
               .,
     .      _,'f----.._
     |\ ,-'"/  |     ,'
@@ -15,15 +12,15 @@ export function dedupe<T>(
     Gotta go fast!
  */
 
-  const seen = new Set();
-  list.forEach((l) => seen.add(iteratee(l)));
+	const seen = new Set();
+	list.forEach((l) => seen.add(iteratee(l)));
 
-  return list.filter((l) => {
-    const it = iteratee(l);
-    if (seen.has(it)) {
-      seen.delete(it);
-      return true;
-    }
-    return false;
-  });
+	return list.filter((l) => {
+		const it = iteratee(l);
+		if (seen.has(it)) {
+			seen.delete(it);
+			return true;
+		}
+		return false;
+	});
 }

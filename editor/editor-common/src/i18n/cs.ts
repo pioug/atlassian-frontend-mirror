@@ -343,6 +343,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Akce stránky',
   'fabric.editor.panel.backgroundColor': 'Barva pozadí',
   'fabric.editor.panel.emoji': 'Přidat emoji',
+  'fabric.editor.panel.panelsGroup': 'Typy panelů',
   'fabric.editor.pasteOptions': 'Možnosti vložení',
   'fabric.editor.pastePlainText': 'Vložit prostý text',
   'fabric.editor.placeholderAltText': 'Popište tento obrázek alternativním textem',

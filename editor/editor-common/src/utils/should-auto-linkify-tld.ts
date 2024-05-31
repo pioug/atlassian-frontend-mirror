@@ -3,43 +3,43 @@ import type { Match } from '@atlaskit/adf-schema';
 /** Created by scanning the Wikipedia page for all TLDs and selecting those that are common filenames, along
  * with customer complaints */
 const tldsToNotAutoLinkify = [
-  'name',
-  'zip',
-  'doc',
-  'mov',
+	'name',
+	'zip',
+	'doc',
+	'mov',
 
-  // Ensure common 2 character file extensions aren't linkified without https prefix
-  'md',
-  // Postscript
-  'ps',
-  // C++
-  'cc',
-  // C#
-  'cs',
-  // f#
-  'fs',
-  // Go
-  'go',
-  // JavaScript
-  'js',
-  // Perl
-  'pl',
-  // Perl module
-  'pm',
-  // Python
-  'py',
-  // Ruby
-  'rb',
-  // Rust
-  'rs',
-  // Bash
-  'sh',
-  // Typescript
-  'ts',
-  // C#
-  'cs',
-  // Visual Basic
-  'vb',
+	// Ensure common 2 character file extensions aren't linkified without https prefix
+	'md',
+	// Postscript
+	'ps',
+	// C++
+	'cc',
+	// C#
+	'cs',
+	// f#
+	'fs',
+	// Go
+	'go',
+	// JavaScript
+	'js',
+	// Perl
+	'pl',
+	// Perl module
+	'pm',
+	// Python
+	'py',
+	// Ruby
+	'rb',
+	// Rust
+	'rs',
+	// Bash
+	'sh',
+	// Typescript
+	'ts',
+	// C#
+	'cs',
+	// Visual Basic
+	'vb',
 ];
 
 /**
@@ -52,32 +52,32 @@ const tldsToNotAutoLinkify = [
  * @param url Link that hasn't been already prefixed with http://, https:// or www.
  */
 export function shouldAutoLinkifyTld(url: string): boolean {
-  const startsWithHttpHttps = /^https?:\/\//.test(url);
-  if (startsWithHttpHttps) {
-    return true;
-  }
+	const startsWithHttpHttps = /^https?:\/\//.test(url);
+	if (startsWithHttpHttps) {
+		return true;
+	}
 
-  const startsWithWWW = /^www\./.test(url);
-  if (startsWithWWW) {
-    return true;
-  }
+	const startsWithWWW = /^www\./.test(url);
+	if (startsWithWWW) {
+		return true;
+	}
 
-  try {
-    const hostname = new URL(`https://${url}`).hostname;
-    const parts = hostname.split('.');
-    const tld = parts.length > 1 ? parts[parts.length - 1] : null;
-    if (parts[0] === '') {
-      // If the domain is an empty string (ie the link is `.com`), it's invalid, so
-      // automatically return true
-      return true;
-    }
-    if (!tld) {
-      return true;
-    }
-    return !tldsToNotAutoLinkify.includes(tld);
-  } catch (e) {
-    return true;
-  }
+	try {
+		const hostname = new URL(`https://${url}`).hostname;
+		const parts = hostname.split('.');
+		const tld = parts.length > 1 ? parts[parts.length - 1] : null;
+		if (parts[0] === '') {
+			// If the domain is an empty string (ie the link is `.com`), it's invalid, so
+			// automatically return true
+			return true;
+		}
+		if (!tld) {
+			return true;
+		}
+		return !tldsToNotAutoLinkify.includes(tld);
+	} catch (e) {
+		return true;
+	}
 }
 
 /**
@@ -86,5 +86,5 @@ export function shouldAutoLinkifyTld(url: string): boolean {
  * @returns True if should auto linkify, false otherwise
  */
 export function shouldAutoLinkifyMatch(match: Match): boolean {
-  return shouldAutoLinkifyTld(match.raw);
+	return shouldAutoLinkifyTld(match.raw);
 }

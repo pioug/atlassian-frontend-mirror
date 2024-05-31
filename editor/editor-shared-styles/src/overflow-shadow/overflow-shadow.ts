@@ -5,18 +5,18 @@ import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const overflowShadow = ({
-  leftCoverWidth,
-  rightCoverWidth,
+	leftCoverWidth,
+	rightCoverWidth,
 }: {
-  leftCoverWidth?: string;
-  rightCoverWidth?: string;
+	leftCoverWidth?: string;
+	rightCoverWidth?: string;
 }) => {
-  const width = token('space.100', '8px');
-  const leftCoverWidthResolved = leftCoverWidth || width;
-  const rightCoverWidthResolved = rightCoverWidth || width;
+	const width = token('space.100', '8px');
+	const leftCoverWidthResolved = leftCoverWidth || width;
+	const rightCoverWidthResolved = rightCoverWidth || width;
 
-  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-  return css`
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+	return css`
 /* shadow cover left */
   linear-gradient(
     to right,
@@ -26,10 +26,7 @@ export const overflowShadow = ({
 /* shadow cover background left */
   linear-gradient(
     to right,
-    ${token(
-      'elevation.surface.raised',
-      'transparent',
-    )} ${leftCoverWidthResolved},
+    ${token('elevation.surface.raised', 'transparent')} ${leftCoverWidthResolved},
     transparent ${leftCoverWidthResolved}
   ),
 /* shadow cover right */
@@ -41,10 +38,7 @@ export const overflowShadow = ({
 /* shadow cover background right */
   linear-gradient(
     to left,
-    ${token(
-      'elevation.surface.raised',
-      'transparent',
-    )} ${rightCoverWidthResolved},
+    ${token('elevation.surface.raised', 'transparent')} ${rightCoverWidthResolved},
     transparent ${rightCoverWidthResolved}
   ),
 /* overflow shadow right spread */

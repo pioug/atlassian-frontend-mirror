@@ -1,10 +1,10 @@
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
-  Command,
-  EditorActionsOptions as EditorActions,
-  ImageUploadPluginReferenceEvent,
-  PluginInjectionAPIWithDependencies,
+	Command,
+	EditorActionsOptions as EditorActions,
+	ImageUploadPluginReferenceEvent,
+	PluginInjectionAPIWithDependencies,
 } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { BlockType } from '@atlaskit/editor-plugin-block-type';
@@ -17,58 +17,58 @@ import type { InsertBlockPluginDependencies } from '../../types';
 import type { BlockMenuItem } from './create-items';
 
 export interface Props {
-  buttons: number;
-  isReducedSpacing: boolean;
-  isDisabled?: boolean;
-  isTypeAheadAllowed?: boolean;
-  editorView: EditorView;
-  editorActions?: EditorActions;
-  tableSupported?: boolean;
-  tableSelectorSupported?: boolean;
-  actionSupported?: boolean;
-  decisionSupported?: boolean;
-  mentionsSupported?: boolean;
-  mediaUploadsEnabled?: boolean;
-  mediaSupported?: boolean;
-  imageUploadSupported?: boolean;
-  imageUploadEnabled?: boolean;
-  handleImageUpload?: (event?: ImageUploadPluginReferenceEvent) => Command;
-  dateEnabled?: boolean;
-  horizontalRuleEnabled?: boolean;
-  placeholderTextEnabled?: boolean;
-  layoutSectionEnabled?: boolean;
-  expandEnabled?: boolean;
-  emojiProvider?: Promise<EmojiProvider>;
-  availableWrapperBlockTypes?: BlockType[];
-  linkSupported?: boolean;
-  linkDisabled?: boolean;
-  emojiDisabled?: boolean;
-  nativeStatusSupported?: boolean;
-  popupsMountPoint?: HTMLElement;
-  popupsBoundariesElement?: HTMLElement;
-  popupsScrollableElement?: HTMLElement;
-  insertMenuItems?: MenuItem[];
-  showElementBrowserLink?: boolean;
-  showSeparator?: boolean;
-  replacePlusMenuWithElementBrowser?: boolean;
-  onShowMediaPicker?: () => void;
-  onInsertBlockType?: (name: string) => Command;
-  onInsertMacroFromMacroBrowser?: (
-    macroProvider: MacroProvider,
-    node?: PMNode,
-    isEditing?: boolean,
-  ) => (view: EditorView) => void;
-  dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-  pluginInjectionApi?: PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>;
-  mentionsDisabled?: boolean;
+	buttons: number;
+	isReducedSpacing: boolean;
+	isDisabled?: boolean;
+	isTypeAheadAllowed?: boolean;
+	editorView: EditorView;
+	editorActions?: EditorActions;
+	tableSupported?: boolean;
+	tableSelectorSupported?: boolean;
+	actionSupported?: boolean;
+	decisionSupported?: boolean;
+	mentionsSupported?: boolean;
+	mediaUploadsEnabled?: boolean;
+	mediaSupported?: boolean;
+	imageUploadSupported?: boolean;
+	imageUploadEnabled?: boolean;
+	handleImageUpload?: (event?: ImageUploadPluginReferenceEvent) => Command;
+	dateEnabled?: boolean;
+	horizontalRuleEnabled?: boolean;
+	placeholderTextEnabled?: boolean;
+	layoutSectionEnabled?: boolean;
+	expandEnabled?: boolean;
+	emojiProvider?: Promise<EmojiProvider>;
+	availableWrapperBlockTypes?: BlockType[];
+	linkSupported?: boolean;
+	linkDisabled?: boolean;
+	emojiDisabled?: boolean;
+	nativeStatusSupported?: boolean;
+	popupsMountPoint?: HTMLElement;
+	popupsBoundariesElement?: HTMLElement;
+	popupsScrollableElement?: HTMLElement;
+	insertMenuItems?: MenuItem[];
+	showElementBrowserLink?: boolean;
+	showSeparator?: boolean;
+	replacePlusMenuWithElementBrowser?: boolean;
+	onShowMediaPicker?: () => void;
+	onInsertBlockType?: (name: string) => Command;
+	onInsertMacroFromMacroBrowser?: (
+		macroProvider: MacroProvider,
+		node?: PMNode,
+		isEditing?: boolean,
+	) => (view: EditorView) => void;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	pluginInjectionApi?: PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>;
+	mentionsDisabled?: boolean;
 }
 
 export interface State {
-  isPlusMenuOpen: boolean;
-  emojiPickerOpen: boolean;
-  buttons: BlockMenuItem[];
-  dropdownItems: BlockMenuItem[];
-  isOpenedByKeyboard: boolean;
-  isTableSelectorOpen: boolean;
-  isTableSelectorOpenedByKeyboard: boolean;
+	isPlusMenuOpen: boolean;
+	emojiPickerOpen: boolean;
+	buttons: BlockMenuItem[];
+	dropdownItems: BlockMenuItem[];
+	isOpenedByKeyboard: boolean;
+	isTableSelectorOpen: boolean;
+	isTableSelectorOpenedByKeyboard: boolean;
 }

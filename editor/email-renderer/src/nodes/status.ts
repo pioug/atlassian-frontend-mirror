@@ -2,18 +2,18 @@ import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
 import { type NodeSerializerOpts } from '../interfaces';
 import {
-  B50,
-  B500,
-  R50,
-  R500,
-  Y75,
-  N800,
-  G50,
-  G500,
-  P50,
-  P500,
-  N40,
-  N500,
+	B50,
+	B500,
+	R50,
+	R500,
+	Y75,
+	N800,
+	G50,
+	G500,
+	P50,
+	P500,
+	N40,
+	N500,
 } from '@atlaskit/adf-schema';
 
 const commonStyle = `
@@ -64,16 +64,9 @@ export const styles = `
 }
 `;
 
-const ALLOWED_COLORS = new Set([
-  'blue',
-  'red',
-  'yellow',
-  'green',
-  'purple',
-  'neutral',
-]);
+const ALLOWED_COLORS = new Set(['blue', 'red', 'yellow', 'green', 'purple', 'neutral']);
 
 export default function status({ attrs, text }: NodeSerializerOpts) {
-  const color = ALLOWED_COLORS.has(attrs.color) ? attrs.color : 'neutral';
-  return createTag('span', { class: createClassName(`status-${color}`) }, text);
+	const color = ALLOWED_COLORS.has(attrs.color) ? attrs.color : 'neutral';
+	return createTag('span', { class: createClassName(`status-${color}`) }, text);
 }

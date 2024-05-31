@@ -10,8 +10,8 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import Editor from '../../editor';
 
 jest.mock('../../ui/Toolbar/hooks', () => ({
-  ...jest.requireActual<Object>('../../ui/Toolbar/hooks'),
-  useElementWidth: () => 1000,
+	...jest.requireActual<Object>('../../ui/Toolbar/hooks'),
+	useElementWidth: () => 1000,
 }));
 
 /**
@@ -25,44 +25,44 @@ jest.mock('../../ui/Toolbar/hooks', () => ({
  * See `MediaEditorStateCache` for more information on how the workaround is implemented.
  */
 describe('media toolbar item', () => {
-  it('should update the toolbar if the media provider re-renders with it available', async () => {
-    const { rerender, getByRole, queryByRole } = renderWithIntl(
-      <Editor
-        appearance="comment"
-        media={{
-          provider: storyMediaProviderFactory({
-            includeUploadMediaClientConfig: false,
-          }),
-          allowMediaSingle: true,
-        }}
-      />,
-    );
+	it('should update the toolbar if the media provider re-renders with it available', async () => {
+		const { rerender, getByRole, queryByRole } = renderWithIntl(
+			<Editor
+				appearance="comment"
+				media={{
+					provider: storyMediaProviderFactory({
+						includeUploadMediaClientConfig: false,
+					}),
+					allowMediaSingle: true,
+				}}
+			/>,
+		);
 
-    await flushPromises();
+		await flushPromises();
 
-    // Is initially unavailable
-    const element = queryByRole('button', {
-      name: 'Add image, video, or file',
-    });
-    expect(element).toBeNull();
+		// Is initially unavailable
+		const element = queryByRole('button', {
+			name: 'Add image, video, or file',
+		});
+		expect(element).toBeNull();
 
-    rerender(
-      <Editor
-        appearance="comment"
-        media={{
-          provider: storyMediaProviderFactory({
-            includeUploadMediaClientConfig: true,
-          }),
-          allowMediaSingle: true,
-        }}
-      />,
-    );
-    await flushPromises();
+		rerender(
+			<Editor
+				appearance="comment"
+				media={{
+					provider: storyMediaProviderFactory({
+						includeUploadMediaClientConfig: true,
+					}),
+					allowMediaSingle: true,
+				}}
+			/>,
+		);
+		await flushPromises();
 
-    // Updates on state change
-    const newElement = getByRole('button', {
-      name: 'Add image, video, or file',
-    });
-    expect(newElement).toBeInTheDocument();
-  });
+		// Updates on state change
+		const newElement = getByRole('button', {
+			name: 'Add image, video, or file',
+		});
+		expect(newElement).toBeInTheDocument();
+	});
 });

@@ -16,50 +16,44 @@ import type { ToolbarWithSizeDetectorProps } from './toolbar-types';
 import { ToolbarSize } from './types';
 
 const toolbar = css({
-  width: '100%',
-  position: 'relative',
-  [`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
-    gridColumn: '1 / 2',
-    gridRow: 2,
-    width: 'calc(100% - 30px)',
-    margin: `0 ${token('space.200', '16px')}`,
-  },
+	width: '100%',
+	position: 'relative',
+	[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
+		gridColumn: '1 / 2',
+		gridRow: 2,
+		width: 'calc(100% - 30px)',
+		margin: `0 ${token('space.200', '16px')}`,
+	},
 });
 
-export const ToolbarWithSizeDetector = (
-  props: ToolbarWithSizeDetectorProps,
-) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [width, setWidth] = React.useState<number | undefined>(undefined);
-  const elementWidth = useElementWidth(ref, {
-    skip: typeof width !== 'undefined',
-  });
+export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps) => {
+	const ref = React.useRef<HTMLDivElement>(null);
+	const [width, setWidth] = React.useState<number | undefined>(undefined);
+	const elementWidth = useElementWidth(ref, {
+		skip: typeof width !== 'undefined',
+	});
 
-  const toolbarSize =
-    typeof width === 'undefined' && typeof elementWidth === 'undefined'
-      ? undefined
-      : widthToToolbarSize((width || elementWidth)!, props.appearance);
+	const toolbarSize =
+		typeof width === 'undefined' && typeof elementWidth === 'undefined'
+			? undefined
+			: widthToToolbarSize((width || elementWidth)!, props.appearance);
 
-  const toolbarStyle = useMemo(() => {
-    const toolbarWidth =
-      isFullPage(props.appearance) && props.twoLineEditorToolbar
-        ? ToolbarSize.S
-        : ToolbarSize.M;
-    const toolbarMinWidth = toolbarSizeToWidth(toolbarWidth, props.appearance);
-    const minWidth = `min-width: ${
-      props.hasMinWidth ? toolbarMinWidth : '254'
-    }px`;
-    return [toolbar, minWidth];
-  }, [props.appearance, props.hasMinWidth, props.twoLineEditorToolbar]);
+	const toolbarStyle = useMemo(() => {
+		const toolbarWidth =
+			isFullPage(props.appearance) && props.twoLineEditorToolbar ? ToolbarSize.S : ToolbarSize.M;
+		const toolbarMinWidth = toolbarSizeToWidth(toolbarWidth, props.appearance);
+		const minWidth = `min-width: ${props.hasMinWidth ? toolbarMinWidth : '254'}px`;
+		return [toolbar, minWidth];
+	}, [props.appearance, props.hasMinWidth, props.twoLineEditorToolbar]);
 
-  return (
-    <div css={toolbarStyle}>
-      <WidthObserver setWidth={setWidth} />
-      {props.editorView && toolbarSize ? (
-        <Toolbar {...props} toolbarSize={toolbarSize} />
-      ) : (
-        <div ref={ref} />
-      )}
-    </div>
-  );
+	return (
+		<div css={toolbarStyle}>
+			<WidthObserver setWidth={setWidth} />
+			{props.editorView && toolbarSize ? (
+				<Toolbar {...props} toolbarSize={toolbarSize} />
+			) : (
+				<div ref={ref} />
+			)}
+		</div>
+	);
 };

@@ -16,66 +16,63 @@ import React from 'react';
 // panel
 
 export type ContextPanelContext = {
-  width: number;
-  positionedOverEditor: boolean;
-  broadcastWidth: (width: number) => void;
-  broadcastPosition: (positionedOverEditor: boolean) => void;
+	width: number;
+	positionedOverEditor: boolean;
+	broadcastWidth: (width: number) => void;
+	broadcastPosition: (positionedOverEditor: boolean) => void;
 };
 
 export const ContextPanel = React.createContext<ContextPanelContext>({
-  width: 0,
-  positionedOverEditor: false,
-  broadcastWidth: () => {},
-  broadcastPosition: () => {},
+	width: 0,
+	positionedOverEditor: false,
+	broadcastWidth: () => {},
+	broadcastPosition: () => {},
 });
 
 export type ContextPanelProviderState = {
-  width?: number;
-  positionedOverEditor?: boolean;
+	width?: number;
+	positionedOverEditor?: boolean;
 };
 
-export class ContextPanelWidthProvider extends React.Component<
-  any,
-  ContextPanelProviderState
-> {
-  state = { width: 0, positionedOverEditor: false };
+export class ContextPanelWidthProvider extends React.Component<any, ContextPanelProviderState> {
+	state = { width: 0, positionedOverEditor: false };
 
-  constructor(props: any) {
-    super(props);
-  }
+	constructor(props: any) {
+		super(props);
+	}
 
-  broadcastSidebarWidth = (width: number) => {
-    if (width !== this.state.width) {
-      this.setState({
-        width,
-      });
-    }
-  };
+	broadcastSidebarWidth = (width: number) => {
+		if (width !== this.state.width) {
+			this.setState({
+				width,
+			});
+		}
+	};
 
-  broadcastPosition = (positionedOverEditor: boolean) => {
-    if (positionedOverEditor !== this.state.positionedOverEditor) {
-      this.setState({
-        positionedOverEditor,
-      });
-    }
-  };
+	broadcastPosition = (positionedOverEditor: boolean) => {
+		if (positionedOverEditor !== this.state.positionedOverEditor) {
+			this.setState({
+				positionedOverEditor,
+			});
+		}
+	};
 
-  render() {
-    const { width, positionedOverEditor } = this.state;
+	render() {
+		const { width, positionedOverEditor } = this.state;
 
-    return (
-      <Provider
-        value={{
-          width,
-          positionedOverEditor,
-          broadcastWidth: this.broadcastSidebarWidth,
-          broadcastPosition: this.broadcastPosition,
-        }}
-      >
-        {this.props.children}
-      </Provider>
-    );
-  }
+		return (
+			<Provider
+				value={{
+					width,
+					positionedOverEditor,
+					broadcastWidth: this.broadcastSidebarWidth,
+					broadcastPosition: this.broadcastPosition,
+				}}
+			>
+				{this.props.children}
+			</Provider>
+		);
+	}
 }
 
 const { Provider, Consumer } = ContextPanel;

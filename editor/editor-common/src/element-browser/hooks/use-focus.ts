@@ -35,14 +35,14 @@ import { useLayoutEffect, useRef } from 'react';
 type RefType = null | HTMLInputElement | HTMLDivElement;
 
 export default function useFocus(focus: boolean) {
-  const ref = useRef<RefType>(null);
+	const ref = useRef<RefType>(null);
 
-  useLayoutEffect(() => {
-    const { current } = ref;
-    if (focus && current && document.activeElement !== current) {
-      current.focus({ preventScroll: true });
-    }
-  }, [focus]);
+	useLayoutEffect(() => {
+		const { current } = ref;
+		if (focus && current && document.activeElement !== current) {
+			current.focus({ preventScroll: true });
+		}
+	}, [focus]);
 
-  return ref;
+	return ref;
 }

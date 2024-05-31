@@ -17,14 +17,14 @@ import { underline } from '../marks/underline';
  * we want to process other marks before it.
  */
 const markEncoderMapping = new Map([
-  ['em', em],
-  ['strike', strike],
-  ['strong', strong],
-  ['subsup', subsup],
-  ['underline', underline],
-  ['textColor', textColor],
-  ['link', link],
-  ['code', code],
+	['em', em],
+	['strike', strike],
+	['strong', strong],
+	['subsup', subsup],
+	['underline', underline],
+	['textColor', textColor],
+	['link', link],
+	['code', code],
 ]);
 
 /**
@@ -47,41 +47,34 @@ const MEDIA_GROUP_ESCAPE_PATTERN = '(\\[\\^[^ ]+)(\\])'; // Matches non space co
  * @returns true if the node should have its text escaped when encoding to wikimarkup.
  */
 const isEscapeNeeded = (node: PMNode, parent?: PMNode) => {
-  return !(
-    (parent && parent.type.name === 'codeBlock') ||
-    node.marks.find((m) => m.type.name === 'code') !== undefined
-  );
+	return !(
+		(parent && parent.type.name === 'codeBlock') ||
+		node.marks.find((m) => m.type.name === 'code') !== undefined
+	);
 };
 /**
  * ESS-2569: Removing the backsalshes from the regex
  * ADFEXP-131: Improved logic for escaping metacharacters "[" and "!"
  */
 function escapingWikiFormatter(text: string) {
-  const pattern = [
-    MENTION_ESCAPE_PATTERN,
-    ...macroKeywordTokenMap.map(
-      (macro) => `(${macro.regex.source.replace('^', '')})`,
-    ),
-  ].join('|');
-  return text
-    .replace(new RegExp(pattern, 'g'), '\\$&')
-    .replace(new RegExp(MEDIA_ESCAPE_PATTERN, 'g'), '\\$1\\$2') // Extra step required for media as currently both ends need to be escaped e.q. !filename.txt!
-    .replace(new RegExp(MEDIA_GROUP_ESCAPE_PATTERN, 'g'), '\\$1\\$2');
+	const pattern = [
+		MENTION_ESCAPE_PATTERN,
+		...macroKeywordTokenMap.map((macro) => `(${macro.regex.source.replace('^', '')})`),
+	].join('|');
+	return text
+		.replace(new RegExp(pattern, 'g'), '\\$&')
+		.replace(new RegExp(MEDIA_ESCAPE_PATTERN, 'g'), '\\$1\\$2') // Extra step required for media as currently both ends need to be escaped e.q. !filename.txt!
+		.replace(new RegExp(MEDIA_GROUP_ESCAPE_PATTERN, 'g'), '\\$1\\$2');
 }
 
-export const text: NodeEncoder = (
-  node: PMNode,
-  { parent }: NodeEncoderOpts = {},
-): string => {
-  let result = isEscapeNeeded(node, parent)
-    ? escapingWikiFormatter(node.text!)
-    : node.text!;
-  markEncoderMapping.forEach((encoder, markName) => {
-    const mark = node.marks.find((m) => m.type.name === markName);
-    if (mark) {
-      result = encoder(result, mark.attrs);
-    }
-  });
+export const text: NodeEncoder = (node: PMNode, { parent }: NodeEncoderOpts = {}): string => {
+	let result = isEscapeNeeded(node, parent) ? escapingWikiFormatter(node.text!) : node.text!;
+	markEncoderMapping.forEach((encoder, markName) => {
+		const mark = node.marks.find((m) => m.type.name === markName);
+		if (mark) {
+			result = encoder(result, mark.attrs);
+		}
+	});
 
-  return result;
+	return result;
 };

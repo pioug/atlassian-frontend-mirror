@@ -73,11 +73,9 @@
   },
   "devDependencies": {
     "@atlaskit/adf-schema": "^36.10.7",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "typescript": "~5.4.2"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.editor.live-pages-expand-divergence": {
       "type": "boolean"

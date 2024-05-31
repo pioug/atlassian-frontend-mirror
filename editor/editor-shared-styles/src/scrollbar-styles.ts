@@ -13,24 +13,15 @@ export const scrollbarStyles = `
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${token(
-      'color.background.neutral.subtle',
-      'rgba(0, 0, 0, 0)',
-    )};
+    background-color: ${token('color.background.neutral.subtle', 'rgba(0, 0, 0, 0)')};
   }
 
   &:hover::-webkit-scrollbar-thumb {
-    background-color: ${token(
-      'color.background.neutral.bold',
-      'rgba(0, 0, 0, 0.2)',
-    )};
+    background-color: ${token('color.background.neutral.bold', 'rgba(0, 0, 0, 0.2)')};
     border-radius: 8px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: ${token(
-      'color.background.neutral.bold.hovered',
-      'rgba(0, 0, 0, 0.4)',
-    )};
+    background-color: ${token('color.background.neutral.bold.hovered', 'rgba(0, 0, 0, 0.4)')};
   }
 `;

@@ -1,16 +1,13 @@
 export type CloseMediaAltTextMenu = {
-  type: 'closeMediaAltTextMenu';
+	type: 'closeMediaAltTextMenu';
 };
 
 export type OpenMediaAltTextMenu = {
-  type: 'openMediaAltTextMenu';
+	type: 'openMediaAltTextMenu';
 };
 
 export type UpdateAltText = {
-  type: 'updateAltText';
+	type: 'updateAltText';
 };
 
-export type MediaAltTextAction =
-  | OpenMediaAltTextMenu
-  | CloseMediaAltTextMenu
-  | UpdateAltText;
+export type MediaAltTextAction = OpenMediaAltTextMenu | CloseMediaAltTextMenu | UpdateAltText;

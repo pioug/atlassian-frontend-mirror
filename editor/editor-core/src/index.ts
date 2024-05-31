@@ -13,10 +13,7 @@ export { default as ToolbarFeedback } from './ui/ToolbarFeedback';
 export { default as ContextPanel } from './ui/ContextPanel';
 export { EmojiResource } from '@atlaskit/emoji/resource';
 export { MentionResource } from '@atlaskit/mention/resource';
-export type {
-  MentionProvider,
-  PresenceProvider,
-} from '@atlaskit/mention/resource';
+export type { MentionProvider, PresenceProvider } from '@atlaskit/mention/resource';
 export { TeamMentionResource } from '@atlaskit/mention/team-resource';
 /**
  * @deprecated
@@ -33,47 +30,41 @@ export type { UpdateEvent } from '@atlaskit/editor-common/annotation';
  * Please use the export from `@atlaskit/editor-plugins/annotation`.
  */
 export type {
-  AnnotationProviders,
-  InlineCommentAnnotationProvider,
-  InlineCommentCreateComponentProps,
-  InlineCommentViewComponentProps,
-  AnnotationInfo,
-  AnnotationState,
-  AnnotationTypeProvider,
-  InlineCommentState,
+	AnnotationProviders,
+	InlineCommentAnnotationProvider,
+	InlineCommentCreateComponentProps,
+	InlineCommentViewComponentProps,
+	AnnotationInfo,
+	AnnotationState,
+	AnnotationTypeProvider,
+	InlineCommentState,
 } from '@atlaskit/editor-plugins/annotation';
 // Used in mobile bridge
 export type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 export {
-  INPUT_METHOD,
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
+	INPUT_METHOD,
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 export type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 
 // Used in editor-test-helpers and mobile bridge
 export { setTextSelection, getNodesCount, measurements } from './utils';
-export type {
-  Command,
-  EditorPlugin,
-  EditorProps,
-  EditorInstance,
-  CommandDispatch,
-} from './types';
+export type { Command, EditorPlugin, EditorProps, EditorInstance, CommandDispatch } from './types';
 export { default as EditorActions } from './actions';
 // Re-export from provider factory to not cause a breaking change
 export type {
-  MacroProvider,
-  MacroAttributes,
-  ExtensionType,
-  CardProvider,
+	MacroProvider,
+	MacroAttributes,
+	ExtensionType,
+	CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
 export {
-  PortalProvider,
-  LegacyPortalProviderAPI,
-  PortalRenderer,
+	PortalProvider,
+	LegacyPortalProviderAPI,
+	PortalRenderer,
 } from '@atlaskit/editor-common/portal-provider';
 
 /**
@@ -91,20 +82,20 @@ export type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
  */
 export type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 export type {
-  /**
-   * @deprecated Use QuickInsertItem from @atlaskit/editor-common/provider-factory instead
-   */
-  QuickInsertItem,
-  /**
-   * @deprecated Use QuickInsertProvider from @atlaskit/editor-common/provider-factory instead
-   */
-  QuickInsertProvider,
+	/**
+	 * @deprecated Use QuickInsertItem from @atlaskit/editor-common/provider-factory instead
+	 */
+	QuickInsertItem,
+	/**
+	 * @deprecated Use QuickInsertProvider from @atlaskit/editor-common/provider-factory instead
+	 */
+	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
 
 // [ED-22843] use FF in editor-core for sake of example
 // @ts-expect-error function is not being used
 const ignoreFunction = () => {
-  // eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage, @atlaskit/platform/ensure-feature-flag-prefix
-  getBooleanFF('__live-view-toggle');
-  return;
+	// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage, @atlaskit/platform/ensure-feature-flag-prefix
+	getBooleanFF('__live-view-toggle');
+	return;
 };

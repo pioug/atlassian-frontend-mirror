@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.8
+
+### Patch Changes
+
+- [#103640](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103640)
+  [`8efbf0dd0174`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8efbf0dd0174) -
+  Hide floating toolbar on dragging
+- [#105200](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105200)
+  [`6ba0d6402f38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ba0d6402f38) -
+  Fix drag handle position when the node contains nested image
+
+## 1.4.7
+
+### Patch Changes
+
+- [#105285](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105285)
+  [`30dbeeb70f1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30dbeeb70f1b) -
+  Add drag and drop tests for block control plugin
+
 ## 1.4.6
 
 ### Patch Changes

@@ -1,55 +1,50 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-  EditorContainerWidth,
-  NextEditorPlugin,
-} from '@atlaskit/editor-common/types';
+import type { EditorContainerWidth, NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 import { pluginKey } from './plugin-key';
 import type { WidthPluginState } from './types';
 import { useResizeWidthObserver } from './useResizeWidthObserver';
 
-function createPlugin(
-  dispatch: Dispatch<WidthPluginState>,
-): SafePlugin | undefined {
-  return new SafePlugin({
-    key: pluginKey,
-    state: {
-      init: () =>
-        ({
-          width: document.body.offsetWidth,
-        } as WidthPluginState),
-      apply(tr, pluginState: WidthPluginState) {
-        const meta: WidthPluginState | undefined = tr.getMeta(pluginKey);
+function createPlugin(dispatch: Dispatch<WidthPluginState>): SafePlugin | undefined {
+	return new SafePlugin({
+		key: pluginKey,
+		state: {
+			init: () =>
+				({
+					width: document.body.offsetWidth,
+				}) as WidthPluginState,
+			apply(tr, pluginState: WidthPluginState) {
+				const meta: WidthPluginState | undefined = tr.getMeta(pluginKey);
 
-        if (!meta) {
-          return pluginState;
-        }
+				if (!meta) {
+					return pluginState;
+				}
 
-        const newPluginState = {
-          ...pluginState,
-          ...meta,
-        };
+				const newPluginState = {
+					...pluginState,
+					...meta,
+				};
 
-        if (
-          newPluginState &&
-          (pluginState.width !== newPluginState.width ||
-            pluginState.lineLength !== newPluginState.lineLength)
-        ) {
-          dispatch(pluginKey, newPluginState);
-          return newPluginState;
-        }
-        return pluginState;
-      },
-    },
-  });
+				if (
+					newPluginState &&
+					(pluginState.width !== newPluginState.width ||
+						pluginState.lineLength !== newPluginState.lineLength)
+				) {
+					dispatch(pluginKey, newPluginState);
+					return newPluginState;
+				}
+				return pluginState;
+			},
+		},
+	});
 }
 
 export type WidthPlugin = NextEditorPlugin<
-  'width',
-  {
-    sharedState: EditorContainerWidth | undefined;
-  }
+	'width',
+	{
+		sharedState: EditorContainerWidth | undefined;
+	}
 >;
 
 /**
@@ -57,24 +52,24 @@ export type WidthPlugin = NextEditorPlugin<
  * from `@atlaskit/editor-core`.
  */
 export const widthPlugin: WidthPlugin = () => ({
-  name: 'width',
+	name: 'width',
 
-  pmPlugins: () => [
-    {
-      name: 'width',
-      plugin: ({ dispatch }) => createPlugin(dispatch),
-    },
-  ],
+	pmPlugins: () => [
+		{
+			name: 'width',
+			plugin: ({ dispatch }) => createPlugin(dispatch),
+		},
+	],
 
-  getSharedState: editorState => {
-    if (!editorState) {
-      return undefined;
-    }
+	getSharedState: (editorState) => {
+		if (!editorState) {
+			return undefined;
+		}
 
-    return pluginKey.getState(editorState);
-  },
+		return pluginKey.getState(editorState);
+	},
 
-  usePluginHook({ editorView, containerElement }) {
-    return useResizeWidthObserver({ editorView, containerElement });
-  },
+	usePluginHook({ editorView, containerElement }) {
+		return useResizeWidthObserver({ editorView, containerElement });
+	},
 });

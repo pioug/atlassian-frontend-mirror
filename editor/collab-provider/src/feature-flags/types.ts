@@ -1,24 +1,18 @@
 // NCS feature flags - type and defaults defined here in one source of truth
 export interface NCSFeatureFlags {
-  testFF?: boolean;
-  blockViewOnly?: boolean;
-  reconcileOnRecovery?: boolean;
+	testFF?: boolean;
+	blockViewOnly?: boolean;
+	reconcileOnRecovery?: boolean;
 }
 
 export interface WithNCSFeatureFlags {
-  featureFlags?: NCSFeatureFlags;
+	featureFlags?: NCSFeatureFlags;
 }
 
 // With this type we ensure the object will contain all the flags
-export type RequiredNCSFeatureFlags = Record<
-  keyof Required<NCSFeatureFlags>,
-  boolean
->;
+export type RequiredNCSFeatureFlags = Record<keyof Required<NCSFeatureFlags>, boolean>;
 
-export type NCSFeatureFlagsMap = Record<
-  keyof Required<NCSFeatureFlags>,
-  string
->;
+export type NCSFeatureFlagsMap = Record<keyof Required<NCSFeatureFlags>, string>;
 
 export const supportedProducts = ['confluence'] as const;
 export type SupportedProduct = (typeof supportedProducts)[number];

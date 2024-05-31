@@ -5,11 +5,7 @@ import document from './helper/overflow.adf.json';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
 export default function Example() {
-  return (
-    <Renderer
-      extensionHandlers={extensionHandlers}
-      document={document}
-      appearance="full-page"
-    />
-  );
+	return (
+		<Renderer extensionHandlers={extensionHandlers} document={document} appearance="full-page" />
+	);
 }

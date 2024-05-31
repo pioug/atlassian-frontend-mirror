@@ -2,10 +2,10 @@
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 export const mockMediaClient = fakeMediaClient();
 jest.mock('@atlaskit/media-client-react', () => {
-  const module = jest.requireActual('@atlaskit/media-client-react');
-  return {
-    ...module,
-    __esModule: true,
-    getMediaClient: jest.fn(() => mockMediaClient),
-  };
+	const module = jest.requireActual('@atlaskit/media-client-react');
+	return {
+		...module,
+		__esModule: true,
+		getMediaClient: jest.fn(() => mockMediaClient),
+	};
 });

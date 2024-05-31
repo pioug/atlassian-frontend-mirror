@@ -6,7 +6,7 @@ import {
   injectIntl,
   type WrappedComponentProps,
 } from 'react-intl-next';
-import AkButton from '@atlaskit/button/custom-theme-button';
+import AkButton from '@atlaskit/button/new';
 import FocusLock from 'react-focus-lock';
 import type { EmojiDescription } from '../../types';
 import { messages } from '../i18n';
@@ -16,7 +16,6 @@ import EmojiErrorMessage, {
 } from './EmojiErrorMessage';
 import RetryableButton from './RetryableButton';
 import {
-  cancelButton,
   deleteFooter,
   deletePreview,
   deleteText,
@@ -124,11 +123,7 @@ class EmojiDeletePreview extends Component<
                 error={error}
                 ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${deleteEmojiLabelId}`}
               />
-              <AkButton
-                appearance="subtle"
-                onClick={this.onCancel}
-                css={cancelButton}
-              >
+              <AkButton appearance="subtle" onClick={this.onCancel}>
                 <FormattedMessage {...messages.cancelLabel} />
               </AkButton>
             </div>

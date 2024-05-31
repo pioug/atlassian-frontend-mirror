@@ -3,21 +3,19 @@ import { render } from '@testing-library/react';
 import Strong from '../../../../react/marks/strong';
 
 describe('Renderer - React/Marks/Strong', () => {
-  const { container } = render(
-    <Strong dataAttributes={{ 'data-renderer-mark': true }}>
-      This is strong
-    </Strong>,
-  );
+	const { container } = render(
+		<Strong dataAttributes={{ 'data-renderer-mark': true }}>This is strong</Strong>,
+	);
 
-  const strongElement = container.querySelector('strong');
+	const strongElement = container.querySelector('strong');
 
-  it('should wrap content with <strong>-tag', () => {
-    expect(strongElement).toBeInTheDocument();
-  });
+	it('should wrap content with <strong>-tag', () => {
+		expect(strongElement).toBeInTheDocument();
+	});
 
-  it('should output correct html', () => {
-    expect(strongElement?.outerHTML).toEqual(
-      '<strong data-renderer-mark="true">This is strong</strong>',
-    );
-  });
+	it('should output correct html', () => {
+		expect(strongElement?.outerHTML).toEqual(
+			'<strong data-renderer-mark="true">This is strong</strong>',
+		);
+	});
 });

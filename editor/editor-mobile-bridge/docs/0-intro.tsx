@@ -13,11 +13,11 @@ This component is an integration layer between @atlaskit/editor-core and native 
   ${code`import { MobileEditor } from '@atlaskit/editor-mobile-bridge';`}
 
   ${(
-    <Example
-      packageName="@atlaskit/editor-mobile-bridge"
-      Component={require('../examples/0-status').default}
-      title="Basic"
-      source={require('!!raw-loader!../examples/0-status')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/editor-mobile-bridge"
+			Component={require('../examples/0-status').default}
+			title="Basic"
+			source={require('!!raw-loader!../examples/0-status')}
+		/>
+	)}
 `;

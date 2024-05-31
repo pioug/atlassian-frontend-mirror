@@ -1,28 +1,28 @@
 import {
-  type Node as PMNode,
-  type NodeType,
-  type Schema,
+	type Node as PMNode,
+	type NodeType,
+	type Schema,
 } from '@atlaskit/editor-prosemirror/model';
 
 const HORIZONTAL_LINE_INSIDE_MACRO = '---';
 
 export default function getRuleNodeView(
-  schema: Schema,
-  containerNodeType: NodeType | null,
+	schema: Schema,
+	containerNodeType: NodeType | null,
 ): PMNode {
-  const { paragraph, rule } = schema.nodes;
+	const { paragraph, rule } = schema.nodes;
 
-  if (containerNodeType) {
-    const textNode = schema.text(HORIZONTAL_LINE_INSIDE_MACRO);
-    return paragraph.createChecked({}, textNode);
-  } else {
-    return rule.createChecked();
-  }
+	if (containerNodeType) {
+		const textNode = schema.text(HORIZONTAL_LINE_INSIDE_MACRO);
+		return paragraph.createChecked({}, textNode);
+	} else {
+		return rule.createChecked();
+	}
 }
 
 export function createRuleNode(schema: Schema): PMNode[] {
-  const { rule } = schema.nodes;
+	const { rule } = schema.nodes;
 
-  const ruleNode = rule.createChecked();
-  return [ruleNode];
+	const ruleNode = rule.createChecked();
+	return [ruleNode];
 }

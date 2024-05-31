@@ -15,52 +15,52 @@ import { useDefaultQuickInsertGetItems } from '../example-helpers/use-default-qu
 import { default as EditorContext } from '../src/ui/EditorContext';
 
 const wrapper = css({
-  display: 'flex',
-  height: '100%',
+	display: 'flex',
+	height: '100%',
 });
 
 const onInsertItem = (item: QuickInsertItem) => {
-  console.log('Inserting item ', item);
+	console.log('Inserting item ', item);
 };
 const RenderElementBrowser = (
-  props: {
-    getItems: (query?: string, category?: string) => QuickInsertItem[];
-  } & WrappedComponentProps,
+	props: {
+		getItems: (query?: string, category?: string) => QuickInsertItem[];
+	} & WrappedComponentProps,
 ) => (
-  <div css={wrapper}>
-    <ElementBrowser
-      categories={getCategories(props.intl)}
-      getItems={props.getItems}
-      showSearch={true}
-      showCategories={true}
-      mode="full"
-      defaultCategory="all"
-      onInsertItem={onInsertItem}
-    />
-  </div>
+	<div css={wrapper}>
+		<ElementBrowser
+			categories={getCategories(props.intl)}
+			getItems={props.getItems}
+			showSearch={true}
+			showCategories={true}
+			mode="full"
+			defaultCategory="all"
+			onInsertItem={onInsertItem}
+		/>
+	</div>
 );
 
 const ElementBrowserWithIntl = injectIntl(RenderElementBrowser);
 
 const ElementBrowserComp = () => {
-  const getItems = useDefaultQuickInsertGetItems();
-  const handleAnalytics = useCallback((event: AnalyticsEventPayload) => {
-    console.groupCollapsed('gasv3 event:', event.payload.action);
-    console.log(event.payload);
-    console.groupEnd();
-  }, []);
+	const getItems = useDefaultQuickInsertGetItems();
+	const handleAnalytics = useCallback((event: AnalyticsEventPayload) => {
+		console.groupCollapsed('gasv3 event:', event.payload.action);
+		console.log(event.payload);
+		console.groupEnd();
+	}, []);
 
-  return (
-    <AnalyticsListener channel="editor" onEvent={handleAnalytics}>
-      <IntlProvider locale="en">
-        <ElementBrowserWithIntl getItems={getItems} />
-      </IntlProvider>
-    </AnalyticsListener>
-  );
+	return (
+		<AnalyticsListener channel="editor" onEvent={handleAnalytics}>
+			<IntlProvider locale="en">
+				<ElementBrowserWithIntl getItems={getItems} />
+			</IntlProvider>
+		</AnalyticsListener>
+	);
 };
 
 export default () => (
-  <EditorContext>
-    <ElementBrowserComp />
-  </EditorContext>
+	<EditorContext>
+		<ElementBrowserComp />
+	</EditorContext>
 );

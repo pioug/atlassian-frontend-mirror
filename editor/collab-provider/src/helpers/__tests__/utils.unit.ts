@@ -4,15 +4,12 @@ import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { getStepUGCFreeDetails } from '../utils';
 
 describe('Utils unit tests', () => {
-  it('strips UGC from a step', () => {
-    const proseMirrorStep = ProseMirrorStep.fromJSON(
-      getSchemaBasedOnStage('stage0'),
-      step,
-    );
-    expect(getStepUGCFreeDetails(proseMirrorStep)).toEqual({
-      contentTypes: 'text',
-      type: 'replace',
-      stepSizeInBytes: 87,
-    });
-  });
+	it('strips UGC from a step', () => {
+		const proseMirrorStep = ProseMirrorStep.fromJSON(getSchemaBasedOnStage('stage0'), step);
+		expect(getStepUGCFreeDetails(proseMirrorStep)).toEqual({
+			contentTypes: 'text',
+			type: 'replace',
+			stepSizeInBytes: 87,
+		});
+	});
 });

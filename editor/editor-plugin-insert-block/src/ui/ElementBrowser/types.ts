@@ -9,18 +9,16 @@ import type { BlockMenuItem } from '../ToolbarInsertBlock/create-items';
 type SimpleEventHandler<T> = (event?: T) => void;
 
 export interface InsertMenuProps {
-  dropdownItems: BlockMenuItem[];
-  editorView: EditorView;
-  showElementBrowserLink: boolean;
-  toggleVisiblity: SimpleEventHandler<MouseEvent | KeyboardEvent>;
-  onInsert: OnInsert;
-  pluginInjectionApi:
-    | PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>
-    | undefined;
+	dropdownItems: BlockMenuItem[];
+	editorView: EditorView;
+	showElementBrowserLink: boolean;
+	toggleVisiblity: SimpleEventHandler<MouseEvent | KeyboardEvent>;
+	onInsert: OnInsert;
+	pluginInjectionApi: PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies> | undefined;
 }
 
 export type SvgGetterParams = {
-  name: string;
+	name: string;
 };
 
 export type OnInsert = ({ item }: { item: MenuItem }) => Transaction;

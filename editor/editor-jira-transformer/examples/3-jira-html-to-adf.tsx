@@ -7,54 +7,52 @@ import { token } from '@atlaskit/tokens';
 import { JIRATransformer } from '../src';
 
 const container = css({
-  '#source, #output': {
-    boxSizing: 'border-box',
-    margin: token('space.100', '8px'),
-    padding: token('space.100', '8px'),
-    whiteSpace: 'pre-wrap',
-    width: '100%',
-    '&:focus': {
-      outline: 'none',
-    },
-  },
-  '#source': {
-    height: '80px',
-  },
-  '#output': {
-    border: '1px solid',
-    minHeight: '480px',
-  },
+	'#source, #output': {
+		boxSizing: 'border-box',
+		margin: token('space.100', '8px'),
+		padding: token('space.100', '8px'),
+		whiteSpace: 'pre-wrap',
+		width: '100%',
+		'&:focus': {
+			outline: 'none',
+		},
+	},
+	'#source': {
+		height: '80px',
+	},
+	'#output': {
+		border: '1px solid',
+		minHeight: '480px',
+	},
 });
 
 const jiraTransformer = new JIRATransformer(defaultSchema);
 const adfTransformer = new JSONTransformer();
 
 function getADF(html: string) {
-  const pmNode = jiraTransformer.parse(html);
-  return adfTransformer.encode(pmNode);
+	const pmNode = jiraTransformer.parse(html);
+	return adfTransformer.encode(pmNode);
 }
 
 export interface State {
-  source: string;
+	source: string;
 }
 
 class Example extends React.PureComponent<{}, State> {
-  state: State = { source: '' };
+	state: State = { source: '' };
 
-  handleChange = (evt: React.FormEvent<HTMLTextAreaElement>) => {
-    this.setState({ source: evt.currentTarget.value });
-  };
+	handleChange = (evt: React.FormEvent<HTMLTextAreaElement>) => {
+		this.setState({ source: evt.currentTarget.value });
+	};
 
-  render() {
-    return (
-      <div css={container}>
-        <textarea id="source" onChange={this.handleChange} />
-        <pre id="output">
-          {JSON.stringify(getADF(this.state.source), null, 2)}
-        </pre>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div css={container}>
+				<textarea id="source" onChange={this.handleChange} />
+				<pre id="output">{JSON.stringify(getADF(this.state.source), null, 2)}</pre>
+			</div>
+		);
+	}
 }
 
 export default () => <Example />;

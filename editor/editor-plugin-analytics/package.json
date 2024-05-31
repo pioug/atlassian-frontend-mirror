@@ -47,9 +47,6 @@
   "peerDependencies": {
     "react": "^16.8.0"
   },
-  "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
-  },
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": [
@@ -80,7 +77,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "stricter": {
     "no-unused-dependencies": {
       "checkDevDependencies": true

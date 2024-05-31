@@ -12,11 +12,7 @@ import { ACTION, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { useConstructor } from '@atlaskit/editor-common/hooks';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
-import {
-  getAnalyticsAppearance,
-  startMeasure,
-  stopMeasure,
-} from '@atlaskit/editor-common/utils';
+import { getAnalyticsAppearance, startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import EditorActions from '../actions';
@@ -38,201 +34,169 @@ import trackEditorActions from './utils/trackEditorActions';
  * Editor wrapper that deals with the lifecycle logic of the editor
  */
 function Editor(passedProps: EditorProps & EditorNextProps) {
-  const propsRef = useRef(passedProps);
-  const props = useMemoEditorProps(passedProps);
-  useMemo(() => {
-    propsRef.current = props;
-  }, [props]);
+	const propsRef = useRef(passedProps);
+	const props = useMemoEditorProps(passedProps);
+	useMemo(() => {
+		propsRef.current = props;
+	}, [props]);
 
-  const editorContext = useEditorContext();
-  const editorActionsPlaceholderInstance = useMemo(
-    () => new EditorActions(),
-    [],
-  );
-  const editorActions =
-    editorContext.editorActions || editorActionsPlaceholderInstance;
-  const startTime = useRef(performance.now());
-  const { createAnalyticsEvent } = useAnalyticsEvents();
-  const experienceStore = useRef<ExperienceStore | undefined>();
+	const editorContext = useEditorContext();
+	const editorActionsPlaceholderInstance = useMemo(() => new EditorActions(), []);
+	const editorActions = editorContext.editorActions || editorActionsPlaceholderInstance;
+	const startTime = useRef(performance.now());
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const experienceStore = useRef<ExperienceStore | undefined>();
 
-  const handleAnalyticsEvent: FireAnalyticsCallback = useCallback(
-    (data) => {
-      fireAnalyticsEvent(createAnalyticsEvent)(data);
-    },
-    [createAnalyticsEvent],
-  );
+	const handleAnalyticsEvent: FireAnalyticsCallback = useCallback(
+		(data) => {
+			fireAnalyticsEvent(createAnalyticsEvent)(data);
+		},
+		[createAnalyticsEvent],
+	);
 
-  useConstructor(() => {
-    trackEditorActions(editorActions, props.performanceTracking, (value) =>
-      handleAnalyticsEvent(value),
-    );
-  });
+	useConstructor(() => {
+		trackEditorActions(editorActions, props.performanceTracking, (value) =>
+			handleAnalyticsEvent(value),
+		);
+	});
 
-  const getExperienceStore = useCallback(() => {
-    return experienceStore.current;
-  }, []);
+	const getExperienceStore = useCallback(() => {
+		return experienceStore.current;
+	}, []);
 
-  const getFeatureFlagsFromRef = useCallback(() => {
-    return createFeatureFlagsFromProps(propsRef.current);
-  }, []);
+	const getFeatureFlagsFromRef = useCallback(() => {
+		return createFeatureFlagsFromProps(propsRef.current);
+	}, []);
 
-  const onEditorCreated = useCallback(
-    (instance: {
-      view: EditorView;
-      eventDispatcher: EventDispatcher;
-      transformer?: Transformer<string>;
-    }) => {
-      const {
-        contextIdentifierProvider,
-        onEditorReady,
-        performanceTracking,
-        featureFlags,
-      } = propsRef.current;
+	const onEditorCreated = useCallback(
+		(instance: {
+			view: EditorView;
+			eventDispatcher: EventDispatcher;
+			transformer?: Transformer<string>;
+		}) => {
+			const { contextIdentifierProvider, onEditorReady, performanceTracking, featureFlags } =
+				propsRef.current;
 
-      editorActions._privateRegisterEditor(
-        instance.view,
-        instance.eventDispatcher,
-        instance.transformer,
-        getFeatureFlagsFromRef,
-      );
+			editorActions._privateRegisterEditor(
+				instance.view,
+				instance.eventDispatcher,
+				instance.transformer,
+				getFeatureFlagsFromRef,
+			);
 
-      if (featureFlags?.ufo) {
-        experienceStore.current = ExperienceStore.getInstance(instance.view);
-        experienceStore.current?.start(
-          EditorExperience.loadEditor,
-          startTime.current,
-        );
-      }
+			if (featureFlags?.ufo) {
+				experienceStore.current = ExperienceStore.getInstance(instance.view);
+				experienceStore.current?.start(EditorExperience.loadEditor, startTime.current);
+			}
 
-      if (onEditorReady) {
-        const measureEditorReady =
-          performanceTracking?.onEditorReadyCallbackTracking?.enabled ||
-          featureFlags?.ufo;
-        measureEditorReady &&
-          startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+			if (onEditorReady) {
+				const measureEditorReady =
+					performanceTracking?.onEditorReadyCallbackTracking?.enabled || featureFlags?.ufo;
+				measureEditorReady && startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
 
-        onEditorReady(editorActions);
+				onEditorReady(editorActions);
 
-        measureEditorReady &&
-          stopMeasure(
-            measurements.ON_EDITOR_READY_CALLBACK,
-            sendDurationAnalytics(
-              ACTION.ON_EDITOR_READY_CALLBACK,
-              {
-                contextIdentifierProvider,
-                featureFlags,
-              },
-              getExperienceStore,
-              createAnalyticsEvent,
-            ),
-          );
-      }
-    },
-    [
-      editorActions,
-      createAnalyticsEvent,
-      getFeatureFlagsFromRef,
-      propsRef,
-      getExperienceStore,
-    ],
-  );
+				measureEditorReady &&
+					stopMeasure(
+						measurements.ON_EDITOR_READY_CALLBACK,
+						sendDurationAnalytics(
+							ACTION.ON_EDITOR_READY_CALLBACK,
+							{
+								contextIdentifierProvider,
+								featureFlags,
+							},
+							getExperienceStore,
+							createAnalyticsEvent,
+						),
+					);
+			}
+		},
+		[editorActions, createAnalyticsEvent, getFeatureFlagsFromRef, propsRef, getExperienceStore],
+	);
 
-  const onEditorDestroyed = useCallback(
-    (_instance: { view: EditorView; transformer?: Transformer<string> }) => {
-      const { onDestroy } = propsRef.current;
-      editorActions._privateUnregisterEditor();
+	const onEditorDestroyed = useCallback(
+		(_instance: { view: EditorView; transformer?: Transformer<string> }) => {
+			const { onDestroy } = propsRef.current;
+			editorActions._privateUnregisterEditor();
 
-      if (onDestroy) {
-        onDestroy();
-      }
-    },
-    [editorActions, propsRef],
-  );
+			if (onDestroy) {
+				onDestroy();
+			}
+		},
+		[editorActions, propsRef],
+	);
 
-  useMeasureEditorMountTime(props, getExperienceStore, createAnalyticsEvent);
+	useMeasureEditorMountTime(props, getExperienceStore, createAnalyticsEvent);
 
-  const providerFactory = useProviderFactory(
-    props,
-    editorActions,
-    createAnalyticsEvent,
-  );
+	const providerFactory = useProviderFactory(props, editorActions, createAnalyticsEvent);
 
-  const { onSave: onSaveFromProps } = props;
-  const handleSave = useCallback(
-    (view: EditorView) => {
-      if (onSaveFromProps) {
-        onSaveFromProps(view);
-      }
-    },
-    [onSaveFromProps],
-  );
+	const { onSave: onSaveFromProps } = props;
+	const handleSave = useCallback(
+		(view: EditorView) => {
+			if (onSaveFromProps) {
+				onSaveFromProps(view);
+			}
+		},
+		[onSaveFromProps],
+	);
 
-  return (
-    <EditorInternal
-      props={props}
-      handleAnalyticsEvent={handleAnalyticsEvent}
-      createAnalyticsEvent={createAnalyticsEvent}
-      preset={props.preset}
-      handleSave={handleSave}
-      editorActions={editorActions}
-      onEditorCreated={onEditorCreated}
-      onEditorDestroyed={onEditorDestroyed}
-      providerFactory={providerFactory}
-    />
-  );
+	return (
+		<EditorInternal
+			props={props}
+			handleAnalyticsEvent={handleAnalyticsEvent}
+			createAnalyticsEvent={createAnalyticsEvent}
+			preset={props.preset}
+			handleSave={handleSave}
+			editorActions={editorActions}
+			onEditorCreated={onEditorCreated}
+			onEditorDestroyed={onEditorDestroyed}
+			providerFactory={providerFactory}
+		/>
+	);
 }
 
-const useMemoEditorFeatureFlags = (featureFlags?: {
-  [featureFlag: string]: string | boolean;
-}) => {
-  const ffRef = useRef(featureFlags);
+const useMemoEditorFeatureFlags = (featureFlags?: { [featureFlag: string]: string | boolean }) => {
+	const ffRef = useRef(featureFlags);
 
-  if (!isEqual(ffRef.current, featureFlags)) {
-    ffRef.current = featureFlags;
-  }
+	if (!isEqual(ffRef.current, featureFlags)) {
+		ffRef.current = featureFlags;
+	}
 
-  return ffRef.current;
+	return ffRef.current;
 };
 
 export function ComposableEditor(props: EditorNextProps) {
-  const editorSessionId = useRef(uuid());
-  const data = useMemo(() => {
-    return {
-      packageName: name,
-      packageVersion: version,
-      componentName: 'editorCore',
-      appearance: getAnalyticsAppearance(props.appearance),
-      editorSessionId: editorSessionId.current,
-    };
-  }, [props.appearance]);
-  const memodEditorFeatureFlags = useMemoEditorFeatureFlags(props.featureFlags);
+	const editorSessionId = useRef(uuid());
+	const data = useMemo(() => {
+		return {
+			packageName: name,
+			packageVersion: version,
+			componentName: 'editorCore',
+			appearance: getAnalyticsAppearance(props.appearance),
+			editorSessionId: editorSessionId.current,
+		};
+	}, [props.appearance]);
+	const memodEditorFeatureFlags = useMemoEditorFeatureFlags(props.featureFlags);
 
-  return (
-    <FabricEditorAnalyticsContext
-      // @ts-expect-error Type 'string' is not assignable to type '"editorCore" | "renderer"'.
-      data={data}
-    >
-      <Editor {...props} featureFlags={memodEditorFeatureFlags} />
-    </FabricEditorAnalyticsContext>
-  );
+	return (
+		<FabricEditorAnalyticsContext
+			// @ts-expect-error Type 'string' is not assignable to type '"editorCore" | "renderer"'.
+			data={data}
+		>
+			<Editor {...props} featureFlags={memodEditorFeatureFlags} />
+		</FabricEditorAnalyticsContext>
+	);
 }
 
 ComposableEditor.propTypes = {
-  minHeight: ({
-    appearance,
-    minHeight,
-  }: Pick<EditorNextProps, 'appearance' | 'minHeight'>) => {
-    if (
-      minHeight &&
-      appearance &&
-      !['comment', 'chromeless'].includes(appearance)
-    ) {
-      return new Error(
-        'minHeight only supports editor appearance chromeless and comment for Editor',
-      );
-    }
-    return null;
-  },
+	minHeight: ({ appearance, minHeight }: Pick<EditorNextProps, 'appearance' | 'minHeight'>) => {
+		if (minHeight && appearance && !['comment', 'chromeless'].includes(appearance)) {
+			return new Error(
+				'minHeight only supports editor appearance chromeless and comment for Editor',
+			);
+		}
+		return null;
+	},
 };
 
 export default ComposableEditor;

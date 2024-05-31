@@ -4,12 +4,12 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { createCommand } from '../pm-plugins/plugin-factory';
 
 export const removeDescendantNodes = (sourceNode: PMNode) =>
-  createCommand(
-    {
-      type: 'UPDATE_STATE',
-      data: { element: undefined },
-    },
-    (tr, state) => {
-      return sourceNode ? removeConnectedNodes(state, sourceNode) : tr;
-    },
-  );
+	createCommand(
+		{
+			type: 'UPDATE_STATE',
+			data: { element: undefined },
+		},
+		(tr, state) => {
+			return sourceNode ? removeConnectedNodes(state, sourceNode) : tr;
+		},
+	);

@@ -1,57 +1,57 @@
 {
-  "extends": "../../../tsconfig.base.json",
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": [
-    "**/docs/**/*",
-    "**/__tests__/**/*",
-    "**/vr-tests/**/*",
-    "**/__perf__/**/*",
-    "**/*.test.*",
-    "**/test.*",
-    "**/test-*",
-    "**/examples.ts",
-    "**/examples.tsx",
-    "**/examples/*.ts",
-    "**/examples/*.tsx",
-    "**/examples/**/*.ts",
-    "**/examples/**/*.tsx",
-    "**/storybook/**/*",
-    "**/constellation/**/*",
-    ".storybook/*",
-    "./__fixtures__/**/*",
-    "./__generated__/**/*",
-    "./mocks/**/*",
-    "./__mocks__/**/*",
-    "**/mock.*",
-    "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx"
-  ],
-  "compilerOptions": {
-    "baseUrl": "",
-    "composite": true,
-    "outDir": "../../../tsDist/@atlaskit__editor-plugin-text-formatting/app"
-  },
-  "references": [
-    {
-      "path": "../editor-common/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-analytics/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-shared-styles/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-tables/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/icon/tsconfig.app.json"
-    },
-    {
-      "path": "../input-rules/tsconfig.app.json"
-    }
-  ]
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"compilerOptions": {
+		"baseUrl": "",
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-text-formatting/app"
+	},
+	"references": [
+		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-analytics/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-tables/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../input-rules/tsconfig.app.json"
+		}
+	]
 }

@@ -17,124 +17,124 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import { token } from '@atlaskit/tokens';
 
 const container = css({
-  display: 'grid',
-  gridTemplateColumns: '33% 34% 33%',
-  '#source, #output': {
-    boxSizing: 'border-box',
-    margin: token('space.100', '8px'),
-    padding: token('space.100', '8px'),
-    whiteSpace: 'pre-wrap',
-    width: '100%',
-    '&:focus': {
-      outline: 'none',
-    },
-  },
-  '#source': {
-    height: '80px',
-  },
-  '#output': {
-    border: '1px solid',
-    minHeight: '480px',
-  },
+	display: 'grid',
+	gridTemplateColumns: '33% 34% 33%',
+	'#source, #output': {
+		boxSizing: 'border-box',
+		margin: token('space.100', '8px'),
+		padding: token('space.100', '8px'),
+		whiteSpace: 'pre-wrap',
+		width: '100%',
+		'&:focus': {
+			outline: 'none',
+		},
+	},
+	'#source': {
+		height: '80px',
+	},
+	'#output': {
+		border: '1px solid',
+		minHeight: '480px',
+	},
 });
 
 const MockProfileClient: any = simpleMockProfilecardClient();
 
 const mentionProvider = Promise.resolve({
-  shouldHighlightMention(mention: any) {
-    return mention.id === 'ABCDE-ABCDE-ABCDE-ABCDE';
-  },
+	shouldHighlightMention(mention: any) {
+		return mention.id === 'ABCDE-ABCDE-ABCDE-ABCDE';
+	},
 } as MentionProvider);
 const mediaProvider = storyMediaProviderFactory();
 const emojiProvider = getEmojiResource();
 const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 const profilecardProvider = Promise.resolve({
-  cloudId: 'DUMMY-CLOUDID',
-  resourceClient: MockProfileClient,
-  getActions: (id: string) => {
-    const actions = [
-      {
-        label: 'Mention',
-        callback: () => console.log('profile-card:mention'),
-      },
-      {
-        label: 'Message',
-        callback: () => console.log('profile-card:message'),
-      },
-    ];
+	cloudId: 'DUMMY-CLOUDID',
+	resourceClient: MockProfileClient,
+	getActions: (id: string) => {
+		const actions = [
+			{
+				label: 'Mention',
+				callback: () => console.log('profile-card:mention'),
+			},
+			{
+				label: 'Message',
+				callback: () => console.log('profile-card:message'),
+			},
+		];
 
-    return id === '1' ? actions : actions.slice(0, 1);
-  },
+		return id === '1' ? actions : actions.slice(0, 1);
+	},
 });
 
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 
 const providerFactory = ProviderFactory.create({
-  mentionProvider,
-  mediaProvider,
-  emojiProvider,
-  profilecardProvider,
-  taskDecisionProvider,
-  contextIdentifierProvider,
+	mentionProvider,
+	mediaProvider,
+	emojiProvider,
+	profilecardProvider,
+	taskDecisionProvider,
+	contextIdentifierProvider,
 });
 
 const wikiTransformer = new WikiMarkupTransformer(defaultSchema);
 const adfTransformer = new JSONTransformer();
 
 function getADF(wiki: string): DocNode {
-  const context: Context = {
-    tokenErrCallback: (err, type) => console.log(err, type),
-    conversion: {
-      inlineCardConversion: {
-        'ABC-10': 'https://instance.atlassian.net/browse/ABC-10',
-        'ABC-20': 'https://instance.atlassian.net/browse/ABC-20',
-        'ABC-30': 'https://instance.atlassian.net/browse/ABC-30',
-        'ABC-40': 'https://instance.atlassian.net/browse/ABC-40',
-      },
-      mediaConversion: {
-        'image.jpg': { transform: '1234' },
-      },
-      mentionConversion: {
-        'accountId:9999': '9999',
-      },
-    },
-  };
-  const pmNode = wikiTransformer.parse(wiki, context);
+	const context: Context = {
+		tokenErrCallback: (err, type) => console.log(err, type),
+		conversion: {
+			inlineCardConversion: {
+				'ABC-10': 'https://instance.atlassian.net/browse/ABC-10',
+				'ABC-20': 'https://instance.atlassian.net/browse/ABC-20',
+				'ABC-30': 'https://instance.atlassian.net/browse/ABC-30',
+				'ABC-40': 'https://instance.atlassian.net/browse/ABC-40',
+			},
+			mediaConversion: {
+				'image.jpg': { transform: '1234' },
+			},
+			mentionConversion: {
+				'accountId:9999': '9999',
+			},
+		},
+	};
+	const pmNode = wikiTransformer.parse(wiki, context);
 
-  return adfTransformer.encode(pmNode) as DocNode;
+	return adfTransformer.encode(pmNode) as DocNode;
 }
 
 export interface State {
-  source: string;
+	source: string;
 }
 
 class Example extends React.PureComponent<{}, State> {
-  state: State = { source: '' };
+	state: State = { source: '' };
 
-  handleChange = (evt: React.FormEvent<HTMLTextAreaElement>) => {
-    this.setState({ source: evt.currentTarget.value });
-  };
+	handleChange = (evt: React.FormEvent<HTMLTextAreaElement>) => {
+		this.setState({ source: evt.currentTarget.value });
+	};
 
-  render() {
-    // @ts-ignore
-    const doc = this.state.source ? getADF(this.state.source) : ('' as DocNode);
-    return (
-      <div css={container}>
-        <textarea id="source" onChange={this.handleChange} />
-        <div id="output">
-          <ReactRenderer
-            document={doc}
-            dataProviders={providerFactory}
-            schema={defaultSchema}
-            media={{
-              allowLinking: true,
-            }}
-          />
-        </div>
-        <pre id="output">{JSON.stringify(doc, null, 2)}</pre>
-      </div>
-    );
-  }
+	render() {
+		// @ts-ignore
+		const doc = this.state.source ? getADF(this.state.source) : ('' as DocNode);
+		return (
+			<div css={container}>
+				<textarea id="source" onChange={this.handleChange} />
+				<div id="output">
+					<ReactRenderer
+						document={doc}
+						dataProviders={providerFactory}
+						schema={defaultSchema}
+						media={{
+							allowLinking: true,
+						}}
+					/>
+				</div>
+				<pre id="output">{JSON.stringify(doc, null, 2)}</pre>
+			</div>
+		);
+	}
 }
 
 export default () => <Example />;

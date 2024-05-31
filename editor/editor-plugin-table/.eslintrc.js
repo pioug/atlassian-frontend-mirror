@@ -1,5 +1,5 @@
 module.exports = {
-  rules: {
-    '@typescript-eslint/no-duplicate-imports': 'error',
-  },
+	rules: {
+		'@typescript-eslint/no-duplicate-imports': 'error',
+	},
 };

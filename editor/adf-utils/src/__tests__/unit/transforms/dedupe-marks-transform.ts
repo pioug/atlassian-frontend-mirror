@@ -4,37 +4,39 @@ import docWithDuplicateMarksInvalidAdf from './__fixtures__/doc-with-duplicate-m
 import docWithNoDuplicateMarksValidAdf from './__fixtures__/doc-with-no-duplicate-marks-valid-adf.json';
 
 describe('transformDedupeMarks', () => {
-  it('should remove duplicate marks', () => {
-    let { isTransformed, transformedAdf, discardedMarks } =
-      transformDedupeMarks(docWithDuplicateMarksInvalidAdf);
+	it('should remove duplicate marks', () => {
+		let { isTransformed, transformedAdf, discardedMarks } = transformDedupeMarks(
+			docWithDuplicateMarksInvalidAdf,
+		);
 
-    expect(discardedMarks.length).not.toEqual(0);
+		expect(discardedMarks.length).not.toEqual(0);
 
-    // We should get all duplicate marks, not just the latest dropped mark
-    expect(discardedMarks).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          attrs: { annotationType: 'inlineComment', id: '789' },
-          type: 'annotation',
-        }),
-        expect.objectContaining({
-          attrs: {
-            type: 'sub',
-          },
-          type: 'subsup',
-        }),
-      ]),
-    );
+		// We should get all duplicate marks, not just the latest dropped mark
+		expect(discardedMarks).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					attrs: { annotationType: 'inlineComment', id: '789' },
+					type: 'annotation',
+				}),
+				expect.objectContaining({
+					attrs: {
+						type: 'sub',
+					},
+					type: 'subsup',
+				}),
+			]),
+		);
 
-    expect(isTransformed).toEqual(true);
-    expect(transformedAdf).toMatchSnapshot();
-  });
+		expect(isTransformed).toEqual(true);
+		expect(transformedAdf).toMatchSnapshot();
+	});
 
-  it('should not remove marks in valid complex doc, transformedAdf should remain unchanged', () => {
-    let { isTransformed, transformedAdf, discardedMarks } =
-      transformDedupeMarks(docWithNoDuplicateMarksValidAdf);
-    expect(discardedMarks.length).toEqual(0);
-    expect(isTransformed).toEqual(false);
-    expect(transformedAdf).toEqual(docWithNoDuplicateMarksValidAdf);
-  });
+	it('should not remove marks in valid complex doc, transformedAdf should remain unchanged', () => {
+		let { isTransformed, transformedAdf, discardedMarks } = transformDedupeMarks(
+			docWithNoDuplicateMarksValidAdf,
+		);
+		expect(discardedMarks.length).toEqual(0);
+		expect(isTransformed).toEqual(false);
+		expect(transformedAdf).toEqual(docWithNoDuplicateMarksValidAdf);
+	});
 });

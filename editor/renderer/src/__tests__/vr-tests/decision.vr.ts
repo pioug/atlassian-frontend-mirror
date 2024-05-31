@@ -4,7 +4,5 @@ import { DecisionRenderer, DecisionHoverRenderer } from './decision.fixture';
 snapshot(DecisionRenderer);
 
 snapshot(DecisionHoverRenderer, {
-  states: [
-    { state: 'hovered', selector: { byTestId: 'elements-decision-item' } },
-  ],
+	states: [{ state: 'hovered', selector: { byTestId: 'elements-decision-item' } }],
 });

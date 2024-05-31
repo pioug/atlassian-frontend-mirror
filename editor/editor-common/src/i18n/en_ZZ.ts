@@ -269,6 +269,7 @@ export default {
   'fabric.editor.info': '⁣⁢Info‌⁠⁡⁫⁡⁪‌⁪⁡⁫‍⁠⁡⁪⁯⁮‍⁯‌⁯⁫⁮⁪⁣⁤',
   'fabric.editor.infoPanel': '⁣⁢Info panel⁡؜‍⁠⁬⁭‍⁫⁫⁭⁡⁭⁫⁯⁪⁫⁮‌‍؜‍⁠؜⁣⁤',
   'fabric.editor.infoPanel.description': '⁣⁢Highlight information in a colored panel⁪⁮⁭⁪⁡⁪⁠⁪⁡⁮⁯⁫⁭⁮؜⁮⁫⁮⁮⁬⁭⁮‍⁮⁭⁣⁤',
+  'fabric.editor.inlineConfigureLink': '⁣⁢Configure link؜⁫⁪⁭⁯⁮⁭‌⁫⁯؜⁮؜⁡⁯‌⁯⁭⁮⁪⁯⁬‌⁣⁤',
   'fabric.editor.inlineDescription': '⁣⁢Display link as inline text⁪⁫⁭⁭⁬⁬⁫‍⁪⁭⁫⁠⁫⁡‌‍⁮⁬⁪⁡؜⁮⁪‌⁣⁤',
   'fabric.editor.inlineOverlay': '⁣⁢Configure⁫‌‍‍؜⁡‍⁯⁡⁯⁯‌؜⁬⁯‍‍⁮‍؜⁭‌⁬⁣⁤',
   'fabric.editor.inlineTitle': '⁣⁢Inline⁯؜⁬؜⁯‌‌⁠⁪⁫⁫⁫⁬⁫‌⁪‌⁡⁫‌⁮‌⁡⁡⁠⁣⁤',

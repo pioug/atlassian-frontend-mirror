@@ -20,74 +20,72 @@ import { trackUnsupportedContentTooltipDisplayedFor } from '../../utils/track-un
 import { getUnsupportedContent } from '../unsupported-content-helper';
 
 const inlineNodeStyle = css({
-  alignItems: 'center',
-  background: token('color.background.disabled', N30),
-  border: `1px dashed ${token('color.border.disabled', N50)}`,
-  borderRadius: `${borderRadius()}px`,
-  boxSizing: 'border-box',
-  cursor: 'default',
-  display: 'inline-flex',
-  fontSize: relativeFontSizeToBase16(fontSize()),
-  margin: `0 ${token('space.025', '2px')}`,
-  minHeight: '24px',
-  padding: `0 ${token('space.100', '8px')}`,
-  verticalAlign: 'middle',
-  whiteSpace: 'nowrap',
+	alignItems: 'center',
+	background: token('color.background.disabled', N30),
+	border: `1px dashed ${token('color.border.disabled', N50)}`,
+	borderRadius: `${borderRadius()}px`,
+	boxSizing: 'border-box',
+	cursor: 'default',
+	display: 'inline-flex',
+	fontSize: relativeFontSizeToBase16(fontSize()),
+	margin: `0 ${token('space.025', '2px')}`,
+	minHeight: '24px',
+	padding: `0 ${token('space.100', '8px')}`,
+	verticalAlign: 'middle',
+	whiteSpace: 'nowrap',
 });
 
 export interface Props {
-  node?: PMNode;
-  children?: React.ReactNode;
-  dispatchAnalyticsEvent?: (payload: UnsupportedContentTooltipPayload) => void;
+	node?: PMNode;
+	children?: React.ReactNode;
+	dispatchAnalyticsEvent?: (payload: UnsupportedContentTooltipPayload) => void;
 }
 
 const UnsupportedInlineNode = ({
-  node,
-  intl,
-  dispatchAnalyticsEvent,
+	node,
+	intl,
+	dispatchAnalyticsEvent,
 }: Props & WrappedComponentProps) => {
-  const message = getUnsupportedContent(
-    unsupportedContentMessages.unsupportedInlineContent,
-    'Unsupported',
-    node,
-    intl,
-  );
+	const message = getUnsupportedContent(
+		unsupportedContentMessages.unsupportedInlineContent,
+		'Unsupported',
+		node,
+		intl,
+	);
 
-  const tooltipContent = intl.formatMessage(
-    unsupportedContentMessages.unsupportedContentTooltip,
-  );
+	const tooltipContent = intl.formatMessage(unsupportedContentMessages.unsupportedContentTooltip);
 
-  const { current: style } = useRef({ padding: '4px' });
+	const { current: style } = useRef({ padding: '4px' });
 
-  const originalNodeType = node?.attrs.originalValue.type;
+	const originalNodeType = node?.attrs.originalValue.type;
 
-  const tooltipOnShowHandler = useCallback(
-    () =>
-      dispatchAnalyticsEvent &&
-      trackUnsupportedContentTooltipDisplayedFor(
-        dispatchAnalyticsEvent,
-        ACTION_SUBJECT_ID.ON_UNSUPPORTED_INLINE,
-        originalNodeType,
-      ),
-    [dispatchAnalyticsEvent, originalNodeType],
-  );
-  return (
-    <span css={inlineNodeStyle}>
-      {message}
-      <Tooltip
-        content={tooltipContent}
-        hideTooltipOnClick={false}
-        position="bottom"
-        onShow={tooltipOnShowHandler}
-        strategy="absolute"
-      >
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <span style={style}>
-          <QuestionsIcon label="?" size="small" />
-        </span>
-      </Tooltip>
-    </span>
-  );
+	const tooltipOnShowHandler = useCallback(
+		() =>
+			dispatchAnalyticsEvent &&
+			trackUnsupportedContentTooltipDisplayedFor(
+				dispatchAnalyticsEvent,
+				ACTION_SUBJECT_ID.ON_UNSUPPORTED_INLINE,
+				originalNodeType,
+			),
+		[dispatchAnalyticsEvent, originalNodeType],
+	);
+	return (
+		<span css={inlineNodeStyle}>
+			{message}
+			<Tooltip
+				content={tooltipContent}
+				hideTooltipOnClick={false}
+				position="bottom"
+				onShow={tooltipOnShowHandler}
+				strategy="absolute"
+			>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<span style={style}>
+					<QuestionsIcon label="?" size="small" />
+				</span>
+			</Tooltip>
+		</span>
+	);
 };
 
 export default injectIntl(UnsupportedInlineNode);

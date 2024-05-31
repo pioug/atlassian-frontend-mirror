@@ -5,31 +5,31 @@ import { overflowCodeblock } from '../__fixtures__/overflow.adf';
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
 export const CodeBlockRendererCopy = generateRendererComponent({
-  document: codeBlockAdf,
-  appearance: 'full-width',
-  allowCopyToClipboard: true,
+	document: codeBlockAdf,
+	appearance: 'full-width',
+	allowCopyToClipboard: true,
 });
 
 export const CodeBlockRendererWrap = generateRendererComponent({
-  document: codeBlockAdf,
-  appearance: 'full-width',
-  allowWrapCodeBlock: true,
+	document: codeBlockAdf,
+	appearance: 'full-width',
+	allowWrapCodeBlock: true,
 });
 
 export const CodeBlockRendererCopyWrap = generateRendererComponent({
-  document: codeBlockAdf,
-  appearance: 'full-width',
-  allowCopyToClipboard: true,
-  allowWrapCodeBlock: true,
+	document: codeBlockAdf,
+	appearance: 'full-width',
+	allowCopyToClipboard: true,
+	allowWrapCodeBlock: true,
 });
 
 export const CodeBlockRendererTrailingNewline = generateRendererComponent({
-  document: adfTrailingNewline,
-  appearance: 'full-width',
-  allowCopyToClipboard: true,
+	document: adfTrailingNewline,
+	appearance: 'full-width',
+	allowCopyToClipboard: true,
 });
 
 export const CodeBlockRendererOverflow = generateRendererComponent({
-  document: overflowCodeblock,
-  appearance: 'full-page',
+	document: overflowCodeblock,
+	appearance: 'full-page',
 });

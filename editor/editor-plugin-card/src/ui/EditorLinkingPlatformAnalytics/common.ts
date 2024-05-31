@@ -6,16 +6,16 @@ import type { EditorCardPluginEvents } from '../../analytics/create-events-queue
 import type { CardPluginEvent } from '../../analytics/types';
 
 export type AnalyticsBindingsProps = {
-  editorView: EditorView;
-  cardPluginEvents: EditorCardPluginEvents<CardPluginEvent>;
+	editorView: EditorView;
+	cardPluginEvents: EditorCardPluginEvents<CardPluginEvent>;
 };
 
 type EventMetadata = {
-  action?: string;
-  inputMethod?: string;
-  sourceEvent?: unknown;
-  isRedo?: boolean;
-  isUndo?: boolean;
+	action?: string;
+	inputMethod?: string;
+	sourceEvent?: unknown;
+	isRedo?: boolean;
+	isUndo?: boolean;
 };
 
 /**
@@ -23,67 +23,59 @@ type EventMetadata = {
  * returns undo/redo instead of instead of what fn(metadata) would have otherwise
  * returned
  */
-const withHistoryMethod = (
-  fn: (metadata: EventMetadata) => string | undefined,
-) => {
-  return (metadata: EventMetadata) => {
-    const { isUndo, isRedo } = metadata;
-    if (isUndo) {
-      return 'undo';
-    }
-    if (isRedo) {
-      return 'redo';
-    }
-    return fn(metadata);
-  };
+const withHistoryMethod = (fn: (metadata: EventMetadata) => string | undefined) => {
+	return (metadata: EventMetadata) => {
+		const { isUndo, isRedo } = metadata;
+		if (isUndo) {
+			return 'undo';
+		}
+		if (isRedo) {
+			return 'redo';
+		}
+		return fn(metadata);
+	};
 };
 
-export const getMethod = withHistoryMethod(
-  ({ inputMethod, sourceEvent }: EventMetadata) => {
-    inputMethod =
-      inputMethod ??
-      (sourceEvent as UIAnalyticsEvent)?.payload?.attributes?.inputMethod;
+export const getMethod = withHistoryMethod(({ inputMethod, sourceEvent }: EventMetadata) => {
+	inputMethod = inputMethod ?? (sourceEvent as UIAnalyticsEvent)?.payload?.attributes?.inputMethod;
 
-    switch (inputMethod) {
-      case INPUT_METHOD.CLIPBOARD:
-        return 'editor_paste';
-      case INPUT_METHOD.FLOATING_TB:
-        return 'editor_floatingToolbar';
-      case INPUT_METHOD.AUTO_DETECT:
-      case INPUT_METHOD.FORMATTING:
-        return 'editor_type';
-      case INPUT_METHOD.TYPEAHEAD:
-        return 'linkpicker_searchResult';
-      case INPUT_METHOD.MANUAL:
-        return 'linkpicker_manual';
-      case INPUT_METHOD.DATASOURCE:
-        return 'datasource_config';
-      default:
-        return 'unknown';
-    }
-  },
-);
+	switch (inputMethod) {
+		case INPUT_METHOD.CLIPBOARD:
+			return 'editor_paste';
+		case INPUT_METHOD.FLOATING_TB:
+			return 'editor_floatingToolbar';
+		case INPUT_METHOD.AUTO_DETECT:
+		case INPUT_METHOD.FORMATTING:
+			return 'editor_type';
+		case INPUT_METHOD.TYPEAHEAD:
+			return 'linkpicker_searchResult';
+		case INPUT_METHOD.MANUAL:
+			return 'linkpicker_manual';
+		case INPUT_METHOD.DATASOURCE:
+			return 'datasource_config';
+		default:
+			return 'unknown';
+	}
+});
 
 export const getUpdateType = withHistoryMethod(({ action }: EventMetadata) => {
-  switch (action) {
-    case ACTION.CHANGED_TYPE:
-      return 'display_update';
-    case ACTION.UPDATED:
-      return 'link_update';
-    default:
-      return 'unknown';
-  }
+	switch (action) {
+		case ACTION.CHANGED_TYPE:
+			return 'display_update';
+		case ACTION.UPDATED:
+			return 'link_update';
+		default:
+			return 'unknown';
+	}
 });
 
 export const getDeleteType = withHistoryMethod(({ action }: EventMetadata) => {
-  if (action === ACTION.UNLINK) {
-    return 'unlink';
-  }
-  return 'delete';
+	if (action === ACTION.UNLINK) {
+		return 'unlink';
+	}
+	return 'delete';
 });
 
 export const getSourceEventFromMetadata = (metadata: EventMetadata) => {
-  return metadata.sourceEvent instanceof UIAnalyticsEvent
-    ? metadata.sourceEvent
-    : null;
+	return metadata.sourceEvent instanceof UIAnalyticsEvent ? metadata.sourceEvent : null;
 };

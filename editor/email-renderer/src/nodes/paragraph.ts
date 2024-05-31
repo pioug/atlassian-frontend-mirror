@@ -31,11 +31,7 @@ table th > .${className}:last-child {
 }
 `;
 
-export default function paragraph({
-  text,
-  marks,
-  context,
-}: NodeSerializerOpts) {
-  const paragraph = createTag('p', { class: className }, text || '&nbsp;');
-  return applyMarks(marks, paragraph, context);
+export default function paragraph({ text, marks, context }: NodeSerializerOpts) {
+	const paragraph = createTag('p', { class: className }, text || '&nbsp;');
+	return applyMarks(marks, paragraph, context);
 }

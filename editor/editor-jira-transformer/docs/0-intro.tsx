@@ -20,11 +20,11 @@ This package provides a transformation from ProseMirror Node → wikimarkup and 
   serializer.parse(html);`}
 
   ${(
-    <Example
-      packageName="@atlaskit/editor-jira-transformer"
-      Component={require('../examples/1-jira-html-input').default}
-      title="Jira HTML Input"
-      source={require('!!raw-loader!../examples/1-jira-html-input')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/editor-jira-transformer"
+			Component={require('../examples/1-jira-html-input').default}
+			title="Jira HTML Input"
+			source={require('!!raw-loader!../examples/1-jira-html-input')}
+		/>
+	)}
 `;

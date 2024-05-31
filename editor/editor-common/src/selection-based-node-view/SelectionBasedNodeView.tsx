@@ -6,9 +6,9 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { type EventDispatcher } from '../event-dispatcher';
 import { type PortalProviderAPI } from '../portal';
 import ReactNodeView, {
-  type getPosHandler,
-  type ReactComponentProps,
-  type shouldUpdate,
+	type getPosHandler,
+	type ReactComponentProps,
+	type shouldUpdate,
 } from '../react-node-view';
 import type { LegacyPortalProviderAPI } from '../ui/PortalProvider';
 
@@ -36,119 +36,107 @@ import type { LegacyPortalProviderAPI } from '../ui/PortalProvider';
  * }```
  */
 
-export class SelectionBasedNodeView<
-  P = ReactComponentProps,
-> extends ReactNodeView<P> {
-  protected isSelectedNode: boolean = false;
+export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeView<P> {
+	protected isSelectedNode: boolean = false;
 
-  pos: number | undefined;
-  posEnd: number | undefined;
+	pos: number | undefined;
+	posEnd: number | undefined;
 
-  constructor(
-    node: PMNode,
-    view: EditorView,
-    getPos: getPosHandler,
-    portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
-    eventDispatcher: EventDispatcher,
-    reactComponentProps: P,
-    reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
-    hasContext: boolean = false,
-    viewShouldUpdate?: shouldUpdate,
-    hasIntlContext: boolean = false,
-  ) {
-    super(
-      node,
-      view,
-      getPos,
-      portalProviderAPI,
-      eventDispatcher,
-      reactComponentProps,
-      reactComponent,
-      hasContext,
-      viewShouldUpdate,
-      hasIntlContext,
-    );
+	constructor(
+		node: PMNode,
+		view: EditorView,
+		getPos: getPosHandler,
+		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		eventDispatcher: EventDispatcher,
+		reactComponentProps: P,
+		reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
+		hasContext: boolean = false,
+		viewShouldUpdate?: shouldUpdate,
+		hasIntlContext: boolean = false,
+	) {
+		super(
+			node,
+			view,
+			getPos,
+			portalProviderAPI,
+			eventDispatcher,
+			reactComponentProps,
+			reactComponent,
+			hasContext,
+			viewShouldUpdate,
+			hasIntlContext,
+		);
 
-    this.updatePos();
-  }
+		this.updatePos();
+	}
 
-  /**
-   * Update current node's start and end positions.
-   *
-   * Prefer `this.pos` rather than getPos(), because calling getPos is
-   * expensive, unless you know you're definitely going to render.
-   */
-  private updatePos() {
-    if (typeof this.getPos === 'boolean') {
-      return;
-    }
-    const pos = this.getPos();
+	/**
+	 * Update current node's start and end positions.
+	 *
+	 * Prefer `this.pos` rather than getPos(), because calling getPos is
+	 * expensive, unless you know you're definitely going to render.
+	 */
+	private updatePos() {
+		if (typeof this.getPos === 'boolean') {
+			return;
+		}
+		const pos = this.getPos();
 
-    if (typeof pos === 'number') {
-      this.pos = pos;
-      this.posEnd = pos + this.node.nodeSize;
-    }
-  }
+		if (typeof pos === 'number') {
+			this.pos = pos;
+			this.posEnd = pos + this.node.nodeSize;
+		}
+	}
 
-  private getPositionsWithDefault(pos?: number, posEnd?: number) {
-    return {
-      pos: typeof pos !== 'number' ? this.pos : pos,
-      posEnd: typeof posEnd !== 'number' ? this.posEnd : posEnd,
-    };
-  }
+	private getPositionsWithDefault(pos?: number, posEnd?: number) {
+		return {
+			pos: typeof pos !== 'number' ? this.pos : pos,
+			posEnd: typeof posEnd !== 'number' ? this.posEnd : posEnd,
+		};
+	}
 
-  private isNodeInsideSelection = (
-    from: number,
-    to: number,
-    pos?: number,
-    posEnd?: number,
-  ) => {
-    ({ pos, posEnd } = this.getPositionsWithDefault(pos, posEnd));
+	private isNodeInsideSelection = (from: number, to: number, pos?: number, posEnd?: number) => {
+		({ pos, posEnd } = this.getPositionsWithDefault(pos, posEnd));
 
-    if (typeof pos !== 'number' || typeof posEnd !== 'number') {
-      return false;
-    }
+		if (typeof pos !== 'number' || typeof posEnd !== 'number') {
+			return false;
+		}
 
-    return from <= pos && to >= posEnd;
-  };
+		return from <= pos && to >= posEnd;
+	};
 
-  private isSelectionInsideNode = (
-    from: number,
-    to: number,
-    pos?: number,
-    posEnd?: number,
-  ) => {
-    ({ pos, posEnd } = this.getPositionsWithDefault(pos, posEnd));
+	private isSelectionInsideNode = (from: number, to: number, pos?: number, posEnd?: number) => {
+		({ pos, posEnd } = this.getPositionsWithDefault(pos, posEnd));
 
-    if (typeof pos !== 'number' || typeof posEnd !== 'number') {
-      return false;
-    }
+		if (typeof pos !== 'number' || typeof posEnd !== 'number') {
+			return false;
+		}
 
-    return pos < from && to < posEnd;
-  };
+		return pos < from && to < posEnd;
+	};
 
-  insideSelection = () => {
-    const {
-      selection: { from, to },
-    } = this.view.state;
+	insideSelection = () => {
+		const {
+			selection: { from, to },
+		} = this.view.state;
 
-    return this.isSelectedNode || this.isSelectionInsideNode(from, to);
-  };
+		return this.isSelectedNode || this.isSelectionInsideNode(from, to);
+	};
 
-  nodeInsideSelection = () => {
-    const { selection } = this.view.state;
-    const { from, to } = selection;
+	nodeInsideSelection = () => {
+		const { selection } = this.view.state;
+		const { from, to } = selection;
 
-    return this.isSelectedNode || this.isNodeInsideSelection(from, to);
-  };
+		return this.isSelectedNode || this.isNodeInsideSelection(from, to);
+	};
 
-  selectNode() {
-    this.isSelectedNode = true;
-    this.update(this.node, this.decorations);
-  }
+	selectNode() {
+		this.isSelectedNode = true;
+		this.update(this.node, this.decorations);
+	}
 
-  deselectNode() {
-    this.isSelectedNode = false;
-    this.update(this.node, this.decorations);
-  }
+	deselectNode() {
+		this.isSelectedNode = false;
+		this.update(this.node, this.decorations);
+	}
 }

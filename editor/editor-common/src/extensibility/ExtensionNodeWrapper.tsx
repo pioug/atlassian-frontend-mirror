@@ -7,18 +7,18 @@ import classnames from 'classnames';
 import { ZERO_WIDTH_SPACE } from '../utils';
 
 const styles = css({
-  '&.inline-extension': {
-    display: 'inline-block',
-  },
-  '&.relative': {
-    position: 'relative',
-  },
+	'&.inline-extension': {
+		display: 'inline-block',
+	},
+	'&.relative': {
+		position: 'relative',
+	},
 });
 
 type Props = {
-  children: React.ReactNode;
-  nodeType: string;
-  showMacroInteractionDesignUpdates?: boolean;
+	children: React.ReactNode;
+	nodeType: string;
+	showMacroInteractionDesignUpdates?: boolean;
 };
 /**
  * If inlineExtension, add zero width space to the end of the nodes and wrap with span;
@@ -29,21 +29,20 @@ type Props = {
  * @returns
  */
 export const ExtensionNodeWrapper = ({
-  children,
-  nodeType,
-  showMacroInteractionDesignUpdates,
+	children,
+	nodeType,
+	showMacroInteractionDesignUpdates,
 }: Props) => {
-  const wrapperClassNames = classnames({
-    'inline-extension':
-      nodeType === 'inlineExtension' && showMacroInteractionDesignUpdates,
-    relative: showMacroInteractionDesignUpdates,
-  });
+	const wrapperClassNames = classnames({
+		'inline-extension': nodeType === 'inlineExtension' && showMacroInteractionDesignUpdates,
+		relative: showMacroInteractionDesignUpdates,
+	});
 
-  return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-    <span className={wrapperClassNames} css={styles}>
-      {children}
-      {nodeType === 'inlineExtension' && ZERO_WIDTH_SPACE}
-    </span>
-  );
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		<span className={wrapperClassNames} css={styles}>
+			{children}
+			{nodeType === 'inlineExtension' && ZERO_WIDTH_SPACE}
+		</span>
+	);
 };

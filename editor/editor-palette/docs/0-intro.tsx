@@ -36,35 +36,37 @@ or reach out to the Design System Team via the [Atlassian Developer Community fo
 
 ## API documentation
 
-${(
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-  <div style={{ marginTop: token('space.100', '8px') }}>
-    <SectionMessage
-      title="Design token names and values are an implementation detail."
-      appearance="warning"
-    >
-      <p>
-        The names of tokens can change over time, and the values of tokens will
-        differ between themes.
-      </p>
-      <p>
-        The exact output of this function is an implementation detail only and
-        should only be used when rendering content to the user, on a client with
-        a matching major version of <code>@atlaskit/tokens</code>.
-      </p>
-      <ul>
-        <li>
-          <strong>DO NOT</strong>: store the output of these functions in any
-          user-generated content or back-end.
-        </li>
-        <li>
-          <strong>DO</strong>: store the ADF hex color, and use these utilities
-          at render time to display the themed version of the color
-        </li>
-      </ul>
-    </SectionMessage>
-  </div>
-)}
+${
+	(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ marginTop: token('space.100', '8px') }}>
+			<SectionMessage
+				title="Design token names and values are an implementation detail."
+				appearance="warning"
+			>
+				<p>
+					The names of tokens can change over time, and the values of tokens will differ between
+					themes.
+				</p>
+				<p>
+					The exact output of this function is an implementation detail only and should only be used
+					when rendering content to the user, on a client with a matching major version of{' '}
+					<code>@atlaskit/tokens</code>.
+				</p>
+				<ul>
+					<li>
+						<strong>DO NOT</strong>: store the output of these functions in any user-generated
+						content or back-end.
+					</li>
+					<li>
+						<strong>DO</strong>: store the ADF hex color, and use these utilities at render time to
+						display the themed version of the color
+					</li>
+				</ul>
+			</SectionMessage>
+		</div>
+	)
+}
 
 ### \`hexToTextPaletteColor\`
 

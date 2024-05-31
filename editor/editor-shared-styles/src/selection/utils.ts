@@ -1,11 +1,11 @@
 import { token } from '@atlaskit/tokens';
 
 import {
-  akEditorSelectedBgColor,
-  akEditorSelectedBorder,
-  akEditorSelectedBorderColor,
-  akEditorSelectedBoxShadow,
-  akEditorSmallZIndex,
+	akEditorSelectedBgColor,
+	akEditorSelectedBorder,
+	akEditorSelectedBorderColor,
+	akEditorSelectedBoxShadow,
+	akEditorSmallZIndex,
 } from '../consts';
 
 import { SelectionStyle } from './types';
@@ -20,13 +20,11 @@ import { SelectionStyle } from './types';
  *  }
  *
  */
-export const getSelectionStyles = (
-  selectionStyles: Array<SelectionStyle>,
-): string =>
-  selectionStyles
-    .map((selectionStyle) => getSelectionStyle(selectionStyle))
-    .concat(hideNativeBrowserTextSelectionStyles)
-    .join('\n');
+export const getSelectionStyles = (selectionStyles: Array<SelectionStyle>): string =>
+	selectionStyles
+		.map((selectionStyle) => getSelectionStyle(selectionStyle))
+		.concat(hideNativeBrowserTextSelectionStyles)
+		.join('\n');
 
 export const hideNativeBrowserTextSelectionStyles = `
   ::selection,*::selection {
@@ -38,9 +36,9 @@ export const hideNativeBrowserTextSelectionStyles = `
 `;
 
 const getSelectionStyle = (style: SelectionStyle): string => {
-  switch (style) {
-    case SelectionStyle.Border:
-      return `
+	switch (style) {
+		case SelectionStyle.Border:
+			return `
         border: ${akEditorSelectedBorder};
 
         // Fixes ED-15246: Trello card is visible through a border of a table border
@@ -57,18 +55,15 @@ const getSelectionStyle = (style: SelectionStyle): string => {
           display: inline-block;
         }
       `;
-    case SelectionStyle.BoxShadow:
-      return `
+		case SelectionStyle.BoxShadow:
+			return `
         box-shadow: ${akEditorSelectedBoxShadow};
         border-color: transparent;
         `;
-    case SelectionStyle.Background:
-      return `background-color: ${token(
-        'color.background.selected',
-        akEditorSelectedBgColor,
-      )};`;
-    case SelectionStyle.Blanket:
-      return `
+		case SelectionStyle.Background:
+			return `background-color: ${token('color.background.selected', akEditorSelectedBgColor)};`;
+		case SelectionStyle.Blanket:
+			return `
         position: relative;
 
         // Fixes ED-9263, where emoji or inline card in panel makes selection go outside the panel
@@ -87,7 +82,7 @@ const getSelectionStyle = (style: SelectionStyle): string => {
           z-index: ${akEditorSmallZIndex};
           background-color: ${token('color.blanket.selected', '#B3D4FF4C')}
         }`;
-    default:
-      return '';
-  }
+		default:
+			return '';
+	}
 };

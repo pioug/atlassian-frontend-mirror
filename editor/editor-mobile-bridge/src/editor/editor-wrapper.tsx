@@ -18,41 +18,41 @@ import type WebBridgeImpl from './native-to-web';
 import type { IntlShape } from 'react-intl-next';
 
 interface WrapperProps {
-  props: EditorWrapperProps;
+	props: EditorWrapperProps;
 }
 
 interface EditorWrapperProps extends EditorProps {
-  bridge: WebBridgeImpl;
-  intl: IntlShape;
-  editorConfiguration: EditorConfiguration;
+	bridge: WebBridgeImpl;
+	intl: IntlShape;
+	editorConfiguration: EditorConfiguration;
 }
 
 const ComposableEditorWrapper = ({ props }: WrapperProps) => {
-  const preset = useUniversalPreset({ props })
-    .add(viewUpdateSubscriptionPlugin)
-    .add(mobileDimensionsPlugin)
-    .add(mobileSelectionPlugin)
-    .add([
-      mobileApiPlugin,
-      {
-        bridge: props.bridge,
-        intl: props.intl,
-        editorConfiguration: props.editorConfiguration,
-      },
-    ]);
-  return <ComposableEditor preset={preset} {...props} />;
+	const preset = useUniversalPreset({ props })
+		.add(viewUpdateSubscriptionPlugin)
+		.add(mobileDimensionsPlugin)
+		.add(mobileSelectionPlugin)
+		.add([
+			mobileApiPlugin,
+			{
+				bridge: props.bridge,
+				intl: props.intl,
+				editorConfiguration: props.editorConfiguration,
+			},
+		]);
+	return <ComposableEditor preset={preset} {...props} />;
 };
 
 export class Editor extends React.Component<EditorWrapperProps> {
-  // Copied from `packages/editor/editor-core/src/composable-editor/utils/editorPropTypes.ts`
-  static defaultProps = {
-    disabled: false,
-    extensionHandlers: {},
-    allowHelpDialog: true,
-    quickInsert: true,
-  };
+	// Copied from `packages/editor/editor-core/src/composable-editor/utils/editorPropTypes.ts`
+	static defaultProps = {
+		disabled: false,
+		extensionHandlers: {},
+		allowHelpDialog: true,
+		quickInsert: true,
+	};
 
-  render() {
-    return <ComposableEditorWrapper props={this.props} />;
-  }
+	render() {
+		return <ComposableEditorWrapper props={this.props} />;
+	}
 }

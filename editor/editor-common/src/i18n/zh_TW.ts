@@ -332,6 +332,7 @@ export default {
   'fabric.editor.pageActionsLabel': '頁面動作',
   'fabric.editor.panel.backgroundColor': '背景顏色',
   'fabric.editor.panel.emoji': '新增表情符號',
+  'fabric.editor.panel.panelsGroup': '面板類型',
   'fabric.editor.pasteOptions': '貼上選項',
   'fabric.editor.pastePlainText': '貼上純文字',
   'fabric.editor.placeholderAltText': '使用替代文字描述這張圖片',

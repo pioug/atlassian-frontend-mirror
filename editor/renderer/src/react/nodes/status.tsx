@@ -4,27 +4,22 @@ import { Status as AkStatus, type Color } from '@atlaskit/status/element';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 export interface Props {
-  text: string;
-  color: Color;
-  localId?: string;
+	text: string;
+	color: Color;
+	localId?: string;
 }
 
 export default class Status extends PureComponent<Props, {}> {
-  render() {
-    const { text, color, localId } = this.props;
-    return (
-      <FabricElementsAnalyticsContext
-        data={{
-          userContext: 'document',
-        }}
-      >
-        <AkStatus
-          text={text}
-          color={color}
-          localId={localId}
-          role="presentation"
-        />
-      </FabricElementsAnalyticsContext>
-    );
-  }
+	render() {
+		const { text, color, localId } = this.props;
+		return (
+			<FabricElementsAnalyticsContext
+				data={{
+					userContext: 'document',
+				}}
+			>
+				<AkStatus text={text} color={color} localId={localId} role="presentation" />
+			</FabricElementsAnalyticsContext>
+		);
+	}
 }

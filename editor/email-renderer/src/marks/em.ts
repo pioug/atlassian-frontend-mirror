@@ -9,5 +9,5 @@ export const styles = `
 `;
 
 export default function em({ text }: MarkSerializerOpts) {
-  return createTag('span', { class: createClassName('mark-em') }, text);
+	return createTag('span', { class: createClassName('mark-em') }, text);
 }

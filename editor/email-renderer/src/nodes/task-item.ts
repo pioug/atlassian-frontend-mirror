@@ -5,8 +5,8 @@ import { createContentId } from '../static';
 import { createClassName } from '../styles/util';
 
 enum TaskState {
-  TODO = 'TODO',
-  DONE = 'DONE',
+	TODO = 'TODO',
+	DONE = 'DONE',
 }
 
 const className = createClassName('taskItem');
@@ -39,51 +39,51 @@ export const styles = `
 `;
 
 const icons: { [K in TaskState]: string } = {
-  TODO: createTag('img', {
-    class: className + '-img',
-    src: createContentId('taskItemUnchecked'),
-  }),
-  DONE: createTag('img', {
-    class: className + '-img',
-    src: createContentId('taskItemChecked'),
-  }),
+	TODO: createTag('img', {
+		class: className + '-img',
+		src: createContentId('taskItemUnchecked'),
+	}),
+	DONE: createTag('img', {
+		class: className + '-img',
+		src: createContentId('taskItemChecked'),
+	}),
 };
 
 interface TaskItemAttrs {
-  state: TaskState;
-  localId: string;
+	state: TaskState;
+	localId: string;
 }
 
 export default function taskItem({ attrs, text }: NodeSerializerOpts) {
-  // If there is no content, we shouldn't render anything
-  if (!text) {
-    return '';
-  }
+	// If there is no content, we shouldn't render anything
+	if (!text) {
+		return '';
+	}
 
-  const state = (attrs as TaskItemAttrs).state;
+	const state = (attrs as TaskItemAttrs).state;
 
-  const iconTd: TableData = {
-    text: icons[state],
-    attrs: { class: className + '-iconTd' },
-  };
+	const iconTd: TableData = {
+		text: icons[state],
+		attrs: { class: className + '-iconTd' },
+	};
 
-  const textTd: TableData = {
-    text,
-    attrs: { class: className + '-textTd' },
-  };
+	const textTd: TableData = {
+		text,
+		attrs: { class: className + '-textTd' },
+	};
 
-  const mainContentTable = createTable(
-    [[iconTd, textTd]],
-    {},
-    { class: `${className}-mainContent` },
-  );
+	const mainContentTable = createTable(
+		[[iconTd, textTd]],
+		{},
+		{ class: `${className}-mainContent` },
+	);
 
-  return createTable([
-    [
-      {
-        text: mainContentTable,
-        attrs: { class: `${className}-wrapper` },
-      },
-    ],
-  ]);
+	return createTable([
+		[
+			{
+				text: mainContentTable,
+				attrs: { class: `${className}-wrapper` },
+			},
+		],
+	]);
 }

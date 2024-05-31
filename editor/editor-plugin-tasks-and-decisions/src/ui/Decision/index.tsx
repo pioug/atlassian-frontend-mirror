@@ -8,26 +8,24 @@ import type { ContentRef } from '@atlaskit/task-decision';
 import { DecisionItem } from '@atlaskit/task-decision';
 
 interface Props {
-  contentRef: ContentRef;
-  showPlaceholder?: boolean;
+	contentRef: ContentRef;
+	showPlaceholder?: boolean;
 }
 
 export const Decision = ({
-  contentRef,
-  showPlaceholder,
-  intl: { formatMessage },
+	contentRef,
+	showPlaceholder,
+	intl: { formatMessage },
 }: Props & WrappedComponentProps) => {
-  const placeholder = formatMessage(
-    tasksAndDecisionsMessages.decisionPlaceholder,
-  );
+	const placeholder = formatMessage(tasksAndDecisionsMessages.decisionPlaceholder);
 
-  return (
-    <DecisionItem
-      contentRef={contentRef}
-      placeholder={placeholder}
-      showPlaceholder={showPlaceholder}
-    />
-  );
+	return (
+		<DecisionItem
+			contentRef={contentRef}
+			placeholder={placeholder}
+			showPlaceholder={showPlaceholder}
+		/>
+	);
 };
 
 Decision.displayName = 'Decision';

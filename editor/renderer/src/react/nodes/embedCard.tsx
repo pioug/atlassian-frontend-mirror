@@ -7,17 +7,17 @@ import { SmartCardContext } from '@atlaskit/link-provider';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 
 import {
-  WidthConsumer,
-  UnsupportedBlock,
-  MediaSingle as UIMediaSingle,
+	WidthConsumer,
+	UnsupportedBlock,
+	MediaSingle as UIMediaSingle,
 } from '@atlaskit/editor-common/ui';
 
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import {
-  akEditorDefaultLayoutWidth,
-  akEditorFullWidthLayoutWidth,
-  DEFAULT_EMBED_CARD_HEIGHT,
-  DEFAULT_EMBED_CARD_WIDTH,
+	akEditorDefaultLayoutWidth,
+	akEditorFullWidthLayoutWidth,
+	DEFAULT_EMBED_CARD_HEIGHT,
+	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 
@@ -30,217 +30,204 @@ import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 const embedCardWrapperStyles = css({
-  width: '100%',
-  height: '100%',
-  '> div': {
-    height: '100%',
-  },
-  '.loader-wrapper': {
-    height: '100%',
-  },
-  margin: '0 auto',
+	width: '100%',
+	height: '100%',
+	'> div': {
+		height: '100%',
+	},
+	'.loader-wrapper': {
+		height: '100%',
+	},
+	margin: '0 auto',
 });
 
 const uIMediaSingleLayoutStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-  marginLeft: '50%',
-  transform: 'translateX(-50%)',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginLeft: '50%',
+	transform: 'translateX(-50%)',
 });
 
 export default function EmbedCard(props: {
-  url?: string;
-  data?: object;
-  eventHandlers?: EventHandlers;
-  portal?: HTMLElement;
-  originalHeight?: number;
-  originalWidth?: number;
-  width?: number;
-  layout: RichMediaLayout;
-  rendererAppearance?: RendererAppearance;
-  isInsideOfBlockNode?: boolean;
-  smartLinks?: SmartLinksOptions;
-  isInsideOfInlineExtension?: boolean;
+	url?: string;
+	data?: object;
+	eventHandlers?: EventHandlers;
+	portal?: HTMLElement;
+	originalHeight?: number;
+	originalWidth?: number;
+	width?: number;
+	layout: RichMediaLayout;
+	rendererAppearance?: RendererAppearance;
+	isInsideOfBlockNode?: boolean;
+	smartLinks?: SmartLinksOptions;
+	isInsideOfInlineExtension?: boolean;
 }) {
-  const {
-    url,
-    data,
-    eventHandlers,
-    portal,
-    layout,
-    width,
-    isInsideOfBlockNode,
-    rendererAppearance,
-    smartLinks,
-    isInsideOfInlineExtension,
-  } = props;
-  const embedIframeRef = useRef(null);
-  const onClick = getCardClickHandler(eventHandlers, url);
-  const { showServerActions, actionOptions } = smartLinks || {};
+	const {
+		url,
+		data,
+		eventHandlers,
+		portal,
+		layout,
+		width,
+		isInsideOfBlockNode,
+		rendererAppearance,
+		smartLinks,
+		isInsideOfInlineExtension,
+	} = props;
+	const embedIframeRef = useRef(null);
+	const onClick = getCardClickHandler(eventHandlers, url);
+	const { showServerActions, actionOptions } = smartLinks || {};
 
-  const platform = useMemo(
-    () => getPlatform(rendererAppearance),
-    [rendererAppearance],
-  );
+	const platform = useMemo(() => getPlatform(rendererAppearance), [rendererAppearance]);
 
-  const cardProps: Partial<ComponentProps<typeof Card>> = {
-    url,
-    data,
-    onClick,
-    container: portal,
-    platform,
-    frameStyle: smartLinks?.frameStyle ?? 'show',
-    actionOptions,
-    showServerActions,
-  };
+	const cardProps: Partial<ComponentProps<typeof Card>> = {
+		url,
+		data,
+		onClick,
+		container: portal,
+		platform,
+		frameStyle: smartLinks?.frameStyle ?? 'show',
+		actionOptions,
+		showServerActions,
+	};
 
-  const [liveHeight, setLiveHeight] = useState<number | null>(null);
-  const [aspectRatio, setAspectRatio] = useState<number>();
+	const [liveHeight, setLiveHeight] = useState<number | null>(null);
+	const [aspectRatio, setAspectRatio] = useState<number>();
 
-  const height = liveHeight || props.originalHeight;
+	const height = liveHeight || props.originalHeight;
 
-  // We start with height and width defined with default values
-  let originalHeight = DEFAULT_EMBED_CARD_HEIGHT;
-  let originalWidth: number | undefined = DEFAULT_EMBED_CARD_WIDTH;
+	// We start with height and width defined with default values
+	let originalHeight = DEFAULT_EMBED_CARD_HEIGHT;
+	let originalWidth: number | undefined = DEFAULT_EMBED_CARD_WIDTH;
 
-  // Then can override height and width with values from ADF if available
-  if (props.originalHeight && props.originalWidth) {
-    originalHeight = props.originalHeight;
-    originalWidth = props.originalWidth;
-  }
+	// Then can override height and width with values from ADF if available
+	if (props.originalHeight && props.originalWidth) {
+		originalHeight = props.originalHeight;
+		originalWidth = props.originalWidth;
+	}
 
-  // Then we can override it with aspectRatio that is comming from iframely via `resolve()`
-  if (aspectRatio) {
-    originalHeight = 1;
-    originalWidth = aspectRatio;
-  }
+	// Then we can override it with aspectRatio that is comming from iframely via `resolve()`
+	if (aspectRatio) {
+		originalHeight = 1;
+		originalWidth = aspectRatio;
+	}
 
-  // And finally if iframe sends live `height` events we use that as most precise measure.
-  const isHeightOnlyMode =
-    !(props.originalHeight && props.originalWidth) || liveHeight;
-  if (height && isHeightOnlyMode) {
-    originalHeight = height;
-    originalWidth = undefined;
-  }
+	// And finally if iframe sends live `height` events we use that as most precise measure.
+	const isHeightOnlyMode = !(props.originalHeight && props.originalWidth) || liveHeight;
+	if (height && isHeightOnlyMode) {
+		originalHeight = height;
+		originalWidth = undefined;
+	}
 
-  const padding = rendererAppearance === 'full-page' ? FullPagePadding * 2 : 0;
+	const padding = rendererAppearance === 'full-page' ? FullPagePadding * 2 : 0;
 
-  const [hasPreview, setPreviewAvailableState] = useState(true);
+	const [hasPreview, setPreviewAvailableState] = useState(true);
 
-  const cardContext = useContext(SmartCardContext);
+	const cardContext = useContext(SmartCardContext);
 
-  const onResolve = ({
-    aspectRatio: resolvedAspectRatio,
-  }: {
-    aspectRatio?: number;
-  }) => {
-    const hasPreviewOnResolve = !!(
-      cardContext &&
-      url &&
-      cardContext.extractors.getPreview(url, platform)
-    );
-    if (!hasPreviewOnResolve) {
-      setPreviewAvailableState(false);
-    }
-    setAspectRatio(resolvedAspectRatio);
-  };
+	const onResolve = ({ aspectRatio: resolvedAspectRatio }: { aspectRatio?: number }) => {
+		const hasPreviewOnResolve = !!(
+			cardContext &&
+			url &&
+			cardContext.extractors.getPreview(url, platform)
+		);
+		if (!hasPreviewOnResolve) {
+			setPreviewAvailableState(false);
+		}
+		setAspectRatio(resolvedAspectRatio);
+	};
 
-  const analyticsData = {
-    attributes: {
-      location: 'renderer',
-    },
-    // Below is added for the future implementation of Linking Platform namespaced analytic context
-    location: 'renderer',
-  };
+	const analyticsData = {
+		attributes: {
+			location: 'renderer',
+		},
+		// Below is added for the future implementation of Linking Platform namespaced analytic context
+		location: 'renderer',
+	};
 
-  return (
-    <AnalyticsContext data={analyticsData}>
-      <WidthConsumer>
-        {({ width: documentWidth }) => {
-          const isFullWidth = rendererAppearance === 'full-width';
-          let containerWidth = documentWidth;
-          if (smartLinks?.ssr && !containerWidth) {
-            // EDM-8114: When we are rendering on SSR, we have no idea what the width is.
-            containerWidth = isFullWidth
-              ? akEditorFullWidthLayoutWidth
-              : akEditorDefaultLayoutWidth;
-          }
+	return (
+		<AnalyticsContext data={analyticsData}>
+			<WidthConsumer>
+				{({ width: documentWidth }) => {
+					const isFullWidth = rendererAppearance === 'full-width';
+					let containerWidth = documentWidth;
+					if (smartLinks?.ssr && !containerWidth) {
+						// EDM-8114: When we are rendering on SSR, we have no idea what the width is.
+						containerWidth = isFullWidth
+							? akEditorFullWidthLayoutWidth
+							: akEditorDefaultLayoutWidth;
+					}
 
-          let nonFullWidthSize = containerWidth;
-          if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
-            const isContainerSizeGreaterThanMaxFullPageWidth =
-              containerWidth - padding >= akEditorDefaultLayoutWidth;
+					let nonFullWidthSize = containerWidth;
+					if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
+						const isContainerSizeGreaterThanMaxFullPageWidth =
+							containerWidth - padding >= akEditorDefaultLayoutWidth;
 
-            if (isContainerSizeGreaterThanMaxFullPageWidth) {
-              nonFullWidthSize = akEditorDefaultLayoutWidth;
-            } else {
-              nonFullWidthSize = containerWidth - padding;
-            }
-          }
+						if (isContainerSizeGreaterThanMaxFullPageWidth) {
+							nonFullWidthSize = akEditorDefaultLayoutWidth;
+						} else {
+							nonFullWidthSize = containerWidth - padding;
+						}
+					}
 
-          const lineLength = isFullWidth
-            ? Math.min(akEditorFullWidthLayoutWidth, containerWidth - padding)
-            : nonFullWidthSize;
+					const lineLength = isFullWidth
+						? Math.min(akEditorFullWidthLayoutWidth, containerWidth - padding)
+						: nonFullWidthSize;
 
-          const uiMediaSingleStyles =
-            layout === 'full-width' || layout === 'wide'
-              ? uIMediaSingleLayoutStyles
-              : '';
+					const uiMediaSingleStyles =
+						layout === 'full-width' || layout === 'wide' ? uIMediaSingleLayoutStyles : '';
 
-          const onError = ({ err }: { err?: Error }) => {
-            if (err) {
-              throw err;
-            }
-          };
+					const onError = ({ err }: { err?: Error }) => {
+						if (err) {
+							throw err;
+						}
+					};
 
-          return (
-            <CardErrorBoundary
-              unsupportedComponent={UnsupportedBlock}
-              {...cardProps}
-            >
-              <EmbedResizeMessageListener
-                embedIframeRef={embedIframeRef}
-                onHeightUpdate={setLiveHeight}
-              >
-                <UIMediaSingle
-                  css={uiMediaSingleStyles}
-                  layout={layout}
-                  width={originalWidth}
-                  containerWidth={containerWidth}
-                  pctWidth={width}
-                  height={originalHeight}
-                  fullWidthMode={isFullWidth}
-                  nodeType="embedCard"
-                  lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
-                  hasFallbackContainer={hasPreview}
-                  isInsideOfInlineExtension={isInsideOfInlineExtension}
-                >
-                  <div css={embedCardWrapperStyles}>
-                    <div
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-                      className="embedCardView-content-wrap"
-                      data-embed-card
-                      data-layout={layout}
-                      data-width={width}
-                      data-card-data={data ? JSON.stringify(data) : undefined}
-                      data-card-url={url}
-                      data-card-original-height={originalHeight}
-                    >
-                      <Card
-                        appearance="embed"
-                        {...cardProps}
-                        onResolve={onResolve}
-                        inheritDimensions={true}
-                        embedIframeRef={embedIframeRef}
-                        onError={onError}
-                      />
-                    </div>
-                  </div>
-                </UIMediaSingle>
-              </EmbedResizeMessageListener>
-            </CardErrorBoundary>
-          );
-        }}
-      </WidthConsumer>
-    </AnalyticsContext>
-  );
+					return (
+						<CardErrorBoundary unsupportedComponent={UnsupportedBlock} {...cardProps}>
+							<EmbedResizeMessageListener
+								embedIframeRef={embedIframeRef}
+								onHeightUpdate={setLiveHeight}
+							>
+								<UIMediaSingle
+									css={uiMediaSingleStyles}
+									layout={layout}
+									width={originalWidth}
+									containerWidth={containerWidth}
+									pctWidth={width}
+									height={originalHeight}
+									fullWidthMode={isFullWidth}
+									nodeType="embedCard"
+									lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
+									hasFallbackContainer={hasPreview}
+									isInsideOfInlineExtension={isInsideOfInlineExtension}
+								>
+									<div css={embedCardWrapperStyles}>
+										<div
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+											className="embedCardView-content-wrap"
+											data-embed-card
+											data-layout={layout}
+											data-width={width}
+											data-card-data={data ? JSON.stringify(data) : undefined}
+											data-card-url={url}
+											data-card-original-height={originalHeight}
+										>
+											<Card
+												appearance="embed"
+												{...cardProps}
+												onResolve={onResolve}
+												inheritDimensions={true}
+												embedIframeRef={embedIframeRef}
+												onError={onError}
+											/>
+										</div>
+									</div>
+								</UIMediaSingle>
+							</EmbedResizeMessageListener>
+						</CardErrorBoundary>
+					);
+				}}
+			</WidthConsumer>
+		</AnalyticsContext>
+	);
 }

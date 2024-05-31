@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-block-controls",
-  "version": "1.4.6",
+  "version": "1.4.8",
   "description": "Block controls plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -48,9 +48,6 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
   },
-  "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
-  },
   "techstack": {
     "@atlassian/frontend": {
       "import-structure": [
@@ -86,7 +83,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.media.extended-resize-experience": {
       "type": "boolean",

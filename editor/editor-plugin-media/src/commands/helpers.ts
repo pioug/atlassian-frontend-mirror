@@ -5,10 +5,7 @@ import type { Command } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import { stateKey as mediaPluginKey } from '../pm-plugins/plugin-key';
-import type {
-  MediaNodeWithPosHandler,
-  MediaPluginState,
-} from '../pm-plugins/types';
+import type { MediaNodeWithPosHandler, MediaPluginState } from '../pm-plugins/types';
 
 /**
  * Note that Media Inline is inserted like a media single node into the media plugin state.
@@ -16,168 +13,159 @@ import type {
  *
  */
 export const findMediaNode = (
-  mediaPluginState: MediaPluginState,
-  id: string,
+	mediaPluginState: MediaPluginState,
+	id: string,
 ): MediaNodeWithPosHandler | null => {
-  const { mediaNodes } = mediaPluginState;
+	const { mediaNodes } = mediaPluginState;
 
-  // Array#find... no IE support
-  return mediaNodes.reduce(
-    (
-      memo: MediaNodeWithPosHandler | null,
-      nodeWithPos: MediaNodeWithPosHandler,
-    ) => {
-      if (memo) {
-        return memo;
-      }
+	// Array#find... no IE support
+	return mediaNodes.reduce(
+		(memo: MediaNodeWithPosHandler | null, nodeWithPos: MediaNodeWithPosHandler) => {
+			if (memo) {
+				return memo;
+			}
 
-      const { node } = nodeWithPos;
-      if (node.attrs.id === id) {
-        return nodeWithPos;
-      }
+			const { node } = nodeWithPos;
+			if (node.attrs.id === id) {
+				return nodeWithPos;
+			}
 
-      return memo;
-    },
-    null,
-  );
+			return memo;
+		},
+		null,
+	);
 };
 
 export const findAllMediaNodes = (
-  mediaPluginState: MediaPluginState,
-  id: string,
+	mediaPluginState: MediaPluginState,
+	id: string,
 ): MediaNodeWithPosHandler[] => {
-  const { mediaNodes } = mediaPluginState;
+	const { mediaNodes } = mediaPluginState;
 
-  return mediaNodes.filter(
-    nodeWithHandler =>
-      (nodeWithHandler.node.attrs as MediaAttributes).id === id,
-  );
+	return mediaNodes.filter(
+		(nodeWithHandler) => (nodeWithHandler.node.attrs as MediaAttributes).id === id,
+	);
 };
 
 export const isMediaNode = (pos: number, state: EditorState) => {
-  const node = state.doc.nodeAt(pos);
-  return node && ['media', 'mediaInline'].includes(node.type.name);
+	const node = state.doc.nodeAt(pos);
+	return node && ['media', 'mediaInline'].includes(node.type.name);
 };
 
 export const updateAllMediaNodesAttrs =
-  (id: string, attrs: object): Command =>
-  (state, dispatch) => {
-    const mediaPluginState = mediaPluginKey.getState(state);
+	(id: string, attrs: object): Command =>
+	(state, dispatch) => {
+		const mediaPluginState = mediaPluginKey.getState(state);
 
-    if (!mediaPluginState) {
-      return false;
-    }
+		if (!mediaPluginState) {
+			return false;
+		}
 
-    let mediaNodes: MediaNodeWithPosHandler[];
-    mediaNodes = findAllMediaNodes(mediaPluginState, id);
+		let mediaNodes: MediaNodeWithPosHandler[];
+		mediaNodes = findAllMediaNodes(mediaPluginState, id);
 
-    const validMediaNodePositions: number[] = mediaNodes.reduce<number[]>(
-      (acc, { getPos }) => {
-        const pos = getPos();
-        if (
-          typeof pos !== 'number' ||
-          isNaN(pos) ||
-          (typeof pos === 'number' && !isMediaNode(pos, state))
-        ) {
-          return acc;
-        }
+		const validMediaNodePositions: number[] = mediaNodes.reduce<number[]>((acc, { getPos }) => {
+			const pos = getPos();
+			if (
+				typeof pos !== 'number' ||
+				isNaN(pos) ||
+				(typeof pos === 'number' && !isMediaNode(pos, state))
+			) {
+				return acc;
+			}
 
-        acc.push(pos);
-        return acc;
-      },
-      [],
-    );
+			acc.push(pos);
+			return acc;
+		}, []);
 
-    if (validMediaNodePositions.length === 0) {
-      return false;
-    }
+		if (validMediaNodePositions.length === 0) {
+			return false;
+		}
 
-    const tr = state.tr;
-    validMediaNodePositions.forEach(pos =>
-      tr.step(new SetAttrsStep(pos, attrs)),
-    );
+		const tr = state.tr;
+		validMediaNodePositions.forEach((pos) => tr.step(new SetAttrsStep(pos, attrs)));
 
-    tr.setMeta('addToHistory', false);
+		tr.setMeta('addToHistory', false);
 
-    tintDirtyTransaction(tr);
+		tintDirtyTransaction(tr);
 
-    if (dispatch) {
-      dispatch(tr);
-    }
-    return true;
-  };
+		if (dispatch) {
+			dispatch(tr);
+		}
+		return true;
+	};
 
 export const updateCurrentMediaNodeAttrs =
-  (attrs: object, mediaNode: MediaNodeWithPosHandler): Command =>
-  (state, dispatch) => {
-    const pos = mediaNode.getPos();
-    if (
-      typeof pos !== 'number' ||
-      isNaN(pos) ||
-      (typeof pos === 'number' && !isMediaNode(pos, state))
-    ) {
-      return false;
-    }
+	(attrs: object, mediaNode: MediaNodeWithPosHandler): Command =>
+	(state, dispatch) => {
+		const pos = mediaNode.getPos();
+		if (
+			typeof pos !== 'number' ||
+			isNaN(pos) ||
+			(typeof pos === 'number' && !isMediaNode(pos, state))
+		) {
+			return false;
+		}
 
-    const tr = state.tr;
-    tr.step(new SetAttrsStep(pos, attrs));
-    tr.setMeta('addToHistory', false);
+		const tr = state.tr;
+		tr.step(new SetAttrsStep(pos, attrs));
+		tr.setMeta('addToHistory', false);
 
-    if (dispatch) {
-      dispatch(tr);
-    }
-    return true;
-  };
+		if (dispatch) {
+			dispatch(tr);
+		}
+		return true;
+	};
 
 export const updateMediaNodeAttrs =
-  (id: string, attrs: object): Command =>
-  (state, dispatch) => {
-    const mediaPluginState = mediaPluginKey.getState(state);
+	(id: string, attrs: object): Command =>
+	(state, dispatch) => {
+		const mediaPluginState = mediaPluginKey.getState(state);
 
-    if (!mediaPluginState) {
-      return false;
-    }
+		if (!mediaPluginState) {
+			return false;
+		}
 
-    const mediaNodeWithPos = findMediaNode(mediaPluginState, id);
+		const mediaNodeWithPos = findMediaNode(mediaPluginState, id);
 
-    if (!mediaNodeWithPos) {
-      return false;
-    }
+		if (!mediaNodeWithPos) {
+			return false;
+		}
 
-    const tr = state.tr;
-    const pos = mediaNodeWithPos.getPos();
+		const tr = state.tr;
+		const pos = mediaNodeWithPos.getPos();
 
-    if (typeof pos !== 'number' || !isMediaNode(pos, state)) {
-      return false;
-    }
+		if (typeof pos !== 'number' || !isMediaNode(pos, state)) {
+			return false;
+		}
 
-    tr.step(new SetAttrsStep(pos, attrs)).setMeta('addToHistory', false);
-    if (dispatch) {
-      dispatch(tr);
-    }
-    return true;
-  };
+		tr.step(new SetAttrsStep(pos, attrs)).setMeta('addToHistory', false);
+		if (dispatch) {
+			dispatch(tr);
+		}
+		return true;
+	};
 
 export const replaceExternalMedia =
-  (pos: number, attrs: object): Command =>
-  (state, dispatch) => {
-    const tr = state.tr;
+	(pos: number, attrs: object): Command =>
+	(state, dispatch) => {
+		const tr = state.tr;
 
-    const node = tr.doc.nodeAt(pos);
-    if (!node || node.type.name !== 'media') {
-      return false;
-    }
+		const node = tr.doc.nodeAt(pos);
+		if (!node || node.type.name !== 'media') {
+			return false;
+		}
 
-    tr.step(
-      new SetAttrsStep(pos, {
-        type: 'file',
-        url: null,
-        ...attrs,
-      }),
-    ).setMeta('addToHistory', false);
+		tr.step(
+			new SetAttrsStep(pos, {
+				type: 'file',
+				url: null,
+				...attrs,
+			}),
+		).setMeta('addToHistory', false);
 
-    if (dispatch) {
-      dispatch(tr);
-    }
-    return true;
-  };
+		if (dispatch) {
+			dispatch(tr);
+		}
+		return true;
+	};

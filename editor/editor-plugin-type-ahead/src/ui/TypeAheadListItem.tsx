@@ -7,10 +7,7 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { IconFallback } from '@atlaskit/editor-common/quick-insert';
-import {
-  SelectItemMode,
-  typeAheadListMessages,
-} from '@atlaskit/editor-common/type-ahead';
+import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
@@ -20,57 +17,54 @@ import { token } from '@atlaskit/tokens';
 import type { TypeAheadItem, TypeAheadItemRenderProps } from '../types';
 
 export const itemIcon = css({
-  width: token('space.500', '40px'),
-  height: token('space.500', '40px'),
-  overflow: 'hidden',
-  border: `1px solid ${token(
-    'color.border',
-    'rgba(223, 225, 229, 0.5)',
-  )}` /* N60 at 50% */,
-  borderRadius: token('border.radius', '3px'),
-  boxSizing: 'border-box',
+	width: token('space.500', '40px'),
+	height: token('space.500', '40px'),
+	overflow: 'hidden',
+	border: `1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}` /* N60 at 50% */,
+	borderRadius: token('border.radius', '3px'),
+	boxSizing: 'border-box',
 
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
 
-  div: {
-    width: token('space.500', '40px'),
-    height: token('space.500', '40px'),
-  },
+	div: {
+		width: token('space.500', '40px'),
+		height: token('space.500', '40px'),
+	},
 });
 
 const itemBody = css`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
 `;
 
 const itemText = css`
-  white-space: initial;
-  color: ${token('color.text', N800)};
-  .item-title {
-    line-height: 1.4;
-  }
-  .item-description {
-    font-size: ${relativeFontSizeToBase16(12)};
-    color: ${token('color.text.subtlest', N200)};
-    margin-top: ${token('space.050', '4px')};
-  }
+	white-space: initial;
+	color: ${token('color.text', N800)};
+	.item-title {
+		line-height: 1.4;
+	}
+	.item-description {
+		font-size: ${relativeFontSizeToBase16(12)};
+		color: ${token('color.text.subtlest', N200)};
+		margin-top: ${token('space.050', '4px')};
+	}
 `;
 
 const itemAfter = css`
-  flex: 0 0 auto;
+	flex: 0 0 auto;
 `;
 
 const customRenderItemDivStyle = css`
-  overflow: hidden;
-  &:focus {
-    box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
-    background-color: ${token('color.background.neutral.subtle.hovered', N30)};
-    outline: none;
-  }
+	overflow: hidden;
+	&:focus {
+		box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
+		background-color: ${token('color.background.neutral.subtle.hovered', N30)};
+		outline: none;
+	}
 `;
 
 /**
@@ -79,201 +73,188 @@ const customRenderItemDivStyle = css`
  * resulting in focus-visible style not drawn.
  */
 const selectionFrame = {
-  '& > button:focus': {
-    boxShadow: `inset 2px 0px 0px ${token('color.border.focused', B400)};`,
-    backgroundColor: `${token('color.background.neutral.subtle.hovered', N30)}`,
-    outline: 'none',
-    '&:active': {
-      boxShadow: 'none',
-    },
-  },
-  '& > button:hover': {
-    backgroundColor: 'inherit',
-    outline: 'none',
-  },
+	'& > button:focus': {
+		boxShadow: `inset 2px 0px 0px ${token('color.border.focused', B400)};`,
+		backgroundColor: `${token('color.background.neutral.subtle.hovered', N30)}`,
+		outline: 'none',
+		'&:active': {
+			boxShadow: 'none',
+		},
+	},
+	'& > button:hover': {
+		backgroundColor: 'inherit',
+		outline: 'none',
+	},
 };
 
 const selectedStyle = css`
-  background-color: ${token('color.background.neutral.subtle.hovered', N30)};
-  box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
+	background-color: ${token('color.background.neutral.subtle.hovered', N30)};
+	box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
 `;
 
 const FallbackIcon = React.memo(({ label }: Record<'label', string>) => {
-  return <IconFallback />;
+	return <IconFallback />;
 });
 
 const noop = () => {};
 
 type TypeAheadListItemProps = {
-  item: TypeAheadItem;
-  itemsLength: number;
-  itemIndex: number;
-  selectedIndex: number;
-  ariaLabel?: string;
-  onItemClick: (mode: SelectItemMode, index: number) => void;
+	item: TypeAheadItem;
+	itemsLength: number;
+	itemIndex: number;
+	selectedIndex: number;
+	ariaLabel?: string;
+	onItemClick: (mode: SelectItemMode, index: number) => void;
 };
 
 type CustomItemComponentWrapperProps = {
-  customRenderItem: (
-    props: TypeAheadItemRenderProps,
-  ) => React.ReactElement<TypeAheadItemRenderProps> | null;
-  isSelected: boolean;
-  ariaLabel: string | undefined;
-  itemsLength: number;
-  customItemRef: React.RefObject<HTMLDivElement>;
-  insertSelectedItem: () => void;
-  itemIndex: number;
+	customRenderItem: (
+		props: TypeAheadItemRenderProps,
+	) => React.ReactElement<TypeAheadItemRenderProps> | null;
+	isSelected: boolean;
+	ariaLabel: string | undefined;
+	itemsLength: number;
+	customItemRef: React.RefObject<HTMLDivElement>;
+	insertSelectedItem: () => void;
+	itemIndex: number;
 };
 
-const CustomItemComponentWrapper = React.memo(
-  (props: CustomItemComponentWrapperProps) => {
-    const {
-      customRenderItem,
-      isSelected,
-      ariaLabel,
-      itemsLength,
-      customItemRef,
-      insertSelectedItem,
-      itemIndex,
-    } = props;
+const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapperProps) => {
+	const {
+		customRenderItem,
+		isSelected,
+		ariaLabel,
+		itemsLength,
+		customItemRef,
+		insertSelectedItem,
+		itemIndex,
+	} = props;
 
-    const Comp = customRenderItem;
-    const listItemClasses = useMemo(() => {
-      return [customRenderItemDivStyle, isSelected && selectedStyle];
-    }, [isSelected]);
+	const Comp = customRenderItem;
+	const listItemClasses = useMemo(() => {
+		return [customRenderItemDivStyle, isSelected && selectedStyle];
+	}, [isSelected]);
 
-    return (
-      <div
-        aria-selected={isSelected}
-        role="option"
-        aria-label={ariaLabel}
-        aria-setsize={itemsLength}
-        aria-posinset={itemIndex}
-        tabIndex={0}
-        css={listItemClasses}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className={`ak-typeahead-item ${
-          isSelected ? 'typeahead-selected-item' : ''
-        }`}
-        //CSS classes added for test cases purpose
-        ref={customItemRef}
-      >
-        <div aria-hidden={true}>
-          <Comp
-            onClick={insertSelectedItem}
-            isSelected={false} //The selection styles are handled in the parent div instead. Hence isSelected is made false always.
-            onHover={noop}
-          />
-        </div>
-      </div>
-    );
-  },
-);
+	return (
+		<div
+			aria-selected={isSelected}
+			role="option"
+			aria-label={ariaLabel}
+			aria-setsize={itemsLength}
+			aria-posinset={itemIndex}
+			tabIndex={0}
+			css={listItemClasses}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={`ak-typeahead-item ${isSelected ? 'typeahead-selected-item' : ''}`}
+			//CSS classes added for test cases purpose
+			ref={customItemRef}
+		>
+			<div aria-hidden={true}>
+				<Comp
+					onClick={insertSelectedItem}
+					isSelected={false} //The selection styles are handled in the parent div instead. Hence isSelected is made false always.
+					onHover={noop}
+				/>
+			</div>
+		</div>
+	);
+});
 
 export const TypeAheadListItem = React.memo(
-  ({
-    item,
-    itemsLength,
-    selectedIndex,
-    onItemClick,
-    itemIndex,
-    ariaLabel,
-  }: TypeAheadListItemProps) => {
-    /**
-     * To select and highlight the first Item when no item is selected
-     * However selectedIndex remains -1, So that user does not skip the first item when down arrow key is used from typeahead query(inputQuery.tsx)
-     */
-    const isSelected =
-      itemIndex === selectedIndex || (selectedIndex === -1 && itemIndex === 0);
+	({
+		item,
+		itemsLength,
+		selectedIndex,
+		onItemClick,
+		itemIndex,
+		ariaLabel,
+	}: TypeAheadListItemProps) => {
+		/**
+		 * To select and highlight the first Item when no item is selected
+		 * However selectedIndex remains -1, So that user does not skip the first item when down arrow key is used from typeahead query(inputQuery.tsx)
+		 */
+		const isSelected = itemIndex === selectedIndex || (selectedIndex === -1 && itemIndex === 0);
 
-    // Assistive text
-    const intl = useIntl();
-    const descriptionText = item.description ? `${item.description}.` : '';
-    const shortcutText = item.keyshortcut
-      ? ` ${intl.formatMessage(typeAheadListMessages.shortcutLabel)} ${
-          item.keyshortcut
-        }.`
-      : '';
+		// Assistive text
+		const intl = useIntl();
+		const descriptionText = item.description ? `${item.description}.` : '';
+		const shortcutText = item.keyshortcut
+			? ` ${intl.formatMessage(typeAheadListMessages.shortcutLabel)} ${item.keyshortcut}.`
+			: '';
 
-    const { icon, title, render: customRenderItem } = item;
-    const elementIcon = useMemo(() => {
-      return (
-        <div css={itemIcon}>
-          {icon ? icon() : <FallbackIcon label={title} />}
-        </div>
-      );
-    }, [icon, title]);
+		const { icon, title, render: customRenderItem } = item;
+		const elementIcon = useMemo(() => {
+			return <div css={itemIcon}>{icon ? icon() : <FallbackIcon label={title} />}</div>;
+		}, [icon, title]);
 
-    const insertSelectedItem = useCallback(() => {
-      onItemClick(SelectItemMode.SELECTED, itemIndex);
-    }, [onItemClick, itemIndex]);
+		const insertSelectedItem = useCallback(() => {
+			onItemClick(SelectItemMode.SELECTED, itemIndex);
+		}, [onItemClick, itemIndex]);
 
-    const customItemRef = React.useRef<HTMLDivElement>(null);
-    const buttonItemRef = React.useRef<HTMLDivElement>(null);
-    const shouldUpdateFocus = selectedIndex === itemIndex;
-    const listItemClasses = useMemo(() => {
-      return [selectionFrame, isSelected && selectedStyle];
-    }, [isSelected]);
+		const customItemRef = React.useRef<HTMLDivElement>(null);
+		const buttonItemRef = React.useRef<HTMLDivElement>(null);
+		const shouldUpdateFocus = selectedIndex === itemIndex;
+		const listItemClasses = useMemo(() => {
+			return [selectionFrame, isSelected && selectedStyle];
+		}, [isSelected]);
 
-    useLayoutEffect(() => {
-      if (shouldUpdateFocus) {
-        customItemRef?.current?.focus();
-      }
-    }, [customItemRef, shouldUpdateFocus]);
+		useLayoutEffect(() => {
+			if (shouldUpdateFocus) {
+				customItemRef?.current?.focus();
+			}
+		}, [customItemRef, shouldUpdateFocus]);
 
-    useLayoutEffect(() => {
-      if (shouldUpdateFocus) {
-        buttonItemRef?.current?.focus();
-      }
-    }, [buttonItemRef, shouldUpdateFocus]);
+		useLayoutEffect(() => {
+			if (shouldUpdateFocus) {
+				buttonItemRef?.current?.focus();
+			}
+		}, [buttonItemRef, shouldUpdateFocus]);
 
-    if (customRenderItem) {
-      return (
-        <CustomItemComponentWrapper
-          customRenderItem={customRenderItem}
-          isSelected={isSelected}
-          ariaLabel={ariaLabel}
-          itemsLength={itemsLength}
-          customItemRef={customItemRef}
-          insertSelectedItem={insertSelectedItem}
-          itemIndex={itemIndex}
-        />
-      );
-    }
+		if (customRenderItem) {
+			return (
+				<CustomItemComponentWrapper
+					customRenderItem={customRenderItem}
+					isSelected={isSelected}
+					ariaLabel={ariaLabel}
+					itemsLength={itemsLength}
+					customItemRef={customItemRef}
+					insertSelectedItem={insertSelectedItem}
+					itemIndex={itemIndex}
+				/>
+			);
+		}
 
-    return (
-      <span css={listItemClasses}>
-        <ButtonItem
-          onClick={insertSelectedItem}
-          iconBefore={elementIcon}
-          isSelected={isSelected}
-          aria-selected={isSelected}
-          aria-label={title}
-          aria-description={`${descriptionText} ${shortcutText}`}
-          aria-setsize={itemsLength}
-          aria-posinset={itemIndex}
-          role="option"
-          ref={buttonItemRef}
-          // @ts-ignore
-          css={listItemClasses}
-        >
-          <div aria-hidden={true}>
-            <div css={itemText}>
-              <div css={itemBody}>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-                <div className="item-title">{item.title}</div>
-                <div css={itemAfter}>
-                  {item.keyshortcut && (
-                    <div css={shortcutStyle}>{item.keyshortcut}</div>
-                  )}
-                </div>
-              </div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-              <div className="item-description">{item.description}</div>
-            </div>
-          </div>
-        </ButtonItem>
-      </span>
-    );
-  },
+		return (
+			<span css={listItemClasses}>
+				<ButtonItem
+					onClick={insertSelectedItem}
+					iconBefore={elementIcon}
+					isSelected={isSelected}
+					aria-selected={isSelected}
+					aria-label={title}
+					aria-description={`${descriptionText} ${shortcutText}`}
+					aria-setsize={itemsLength}
+					aria-posinset={itemIndex}
+					role="option"
+					ref={buttonItemRef}
+					// @ts-ignore
+					css={listItemClasses}
+				>
+					<div aria-hidden={true}>
+						<div css={itemText}>
+							<div css={itemBody}>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+								<div className="item-title">{item.title}</div>
+								<div css={itemAfter}>
+									{item.keyshortcut && <div css={shortcutStyle}>{item.keyshortcut}</div>}
+								</div>
+							</div>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+							<div className="item-description">{item.description}</div>
+						</div>
+					</div>
+				</ButtonItem>
+			</span>
+		);
+	},
 );

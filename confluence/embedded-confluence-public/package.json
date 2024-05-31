@@ -43,7 +43,6 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "react-markdown": "^8.0.0",
@@ -63,6 +62,5 @@
   "exports": {
     ".": "./src/index.ts",
     "./i18n": "./src/i18n/index.ts"
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  }
 }

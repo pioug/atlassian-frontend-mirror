@@ -5,8 +5,8 @@ import { createPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 
 export const createPlugin = (dispatch: Dispatch) => {
-  return new SafePlugin({
-    state: createPluginState(dispatch, {}),
-    key: pluginKey,
-  });
+	return new SafePlugin({
+		state: createPluginState(dispatch, {}),
+		key: pluginKey,
+	});
 };

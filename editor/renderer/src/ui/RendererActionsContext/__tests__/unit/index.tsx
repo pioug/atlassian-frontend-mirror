@@ -6,45 +6,45 @@ import { initialDoc } from '../../../../__tests__/__fixtures__/initial-doc';
 import { RendererActionsContext } from '../../index';
 
 describe('Registering renderer actions', () => {
-  it('cannot register two Renderer instances under the same context', () => {
-    expect(() => {
-      act(() => {
-        create(
-          <RendererActionsContext>
-            <>
-              <Renderer document={initialDoc} />
-              <Renderer document={initialDoc} />
-            </>
-          </RendererActionsContext>,
-        );
-      });
-    }).toThrowError(
-      `Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.`,
-    );
-  });
+	it('cannot register two Renderer instances under the same context', () => {
+		expect(() => {
+			act(() => {
+				create(
+					<RendererActionsContext>
+						<>
+							<Renderer document={initialDoc} />
+							<Renderer document={initialDoc} />
+						</>
+					</RendererActionsContext>,
+				);
+			});
+		}).toThrowError(
+			`Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.`,
+		);
+	});
 
-  it('can register a single Renderer instance', () => {
-    expect(() => {
-      act(() => {
-        create(
-          <RendererActionsContext>
-            <Renderer document={initialDoc} />
-          </RendererActionsContext>,
-        );
-      });
-    }).not.toThrowError();
-  });
+	it('can register a single Renderer instance', () => {
+		expect(() => {
+			act(() => {
+				create(
+					<RendererActionsContext>
+						<Renderer document={initialDoc} />
+					</RendererActionsContext>,
+				);
+			});
+		}).not.toThrowError();
+	});
 
-  it('can render multiple Renderers without a wrapping context', () => {
-    expect(() => {
-      act(() => {
-        create(
-          <>
-            <Renderer document={initialDoc} />
-            <Renderer document={initialDoc} />
-          </>,
-        );
-      });
-    }).not.toThrowError();
-  });
+	it('can render multiple Renderers without a wrapping context', () => {
+		expect(() => {
+			act(() => {
+				create(
+					<>
+						<Renderer document={initialDoc} />
+						<Renderer document={initialDoc} />
+					</>,
+				);
+			});
+		}).not.toThrowError();
+	});
 });

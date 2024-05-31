@@ -14,5 +14,5 @@ export const styles = `
 `;
 
 export default function blockquote({ text }: NodeSerializerOpts) {
-  return createTag('blockquote', { class: className }, text);
+	return createTag('blockquote', { class: className }, text);
 }

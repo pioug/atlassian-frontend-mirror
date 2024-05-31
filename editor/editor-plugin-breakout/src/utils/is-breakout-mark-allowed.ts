@@ -10,15 +10,15 @@ import { findSupportedNodeForBreakout } from './find-breakout-node';
  * this logic supports this changing.
  */
 export function isBreakoutMarkAllowed(state: EditorState) {
-  if (!state.schema.marks.breakout) {
-    return false;
-  }
-  const supportedNodeParent = findSupportedNodeForBreakout(state.selection);
-  if (!supportedNodeParent) {
-    return false;
-  }
-  // At the moment we can only breakout when the depth is 0, ie. doc is the only node
-  // that supports breakout. This *could* change though.
-  const parent = state.selection.$from.node(supportedNodeParent.depth);
-  return parent.type.allowsMarkType(state.schema.marks.breakout);
+	if (!state.schema.marks.breakout) {
+		return false;
+	}
+	const supportedNodeParent = findSupportedNodeForBreakout(state.selection);
+	if (!supportedNodeParent) {
+		return false;
+	}
+	// At the moment we can only breakout when the depth is 0, ie. doc is the only node
+	// that supports breakout. This *could* change though.
+	const parent = state.selection.$from.node(supportedNodeParent.depth);
+	return parent.type.allowsMarkType(state.schema.marks.breakout);
 }

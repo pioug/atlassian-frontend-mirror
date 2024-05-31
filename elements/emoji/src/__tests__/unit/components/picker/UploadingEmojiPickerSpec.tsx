@@ -930,10 +930,19 @@ describe('<UploadingEmojiPicker />', () => {
         'fabric-elements',
       );
 
+      await waitFor(() =>
+        expect(onEvent).not.toHaveBeenCalledWith(
+          expect.objectContaining({
+            payload: deleteConfirmEvent({ emojiId: siteEmojiFoo.id }),
+          }),
+          'fabric-elements',
+        ),
+      );
+
       clickRemove();
 
       await waitFor(() =>
-        expect(onEvent).toHaveBeenLastCalledWith(
+        expect(onEvent).toHaveBeenCalledWith(
           expect.objectContaining({
             payload: deleteConfirmEvent({ emojiId: siteEmojiFoo.id }),
           }),

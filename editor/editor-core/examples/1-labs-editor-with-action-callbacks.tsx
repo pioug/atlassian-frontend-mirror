@@ -1,21 +1,7 @@
 import React from 'react';
 
-import { EditorContext } from '../src';
-import Editor from '../src/EditorWithActions';
+import { DeletedExample } from '@af/editor-examples-helpers';
 
 export default function Example() {
-  return (
-    <EditorContext>
-      <Editor
-        appearance="comment"
-        quickInsert={true}
-        onSave={(actions) =>
-          actions
-            .getValue()
-            .then((value) => alert(JSON.stringify(value, null, 2)))
-        }
-        onCancel={(actions) => actions.clear()}
-      />
-    </EditorContext>
-  );
+	return <DeletedExample commitId="443f72739ed1c42aeceee0debbe7c8c83d516f7b" />;
 }

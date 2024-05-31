@@ -20,38 +20,38 @@ export { documentAttachment } from './documentAttachment';
 export { expand } from './expand';
 
 export enum IconName {
-  info = 'info',
-  note = 'note',
-  tip = 'tip',
-  success = 'success',
-  warning = 'warning',
-  error = 'error',
-  custom = 'custom',
-  decision = 'decision',
-  taskItemChecked = 'taskItemChecked',
-  taskItemUnchecked = 'taskItemUnchecked',
-  genericAttachment = 'genericAttachment',
-  audioAttachment = 'audioAttachment',
-  videoAttachment = 'videoAttachment',
-  archiveAttachment = 'archiveAttachment',
-  documentAttachment = 'documentAttachment',
-  expand = 'expand',
+	info = 'info',
+	note = 'note',
+	tip = 'tip',
+	success = 'success',
+	warning = 'warning',
+	error = 'error',
+	custom = 'custom',
+	decision = 'decision',
+	taskItemChecked = 'taskItemChecked',
+	taskItemUnchecked = 'taskItemUnchecked',
+	genericAttachment = 'genericAttachment',
+	audioAttachment = 'audioAttachment',
+	videoAttachment = 'videoAttachment',
+	archiveAttachment = 'archiveAttachment',
+	documentAttachment = 'documentAttachment',
+	expand = 'expand',
 }
 
 export type IconString =
-  | 'info'
-  | 'note'
-  | 'tip'
-  | 'success'
-  | 'warning'
-  | 'error'
-  | 'custom'
-  | 'decision'
-  | 'taskItemChecked'
-  | 'taskItemUnchecked'
-  | 'genericAttachment'
-  | 'audioAttachment'
-  | 'videoAttachment'
-  | 'archiveAttachment'
-  | 'documentAttachment'
-  | 'expand';
+	| 'info'
+	| 'note'
+	| 'tip'
+	| 'success'
+	| 'warning'
+	| 'error'
+	| 'custom'
+	| 'decision'
+	| 'taskItemChecked'
+	| 'taskItemUnchecked'
+	| 'genericAttachment'
+	| 'audioAttachment'
+	| 'videoAttachment'
+	| 'archiveAttachment'
+	| 'documentAttachment'
+	| 'expand';

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugins
 
+## 2.7.12
+
+### Patch Changes
+
+- [#103640](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103640)
+  [`b20a3549580b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b20a3549580b) -
+  export type from block controls plugin
+- Updated dependencies
+
+## 2.7.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.9
 
 ### Patch Changes

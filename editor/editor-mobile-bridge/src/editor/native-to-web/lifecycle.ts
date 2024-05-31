@@ -1,22 +1,22 @@
 import { EventEmitter2 } from 'eventemitter2';
 import {
-  type EventHandler,
-  type Lifecycle,
-  type LifecycleEvents,
+	type EventHandler,
+	type Lifecycle,
+	type LifecycleEvents,
 } from '@atlaskit/collab-provider/types';
 
 export class LifecycleImpl implements Lifecycle {
-  private emitter = new EventEmitter2();
+	private emitter = new EventEmitter2();
 
-  on(event: LifecycleEvents, handler: EventHandler) {
-    this.emitter.on(event, handler);
-  }
+	on(event: LifecycleEvents, handler: EventHandler) {
+		this.emitter.on(event, handler);
+	}
 
-  saveCollabChanges() {
-    this.emitter.emit('save');
-  }
+	saveCollabChanges() {
+		this.emitter.emit('save');
+	}
 
-  restoreCollabChanges() {
-    this.emitter.emit('restore');
-  }
+	restoreCollabChanges() {
+		this.emitter.emit('restore');
+	}
 }

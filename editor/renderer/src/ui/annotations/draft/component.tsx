@@ -16,178 +16,150 @@ import { segmentText } from '../../../react/utils/segment-text';
 import { renderTextSegments } from '../../../react/utils/render-text-segments';
 
 const markStyles = () =>
-  css(
-    {
-      color: 'inherit',
-      backgroundColor: 'unset',
-      WebkitTapHighlightColor: 'transparent',
-    },
-    AnnotationSharedCSSByState().focus,
-  );
+	css(
+		{
+			color: 'inherit',
+			backgroundColor: 'unset',
+			WebkitTapHighlightColor: 'transparent',
+		},
+		AnnotationSharedCSSByState().focus,
+	);
 
 export const AnnotationDraft = ({
-  draftPosition,
-  children,
+	draftPosition,
+	children,
 }: React.PropsWithChildren<{ draftPosition: Position }>) => {
-  return (
-    <mark
-      data-renderer-mark={true}
-      {...dataAttributes(draftPosition)}
-      css={markStyles}
-    >
-      {children}
-    </mark>
-  );
+	return (
+		<mark data-renderer-mark={true} {...dataAttributes(draftPosition)} css={markStyles}>
+			{children}
+		</mark>
+	);
 };
 
 type ApplyAnnotationsProps = {
-  texts: string[];
-  shouldApplyAnnotationAt:
-    | InsertDraftPosition.INSIDE
-    | InsertDraftPosition.START
-    | InsertDraftPosition.END;
-  draftPosition: Position;
-  textHighlighter?: TextHighlighter;
-  marks?: readonly Mark[];
+	texts: string[];
+	shouldApplyAnnotationAt:
+		| InsertDraftPosition.INSIDE
+		| InsertDraftPosition.START
+		| InsertDraftPosition.END;
+	draftPosition: Position;
+	textHighlighter?: TextHighlighter;
+	marks?: readonly Mark[];
 };
 
 export const getAnnotationIndex = (
-  annotationPosition: InsertDraftPosition,
-  fragmentCount: number,
+	annotationPosition: InsertDraftPosition,
+	fragmentCount: number,
 ): number => {
-  if (annotationPosition === InsertDraftPosition.START) {
-    return 0;
-  }
+	if (annotationPosition === InsertDraftPosition.START) {
+		return 0;
+	}
 
-  if (annotationPosition === InsertDraftPosition.END) {
-    return fragmentCount - 1;
-  }
+	if (annotationPosition === InsertDraftPosition.END) {
+		return fragmentCount - 1;
+	}
 
-  if (
-    annotationPosition === InsertDraftPosition.INSIDE &&
-    fragmentCount === 3
-  ) {
-    return 1;
-  }
+	if (annotationPosition === InsertDraftPosition.INSIDE && fragmentCount === 3) {
+		return 1;
+	}
 
-  return -1;
+	return -1;
 };
 
 export const applyAnnotationOnText = ({
-  texts,
-  shouldApplyAnnotationAt,
-  draftPosition,
-  textHighlighter,
-  marks,
+	texts,
+	shouldApplyAnnotationAt,
+	draftPosition,
+	textHighlighter,
+	marks,
 }: ApplyAnnotationsProps): JSX.Element[] => {
-  const annotateIndex = getAnnotationIndex(
-    shouldApplyAnnotationAt,
-    texts.length,
-  );
+	const annotateIndex = getAnnotationIndex(shouldApplyAnnotationAt, texts.length);
 
-  return texts.map((value, index) => {
-    const segments = segmentText(value, textHighlighter);
-    if (annotateIndex === index) {
-      return (
-        <AnnotationDraft key={index} draftPosition={draftPosition}>
-          {renderTextSegments(
-            segments,
-            textHighlighter,
-            marks || [],
-            draftPosition.from,
-          )}
-        </AnnotationDraft>
-      );
-    }
+	return texts.map((value, index) => {
+		const segments = segmentText(value, textHighlighter);
+		if (annotateIndex === index) {
+			return (
+				<AnnotationDraft key={index} draftPosition={draftPosition}>
+					{renderTextSegments(segments, textHighlighter, marks || [], draftPosition.from)}
+				</AnnotationDraft>
+			);
+		}
 
-    return (
-      <React.Fragment key={index}>
-        {renderTextSegments(
-          segments,
-          textHighlighter,
-          marks || [],
-          draftPosition.from,
-        )}
-      </React.Fragment>
-    );
-  });
+		return (
+			<React.Fragment key={index}>
+				{renderTextSegments(segments, textHighlighter, marks || [], draftPosition.from)}
+			</React.Fragment>
+		);
+	});
 };
 
 type Props = React.PropsWithChildren<{
-  startPos: number;
-  endPos: number;
-  textHighlighter?: TextHighlighter;
-  marks?: readonly Mark[];
+	startPos: number;
+	endPos: number;
+	textHighlighter?: TextHighlighter;
+	marks?: readonly Mark[];
 }>;
 
 export const TextWithAnnotationDraft = ({
-  startPos,
-  endPos,
-  children,
-  textHighlighter,
-  marks,
+	startPos,
+	endPos,
+	children,
+	textHighlighter,
+	marks,
 }: Props) => {
-  const textPosition = React.useMemo(
-    () => ({
-      start: startPos,
-      end: endPos,
-    }),
-    [endPos, startPos],
-  );
-  const nextDraftPosition = React.useContext(AnnotationsDraftContext);
-  const shouldApplyAnnotationAt = React.useMemo(() => {
-    if (!nextDraftPosition) {
-      return false;
-    }
+	const textPosition = React.useMemo(
+		() => ({
+			start: startPos,
+			end: endPos,
+		}),
+		[endPos, startPos],
+	);
+	const nextDraftPosition = React.useContext(AnnotationsDraftContext);
+	const shouldApplyAnnotationAt = React.useMemo(() => {
+		if (!nextDraftPosition) {
+			return false;
+		}
 
-    return calcInsertDraftPositionOnText(textPosition, nextDraftPosition);
-  }, [nextDraftPosition, textPosition]);
+		return calcInsertDraftPositionOnText(textPosition, nextDraftPosition);
+	}, [nextDraftPosition, textPosition]);
 
-  const textString = findTextString(children);
-  if (!textString) {
-    return <Fragment>{children}</Fragment>;
-  }
+	const textString = findTextString(children);
+	if (!textString) {
+		return <Fragment>{children}</Fragment>;
+	}
 
-  if (shouldApplyAnnotationAt === false || !nextDraftPosition) {
-    const segments = segmentText(textString, textHighlighter);
-    return (
-      <Fragment>
-        {renderTextSegments(segments, textHighlighter, marks || [], startPos)}
-      </Fragment>
-    );
-  }
+	if (shouldApplyAnnotationAt === false || !nextDraftPosition) {
+		const segments = segmentText(textString, textHighlighter);
+		return (
+			<Fragment>{renderTextSegments(segments, textHighlighter, marks || [], startPos)}</Fragment>
+		);
+	}
 
-  if (shouldApplyAnnotationAt === InsertDraftPosition.AROUND_TEXT) {
-    const segments = segmentText(textString, textHighlighter);
-    return (
-      <AnnotationDraft key={0} draftPosition={nextDraftPosition}>
-        {renderTextSegments(segments, textHighlighter, marks || [], startPos)}
-      </AnnotationDraft>
-    );
-  }
+	if (shouldApplyAnnotationAt === InsertDraftPosition.AROUND_TEXT) {
+		const segments = segmentText(textString, textHighlighter);
+		return (
+			<AnnotationDraft key={0} draftPosition={nextDraftPosition}>
+				{renderTextSegments(segments, textHighlighter, marks || [], startPos)}
+			</AnnotationDraft>
+		);
+	}
 
-  const offsets = calcTextSplitOffset(
-    nextDraftPosition,
-    textPosition,
-    textString,
-  );
-  const texts = splitText(textString, offsets);
-  if (!texts) {
-    const segments = segmentText(textString, textHighlighter);
-    return (
-      <Fragment>
-        {renderTextSegments(segments, textHighlighter, marks || [], startPos)}
-      </Fragment>
-    );
-  }
+	const offsets = calcTextSplitOffset(nextDraftPosition, textPosition, textString);
+	const texts = splitText(textString, offsets);
+	if (!texts) {
+		const segments = segmentText(textString, textHighlighter);
+		return (
+			<Fragment>{renderTextSegments(segments, textHighlighter, marks || [], startPos)}</Fragment>
+		);
+	}
 
-  const components = applyAnnotationOnText({
-    texts,
-    shouldApplyAnnotationAt,
-    draftPosition: nextDraftPosition,
-    textHighlighter,
-    marks,
-  });
+	const components = applyAnnotationOnText({
+		texts,
+		shouldApplyAnnotationAt,
+		draftPosition: nextDraftPosition,
+		textHighlighter,
+		marks,
+	});
 
-  return <Fragment>{components}</Fragment>;
+	return <Fragment>{components}</Fragment>;
 };

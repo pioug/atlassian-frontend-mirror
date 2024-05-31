@@ -10,5 +10,5 @@ export const styles = `
 }
 `;
 export default function decisionList({ text }: NodeSerializerOpts) {
-  return createTag('div', { class: className }, text);
+	return createTag('div', { class: className }, text);
 }

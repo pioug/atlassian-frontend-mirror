@@ -6,48 +6,48 @@ type ScheduledCleanupWork = () => void;
 type ScheduleCleanup = (cb: ScheduledCleanupWork) => void;
 
 type DetectorFns = {
-  sync: () => boolean;
-  async: (detected: NotifyDetected, cleanup: ScheduleCleanup) => void;
+	sync: () => boolean;
+	async: (detected: NotifyDetected, cleanup: ScheduleCleanup) => void;
 };
 
 type DetectorRegistration = {
-  name: UserBrowserExtension;
-  fns: Partial<DetectorFns>;
+	name: UserBrowserExtension;
+	fns: Partial<DetectorFns>;
 };
 
 type Detector = DetectorRegistration & {
-  state: { detected: boolean };
+	state: { detected: boolean };
 };
 
 const registerDetectors = (
-  targetExtensions: UserBrowserExtension[],
-  supportedDetectors: DetectorRegistration[],
+	targetExtensions: UserBrowserExtension[],
+	supportedDetectors: DetectorRegistration[],
 ): Detector[] => {
-  const detectors = supportedDetectors.filter((registration) =>
-    targetExtensions.includes(registration.name),
-  );
-  return detectors.map((detector) => ({
-    name: detector.name,
-    state: { detected: false },
-    fns: {
-      async: detector.fns.async,
-      sync: detector.fns.sync,
-    },
-  }));
+	const detectors = supportedDetectors.filter((registration) =>
+		targetExtensions.includes(registration.name),
+	);
+	return detectors.map((detector) => ({
+		name: detector.name,
+		state: { detected: false },
+		fns: {
+			async: detector.fns.async,
+			sync: detector.fns.sync,
+		},
+	}));
 };
 
 type BaseOptions = {
-  extensions: UserBrowserExtension[];
+	extensions: UserBrowserExtension[];
 };
 
 type AsyncOptions = BaseOptions & {
-  async: true;
-  asyncTimeoutMs: number;
+	async: true;
+	asyncTimeoutMs: number;
 };
 
 type SyncOptions = BaseOptions & {
-  async?: false;
-  asyncTimeoutMs?: never;
+	async?: false;
+	asyncTimeoutMs?: never;
 };
 
 type Options = BaseOptions & (SyncOptions | AsyncOptions);
@@ -55,8 +55,7 @@ type Options = BaseOptions & (SyncOptions | AsyncOptions);
 const RACE_COMPLETE = 'race_complete';
 
 const SELECTORS = {
-  GRAMMARLY:
-    'grammarly-extension, grammarly-popups, [data-grammarly-shadow-root]',
+	GRAMMARLY: 'grammarly-extension, grammarly-popups, [data-grammarly-shadow-root]',
 };
 
 /**
@@ -83,61 +82,58 @@ const SELECTORS = {
  * ```
  */
 const supportedDetectors: DetectorRegistration[] = [
-  {
-    name: 'grammarly',
-    fns: {
-      sync: () => Boolean(document?.querySelector(SELECTORS.GRAMMARLY)),
-      async: (detected, cleanup) => {
-        // First check to see if grammarly already exists on page
-        const exists = Boolean(document?.querySelector(SELECTORS.GRAMMARLY));
-        if (exists) {
-          detected();
-        }
-        // Otherwise, setup a mutation observer to observe the page and its children
-        // for newly added nodes. Collect observed mutations in a queue and in 1 second
-        // intervals either process the queue or schedule the processing task for when
-        // the user agent's main thread is idle (if possible).
-        let queue: MutationRecord[][] = [];
-        const processQueue = () => {
-          for (const mutations of queue) {
-            for (const mutation of mutations) {
-              if (
-                mutation?.type === 'childList' &&
-                mutation?.addedNodes?.length
-              ) {
-                const exists = Array.from(mutation.addedNodes).some((node) =>
-                  node.parentElement?.querySelector(SELECTORS.GRAMMARLY),
-                );
-                if (exists) {
-                  detected();
-                }
-              }
-            }
-          }
-          queue = [];
-        };
-        const intervalId = setInterval(() => {
-          if (typeof (window as any).requestIdleCallback === 'function') {
-            (window as any).requestIdleCallback(processQueue);
-          } else {
-            window.requestAnimationFrame(processQueue);
-          }
-        }, 1000);
-        const observer = new MutationObserver((mutations) => {
-          queue.push(mutations);
-        });
-        cleanup(() => {
-          queue = [];
-          clearInterval(intervalId);
-          observer?.disconnect();
-        });
-        observer.observe(document.documentElement, {
-          childList: true,
-          subtree: true,
-        });
-      },
-    },
-  },
+	{
+		name: 'grammarly',
+		fns: {
+			sync: () => Boolean(document?.querySelector(SELECTORS.GRAMMARLY)),
+			async: (detected, cleanup) => {
+				// First check to see if grammarly already exists on page
+				const exists = Boolean(document?.querySelector(SELECTORS.GRAMMARLY));
+				if (exists) {
+					detected();
+				}
+				// Otherwise, setup a mutation observer to observe the page and its children
+				// for newly added nodes. Collect observed mutations in a queue and in 1 second
+				// intervals either process the queue or schedule the processing task for when
+				// the user agent's main thread is idle (if possible).
+				let queue: MutationRecord[][] = [];
+				const processQueue = () => {
+					for (const mutations of queue) {
+						for (const mutation of mutations) {
+							if (mutation?.type === 'childList' && mutation?.addedNodes?.length) {
+								const exists = Array.from(mutation.addedNodes).some((node) =>
+									node.parentElement?.querySelector(SELECTORS.GRAMMARLY),
+								);
+								if (exists) {
+									detected();
+								}
+							}
+						}
+					}
+					queue = [];
+				};
+				const intervalId = setInterval(() => {
+					if (typeof (window as any).requestIdleCallback === 'function') {
+						(window as any).requestIdleCallback(processQueue);
+					} else {
+						window.requestAnimationFrame(processQueue);
+					}
+				}, 1000);
+				const observer = new MutationObserver((mutations) => {
+					queue.push(mutations);
+				});
+				cleanup(() => {
+					queue = [];
+					clearInterval(intervalId);
+					observer?.disconnect();
+				});
+				observer.observe(document.documentElement, {
+					childList: true,
+					subtree: true,
+				});
+			},
+		},
+	},
 ];
 
 /**
@@ -168,67 +164,63 @@ const supportedDetectors: DetectorRegistration[] = [
  * ```
  */
 export function sniffUserBrowserExtensions<O extends Options>(
-  options: O,
-): O extends AsyncOptions
-  ? Promise<UserBrowserExtensionResults>
-  : UserBrowserExtensionResults;
+	options: O,
+): O extends AsyncOptions ? Promise<UserBrowserExtensionResults> : UserBrowserExtensionResults;
 export function sniffUserBrowserExtensions(
-  options: Options,
+	options: Options,
 ): Promise<UserBrowserExtensionResults> | UserBrowserExtensionResults {
-  try {
-    // First we filter out supported extensions that aren't requested through options. We also
-    // prepare detector objects with some initial internal state (e.g. detector.state.detected = false)
-    const detectors = registerDetectors(options.extensions, supportedDetectors);
-    // If async mode is enabled, we convert the list of detector objects to a list of promises
-    // that resolve when the detector invokes detected() during its asynchronous check.
-    // We also track any scheduled cleanup() tasks.
-    if (options.async === true) {
-      const asyncCleanups: ScheduledCleanupWork[] = [];
-      const asyncDetections = Promise.all(
-        detectors.map((detector) => {
-          return new Promise<void>((resolve) => {
-            const detected: NotifyDetected = () => {
-              detector.state.detected = true;
-              resolve();
-            };
-            const cleanup: ScheduleCleanup = (cb) => {
-              asyncCleanups.push(cb);
-            };
-            if (typeof detector.fns.async === 'function') {
-              detector.fns.async(detected, cleanup);
-            } else {
-              detector.state.detected = false;
-              resolve();
-            }
-          });
-        }),
-      );
-      // We race all asynchronous checkers against a user-defined timeout (asyncTimeoutMs).
-      // When asynchronous checks are finalised first,or if the timeout elapses, we return
-      // the list of extensions detected up until that point.
-      const globalTimeout = new Promise((resolve) =>
-        setTimeout(resolve, options.asyncTimeoutMs, RACE_COMPLETE),
-      );
-      return (
-        Promise.race([asyncDetections, globalTimeout])
-          .then(() => {
-            return detectors
-              .filter((detector) => detector.state.detected)
-              .map((detector) => detector.name);
-          })
-          // If there are any errors, we fail safely and silently with zero detected extensions.
-          .catch(() => [])
-          .finally(() => asyncCleanups.map((cleanup) => cleanup()))
-      );
-    } else {
-      // If sync mode, we immediately execute synchronous checks
-      // and return a list of extensions whose synchronous checks returned true.
-      return detectors
-        .filter((detector) => detector.fns.sync?.())
-        .map((detector) => detector.name);
-    }
-  } catch (err) {
-    // If there are any unhandled errors, we fail safely and silently with zero detected extensions.
-    return options.async ? Promise.resolve([]) : [];
-  }
+	try {
+		// First we filter out supported extensions that aren't requested through options. We also
+		// prepare detector objects with some initial internal state (e.g. detector.state.detected = false)
+		const detectors = registerDetectors(options.extensions, supportedDetectors);
+		// If async mode is enabled, we convert the list of detector objects to a list of promises
+		// that resolve when the detector invokes detected() during its asynchronous check.
+		// We also track any scheduled cleanup() tasks.
+		if (options.async === true) {
+			const asyncCleanups: ScheduledCleanupWork[] = [];
+			const asyncDetections = Promise.all(
+				detectors.map((detector) => {
+					return new Promise<void>((resolve) => {
+						const detected: NotifyDetected = () => {
+							detector.state.detected = true;
+							resolve();
+						};
+						const cleanup: ScheduleCleanup = (cb) => {
+							asyncCleanups.push(cb);
+						};
+						if (typeof detector.fns.async === 'function') {
+							detector.fns.async(detected, cleanup);
+						} else {
+							detector.state.detected = false;
+							resolve();
+						}
+					});
+				}),
+			);
+			// We race all asynchronous checkers against a user-defined timeout (asyncTimeoutMs).
+			// When asynchronous checks are finalised first,or if the timeout elapses, we return
+			// the list of extensions detected up until that point.
+			const globalTimeout = new Promise((resolve) =>
+				setTimeout(resolve, options.asyncTimeoutMs, RACE_COMPLETE),
+			);
+			return (
+				Promise.race([asyncDetections, globalTimeout])
+					.then(() => {
+						return detectors
+							.filter((detector) => detector.state.detected)
+							.map((detector) => detector.name);
+					})
+					// If there are any errors, we fail safely and silently with zero detected extensions.
+					.catch(() => [])
+					.finally(() => asyncCleanups.map((cleanup) => cleanup()))
+			);
+		} else {
+			// If sync mode, we immediately execute synchronous checks
+			// and return a list of extensions whose synchronous checks returned true.
+			return detectors.filter((detector) => detector.fns.sync?.()).map((detector) => detector.name);
+		}
+	} catch (err) {
+		// If there are any unhandled errors, we fail safely and silently with zero detected extensions.
+		return options.async ? Promise.resolve([]) : [];
+	}
 }

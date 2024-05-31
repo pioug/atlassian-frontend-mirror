@@ -48,10 +48,6 @@
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {},
-  "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1"
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "bugs": {
     "url": "https://bitbucket.org/atlassian/atlassian-frontend-mirror/issues"
   },

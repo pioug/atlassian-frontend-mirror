@@ -2,7 +2,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/new';
 import DropdownMenuStateless, {
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
@@ -19,8 +19,9 @@ jest.mock('react-intl-next', () => {
     FormattedMessage: (descriptor: any) => (
       <span>{descriptor.defaultMessage}</span>
     ),
-    injectIntl: (Node: any) => (props: any) =>
-      <Node {...props} intl={mockIntl} />,
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
   };
 });
 
@@ -31,7 +32,7 @@ describe('Share Split Button', () => {
   const mockToggleShareToSlackFunction = jest.fn();
   const mockIntegrationClickHandler = jest.fn();
 
-  const MockShareButton = () => <Button />;
+  const MockShareButton = () => <Button>Mock</Button>;
   const MockIcon = () => <div />;
   const MockContent = () => <div />;
   const defaultSplitButtonProps = {

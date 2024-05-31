@@ -22,31 +22,31 @@ import editorMeasureTTICallback from '../utils/editorMeasureTTICallback';
  * @param createAnalyticsEvent
  */
 export default function useEditorConstructor(
-  performanceTracking: PerformanceTracking | undefined,
-  featureFlags: EditorProps['featureFlags'],
-  getExperienceStore: () => ExperienceStore | undefined,
-  createAnalyticsEvent: CreateUIAnalyticsEvent,
+	performanceTracking: PerformanceTracking | undefined,
+	featureFlags: EditorProps['featureFlags'],
+	getExperienceStore: () => ExperienceStore | undefined,
+	createAnalyticsEvent: CreateUIAnalyticsEvent,
 ): void {
-  useConstructor(() => {
-    startMeasure(measurements.EDITOR_MOUNTED);
+	useConstructor(() => {
+		startMeasure(measurements.EDITOR_MOUNTED);
 
-    if (performanceTracking?.ttiTracking?.enabled || featureFlags?.ufo) {
-      measureTTI(
-        (tti, ttiFromInvocation, canceled, distortedDuration) => {
-          editorMeasureTTICallback(
-            tti,
-            ttiFromInvocation,
-            canceled,
-            distortedDuration,
-            performanceTracking,
-            featureFlags,
-            createAnalyticsEvent,
-            getExperienceStore(),
-          );
-        },
-        performanceTracking?.ttiTracking?.ttiIdleThreshold,
-        performanceTracking?.ttiTracking?.ttiCancelTimeout,
-      );
-    }
-  });
+		if (performanceTracking?.ttiTracking?.enabled || featureFlags?.ufo) {
+			measureTTI(
+				(tti, ttiFromInvocation, canceled, distortedDuration) => {
+					editorMeasureTTICallback(
+						tti,
+						ttiFromInvocation,
+						canceled,
+						distortedDuration,
+						performanceTracking,
+						featureFlags,
+						createAnalyticsEvent,
+						getExperienceStore(),
+					);
+				},
+				performanceTracking?.ttiTracking?.ttiIdleThreshold,
+				performanceTracking?.ttiTracking?.ttiCancelTimeout,
+			);
+		}
+	});
 }

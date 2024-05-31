@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.24.0",
+  "version": "193.24.6",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -104,18 +104,17 @@
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.27",
     "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/renderer": "^109.30.0",
     "@atlaskit/select": "^17.10.0",
-    "@atlaskit/smart-card": "^27.3.0",
+    "@atlaskit/smart-card": "^27.4.0",
     "@atlaskit/synchrony-test-helpers": "^2.4.0",
     "@atlaskit/toggle": "^13.1.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/adf-schema-json": "^1.14.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/link-picker-plugins": "^24.1.0",
-    "@atlassian/search-provider": "2.4.70",
+    "@atlassian/search-provider": "2.4.71",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -124,7 +123,6 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/diff": "^5.0.2",
     "@types/is-number": "^7.0.0",
-    "clipboard-polyfill": "4.0.1",
     "diff": "^4.0.1",
     "enzyme": "^3.10.0",
     "fetch-mock": "^8.0.0",
@@ -157,7 +155,6 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.linking-platform.prevent-suspicious-linkification": {
       "type": "boolean",
@@ -345,6 +342,10 @@
       "type": "boolean"
     },
     "platform.editor.mentions-in-editor-popup-on-click": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.table.editor-num-col-style-changes": {
       "type": "boolean",
       "referenceOnly": "true"
     }

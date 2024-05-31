@@ -5,14 +5,14 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 // Nodes
 
 describe('WikiMarkup Transformer', () => {
-  describe('blockquote', () => {
-    const WIKI_NOTATION = `bq. some texts here`;
+	describe('blockquote', () => {
+		const WIKI_NOTATION = `bq. some texts here`;
 
-    checkParseEncodeRoundTrips(
-      WIKI_NOTATION,
-      defaultSchema,
-      WIKI_NOTATION,
-      doc(blockquote(p('some texts here'))),
-    );
-  });
+		checkParseEncodeRoundTrips(
+			WIKI_NOTATION,
+			defaultSchema,
+			WIKI_NOTATION,
+			doc(blockquote(p('some texts here'))),
+		);
+	});
 });

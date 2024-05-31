@@ -1,13 +1,13 @@
 export default {
-  props: {
-    type: { type: 'enum', values: ['emoji'] },
-    attrs: {
-      props: {
-        id: { type: 'string', optional: true },
-        shortName: { type: 'string' },
-        text: { type: 'string', optional: true },
-      },
-    },
-    marks: { type: 'array', items: ['annotation'], optional: true },
-  },
+	props: {
+		type: { type: 'enum', values: ['emoji'] },
+		attrs: {
+			props: {
+				id: { type: 'string', optional: true },
+				shortName: { type: 'string' },
+				text: { type: 'string', optional: true },
+			},
+		},
+		marks: { type: 'array', items: ['annotation'], optional: true },
+	},
 };

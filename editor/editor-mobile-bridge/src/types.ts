@@ -4,58 +4,58 @@ import type { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import type { ResolveResponse } from '@atlaskit/smart-card';
 
 export type EditorViewWithComposition = EditorView & {
-  domObserver: {
-    observer?: MutationObserver;
-    flush: () => void;
-  };
-  composing: boolean;
+	domObserver: {
+		observer?: MutationObserver;
+		flush: () => void;
+	};
+	composing: boolean;
 };
 
 export type PromiseName =
-  | 'getAuth'
-  | 'getConfig'
-  | 'getCollabConfig'
-  | 'nativeFetch'
-  | 'getAccountId'
-  | 'getResolvedLink'
-  | 'getLinkResolve'
-  | 'onSelection'
-  | 'getAnnotationStates'
-  | 'deleteStorageValue'
-  | 'setStorageValue'
-  | 'getStorageValue'
-  | 'asyncCallCompleted';
+	| 'getAuth'
+	| 'getConfig'
+	| 'getCollabConfig'
+	| 'nativeFetch'
+	| 'getAccountId'
+	| 'getResolvedLink'
+	| 'getLinkResolve'
+	| 'onSelection'
+	| 'getAnnotationStates'
+	| 'deleteStorageValue'
+	| 'setStorageValue'
+	| 'getStorageValue'
+	| 'asyncCallCompleted';
 
 export type PromisePayload =
-  | GetAuthPayload
-  | GetConfigPayload
-  | NativeFetchPayload
-  | GetAccountIdPayload
-  | GetResolvedLinkPayload
-  | GetLinkResolvePayload
-  | GetAnnotationStatesPayload;
+	| GetAuthPayload
+	| GetConfigPayload
+	| NativeFetchPayload
+	| GetAccountIdPayload
+	| GetResolvedLinkPayload
+	| GetLinkResolvePayload
+	| GetAnnotationStatesPayload;
 
 export interface GetAuthPayload {
-  baseUrl: string;
-  clientId: string;
-  token: string;
+	baseUrl: string;
+	clientId: string;
+	token: string;
 }
 
 export interface GetConfigPayload {
-  baseUrl: string;
-  cloudId?: string;
+	baseUrl: string;
+	cloudId?: string;
 }
 
 export interface NativeFetchPayload {
-  response: string;
-  status: number;
-  statusText: string;
+	response: string;
+	status: number;
+	statusText: string;
 }
 
 export interface GetCollabConfigPayload {
-  baseUrl: string;
-  documentAri: string;
-  userId: string;
+	baseUrl: string;
+	documentAri: string;
+	userId: string;
 }
 
 export type GetAccountIdPayload = string;
@@ -67,14 +67,14 @@ export type GetResolvedLinkPayload = ResolveResponse;
 export type GetLinkResolvePayload = unknown;
 
 export interface GetAnnotationStatesPayload {
-  annotationIdToState: {
-    [AnnotationId: string]: AnnotationMarkStates;
-  };
+	annotationIdToState: {
+		[AnnotationId: string]: AnnotationMarkStates;
+	};
 }
 
 export interface SelectionPayload {
-  selection: SelectionData;
-  rect: { top: number; left: number };
+	selection: SelectionData;
+	rect: { top: number; left: number };
 }
 
 export type Serialized<T> = string | T;

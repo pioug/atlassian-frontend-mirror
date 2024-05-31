@@ -19,6 +19,6 @@ export const styles = `
 `;
 
 export default function caption({ text, marks, context }: NodeSerializerOpts) {
-  const caption = createTag('div', { class: className }, text || '&nbsp;');
-  return applyMarks(marks, caption, context);
+	const caption = createTag('div', { class: className }, text || '&nbsp;');
+	return applyMarks(marks, caption, context);
 }

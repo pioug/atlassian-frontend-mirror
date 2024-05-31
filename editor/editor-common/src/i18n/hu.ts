@@ -342,6 +342,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Oldalműveletek',
   'fabric.editor.panel.backgroundColor': 'Háttérszín',
   'fabric.editor.panel.emoji': 'Emoji hozzáadása',
+  'fabric.editor.panel.panelsGroup': 'Paneltípusok',
   'fabric.editor.pasteOptions': 'Beillesztési lehetőségek',
   'fabric.editor.pastePlainText': 'Egyszerű szöveg beillesztése',
   'fabric.editor.placeholderAltText': 'Kép leírása alternatív szöveggel',

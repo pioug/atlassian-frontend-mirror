@@ -7,14 +7,14 @@ import { createTransformer } from '../utils';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 const transformer = createTransformer('@atlaskit/editor-core', [
-  renameUnsafeAllowUndoRedoButtonsProp,
+	renameUnsafeAllowUndoRedoButtonsProp,
 ]);
 
 describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -22,7 +22,7 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -30,13 +30,13 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor />
     );
     `, // -----
-    'rename nothing if UNSAFE_allowUndoRedoButtons prop not set',
-  );
+		'rename nothing if UNSAFE_allowUndoRedoButtons prop not set',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -44,7 +44,7 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor allowUndoRedoButtons />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -52,13 +52,13 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor allowUndoRedoButtons />
     );
     `, // -----
-    'rename nothing if boolean prop',
-  );
+		'rename nothing if boolean prop',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -66,7 +66,7 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor allowUndoRedoButtons={true} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -74,13 +74,13 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor allowUndoRedoButtons={true} />
     );
     `, // -----
-    'rename nothing if UNSAFE_allowUndoRedoButtons not found',
-  );
+		'rename nothing if UNSAFE_allowUndoRedoButtons not found',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -88,7 +88,7 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor UNSAFE_allowUndoRedoButtons={true} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor } from '@atlaskit/editor-core';
 
@@ -96,13 +96,13 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor allowUndoRedoButtons={true} />
     );
     `, // -----
-    'rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons and do not change other options',
-  );
+		'rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons and do not change other options',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Editor as AKEditor } from '@atlaskit/editor-core';
 
@@ -110,7 +110,7 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <AKEditor UNSAFE_allowUndoRedoButtons={true} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
     import { Editor as AKEditor } from '@atlaskit/editor-core';
 
@@ -118,13 +118,13 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <AKEditor allowUndoRedoButtons={true} />
     );
     `, // -----
-    'rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons when Editor is renamed',
-  );
+		'rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons when Editor is renamed',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     const Editor = (props) => {
@@ -135,7 +135,7 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor UNSAFE_allowUndoRedoButtons={true} />
     );
     `, // -----
-    `
+		`
     import React from 'react';
 
     const Editor = (props) => {
@@ -146,6 +146,6 @@ describe('Rename UNSAFE_allowUndoRedoButtons to allowUndoRedoButtons', () => {
       <Editor UNSAFE_allowUndoRedoButtons={true} />
     );
     `, // -----
-    'rename nothing if UNSAFE_allowUndoRedoButtons for Editor is not from @atlaskit/editor-core',
-  );
+		'rename nothing if UNSAFE_allowUndoRedoButtons for Editor is not from @atlaskit/editor-core',
+	);
 });

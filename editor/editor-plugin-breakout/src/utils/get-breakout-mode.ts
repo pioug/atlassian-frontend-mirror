@@ -8,17 +8,17 @@ import { findSupportedNodeForBreakout } from './find-breakout-node';
  * @param state Current EditorState
  */
 export function getBreakoutMode(state: EditorState): BreakoutMode | undefined {
-  const node = findSupportedNodeForBreakout(state.selection);
+	const node = findSupportedNodeForBreakout(state.selection);
 
-  if (!node) {
-    return;
-  }
+	if (!node) {
+		return;
+	}
 
-  const breakoutMark = node.node.marks.find(m => m.type.name === 'breakout');
+	const breakoutMark = node.node.marks.find((m) => m.type.name === 'breakout');
 
-  if (!breakoutMark) {
-    return;
-  }
+	if (!breakoutMark) {
+		return;
+	}
 
-  return breakoutMark.attrs.mode;
+	return breakoutMark.attrs.mode;
 }

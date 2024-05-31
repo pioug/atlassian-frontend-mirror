@@ -1,33 +1,12 @@
 import React from 'react';
 
-import { code } from '@atlaskit/docs';
-
-import { Editor } from '../src';
+import { DeletedExample } from '@af/editor-examples-helpers';
 
 export default function Example() {
-  return (
-    <div>
-      <p>
-        {
-          'The most basic editor possible is to render the <Editor/> component with no props.'
-        }
-      </p>
-      <p>
-        {
-          'Alternatively you can render <Editor /> wrapped with the <IntlProvider />. '
-        }
-      </p>
-      {code`import { IntlProvider } from 'react-intl-next';
-// ...
-
-return (
-  <IntlProvider locale="en">
-    <Editor />
-  </IntlProvider>
-);`}
-
-      <br />
-      <Editor />
-    </div>
-  );
+	return (
+		<DeletedExample
+			commitId="443f72739ed1c42aeceee0debbe7c8c83d516f7b"
+			alternativeExample="Basic composable editor"
+		/>
+	);
 }

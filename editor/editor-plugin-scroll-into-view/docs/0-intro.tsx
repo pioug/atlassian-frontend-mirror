@@ -9,13 +9,13 @@ const warnStyles = xcss({ marginTop: 'space.100' });
 
 export default md`
   ${createEditorUseOnlyNotice('Editor Plugin Scroll-into-view', [
-    { name: 'Editor Core', link: '/packages/editor/editor-core' },
-  ])}
+		{ name: 'Editor Core', link: '/packages/editor/editor-core' },
+	])}
   ${(
-    <Box xcss={warnStyles}>
-      <AtlassianInternalWarning />
-    </Box>
-  )}
+		<Box xcss={warnStyles}>
+			<AtlassianInternalWarning />
+		</Box>
+	)}
   This package includes the Scroll-into-view plugin used by @atlaskit/editor-core.
   ## Usage
 ---

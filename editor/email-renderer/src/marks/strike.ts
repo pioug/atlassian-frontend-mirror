@@ -8,5 +8,5 @@ export const styles = `
 }
 `;
 export default function strike({ text }: MarkSerializerOpts) {
-  return createTag('span', { class: createClassName('mark-strike') }, text);
+	return createTag('span', { class: createClassName('mark-strike') }, text);
 }

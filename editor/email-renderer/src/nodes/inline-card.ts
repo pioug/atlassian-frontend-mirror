@@ -1,7 +1,7 @@
 import {
-  type NodeSerializerOpts,
-  type SmartCardWithDataAttributes,
-  type SmartCardWithUrlAttributes,
+	type NodeSerializerOpts,
+	type SmartCardWithDataAttributes,
+	type SmartCardWithUrlAttributes,
 } from '../interfaces';
 import { createTag } from '../create-tag';
 import { createClassName } from '../styles/util';
@@ -30,31 +30,21 @@ export const styles = `
  * Used as both inlineCard and embedCard
  */
 export default function inlineCard({ attrs }: NodeSerializerOpts) {
-  let scAttrs: SmartCardWithDataAttributes | SmartCardWithUrlAttributes;
-  let textContent: string;
-  let href: string;
+	let scAttrs: SmartCardWithDataAttributes | SmartCardWithUrlAttributes;
+	let textContent: string;
+	let href: string;
 
-  if (attrs.data) {
-    scAttrs = attrs as SmartCardWithDataAttributes;
-    href = scAttrs.data.url;
-    textContent = scAttrs.data.name;
-  } else {
-    scAttrs = attrs as SmartCardWithUrlAttributes;
-    href = scAttrs.url;
-    textContent = scAttrs.url;
-  }
+	if (attrs.data) {
+		scAttrs = attrs as SmartCardWithDataAttributes;
+		href = scAttrs.data.url;
+		textContent = scAttrs.data.name;
+	} else {
+		scAttrs = attrs as SmartCardWithUrlAttributes;
+		href = scAttrs.url;
+		textContent = scAttrs.url;
+	}
 
-  const card = createTag(
-    'span',
-    { class: className },
-    `&nbsp;${textContent}&nbsp;`,
-  );
-  const fontTag = createTag(
-    'font',
-    { color: B400, class: className + '-link' },
-    card,
-  );
-  return href
-    ? createTag('a', { href, class: className + '-link' }, fontTag)
-    : fontTag;
+	const card = createTag('span', { class: className }, `&nbsp;${textContent}&nbsp;`);
+	const fontTag = createTag('font', { color: B400, class: className + '-link' }, card);
+	return href ? createTag('a', { href, class: className + '-link' }, fontTag) : fontTag;
 }

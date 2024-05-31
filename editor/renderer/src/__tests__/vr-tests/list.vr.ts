@@ -1,16 +1,16 @@
 import { snapshot } from '@af/visual-regression';
 import {
-  ListRenderer,
-  ListWithCodeblock,
-  CustomStartListOrder1,
-  CustomStartListOrderMinus1_9,
-  CustomStartListOrderMinus3,
-  CustomStartListOrder9999,
-  CustomStartListOrder999,
-  CustomStartListOrder3_9,
-  CustomStartListOrder0,
-  CustomStartListOrder99,
-  RenderUlOlwithSamePadding,
+	ListRenderer,
+	ListWithCodeblock,
+	CustomStartListOrder1,
+	CustomStartListOrderMinus1_9,
+	CustomStartListOrderMinus3,
+	CustomStartListOrder9999,
+	CustomStartListOrder999,
+	CustomStartListOrder3_9,
+	CustomStartListOrder0,
+	CustomStartListOrder99,
+	RenderUlOlwithSamePadding,
 } from './list.fixture';
 
 snapshot(ListRenderer);

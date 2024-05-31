@@ -6,59 +6,54 @@ import type { QuickInsertItem } from '../provider-factory';
 import type { QuickInsertHandler, QuickInsertHandlerFn } from '../types';
 
 const processQuickInsertItems = (
-  items: Array<QuickInsertHandler>,
-  intl: IntlShape,
+	items: Array<QuickInsertHandler>,
+	intl: IntlShape,
 ): Array<QuickInsertItem | QuickInsertHandlerFn> => {
-  return items.reduce(
-    (
-      acc: Array<QuickInsertItem | QuickInsertHandlerFn>,
-      item: QuickInsertHandler,
-    ) => {
-      if (
-        typeof item === 'function' &&
-        // we preserve handler items with disableMemo so that we
-        // can process them in a later step outside of memoizations
-        !item.disableMemo
-      ) {
-        const quickInsertItems = item(intl);
-        return acc.concat(quickInsertItems);
-      }
-      return acc.concat(item);
-    },
-    [],
-  );
+	return items.reduce(
+		(acc: Array<QuickInsertItem | QuickInsertHandlerFn>, item: QuickInsertHandler) => {
+			if (
+				typeof item === 'function' &&
+				// we preserve handler items with disableMemo so that we
+				// can process them in a later step outside of memoizations
+				!item.disableMemo
+			) {
+				const quickInsertItems = item(intl);
+				return acc.concat(quickInsertItems);
+			}
+			return acc.concat(item);
+		},
+		[],
+	);
 };
 
 const memoizedProcessQuickInsertItems = memoizeOne(processQuickInsertItems);
 
 export const memoProcessQuickInsertItems = (
-  items: Array<QuickInsertHandler>,
-  intl: IntlShape,
+	items: Array<QuickInsertHandler>,
+	intl: IntlShape,
 ): QuickInsertItem[] => {
-  const memoizedResults = memoizedProcessQuickInsertItems(items, intl);
+	const memoizedResults = memoizedProcessQuickInsertItems(items, intl);
 
-  const hasDisabledMemos = items.some(
-    (item) => typeof item === 'function' && item.disableMemo,
-  );
+	const hasDisabledMemos = items.some((item) => typeof item === 'function' && item.disableMemo);
 
-  if (!hasDisabledMemos) {
-    return memoizedResults as QuickInsertItem[];
-  }
+	if (!hasDisabledMemos) {
+		return memoizedResults as QuickInsertItem[];
+	}
 
-  return memoizedResults.flatMap((item) =>
-    typeof item === 'function' && item.disableMemo ? item(intl) : item,
-  ) as QuickInsertItem[];
+	return memoizedResults.flatMap((item) =>
+		typeof item === 'function' && item.disableMemo ? item(intl) : item,
+	) as QuickInsertItem[];
 };
 
 const options = {
-  threshold: 0.3,
-  keys: [
-    { name: 'title', weight: 0.57 },
-    { name: 'priority', weight: 0.3 },
-    { name: 'keywords', weight: 0.08 },
-    { name: 'description', weight: 0.04 },
-    { name: 'keyshortcut', weight: 0.01 },
-  ],
+	threshold: 0.3,
+	keys: [
+		{ name: 'title', weight: 0.57 },
+		{ name: 'priority', weight: 0.3 },
+		{ name: 'keywords', weight: 0.08 },
+		{ name: 'description', weight: 0.04 },
+		{ name: 'keyshortcut', weight: 0.01 },
+	],
 };
 
 /**
@@ -69,21 +64,17 @@ const options = {
  * @param {QuickInsertItem[]} items - An array of QuickInsertItems to be searched.
  * @returns {QuickInsertItem[]} - Returns a sorted array of QuickInsertItems based on the priority. If the query string is empty, it will return the array sorted by priority. If a query string is provided, it will return an array of QuickInsertItems that match the query string, sorted by relevance to the query.
  */
-export function find(
-  query: string,
-  items: QuickInsertItem[],
-): QuickInsertItem[] {
-  const fuse = new Fuse(items, options);
-  if (query === '') {
-    // Copy and sort list by priority
-    return items
-      .slice(0)
-      .sort(
-        (a, b) =>
-          (a.priority || Number.POSITIVE_INFINITY) -
-          (b.priority || Number.POSITIVE_INFINITY),
-      );
-  }
+export function find(query: string, items: QuickInsertItem[]): QuickInsertItem[] {
+	const fuse = new Fuse(items, options);
+	if (query === '') {
+		// Copy and sort list by priority
+		return items
+			.slice(0)
+			.sort(
+				(a, b) =>
+					(a.priority || Number.POSITIVE_INFINITY) - (b.priority || Number.POSITIVE_INFINITY),
+			);
+	}
 
-  return fuse.search(query).map((result) => result.item);
+	return fuse.search(query).map((result) => result.item);
 }

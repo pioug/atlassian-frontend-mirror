@@ -5,32 +5,22 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 // Nodes
 
 describe.skip('WikiMarkup Transformer', () => {
-  describe('misc escaped and non-macros that should not resolve to anything', () => {
-    let WIKI_NOTATION = `{$hello}`;
+	describe('misc escaped and non-macros that should not resolve to anything', () => {
+		let WIKI_NOTATION = `{$hello}`;
 
-    checkParseEncodeRoundTrips(
-      WIKI_NOTATION,
-      defaultSchema,
-      WIKI_NOTATION,
-      doc(p('{$hello}')),
-    );
+		checkParseEncodeRoundTrips(WIKI_NOTATION, defaultSchema, WIKI_NOTATION, doc(p('{$hello}')));
 
-    WIKI_NOTATION = `\\\\{hello\\\\}`;
+		WIKI_NOTATION = `\\\\{hello\\\\}`;
 
-    checkParseEncodeRoundTrips(
-      WIKI_NOTATION,
-      defaultSchema,
-      WIKI_NOTATION,
-      doc(p('{hello}')),
-    );
+		checkParseEncodeRoundTrips(WIKI_NOTATION, defaultSchema, WIKI_NOTATION, doc(p('{hello}')));
 
-    WIKI_NOTATION = `{color:red}Highlighting a \\\\{color} macro.{color}`;
+		WIKI_NOTATION = `{color:red}Highlighting a \\\\{color} macro.{color}`;
 
-    checkParseEncodeRoundTrips(
-      WIKI_NOTATION,
-      defaultSchema,
-      WIKI_NOTATION,
-      doc(p(textColor({ color: '#FF0000' })('Highlighting a {color} macro.'))),
-    );
-  });
+		checkParseEncodeRoundTrips(
+			WIKI_NOTATION,
+			defaultSchema,
+			WIKI_NOTATION,
+			doc(p(textColor({ color: '#FF0000' })('Highlighting a {color} macro.'))),
+		);
+	});
 });

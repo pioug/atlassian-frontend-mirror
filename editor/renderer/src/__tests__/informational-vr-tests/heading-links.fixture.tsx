@@ -2,61 +2,61 @@ import React from 'react';
 import { Renderer } from '../../ui';
 
 import {
-  adfHeadingsInsideTable,
-  adfHeadingsNestedExpands,
-  adfHeadingsNestedLayout,
-  adfHeadingsNestedPanel,
+	adfHeadingsInsideTable,
+	adfHeadingsNestedExpands,
+	adfHeadingsNestedLayout,
+	adfHeadingsNestedPanel,
 } from '../__fixtures__/heading-links';
 
 export const HeadingInsidePanel = () => {
-  return (
-    <Renderer
-      allowHeadingAnchorLinks={{
-        allowNestedHeaderLinks: true,
-      }}
-      adfStage={'stage0'}
-      appearance={'full-page'}
-      document={adfHeadingsNestedPanel}
-    />
-  );
+	return (
+		<Renderer
+			allowHeadingAnchorLinks={{
+				allowNestedHeaderLinks: true,
+			}}
+			adfStage={'stage0'}
+			appearance={'full-page'}
+			document={adfHeadingsNestedPanel}
+		/>
+	);
 };
 
 export const HeadingInsideExpand = () => {
-  return (
-    <Renderer
-      allowHeadingAnchorLinks={{
-        allowNestedHeaderLinks: true,
-      }}
-      adfStage={'stage0'}
-      appearance={'full-page'}
-      document={adfHeadingsNestedExpands}
-    />
-  );
+	return (
+		<Renderer
+			allowHeadingAnchorLinks={{
+				allowNestedHeaderLinks: true,
+			}}
+			adfStage={'stage0'}
+			appearance={'full-page'}
+			document={adfHeadingsNestedExpands}
+		/>
+	);
 };
 
 export const HeadingInsideTable = () => {
-  return (
-    <Renderer
-      allowHeadingAnchorLinks={{
-        allowNestedHeaderLinks: true,
-      }}
-      adfStage={'stage0'}
-      appearance={'full-page'}
-      allowColumnSorting={true}
-      document={adfHeadingsInsideTable}
-    />
-  );
+	return (
+		<Renderer
+			allowHeadingAnchorLinks={{
+				allowNestedHeaderLinks: true,
+			}}
+			adfStage={'stage0'}
+			appearance={'full-page'}
+			allowColumnSorting={true}
+			document={adfHeadingsInsideTable}
+		/>
+	);
 };
 
 export const HeadingInsideLayout = () => {
-  return (
-    <Renderer
-      allowHeadingAnchorLinks={{
-        allowNestedHeaderLinks: true,
-      }}
-      adfStage={'stage0'}
-      appearance={'full-page'}
-      document={adfHeadingsNestedLayout}
-    />
-  );
+	return (
+		<Renderer
+			allowHeadingAnchorLinks={{
+				allowNestedHeaderLinks: true,
+			}}
+			adfStage={'stage0'}
+			appearance={'full-page'}
+			document={adfHeadingsNestedLayout}
+		/>
+	);
 };

@@ -59,7 +59,6 @@
   },
   "devDependencies": {
     "@atlaskit/media-core": "^34.2.0",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/exenv": "^1.2.0",
     "react-dom": "^16.8.0",
     "typescript": "~5.4.2"
@@ -96,7 +95,6 @@
     "./mockData": "./src/utils/mockData.ts",
     ".": "./src/index.tsx"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@repo/internal": {
       "design-tokens": [

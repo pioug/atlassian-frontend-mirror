@@ -15,85 +15,85 @@ type Col = Array<string | { [name: string]: string }>;
  * overflow.
  */
 export const getColWidthFix = (colwidth: number, tableColumnCount: number) =>
-  colwidth - 1 / tableColumnCount;
+	colwidth - 1 / tableColumnCount;
 
 export const generateColgroup = (table: PmNode, tableRef?: HTMLElement) => {
-  const cols: Col[] = [];
+	const cols: Col[] = [];
 
-  const map = TableMap.get(table);
-  table.content.firstChild!.content.forEach((cell) => {
-    const colspan = cell.attrs.colspan || 1;
-    if (Array.isArray(cell.attrs.colwidth)) {
-      // We slice here to guard against our colwidth array having more entries
-      // Than the we actually span. We'll patch the document at a later point.
-      if (tableRef) {
-        const scalePercent = getTableScalingPercent(table, tableRef);
-        cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
-          const fixedColWidth = getColWidthFix(width, map.width);
-          const scaledWidth = fixedColWidth * scalePercent;
-          const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
-          cols.push([
-            'col',
-            {
-              style: `width: ${finalWidth}px;`,
-            },
-          ]);
-        });
-      } else {
-        cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
-          cols.push([
-            'col',
-            {
-              style: `width: ${getColWidthFix(
-                width ? Math.max(width, tableCellMinWidth) : tableCellMinWidth,
-                map.width,
-              )}px;`,
-            },
-          ]);
-        });
-      }
-    } else {
-      // When we have merged cells on the first row (firstChild),
-      // We want to ensure we're creating the appropriate amount of
-      // cols the table still has.
-      cols.push(
-        ...Array.from({ length: colspan }, (_) => [
-          'col',
-          { style: `width: ${tableCellMinWidth}px;` },
-        ]),
-      );
-    }
-  });
+	const map = TableMap.get(table);
+	table.content.firstChild!.content.forEach((cell) => {
+		const colspan = cell.attrs.colspan || 1;
+		if (Array.isArray(cell.attrs.colwidth)) {
+			// We slice here to guard against our colwidth array having more entries
+			// Than the we actually span. We'll patch the document at a later point.
+			if (tableRef) {
+				const scalePercent = getTableScalingPercent(table, tableRef);
+				cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
+					const fixedColWidth = getColWidthFix(width, map.width);
+					const scaledWidth = fixedColWidth * scalePercent;
+					const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
+					cols.push([
+						'col',
+						{
+							style: `width: ${finalWidth}px;`,
+						},
+					]);
+				});
+			} else {
+				cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
+					cols.push([
+						'col',
+						{
+							style: `width: ${getColWidthFix(
+								width ? Math.max(width, tableCellMinWidth) : tableCellMinWidth,
+								map.width,
+							)}px;`,
+						},
+					]);
+				});
+			}
+		} else {
+			// When we have merged cells on the first row (firstChild),
+			// We want to ensure we're creating the appropriate amount of
+			// cols the table still has.
+			cols.push(
+				...Array.from({ length: colspan }, (_) => [
+					'col',
+					{ style: `width: ${tableCellMinWidth}px;` },
+				]),
+			);
+		}
+	});
 
-  return cols;
+	return cols;
 };
 
 export const insertColgroupFromNode = (
-  tableRef: HTMLTableElement | null,
-  table: PmNode,
-  isTableScalingEnabled = false,
-  shouldRemove = true,
+	tableRef: HTMLTableElement | null,
+	table: PmNode,
+	isTableScalingEnabled = false,
+	shouldRemove = true,
 ): HTMLCollection => {
-  let colgroup = tableRef?.querySelector('colgroup') as HTMLElement;
-  if (colgroup && shouldRemove) {
-    tableRef?.removeChild(colgroup);
-  }
+	let colgroup = tableRef?.querySelector('colgroup') as HTMLElement;
+	if (colgroup && shouldRemove) {
+		tableRef?.removeChild(colgroup);
+	}
 
-  colgroup = renderColgroupFromNode(
-    table,
-    isTableScalingEnabled ? tableRef ?? undefined : undefined,
-  );
-  if (shouldRemove) {
-    tableRef?.insertBefore(colgroup, tableRef?.firstChild);
-  }
+	colgroup = renderColgroupFromNode(
+		table,
+		isTableScalingEnabled ? tableRef ?? undefined : undefined,
+	);
+	if (shouldRemove) {
+		tableRef?.insertBefore(colgroup, tableRef?.firstChild);
+	}
 
-  return colgroup.children;
+	return colgroup.children;
 };
 
 export const hasTableBeenResized = (table: PmNode) => {
-  return !!getFragmentBackingArray(table.content.firstChild!.content).find(
-    (cell) => cell.attrs.colwidth,
-  );
+	return !!getFragmentBackingArray(table.content.firstChild!.content).find(
+		(cell) => cell.attrs.colwidth,
+	);
 };
 
 /**
@@ -103,31 +103,31 @@ export const hasTableBeenResized = (table: PmNode) => {
  * @returns true if all column width is equal to tableCellMinWidth or null, false otherwise
  */
 export const isMinCellWidthTable = (table: PmNode) => {
-  const cellArray = getFragmentBackingArray(table.content.firstChild!.content);
-  const isTableMinCellWidth = cellArray.every((cell) => {
-    return (
-      (cell.attrs.colwidth && cell.attrs.colwidth[0] === tableCellMinWidth) ||
-      cell.attrs.colwidth === null
-    );
-  });
+	const cellArray = getFragmentBackingArray(table.content.firstChild!.content);
+	const isTableMinCellWidth = cellArray.every((cell) => {
+		return (
+			(cell.attrs.colwidth && cell.attrs.colwidth[0] === tableCellMinWidth) ||
+			cell.attrs.colwidth === null
+		);
+	});
 
-  return isTableMinCellWidth;
+	return isTableMinCellWidth;
 };
 
 function renderColgroupFromNode(
-  table: PmNode,
-  maybeTableRef: HTMLElement | undefined,
+	table: PmNode,
+	maybeTableRef: HTMLElement | undefined,
 ): HTMLElement {
-  const rendered = DOMSerializer.renderSpec(document, [
-    'colgroup',
-    {},
-    ...generateColgroup(table, maybeTableRef),
-  ]);
+	const rendered = DOMSerializer.renderSpec(document, [
+		'colgroup',
+		{},
+		...generateColgroup(table, maybeTableRef),
+	]);
 
-  return rendered.dom as HTMLElement;
+	return rendered.dom as HTMLElement;
 }
 
 export const getColgroupChildrenLength = (table: PmNode): number => {
-  const map = TableMap.get(table);
-  return map.width;
+	const map = TableMap.get(table);
+	return map.width;
 };

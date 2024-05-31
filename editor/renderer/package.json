@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "109.30.0",
+  "version": "109.30.1",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
     "@atlaskit/media-ui": "^25.10.0",
     "@atlaskit/media-viewer": "^48.6.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/smart-card": "^27.3.0",
+    "@atlaskit/smart-card": "^27.4.0",
     "@atlaskit/status": "^1.4.0",
     "@atlaskit/task-decision": "^17.10.0",
     "@atlaskit/theme": "^12.8.0",
@@ -84,7 +84,6 @@
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
@@ -106,7 +105,6 @@
     "typescript": "~5.4.2",
     "worker-plugin": "^4.0.2"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@repo/internal": {
       "design-tokens": [

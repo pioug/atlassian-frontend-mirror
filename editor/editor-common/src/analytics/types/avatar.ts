@@ -2,11 +2,11 @@ import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enum
 import { type UIAEP } from './utils';
 
 type AvatarButtonViewedAEP = UIAEP<
-  ACTION.VIEWED,
-  ACTION_SUBJECT.BUTTON,
-  ACTION_SUBJECT_ID.AVATAR_GROUP_PLUGIN,
-  {},
-  undefined
+	ACTION.VIEWED,
+	ACTION_SUBJECT.BUTTON,
+	ACTION_SUBJECT_ID.AVATAR_GROUP_PLUGIN,
+	{},
+	undefined
 >;
 
 export type AvatarEventPayload = AvatarButtonViewedAEP;

@@ -10,83 +10,71 @@ import * as PluginListeners from '../../../plugin-subscription/index';
 import EditorConfiguration from '../../../editor-configuration';
 
 jest.mock('@atlaskit/editor-core', () => ({
-  ...(jest.genMockFromModule('@atlaskit/editor-core') as object),
+	...(jest.genMockFromModule('@atlaskit/editor-core') as object),
 }));
 
 describe('usePluginListeners Hook', () => {
-  const createEditor = createProsemirrorEditorFactory();
-  const editor = (doc: DocBuilder) => {
-    const { editorView } = createEditor({
-      doc,
-    });
-    return editorView;
-  };
-  const editorView = editor(doc(p()));
+	const createEditor = createProsemirrorEditorFactory();
+	const editor = (doc: DocBuilder) => {
+		const { editorView } = createEditor({
+			doc,
+		});
+		return editorView;
+	};
+	const editorView = editor(doc(p()));
 
-  let bridge: WebBridgeImpl;
-  let privateGetEditorView: jest.SpyInstance;
-  let privateGetEventDispatcher: jest.SpyInstance;
+	let bridge: WebBridgeImpl;
+	let privateGetEditorView: jest.SpyInstance;
+	let privateGetEventDispatcher: jest.SpyInstance;
 
-  beforeEach(() => {
-    bridge = new WebBridgeImpl();
-    privateGetEditorView = jest
-      .spyOn(EditorActions.prototype, '_privateGetEditorView')
-      .mockReturnValue(editorView);
-    privateGetEventDispatcher = jest
-      .spyOn(EditorActions.prototype, '_privateGetEventDispatcher')
-      .mockReturnValue(new EventDispatcher());
-  });
+	beforeEach(() => {
+		bridge = new WebBridgeImpl();
+		privateGetEditorView = jest
+			.spyOn(EditorActions.prototype, '_privateGetEditorView')
+			.mockReturnValue(editorView);
+		privateGetEventDispatcher = jest
+			.spyOn(EditorActions.prototype, '_privateGetEventDispatcher')
+			.mockReturnValue(new EventDispatcher());
+	});
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 
-  it('should not have called getEventDispatcher and getEditorView when editorReady is false', () => {
-    const editorReady = false;
-    renderHook(() =>
-      usePluginListeners(editorReady, new EditorConfiguration(), bridge),
-    );
-    expect(privateGetEditorView).not.toHaveBeenCalled();
-    expect(privateGetEventDispatcher).not.toHaveBeenCalled();
-  });
+	it('should not have called getEventDispatcher and getEditorView when editorReady is false', () => {
+		const editorReady = false;
+		renderHook(() => usePluginListeners(editorReady, new EditorConfiguration(), bridge));
+		expect(privateGetEditorView).not.toHaveBeenCalled();
+		expect(privateGetEventDispatcher).not.toHaveBeenCalled();
+	});
 
-  it('should have called getEventDispatcher and getEditorView when editorReady is true', () => {
-    const editorReady = true;
-    renderHook(() =>
-      usePluginListeners(editorReady, new EditorConfiguration(), bridge),
-    );
-    expect(privateGetEditorView).toHaveBeenCalledTimes(1);
-    expect(privateGetEventDispatcher).toHaveBeenCalledTimes(1);
-  });
+	it('should have called getEventDispatcher and getEditorView when editorReady is true', () => {
+		const editorReady = true;
+		renderHook(() => usePluginListeners(editorReady, new EditorConfiguration(), bridge));
+		expect(privateGetEditorView).toHaveBeenCalledTimes(1);
+		expect(privateGetEventDispatcher).toHaveBeenCalledTimes(1);
+	});
 
-  it('should not have called configFactory & initPluginListeners when  when editorReday is set to false', () => {
-    const configFactory = jest.spyOn(PluginListeners, 'configFactory');
-    const initPluginListeners = jest.spyOn(
-      PluginListeners,
-      'initPluginListeners',
-    );
-    const editorReady = false;
-    const defaultConfig = new EditorConfiguration();
-    renderHook(() => usePluginListeners(editorReady, defaultConfig, bridge));
-    expect(configFactory).not.toHaveBeenCalled();
-    expect(initPluginListeners).not.toHaveBeenCalled();
-  });
+	it('should not have called configFactory & initPluginListeners when  when editorReday is set to false', () => {
+		const configFactory = jest.spyOn(PluginListeners, 'configFactory');
+		const initPluginListeners = jest.spyOn(PluginListeners, 'initPluginListeners');
+		const editorReady = false;
+		const defaultConfig = new EditorConfiguration();
+		renderHook(() => usePluginListeners(editorReady, defaultConfig, bridge));
+		expect(configFactory).not.toHaveBeenCalled();
+		expect(initPluginListeners).not.toHaveBeenCalled();
+	});
 
-  it('should have called configFactory & initPluginListeners when editorReady is set to true', () => {
-    const configFactory = jest.spyOn(PluginListeners, 'configFactory');
-    const initPluginListeners = jest.spyOn(
-      PluginListeners,
-      'initPluginListeners',
-    );
-    let editorReady = false;
-    const defaultConfig = new EditorConfiguration();
-    const { rerender } = renderHook(() =>
-      usePluginListeners(editorReady, defaultConfig, bridge),
-    );
-    editorReady = true;
-    rerender();
-    expect(configFactory).toHaveBeenCalledTimes(1);
-    expect(configFactory).toHaveBeenLastCalledWith(defaultConfig);
-    expect(initPluginListeners).toHaveBeenCalledTimes(1);
-  });
+	it('should have called configFactory & initPluginListeners when editorReady is set to true', () => {
+		const configFactory = jest.spyOn(PluginListeners, 'configFactory');
+		const initPluginListeners = jest.spyOn(PluginListeners, 'initPluginListeners');
+		let editorReady = false;
+		const defaultConfig = new EditorConfiguration();
+		const { rerender } = renderHook(() => usePluginListeners(editorReady, defaultConfig, bridge));
+		editorReady = true;
+		rerender();
+		expect(configFactory).toHaveBeenCalledTimes(1);
+		expect(configFactory).toHaveBeenLastCalledWith(defaultConfig);
+		expect(initPluginListeners).toHaveBeenCalledTimes(1);
+	});
 });

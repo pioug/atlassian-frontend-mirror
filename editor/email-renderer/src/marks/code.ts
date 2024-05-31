@@ -16,5 +16,5 @@ export const styles = `
 }`;
 
 export default function code({ text }: MarkSerializerOpts) {
-  return createTag('code', { class: createClassName('mark-code') }, text);
+	return createTag('code', { class: createClassName('mark-code') }, text);
 }

@@ -5,13 +5,13 @@ import encode from './encode';
 export { LANGUAGE_MAP as CONFLUENCE_LANGUAGE_MAP } from './languageMap';
 
 export class ConfluenceTransformer implements Transformer<string> {
-  private schema: Schema;
+	private schema: Schema;
 
-  constructor(schema: Schema) {
-    this.schema = schema;
-  }
+	constructor(schema: Schema) {
+		this.schema = schema;
+	}
 
-  parse = (html: string): PMNode => parse(html, this.schema);
+	parse = (html: string): PMNode => parse(html, this.schema);
 
-  encode = (node: PMNode): string => encode(node, this.schema);
+	encode = (node: PMNode): string => encode(node, this.schema);
 }

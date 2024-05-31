@@ -18,66 +18,60 @@ import { getSupportedFormatting } from './formatting';
 import Modal from './Modal';
 
 export interface HelpDialogProps {
-  pluginInjectionApi: ExtractInjectionAPI<HelpDialogPlugin> | undefined;
-  editorView: EditorView;
-  quickInsertEnabled?: boolean;
+	pluginInjectionApi: ExtractInjectionAPI<HelpDialogPlugin> | undefined;
+	editorView: EditorView;
+	quickInsertEnabled?: boolean;
 }
 
 const HelpDialog = ({
-  pluginInjectionApi,
-  editorView,
-  quickInsertEnabled,
-  intl,
+	pluginInjectionApi,
+	editorView,
+	quickInsertEnabled,
+	intl,
 }: HelpDialogProps & WrappedComponentProps) => {
-  const { helpDialogState } = useSharedPluginState(pluginInjectionApi, [
-    'helpDialog',
-  ]);
+	const { helpDialogState } = useSharedPluginState(pluginInjectionApi, ['helpDialog']);
 
-  const closeDialog = useCallback(() => {
-    const {
-      state: { tr },
-      dispatch,
-    } = editorView;
-    closeHelpCommand(tr, dispatch);
-  }, [editorView]);
+	const closeDialog = useCallback(() => {
+		const {
+			state: { tr },
+			dispatch,
+		} = editorView;
+		closeHelpCommand(tr, dispatch);
+	}, [editorView]);
 
-  const handleEsc = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && helpDialogState?.isVisible) {
-        closeDialog();
-      }
-    },
-    [closeDialog, helpDialogState?.isVisible],
-  );
+	const handleEsc = useCallback(
+		(e: KeyboardEvent) => {
+			if (e.key === 'Escape' && helpDialogState?.isVisible) {
+				closeDialog();
+			}
+		},
+		[closeDialog, helpDialogState?.isVisible],
+	);
 
-  useEffect(() => {
-    document.addEventListener('keydown', handleEsc);
+	useEffect(() => {
+		document.addEventListener('keydown', handleEsc);
 
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-    };
-  }, [handleEsc]);
+		return () => {
+			document.removeEventListener('keydown', handleEsc);
+		};
+	}, [handleEsc]);
 
-  const formatting: Format[] = getSupportedFormatting(
-    editorView.state.schema,
-    intl,
-    helpDialogState?.imageEnabled,
-    quickInsertEnabled,
-  );
+	const formatting: Format[] = getSupportedFormatting(
+		editorView.state.schema,
+		intl,
+		helpDialogState?.imageEnabled,
+		quickInsertEnabled,
+	);
 
-  return (
-    <ModalTransition>
-      {helpDialogState?.isVisible ? (
-        <AkModalDialog
-          width="large"
-          onClose={closeDialog}
-          testId="help-modal-dialog"
-        >
-          <Modal formatting={formatting} />
-        </AkModalDialog>
-      ) : null}
-    </ModalTransition>
-  );
+	return (
+		<ModalTransition>
+			{helpDialogState?.isVisible ? (
+				<AkModalDialog width="large" onClose={closeDialog} testId="help-modal-dialog">
+					<Modal formatting={formatting} />
+				</AkModalDialog>
+			) : null}
+		</ModalTransition>
+	);
 };
 
 export default injectIntl(HelpDialog);

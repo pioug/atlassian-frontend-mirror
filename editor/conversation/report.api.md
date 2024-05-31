@@ -18,81 +18,74 @@ import { Store } from 'redux';
 import { Unsubscribe } from 'redux';
 
 declare class AbstractConversationResource implements ResourceProvider {
-  private _store;
-  get store(): Store<State | undefined>;
-  dispatch: (action: Action) => void;
-  constructor();
-  /**
-   * Retrieve the IDs (and meta-data) for all conversations associated with the container ID.
-   */
-  getConversations(
-    _objectId: string,
-    _containerId?: string,
-  ): Promise<Conversation_2[]>;
-  /**
-   * Subscribe to the provider's internal store
-   * @param {Handler} handler
-   */
-  subscribe(handler: Handler): Unsubscribe;
-  /**
-   * Creates a new Conversation and associates it with the containerId provided.
-   */
-  create(
-    _localId: string,
-    _value: any,
-    _meta: any,
-    _objectId: string,
-    _containerId?: string,
-  ): Promise<Conversation_2>;
-  /**
-   * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
-   */
-  addComment(
-    _conversationId: string,
-    _parentId: string,
-    _doc: any,
-    _localId?: string,
-  ): Promise<Comment_3>;
-  /**
-   * Updates a comment based on ID. Returns updated content
-   */
-  updateComment(
-    _conversationId: string,
-    _commentId: string,
-    _document: any,
-  ): Promise<Comment_3>;
-  /**
-   * Deletes a comment based on ID. Returns updated comment.
-   */
-  deleteComment(
-    _conversationId: string,
-    _commentId: string,
-  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
-  /**
-   * Reverts a comment based on ID.
-   */
-  revertComment(
-    _conversationId: string,
-    _commentId: string,
-  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
-  /**
-   * Updates a user in the store. Returns updated user
-   */
-  updateUser(_user?: User): Promise<User | undefined>;
-  saveDraft(
-    _isLocal: boolean,
-    _value: any,
-    _conversationId: string,
-    _commentId: string | undefined,
-    _meta: any,
-    _objectId: string,
-    _containerId?: string,
-  ): void;
+	private _store;
+	get store(): Store<State | undefined>;
+	dispatch: (action: Action) => void;
+	constructor();
+	/**
+	 * Retrieve the IDs (and meta-data) for all conversations associated with the container ID.
+	 */
+	getConversations(_objectId: string, _containerId?: string): Promise<Conversation_2[]>;
+	/**
+	 * Subscribe to the provider's internal store
+	 * @param {Handler} handler
+	 */
+	subscribe(handler: Handler): Unsubscribe;
+	/**
+	 * Creates a new Conversation and associates it with the containerId provided.
+	 */
+	create(
+		_localId: string,
+		_value: any,
+		_meta: any,
+		_objectId: string,
+		_containerId?: string,
+	): Promise<Conversation_2>;
+	/**
+	 * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
+	 */
+	addComment(
+		_conversationId: string,
+		_parentId: string,
+		_doc: any,
+		_localId?: string,
+	): Promise<Comment_3>;
+	/**
+	 * Updates a comment based on ID. Returns updated content
+	 */
+	updateComment(_conversationId: string, _commentId: string, _document: any): Promise<Comment_3>;
+	/**
+	 * Deletes a comment based on ID. Returns updated comment.
+	 */
+	deleteComment(
+		_conversationId: string,
+		_commentId: string,
+	): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
+	/**
+	 * Reverts a comment based on ID.
+	 */
+	revertComment(
+		_conversationId: string,
+		_commentId: string,
+	): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
+	/**
+	 * Updates a user in the store. Returns updated user
+	 */
+	updateUser(_user?: User): Promise<User | undefined>;
+	saveDraft(
+		_isLocal: boolean,
+		_value: any,
+		_conversationId: string,
+		_commentId: string | undefined,
+		_meta: any,
+		_objectId: string,
+		_containerId?: string,
+	): void;
 }
 
 declare interface Action {
-  type: string;
-  payload?: any;
+	type: string;
+	payload?: any;
 }
 
 export declare const ADD_COMMENT_ERROR = 'addCommentError';
@@ -102,326 +95,293 @@ export declare const ADD_COMMENT_REQUEST = 'addCommentRequest';
 export declare const ADD_COMMENT_SUCCESS = 'addCommentSuccess';
 
 declare const Comment_2: ComponentClass<
-  Omit_2<
-    {
-      comments: Comment_3[];
-      isHighlighted: boolean;
-      comment: Comment_3;
-      conversationId: string;
-      objectId?: string | undefined;
-      containerId?: string | undefined;
-      renderComment: (props: any) => JSX.Element;
-      user?: User | undefined;
-      maxCommentNesting?: number | undefined;
-      onAddComment?:
-        | ((
-            conversationId: string,
-            parentId: string,
-            value: any,
-            localId?: string | undefined,
-            onSuccess?: SuccessHandler | undefined,
-          ) => void)
-        | undefined;
-      onUpdateComment?:
-        | ((
-            conversationId: string,
-            commentId: string,
-            value: any,
-            onSuccess?: SuccessHandler | undefined,
-          ) => void)
-        | undefined;
-      onDeleteComment?:
-        | ((
-            conversationId: string,
-            commentId: string,
-            onSuccess?: SuccessHandler | undefined,
-          ) => void)
-        | undefined;
-      onRevertComment?:
-        | ((conversationId: string, commentId: string) => void)
-        | undefined;
-      onCancelComment?:
-        | ((conversationId: string, commentId: string) => void)
-        | undefined;
-      onCancel?: (() => void) | undefined;
-      onHighlightComment?:
-        | ((
-            event: React_2.MouseEvent<HTMLAnchorElement, MouseEvent>,
-            commentId: string,
-          ) => void)
-        | undefined;
-      onEditorOpen?: (() => void) | undefined;
-      onEditorClose?: (() => void) | undefined;
-      onEditorChange?:
-        | ((
-            isLocal: boolean,
-            value: any,
-            conversationId: string,
-            commentId: string | undefined,
-            meta: any,
-            objectId: string,
-            containerId?: string | undefined,
-          ) => void)
-        | undefined;
-      dataProviders?: ProviderFactory | undefined;
-      onUserClick?: ((user: User) => void) | undefined;
-      onRetry?: ((localId?: string | undefined) => void) | undefined;
-      onCommentPermalinkClick?:
-        | ((
-            event: React_2.MouseEvent<HTMLAnchorElement, MouseEvent>,
-            commentId: string,
-          ) => void)
-        | undefined;
-      renderEditor?: RenderEditorWithComments | undefined;
-      placeholder?: string | undefined;
-      disableScrollTo?: boolean | undefined;
-      allowFeedbackAndHelpButtons?: boolean | undefined;
-      sendAnalyticsEvent: SendAnalyticsEvent;
-      portal?: HTMLElement | undefined;
-      renderAdditionalCommentActions?:
-        | ((CommentAction: any, comment: Comment_3) => JSX.Element[])
-        | undefined;
-      renderAfterComment?: ((comment: Comment_3) => JSX.Element) | undefined;
-    } & DispatchProp<any> &
-      Props,
-    'dispatch' | keyof Props
-  > &
-    Props
+	Omit_2<
+		{
+			comments: Comment_3[];
+			isHighlighted: boolean;
+			comment: Comment_3;
+			conversationId: string;
+			objectId?: string | undefined;
+			containerId?: string | undefined;
+			renderComment: (props: any) => JSX.Element;
+			user?: User | undefined;
+			maxCommentNesting?: number | undefined;
+			onAddComment?:
+				| ((
+						conversationId: string,
+						parentId: string,
+						value: any,
+						localId?: string | undefined,
+						onSuccess?: SuccessHandler | undefined,
+				  ) => void)
+				| undefined;
+			onUpdateComment?:
+				| ((
+						conversationId: string,
+						commentId: string,
+						value: any,
+						onSuccess?: SuccessHandler | undefined,
+				  ) => void)
+				| undefined;
+			onDeleteComment?:
+				| ((
+						conversationId: string,
+						commentId: string,
+						onSuccess?: SuccessHandler | undefined,
+				  ) => void)
+				| undefined;
+			onRevertComment?: ((conversationId: string, commentId: string) => void) | undefined;
+			onCancelComment?: ((conversationId: string, commentId: string) => void) | undefined;
+			onCancel?: (() => void) | undefined;
+			onHighlightComment?:
+				| ((event: React_2.MouseEvent<HTMLAnchorElement, MouseEvent>, commentId: string) => void)
+				| undefined;
+			onEditorOpen?: (() => void) | undefined;
+			onEditorClose?: (() => void) | undefined;
+			onEditorChange?:
+				| ((
+						isLocal: boolean,
+						value: any,
+						conversationId: string,
+						commentId: string | undefined,
+						meta: any,
+						objectId: string,
+						containerId?: string | undefined,
+				  ) => void)
+				| undefined;
+			dataProviders?: ProviderFactory | undefined;
+			onUserClick?: ((user: User) => void) | undefined;
+			onRetry?: ((localId?: string | undefined) => void) | undefined;
+			onCommentPermalinkClick?:
+				| ((event: React_2.MouseEvent<HTMLAnchorElement, MouseEvent>, commentId: string) => void)
+				| undefined;
+			renderEditor?: RenderEditorWithComments | undefined;
+			placeholder?: string | undefined;
+			disableScrollTo?: boolean | undefined;
+			allowFeedbackAndHelpButtons?: boolean | undefined;
+			sendAnalyticsEvent: SendAnalyticsEvent;
+			portal?: HTMLElement | undefined;
+			renderAdditionalCommentActions?:
+				| ((CommentAction: any, comment: Comment_3) => JSX.Element[])
+				| undefined;
+			renderAfterComment?: ((comment: Comment_3) => JSX.Element) | undefined;
+		} & DispatchProp<any> &
+			Props,
+		'dispatch' | keyof Props
+	> &
+		Props
 > & {
-  WrappedComponent: Component<
-    {
-      comments: Comment_3[];
-      isHighlighted: boolean;
-      comment: Comment_3;
-      conversationId: string;
-      objectId?: string | undefined;
-      containerId?: string | undefined;
-      renderComment: (props: any) => JSX.Element;
-      user?: User | undefined;
-      maxCommentNesting?: number | undefined;
-      onAddComment?:
-        | ((
-            conversationId: string,
-            parentId: string,
-            value: any,
-            localId?: string | undefined,
-            onSuccess?: SuccessHandler | undefined,
-          ) => void)
-        | undefined;
-      onUpdateComment?:
-        | ((
-            conversationId: string,
-            commentId: string,
-            value: any,
-            onSuccess?: SuccessHandler | undefined,
-          ) => void)
-        | undefined;
-      onDeleteComment?:
-        | ((
-            conversationId: string,
-            commentId: string,
-            onSuccess?: SuccessHandler | undefined,
-          ) => void)
-        | undefined;
-      onRevertComment?:
-        | ((conversationId: string, commentId: string) => void)
-        | undefined;
-      onCancelComment?:
-        | ((conversationId: string, commentId: string) => void)
-        | undefined;
-      onCancel?: (() => void) | undefined;
-      onHighlightComment?:
-        | ((
-            event: React_2.MouseEvent<HTMLAnchorElement, MouseEvent>,
-            commentId: string,
-          ) => void)
-        | undefined;
-      onEditorOpen?: (() => void) | undefined;
-      onEditorClose?: (() => void) | undefined;
-      onEditorChange?:
-        | ((
-            isLocal: boolean,
-            value: any,
-            conversationId: string,
-            commentId: string | undefined,
-            meta: any,
-            objectId: string,
-            containerId?: string | undefined,
-          ) => void)
-        | undefined;
-      dataProviders?: ProviderFactory | undefined;
-      onUserClick?: ((user: User) => void) | undefined;
-      onRetry?: ((localId?: string | undefined) => void) | undefined;
-      onCommentPermalinkClick?:
-        | ((
-            event: React_2.MouseEvent<HTMLAnchorElement, MouseEvent>,
-            commentId: string,
-          ) => void)
-        | undefined;
-      renderEditor?: RenderEditorWithComments | undefined;
-      placeholder?: string | undefined;
-      disableScrollTo?: boolean | undefined;
-      allowFeedbackAndHelpButtons?: boolean | undefined;
-      sendAnalyticsEvent: SendAnalyticsEvent;
-      portal?: HTMLElement | undefined;
-      renderAdditionalCommentActions?:
-        | ((CommentAction: any, comment: Comment_3) => JSX.Element[])
-        | undefined;
-      renderAfterComment?: ((comment: Comment_3) => JSX.Element) | undefined;
-    } & DispatchProp<any> &
-      Props
-  >;
+	WrappedComponent: Component<
+		{
+			comments: Comment_3[];
+			isHighlighted: boolean;
+			comment: Comment_3;
+			conversationId: string;
+			objectId?: string | undefined;
+			containerId?: string | undefined;
+			renderComment: (props: any) => JSX.Element;
+			user?: User | undefined;
+			maxCommentNesting?: number | undefined;
+			onAddComment?:
+				| ((
+						conversationId: string,
+						parentId: string,
+						value: any,
+						localId?: string | undefined,
+						onSuccess?: SuccessHandler | undefined,
+				  ) => void)
+				| undefined;
+			onUpdateComment?:
+				| ((
+						conversationId: string,
+						commentId: string,
+						value: any,
+						onSuccess?: SuccessHandler | undefined,
+				  ) => void)
+				| undefined;
+			onDeleteComment?:
+				| ((
+						conversationId: string,
+						commentId: string,
+						onSuccess?: SuccessHandler | undefined,
+				  ) => void)
+				| undefined;
+			onRevertComment?: ((conversationId: string, commentId: string) => void) | undefined;
+			onCancelComment?: ((conversationId: string, commentId: string) => void) | undefined;
+			onCancel?: (() => void) | undefined;
+			onHighlightComment?:
+				| ((event: React_2.MouseEvent<HTMLAnchorElement, MouseEvent>, commentId: string) => void)
+				| undefined;
+			onEditorOpen?: (() => void) | undefined;
+			onEditorClose?: (() => void) | undefined;
+			onEditorChange?:
+				| ((
+						isLocal: boolean,
+						value: any,
+						conversationId: string,
+						commentId: string | undefined,
+						meta: any,
+						objectId: string,
+						containerId?: string | undefined,
+				  ) => void)
+				| undefined;
+			dataProviders?: ProviderFactory | undefined;
+			onUserClick?: ((user: User) => void) | undefined;
+			onRetry?: ((localId?: string | undefined) => void) | undefined;
+			onCommentPermalinkClick?:
+				| ((event: React_2.MouseEvent<HTMLAnchorElement, MouseEvent>, commentId: string) => void)
+				| undefined;
+			renderEditor?: RenderEditorWithComments | undefined;
+			placeholder?: string | undefined;
+			disableScrollTo?: boolean | undefined;
+			allowFeedbackAndHelpButtons?: boolean | undefined;
+			sendAnalyticsEvent: SendAnalyticsEvent;
+			portal?: HTMLElement | undefined;
+			renderAdditionalCommentActions?:
+				| ((CommentAction: any, comment: Comment_3) => JSX.Element[])
+				| undefined;
+			renderAfterComment?: ((comment: Comment_3) => JSX.Element) | undefined;
+		} & DispatchProp<any> &
+			Props
+	>;
 };
 export { Comment_2 as Comment };
 
 declare interface Comment_3 extends Pick<Conversation_2, 'comments' | 'error'> {
-  commentId: string;
-  conversationId: string;
-  parentId?: string;
-  document: {
-    adf?: any;
-    md?: string;
-    html?: string;
-  };
-  createdBy: User;
-  createdAt: number;
-  deleted?: boolean;
-  state?: 'SUCCESS' | 'SAVING' | 'ERROR';
-  localId?: string;
-  oldDocument?: {
-    adf?: any;
-    md?: string;
-    html?: string;
-  };
-  isPlaceholder?: boolean;
-  commentAri?: string;
-  nestedDepth?: number;
+	commentId: string;
+	conversationId: string;
+	parentId?: string;
+	document: {
+		adf?: any;
+		md?: string;
+		html?: string;
+	};
+	createdBy: User;
+	createdAt: number;
+	deleted?: boolean;
+	state?: 'SUCCESS' | 'SAVING' | 'ERROR';
+	localId?: string;
+	oldDocument?: {
+		adf?: any;
+		md?: string;
+		html?: string;
+	};
+	isPlaceholder?: boolean;
+	commentAri?: string;
+	nestedDepth?: number;
 }
 
 declare interface ContainerProps {
-  id?: string;
-  objectId: string;
-  containerId?: string;
-  provider: ResourceProvider;
-  dataProviders?: ProviderFactory;
-  meta?: {
-    [key: string]: any;
-  };
-  isExpanded?: boolean;
-  onCancel?: () => void;
-  showBeforeUnloadWarning?: boolean;
-  onEditorOpen?: () => void;
-  onEditorClose?: () => void;
-  onEditorChange?: () => void;
-  renderEditor?: RenderEditorWithComments;
-  placeholder?: string;
-  disableScrollTo?: boolean;
-  allowFeedbackAndHelpButtons?: boolean;
-  portal?: HTMLElement;
-  renderAdditionalCommentActions?: (
-    CommentAction: typeof CommentAction,
-    comment: Comment_3,
-  ) => JSX.Element[];
-  renderAfterComment?: (comment: Comment_3) => JSX.Element;
-  maxCommentNesting?: number;
+	id?: string;
+	objectId: string;
+	containerId?: string;
+	provider: ResourceProvider;
+	dataProviders?: ProviderFactory;
+	meta?: {
+		[key: string]: any;
+	};
+	isExpanded?: boolean;
+	onCancel?: () => void;
+	showBeforeUnloadWarning?: boolean;
+	onEditorOpen?: () => void;
+	onEditorClose?: () => void;
+	onEditorChange?: () => void;
+	renderEditor?: RenderEditorWithComments;
+	placeholder?: string;
+	disableScrollTo?: boolean;
+	allowFeedbackAndHelpButtons?: boolean;
+	portal?: HTMLElement;
+	renderAdditionalCommentActions?: (
+		CommentAction: typeof CommentAction,
+		comment: Comment_3,
+	) => JSX.Element[];
+	renderAfterComment?: (comment: Comment_3) => JSX.Element;
+	maxCommentNesting?: number;
 }
 
-export declare class Conversation extends React_2.Component<
-  ContainerProps,
-  any
-> {
-  constructor(props: ContainerProps);
-  render(): JSX.Element;
+export declare class Conversation extends React_2.Component<ContainerProps, any> {
+	constructor(props: ContainerProps);
+	render(): JSX.Element;
 }
 
 declare interface Conversation_2 {
-  conversationId: string;
-  objectId: string;
-  containerId?: string;
-  localId?: string;
-  comments?: Comment_3[];
-  meta: {
-    [key: string]: any;
-  };
-  error?: Error;
-  isMain?: boolean;
+	conversationId: string;
+	objectId: string;
+	containerId?: string;
+	localId?: string;
+	comments?: Comment_3[];
+	meta: {
+		[key: string]: any;
+	};
+	error?: Error;
+	isMain?: boolean;
 }
 
 export declare class ConversationResource extends AbstractConversationResource {
-  private config;
-  constructor(config: ConversationResourceConfig);
-  private makeRequest;
-  /**
-   * Retrieve the IDs (and meta-data) for all conversations associated with the container ID.
-   */
-  getConversations(
-    objectId: string,
-    containerId?: string,
-  ): Promise<Conversation_2[]>;
-  /**
-   * Creates a new Conversation and associates it with the containerId provided.
-   */
-  create(
-    localId: string,
-    value: any,
-    meta: any,
-    objectId: string,
-    containerId?: string,
-  ): Promise<Conversation_2>;
-  /**
-   * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
-   */
-  addComment(
-    conversationId: string,
-    parentId: string,
-    doc: any,
-    localId?: string,
-  ): Promise<Comment_3>;
-  /**
-   * Updates a comment based on ID. Returns updated content
-   */
-  updateComment(
-    conversationId: string,
-    commentId: string,
-    document: any,
-  ): Promise<Comment_3>;
-  /**
-   * Deletes a comment based on ID. Returns updated comment.
-   */
-  deleteComment(
-    conversationId: string,
-    commentId: string,
-  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
-  /**
-   * Reverts a comment based on ID.
-   */
-  revertComment(
-    conversationId: string,
-    commentId: string,
-  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
-  /**
-   * Updates a user in the store. Returns updated user
-   */
-  updateUser(user?: User): Promise<User | undefined>;
-  /**
-   * Internal helper methods for optimistic updates
-   */
-  private createConversation;
-  protected createComment(
-    conversationId: string,
-    parentId: string,
-    doc: any,
-    localId?: string,
-  ): Comment_3;
-  protected getComment(
-    conversationId: string,
-    commentId: string,
-  ): Comment_3 | undefined;
+	private config;
+	constructor(config: ConversationResourceConfig);
+	private makeRequest;
+	/**
+	 * Retrieve the IDs (and meta-data) for all conversations associated with the container ID.
+	 */
+	getConversations(objectId: string, containerId?: string): Promise<Conversation_2[]>;
+	/**
+	 * Creates a new Conversation and associates it with the containerId provided.
+	 */
+	create(
+		localId: string,
+		value: any,
+		meta: any,
+		objectId: string,
+		containerId?: string,
+	): Promise<Conversation_2>;
+	/**
+	 * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
+	 */
+	addComment(
+		conversationId: string,
+		parentId: string,
+		doc: any,
+		localId?: string,
+	): Promise<Comment_3>;
+	/**
+	 * Updates a comment based on ID. Returns updated content
+	 */
+	updateComment(conversationId: string, commentId: string, document: any): Promise<Comment_3>;
+	/**
+	 * Deletes a comment based on ID. Returns updated comment.
+	 */
+	deleteComment(
+		conversationId: string,
+		commentId: string,
+	): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
+	/**
+	 * Reverts a comment based on ID.
+	 */
+	revertComment(
+		conversationId: string,
+		commentId: string,
+	): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
+	/**
+	 * Updates a user in the store. Returns updated user
+	 */
+	updateUser(user?: User): Promise<User | undefined>;
+	/**
+	 * Internal helper methods for optimistic updates
+	 */
+	private createConversation;
+	protected createComment(
+		conversationId: string,
+		parentId: string,
+		doc: any,
+		localId?: string,
+	): Comment_3;
+	protected getComment(conversationId: string, commentId: string): Comment_3 | undefined;
 }
 
 export declare interface ConversationResourceConfig {
-  url: string;
-  user?: User;
+	url: string;
+	user?: User;
 }
 
 export declare const CREATE_CONVERSATION_ERROR = 'createConversationError';
@@ -437,23 +397,23 @@ export declare const DELETE_COMMENT_REQUEST = 'deleteCommentRequest';
 export declare const DELETE_COMMENT_SUCCESS = 'deleteCommentSuccess';
 
 declare type EventAttributes = {
-  nestedDepth?: number;
+	nestedDepth?: number;
 };
 
 declare type EventData = {
-  actionSubjectId?: string;
-  objectId?: string;
-  containerId?: string;
-  nestedDepth?: number;
-  eventType?: eventTypes;
-  action?: string;
-  actionSubject?: string;
-  attributes?: EventAttributes;
+	actionSubjectId?: string;
+	objectId?: string;
+	containerId?: string;
+	nestedDepth?: number;
+	eventType?: eventTypes;
+	action?: string;
+	actionSubject?: string;
+	attributes?: EventAttributes;
 };
 
 declare enum eventTypes {
-  UI = 'ui',
-  TRACK = 'track',
+	UI = 'ui',
+	TRACK = 'track',
 }
 
 export declare const FETCH_CONVERSATIONS_REQUEST = 'fetchConversationsRequest';
@@ -465,62 +425,55 @@ declare type Handler = (state: State | undefined) => void;
 export declare const HIGHLIGHT_COMMENT = 'highlightComment';
 
 declare interface Props extends SharedProps {
-  comment: Comment_3;
-  conversationId: string;
-  objectId?: string;
-  containerId?: string;
-  renderComment: (props: any) => JSX.Element;
+	comment: Comment_3;
+	conversationId: string;
+	objectId?: string;
+	containerId?: string;
+	renderComment: (props: any) => JSX.Element;
 }
 
 declare type RenderEditorWithComments = (
-  Editor: typeof Editor,
-  props: EditorProps,
-  comment?: Comment_3,
+	Editor: typeof Editor,
+	props: EditorProps,
+	comment?: Comment_3,
 ) => JSX.Element;
 
 export declare interface ResourceProvider {
-  store: Store<State | undefined>;
-  getConversations(
-    objectId: string,
-    containerId?: string,
-  ): Promise<Conversation_2[]>;
-  subscribe(handler: Handler): Unsubscribe;
-  create(
-    localId: string,
-    value: any,
-    meta: any,
-    objectId: string,
-    containerId?: string,
-  ): Promise<Conversation_2>;
-  addComment(
-    conversationId: string,
-    parentId: string,
-    document: any,
-    localId?: string,
-  ): Promise<Comment_3>;
-  updateComment(
-    conversationId: string,
-    commentId: string,
-    document: any,
-  ): Promise<Comment_3>;
-  deleteComment(
-    conversationId: string,
-    commentId: string,
-  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
-  revertComment(
-    conversationId: string,
-    commentId: string,
-  ): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
-  updateUser(user?: User): Promise<User | undefined>;
-  saveDraft(
-    isLocal: boolean,
-    value: any,
-    conversationId: string,
-    commentId: string | undefined,
-    meta: any,
-    objectId: string,
-    containerId?: string,
-  ): void;
+	store: Store<State | undefined>;
+	getConversations(objectId: string, containerId?: string): Promise<Conversation_2[]>;
+	subscribe(handler: Handler): Unsubscribe;
+	create(
+		localId: string,
+		value: any,
+		meta: any,
+		objectId: string,
+		containerId?: string,
+	): Promise<Conversation_2>;
+	addComment(
+		conversationId: string,
+		parentId: string,
+		document: any,
+		localId?: string,
+	): Promise<Comment_3>;
+	updateComment(conversationId: string, commentId: string, document: any): Promise<Comment_3>;
+	deleteComment(
+		conversationId: string,
+		commentId: string,
+	): Promise<Pick<Comment_3, 'conversationId' | 'commentId' | 'deleted'>>;
+	revertComment(
+		conversationId: string,
+		commentId: string,
+	): Promise<Pick<Comment_3, 'conversationId' | 'commentId'>>;
+	updateUser(user?: User): Promise<User | undefined>;
+	saveDraft(
+		isLocal: boolean,
+		value: any,
+		conversationId: string,
+		commentId: string | undefined,
+		meta: any,
+		objectId: string,
+		containerId?: string,
+	): void;
 }
 
 declare type SendAnalyticsEvent = (eventData: EventData) => void;
@@ -529,72 +482,62 @@ declare type SendAnalyticsEvent = (eventData: EventData) => void;
  * Props which are passed down from the parent Conversation/Comment
  */
 declare interface SharedProps {
-  user?: User;
-  comments?: Comment_3[];
-  maxCommentNesting?: number;
-  onAddComment?: (
-    conversationId: string,
-    parentId: string,
-    value: any,
-    localId?: string,
-    onSuccess?: SuccessHandler,
-  ) => void;
-  onUpdateComment?: (
-    conversationId: string,
-    commentId: string,
-    value: any,
-    onSuccess?: SuccessHandler,
-  ) => void;
-  onDeleteComment?: (
-    conversationId: string,
-    commentId: string,
-    onSuccess?: SuccessHandler,
-  ) => void;
-  onRevertComment?: (conversationId: string, commentId: string) => void;
-  onCancelComment?: (conversationId: string, commentId: string) => void;
-  onCancel?: () => void;
-  onHighlightComment?: (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    commentId: string,
-  ) => void;
-  onEditorOpen?: () => void;
-  onEditorClose?: () => void;
-  onEditorChange?: (
-    isLocal: boolean,
-    value: any,
-    conversationId: string,
-    commentId: string | undefined,
-    meta: any,
-    objectId: string,
-    containerId?: string,
-  ) => void;
-  dataProviders?: ProviderFactory;
-  onUserClick?: (user: User) => void;
-  onRetry?: (localId?: string) => void;
-  onCommentPermalinkClick?: (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    commentId: string,
-  ) => void;
-  renderEditor?: RenderEditorWithComments;
-  objectId?: string;
-  containerId?: string;
-  isHighlighted?: boolean;
-  placeholder?: string;
-  disableScrollTo?: boolean;
-  allowFeedbackAndHelpButtons?: boolean;
-  sendAnalyticsEvent: SendAnalyticsEvent;
-  portal?: HTMLElement;
-  renderAdditionalCommentActions?: (
-    CommentAction: typeof CommentAction,
-    comment: Comment_3,
-  ) => JSX.Element[];
-  renderAfterComment?: (comment: Comment_3) => JSX.Element;
+	user?: User;
+	comments?: Comment_3[];
+	maxCommentNesting?: number;
+	onAddComment?: (
+		conversationId: string,
+		parentId: string,
+		value: any,
+		localId?: string,
+		onSuccess?: SuccessHandler,
+	) => void;
+	onUpdateComment?: (
+		conversationId: string,
+		commentId: string,
+		value: any,
+		onSuccess?: SuccessHandler,
+	) => void;
+	onDeleteComment?: (conversationId: string, commentId: string, onSuccess?: SuccessHandler) => void;
+	onRevertComment?: (conversationId: string, commentId: string) => void;
+	onCancelComment?: (conversationId: string, commentId: string) => void;
+	onCancel?: () => void;
+	onHighlightComment?: (event: React.MouseEvent<HTMLAnchorElement>, commentId: string) => void;
+	onEditorOpen?: () => void;
+	onEditorClose?: () => void;
+	onEditorChange?: (
+		isLocal: boolean,
+		value: any,
+		conversationId: string,
+		commentId: string | undefined,
+		meta: any,
+		objectId: string,
+		containerId?: string,
+	) => void;
+	dataProviders?: ProviderFactory;
+	onUserClick?: (user: User) => void;
+	onRetry?: (localId?: string) => void;
+	onCommentPermalinkClick?: (event: React.MouseEvent<HTMLAnchorElement>, commentId: string) => void;
+	renderEditor?: RenderEditorWithComments;
+	objectId?: string;
+	containerId?: string;
+	isHighlighted?: boolean;
+	placeholder?: string;
+	disableScrollTo?: boolean;
+	allowFeedbackAndHelpButtons?: boolean;
+	sendAnalyticsEvent: SendAnalyticsEvent;
+	portal?: HTMLElement;
+	renderAdditionalCommentActions?: (
+		CommentAction: typeof CommentAction,
+		comment: Comment_3,
+	) => JSX.Element[];
+	renderAfterComment?: (comment: Comment_3) => JSX.Element;
 }
 
 declare interface State {
-  conversations: Conversation_2[];
-  user?: User;
-  highlighted?: string;
+	conversations: Conversation_2[];
+	user?: User;
+	highlighted?: string;
 }
 
 declare type SuccessHandler = (id: string) => void;
@@ -608,11 +551,11 @@ export declare const UPDATE_COMMENT_SUCCESS = 'updateCommentSuccess';
 export declare const UPDATE_USER_SUCCESS = 'updateUserSuccess';
 
 declare interface User {
-  id: string;
-  avatarUrl?: string;
-  name?: string;
-  profileUrl?: string;
-  type?: string;
+	id: string;
+	avatarUrl?: string;
+	name?: string;
+	profileUrl?: string;
+	type?: string;
 }
 
 export {};

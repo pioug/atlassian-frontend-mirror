@@ -32,20 +32,14 @@ export const styles = `
 `;
 
 export default function status({ attrs, parent }: NodeSerializerOpts) {
-  const timestamp: string = attrs.timestamp;
-  let isParentToDoTask: boolean = false;
+	const timestamp: string = attrs.timestamp;
+	let isParentToDoTask: boolean = false;
 
-  if (
-    parent &&
-    parent.type.name === 'taskItem' &&
-    parent.attrs.state === 'TODO'
-  ) {
-    isParentToDoTask = true;
-  }
-  const colorClass =
-    !!isParentToDoTask && isPastDate(timestamp)
-      ? `${className}-red`
-      : `${className}-neutral`;
-  const text = timestampToString(timestamp);
-  return createTag('span', { class: className + ' ' + colorClass }, text);
+	if (parent && parent.type.name === 'taskItem' && parent.attrs.state === 'TODO') {
+		isParentToDoTask = true;
+	}
+	const colorClass =
+		!!isParentToDoTask && isPastDate(timestamp) ? `${className}-red` : `${className}-neutral`;
+	const text = timestampToString(timestamp);
+	return createTag('span', { class: className + ' ' + colorClass }, text);
 }

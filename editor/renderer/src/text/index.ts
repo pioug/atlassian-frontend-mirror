@@ -5,21 +5,21 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { reduce } from './nodes';
 
 export default class TextSerializer implements Serializer<string> {
-  constructor(private schema: Schema) {
-    this.schema = schema;
-  }
+	constructor(private schema: Schema) {
+		this.schema = schema;
+	}
 
-  serializeFragment(fragment: Fragment): string {
-    const result: string[] = [];
+	serializeFragment(fragment: Fragment): string {
+		const result: string[] = [];
 
-    fragment.forEach((n) => {
-      result.push(reduce(n, this.schema));
-    });
+		fragment.forEach((n) => {
+			result.push(reduce(n, this.schema));
+		});
 
-    return result.join('\n').replace(/\n+/g, '\n');
-  }
+		return result.join('\n').replace(/\n+/g, '\n');
+	}
 
-  static fromSchema(schema: Schema = defaultSchema): TextSerializer {
-    return new TextSerializer(schema);
-  }
+	static fromSchema(schema: Schema = defaultSchema): TextSerializer {
+		return new TextSerializer(schema);
+	}
 }

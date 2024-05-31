@@ -6,9 +6,9 @@ export { default as TextSerializer } from './text';
 export { default as ReactRenderer, defaultNodeComponents } from './ui/Renderer';
 export { RendererWithAnalytics, AnnotationsWrapper } from './ui';
 export type {
-  HeadingAnchorLinksProps,
-  RendererAppearance,
-  StickyHeaderProps,
+	HeadingAnchorLinksProps,
+	RendererAppearance,
+	StickyHeaderProps,
 } from './ui/Renderer/types';
 export type { RendererProps, NodeComponentsProps } from './ui/renderer-props';
 export type { RendererContext, NodeProps } from './react/types';

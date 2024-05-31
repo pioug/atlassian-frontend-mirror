@@ -1,149 +1,165 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.7.0
+
+### Minor Changes
+
+- [#104539](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104539)
+  [`48044c9de18a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48044c9de18a) -
+  [ED-23340] Split out the background-color mark to its own plugin so we can toggle off the text
+  highlighting experiment without breaking existing pages that have highlights
+
+### Patch Changes
+
+- [#104995](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104995)
+  [`f3437f0a487e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3437f0a487e) -
+  [ux] [ED-23155] Improve implementation of getActiveColor() to also support cell selections
+- Updated dependencies
+
 ## 1.6.0
 
 ### Minor Changes
 
--   [#104271](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104271)
-    [`5d03a899b0c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d03a899b0c9) -
-    [ux] [ED-23155] Adds plugin state for currently selected color for highlight button
+- [#104271](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104271)
+  [`5d03a899b0c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d03a899b0c9) -
+  [ux] [ED-23155] Adds plugin state for currently selected color for highlight button
 
 ### Patch Changes
 
--   [#103816](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103816)
-    [`3fb50173376f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fb50173376f) -
-    [ED-23159] Added blending styling for when highlights overlap inline comments
+- [#103816](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103816)
+  [`3fb50173376f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fb50173376f) -
+  [ED-23159] Added blending styling for when highlights overlap inline comments
 
 ## 1.5.0
 
 ### Minor Changes
 
--   [#101406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101406)
-    [`6daffd65aec4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6daffd65aec4) -
-    [ED-23298] Extract primary toolbar components to editor plugin to allow for custom ordering
+- [#101406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101406)
+  [`6daffd65aec4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6daffd65aec4) -
+  [ED-23298] Extract primary toolbar components to editor plugin to allow for custom ordering
 
 ### Patch Changes
 
--   [#102478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102478)
-    [`3378951608b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3378951608b0) -
-    [ED-23332] Update adf-schema package to 36.10.1
--   Updated dependencies
+- [#102478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102478)
+  [`3378951608b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3378951608b0) -
+  [ED-23332] Update adf-schema package to 36.10.1
+- Updated dependencies
 
 ## 1.4.2
 
 ### Patch Changes
 
--   [#101513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101513)
-    [`98b5dfc33bed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98b5dfc33bed) -
-    [ux] [ED-23156] The highlight primary toolbar button is disabled when trying to apply it on
-    nodes that don't enable the mark and when in a gap cursor. The text color primary toolbar button
-    is disabled when selecting text with a highlight.
+- [#101513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101513)
+  [`98b5dfc33bed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98b5dfc33bed) -
+  [ux] [ED-23156] The highlight primary toolbar button is disabled when trying to apply it on nodes
+  that don't enable the mark and when in a gap cursor. The text color primary toolbar button is
+  disabled when selecting text with a highlight.
 
 ## 1.4.1
 
 ### Patch Changes
 
--   [#101524](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101524)
-    [`4821570088e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4821570088e6) -
-    ED-23362 Bump ADF schema to version 36.8.1 and add support for adf validation and transformation
+- [#101524](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101524)
+  [`4821570088e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4821570088e6) -
+  ED-23362 Bump ADF schema to version 36.8.1 and add support for adf validation and transformation
 
 ## 1.4.0
 
 ### Minor Changes
 
--   [#100495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100495)
-    [`dbb78a011fac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbb78a011fac) -
-    [ux] [ED-23150] Added `changeColor` command for editor-plugin-highlight, including new
-    `removeMark` command for editor-common. Fixed bug with editor-plugin-text-color which prevented
-    color from being removed when user selects all.
+- [#100495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100495)
+  [`dbb78a011fac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbb78a011fac) -
+  [ux] [ED-23150] Added `changeColor` command for editor-plugin-highlight, including new
+  `removeMark` command for editor-common. Fixed bug with editor-plugin-text-color which prevented
+  color from being removed when user selects all.
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.3.0
 
 ### Minor Changes
 
--   [#100553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100553)
-    [`e0c2a4b9c8ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0c2a4b9c8ae) -
-    [ED-23157] Clear background color (= highlights) when clearing the formatting on a selection
+- [#100553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100553)
+  [`e0c2a4b9c8ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0c2a4b9c8ae) -
+  [ED-23157] Clear background color (= highlights) when clearing the formatting on a selection
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.2.0
 
 ### Minor Changes
 
--   [#99579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99579)
-    [`f222af5687e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f222af5687e9) -
-    Bump adf-schema to 36.3.0 and adf-schema-json to 1.14.0
+- [#99579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99579)
+  [`f222af5687e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f222af5687e9) -
+  Bump adf-schema to 36.3.0 and adf-schema-json to 1.14.0
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.1.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.1.0
 
 ### Minor Changes
 
--   [#98130](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98130)
-    [`6a3c0d9d6382`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a3c0d9d6382) -
-    [ED-23154] Add highlight option to main toolbar in editor
+- [#98130](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98130)
+  [`6a3c0d9d6382`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a3c0d9d6382) -
+  [ED-23154] Add highlight option to main toolbar in editor
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.0.5
 
 ### Patch Changes
 
--   [#97599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97599)
-    [`32c3130b08fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32c3130b08fe) -
-    [ED-22282] Bump adf-schema to 36.1.0
+- [#97599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97599)
+  [`32c3130b08fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32c3130b08fe) -
+  [ED-22282] Bump adf-schema to 36.1.0
 
 ## 1.0.4
 
 ### Patch Changes
 
--   [#97698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97698)
-    [`1c7b378c0d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c7b378c0d3b) -
-    [HOT-108999] We had an incident where the cursor jumps back a character in table headers for any
-    language triggering composition on an empty line.This was fixed in a patch bump of
-    prosemirror-view. https://github.com/ProseMirror/prosemirror-view/compare/1.33.4...1.33.5
+- [#97698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97698)
+  [`1c7b378c0d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c7b378c0d3b) -
+  [HOT-108999] We had an incident where the cursor jumps back a character in table headers for any
+  language triggering composition on an empty line.This was fixed in a patch bump of
+  prosemirror-view. https://github.com/ProseMirror/prosemirror-view/compare/1.33.4...1.33.5
 
 ## 1.0.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.0.2
 
 ### Patch Changes
 
--   [#96237](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96237)
-    [`0401e7b5a88e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0401e7b5a88e) -
-    [ED-23102] Bump ADF schema to version 35.12.2
--   [#96613](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96613)
-    [`398961a2b0a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/398961a2b0a1) -
-    [ux] [ED-23133] Moved stepped rainbow text colour icon styles to editor-common and refactored to
-    be reusable
+- [#96237](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96237)
+  [`0401e7b5a88e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0401e7b5a88e) -
+  [ED-23102] Bump ADF schema to version 35.12.2
+- [#96613](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96613)
+  [`398961a2b0a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/398961a2b0a1) -
+  [ux] [ED-23133] Moved stepped rainbow text colour icon styles to editor-common and refactored to
+  be reusable
 
 ## 1.0.1
 
 ### Patch Changes
 
--   [#95715](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95715)
-    [`f036f2fd9ccf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f036f2fd9ccf) -
-    [ED-23102] Added global styles that map the custom CSS variables to background color for
-    background color mark
+- [#95715](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95715)
+  [`f036f2fd9ccf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f036f2fd9ccf) -
+  [ED-23102] Added global styles that map the custom CSS variables to background color for
+  background color mark

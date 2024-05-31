@@ -12,52 +12,52 @@ import type { OnFieldChange } from '../types';
 import { validate } from '../utils';
 
 function Date({
-  name,
-  field,
-  autoFocus,
-  onFieldChange,
-  placeholder,
-  intl,
+	name,
+	field,
+	autoFocus,
+	onFieldChange,
+	placeholder,
+	intl,
 }: {
-  name: string;
-  field: DateField;
-  autoFocus?: boolean;
-  onFieldChange: OnFieldChange;
-  placeholder?: string;
+	name: string;
+	field: DateField;
+	autoFocus?: boolean;
+	onFieldChange: OnFieldChange;
+	placeholder?: string;
 } & WrappedComponentProps) {
-  const { label, description, defaultValue, isRequired } = field;
+	const { label, description, defaultValue, isRequired } = field;
 
-  return (
-    <Field<string>
-      name={name}
-      label={label}
-      defaultValue={defaultValue}
-      isRequired={isRequired}
-      validate={(value?: string) => validate(field, value)}
-      testId={`config-panel-date-picker-${name}`}
-    >
-      {({ fieldProps, error }) => {
-        return (
-          <>
-            <DatePicker
-              {...fieldProps}
-              autoFocus={autoFocus}
-              onBlur={() => {
-                fieldProps.onBlur();
-              }}
-              onChange={(value: string) => {
-                fieldProps.onChange(value);
-                onFieldChange(name, true);
-              }}
-              locale={intl.locale}
-              placeholder={placeholder}
-            />
-            <FieldMessages error={error} description={description} />
-          </>
-        );
-      }}
-    </Field>
-  );
+	return (
+		<Field<string>
+			name={name}
+			label={label}
+			defaultValue={defaultValue}
+			isRequired={isRequired}
+			validate={(value?: string) => validate(field, value)}
+			testId={`config-panel-date-picker-${name}`}
+		>
+			{({ fieldProps, error }) => {
+				return (
+					<>
+						<DatePicker
+							{...fieldProps}
+							autoFocus={autoFocus}
+							onBlur={() => {
+								fieldProps.onBlur();
+							}}
+							onChange={(value: string) => {
+								fieldProps.onChange(value);
+								onFieldChange(name, true);
+							}}
+							locale={intl.locale}
+							placeholder={placeholder}
+						/>
+						<FieldMessages error={error} description={description} />
+					</>
+				);
+			}}
+		</Field>
+	);
 }
 
 export default injectIntl(Date);

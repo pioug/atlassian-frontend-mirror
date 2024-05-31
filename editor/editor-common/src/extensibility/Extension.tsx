@@ -14,75 +14,75 @@ import { ExtensionComponent } from './ExtensionComponent';
 import type { ExtensionsPluginInjectionAPI } from './types';
 
 export interface Props {
-  editorView: EditorView;
-  node: PMNode;
-  getPos: ProsemirrorGetPosHandler;
-  providerFactory?: ProviderFactory;
-  handleContentDOMRef: (node: HTMLElement | null) => void;
-  extensionHandlers: ExtensionHandlers;
-  references?: ReferenceEntity[];
-  editorAppearance?: EditorAppearance;
-  pluginInjectionApi: ExtensionsPluginInjectionAPI;
-  eventDispatcher?: EventDispatcher;
-  showMacroInteractionDesignUpdates?: boolean;
+	editorView: EditorView;
+	node: PMNode;
+	getPos: ProsemirrorGetPosHandler;
+	providerFactory?: ProviderFactory;
+	handleContentDOMRef: (node: HTMLElement | null) => void;
+	extensionHandlers: ExtensionHandlers;
+	references?: ReferenceEntity[];
+	editorAppearance?: EditorAppearance;
+	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	eventDispatcher?: EventDispatcher;
+	showMacroInteractionDesignUpdates?: boolean;
 }
 
 export class Extension extends Component<Props, any> {
-  static displayName = 'Extension';
+	static displayName = 'Extension';
 
-  private providerFactory: ProviderFactory;
+	private providerFactory: ProviderFactory;
 
-  constructor(props: Props) {
-    super(props);
-    this.providerFactory = props.providerFactory || new ProviderFactory();
-  }
+	constructor(props: Props) {
+		super(props);
+		this.providerFactory = props.providerFactory || new ProviderFactory();
+	}
 
-  componentWillUnmount() {
-    if (!this.props.providerFactory) {
-      // new ProviderFactory is created if no `providers` has been set
-      // in this case when component is unmounted it's safe to destroy this providerFactory
-      this.providerFactory.destroy();
-    }
-  }
+	componentWillUnmount() {
+		if (!this.props.providerFactory) {
+			// new ProviderFactory is created if no `providers` has been set
+			// in this case when component is unmounted it's safe to destroy this providerFactory
+			this.providerFactory.destroy();
+		}
+	}
 
-  private renderWithProvider = ({ extensionProvider }: Providers) => {
-    const {
-      node,
-      getPos,
-      editorView,
-      handleContentDOMRef,
-      extensionHandlers,
-      references,
-      editorAppearance,
-      pluginInjectionApi,
-      eventDispatcher,
-      showMacroInteractionDesignUpdates,
-    } = this.props;
+	private renderWithProvider = ({ extensionProvider }: Providers) => {
+		const {
+			node,
+			getPos,
+			editorView,
+			handleContentDOMRef,
+			extensionHandlers,
+			references,
+			editorAppearance,
+			pluginInjectionApi,
+			eventDispatcher,
+			showMacroInteractionDesignUpdates,
+		} = this.props;
 
-    return (
-      <ExtensionComponent
-        editorView={editorView}
-        node={node}
-        getPos={getPos}
-        references={references}
-        extensionProvider={extensionProvider}
-        handleContentDOMRef={handleContentDOMRef}
-        extensionHandlers={extensionHandlers}
-        editorAppearance={editorAppearance}
-        pluginInjectionApi={pluginInjectionApi}
-        eventDispatcher={eventDispatcher}
-        showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
-      />
-    );
-  };
+		return (
+			<ExtensionComponent
+				editorView={editorView}
+				node={node}
+				getPos={getPos}
+				references={references}
+				extensionProvider={extensionProvider}
+				handleContentDOMRef={handleContentDOMRef}
+				extensionHandlers={extensionHandlers}
+				editorAppearance={editorAppearance}
+				pluginInjectionApi={pluginInjectionApi}
+				eventDispatcher={eventDispatcher}
+				showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+			/>
+		);
+	};
 
-  render() {
-    return (
-      <WithProviders
-        providers={['extensionProvider']}
-        providerFactory={this.providerFactory}
-        renderNode={this.renderWithProvider}
-      />
-    );
-  }
+	render() {
+		return (
+			<WithProviders
+				providers={['extensionProvider']}
+				providerFactory={this.providerFactory}
+				renderNode={this.renderWithProvider}
+			/>
+		);
+	}
 }

@@ -7,30 +7,30 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 // ./getInlineNodeViewProducer -> portalChildren()
 
 export const InlineNodeViewSharedStyles = css({
-  [`.${inlineNodeViewClassname}`]: {
-    display: 'inline',
-    userSelect: 'all',
-    whiteSpace: 'nowrap',
-    '& > *:not(.zeroWidthSpaceContainer)': {
-      whiteSpace: 'pre-wrap',
-    },
-    '& > .assistive': {
-      userSelect: 'none',
-    },
-  },
-  '&.ua-safari': {
-    [`.${inlineNodeViewClassname}`]: {
-      '::selection, *::selection': {
-        background: 'transparent',
-      },
-    },
-  },
-  [`&.ua-chrome .${inlineNodeViewClassname} > span`]: {
-    userSelect: 'none',
-  },
-  [`.${inlineNodeViewClassname}AddZeroWidthSpace`]: {
-    '::after': {
-      content: `'${ZERO_WIDTH_SPACE}'`,
-    },
-  },
+	[`.${inlineNodeViewClassname}`]: {
+		display: 'inline',
+		userSelect: 'all',
+		whiteSpace: 'nowrap',
+		'& > *:not(.zeroWidthSpaceContainer)': {
+			whiteSpace: 'pre-wrap',
+		},
+		'& > .assistive': {
+			userSelect: 'none',
+		},
+	},
+	'&.ua-safari': {
+		[`.${inlineNodeViewClassname}`]: {
+			'::selection, *::selection': {
+				background: 'transparent',
+			},
+		},
+	},
+	[`&.ua-chrome .${inlineNodeViewClassname} > span`]: {
+		userSelect: 'none',
+	},
+	[`.${inlineNodeViewClassname}AddZeroWidthSpace`]: {
+		'::after': {
+			content: `'${ZERO_WIDTH_SPACE}'`,
+		},
+	},
 });

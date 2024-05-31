@@ -1,5 +1,1 @@
-export type {
-  Browsers,
-  Range,
-  DisableSpellcheckByBrowser,
-} from '@atlaskit/editor-common/types';
+export type { Browsers, Range, DisableSpellcheckByBrowser } from '@atlaskit/editor-common/types';

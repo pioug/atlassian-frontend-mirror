@@ -20,31 +20,25 @@ import { token } from '@atlaskit/tokens';
  */
 
 export function hexToEditorBorderPaletteColor<HexColor extends string>(
-  hexColor: HexColor,
+	hexColor: HexColor,
 ): HexColor extends EditorBorderPaletteKey
-  ? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-    EditorBorderPalette[HexColor]
-  : string | undefined {
-  // Ts ignore used to allow use of conditional return type
-  // (preferencing better type on consumption over safety in implementation)
-  // @ts-ignore
-  return editorBorderPalette[hexColor.toUpperCase()];
+	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
+		EditorBorderPalette[HexColor]
+	: string | undefined {
+	// Ts ignore used to allow use of conditional return type
+	// (preferencing better type on consumption over safety in implementation)
+	// @ts-ignore
+	return editorBorderPalette[hexColor.toUpperCase()];
 }
 type EditorBorderPalette = typeof editorBorderPalette;
 export type EditorBorderPaletteKey = keyof EditorBorderPalette;
 
 export const editorBorderPalette = {
-  // gray
-  /** gray - subtle */
-  ['#091E4224']: token(
-    'color.border',
-    '#091E4224',
-  ) as 'var(--ds-border, #091E4224)',
-  /** gray */
-  ['#758195']: token(
-    'color.border.bold',
-    '#758195',
-  ) as 'var(--ds-border-bold, #758195)',
-  /** gray - bold */
-  ['#172B4D']: token('color.text', '#172B4D') as 'var(--ds-text, #172B4D)',
+	// gray
+	/** gray - subtle */
+	['#091E4224']: token('color.border', '#091E4224') as 'var(--ds-border, #091E4224)',
+	/** gray */
+	['#758195']: token('color.border.bold', '#758195') as 'var(--ds-border-bold, #758195)',
+	/** gray - bold */
+	['#172B4D']: token('color.text', '#172B4D') as 'var(--ds-text, #172B4D)',
 };

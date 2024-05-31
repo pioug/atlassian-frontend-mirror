@@ -1,13 +1,10 @@
-import type {
-  NodeSerializerOpts,
-  MediaMetaDataContextItem,
-} from '../interfaces';
+import type { NodeSerializerOpts, MediaMetaDataContextItem } from '../interfaces';
 import { createTag } from '../create-tag';
 import { N30 } from '@atlaskit/adf-schema';
 import {
-  createClassName,
-  MEDIA_PREVIEW_IMAGE_WIDTH,
-  MEDIA_PREVIEW_IMAGE_HEIGHT,
+	createClassName,
+	MEDIA_PREVIEW_IMAGE_WIDTH,
+	MEDIA_PREVIEW_IMAGE_HEIGHT,
 } from '../styles/util';
 import { createContentId } from '../static';
 import type { IconString } from '../static';
@@ -18,30 +15,30 @@ const className = createClassName('media');
 const ICON_DIMENSION = 14;
 
 export default function media(node: NodeSerializerOpts) {
-  const { context, attrs } = node;
+	const { context, attrs } = node;
 
-  // Without metadata, we render a generic lozenge
-  if (
-    !context ||
-    !context.hydration ||
-    !context.hydration.mediaMetaData ||
-    !context.hydration.mediaMetaData[attrs.id]
-  ) {
-    return renderLozenge();
-  }
+	// Without metadata, we render a generic lozenge
+	if (
+		!context ||
+		!context.hydration ||
+		!context.hydration.mediaMetaData ||
+		!context.hydration.mediaMetaData[attrs.id]
+	) {
+		return renderLozenge();
+	}
 
-  const metadata = context.hydration.mediaMetaData[attrs.id];
-  switch (metadata.mediaType) {
-    case 'image':
-      return renderImage(node, metadata);
-    case 'video':
-    case 'doc':
-      return renderPreview(node, metadata);
-    case 'audio':
-    case 'unknown':
-    default:
-      return renderLozenge(metadata);
-  }
+	const metadata = context.hydration.mediaMetaData[attrs.id];
+	switch (metadata.mediaType) {
+		case 'image':
+			return renderImage(node, metadata);
+		case 'video':
+		case 'doc':
+			return renderPreview(node, metadata);
+		case 'audio':
+		case 'unknown':
+		default:
+			return renderLozenge(metadata);
+	}
 }
 
 const imageStyles = `
@@ -54,38 +51,35 @@ const imageStyles = `
 }
 `;
 
-const renderImage = (
-  { attrs, marks }: NodeSerializerOpts,
-  metadata?: MediaMetaDataContextItem,
-) => {
-  let src;
-  if (attrs.id) {
-    // ID is defined, render image using CID:
-    src = `cid:${attrs.id}`;
-  } else if (attrs.url) {
-    // url defined, user direct link image
-    src = attrs.url;
-  }
-  if (src) {
-    const borderMark = marks?.find((m) => m.type.name === 'border');
-    const style = borderMark
-      ? serializeStyle({
-          'border-color': borderMark.attrs.color,
-          'border-width': `${borderMark.attrs.size}px`,
-          'border-style': 'solid',
-          'border-radius': `${borderMark.attrs.size * 2}px`,
-        })
-      : undefined;
+const renderImage = ({ attrs, marks }: NodeSerializerOpts, metadata?: MediaMetaDataContextItem) => {
+	let src;
+	if (attrs.id) {
+		// ID is defined, render image using CID:
+		src = `cid:${attrs.id}`;
+	} else if (attrs.url) {
+		// url defined, user direct link image
+		src = attrs.url;
+	}
+	if (src) {
+		const borderMark = marks?.find((m) => m.type.name === 'border');
+		const style = borderMark
+			? serializeStyle({
+					'border-color': borderMark.attrs.color,
+					'border-width': `${borderMark.attrs.size}px`,
+					'border-style': 'solid',
+					'border-radius': `${borderMark.attrs.size * 2}px`,
+				})
+			: undefined;
 
-    const img = createTag('img', {
-      class: `${className}-img`,
-      style,
-      src,
-    });
-    return createTag('div', { class: `${className}-wrapper` }, img);
-  }
-  // no id or url found, fall back to lozenge
-  return renderLozenge(metadata);
+		const img = createTag('img', {
+			class: `${className}-img`,
+			style,
+			src,
+		});
+		return createTag('div', { class: `${className}-wrapper` }, img);
+	}
+	// no id or url found, fall back to lozenge
+	return renderLozenge(metadata);
 };
 
 const lozengeStyles = `
@@ -109,34 +103,26 @@ const lozengeStyles = `
 `;
 
 const renderLozenge = (metadata?: MediaMetaDataContextItem) => {
-  let iconType;
-  let text;
-  if (metadata) {
-    text = metadata.name || 'Attached file';
-    iconType = getIconFromMediaType(metadata.mediaType);
-  } else {
-    iconType = 'genericAttachment';
-    text = 'Attached file';
-  }
-  const icon = createTag('img', {
-    class: `${className}-lozenge-icon`,
-    src: createContentId(iconType as IconString),
-    width: `${ICON_DIMENSION}`,
-    height: `${ICON_DIMENSION}`,
-  });
+	let iconType;
+	let text;
+	if (metadata) {
+		text = metadata.name || 'Attached file';
+		iconType = getIconFromMediaType(metadata.mediaType);
+	} else {
+		iconType = 'genericAttachment';
+		text = 'Attached file';
+	}
+	const icon = createTag('img', {
+		class: `${className}-lozenge-icon`,
+		src: createContentId(iconType as IconString),
+		width: `${ICON_DIMENSION}`,
+		height: `${ICON_DIMENSION}`,
+	});
 
-  const iconTag = createTag('span', {}, icon);
-  const textTag = createTag(
-    'span',
-    { class: `${className}-lozenge-text` },
-    text,
-  );
-  const lozenge = createTag(
-    'div',
-    { class: `${className}-lozenge` },
-    iconTag + textTag,
-  );
-  return createTag('div', { class: `${className}-lozenge-wrapper` }, lozenge);
+	const iconTag = createTag('span', {}, icon);
+	const textTag = createTag('span', { class: `${className}-lozenge-text` }, text);
+	const lozenge = createTag('div', { class: `${className}-lozenge` }, iconTag + textTag);
+	return createTag('div', { class: `${className}-lozenge-wrapper` }, lozenge);
 };
 
 const previewStyles = `
@@ -180,43 +166,28 @@ const previewStyles = `
 }
 `;
 
-const renderPreview = (
-  node: NodeSerializerOpts,
-  metadata: MediaMetaDataContextItem,
-) => {
-  const previewImg = createTag('img', {
-    class: `${className}-preview-img`,
-    src: `cid:${node.attrs.id}`,
-  });
+const renderPreview = (node: NodeSerializerOpts, metadata: MediaMetaDataContextItem) => {
+	const previewImg = createTag('img', {
+		class: `${className}-preview-img`,
+		src: `cid:${node.attrs.id}`,
+	});
 
-  const iconType = getIconFromMediaType(metadata.mediaType);
-  const icon = createTag('img', {
-    class: `${className}-lozenge-icon`,
-    src: createContentId(iconType as IconString),
-    width: `${ICON_DIMENSION}`,
-    height: `${ICON_DIMENSION}`,
-  });
-  const iconTag = createTag(
-    'span',
-    { class: `${className}-preview-img-wrapper` },
-    icon,
-  );
-  const textTag = createTag(
-    'span',
-    { class: `${className}-preview-text` },
-    metadata.name || 'Attached file',
-  );
-  const description = createTag(
-    'div',
-    { class: `${className}-preview-desc` },
-    iconTag + textTag,
-  );
+	const iconType = getIconFromMediaType(metadata.mediaType);
+	const icon = createTag('img', {
+		class: `${className}-lozenge-icon`,
+		src: createContentId(iconType as IconString),
+		width: `${ICON_DIMENSION}`,
+		height: `${ICON_DIMENSION}`,
+	});
+	const iconTag = createTag('span', { class: `${className}-preview-img-wrapper` }, icon);
+	const textTag = createTag(
+		'span',
+		{ class: `${className}-preview-text` },
+		metadata.name || 'Attached file',
+	);
+	const description = createTag('div', { class: `${className}-preview-desc` }, iconTag + textTag);
 
-  return createTag(
-    'div',
-    { class: `${className}-preview-wrapper` },
-    previewImg + description,
-  );
+	return createTag('div', { class: `${className}-preview-wrapper` }, previewImg + description);
 };
 
 export const styles = `

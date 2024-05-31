@@ -50,7 +50,6 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "enzyme": "^3.10.0",
@@ -60,6 +59,5 @@
     "@atlassian/frontend": {
       "import-structure": "atlassian-conventions"
     }
-  },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  }
 }

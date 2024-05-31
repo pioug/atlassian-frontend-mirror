@@ -1,11 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import {
-  Editor,
-  EditorContext,
-  type EditorProps,
-  WithEditorActions,
-} from '@atlaskit/editor-core';
+import { Editor, EditorContext, type EditorProps, WithEditorActions } from '@atlaskit/editor-core';
 import { ReactRenderer, type RendererProps } from '@atlaskit/renderer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { type Props as BaseProps } from '../context/embedded-document';
@@ -13,100 +8,97 @@ import { type Mode } from '../context/context';
 import { type Document as DocumentModel } from '../model';
 
 export interface Props extends BaseProps {
-  doc?: DocumentModel;
-  isLoading?: boolean;
-  hasError?: boolean;
+	doc?: DocumentModel;
+	isLoading?: boolean;
+	hasError?: boolean;
 
-  mode: Mode;
-  editorProps?: Partial<EditorProps>;
-  rendererProps?: Partial<RendererProps>;
+	mode: Mode;
+	editorProps?: Partial<EditorProps>;
+	rendererProps?: Partial<RendererProps>;
 }
 
 const emptyDoc = '{ "type": "doc", "version": 1, "content": [] }';
 
 export default class Document extends Component<Props> {
-  private renderToolbar() {
-    const { mode, renderToolbar } = this.props;
+	private renderToolbar() {
+		const { mode, renderToolbar } = this.props;
 
-    if (renderToolbar) {
-      return (
-        <WithEditorActions render={(actions) => renderToolbar(mode, actions)} />
-      );
-    }
+		if (renderToolbar) {
+			return <WithEditorActions render={(actions) => renderToolbar(mode, actions)} />;
+		}
 
-    return;
-  }
+		return;
+	}
 
-  private renderTitle() {
-    const { renderTitle, mode, doc } = this.props;
+	private renderTitle() {
+		const { renderTitle, mode, doc } = this.props;
 
-    if (renderTitle) {
-      return renderTitle(mode, doc);
-    }
+		if (renderTitle) {
+			return renderTitle(mode, doc);
+		}
 
-    return;
-  }
+		return;
+	}
 
-  private renderEditor() {
-    const { doc, editorProps } = this.props;
-    const { body = emptyDoc } = doc || {};
+	private renderEditor() {
+		const { doc, editorProps } = this.props;
+		const { body = emptyDoc } = doc || {};
 
-    return (
-      <EditorContext>
-        <Editor
-          appearance="full-page"
-          placeholder="Write something..."
-          defaultValue={body}
-          primaryToolbarComponents={this.renderToolbar()}
-          contentComponents={this.renderTitle()}
-          {...editorProps}
-        />
-      </EditorContext>
-    );
-  }
+		return (
+			<EditorContext>
+				<Editor
+					appearance="full-page"
+					placeholder="Write something..."
+					defaultValue={body}
+					primaryToolbarComponents={this.renderToolbar()}
+					contentComponents={this.renderTitle()}
+					{...editorProps}
+				/>
+			</EditorContext>
+		);
+	}
 
-  render() {
-    const { doc, isLoading, hasError, mode, editorProps, rendererProps } =
-      this.props;
+	render() {
+		const { doc, isLoading, hasError, mode, editorProps, rendererProps } = this.props;
 
-    if (hasError) {
-      return <div>Something went wrong 😔</div>;
-    }
+		if (hasError) {
+			return <div>Something went wrong 😔</div>;
+		}
 
-    if (isLoading) {
-      return <div>Loading document... 🐨</div>;
-    }
+		if (isLoading) {
+			return <div>Loading document... 🐨</div>;
+		}
 
-    switch (mode) {
-      case 'create':
-      case 'edit':
-        return this.renderEditor();
+		switch (mode) {
+			case 'create':
+			case 'edit':
+				return this.renderEditor();
 
-      default:
-        const { body = emptyDoc } = doc || {};
+			default:
+				const { body = emptyDoc } = doc || {};
 
-        let dataProviders: ProviderFactory | undefined;
+				let dataProviders: ProviderFactory | undefined;
 
-        if (editorProps) {
-          const { mentionProvider, emojiProvider, media } = editorProps;
+				if (editorProps) {
+					const { mentionProvider, emojiProvider, media } = editorProps;
 
-          dataProviders = ProviderFactory.create({
-            mentionProvider: mentionProvider!,
-            emojiProvider: emojiProvider!,
-          });
+					dataProviders = ProviderFactory.create({
+						mentionProvider: mentionProvider!,
+						emojiProvider: emojiProvider!,
+					});
 
-          if (media && media.provider) {
-            dataProviders.setProvider('mediaProvider', media.provider);
-          }
-        }
+					if (media && media.provider) {
+						dataProviders.setProvider('mediaProvider', media.provider);
+					}
+				}
 
-        return (
-          <ReactRenderer
-            dataProviders={dataProviders}
-            document={JSON.parse(body)}
-            {...rendererProps}
-          />
-        );
-    }
-  }
+				return (
+					<ReactRenderer
+						dataProviders={dataProviders}
+						document={JSON.parse(body)}
+						{...rendererProps}
+					/>
+				);
+		}
+	}
 }

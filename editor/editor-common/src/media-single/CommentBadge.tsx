@@ -15,134 +15,123 @@ import Tooltip from '@atlaskit/tooltip';
 import { commentMessages as messages } from '../media';
 
 const commentBadgeWrapper = css({
-  position: 'absolute',
-  // closest parent element with position relative is .resizer-hover-zone, which includes 10px padding
-  right: '2px',
-  top: '2px',
-  borderRadius: '3px',
-  zIndex: akEditorUnitZIndex * 10,
+	position: 'absolute',
+	// closest parent element with position relative is .resizer-hover-zone, which includes 10px padding
+	right: '2px',
+	top: '2px',
+	borderRadius: '3px',
+	zIndex: akEditorUnitZIndex * 10,
 });
 
 const commentBadgeEditorOverrides = (
-  commentsOnMediaBugFixEnabled?: boolean,
-  badgeOffsetRight?: string,
+	commentsOnMediaBugFixEnabled?: boolean,
+	badgeOffsetRight?: string,
 ) =>
-  css({
-    right: commentsOnMediaBugFixEnabled ? badgeOffsetRight : '14px',
-    zIndex: layers.card(),
-  });
+	css({
+		right: commentsOnMediaBugFixEnabled ? badgeOffsetRight : '14px',
+		zIndex: layers.card(),
+	});
 
 const getBadgeSize = (width?: number, height?: number) => {
-  // width is the original width of image, not resized or currently rendered to user. Defaulting to medium for now
-  return (width && width < 70) || (height && height < 70) ? 'small' : 'medium';
+	// width is the original width of image, not resized or currently rendered to user. Defaulting to medium for now
+	return (width && width < 70) || (height && height < 70) ? 'small' : 'medium';
 };
 
 export type CommentBadgeProps = {
-  intl: IntlShape;
-  width?: number;
-  height?: number;
-  status?: 'default' | 'entered' | 'active';
-  mediaElement?: HTMLElement | null;
-  onClick: (e: React.MouseEvent) => void;
-  onMouseEnter?: (e: React.MouseEvent) => void;
-  onMouseLeave?: (e: React.MouseEvent) => void;
-  isEditor?: boolean;
-  isDrafting?: boolean;
-  badgeOffsetRight?: string;
-  commentsOnMediaBugFixEnabled?: boolean;
+	intl: IntlShape;
+	width?: number;
+	height?: number;
+	status?: 'default' | 'entered' | 'active';
+	mediaElement?: HTMLElement | null;
+	onClick: (e: React.MouseEvent) => void;
+	onMouseEnter?: (e: React.MouseEvent) => void;
+	onMouseLeave?: (e: React.MouseEvent) => void;
+	isEditor?: boolean;
+	isDrafting?: boolean;
+	badgeOffsetRight?: string;
+	commentsOnMediaBugFixEnabled?: boolean;
 };
 
 export const CommentBadge = ({
-  intl,
-  width,
-  height,
-  status = 'default',
-  mediaElement,
-  onClick,
-  onMouseEnter,
-  onMouseLeave,
-  badgeOffsetRight,
-  commentsOnMediaBugFixEnabled,
+	intl,
+	width,
+	height,
+	status = 'default',
+	mediaElement,
+	onClick,
+	onMouseEnter,
+	onMouseLeave,
+	badgeOffsetRight,
+	commentsOnMediaBugFixEnabled,
 }: CommentBadgeProps) => {
-  const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(
-    getBadgeSize(width, height),
-  );
-  const title = intl.formatMessage(messages.viewCommentsOnMedia);
+	const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(getBadgeSize(width, height));
+	const title = intl.formatMessage(messages.viewCommentsOnMedia);
 
-  useEffect(() => {
-    const observer = new ResizeObserver(
-      debounce((entries) => {
-        const [entry] = entries;
-        const { width, height } = entry.contentRect;
-        setBadgeSize(getBadgeSize(width, height));
-      }),
-    );
+	useEffect(() => {
+		const observer = new ResizeObserver(
+			debounce((entries) => {
+				const [entry] = entries;
+				const { width, height } = entry.contentRect;
+				setBadgeSize(getBadgeSize(width, height));
+			}),
+		);
 
-    if (mediaElement) {
-      observer.observe(mediaElement as HTMLElement);
-    }
-    return () => {
-      observer.disconnect();
-    };
-  }, [mediaElement]);
+		if (mediaElement) {
+			observer.observe(mediaElement as HTMLElement);
+		}
+		return () => {
+			observer.disconnect();
+		};
+	}, [mediaElement]);
 
-  const badgeDimensions = badgeSize === 'medium' ? '24px' : '16px';
+	const badgeDimensions = badgeSize === 'medium' ? '24px' : '16px';
 
-  const colourToken = useMemo(() => {
-    switch (status) {
-      case 'active':
-        return token(
-          'color.background.accent.yellow.subtlest.pressed',
-          '#F5CD47',
-        );
-      case 'entered':
-        return token(
-          'color.background.accent.yellow.subtlest.hovered',
-          '#F8E6A0',
-        );
-      default:
-        return token('color.background.accent.yellow.subtlest', '#FFF7D6');
-    }
-  }, [status]);
+	const colourToken = useMemo(() => {
+		switch (status) {
+			case 'active':
+				return token('color.background.accent.yellow.subtlest.pressed', '#F5CD47');
+			case 'entered':
+				return token('color.background.accent.yellow.subtlest.hovered', '#F8E6A0');
+			default:
+				return token('color.background.accent.yellow.subtlest', '#FFF7D6');
+		}
+	}, [status]);
 
-  return (
-    <div
-      css={
-        badgeOffsetRight
-          ? [
-              commentBadgeWrapper,
-              commentBadgeEditorOverrides(
-                commentsOnMediaBugFixEnabled,
-                badgeOffsetRight,
-              ),
-            ]
-          : commentBadgeWrapper
-      }
-      // This is needed so that mediaWrapperStyle in editor/editor-common/src/ui/MediaSingle/styled.tsx
-      // can target the correct div
-      data-comment-badge="true"
-    >
-      <Tooltip position="top" content={title}>
-        <CustomThemeButton
-          style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            height: badgeDimensions,
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            width: badgeDimensions,
-            background: colourToken,
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            display: 'flex',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            justifyContent: 'center',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            alignItems: 'center',
-          }}
-          onClick={onClick}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-          iconAfter={<CommentIcon label={title} size={badgeSize} />}
-        />
-      </Tooltip>
-    </div>
-  );
+	return (
+		<div
+			css={
+				badgeOffsetRight
+					? [
+							commentBadgeWrapper,
+							commentBadgeEditorOverrides(commentsOnMediaBugFixEnabled, badgeOffsetRight),
+						]
+					: commentBadgeWrapper
+			}
+			// This is needed so that mediaWrapperStyle in editor/editor-common/src/ui/MediaSingle/styled.tsx
+			// can target the correct div
+			data-comment-badge="true"
+		>
+			<Tooltip position="top" content={title}>
+				<CustomThemeButton
+					style={{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						height: badgeDimensions,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						width: badgeDimensions,
+						background: colourToken,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						display: 'flex',
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						justifyContent: 'center',
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						alignItems: 'center',
+					}}
+					onClick={onClick}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
+					iconAfter={<CommentIcon label={title} size={badgeSize} />}
+				/>
+			</Tooltip>
+		</div>
+	);
 };

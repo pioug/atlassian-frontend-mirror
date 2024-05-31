@@ -28,7 +28,7 @@ const getStyles = (style: string) => {
   }
   return {
     border: 0,
-    padding: token('space.100', '8px'),
+    padding: token('space.150', '12px'),
     marginBottom: 0,
   };
 };

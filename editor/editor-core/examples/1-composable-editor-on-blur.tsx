@@ -11,36 +11,36 @@ import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
 
 function Editor() {
-  const { editorApi, preset } = usePreset((builder) =>
-    builder
-      .add(basePlugin)
-      .add([analyticsPlugin, {}])
-      .add(blockTypePlugin)
-      .add(focusPlugin)
-      .add(listPlugin),
-  );
+	const { editorApi, preset } = usePreset((builder) =>
+		builder
+			.add(basePlugin)
+			.add([analyticsPlugin, {}])
+			.add(blockTypePlugin)
+			.add(focusPlugin)
+			.add(listPlugin),
+	);
 
-  const { focusState } = useSharedPluginState(editorApi, ['focus']);
+	const { focusState } = useSharedPluginState(editorApi, ['focus']);
 
-  useEffect(() => {
-    if (!focusState?.hasFocus) {
-      // on blur condition
-      console.log('Editor is bluring!');
-    }
-  }, [focusState]);
+	useEffect(() => {
+		if (!focusState?.hasFocus) {
+			// on blur condition
+			console.log('Editor is bluring!');
+		}
+	}, [focusState]);
 
-  return (
-    <>
-      {!focusState?.hasFocus && <div>Editor does not have focus!</div>}
-      <ComposableEditor preset={preset} />
-    </>
-  );
+	return (
+		<>
+			{!focusState?.hasFocus && <div>Editor does not have focus!</div>}
+			<ComposableEditor preset={preset} />
+		</>
+	);
 }
 
 export default function Example() {
-  return (
-    <EditorContext>
-      <Editor />
-    </EditorContext>
-  );
+	return (
+		<EditorContext>
+			<Editor />
+		</EditorContext>
+	);
 }

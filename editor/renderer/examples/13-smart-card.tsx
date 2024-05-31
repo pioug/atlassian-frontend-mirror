@@ -5,9 +5,9 @@ import document from './helper/smart-card.adf.json';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 export default function Example() {
-  return (
-    <SmartCardProvider client={new CardClient('stg')}>
-      <Renderer document={document} appearance="full-page" />
-    </SmartCardProvider>
-  );
+	return (
+		<SmartCardProvider client={new CardClient('stg')}>
+			<Renderer document={document} appearance="full-page" />
+		</SmartCardProvider>
+	);
 }

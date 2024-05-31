@@ -26,7 +26,6 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
-    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "tiny-invariant": "^1.2.0",
     "typescript": "~5.4.2"
   },
@@ -70,6 +69,5 @@
     ".": "./src/index.ts",
     "./drag-event-polyfill": "./src/drag-event-polyfill.ts"
   },
-  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/"
 }

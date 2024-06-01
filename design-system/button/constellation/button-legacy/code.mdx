@@ -1,11 +1,13 @@
 ---
 title: Button (legacy)
 order: 1
+props:
+  packageName: '@atlaskit/button'
+  exports:
+    - default
+    - LoadingButton
+    - CustomThemeButton
 ---
-
-import SharedProps from '!!extract-react-types-loader!../../extract-react-types/legacy-button/shared-props';
-import LoadingButtonProps from '!!extract-react-types-loader!../../extract-react-types/legacy-button/loading-button-props';
-import CustomThemeButtonProps from '!!extract-react-types-loader!../../extract-react-types/legacy-button/custom-theme-button-props';
 
 ## Props
 
@@ -13,18 +15,21 @@ import CustomThemeButtonProps from '!!extract-react-types-loader!../../extract-r
 
 These props can be applied to all buttons (`Button`, `LoadingButton` and `CustomThemeButton`).
 
-All buttons also support all valid `HTMLElement` props, except for `disabled` which is replaced with the `isDisabled` prop.
+All buttons also support all valid `HTMLElement` props, except for `disabled` which is replaced with
+the `isDisabled` prop.
 
-<PropsTable heading="" props={SharedProps} />
+<TSMorphProps exportName="default" packageName="@atlaskit/button" />
 
 ### Loading button props
 
-The `LoadingButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop.
+The `LoadingButton` accepts all shared props (except for `overlay`) as well as an optional
+`isLoading` prop.
 
-<PropsTable heading="" props={LoadingButtonProps} />
+<TSMorphProps exportName="LoadingButton" packageName="@atlaskit/button" />
 
 ### Custom theme button props
 
-The `CustomThemeButton` accepts all shared props (except for `overlay`) as well as an optional `isLoading` prop, and an optional `theme` prop.
+The `CustomThemeButton` accepts all shared props (except for `overlay`) as well as an optional
+`isLoading` prop, and an optional `theme` prop.
 
-<PropsTable heading="" props={CustomThemeButtonProps} />
+<TSMorphProps exportName="CustomThemeButton" packageName="@atlaskit/button" />

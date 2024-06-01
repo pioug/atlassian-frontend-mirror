@@ -2,10 +2,12 @@
 title: Button group
 description: A button group gives users access to frequently performed, related actions.
 order: 1
+props:
+  packageName: '@atlaskit/button'
+  exports:
+    - ButtonGroup
 ---
-
-import ButtonGroupProps from '!!extract-react-types-loader!../../src/containers/button-group';
 
 ## Props
 
-<PropsTable heading="" props={ButtonGroupProps} />
+<TSMorphProps exportName="ButtonGroup" packageName="@atlaskit/button" />

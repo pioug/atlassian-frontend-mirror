@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/inline-message",
-  "version": "12.1.1",
+  "version": "12.1.2",
   "description": "An inline message lets users know when important information is available or when an action is required.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,6 +40,8 @@
     "@atlaskit/button": "^17.17.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/inline-dialog": "^14.1.0",
+    "@atlaskit/layering": "^0.3.0",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/primitives": "^6.4.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",
@@ -93,6 +95,15 @@
         "dist/types-ts4.5/*",
         "dist/types-ts4.5/index.d.ts"
       ]
+    }
+  },
+  "platform-feature-flags": {
+    "platform.design-system-team.layering_qmiw3": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.design-system-team.inline-message-layering_wfp1p": {
+      "type": "boolean"
     }
   },
   "homepage": "https://atlassian.design/components/inline-message/"

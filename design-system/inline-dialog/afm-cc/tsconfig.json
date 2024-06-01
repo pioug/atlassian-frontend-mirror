@@ -25,6 +25,12 @@
             "path": "../../ds-lib/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../layering/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../popper/afm-cc/tsconfig.json"
         },
         {

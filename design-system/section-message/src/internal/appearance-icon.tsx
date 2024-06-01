@@ -1,4 +1,4 @@
-import { type ComponentType } from 'react';
+import React, { type ComponentType } from 'react';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -63,7 +63,23 @@ export function getAppearanceIconStyles(
 ) {
   const appearanceIconStyles =
     appearanceIconSchema[appearance] || appearanceIconSchema.information;
-  const Icon = icon || appearanceIconStyles.Icon;
+  const AppearanceIcon = ({
+    size,
+    primaryColor,
+    secondaryColor,
+  }: {
+    size: string;
+    primaryColor: string;
+    secondaryColor: string;
+  }) => (
+    <appearanceIconStyles.Icon
+      size={size}
+      primaryColor={primaryColor}
+      secondaryColor={secondaryColor}
+      label={appearance}
+    />
+  );
+  const Icon = icon || AppearanceIcon;
 
   return {
     ...appearanceIconStyles,

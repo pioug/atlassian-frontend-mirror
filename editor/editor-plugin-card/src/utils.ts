@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/link-datasource';
 import type { CardContext } from '@atlaskit/link-provider';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import type { CardPlatform } from '@atlaskit/smart-card';
 
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { CardInfo, CardPluginState, DatasourceNode } from './types';
@@ -127,6 +128,13 @@ export const isDatasourceConfigEditable = (datasourceId: string) => {
 		datasourcesWithConfigModal.push(CONFLUENCE_SEARCH_DATASOURCE_ID);
 	}
 	return datasourcesWithConfigModal.includes(datasourceId);
+};
+
+export const isEditDropdownEnabled = (platform?: CardPlatform) => {
+	return (
+		getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
+		platform !== 'mobile'
+	);
 };
 
 /**

@@ -26,6 +26,7 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { Command } from '@atlaskit/editor-common/types';
 import {
+	getDatasourceType,
 	getLinkCreationAnalyticsEvent,
 	isFromCurrentDomain,
 	nodesBetweenChanged,
@@ -53,6 +54,7 @@ import {
 	removeDatasourceStash,
 	resolveCard,
 	setDatasourceStash,
+	showDatasourceModal,
 } from './actions';
 import { pluginKey } from './plugin-key';
 import { shouldReplaceLink } from './shouldReplaceLink';
@@ -763,3 +765,25 @@ const updateDatasourceStash = (tr: Transaction, selectedNode?: Node) => {
 		}
 	}
 };
+
+export const editDatasource =
+	(datasourceId: string, _editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+	(state, dispatch) => {
+		const datasourceType = getDatasourceType(datasourceId);
+
+		if (dispatch && datasourceType) {
+			const { tr } = state;
+			showDatasourceModal(datasourceType)(tr);
+			// editorAnalyticsApi?.attachAnalyticsEvent(
+			//   buildEditLinkPayload(
+			//     type as
+			//       | ACTION_SUBJECT_ID.CARD_INLINE
+			//       | ACTION_SUBJECT_ID.CARD_BLOCK
+			//       | ACTION_SUBJECT_ID.EMBEDS,
+			//   ),
+			// )(tr);
+			dispatch(tr);
+			return true;
+		}
+		return false;
+	};

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.12
+
+### Patch Changes
+
+- [#105716](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105716)
+  [`f25ac7b36499`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f25ac7b36499) -
+  [ux] Table - Change alignment from left to center when page changes from full-width to fixed
+
 ## 7.16.11
 
 ### Patch Changes

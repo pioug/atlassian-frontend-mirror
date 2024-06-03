@@ -52,12 +52,13 @@ import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance, CardPlatform } from '@atlaskit/smart-card';
 
-import { changeSelectedCardToText } from './pm-plugins/doc';
+import { changeSelectedCardToText, editDatasource } from './pm-plugins/doc';
 import { pluginKey } from './pm-plugins/main';
 import type { CardPluginState } from './types';
 import { DatasourceAppearanceButton } from './ui/DatasourceAppearanceButton';
-import { editDatasource, EditDatasourceButton } from './ui/EditDatasourceButton';
+import { EditDatasourceButton } from './ui/EditDatasourceButton';
 import { buildEditLinkToolbar, editLink, editLinkToolbarConfig } from './ui/EditLinkToolbar';
+import { EditToolbarButton } from './ui/EditToolbarButton';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
 import { ToolbarViewedEvent } from './ui/ToolbarViewedEvent';
 import {
@@ -66,6 +67,7 @@ import {
 	findCardInfo,
 	isDatasourceConfigEditable,
 	isDatasourceNode,
+	isEditDropdownEnabled,
 	titleUrlPairFromNode,
 } from './utils';
 
@@ -373,17 +375,33 @@ const generateToolbarItems =
 			);
 		} else {
 			const { inlineCard } = state.schema.nodes;
+
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = [
-				{
-					id: 'editor.link.edit',
-					type: 'button',
-					selected: false,
-					metadata: metadata,
-					title: intl.formatMessage(linkToolbarMessages.editLink),
-					showTitle: true,
-					testId: 'link-toolbar-edit-link-button',
-					onClick: editLink(editorAnalyticsApi),
-				},
+				isEditDropdownEnabled(platform) && cardOptions.allowDatasource
+					? {
+							type: 'custom',
+							fallback: [],
+							render: (editorView) => (
+								<EditToolbarButton
+									key="edit-toolbar-item"
+									url={url}
+									intl={intl}
+									editorAnalyticsApi={editorAnalyticsApi}
+									editorView={editorView}
+									onLinkEditClick={editLink(editorAnalyticsApi)}
+								/>
+							),
+						}
+					: {
+							id: 'editor.link.edit',
+							type: 'button',
+							selected: false,
+							metadata: metadata,
+							title: intl.formatMessage(linkToolbarMessages.editLink),
+							showTitle: true,
+							testId: 'link-toolbar-edit-link-button',
+							onClick: editLink(editorAnalyticsApi),
+						},
 				{ type: 'separator' },
 				{
 					id: 'editor.link.openLink',
@@ -496,7 +514,10 @@ const generateToolbarItems =
 				);
 			}
 
-			const shouldShowDatasourceEditButton = platform !== 'mobile' && allowDatasource;
+			const shouldShowDatasourceEditButton =
+				platform !== 'mobile' &&
+				allowDatasource &&
+				!getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
 
 			if (shouldShowDatasourceEditButton) {
 				toolbarItems.unshift({
@@ -599,7 +620,10 @@ const getDatasourceButtonGroup = (
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
 
-	if (isDatasourceConfigEditable(datasourceId)) {
+	if (
+		isDatasourceConfigEditable(datasourceId) &&
+		!getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')
+	) {
 		toolbarItems.push(
 			{
 				id: 'editor.edit.datasource',
@@ -614,6 +638,24 @@ const getDatasourceButtonGroup = (
 			{ type: 'separator' },
 		);
 	}
+
+	const editDropdownWithSeparator: Array<FloatingToolbarItem<Command>> = [
+		{
+			type: 'custom',
+			fallback: [],
+			render: (editorView) => (
+				<EditToolbarButton
+					key="edit-toolbar-item"
+					url={metadata.url}
+					intl={intl}
+					editorAnalyticsApi={editorAnalyticsApi}
+					editorView={editorView}
+					onLinkEditClick={editLink(editorAnalyticsApi)}
+				/>
+			),
+		},
+		{ type: 'separator' },
+	];
 
 	const canShowMainToolbar = () => {
 		// we do not show smart-link or the datasource icons when the node does not have a url to resolve
@@ -681,6 +723,9 @@ const getDatasourceButtonGroup = (
 				),
 			} satisfies FloatingToolbarItem<never>,
 			{ type: 'separator' },
+			...(getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')
+				? [...editDropdownWithSeparator]
+				: []),
 		);
 	}
 

@@ -84,6 +84,26 @@ export const messages = defineMessages({
 		defaultMessage: 'Display an interactive preview of a link',
 		description: 'Description for option to display link as an embedded object.',
 	},
+	editDropdownExpandIconLabel: {
+		id: 'fabric.editor.editDropdownExpandIconLabel',
+		defaultMessage: 'Expand dropdown menu',
+		description: 'Text of an icon to expand the dropdown',
+	},
+	editDropdownTriggerTitle: {
+		id: 'fabric.editor.editDropdownTriggerTitle',
+		defaultMessage: 'Edit',
+		description: 'Text of a button to trigger opening an edit dropdown',
+	},
+	editDropdownEditLinkTitle: {
+		id: 'fabric.editor.editDropdownEditLinkTitle',
+		defaultMessage: 'Edit link',
+		description: 'Edit dropdown edit link button text',
+	},
+	editDropdownEditDatasourceTitle: {
+		id: 'fabric.editor.editDropdownEditDatasourceTitle',
+		defaultMessage: 'Edit search query',
+		description: 'Edit dropdown edit datasource button text',
+	},
 	datasourceTitle: {
 		id: 'fabric.editor.datasourceTitle',
 		defaultMessage: 'Edit search query',

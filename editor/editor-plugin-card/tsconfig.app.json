@@ -93,6 +93,9 @@
 			"path": "../../linking-platform/linking-types/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/menu/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

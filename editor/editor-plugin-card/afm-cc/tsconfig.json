@@ -76,6 +76,9 @@
             "path": "../../../linking-platform/linking-types/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/menu/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {

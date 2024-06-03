@@ -1,146 +1,150 @@
 {
-  "name": "@atlaskit/editor-plugin-card",
-  "version": "1.14.5",
-  "description": "Card plugin for @atlaskit/editor-core",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Linking Platform",
-    "singleton": true,
-    "releaseModel": "continuous",
-    "runReact18": false
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/custom-steps": "^0.2.0",
-    "@atlaskit/editor-common": "^81.1.0",
-    "@atlaskit/editor-plugin-analytics": "^1.2.0",
-    "@atlaskit/editor-plugin-decorations": "^1.1.0",
-    "@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
-    "@atlaskit/editor-plugin-feature-flags": "^1.1.0",
-    "@atlaskit/editor-plugin-floating-toolbar": "^1.4.0",
-    "@atlaskit/editor-plugin-grid": "^1.1.0",
-    "@atlaskit/editor-plugin-hyperlink": "^1.7.0",
-    "@atlaskit/editor-plugin-width": "^1.1.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.11.0",
-    "@atlaskit/frontend-utilities": "^2.7.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/link-analytics": "^8.3.0",
-    "@atlaskit/link-client-extension": "^1.8.0",
-    "@atlaskit/link-datasource": "^2.3.0",
-    "@atlaskit/linking-common": "^5.7.0",
-    "@atlaskit/linking-types": "^8.9.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^6.4.0",
-    "@atlaskit/smart-card": "^27.4.0",
-    "@atlaskit/theme": "^12.8.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "lodash": "^4.17.21",
-    "prop-types": "^15.5.10",
-    "raf-schd": "^4.0.3"
-  },
-  "peerDependencies": {
-    "@atlaskit/link-provider": "^1.9.0",
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.linking-platform.smart-links-in-live-pages": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.datasource-word_wrap": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.enable-datasource-appearance-toolbar": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.datasource-enable-toolbar-buttons-for-all-datasources": {
-      "type": "boolean"
-    },
-    "platform.editor.card.fix-embed-card-select-all": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.datasource.enable-confluence-search-modal": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.datasource-assets_objects_remove_beta": {
-      "type": "boolean"
-    },
-    "platform.editor.card.inject-settings-button": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.smart-card.on-click-callback": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.editor-datasource-typeguards": {
-      "type": "boolean"
-    }
-  },
-  "stricter": {
-    "no-unused-dependencies": {
-      "checkDevDependencies": true
-    }
-  }
+	"name": "@atlaskit/editor-plugin-card",
+	"version": "1.14.5",
+	"description": "Card plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Linking Platform",
+		"singleton": true,
+		"releaseModel": "continuous",
+		"runReact18": false
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/custom-steps": "^0.2.0",
+		"@atlaskit/editor-common": "^81.1.0",
+		"@atlaskit/editor-plugin-analytics": "^1.2.0",
+		"@atlaskit/editor-plugin-decorations": "^1.1.0",
+		"@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
+		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
+		"@atlaskit/editor-plugin-floating-toolbar": "^1.4.0",
+		"@atlaskit/editor-plugin-grid": "^1.1.0",
+		"@atlaskit/editor-plugin-hyperlink": "^1.7.0",
+		"@atlaskit/editor-plugin-width": "^1.1.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-shared-styles": "^2.11.0",
+		"@atlaskit/frontend-utilities": "^2.7.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/link-analytics": "^8.3.0",
+		"@atlaskit/link-client-extension": "^1.8.0",
+		"@atlaskit/link-datasource": "^2.3.0",
+		"@atlaskit/linking-common": "^5.7.0",
+		"@atlaskit/linking-types": "^8.9.0",
+		"@atlaskit/menu": "2.3.0",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/primitives": "^6.4.0",
+		"@atlaskit/smart-card": "^27.4.0",
+		"@atlaskit/theme": "^12.8.0",
+		"@atlaskit/tokens": "^1.49.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"lodash": "^4.17.21",
+		"prop-types": "^15.5.10",
+		"raf-schd": "^4.0.3"
+	},
+	"peerDependencies": {
+		"@atlaskit/link-provider": "^1.9.0",
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.linking-platform.enable-datasource-edit-dropdown-toolbar": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.smart-links-in-live-pages": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.datasource-word_wrap": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.enable-datasource-appearance-toolbar": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.datasource-enable-toolbar-buttons-for-all-datasources": {
+			"type": "boolean"
+		},
+		"platform.editor.card.fix-embed-card-select-all": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.datasource.enable-confluence-search-modal": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.datasource-assets_objects_remove_beta": {
+			"type": "boolean"
+		},
+		"platform.editor.card.inject-settings-button": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.smart-card.on-click-callback": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.editor-datasource-typeguards": {
+			"type": "boolean"
+		}
+	},
+	"stricter": {
+		"no-unused-dependencies": {
+			"checkDevDependencies": true
+		}
+	}
 }

@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import React, { forwardRef, useCallback, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -17,6 +17,7 @@ import {
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
 
+import { setTableAlignmentWithTableContentWithPos } from '../commands/misc';
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
 import type { PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName } from '../types';
@@ -57,13 +58,47 @@ const leftAlignStyle = { display: 'flex', justifyContent: 'flex-start' };
 
 type AlignmentTableContainerProps = {
 	node: PMNode;
+	pluginInjectionApi?: PluginInjectionAPI;
+	getPos?: () => number | undefined;
+	editorView?: EditorView;
 };
 
 const AlignmentTableContainer = ({
 	node,
 	children,
+	pluginInjectionApi,
+	getPos,
+	editorView,
 }: PropsWithChildren<AlignmentTableContainerProps>) => {
 	const alignment = node.attrs.layout;
+	const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
+
+	useEffect(() => {
+		if (tableState && editorView && getPos) {
+			const { wasFullWidthModeEnabled, isFullWidthModeEnabled } = tableState;
+
+			if (
+				wasFullWidthModeEnabled &&
+				!isFullWidthModeEnabled &&
+				node.attrs.width > akEditorDefaultLayoutWidth
+			) {
+				const pos = getPos && getPos();
+
+				if (typeof pos !== 'number') {
+					return;
+				}
+
+				const tr = setTableAlignmentWithTableContentWithPos('center', { pos, node })(
+					editorView.state,
+				);
+
+				if (tr) {
+					editorView.dispatch(tr);
+				}
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [editorView, tableState, node]);
 
 	const style = useMemo(() => {
 		return alignment === 'align-start' ? leftAlignStyle : centerAlignStyle;
@@ -81,6 +116,9 @@ const AlignmentTableContainerWrapper = ({
 	isTableAlignmentEnabled,
 	node,
 	children,
+	pluginInjectionApi,
+	getPos,
+	editorView,
 }: PropsWithChildren<AlignmentTableContainerProps & { isTableAlignmentEnabled?: boolean }>) => {
 	if (!isTableAlignmentEnabled) {
 		return (
@@ -98,7 +136,16 @@ const AlignmentTableContainerWrapper = ({
 		);
 	}
 
-	return <AlignmentTableContainer node={node}>{children}</AlignmentTableContainer>;
+	return (
+		<AlignmentTableContainer
+			node={node}
+			pluginInjectionApi={pluginInjectionApi}
+			getPos={getPos}
+			editorView={editorView}
+		>
+			{children}
+		</AlignmentTableContainer>
+	);
 };
 
 type ResizableTableContainerProps = {
@@ -249,7 +296,13 @@ export const ResizableTableContainer = React.memo(
 		const isLivePageViewMode = editorViewModeState?.mode === 'view';
 
 		return (
-			<AlignmentTableContainerWrapper isTableAlignmentEnabled={isTableAlignmentEnabled} node={node}>
+			<AlignmentTableContainerWrapper
+				isTableAlignmentEnabled={isTableAlignmentEnabled}
+				node={node}
+				pluginInjectionApi={pluginInjectionApi}
+				getPos={getPos}
+				editorView={editorView}
+			>
 				<div
 					style={{
 						width: tableWidthRef.current,

@@ -1,10 +1,12 @@
-import { NODE_TYPE_QUERY } from '../constants';
+import {NODE_TYPE_QUERY} from '../constants';
 import {
   appendClause,
   prependOrderField,
   removeClause,
+  removeOrderBy,
   replaceClause,
-  setOrderDirection,
+  replaceOrderBy,
+  setOrderDirection
 } from '../transformers/query';
 import {
   type AstNode,
@@ -16,7 +18,7 @@ import {
   type Query,
 } from '../types';
 
-import { assignParent } from './common';
+import {assignParent} from './common';
 
 /**
  * AstNode accept functions. We define them outside of the creator function so the same function reference is returned
@@ -70,6 +72,8 @@ export const queryInternal = (
     setOrderDirection,
     removeClause,
     replaceClause,
+    replaceOrderBy,
+    removeOrderBy
   };
 
   assignParent(node);

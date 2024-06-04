@@ -1,154 +1,157 @@
 {
-  "name": "@atlaskit/editor-plugin-table",
-  "version": "7.16.12",
-  "description": "Table plugin for the @atlaskit/editor",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: Jenga",
-    "singleton": true,
-    "releaseModel": "continuous",
-    "runReact18": false
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/custom-steps": "^0.2.0",
-    "@atlaskit/editor-common": "^81.1.0",
-    "@atlaskit/editor-palette": "1.6.0",
-    "@atlaskit/editor-plugin-accessibility-utils": "^1.1.0",
-    "@atlaskit/editor-plugin-analytics": "^1.2.0",
-    "@atlaskit/editor-plugin-content-insertion": "^1.2.0",
-    "@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
-    "@atlaskit/editor-plugin-guideline": "^1.1.0",
-    "@atlaskit/editor-plugin-selection": "^1.2.0",
-    "@atlaskit/editor-plugin-width": "^1.1.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.11.0",
-    "@atlaskit/editor-tables": "^2.7.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/menu": "^2.3.0",
-    "@atlaskit/platform-feature-flags": "^0.2.1",
-    "@atlaskit/pragmatic-drag-and-drop": "^1.1.0",
-    "@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.3.0",
-    "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-    "@atlaskit/primitives": "^6.4.0",
-    "@atlaskit/theme": "^12.8.0",
-    "@atlaskit/toggle": "^13.1.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "classnames": "^2.2.5",
-    "lodash": "^4.17.21",
-    "memoize-one": "^6.0.0",
-    "raf-schd": "^4.0.3"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "typescript": "~5.4.2"
-  },
-  "af:exports": {
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts",
-    "./ui/common-styles": "./src/ui/common-styles.ts",
-    "./ui/consts": "./src/ui/consts.ts",
-    "./plugin-key": "./src/pm-plugins/plugin-key.ts",
-    "./commands": "./src/commands/index.ts"
-  },
-  "exports": {
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts",
-    "./ui/common-styles": "./src/ui/common-styles.ts",
-    "./ui/consts": "./src/ui/consts.ts",
-    "./plugin-key": "./src/pm-plugins/plugin-key.ts",
-    "./commands": "./src/commands/index.ts",
-    "./i18n/*": "./src/i18n/*.ts"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "stricter": {
-    "no-unused-dependencies": {
-      "checkDevDependencies": true
-    }
-  },
-  "platform-feature-flags": {
-    "platform.editor.table.insert-last-column-btn-stays-in-place": {
-      "type": "boolean"
-    },
-    "platform.editor.table.drag-move-options-logic-update_fp7xw": {
-      "type": "boolean"
-    },
-    "platform.editor.a11y-table-resizing_uapcv": {
-      "type": "boolean"
-    },
-    "platform.editor.a11y-column-resizing_emcvz": {
-      "type": "boolean"
-    },
-    "platform.editor.transform-slice-for-nested-expand": {
-      "type": "boolean"
-    },
-    "platform.editor.table.cmd-a-select-table": {
-      "type": "boolean"
-    },
-    "platform.editor.table.preserve-widths-with-lock-button": {
-      "type": "boolean"
-    },
-    "platform.editor.table.use-shared-state-hook": {
-      "type": "boolean"
-    },
-    "platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33": {
-      "type": "boolean"
-    },
-    "platform.editor.table.colum-resizing-improvements": {
-      "type": "boolean"
-    },
-    "platform.editor.explicit-html-element-check": {
-      "type": "boolean"
-    },
-    "platform.editor.table.live-pages-sorting_4malx": {
-      "type": "boolean"
-    },
-    "platform.editor.table.editor-num-col-style-changes": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/editor-plugin-table",
+	"version": "7.16.14",
+	"description": "Table plugin for the @atlaskit/editor",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: Jenga",
+		"singleton": true,
+		"releaseModel": "continuous",
+		"runReact18": false
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/custom-steps": "^0.2.0",
+		"@atlaskit/editor-common": "^81.2.0",
+		"@atlaskit/editor-palette": "1.6.0",
+		"@atlaskit/editor-plugin-accessibility-utils": "^1.1.0",
+		"@atlaskit/editor-plugin-analytics": "^1.2.0",
+		"@atlaskit/editor-plugin-content-insertion": "^1.2.0",
+		"@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
+		"@atlaskit/editor-plugin-guideline": "^1.1.0",
+		"@atlaskit/editor-plugin-selection": "^1.2.0",
+		"@atlaskit/editor-plugin-width": "^1.1.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-shared-styles": "^2.11.0",
+		"@atlaskit/editor-tables": "^2.7.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/menu": "^2.3.0",
+		"@atlaskit/platform-feature-flags": "^0.2.1",
+		"@atlaskit/pragmatic-drag-and-drop": "^1.1.0",
+		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.3.0",
+		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
+		"@atlaskit/primitives": "^6.4.0",
+		"@atlaskit/theme": "^12.8.0",
+		"@atlaskit/toggle": "^13.1.0",
+		"@atlaskit/tokens": "^1.49.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"classnames": "^2.2.5",
+		"lodash": "^4.17.21",
+		"memoize-one": "^6.0.0",
+		"raf-schd": "^4.0.3"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"typescript": "~5.4.2"
+	},
+	"af:exports": {
+		"./types": "./src/types.ts",
+		".": "./src/index.ts",
+		"./ui/common-styles": "./src/ui/common-styles.ts",
+		"./ui/consts": "./src/ui/consts.ts",
+		"./plugin-key": "./src/pm-plugins/plugin-key.ts",
+		"./commands": "./src/commands/index.ts"
+	},
+	"exports": {
+		"./types": "./src/types.ts",
+		".": "./src/index.ts",
+		"./ui/common-styles": "./src/ui/common-styles.ts",
+		"./ui/consts": "./src/ui/consts.ts",
+		"./plugin-key": "./src/pm-plugins/plugin-key.ts",
+		"./commands": "./src/commands/index.ts",
+		"./i18n/*": "./src/i18n/*.ts"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"stricter": {
+		"no-unused-dependencies": {
+			"checkDevDependencies": true
+		}
+	},
+	"platform-feature-flags": {
+		"platform.editor.table.insert-last-column-btn-stays-in-place": {
+			"type": "boolean"
+		},
+		"platform.editor.table.drag-move-options-logic-update_fp7xw": {
+			"type": "boolean"
+		},
+		"platform.editor.a11y-table-resizing_uapcv": {
+			"type": "boolean"
+		},
+		"platform.editor.a11y-column-resizing_emcvz": {
+			"type": "boolean"
+		},
+		"platform.editor.transform-slice-for-nested-expand": {
+			"type": "boolean"
+		},
+		"platform.editor.table.cmd-a-select-table": {
+			"type": "boolean"
+		},
+		"platform.editor.table.preserve-widths-with-lock-button": {
+			"type": "boolean"
+		},
+		"platform.editor.table.use-shared-state-hook": {
+			"type": "boolean"
+		},
+		"platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33": {
+			"type": "boolean"
+		},
+		"platform.editor.table.colum-resizing-improvements": {
+			"type": "boolean"
+		},
+		"platform.editor.table.use-increased-scaling-percent": {
+			"type": "boolean"
+		},
+		"platform.editor.explicit-html-element-check": {
+			"type": "boolean"
+		},
+		"platform.editor.table.live-pages-sorting_4malx": {
+			"type": "boolean"
+		},
+		"platform.editor.table.editor-num-col-style-changes": {
+			"type": "boolean"
+		}
+	}
 }

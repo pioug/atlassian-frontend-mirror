@@ -1,11 +1,12 @@
 import creators from '../creators';
-import { assignParent } from '../creators/common';
+import {assignParent} from '../creators/common';
 import {
   type Clause,
   type CompoundOperatorValue,
+  type OrderBy,
   type OrderByDirection,
   type OrderByField,
-  type Query,
+  type Query
 } from '../types';
 
 /**
@@ -74,6 +75,21 @@ export function removeClause(this: Query, clause: Clause): void {
 }
 
 /**
+ * Replace orderBy with the provided orderBy node. If the orderBy node does not contain any fields, then the orderBy node
+ * is removed from the query.
+ *
+ * @param orderBy orderBy to set for the new orderBy node
+ */
+export function replaceOrderBy(this: Query, orderBy: OrderBy): void {
+  if (orderBy && orderBy.fields.length === 0) {
+    this.removeOrderBy();
+  } else {
+    this.orderBy = orderBy;
+    assignParent(this);
+  }
+}
+
+/**
  * Replace the matching child clause with the provided `nextClause` node. If the clause to replace is not found as a
  * child of the current node then no changes will be made.
  *
@@ -89,4 +105,11 @@ export function replaceClause(
     this.where = nextClause;
     assignParent(this);
   }
+}
+
+/**
+ * Remove the orderBy from the node.
+ */
+export function removeOrderBy(this: Query): void {
+  this.orderBy = undefined;
 }

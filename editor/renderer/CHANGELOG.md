@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 109.31.1
+
+### Patch Changes
+
+- [#107304](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107304)
+  [`1ced2f2b9b2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ced2f2b9b2d) -
+  Add display mode and layout to table node to support copy paste from renderer to editor
+
+## 109.31.0
+
+### Minor Changes
+
+- [#104585](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104585)
+  [`901f576c6ea3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/901f576c6ea3) -
+  [ux] Insert Excerpt should not be showing comment badge with FF
+
+## 109.30.2
+
+### Patch Changes
+
+- [#106530](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106530)
+  [`94e59a7490d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94e59a7490d4) -
+  When table width is smaller than container, scale table colwidths up before applying num col
+  scaling to avoid overflow
+
 ## 109.30.1
 
 ### Patch Changes

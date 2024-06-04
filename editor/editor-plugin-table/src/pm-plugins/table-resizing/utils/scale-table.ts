@@ -40,6 +40,7 @@ export const scale = (
 	options: ScaleOptions,
 	domAtPos: DomAtPos,
 	isTableScalingEnabledOnCurrentTable = false,
+	shouldUseIncreasedScalingPercent = false,
 ): ResizeState | undefined => {
 	const {
 		node,
@@ -89,6 +90,7 @@ export const scale = (
 		start,
 		domAtPos,
 		isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
+		shouldUseIncreasedScalingPercent,
 	});
 
 	return scaleTableTo(resizeState, newWidth);
@@ -101,6 +103,7 @@ export const scaleWithParent = (
 	start: number,
 	domAtPos: DomAtPos,
 	isTableScalingEnabledOnCurrentTable = false,
+	shouldUseIncreasedScalingPercent = false,
 ) => {
 	const resizeState = getResizeState({
 		minWidth: tableCellMinWidth,
@@ -110,6 +113,7 @@ export const scaleWithParent = (
 		start,
 		domAtPos,
 		isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
+		shouldUseIncreasedScalingPercent,
 	});
 
 	if (table.attrs.isNumberColumnEnabled) {
@@ -165,10 +169,9 @@ export const previewScaleTable = (
 	}
 
 	let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
-	if (
-		isTableScalingEnabled &&
-		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-	) {
+	const isTableScalingEnabledWithLockButton =
+		isTableScalingEnabled && getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+	if (isTableScalingEnabledWithLockButton) {
 		isTableScalingEnabledOnCurrentTable =
 			isTableScalingEnabled && node.attrs.displayMode !== 'fixed';
 	}
@@ -179,12 +182,24 @@ export const previewScaleTable = (
 		return;
 	}
 
+	const shouldUseIncreasedScalingPercent =
+		isTableScalingEnabledWithLockButton &&
+		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+
 	const resizeState = parentWidth
-		? scaleWithParent(tableRef, parentWidth, node, start, domAtPos, false) // Here last value is isTableScalingEnabled = false
-		: scale(tableRef, options, domAtPos, false);
+		? scaleWithParent(
+				tableRef,
+				parentWidth,
+				node,
+				start,
+				domAtPos,
+				false, // Here isTableScalingEnabled = false
+				shouldUseIncreasedScalingPercent,
+			)
+		: scale(tableRef, options, domAtPos, false, shouldUseIncreasedScalingPercent);
 
 	if (resizeState) {
-		updateColgroup(resizeState, tableRef, node, false);
+		updateColgroup(resizeState, tableRef, node, false, shouldUseIncreasedScalingPercent);
 	}
 };
 
@@ -195,6 +210,7 @@ export const scaleTable =
 		options: ScaleOptions,
 		domAtPos: DomAtPos,
 		isTableScalingEnabledOnCurrentTable = false,
+		shouldUseIncreasedScalingPercent = false,
 	) =>
 	(tr: Transaction) => {
 		if (!tableRef) {
@@ -207,7 +223,7 @@ export const scaleTable =
 			// If its not a re-sized table, we still want to re-create cols
 			// To force reflow of columns upon delete.
 			if (!isTableScalingEnabledOnCurrentTable) {
-				insertColgroupFromNode(tableRef, node);
+				insertColgroupFromNode(tableRef, node, false, undefined, shouldUseIncreasedScalingPercent);
 			}
 			tr.setMeta('scrollIntoView', false);
 			return tr;
@@ -222,9 +238,16 @@ export const scaleTable =
 				start,
 				domAtPos,
 				isTableScalingEnabledOnCurrentTable,
+				shouldUseIncreasedScalingPercent,
 			);
 		} else {
-			resizeState = scale(tableRef, options, domAtPos, isTableScalingEnabledOnCurrentTable);
+			resizeState = scale(
+				tableRef,
+				options,
+				domAtPos,
+				isTableScalingEnabledOnCurrentTable,
+				shouldUseIncreasedScalingPercent,
+			);
 		}
 
 		if (resizeState) {

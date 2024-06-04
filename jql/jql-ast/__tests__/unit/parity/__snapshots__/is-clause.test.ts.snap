@@ -19,7 +19,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -93,7 +95,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -167,7 +171,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -241,7 +247,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -328,7 +336,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -402,7 +412,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -476,7 +488,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -563,7 +577,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -650,7 +666,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -737,7 +755,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -824,7 +844,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -911,7 +933,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -998,7 +1022,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1085,7 +1111,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1159,7 +1187,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1233,7 +1263,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1307,7 +1339,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1394,7 +1428,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1468,7 +1504,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1542,7 +1580,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1629,7 +1669,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1716,7 +1758,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1803,7 +1847,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1890,7 +1936,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -1977,7 +2025,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2064,7 +2114,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2149,7 +2201,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2234,7 +2288,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2319,7 +2375,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2405,7 +2463,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2492,7 +2552,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2577,7 +2639,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2662,7 +2726,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2747,7 +2813,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2832,7 +2900,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -2917,7 +2987,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {
@@ -3002,7 +3074,9 @@ Object {
     ],
     "prependOrderField": [Function],
     "removeClause": [Function],
+    "removeOrderBy": [Function],
     "replaceClause": [Function],
+    "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
     "where": Object {

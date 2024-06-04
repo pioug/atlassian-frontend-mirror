@@ -1,6 +1,13 @@
 import { pluginFactory } from '@atlaskit/editor-common/utils';
-import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import {
+	type EditorState,
+	NodeSelection,
+	type ReadonlyTransaction,
+	type SelectionBookmark,
+	type Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	decorationKey,
@@ -22,6 +29,47 @@ const handleDocChanged = (
 	}
 
 	return { ...prevPluginState, dirtyAnnotations: true };
+};
+
+/**
+ * We clear bookmark on the following conditions:
+ * 1. if current selection is an empty selection, or
+ * 2. if the current selection and bookmark selection are different
+ */
+export const shouldClearBookMarkCheck = (
+	tr: ReadonlyTransaction | Transaction,
+	editorState: EditorState,
+	bookmark?: SelectionBookmark,
+): boolean => {
+	// https://switcheroo.atlassian.com/changes/confluence/platform.editor.comments-on-media.bug.preserve-draft_i3vqb
+	// the existing log will always clear bookmark
+	if (!getBooleanFF('platform.editor.comments-on-media.bug.preserve-draft_i3vqb')) {
+		return true;
+	}
+
+	if (editorState.selection.empty || !bookmark) {
+		return true;
+	} else if (editorState.selection instanceof NodeSelection) {
+		const bookmarkSelection = bookmark?.resolve(tr.doc);
+		if (bookmarkSelection instanceof NodeSelection) {
+			const selectionNode = editorState.selection.node;
+			const bookmarkNode = bookmarkSelection.node;
+
+			/**
+			 * Currently, after updating the alt text of a mediaSingle node,
+			 * the selection moves to the media node.
+			 * (then will append a transaction to its parent node)
+			 */
+			if (selectionNode.type.name === 'media' && bookmarkNode.type.name === 'mediaSingle') {
+				return !bookmarkNode.firstChild?.eq(selectionNode);
+			} else {
+				return !bookmarkNode.eq(selectionNode);
+			}
+		}
+	}
+
+	// by default we discard bookmark
+	return true;
 };
 
 const getSelectionChangedHandler =
@@ -107,7 +155,8 @@ export const { createPluginState, createCommand } = pluginFactory(inlineCommentP
 
 			// When changes to decoration target make decoration invalid (e.g. delete text, add mark to node),
 			// we need to reset bookmark to hide create component and to avoid invalid draft being published
-			if (!hasMappedDecorations) {
+			// We only perform this change when document selection has changed.
+			if (!hasMappedDecorations && shouldClearBookMarkCheck(tr, editorState, bookmark)) {
 				return {
 					...pluginState,
 					draftDecorationSet: mappedDecorationSet,

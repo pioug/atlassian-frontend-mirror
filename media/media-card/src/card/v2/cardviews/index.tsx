@@ -55,6 +55,7 @@ export interface CardViewsOwnProps extends SharedCardProps {
   shouldHideTooltip?: boolean;
   readonly openMediaViewerButtonRef?: React.Ref<HTMLButtonElement>;
   readonly shouldOpenMediaViewer?: boolean;
+  overriddenCreationDate?: number;
 }
 
 export type CardViewV2Props = CardViewsOwnProps & WithAnalyticsEventsProps;
@@ -104,6 +105,7 @@ export const CardViewsBase = ({
   disableAnimation,
   shouldOpenMediaViewer,
   openMediaViewerButtonRef,
+  overriddenCreationDate,
 }: CardViewV2Props) => {
   const [didImageRender, setDidImageRender] = useState<boolean>(false);
   const divRef = useRef<HTMLDivElement>(null);
@@ -164,6 +166,7 @@ export const CardViewsBase = ({
       innerRef,
       shouldOpenMediaViewer,
       openMediaViewerButtonRef,
+      overriddenCreationDate,
     };
 
     switch (status) {

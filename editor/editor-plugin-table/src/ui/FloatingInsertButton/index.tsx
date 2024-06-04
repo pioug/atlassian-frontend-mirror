@@ -25,6 +25,7 @@ import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-s
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { insertColumnWithAnalytics, insertRowWithAnalytics } from '../../commands-with-analytics';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
@@ -263,6 +264,11 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 
 			const { isTableScalingEnabled = false } = getPluginState(editorView.state);
 
+			const shouldUseIncreasedScalingPercent =
+				isTableScalingEnabled &&
+				getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+				getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+
 			const { tableDuplicateCellColouring = false } = getEditorFeatureFlags
 				? getEditorFeatureFlags()
 				: {};
@@ -272,6 +278,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				editorAnalyticsAPI,
 				isTableScalingEnabled,
 				tableDuplicateCellColouring,
+				shouldUseIncreasedScalingPercent,
 			)(INPUT_METHOD.BUTTON, insertColumnButtonIndex)(state, dispatch, editorView);
 		}
 	}

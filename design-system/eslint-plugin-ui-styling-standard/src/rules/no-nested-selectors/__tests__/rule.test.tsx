@@ -73,28 +73,6 @@ typescriptEslintTester.run(
         `,
       },
       {
-        name: 'Next sibling selector on non-HTML element',
-        code: `
-          import { styled } from '@compiled/react';
-          styled.div({
-            '& + &': {
-              color: 'orange'
-            }
-          });
-        `,
-      },
-      {
-        name: 'Subsequent sibling selector on non-HTML element',
-        code: `
-          import { styled } from '@compiled/react';
-          styled.div({
-            '& ~ &': {
-              color: 'orange'
-            }
-          });
-        `,
-      },
-      {
         name: 'Skips @ queries',
         code: `
           import { css } from '@compiled/react';
@@ -105,40 +83,6 @@ typescriptEslintTester.run(
             '@media (max-width: 1200px)': {
               gridTemplateColumns: 'repeat(1, 1fr)',
               justifyItems: 'center',
-            },
-          });
-        `,
-      },
-      {
-        name: 'Skip cssMap call',
-        code: `
-          import { cssMap } from '@atlaskit/css';
-
-          const styles = cssMap({
-            success: {
-              color: 'var(--ds-text-inverse)',
-              backgroundColor: 'var(--ds-background-success-bold)',
-              '&:hover': {
-                backgroundColor: 'var(--ds-background-success-bold-hovered)',
-              },
-              '&:active': {
-                backgroundColor: 'var(--ds-background-success-bold-pressed)',
-              },
-            },
-          });
-        `,
-      },
-      {
-        name: 'Skip keyframes call',
-        code: `
-          import { keyframes } from '@emotion/react';
-
-          const keyFrameStyles = keyframes({
-            'from, to': {
-              opacity: 0,
-            },
-            '50%': {
-              opacity: 1,
             },
           });
         `,
@@ -257,6 +201,18 @@ typescriptEslintTester.run(
         errors: [{ messageId: 'no-nested-selectors' }],
       },
       {
+        name: 'Child combinator without whitespace',
+        code: `
+          import { styled } from '@compiled/react';
+          styled.div({
+            '&>a': {
+              color: 'orange'
+            }
+          });
+        `,
+        errors: [{ messageId: 'no-nested-selectors' }],
+      },
+      {
         name: 'Column combinator',
         code: `
           import { styled } from '@compiled/react';
@@ -274,6 +230,87 @@ typescriptEslintTester.run(
           import { styled } from '@compiled/react';
           styled.div({
             'myNameSpace|a': {
+              color: 'orange'
+            }
+          });
+        `,
+        errors: [{ messageId: 'no-nested-selectors' }],
+      },
+      {
+        name: 'Descendant combinator',
+        code: `
+          import { styled } from '@compiled/react';
+          const Component = styled.div({
+            '& &:hover': {
+              padding: 0,
+            }
+          });
+        `,
+        errors: [{ messageId: 'no-nested-selectors' }],
+      },
+      {
+        name: 'cssMap API',
+        code: `
+          import { cssMap } from '@compiled/react';
+
+          const styles = cssMap({
+            success: {
+              '[data-component-selector="my.button"]': {
+                color: 'var(--ds-text-inverse)',
+              }
+            },
+          });
+        `,
+        errors: [{ messageId: 'no-nested-selectors' }],
+      },
+      {
+        name: 'keyframes API',
+        code: `
+          import { keyframes } from '@emotion/react';
+
+          const keyFrameStyles = keyframes({
+            'from, to': {
+              div: {
+                opacity: 0,
+              }
+            },
+            '50%': {
+              opacity: 1,
+            },
+          });
+        `,
+        errors: [{ messageId: 'no-nested-selectors' }],
+      },
+      {
+        name: 'Next sibling selector',
+        code: `
+          import { styled } from '@compiled/react';
+          styled.div({
+            '&+a': {
+              color: 'orange'
+            }
+          });
+        `,
+        errors: [{ messageId: 'no-nested-selectors' }],
+      },
+      {
+        name: 'Next sibling selector on non-HTML element',
+        code: `
+          import { styled } from '@compiled/react';
+          styled.div({
+            '& + &': {
+              color: 'orange'
+            }
+          });
+        `,
+        errors: [{ messageId: 'no-nested-selectors' }],
+      },
+      {
+        name: 'Subsequent sibling selector on non-HTML element',
+        code: `
+          import { styled } from '@compiled/react';
+          styled.div({
+            '& ~ &': {
               color: 'orange'
             }
           });

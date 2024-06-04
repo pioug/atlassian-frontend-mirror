@@ -40,10 +40,10 @@
   },
   "dependencies": {
     "@atlaskit/button": "^17.17.0",
-    "@atlaskit/editor-common": "^81.1.0",
+    "@atlaskit/editor-common": "^81.2.0",
     "@atlaskit/editor-core": "^193.24.0",
     "@atlaskit/editor-shared-styles": "^2.11.0",
-    "@atlaskit/renderer": "^109.30.0",
+    "@atlaskit/renderer": "^109.31.0",
     "@atlaskit/tokens": "1.49.1",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0"

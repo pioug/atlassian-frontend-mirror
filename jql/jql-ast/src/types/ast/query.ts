@@ -1,15 +1,15 @@
-import { type NODE_TYPE_QUERY } from '../../constants';
-import { type JQLParseError } from '../../errors';
+import {type NODE_TYPE_QUERY} from '../../constants';
+import {type JQLParseError} from '../../errors';
 
-import { type Clause, type ParentOfClause } from './clause';
-import { type AstNode } from './common';
-import { type CompoundOperatorValue } from './compound-operator';
-import { type OrderBy, type OrderByDirection, type OrderByField } from './order-by';
+import {type Clause, type ParentOfClause} from './clause';
+import {type AstNode} from './common';
+import {type CompoundOperatorValue} from './compound-operator';
+import {type OrderBy, type OrderByDirection, type OrderByField, type ParentOfOrderBy} from './order-by';
 
 /**
  * A parsed JQL query.
  */
-export interface Query extends AstNode, ParentOfClause {
+export interface Query extends AstNode, ParentOfClause, ParentOfOrderBy {
   type: typeof NODE_TYPE_QUERY;
   /**
    * The <em>where</em> part of the JQL query.

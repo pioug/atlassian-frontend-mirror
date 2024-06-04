@@ -70,7 +70,10 @@ enterQuery: (query: Query) => {
 
   ${code`
 enterQuery: (query: Query) => {
-    const newOrderField = creators.orderByField(creators.field('key'));
+    const newOrderField = creators.orderByField(
+        creators.field('key'),
+        creators.orderByDirection(ORDER_BY_DIRECTION_DESC),
+    );
     query.prependOrderField(newOrderField);
 }
   `}
@@ -85,6 +88,32 @@ enterQuery: (query: Query) => {
     query.setOrderDirection(
         creators.orderByDirection(ORDER_BY_DIRECTION_DESC)
     );
+}
+  `}
+
+  ### replaceOrderBy
+
+  Replace existing orderBy with the provided orderBy node. If the orderBy node does not contain any fields, then the orderBy node
+  is removed from the query.
+
+  ${code`
+enterQuery: (query: Query) => {
+    const newOrderField = creators.orderByField(
+        creators.field('key'),
+        creators.orderByDirection(ORDER_BY_DIRECTION_DESC),
+    );
+    const orderByNode = creators.orderBy([newOrderField]);
+    query.replaceOrderBy(orderByNode);
+}
+  `}
+
+  ### removeOrderBy
+
+  Remove the existing orderBy from the query.
+
+  ${code`
+enterQuery: (query: Query) => {
+    query.removeOrderBy();
 }
   `}
 
@@ -264,7 +293,10 @@ enterListOperand: (listOperand: ListOperand) => {
 
   ${code`
 enterOrderBy: (orderBy: OrderBy) => {
-    const newOrderField = creators.orderByField(creators.field('key'));
+    const newOrderField = creators.orderByField(
+        creators.field('key'),
+        creators.orderByDirection(ORDER_BY_DIRECTION_DESC),
+    );
     orderBy.prependOrderField(newOrderField);
 }
   `}
@@ -279,6 +311,62 @@ enterOrderBy: (orderBy: OrderBy) => {
     orderBy.setOrderDirection(
         creators.orderByDirection(ORDER_BY_DIRECTION_DESC)
     );
+}
+  `}
+
+  ### replace
+
+  Replace the orderBy with the provided orderBy node. If the orderBy node does not contain any fields, then the orderBy node
+  is removed.
+
+  ${code`
+enterOrderBy: (orderBy: OrderBy) => {
+    const newField = creators.orderByField(
+        creators.field('key'),
+        creators.orderByDirection(ORDER_BY_DIRECTION_DESC),
+    );
+    const newOrderBy = creators.orderBy([newField]);
+    orderBy.replace(newOrderBy);
+}
+  `}
+
+  ### replaceOrderField
+
+  Replace the matching child field with the provided \`nextOrderByField\` node. If the field to replace is not found then
+  no changes will be made.
+
+  ${code`
+enterOrderBy: (orderBy: OrderBy) => {
+    const nextOrderByField = creators.orderByField(
+        creators.field('key'),
+        creators.orderByDirection(ORDER_BY_DIRECTION_DESC),
+    );
+
+    orderBy.replaceOrderByField(orderBy.fields[0], nextOrderByField);
+}
+  `}
+
+  ### remove
+
+  Remove the existing orderBy node from the query.
+
+  ${code`
+enterOrderBy: (orderBy: OrderBy) => {
+    orderBy.remove();
+}
+  `}
+
+  ### removeOrderField
+
+  Remove the provided orderBy field from the node. If the field to remove is not found as a child of the current node then no
+  changes will be made.
+
+  If there are 0 child fields remaining then the orderBy node
+  will be removed entirely.
+
+  ${code`
+enterOrderBy: (orderBy: OrderBy) => {
+    orderBy.removeOrderField(orderBy.fields[0]);
 }
   `}
 
@@ -298,4 +386,27 @@ enterOrderByField: (orderByField: OrderByField) => {
 }
   `}
 
+  ### replace
+
+  Replace the current orderBy field with the provided orderBy field.
+
+  ${code`
+enterOrderByField: (orderByField: OrderByField) => {
+    const fieldNew = creators.orderByField(
+        creators.field('key'),
+        creators.orderByDirection(ORDER_BY_DIRECTION_DESC),
+    );
+    orderByField.replace(fieldNew);
+}
+  `}
+
+  ### remove
+
+  Remove the current orderBy field from the orderBy node.
+
+  ${code`
+enterOrderByField: (orderByField: OrderByField) => {
+    orderByField.remove();
+}
+  `}
 `;

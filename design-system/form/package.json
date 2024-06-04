@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "10.2.0",
+  "version": "10.3.0",
   "description": "A form allows users to input information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -138,6 +138,9 @@
   "homepage": "https://atlassian.design/components/form/",
   "platform-feature-flags": {
     "platform.design-system-team.form-header-typography-updates_4f1g6": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.form-label-typography-updates": {
       "type": "boolean"
     }
   }

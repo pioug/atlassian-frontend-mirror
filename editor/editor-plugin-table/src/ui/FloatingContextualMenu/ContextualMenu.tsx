@@ -35,6 +35,7 @@ import { splitCell } from '@atlaskit/editor-tables/utils';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	clearHoverSelection,
@@ -510,6 +511,11 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			? getEditorFeatureFlags()
 			: {};
 
+		const shouldUseIncreasedScalingPercent =
+			isTableScalingEnabled &&
+			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+
 		switch (item.value.name) {
 			case 'sort_column_desc':
 				sortColumnWithAnalytics(editorAnalyticsAPI)(
@@ -564,6 +570,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					editorAnalyticsAPI,
 					isTableScalingEnabled,
 					tableDuplicateCellColouring,
+					shouldUseIncreasedScalingPercent,
 				)(INPUT_METHOD.CONTEXT_MENU, selectionRect.right)(state, dispatch, editorView);
 				this.toggleOpen();
 				break;
@@ -578,11 +585,11 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				this.toggleOpen();
 				break;
 			case 'delete_column':
-				deleteColumnsWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, selectionRect)(
-					state,
-					dispatch,
-					editorView,
-				);
+				deleteColumnsWithAnalytics(
+					editorAnalyticsAPI,
+					isTableScalingEnabled,
+					shouldUseIncreasedScalingPercent,
+				)(INPUT_METHOD.CONTEXT_MENU, selectionRect)(state, dispatch, editorView);
 				this.toggleOpen();
 				break;
 			case 'delete_row':

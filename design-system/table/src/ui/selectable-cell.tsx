@@ -5,13 +5,13 @@ import { xcss } from '@atlaskit/primitives';
 import { BaseCell } from './base-cell';
 
 const spacingStyles = xcss({
-  width: 'size.300',
-  padding: 'space.0',
+	width: '2rem',
+	padding: 'space.0',
 });
 
 type SelectableCellProps = {
-  as: 'td' | 'th';
-  children?: ReactNode;
+	as: 'td' | 'th';
+	children?: ReactNode;
 };
 
 /**
@@ -20,9 +20,9 @@ type SelectableCellProps = {
  * A selectable cell primitive designed to be used for light weight composition.
  */
 export const SelectableCell = ({ children, as }: SelectableCellProps) => {
-  return (
-    <BaseCell as={as} xcss={spacingStyles}>
-      {children}
-    </BaseCell>
-  );
+	return (
+		<BaseCell as={as} xcss={spacingStyles}>
+			{children}
+		</BaseCell>
+	);
 };

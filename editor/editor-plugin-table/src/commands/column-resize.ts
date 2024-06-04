@@ -326,12 +326,16 @@ export const changeColumnWidthByStep =
 		});
 
 		let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
-		if (
+		const isTableScalingEnabledWithLockButton =
 			isTableScalingEnabled &&
-			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-		) {
+			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+		if (isTableScalingEnabledWithLockButton) {
 			isTableScalingEnabledOnCurrentTable = originalTable.attrs.displayMode !== 'fixed';
 		}
+
+		const shouldUseIncreasedScalingPercent =
+			isTableScalingEnabledWithLockButton &&
+			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 
 		const initialResizeState = getResizeState({
 			minWidth: tableCellMinWidth,
@@ -341,6 +345,7 @@ export const changeColumnWidthByStep =
 			start: tableStartPosition,
 			domAtPos,
 			isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
+			shouldUseIncreasedScalingPercent,
 		});
 
 		updateControls()(state);
@@ -358,6 +363,7 @@ export const changeColumnWidthByStep =
 			originalTable,
 			resizingSelectedColumns ? selectedColumns : undefined,
 			isTableScalingEnabled,
+			shouldUseIncreasedScalingPercent,
 		);
 
 		customTr = updateColumnWidths(newResizeState, originalTable, tableStartPosition)(customTr);

@@ -160,6 +160,7 @@ export const getDragMenuConfig = (
 	isHeaderRowRequired?: boolean,
 	isTableScalingEnabled = false,
 	tableDuplicateCellColouring = false,
+	shouldUseIncreasedScalingPercent = false,
 ): DragMenuConfig[] => {
 	const addOptions =
 		direction === 'row'
@@ -271,6 +272,7 @@ export const getDragMenuConfig = (
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
 						tableDuplicateCellColouring,
+						shouldUseIncreasedScalingPercent,
 					)(INPUT_METHOD.TABLE_CONTEXT_MENU, (index ?? 0) + offset)(state, dispatch, editorView);
 				}
 				return true;

@@ -4,6 +4,7 @@ import { forwardRef } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { type CSSFn, type CustomItemComponentProps } from '@atlaskit/menu';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -109,9 +110,15 @@ const Header = forwardRef<HTMLElement, HeaderProps>(
       () => ({
         userSelect: 'auto',
         ['[data-item-title]']: {
-          fontSize: '0.875rem',
-          letterSpacing: '-0.003em',
-          fontWeight: token('font.weight.semibold'),
+          ...(getBooleanFF(
+            'platform.design-system-team.side-navigation-tokenised-typography-styles',
+          )
+            ? { font: token('font.heading.xsmall') }
+            : {
+                fontSize: '0.875rem',
+                letterSpacing: '-0.003em',
+                fontWeight: token('font.weight.semibold'),
+              }),
           color: token('color.text', N500),
         },
         // Will look interactive if the `component` is anything other than a div.

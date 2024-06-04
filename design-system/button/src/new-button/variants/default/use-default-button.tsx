@@ -3,17 +3,16 @@ import React, { Fragment } from 'react';
 import Content from '../shared/content';
 import renderLoadingOverlay from '../shared/loading-overlay';
 import useButtonBase, {
-  type UseButtonBaseArgs,
-  type UseButtonBaseReturn,
+	type UseButtonBaseArgs,
+	type UseButtonBaseReturn,
 } from '../shared/use-button-base';
 
 import { type CommonDefaultButtonProps } from './types';
 
-type UseDefaultButtonArgs<TagName extends HTMLElement> =
-  UseButtonBaseArgs<TagName> & CommonDefaultButtonProps;
+type UseDefaultButtonArgs<TagName extends HTMLElement> = UseButtonBaseArgs<TagName> &
+	CommonDefaultButtonProps;
 
-type UseButtonReturn<TagName extends HTMLElement> =
-  UseButtonBaseReturn<TagName>;
+type UseButtonReturn<TagName extends HTMLElement> = UseButtonBaseReturn<TagName>;
 
 /**
  * __Use default button base__
@@ -25,94 +24,86 @@ type UseButtonReturn<TagName extends HTMLElement> =
  * @private
  */
 const useDefaultButton = <TagName extends HTMLElement>({
-  analyticsContext,
-  appearance,
-  autoFocus,
-  buttonType,
-  iconBefore: IconBefore,
-  UNSAFE_iconBefore_size,
-  iconAfter: IconAfter,
-  UNSAFE_iconAfter_size,
-  interactionName,
-  isDisabled,
-  isSelected,
-  isLoading = false,
-  children,
-  onClick,
-  onMouseDownCapture,
-  onMouseUpCapture,
-  onKeyDownCapture,
-  onKeyUpCapture,
-  onTouchStartCapture,
-  onTouchEndCapture,
-  onPointerDownCapture,
-  onPointerUpCapture,
-  onClickCapture,
-  overlay,
-  ref,
-  shouldFitContainer,
-  spacing,
+	analyticsContext,
+	appearance,
+	autoFocus,
+	buttonType,
+	children,
+	iconAfter: IconAfter,
+	iconBefore: IconBefore,
+	interactionName,
+	isDisabled,
+	isLoading = false,
+	isSelected,
+	onClick,
+	onClickCapture,
+	onKeyDownCapture,
+	onKeyUpCapture,
+	onMouseDownCapture,
+	onMouseUpCapture,
+	onPointerDownCapture,
+	onPointerUpCapture,
+	onTouchEndCapture,
+	onTouchStartCapture,
+	overlay,
+	ref,
+	shouldFitContainer,
+	spacing,
+	UNSAFE_iconAfter_size,
+	UNSAFE_iconBefore_size,
 }: UseDefaultButtonArgs<TagName>): UseButtonReturn<TagName> => {
-  const hasOverlay = Boolean(overlay || isLoading);
+	const hasOverlay = Boolean(overlay || isLoading);
 
-  const baseProps = useButtonBase<TagName>({
-    analyticsContext,
-    appearance,
-    autoFocus,
-    buttonType,
-    children: (
-      <Fragment>
-        {IconBefore && (
-          <Content type="icon" position="before" hasOverlay={hasOverlay}>
-            <IconBefore
-              label=""
-              size={UNSAFE_iconBefore_size}
-              color={'currentColor'}
-            />
-          </Content>
-        )}
-        {children && <Content hasOverlay={hasOverlay}>{children}</Content>}
-        {IconAfter && (
-          <Content type="icon" position="after" hasOverlay={hasOverlay}>
-            <IconAfter
-              label=""
-              size={UNSAFE_iconAfter_size}
-              color={'currentColor'}
-            />
-          </Content>
-        )}
-      </Fragment>
-    ),
-    interactionName,
-    isDisabled,
-    isLoading,
-    isSelected,
-    onClick,
-    onMouseDownCapture,
-    onMouseUpCapture,
-    onKeyDownCapture,
-    onKeyUpCapture,
-    onTouchStartCapture,
-    onTouchEndCapture,
-    onPointerDownCapture,
-    onPointerUpCapture,
-    onClickCapture,
-    overlay: isLoading
-      ? renderLoadingOverlay({
-          spacing,
-          appearance,
-          isDisabled,
-          isSelected,
-        })
-      : overlay,
-    ref,
-    shouldFitContainer,
-    spacing,
-    hasIconBefore: Boolean(IconBefore),
-    hasIconAfter: Boolean(IconAfter),
-  });
+	const baseProps = useButtonBase<TagName>({
+		analyticsContext,
+		appearance,
+		autoFocus,
+		buttonType,
+		children: (
+			<Fragment>
+				{IconBefore && (
+					<Content type="icon" position="before" hasOverlay={hasOverlay}>
+						<IconBefore label="" size={UNSAFE_iconBefore_size} color={'currentColor'} />
+					</Content>
+				)}
+				{children && <Content hasOverlay={hasOverlay}>{children}</Content>}
+				{IconAfter && (
+					<Content type="icon" position="after" hasOverlay={hasOverlay}>
+						<IconAfter label="" size={UNSAFE_iconAfter_size} color={'currentColor'} />
+					</Content>
+				)}
+			</Fragment>
+		),
+		interactionName,
+		isDisabled,
+		isLoading,
+		isSelected,
+		onClick,
+		onMouseDownCapture,
+		onMouseUpCapture,
+		onKeyDownCapture,
+		onKeyUpCapture,
+		onTouchStartCapture,
+		onTouchEndCapture,
+		onPointerDownCapture,
+		onPointerUpCapture,
+		onClickCapture,
+		overlay: isLoading
+			? renderLoadingOverlay({
+					spacing,
+					appearance,
+					isDisabled,
+					isSelected,
+				})
+			: overlay,
+		ref,
+		shouldFitContainer,
+		spacing,
+		hasIconBefore: Boolean(IconBefore),
+		hasIconAfter: Boolean(IconAfter),
+	});
 
-  return baseProps;
+	return baseProps;
 };
 
 export default useDefaultButton;

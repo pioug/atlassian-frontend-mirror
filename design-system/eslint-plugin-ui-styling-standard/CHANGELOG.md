@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.15.2
+
+### Patch Changes
+
+- [#105238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105238)
+  [`8840e6d3180d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8840e6d3180d) -
+  Fixes `no-nested-selectors` to handle additional APIs (such as `cssMap` and `keyframes`) as well
+  as catch more cases of nested selectors.
+
 ## 0.15.1
 
 ### Patch Changes

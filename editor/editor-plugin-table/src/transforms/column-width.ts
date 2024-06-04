@@ -104,7 +104,7 @@ export const updateColumnWidths =
  * @returns Updated transaction with rescaled columns for a given table
  */
 export const rescaleColumns =
-	(isTableScalingEnabled = false) =>
+	(isTableScalingEnabled = false, shouldUseIncreasedScalingPercent = false) =>
 	(table: ContentNodeWithPos, view: EditorView | undefined) =>
 	(tr: Transaction): Transaction => {
 		if (!view) {
@@ -206,6 +206,7 @@ export const rescaleColumns =
 			domAtPos,
 			maxSize: previousTableInfo.possibleMaxWidth,
 			isTableScalingEnabled: shouldScale,
+			shouldUseIncreasedScalingPercent,
 		});
 
 		// Two scenarios that require scaling:

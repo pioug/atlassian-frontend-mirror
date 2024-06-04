@@ -8,9 +8,21 @@ import {
   CLAUSE_TYPE_COMPOUND,
   COMPOUND_OPERATOR_AND,
   COMPOUND_OPERATOR_OR,
-  ORDER_BY_DIRECTION_ASC,
+  ORDER_BY_DIRECTION_ASC, ORDER_BY_DIRECTION_DESC,
 } from '../constants';
 import creators from '../creators';
+import { type OrderByDirection } from '../types';
+
+const createQueryWithOrderBy = (direction: OrderByDirection) => {
+  const fieldNode = creators.orderByField(creators.field('issuetype'));
+  const fieldNode2 = creators.orderByField(creators.field('status'));
+
+  const orderByNode = creators.orderBy([fieldNode, fieldNode2]);
+  const query = creators.query(undefined, orderByNode);
+  orderByNode.setOrderDirection(direction);
+
+  return query;
+}
 
 describe('Query transformer', () => {
   describe('appendClause', () => {
@@ -191,4 +203,99 @@ describe('Query transformer', () => {
       expect(baseQuery.where).toEqual(typeEqualsBugClause);
     });
   });
+
+  describe('replaceOrderBy', () => {
+
+    it('should replace orderBy with one field', () => {
+      const direction = creators.orderByDirection(ORDER_BY_DIRECTION_ASC);
+      const query = createQueryWithOrderBy(direction);
+      const newField = creators.orderByField(
+        creators.field('reporter'),
+        direction,
+      );
+      const newOrderByNode = creators.orderBy([newField]);
+
+      query.replaceOrderBy(newOrderByNode);
+
+      expect(query.orderBy).toEqual(
+        expect.objectContaining({
+          fields: [newField],
+        }),
+      );
+    })
+
+    it('should replace orderBy with multiple fields', () => {
+      const direction = creators.orderByDirection(ORDER_BY_DIRECTION_ASC);
+      const direction2 = creators.orderByDirection(ORDER_BY_DIRECTION_DESC);
+      const query = createQueryWithOrderBy(direction);
+      const newField = creators.orderByField(
+        creators.field('reporter'),
+        direction,
+      );
+      const newField2 = creators.orderByField(
+        creators.field('time'),
+        direction2,
+      );
+      const newOrderByNode = creators.orderBy([newField, newField2]);
+      newOrderByNode.setOrderDirection(direction);
+
+      query.replaceOrderBy(newOrderByNode);
+
+      expect(query.orderBy).toEqual(
+        expect.objectContaining({
+          fields: [newField, newField2],
+        }),
+      );
+    })
+
+    it('should remove orderBy when only empty field is provided', () => {
+      const direction = creators.orderByDirection(ORDER_BY_DIRECTION_ASC);
+      const query = createQueryWithOrderBy(direction);
+      const newOrderByNode = creators.orderBy([]);
+
+      query.replaceOrderBy(newOrderByNode);
+
+      expect(query.orderBy).toBeUndefined();
+    })
+
+    it('should replace undefined orderBy', () => {
+      const query = creators.query(undefined, undefined);
+      const newField = creators.orderByField(creators.field('reporter'));
+      const newOrderByNode = creators.orderBy([newField]);
+
+      query.replaceOrderBy(newOrderByNode);
+
+      expect(query.orderBy).toEqual(
+        expect.objectContaining({
+          fields: [newField],
+        }),
+      );
+    })
+
+    it('should replace empty orderBy', () => {
+      const orderByNode = creators.orderBy([]);
+      const query = creators.query(undefined, orderByNode);
+      const direction = creators.orderByDirection(ORDER_BY_DIRECTION_ASC);
+      const newField = creators.orderByField(
+        creators.field('reporter'),
+        direction,
+      );
+      const newOrderByNode = creators.orderBy([newField]);
+
+      query.replaceOrderBy(newOrderByNode);
+
+      expect(query.orderBy).toEqual(
+        expect.objectContaining({
+          fields: [newField],
+        }),
+      );
+    })
+  })
+  describe('removeOrderBy', () => {
+    const direction = creators.orderByDirection(ORDER_BY_DIRECTION_DESC);
+    const query = createQueryWithOrderBy(direction);
+    query.removeOrderBy();
+    expect(query.orderBy).toBeUndefined();
+  });
 });
+

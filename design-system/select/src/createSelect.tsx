@@ -11,6 +11,7 @@ import { mergeStyles, type OptionsOrGroups } from 'react-select';
 import type BaseSelect from 'react-select/base';
 
 import { Input } from './components/input-aria-describedby';
+import { NoOptionsMessage } from './components/no-options';
 
 import {
   type SelectProps,
@@ -69,6 +70,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
         MultiValueRemove,
         IndicatorSeparator,
         Input,
+        NoOptionsMessage,
         ...componentsProp,
       }),
       [componentsProp],
@@ -82,6 +84,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
         // so we need to manually add the additional aria-describedby using ref.
         const input = internalSelectRef.current?.inputRef;
         const ariaDescribedby = input?.getAttribute('aria-describedby');
+
         if (!ariaDescribedby?.includes(descriptionId)) {
           input?.setAttribute(
             'aria-describedby',
@@ -109,7 +112,6 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
       }),
       [],
     );
-
     return (
       <WrappedComponent
         ref={internalSelectRef}

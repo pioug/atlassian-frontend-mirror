@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 81.2.1
+
+### Patch Changes
+
+- [#105074](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105074)
+  [`546eb6455635`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/546eb6455635) -
+  [ux] ED-23044 - The inlineCards with URL should be simplified to url when them are wrapped to
+  inline codemark
+
+## 81.2.0
+
+### Minor Changes
+
+- [#106501](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106501)
+  [`e6be41c844bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6be41c844bf) -
+  Added i18n messages for the edit dropdown.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 81.1.5
 
 ### Patch Changes

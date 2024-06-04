@@ -1,28 +1,48 @@
 # @atlaskit/jql-ast
 
+## 3.3.0
+
+### Minor Changes
+
+- [#104476](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104476)
+  [`461530c06e8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/461530c06e8a) -
+  Added replaceOrderField and replace function to orderBy nodes. Added removeOrderField and remove
+  function to orderBy nodes.
+
 ## 3.2.0
 
 ### Minor Changes
 
-- [#80630](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80630) [`9d3a49b48793`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d3a49b48793) - Added operatorCase attribute to allow user to print jql operators using "upper", "lower" or "preserve"
+- [#80630](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80630)
+  [`9d3a49b48793`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d3a49b48793) -
+  Added operatorCase attribute to allow user to print jql operators using "upper", "lower" or
+  "preserve"
 
 ## 3.1.1
 
 ### Patch Changes
 
-- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 3.1.0
 
 ### Minor Changes
 
-- [#69661](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69661) [`f825ec2f9792`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f825ec2f9792) - Added a new creator for JASTs, allowing you to create a full JQL AST from scratch without the overhead of parsing a string.
+- [#69661](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69661)
+  [`f825ec2f9792`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f825ec2f9792) -
+  Added a new creator for JASTs, allowing you to create a full JQL AST from scratch without the
+  overhead of parsing a string.
 
 ## 3.0.0
 
 ### Major Changes
 
-- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978) [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate `jql-ast` package to the `@atlaskit` namespace. Any consumers should update their imports to `@atlaskit/jql-ast`.
+- [#39978](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39978)
+  [`978cfcda881`](https://bitbucket.org/atlassian/atlassian-frontend/commits/978cfcda881) - Migrate
+  `jql-ast` package to the `@atlaskit` namespace. Any consumers should update their imports to
+  `@atlaskit/jql-ast`.
 
 ### Patch Changes
 
@@ -32,7 +52,9 @@
 
 ### Patch Changes
 
-- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162)
+  [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete
+  version.json
 
 ## 2.4.1
 
@@ -40,13 +62,18 @@
 
 ### Patch Changes
 
-- [#36690](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36690) [`7926dc060ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7926dc060ff) - Clamp antlr4ts version to 0.5.0-alpha.4
+- [#36690](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36690)
+  [`7926dc060ff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7926dc060ff) - Clamp
+  antlr4ts version to 0.5.0-alpha.4
 
 ## 2.4.0
 
 ### Minor Changes
 
-- [#36029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36029) [`337298e67b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/337298e67b8) - Added argumentByText to creators that let you add an argument that has been pre-treated to produce a valid JQL string
+- [#36029](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36029)
+  [`337298e67b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/337298e67b8) - Added
+  argumentByText to creators that let you add an argument that has been pre-treated to produce a
+  valid JQL string
 
 ## 2.3.2
 
@@ -54,37 +81,50 @@
 
 ### Patch Changes
 
-- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 2.3.1
 
 ### Patch Changes
 
-- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 2.3.0
 
 ### Minor Changes
 
-- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ## 2.2.0
 
 ### Minor Changes
 
-- [#31491](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31491) [`0d5ab9875fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5ab9875fc) - Add new `isOperandNode` type guard which can be called to identify AST nodes of type operand
+- [#31491](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31491)
+  [`0d5ab9875fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d5ab9875fc) - Add new
+  `isOperandNode` type guard which can be called to identify AST nodes of type operand
 
 ## 2.1.0
 
 ### Minor Changes
 
-- [#31288](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31288) [`35d641e8956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35d641e8956) - Introduce valueOperandByText creator which allows creation of value operand AST nodes by text instead of value
+- [#31288](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/31288)
+  [`35d641e8956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35d641e8956) -
+  Introduce valueOperandByText creator which allows creation of value operand AST nodes by text
+  instead of value
 
 ## 2.0.1
 
 ### Patch Changes
 
-- [#24912](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24912) [`4ca006051df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ca006051df) - Migrate @atlassiansox/jql-ast package to the Atlassian Frontend monorepo
+- [#24912](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24912)
+  [`4ca006051df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ca006051df) - Migrate
+  @atlassiansox/jql-ast package to the Atlassian Frontend monorepo
 
 ## 2.0.0
 
@@ -92,52 +132,72 @@
 
 - #### AstNode
 
-  Added `enterNode`, `exitNode` and `getChildren` methods to the `AstNode` interface to simplify listener/visitor tree traversal.
+  Added `enterNode`, `exitNode` and `getChildren` methods to the `AstNode` interface to simplify
+  listener/visitor tree traversal.
 
   #### JastListener
 
-  Added `enterEveryNode` and `exitEveryNode` method to allow consumers to perform logic for all nodes in the tree.
+  Added `enterEveryNode` and `exitEveryNode` method to allow consumers to perform logic for all
+  nodes in the tree.
 
   Removed `Clause` and `Operand` node types from listener interface and added `Property` node type.
 
-  `Clause` and `Operand` node types where removed from the listener interface as they were union types rather than concrete nodes. Consumers relying on enter/exit events for these node types should implement the enter/exit methods of the appropriate subtype, e.g. `CompoundClause` and `TerminalClause`
+  `Clause` and `Operand` node types where removed from the listener interface as they were union
+  types rather than concrete nodes. Consumers relying on enter/exit events for these node types
+  should implement the enter/exit methods of the appropriate subtype, e.g. `CompoundClause` and
+  `TerminalClause`
 
 - Make AST node position nullable.
 
-  These values will still be set for newly constructed AST's but are required to support null data to accommodate new
-  transformation API's. Consumers who are using positional data of AST nodes should update their code to support null
-  values.
+  These values will still be set for newly constructed AST's but are required to support null data
+  to accommodate new transformation API's. Consumers who are using positional data of AST nodes
+  should update their code to support null values.
 
-- Move NOT clauses from compound clause into their own node type within the AST. This is to provide more semantic accuracy with the AST structure as NOT clauses can only contain a single sub-clause.
+- Move NOT clauses from compound clause into their own node type within the AST. This is to provide
+  more semantic accuracy with the AST structure as NOT clauses can only contain a single sub-clause.
 
-  We've also added `enterNotClause/exitNotClause` and `visitNotClause` to the listener and visitor API respectively to allow consumers to perform specific processing of these node types.
+  We've also added `enterNotClause/exitNotClause` and `visitNotClause` to the listener and visitor
+  API respectively to allow consumers to perform specific processing of these node types.
 
 - #### JastVisitor
 
-  Added `visit` method. Default implementation should delegate to `AstNode#accept` and return a user-defined result of the operation.
+  Added `visit` method. Default implementation should delegate to `AstNode#accept` and return a
+  user-defined result of the operation.
 
-  Removed `visitNode` which was previously invoked when an appropriate visit method was not defined for a node type, e.g. `visitField`. Consumers that require this functionality should migrate to `visitChildren`.
+  Removed `visitNode` which was previously invoked when an appropriate visit method was not defined
+  for a node type, e.g. `visitField`. Consumers that require this functionality should migrate to
+  `visitChildren`.
 
-  Added `visitChildren` which serves as a replacement for `visitNode` but has more accurate semantics of it's intended behaviour within the API. Implementors of this method can control default behaviour for tree traversal, but in most cases you'll want to rely on the default implementation from `AbstractJastVisitor`.
+  Added `visitChildren` which serves as a replacement for `visitNode` but has more accurate
+  semantics of it's intended behaviour within the API. Implementors of this method can control
+  default behaviour for tree traversal, but in most cases you'll want to rely on the default
+  implementation from `AbstractJastVisitor`.
 
   #### AbstractJastVisitor
 
   Introduced new abstract class to simplify traversal of AST's.
 
-  Previously consumers would need to implement visit methods for all node types from the AST root to the node type that required processing.
+  Previously consumers would need to implement visit methods for all node types from the AST root to
+  the node type that required processing.
 
-  Visitors extending this class will automatically traverse the entire tree when visiting the AST root, as such they now only have to implement visit methods for node types they intend to process.
+  Visitors extending this class will automatically traverse the entire tree when visiting the AST
+  root, as such they now only have to implement visit methods for node types they intend to process.
 
-  If a node type visit method is implemented then the consumer can choose to continue visiting child nodes or short circuit the traversal.
+  If a node type visit method is implemented then the consumer can choose to continue visiting child
+  nodes or short circuit the traversal.
 
 ### Minor Changes
 
 - Introduce print API to print a provided AST object into a formatted JQL string.
 - Introduce removeClause and remove functions to Clause nodes as part of the AST transformation API.
-- Introduce replaceClause and replace functions to Clause nodes as part of the AST transformation API.
-- Introduce prependOrderField function to Query and OrderBy nodes as part of the AST transformation API.
-- Introduce appendClause function to Query and CompoundClause nodes as part of the AST transformation API.
-- Introduce setOrderDirection function to Query, OrderBy and OrderByField nodes as part of the AST transformation API.
+- Introduce replaceClause and replace functions to Clause nodes as part of the AST transformation
+  API.
+- Introduce prependOrderField function to Query and OrderBy nodes as part of the AST transformation
+  API.
+- Introduce appendClause function to Query and CompoundClause nodes as part of the AST
+  transformation API.
+- Introduce setOrderDirection function to Query, OrderBy and OrderByField nodes as part of the AST
+  transformation API.
 
 ### Patch Changes
 
@@ -187,7 +247,8 @@
 ### Patch Changes
 
 - Update storybook and de-dupe babel dependencies.
-- Send a debug message when external JQL errors are rendered or when updating attributes throws an error.
+- Send a debug message when external JQL errors are rendered or when updating attributes throws an
+  error.
 - Updated dependencies
   - @atlassiansox/jql-analytics@1.0.1
   - @atlassiansox/jql-parser@1.0.1
@@ -196,7 +257,8 @@
 
 ### Major Changes
 
-- Bump all TypeScript packages to 1.0.0 for release to production. From this point on, semver will be used in all packages.
+- Bump all TypeScript packages to 1.0.0 for release to production. From this point on, semver will
+  be used in all packages.
 
 ### Minor Changes
 
@@ -287,7 +349,8 @@
 
 ### Minor Changes
 
-- Operator-specific parsing for terminal clauses. Consolidation of terminal clause and operator nodes in AST.
+- Operator-specific parsing for terminal clauses. Consolidation of terminal clause and operator
+  nodes in AST.
 
 ### Patch Changes
 
@@ -331,7 +394,8 @@
 
 ### Minor Changes
 
-- Correctly handle NOT clauses when producing the AST and update attributes for editor searched event.
+- Correctly handle NOT clauses when producing the AST and update attributes for editor searched
+  event.
 
 ## 0.4.0
 
@@ -343,7 +407,8 @@
 
 ### Minor Changes
 
-- Update operator node to include value property for the raw text value and type property as a constant reference.
+- Update operator node to include value property for the raw text value and type property as a
+  constant reference.
 
 ### Patch Changes
 
@@ -365,7 +430,8 @@
 
 ### Minor Changes
 
-- Introduce autocomplete unhandled rules and position autocomplete based on first suggestion replace position
+- Introduce autocomplete unhandled rules and position autocomplete based on first suggestion replace
+  position
 
 ### Patch Changes
 
@@ -413,7 +479,8 @@
 
 ### Patch Changes
 
-- Update `jql-autosuggest` to accept a selection range which impacts the matchedText and replacePosition for suggestions
+- Update `jql-autosuggest` to accept a selection range which impacts the matchedText and
+  replacePosition for suggestions
 - Updated dependencies
   - @atlassiansox/jql-grammar@0.0.5
 
@@ -421,7 +488,8 @@
 
 ### Patch Changes
 
-- Improve accuracy of autocomplete suggestions from `jql-autosuggest` package and include information for token replacement.
+- Improve accuracy of autocomplete suggestions from `jql-autosuggest` package and include
+  information for token replacement.
 - Updated dependencies
   - @atlassiansox/jql-grammar@0.0.4
 

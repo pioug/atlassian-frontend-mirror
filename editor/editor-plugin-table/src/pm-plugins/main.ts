@@ -93,6 +93,7 @@ export const createPlugin = (
 	pluginInjectionApi?: PluginInjectionAPI,
 	isTableScalingEnabled?: boolean,
 	isTableAlignmentEnabled?: boolean,
+	shouldUseIncreasedScalingPercent?: boolean,
 ) => {
 	const state = createPluginState(dispatch, {
 		pluginConfig,
@@ -165,6 +166,7 @@ export const createPlugin = (
 					editorAnalyticsAPI,
 					editorViewRef || undefined,
 					isTableScalingEnabled,
+					shouldUseIncreasedScalingPercent,
 				);
 				return fixTables(updatedTr) || updatedTr;
 			}

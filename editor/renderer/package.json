@@ -1,175 +1,178 @@
 {
-  "name": "@atlaskit/renderer",
-  "version": "109.30.1",
-  "description": "Renderer component",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Renderer"
-    },
-    "runReact18": true
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/adf-utils": "^19.2.0",
-    "@atlaskit/analytics-listeners": "^8.9.0",
-    "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/code": "^15.2.0",
-    "@atlaskit/editor-common": "^81.1.0",
-    "@atlaskit/editor-json-transformer": "^8.13.0",
-    "@atlaskit/editor-palette": "1.6.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.11.0",
-    "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/link-datasource": "^2.3.0",
-    "@atlaskit/media-card": "^77.11.0",
-    "@atlaskit/media-client": "^27.2.0",
-    "@atlaskit/media-client-react": "^2.0.0",
-    "@atlaskit/media-common": "^11.2.0",
-    "@atlaskit/media-filmstrip": "^47.0.0",
-    "@atlaskit/media-ui": "^25.10.0",
-    "@atlaskit/media-viewer": "^48.6.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/smart-card": "^27.4.0",
-    "@atlaskit/status": "^1.4.0",
-    "@atlaskit/task-decision": "^17.10.0",
-    "@atlaskit/theme": "^12.8.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "lodash": "^4.17.21",
-    "memoize-one": "^6.0.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "react-loadable": "^5.1.0",
-    "uuid": "^3.1.0"
-  },
-  "peerDependencies": {
-    "@atlaskit/link-provider": "^1.9.0",
-    "@atlaskit/media-core": "^34.2.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/css-reset": "^6.9.0",
-    "@atlaskit/editor-test-helpers": "^18.23.0",
-    "@atlaskit/link-provider": "^1.9.0",
-    "@atlaskit/link-test-helpers": "^7.0.0",
-    "@atlaskit/linking-common": "^5.7.0",
-    "@atlaskit/media-core": "^34.2.0",
-    "@atlaskit/media-integration-test-helpers": "^3.0.0",
-    "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/mention": "^23.0.0",
-    "@atlaskit/navigation-next": "^9.0.0",
-    "@atlaskit/util-data-test": "^17.9.0",
-    "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
-    "@atlassian/feature-flags-test-utils": "*",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/react-loadable": "^5.4.1",
-    "ajv": "^6.12.6",
-    "enzyme": "^3.10.0",
-    "jsdom": "^17.0.0",
-    "mockdate": "^3.0.5",
-    "puppeteer": "13.7.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-live-clock": "^5.0.0",
-    "react-magnetic-di": "^2.2.6",
-    "react-moment": "^1.1.2",
-    "react-test-renderer": "^16.8.0",
-    "rxjs": "^5.5.0",
-    "sinon": "^2.2.0",
-    "typescript": "~5.4.2",
-    "worker-plugin": "^4.0.2"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.editor.renderer-inline-card-ssr-fix_kqcwl": {
-      "type": "boolean"
-    },
-    "platform.media-experience.media-viewer-v2_hgsii": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.inline_extension.extended_lcqdn": {
-      "type": "boolean"
-    },
-    "platform.editor.table-width-diff-in-renderer_x5s3z": {
-      "type": "boolean"
-    },
-    "platform.editor.allow-inline-comments-for-inline-nodes": {
-      "type": "boolean"
-    },
-    "platform.editor.renderer-error-boundary-for-dom-errors": {
-      "type": "boolean"
-    },
-    "platform.editor.scale-table-when-number-column-in-table-resized_y4qh2": {
-      "type": "boolean"
-    },
-    "platform.editor.table.preserve-widths-with-lock-button": {
-      "type": "boolean"
-    },
-    "platform.editor.table.allow-table-alignment": {
-      "type": "boolean"
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./actions": "./src/actions.ts",
-    "./consts": "./src/consts.ts",
-    "./messages": "./src/messages.ts",
-    "./render-document": "./src/render-document.ts",
-    "./renderer-context": "./src/renderer-context.tsx",
-    "./serializer": "./src/serializer.ts",
-    "./text-serializer": "./src/text-serializer.ts",
-    "./use-feature-flags": "./src/use-feature-flags.ts",
-    "./utils": "./src/utils.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./actions": "./src/actions.ts",
-    "./consts": "./src/consts.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    "./messages": "./src/messages.ts",
-    "./render-document": "./src/render-document.ts",
-    "./renderer-context": "./src/renderer-context.tsx",
-    "./serializer": "./src/serializer.ts",
-    "./text-serializer": "./src/text-serializer.ts",
-    "./use-feature-flags": "./src/use-feature-flags.ts",
-    "./utils": "./src/utils.ts",
-    "./package.json": "./package.json"
-  }
+	"name": "@atlaskit/renderer",
+	"version": "109.31.1",
+	"description": "Renderer component",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Renderer"
+		},
+		"runReact18": true
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-utils": "^19.2.0",
+		"@atlaskit/analytics-listeners": "^8.9.0",
+		"@atlaskit/analytics-namespaced-context": "^6.9.0",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/code": "^15.2.0",
+		"@atlaskit/editor-common": "^81.2.0",
+		"@atlaskit/editor-json-transformer": "^8.13.0",
+		"@atlaskit/editor-palette": "1.6.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-shared-styles": "^2.11.0",
+		"@atlaskit/emoji": "^67.6.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/link-datasource": "^2.3.0",
+		"@atlaskit/media-card": "^77.11.0",
+		"@atlaskit/media-client": "^27.2.0",
+		"@atlaskit/media-client-react": "^2.0.0",
+		"@atlaskit/media-common": "^11.2.0",
+		"@atlaskit/media-filmstrip": "^47.0.0",
+		"@atlaskit/media-ui": "^25.10.0",
+		"@atlaskit/media-viewer": "^48.6.0",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/smart-card": "^27.4.0",
+		"@atlaskit/status": "^1.4.0",
+		"@atlaskit/task-decision": "^17.10.0",
+		"@atlaskit/theme": "^12.8.0",
+		"@atlaskit/tokens": "^1.49.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"lodash": "^4.17.21",
+		"memoize-one": "^6.0.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"react-loadable": "^5.1.0",
+		"uuid": "^3.1.0"
+	},
+	"peerDependencies": {
+		"@atlaskit/link-provider": "^1.9.0",
+		"@atlaskit/media-core": "^34.2.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/analytics-gas-types": "^5.1.0",
+		"@atlaskit/css-reset": "^6.9.0",
+		"@atlaskit/editor-test-helpers": "^18.23.0",
+		"@atlaskit/link-provider": "^1.9.0",
+		"@atlaskit/link-test-helpers": "^7.0.0",
+		"@atlaskit/linking-common": "^5.7.0",
+		"@atlaskit/media-core": "^34.2.0",
+		"@atlaskit/media-integration-test-helpers": "^3.0.0",
+		"@atlaskit/media-test-helpers": "^33.0.0",
+		"@atlaskit/mention": "^23.0.0",
+		"@atlaskit/navigation-next": "^9.0.0",
+		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlaskit/visual-regression": "*",
+		"@atlaskit/webdriver-runner": "*",
+		"@atlassian/feature-flags-test-utils": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@testing-library/user-event": "^14.4.3",
+		"@types/react-loadable": "^5.4.1",
+		"ajv": "^6.12.6",
+		"enzyme": "^3.10.0",
+		"jsdom": "^17.0.0",
+		"mockdate": "^3.0.5",
+		"puppeteer": "13.7.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-live-clock": "^5.0.0",
+		"react-magnetic-di": "^2.2.6",
+		"react-moment": "^1.1.2",
+		"react-test-renderer": "^16.8.0",
+		"rxjs": "^5.5.0",
+		"sinon": "^2.2.0",
+		"typescript": "~5.4.2",
+		"worker-plugin": "^4.0.2"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.editor.renderer-inline-card-ssr-fix_kqcwl": {
+			"type": "boolean"
+		},
+		"platform.media-experience.media-viewer-v2_hgsii": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.inline_extension.extended_lcqdn": {
+			"type": "boolean"
+		},
+		"platform.editor.table-width-diff-in-renderer_x5s3z": {
+			"type": "boolean"
+		},
+		"platform.editor.allow-inline-comments-for-inline-nodes": {
+			"type": "boolean"
+		},
+		"platform.editor.renderer-error-boundary-for-dom-errors": {
+			"type": "boolean"
+		},
+		"platform.editor.scale-table-when-number-column-in-table-resized_y4qh2": {
+			"type": "boolean"
+		},
+		"platform.editor.table.preserve-widths-with-lock-button": {
+			"type": "boolean"
+		},
+		"platform.editor.table.use-increased-scaling-percent": {
+			"type": "boolean"
+		},
+		"platform.editor.table.allow-table-alignment": {
+			"type": "boolean"
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts",
+		"./actions": "./src/actions.ts",
+		"./consts": "./src/consts.ts",
+		"./messages": "./src/messages.ts",
+		"./render-document": "./src/render-document.ts",
+		"./renderer-context": "./src/renderer-context.tsx",
+		"./serializer": "./src/serializer.ts",
+		"./text-serializer": "./src/text-serializer.ts",
+		"./use-feature-flags": "./src/use-feature-flags.ts",
+		"./utils": "./src/utils.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./actions": "./src/actions.ts",
+		"./consts": "./src/consts.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		"./messages": "./src/messages.ts",
+		"./render-document": "./src/render-document.ts",
+		"./renderer-context": "./src/renderer-context.tsx",
+		"./serializer": "./src/serializer.ts",
+		"./text-serializer": "./src/text-serializer.ts",
+		"./use-feature-flags": "./src/use-feature-flags.ts",
+		"./utils": "./src/utils.ts",
+		"./package.json": "./package.json"
+	}
 }

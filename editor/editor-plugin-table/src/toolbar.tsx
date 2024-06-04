@@ -6,6 +6,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/editor-common/keymaps';
 import commonMessages, { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { typeOption } from '@atlaskit/editor-common/src/types/floating-toolbar';
 import type {
 	Command,
@@ -179,6 +180,7 @@ export const getToolbarCellOptionsConfig = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
+	shouldUseIncreasedScalingPercent = false,
 ): FloatingToolbarDropdown<Command> => {
 	const { top, bottom, right, left } = initialSelectionRect;
 	const numberOfColumns = right - left;
@@ -193,10 +195,11 @@ export const getToolbarCellOptionsConfig = (
 				const selectionRect = getClosestSelectionRect(state);
 				const index = selectionRect?.right;
 				if (index) {
-					insertColumnWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
-						INPUT_METHOD.FLOATING_TB,
-						index,
-					)(state, dispatch, view);
+					insertColumnWithAnalytics(
+						editorAnalyticsAPI,
+						isTableScalingEnabled,
+						shouldUseIncreasedScalingPercent,
+					)(INPUT_METHOD.FLOATING_TB, index)(state, dispatch, view);
 				}
 				return true;
 			},
@@ -230,11 +233,11 @@ export const getToolbarCellOptionsConfig = (
 			onClick: (state: EditorState, dispatch?: CommandDispatch, view?: EditorView) => {
 				const selectionRect = getClosestSelectionRect(state);
 				if (selectionRect) {
-					deleteColumnsWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.FLOATING_TB, selectionRect)(
-						state,
-						dispatch,
-						view,
-					);
+					deleteColumnsWithAnalytics(
+						editorAnalyticsAPI,
+						isTableScalingEnabled,
+						shouldUseIncreasedScalingPercent,
+					)(INPUT_METHOD.FLOATING_TB, selectionRect)(state, dispatch, view);
 				}
 				return true;
 			},
@@ -431,6 +434,7 @@ export const getToolbarConfig =
 		getEditorFeatureFlags: GetEditorFeatureFlags,
 		getEditorView: () => EditorView | null,
 		options?: TablePluginOptions,
+		shouldUseIncreasedScalingPercent = false,
 	) =>
 	(config: PluginConfig): FloatingToolbarHandler =>
 	(state, intl) => {
@@ -464,6 +468,7 @@ export const getToolbarConfig =
 						getEditorContainerWidth,
 						editorAnalyticsAPI,
 						options?.isTableScalingEnabled,
+						shouldUseIncreasedScalingPercent,
 					);
 
 			let columnSettingsItems;
@@ -588,6 +593,7 @@ const getCellItems = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
+	shouldUseIncreasedScalingPercent = false,
 ): Array<FloatingToolbarItem<Command>> => {
 	const initialSelectionRect = getClosestSelectionRect(state);
 	if (initialSelectionRect) {
@@ -599,6 +605,7 @@ const getCellItems = (
 			getEditorContainerWidth,
 			editorAnalyticsAPI,
 			isTableScalingEnabled,
+			shouldUseIncreasedScalingPercent,
 		);
 		return [cellOptions, separator(cellOptions.hidden!)];
 	}
@@ -910,8 +917,9 @@ export const isLayoutOptionDisabled = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 ) => {
 	const lineLength = getEditorContainerWidth().lineLength;
+	const tableWidth = getTableContainerWidth(selectedNode);
 
-	if (selectedNode && lineLength && selectedNode.attrs.width > lineLength) {
+	if (selectedNode && lineLength && tableWidth > lineLength) {
 		return true;
 	}
 

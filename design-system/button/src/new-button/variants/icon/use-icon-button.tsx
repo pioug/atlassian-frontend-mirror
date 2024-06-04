@@ -5,20 +5,16 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 import Content from '../shared/content';
 import renderLoadingOverlay from '../shared/loading-overlay';
 import useButtonBase, {
-  type UseButtonBaseArgs,
-  type UseButtonBaseReturn,
+	type UseButtonBaseArgs,
+	type UseButtonBaseReturn,
 } from '../shared/use-button-base';
 
 import { type CommonIconButtonProps } from './types';
 
-type UseIconButtonArgs<TagName extends HTMLElement> = Omit<
-  UseButtonBaseArgs<TagName>,
-  'children'
-> &
-  Omit<CommonIconButtonProps, 'isTooltipDisabled' | 'tooltip'>;
+type UseIconButtonArgs<TagName extends HTMLElement> = Omit<UseButtonBaseArgs<TagName>, 'children'> &
+	Omit<CommonIconButtonProps, 'isTooltipDisabled' | 'tooltip'>;
 
-type UseIconButtonReturn<TagName extends HTMLElement> =
-  UseButtonBaseReturn<TagName>;
+type UseIconButtonReturn<TagName extends HTMLElement> = UseButtonBaseReturn<TagName>;
 
 /**
  * __Use icon button__
@@ -30,77 +26,77 @@ type UseIconButtonReturn<TagName extends HTMLElement> =
  * @private
  */
 const useIconButton = <TagName extends HTMLElement>({
-  analyticsContext,
-  appearance,
-  autoFocus,
-  buttonType,
-  icon: Icon,
-  interactionName,
-  isDisabled,
-  isSelected,
-  isLoading,
-  label,
-  onClick,
-  onMouseDownCapture,
-  onMouseUpCapture,
-  onKeyDownCapture,
-  onKeyUpCapture,
-  onTouchStartCapture,
-  onTouchEndCapture,
-  onPointerDownCapture,
-  onPointerUpCapture,
-  onClickCapture,
-  overlay,
-  ref,
-  shape,
-  shouldFitContainer,
-  spacing,
-  UNSAFE_size,
+	analyticsContext,
+	appearance,
+	autoFocus,
+	buttonType,
+	icon: Icon,
+	interactionName,
+	isDisabled,
+	isLoading,
+	isSelected,
+	label,
+	onClick,
+	onClickCapture,
+	onKeyDownCapture,
+	onKeyUpCapture,
+	onMouseDownCapture,
+	onMouseUpCapture,
+	onPointerDownCapture,
+	onPointerUpCapture,
+	onTouchEndCapture,
+	onTouchStartCapture,
+	overlay,
+	ref,
+	shape,
+	shouldFitContainer,
+	spacing,
+	UNSAFE_size,
 }: UseIconButtonArgs<TagName>): UseIconButtonReturn<TagName> => {
-  const hasOverlay = Boolean(overlay || isLoading);
-  const isCircle = shape === 'circle';
+	const hasOverlay = Boolean(overlay || isLoading);
+	const isCircle = shape === 'circle';
 
-  const baseProps = useButtonBase<TagName>({
-    analyticsContext,
-    appearance,
-    autoFocus,
-    buttonType,
-    children: (
-      <Content type="icon" hasOverlay={hasOverlay}>
-        <Icon label="" size={UNSAFE_size} color={'currentColor'} />
-        <VisuallyHidden>{label}</VisuallyHidden>
-      </Content>
-    ),
-    interactionName,
-    isDisabled,
-    isLoading,
-    isSelected,
-    isIconButton: true,
-    isCircle,
-    onClick,
-    onMouseDownCapture,
-    onMouseUpCapture,
-    onKeyDownCapture,
-    onKeyUpCapture,
-    onTouchStartCapture,
-    onTouchEndCapture,
-    onPointerDownCapture,
-    onPointerUpCapture,
-    onClickCapture,
-    overlay: isLoading
-      ? renderLoadingOverlay({
-          spacing,
-          appearance,
-          isDisabled,
-          isSelected,
-        })
-      : overlay,
-    ref,
-    shouldFitContainer,
-    spacing,
-  });
+	const baseProps = useButtonBase<TagName>({
+		analyticsContext,
+		appearance,
+		autoFocus,
+		buttonType,
+		children: (
+			<Content type="icon" hasOverlay={hasOverlay}>
+				<Icon label="" size={UNSAFE_size} color={'currentColor'} />
+				<VisuallyHidden>{label}</VisuallyHidden>
+			</Content>
+		),
+		interactionName,
+		isDisabled,
+		isLoading,
+		isSelected,
+		isIconButton: true,
+		isCircle,
+		onClick,
+		onMouseDownCapture,
+		onMouseUpCapture,
+		onKeyDownCapture,
+		onKeyUpCapture,
+		onTouchStartCapture,
+		onTouchEndCapture,
+		onPointerDownCapture,
+		onPointerUpCapture,
+		onClickCapture,
+		overlay: isLoading
+			? renderLoadingOverlay({
+					spacing,
+					appearance,
+					isDisabled,
+					isSelected,
+				})
+			: overlay,
+		ref,
+		shouldFitContainer,
+		spacing,
+	});
 
-  return baseProps;
+	return baseProps;
 };
 
 export default useIconButton;

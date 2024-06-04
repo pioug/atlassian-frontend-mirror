@@ -18,6 +18,7 @@ import type { RendererContextProps } from '../../../renderer-context';
 // User A creates a table with column widths → User B views it on a smaller screen
 // User A creates a table with column widths → User A views it with reduced viewport space (eg. Confluence sidebar is open)
 const MAX_SCALING_PERCENT = 0.3;
+const MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION = 0.4;
 
 const isTableResized = (columnWidths: Array<number>) => {
 	const filteredWidths = columnWidths.filter((width) => width !== 0);
@@ -105,29 +106,31 @@ const renderScaleDownColgroup = (
 
 	const sumOfColumns = colWidthSum(columnWidths);
 
-	// A bug was released that caused col resizing in editor to be off by 2px, so using 2 here
-	const isTableSmallerThanContainer = sumOfColumns < tableContainerWidth - 2;
+	// tables in the wild may be smaller than table container width (col resizing bugs, created before custom widths etc.)
+	// this causes issues with num column scaling as we add a new table column in renderer
+	const isTableSmallerThanContainer = sumOfColumns < tableContainerWidth - 1;
 
 	const forceScaleForNumColumn =
 		getBooleanFF('platform.editor.scale-table-when-number-column-in-table-resized_y4qh2') &&
 		isTableScalingEnabled &&
 		isNumberColumnEnabled &&
-		tableResized &&
-		// if table col widths are smaller than container, then ignore. Most likely was created before custom table widths, where
-		// col widths could be smaller than container width (width was enforced by breakout buttons)
-		!isTableSmallerThanContainer;
+		tableResized;
 
 	// when table resized and number column is enabled, we need to scale down the table in render
 	if (forceScaleForNumColumn) {
 		const scalePercentage = +(
 			(tableContainerWidth - akEditorTableNumberColumnWidth) /
 			tableContainerWidth
-		).toFixed(2);
+		);
 
 		const targetMaxWidth = tableContainerWidth - akEditorTableNumberColumnWidth;
 		let totalWidthAfterScale = 0;
 		const newScaledTargetWidths = columnWidths.map((width) => {
-			const newWidth = Math.floor(width * scalePercentage);
+			// we need to scale each column UP, to ensure total width of table matches table container
+			const patchedWidth = isTableSmallerThanContainer
+				? (width / sumOfColumns) * (tableContainerWidth - 1)
+				: width;
+			const newWidth = Math.floor(patchedWidth * scalePercentage);
 			totalWidthAfterScale += newWidth;
 			return newWidth;
 		});
@@ -167,9 +170,16 @@ const renderScaleDownColgroup = (
 	let cellMinWidth = 0;
 	let scaleDownPercent = 0;
 
+	const isTableWithLockButtonEnabled =
+		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') && isTableScalingEnabled;
+
 	const isTableWidthFixed =
-		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
-		props.tableNode?.attrs.displayMode === 'fixed';
+		isTableWithLockButtonEnabled && props.tableNode?.attrs.displayMode === 'fixed';
+	const maxScalingPercent =
+		getBooleanFF('platform.editor.table.use-increased-scaling-percent') &&
+		isTableWithLockButtonEnabled
+			? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
+			: MAX_SCALING_PERCENT;
 
 	// fixes migration tables with zero-width columns
 	if (zeroWidthColumnsCount > 0) {
@@ -184,7 +194,7 @@ const renderScaleDownColgroup = (
 		scaleDownPercent = calcScalePercent({
 			renderWidth,
 			tableWidth,
-			maxScale: MAX_SCALING_PERCENT,
+			maxScale: maxScalingPercent,
 		});
 	}
 

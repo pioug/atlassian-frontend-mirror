@@ -56,7 +56,7 @@ export default () => {
                         setRange(range + 1);
                       }}
                     >
-                      Load more
+                      Load more users
                     </Button>
                   </ButtonGroup>
                 </Fragment>

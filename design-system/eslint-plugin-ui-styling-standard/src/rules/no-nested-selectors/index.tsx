@@ -1,112 +1,99 @@
 import type { Property } from 'estree';
+import cssSelectorParser, { type Selector, isNesting, isPseudo } from 'postcss-selector-parser';
 
-import {
-  isStyled,
-  isCss,
-  isXcss,
-  getImportSources,
-} from '@atlaskit/eslint-utils/is-supported-import';
-import { createLintRule } from '../utils/create-rule';
-import { type JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
+import { walkStyleProperties } from '@atlaskit/eslint-utils/walk-style-properties';
+import { importSources } from '@atlaskit/eslint-utils/schema';
 
-const schema: JSONSchema4 = [
-  {
-    type: 'object',
-    properties: {
-      importSources: {
-        type: 'array',
-        items: { type: 'string' },
-        uniqueItems: true,
-      },
-    },
-  },
-];
+import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
 
-const getCssSelector = (node: Property): string | null => {
-  if (node.key.type === 'Literal' && typeof node.key.value === 'string') {
-    return node.key.value;
-  }
+const getCssSelector = (key: Property['key']): string | null => {
+	if (key.type === 'Literal' && typeof key.value === 'string') {
+		return key.value;
+	}
 
-  if (node.key.type === 'Identifier' && typeof node.key.name === 'string') {
-    return node.key.name;
-  }
+	if (key.type === 'Identifier' && typeof key.name === 'string') {
+		return key.name;
+	}
 
-  if (node.key.type === 'TemplateLiteral') {
-    return node.key.quasis.map((quasi) => quasi.value.raw).join(' ');
-  }
+	if (key.type === 'TemplateLiteral') {
+		return key.quasis.map((quasi) => quasi.value.raw).join(' ');
+	}
 
-  return null;
+	return null;
 };
 
-export const rule = createLintRule({
-  meta: {
-    name: 'no-nested-selectors',
-    docs: {
-      description: 'Prevents usage of nested selectors within css styling',
-      recommended: true,
-      severity: 'warn',
-    },
-    messages: {
-      'no-nested-selectors':
-        'Please avoid setting styles for child elements or elements that require context from other elements.',
-    },
-    type: 'problem',
-    schema,
-  },
-  create(context) {
-    const importSources = getImportSources(context);
-    return {
-      'CallExpression Property': (node: Property): void => {
-        const { references } = context.getScope();
-        const ancestors = context.getAncestors();
+function isAllowedSelector(selector: Selector): boolean {
+	const [head, ...tail] = selector.nodes;
 
-        if (
-          ancestors.every(
-            (ancestor) =>
-              ancestor.type !== 'CallExpression' ||
-              !ancestor?.callee ||
-              !(
-                isCss(ancestor.callee, references, importSources) ||
-                isStyled(ancestor.callee, references, importSources) ||
-                isXcss(ancestor.callee, references, importSources)
-              ),
-          )
-        ) {
-          return;
-        }
+	// The first node must be a nesting selector (`&`) or pseudo-selector.
+	const isHeadAllowed = isNesting(head) || isPseudo(head);
 
-        if (node.value.type !== 'ObjectExpression') {
-          // If the value is a CSS object, safe to assume we're at a CSS selector
-          return;
-        }
+	// All remaining nodes must be pseudo selectors.
+	const isTailAllowed = tail.every(isPseudo);
 
-        const cssSelector = getCssSelector(node);
-        if (cssSelector === null) {
-          return;
-        }
+	return isHeadAllowed && isTailAllowed;
+}
 
-        const tokens = cssSelector.split(/[, ]+/);
+const cssSelectorProcessor = cssSelectorParser();
 
-        if (
-          !cssSelector.includes('@') &&
-          !tokens.every(
-            (token) =>
-              token.length === 0 ||
-              token.startsWith('&') ||
-              token.startsWith(':') ||
-              token.includes('+') ||
-              token.includes('~') ||
-              token.endsWith('&'),
-          )
-        ) {
-          context.report({
-            messageId: 'no-nested-selectors',
-            node: node.key,
-          });
-        }
-      },
-    };
-  },
+export const rule = createLintRuleWithTypedConfig({
+	meta: {
+		name: 'no-nested-selectors',
+		docs: {
+			description: 'Prevents usage of nested selectors within css styling',
+			recommended: true,
+			severity: 'warn',
+		},
+		messages: {
+			'no-nested-selectors':
+				'Please avoid setting styles for child elements or elements that require context from other elements.',
+		},
+		type: 'problem',
+		schema: {
+			type: 'object',
+			properties: {
+				importSources,
+			},
+		},
+	},
+	create(context, { importSources }) {
+		return {
+			CallExpression(node) {
+				const { references } = context.getScope();
+
+				walkStyleProperties(node, references, importSources, ({ key, value }) => {
+					if (value.type !== 'ObjectExpression') {
+						// If the value is a CSS object, safe to assume we're at a CSS selector
+						return;
+					}
+
+					const selectorText = getCssSelector(key);
+					if (selectorText === null) {
+						return;
+					}
+
+					// Ignore at-rules
+					if (selectorText.includes('@')) {
+						return;
+					}
+
+					try {
+						const selectorList = cssSelectorProcessor.astSync(selectorText);
+
+						if (!selectorList.nodes.every(isAllowedSelector)) {
+							context.report({
+								messageId: 'no-nested-selectors',
+								node: key,
+							});
+						}
+					} catch (_) {
+						// If it is not parsable then `no-unsafe-selectors` will give it an error,
+						// we can ignore it here.
+					}
+				});
+			},
+		};
+	},
 });
 
 export default rule;

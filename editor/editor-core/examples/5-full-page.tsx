@@ -17,6 +17,7 @@ import {
 	TTI_SEVERITY_THRESHOLD_DEFAULTS,
 } from '@atlaskit/editor-common/utils';
 import { backgroundColorPlugin } from '@atlaskit/editor-plugins/background-color';
+import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
@@ -230,7 +231,7 @@ const Editor = (props: EditorProps) => {
 		props,
 	});
 	const { preset } = usePreset(
-		() => universalPreset.add(backgroundColorPlugin).add(highlightPlugin),
+		() => universalPreset.add(backgroundColorPlugin).add(highlightPlugin).add(blockControlsPlugin),
 		[universalPreset],
 	);
 

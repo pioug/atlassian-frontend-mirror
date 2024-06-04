@@ -19,96 +19,96 @@ export type ButtonProps = CommonDefaultButtonProps & CommonButtonVariantProps;
  * - [Usage](https://atlassian.design/components/button/usage)
  */
 const Button = React.memo(
-  React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-    {
-      analyticsContext,
-      interactionName,
-      autoFocus,
-      appearance,
-      spacing,
-      isDisabled,
-      isSelected,
-      iconBefore,
-      isLoading,
-      UNSAFE_iconAfter_size,
-      iconAfter,
-      UNSAFE_iconBefore_size,
-      children,
-      shouldFitContainer,
-      overlay,
-      onClick,
-      onMouseDownCapture,
-      onMouseUpCapture,
-      onKeyDownCapture,
-      onKeyUpCapture,
-      onTouchStartCapture,
-      onTouchEndCapture,
-      onPointerDownCapture,
-      onPointerUpCapture,
-      onClickCapture,
-      type = 'button',
-      testId,
-      ...rest
-    },
-    ref,
-  ) {
-    const baseProps = useDefaultButton<HTMLButtonElement>({
-      analyticsContext,
-      appearance,
-      autoFocus,
-      buttonType: 'button',
-      children,
-      iconBefore,
-      UNSAFE_iconBefore_size,
-      iconAfter,
-      UNSAFE_iconAfter_size,
-      interactionName,
-      isDisabled,
-      isSelected,
-      isLoading,
-      onClick,
-      onMouseDownCapture,
-      onMouseUpCapture,
-      onKeyDownCapture,
-      onKeyUpCapture,
-      onTouchStartCapture,
-      onTouchEndCapture,
-      onPointerDownCapture,
-      onPointerUpCapture,
-      onClickCapture,
-      overlay,
-      ref,
-      shouldFitContainer,
-      spacing,
-    });
+	React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+		{
+			analyticsContext,
+			appearance,
+			autoFocus,
+			children,
+			iconAfter,
+			iconBefore,
+			interactionName,
+			isDisabled,
+			isLoading,
+			isSelected,
+			onClick,
+			onClickCapture,
+			onKeyDownCapture,
+			onKeyUpCapture,
+			onMouseDownCapture,
+			onMouseUpCapture,
+			onPointerDownCapture,
+			onPointerUpCapture,
+			onTouchEndCapture,
+			onTouchStartCapture,
+			overlay,
+			shouldFitContainer,
+			spacing,
+			testId,
+			type = 'button',
+			UNSAFE_iconAfter_size,
+			UNSAFE_iconBefore_size,
+			...rest
+		},
+		ref,
+	) {
+		const baseProps = useDefaultButton<HTMLButtonElement>({
+			analyticsContext,
+			appearance,
+			autoFocus,
+			buttonType: 'button',
+			children,
+			iconAfter,
+			iconBefore,
+			interactionName,
+			isDisabled,
+			isLoading,
+			isSelected,
+			onClick,
+			onClickCapture,
+			onKeyDownCapture,
+			onKeyUpCapture,
+			onMouseDownCapture,
+			onMouseUpCapture,
+			onPointerDownCapture,
+			onPointerUpCapture,
+			onTouchEndCapture,
+			onTouchStartCapture,
+			overlay,
+			ref,
+			shouldFitContainer,
+			spacing,
+			UNSAFE_iconAfter_size,
+			UNSAFE_iconBefore_size,
+		});
 
-    return (
-      <Pressable
-        // TODO: Remove spread props
-        {...rest}
-        ref={baseProps.ref}
-        xcss={baseProps.xcss}
-        isDisabled={baseProps.isDisabled}
-        onClick={baseProps.onClick}
-        onMouseDownCapture={baseProps.onMouseDownCapture}
-        onMouseUpCapture={baseProps.onMouseUpCapture}
-        onKeyDownCapture={baseProps.onKeyDownCapture}
-        onKeyUpCapture={baseProps.onKeyUpCapture}
-        onTouchStartCapture={baseProps.onTouchStartCapture}
-        onTouchEndCapture={baseProps.onTouchEndCapture}
-        onPointerDownCapture={baseProps.onPointerDownCapture}
-        onPointerUpCapture={baseProps.onPointerUpCapture}
-        onClickCapture={baseProps.onClickCapture}
-        type={type}
-        testId={testId}
-        analyticsContext={analyticsContext}
-        interactionName={interactionName}
-        componentName="Button"
-      >
-        {baseProps.children}
-      </Pressable>
-    );
-  }),
+		return (
+			<Pressable
+				// TODO: Remove spread props
+				{...rest}
+				ref={baseProps.ref}
+				xcss={baseProps.xcss}
+				isDisabled={baseProps.isDisabled}
+				onClick={baseProps.onClick}
+				onMouseDownCapture={baseProps.onMouseDownCapture}
+				onMouseUpCapture={baseProps.onMouseUpCapture}
+				onKeyDownCapture={baseProps.onKeyDownCapture}
+				onKeyUpCapture={baseProps.onKeyUpCapture}
+				onTouchStartCapture={baseProps.onTouchStartCapture}
+				onTouchEndCapture={baseProps.onTouchEndCapture}
+				onPointerDownCapture={baseProps.onPointerDownCapture}
+				onPointerUpCapture={baseProps.onPointerUpCapture}
+				onClickCapture={baseProps.onClickCapture}
+				type={type}
+				testId={testId}
+				analyticsContext={analyticsContext}
+				interactionName={interactionName}
+				componentName="Button"
+			>
+				{baseProps.children}
+			</Pressable>
+		);
+	}),
 );
 
 Button.displayName = 'Button';

@@ -94,6 +94,7 @@ export interface CardViewV2Props {
   // Used to disable animation for testing purposes
   disableAnimation?: boolean;
   shouldHideTooltip?: boolean;
+  overriddenCreationDate?: number;
 }
 
 export type CardViewV2BaseProps = CardViewV2Props & WithAnalyticsEventsProps;
@@ -142,6 +143,7 @@ export const CardViewV2Base = ({
   disableAnimation,
   openMediaViewerButtonRef = null,
   shouldOpenMediaViewer,
+  overriddenCreationDate,
 }: CardViewV2BaseProps) => {
   const [didImageRender, setDidImageRender] = useState<boolean>(false);
   const divRef = useRef<HTMLDivElement>(null);
@@ -359,7 +361,7 @@ export const CardViewV2Base = ({
         {renderTitleBox && name && (
           <TitleBox
             name={name}
-            createdAt={createdAt}
+            createdAt={overriddenCreationDate ?? createdAt}
             breakpoint={breakpoint}
             titleBoxIcon={titleBoxIcon}
             titleBoxBgColor={titleBoxBgColor}

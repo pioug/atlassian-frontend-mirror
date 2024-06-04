@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.5.0
+
+### Minor Changes
+
+- [#106866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106866)
+  [`c85636e9051b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c85636e9051b) -
+  [ux] Add api to enable search only on enter in the help panel
+
 ## 7.4.2
 
 ### Patch Changes

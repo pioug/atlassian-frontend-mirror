@@ -477,6 +477,7 @@ export const handleCut = (
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	editorView?: EditorView,
 	isTableScalingEnabled = false,
+	shouldUseIncreasedScalingPercent = false,
 ): Transaction => {
 	const oldSelection = oldState.tr.selection;
 	let { tr } = newState;
@@ -524,6 +525,7 @@ export const handleCut = (
 							getAllowAddColumnCustomStep(oldState),
 							editorView,
 							isTableScalingEnabled,
+							shouldUseIncreasedScalingPercent,
 						)(tr);
 					}
 				}

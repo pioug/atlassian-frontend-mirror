@@ -148,6 +148,10 @@ export type MessageKey =
   | 'last_mentioned_in'
   | 'related'
   | 'generic_error_message'
+  | 'related_links_modal_error_header'
+  | 'related_links_modal_error_message'
+  | 'related_links_modal_unavailable_header'
+  | 'related_links_modal_unavailable_message'
   | 'related_links_modal_title'
   | 'related_links_view_related_urls'
   | 'related_links_found_in'
@@ -974,5 +978,25 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.related_links_includes_links_to',
     defaultMessage: 'Includes Links To',
     description: 'Informs the user of the resources the url links to',
+  },
+  related_links_modal_error_header: {
+    id: 'fabric.linking.related_links_modal_error_header',
+    defaultMessage: 'Something went wrong',
+    description: 'Title for related links error'
+  },
+  related_links_modal_error_message: {
+    id: 'fabric.linking.related_links_modal_error_message',
+    defaultMessage: 'We ran into an issue trying to load recent links. Check your connection or refresh to try again.',
+    description: 'Informs the user that there was a problem loading related links'
+  },
+  related_links_modal_unavailable_header: {
+    id: 'fabric.linking.related_links_modal_unavailable_header',
+    defaultMessage: 'No recent links',
+    description: 'Title for related links being unavailable'
+  },
+  related_links_modal_unavailable_message: {
+    id: 'fabric.linking.related_links_modal_unavailable_message',
+    defaultMessage: 'We didn\'t find any links to show here. We continuously review and add recent links for updated pages or other content types.',
+    description: 'Informs the user that related links were not found but may be available in the future'
   },
 });

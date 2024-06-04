@@ -7,8 +7,6 @@ import {
 	akEditorGutterPadding,
 } from '@atlaskit/editor-shared-styles';
 
-import { tableResizerWidth } from '../ui/consts';
-
 const numberOfLanesInDefaultLayoutWidth = 12;
 
 const calculateSubSnappingWidths = (totalLanes: number, totalWidth: number) =>
@@ -43,7 +41,7 @@ export const calculateDefaultTablePreserveSnappings = (
 	const dynamicFullWidthLine =
 		editorContainerWith - akEditorGutterPadding * 2 >= akEditorFullWidthLayoutWidth
 			? akEditorFullWidthLayoutWidth
-			: editorContainerWith - akEditorGutterPadding * 2 - tableResizerWidth;
+			: editorContainerWith - akEditorGutterPadding * 2;
 
 	const guides = [dynamicFullWidthLine - lengthOffset];
 
@@ -69,8 +67,10 @@ export const calculateDefaultTablePreserveSnappings = (
 
 export const defaultSnappingWidths = calculateDefaultSnappings();
 
+export const PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET = 0;
 // FF TablePreserve for defaultSnappingWidths
 export const defaultTablePreserveSnappingWidths = (
+	lengthOffset: number,
 	editorContainerWidth: number,
 	exclude: GuidelineExcludeConfig = {
 		innerGuidelines: false,
@@ -79,11 +79,11 @@ export const defaultTablePreserveSnappingWidths = (
 ) => {
 	return editorContainerWidth - akEditorGutterPadding * 2 > akEditorFullWidthLayoutWidth
 		? calculateDefaultSnappings()
-		: calculateDefaultTablePreserveSnappings(0, editorContainerWidth, exclude);
+		: calculateDefaultTablePreserveSnappings(lengthOffset, editorContainerWidth, exclude); // lengthOffset was hardcoded 0 here, created PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET instead.
 };
 
 /**
- * Returns keys of guidelines that are closest to the table and withthin the snapGap
+ * Returns keys of guidelines that are closest to the table and within the snapGap
  */
 export const findClosestSnap = (
 	currentWidth: number,

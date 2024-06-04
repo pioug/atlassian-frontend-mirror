@@ -105,7 +105,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 	private plusButtonRef?: HTMLElement;
 	private tableButtonRef = React.createRef<HTMLElement>();
 	private tableSelectorButtonRef = React.createRef<HTMLElement>();
-	private unresgisterToggleDropdownMenuOptions: null | (() => void);
+	private unregisterToggleDropdownMenuOptions: null | (() => void) = null;
 
 	state: State = {
 		isPlusMenuOpen: false,
@@ -116,15 +116,6 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		isTableSelectorOpen: false,
 		isTableSelectorOpenedByKeyboard: false,
 	};
-
-	constructor(props: Props & WrappedComponentProps & InternalActions) {
-		super(props);
-		const { registerToggleDropdownMenuOptions } = props;
-
-		this.unresgisterToggleDropdownMenuOptions = registerToggleDropdownMenuOptions
-			? registerToggleDropdownMenuOptions(this.handleClick)
-			: null;
-	}
 
 	static getDerivedStateFromProps(
 		props: Props & WrappedComponentProps,
@@ -391,10 +382,14 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		}
 	};
 
+	componentDidMount = () => {
+		this.unregisterToggleDropdownMenuOptions = this.props.registerToggleDropdownMenuOptions
+			? this.props.registerToggleDropdownMenuOptions(this.handleClick)
+			: null;
+	};
+
 	componentWillUnmount = () => {
-		if (this.unresgisterToggleDropdownMenuOptions) {
-			this.unresgisterToggleDropdownMenuOptions();
-		}
+		this.unregisterToggleDropdownMenuOptions?.();
 	};
 
 	render() {

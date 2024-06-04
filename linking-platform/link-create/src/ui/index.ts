@@ -1,4 +1,6 @@
-export { default } from './main';
+export { default } from './modal-create';
+export { default as InlineCreate } from './inline-create';
+
 export { TextField } from './create-form/textfield';
 
 export { CreateForm } from './create-form/main';

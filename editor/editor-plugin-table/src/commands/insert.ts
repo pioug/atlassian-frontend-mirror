@@ -38,7 +38,11 @@ function addColumnAtCustomStep(column: number) {
 	};
 }
 
-export function addColumnAt(isTableScalingEnabled = false, isCellBackgroundDuplicated?: boolean) {
+export function addColumnAt(
+	isTableScalingEnabled = false,
+	isCellBackgroundDuplicated?: boolean,
+	shouldUseIncreasedScalingPercent?: boolean,
+) {
 	return (
 		column: number,
 		allowAddColumnCustomStep: boolean = false,
@@ -54,7 +58,10 @@ export function addColumnAt(isTableScalingEnabled = false, isCellBackgroundDupli
 			const table = findTable(updatedTr.selection);
 			if (table) {
 				// [ED-8288] Update colwidths manually to avoid multiple dispatch in TableComponent
-				updatedTr = rescaleColumns(isTableScalingEnabled)(table, view)(updatedTr);
+				updatedTr = rescaleColumns(isTableScalingEnabled, shouldUseIncreasedScalingPercent)(
+					table,
+					view,
+				)(updatedTr);
 			}
 
 			if (view) {
@@ -76,7 +83,7 @@ export function addColumnAt(isTableScalingEnabled = false, isCellBackgroundDupli
 // :: (EditorState, dispatch: ?(tr: Transaction)) → bool
 // Command to add a column before the column with the selection.
 export const addColumnBefore =
-	(isTableScalingEnabled = false): Command =>
+	(isTableScalingEnabled = false, shouldUseIncreasedScalingPercent = false): Command =>
 	(state, dispatch, view) => {
 		const table = findTable(state.selection);
 		if (!table) {
@@ -85,9 +92,11 @@ export const addColumnBefore =
 		if (dispatch) {
 			let rect = selectedRect(state);
 			dispatch(
-				addColumnAt(isTableScalingEnabled)(rect.left, getAllowAddColumnCustomStep(state), view)(
-					state.tr,
-				),
+				addColumnAt(isTableScalingEnabled, shouldUseIncreasedScalingPercent)(
+					rect.left,
+					getAllowAddColumnCustomStep(state),
+					view,
+				)(state.tr),
 			);
 		}
 		return true;
@@ -96,7 +105,7 @@ export const addColumnBefore =
 // :: (EditorState, dispatch: ?(tr: Transaction)) → bool
 // Command to add a column after the column with the selection.
 export const addColumnAfter =
-	(isTableScalingEnabled?: boolean): Command =>
+	(isTableScalingEnabled?: boolean, shouldUseIncreasedScalingPercent?: boolean): Command =>
 	(state, dispatch, view) => {
 		const table = findTable(state.selection);
 		if (!table) {
@@ -105,19 +114,29 @@ export const addColumnAfter =
 		if (dispatch) {
 			let rect = selectedRect(state);
 			dispatch(
-				addColumnAt(isTableScalingEnabled)(rect.right, getAllowAddColumnCustomStep(state), view)(
-					state.tr,
-				),
+				addColumnAt(isTableScalingEnabled, shouldUseIncreasedScalingPercent)(
+					rect.right,
+					getAllowAddColumnCustomStep(state),
+					view,
+				)(state.tr),
 			);
 		}
 		return true;
 	};
 
 export const insertColumn =
-	(isTableScalingEnabled = false, isCellBackgroundDuplicated?: boolean) =>
+	(
+		isTableScalingEnabled = false,
+		isCellBackgroundDuplicated?: boolean,
+		shouldUseIncreasedScalingPercent?: boolean,
+	) =>
 	(column: number): Command =>
 	(state, dispatch, view) => {
-		let tr = addColumnAt(isTableScalingEnabled, isCellBackgroundDuplicated)(
+		let tr = addColumnAt(
+			isTableScalingEnabled,
+			isCellBackgroundDuplicated,
+			shouldUseIncreasedScalingPercent,
+		)(
 			column,
 			getAllowAddColumnCustomStep(state),
 			view,

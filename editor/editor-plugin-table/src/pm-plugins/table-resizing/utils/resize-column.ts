@@ -16,12 +16,13 @@ export const resizeColumn = (
 	tableNode: PmNode,
 	selectedColumns?: number[],
 	isTableScalingEnabled = false,
+	shouldUseIncreasedScalingPercent = false,
 ): ResizeState => {
 	let scalePercent = 1;
 	let resizeAmount = amount;
 
 	if (isTableScalingEnabled) {
-		scalePercent = getTableScalingPercent(tableNode, tableRef);
+		scalePercent = getTableScalingPercent(tableNode, tableRef, shouldUseIncreasedScalingPercent);
 		resizeAmount = amount / scalePercent;
 	}
 
@@ -32,7 +33,13 @@ export const resizeColumn = (
 				? shrinkColumn(resizeState, colIndex, resizeAmount, selectedColumns)
 				: resizeState;
 
-	updateColgroup(newState, tableRef, tableNode, isTableScalingEnabled);
+	updateColgroup(
+		newState,
+		tableRef,
+		tableNode,
+		isTableScalingEnabled,
+		shouldUseIncreasedScalingPercent,
+	);
 
 	return newState;
 };
@@ -47,13 +54,13 @@ export const resizeColumnAndTable = (
 	selectedColumns?: number[],
 	isTableScalingEnabled = false,
 	originalTableWidth?: number,
+	shouldUseIncreasedScalingPercent = false,
 ): ResizeState => {
 	// TODO: can we use document state, and apply scaling factor?
 	const tableWidth = tableRef.clientWidth;
 	const tableContainerWidth = tableRef.closest('.pm-table-container')?.clientWidth;
 
 	const isOverflowed = !!(tableWidth && tableContainerWidth && tableWidth > tableContainerWidth);
-
 	let resizeAmount = amount * 2;
 
 	// todo: reimplement - use getTableScalingPercentFrozen to get scaled percent before table width changes dynamically
@@ -84,7 +91,7 @@ export const resizeColumnAndTable = (
 
 	// this function only updates the colgroup in DOM, it reverses the scalePercent
 	// todo: change isScalingEnabled to true when reimplementing scaling
-	updateColgroup(newState, tableRef, tableNode, false);
+	updateColgroup(newState, tableRef, tableNode, false, shouldUseIncreasedScalingPercent);
 
 	// use the difference in width from affected column to update overall table width
 	const delta = newState.cols[colIndex].width - resizeState.cols[colIndex].width;

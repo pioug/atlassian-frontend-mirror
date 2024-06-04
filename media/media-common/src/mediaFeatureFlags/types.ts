@@ -6,6 +6,7 @@ export interface MediaFeatureFlags {
   folderUploads?: boolean;
   commentsOnMedia?: boolean;
   commentsOnMediaIncludePage?: boolean;
+  commentsOnMediaInsertExcerpt?: boolean;
 }
 
 export interface WithMediaFeatureFlags {

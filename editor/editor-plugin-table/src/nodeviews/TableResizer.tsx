@@ -18,6 +18,7 @@ import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -45,11 +46,16 @@ import {
 	generateResizeFrameRatePayloads,
 	useMeasureFramerate,
 } from '../utils/analytics';
-import { defaultGuidelines, defaultGuidelinesForPreserveTable } from '../utils/guidelines';
+import {
+	defaultGuidelines,
+	defaultGuidelinesForPreserveTable,
+	PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+} from '../utils/guidelines';
 import {
 	defaultSnappingWidths,
 	defaultTablePreserveSnappingWidths,
 	findClosestSnap,
+	PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET,
 } from '../utils/snapping';
 
 interface TableResizerProps {
@@ -69,6 +75,8 @@ interface TableResizerProps {
 	isTableScalingEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
 	isWholeTableInDanger?: boolean;
+	isFullWidthModeEnabled?: boolean;
+	shouldUseIncreasedScalingPercent?: boolean;
 }
 
 export interface TableResizerImprovementProps extends TableResizerProps {
@@ -126,14 +134,39 @@ const getResizerMinWidth = (node: PMNode) => {
  * So the guideline container won't make the fabric-editor-popup-scroll-parent overflow
  * @param guidelines
  * @param containerWidth editorWidth
+ * @param lineLength
+ * @param isTableScalingEnabled
+ * @param isFullWidthModeEnabled
  */
-const getVisibleGuidelines = (guidelines: GuidelineConfig[], containerWidth: number) => {
+const getVisibleGuidelines = (
+	guidelines: GuidelineConfig[],
+	containerWidth: number,
+	lineLength: number,
+	isTableScalingEnabled: boolean,
+	isFullWidthModeEnabled: boolean,
+) => {
+	let guidelineVisibleAdjustment = TABLE_GUIDELINE_VISIBLE_ADJUSTMENT;
+	if (isTableScalingEnabled) {
+		// Notes:
+		// Example: containerWidth = 1244, lineLength = 1180 (used for when editor full width mode is enabled)
+		// Full width/dynamic x coordinate can be float number.
+		// Ex: guideline.position.x can be 590.5. So 590.5 * 2 = 1181 (not 1180).
+		// For PTW we need to ensure that dynamic guideline never gets excluded: 1181 should be > width + guidelineVisibleAdjustment
+		// guidelineVisibleAdjustment is set as a negative value, so we making it positive and adding + 1
+		const preserve_table_widths_adjustment = -1 * PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET + 1;
+
+		guidelineVisibleAdjustment = isFullWidthModeEnabled
+			? preserve_table_widths_adjustment // guidelineVisibleAdjustment = -2, if lineLength = 1180, 1181 < 1180 + 2 is true.
+			: -2 * akEditorGutterPadding + preserve_table_widths_adjustment; // guidelineVisibleAdjustment = -62, if containerWidth is 1244, 1181 < 1244 - 62 = 1182 is true.
+	}
+	const width = isTableScalingEnabled && isFullWidthModeEnabled ? lineLength : containerWidth;
+
 	return guidelines.filter((guideline) => {
 		return (
 			guideline.position &&
 			guideline.position.x !== undefined &&
 			typeof guideline.position.x === 'number' &&
-			Math.abs(guideline.position.x * 2) < containerWidth + TABLE_GUIDELINE_VISIBLE_ADJUSTMENT
+			Math.abs(guideline.position.x * 2) < width + guidelineVisibleAdjustment
 		);
 	});
 };
@@ -157,7 +190,9 @@ export const TableResizer = ({
 	isTableScalingEnabled,
 	isTableAlignmentEnabled,
 	isWholeTableInDanger,
+	shouldUseIncreasedScalingPercent,
 	pluginInjectionApi,
+	isFullWidthModeEnabled,
 }: PropsWithChildren<TableResizerImprovementProps>) => {
 	const currentGap = useRef(0);
 	// track resizing state - use ref over state to avoid re-render
@@ -194,15 +229,28 @@ export const TableResizer = ({
 				currentGap.current = gap;
 				const visibleGuidelines = getVisibleGuidelines(
 					isTableScalingEnabled
-						? defaultGuidelinesForPreserveTable(containerWidth, excludeGuidelineConfig)
+						? defaultGuidelinesForPreserveTable(
+								PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+								isFullWidthModeEnabled ? lineLength + 2 * akEditorGutterPadding : containerWidth,
+								excludeGuidelineConfig,
+							)
 						: defaultGuidelines,
 					containerWidth,
+					lineLength,
+					Boolean(isTableScalingEnabled),
+					Boolean(isFullWidthModeEnabled),
 				);
-
 				displayGuideline(getGuidelinesWithHighlights(gap, TABLE_SNAP_GAP, keys, visibleGuidelines));
 			}
 		},
-		[isTableScalingEnabled, excludeGuidelineConfig, containerWidth, displayGuideline],
+		[
+			isTableScalingEnabled,
+			excludeGuidelineConfig,
+			containerWidth,
+			displayGuideline,
+			lineLength,
+			isFullWidthModeEnabled,
+		],
 	);
 
 	const guidelineSnaps = useMemo(
@@ -210,11 +258,22 @@ export const TableResizer = ({
 			snappingEnabled
 				? {
 						x: isTableScalingEnabled
-							? defaultTablePreserveSnappingWidths(containerWidth, excludeGuidelineConfig)
+							? defaultTablePreserveSnappingWidths(
+									PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET, // was hardcoded to 0, using PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET instead.
+									isFullWidthModeEnabled ? lineLength + 2 * akEditorGutterPadding : containerWidth,
+									excludeGuidelineConfig,
+								)
 							: defaultSnappingWidths,
 					}
 				: undefined,
-		[snappingEnabled, isTableScalingEnabled, excludeGuidelineConfig, containerWidth],
+		[
+			snappingEnabled,
+			isTableScalingEnabled,
+			excludeGuidelineConfig,
+			containerWidth,
+			lineLength,
+			isFullWidthModeEnabled,
+		],
 	);
 
 	const switchToCenterAlignment = useCallback(
@@ -285,9 +344,16 @@ export const TableResizer = ({
 
 		const visibleGuidelines = getVisibleGuidelines(
 			isTableScalingEnabled
-				? defaultGuidelinesForPreserveTable(containerWidth, excludeGuidelineConfig)
+				? defaultGuidelinesForPreserveTable(
+						PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+						isFullWidthModeEnabled ? lineLength + 2 * akEditorGutterPadding : containerWidth,
+						excludeGuidelineConfig,
+					)
 				: defaultGuidelines,
 			containerWidth,
+			lineLength,
+			Boolean(isTableScalingEnabled),
+			Boolean(isFullWidthModeEnabled),
 		);
 
 		setSnappingEnabled(displayGuideline(visibleGuidelines));
@@ -303,8 +369,10 @@ export const TableResizer = ({
 		isTableScalingEnabled,
 		excludeGuidelineConfig,
 		containerWidth,
+		lineLength,
 		displayGuideline,
 		onResizeStart,
+		isFullWidthModeEnabled,
 	]);
 
 	const handleResize = useCallback(
@@ -333,13 +401,25 @@ export const TableResizer = ({
 				isTableScalingEnabled,
 			);
 
+			const editorContainerWidth = isFullWidthModeEnabled
+				? lineLength + 2 * akEditorGutterPadding
+				: containerWidth;
+
 			const closestSnap = findClosestSnap(
 				newWidth,
 				isTableScalingEnabled
-					? defaultTablePreserveSnappingWidths(containerWidth, excludeGuidelineConfig)
+					? defaultTablePreserveSnappingWidths(
+							PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET,
+							editorContainerWidth,
+							excludeGuidelineConfig,
+						)
 					: defaultSnappingWidths,
 				isTableScalingEnabled
-					? defaultGuidelinesForPreserveTable(containerWidth, excludeGuidelineConfig)
+					? defaultGuidelinesForPreserveTable(
+							PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+							editorContainerWidth,
+							excludeGuidelineConfig,
+						)
 					: defaultGuidelines,
 				TABLE_HIGHLIGHT_GAP,
 				TABLE_HIGHLIGHT_TOLERANCE,
@@ -352,7 +432,8 @@ export const TableResizer = ({
 			const currentTableNodeLocalId = node?.attrs?.localId ?? '';
 
 			const fullWidthGuideline = defaultGuidelinesForPreserveTable(
-				containerWidth,
+				PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+				editorContainerWidth,
 				excludeGuidelineConfig,
 			).filter((guideline) => guideline.isFullWidth)[0];
 
@@ -375,12 +456,14 @@ export const TableResizer = ({
 		[
 			countFrames,
 			isTableScalingEnabled,
+			isFullWidthModeEnabled,
 			excludeGuidelineConfig,
 			tableRef,
 			node,
 			editorView,
 			updateActiveGuidelines,
 			containerWidth,
+			lineLength,
 			updateWidth,
 			getPos,
 			switchToCenterAlignment,
@@ -436,6 +519,7 @@ export const TableResizer = ({
 					},
 					editorView.domAtPos.bind(editorView),
 					isTableScalingEnabled,
+					shouldUseIncreasedScalingPercent || false,
 				)(tr);
 
 				const scaledNode = tr.doc.nodeAt(pos)!;
@@ -490,6 +574,7 @@ export const TableResizer = ({
 			endMeasure,
 			onResizeStop,
 			isTableScalingEnabled,
+			shouldUseIncreasedScalingPercent,
 			widthToWidest,
 			formatMessage,
 			pluginInjectionApi,

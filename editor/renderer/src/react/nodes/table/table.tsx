@@ -24,12 +24,16 @@ export const Table = React.memo(
 		isinsideMultiBodiedExtension,
 	}: TableProps) => {
 		const tableWidth = tableNode ? getTableContainerWidth(tableNode) : akEditorDefaultLayoutWidth;
+		const tableLayout = tableNode?.attrs.layout;
+		const tableDisplayMode = tableNode?.attrs.displayMode;
 
 		return (
 			<table
 				data-testid="renderer-table"
 				data-number-column={isNumberColumnEnabled}
 				data-table-width={tableWidth}
+				data-layout={tableLayout}
+				data-table-display-mode={tableDisplayMode}
 				ref={innerRef}
 			>
 				<Colgroup

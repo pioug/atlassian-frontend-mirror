@@ -4,33 +4,33 @@ import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 const textStyles = xcss({
-  // content can grow and shrink
-  flexGrow: 1,
-  flexShrink: 1,
+	// content can grow and shrink
+	flexGrow: 1,
+	flexShrink: 1,
 
-  // ellipsis for overflow text
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
+	// ellipsis for overflow text
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
 });
 
 const iconStyles = xcss({
-  display: 'flex',
-  // icon size cannot grow and shrink
-  flexGrow: 0,
-  flexShrink: 0,
-  alignSelf: 'center',
-  fontSize: 0,
-  lineHeight: 0,
-  userSelect: 'none',
+	display: 'flex',
+	// icon size cannot grow and shrink
+	flexGrow: 0,
+	flexShrink: 0,
+	alignSelf: 'center',
+	fontSize: 0,
+	lineHeight: 0,
+	userSelect: 'none',
 });
 
 const commonStyles = xcss({
-  transition: 'opacity 0.3s',
+	transition: 'opacity 0.3s',
 });
 
 const fadeStyles = xcss({
-  opacity: 0,
+	opacity: 0,
 });
 
 /**
@@ -42,23 +42,23 @@ const fadeStyles = xcss({
  * and we bump Button to set padding based on the new icons.
  */
 const beforeIconStyles = xcss({
-  // @ts-ignore
-  '--ds--button--new-icon-padding-start': token('space.050', '4px'),
-  // @ts-ignore
-  '--ds--button--new-icon-padding-end': token('space.025', '2px'),
+	// @ts-ignore
+	'--ds--button--new-icon-padding-start': token('space.050', '4px'),
+	// @ts-ignore
+	'--ds--button--new-icon-padding-end': token('space.025', '2px'),
 });
 const afterIconStyles = xcss({
-  // @ts-ignore
-  '--ds--button--new-icon-padding-start': token('space.025', '2px'),
-  // @ts-ignore
-  '--ds--button--new-icon-padding-end': token('space.050', '4px'),
+	// @ts-ignore
+	'--ds--button--new-icon-padding-start': token('space.025', '2px'),
+	// @ts-ignore
+	'--ds--button--new-icon-padding-end': token('space.050', '4px'),
 });
 
 type ContentProps = {
-  children: React.ReactNode;
-  type?: 'text' | 'icon';
-  hasOverlay: boolean;
-  position?: 'before' | 'after';
+	children: React.ReactNode;
+	type?: 'text' | 'icon';
+	hasOverlay: boolean;
+	position?: 'before' | 'after';
 };
 
 /**
@@ -66,26 +66,21 @@ type ContentProps = {
  *
  * Used for slots within a Button, including icons and text content.
  */
-const Content = ({
-  children,
-  type = 'text',
-  hasOverlay,
-  position,
-}: ContentProps) => {
-  return (
-    <Box
-      as="span"
-      xcss={[
-        commonStyles,
-        ...(type === 'text' ? [textStyles] : [iconStyles]),
-        ...(hasOverlay ? [fadeStyles] : []),
-        ...(position === 'before' ? [beforeIconStyles] : []),
-        ...(position === 'after' ? [afterIconStyles] : []),
-      ]}
-    >
-      {children}
-    </Box>
-  );
+const Content = ({ children, type = 'text', hasOverlay, position }: ContentProps) => {
+	return (
+		<Box
+			as="span"
+			xcss={[
+				commonStyles,
+				...(type === 'text' ? [textStyles] : [iconStyles]),
+				...(hasOverlay ? [fadeStyles] : []),
+				...(position === 'before' ? [beforeIconStyles] : []),
+				...(position === 'after' ? [afterIconStyles] : []),
+			]}
+		>
+			{children}
+		</Box>
+	);
 };
 
 export default Content;

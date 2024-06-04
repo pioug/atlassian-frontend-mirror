@@ -17,9 +17,12 @@ type Col = Array<string | { [name: string]: string }>;
 export const getColWidthFix = (colwidth: number, tableColumnCount: number) =>
 	colwidth - 1 / tableColumnCount;
 
-export const generateColgroup = (table: PmNode, tableRef?: HTMLElement) => {
+export const generateColgroup = (
+	table: PmNode,
+	tableRef?: HTMLElement,
+	shouldUseIncreasedScalingPercent?: boolean,
+) => {
 	const cols: Col[] = [];
-
 	const map = TableMap.get(table);
 	table.content.firstChild!.content.forEach((cell) => {
 		const colspan = cell.attrs.colspan || 1;
@@ -27,7 +30,11 @@ export const generateColgroup = (table: PmNode, tableRef?: HTMLElement) => {
 			// We slice here to guard against our colwidth array having more entries
 			// Than the we actually span. We'll patch the document at a later point.
 			if (tableRef) {
-				const scalePercent = getTableScalingPercent(table, tableRef);
+				const scalePercent = getTableScalingPercent(
+					table,
+					tableRef,
+					shouldUseIncreasedScalingPercent,
+				);
 				cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
 					const fixedColWidth = getColWidthFix(width, map.width);
 					const scaledWidth = fixedColWidth * scalePercent;
@@ -73,6 +80,7 @@ export const insertColgroupFromNode = (
 	table: PmNode,
 	isTableScalingEnabled = false,
 	shouldRemove = true,
+	shouldUseIncreasedScalingPercent = false,
 ): HTMLCollection => {
 	let colgroup = tableRef?.querySelector('colgroup') as HTMLElement;
 	if (colgroup && shouldRemove) {
@@ -82,6 +90,7 @@ export const insertColgroupFromNode = (
 	colgroup = renderColgroupFromNode(
 		table,
 		isTableScalingEnabled ? tableRef ?? undefined : undefined,
+		shouldUseIncreasedScalingPercent,
 	);
 	if (shouldRemove) {
 		tableRef?.insertBefore(colgroup, tableRef?.firstChild);
@@ -117,11 +126,12 @@ export const isMinCellWidthTable = (table: PmNode) => {
 function renderColgroupFromNode(
 	table: PmNode,
 	maybeTableRef: HTMLElement | undefined,
+	shouldUseIncreasedScalingPercent: boolean,
 ): HTMLElement {
 	const rendered = DOMSerializer.renderSpec(document, [
 		'colgroup',
 		{},
-		...generateColgroup(table, maybeTableRef),
+		...generateColgroup(table, maybeTableRef, shouldUseIncreasedScalingPercent),
 	]);
 
 	return rendered.dom as HTMLElement;

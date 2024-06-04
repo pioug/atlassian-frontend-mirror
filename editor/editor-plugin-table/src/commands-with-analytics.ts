@@ -276,6 +276,7 @@ export const insertColumnWithAnalytics =
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 		isTableScalingEnabled = false,
 		isCellbackgroundDuplicated = false,
+		shouldUseIncreasedScalingPercent = false,
 	) =>
 	(
 		inputMethod:
@@ -301,7 +302,11 @@ export const insertColumnWithAnalytics =
 				eventType: EVENT_TYPE.TRACK,
 			};
 		})(editorAnalyticsAPI)(
-			insertColumn(isTableScalingEnabled, isCellbackgroundDuplicated)(position),
+			insertColumn(
+				isTableScalingEnabled,
+				isCellbackgroundDuplicated,
+				shouldUseIncreasedScalingPercent,
+			)(position),
 		);
 
 export const deleteRowsWithAnalytics =
@@ -340,7 +345,11 @@ export const deleteRowsWithAnalytics =
 		});
 
 export const deleteColumnsWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null, isTableScalingEnabled = false) =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+		isTableScalingEnabled = false,
+		shouldUseIncreasedScalingPercent = false,
+	) =>
 	(
 		inputMethod:
 			| INPUT_METHOD.CONTEXT_MENU
@@ -366,10 +375,16 @@ export const deleteColumnsWithAnalytics =
 				},
 				eventType: EVENT_TYPE.TRACK,
 			};
-		})(editorAnalyticsAPI)(deleteColumnsCommand(rect, isTableScalingEnabled));
+		})(editorAnalyticsAPI)(
+			deleteColumnsCommand(rect, isTableScalingEnabled, shouldUseIncreasedScalingPercent),
+		);
 
 export const deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null): Command =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+		isTableScalingEnabled?: boolean,
+		shouldUseIncreasedScalingPercent?: boolean,
+	): Command =>
 	(state, dispatch) => {
 		const { selection } = state;
 		const isCellSelection = selection instanceof CellSelection;
@@ -393,10 +408,11 @@ export const deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut =
 				isHeaderRowRequired,
 			)(state, dispatch);
 		} else if (selectionType === 'column') {
-			return deleteColumnsWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT, rect)(
-				state,
-				dispatch,
-			);
+			return deleteColumnsWithAnalytics(
+				editorAnalyticsAPI,
+				isTableScalingEnabled,
+				shouldUseIncreasedScalingPercent,
+			)(INPUT_METHOD.SHORTCUT, rect)(state, dispatch);
 		} else {
 			return false;
 		}

@@ -310,11 +310,13 @@ class Media extends PureComponent<MediaProps, {}> {
 		const eventHandlers = linkHref ? undefined : this.props.eventHandlers;
 		const shouldOpenMediaViewer = !linkHref && allowMediaViewer;
 		const isInPageInclude = mediaSingleElement?.closest('[data-node-type="include"]');
+		const isIncludeExcerpt = !!mediaSingleElement?.closest('.ak-excerpt-include');
 
 		const showCommentBadge =
 			!!annotationMarks &&
 			featureFlags?.commentsOnMedia &&
-			(!featureFlags?.commentsOnMediaIncludePage || !isInPageInclude);
+			(!featureFlags?.commentsOnMediaIncludePage || !isInPageInclude) &&
+			(!featureFlags?.commentsOnMediaInsertExcerpt || !isIncludeExcerpt);
 
 		return (
 			<MediaLink mark={linkMark} onClick={this.handleMediaLinkClickFn}>

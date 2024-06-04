@@ -50,6 +50,10 @@ export const PredefinedAvatarView = ({
           checked={avatar === selectedAvatar}
           onChange={createOnItemClickHandler(avatar)}
         />
+				{/**
+				 * The alt is intentionally empty to avoid double announement of screen reader
+				 * see: https://www.loom.com/share/1c19ca856478460b9ab1b75cc599b122
+				 */}
         <img css={largeAvatarImageStyles} src={avatar.dataURI} alt="" />
       </label>
     );

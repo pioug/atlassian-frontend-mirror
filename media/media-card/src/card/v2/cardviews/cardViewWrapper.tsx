@@ -45,6 +45,7 @@ export type SharedCardViewProps = {
   readonly titleBoxIcon?: TitleBoxIcon;
   readonly mediaCardCursor?: MediaCardCursor;
   readonly shouldHideTooltip?: boolean;
+  overriddenCreationDate?: number;
 };
 
 export type CardViewWrapperProps = SharedCardViewProps & {
@@ -80,6 +81,7 @@ export const CardViewWrapper = React.forwardRef(
       progressBar,
       shouldOpenMediaViewer,
       openMediaViewerButtonRef = null,
+      overriddenCreationDate,
       ...props
     }: CardViewWrapperProps,
     ref: React.Ref<HTMLDivElement>,
@@ -94,7 +96,7 @@ export const CardViewWrapper = React.forwardRef(
     const defaultTitleBox = !disableOverlay && !!name && (
       <TitleBox
         name={name}
-        createdAt={createdAt}
+        createdAt={overriddenCreationDate ?? createdAt}
         breakpoint={breakpoint}
         titleBoxIcon={titleBoxIcon}
         titleBoxBgColor={titleBoxBgColor}

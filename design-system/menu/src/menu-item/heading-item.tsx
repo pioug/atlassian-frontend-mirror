@@ -19,13 +19,13 @@ const headingStyles = css({
   color: token('color.text.subtle', N300),
   paddingBlock: token('space.0', '0px'),
   paddingInline: token('space.200', '16px'),
+  textTransform: 'uppercase',
 });
 
 const baseHeadingStyles = css({
   fontSize: itemHeadingFontSize,
   fontWeight: token('font.weight.bold'),
   lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
-  textTransform: 'uppercase'
 })
 
 const tokenizedHeadingStyles = css({

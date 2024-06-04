@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.3.4
+
+### Patch Changes
+
+- [#107314](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107314)
+  [`799512a15da6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/799512a15da6) -
+  [ED-23568] Rerendering the primary toolbar component caused the insert block toggle to stop
+  working, fixed the lifecycle methods on that component to be able to deal with a rerender
+
 ## 1.3.3
 
 ### Patch Changes

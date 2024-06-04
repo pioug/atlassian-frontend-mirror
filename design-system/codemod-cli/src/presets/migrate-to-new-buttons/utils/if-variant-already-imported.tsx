@@ -1,16 +1,31 @@
 import type { API, Collection } from 'jscodeshift';
 
-import { NEW_BUTTON_ENTRY_POINT } from './constants';
+export const findVariantAlreadyImported = (
+	variant: string,
+	entryPoint: string,
+	fileSource: Collection<any>,
+	j: API['jscodeshift'],
+	isDefaultSpecifier: boolean = false,
+): Collection<any> => {
+	const imports = fileSource
+		.find(j.ImportDeclaration)
+		.filter((path) => path.node.source.value === entryPoint);
+
+	if (isDefaultSpecifier) {
+		return imports.find(j.ImportDefaultSpecifier);
+	}
+
+	return imports.find(j.ImportSpecifier).filter((path) => path.node.imported.name === variant);
+};
+
 export const checkIfVariantAlreadyImported = (
-  variant: string,
-  fileSource: Collection<any>,
-  j: API['jscodeshift'],
+	variant: string,
+	entryPoint: string,
+	fileSource: Collection<any>,
+	j: API['jscodeshift'],
+	isDefaultSpecifier: boolean = false,
 ): boolean => {
-  return (
-    fileSource
-      .find(j.ImportDeclaration)
-      .filter((path) => path.node.source.value === NEW_BUTTON_ENTRY_POINT)
-      .find(j.ImportSpecifier)
-      .filter((path) => path.node.imported.name === variant).length > 0
-  );
+	return (
+		findVariantAlreadyImported(variant, entryPoint, fileSource, j, isDefaultSpecifier).length > 0
+	);
 };

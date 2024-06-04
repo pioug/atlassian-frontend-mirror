@@ -35,7 +35,6 @@ const AsyncExample = () => (
       classNamePrefix="react-select"
       defaultOptions
       loadOptions={loadOptions}
-      options={cities}
       placeholder="Choose a City"
     />
   </>

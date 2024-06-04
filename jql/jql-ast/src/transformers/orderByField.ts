@@ -13,3 +13,31 @@ export function setOrderDirection(
   this.direction = orderDirection;
   assignParent(this);
 }
+
+/**
+ * Replace the current orderBy field with the provided field in `orderByField`.
+ *
+ * @param orderByField field to set as the new value
+ */
+export function replace(
+  this: OrderByField,
+  orderByField: OrderByField,
+): void {
+  if (this.parent) {
+    this.parent.replaceOrderField(this, orderByField)
+  }
+}
+
+/**
+ * Remove the current orderBy field from the orderBy node.
+ * The parent node is responsible for implementing the logic to remove any
+ * references to the child node.
+ *
+ */
+export function remove(
+  this: OrderByField,
+): void {
+  if (this.parent) {
+    this.parent.removeOrderField(this)
+  }
+}

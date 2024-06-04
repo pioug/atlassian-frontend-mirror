@@ -1,5 +1,6 @@
 export {
 	transformSmartCharsMentionsAndEmojis,
+	transformNonTextNodesToText,
 	applyMarkOnRange,
 	filterChildrenBetween,
 	toggleMark,

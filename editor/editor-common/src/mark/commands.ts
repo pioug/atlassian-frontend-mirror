@@ -7,7 +7,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { EditorCommand } from '../types';
 
-const SMART_TO_ASCII = {
+const SMART_TO_ASCII: { [char: string]: string } = {
 	'…': '...',
 	'→': '->',
 	'←': '<-',
@@ -70,6 +70,57 @@ export function filterChildrenBetween(
 	return results;
 }
 
+export function transformNonTextNodesToText(from: number, to: number, tr: Transaction) {
+	const { doc } = tr;
+	const { schema } = doc.type;
+	const {
+		mention: mentionNodeType,
+		text: textNodeType,
+		emoji: emojiNodeType,
+		inlineCard: inlineCardNodeType,
+	} = schema.nodes;
+
+	const nodesToChange: { node: PMNode; pos: number }[] = [];
+	doc.nodesBetween(from, to, (node, pos, parent) => {
+		if ([mentionNodeType, textNodeType, emojiNodeType, inlineCardNodeType].includes(node.type)) {
+			nodesToChange.push({ node, pos });
+		}
+	});
+
+	nodesToChange.forEach(({ node, pos }) => {
+		if (node.type !== textNodeType) {
+			const newText =
+				node.attrs.url || // url for inlineCard
+				node.attrs.text ||
+				`${node.type.name} text missing`; // fallback for missing text
+
+			const currentPos = tr.mapping.map(pos);
+
+			tr.replaceWith(currentPos, currentPos + node.nodeSize, schema.text(newText, node.marks));
+		} else if (node.text) {
+			// Find a valid start and end position because the text may be partially selected.
+			const startPositionInSelection = Math.max(pos, from);
+			const endPositionInSelection = Math.min(pos + node.nodeSize, to);
+
+			const textForReplacing = doc.textBetween(startPositionInSelection, endPositionInSelection);
+
+			const newText = textForReplacing.replace(
+				FIND_SMART_CHAR,
+				(match) => SMART_TO_ASCII[match] ?? match,
+			);
+
+			const currentStartPos = tr.mapping.map(startPositionInSelection);
+			const currentEndPos = tr.mapping.map(endPositionInSelection);
+
+			tr.replaceWith(currentStartPos, currentEndPos, schema.text(newText, node.marks));
+		}
+	});
+}
+
+/**
+ * @private
+ * @deprecated Use {@link transformNonTextNodesToText} instead.
+ */
 export const transformSmartCharsMentionsAndEmojis = (
 	from: number,
 	to: number,
@@ -109,7 +160,9 @@ export const applyMarkOnRange = (
 	const { code } = schema.marks;
 	const { inlineCard } = schema.nodes;
 	if (mark.type === code) {
-		transformSmartCharsMentionsAndEmojis(from, to, tr);
+		getBooleanFF('platform.editor.simplify-inline-cards-in-code-blocks_jw6t1')
+			? transformNonTextNodesToText(from, to, tr)
+			: transformSmartCharsMentionsAndEmojis(from, to, tr);
 	}
 
 	tr.doc.nodesBetween(tr.mapping.map(from), tr.mapping.map(to), (node, pos) => {

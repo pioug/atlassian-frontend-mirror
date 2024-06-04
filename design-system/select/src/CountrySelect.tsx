@@ -16,8 +16,8 @@ const labelStyles = css({
 });
 
 const flagStyles = css({
-  fontSize: '18px',
-  marginRight: token('space.100', '8px'),
+  fontSize: '1.125rem', // emoji size
+  marginInlineEnd: token('space.100', '8px'),
 });
 
 const Opt = ({

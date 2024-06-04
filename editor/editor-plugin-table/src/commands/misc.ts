@@ -1,6 +1,7 @@
 import isEqual from 'lodash/isEqual';
 
-import type { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
+import type { CellAttributes, TableAttributes, TableLayout } from '@atlaskit/adf-schema';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import {
 	closestElement,
@@ -735,7 +736,14 @@ export const setTableAlignment =
 		const nextTableAttrs = {
 			...tableObject.node.attrs,
 			layout: newAlignment,
-		};
+		} as TableAttributes;
+
+		// table uses old breakout values in layout attribute to determine width
+		// but that information is lost when alignment changes, so we need to ensure we retain that info
+		if (!tableObject.node.attrs.width) {
+			const tableWidth = getTableContainerWidth(tableObject.node);
+			nextTableAttrs.width = tableWidth;
+		}
 
 		tr.setNodeMarkup(tableObject.pos, undefined, nextTableAttrs).setMeta('scrollIntoView', false);
 
@@ -745,10 +753,18 @@ export const setTableAlignment =
 export const setTableAlignmentWithTableContentWithPos =
 	(newAlignment: TableLayout, tableNodeWithPos: NodeWithPos): EditorCommand =>
 	({ tr }) => {
+		const table = tableNodeWithPos.node;
 		const nextTableAttrs = {
-			...tableNodeWithPos.node.attrs,
+			...table.attrs,
 			layout: newAlignment,
-		};
+		} as TableAttributes;
+
+		// table uses old breakout values in layout attribute to determine width
+		// but that information is lost when alignment changes, so we need to ensure we retain that info
+		if (!table.attrs.width) {
+			const tableWidth = getTableContainerWidth(table);
+			nextTableAttrs.width = tableWidth;
+		}
 
 		tr.setNodeMarkup(tableNodeWithPos.pos, undefined, nextTableAttrs).setMeta(
 			'scrollIntoView',

@@ -12,6 +12,10 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
             "resolutions": {
                 "@types/react": "16.14.15",
                 "typescript": "5.4.2",
+                "react-relay": "npm:atl-react-relay@0.0.0-main-2ccd6998",
+                "relay-compiler": "npm:atl-relay-compiler@0.0.0-main-2ccd6998",
+                "relay-runtime": "npm:atl-relay-runtime@0.0.0-main-2ccd6998",
+                "relay-test-utils": "npm:atl-relay-test-utils@0.0.0-main-2ccd6998",
             }
         }`,
         filename: `${cwd}/package.json`,
@@ -22,6 +26,10 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
                   "resolutions": {
                       "@types/react": "18.2.28",
                       "typescript": "5.4.2",
+                      "react-relay": "npm:atl-react-relay@0.0.0-main-2ccd6998",
+                      "relay-compiler": "npm:atl-relay-compiler@0.0.0-main-2ccd6998",
+                      "relay-runtime": "npm:atl-relay-runtime@0.0.0-main-2ccd6998",
+                      "relay-test-utils": "npm:atl-relay-test-utils@0.0.0-main-2ccd6998",
                   }
               }`,
         filename: `${cwd}/package.json`,
@@ -32,6 +40,36 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
             "resolutions": {
                 "@types/react": "~16.14.25",
                 "typescript": "~5.4.2",
+                "react-relay": "npm:atl-react-relay@0.0.0-main-2ccd6998",
+                "relay-compiler": "npm:atl-relay-compiler@0.0.0-main-2ccd6998",
+                "relay-runtime": "npm:atl-relay-runtime@0.0.0-main-2ccd6998",
+                "relay-test-utils": "npm:atl-relay-test-utils@0.0.0-main-2ccd6998",
+            }
+        }`,
+        filename: `${cwd}/package.json`,
+      },
+      // Root package.json, have some of the correct resolutions
+      {
+        code: `const foo = {
+            "resolutions": {
+                "@types/react": "~16.14.25",
+                "typescript": "~5.4.2",
+            }
+        }`,
+        filename: `${cwd}/package.json`,
+      },
+      // Root package.json, have some of the correct resolutions
+      {
+        code: `const foo = {
+            "resolutions": {
+                "@types/react": "~16.14.25",
+                "typescript": "~5.4.2",
+                "react-relay": "npm:atl-react-relay@0.0.0-main-2ccd6998",
+            },
+            "dependencies": {
+                "@types/react": "~16.14.25",
+                "typescript": "~5.4.2",
+                "react-relay": "npm:atl-react-relay@0.0.0-main-2ccd6998",
             }
         }`,
         filename: `${cwd}/package.json`,
@@ -60,6 +98,29 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
       {
         code: `const foo = {
                 "resolutions": {
+                    "typescript": "~5.4.2",
+                },
+
+                "dependencies": {
+                    "@types/react": "~16.14.25",
+                    "typescript": "~5.4.2",
+                }
+            }`,
+        filename: `${cwd}/package.json`,
+        errors: [
+          {
+            messageId: 'invalidPackageResolution',
+          },
+        ],
+      },
+      // Root package.json. Resolutions are missing but package is present in dependencies
+      {
+        code: `const foo = {
+                "resolutions": {
+                },
+
+                "dependencies": {
+                    "@types/react": "~16.14.25",
                     "typescript": "~5.4.2",
                 }
             }`,

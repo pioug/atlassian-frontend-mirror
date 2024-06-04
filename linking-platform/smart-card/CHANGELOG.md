@@ -1,5 +1,33 @@
 # @atlaskit/smart-card
 
+## 27.4.4
+
+### Patch Changes
+
+- [#107280](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107280)
+  [`f2b35f604fd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2b35f604fd9) -
+  Added unavailable view for related links modal
+
+## 27.4.3
+
+### Patch Changes
+
+- [#102927](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102927)
+  [`f4ea3612f795`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f4ea3612f795) -
+  created errored view for related-links-modal component in smart cards
+- [#104485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104485)
+  [`7d88a35c15dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d88a35c15dd) -
+  Add a custom hook to make call to AGS to get incoming outgoing aris using
+  content-referenced-entity relationship
+
+## 27.4.2
+
+### Patch Changes
+
+- [#105240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105240)
+  [`d54017d7086f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d54017d7086f) -
+  EDM-9896: separate useResponse hook from useResolveHook.
+
 ## 27.4.1
 
 ### Patch Changes

@@ -214,14 +214,23 @@ const destroyFn = (editorView: EditorView, editorAnalyticsAPI: any) => {
 							const { isTableScalingEnabled = false } = getTablePluginState(editorView.state);
 
 							let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
-							if (
+							const isTableScalingEnabledWithLockButton =
 								isTableScalingEnabled &&
-								getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-							) {
+								getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+							const shouldUseIncreasedScalingPercent =
+								isTableScalingEnabledWithLockButton &&
+								getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+
+							if (isTableScalingEnabledWithLockButton) {
 								isTableScalingEnabledOnCurrentTable = tableNode.attrs.displayMode !== 'fixed';
 							}
 
-							insertColgroupFromNode(tableRef, tableNode, isTableScalingEnabledOnCurrentTable);
+							insertColgroupFromNode(
+								tableRef,
+								tableNode,
+								isTableScalingEnabledOnCurrentTable,
+								shouldUseIncreasedScalingPercent,
+							);
 						}
 					}
 

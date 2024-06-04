@@ -57,12 +57,28 @@ describe('useResolve', () => {
     const resolve = useResolve();
     await resolve(url, false, false, id);
 
+    expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+      url,
+      false,
+    );
+
     expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+    expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'metadata',
+        url: 'https://some/url',
+        payload: undefined,
+        error: undefined,
+        metadataStatus: 'resolved',
+      }),
+    );
     expect(mockContext.store.dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: 'resolved',
         url: 'https://some/url',
         payload: mocks.success,
+        error: undefined,
+        metadataStatus: undefined,
       }),
     );
   });
@@ -81,6 +97,23 @@ describe('useResolve', () => {
       url,
       true,
     );
+    expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+    expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'metadata',
+        url: 'https://some/url',
+        payload: undefined,
+        error: undefined,
+        metadataStatus: 'resolved',
+      }),
+    );
+    expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'reloading',
+        url: 'https://some/url',
+        payload: mocks.success,
+      }),
+    );
   });
 
   it('should call fetch when isMetadataRequest flag is true', async () => {
@@ -96,6 +129,26 @@ describe('useResolve', () => {
     expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
       url,
       false,
+    );
+    expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+    expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'metadata',
+        url: 'https://some/url',
+        payload: undefined,
+        error: undefined,
+        metadataStatus: 'resolved',
+      }),
+    );
+    expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'resolved',
+        url: 'https://some/url',
+        payload: mocks.success,
+        error: undefined,
+        metadataStatus: undefined,
+        ignoreStatusCheck: true,
+      }),
     );
   });
 

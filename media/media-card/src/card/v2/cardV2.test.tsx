@@ -71,6 +71,7 @@ import {
 } from '../cardAnalytics';
 import { MediaCardError } from '../../errors';
 import { MockIntersectionObserver } from '../../utils/mockIntersectionObserver';
+import { DateOverrideContext } from '../../dateOverrideContext';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
@@ -1890,6 +1891,38 @@ describe('Card V2', () => {
 
         // should not render a progress bar
         expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+      });
+
+      it('when DateOverride is provided', async () => {
+        const [fileItem, identifier] =
+          generateSampleFileItem.workingPdfWithoutRemotePreview();
+        const { mediaApi } = createMockedMediaApi(fileItem);
+
+        const overridenDates = {
+          [identifier.id]: 1717372607454
+        }
+
+        const { container } = render(
+          <MockedMediaClientProvider mockedMediaApi={mediaApi}>
+            <DateOverrideContext.Provider value={overridenDates}>
+              <CardV2Loader
+                mediaClientConfig={dummyMediaClientConfig}
+                identifier={identifier}
+                isLazy={false}
+              />
+            </DateOverrideContext.Provider>
+          </MockedMediaClientProvider>,
+        );
+
+        // card should completely process the error
+        await waitFor(() =>
+          expect(
+            container.querySelector('[data-test-status="complete"]'),
+          ).toBeInTheDocument(),
+        );
+
+        // should render the updated date
+        expect(screen.queryByText('02 Jun 2024, 11:56 PM')).toBeInTheDocument();
       });
     });
 

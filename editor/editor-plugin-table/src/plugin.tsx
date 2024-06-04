@@ -153,6 +153,11 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 	};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
+	const shouldUseIncreasedScalingPercent =
+		options?.isTableScalingEnabled &&
+		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+
 	return {
 		name: 'table',
 
@@ -278,6 +283,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							api,
 							isTableScalingEnabled,
 							isTableAlignmentEnabled,
+							shouldUseIncreasedScalingPercent,
 						);
 					},
 				},
@@ -313,6 +319,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableAlignmentEnabled = false,
 							fullWidthEnabled = false,
 						} = options || ({} as TablePluginOptions);
+
 						return keymapPlugin(
 							defaultGetEditorContainerWidth,
 							editorAnalyticsAPI,
@@ -322,6 +329,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							fullWidthEnabled,
 							api,
 							getIntl,
+							shouldUseIncreasedScalingPercent,
 						);
 					},
 				},
@@ -652,6 +660,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
 				() => editorViewRef.current,
 				options,
+				shouldUseIncreasedScalingPercent,
 			)(pluginConfig(options?.tableOptions)),
 		},
 	};

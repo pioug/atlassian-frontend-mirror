@@ -1,95 +1,101 @@
 {
-  "name": "@atlaskit/side-navigation",
-  "version": "3.1.3",
-  "description": "A highly composable side navigation component that supports nested views.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    ".": "./src/index.tsx"
-  },
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Side navigation",
-      "category": "Components"
-    },
-    "runReact18": true
-  },
-  "dependencies": {
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/menu": "^2.3.0",
-    "@atlaskit/motion": "^1.6.0",
-    "@atlaskit/primitives": "^6.4.0",
-    "@atlaskit/theme": "^12.8.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/visual-regression": "*",
-    "@atlassian/feature-flags-test-utils": "*",
-    "@testing-library/react": "^12.1.5",
-    "@types/jest-axe": "^3.5.5",
-    "ast-types": "^0.13.3",
-    "jest-axe": "^8.0.0",
-    "jest-emotion": "^10.0.32",
-    "jscodeshift": "^0.13.0",
-    "raf-stub": "^2.0.1",
-    "react-beautiful-dnd": "^12.1.1",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "design-system": "v1",
-      "dom-events": "use-bind-event-listener",
-      "ui-components": [
-        "lite-mode"
-      ],
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "analytics": "analytics-next",
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "homepage": "https://atlassian.design/components/side-navigation/"
+	"name": "@atlaskit/side-navigation",
+	"version": "3.2.0",
+	"description": "A highly composable side navigation component that supports nested views.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		".": "./src/index.tsx"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Side navigation",
+			"category": "Components"
+		},
+		"runReact18": true
+	},
+	"dependencies": {
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/menu": "^2.3.0",
+		"@atlaskit/motion": "^1.6.0",
+		"@atlaskit/platform-feature-flags": "^0.2.5",
+		"@atlaskit/primitives": "^6.4.0",
+		"@atlaskit/theme": "^12.8.0",
+		"@atlaskit/tokens": "^1.49.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/visual-regression": "*",
+		"@atlassian/feature-flags-test-utils": "*",
+		"@testing-library/react": "^12.1.5",
+		"@types/jest-axe": "^3.5.5",
+		"ast-types": "^0.13.3",
+		"jest-axe": "^8.0.0",
+		"jest-emotion": "^10.0.32",
+		"jscodeshift": "^0.13.0",
+		"raf-stub": "^2.0.1",
+		"react-beautiful-dnd": "^12.1.1",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"design-system": "v1",
+			"dom-events": "use-bind-event-listener",
+			"ui-components": [
+				"lite-mode"
+			],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"analytics": "analytics-next",
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"homepage": "https://atlassian.design/components/side-navigation/",
+	"platform-feature-flags": {
+		"platform.design-system-team.side-navigation-tokenised-typography-styles": {
+			"type": "boolean"
+		}
+	}
 }

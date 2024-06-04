@@ -22,6 +22,7 @@ import type { ReactWrapper } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { RendererContextProvider } from '../../../../renderer-context';
+import type { RendererContextProps } from '../../../../renderer-context';
 
 const schema = getSchemaBasedOnStage('stage0');
 
@@ -172,81 +173,6 @@ describe('Renderer - React/Nodes/Table', () => {
 			});
 		});
 
-		// this test is covering tables created before custom table width
-		describe('should not change column widths if sum is smaller than container', () => {
-			ffTest(
-				'platform.editor.scale-table-when-number-column-in-table-resized_y4qh2',
-				() => {
-					const columnWidths = [300, 380];
-					const table = mountWithIntl(
-						<RendererContextProvider value={{ featureFlags: { tablePreserveWidth: true } }}>
-							<Table
-								layout="default"
-								isNumberColumnEnabled={true}
-								columnWidths={columnWidths}
-								renderWidth={renderWidth}
-								rendererAppearance="full-page"
-							>
-								<TableRow>
-									<TableCell />
-									<TableCell />
-								</TableRow>
-								<TableRow>
-									<TableCell />
-									<TableCell />
-								</TableRow>
-							</Table>
-						</RendererContextProvider>,
-					);
-					// colwidths won't change here because sum of col widths is lessser than container,
-					// so don't scale num columns
-					const resultingColumnWidths = [299, 379];
-					expect(table.find('col')).toHaveLength(3);
-
-					table.find('col').forEach((col, index) => {
-						if (index === 0) {
-							expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
-						} else {
-							expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
-						}
-					});
-					table.unmount();
-				},
-				() => {
-					const columnWidths = [300, 380];
-					const table = mountWithIntl(
-						<Table
-							layout="default"
-							isNumberColumnEnabled={true}
-							columnWidths={columnWidths}
-							renderWidth={renderWidth}
-							rendererAppearance="full-page"
-						>
-							<TableRow>
-								<TableCell />
-								<TableCell />
-							</TableRow>
-							<TableRow>
-								<TableCell />
-								<TableCell />
-							</TableRow>
-						</Table>,
-					);
-					const resultingColumnWidths = [299, 379];
-					expect(table.find('col')).toHaveLength(3);
-
-					table.find('col').forEach((col, index) => {
-						if (index === 0) {
-							expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
-						} else {
-							expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
-						}
-					});
-					table.unmount();
-				},
-			);
-		});
-
 		describe('should have the correct width for numbered column when columnWidths is set and is equal to table container minus 1', () => {
 			ffTest(
 				'platform.editor.scale-table-when-number-column-in-table-resized_y4qh2',
@@ -272,7 +198,8 @@ describe('Renderer - React/Nodes/Table', () => {
 						</RendererContextProvider>,
 					);
 
-					const resultingColumnWidths = [286, 430];
+					// equals 43px (number column = 42px)
+					const resultingColumnWidths = [284, 432];
 					expect(table.find('col')).toHaveLength(3);
 
 					table.find('col').forEach((col, index) => {
@@ -319,7 +246,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			);
 		});
 
-		describe('should have the correct width for numbered column when columnWidths is set and is equal to table container minus 2', () => {
+		describe('should have the correct width for numbered column when columnWidths is set and smaller than table container', () => {
 			ffTest(
 				'platform.editor.scale-table-when-number-column-in-table-resized_y4qh2',
 				() => {
@@ -327,7 +254,7 @@ describe('Renderer - React/Nodes/Table', () => {
 						<RendererContextProvider value={{ featureFlags: { tablePreserveWidth: true } }}>
 							<Table
 								layout="default"
-								columnWidths={[300, 458]}
+								columnWidths={[300, 380]}
 								isNumberColumnEnabled={true}
 								renderWidth={renderWidth}
 								rendererAppearance="full-page"
@@ -344,7 +271,8 @@ describe('Renderer - React/Nodes/Table', () => {
 						</RendererContextProvider>,
 					);
 
-					const resultingColumnWidths = [287, 429];
+					// col widths get scaled up when num cols is enabled
+					const resultingColumnWidths = [317, 399];
 					expect(table.find('col')).toHaveLength(3);
 
 					table.find('col').forEach((col, index) => {
@@ -1157,6 +1085,40 @@ describe('Renderer - React/Nodes/Table', () => {
 			);
 		};
 
+		const mountTableWidthFF = (
+			featureFlags: RendererContextProps['featureFlags'],
+			node: PMNode,
+			rendererWidth: number,
+			columnWidths?: number[],
+			appearance: RendererAppearance = 'full-page',
+			isInsideOfBlockNode = false,
+		) => {
+			return mountWithIntl(
+				<RendererContextProvider value={{ featureFlags }}>
+					<Table
+						layout={node.attrs.layout}
+						renderWidth={rendererWidth}
+						rendererAppearance={appearance}
+						isNumberColumnEnabled={false}
+						tableNode={node}
+						columnWidths={columnWidths}
+						isInsideOfBlockNode={isInsideOfBlockNode}
+					>
+						<TableRow>
+							<TableHeader />
+							<TableHeader />
+							<TableHeader />
+						</TableRow>
+						<TableRow>
+							<TableCell />
+							<TableCell />
+							<TableCell />
+						</TableRow>
+					</Table>
+				</RendererContextProvider>,
+			);
+		};
+
 		const checkColWidths = (table: ReactWrapper, expectedColWidths: number[]) => {
 			table.find('col').forEach((col, index) => {
 				expect(col.prop('style')!.width).toBe(`${expectedColWidths[index]}px`);
@@ -1334,13 +1296,19 @@ describe('Renderer - React/Nodes/Table', () => {
 			wrap.unmount();
 		});
 
+		// TODO: test should depend on isTableScalingEnabled too
 		ffTest(
 			'platform.editor.table.preserve-widths-with-lock-button',
 			() => {
 				const tableNode = createDefaultTable('fixed');
 				const rendererWidth = 700;
 
-				const wrap = mountTable(tableNode, rendererWidth, [420, 220, 620]);
+				const wrap = mountTableWidthFF(
+					{ tablePreserveWidth: true },
+					tableNode,
+					rendererWidth,
+					[420, 220, 620],
+				);
 
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1355,7 +1323,12 @@ describe('Renderer - React/Nodes/Table', () => {
 				const colWidths = [420, 220, 620];
 				const expectedScaleWidths = colWidths.map((w) => w * scale);
 
-				const wrap = mountTable(tableNode, rendererWidth, [420, 220, 620]);
+				const wrap = mountTableWidthFF(
+					{ tablePreserveWidth: true },
+					tableNode,
+					rendererWidth,
+					[420, 220, 620],
+				);
 
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1363,6 +1336,7 @@ describe('Renderer - React/Nodes/Table', () => {
 				wrap.unmount();
 			},
 		);
+
 		ffTest(
 			'platform.editor.table.allow-table-alignment',
 			() => {

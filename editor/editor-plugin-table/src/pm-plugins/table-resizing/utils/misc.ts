@@ -20,7 +20,10 @@ import {
 import type { TableOptions } from '../../../nodeviews/types';
 
 import { hasTableBeenResized } from './colgroup';
-import { MAX_SCALING_PERCENT } from './consts';
+import {
+	MAX_SCALING_PERCENT,
+	MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION,
+} from './consts';
 
 // Translates named layouts in number values.
 export function getLayoutSize(
@@ -137,19 +140,35 @@ export const getTableContainerElementWidth = (table: PMNode) => {
 	return getTableContainerWidth(table);
 };
 
-export const getTableScalingPercent = (table: PMNode, tableRef: HTMLElement | null) => {
+export const getTableScalingPercent = (
+	table: PMNode,
+	tableRef: HTMLElement | null,
+	shouldUseIncreasedScalingPercent?: boolean,
+) => {
+	const maxScalingPercent = shouldUseIncreasedScalingPercent
+		? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
+		: MAX_SCALING_PERCENT;
+
 	const tableWidth = getTableContainerElementWidth(table);
 	let renderWidth = tableRef?.parentElement?.clientWidth || tableWidth;
 	// minus 1 here to avoid any 1px scroll in Firefox
 	let scalePercent = (renderWidth - 1) / tableWidth;
-	scalePercent = Math.max(scalePercent, 1 - MAX_SCALING_PERCENT);
+	scalePercent = Math.max(scalePercent, 1 - maxScalingPercent);
 	return Math.min(scalePercent, 1);
 };
 
-export const getStaticTableScalingPercent = (table: PMNode, tableRenderWidth: number) => {
+export const getStaticTableScalingPercent = (
+	table: PMNode,
+	tableRenderWidth: number,
+	shouldUseIncreasedScalingPercent?: boolean,
+) => {
+	const maxScalingPercent = shouldUseIncreasedScalingPercent
+		? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
+		: MAX_SCALING_PERCENT;
+
 	const tableWidth = getTableContainerElementWidth(table);
 	// minus 1 here to avoid any 1px scroll in Firefox
 	let scalePercent = (tableRenderWidth - 1) / tableWidth;
-	scalePercent = Math.max(scalePercent, 1 - MAX_SCALING_PERCENT);
+	scalePercent = Math.max(scalePercent, 1 - maxScalingPercent);
 	return Math.min(scalePercent, 1);
 };

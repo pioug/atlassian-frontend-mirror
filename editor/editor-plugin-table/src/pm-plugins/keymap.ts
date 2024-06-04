@@ -61,6 +61,7 @@ export function keymapPlugin(
 	isFullWidthEnabled?: boolean,
 	pluginInjectionApi?: PluginInjectionAPIWithA11y,
 	getIntl?: () => IntlShape,
+	shouldUseIncreasedScalingPercent?: boolean,
 ): SafePlugin {
 	const list = {};
 
@@ -111,11 +112,15 @@ export function keymapPlugin(
 
 	bindKeymapWithCommand(
 		addColumnBefore.common!,
-		addColumnBeforeCommand(isTableScalingEnabled),
+		addColumnBeforeCommand(isTableScalingEnabled, shouldUseIncreasedScalingPercent),
 		list,
 	);
 
-	bindKeymapWithCommand(addColumnAfter.common!, addColumnAfterCommand(isTableScalingEnabled), list);
+	bindKeymapWithCommand(
+		addColumnAfter.common!,
+		addColumnAfterCommand(isTableScalingEnabled, shouldUseIncreasedScalingPercent),
+		list,
+	);
 
 	if (dragAndDropEnabled) {
 		// Move row/column shortcuts
@@ -153,13 +158,21 @@ export function keymapPlugin(
 		// Delete row/column shortcuts
 		bindKeymapWithCommand(
 			deleteColumn.common!,
-			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(editorAnalyticsAPI),
+			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(
+				editorAnalyticsAPI,
+				isTableScalingEnabled,
+				shouldUseIncreasedScalingPercent,
+			),
 			list,
 		);
 
 		bindKeymapWithCommand(
 			deleteRow.common!,
-			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(editorAnalyticsAPI),
+			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(
+				editorAnalyticsAPI,
+				isTableScalingEnabled,
+				shouldUseIncreasedScalingPercent,
+			),
 			list,
 		);
 	}

@@ -84,10 +84,10 @@ export const handleMouseDown = (
 	});
 
 	let shouldScale = tableDepth === 0 && isTableScalingEnabled;
-	if (
-		isTableScalingEnabled &&
-		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-	) {
+
+	const isTableScalingEnabledWithLockButton =
+		isTableScalingEnabled && getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+	if (isTableScalingEnabledWithLockButton) {
 		shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 	}
 
@@ -99,6 +99,9 @@ export const handleMouseDown = (
 		start,
 		domAtPos,
 		isTableScalingEnabled: shouldScale,
+		shouldUseIncreasedScalingPercent:
+			isTableScalingEnabledWithLockButton &&
+			getBooleanFF('platform.editor.table.use-increased-scaling-percent'),
 	});
 
 	if (
@@ -180,10 +183,10 @@ export const handleMouseDown = (
 					selectedColumns.indexOf(colIndex) > -1 || selectedColumns.indexOf(colIndex + 1) > -1;
 
 				let shouldScale = tableDepth === 0 && isTableScalingEnabled;
-				if (
+				const isTableScalingEnabledWithLockButton =
 					isTableScalingEnabled &&
-					getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-				) {
+					getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+				if (isTableScalingEnabledWithLockButton) {
 					shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 				}
 
@@ -210,6 +213,8 @@ export const handleMouseDown = (
 						originalTable,
 						resizingSelectedColumns ? selectedColumns : undefined,
 						shouldScale,
+						isTableScalingEnabledWithLockButton &&
+							getBooleanFF('platform.editor.table.use-increased-scaling-percent'),
 					);
 					tr = updateColumnWidths(newResizeState, table, start)(tr);
 				}
@@ -284,10 +289,13 @@ export const handleMouseDown = (
 		const colIndex = map.colCount($cell.pos - $cell.start(-1)) + $cell.nodeAfter!.attrs.colspan - 1;
 
 		let shouldScale = tableDepth === 0 && isTableScalingEnabled;
-		if (
+		const isTableScalingEnabledWithLockButton =
 			isTableScalingEnabled &&
-			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-		) {
+			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+		const shouldUseIncreasedScalingPercent =
+			isTableScalingEnabledWithLockButton &&
+			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+		if (isTableScalingEnabledWithLockButton) {
 			shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 		}
 
@@ -300,6 +308,8 @@ export const handleMouseDown = (
 				table,
 				undefined,
 				shouldScale,
+				undefined,
+				shouldUseIncreasedScalingPercent,
 			);
 		} else {
 			resizeColumn(
@@ -310,6 +320,7 @@ export const handleMouseDown = (
 				table,
 				undefined,
 				shouldScale,
+				shouldUseIncreasedScalingPercent,
 			);
 		}
 

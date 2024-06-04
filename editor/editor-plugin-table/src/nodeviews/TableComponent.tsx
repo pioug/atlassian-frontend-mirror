@@ -383,6 +383,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isNumberColumnChanged ||
 				isNumberOfColumnsChanged;
 
+			const isTableScalingEnabledWithLockButton =
+				this.props.options?.isTableScalingEnabled &&
+				getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+
+			const shouldUseIncreasedScalingPercent =
+				(isTableScalingEnabledWithLockButton &&
+					getBooleanFF('platform.editor.table.use-increased-scaling-percent')) ||
+				false;
+
 			if (force || (!isResizing && shouldUpdateColgroup)) {
 				const resizeState = getResizeState({
 					minWidth: COLUMN_MIN_WIDTH,
@@ -392,6 +401,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					start,
 					domAtPos: view.domAtPos.bind(view),
 					isTableScalingEnabled: true,
+					shouldUseIncreasedScalingPercent,
 				});
 
 				let shouldScaleOnColgroupUpdate = false;
@@ -402,17 +412,19 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					shouldScaleOnColgroupUpdate = true;
 				}
 
-				if (
-					this.props.options?.isTableScalingEnabled &&
-					getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
-					tableNode.attrs.displayMode !== 'fixed'
-				) {
+				if (isTableScalingEnabledWithLockButton && tableNode.attrs.displayMode !== 'fixed') {
 					shouldScaleOnColgroupUpdate = true;
 				}
 
 				// Request animation frame required for Firefox
 				requestAnimationFrame(() => {
-					updateColgroup(resizeState, this.table!, tableNode, shouldScaleOnColgroupUpdate);
+					updateColgroup(
+						resizeState,
+						this.table!,
+						tableNode,
+						shouldScaleOnColgroupUpdate,
+						shouldUseIncreasedScalingPercent,
+					);
 				});
 			}
 		}
@@ -452,11 +464,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			shouldHandleColgroupUpdates = true;
 		}
 
-		if (
+		const isTableScalingEnabledWithLockButton =
 			isTableScalingEnabled &&
-			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
-			getNode().attrs.displayMode !== 'fixed'
-		) {
+			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+		const shouldUseIncreasedScalingPercent =
+			isTableScalingEnabledWithLockButton &&
+			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+
+		if (isTableScalingEnabledWithLockButton && getNode().attrs.displayMode !== 'fixed') {
 			shouldScale = true;
 			shouldHandleColgroupUpdates = true;
 		}
@@ -523,7 +538,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					const depth = view.state.doc.resolve(start).depth;
 					shouldScale = depth === 0 && shouldScale;
 
-					insertColgroupFromNode(this.table, currentTable, shouldScale);
+					insertColgroupFromNode(
+						this.table,
+						currentTable,
+						shouldScale,
+						undefined,
+						shouldUseIncreasedScalingPercent,
+					);
 				}
 
 				updateControls()(view.state);
@@ -724,6 +745,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		const { stickyScrollbar } = getEditorFeatureFlags();
 
+		const shouldUseIncreasedScalingPercent =
+			isTableScalingEnabled &&
+			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+
 		return (
 			<TableContainer
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -746,6 +772,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isTableScalingEnabled={isTableScalingEnabled}
 				isWholeTableInDanger={isWholeTableInDanger}
 				isTableAlignmentEnabled={isTableAlignmentEnabled}
+				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -961,6 +988,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		this.layoutSize = layoutSize;
 	};
 
+	// Function gets called when table is nested.
 	private scaleTable = (scaleOptions: { parentWidth?: number }) => {
 		const { view, getNode, getPos, containerWidth, options } = this.props;
 		const node = getNode();
@@ -987,7 +1015,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				...options,
 			},
 			domAtPos,
-			false,
+			false, // isTableScalingEnabled doesn't change the behavior of nested tables
+			false, // shouldUseIncreasedScalingPercent set to false for nested tables
 		)(state.tr);
 
 		dispatch(tr);

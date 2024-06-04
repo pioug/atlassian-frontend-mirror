@@ -120,8 +120,14 @@
       "types": "./glyph/*.d.ts",
       "default": "./glyph/*.js"
     },
-    "./core/*": "./core/*",
-    "./utility/*": "./utility/*",
+    "./core/*": {
+      "types": "./core/*.d.ts",
+      "default": "./core/*.js"
+    },
+    "./utility/*": {
+      "types": "./utility/*.d.ts",
+      "default": "./utility/*.js"
+    },
     ".": "./src/index.tsx"
   },
   "platform-feature-flags": {

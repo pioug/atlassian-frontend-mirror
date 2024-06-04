@@ -4,9 +4,9 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { ANALYTICS_CHANNEL } from '../../common/constants';
 import { type CreatePayload } from '../../common/types';
+import { useExperience } from '../../common/ui/experience-tracker';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { getErrorType } from '../../common/utils/errors';
-import { useExperience } from '../experience-tracker';
 
 interface LinkCreateCallbackProviderProps {
   /**

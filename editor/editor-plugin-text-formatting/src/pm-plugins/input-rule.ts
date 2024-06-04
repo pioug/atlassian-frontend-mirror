@@ -6,11 +6,15 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { transformSmartCharsMentionsAndEmojis } from '@atlaskit/editor-common/mark';
+import {
+	transformNonTextNodesToText,
+	transformSmartCharsMentionsAndEmojis,
+} from '@atlaskit/editor-common/mark';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types';
 import { createRule, inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
 import type { MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 
 enum ValidAutoformatChars {
@@ -99,7 +103,9 @@ function addMark(markType: MarkType, schema: Schema, char: ValidAutoformatChars)
 		}
 
 		if (markType.name === 'code') {
-			transformSmartCharsMentionsAndEmojis(tr.mapping.map(start), tr.mapping.map(end), tr);
+			getBooleanFF('platform.editor.simplify-inline-cards-in-code-blocks_jw6t1')
+				? transformNonTextNodesToText(tr.mapping.map(start), tr.mapping.map(end), tr)
+				: transformSmartCharsMentionsAndEmojis(tr.mapping.map(start), tr.mapping.map(end), tr);
 		}
 
 		const mappedStart = tr.mapping.map(start);

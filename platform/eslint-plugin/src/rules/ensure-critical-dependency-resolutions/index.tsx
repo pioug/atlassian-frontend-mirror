@@ -10,6 +10,10 @@ import { getObjectPropertyAsObject } from '../util/handle-ast-object';
 const DESIRED_PKG_VERSIONS: Record<string, string[]> = {
   typescript: ['5.4'],
   '@types/react': ['16.14', '18.2'],
+  'react-relay': ['npm:atl-react-relay@0.0.0-main-2ccd6998'],
+  'relay-compiler': ['npm:atl-relay-compiler@0.0.0-main-2ccd6998'],
+  'relay-runtime': ['npm:atl-relay-runtime@0.0.0-main-2ccd6998'],
+  'relay-test-utils': ['npm:atl-relay-test-utils@0.0.0-main-2ccd6998'],
 };
 
 const matchMinorVersion = (
@@ -18,7 +22,11 @@ const matchMinorVersion = (
 ): boolean => {
   const firstChar = versionInResolutions[0];
   // The version is invalid if it doesn't start with a number or ~
-  if (!/^\d$/.test(firstChar) && firstChar !== '~') {
+  if (
+    !/^\d$/.test(firstChar) &&
+    firstChar !== '~' &&
+    !versionInResolutions.startsWith('npm:')
+  ) {
     return false;
   }
 
@@ -28,24 +36,53 @@ const matchMinorVersion = (
   );
 };
 
-const verifyResolutionFromObject = (
-  node: ObjectExpression,
-  pkg: string,
-  version: string,
-  optional: boolean,
-): boolean => {
+const verifyResolutionFromObject = ({
+  resolutions,
+  dependencies,
+  devDependencies,
+  pkg,
+  version,
+  optional,
+}: {
+  resolutions: ObjectExpression;
+  dependencies: ObjectExpression | null;
+  devDependencies: ObjectExpression | null;
+  pkg: string;
+  version: string;
+  optional: boolean;
+}): boolean => {
   // For root package.json, we require the critical packages' resolutions exist and with matching version
   // For individual package's package.json, it's ok if resolutions don't exist. But if they do, the version should match
-  const resolutionExist = node.properties.some(
+  const resolutionExist = resolutions.properties.some(
     (p) =>
       p.type === 'Property' && p.key.type === 'Literal' && p.key.value === pkg,
   );
 
+  isDependencyPresent({
+    resolutions,
+    dependencies,
+    devDependencies,
+    pkg,
+  });
+
   if (!resolutionExist) {
+    // when package is not a part of dependencies/devDependencies
+    if (
+      optional === false &&
+      !isDependencyPresent({
+        resolutions,
+        dependencies,
+        devDependencies,
+        pkg,
+      })
+    ) {
+      return true;
+    }
+
     return optional;
   }
 
-  const resolutionExistAndMatch = node.properties.some(
+  const resolutionExistAndMatch = resolutions.properties.some(
     (p) =>
       p.type === 'Property' &&
       p.key.type === 'Literal' &&
@@ -55,6 +92,39 @@ const verifyResolutionFromObject = (
   );
 
   return resolutionExistAndMatch;
+};
+
+type IsDependencyPresentProps = {
+  resolutions: ObjectExpression | null;
+  dependencies: ObjectExpression | null;
+  devDependencies: ObjectExpression | null;
+  pkg: string;
+};
+const isDependencyPresent = ({
+  resolutions,
+  dependencies,
+  devDependencies,
+  pkg,
+}: IsDependencyPresentProps) => {
+  const dependencyExist =
+    dependencies !== null &&
+    dependencies.properties.some(
+      (p) =>
+        p.type === 'Property' &&
+        p.key.type === 'Literal' &&
+        p.key.value === pkg,
+    );
+
+  const devDependencyExist =
+    devDependencies !== null &&
+    devDependencies.properties.some(
+      (p) =>
+        p.type === 'Property' &&
+        p.key.type === 'Literal' &&
+        p.key.value === pkg,
+    );
+
+  return dependencyExist || devDependencyExist;
 };
 
 const rule: Rule.RuleModule = {
@@ -87,6 +157,14 @@ const rule: Rule.RuleModule = {
           node,
           'resolutions',
         );
+        const packageDependencies = getObjectPropertyAsObject(
+          node,
+          'dependencies',
+        );
+        const packageDevDependencies = getObjectPropertyAsObject(
+          node,
+          'devDependencies',
+        );
         const rootDir = findRootSync(process.cwd());
         const isRootPackageJson = fileName.endsWith(`${rootDir}/package.json`);
 
@@ -94,12 +172,14 @@ const rule: Rule.RuleModule = {
           for (const [key, values] of Object.entries(DESIRED_PKG_VERSIONS)) {
             if (
               !values.some((value) => {
-                return verifyResolutionFromObject(
-                  packageResolutions as ObjectExpression,
-                  key,
-                  value,
-                  !isRootPackageJson,
-                );
+                return verifyResolutionFromObject({
+                  resolutions: packageResolutions as ObjectExpression,
+                  dependencies: packageDependencies,
+                  devDependencies: packageDevDependencies,
+                  pkg: key,
+                  version: value,
+                  optional: !isRootPackageJson,
+                });
               })
             ) {
               return context.report({

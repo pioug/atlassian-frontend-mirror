@@ -10,6 +10,7 @@ import {
 	akEditorFloatingOverlapPanelZIndex,
 } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import type { PluginConfig, TableDirection } from '../../types';
@@ -73,6 +74,11 @@ const FloatingDragMenu = ({
 		? getEditorFeatureFlags()
 		: {};
 
+	const shouldUseIncreasedScalingPercent =
+		isTableScalingEnabled &&
+		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+
 	return (
 		<Popup
 			alignX={direction === 'row' ? 'right' : undefined}
@@ -109,6 +115,7 @@ const FloatingDragMenu = ({
 				scrollableElement={scrollableElement}
 				isTableScalingEnabled={isTableScalingEnabled}
 				tableDuplicateCellColouring={tableDuplicateCellColouring}
+				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
 			/>
 		</Popup>
 	);

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.14
+
+### Patch Changes
+
+- [#107290](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107290)
+  [`9b3d2881e8d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b3d2881e8d5) -
+  Set table width when alignment changes if not set, as layout attribute can be used to determine
+  width
+
+## 7.16.13
+
+### Patch Changes
+
+- [#104756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104756)
+  [`bf2f24fa1ffa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf2f24fa1ffa) -
+  [ux] Fix table container position on resize in full-width editor on smaller screens.
+
 ## 7.16.12
 
 ### Patch Changes

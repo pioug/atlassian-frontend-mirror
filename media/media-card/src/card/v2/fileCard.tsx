@@ -70,6 +70,8 @@ import { InlinePlayerLazyV2 } from './inlinePlayerLazyV2';
 import { useFilePreview, type MediaFilePreview } from '@atlaskit/media-file-preview';
 import { type CardAction } from '../actions';
 import { performanceNow } from './performance';
+import { useContext } from 'react';
+import { DateOverrideContext } from '../../dateOverrideContext';
 
 export interface FileCardProps extends CardEventProps {
   /** Overlay the media file. */
@@ -195,6 +197,9 @@ export const FileCard = ({
     return prevFileState;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileState]);
+
+  const dateOverrides = useContext(DateOverrideContext);
+  const overridenDate = dateOverrides?.[identifier.id];
 
   //----------------------------------------------------------------//
   //------------ State, Refs & Initial Values ----------------------//
@@ -793,6 +798,7 @@ export const FileCard = ({
         forceSyncDisplay={forceSyncDisplay}
         mediaCardCursor={mediaCardCursor}
         shouldHideTooltip={shouldHideTooltip}
+        overriddenCreationDate={overridenDate}
       />
     );
 

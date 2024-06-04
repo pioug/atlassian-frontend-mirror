@@ -13,13 +13,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorGutterPadding,
-	akEditorMediaResizeHandlerPaddingWide,
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
 
 import { setTableAlignmentWithTableContentWithPos } from '../commands/misc';
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
-import type { PluginInjectionAPI } from '../types';
+import type { PluginInjectionAPI, TableSharedState } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 
 import { TableResizer } from './TableResizer';
@@ -163,6 +162,7 @@ type ResizableTableContainerProps = {
 
 	isTableScalingEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
+	shouldUseIncreasedScalingPercent?: boolean;
 };
 
 export const ResizableTableContainer = React.memo(
@@ -181,10 +181,13 @@ export const ResizableTableContainer = React.memo(
 		isWholeTableInDanger,
 		isTableScalingEnabled,
 		isTableAlignmentEnabled,
+		shouldUseIncreasedScalingPercent,
 	}: PropsWithChildren<ResizableTableContainerProps>) => {
 		const containerRef = useRef<HTMLDivElement | null>(null);
 		const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
 		const [resizing, setIsResizing] = useState(false);
+		const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
+		const { isFullWidthModeEnabled } = tableState as TableSharedState;
 
 		const updateContainerHeight = useCallback((height: number | 'auto') => {
 			// current StickyHeader State is not stable to be fetch.
@@ -260,11 +263,29 @@ export const ResizableTableContainer = React.memo(
 		const tableWidth = getTableContainerWidth(node);
 		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
 
-		// 76 is currently an accepted padding value considering the spacing for resizer handle
-		const responsiveContainerWidth = isTableScalingEnabled
-			? containerWidth - akEditorGutterPadding * 2 - akEditorMediaResizeHandlerPaddingWide / 2
-			: containerWidth - akEditorGutterPadding * 2 - akEditorMediaResizeHandlerPaddingWide;
-
+		let responsiveContainerWidth = 0;
+		const resizeHandleSpacing = 12;
+		// When Full width editor enabled, a Mac OS user can change "ak-editor-content-area" width by
+		// updating Settings -> Appearance -> Show scroll bars from "When scrolling" to "Always". It causes
+		// issues when viwport width is less than full width Editor's width. To detect avoid them
+		// we need to use lineLength to defined responsiveWidth instead of containerWidth
+		// (which does not get updated when Mac setting changes) in Full-width editor.
+		if (isFullWidthModeEnabled) {
+			// When: Show scroll bars -> containerWidth = akEditorGutterPadding * 2 + lineLength;
+			// When: Always -> containerWidth = akEditorGutterPadding * 2 + lineLength + scrollbarWidth;
+			// scrollbarWidth can vary. Values can be 14, 15, 16 and up to 20px;
+			responsiveContainerWidth = isTableScalingEnabled
+				? lineLength
+				: containerWidth - akEditorGutterPadding * 2 - resizeHandleSpacing;
+		} else {
+			// 76 is currently an accepted padding value considering the spacing for resizer handle
+			// containerWidth = width of a DIV with test id="ak-editor-fp-content-area". It is a parent of
+			// a DIV with className="ak-editor-content-area". This DIV has padding left and padding right.
+			// padding left = padding right = akEditorGutterPadding = 32
+			responsiveContainerWidth = isTableScalingEnabled
+				? containerWidth - akEditorGutterPadding * 2
+				: containerWidth - akEditorGutterPadding * 2 - resizeHandleSpacing;
+		}
 		let width = Math.min(tableWidth, responsiveContainerWidth);
 
 		if (!isResizing) {
@@ -286,8 +307,10 @@ export const ResizableTableContainer = React.memo(
 			attachAnalyticsEvent,
 			displayGapCursor,
 			isTableAlignmentEnabled,
+			isFullWidthModeEnabled,
 			isTableScalingEnabled,
 			isWholeTableInDanger,
+			shouldUseIncreasedScalingPercent,
 			pluginInjectionApi,
 			onResizeStart,
 			onResizeStop,
@@ -353,6 +376,7 @@ type TableContainerProps = {
 	isTableResizingEnabled: boolean | undefined;
 	isTableScalingEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
+	shouldUseIncreasedScalingPercent?: boolean;
 };
 
 export const TableContainer = ({
@@ -371,6 +395,7 @@ export const TableContainer = ({
 	isTableResizingEnabled,
 	isTableScalingEnabled,
 	isTableAlignmentEnabled,
+	shouldUseIncreasedScalingPercent,
 }: PropsWithChildren<TableContainerProps>) => {
 	if (isTableResizingEnabled && !isNested) {
 		return (
@@ -389,6 +414,7 @@ export const TableContainer = ({
 				isTableScalingEnabled={isTableScalingEnabled}
 				isWholeTableInDanger={isWholeTableInDanger}
 				isTableAlignmentEnabled={isTableAlignmentEnabled}
+				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
 			>
 				{children}
 			</ResizableTableContainer>

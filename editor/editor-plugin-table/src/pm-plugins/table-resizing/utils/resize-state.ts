@@ -24,6 +24,7 @@ export const getResizeState = ({
 	start,
 	domAtPos,
 	isTableScalingEnabled = false,
+	shouldUseIncreasedScalingPercent = false,
 }: {
 	minWidth: number;
 	maxSize: number;
@@ -32,9 +33,10 @@ export const getResizeState = ({
 	start: number;
 	domAtPos: (pos: number) => { node: Node; offset: number };
 	isTableScalingEnabled: boolean;
+	shouldUseIncreasedScalingPercent: boolean;
 }): ResizeState => {
 	if (isTableScalingEnabled) {
-		const scalePercent = getTableScalingPercent(table, tableRef);
+		const scalePercent = getTableScalingPercent(table, tableRef, shouldUseIncreasedScalingPercent);
 		minWidth = Math.ceil(minWidth / scalePercent);
 	}
 	// If the table has been resized, we can use the column widths from the table node
@@ -67,6 +69,7 @@ export const getResizeState = ({
 		table,
 		isTableScalingEnabled,
 		shouldReinsertColgroup, // don't reinsert colgroup when preserving table width - this causes widths to jump
+		shouldUseIncreasedScalingPercent,
 	);
 	const cols = Array.from(colgroupChildren).map((_, index) => {
 		// If the table hasn't been resized and we have a table width attribute, we can use it
@@ -104,6 +107,7 @@ export const updateColgroup = (
 	tableRef: HTMLElement | null,
 	tableNode?: PMNode,
 	isTableScalingEnabled?: boolean,
+	shouldUseIncreasedScalingPercent?: boolean,
 ): void => {
 	const cols = tableRef?.querySelectorAll('col');
 	const columnsCount = cols?.length;
@@ -113,7 +117,11 @@ export const updateColgroup = (
      We need to remove !isColumnResizing if we handled auto scale table when mouseUp event.
      * */
 	if (isTableScalingEnabled && tableNode) {
-		const scalePercent = getTableScalingPercent(tableNode, tableRef);
+		const scalePercent = getTableScalingPercent(
+			tableNode,
+			tableRef,
+			shouldUseIncreasedScalingPercent,
+		);
 		state.cols
 			.filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
 			.forEach((column, i) => {
@@ -359,10 +367,10 @@ export const getNewResizeStateFromSelectedColumns = (
 	let resizeState;
 
 	let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
-	if (
-		isTableScalingEnabled &&
-		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-	) {
+
+	const isTableScalingEnabledWithLockButton =
+		isTableScalingEnabled && getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+	if (isTableScalingEnabledWithLockButton) {
 		isTableScalingEnabledOnCurrentTable = table.node.attrs.displayMode !== 'fixed';
 	}
 
@@ -374,6 +382,9 @@ export const getNewResizeStateFromSelectedColumns = (
 		start: table.start,
 		domAtPos,
 		isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
+		shouldUseIncreasedScalingPercent:
+			isTableScalingEnabledWithLockButton &&
+			getBooleanFF('platform.editor.table.use-increased-scaling-percent'),
 	});
 
 	const newResizeState = evenSelectedColumnsWidths(resizeState, rect);

@@ -1,4 +1,4 @@
-import { setOrderDirection } from '../transformers/orderByField';
+import { remove, replace, setOrderDirection } from '../transformers/orderByField';
 import {
   type AstNode,
   type Field,
@@ -56,6 +56,8 @@ export const orderByFieldInternal = (
     getChildren,
     parent: null,
     setOrderDirection,
+    replace,
+    remove
   };
 
   assignParent(node);

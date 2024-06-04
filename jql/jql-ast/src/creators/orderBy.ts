@@ -1,5 +1,12 @@
 import { NODE_TYPE_ORDER_BY } from '../constants';
-import { prependOrderField, setOrderDirection } from '../transformers/orderBy';
+import {
+  prependOrderField,
+  remove,
+  removeOrderField,
+  replace,
+  replaceOrderField,
+  setOrderDirection
+} from '../transformers/orderBy';
 import {
   type AstNode,
   type JastListener,
@@ -52,6 +59,10 @@ export const orderByInternal = (
     parent: null,
     prependOrderField,
     setOrderDirection,
+    replace,
+    replaceOrderField,
+    remove,
+    removeOrderField
   };
 
   assignParent(node);

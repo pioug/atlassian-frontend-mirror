@@ -49,7 +49,7 @@
     "@atlaskit/form": "^10.3.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^6.4.0",
+    "@atlaskit/primitives": "^6.5.0",
     "@atlaskit/radio": "^6.3.0",
     "@atlaskit/section-message": "^6.5.0",
     "@atlaskit/select": "^17.10.0",

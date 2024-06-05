@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 6.5.0
+
+### Minor Changes
+
+- [#107382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107382)
+  [`219600ccac79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/219600ccac79) -
+  Adding safe exports for `Anchor` primitive in preparation for open beta. The `UNSAFE_` prefixed
+  exports have been deprecated and will be removed in an upcoming major release.
+
 ## 6.4.0
 
 ### Minor Changes

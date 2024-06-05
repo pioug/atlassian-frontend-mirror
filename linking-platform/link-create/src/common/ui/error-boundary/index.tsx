@@ -10,38 +10,32 @@ import { useExperience } from '../experience-tracker';
 import { BaseErrorBoundary } from './error-boundary-base';
 
 type ErrorBoundaryProps = PropsWithChildren<{
-  errorComponent?: JSX.Element;
+	errorComponent?: JSX.Element;
 }>;
 
-export const ErrorBoundary = ({
-  children,
-  errorComponent,
-}: ErrorBoundaryProps) => {
-  const { createAnalyticsEvent } = useAnalyticsEvents();
-  const experience = useExperience();
+export const ErrorBoundary = ({ children, errorComponent }: ErrorBoundaryProps) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const experience = useExperience();
 
-  const handleError = useCallback(
-    (error: Error) => {
-      createAnalyticsEvent(
-        createEventPayload('operational.linkCreate.unhandledErrorCaught', {
-          browserInfo: window?.navigator?.userAgent || 'unknown',
-          error: error.name,
-          componentStack: 'unknown',
-        }),
-      ).fire(ANALYTICS_CHANNEL);
+	const handleError = useCallback(
+		(error: Error) => {
+			createAnalyticsEvent(
+				createEventPayload('operational.linkCreate.unhandledErrorCaught', {
+					browserInfo: window?.navigator?.userAgent || 'unknown',
+					error: error.name,
+					componentStack: 'unknown',
+				}),
+			).fire(ANALYTICS_CHANNEL);
 
-      // Track experience as failed for SLO
-      experience?.failure(error);
-    },
-    [createAnalyticsEvent, experience],
-  );
+			// Track experience as failed for SLO
+			experience?.failure(error);
+		},
+		[createAnalyticsEvent, experience],
+	);
 
-  return (
-    <BaseErrorBoundary
-      onError={handleError}
-      errorComponent={errorComponent ?? <ErrorBoundaryUI />}
-    >
-      {children}
-    </BaseErrorBoundary>
-  );
+	return (
+		<BaseErrorBoundary onError={handleError} errorComponent={errorComponent ?? <ErrorBoundaryUI />}>
+			{children}
+		</BaseErrorBoundary>
+	);
 };

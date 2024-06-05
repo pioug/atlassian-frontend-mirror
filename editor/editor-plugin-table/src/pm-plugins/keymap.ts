@@ -4,9 +4,13 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	addColumnAfter,
+	addColumnAfterVO,
 	addColumnBefore,
+	addColumnBeforeVO,
 	addRowAfter,
+	addRowAfterVO,
 	addRowBefore,
+	addRowBeforeVO,
 	backspace,
 	bindKeymapWithCommand,
 	decreaseMediaSize,
@@ -121,6 +125,32 @@ export function keymapPlugin(
 		addColumnAfterCommand(isTableScalingEnabled, shouldUseIncreasedScalingPercent),
 		list,
 	);
+
+	if (getBooleanFF('platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg')) {
+		bindKeymapWithCommand(
+			addRowBeforeVO.common!,
+			addRowAroundSelection(editorAnalyticsAPI)('TOP'),
+			list,
+		);
+
+		bindKeymapWithCommand(
+			addRowAfterVO.common!,
+			addRowAroundSelection(editorAnalyticsAPI)('BOTTOM'),
+			list,
+		);
+
+		bindKeymapWithCommand(
+			addColumnBeforeVO.common!,
+			addColumnBeforeCommand(isTableScalingEnabled),
+			list,
+		);
+
+		bindKeymapWithCommand(
+			addColumnAfterVO.common!,
+			addColumnAfterCommand(isTableScalingEnabled),
+			list,
+		);
+	}
 
 	if (dragAndDropEnabled) {
 		// Move row/column shortcuts

@@ -17,35 +17,35 @@ export const TEST_ID = 'link-create-text-field';
  */
 
 export function TextField({
-  id,
-  name,
-  label,
-  isRequired,
-  validators,
-  validationHelpText,
-  testId = TEST_ID,
-  ...restProps
+	id,
+	name,
+	label,
+	isRequired,
+	validators,
+	validationHelpText,
+	testId = TEST_ID,
+	...restProps
 }: TextFieldProps) {
-  return (
-    <CreateField
-      id={id}
-      name={name}
-      label={label}
-      isRequired={isRequired}
-      validators={validators}
-      validationHelpText={validationHelpText}
-      testId={testId}
-    >
-      {({ fieldId, ...fieldProps }) => {
-        return (
-          <AkTextfield
-            id={fieldId}
-            {...fieldProps}
-            {...restProps}
-            isRequired={false} // Remove the default browser validation
-          />
-        );
-      }}
-    </CreateField>
-  );
+	return (
+		<CreateField
+			id={id}
+			name={name}
+			label={label}
+			isRequired={isRequired}
+			validators={validators}
+			validationHelpText={validationHelpText}
+			testId={testId}
+		>
+			{({ fieldId, ...fieldProps }) => {
+				return (
+					<AkTextfield
+						id={fieldId}
+						{...fieldProps}
+						{...restProps}
+						isRequired={false} // Remove the default browser validation
+					/>
+				);
+			}}
+		</CreateField>
+	);
 }

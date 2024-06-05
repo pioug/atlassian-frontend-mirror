@@ -1,11 +1,14 @@
-import SelectProps from '!!extract-react-types-loader!../../src/extract-react-types/ert';
-import NativeReactSelectProps from '!!extract-react-types-loader!../../src/extract-react-types/react-select-props';
+---
+props:
+  packageName: '@atlaskit/select'
+  exports:
+    - default
+---
 
 ## Props
 
-`@atlaskit/select` is based on the `react-select` library, and supports many of the same props.
-If you're looking for more advanced customization examples that aren't shown here, refer to the [react-select documentation](https://react-select.com/).
+`@atlaskit/select` is based on the `react-select` library, and supports many of the same props. If
+you're looking for more advanced customization examples that aren't shown here, refer to the
+[react-select documentation](https://react-select.com/).
 
-<PropsTable heading="" props={SelectProps} />
-
-<PropsTable heading="" props={NativeReactSelectProps} />
+<TSMorphProps exportName="default" packageName="@atlaskit/select" />

@@ -72,6 +72,11 @@ export const addRowBefore = makeKeyMapWithCommon('Add Row Above', 'Ctrl-Alt-Arro
 export const addRowAfter = makeKeyMapWithCommon('Add Row Below', 'Ctrl-Alt-ArrowDown');
 export const addColumnAfter = makeKeyMapWithCommon('Add Column After', 'Ctrl-Alt-ArrowRight');
 export const addColumnBefore = makeKeyMapWithCommon('Add Column Before', 'Ctrl-Alt-ArrowLeft');
+// The following few shortcuts that end in VO are added specifically for Voice Over users, as shortcuts that perform the same role when using Voice Over don't work because they conflict with default shortcuts in Voice Over
+export const addRowBeforeVO = makeKeyMapWithCommon('Add Row Above', 'Mod-Alt-[');
+export const addRowAfterVO = makeKeyMapWithCommon('Add Row Below', 'Mod-Alt-]');
+export const addColumnAfterVO = makeKeyMapWithCommon('Add Column After', 'Mod-Alt-=');
+export const addColumnBeforeVO = makeKeyMapWithCommon('Add Column Before', 'Mod-Alt--');
 
 export const moveColumnLeft = makeKeyMapWithCommon('Move Column Left', 'Ctrl-Alt-Shift-ArrowLeft');
 export const moveColumnRight = makeKeyMapWithCommon(

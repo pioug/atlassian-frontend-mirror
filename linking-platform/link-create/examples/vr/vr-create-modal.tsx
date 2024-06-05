@@ -6,86 +6,79 @@ import { default as whiteboardSvg } from '../../example-helpers/hero-image.svg';
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import LinkCreate, { type EditViewProps, type LinkCreateWithModalProps } from '../../src';
 
-const createExample = (
-  props: Partial<LinkCreateWithModalProps> = {},
-): React.ComponentType => {
-  return function Example() {
-    const ENTITY_KEY = 'object-name';
+const createExample = (props: Partial<LinkCreateWithModalProps> = {}): React.ComponentType => {
+	return function Example() {
+		const ENTITY_KEY = 'object-name';
 
-    const mockPlugins = [
-      {
-        group: {
-          label: 'test',
-          icon: 'test-icon',
-          key: 'mock-plugin',
-        },
-        label: 'label',
-        icon: 'icon',
-        key: ENTITY_KEY,
-        form: <MockPluginForm />,
-      },
-    ];
+		const mockPlugins = [
+			{
+				group: {
+					label: 'test',
+					icon: 'test-icon',
+					key: 'mock-plugin',
+				},
+				label: 'label',
+				icon: 'icon',
+				key: ENTITY_KEY,
+				form: <MockPluginForm />,
+			},
+		];
 
-    return (
-      <IntlProvider locale="en">
-        <LinkCreate
-          {...props}
-          active={true}
-          entityKey={ENTITY_KEY}
-          plugins={mockPlugins}
-        />
-      </IntlProvider>
-    );
-  };
+		return (
+			<IntlProvider locale="en">
+				<LinkCreate {...props} active={true} entityKey={ENTITY_KEY} plugins={mockPlugins} />
+			</IntlProvider>
+		);
+	};
 };
 
 const createExampleWithEdit = (
-  props: Partial<LinkCreateWithModalProps> = {},
+	props: Partial<LinkCreateWithModalProps> = {},
 ): React.ComponentType => {
-  return function EditExample() {
-    const ENTITY_KEY = 'object-name';
+	return function EditExample() {
+		const ENTITY_KEY = 'object-name';
 
-    const mockPlugins = [
-      {
-        group: {
-          label: 'test',
-          icon: 'test-icon',
-          key: 'mock-plugin',
-        },
-        label: 'label',
-        icon: 'icon',
-        key: ENTITY_KEY,
-        form: <MockPluginForm />,
-        editView: ({ payload, onClose }: EditViewProps) => {
-          return <h1>this is an edit view</h1>;
-        },
-      },
-    ];
+		const mockPlugins = [
+			{
+				group: {
+					label: 'test',
+					icon: 'test-icon',
+					key: 'mock-plugin',
+				},
+				label: 'label',
+				icon: 'icon',
+				key: ENTITY_KEY,
+				form: <MockPluginForm />,
+				editView: ({ payload, onClose }: EditViewProps) => {
+					return <h1>this is an edit view</h1>;
+				},
+			},
+		];
 
-    return (
-      <IntlProvider locale="en">
-        <LinkCreate
-          active={true}
-          entityKey={ENTITY_KEY}
-          plugins={mockPlugins}
-          onComplete={() => {
-            console.log('onCompleteFunction');
-          }}
-          {...props}
-        />
-      </IntlProvider>
-    );
-  };
+		return (
+			<IntlProvider locale="en">
+				<LinkCreate
+					active={true}
+					entityKey={ENTITY_KEY}
+					plugins={mockPlugins}
+					onComplete={() => {
+						console.log('onCompleteFunction');
+					}}
+					{...props}
+				/>
+			</IntlProvider>
+		);
+	};
 };
 
 export const DefaultCreateWithModal = createExample();
 export const DefaultCreateWithModalTitle = createExample({
-  modalTitle: 'Create custom title',
+	modalTitle: 'Create custom title',
 });
 
 export const DefaultCreateWithModalHero = createExample({
-  //  eslint-disable-next-line jsx-a11y/img-redundant-alt
-  modalHero: <img src={whiteboardSvg} alt="Whiteboard Image" />,
+	//  eslint-disable-next-line jsx-a11y/img-redundant-alt
+	modalHero: <img src={whiteboardSvg} alt="Whiteboard Image" />,
 });
 export const DefaultCreateWithEditButton = createExampleWithEdit({});
 

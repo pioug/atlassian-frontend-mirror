@@ -1,5 +1,14 @@
 # @atlaskit/link-create
 
+## 2.2.0
+
+### Minor Changes
+
+- [#105330](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105330)
+  [`9fb53f33cb33`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fb53f33cb33) -
+  [ux] Added a goal owner selector component to the goal creation modal. Additionally, added a new
+  user-picker component to be used in CreateForm. Goal picker has a new mandatory default owner prop
+
 ## 2.1.0
 
 ### Minor Changes

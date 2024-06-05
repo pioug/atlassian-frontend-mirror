@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 81.2.2
+
+### Patch Changes
+
+- [#107463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107463)
+  [`5c4e84045a40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c4e84045a40) -
+  [ux] Add responsive label to loom plugin toolbar
+
 ## 81.2.1
 
 ### Patch Changes

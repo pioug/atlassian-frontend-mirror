@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.16
+
+### Patch Changes
+
+- [#107213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107213)
+  [`afae0e144fb2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/afae0e144fb2) -
+  [ux] Hide table selection control when blocks plugin enabled
+
+## 7.16.15
+
+### Patch Changes
+
+- [#105930](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105930)
+  [`939b873db211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/939b873db211) -
+  [ux] Sets increased table scaling percent when FF is enabled.
+
 ## 7.16.14
 
 ### Patch Changes

@@ -139,3 +139,9 @@ events:
       description: fired when an explicit request is made to use an AI-powered feature
       attributes:
         <<: [*PackageMetaDataContext, *aiInteractionAttributes]
+
+  - button clicked (automationAction):
+      type: ui
+      description: fired when the automation action button is clicked
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]

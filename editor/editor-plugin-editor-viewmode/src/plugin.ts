@@ -2,8 +2,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey, TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Mappable } from '@atlaskit/editor-prosemirror/transform';
 import {
 	AddMarkStep,
@@ -12,6 +11,7 @@ import {
 	StepMap,
 	StepResult,
 } from '@atlaskit/editor-prosemirror/transform';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { EditorViewModePlugin, EditorViewModePluginState, ViewMode } from './types';
 
@@ -144,7 +144,13 @@ const createFilterStepsPlugin =
 		});
 	};
 
-const createPlugin = (initialMode: ViewMode | undefined) => {
+const createPlugin = ({
+	initialMode,
+	api,
+}: {
+	initialMode: ViewMode | undefined;
+	api: ExtractInjectionAPI<EditorViewModePlugin> | undefined;
+}) => {
 	return new SafePlugin({
 		key: viewModePluginKey,
 		state: {
@@ -169,6 +175,36 @@ const createPlugin = (initialMode: ViewMode | undefined) => {
 				return mode === 'view' ? false : undefined;
 			},
 		},
+		appendTransaction: (transactions, _oldState, newState) => {
+			if (!api) {
+				return;
+			}
+
+			if (!getBooleanFF('platform.editor.live-view.no-editor-selection-in-view-mode')) {
+				return;
+			}
+
+			const isViewMode = viewModePluginKey.getState(_oldState)?.mode === 'view';
+			if (!isViewMode) {
+				return;
+			}
+
+			const remoteReplaceDocumentTransaction = transactions.find((tr) =>
+				api.collabEdit?.actions.isRemoteReplaceDocumentTransaction(tr),
+			);
+
+			if (!remoteReplaceDocumentTransaction || !remoteReplaceDocumentTransaction.selectionSet) {
+				return;
+			}
+
+			const doc = newState.doc;
+			const nextTr = newState.tr;
+
+			const emptySelection = new TextSelection(doc.resolve(0));
+			nextTr.setSelection(emptySelection);
+
+			return nextTr;
+		},
 	});
 };
 
@@ -183,7 +219,7 @@ export const editorViewModePlugin: EditorViewModePlugin = ({ config: options, ap
 		getSharedState(editorState) {
 			if (!editorState) {
 				return {
-					mode: 'edit',
+					mode: options?.mode === 'view' ? 'view' : 'edit',
 				};
 			}
 
@@ -227,7 +263,7 @@ export const editorViewModePlugin: EditorViewModePlugin = ({ config: options, ap
 			return [
 				{
 					name: 'editorViewMode',
-					plugin: () => createPlugin(options?.mode),
+					plugin: () => createPlugin({ initialMode: options?.mode, api }),
 				},
 				{
 					name: 'editorViewModeFilterSteps',

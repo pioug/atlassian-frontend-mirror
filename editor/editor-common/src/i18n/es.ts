@@ -261,6 +261,7 @@ export default {
   'fabric.editor.info': 'Información',
   'fabric.editor.infoPanel': 'Panel de información',
   'fabric.editor.infoPanel.description': 'Destacar información en un panel de color',
+  'fabric.editor.inlineConfigureLink': 'Configurar enlace',
   'fabric.editor.inlineDescription': 'Mostrar enlace como texto insertado',
   'fabric.editor.inlineOverlay': 'Configurar',
   'fabric.editor.inlineTitle': 'Insertado',

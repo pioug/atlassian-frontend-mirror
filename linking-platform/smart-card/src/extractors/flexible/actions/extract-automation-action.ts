@@ -29,6 +29,6 @@ export const extractAutomationAction = (
     // TODO: The admin experience will be a follow up
     canManageAutomation: false,
     baseAutomationUrl: '',
-    analyticsSource: 'smartCard',
+    analyticsSource: 'smartCardAutomationAction',
   }
 }

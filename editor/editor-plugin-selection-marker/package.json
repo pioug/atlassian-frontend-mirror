@@ -39,7 +39,7 @@
     "@atlaskit/editor-plugin-focus": "^1.2.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.2.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/primitives": "^6.4.0",
+    "@atlaskit/primitives": "^6.5.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",
     "@babel/runtime": "^7.0.0",

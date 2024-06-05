@@ -263,6 +263,7 @@ export default {
   'fabric.editor.info': 'Информация',
   'fabric.editor.infoPanel': 'Информационная панель',
   'fabric.editor.infoPanel.description': 'Выделение информации цветом',
+  'fabric.editor.inlineConfigureLink': 'Настроить ссылку',
   'fabric.editor.inlineDescription': 'Отображение ссылки в виде встроенного текста',
   'fabric.editor.inlineOverlay': 'Настроить',
   'fabric.editor.inlineTitle': 'Встроенный текст',

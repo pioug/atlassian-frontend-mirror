@@ -242,7 +242,7 @@ export const insertMediaSingleNode = (
 		}
 		dispatch(tr);
 	}
-	if (getBooleanFF('platform.editor.media.autoselect-inserted-image_oumto') && onNodeInserted) {
+	if (onNodeInserted) {
 		onNodeInserted(mediaState.id, view.state.selection.to);
 	}
 	return true;

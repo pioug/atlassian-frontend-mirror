@@ -9,6 +9,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export type {
 	InviteToEditComponentProps,
@@ -58,6 +59,7 @@ export type CollabEditPlugin = NextEditorPlugin<
 		actions: {
 			getAvatarColor: (str: string) => { index: number; color: Color };
 			addInlineCommentMark: (props: { from: number; to: number; mark: Mark }) => boolean;
+			isRemoteReplaceDocumentTransaction: (tr: Transaction) => boolean;
 		};
 	}
 >;

@@ -16,28 +16,28 @@ export const TEST_ID = 'link-create-select';
  * have a key matching the `name` of this field are shown below the field.
  */
 export function Select<T = OptionType>({
-  id,
-  name,
-  label,
-  isRequired,
-  validators,
-  validationHelpText,
-  testId = TEST_ID,
-  ...restProps
+	id,
+	name,
+	label,
+	isRequired,
+	validators,
+	validationHelpText,
+	testId = TEST_ID,
+	...restProps
 }: SelectProps<T>) {
-  return (
-    <CreateField
-      id={id}
-      name={name}
-      label={label}
-      isRequired={isRequired}
-      validators={validators}
-      validationHelpText={validationHelpText}
-      testId={testId}
-    >
-      {({ fieldId, ...fieldProps }) => {
-        return <AkSelect inputId={fieldId} {...fieldProps} {...restProps} />;
-      }}
-    </CreateField>
-  );
+	return (
+		<CreateField
+			id={id}
+			name={name}
+			label={label}
+			isRequired={isRequired}
+			validators={validators}
+			validationHelpText={validationHelpText}
+			testId={testId}
+		>
+			{({ fieldId, ...fieldProps }) => {
+				return <AkSelect inputId={fieldId} {...fieldProps} {...restProps} />;
+			}}
+		</CreateField>
+	);
 }

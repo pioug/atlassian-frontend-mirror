@@ -490,11 +490,11 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       // input and instrument a mutation observer. On the first opening of the
       // menu, menuIsOpen is true but the menu isn't actually in the DOM yet.
       // For this reason, we the use the existence of the attribute.
-      const inputHasAriaActiveDecendant =
+      const inputHasAriaActiveDescendant =
         this.selectRef?.select?.inputRef?.getAttribute('aria-activedescendant');
       const inputRef = this.selectRef?.select?.inputRef as HTMLInputElement;
       const menuRef = this.selectRef?.select?.menuListRef;
-      if (menuIsOpen && menuRef && !inputHasAriaActiveDecendant) {
+      if (menuIsOpen && menuRef && !inputHasAriaActiveDescendant) {
         // Set the aria-activedescendant attribute on the input element
         // to the first menu item
         menuRef.children[0]?.classList.contains(optionFocusedClass) &&
@@ -509,7 +509,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
           this.focusedOptionObserver.observe(menuRef, observerOptions);
       }
 
-      // Rewmoe the aria-active-descendant attribute and disconnect the observer
+      // Remove the aria-active-descendant attribute and disconnect the observer
       // when the menu is closed
       if (!menuIsOpen && prevState.menuIsOpen) {
         inputRef && inputRef.removeAttribute('aria-activedescendant');

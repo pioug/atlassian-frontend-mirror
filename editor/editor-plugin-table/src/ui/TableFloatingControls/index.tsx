@@ -149,22 +149,23 @@ export const TableFloatingControls = ({
 					<>
 						{isDragAndDropEnabled ? (
 							<>
-								{getBooleanFF('platform.editor.table.use-shared-state-hook') ? (
-									<DragCornerControlsWithSelection
-										editorView={editorView}
-										tableRef={tableRef}
-										isInDanger={isInDanger}
-										isResizing={isResizing}
-										api={api}
-									/>
-								) : (
-									<DragCornerControls
-										editorView={editorView}
-										tableRef={tableRef}
-										isInDanger={isInDanger}
-										isResizing={isResizing}
-									/>
-								)}
+								{!getBooleanFF('platform.editor.drag-and-drop_wmv9t') &&
+									(getBooleanFF('platform.editor.table.use-shared-state-hook') ? (
+										<DragCornerControlsWithSelection
+											editorView={editorView}
+											tableRef={tableRef}
+											isInDanger={isInDanger}
+											isResizing={isResizing}
+											api={api}
+										/>
+									) : (
+										<DragCornerControls
+											editorView={editorView}
+											tableRef={tableRef}
+											isInDanger={isInDanger}
+											isResizing={isResizing}
+										/>
+									))}
 								<DragControls
 									tableRef={tableRef}
 									tableNode={tableNode}

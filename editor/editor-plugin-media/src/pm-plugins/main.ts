@@ -484,9 +484,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			}
 		});
 
-		if (getBooleanFF('platform.editor.media.autoselect-inserted-image_oumto')) {
-			this.selectLastAddedMediaNode();
-		}
+		this.selectLastAddedMediaNode();
 	};
 
 	private selectLastAddedMediaNode() {

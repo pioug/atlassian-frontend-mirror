@@ -211,4 +211,9 @@ export const toolbarInsertBlockMessages = defineMessages({
 		defaultMessage: 'Record and share your screen and thoughts',
 		description: 'Record and share your screen and thoughts',
 	},
+	recordLoomShortTitle: {
+		id: 'fabric.editor.recordLoomShortTitle',
+		defaultMessage: 'Record',
+		description: 'Record',
+	},
 });

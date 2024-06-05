@@ -144,7 +144,7 @@
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/interaction-context": "^2.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.5",
-    "@atlaskit/primitives": "^6.4.0",
+    "@atlaskit/primitives": "^6.5.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",

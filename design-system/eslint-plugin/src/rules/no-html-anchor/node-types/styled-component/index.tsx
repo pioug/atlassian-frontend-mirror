@@ -8,43 +8,45 @@ import { isSupportedForLint } from '../supported';
 import { getStyledComponentCall } from './get-styled-component-call';
 
 interface MetaData {
-  context: Rule.RuleContext;
+	context: Rule.RuleContext;
 }
 
 export const StyledComponent = {
-  lint(node: Rule.Node, { context }: MetaData) {
-    if (
-      !isNodeOfType(node, 'CallExpression') ||
-      !isNodeOfType(node.callee, 'MemberExpression') ||
-      !isNodeOfType(node.callee.object, 'Identifier') ||
-      !isNodeOfType(node.callee.property, 'Identifier')
-    ) {
-      return;
-    }
+	lint(node: Rule.Node, { context }: MetaData) {
+		if (
+			!isNodeOfType(node, 'CallExpression') ||
+			!isNodeOfType(node.callee, 'MemberExpression') ||
+			!isNodeOfType(node.callee.object, 'Identifier') ||
+			!isNodeOfType(node.callee.property, 'Identifier')
+		) {
+			return;
+		}
 
-    const styles = getStyledComponentCall(node);
+		const styles = getStyledComponentCall(node);
 
-    const elementName = node.callee.property.name;
+		const elementName = node.callee.property.name;
 
-    if (!styles || !isNodeOfType(styles.id, 'Identifier')) {
-      return;
-    }
+		if (!styles || !isNodeOfType(styles.id, 'Identifier')) {
+			return;
+		}
 
-    const jsxElement = getJsxElementByName(
-      styles.id.name,
-      context.getScope(),
-    )?.parent;
+		const jsxElement = getJsxElementByName(styles.id.name, context.getScope())?.parent;
 
-    if (jsxElement && !isSupportedForLint(jsxElement, elementName)) {
-      return;
-    }
+		if (!jsxElement) {
+			// If there's no JSX element, we can't determine if it's being used as an anchor or not
+			return;
+		}
 
-    context.report({
-      node: styles,
-      messageId: 'noHtmlAnchor',
-      data: {
-        name: node.callee.property.name,
-      },
-    });
-  },
+		if (jsxElement && !isSupportedForLint(jsxElement, elementName)) {
+			return;
+		}
+
+		context.report({
+			node: styles,
+			messageId: 'noHtmlAnchor',
+			data: {
+				name: node.callee.property.name,
+			},
+		});
+	},
 };

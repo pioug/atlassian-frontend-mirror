@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 2.7.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.20
+
+### Patch Changes
+
+- [#107335](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107335)
+  [`d5457c8afe5f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5457c8afe5f) -
+  Cleaned up FF platform.editor.media.autoselect-inserted-image_oumto
+- Updated dependencies
+
+## 2.7.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.17
 
 ### Patch Changes

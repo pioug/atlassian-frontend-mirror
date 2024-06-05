@@ -255,6 +255,7 @@ export default {
   'fabric.editor.info': '정보',
   'fabric.editor.infoPanel': '정보 패널',
   'fabric.editor.infoPanel.description': '색상 있는 패널에서 정보 강조 표시',
+  'fabric.editor.inlineConfigureLink': '링크 구성',
   'fabric.editor.inlineDescription': '링크를 인라인 텍스트로 표시',
   'fabric.editor.inlineOverlay': '구성',
   'fabric.editor.inlineTitle': '인라인',

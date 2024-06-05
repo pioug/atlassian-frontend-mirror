@@ -256,6 +256,7 @@ export default {
   'fabric.editor.info': 'Bilgi',
   'fabric.editor.infoPanel': 'Bilgi panosu',
   'fabric.editor.infoPanel.description': 'Renkli bir panoda bilgileri vurgulayın',
+  'fabric.editor.inlineConfigureLink': 'Bağlantıyı yapılandırın',
   'fabric.editor.inlineDescription': 'Bağlantıyı satır içi metin olarak gösterir',
   'fabric.editor.inlineOverlay': 'Yapılandır',
   'fabric.editor.inlineTitle': 'Satır içi',

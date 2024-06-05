@@ -227,12 +227,12 @@ export interface CreateFormProps<FormData> {
   Implementing a basic plugin create form might look something like this:
 
 ${(
-  <Example
-    packageName="@atlaskit/link-create"
-    Component={require('../examples/00-basic').default}
-    title="Example Plugin"
-    source={require('!!raw-loader!../examples/00-basic')}
-  />
+	<Example
+		packageName="@atlaskit/link-create"
+		Component={require('../examples/00-basic').default}
+		title="Example Plugin"
+		source={require('!!raw-loader!../examples/00-basic')}
+	/>
 )}
 
   By using the \`CreateForm\` the UI gets the following features for free:

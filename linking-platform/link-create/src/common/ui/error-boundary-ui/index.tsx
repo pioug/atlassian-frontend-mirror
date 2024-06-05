@@ -13,32 +13,32 @@ import messages from './messages';
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
 
 export const ErrorBoundaryUI = () => {
-  const intl = useIntl();
+	const intl = useIntl();
 
-  return (
-    <EmptyState
-      maxImageWidth={82}
-      testId={'link-create-error-boundary-ui'}
-      header={intl.formatMessage(commonMessages.genericErrorMessage)}
-      description={
-        <FormattedMessage
-          {...messages.description}
-          values={{
-            a: (label: React.ReactNode[]) => (
-              <Button
-                appearance="link"
-                spacing="none"
-                href={CONTACT_SUPPORT_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {label}
-              </Button>
-            ),
-          }}
-        />
-      }
-      renderImage={() => <ErrorSVG />}
-    />
-  );
+	return (
+		<EmptyState
+			maxImageWidth={82}
+			testId={'link-create-error-boundary-ui'}
+			header={intl.formatMessage(commonMessages.genericErrorMessage)}
+			description={
+				<FormattedMessage
+					{...messages.description}
+					values={{
+						a: (label: React.ReactNode[]) => (
+							<Button
+								appearance="link"
+								spacing="none"
+								href={CONTACT_SUPPORT_LINK}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								{label}
+							</Button>
+						),
+					}}
+				/>
+			}
+			renderImage={() => <ErrorSVG />}
+		/>
+	);
 };

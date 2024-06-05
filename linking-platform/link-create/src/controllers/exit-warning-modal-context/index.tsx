@@ -1,57 +1,43 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useRef } from 'react';
 
 type ExitWarningModalContextValue = {
-  getShouldShowWarning: () => boolean;
-  setShouldShowWarning: (show: boolean) => void;
+	getShouldShowWarning: () => boolean;
+	setShouldShowWarning: (show: boolean) => void;
 };
 
 const ExitWarningModalContext = createContext<ExitWarningModalContextValue>({
-  getShouldShowWarning: () => false,
-  setShouldShowWarning: () => {},
+	getShouldShowWarning: () => false,
+	setShouldShowWarning: () => {},
 });
 
-export const ExitWarningModalProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const shouldShowWarning = useRef(false);
+export const ExitWarningModalProvider = ({ children }: { children: React.ReactNode }) => {
+	const shouldShowWarning = useRef(false);
 
-  const getShouldShowWarning = useCallback(() => shouldShowWarning.current, []);
+	const getShouldShowWarning = useCallback(() => shouldShowWarning.current, []);
 
-  const setShouldShowWarning = useCallback((show: boolean) => {
-    shouldShowWarning.current = show;
-  }, []);
+	const setShouldShowWarning = useCallback((show: boolean) => {
+		shouldShowWarning.current = show;
+	}, []);
 
-  const value = useMemo(
-    () => ({
-      getShouldShowWarning,
-      setShouldShowWarning,
-    }),
-    [getShouldShowWarning, setShouldShowWarning],
-  );
+	const value = useMemo(
+		() => ({
+			getShouldShowWarning,
+			setShouldShowWarning,
+		}),
+		[getShouldShowWarning, setShouldShowWarning],
+	);
 
-  return (
-    <ExitWarningModalContext.Provider value={value}>
-      {children}
-    </ExitWarningModalContext.Provider>
-  );
+	return (
+		<ExitWarningModalContext.Provider value={value}>{children}</ExitWarningModalContext.Provider>
+	);
 };
 
 export const useExitWarningModal = () => {
-  const value = useContext(ExitWarningModalContext);
+	const value = useContext(ExitWarningModalContext);
 
-  if (!value) {
-    throw new Error(
-      'useExitWarningModal used outside of ExitWarningModalProvider',
-    );
-  }
+	if (!value) {
+		throw new Error('useExitWarningModal used outside of ExitWarningModalProvider');
+	}
 
-  return value;
+	return value;
 };

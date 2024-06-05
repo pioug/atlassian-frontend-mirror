@@ -74,8 +74,13 @@ export const updateAltTextTransform =
 	(tr: Transaction, state: EditorState): Transaction => {
 		const mediaNode = getMediaSingleOrInlineNodeFromSelection(state);
 		if (mediaNode) {
-			const pos =
-				mediaNode.type === state.schema.nodes.media ? tr.selection.from + 1 : tr.selection.from;
+			// mediaSingle or mediaInline
+			const originalSelectionPos = tr.selection.from;
+
+			const mediaPos =
+				mediaNode.type === state.schema.nodes.media
+					? originalSelectionPos + 1 // media inside mediaSingle
+					: originalSelectionPos; // mediaInline
 
 			/**
 			 * Any changes to attributes of a node count the node as "recreated" in Prosemirror[1]
@@ -86,11 +91,11 @@ export const updateAltTextTransform =
 			 * [2] https://discuss.prosemirror.net/t/setnodemarkup-and-deselect/3673
 			 */
 			tr.setMeta('scrollIntoView', false)
-				.setNodeMarkup(pos, undefined, {
+				.setNodeMarkup(mediaPos, undefined, {
 					...mediaNode.attrs,
 					alt: newAltText,
 				})
-				.setSelection(NodeSelection.create(tr.doc, pos));
+				.setSelection(NodeSelection.create(tr.doc, originalSelectionPos));
 		}
 
 		return tr;

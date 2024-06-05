@@ -403,6 +403,99 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 			</span>
 		),
 	},
+	...(getBooleanFF('platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg')
+		? [
+				{
+					name: formatMessage(messages.InsertTableColumn),
+					type: 'table',
+					autoFormatting: () => (
+						<span css={shortcutsArray}>
+							<span>
+								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
+								{' + '}
+								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+								{' + '}
+								<span css={codeSm}>=</span>
+							</span>
+							<span>
+								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
+								{' + '}
+								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+								{' + '}
+								<span css={codeSm}>-</span>
+							</span>
+						</span>
+					),
+				},
+				{
+					name: formatMessage(messages.InsertTableRow),
+					type: 'table',
+					autoFormatting: () => (
+						<span css={shortcutsArray}>
+							<span>
+								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
+								{' + '}
+								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+								{' + '}
+								<span css={codeSm}>]</span>
+							</span>
+							<span>
+								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
+								{' + '}
+								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+								{' + '}
+								<span css={codeSm}>[</span>
+							</span>
+						</span>
+					),
+				},
+			]
+		: [
+				{
+					name: formatMessage(messages.InsertTableColumn),
+					type: 'table',
+					autoFormatting: () => (
+						<span css={shortcutsArray}>
+							<span>
+								<span css={codeSm}>{browser.mac ? '⌃' : 'Ctrl'}</span>
+								{' + '}
+								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+								{' + '}
+								<span css={codeSm}>→</span>
+							</span>
+							<span>
+								<span css={codeSm}>{browser.mac ? '⌃' : 'Ctrl'}</span>
+								{' + '}
+								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+								{' + '}
+								<span css={codeSm}>←</span>
+							</span>
+						</span>
+					),
+				},
+				{
+					name: formatMessage(messages.InsertTableRow),
+					type: 'table',
+					autoFormatting: () => (
+						<span css={shortcutsArray}>
+							<span>
+								<span css={codeSm}>{browser.mac ? '⌃' : 'Ctrl'}</span>
+								{' + '}
+								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+								{' + '}
+								<span css={codeSm}>↓</span>
+							</span>
+							<span>
+								<span css={codeSm}>{browser.mac ? '⌃' : 'Ctrl'}</span>
+								{' + '}
+								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+								{' + '}
+								<span css={codeSm}>↑</span>
+							</span>
+						</span>
+					),
+				},
+			]),
 	...(getBooleanFF('platform.editor.a11y-column-resizing_emcvz')
 		? [
 				{
@@ -418,36 +511,6 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 								<span css={codeMd}>Shift</span>
 								{' + '}
 								<span css={codeSm}>C</span>
-							</span>
-						</span>
-					),
-				},
-				{
-					name: formatMessage(messages.increaseColumnSize),
-					type: 'table',
-					autoFormatting: () => (
-						<span css={shortcutsArray}>
-							<span>
-								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
-								{' + '}
-								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
-								{' + '}
-								<span css={codeMd}>[</span>
-							</span>
-						</span>
-					),
-				},
-				{
-					name: formatMessage(messages.decreaseColumnSize),
-					type: 'table',
-					autoFormatting: () => (
-						<span css={shortcutsArray}>
-							<span>
-								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
-								{' + '}
-								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
-								{' + '}
-								<span css={codeMd}>]</span>
 							</span>
 						</span>
 					),
@@ -516,13 +579,13 @@ export const getSupportedFormatting = (
 	);
 	return [
 		...navigationKeymaps(intl),
+		...otherFormatting(intl),
 		...supportedBySchema,
 		...(imageEnabled ? [imageAutoFormat] : []),
 		...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
-		...otherFormatting(intl),
-		...(isAnyA11yResizeFeatureFlagEnabled ? resizeInformationFormatting(intl) : []),
 		...(getBooleanFF('platform.editor.a11y-table-resizing_uapcv')
 			? focusTableResizeHandleFormatting(intl)
 			: []),
+		...(isAnyA11yResizeFeatureFlagEnabled ? resizeInformationFormatting(intl) : []),
 	];
 };

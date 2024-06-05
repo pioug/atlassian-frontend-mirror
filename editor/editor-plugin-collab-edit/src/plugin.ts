@@ -1,6 +1,7 @@
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import { collab } from '@atlaskit/prosemirror-collab';
 
@@ -89,6 +90,8 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 		actions: {
 			getAvatarColor,
 			addInlineCommentMark: createAddInlineCommentMark(collabEditProviderPromise),
+			isRemoteReplaceDocumentTransaction: (tr: Transaction) =>
+				tr.getMeta('isRemote') && tr.getMeta('replaceDocument'),
 		},
 		pmPlugins() {
 			const { useNativePlugin = false, userId = null } = options || {};

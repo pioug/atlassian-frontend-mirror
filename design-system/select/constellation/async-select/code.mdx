@@ -2,10 +2,12 @@
 title: Async select
 description: Async select handles loading data from remote sources.
 order: 1
+props:
+  packageName: '@atlaskit/select'
+  exports:
+    - AsyncSelect
 ---
-
-import ReactSelectAsyncProps from '!!extract-react-types-loader!../../src/extract-react-types/react-select-async';
 
 ## Props
 
-<PropsTable heading="" props={ReactSelectAsyncProps} />
+<TSMorphProps exportName="AsyncSelect" packageName="@atlaskit/select" />

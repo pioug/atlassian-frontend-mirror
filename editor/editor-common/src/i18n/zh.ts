@@ -251,6 +251,7 @@ export default {
   'fabric.editor.info': '信息',
   'fabric.editor.infoPanel': '信息面板',
   'fabric.editor.infoPanel.description': '在彩色面板高亮显示信息',
+  'fabric.editor.inlineConfigureLink': '配置链接',
   'fabric.editor.inlineDescription': '以内联文本显示链接',
   'fabric.editor.inlineOverlay': '配置',
   'fabric.editor.inlineTitle': '内联',

@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  AtlassianInternalWarning,
-  code,
-  Example,
-  md,
-  Props,
-} from '@atlaskit/docs';
+import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -19,12 +13,7 @@ export default md`
 
   ${code`yarn add @atlaskit/link-create`}
 
-  ${(
-    <Props
-      heading="LinkCreate Props"
-      props={require('!!extract-react-types-loader!../src')}
-    />
-  )}
+  ${(<Props heading="LinkCreate Props" props={require('!!extract-react-types-loader!../src')} />)}
 
   # Usage
 
@@ -45,22 +34,22 @@ export default md`
   ### Basic Example
 
   ${(
-    <Example
-      packageName="@atlaskit/link-create"
-      Component={require('../examples/00-basic').default}
-      title="Example"
-      sourceVisible={true}
-      source={require('!!raw-loader!../examples/00-basic')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-create"
+			Component={require('../examples/00-basic').default}
+			title="Example"
+			sourceVisible={true}
+			source={require('!!raw-loader!../examples/00-basic')}
+		/>
+	)}
 
   ### Link Picker integration Example
   ${(
-    <Example
-      packageName="@atlaskit/link-create"
-      Component={require('../examples/03-create-link-picker').default}
-      title="Link Picker Example"
-      source={require('!!raw-loader!../examples/03-create-link-picker')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-create"
+			Component={require('../examples/03-create-link-picker').default}
+			title="Link Picker Example"
+			source={require('!!raw-loader!../examples/03-create-link-picker')}
+		/>
+	)}
 `;

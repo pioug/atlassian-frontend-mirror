@@ -257,6 +257,7 @@ export default {
   'fabric.editor.info': 'Tietoja',
   'fabric.editor.infoPanel': 'Tietopaneeli',
   'fabric.editor.infoPanel.description': 'Korosta tietoja värillisessä paneelissa',
+  'fabric.editor.inlineConfigureLink': 'Määritä linkki',
   'fabric.editor.inlineDescription': 'Näytä linkki sitoutuvana tekstinä',
   'fabric.editor.inlineOverlay': 'Muokkaa',
   'fabric.editor.inlineTitle': 'Tekstiin sitoutuva',

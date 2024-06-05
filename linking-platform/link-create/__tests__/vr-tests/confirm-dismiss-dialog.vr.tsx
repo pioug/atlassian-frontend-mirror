@@ -5,25 +5,25 @@ import { DefaultConfirmDismissDialog } from '../../examples/vr/vr-confirm-dismis
 type OptionsType = Parameters<typeof snapshot>[1];
 
 const options: OptionsType = {
-  drawsOutsideBounds: true,
-  variants: [
-    {
-      name: 'default',
-      environment: {},
-    },
-    {
-      name: 'light mode',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'dark mode',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	drawsOutsideBounds: true,
+	variants: [
+		{
+			name: 'default',
+			environment: {},
+		},
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'dark mode',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 };
 
 snapshot(DefaultConfirmDismissDialog, options);

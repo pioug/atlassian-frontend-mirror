@@ -2,10 +2,12 @@
 title: Creatable select
 description: Creatable select allows users to create new options.
 order: 1
+props:
+  packageName: '@atlaskit/select'
+  exports:
+    - CreatableSelect
 ---
-
-import ReactSelectCreatableProps from '!!extract-react-types-loader!../../src/extract-react-types/react-select-creatable';
 
 ## Props
 
-<PropsTable heading="" props={ReactSelectCreatableProps} />
+<TSMorphProps exportName="CreatableSelect" packageName="@atlaskit/select" />

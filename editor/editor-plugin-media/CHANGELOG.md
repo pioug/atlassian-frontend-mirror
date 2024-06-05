@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 1.20.7
+
+### Patch Changes
+
+- [#107716](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107716)
+  [`62ea5418666f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62ea5418666f) -
+  ED-22554 fix selection position after updating alt text
+
+## 1.20.6
+
+### Patch Changes
+
+- [#107335](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107335)
+  [`d5457c8afe5f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5457c8afe5f) -
+  Cleaned up FF platform.editor.media.autoselect-inserted-image_oumto
+
 ## 1.20.5
 
 ### Patch Changes

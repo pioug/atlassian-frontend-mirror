@@ -13,96 +13,89 @@ import { FormContextProvider } from '../../../controllers/form-context';
 import { AsyncSelect, TEST_ID } from './main';
 
 jest.mock('@atlaskit/select', () => {
-  const originalModule = jest.requireActual('@atlaskit/select');
-  return {
-    ...originalModule,
-    AsyncSelect: jest.fn(props => <originalModule.AsyncSelect {...props} />),
-  };
+	const originalModule = jest.requireActual('@atlaskit/select');
+	return {
+		...originalModule,
+		AsyncSelect: jest.fn((props) => <originalModule.AsyncSelect {...props} />),
+	};
 });
 
 describe('AsyncSelect', () => {
-  const setup = (
-    props: Partial<React.ComponentProps<typeof AsyncSelect>> = {},
-  ) => {
-    const onCreate = jest.fn();
-    const onFailure = jest.fn();
+	const setup = (props: Partial<React.ComponentProps<typeof AsyncSelect>> = {}) => {
+		const onCreate = jest.fn();
+		const onFailure = jest.fn();
 
-    render(
-      <IntlProvider locale="en">
-        <FormContextProvider>
-          <LinkCreateCallbackProvider onCreate={onCreate} onFailure={onFailure}>
-            <Form onSubmit={() => {}}>
-              {() => (
-                <form>
-                  <AsyncSelect
-                    name="select"
-                    label="select an option"
-                    testId={TEST_ID}
-                    {...props}
-                  />
-                </form>
-              )}
-            </Form>
-          </LinkCreateCallbackProvider>
-        </FormContextProvider>
-      </IntlProvider>,
-    );
+		render(
+			<IntlProvider locale="en">
+				<FormContextProvider>
+					<LinkCreateCallbackProvider onCreate={onCreate} onFailure={onFailure}>
+						<Form onSubmit={() => {}}>
+							{() => (
+								<form>
+									<AsyncSelect name="select" label="select an option" testId={TEST_ID} {...props} />
+								</form>
+							)}
+						</Form>
+					</LinkCreateCallbackProvider>
+				</FormContextProvider>
+			</IntlProvider>,
+		);
 
-    return {
-      onCreate,
-      onFailure,
-    };
-  };
+		return {
+			onCreate,
+			onFailure,
+		};
+	};
 
-  it("should find LinkCreate by its testid when it's active", async () => {
-    setup();
+	it("should find LinkCreate by its testid when it's active", async () => {
+		setup();
 
-    expect(screen.getByTestId(TEST_ID)).toBeTruthy();
-  });
+		expect(screen.getByTestId(TEST_ID)).toBeTruthy();
+	});
 
-  it('should load options using loadOptions fn', async () => {
-    const loadOptions = jest.fn();
-    loadOptions.mockImplementation(
-      () =>
-        new Promise<{ label: string; value: string }[]>(resolve => {
-          setTimeout(() => {
-            resolve([{ label: 'Option 1', value: '1' }]);
-            resolve([{ label: 'Option 2', value: '2' }]);
-          }, 10);
-        }),
-    );
-    setup({ loadOptions });
+	it('should load options using loadOptions fn', async () => {
+		const loadOptions = jest.fn();
+		loadOptions.mockImplementation(
+			() =>
+				new Promise<{ label: string; value: string }[]>((resolve) => {
+					setTimeout(() => {
+						resolve([{ label: 'Option 1', value: '1' }]);
+						resolve([{ label: 'Option 2', value: '2' }]);
+					}, 10);
+				}),
+		);
+		setup({ loadOptions });
 
-    await act(async () => {
-      await flushPromises();
-    });
+		await act(async () => {
+			await flushPromises();
+		});
 
-    expect(loadOptions).toHaveBeenCalled();
-  });
+		expect(loadOptions).toHaveBeenCalled();
+	});
 
-  it('should wrap loadOptions fn prop with error handler', async () => {
-    const loadOptions = jest.fn(() => {
-      throw new Response(null, { status: 500 });
-    });
-    const { onFailure } = setup({ loadOptions });
+	it('should wrap loadOptions fn prop with error handler', async () => {
+		const loadOptions = jest.fn(() => {
+			throw new Response(null, { status: 500 });
+		});
+		const { onFailure } = setup({ loadOptions });
 
-    expect(AkAsyncSelect).not.toBeCalledWith(
-      expect.objectContaining({
-        loadOptions,
-      }),
-    );
-    expect(AkAsyncSelect).toBeCalledWith(
-      expect.objectContaining({
-        loadOptions: expect.any(Function),
-      }),
-      {},
-    );
+		expect(AkAsyncSelect).not.toBeCalledWith(
+			expect.objectContaining({
+				loadOptions,
+			}),
+		);
+		expect(AkAsyncSelect).toBeCalledWith(
+			expect.objectContaining({
+				loadOptions: expect.any(Function),
+			}),
+			{},
+		);
 
-    await act(async () => {
-      await flushPromises();
-    });
+		await act(async () => {
+			await flushPromises();
+		});
 
-    expect(loadOptions).toHaveBeenCalled();
-    expect(onFailure).toHaveBeenCalledWith(expect.any(Response));
-  });
+		expect(loadOptions).toHaveBeenCalled();
+		expect(onFailure).toHaveBeenCalledWith(expect.any(Response));
+	});
 });

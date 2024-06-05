@@ -258,6 +258,7 @@ export default {
   'fabric.editor.info': 'Informatie',
   'fabric.editor.infoPanel': 'Infopaneel',
   'fabric.editor.infoPanel.description': 'Informatie markeren in een gekleurd paneel',
+  'fabric.editor.inlineConfigureLink': 'Link configureren',
   'fabric.editor.inlineDescription': 'Link als inline-tekst weergeven',
   'fabric.editor.inlineOverlay': 'Configureren',
   'fabric.editor.inlineTitle': 'Inline',

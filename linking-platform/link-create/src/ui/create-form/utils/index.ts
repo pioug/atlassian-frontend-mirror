@@ -2,7 +2,7 @@ import { type ValidatorMap } from '../../../common/types';
 
 /** Map of field names to errors for that field (or undefined if no error for that field) */
 export type ValidatorResults = {
-  [name: string]: string | undefined;
+	[name: string]: string | undefined;
 };
 
 /**
@@ -10,36 +10,36 @@ export type ValidatorResults = {
  * has an error, or undefined if the field is valid.
  */
 export function validateFormData({
-  data,
-  validators,
+	data,
+	validators,
 }: {
-  data: Record<string, unknown>;
-  validators: ValidatorMap;
+	data: Record<string, unknown>;
+	validators: ValidatorMap;
 }): ValidatorResults {
-  // Run each validator on the input
-  const map: ValidatorResults = {};
+	// Run each validator on the input
+	const map: ValidatorResults = {};
 
-  for (const fieldName of Object.keys(validators)) {
-    const fieldValidators = validators[fieldName];
-    if (fieldValidators === undefined) {
-      continue;
-    }
-    for (let i = 0; i < fieldValidators.length; i++) {
-      const currentValidator = fieldValidators[i];
-      if (currentValidator === undefined) {
-        continue;
-      }
+	for (const fieldName of Object.keys(validators)) {
+		const fieldValidators = validators[fieldName];
+		if (fieldValidators === undefined) {
+			continue;
+		}
+		for (let i = 0; i < fieldValidators.length; i++) {
+			const currentValidator = fieldValidators[i];
+			if (currentValidator === undefined) {
+				continue;
+			}
 
-      // If we already have an error for this field, skip any new validations on this field
-      if (map[fieldName] !== undefined) {
-        continue;
-      }
-      const maybeValue = data[fieldName];
+			// If we already have an error for this field, skip any new validations on this field
+			if (map[fieldName] !== undefined) {
+				continue;
+			}
+			const maybeValue = data[fieldName];
 
-      if (!currentValidator.isValid(maybeValue)) {
-        map[fieldName] = currentValidator.errorMessage;
-      }
-    }
-  }
-  return map;
+			if (!currentValidator.isValid(maybeValue)) {
+				map[fieldName] = currentValidator.errorMessage;
+			}
+		}
+	}
+	return map;
 }

@@ -58,6 +58,7 @@ import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import type { Dispatch } from '../event-dispatcher';
@@ -133,7 +134,7 @@ export interface EditorViewProps {
 	preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
 }
 
-function handleEditorFocus(view: EditorView, viewMode?: 'edit' | 'view'): number | undefined {
+function handleEditorFocus(view: EditorView): number | undefined {
 	if (view.hasFocus()) {
 		return;
 	}
@@ -144,12 +145,6 @@ function handleEditorFocus(view: EditorView, viewMode?: 'edit' | 'view'): number
 		}
 		if (!window.getSelection) {
 			view.focus();
-			return;
-		}
-		if (viewMode === 'view') {
-			const emptySelection = new TextSelection(view.state.doc.resolve(0));
-			const tr = view.state.tr.setSelection(emptySelection);
-			view.dispatch(tr);
 			return;
 		}
 		const domSelection = window.getSelection();
@@ -335,10 +330,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 
 	getEditorState = () => this.view?.state;
 	getEditorView = () => this.view;
-	getViewMode = (): 'edit' | 'view' | undefined => {
-		const editorApi = this.pluginInjectionAPI.api();
-		return editorApi.editorViewMode?.sharedState.currentState().mode;
-	};
 
 	UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps) {
 		if (this.view && this.props.editorProps.disabled !== nextProps.editorProps.disabled) {
@@ -348,7 +339,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 			} as DirectEditorProps);
 
 			if (!nextProps.editorProps.disabled && nextProps.editorProps.shouldFocus) {
-				this.focusTimeoutId = handleEditorFocus(this.view, this.getViewMode());
+				this.focusTimeoutId = handleEditorFocus(this.view);
 			}
 		}
 
@@ -601,21 +592,52 @@ export class ReactEditorView<T = {}> extends React.Component<
 			);
 		}
 
-		let selection: Selection | undefined;
-		if (doc) {
-			selection = options.selectionAtStart ? Selection.atStart(doc) : Selection.atEnd(doc);
-		}
-		// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
-		const patchedSelection = selection
-			? Selection.findFrom(selection.$head, -1, true) || undefined
-			: undefined;
+		const api = this.pluginInjectionAPI.api();
+		const isViewMode = api?.editorViewMode?.sharedState.currentState().mode === 'view';
 
-		return EditorState.create({
-			schema,
-			plugins: plugins as Plugin[],
-			doc,
-			selection: patchedSelection,
-		});
+		let selection: Selection | undefined;
+
+		if (getBooleanFF('platform.editor.live-view.no-editor-selection-in-view-mode')) {
+			if (doc) {
+				if (isViewMode) {
+					const emptySelection = new TextSelection(doc.resolve(0));
+					return EditorState.create({
+						schema,
+						plugins: plugins as Plugin[],
+						doc,
+						selection: emptySelection,
+					});
+				} else {
+					selection = options.selectionAtStart ? Selection.atStart(doc) : Selection.atEnd(doc);
+				}
+			}
+			// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
+			const patchedSelection = selection
+				? Selection.findFrom(selection.$head, -1, true) || undefined
+				: undefined;
+
+			return EditorState.create({
+				schema,
+				plugins: plugins as Plugin[],
+				doc,
+				selection: patchedSelection,
+			});
+		} else {
+			if (doc) {
+				selection = options.selectionAtStart ? Selection.atStart(doc) : Selection.atEnd(doc);
+			}
+			// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
+			const patchedSelection = selection
+				? Selection.findFrom(selection.$head, -1, true) || undefined
+				: undefined;
+
+			return EditorState.create({
+				schema,
+				plugins: plugins as Plugin[],
+				doc,
+				selection: patchedSelection,
+			});
+		}
 	};
 
 	private onEditorViewStateUpdated = ({
@@ -902,7 +924,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 				view.props.editable &&
 				view.props.editable(view.state)
 			) {
-				this.focusTimeoutId = handleEditorFocus(view, this.getViewMode());
+				this.focusTimeoutId = handleEditorFocus(view);
 			}
 
 			if (this.featureFlags.ufo) {

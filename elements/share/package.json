@@ -50,7 +50,7 @@
     "@atlaskit/popper": "^6.0.0",
     "@atlaskit/popup": "^1.17.0",
     "@atlaskit/portal": "^4.5.0",
-    "@atlaskit/primitives": "^6.4.0",
+    "@atlaskit/primitives": "^6.5.0",
     "@atlaskit/smart-user-picker": "^6.9.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/tabs": "^16.1.0",

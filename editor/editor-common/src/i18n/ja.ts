@@ -257,6 +257,7 @@ export default {
   'fabric.editor.info': '情報',
   'fabric.editor.infoPanel': '情報パネル',
   'fabric.editor.infoPanel.description': '色付きのパネルで情報を強調',
+  'fabric.editor.inlineConfigureLink': 'リンクを設定',
   'fabric.editor.inlineDescription': 'リンクをインライン テキストとして表示します。',
   'fabric.editor.inlineOverlay': '構成',
   'fabric.editor.inlineTitle': 'インライン',

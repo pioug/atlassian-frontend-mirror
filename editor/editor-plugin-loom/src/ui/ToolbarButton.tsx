@@ -9,9 +9,15 @@ import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { LoomIcon } from '@atlaskit/logo';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { recordVideo } from '../commands';
+import { useWindowWidth } from '../hooks/useWindowWidth';
 import type { LoomPlugin } from '../plugin';
+
+// This const is derived from the breakpoint where the toolbar hides its icons. It is used to hide the text in the AI button.
+// Derived from values from platform/packages/editor/editor-core/src/ui/Appearance/FullPage/MainToolbar.tsx
+const LOOM_BUTTON_WIDTH_BREAKPOINT = 1076;
 
 const LoomToolbarButton = ({
 	disabled,
@@ -23,6 +29,7 @@ const LoomToolbarButton = ({
 	appearance: EditorAppearance;
 	api: ExtractInjectionAPI<LoomPlugin> | undefined;
 } & WrappedComponentProps) => {
+	const width = useWindowWidth();
 	const { loomState } = useSharedPluginState(api, ['loom']);
 	if (!loomState) {
 		return null;
@@ -48,7 +55,12 @@ const LoomToolbarButton = ({
 			disabled={disabled || !loomState?.isEnabled}
 			title={label}
 			iconBefore={<LoomIcon label={label} size="small" />}
-		/>
+		>
+			{getBooleanFF('platform.editor.plugin.loom.responsive-menu_4at4a') &&
+				width >= LOOM_BUTTON_WIDTH_BREAKPOINT && (
+					<span>{formatMessage(toolbarInsertBlockMessages.recordLoomShortTitle)}</span>
+				)}
+		</ToolbarButton>
 	);
 };
 

@@ -2,10 +2,12 @@
 title: Country select
 description: Country select allows users to make a single selection from a list of countries.
 order: 1
+props:
+  packageName: '@atlaskit/select'
+  exports:
+    - CountrySelect
 ---
-
-import SelectProps from '!!extract-react-types-loader!../../src/extract-react-types/ert';
 
 ## Props
 
-<PropsTable heading="" props={SelectProps} />
+<TSMorphProps exportName="CountrySelect" packageName="@atlaskit/select" />

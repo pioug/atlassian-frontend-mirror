@@ -30,11 +30,11 @@ export interface LinkCreatePlugin {
   ### Example
 
 ${(
-  <Example
-    packageName="@atlaskit/link-create"
-    Component={require('../examples/02-basic-with-edit').default}
-    title="Example Plugin Supporting Edit"
-    source={require('!!raw-loader!../examples/02-basic-with-edit')}
-  />
+	<Example
+		packageName="@atlaskit/link-create"
+		Component={require('../examples/02-basic-with-edit').default}
+		title="Example Plugin Supporting Edit"
+		source={require('!!raw-loader!../examples/02-basic-with-edit')}
+	/>
 )}
 `;

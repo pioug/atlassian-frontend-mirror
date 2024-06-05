@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed09a41b825250124299d53a17b16b74>>
+ * @codegen <<SignedSource::45da5525f92249d3a5b5049a95fc2fc5>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 export default {
@@ -23,6 +23,7 @@ export default {
 		'@atlaskit/design-system/no-html-button': 'warn',
 		'@atlaskit/design-system/no-invalid-css-map': 'error',
 		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',
+		'@atlaskit/design-system/no-legacy-icons': 'warn',
 		'@atlaskit/design-system/no-margin': 'warn',
 		'@atlaskit/design-system/no-nested-styles': 'error',
 		'@atlaskit/design-system/no-physical-properties': 'error',

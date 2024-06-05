@@ -7,8 +7,8 @@ export const CREATE_FORM_MIN_HEIGHT_IN_PX = '200';
 export const LINK_CREATE_FORM_POST_CREATE_FIELD = '__post_create__';
 
 export const PACKAGE_DATA: PackageMetaDataType = {
-  packageName: process.env._PACKAGE_NAME_ || '',
-  packageVersion: process.env._PACKAGE_VERSION_ || '',
-  component: COMPONENT_NAME,
-  componentName: COMPONENT_NAME,
+	packageName: process.env._PACKAGE_NAME_ || '',
+	packageVersion: process.env._PACKAGE_VERSION_ || '',
+	component: COMPONENT_NAME,
+	componentName: COMPONENT_NAME,
 };

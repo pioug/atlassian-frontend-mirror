@@ -9,37 +9,43 @@ import { token } from '@atlaskit/tokens';
 export const indentBase = token('space.300', '25px');
 
 const treeRowContainerStyles = css({
-  display: 'flex',
-  borderBlockEnd: `1px solid ${token('color.border', N30)}`,
+	display: 'flex',
+	borderBlockEnd: `1px solid ${token('color.border', N30)}`,
 });
 
 /**
  * __Tree row container__
  */
-export const TreeRowContainer: FC<
-  HTMLAttributes<HTMLDivElement> & { children: ReactNode }
-> = (props) => (
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  <div role="row" css={treeRowContainerStyles} {...props} />
+export const TreeRowContainer: FC<HTMLAttributes<HTMLDivElement> & { children: ReactNode }> = (
+	props,
+) => (
+	<div
+		role="row"
+		// @ts-ignore - This was added when `@atlaskit/table-tree` was enrolled into JFE local consumption
+		// There seems to be an incompatibility in the `css` prop between jira and platform
+		css={treeRowContainerStyles}
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+	/>
 );
 
 const commonCellElementStyles = css({
-  display: 'flex',
-  position: 'absolute',
-  alignItems: 'center',
-  // indentBase is re-used elsewhere and is primarily used as positive value; we need to negate it here
-  marginInlineStart: `calc(${indentBase} * -1)`,
+	display: 'flex',
+	position: 'absolute',
+	alignItems: 'center',
+	// indentBase is re-used elsewhere and is primarily used as positive value; we need to negate it here
+	marginInlineStart: `calc(${indentBase} * -1)`,
 });
 
 const commonChevronContainerStyles = css({
-  // Aligns position:absolute chevron button with the adjacent text. Any future visual breaking changes
-  // should consider setting this to `-2px` for better alignment, or refactor completely
-  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-  marginBlockStart: -3,
+	// Aligns position:absolute chevron button with the adjacent text. Any future visual breaking changes
+	// should consider setting this to `-2px` for better alignment, or refactor completely
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginBlockStart: -3,
 });
 
 type ChevronContainerProps = HTMLAttributes<HTMLSpanElement> & {
-  children: ReactNode;
+	children: ReactNode;
 };
 
 /**
@@ -48,25 +54,25 @@ type ChevronContainerProps = HTMLAttributes<HTMLSpanElement> & {
  * A wrapper container around the expand table tree button.
  */
 export const ChevronContainer: FC<ChevronContainerProps> = (props) => (
-  <span
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    {...props}
-    css={[commonCellElementStyles, commonChevronContainerStyles]}
-  />
+	<span
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+		css={[commonCellElementStyles, commonChevronContainerStyles]}
+	/>
 );
 
 const loadingItemContainerStyles = css({
-  width: '100%',
+	width: '100%',
 });
 
 const paddingLeftStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-  paddingInlineStart: '50%',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingInlineStart: '50%',
 });
 
 type LoaderItemContainerProps = {
-  isRoot?: boolean;
-  children: ReactNode;
+	isRoot?: boolean;
+	children: ReactNode;
 };
 
 /**
@@ -74,17 +80,10 @@ type LoaderItemContainerProps = {
  *
  * A loader item container.
  */
-export const LoaderItemContainer: FC<LoaderItemContainerProps> = ({
-  isRoot,
-  ...props
-}) => (
-  <span
-    css={[
-      commonCellElementStyles,
-      loadingItemContainerStyles,
-      isRoot && paddingLeftStyles,
-    ]}
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    {...props}
-  />
+export const LoaderItemContainer: FC<LoaderItemContainerProps> = ({ isRoot, ...props }) => (
+	<span
+		css={[commonCellElementStyles, loadingItemContainerStyles, isRoot && paddingLeftStyles]}
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+	/>
 );

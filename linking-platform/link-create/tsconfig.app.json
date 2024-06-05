@@ -63,6 +63,9 @@
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
+			"path": "../../smart-experiences/smart-user-picker/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{

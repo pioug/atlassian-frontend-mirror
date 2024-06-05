@@ -9,3 +9,4 @@ export type { CreateFormProps } from './create-form/main';
 export { Select } from './create-form/select';
 export { AsyncSelect } from './create-form/async-select';
 export { FormSpy } from './create-form/form-spy';
+export { UserPicker } from './create-form/user-picker';

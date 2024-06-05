@@ -263,6 +263,7 @@ export default {
   'fabric.editor.info': 'Info',
   'fabric.editor.infoPanel': 'Pannello informazioni',
   'fabric.editor.infoPanel.description': 'Metti in evidenza l’informazione in un pannello colorato',
+  'fabric.editor.inlineConfigureLink': 'Configura il link',
   'fabric.editor.inlineDescription': 'Visualizza il link come testo in linea',
   'fabric.editor.inlineOverlay': 'Configura',
   'fabric.editor.inlineTitle': 'In linea',

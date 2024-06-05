@@ -80,7 +80,7 @@
     "@atlaskit/media-state": "^1.1.0",
     "@atlaskit/media-test-data": "^2.3.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/primitives": "^6.4.0",
+    "@atlaskit/primitives": "^6.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/ufo": "^0.2.0",

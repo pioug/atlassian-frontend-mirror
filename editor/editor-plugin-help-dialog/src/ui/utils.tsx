@@ -14,7 +14,7 @@ const getKeyParts = (keymap: Keymap) => {
 	return shortcut.replace(/\-(?=.)/g, ' + ').split(' ');
 };
 
-export const shortcutNamesWithoutKeymap: string[] = ['emoji', 'mention', 'quickInsert'];
+export const shortcutNamesWithoutKeymap: string[] = ['table', 'emoji', 'mention', 'quickInsert'];
 
 export const getComponentFromKeymap = (keymap: Keymap) => {
 	const keyParts = getKeyParts(keymap);
@@ -43,7 +43,7 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
 					);
 				} else if (part.toLowerCase() === 'enter') {
 					return (
-						<span css={codeSm} key={`${keyParts}-${index}`}>
+						<span className="enter-keymap" css={codeSm} key={`${keyParts}-${index}`}>
 							{'⏎'}
 						</span>
 					);

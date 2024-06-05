@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 109.31.2
+
+### Patch Changes
+
+- [#105930](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105930)
+  [`939b873db211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/939b873db211) -
+  [ux] Sets increased table scaling percent when FF is enabled.
+
 ## 109.31.1
 
 ### Patch Changes

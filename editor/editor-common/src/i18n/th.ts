@@ -255,6 +255,7 @@ export default {
   'fabric.editor.info': 'ข้อมูล',
   'fabric.editor.infoPanel': 'แผงข้อมูล',
   'fabric.editor.infoPanel.description': 'ไฮไลท์ข้อมูลในแผงสี',
+  'fabric.editor.inlineConfigureLink': 'กำหนดค่าลิงก์',
   'fabric.editor.inlineDescription': 'แสดงลิงก์เป็นข้อความแบบบรรทัดเดียว',
   'fabric.editor.inlineOverlay': 'กำหนดค่า',
   'fabric.editor.inlineTitle': 'บรรทัดเดียว',

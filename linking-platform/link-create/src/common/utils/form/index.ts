@@ -5,19 +5,19 @@ import { type FieldMetaState } from 'react-final-form';
  * the next submit, or if it returns to the previous error state
  */
 export const shouldShowValidationErrors = (meta: FieldMetaState<any>) => {
-  if (!meta.touched) {
-    return false;
-  }
+	if (!meta.touched) {
+		return false;
+	}
 
-  if (meta.submitFailed) {
-    if (meta.error) {
-      return !meta.dirtySinceLastSubmit;
-    }
+	if (meta.submitFailed) {
+		if (meta.error) {
+			return !meta.dirtySinceLastSubmit;
+		}
 
-    if (meta.submitError) {
-      return !meta.dirtySinceLastSubmit;
-    }
-  }
+		if (meta.submitError) {
+			return !meta.dirtySinceLastSubmit;
+		}
+	}
 
-  return false;
+	return false;
 };

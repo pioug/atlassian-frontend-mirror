@@ -259,6 +259,7 @@ export default {
   'fabric.editor.info': 'Info',
   'fabric.editor.infoPanel': 'Informationspanel',
   'fabric.editor.infoPanel.description': 'Markera information med en färgad panel',
+  'fabric.editor.inlineConfigureLink': 'Konfigurera länk',
   'fabric.editor.inlineDescription': 'Visa länk som infogad text',
   'fabric.editor.inlineOverlay': 'Konfigurera',
   'fabric.editor.inlineTitle': 'Inline',

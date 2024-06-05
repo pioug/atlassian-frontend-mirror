@@ -98,6 +98,9 @@
     },
     "platform.editor.a11y-column-resizing_emcvz": {
       "type": "boolean"
+    },
+    "platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg": {
+      "type": "boolean"
     }
   }
 }

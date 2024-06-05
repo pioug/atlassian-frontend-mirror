@@ -2,10 +2,12 @@
 title: Checkbox select
 description: Checkbox select allows users to make multiple selections from a list of options.
 order: 1
+props:
+  packageName: '@atlaskit/select'
+  exports:
+    - CheckboxSelect
 ---
-
-import SelectProps from '!!extract-react-types-loader!../../src/extract-react-types/ert';
 
 ## Props
 
-<PropsTable heading="" props={SelectProps} />
+<TSMorphProps exportName="CheckboxSelect" packageName="@atlaskit/select" />

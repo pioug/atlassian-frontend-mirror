@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 193.24.19
+
+### Patch Changes
+
+- [#103607](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103607)
+  [`104c7a82d1a7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104c7a82d1a7) -
+  [ux] ED-23363 If you load a live page in view mode, an empty selection will be set.
+
+## 193.24.18
+
+### Patch Changes
+
+- [#107335](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107335)
+  [`d5457c8afe5f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5457c8afe5f) -
+  Cleaned up FF platform.editor.media.autoselect-inserted-image_oumto
+
+## 193.24.15
+
+### Patch Changes
+
+- [#105930](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105930)
+  [`939b873db211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/939b873db211) -
+  [ux] Sets increased table scaling percent when FF is enabled.
+
 ## 193.24.6
 
 ### Patch Changes

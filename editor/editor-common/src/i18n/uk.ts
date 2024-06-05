@@ -261,6 +261,7 @@ export default {
   'fabric.editor.info': 'Інформація',
   'fabric.editor.infoPanel': 'Панель з інформацією',
   'fabric.editor.infoPanel.description': 'Панель із виділеною кольорами інформацією',
+  'fabric.editor.inlineConfigureLink': 'Посилання для налаштування',
   'fabric.editor.inlineDescription': 'Показати посилання як вбудований текст',
   'fabric.editor.inlineOverlay': 'Налаштування',
   'fabric.editor.inlineTitle': 'У рядку',

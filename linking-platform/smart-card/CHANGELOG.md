@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 27.5.1
+
+### Patch Changes
+
+- [#105138](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105138)
+  [`ecf1728ade7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecf1728ade7d) -
+  Update focus state on related modal
+- [#107029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107029)
+  [`e837166391e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e837166391e1) -
+  Automation action analytics
+
+## 27.5.0
+
+### Minor Changes
+
+- [#106790](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106790)
+  [`fe0b21796ab6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fe0b21796ab6) -
+  EDM-9715: remove platform.linking-platform.smart-card.enable-theme-state-url FF
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.4.4
 
 ### Patch Changes

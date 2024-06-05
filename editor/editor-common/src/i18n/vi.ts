@@ -258,6 +258,7 @@ export default {
   'fabric.editor.info': 'Thông tin',
   'fabric.editor.infoPanel': 'Ô thông tin',
   'fabric.editor.infoPanel.description': 'Bôi đậm thông tin bằng ô màu',
+  'fabric.editor.inlineConfigureLink': 'Định cấu hình liên kết',
   'fabric.editor.inlineDescription': 'Hiển thị liên kết dưới dạng văn bản nội tuyến',
   'fabric.editor.inlineOverlay': 'Đặt cấu hình',
   'fabric.editor.inlineTitle': 'Nội tuyến',

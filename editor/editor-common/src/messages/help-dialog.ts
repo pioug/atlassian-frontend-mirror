@@ -31,6 +31,16 @@ export const helpDialogMessages = defineMessages({
 		defaultMessage: 'Toggle action item',
 		description: 'For Check/Uncheck Action item use shortcut',
 	},
+	InsertTableColumn: {
+		id: 'fabric.editor.insertTableColumn',
+		defaultMessage: 'Insert table column',
+		description: 'For insert table column',
+	},
+	InsertTableRow: {
+		id: 'fabric.editor.insertTableRow',
+		defaultMessage: 'Insert table row',
+		description: 'For insert table row',
+	},
 	altText: {
 		id: 'fabric.editor.altText',
 		defaultMessage: 'Alt text',
@@ -51,25 +61,15 @@ export const helpDialogMessages = defineMessages({
 		defaultMessage: 'Select column resize',
 		description: 'Hint for selecting a column resize a shortcut',
 	},
-	increaseColumnSize: {
-		id: 'fabric.editor.increaseColumnSize',
-		defaultMessage: 'Increase column size',
-		description: 'Hint for increasing a column size shortcut',
-	},
-	decreaseColumnSize: {
-		id: 'fabric.editor.decreaseColumnSize',
-		defaultMessage: 'Decrease column size',
-		description: 'Hint for decreasing a column size shortcut',
-	},
 	increaseSize: {
 		id: 'fabric.editor.increaseSize',
-		defaultMessage: 'Increase size',
+		defaultMessage: 'Increase table or media size',
 		description:
 			'The text is shown as an shortcut description in help dialog modal, when the user uses the described shortcut, he is able to increase the width of the selected element. Optimal characters less than 21.',
 	},
 	decreaseSize: {
 		id: 'fabric.editor.decreaseSize',
-		defaultMessage: 'Decrease size',
+		defaultMessage: 'Decrease table or media size',
 		description:
 			'The text is shown as an shortcut description in help dialog modal, when the user uses the described shortcut, he is able to decrease the width of the selected element. Optimal characters less than 21.',
 	},

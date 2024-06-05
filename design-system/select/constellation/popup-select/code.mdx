@@ -2,10 +2,12 @@
 title: Popup select
 description: Popup select allows users to filter through a list of options.
 order: 1
+props:
+  packageName: '@atlaskit/select'
+  exports:
+    - PopupSelect
 ---
-
-import PopupSelectProps from '!!extract-react-types-loader!../../src/PopupSelect/PopupSelect';
 
 ## Props
 
-<PropsTable heading="" props={PopupSelectProps} />
+<TSMorphProps exportName="PopupSelect" packageName="@atlaskit/select" />

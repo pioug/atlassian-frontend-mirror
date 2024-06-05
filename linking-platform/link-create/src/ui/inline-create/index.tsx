@@ -18,36 +18,28 @@ import i18nEN from '../../i18n/en';
 import InlineCreate from './main';
 
 const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(
-  memo((props: LinkCreateWithModalProps) => {
-    return (
-      <Experience>
-        {/* todo: EDM-10093 - move to a non-modal error boundary */}
-        <ErrorBoundary
-          errorComponent={
-            <ErrorBoundaryModal
-              active={props.active}
-              onClose={props.onCancel}
-            />
-          }
-        >
-          <InlineCreate {...props} />
-        </ErrorBoundary>
-      </Experience>
-    );
-  }),
+	memo((props: LinkCreateWithModalProps) => {
+		return (
+			<Experience>
+				{/* todo: EDM-10093 - move to a non-modal error boundary */}
+				<ErrorBoundary
+					errorComponent={<ErrorBoundaryModal active={props.active} onClose={props.onCancel} />}
+				>
+					<InlineCreate {...props} />
+				</ErrorBoundary>
+			</Experience>
+		);
+	}),
 );
 
 const ComposedLinkCreate = memo((props: LinkCreateWithModalProps) => {
-  return (
-    <AnalyticsContext data={PACKAGE_DATA}>
-      <IntlMessagesProvider
-        defaultMessages={i18nEN}
-        loaderFn={fetchMessagesForLocale}
-      >
-        <LinkCreateWithAnalyticsContext {...props} />
-      </IntlMessagesProvider>
-    </AnalyticsContext>
-  );
+	return (
+		<AnalyticsContext data={PACKAGE_DATA}>
+			<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
+				<LinkCreateWithAnalyticsContext {...props} />
+			</IntlMessagesProvider>
+		</AnalyticsContext>
+	);
 });
 
 export default ComposedLinkCreate;

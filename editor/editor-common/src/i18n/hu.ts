@@ -262,6 +262,7 @@ export default {
   'fabric.editor.info': 'Információ',
   'fabric.editor.infoPanel': 'Információs panel',
   'fabric.editor.infoPanel.description': 'Információ kiemelése színes panelen',
+  'fabric.editor.inlineConfigureLink': 'Link konfigurálása',
   'fabric.editor.inlineDescription': 'Link megjelenítése beágyazott szövegként',
   'fabric.editor.inlineOverlay': 'Konfigurálás',
   'fabric.editor.inlineTitle': 'Beágyazott',

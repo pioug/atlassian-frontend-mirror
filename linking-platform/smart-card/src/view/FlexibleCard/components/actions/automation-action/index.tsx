@@ -8,6 +8,7 @@ import {
 } from '../../../../../state/flexible-ui-context';
 import { useSmartLinkModal } from '../../../../../state/modal';
 import { type AutomationActionData } from '../../../../../state/flexible-ui-context/types';
+import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { type LinkActionProps } from '../types';
@@ -23,6 +24,7 @@ const AutomationAction = (props: LinkActionProps) => {
   const { onClick: onClickCallback } = props;
 
   const context = useFlexibleUiContext();
+	const { fireEvent } = useAnalyticsEvents();
   const automationActionData = context?.actions?.[ActionName.AutomationAction];
 
   const automationActionOnClick = useCallback((automationActionData: AutomationActionData) => {
@@ -36,6 +38,7 @@ const AutomationAction = (props: LinkActionProps) => {
       analyticsSource,
       objectName
     } = automationActionData;
+		fireEvent('ui.button.clicked.automationAction', {});
 
     const { modalTitle, modalDescription } = getModalContent(product, resourceType) || {};
 
@@ -64,7 +67,7 @@ const AutomationAction = (props: LinkActionProps) => {
     )
 
     onClickCallback?.();
-  }, [modal, onClickCallback])
+  }, [modal, onClickCallback, fireEvent])
 
   if (!automationActionData) {
     return null;

@@ -14,35 +14,18 @@ const defaultText = `{
 }`;
 
 export default () => (
-  <Page>
-    <Grid>
-      <GridColumn>
-        <h3>Both cards are selected</h3>
-        <p>
-          Commodo laborum velit deserunt consectetur ullamco incididunt esse
-          qui.
-        </p>
-        <p>
-          <Card
-            appearance="inline"
-            isSelected={true}
-            data={JSON.parse(defaultText)}
-          />
-        </p>
-        <p>
-          Commodo laborum velit deserunt consectetur ullamco incididunt esse
-          qui.
-        </p>
-        <Card
-          appearance="block"
-          isSelected={true}
-          data={JSON.parse(defaultText)}
-        />
-        <p>
-          Commodo laborum velit deserunt consectetur ullamco incididunt esse
-          qui.
-        </p>
-      </GridColumn>
-    </Grid>
-  </Page>
+	<Page>
+		<Grid>
+			<GridColumn>
+				<h3>Both cards are selected</h3>
+				<p>Commodo laborum velit deserunt consectetur ullamco incididunt esse qui.</p>
+				<p>
+					<Card appearance="inline" isSelected={true} data={JSON.parse(defaultText)} />
+				</p>
+				<p>Commodo laborum velit deserunt consectetur ullamco incididunt esse qui.</p>
+				<Card appearance="block" isSelected={true} data={JSON.parse(defaultText)} />
+				<p>Commodo laborum velit deserunt consectetur ullamco incididunt esse qui.</p>
+			</GridColumn>
+		</Grid>
+	</Page>
 );

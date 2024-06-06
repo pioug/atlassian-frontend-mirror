@@ -4,7 +4,7 @@ import type { IntlShape } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { CardOptions, CardPluginActions } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { CardProvider, ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -25,7 +25,6 @@ export interface HyperlinkToolbarAppearanceProps {
 	platform?: CardPlatform;
 	cardOptions?: CardOptions;
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
-	cardActions: CardPluginActions | undefined;
 }
 
 export interface HyperlinkToolbarAppearanceState {
@@ -90,16 +89,8 @@ export class HyperlinkToolbarAppearance extends Component<
 	}
 
 	render() {
-		const {
-			url,
-			intl,
-			editorView,
-			editorState,
-			cardOptions,
-			platform,
-			editorAnalyticsApi,
-			cardActions,
-		} = this.props;
+		const { url, intl, editorView, editorState, cardOptions, platform, editorAnalyticsApi } =
+			this.props;
 		const { supportedUrlsMap } = this.state;
 
 		if (!supportedUrlsMap.get(url)) {
@@ -107,13 +98,15 @@ export class HyperlinkToolbarAppearance extends Component<
 		}
 		return (
 			<Flex>
-				<EditDatasourceButton
-					url={url}
-					intl={intl}
-					editorState={editorState}
-					editorView={editorView}
-					editorAnalyticsApi={editorAnalyticsApi}
-				/>
+				{!getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') && (
+					<EditDatasourceButton
+						url={url}
+						intl={intl}
+						editorState={editorState}
+						editorView={editorView}
+						editorAnalyticsApi={editorAnalyticsApi}
+					/>
+				)}
 				<LinkToolbarAppearance
 					key="link-appearance"
 					url={url}
@@ -124,7 +117,6 @@ export class HyperlinkToolbarAppearance extends Component<
 					allowBlockCards={cardOptions?.allowBlockCards}
 					platform={platform}
 					editorAnalyticsApi={editorAnalyticsApi}
-					cardActions={cardActions}
 				/>
 				{getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar') &&
 					cardOptions?.allowDatasource && (

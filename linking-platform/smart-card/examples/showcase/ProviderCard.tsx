@@ -16,160 +16,142 @@ import { type ExampleUrl, type ExampleUIConfig, type ExampleRolloutStatus } from
 import { ProviderCardExampleList } from './ProviderCardExampleList';
 
 const getWrapperStyles = ({ disabled }: { disabled: boolean }) => {
-  const base = css({
-    padding: token('space.300', '24px'),
-    marginBottom: token('space.300', '24px'),
-    boxShadow: token(
-      'elevation.shadow.raised',
-      `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
-    ),
-    width: 'calc(85% - 48px)',
-    borderRadius: `${borderRadius()}px`,
-    backgroundColor: token('elevation.surface.raised', 'white'),
-    cursor: 'pointer',
-    transition: '0.3s ease-in-out all',
-    '&:hover': {
-      backgroundColor: token(
-        'color.background.neutral.subtle.hovered',
-        'rgba(0, 0, 0, 0.03)',
-      ),
-    },
-  });
-  const disabledCss = disabled
-    ? css({
-        cursor: 'none',
-        opacity: 0.5,
-        pointerEvents: 'none',
-      })
-    : css({});
+	const base = css({
+		padding: token('space.300', '24px'),
+		marginBottom: token('space.300', '24px'),
+		boxShadow: token('elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
+		width: 'calc(85% - 48px)',
+		borderRadius: `${borderRadius()}px`,
+		backgroundColor: token('elevation.surface.raised', 'white'),
+		cursor: 'pointer',
+		transition: '0.3s ease-in-out all',
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered', 'rgba(0, 0, 0, 0.03)'),
+		},
+	});
+	const disabledCss = disabled
+		? css({
+				cursor: 'none',
+				opacity: 0.5,
+				pointerEvents: 'none',
+			})
+		: css({});
 
-  return [base, disabledCss];
+	return [base, disabledCss];
 };
 
 const headerStyles = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'space-between',
 });
 const lozengeWrapperStyles = css({
-  margin: 0,
-  marginLeft: token('space.100', '8px'),
-  display: 'flex',
-  alignItems: 'center',
+	margin: 0,
+	marginLeft: token('space.100', '8px'),
+	display: 'flex',
+	alignItems: 'center',
 });
 
 const tierToAppearanceMapping: Record<number, ThemeAppearance> = {
-  1: 'success',
-  2: 'inprogress',
-  3: 'moved',
-  4: 'removed',
+	1: 'success',
+	2: 'inprogress',
+	3: 'moved',
+	4: 'removed',
 };
-const rolloutStatusToAppearanceMapping: Record<
-  ExampleRolloutStatus,
-  ThemeAppearance
-> = {
-  'not-started': 'inprogress',
-  'rolling-out': 'inprogress',
-  'rolled-out': 'success',
+const rolloutStatusToAppearanceMapping: Record<ExampleRolloutStatus, ThemeAppearance> = {
+	'not-started': 'inprogress',
+	'rolling-out': 'inprogress',
+	'rolled-out': 'success',
 };
-const rolloutStatusToTextMapping = ({
-  status,
-  percentage,
-}: ExampleUrl['rollout']): string => {
-  switch (status) {
-    case 'not-started':
-      return 'soaking';
-    case 'rolling-out':
-      return 'rolling-out ' + percentage + '%';
-    case 'rolled-out':
-      return 'rolled-out';
-  }
+const rolloutStatusToTextMapping = ({ status, percentage }: ExampleUrl['rollout']): string => {
+	switch (status) {
+		case 'not-started':
+			return 'soaking';
+		case 'rolling-out':
+			return 'rolling-out ' + percentage + '%';
+		case 'rolled-out':
+			return 'rolled-out';
+	}
 };
 
 interface ProviderCardProps extends ExampleUrl {
-  onExpand: (resolver: string) => void;
-  onCollapse: (resolver: string) => void;
-  expanded: boolean;
-  config: ExampleUIConfig;
+	onExpand: (resolver: string) => void;
+	onCollapse: (resolver: string) => void;
+	expanded: boolean;
+	config: ExampleUIConfig;
 }
 
 export const ProviderCard = ({
-  resolver,
-  examples,
-  avatarUrl,
-  reliability,
-  rollout,
-  expanded,
-  onCollapse,
-  onExpand,
-  config,
+	resolver,
+	examples,
+	avatarUrl,
+	reliability,
+	rollout,
+	expanded,
+	onCollapse,
+	onExpand,
+	config,
 }: ProviderCardProps) => {
-  const handleClick = useCallback(() => {
-    if (expanded) {
-      onCollapse(resolver);
-    } else {
-      onExpand(resolver);
-    }
-  }, [expanded, resolver, onCollapse, onExpand]);
-  const disabled = !(
-    config.selectedEntities.length === 0 ||
-    examples.some((example) =>
-      config.selectedEntities.includes(example.displayName),
-    )
-  );
+	const handleClick = useCallback(() => {
+		if (expanded) {
+			onCollapse(resolver);
+		} else {
+			onExpand(resolver);
+		}
+	}, [expanded, resolver, onCollapse, onExpand]);
+	const disabled = !(
+		config.selectedEntities.length === 0 ||
+		examples.some((example) => config.selectedEntities.includes(example.displayName))
+	);
 
-  return (
-    <div css={getWrapperStyles({ disabled })}>
-      <div css={headerStyles}>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <span style={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar src={avatarUrl} size="small" />
-          <h6
-            style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-              margin: 0,
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-              marginLeft: token('space.100', '8px'),
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-              display: 'flex',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-              alignItems: 'center',
-            }}
-          >
-            {resolver}
-          </h6>
-          {reliability?.tier ? (
-            <span css={lozengeWrapperStyles}>
-              <Lozenge appearance={tierToAppearanceMapping[reliability.tier]}>
-                tier {reliability.tier}
-              </Lozenge>
-            </span>
-          ) : null}
-          {rollout?.status ? (
-            <span css={lozengeWrapperStyles}>
-              <Lozenge
-                appearance={rolloutStatusToAppearanceMapping[rollout.status]}
-              >
-                {rolloutStatusToTextMapping(rollout)}
-              </Lozenge>
-            </span>
-          ) : null}
-        </span>
-        <Button
-          spacing="compact"
-          iconBefore={
-            expanded ? (
-              <CollapseIcon size="small" label="collapse" />
-            ) : (
-              <ExpandIcon size="small" label="expand" />
-            )
-          }
-          onClick={handleClick}
-        />
-      </div>
-      {expanded ? (
-        <ProviderCardExampleList examples={examples} config={config} />
-      ) : null}
-    </div>
-  );
+	return (
+		<div css={getWrapperStyles({ disabled })}>
+			<div css={headerStyles}>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<span style={{ display: 'flex', alignItems: 'center' }}>
+					<Avatar src={avatarUrl} size="small" />
+					<h6
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							margin: 0,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							marginLeft: token('space.100', '8px'),
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							display: 'flex',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							alignItems: 'center',
+						}}
+					>
+						{resolver}
+					</h6>
+					{reliability?.tier ? (
+						<span css={lozengeWrapperStyles}>
+							<Lozenge appearance={tierToAppearanceMapping[reliability.tier]}>
+								tier {reliability.tier}
+							</Lozenge>
+						</span>
+					) : null}
+					{rollout?.status ? (
+						<span css={lozengeWrapperStyles}>
+							<Lozenge appearance={rolloutStatusToAppearanceMapping[rollout.status]}>
+								{rolloutStatusToTextMapping(rollout)}
+							</Lozenge>
+						</span>
+					) : null}
+				</span>
+				<Button
+					spacing="compact"
+					iconBefore={
+						expanded ? (
+							<CollapseIcon size="small" label="collapse" />
+						) : (
+							<ExpandIcon size="small" label="expand" />
+						)
+					}
+					onClick={handleClick}
+				/>
+			</div>
+			{expanded ? <ProviderCardExampleList examples={examples} config={config} /> : null}
+		</div>
+	);
 };

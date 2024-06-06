@@ -6,37 +6,37 @@ import Button from '@atlaskit/button';
 import ChevronIcon from './chevron-icon';
 
 const containerStyles = css({
-  marginTop: '0.5rem',
-  padding: '0.1rem 0',
+	marginTop: '0.5rem',
+	padding: '0.1rem 0',
 });
 const headerStyles = css({
-  display: 'flex',
-  alignItems: 'center',
-  cursor: 'pointer',
-  h6: {
-    flex: '2 0 auto',
-  },
+	display: 'flex',
+	alignItems: 'center',
+	cursor: 'pointer',
+	h6: {
+		flex: '2 0 auto',
+	},
 });
 const Fieldset = ({
-  children,
-  defaultOpen = true,
-  legend,
+	children,
+	defaultOpen = true,
+	legend,
 }: PropsWithChildren<{
-  legend?: string;
-  defaultOpen?: boolean;
+	legend?: string;
+	defaultOpen?: boolean;
 }>) => {
-  const [open, setOpen] = useState<boolean>(defaultOpen);
-  const handleOnClick = useCallback(() => setOpen(!open), [open]);
+	const [open, setOpen] = useState<boolean>(defaultOpen);
+	const handleOnClick = useCallback(() => setOpen(!open), [open]);
 
-  return (
-    <div css={containerStyles}>
-      <div css={headerStyles} onClick={handleOnClick}>
-        <h6>{legend}</h6>
-        <Button iconBefore={<ChevronIcon open={open} />} spacing="compact" />
-      </div>
-      {open && children}
-    </div>
-  );
+	return (
+		<div css={containerStyles}>
+			<div css={headerStyles} onClick={handleOnClick}>
+				<h6>{legend}</h6>
+				<Button iconBefore={<ChevronIcon open={open} />} spacing="compact" />
+			</div>
+			{open && children}
+		</div>
+	);
 };
 
 export default Fieldset;

@@ -171,13 +171,8 @@ class Editor extends React.Component<
 		};
 
 		let primaryToolbarComponents = primaryToolbarComponentsProp;
-		if (getBooleanFF('platform.editor.primary-toolbar-ordering')) {
-			if (
-				Array.isArray(primaryToolbarState?.components) &&
-				Array.isArray(primaryToolbarComponents)
-			) {
-				primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
-			}
+		if (Array.isArray(primaryToolbarState?.components) && Array.isArray(primaryToolbarComponents)) {
+			primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 		}
 
 		return (
@@ -434,10 +429,8 @@ const EditorNext = (props: EditorAppearanceComponentProps & WrappedComponentProp
 	);
 
 	let primaryToolbarComponents = primaryToolbarComponentsProp;
-	if (getBooleanFF('platform.editor.primary-toolbar-ordering')) {
-		if (Array.isArray(primaryToolbarState?.components) && Array.isArray(primaryToolbarComponents)) {
-			primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
-		}
+	if (Array.isArray(primaryToolbarState?.components) && Array.isArray(primaryToolbarComponents)) {
+		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 	}
 
 	return (

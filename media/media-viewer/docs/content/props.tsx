@@ -3,8 +3,6 @@ import { md, PropsTable } from '@atlaskit/docs';
 
 export default md`
 ${(
-  <PropsTable
-    props={require('!!extract-react-types-loader!../../src/components/media-viewer')}
-  />
+	<PropsTable props={require('!!extract-react-types-loader!../../src/components/media-viewer')} />
 )}
 `;

@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/media-card": "^77.11.0",
+    "@atlaskit/media-card": "^77.12.0",
     "@atlaskit/media-client": "^27.2.0",
     "@atlaskit/media-common": "^11.2.0",
     "@atlaskit/theme": "^12.8.0",

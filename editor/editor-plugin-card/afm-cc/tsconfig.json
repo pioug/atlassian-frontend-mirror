@@ -46,9 +46,6 @@
             "path": "../../editor-plugin-grid/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-plugin-hyperlink/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-width/afm-cc/tsconfig.json"
         },
         {

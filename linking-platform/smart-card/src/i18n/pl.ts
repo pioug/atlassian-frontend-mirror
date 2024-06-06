@@ -7,6 +7,19 @@
  */
 //Polish (Poland)
 export default {
+  'automation-menu.empty-state.image.alt': 'Ikona pustej listy automatyzacji',
+  'automation-menu.empty-state.learn-more.link': 'Dowiedz się więcej o ręcznym wyzwalaniu',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Użyj ręcznego wyzwalania, aby wypełnić menu opcji do wyboru, które każdy — albo wskazane przez Ciebie osoby — może zastosować jako automatyzację jednym kliknięciem.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Administratorzy nie skonfigurowali jeszcze żadnych ręcznie wyzwalanych automatyzacji.',
+  'automation-menu.modal.error.description': 'Ładowanie trwa za długo. Spróbuj odświeżyć stronę.',
+  'automation-menu.modal.error.image.alt': 'Ikona błędu',
+  'automation-menu.modal.footer.automate-button': 'Automatyzuj',
+  'automation-menu.modal.footer.cancel-button': 'Anuluj',
+  'automation-menu.modal.footer.get-started-button': 'Utwórz automatyzację',
+  'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': 'Ikona nagłówka okna modalnego automatyzacji',
   'fabric.linking.access_exists_description': 'Poproś o dostęp, aby wyświetlić tę treść z witryny {hostname}.',
   'fabric.linking.actions': 'Akcje',
   'fabric.linking.add_account': 'Dodaj konto',
@@ -32,8 +45,8 @@ export default {
     'Zastosuj automatyzacje do <b>{name}</b>.{br}Opcje dostępne do wyboru są kontrolowane przez administratorów Confluence i przestrzeni.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Automatyzacje stron',
   'fabric.linking.automation-action.icon.label': 'Ikona automatyzacji',
-  'fabric.linking.automation-action.title': 'Uruchom automatyzację…',
-  'fabric.linking.automation-action.tooltip': 'Otwórz okno modalne automatyzacji',
+  'fabric.linking.automation-action.title': 'Wyświetl reguły automatyzacji…',
+  'fabric.linking.automation-action.tooltip': 'Wybierz regułę automatyzacja do uruchomienia',
   'fabric.linking.beta': 'Wersja beta',
   'fabric.linking.cancel': 'Anuluj',
   'fabric.linking.cannot_connect': 'Nie można nawiązać połączenia. Spróbuj ponownie.',
@@ -126,6 +139,10 @@ export default {
   'fabric.linking.priority_undefined': 'Nie zdefiniowano',
   'fabric.linking.read_time': '{context} min czytania',
   'fabric.linking.related': 'Powiązane',
+  'fabric.linking.related_links_found_in': 'Znaleziono w',
+  'fabric.linking.related_links_includes_links_to': 'Obejmuje łącza do',
+  'fabric.linking.related_links_modal_title': 'Ostatnio używane łącza',
+  'fabric.linking.related_links_not_found': 'Nie znaleziono żadnych łączy do wyświetlenia tutaj.',
   'fabric.linking.related_work_items_not_found': 'To łącze nie jest wspomniane nigdzie indziej.',
   'fabric.linking.request_access': 'Poproś o dostęp',
   'fabric.linking.request_access_description':

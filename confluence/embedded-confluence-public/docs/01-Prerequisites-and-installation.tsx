@@ -6,8 +6,6 @@ import Base from './base-document/base';
 
 export default md`
     ${(
-      <Base
-        content={require('!!raw-loader!./markdown-files/prerequisites-and-installation.md')}
-      />
-    )}
+			<Base content={require('!!raw-loader!./markdown-files/prerequisites-and-installation.md')} />
+		)}
 `;

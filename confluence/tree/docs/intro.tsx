@@ -18,13 +18,13 @@ export default md`
   ${code`import Tree, { mutateTree, moveItemOnTree } from '@atlaskit/tree';`}
 
   ${(
-    <Example
-      packageName="@atlaskit/tree"
-      Component={require('../examples/5-pure-tree').default}
-      title="Drag-n-Drop Tree"
-      source={require('!!raw-loader!../examples/5-pure-tree')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/tree"
+			Component={require('../examples/5-pure-tree').default}
+			title="Drag-n-Drop Tree"
+			source={require('!!raw-loader!../examples/5-pure-tree')}
+		/>
+	)}
 
   ## Get started
 
@@ -164,10 +164,10 @@ onDragEnd = (source: TreePosition, destination: ?TreePosition) => {
   `}
 
   ${(
-    <Props
-      title="API Reference"
-      heading="Tree Props"
-      props={require('!!extract-react-types-loader!../src/components/Tree/Tree')}
-    />
-  )}
+		<Props
+			title="API Reference"
+			heading="Tree Props"
+			props={require('!!extract-react-types-loader!../src/components/Tree/Tree')}
+		/>
+	)}
 `;

@@ -5,7 +5,11 @@ import rafSchd from 'raf-schd';
 import { useIntl } from 'react-intl-next';
 
 import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
-import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
+import {
+	CHANGE_ALIGNMENT_REASON,
+	INPUT_METHOD,
+	TABLE_OVERFLOW_CHANGE_TRIGGER,
+} from '@atlaskit/editor-common/analytics';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -23,7 +27,8 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { setTableAlignmentWithTableContentWithPos, updateWidthToWidest } from '../commands/misc';
+import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../commands-with-analytics';
+import { updateWidthToWidest } from '../commands/misc';
 import { META_KEYS } from '../pm-plugins/table-analytics';
 import {
 	COLUMN_MIN_WIDTH,
@@ -287,18 +292,21 @@ export const TableResizer = ({
 				isResizing.current
 			) {
 				const tableNodeWithPos = { pos, node };
-				const tr = setTableAlignmentWithTableContentWithPos(ALIGN_CENTER, tableNodeWithPos)(state);
-
-				if (tr) {
-					dispatch(tr);
-				}
-
+				setTableAlignmentWithTableContentWithPosWithAnalytics(
+					pluginInjectionApi?.analytics?.actions,
+				)(
+					ALIGN_CENTER,
+					ALIGN_START,
+					tableNodeWithPos,
+					INPUT_METHOD.AUTO,
+					CHANGE_ALIGNMENT_REASON.EDITOR_APPEARANCE_CHANGED,
+				)(state, dispatch);
 				return true;
 			}
 
 			return false;
 		},
-		[lineLength, isTableAlignmentEnabled, isResizing],
+		[isTableAlignmentEnabled, lineLength, pluginInjectionApi?.analytics?.actions],
 	);
 
 	useEffect(() => {

@@ -3,12 +3,12 @@ import { md, Example, code } from '@atlaskit/docs';
 
 export default md`
   ${(
-    <Example
-      Component={require('../../examples/0-basic-example').default}
-      title="Single File Preview"
-      source={require('!!raw-loader!../../examples/0-basic-example')}
-    />
-  )}
+		<Example
+			Component={require('../../examples/0-basic-example').default}
+			title="Single File Preview"
+			source={require('!!raw-loader!../../examples/0-basic-example')}
+		/>
+	)}
 
   ## Detecting when MediaViewer Opens/Closes
 

@@ -61,7 +61,7 @@ import {
 	updateLink,
 } from './commands';
 import { stateKey } from './pm-plugins/main';
-import { type HyperlinkToolbarItemsState, toolbarKey } from './pm-plugins/toolbar-buttons';
+import { toolbarKey } from './pm-plugins/toolbar-buttons';
 
 import type { hyperlinkPlugin } from './index';
 
@@ -147,7 +147,9 @@ export function HyperlinkAddToolbarWithState({
 			onClose={onClose}
 			onEscapeCallback={onEscapeCallback}
 			onClickAwayCallback={onClickAwayCallback}
-			hyperlinkPluginState={hyperlinkState}
+			timesViewed={hyperlinkState.timesViewed}
+			inputMethod={hyperlinkState.inputMethod}
+			searchSessionId={hyperlinkState.searchSessionId}
 		/>
 	);
 }
@@ -168,30 +170,6 @@ const getSettingsButtonGroup = (
 	},
 ];
 
-export const mergeAddedItems =
-	(link: string, ...handlerParams: Parameters<FloatingToolbarHandler>) =>
-	(
-		items: Array<FloatingToolbarItem<Command>>,
-		toolbarItemsState: HyperlinkToolbarItemsState | undefined,
-	): Array<FloatingToolbarItem<Command>> => {
-		const positions = toolbarItemsState?.items_next;
-
-		if (!positions) {
-			return items;
-		}
-
-		const start = positions.start;
-		const end = positions.end;
-
-		const reduceItems = (items: typeof start = []) =>
-			items.reduce<Array<FloatingToolbarItem<Command>>>(
-				(acc, fn) => [...acc, ...fn(...handlerParams, link)],
-				[],
-			);
-
-		return [...reduceItems(start), ...items, ...reduceItems(end)];
-	};
-
 export const getToolbarConfig =
 	(
 		options: HyperlinkPluginOptions,
@@ -204,6 +182,7 @@ export const getToolbarConfig =
 
 		const { formatMessage } = intl;
 		const linkState: HyperlinkState | undefined = stateKey.getState(state);
+		const editorCardActions = pluginInjectionApi?.card?.actions;
 		const editorAnalyticsApi = pluginInjectionApi?.analytics?.actions;
 		const lpLinkPicker = options.lpLinkPicker ?? true;
 
@@ -245,8 +224,14 @@ export const getToolbarConfig =
 						metadata.title = activeLinkMark.node.text;
 					}
 
-					const baseItems: Array<FloatingToolbarItem<Command>> = [
-						...(toolbarKey.getState(state)?.items(state, intl, providerFactory, link) ?? []),
+					const cardActions = pluginInjectionApi?.card?.actions;
+					const startingToolbarItems = cardActions?.getStartingToolbarItems(
+						intl,
+						link,
+						providerFactory,
+						editInsertedLink(editorAnalyticsApi),
+						metadata,
+					) ?? [
 						{
 							id: 'editor.link.edit',
 							testId: 'editor.link.edit',
@@ -256,6 +241,10 @@ export const getToolbarConfig =
 							showTitle: true,
 							metadata: metadata,
 						},
+					];
+
+					const items: Array<FloatingToolbarItem<Command>> = [
+						...startingToolbarItems,
 						{
 							type: 'separator',
 						},
@@ -299,19 +288,12 @@ export const getToolbarConfig =
 								},
 							],
 						},
+						...(cardActions?.getEndingToolbarItems(intl, link) ?? []),
+
 						...(getBooleanFF('platform.editor.card.inject-settings-button')
 							? []
 							: getSettingsButtonGroup(intl, editorAnalyticsApi)),
 					];
-
-					const items = getBooleanFF('platform.editor.card.inject-settings-button')
-						? mergeAddedItems(
-								link,
-								state,
-								intl,
-								providerFactory,
-							)(baseItems, toolbarKey.getState(state))
-						: baseItems;
 
 					return {
 						...hyperLinkToolbar,
@@ -363,7 +345,7 @@ export const getToolbarConfig =
 											displayText={displayText || ''}
 											providerFactory={providerFactory}
 											onCancel={() => view.focus()}
-											onEscapeCallback={onEscapeCallback}
+											onEscapeCallback={onEscapeCallback(editorCardActions)}
 											onClickAwayCallback={onClickAwayCallback}
 											onSubmit={(href, title = '', displayText, inputMethod, analytic) => {
 												const isEdit = isEditLink(activeLinkMark);
@@ -385,6 +367,7 @@ export const getToolbarConfig =
 															activeLinkMark.from,
 															activeLinkMark.to,
 															href,
+															editorCardActions,
 															editorAnalyticsApi,
 															title,
 															displayText,

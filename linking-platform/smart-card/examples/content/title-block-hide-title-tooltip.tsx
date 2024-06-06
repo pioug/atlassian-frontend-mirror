@@ -3,7 +3,7 @@ import { TitleBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 export default () => (
-  <ExampleContainer>
-    <TitleBlock hideTitleTooltip={true} />
-  </ExampleContainer>
+	<ExampleContainer>
+		<TitleBlock hideTitleTooltip={true} />
+	</ExampleContainer>
 );

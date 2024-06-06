@@ -9,32 +9,31 @@ import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-uti
 import { IntlProvider } from 'react-intl-next';
 
 class ColorPickerExample extends React.Component<{}, { color: string }> {
-  state = {
-    color: token('color.background.accent.purple.subtle', colors.P200),
-  };
+	state = {
+		color: token('color.background.accent.purple.subtle', colors.P200),
+	};
 
-  render() {
-    return (
-      <IntlProvider locale="en">
-        <ColorPicker
-          label="Change color"
-          palette={extendedPalette}
-          selectedColor={this.state.color}
-          cols={6}
-          onChange={(newColor: string) => this.setState({ color: newColor })}
-        />
-      </IntlProvider>
-    );
-  }
+	render() {
+		return (
+			<IntlProvider locale="en">
+				<ColorPicker
+					label="Change color"
+					palette={extendedPalette}
+					selectedColor={this.state.color}
+					cols={6}
+					onChange={(newColor: string) => this.setState({ color: newColor })}
+				/>
+			</IntlProvider>
+		);
+	}
 }
 
 const Story = () => <ColorPickerExample />;
 
 Story.decorators = [
-  withPlatformFeatureFlags({
-    'platform.color-picker-radio-button-functionality_6hkcy': true,
-    'platform.jca11y-1480-inappropriate-label-for-color-picker_76tfe': true,
-  }),
+	withPlatformFeatureFlags({
+		'platform.color-picker-radio-button-functionality_6hkcy': true,
+	}),
 ];
 
 export default Story;

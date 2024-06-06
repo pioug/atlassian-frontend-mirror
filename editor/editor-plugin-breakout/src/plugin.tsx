@@ -18,7 +18,11 @@ import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirro
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorGutterPaddingDynamic,
+	akEditorSwoopCubicBezier,
+} from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey } from './plugin-key';
 import type { BreakoutPluginState } from './types';
@@ -73,7 +77,13 @@ class BreakoutView {
 
 		let containerStyle = ``;
 		let contentStyle = ``;
-		let breakoutWidthPx = calcBreakoutWidthPx(this.mark.attrs.mode, widthState.width);
+
+		// when editor padding = 32px the breakout padding is calculated as 96px (32 * 3)
+		// the extra '32' ensures nodes with breakout applied default to line length its below default width
+		const padding = getBooleanFF('platform.editor.core.increase-full-page-guttering')
+			? akEditorGutterPaddingDynamic() * 2 + 32
+			: undefined;
+		let breakoutWidthPx = calcBreakoutWidthPx(this.mark.attrs.mode, widthState.width, padding);
 
 		if (widthState.lineLength) {
 			if (breakoutWidthPx < widthState.lineLength) {

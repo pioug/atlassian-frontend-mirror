@@ -5,15 +5,12 @@ import ZoomOutIcon from '@atlaskit/icon/glyph/media-services/zoom-out';
 import ZoomInIcon from '@atlaskit/icon/glyph/media-services/zoom-in';
 import { type ZoomLevel } from './domain/zoomLevel';
 import {
-  ZoomWrapper,
-  ZoomCenterControls,
-  ZoomRightControls,
-  ZoomLevelIndicator,
+	ZoomWrapper,
+	ZoomCenterControls,
+	ZoomRightControls,
+	ZoomLevelIndicator,
 } from './styleWrappers';
-import {
-  withAnalyticsEvents,
-  type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { fireAnalytics } from './analytics/';
 import { createZoomInButtonClickEvent } from './analytics/events/ui/zoomInButtonClicked';
 import { createZoomOutButtonClickedEvent } from './analytics/events/ui/zoomOutButtonClicked';
@@ -21,76 +18,64 @@ import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 
 export type ZoomControlsProps = React.PropsWithChildren<
-  Readonly<{
-    onChange: (newZoomLevel: ZoomLevel) => void;
-    zoomLevel: ZoomLevel;
-  }> &
-    WithAnalyticsEventsProps
+	Readonly<{
+		onChange: (newZoomLevel: ZoomLevel) => void;
+		zoomLevel: ZoomLevel;
+	}> &
+		WithAnalyticsEventsProps
 >;
 
-export class ZoomControlsBase extends Component<
-  ZoomControlsProps & WrappedComponentProps,
-  {}
-> {
-  zoomIn = () => {
-    const { onChange, zoomLevel, createAnalyticsEvent } = this.props;
-    if (zoomLevel.canZoomIn) {
-      const zoom = zoomLevel.zoomIn();
+export class ZoomControlsBase extends Component<ZoomControlsProps & WrappedComponentProps, {}> {
+	zoomIn = () => {
+		const { onChange, zoomLevel, createAnalyticsEvent } = this.props;
+		if (zoomLevel.canZoomIn) {
+			const zoom = zoomLevel.zoomIn();
 
-      fireAnalytics(
-        createZoomInButtonClickEvent(zoom.value),
-        createAnalyticsEvent,
-      );
-      onChange(zoom);
-    }
-  };
+			fireAnalytics(createZoomInButtonClickEvent(zoom.value), createAnalyticsEvent);
+			onChange(zoom);
+		}
+	};
 
-  zoomOut = () => {
-    const { onChange, zoomLevel, createAnalyticsEvent } = this.props;
-    if (zoomLevel.canZoomOut) {
-      const zoom = zoomLevel.zoomOut();
+	zoomOut = () => {
+		const { onChange, zoomLevel, createAnalyticsEvent } = this.props;
+		if (zoomLevel.canZoomOut) {
+			const zoom = zoomLevel.zoomOut();
 
-      fireAnalytics(
-        createZoomOutButtonClickedEvent(zoom.value),
-        createAnalyticsEvent,
-      );
-      onChange(zoom);
-    }
-  };
+			fireAnalytics(createZoomOutButtonClickedEvent(zoom.value), createAnalyticsEvent);
+			onChange(zoom);
+		}
+	};
 
-  render() {
-    const {
-      zoomLevel,
-      intl: { formatMessage },
-      children,
-    } = this.props;
+	render() {
+		const {
+			zoomLevel,
+			intl: { formatMessage },
+			children,
+		} = this.props;
 
-    return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      <ZoomWrapper className={hideControlsClassName}>
-        <ZoomCenterControls>
-          <MediaButton
-            isDisabled={!zoomLevel.canZoomOut}
-            onClick={this.zoomOut}
-            iconBefore={
-              <ZoomOutIcon label={formatMessage(messages.zoom_out)} />
-            }
-          />
-          <MediaButton
-            isDisabled={!zoomLevel.canZoomIn}
-            onClick={this.zoomIn}
-            iconBefore={<ZoomInIcon label={formatMessage(messages.zoom_in)} />}
-          />
-        </ZoomCenterControls>
-        <ZoomRightControls>
-          {children}
-          <ZoomLevelIndicator>{zoomLevel.asPercentage}</ZoomLevelIndicator>
-        </ZoomRightControls>
-      </ZoomWrapper>
-    );
-  }
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			<ZoomWrapper className={hideControlsClassName}>
+				<ZoomCenterControls>
+					<MediaButton
+						isDisabled={!zoomLevel.canZoomOut}
+						onClick={this.zoomOut}
+						iconBefore={<ZoomOutIcon label={formatMessage(messages.zoom_out)} />}
+					/>
+					<MediaButton
+						isDisabled={!zoomLevel.canZoomIn}
+						onClick={this.zoomIn}
+						iconBefore={<ZoomInIcon label={formatMessage(messages.zoom_in)} />}
+					/>
+				</ZoomCenterControls>
+				<ZoomRightControls>
+					{children}
+					<ZoomLevelIndicator>{zoomLevel.asPercentage}</ZoomLevelIndicator>
+				</ZoomRightControls>
+			</ZoomWrapper>
+		);
+	}
 }
 
-export const ZoomControls: React.ComponentType<
-  React.PropsWithChildren<ZoomControlsProps>
-> = withAnalyticsEvents({})(injectIntl(ZoomControlsBase));
+export const ZoomControls: React.ComponentType<React.PropsWithChildren<ZoomControlsProps>> =
+	withAnalyticsEvents({})(injectIntl(ZoomControlsBase));

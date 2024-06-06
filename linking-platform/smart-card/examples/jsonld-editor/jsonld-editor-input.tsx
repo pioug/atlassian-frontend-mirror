@@ -9,32 +9,32 @@ import InlineMessage from '@atlaskit/inline-message';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 const JsonldEditorInput: React.FC<{
-  error?: string;
-  onChange: (str: string) => void;
-  value?: string;
+	error?: string;
+	onChange: (str: string) => void;
+	value?: string;
 }> = ({ error, onChange, value }) => {
-  const { colorMode } = useThemeObserver();
-  const editorTheme = colorMode === 'dark' ? 'twilight' : 'tomorrow';
+	const { colorMode } = useThemeObserver();
+	const editorTheme = colorMode === 'dark' ? 'twilight' : 'tomorrow';
 
-  return (
-    <React.Fragment>
-      {error && <InlineMessage appearance="error" title={error} />}
-      <AceEditor
-        editorProps={{ $blockScrolling: true }}
-        enableBasicAutocompletion={true}
-        enableLiveAutocompletion={true}
-        focus={true}
-        minLines={20}
-        mode="json"
-        onChange={onChange}
-        tabSize={2}
-        theme={editorTheme}
-        setOptions={{ useSoftTabs: true }}
-        value={value}
-        width="100%"
-      />
-    </React.Fragment>
-  );
+	return (
+		<React.Fragment>
+			{error && <InlineMessage appearance="error" title={error} />}
+			<AceEditor
+				editorProps={{ $blockScrolling: true }}
+				enableBasicAutocompletion={true}
+				enableLiveAutocompletion={true}
+				focus={true}
+				minLines={20}
+				mode="json"
+				onChange={onChange}
+				tabSize={2}
+				theme={editorTheme}
+				setOptions={{ useSoftTabs: true }}
+				value={value}
+				width="100%"
+			/>
+		</React.Fragment>
+	);
 };
 
 export default JsonldEditorInput;

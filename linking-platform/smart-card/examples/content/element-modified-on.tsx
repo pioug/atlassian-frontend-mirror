@@ -3,7 +3,7 @@ import { ElementName, MetadataBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 export default () => (
-  <ExampleContainer>
-    <MetadataBlock primary={[{ name: ElementName.ModifiedOn }]} />
-  </ExampleContainer>
+	<ExampleContainer>
+		<MetadataBlock primary={[{ name: ElementName.ModifiedOn }]} />
+	</ExampleContainer>
 );

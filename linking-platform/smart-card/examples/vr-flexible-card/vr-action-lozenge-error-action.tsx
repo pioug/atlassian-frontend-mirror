@@ -6,9 +6,9 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 const TEXT_ERROR_MESSAGE = 'Custom error message for VR test';
 
 export default () => (
-  <VRTestWrapper>
-    <SmartCardProvider>
-      <LozengeActionError errorMessage={TEXT_ERROR_MESSAGE} />
-    </SmartCardProvider>
-  </VRTestWrapper>
+	<VRTestWrapper>
+		<SmartCardProvider>
+			<LozengeActionError errorMessage={TEXT_ERROR_MESSAGE} />
+		</SmartCardProvider>
+	</VRTestWrapper>
 );

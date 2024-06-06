@@ -3,18 +3,18 @@ import AnalyticsErrorBoundary from '@atlaskit/analytics-next/AnalyticsErrorBound
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 
 export type MediaViewerAnalyticsErrorBoundaryProps = PropsWithChildren<{
-  data?: { [k: string]: any };
+	data?: { [k: string]: any };
 }>;
 
 export default class MediaViewerAnalyticsErrorBoundary extends React.Component<MediaViewerAnalyticsErrorBoundaryProps> {
-  static displayName = 'MediaViewerAnalyticsErrorBoundary';
+	static displayName = 'MediaViewerAnalyticsErrorBoundary';
 
-  render() {
-    const { data = {}, children } = this.props;
-    return (
-      <AnalyticsErrorBoundary channel={ANALYTICS_MEDIA_CHANNEL} data={data}>
-        {children}
-      </AnalyticsErrorBoundary>
-    );
-  }
+	render() {
+		const { data = {}, children } = this.props;
+		return (
+			<AnalyticsErrorBoundary channel={ANALYTICS_MEDIA_CHANNEL} data={data}>
+				{children}
+			</AnalyticsErrorBoundary>
+		);
+	}
 }

@@ -3,7 +3,7 @@ import { FooterBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 export default () => (
-  <ExampleContainer>
-    <FooterBlock />
-  </ExampleContainer>
+	<ExampleContainer>
+		<FooterBlock />
+	</ExampleContainer>
 );

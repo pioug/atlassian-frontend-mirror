@@ -11,24 +11,24 @@ import HoverCardControl from '../../src/view/FlexibleCard/components/container/h
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 
 const styles = css({
-  // We are keeping this padding as a hardcoded variable as it is not a standard token size and needs
-  // to be thoroughly checked with a designer so that we do not miss an unintended visual change
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-  padding: '10px',
+	// We are keeping this padding as a hardcoded variable as it is not a standard token size and needs
+	// to be thoroughly checked with a designer so that we do not miss an unintended visual change
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+	padding: '10px',
 });
 
 const mockGetEmbedCardImage = injectable(
-  getUnresolvedEmbedCardImage,
-  (status: 'forbidden' | 'unauthorized' | 'notFound') => {
-    switch (status) {
-      case 'forbidden':
-        return imageForbidden;
-      case 'notFound':
-        return imageNotFound;
-      case 'unauthorized':
-        return imageUnauthorised;
-    }
-  },
+	getUnresolvedEmbedCardImage,
+	(status: 'forbidden' | 'unauthorized' | 'notFound') => {
+		switch (status) {
+			case 'forbidden':
+				return imageForbidden;
+			case 'notFound':
+				return imageNotFound;
+			case 'unauthorized':
+				return imageUnauthorised;
+		}
+	},
 );
 
 const iframeContent = `
@@ -39,43 +39,40 @@ const iframeContent = `
 </html>
 `;
 
-const MockIFrame: typeof IFrame = injectable(
-  IFrame,
-  ({ childRef, ...props }) => (
-    <iframe ref={childRef} {...props} srcDoc={iframeContent} />
-  ),
-);
+const MockIFrame: typeof IFrame = injectable(IFrame, ({ childRef, ...props }) => (
+	<iframe ref={childRef} {...props} srcDoc={iframeContent} />
+));
 
 const mockHoverCardControl = injectable(HoverCardControl, (props) => (
-  <HoverCardControl {...props} delay={0} />
+	<HoverCardControl {...props} delay={0} />
 ));
 
 const mockHoverCardComponent = injectable(HoverCardComponent, (props) => (
-  <HoverCardComponent {...props} noFadeDelay={true} />
+	<HoverCardComponent {...props} noFadeDelay={true} />
 ));
 
 const dependencies = [
-  mockGetEmbedCardImage,
-  MockIFrame,
-  mockHoverCardControl,
-  mockHoverCardComponent,
+	mockGetEmbedCardImage,
+	MockIFrame,
+	mockHoverCardControl,
+	mockHoverCardComponent,
 ];
 
 export type VRTestWrapperProps = PropsWithChildren<{
-  overrideCss?: SerializedStyles;
+	overrideCss?: SerializedStyles;
 }>;
 const VRTestWrapper = ({ children, overrideCss }: VRTestWrapperProps) => {
-  return (
-    <DiProvider use={dependencies}>
-      <IntlProvider locale="en">
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-        <div className="vr-test-wrapper" css={[styles, overrideCss]}>
-          {global}
-          {children}
-        </div>
-      </IntlProvider>
-    </DiProvider>
-  );
+	return (
+		<DiProvider use={dependencies}>
+			<IntlProvider locale="en">
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+				<div className="vr-test-wrapper" css={[styles, overrideCss]}>
+					{global}
+					{children}
+				</div>
+			</IntlProvider>
+		</DiProvider>
+	);
 };
 
 export default VRTestWrapper;

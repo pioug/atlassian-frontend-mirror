@@ -9,7 +9,6 @@ import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { usePresetContext } from '../../../presets/context';
 import type { EditorAppearanceComponentProps } from '../../../types';
@@ -70,10 +69,8 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
 		'primaryToolbar',
 	]);
 	let primaryToolbarComponents = props.primaryToolbarComponents;
-	if (getBooleanFF('platform.editor.primary-toolbar-ordering')) {
-		if (Array.isArray(primaryToolbarState?.components) && Array.isArray(primaryToolbarComponents)) {
-			primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
-		}
+	if (Array.isArray(primaryToolbarState?.components) && Array.isArray(primaryToolbarComponents)) {
+		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
 	}
 
 	const isEditorToolbarHidden = editorViewModeState?.mode === 'view';

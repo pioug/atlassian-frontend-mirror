@@ -250,11 +250,6 @@ export const messages = defineMessages({
 		defaultMessage: 'Fixed column widths',
 		description: 'Toggle button to enable fixed column widths',
 	},
-	unlockColumnWidths: {
-		id: 'fabric.editor.unLockColumns',
-		defaultMessage: 'Variable column widths',
-		description: 'Toggle button to enable variable column widths',
-	},
 	rowControl: {
 		id: 'fabric.editor.rowControl',
 		defaultMessage: 'Highlight row',

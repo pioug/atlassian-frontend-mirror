@@ -6,6 +6,4 @@ export type {
 	ShowLinkToolbar,
 	InsertLink,
 	UpdateLink,
-	PrependToolbarButtons,
-	AddToolbarItems,
 } from '@atlaskit/editor-plugin-hyperlink';

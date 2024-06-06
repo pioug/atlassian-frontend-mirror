@@ -7,6 +7,19 @@
  */
 //Dutch (Netherlands)
 export default {
+  'automation-menu.empty-state.image.alt': 'Pictogram lege automatiseringslijst',
+  'automation-menu.empty-state.learn-more.link': 'Meer informatie over de handmatige trigger',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Gebruik de handmatige trigger om een menu met selecties in te vullen die iedereen, of door jou opgegeven personen, met één klik automatisch kan toepassen.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Beheerders hebben nog geen handmatig uitgevoerde automatiseringen geconfigureerd.',
+  'automation-menu.modal.error.description': 'Het duurt even om dit te laden. Vernieuw de pagina.',
+  'automation-menu.modal.error.image.alt': 'Pictogram voor fout',
+  'automation-menu.modal.footer.automate-button': 'Automatiseren',
+  'automation-menu.modal.footer.cancel-button': 'Annuleren',
+  'automation-menu.modal.footer.get-started-button': 'Automatisering aanmaken',
+  'automation-menu.modal.footer.ok-button': 'Oké',
+  'automation-menu.modal.header.icon.label': 'Pictogram van koptekst van automatiseringsmodal',
   'fabric.linking.access_exists_description': 'Vraag toegang aan om deze inhoud van {hostname} te bekijken.',
   'fabric.linking.actions': 'Acties',
   'fabric.linking.add_account': 'Account toevoegen',
@@ -32,8 +45,8 @@ export default {
     'Een automatisering toepassen op <b>{name}</b>.{br}De beschikbare selecties worden beheerd door Confluence en spacebeheerders.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Pagina-automatiseringen',
   'fabric.linking.automation-action.icon.label': 'Pictogram automatisering',
-  'fabric.linking.automation-action.title': 'Automatisering uitvoeren ...',
-  'fabric.linking.automation-action.tooltip': 'Een automatiseringsmodal openen',
+  'fabric.linking.automation-action.title': 'Automatiseringsregels weergeven ...',
+  'fabric.linking.automation-action.tooltip': 'Selecteer een automatiseringsregel om uit te voeren',
   'fabric.linking.beta': 'Bèta',
   'fabric.linking.cancel': 'Annuleren',
   'fabric.linking.cannot_connect': 'Geen verbinding, probeer het opnieuw',
@@ -128,6 +141,10 @@ export default {
   'fabric.linking.priority_undefined': 'Niet gedefinieerd',
   'fabric.linking.read_time': '{context} min. leestijd',
   'fabric.linking.related': 'Gerelateerd',
+  'fabric.linking.related_links_found_in': 'Gevonden in',
+  'fabric.linking.related_links_includes_links_to': 'Inclusief links naar',
+  'fabric.linking.related_links_modal_title': 'Recente links',
+  'fabric.linking.related_links_not_found': 'We konden geen links vinden om hier weer te geven.',
   'fabric.linking.related_work_items_not_found': 'Deze link wordt nergens anders vermeld.',
   'fabric.linking.request_access': 'Toegang aanvragen',
   'fabric.linking.request_access_description':

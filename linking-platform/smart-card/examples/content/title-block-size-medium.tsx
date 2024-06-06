@@ -3,19 +3,19 @@ import { ElementName, SmartLinkSize, TitleBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 export default () => (
-  <ExampleContainer>
-    <TitleBlock
-      size={SmartLinkSize.Medium}
-      metadata={[
-        { name: ElementName.Priority },
-        { name: ElementName.State },
-        { name: ElementName.CollaboratorGroup },
-      ]}
-      subtitle={[
-        { name: ElementName.CreatedOn },
-        { name: ElementName.ModifiedOn },
-        { name: ElementName.CommentCount },
-      ]}
-    />
-  </ExampleContainer>
+	<ExampleContainer>
+		<TitleBlock
+			size={SmartLinkSize.Medium}
+			metadata={[
+				{ name: ElementName.Priority },
+				{ name: ElementName.State },
+				{ name: ElementName.CollaboratorGroup },
+			]}
+			subtitle={[
+				{ name: ElementName.CreatedOn },
+				{ name: ElementName.ModifiedOn },
+				{ name: ElementName.CommentCount },
+			]}
+		/>
+	</ExampleContainer>
 );

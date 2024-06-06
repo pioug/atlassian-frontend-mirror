@@ -6,18 +6,19 @@ import { tableMarginFullWidthMode } from '@atlaskit/editor-plugins/table/ui/cons
 import {
 	akEditorContextPanelWidth,
 	akEditorFullWidthLayoutWidth,
-	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 	akEditorSwoopCubicBezier,
 	akLayoutGutterOffset,
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { createEditorContentStyle } from '../../ContentStyles';
 import { scrollbarStyles } from '../../styles';
 
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
-const TOTAL_PADDING = akEditorGutterPadding * 2;
+const getTotalPadding = () => akEditorGutterPaddingDynamic() * 2;
 
 export const fullPageEditorWrapper = css({
 	minWidth: '340px',
@@ -94,7 +95,7 @@ const editorContentAreaContainerStyle = (containerWidth: number) =>
 	css({
 		'.fabric-editor--full-width-mode': {
 			'.code-block, .extension-container': {
-				maxWidth: `${containerWidth - TOTAL_PADDING - tableMarginFullWidthMode * 2}px`,
+				maxWidth: `${containerWidth - getTotalPadding() - tableMarginFullWidthMode * 2}px`,
 			},
 			'.extension-container.inline': {
 				maxWidth: '100%',
@@ -103,10 +104,10 @@ const editorContentAreaContainerStyle = (containerWidth: number) =>
 				maxWidth: 'inherit',
 			},
 			'.multiBodiedExtension--container': {
-				maxWidth: `${containerWidth - TOTAL_PADDING - tableMarginFullWidthMode * 2}px`,
+				maxWidth: `${containerWidth - getTotalPadding() - tableMarginFullWidthMode * 2}px`,
 			},
 			'[data-layout-section]': {
-				maxWidth: `${containerWidth - TOTAL_PADDING + akLayoutGutterOffset * 2}px`,
+				maxWidth: `${containerWidth - getTotalPadding() + akLayoutGutterOffset * 2}px`,
 			},
 		},
 	});
@@ -127,7 +128,8 @@ export const editorContentAreaStyle = ({
 
 const editorContentAreaWithLayoutWith = (layoutMaxWidth: number) =>
 	css({
-		maxWidth: `${layoutMaxWidth + TOTAL_PADDING}px`,
+		// this restricts max width
+		maxWidth: `${layoutMaxWidth + getTotalPadding()}px`,
 	});
 
 const editorContentArea = css(
@@ -140,7 +142,7 @@ const editorContentArea = css(
 		margin: 'auto',
 		flexDirection: 'column',
 		flexGrow: 1,
-		maxWidth: `${akEditorFullWidthLayoutWidth + TOTAL_PADDING}px`,
+		maxWidth: `${akEditorFullWidthLayoutWidth + getTotalPadding()}px`,
 		transition: `max-width ${SWOOP_ANIMATION}`,
 		'& .ProseMirror': {
 			flexGrow: 1,
@@ -174,5 +176,8 @@ const editorContentArea = css(
 
 export const editorContentGutterStyle = css({
 	boxSizing: 'border-box',
-	padding: `0 ${token('space.400', '32px')}`,
+	padding: getBooleanFF('platform.editor.core.increase-full-page-guttering')
+		? // there is no space token for 52px
+			`0 52px`
+		: `0 ${token('space.400', '32px')}`,
 });

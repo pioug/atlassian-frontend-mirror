@@ -4,7 +4,7 @@ import { type ModalDialogProps, type OnCloseHandler } from '../types';
 
 export type ModalAttributes = {
   /**
-   * Test id passed to the modal dialog.
+   * Test ID passed to the modal dialog.
    */
   testId?: ModalDialogProps['testId'];
 

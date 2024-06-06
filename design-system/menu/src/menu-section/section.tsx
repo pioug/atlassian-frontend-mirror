@@ -109,6 +109,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       children,
       overrides,
       title,
+      titleId,
       testId,
       isScrollable,
       hasSeparator,
@@ -203,6 +204,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
             : noSeparatorStyles,
         ]}
         aria-label={title}
+        aria-labelledby={titleId}
         data-testid={testId}
         role="group"
         data-section

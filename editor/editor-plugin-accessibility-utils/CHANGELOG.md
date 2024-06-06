@@ -1,57 +1,63 @@
 # @atlaskit/editor-plugin-accessibility-utils
 
+## 1.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.5
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.1.4
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.1.3
 
 ### Patch Changes
 
--   [#97698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97698)
-    [`1c7b378c0d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c7b378c0d3b) -
-    [HOT-108999] We had an incident where the cursor jumps back a character in table headers for any
-    language triggering composition on an empty line.This was fixed in a patch bump of
-    prosemirror-view. https://github.com/ProseMirror/prosemirror-view/compare/1.33.4...1.33.5
+- [#97698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97698)
+  [`1c7b378c0d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c7b378c0d3b) -
+  [HOT-108999] We had an incident where the cursor jumps back a character in table headers for any
+  language triggering composition on an empty line.This was fixed in a patch bump of
+  prosemirror-view. https://github.com/ProseMirror/prosemirror-view/compare/1.33.4...1.33.5
 
 ## 1.1.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.1.1
 
 ### Patch Changes
 
--   [#85498](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85498)
-    [`07b576a5241d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07b576a5241d) -
-    [ux] [ECA11Y-17] Added the ability to pass additional props to aria live region
+- [#85498](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85498)
+  [`07b576a5241d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07b576a5241d) -
+  [ux] [ECA11Y-17] Added the ability to pass additional props to aria live region
 
 ## 1.1.0
 
 ### Minor Changes
 
--   [#91934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91934)
-    [`b76a78c6a199`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b76a78c6a199) -
-    bumped editor-prosemirror version to 4.0.0
+- [#91934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91934)
+  [`b76a78c6a199`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b76a78c6a199) -
+  bumped editor-prosemirror version to 4.0.0
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.0.1
 
 ### Patch Changes
 
--   [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
-    [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
-    Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`

@@ -7,6 +7,19 @@
  */
 //Danish (Denmark)
 export default {
+  'automation-menu.empty-state.image.alt': 'Ikon for tom automatiseringsliste',
+  'automation-menu.empty-state.learn-more.link': 'Få mere at vide om den manuelle udløser',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Brug den manuelle udløser til at udfylde en menu med valgmuligheder, som alle, eller personer du angiver, kan anvende som automatiseringer med et enkelt klik.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Administratorerne har endnu ikke konfigureret nogen manuelt udløste automatiseringer.',
+  'automation-menu.modal.error.description': 'Dette tager et stykke tid at indlæse. Prøv at genindlæse siden.',
+  'automation-menu.modal.error.image.alt': 'Fejlikon',
+  'automation-menu.modal.footer.automate-button': 'Automatiser',
+  'automation-menu.modal.footer.cancel-button': 'Annuller',
+  'automation-menu.modal.footer.get-started-button': 'Opret automatisering',
+  'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': 'Ikon for overskrift for automatiseringsmodal',
   'fabric.linking.access_exists_description': 'Anmod om adgang til at se dette indhold fra {hostname}.',
   'fabric.linking.actions': 'Handlinger',
   'fabric.linking.add_account': 'Tilføj konto',
@@ -32,8 +45,8 @@ export default {
     'Anvend en automatisering til <b>{name}</b>.{br}De tilgængelige valg styres af Confluence- og områdeadministratorer.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sideautomatiseringer',
   'fabric.linking.automation-action.icon.label': 'Ikon for automatisering',
-  'fabric.linking.automation-action.title': 'Kør automatisering …',
-  'fabric.linking.automation-action.tooltip': 'Åbn et automatiseringsmodul',
+  'fabric.linking.automation-action.title': 'Se automatiseringsregler …',
+  'fabric.linking.automation-action.tooltip': 'Vælg en automatiseringsregel, der skal køres',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Annuller',
   'fabric.linking.cannot_connect': 'Kan ikke oprette forbindelse. Prøv igen.',
@@ -128,6 +141,10 @@ export default {
   'fabric.linking.priority_undefined': 'Ikke defineret',
   'fabric.linking.read_time': 'Kan læses på {context} min.',
   'fabric.linking.related': 'Relateret',
+  'fabric.linking.related_links_found_in': 'Fundet i',
+  'fabric.linking.related_links_includes_links_to': 'Omfatter links til',
+  'fabric.linking.related_links_modal_title': 'Seneste links',
+  'fabric.linking.related_links_not_found': 'Vi fandt ikke nogen links.',
   'fabric.linking.related_work_items_not_found': 'Dette link omtales ikke andre steder.',
   'fabric.linking.request_access': 'Anmod om adgang',
   'fabric.linking.request_access_description':

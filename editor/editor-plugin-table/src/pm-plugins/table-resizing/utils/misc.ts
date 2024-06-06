@@ -13,7 +13,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorFullWidthLayoutWidth,
-	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 	akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles';
 
@@ -35,7 +35,7 @@ export function getLayoutSize(
 
 	if (isFullWidthModeEnabled) {
 		return containerWidth
-			? Math.min(containerWidth - akEditorGutterPadding * 2, akEditorFullWidthLayoutWidth)
+			? Math.min(containerWidth - akEditorGutterPaddingDynamic() * 2, akEditorFullWidthLayoutWidth)
 			: akEditorFullWidthLayoutWidth;
 	}
 

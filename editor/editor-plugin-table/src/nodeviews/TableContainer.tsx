@@ -3,7 +3,11 @@ import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } 
 
 import classNames from 'classnames';
 
-import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
+import {
+	CHANGE_ALIGNMENT_REASON,
+	INPUT_METHOD,
+	type TableEventPayload,
+} from '@atlaskit/editor-common/analytics';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
@@ -12,14 +16,15 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
-	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
 
-import { setTableAlignmentWithTableContentWithPos } from '../commands/misc';
+import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../commands-with-analytics';
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
 import type { PluginInjectionAPI, TableSharedState } from '../types';
 import { TableCssClassName as ClassName } from '../types';
+import { ALIGN_CENTER, ALIGN_START } from '../utils/alignment';
 
 import { TableResizer } from './TableResizer';
 
@@ -69,16 +74,19 @@ const AlignmentTableContainer = ({
 	getPos,
 	editorView,
 }: PropsWithChildren<AlignmentTableContainerProps>) => {
-	const alignment = node.attrs.layout;
+	const alignment = node.attrs.layout !== ALIGN_START ? ALIGN_CENTER : ALIGN_START;
 	const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
 
 	useEffect(() => {
 		if (tableState && editorView && getPos) {
 			const { wasFullWidthModeEnabled, isFullWidthModeEnabled } = tableState;
+			const { state, dispatch } = editorView;
 
 			if (
 				wasFullWidthModeEnabled &&
+				isFullWidthModeEnabled !== undefined &&
 				!isFullWidthModeEnabled &&
+				alignment !== ALIGN_CENTER &&
 				node.attrs.width > akEditorDefaultLayoutWidth
 			) {
 				const pos = getPos && getPos();
@@ -87,13 +95,15 @@ const AlignmentTableContainer = ({
 					return;
 				}
 
-				const tr = setTableAlignmentWithTableContentWithPos('center', { pos, node })(
-					editorView.state,
-				);
-
-				if (tr) {
-					editorView.dispatch(tr);
-				}
+				setTableAlignmentWithTableContentWithPosWithAnalytics(
+					pluginInjectionApi?.analytics?.actions,
+				)(
+					ALIGN_CENTER,
+					alignment,
+					{ pos, node },
+					INPUT_METHOD.AUTO,
+					CHANGE_ALIGNMENT_REASON.EDITOR_APPEARANCE_CHANGED,
+				)(state, dispatch);
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -276,15 +286,15 @@ export const ResizableTableContainer = React.memo(
 			// scrollbarWidth can vary. Values can be 14, 15, 16 and up to 20px;
 			responsiveContainerWidth = isTableScalingEnabled
 				? lineLength
-				: containerWidth - akEditorGutterPadding * 2 - resizeHandleSpacing;
+				: containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
 		} else {
 			// 76 is currently an accepted padding value considering the spacing for resizer handle
 			// containerWidth = width of a DIV with test id="ak-editor-fp-content-area". It is a parent of
 			// a DIV with className="ak-editor-content-area". This DIV has padding left and padding right.
 			// padding left = padding right = akEditorGutterPadding = 32
 			responsiveContainerWidth = isTableScalingEnabled
-				? containerWidth - akEditorGutterPadding * 2
-				: containerWidth - akEditorGutterPadding * 2 - resizeHandleSpacing;
+				? containerWidth - akEditorGutterPaddingDynamic() * 2
+				: containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
 		}
 		let width = Math.min(tableWidth, responsiveContainerWidth);
 

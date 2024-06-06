@@ -5,18 +5,18 @@ import LozengeActionTrigger from '../../src/view/FlexibleCard/components/element
 import DropdownMenu, { type CustomTriggerProps } from '@atlaskit/dropdown-menu';
 
 export default () => {
-  const trigger = useCallback(
-    (props: CustomTriggerProps<HTMLButtonElement>) => (
-      <LozengeActionTrigger {...props} isOpen={true} text="To Do" />
-    ),
-    [],
-  );
+	const trigger = useCallback(
+		(props: CustomTriggerProps<HTMLButtonElement>) => (
+			<LozengeActionTrigger {...props} isOpen={true} text="To Do" />
+		),
+		[],
+	);
 
-  return (
-    <VRTestWrapper>
-      <SmartCardProvider>
-        <DropdownMenu trigger={trigger} isOpen={true} />
-      </SmartCardProvider>
-    </VRTestWrapper>
-  );
+	return (
+		<VRTestWrapper>
+			<SmartCardProvider>
+				<DropdownMenu trigger={trigger} isOpen={true} />
+			</SmartCardProvider>
+		</VRTestWrapper>
+	);
 };

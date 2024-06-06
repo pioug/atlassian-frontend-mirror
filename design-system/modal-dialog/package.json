@@ -60,7 +60,7 @@
     "@af/visual-regression": "*",
     "@atlaskit/button": "*",
     "@atlaskit/checkbox": "^13.4.0",
-    "@atlaskit/dropdown-menu": "^12.10.0",
+    "@atlaskit/dropdown-menu": "^12.11.0",
     "@atlaskit/popup": "^1.17.0",
     "@atlaskit/radio": "^6.3.0",
     "@atlaskit/select": "^17.10.0",

@@ -128,6 +128,8 @@ export const akEditorFullWidthLayoutLineLength = 1792;
 export const akEditorTableNumberColumnWidth = 42;
 export const akEditorBreakoutPadding = 96;
 export const akEditorGutterPadding = 32;
+export const akEditorGutterPaddingDynamic = () =>
+	getBooleanFF('platform.editor.core.increase-full-page-guttering') ? 52 : 32;
 export const akEditorMobileBreakoutPoint = 720;
 export const akEditorTableCellMinWidth = 48;
 export const akEditorTableLegacyCellMinWidth = 128;

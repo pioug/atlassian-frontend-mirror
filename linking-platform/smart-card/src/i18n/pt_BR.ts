@@ -140,6 +140,10 @@ export default {
   'fabric.linking.priority_undefined': 'Indefinida',
   'fabric.linking.read_time': '{context} minutos de leitura',
   'fabric.linking.related': 'Relacionado',
+  'fabric.linking.related_links_found_in': 'Encontrado em',
+  'fabric.linking.related_links_includes_links_to': 'Inclui links para',
+  'fabric.linking.related_links_modal_title': 'Links recentes',
+  'fabric.linking.related_links_not_found': 'A gente não encontrou nenhum link para mostrar aqui.',
   'fabric.linking.related_work_items_not_found': 'Este link não está mencionado em nenhum outro lugar.',
   'fabric.linking.request_access': 'Solicitar acesso',
   'fabric.linking.request_access_description':

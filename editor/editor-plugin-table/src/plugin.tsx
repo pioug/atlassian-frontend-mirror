@@ -153,9 +153,11 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 	};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
-	const shouldUseIncreasedScalingPercent =
+	const isTableScalingWithFixedColumnWidthsOptionEnabled =
 		options?.isTableScalingEnabled &&
-		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+	const shouldUseIncreasedScalingPercent =
+		isTableScalingWithFixedColumnWidthsOptionEnabled &&
 		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 
 	return {
@@ -660,6 +662,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
 				() => editorViewRef.current,
 				options,
+				isTableScalingWithFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
 			)(pluginConfig(options?.tableOptions)),
 		},

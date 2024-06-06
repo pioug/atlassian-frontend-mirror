@@ -2,6 +2,6 @@ import { type DocNode } from '@atlaskit/adf-schema';
 import type { ExtensionParams } from '@atlaskit/editor-common/extensions';
 
 export interface ExtensionLinkComponentProps {
-  render: (document: DocNode) => JSX.Element;
-  extension: ExtensionParams<any>;
+	render: (document: DocNode) => JSX.Element;
+	extension: ExtensionParams<any>;
 }

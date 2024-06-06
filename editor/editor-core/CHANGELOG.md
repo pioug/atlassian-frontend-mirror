@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 193.24.20
+
+### Patch Changes
+
+- [#105253](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105253)
+  [`a5f3cd26fbd6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a5f3cd26fbd6) -
+  Clean up platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g FF
+- [#108295](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108295)
+  [`965a0e6c1088`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/965a0e6c1088) -
+  NO-ISSUE Condition adding primary toolbar plugin components based on their presence instead of on
+  the feature flag to avoid it not rendering in examples
+- [#106586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106586)
+  [`861ecd061c72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/861ecd061c72) -
+  Increase the editor page guttering for full page appearance to support block drag and drop
+- [#105533](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105533)
+  [`ba448905afaf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba448905afaf) -
+  ED-23459: Extracts example-helpers to editor-examples-helpers
+- [#100714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100714)
+  [`81849acfe13c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81849acfe13c) -
+  ECA11Y-228: Added new shortcuts for insert column and row and added correct formatting for help
+  modal dialog
+- Updated dependencies
+
 ## 193.24.19
 
 ### Patch Changes

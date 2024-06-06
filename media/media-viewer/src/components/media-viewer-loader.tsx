@@ -4,90 +4,83 @@ import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import type { MediaViewerProps } from './types';
 import type { MediaViewerAnalyticsErrorBoundaryProps } from './media-viewer-analytics-error-boundary';
 
-export type MediaViewerWithMediaClientConfigProps =
-  WithMediaClientConfigProps<MediaViewerProps>;
+export type MediaViewerWithMediaClientConfigProps = WithMediaClientConfigProps<MediaViewerProps>;
 
 type MediaViewerWithMediaClientConfigComponent =
-  React.ComponentType<MediaViewerWithMediaClientConfigProps>;
+	React.ComponentType<MediaViewerWithMediaClientConfigProps>;
 
 type MediaViewerErrorBoundaryComponent =
-  React.ComponentType<MediaViewerAnalyticsErrorBoundaryProps>;
+	React.ComponentType<MediaViewerAnalyticsErrorBoundaryProps>;
 
 export interface AsyncMediaViewerState {
-  MediaViewer?: MediaViewerWithMediaClientConfigComponent;
-  MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
+	MediaViewer?: MediaViewerWithMediaClientConfigComponent;
+	MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
 }
 
 export class AsyncMediaViewer extends React.PureComponent<
-  MediaViewerWithMediaClientConfigProps,
-  AsyncMediaViewerState
+	MediaViewerWithMediaClientConfigProps,
+	AsyncMediaViewerState
 > {
-  static displayName = 'AsyncMediaViewer';
-  static MediaViewer?: MediaViewerWithMediaClientConfigComponent;
-  static MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
+	static displayName = 'AsyncMediaViewer';
+	static MediaViewer?: MediaViewerWithMediaClientConfigComponent;
+	static MediaViewerErrorBoundary?: MediaViewerErrorBoundaryComponent;
 
-  isMounted = false;
+	isMounted = false;
 
-  state: AsyncMediaViewerState = {
-    // Set state value to equal to current static value of this class.
-    MediaViewer: AsyncMediaViewer.MediaViewer,
-    MediaViewerErrorBoundary: AsyncMediaViewer.MediaViewerErrorBoundary,
-  };
+	state: AsyncMediaViewerState = {
+		// Set state value to equal to current static value of this class.
+		MediaViewer: AsyncMediaViewer.MediaViewer,
+		MediaViewerErrorBoundary: AsyncMediaViewer.MediaViewerErrorBoundary,
+	};
 
-  async UNSAFE_componentWillMount() {
-    if (!this.state.MediaViewer || !this.state.MediaViewerErrorBoundary) {
-      try {
-        const [mediaClient, mediaViewerModule, mediaViewerErrorBoundaryModule] =
-          await Promise.all([
-            import(
-              /* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
-            ),
-            import(
-              /* webpackChunkName: "@atlaskit-internal_media-viewer" */ './media-viewer'
-            ),
-            import(
-              /* webpackChunkName: "@atlaskit-internal_media-picker-error-boundary" */ './media-viewer-analytics-error-boundary'
-            ),
-          ]);
+	async UNSAFE_componentWillMount() {
+		if (!this.state.MediaViewer || !this.state.MediaViewerErrorBoundary) {
+			try {
+				const [mediaClient, mediaViewerModule, mediaViewerErrorBoundaryModule] = await Promise.all([
+					import(
+						/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
+					),
+					import(/* webpackChunkName: "@atlaskit-internal_media-viewer" */ './media-viewer'),
+					import(
+						/* webpackChunkName: "@atlaskit-internal_media-picker-error-boundary" */ './media-viewer-analytics-error-boundary'
+					),
+				]);
 
-        const MediaViewerWithClient = mediaClient.withMediaClient(
-          mediaViewerModule.MediaViewer,
-        );
-        AsyncMediaViewer.MediaViewer = MediaViewerWithClient;
-        AsyncMediaViewer.MediaViewerErrorBoundary =
-          mediaViewerErrorBoundaryModule.default;
+				const MediaViewerWithClient = mediaClient.withMediaClient(mediaViewerModule.MediaViewer);
+				AsyncMediaViewer.MediaViewer = MediaViewerWithClient;
+				AsyncMediaViewer.MediaViewerErrorBoundary = mediaViewerErrorBoundaryModule.default;
 
-        if (this.isMounted) {
-          this.setState({
-            MediaViewer: MediaViewerWithClient,
-            MediaViewerErrorBoundary: AsyncMediaViewer.MediaViewerErrorBoundary,
-          });
-        }
-      } catch (error) {
-        // TODO [MS-2277]: Add operational error to catch async import error
-      }
-    }
-  }
+				if (this.isMounted) {
+					this.setState({
+						MediaViewer: MediaViewerWithClient,
+						MediaViewerErrorBoundary: AsyncMediaViewer.MediaViewerErrorBoundary,
+					});
+				}
+			} catch (error) {
+				// TODO [MS-2277]: Add operational error to catch async import error
+			}
+		}
+	}
 
-  componentDidMount() {
-    this.isMounted = true;
-  }
+	componentDidMount() {
+		this.isMounted = true;
+	}
 
-  componentWillUnmount() {
-    this.isMounted = false;
-  }
-  render() {
-    const { MediaViewer, MediaViewerErrorBoundary } = this.state;
-    if (!MediaViewer || !MediaViewerErrorBoundary) {
-      return <ModalSpinner />;
-    }
+	componentWillUnmount() {
+		this.isMounted = false;
+	}
+	render() {
+		const { MediaViewer, MediaViewerErrorBoundary } = this.state;
+		if (!MediaViewer || !MediaViewerErrorBoundary) {
+			return <ModalSpinner />;
+		}
 
-    return (
-      <MediaViewerErrorBoundary>
-        <MediaViewer {...this.props} />
-      </MediaViewerErrorBoundary>
-    );
-  }
+		return (
+			<MediaViewerErrorBoundary>
+				<MediaViewer {...this.props} />
+			</MediaViewerErrorBoundary>
+		);
+	}
 }
 
 export default AsyncMediaViewer;

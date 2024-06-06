@@ -11,40 +11,36 @@ import { getJsonLdResponse } from '../utils/flexible-ui';
 import { type AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
 
 class MinimumResolvedCustomClient extends CardClient {
-  fetchData(url: string) {
-    return Promise.resolve(
-      getJsonLdResponse(url, minimumResponse.meta, minimumResponse.data),
-    );
-  }
+	fetchData(url: string) {
+		return Promise.resolve(getJsonLdResponse(url, minimumResponse.meta, minimumResponse.data));
+	}
 }
 
 class MaximumResolvedCustomClient extends CardClient {
-  fetchData(url: string) {
-    return Promise.resolve(
-      getJsonLdResponse(url, unicornResponse.meta, unicornResponse.data),
-    );
-  }
+	fetchData(url: string) {
+		return Promise.resolve(getJsonLdResponse(url, unicornResponse.meta, unicornResponse.data));
+	}
 }
 
 export default () => {
-  const mockAnalytics = {} as AnalyticsFacade;
+	const mockAnalytics = {} as AnalyticsFacade;
 
-  return (
-    <VRTestWrapper title="Block card Flexible views">
-      <h4>Resolved (minimal data)</h4>
-      {renderCard(new MinimumResolvedCustomClient(), 'block')}
+	return (
+		<VRTestWrapper title="Block card Flexible views">
+			<h4>Resolved (minimal data)</h4>
+			{renderCard(new MinimumResolvedCustomClient(), 'block')}
 
-      <h4>Resolved (maximum data)</h4>
-      {renderCard(new MaximumResolvedCustomClient(), 'block')}
+			<h4>Resolved (maximum data)</h4>
+			{renderCard(new MaximumResolvedCustomClient(), 'block')}
 
-      <h4>Resolving</h4>
-      <SmartCardProvider>
-        <FlexibleResolvedView
-          cardState={{ status: 'resolving' }}
-          url="some-url"
-          analytics={mockAnalytics}
-        />
-      </SmartCardProvider>
-    </VRTestWrapper>
-  );
+			<h4>Resolving</h4>
+			<SmartCardProvider>
+				<FlexibleResolvedView
+					cardState={{ status: 'resolving' }}
+					url="some-url"
+					analytics={mockAnalytics}
+				/>
+			</SmartCardProvider>
+		</VRTestWrapper>
+	);
 };

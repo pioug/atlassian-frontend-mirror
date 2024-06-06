@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-undo-redo",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Undo redo plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,7 +35,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^81.2.0",
+    "@atlaskit/editor-common": "^82.0.0",
     "@atlaskit/editor-plugin-history": "^1.1.0",
     "@atlaskit/editor-plugin-primary-toolbar": "^1.1.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.2.0",

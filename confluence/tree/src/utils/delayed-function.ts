@@ -1,23 +1,23 @@
 export default class DelayedFunction {
-  delay: number;
+	delay: number;
 
-  timeoutId: number | undefined;
+	timeoutId: number | undefined;
 
-  fn?: Function;
+	fn?: Function;
 
-  constructor(delay: number) {
-    this.delay = delay;
-  }
+	constructor(delay: number) {
+		this.delay = delay;
+	}
 
-  start(fn: Function) {
-    this.stop();
-    this.timeoutId = window.setTimeout(fn, this.delay);
-  }
+	start(fn: Function) {
+		this.stop();
+		this.timeoutId = window.setTimeout(fn, this.delay);
+	}
 
-  stop() {
-    if (this.timeoutId) {
-      clearTimeout(this.timeoutId);
-      this.timeoutId = undefined;
-    }
-  }
+	stop() {
+		if (this.timeoutId) {
+			clearTimeout(this.timeoutId);
+			this.timeoutId = undefined;
+		}
+	}
 }

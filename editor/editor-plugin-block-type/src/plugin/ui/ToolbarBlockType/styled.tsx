@@ -28,6 +28,7 @@ export const blockTypeMenuItemStyle = (tagName: string, selected?: boolean) => {
 
 export const keyboardShortcut = css(shortcutStyle, {
 	marginLeft: token('space.200', '16px'),
+	color: token('color.icon', N400),
 });
 
 export const keyboardShortcutSelect = css({

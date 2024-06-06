@@ -7,7 +7,7 @@ import { useIntl } from 'react-intl-next';
 import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
 import { Box } from '@atlaskit/primitives';
 
-import { CREATE_FORM_MAX_WIDTH_IN_PX } from '../../common/constants';
+import { CREATE_FORM_MAX_WIDTH_IN_PX, DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
 import type { LinkCreateWithModalProps } from '../../common/types';
 import { ConfirmDismissDialog } from '../../common/ui/confirm-dismiss-dialog';
 import { EditModal } from '../../common/ui/edit-modal';
@@ -29,9 +29,6 @@ import { LinkCreatePluginsProvider, useLinkCreatePlugins } from '../../controlle
 
 import { messages } from './messages';
 
-export const TEST_ID = 'link-create';
-const SCREEN_ID = 'linkCreateScreen';
-
 const LinkCreateWithModal = ({
 	active,
 	modalTitle,
@@ -41,7 +38,7 @@ const LinkCreateWithModal = ({
 	onComplete,
 	onOpenComplete,
 	onCloseComplete,
-	testId = TEST_ID,
+	testId = DEFAULT_TEST_ID,
 	plugins,
 	entityKey,
 	modalHero,

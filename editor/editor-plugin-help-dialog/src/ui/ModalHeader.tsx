@@ -8,7 +8,7 @@ import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
 
-import { dialogHeader, header } from './styles';
+import { dialogHeader, header, toolbarButton } from './styles';
 
 interface ModalHeaderProps extends WrappedComponentProps {
 	onClose: OnCloseHandler | undefined;
@@ -28,6 +28,7 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 					title={formatMessage(messages.closeHelpDialog)}
 					spacing="compact"
 					iconBefore={<CrossIcon label={formatMessage(messages.closeHelpDialog)} size="medium" />}
+					css={toolbarButton}
 				/>
 			</div>
 		</div>

@@ -15,18 +15,18 @@ import { type ZoomInButtonClickEventPayload } from './ui/zoomInButtonClicked';
 import { type ZoomOutButtonClickEventPayload } from './ui/zoomOutButtonClicked';
 
 export type MediaViewerEventPayload =
-  | CommencedEventPayload
-  | LoadFailedEventPayload
-  | LoadSucceededEventPayload
-  | PreviewUnsupportedEventPayload
-  | ZipEntryLoadFailedEventPayload
-  | ZipEntryLoadSucceededEventPayload
-  | ModalEventPayload
-  | PdfPasswordInputScreenEventPayload
-  | PasswordPdfScreenEventPayload
-  | ClosedEventPayload
-  | DownloadButtonClickedEventPayload
-  | FailedPreviewDownloadButtonClickedEventPayload
-  | NavigatedEventPayload
-  | ZoomInButtonClickEventPayload
-  | ZoomOutButtonClickEventPayload;
+	| CommencedEventPayload
+	| LoadFailedEventPayload
+	| LoadSucceededEventPayload
+	| PreviewUnsupportedEventPayload
+	| ZipEntryLoadFailedEventPayload
+	| ZipEntryLoadSucceededEventPayload
+	| ModalEventPayload
+	| PdfPasswordInputScreenEventPayload
+	| PasswordPdfScreenEventPayload
+	| ClosedEventPayload
+	| DownloadButtonClickedEventPayload
+	| FailedPreviewDownloadButtonClickedEventPayload
+	| NavigatedEventPayload
+	| ZoomInButtonClickEventPayload
+	| ZoomOutButtonClickEventPayload;

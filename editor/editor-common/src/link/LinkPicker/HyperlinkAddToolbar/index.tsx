@@ -5,10 +5,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { LinkPickerProps } from '@atlaskit/link-picker';
 
 import { INPUT_METHOD } from '../../../analytics';
-import type { HyperlinkState } from '../../../link';
 import type { ProviderFactory } from '../../../provider-factory';
 import { WithProviders } from '../../../provider-factory';
-import type { Command, LinkInputType, LinkPickerOptions } from '../../../types';
+import type { Command, EditorAppearance, LinkInputType, LinkPickerOptions } from '../../../types';
 import type { EditorLinkPickerProps } from '../EditorLinkPicker';
 import { EditorLinkPicker } from '../EditorLinkPicker';
 
@@ -31,6 +30,10 @@ export interface HyperlinkAddToolbarProps
 	displayUrl?: string;
 	onEscapeCallback?: Command;
 	onClickAwayCallback?: Command;
+	editorAppearance?: EditorAppearance;
+	inputMethod?: string;
+	searchSessionId?: string;
+	timesViewed?: number;
 }
 
 /**
@@ -61,10 +64,11 @@ export function HyperlinkAddToolbar({
 	onClose,
 	onEscapeCallback,
 	onClickAwayCallback,
-	hyperlinkPluginState,
-}: HyperlinkAddToolbarProps & {
-	hyperlinkPluginState: HyperlinkState | undefined;
-}) {
+	editorAppearance,
+	inputMethod,
+	searchSessionId,
+	timesViewed,
+}: HyperlinkAddToolbarProps) {
 	return (
 		<WithProviders
 			providers={['activityProvider', 'searchProvider']}
@@ -77,9 +81,9 @@ export function HyperlinkAddToolbar({
 							invokeMethod={
 								// Provide `invokeMethod` prop as preferred value (card plugin passes as prop) otherwise assume this
 								// is being used from inside the hyperlink plugin and use inputMethod from plugin state
-								invokeMethod ?? hyperlinkPluginState?.inputMethod
+								invokeMethod ?? inputMethod
 							}
-							editorAppearance={hyperlinkPluginState?.editorAppearance}
+							editorAppearance={editorAppearance}
 							{...linkPickerOptions}
 							url={displayUrl}
 							displayText={displayText}
@@ -99,10 +103,12 @@ export function HyperlinkAddToolbar({
 						onSubmit={onSubmit}
 						displayText={displayText}
 						displayUrl={displayUrl}
-						pluginState={hyperlinkPluginState!}
 						view={view}
 						onEscapeCallback={onEscapeCallback}
 						onClickAwayCallback={onClickAwayCallback}
+						inputMethod={inputMethod}
+						searchSessionId={searchSessionId}
+						timesViewed={timesViewed}
 					/>
 				);
 			}}

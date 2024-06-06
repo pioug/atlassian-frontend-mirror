@@ -15,7 +15,7 @@ type ErrorBoundaryModalProps = {
 	onClose?: () => void;
 };
 
-export const ErrorBoundaryModal: React.FC<ErrorBoundaryModalProps> = ({ active, onClose }) => {
+export const ErrorBoundaryModal = ({ active, onClose }: ErrorBoundaryModalProps): JSX.Element => {
 	return (
 		<ModalTransition>
 			{active && (

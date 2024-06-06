@@ -5,46 +5,38 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 import ActionGroup from '../../src/view/FlexibleCard/components/blocks/action-group';
 
 import {
-  makeCustomActionItem,
-  makeDeleteActionItem,
-  makeEditActionItem,
+	makeCustomActionItem,
+	makeDeleteActionItem,
+	makeEditActionItem,
 } from '../utils/flexible-ui';
 import { token } from '@atlaskit/tokens';
 
 // Override the padding that came with new vr wrapper
 const containerStyles = css({
-  'div.vr-test-wrapper': {
-    padding: `${token('space.050', '4px')} 0 0 0`,
-  },
+	'div.vr-test-wrapper': {
+		padding: `${token('space.050', '4px')} 0 0 0`,
+	},
 });
 
 export default () => (
-  <VRTestWrapper>
-    <div css={containerStyles}>
-      <h5>Item group</h5>
-      <ActionGroup
-        visibleButtonsNum={1}
-        items={[
-          makeCustomActionItem(),
-          makeDeleteActionItem(),
-          makeEditActionItem(),
-        ]}
-      />
+	<VRTestWrapper>
+		<div css={containerStyles}>
+			<h5>Item group</h5>
+			<ActionGroup
+				visibleButtonsNum={1}
+				items={[makeCustomActionItem(), makeDeleteActionItem(), makeEditActionItem()]}
+			/>
 
-      <h5>Single action item</h5>
-      <ActionGroup visibleButtonsNum={1} items={[makeCustomActionItem()]} />
+			<h5>Single action item</h5>
+			<ActionGroup visibleButtonsNum={1} items={[makeCustomActionItem()]} />
 
-      <h5>Item group (open)</h5>
-      <VrExpandDropdownMenuWrapper>
-        <ActionGroup
-          visibleButtonsNum={1}
-          items={[
-            makeCustomActionItem(),
-            makeDeleteActionItem(),
-            makeEditActionItem(),
-          ]}
-        />
-      </VrExpandDropdownMenuWrapper>
-    </div>
-  </VRTestWrapper>
+			<h5>Item group (open)</h5>
+			<VrExpandDropdownMenuWrapper>
+				<ActionGroup
+					visibleButtonsNum={1}
+					items={[makeCustomActionItem(), makeDeleteActionItem(), makeEditActionItem()]}
+				/>
+			</VrExpandDropdownMenuWrapper>
+		</div>
+	</VRTestWrapper>
 );

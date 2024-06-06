@@ -4,7 +4,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
-import { DevTools } from '@af/editor-examples-helpers';
+import { DevTools } from '@af/editor-examples-helpers/utils';
 import Button from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';

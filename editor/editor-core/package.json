@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.24.19",
+  "version": "193.24.20",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,15 +45,15 @@
     "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/button": "^17.17.0",
-    "@atlaskit/editor-common": "^81.2.0",
+    "@atlaskit/editor-common": "^82.0.0",
     "@atlaskit/editor-json-transformer": "^8.13.0",
-    "@atlaskit/editor-plugins": "^2.7.0",
+    "@atlaskit/editor-plugins": "^3.0.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.11.0",
+    "@atlaskit/editor-shared-styles": "^2.12.0",
     "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/media-card": "^77.11.0",
-    "@atlaskit/mention": "^23.0.0",
+    "@atlaskit/media-card": "^77.12.0",
+    "@atlaskit/mention": "^23.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/task-decision": "^17.10.0",
@@ -82,23 +82,19 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@af/editor-examples-helpers": "0.0.0",
+    "@af/editor-examples-helpers": "0.0.1",
     "@af/editor-libra": "*",
     "@af/visual-regression": "*",
     "@atlaskit/adf-utils": "^19.2.0",
     "@atlaskit/analytics-listeners": "^8.9.1",
-    "@atlaskit/checkbox": "^13.4.0",
-    "@atlaskit/collab-provider": "9.29.2",
-    "@atlaskit/dropdown-menu": "^12.10.0",
-    "@atlaskit/editor-plugin-annotation": "1.9.4",
-    "@atlaskit/editor-plugin-card": "^1.15.0",
+    "@atlaskit/collab-provider": "9.29.3",
+    "@atlaskit/editor-plugin-annotation": "1.9.5",
+    "@atlaskit/editor-plugin-card": "^2.0.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
     "@atlaskit/editor-plugin-list": "^3.3.0",
     "@atlaskit/editor-plugin-paste": "^1.2.0",
     "@atlaskit/editor-test-helpers": "*",
-    "@atlaskit/flag": "^15.5.0",
     "@atlaskit/link-provider": "^1.9.0",
-    "@atlaskit/link-test-helpers": "^7.0.0",
     "@atlaskit/logo": "^13.17.0",
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
@@ -106,7 +102,6 @@
     "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/primitives": "^6.5.0",
     "@atlaskit/renderer": "^109.31.0",
-    "@atlaskit/select": "^17.10.0",
     "@atlaskit/smart-card": "^27.5.0",
     "@atlaskit/synchrony-test-helpers": "^2.4.0",
     "@atlaskit/toggle": "^13.1.0",
@@ -114,7 +109,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlassian/adf-schema-json": "^1.14.0",
     "@atlassian/link-picker-plugins": "^24.3.0",
-    "@atlassian/search-provider": "2.4.76",
+    "@atlassian/search-provider": "2.4.77",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -125,14 +120,11 @@
     "@types/is-number": "^7.0.0",
     "diff": "^4.0.1",
     "enzyme": "^3.10.0",
-    "fetch-mock": "^8.0.0",
     "jscodeshift": "^0.13.0",
-    "lz-string": "^1.4.4",
     "mockdate": "^3.0.5",
     "raf-stub": "^2.0.1",
     "react": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "rison": "^0.1.1",
     "typescript": "~5.4.2",
     "url-search-params": "^0.10.0"
   },
@@ -329,10 +321,6 @@
       "type": "boolean",
       "referenceOnly": true
     },
-    "platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
     "platform.editor.live-view.no-editor-selection-in-view-mode": {
       "type": "boolean"
     },
@@ -363,6 +351,9 @@
     "platform.editor.simplify-inline-cards-in-code-blocks_jw6t1": {
       "type": "boolean",
       "referenceOnly": "true"
+    },
+    "platform.editor.core.increase-full-page-guttering": {
+      "type": "boolean"
     }
   },
   "stricter": {
@@ -373,31 +364,37 @@
   "af:exports": {
     ".": "./src/index.ts",
     "./composable-editor": "./src/composable-editor.ts",
+    "./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
     "./editor-context": "./src/editor-context.ts",
     "./editor": "./src/editor.tsx",
     "./element-browser": "./src/element-browser.ts",
+    "./i18n-languages": "./src/i18n/languages.ts",
     "./labs-next": "./src/labs-next.ts",
     "./messages": "./src/messages.ts",
     "./preset-default": "./src/preset-default.ts",
     "./preset-universal": "./src/preset-universal.ts",
     "./test-utils": "./src/test-utils.ts",
     "./use-preset": "./src/use-preset.ts",
+    "./use-preset-context": "./src/presets/context.tsx",
     "./preset-builder": "./src/preset-builder.ts",
     "./version-wrapper": "./src/version-wrapper.ts"
   },
   "exports": {
     ".": "./src/index.ts",
     "./composable-editor": "./src/composable-editor.ts",
+    "./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
     "./editor-context": "./src/editor-context.ts",
     "./editor": "./src/editor.tsx",
     "./element-browser": "./src/element-browser.ts",
     "./i18n/*": "./src/i18n/*.ts",
+    "./i18n-languages": "./src/i18n/languages.ts",
     "./labs-next": "./src/labs-next.ts",
     "./messages": "./src/messages.ts",
     "./preset-default": "./src/preset-default.ts",
     "./preset-universal": "./src/preset-universal.ts",
     "./test-utils": "./src/test-utils.ts",
     "./use-preset": "./src/use-preset.ts",
+    "./use-preset-context": "./src/presets/context.tsx",
     "./preset-builder": "./src/preset-builder.ts",
     "./version-wrapper": "./src/version-wrapper.ts",
     "./package.json": "./package.json"

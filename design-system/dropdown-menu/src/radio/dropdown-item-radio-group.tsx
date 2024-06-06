@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState } from 'react';
 
-import noop from '@atlaskit/ds-lib/noop';
-import type { SectionProps } from '@atlaskit/menu';
-import Section from '@atlaskit/menu/section';
+import { useUID } from 'react-uid';
 
+import noop from '@atlaskit/ds-lib/noop';
+import { Section, type SectionProps } from '@atlaskit/menu';
+
+import GroupTitle from '../internal/components/group-title';
 import { SelectionStoreContext } from '../internal/context/selection-store';
 import resetOptionsInGroup from '../internal/utils/reset-options-in-group';
 interface DropdownItemRadioGroupProps extends SectionProps {
@@ -45,6 +47,8 @@ const DropdownItemRadioGroup = ({
   ...rest
 }: DropdownItemRadioGroupProps) => {
   const { setGroupState, getGroupState } = useContext(SelectionStoreContext);
+  const uid = useUID();
+  const titleId = `dropdown-menu-item-radio-group-title-${uid}`;
 
   /**
    *  - initially `radioGroupState` is from selection store, so it's safe to update without re-rendering
@@ -73,13 +77,16 @@ const DropdownItemRadioGroup = ({
         id={id}
         isList={isList}
         isScrollable={isScrollable}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
         overrides={overrides}
         testId={testId}
-        title={title}
+        titleId={title ? titleId : undefined}
         // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...rest}
       >
+        {title && (
+          <GroupTitle id={titleId} title={title} />
+        )}
         {children}
       </Section>
     </RadioGroupContext.Provider>

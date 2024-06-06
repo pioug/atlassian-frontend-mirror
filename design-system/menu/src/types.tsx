@@ -141,6 +141,12 @@ export interface SectionProps {
   title?: string;
 
   /**
+   * ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.
+   * Usage of either this, or the `label` attribute is strongly recommended.
+   */
+  titleId?: string;
+
+  /**
    * If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.
    */
   isList?: boolean;

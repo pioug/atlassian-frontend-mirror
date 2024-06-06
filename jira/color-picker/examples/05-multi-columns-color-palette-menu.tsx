@@ -9,34 +9,32 @@ import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-uti
 import { IntlProvider } from 'react-intl-next';
 
 class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
-  state = {
-    color: token('color.background.accent.purple.subtle', colors.P200),
-  };
+	state = {
+		color: token('color.background.accent.purple.subtle', colors.P200),
+	};
 
-  render() {
-    return (
-      <IntlProvider locale="en">
-        <ColorPaletteMenu
-          label="Change color"
-          palette={extendedPalette}
-          selectedColor={this.state.color}
-          cols={6}
-          onChange={(newColor: string) => this.setState({ color: newColor })}
-        />
-      </IntlProvider>
-    );
-  }
+	render() {
+		return (
+			<IntlProvider locale="en">
+				<ColorPaletteMenu
+					label="Change color"
+					palette={extendedPalette}
+					selectedColor={this.state.color}
+					cols={6}
+					onChange={(newColor: string) => this.setState({ color: newColor })}
+				/>
+			</IntlProvider>
+		);
+	}
 }
 
 const Story = () => <ColorPaletteMenuExample />;
 
 Story.decorators = [
-  withPlatformFeatureFlags({
-    'platform.color-picker-radio-button-functionality_6hkcy': true,
-    'platform.jca11y-1480-inappropriate-label-for-color-picker_76tfe': true,
-    'platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i':
-      true,
-  }),
+	withPlatformFeatureFlags({
+		'platform.color-picker-radio-button-functionality_6hkcy': true,
+		'platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i': true,
+	}),
 ];
 
 export default Story;

@@ -10,41 +10,34 @@ import { type CardStore } from '@atlaskit/linking-common';
 import Button from '@atlaskit/button/new';
 
 class CustomClient extends Client {
-  fetchData() {
-    return Promise.resolve(
-      BitbucketFile1 as JsonLd.Response<JsonLd.Data.Document>,
-    );
-  }
+	fetchData() {
+		return Promise.resolve(BitbucketFile1 as JsonLd.Response<JsonLd.Data.Document>);
+	}
 }
 
 export default () => {
-  const [initialState, setInitialState] = useState<CardStore>({});
-  const resetInitialStoreState = useCallback(() => {
-    setInitialState({});
-  }, [setInitialState]);
-  return (
-    <VRTestWrapper title="Edge case: reload links when redux store is has been reset">
-      <Provider
-        client={new CustomClient('staging')}
-        storeOptions={{ initialState }}
-      >
-        <Button
-          testId={'reset-redux-store-button'}
-          appearance={'primary'}
-          onClick={resetInitialStoreState}
-        >
-          Reset store initial state
-        </Button>
-        <br />
-        <br />
-        <Card
-          appearance="inline"
-          testId="inline-card"
-          url={
-            'https://bitbucket.org/atlassian/atlassian-frontend/src/master/README.md'
-          }
-        />
-      </Provider>
-    </VRTestWrapper>
-  );
+	const [initialState, setInitialState] = useState<CardStore>({});
+	const resetInitialStoreState = useCallback(() => {
+		setInitialState({});
+	}, [setInitialState]);
+	return (
+		<VRTestWrapper title="Edge case: reload links when redux store is has been reset">
+			<Provider client={new CustomClient('staging')} storeOptions={{ initialState }}>
+				<Button
+					testId={'reset-redux-store-button'}
+					appearance={'primary'}
+					onClick={resetInitialStoreState}
+				>
+					Reset store initial state
+				</Button>
+				<br />
+				<br />
+				<Card
+					appearance="inline"
+					testId="inline-card"
+					url={'https://bitbucket.org/atlassian/atlassian-frontend/src/master/README.md'}
+				/>
+			</Provider>
+		</VRTestWrapper>
+	);
 };

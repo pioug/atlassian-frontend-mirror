@@ -7,6 +7,20 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'automation-menu.empty-state.image.alt': 'Ikon for en tom automatiseringsliste',
+  'automation-menu.empty-state.learn-more.link': 'Finn ut mer om den manuelle utløseren',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Bruk den manuelle utløseren for å fylle ut en meny med valg som alle, eller personene du velger, kan bruke som automatiseringer på ett klikk.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Administratorene har ikke konfigurert noen manuelt utløste automatiseringer ennå.',
+  'automation-menu.modal.error.description': 'Dette tar litt tid å laste inn. Prøv å oppdatere siden.',
+  'automation-menu.modal.error.image.alt': 'Feil-ikon',
+  'automation-menu.modal.footer.automate-button': 'Automatiser',
+  'automation-menu.modal.footer.cancel-button': 'Avbryt',
+  'automation-menu.modal.footer.get-started-button': 'Opprett automatisering',
+  'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': 'Ikon for overskrift for automatiseringsmodal',
+  'automation-menu.success-state.message': 'Automatiseringen din pågår',
   'fabric.linking.access_exists_description': 'Be om tilgang for å vise dette innholdet fra {hostname}.',
   'fabric.linking.actions': 'Tiltak',
   'fabric.linking.add_account': 'Legg til en konto',
@@ -32,8 +46,8 @@ export default {
     'Bruk en automatisering på <b>{name}</b>.{br}De tilgjengelige valgene styres av Confluence- og områdeadministratorer.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sideautomatiseringer',
   'fabric.linking.automation-action.icon.label': 'Automatiseringsikon',
-  'fabric.linking.automation-action.title': 'Kjør automatisering …',
-  'fabric.linking.automation-action.tooltip': 'Åpne en automatiseringsmodal',
+  'fabric.linking.automation-action.title': 'Vis automatiseringsregler …',
+  'fabric.linking.automation-action.tooltip': 'Velg automatiseringsregelen du vil kjøre',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Avbryt',
   'fabric.linking.cannot_connect': 'Kan ikke koble til, prøv på nytt',
@@ -127,6 +141,11 @@ export default {
   'fabric.linking.priority_undefined': 'Udefinert',
   'fabric.linking.read_time': '{context} min å lese',
   'fabric.linking.related': 'Beslektet',
+  'fabric.linking.related_links_found_in': 'Funnet i',
+  'fabric.linking.related_links_includes_links_to': 'Inkluderer koblinger til',
+  'fabric.linking.related_links_modal_title': 'Nylige koblinger',
+  'fabric.linking.related_links_not_found': 'Vi finner ingen koblinger å vise her.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Vis nylige koblinger …',
   'fabric.linking.related_work_items_not_found': 'Denne koblingen er ikke omtalt andre steder.',
   'fabric.linking.request_access': 'Be om tilgang',
   'fabric.linking.request_access_description':

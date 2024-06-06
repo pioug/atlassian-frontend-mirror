@@ -13,11 +13,13 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import { type CHANGE_ALIGNMENT_REASON } from '@atlaskit/editor-common/src/analytics/types/table-events';
 import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { type NodeWithPos } from '@atlaskit/editor-prosemirror/dist/types/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
+import { type Rect, TableMap } from '@atlaskit/editor-tables/table-map';
 import {
 	findCellClosestToPos,
 	findCellRectClosestToPos,
@@ -36,6 +38,7 @@ import {
 	getTableSelectionType,
 	setMultipleCellAttrs,
 	setTableAlignment,
+	setTableAlignmentWithTableContentWithPos,
 } from './commands/misc';
 import { sortByColumn } from './commands/sort';
 import { splitCell } from './commands/split-cell';
@@ -605,47 +608,45 @@ export const wrapTableInExpandWithAnalytics = (
 		};
 	})(editorAnalyticsAPI)(wrapTableInExpand);
 
-export const toggleTableLockWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
-	(
-		displayMode: TABLE_DISPLAY_MODE | null,
-		inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
-	) =>
-		withEditorAnalyticsAPI((state) => {
-			const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(state.selection);
+export const toggleFixedColumnWidthsOptionAnalytics = (
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+	inputMethod: INPUT_METHOD.FLOATING_TB,
+) =>
+	withEditorAnalyticsAPI((state) => {
+		const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(state.selection);
 
-			let previousDisplayMode: TABLE_DISPLAY_MODE;
-			let newDisplayMode: TABLE_DISPLAY_MODE;
+		let previousDisplayMode: TABLE_DISPLAY_MODE;
+		let newDisplayMode: TABLE_DISPLAY_MODE;
 
-			switch (displayMode) {
-				case 'fixed':
-					previousDisplayMode = TABLE_DISPLAY_MODE.FIXED;
-					newDisplayMode = TABLE_DISPLAY_MODE.DEFAULT;
-					break;
-				case 'default':
-					previousDisplayMode = TABLE_DISPLAY_MODE.DEFAULT;
-					newDisplayMode = TABLE_DISPLAY_MODE.FIXED;
-					break;
-				case null:
-				default:
-					previousDisplayMode = TABLE_DISPLAY_MODE.INITIAL;
-					newDisplayMode = TABLE_DISPLAY_MODE.FIXED;
-			}
+		switch (table?.node.attrs.displayMode) {
+			case 'fixed':
+				previousDisplayMode = TABLE_DISPLAY_MODE.FIXED;
+				newDisplayMode = TABLE_DISPLAY_MODE.DEFAULT;
+				break;
+			case 'default':
+				previousDisplayMode = TABLE_DISPLAY_MODE.DEFAULT;
+				newDisplayMode = TABLE_DISPLAY_MODE.FIXED;
+				break;
+			case null:
+			default:
+				previousDisplayMode = TABLE_DISPLAY_MODE.INITIAL;
+				newDisplayMode = TABLE_DISPLAY_MODE.FIXED;
+		}
 
-			return {
-				action: TABLE_ACTION.CHANGED_DISPLAY_MODE,
-				actionSubject: ACTION_SUBJECT.TABLE,
-				attributes: {
-					inputMethod,
-					previousDisplayMode,
-					newDisplayMode,
-					tableWidth: table?.node.attrs.width,
-					totalRowCount,
-					totalColumnCount,
-				},
-				eventType: EVENT_TYPE.TRACK,
-			};
-		})(editorAnalyticsAPI)(editorCommandToPMCommand(setTableDisplayMode));
+		return {
+			action: TABLE_ACTION.CHANGED_DISPLAY_MODE,
+			actionSubject: ACTION_SUBJECT.TABLE,
+			attributes: {
+				inputMethod,
+				previousDisplayMode,
+				newDisplayMode,
+				tableWidth: table?.node.attrs.width,
+				totalRowCount,
+				totalColumnCount,
+			},
+			eventType: EVENT_TYPE.TRACK,
+		};
+	})(editorAnalyticsAPI)(editorCommandToPMCommand(setTableDisplayMode));
 
 export const setTableAlignmentWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
@@ -654,6 +655,7 @@ export const setTableAlignmentWithAnalytics =
 		// previous alignment could be a breakout value, if so use 'null' to indicate alignment was not previously set
 		previousAlignment: TableLayout,
 		inputMethod: INPUT_METHOD.FLOATING_TB,
+		reason: CHANGE_ALIGNMENT_REASON,
 	) =>
 		withEditorAnalyticsAPI((state) => {
 			const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(state.selection);
@@ -673,6 +675,44 @@ export const setTableAlignmentWithAnalytics =
 					totalRowCount,
 					totalColumnCount,
 					inputMethod,
+					reason,
 				},
 			};
 		})(editorAnalyticsAPI)(editorCommandToPMCommand(setTableAlignment(newAlignment)));
+
+export const setTableAlignmentWithTableContentWithPosWithAnalytics =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+	(
+		newAlignment: AlignmentOptions,
+		previousAlignment: AlignmentOptions | null,
+		tableNodeWithPos: NodeWithPos,
+		inputMethod: INPUT_METHOD.AUTO,
+		reason: CHANGE_ALIGNMENT_REASON,
+	) =>
+		withEditorAnalyticsAPI(() => {
+			const map = TableMap.get(tableNodeWithPos.node);
+			const totalRowCount = map.height;
+			const totalColumnCount = map.width;
+
+			const attributes = {
+				tableWidth: tableNodeWithPos.node.attrs.width,
+				newAlignment: newAlignment,
+				previousAlignment: previousAlignment,
+				totalRowCount: totalRowCount,
+				totalColumnCount: totalColumnCount,
+				inputMethod: inputMethod,
+				reason: reason,
+			};
+
+			return {
+				action: TABLE_ACTION.CHANGED_ALIGNMENT,
+				actionSubject: ACTION_SUBJECT.TABLE,
+				actionSubjectId: null,
+				eventType: EVENT_TYPE.TRACK,
+				attributes: attributes,
+			};
+		})(editorAnalyticsAPI)(
+			editorCommandToPMCommand(
+				setTableAlignmentWithTableContentWithPos(newAlignment, tableNodeWithPos),
+			),
+		);

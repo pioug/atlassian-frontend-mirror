@@ -12,57 +12,42 @@ import { AISummaryBlockStatusIndicator } from '../../src/view/FlexibleCard/compo
 import AISummary from '../../src/view/common/ai-summary';
 
 class MaximumResolvedCustomClient extends CardClient {
-  fetchData(url: string) {
-    return Promise.resolve(
-      getJsonLdResponse(url, JiraIssue.meta, JiraIssue.data),
-    );
-  }
+	fetchData(url: string) {
+		return Promise.resolve(getJsonLdResponse(url, JiraIssue.meta, JiraIssue.data));
+	}
 }
 
 const mockState: AISummaryState = {
-  status: 'done',
-  content: `Here's some test content to indicate a summary`,
+	status: 'done',
+	content: `Here's some test content to indicate a summary`,
 };
 const mockUseAiSummary = injectable(useAISummary, () => ({
-  summariseUrl: () => Promise.resolve(mockState),
-  state: mockState,
+	summariseUrl: () => Promise.resolve(mockState),
+	state: mockState,
 }));
 
-const mockAISummaryBlockStatusIndicator = injectable(
-  AISummaryBlockStatusIndicator,
-  (props) => (
-    <AISummaryBlockStatusIndicator {...props} showStatusIndicator={true} />
-  ),
-);
-
-const mockAISummary = injectable(AISummary, (props) => (
-  <AISummary {...props} showIcon={false} />
+const mockAISummaryBlockStatusIndicator = injectable(AISummaryBlockStatusIndicator, (props) => (
+	<AISummaryBlockStatusIndicator {...props} showStatusIndicator={true} />
 ));
 
-const dependencies = [
-  mockUseAiSummary,
-  mockAISummaryBlockStatusIndicator,
-  mockAISummary,
-];
+const mockAISummary = injectable(AISummary, (props) => <AISummary {...props} showIcon={false} />);
+
+const dependencies = [mockUseAiSummary, mockAISummaryBlockStatusIndicator, mockAISummary];
 
 export default () => (
-  <DiProvider use={dependencies}>
-    <VRTestWrapper>
-      <Provider
-        client={new MaximumResolvedCustomClient()}
-        isAdminHubAIEnabled={true}
-        product="JSM"
-      >
-        <Card
-          appearance="block"
-          url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
-          showHoverPreview={true}
-          isSelected={true}
-        >
-          <TitleBlock hideTitleTooltip={true} />
-          <SnippetBlock />
-        </Card>
-      </Provider>
-    </VRTestWrapper>
-  </DiProvider>
+	<DiProvider use={dependencies}>
+		<VRTestWrapper>
+			<Provider client={new MaximumResolvedCustomClient()} isAdminHubAIEnabled={true} product="JSM">
+				<Card
+					appearance="block"
+					url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
+					showHoverPreview={true}
+					isSelected={true}
+				>
+					<TitleBlock hideTitleTooltip={true} />
+					<SnippetBlock />
+				</Card>
+			</Provider>
+		</VRTestWrapper>
+	</DiProvider>
 );

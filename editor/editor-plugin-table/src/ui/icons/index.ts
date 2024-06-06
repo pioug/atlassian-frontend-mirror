@@ -1,7 +1,6 @@
 export { DragHandleIcon } from './DragHandleIcon';
 export { DragInMotionIcon } from './DragInMotionIcon';
 export { DragHandleDisabledIcon } from './DragHandleDisabledIcon';
-export { DisplayModeIcon } from './DisplayModeIcon';
 export { MinimisedHandleIcon } from './MinimisedHandle';
 export { MergeCellsIcon } from './MergeCellsIcon';
 export { SplitCellIcon } from './SplitCellIcon';

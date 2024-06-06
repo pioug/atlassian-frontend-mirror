@@ -4,20 +4,20 @@ import { type BlockName } from './constants';
 import { type CardProps, type SmartLinkSize } from '../../src';
 
 export type FlexibleTemplate = {
-  cardProps?: Partial<CardProps>;
-  blocks?: BlockTemplate[];
-  ui?: FlexibleUiOptions;
+	cardProps?: Partial<CardProps>;
+	blocks?: BlockTemplate[];
+	ui?: FlexibleUiOptions;
 };
 
 export type BlockTemplate = {
-  name: BlockName;
-  [key: string]: any;
+	name: BlockName;
+	[key: string]: any;
 };
 
 export type BlockBuilderProps = {
-  onChange: (template: BlockTemplate) => void;
-  size?: SmartLinkSize;
-  template: BlockTemplate;
+	onChange: (template: BlockTemplate) => void;
+	size?: SmartLinkSize;
+	template: BlockTemplate;
 };
 
 export type SelectOptions = { label: string; value: string };

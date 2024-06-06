@@ -3,7 +3,7 @@ import { SnippetBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 export default () => (
-  <ExampleContainer>
-    <SnippetBlock text="This is text that overrides the default link description." />
-  </ExampleContainer>
+	<ExampleContainer>
+		<SnippetBlock text="This is text that overrides the default link description." />
+	</ExampleContainer>
 );

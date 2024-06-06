@@ -17,7 +17,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { buildLayoutButtons, commandWithMetadata } from '@atlaskit/editor-common/card';
-import type { CardOptions, CardPluginActions } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import { getLinkPreferencesURLFromENV } from '@atlaskit/editor-common/link';
 import commonMessages, {
 	linkMessages,
@@ -67,7 +67,6 @@ import {
 	findCardInfo,
 	isDatasourceConfigEditable,
 	isDatasourceNode,
-	isEditDropdownEnabled,
 	titleUrlPairFromNode,
 } from './utils';
 
@@ -371,13 +370,16 @@ const generateToolbarItems =
 				cardOptions,
 				currentAppearance,
 				platform,
-				pluginInjectionApi?.card?.actions,
 			);
 		} else {
 			const { inlineCard } = state.schema.nodes;
 
+			const isEditDropdownEnabled = getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
+				platform !== 'mobile' &&
+				cardOptions.allowDatasource;
+
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = [
-				isEditDropdownEnabled(platform) && cardOptions.allowDatasource
+				isEditDropdownEnabled
 					? {
 							type: 'custom',
 							fallback: [],
@@ -485,7 +487,6 @@ const generateToolbarItems =
 								allowBlockCards={allowBlockCards}
 								platform={platform}
 								editorAnalyticsApi={editorAnalyticsApi}
-								cardActions={pluginInjectionApi?.card?.actions}
 								showUpgradeDiscoverability={showUpgradeDiscoverability}
 							/>
 						),
@@ -616,7 +617,6 @@ const getDatasourceButtonGroup = (
 	cardOptions: CardOptions,
 	currentAppearance: CardAppearance | undefined,
 	platform?: CardPlatform,
-	cardActions?: CardPluginActions | undefined,
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
 
@@ -700,7 +700,6 @@ const getDatasourceButtonGroup = (
 							allowBlockCards={allowBlockCards}
 							platform={platform}
 							editorAnalyticsApi={editorAnalyticsApi}
-							cardActions={cardActions}
 							showUpgradeDiscoverability={showUpgradeDiscoverability}
 							isDatasourceView
 						/>

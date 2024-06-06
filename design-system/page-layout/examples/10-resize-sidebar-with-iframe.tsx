@@ -72,8 +72,7 @@ const iframeLabelStyles = css({
   position: 'absolute',
   background: token('color.background.inverse.subtle'),
   color: token('color.text.inverse'),
-  fontSize: token('font.size.400', '16px'),
-  lineHeight: token('font.lineHeight.400', '16px'),
+  font: token('font.body.large'),
   pointerEvents: 'none',
 });
 

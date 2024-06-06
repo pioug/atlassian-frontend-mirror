@@ -2,8 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import { LanguagePicker } from '@af/editor-examples-helpers/utils';
+
 import { exampleDocument } from '../example-helpers/example-doc-with-custom-panels';
-import LanguagePicker from '../example-helpers/LanguagePicker';
 import enMessages from '../src/i18n/en';
 import languages from '../src/i18n/languages';
 
@@ -24,6 +25,7 @@ export default class ExampleEditor extends React.Component<Props, State> {
 		return (
 			<IntlProvider locale={this.getProperLanguageKey(locale)} messages={messages} key={locale}>
 				<FullPageExample
+          disableIntlProviderInExample={true}
 					editorProps={{
 						defaultValue: exampleDocument,
 						allowHelpDialog: true,

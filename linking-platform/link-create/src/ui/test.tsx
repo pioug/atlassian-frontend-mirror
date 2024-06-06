@@ -892,25 +892,23 @@ describe('Link create', () => {
 			expect(screen.getByTestId(testId)).toBeInTheDocument();
 		});
 
-		// todo: EDM-10075 - re-enable this test when the analytics event has been relocated to be fired from inline-create
+		it('should fire screen viewed analytics event when it opens', async () => {
+		  setUpInlineCreate();
 
-		// it('should fire screen viewed analytics event when it opens', async () => {
-		//   setUpInlineCreate();
+		  expect(screen.getByTestId(testId)).toBeInTheDocument();
 
-		//   expect(screen.getByTestId(testId)).toBeInTheDocument();
-
-		//   expect(onAnalyticsEventMock).toBeCalled();
-		//   const mockCall = onAnalyticsEventMock.mock.calls[0];
-		//   expect(mockCall[0]).toMatchObject({
-		//     payload: {
-		//       eventType: 'screen',
-		//       name: 'linkCreateScreen',
-		//       action: 'viewed',
-		//       // Attributes from AnalyticsContext will not yet show up here
-		//       attributes: expect.any(Object),
-		//     },
-		//   });
-		// });
+		  expect(onAnalyticsEventMock).toBeCalled();
+		  const mockCall = onAnalyticsEventMock.mock.calls[0];
+		  expect(mockCall[0]).toMatchObject({
+		    payload: {
+		      eventType: 'screen',
+		      name: 'linkCreateScreen',
+		      action: 'viewed',
+		      // Attributes from AnalyticsContext will not yet show up here
+		      attributes: expect.any(Object),
+		    },
+		  });
+		});
 
 		it('should only trigger the callback onCreate when it submits the form when onComplete is not provided', async () => {
 			setUpInlineCreate();

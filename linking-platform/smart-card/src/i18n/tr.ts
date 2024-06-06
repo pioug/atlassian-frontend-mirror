@@ -7,6 +7,19 @@
  */
 //Turkish (Turkey)
 export default {
+  'automation-menu.empty-state.image.alt': 'Boş otomasyon listesi simgesi',
+  'automation-menu.empty-state.learn-more.link': 'Manuel tetikleyici hakkında daha fazla bilgi edinin',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Herkesin veya sizin belirlediğiniz kişilerin tek tıklamalı otomasyon olarak uygulayabileceği bir seçimler menüsünü doldurmak için manuel tetikleyiciyi kullanın.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Yöneticiler henüz manuel olarak tetiklenen otomasyonlar yapılandırmadı.',
+  'automation-menu.modal.error.description': 'Bunun yüklenmesi biraz zaman alıyor. Sayfayı yenilemeyi deneyin.',
+  'automation-menu.modal.error.image.alt': 'Hata simgesi',
+  'automation-menu.modal.footer.automate-button': 'Otomatikleştir',
+  'automation-menu.modal.footer.cancel-button': 'İptal',
+  'automation-menu.modal.footer.get-started-button': 'Otomasyon oluştur',
+  'automation-menu.modal.footer.ok-button': 'Tamam',
+  'automation-menu.modal.header.icon.label': 'Otomasyon kalıcı penceresi başlık simgesi',
   'fabric.linking.access_exists_description': '{hostname} üzerindeki bu içeriği görüntülemek için erişim talep edin.',
   'fabric.linking.actions': 'Eylemler',
   'fabric.linking.add_account': 'Hesap ekle',
@@ -32,8 +45,8 @@ export default {
     '<b>{name}</b> sayfasına bir otomasyon uygulayın.{br}Kullanılabilir seçimler Confluence ve alan yöneticileri tarafından kontrol edilir.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sayfa otomasyonları',
   'fabric.linking.automation-action.icon.label': 'Otomasyon simgesi',
-  'fabric.linking.automation-action.title': 'Otomasyonu çalıştırın...',
-  'fabric.linking.automation-action.tooltip': 'Otomasyon kalıcı penceresi açın',
+  'fabric.linking.automation-action.title': 'Otomasyon kurallarını görüntüleyin...',
+  'fabric.linking.automation-action.tooltip': 'Çalıştırılacak otomasyon kuralını seçin',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'İptal',
   'fabric.linking.cannot_connect': 'Bağlanılamıyor, tekrar deneyin',
@@ -127,6 +140,10 @@ export default {
   'fabric.linking.priority_undefined': 'Tanımlanmamış',
   'fabric.linking.read_time': '{context} dk. okuma süresi',
   'fabric.linking.related': 'İlgili',
+  'fabric.linking.related_links_found_in': 'Bulunduğu Yer',
+  'fabric.linking.related_links_includes_links_to': 'Şunlara Bağlantı İçerir',
+  'fabric.linking.related_links_modal_title': 'En Son Bağlantılar',
+  'fabric.linking.related_links_not_found': 'Burada gösterecek herhangi bir bağlantı bulunamadı.',
   'fabric.linking.related_work_items_not_found': 'Bu bağlantıdan başka hiçbir yerde bahsedilmedi.',
   'fabric.linking.request_access': 'Erişim talep edin',
   'fabric.linking.request_access_description':

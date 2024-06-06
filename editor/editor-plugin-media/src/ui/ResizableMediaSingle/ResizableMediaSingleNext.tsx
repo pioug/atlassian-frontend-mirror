@@ -51,7 +51,7 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
-	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 } from '@atlaskit/editor-shared-styles';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 
@@ -284,12 +284,12 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 		}
 
 		if (
-			width < Math.min(containerWidth - akEditorGutterPadding * 2, akEditorFullWidthLayoutWidth)
+			width < Math.min(containerWidth - akEditorGutterPaddingDynamic() * 2, akEditorFullWidthLayoutWidth)
 		) {
 			return 'wide';
 		}
 
-		// set full width to be containerWidth - akEditorGutterPadding * 2
+		// set full width to be containerWidth - akEditorGutterPaddingDynamic() * 2
 		// instead of containerWidth - akEditorBreakoutPadding,
 		// so that we have image aligned with text
 		return 'full-width';

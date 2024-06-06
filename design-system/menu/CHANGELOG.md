@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 2.4.0
+
+### Minor Changes
+
+- [#99829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99829)
+  [`1e40876a2c40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e40876a2c40) -
+  Accessibility improvements. Adds a new `titleId` prop to Section.
+
 ## 2.3.1
 
 ### Patch Changes

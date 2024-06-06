@@ -40,9 +40,6 @@
 		},
 		{
 			"path": "../editor-plugin-feature-flags/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
 		}
 	]
 }

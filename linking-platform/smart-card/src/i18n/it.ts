@@ -7,6 +7,19 @@
  */
 //Italian (Italy)
 export default {
+  'automation-menu.empty-state.image.alt': "Icona dell'elenco di automazioni vuoto",
+  'automation-menu.empty-state.learn-more.link': 'Scopri di più sul trigger manuale',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Usa il trigger manuale per compilare un menu di selezioni che tutti gli utenti, o solo quelli da te specificati, potranno applicare come automazioni rapide.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Gli amministratori non hanno ancora configurato alcuna automazione attivata manualmente.',
+  'automation-menu.modal.error.description': 'Il caricamento sta richiedendo tempo. Prova ad aggiornare la pagina.',
+  'automation-menu.modal.error.image.alt': 'Icona di errore',
+  'automation-menu.modal.footer.automate-button': 'Automatizza',
+  'automation-menu.modal.footer.cancel-button': 'Annulla',
+  'automation-menu.modal.footer.get-started-button': "Crea un'automazione",
+  'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': 'Icona di intestazione della finestra Automazione',
   'fabric.linking.access_exists_description': "Richiedi l'accesso per visualizzare questo contenuto da {hostname}.",
   'fabric.linking.actions': 'Azioni',
   'fabric.linking.add_account': 'Aggiungi account',
@@ -31,8 +44,8 @@ export default {
     "Applica un'automazione a <b>{name}</b>.{br}Le selezioni disponibili sono controllate da Confluence e dagli amministratori dello spazio.",
   'fabric.linking.automation-action.confluence.page.modal.title': 'Automazioni di pagina',
   'fabric.linking.automation-action.icon.label': 'Icona di automazione',
-  'fabric.linking.automation-action.title': "Esegui l'automazione...",
-  'fabric.linking.automation-action.tooltip': 'Apri una finestra di automazione',
+  'fabric.linking.automation-action.title': 'Visualizza le regole di automazione...',
+  'fabric.linking.automation-action.tooltip': 'Seleziona una regola di automazione da eseguire',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Annulla',
   'fabric.linking.cannot_connect': 'Impossibile connettersi, riprova',
@@ -127,6 +140,10 @@ export default {
   'fabric.linking.priority_undefined': 'Non definita',
   'fabric.linking.read_time': '{context} minuti di lettura',
   'fabric.linking.related': 'Correlate',
+  'fabric.linking.related_links_found_in': 'Trovato in',
+  'fabric.linking.related_links_includes_links_to': 'Include i link a',
+  'fabric.linking.related_links_modal_title': 'Link recenti',
+  'fabric.linking.related_links_not_found': 'Non sono stati trovati link da mostrare qui.',
   'fabric.linking.related_work_items_not_found': "Questo link non è menzionato da nessun'altra parte.",
   'fabric.linking.request_access': 'Richiedi accesso',
   'fabric.linking.request_access_description':

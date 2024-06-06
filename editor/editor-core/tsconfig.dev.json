@@ -74,9 +74,6 @@
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/checkbox/tsconfig.app.json"
-		},
-		{
 			"path": "../collab-provider/tsconfig.app.json"
 		},
 		{
@@ -84,9 +81,6 @@
 		},
 		{
 			"path": "../../design-system/drawer/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
 		},
 		{
 			"path": "../../linking-platform/editor-card-provider/tsconfig.app.json"
@@ -131,9 +125,6 @@
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/flag/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{
@@ -143,16 +134,10 @@
 			"path": "../../linking-platform/link-provider/tsconfig.app.json"
 		},
 		{
-			"path": "../../linking-platform/link-test-helpers/tsconfig.app.json"
-		},
-		{
 			"path": "../../linking-platform/linking-common/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/logo/tsconfig.app.json"
-		},
-		{
-			"path": "../../media/media-common/tsconfig.app.json"
 		},
 		{
 			"path": "../../media/media-core/tsconfig.app.json"
@@ -192,9 +177,6 @@
 		},
 		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/share/tsconfig.app.json"

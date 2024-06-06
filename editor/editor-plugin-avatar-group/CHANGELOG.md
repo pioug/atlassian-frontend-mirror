@@ -1,144 +1,150 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 1.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.4
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.2.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.2.2
 
 ### Patch Changes
 
--   [#97698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97698)
-    [`1c7b378c0d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c7b378c0d3b) -
-    [HOT-108999] We had an incident where the cursor jumps back a character in table headers for any
-    language triggering composition on an empty line.This was fixed in a patch bump of
-    prosemirror-view. https://github.com/ProseMirror/prosemirror-view/compare/1.33.4...1.33.5
+- [#97698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97698)
+  [`1c7b378c0d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c7b378c0d3b) -
+  [HOT-108999] We had an incident where the cursor jumps back a character in table headers for any
+  language triggering composition on an empty line.This was fixed in a patch bump of
+  prosemirror-view. https://github.com/ProseMirror/prosemirror-view/compare/1.33.4...1.33.5
 
 ## 1.2.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.2.0
 
 ### Minor Changes
 
--   [#86433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86433)
-    [`88ca3b199a49`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88ca3b199a49) -
-    [ux] EDF-412 Collaborators avatars and telepointer colors are tokenised.
+- [#86433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86433)
+  [`88ca3b199a49`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88ca3b199a49) -
+  [ux] EDF-412 Collaborators avatars and telepointer colors are tokenised.
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.1.0
 
 ### Minor Changes
 
--   [#91934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91934)
-    [`b76a78c6a199`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b76a78c6a199) -
-    bumped editor-prosemirror version to 4.0.0
+- [#91934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91934)
+  [`b76a78c6a199`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b76a78c6a199) -
+  bumped editor-prosemirror version to 4.0.0
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.0.6
 
 ### Patch Changes
 
--   [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
-    [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
-    Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 1.0.5
 
 ### Patch Changes
 
--   [#80883](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80883)
-    [`5ecfa883d4ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ecfa883d4ba) -
-    React 18 types for alignment, annotation, avatar-group and blocktype plugins.
+- [#80883](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80883)
+  [`5ecfa883d4ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ecfa883d4ba) -
+  React 18 types for alignment, annotation, avatar-group and blocktype plugins.
 
 ## 1.0.4
 
 ### Patch Changes
 
--   [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085)
-    [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) -
-    Update usage of `React.FC` to explicity include `children`
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085)
+  [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) -
+  Update usage of `React.FC` to explicity include `children`
 
 ## 1.0.3
 
 ### Patch Changes
 
--   [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947)
-    [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) -
-    Migrate @atlaskit/editor-core to use declarative entry points
+- [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947)
+  [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) -
+  Migrate @atlaskit/editor-core to use declarative entry points
 
 ## 1.0.2
 
 ### Patch Changes
 
--   [#77259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77259)
-    [`9086164a5b62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9086164a5b62) -
-    Use spacing tokens instead of hardcoded values
+- [#77259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77259)
+  [`9086164a5b62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9086164a5b62) -
+  Use spacing tokens instead of hardcoded values
 
 ## 1.0.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.0.0
 
 ### Major Changes
 
--   [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386)
-    [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) -
-    This changeset exists to bump all editor plugins that currently don't have a major version. This
-    is to address an issue with Jira plugin consumption.
+- [#72386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72386)
+  [`0c52b0be40c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c52b0be40c1) -
+  This changeset exists to bump all editor plugins that currently don't have a major version. This
+  is to address an issue with Jira plugin consumption.
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.1.4
 
 ### Patch Changes
 
--   [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572)
-    [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) -
-    Upgrading @atlaskit/editor-prosemirror dependency
+- [#68572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68572)
+  [`15d407fe5143`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15d407fe5143) -
+  Upgrading @atlaskit/editor-prosemirror dependency
 
 ## 0.1.3
 
 ### Patch Changes
 
--   [#71136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71136)
-    [`c803fea1e6a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c803fea1e6a4) -
-    Move all plugin translations to editor-common
--   Updated dependencies
+- [#71136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71136)
+  [`c803fea1e6a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c803fea1e6a4) -
+  Move all plugin translations to editor-common
+- Updated dependencies
 
 ## 0.1.2
 
 ### Patch Changes
 
--   [#70084](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70084)
-    [`4d651eb93ab5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d651eb93ab5) -
-    Add editor-plugin-annotation pr and create shared utils for it in editor-test-helpers
--   Updated dependencies
+- [#70084](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70084)
+  [`4d651eb93ab5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d651eb93ab5) -
+  Add editor-plugin-annotation pr and create shared utils for it in editor-test-helpers
+- Updated dependencies
 
 ## 0.1.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies

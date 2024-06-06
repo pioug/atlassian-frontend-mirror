@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
 
-import type { BlockControlsMeta, BlockControlsPlugin } from '../types';
-import { DRAG_HANDLE_NODE_GAP, DRAG_HANDLE_WIDTH } from '../ui/consts';
+import type { BlockControlsPlugin } from '../types';
 import { DragHandle } from '../ui/drag-handle';
 import { DropTarget } from '../ui/drop-target';
+import { MouseMoveWrapper } from '../ui/mouse-move-wrapper';
 
 export const dropTargetDecorations = (
 	oldState: EditorState,
@@ -23,17 +23,21 @@ export const dropTargetDecorations = (
 	oldState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (_node, pos, _parent, index) => {
 		decorationState.push({ index, pos });
 		decs.push(
-			Decoration.widget(pos, () => {
-				const element = document.createElement('div');
-				ReactDOM.render(
-					createElement(DropTarget, {
-						api,
-						index,
-					}),
-					element,
-				);
-				return element;
-			}),
+			Decoration.widget(
+				pos,
+				() => {
+					const element = document.createElement('div');
+					ReactDOM.render(
+						createElement(DropTarget, {
+							api,
+							index,
+						}),
+						element,
+					);
+					return element;
+				},
+				{ type: 'drop-target-decoration' },
+			),
 		);
 		return false;
 	});
@@ -50,69 +54,109 @@ export const dropTargetDecorations = (
 		pos: newState.doc.nodeSize - 2,
 	});
 	decs.push(
-		Decoration.widget(newState.doc.nodeSize - 2, () => {
-			const element = document.createElement('div');
-			ReactDOM.render(
-				createElement(DropTarget, {
-					api,
-					index: decorationState.length,
-				}),
-				element,
-			);
-			return element;
-		}),
+		Decoration.widget(
+			newState.doc.nodeSize - 2,
+			() => {
+				const element = document.createElement('div');
+				ReactDOM.render(
+					createElement(DropTarget, {
+						api,
+						index: decorationState.length,
+					}),
+					element,
+				);
+				return element;
+			},
+			{ type: 'drop-target-decoration' },
+		),
 	);
 
 	return { decs, decorationState };
 };
 
-export const dragHandleDecoration = (
-	oldState: EditorState,
-	meta: BlockControlsMeta,
+export const nodeDecorations = (newState: EditorState) => {
+	const decs: Decoration[] = [];
+	newState.doc.descendants((node, pos, _parent, index) => {
+		const anchorName = `--node-anchor-${node.type.name}-${index}`;
+		const style = `anchor-name: ${anchorName}; ${pos === 0 ? 'margin-top: 0px;' : ''}`;
+		decs.push(
+			Decoration.node(pos, pos + node.nodeSize, {
+				style,
+				['data-drag-handler-anchor-name']: anchorName,
+			}),
+		);
+		return false;
+	});
+	return decs;
+};
+/**
+ * Setting up decorations around each node to track mousemove events into each node
+ * When a mouseenter event is triggered on the node, we will set the activeNode to the node
+ * And show the drag handle
+ */
+export const mouseMoveWrapperDecorations = (
+	newState: EditorState,
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
 ) => {
-	return DecorationSet.create(oldState.doc, [
-		Decoration.widget(
-			meta.pos,
-			(view, getPos) => {
-				const element = document.createElement('div');
-				ReactDOM.render(
-					createElement(DragHandle, {
-						dom: meta.dom,
-						api,
-						start: meta.pos,
-					}),
-					element,
-				);
+	const decs: Decoration[] = [];
 
-				element.style.position = 'absolute';
-				element.style.zIndex = '1';
+	newState.doc.descendants((node, pos, _parent, index) => {
+		const anchorName = `--node-anchor-${node.type.name}-${index}`;
+		decs.push(
+			Decoration.widget(
+				pos,
+				(view, getPos) => {
+					const element = document.createElement('div');
+					ReactDOM.render(
+						createElement(MouseMoveWrapper, {
+							view,
+							api,
+							anchorName,
+							nodeType: node.type.name,
+							getPos,
+						}),
+						element,
+					);
+					return element;
+				},
+				{
+					type: 'mouse-move-wrapper',
+					side: -1,
+					ignoreSelection: true,
+					stopEvent: (e) => {
+						return true;
+					},
+				},
+			),
+		);
+		return false;
+	});
+	return decs;
+};
 
-				// If the selected node is a table or mediaSingle with resizer, we need to adjust the position of the drag handle
-				const resizer: HTMLElement | null = ['table', 'mediaSingle'].includes(meta.type)
-					? meta.dom.querySelector('.resizer-item')
-					: null;
-
-				if (resizer) {
-					element.style.left =
-						getComputedStyle(resizer).transform === 'none'
-							? `${resizer.offsetLeft - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`
-							: `${resizer.offsetLeft - resizer.offsetWidth / 2 - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
-				} else {
-					element.style.left = `${meta.dom.offsetLeft - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
-				}
-
-				if (meta.type === 'table') {
-					const table = meta.dom.querySelector('table');
-					element.style.top = `${meta.dom.offsetTop + (table?.offsetTop || 0)}px`;
-				} else {
-					element.style.top = `${meta.dom.offsetTop}px`;
-				}
-
-				element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
-				return element;
-			},
-			{ side: -1 },
-		),
-	]);
+export const dragHandleDecoration = (
+	pos: number,
+	anchorName: string,
+	nodeType: string,
+	api: ExtractInjectionAPI<BlockControlsPlugin>,
+) => {
+	return Decoration.widget(
+		pos,
+		(view, getPos) => {
+			const element = document.createElement('div');
+			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
+			ReactDOM.render(
+				createElement(DragHandle, {
+					view,
+					api,
+					getPos,
+					anchorName,
+					nodeType,
+				}),
+				element,
+			);
+			return element;
+		},
+		{ side: -1, id: 'drag-handle' },
+	);
 };

@@ -4,13 +4,9 @@ import { UnAuthClient } from '../utils/custom-client';
 import VRCardView from '../utils/vr-card-view';
 
 export const BlockCardUnauthorisedView = () => (
-  <VRCardView appearance="block" client={new UnAuthClient()} />
+	<VRCardView appearance="block" client={new UnAuthClient()} />
 );
 
 export const BlockCardUnauthorisedViewLegacy = () => (
-  <VRCardView
-    appearance="block"
-    client={new UnAuthClient()}
-    useLegacyBlockCard={true}
-  />
+	<VRCardView appearance="block" client={new UnAuthClient()} useLegacyBlockCard={true} />
 );

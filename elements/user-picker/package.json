@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/user-picker",
-  "version": "10.20.3",
+  "version": "10.20.4",
   "description": "Fabric component for display a dropdown to select a user from",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -54,7 +54,6 @@
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/logo": "^13.17.0",
     "@atlaskit/lozenge": "^11.7.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/popper": "^6.0.0",
     "@atlaskit/primitives": "^6.5.0",
     "@atlaskit/select": "^17.10.0",
@@ -104,10 +103,5 @@
   "keywords": [
     "fabric",
     "ui"
-  ],
-  "platform-feature-flags": {
-    "platform.design-system-team.select-aria-activedescendant_psxzq": {
-      "type": "boolean"
-    }
-  }
+  ]
 }

@@ -19,6 +19,7 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { CardPlugin } from '@atlaskit/editor-plugin-card';
 
 import type { HideLinkToolbar, InsertLink, ShowLinkToolbar, UpdateLink } from './commands';
 import {
@@ -31,33 +32,15 @@ import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey } from './pm-plugins/main';
-import type { AddToolbarItems, PrependToolbarButtons } from './pm-plugins/toolbar-buttons';
-import {
-	addToolbarItems,
-	prependToolbarButtons,
-	toolbarButtonsPlugin,
-} from './pm-plugins/toolbar-buttons';
+import { toolbarButtonsPlugin } from './pm-plugins/toolbar-buttons';
 import { getToolbarConfig } from './Toolbar';
 
 export type HyperlinkPlugin = NextEditorPlugin<
 	'hyperlink',
 	{
 		pluginConfiguration: HyperlinkPluginOptions | undefined;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>];
+		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<CardPlugin>];
 		actions: {
-			/**
-			 * Add items to the left of the hyperlink floating toolbar
-			 * @param props
-			 * -
-			 * - items: Retrieve floating toolbar items to add
-			 * - onEscapeCallback (optional): To be called when the link picker is escaped.
-			 * - onInsertLinkCallback (optional): To be called when a link is inserted and it can be changed into a card.
-			 */
-			prependToolbarButtons: PrependToolbarButtons;
-			/**
-			 * Add items before or after any default hyperlink floating toolbar items
-			 */
-			addToolbarItems: AddToolbarItems;
 			hideLinkToolbar: HideLinkToolbar;
 			insertLink: InsertLink;
 			updateLink: UpdateLink;
@@ -98,8 +81,6 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 		},
 
 		actions: {
-			prependToolbarButtons,
-			addToolbarItems,
 			hideLinkToolbar: hideLinkToolbarSetMeta,
 			insertLink: (
 				inputMethod,
@@ -117,6 +98,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 					from,
 					to,
 					href,
+					api?.card?.actions,
 					api?.analytics?.actions,
 					title,
 					displayText,
@@ -155,7 +137,10 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 
 				{
 					name: 'hyperlinkToolbarButtons',
-					plugin: toolbarButtonsPlugin,
+					plugin: () => {
+						const hasCard = !!api?.card?.actions;
+						return toolbarButtonsPlugin(hasCard ? { skipAnalytics: true } : undefined);
+					},
 				},
 			];
 		},

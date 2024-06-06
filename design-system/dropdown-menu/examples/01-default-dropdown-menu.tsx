@@ -7,7 +7,7 @@ const CustomComponent = forwardRef<
   HTMLButtonElement,
   React.PropsWithChildren<{}>
 >(({ children, ...props }, ref) => (
-  <button {...props} type="button" ref={ref}>
+  <button {...props} type="button" role="menuitem" ref={ref}>
     {children}
   </button>
 ));

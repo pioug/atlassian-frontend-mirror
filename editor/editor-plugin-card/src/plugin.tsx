@@ -17,7 +17,6 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
@@ -29,13 +28,12 @@ import { createEventsQueue } from './analytics/create-events-queue';
 import type { CardPluginEvent } from './analytics/types';
 import { hideLinkToolbar, showDatasourceModal } from './pm-plugins/actions';
 import {
-	changeSelectedCardToLink,
+	getEndingToolbarItems,
+	getStartingToolbarItems,
 	queueCardsFromChangedTr,
-	setSelectedCardAppearance,
 } from './pm-plugins/doc';
 import { cardKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
-import { mountHyperlinkPlugin } from './pm-plugins/mountHyperlink';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { floatingToolbar } from './toolbar';
 import type { CardPluginOptions, CardPluginState } from './types';
@@ -57,17 +55,12 @@ export type CardPlugin = NextEditorPlugin<
 			DecorationsPlugin,
 			GridPlugin,
 			FloatingToolbarPlugin,
-			HyperlinkPlugin,
 		];
 		sharedState: CardPluginState | null;
 		actions: CardPluginActions;
 	}
 >;
 
-/**
- * Card plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
- * from `@atlaskit/editor-core`.
- */
 export const cardPlugin: CardPlugin = ({ config: options, api }) => {
 	const cardPluginEvents = createEventsQueue<CardPluginEvent>();
 
@@ -124,10 +117,6 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
 						api,
 					),
 				},
-				{
-					name: 'cardHyperlink',
-					plugin: () => mountHyperlinkPlugin(api, options),
-				},
 			];
 
 			plugins.push({
@@ -171,8 +160,8 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
 		actions: {
 			hideLinkToolbar,
 			queueCardsFromChangedTr,
-			changeSelectedCardToLink,
-			setSelectedCardAppearance,
+			getStartingToolbarItems: getStartingToolbarItems(options, api),
+			getEndingToolbarItems: getEndingToolbarItems(options, api),
 		},
 
 		pluginsOptions: {

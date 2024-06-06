@@ -10,7 +10,11 @@ import {
 	INPUT_METHOD,
 	unlinkPayload,
 } from '@atlaskit/editor-common/analytics';
-import { addLinkMetadata, commandWithMetadata } from '@atlaskit/editor-common/card';
+import {
+	addLinkMetadata,
+	type CardPluginActions,
+	commandWithMetadata,
+} from '@atlaskit/editor-common/card';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { isTextAtPos, LinkAction } from '@atlaskit/editor-common/link';
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
@@ -25,7 +29,6 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { stateKey } from './pm-plugins/main';
-import { toolbarKey } from './pm-plugins/toolbar-buttons';
 
 export function setLinkHref(
 	href: string,
@@ -123,6 +126,7 @@ export function insertLink(
 	source?: LinkInputType,
 	sourceEvent?: UIAnalyticsEvent | null | undefined,
 	appearance: CardAppearance = 'inline',
+	cardApiActions?: CardPluginActions,
 ): Command {
 	return (state, dispatch) => {
 		const link = state.schema.marks.link;
@@ -148,7 +152,7 @@ export function insertLink(
 			tr.setSelection(Selection.near(tr.doc.resolve(markEnd)));
 
 			if (!displayText || displayText === incomingHref) {
-				const queueCardsFromChangedTr = toolbarKey.getState(state)?.onInsertLinkCallback;
+				const queueCardsFromChangedTr = cardApiActions?.queueCardsFromChangedTr;
 
 				if (queueCardsFromChangedTr) {
 					queueCardsFromChangedTr?.(
@@ -209,6 +213,7 @@ export const insertLinkWithAnalytics = (
 	from: number,
 	to: number,
 	href: string,
+	cardActions: CardPluginActions | undefined,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	title?: string,
 	displayText?: string,
@@ -218,12 +223,34 @@ export const insertLinkWithAnalytics = (
 ) => {
 	// If smart cards are available, we send analytics for hyperlinks when a smart link is rejected.
 	if (cardsAvailable && !title && !displayText) {
-		return insertLink(from, to, href, title, displayText, inputMethod, sourceEvent, appearance);
+		return insertLink(
+			from,
+			to,
+			href,
+			title,
+			displayText,
+			inputMethod,
+			sourceEvent,
+			appearance,
+			cardActions,
+		);
 	}
 	return withAnalytics(
 		editorAnalyticsApi,
 		getLinkCreationAnalyticsEvent(inputMethod, href),
-	)(insertLink(from, to, href, title, displayText, inputMethod, sourceEvent, appearance));
+	)(
+		insertLink(
+			from,
+			to,
+			href,
+			title,
+			displayText,
+			inputMethod,
+			sourceEvent,
+			appearance,
+			cardActions,
+		),
+	);
 };
 
 export function removeLink(
@@ -294,16 +321,18 @@ export const hideLinkToolbarSetMeta: HideLinkToolbar = (tr: Transaction) => {
 	return tr.setMeta(stateKey, { type: LinkAction.HIDE_TOOLBAR });
 };
 
-export const onEscapeCallback: Command = (state, dispatch) => {
-	const { tr } = state;
-	hideLinkToolbarSetMeta(tr);
-	toolbarKey.getState(state)?.onEscapeCallback?.(tr);
-	if (dispatch) {
-		dispatch(tr);
-		return true;
-	}
-	return false;
-};
+export const onEscapeCallback =
+	(cardActions?: CardPluginActions): Command =>
+	(state, dispatch) => {
+		const { tr } = state;
+		hideLinkToolbarSetMeta(tr);
+		cardActions?.hideLinkToolbar?.(tr);
+		if (dispatch) {
+			dispatch(tr);
+			return true;
+		}
+		return false;
+	};
 
 export const onClickAwayCallback: Command = (state, dispatch) => {
 	if (dispatch) {

@@ -60,9 +60,6 @@
 			"path": "../editor-plugin-grid/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-hyperlink/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-width/tsconfig.app.json"
 		},
 		{

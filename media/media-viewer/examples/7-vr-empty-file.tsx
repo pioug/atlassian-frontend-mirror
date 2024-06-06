@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  defaultCollectionName,
-  createStorybookMediaClientConfig,
+	defaultCollectionName,
+	createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
 import { type Identifier, MediaClient } from '@atlaskit/media-client';
 import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
@@ -17,54 +17,50 @@ const mediaClientConfig = createStorybookMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);
 
 export type State = {
-  selectedIdentifier?: Identifier;
+	selectedIdentifier?: Identifier;
 };
 
 export default class Example extends React.Component<{}, State> {
-  state: State = { selectedIdentifier: undefined };
+	state: State = { selectedIdentifier: undefined };
 
-  setItem = (selectedIdentifier: Identifier) => () => {
-    this.setState({ selectedIdentifier });
-  };
+	setItem = (selectedIdentifier: Identifier) => () => {
+		this.setState({ selectedIdentifier });
+	};
 
-  createItem = (identifier: Identifier, title: string) => {
-    const onClick = this.setItem(identifier);
+	createItem = (identifier: Identifier, title: string) => {
+		const onClick = this.setItem(identifier);
 
-    return (
-      <div>
-        <h4>{title}</h4>
-        <NativeMediaPreview
-          identifier={identifier}
-          mediaClient={mediaClient}
-          onClick={onClick}
-        />
-      </div>
-    );
-  };
+		return (
+			<div>
+				<h4>{title}</h4>
+				<NativeMediaPreview identifier={identifier} mediaClient={mediaClient} onClick={onClick} />
+			</div>
+		);
+	};
 
-  render() {
-    const { selectedIdentifier } = this.state;
+	render() {
+		const { selectedIdentifier } = this.state;
 
-    return (
-      <I18NWrapper>
-        <MainWrapper>
-          <Group>
-            <h2>Empty</h2>
-            <ButtonList>
-              <li>{this.createItem(emptyImage, 'Empty File (version: 0)')}</li>
-            </ButtonList>
-          </Group>
-          {selectedIdentifier && (
-            <MediaViewer
-              mediaClientConfig={mediaClientConfig}
-              selectedItem={selectedIdentifier}
-              items={[selectedIdentifier]}
-              collectionName={defaultCollectionName}
-              onClose={() => this.setState({ selectedIdentifier: undefined })}
-            />
-          )}
-        </MainWrapper>
-      </I18NWrapper>
-    );
-  }
+		return (
+			<I18NWrapper>
+				<MainWrapper>
+					<Group>
+						<h2>Empty</h2>
+						<ButtonList>
+							<li>{this.createItem(emptyImage, 'Empty File (version: 0)')}</li>
+						</ButtonList>
+					</Group>
+					{selectedIdentifier && (
+						<MediaViewer
+							mediaClientConfig={mediaClientConfig}
+							selectedItem={selectedIdentifier}
+							items={[selectedIdentifier]}
+							collectionName={defaultCollectionName}
+							onClose={() => this.setState({ selectedIdentifier: undefined })}
+						/>
+					)}
+				</MainWrapper>
+			</I18NWrapper>
+		);
+	}
 }

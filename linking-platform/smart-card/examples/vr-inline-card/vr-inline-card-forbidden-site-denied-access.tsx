@@ -4,8 +4,5 @@ import VRCardView from '../utils/vr-card-view';
 import { ForbiddenWithSiteDeniedRequestClient } from '../utils/custom-client';
 
 export default () => (
-  <VRCardView
-    appearance="inline"
-    client={new ForbiddenWithSiteDeniedRequestClient()}
-  />
+	<VRCardView appearance="inline" client={new ForbiddenWithSiteDeniedRequestClient()} />
 );

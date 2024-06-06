@@ -11,9 +11,7 @@ export type Spacing = 'compact' | 'default';
 export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
   /**
    * Set the appearance of the picker.
-   *
    * `subtle` will remove the borders, background, and icon.
-   *
    * **NOTE:** Appearance values will be ignored if styles are parsed through `selectProps`.
    */
   appearance?: Appearance;

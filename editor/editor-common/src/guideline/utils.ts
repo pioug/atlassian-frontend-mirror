@@ -2,7 +2,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
-	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 } from '@atlaskit/editor-shared-styles';
 
 import { getMediaSinglePixelWidth, roundToNearest } from '../media-single';
@@ -65,7 +65,7 @@ export const getGuidelineTypeFromKey = (
  * width and editor gutter padding.
  */
 export const getContainerWidthOrFullEditorWidth = (containerWidth: number) =>
-	Math.min(containerWidth - akEditorGutterPadding * 2, akEditorFullWidthLayoutWidth) / 2;
+	Math.min(containerWidth - akEditorGutterPaddingDynamic() * 2, akEditorFullWidthLayoutWidth) / 2;
 
 /**
  *

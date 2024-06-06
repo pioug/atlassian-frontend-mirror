@@ -52,7 +52,7 @@
     "@atlaskit/checkbox": "^13.4.0",
     "@atlaskit/form": "^10.3.0",
     "@atlaskit/help-article": "^4.1.10",
-    "@atlaskit/help-layout": "^4.2.15",
+    "@atlaskit/help-layout": "^4.3.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/notification-indicator": "^9.2.0",
     "@atlaskit/notification-log-client": "^6.1.0",

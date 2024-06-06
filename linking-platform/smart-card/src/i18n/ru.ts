@@ -7,6 +7,20 @@
  */
 //Russian
 export default {
+  'automation-menu.empty-state.image.alt': 'Значок пустого списка автоматизаций',
+  'automation-menu.empty-state.learn-more.link': 'Подробнее о запуске вручную',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Используйте запуск вручную, чтобы заполнить меню вариантами автоматизации, которые все или указанные вами пользователи смогут применить одним щелчком мыши.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Администраторы еще не настроили автоматизации, запускаемые вручную.',
+  'automation-menu.modal.error.description': 'Загрузка занимает некоторое время. Попробуйте обновить страницу.',
+  'automation-menu.modal.error.image.alt': 'Значок ошибки',
+  'automation-menu.modal.footer.automate-button': 'Выполнить автоматизацию',
+  'automation-menu.modal.footer.cancel-button': 'Отмена',
+  'automation-menu.modal.footer.get-started-button': 'Создать автоматизацию',
+  'automation-menu.modal.footer.ok-button': 'ОК',
+  'automation-menu.modal.header.icon.label': 'Значок в заголовке окна автоматизации',
+  'automation-menu.success-state.message': 'Автоматизация выполняется',
   'fabric.linking.access_exists_description': 'Запросите доступ для просмотра контента на сайте {hostname}.',
   'fabric.linking.actions': 'Действия',
   'fabric.linking.add_account': 'Добавить аккаунт',
@@ -32,8 +46,8 @@ export default {
     'Примените автоматизацию к странице <b>{name}</b>.{br}Доступные варианты контролируются администраторами Confluence и администраторами раздела.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Автоматизации для страниц',
   'fabric.linking.automation-action.icon.label': 'Значок автоматизации',
-  'fabric.linking.automation-action.title': 'Запустить автоматизацию…',
-  'fabric.linking.automation-action.tooltip': 'Открыть окно автоматизации',
+  'fabric.linking.automation-action.title': 'Просмотреть правила автоматизации…',
+  'fabric.linking.automation-action.tooltip': 'Выбрать правило автоматизации для запуска',
   'fabric.linking.beta': 'Бета-версия',
   'fabric.linking.cancel': 'Отмена',
   'fabric.linking.cannot_connect': 'Не удается подключиться, повторите попытку',
@@ -127,6 +141,11 @@ export default {
   'fabric.linking.priority_undefined': 'Не определен',
   'fabric.linking.read_time': 'Время чтения: {context} мин.',
   'fabric.linking.related': 'Связанное',
+  'fabric.linking.related_links_found_in': 'Упоминается в:',
+  'fabric.linking.related_links_includes_links_to': 'Содержит ссылки на:',
+  'fabric.linking.related_links_modal_title': 'Недавние ссылки',
+  'fabric.linking.related_links_not_found': 'Ссылки для отображения не найдены.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Просмотреть недавние ссылки…',
   'fabric.linking.related_work_items_not_found': 'Эта ссылка больше нигде не упоминается.',
   'fabric.linking.request_access': 'Запросить доступ',
   'fabric.linking.request_access_description':

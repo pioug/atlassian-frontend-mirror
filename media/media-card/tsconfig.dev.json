@@ -58,6 +58,9 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/form/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
@@ -134,6 +137,9 @@
 		},
 		{
 			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../data/ufo-internal/tsconfig.app.json"

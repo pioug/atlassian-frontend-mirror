@@ -5,20 +5,20 @@ import { InlineCardResolvedView as ResolvedView } from '../src/view/InlineCard/R
 import { VRTestCase } from './utils/common';
 
 export default () => {
-  return (
-    <VRTestCase title="Inline card with default icon">
-      {() => (
-        <ResolvedView
-          link={'some-url'}
-          isSelected={false}
-          icon={'broken-url'}
-          title="Smart Links - Designs"
-          lozenge={{
-            text: 'in progress',
-            appearance: 'inprogress',
-          }}
-        />
-      )}
-    </VRTestCase>
-  );
+	return (
+		<VRTestCase title="Inline card with default icon">
+			{() => (
+				<ResolvedView
+					link={'some-url'}
+					isSelected={false}
+					icon={'broken-url'}
+					title="Smart Links - Designs"
+					lozenge={{
+						text: 'in progress',
+						appearance: 'inprogress',
+					}}
+				/>
+			)}
+		</VRTestCase>
+	);
 };

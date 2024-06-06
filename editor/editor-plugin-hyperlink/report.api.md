@@ -70,9 +70,7 @@ export const hyperlinkPlugin: HyperlinkPlugin;
 
 // @public (undocumented)
 type HyperlinkToolbarItemsState = {
-	items: GetToolbarItems;
-	onEscapeCallback: ((tr: Transaction) => Transaction) | undefined;
-	onInsertLinkCallback: QueueCardsFromTransactionAction | undefined;
+  items: GetToolbarItems;
 };
 
 // @public (undocumented)

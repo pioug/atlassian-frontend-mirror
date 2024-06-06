@@ -1,11 +1,11 @@
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
-  type FileState,
-  type Identifier,
-  isErrorFileState,
-  isExternalImageIdentifier,
-  type MediaClient,
+	type FileState,
+	type Identifier,
+	isErrorFileState,
+	isExternalImageIdentifier,
+	type MediaClient,
 } from '@atlaskit/media-client';
 import { MediaButton, messages } from '@atlaskit/media-ui';
 import React, { useCallback } from 'react';
@@ -19,103 +19,86 @@ import { type MediaViewerError } from './errors';
 const downloadIcon = <DownloadIcon label="Download" />;
 
 type DownloadButtonProps = React.ComponentProps<typeof MediaButton> & {
-  analyticspayload: Record<string, any>;
+	analyticspayload: Record<string, any>;
 };
 function noop() {}
 
 export function DownloadButton({
-  analyticspayload,
-  onClick: providedOnClick = noop,
-  ...rest
+	analyticspayload,
+	onClick: providedOnClick = noop,
+	...rest
 }: DownloadButtonProps) {
-  const onClick = useCallback(
-    (
-      event: React.MouseEvent<HTMLElement>,
-      analyticsEvent: UIAnalyticsEvent,
-    ) => {
-      const clone = analyticsEvent.clone();
-      if (clone) {
-        clone.update(analyticspayload);
-        clone.fire(ANALYTICS_MEDIA_CHANNEL);
-      }
-      providedOnClick(event, analyticsEvent);
-    },
-    [analyticspayload, providedOnClick],
-  );
+	const onClick = useCallback(
+		(event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
+			const clone = analyticsEvent.clone();
+			if (clone) {
+				clone.update(analyticspayload);
+				clone.fire(ANALYTICS_MEDIA_CHANNEL);
+			}
+			providedOnClick(event, analyticsEvent);
+		},
+		[analyticspayload, providedOnClick],
+	);
 
-  return <MediaButton {...rest} onClick={onClick} />;
+	return <MediaButton {...rest} onClick={onClick} />;
 }
 
 export const createItemDownloader =
-  (file: FileState, mediaClient: MediaClient, collectionName?: string) =>
-  () => {
-    const id = file.id;
-    const name = !isErrorFileState(file) ? file.name : undefined;
-    return mediaClient.file.downloadBinary(id, name, collectionName);
-  };
+	(file: FileState, mediaClient: MediaClient, collectionName?: string) => () => {
+		const id = file.id;
+		const name = !isErrorFileState(file) ? file.name : undefined;
+		return mediaClient.file.downloadBinary(id, name, collectionName);
+	};
 
 export type ErrorViewDownloadButtonProps = {
-  fileState: FileState;
-  mediaClient: MediaClient;
-  error: MediaViewerError;
-  collectionName?: string;
+	fileState: FileState;
+	mediaClient: MediaClient;
+	error: MediaViewerError;
+	collectionName?: string;
 };
 
-export const ErrorViewDownloadButton = (
-  props: ErrorViewDownloadButtonProps,
-) => {
-  const { fileState, error } = props;
-  const downloadEvent = createFailedPreviewDownloadButtonClickedEvent(
-    fileState,
-    error,
-  );
-  return (
-    <DownloadButtonWrapper>
-      <DownloadButton
-        testId="media-viewer-download-button"
-        analyticspayload={downloadEvent}
-        appearance="primary"
-        onClick={createItemDownloader(
-          props.fileState,
-          props.mediaClient,
-          props.collectionName,
-        )}
-      >
-        <FormattedMessage {...messages.download} />
-      </DownloadButton>
-    </DownloadButtonWrapper>
-  );
+export const ErrorViewDownloadButton = (props: ErrorViewDownloadButtonProps) => {
+	const { fileState, error } = props;
+	const downloadEvent = createFailedPreviewDownloadButtonClickedEvent(fileState, error);
+	return (
+		<DownloadButtonWrapper>
+			<DownloadButton
+				testId="media-viewer-download-button"
+				analyticspayload={downloadEvent}
+				appearance="primary"
+				onClick={createItemDownloader(props.fileState, props.mediaClient, props.collectionName)}
+			>
+				<FormattedMessage {...messages.download} />
+			</DownloadButton>
+		</DownloadButtonWrapper>
+	);
 };
 
 export type ToolbarDownloadButtonProps = {
-  state: FileState;
-  identifier: Identifier;
-  mediaClient: MediaClient;
+	state: FileState;
+	identifier: Identifier;
+	mediaClient: MediaClient;
 };
 
 export const ToolbarDownloadButton = (props: ToolbarDownloadButtonProps) => {
-  const { state, mediaClient, identifier } = props;
-  const downloadEvent = createDownloadButtonClickedEvent(state);
+	const { state, mediaClient, identifier } = props;
+	const downloadEvent = createDownloadButtonClickedEvent(state);
 
-  // TODO [MS-1731]: make it work for external files as well
-  if (isExternalImageIdentifier(identifier)) {
-    return null;
-  }
+	// TODO [MS-1731]: make it work for external files as well
+	if (isExternalImageIdentifier(identifier)) {
+		return null;
+	}
 
-  return (
-    <DownloadButton
-      testId="media-viewer-download-button"
-      analyticspayload={downloadEvent}
-      onClick={createItemDownloader(
-        state,
-        mediaClient,
-        identifier.collectionName,
-      )}
-      iconBefore={downloadIcon}
-    />
-  );
+	return (
+		<DownloadButton
+			testId="media-viewer-download-button"
+			analyticspayload={downloadEvent}
+			onClick={createItemDownloader(state, mediaClient, identifier.collectionName)}
+			iconBefore={downloadIcon}
+		/>
+	);
 };
 
 export const DisabledToolbarDownloadButton = (
-  <MediaButton isDisabled={true} iconBefore={downloadIcon} />
+	<MediaButton isDisabled={true} iconBefore={downloadIcon} />
 );

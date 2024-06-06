@@ -53,7 +53,6 @@ type TableTreeProps = {
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   items?: Item[] | null;
-  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
    * The value used to extend the expand or collapse button label in cases where `row` has child rows.
    * It should be a string when we pass data via the `items` property, the value should be one of the `columns` names.

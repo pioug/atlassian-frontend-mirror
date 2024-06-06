@@ -7,6 +7,18 @@
  */
 //Korean
 export default {
+  'automation-menu.empty-state.image.alt': '빈 자동화 목록 아이콘',
+  'automation-menu.empty-state.learn-more.link': '수동 트리거에 대해 자세히 알아보기',
+  'automation-menu.modal.empty.automations.admin.description':
+    '수동 트리거를 사용하여 모든 사용자 또는 지정한 사용자가 원클릭 자동화로 적용할 수 있는 선택 항목 메뉴를 채우세요.',
+  'automation-menu.modal.empty.automations.user.description': '관리자가 아직 수동 트리거 자동화를 구성하지 않았습니다.',
+  'automation-menu.modal.error.description': '로드하는 데 시간이 약간 걸리고 있습니다. 페이지를 새로 고쳐 보세요.',
+  'automation-menu.modal.error.image.alt': '오류 아이콘',
+  'automation-menu.modal.footer.automate-button': '자동화',
+  'automation-menu.modal.footer.cancel-button': '취소',
+  'automation-menu.modal.footer.get-started-button': '자동화 만들기',
+  'automation-menu.modal.footer.ok-button': '확인',
+  'automation-menu.modal.header.icon.label': '자동화 모달 헤더 아이콘',
   'fabric.linking.access_exists_description': '{hostname}에서 이 콘텐츠를 보려면 액세스 권한을 요청하세요.',
   'fabric.linking.actions': '작업',
   'fabric.linking.add_account': '계정 추가',
@@ -31,8 +43,8 @@ export default {
     '<b>{name}</b>에 자동화를 적용합니다.{br}사용 가능한 선택 항목은 Confluence 및 스페이스 관리자가 제어합니다.',
   'fabric.linking.automation-action.confluence.page.modal.title': '페이지 자동화',
   'fabric.linking.automation-action.icon.label': '자동화 아이콘',
-  'fabric.linking.automation-action.title': '자동화 실행...',
-  'fabric.linking.automation-action.tooltip': '자동화 모달 열기',
+  'fabric.linking.automation-action.title': '자동화 규칙 보기...',
+  'fabric.linking.automation-action.tooltip': '실행할 자동화 규칙을 선택합니다',
   'fabric.linking.beta': '베타',
   'fabric.linking.cancel': '취소',
   'fabric.linking.cannot_connect': '연결할 수 없습니다. 다시 시도하세요',
@@ -125,6 +137,10 @@ export default {
   'fabric.linking.priority_undefined': '정의되지 않음',
   'fabric.linking.read_time': '{context}분 읽기',
   'fabric.linking.related': '관련',
+  'fabric.linking.related_links_found_in': '찾은 위치',
+  'fabric.linking.related_links_includes_links_to': '다음에 대한 링크 포함',
+  'fabric.linking.related_links_modal_title': '최근 링크',
+  'fabric.linking.related_links_not_found': '여기에 표시할 링크를 찾지 못했습니다.',
   'fabric.linking.related_work_items_not_found': '이 링크는 다른 곳에서는 멘션되지 않았습니다.',
   'fabric.linking.request_access': '액세스 요청',
   'fabric.linking.request_access_description':

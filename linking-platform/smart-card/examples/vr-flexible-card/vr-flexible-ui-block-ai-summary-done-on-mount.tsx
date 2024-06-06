@@ -10,42 +10,36 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import { useAISummary } from '../../src/state/hooks/use-ai-summary';
 
 class MaximumResolvedCustomClient extends CardClient {
-  fetchData(url: string) {
-    return Promise.resolve(
-      getJsonLdResponse(url, JiraIssue.meta, JiraIssue.data),
-    );
-  }
+	fetchData(url: string) {
+		return Promise.resolve(getJsonLdResponse(url, JiraIssue.meta, JiraIssue.data));
+	}
 }
 
 const mockState: AISummaryState = {
-  status: 'done',
-  content: `Here's some test content to indicate a summary`,
+	status: 'done',
+	content: `Here's some test content to indicate a summary`,
 };
 const mockUseAiSummary = injectable(useAISummary, () => ({
-  summariseUrl: () => Promise.resolve(mockState),
-  state: mockState,
+	summariseUrl: () => Promise.resolve(mockState),
+	state: mockState,
 }));
 
 const dependencies = [mockUseAiSummary];
 
 export default () => (
-  <DiProvider use={dependencies}>
-    <VRTestWrapper>
-      <Provider
-        client={new MaximumResolvedCustomClient()}
-        isAdminHubAIEnabled={true}
-        product="JSM"
-      >
-        <Card
-          appearance="block"
-          url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
-          showHoverPreview={true}
-          isSelected={true}
-        >
-          <TitleBlock hideTitleTooltip={true} />
-          <SnippetBlock />
-        </Card>
-      </Provider>
-    </VRTestWrapper>
-  </DiProvider>
+	<DiProvider use={dependencies}>
+		<VRTestWrapper>
+			<Provider client={new MaximumResolvedCustomClient()} isAdminHubAIEnabled={true} product="JSM">
+				<Card
+					appearance="block"
+					url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
+					showHoverPreview={true}
+					isSelected={true}
+				>
+					<TitleBlock hideTitleTooltip={true} />
+					<SnippetBlock />
+				</Card>
+			</Provider>
+		</VRTestWrapper>
+	</DiProvider>
 );

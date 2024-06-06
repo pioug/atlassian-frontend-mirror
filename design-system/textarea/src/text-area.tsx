@@ -1,12 +1,5 @@
 /** @jsx jsx */
-import React, {
-  forwardRef,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -19,128 +12,129 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const analyticsParams = {
-  componentName: 'textArea',
-  packageName,
-  packageVersion,
+	componentName: 'textArea',
+	packageName,
+	packageVersion,
 };
 
 const setSmartHeight = (el: HTMLTextAreaElement) => {
-  // Always reset height to auto before calculating new height
-  el.style.height = 'auto';
-  const borderHeight = borderWidth;
-  const paddingBoxHeight: number = el.scrollHeight;
-  const borderBoxHeight: number = paddingBoxHeight + borderHeight * 2;
-  el.style.height = `${borderBoxHeight}px`;
+	// Always reset height to auto before calculating new height
+	el.style.height = 'auto';
+	const borderHeight = borderWidth;
+	const paddingBoxHeight: number = el.scrollHeight;
+	const borderBoxHeight: number = paddingBoxHeight + borderHeight * 2;
+	el.style.height = `${borderBoxHeight}px`;
 };
 
 const InnerTextArea = forwardRef((props: TextAreaProps, ref) => {
-  const ourRef = useRef<HTMLTextAreaElement | null>(null);
+	const ourRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const {
-    resize = 'smart',
-    appearance = 'standard',
-    isCompact = false,
-    isRequired = false,
-    isReadOnly = false,
-    isDisabled = false,
-    isInvalid = false,
-    isMonospaced = false,
-    minimumRows = 2,
-    testId,
-    maxHeight = '50vh',
-    onBlur,
-    onFocus,
-    onChange,
-    value,
-    ...rest
-  } = props;
+	const {
+		resize = 'smart',
+		appearance = 'standard',
+		isCompact = false,
+		isRequired = false,
+		isReadOnly = false,
+		isDisabled = false,
+		isInvalid = false,
+		isMonospaced = false,
+		minimumRows = 2,
+		testId,
+		maxHeight = '50vh',
+		onBlur,
+		onFocus,
+		onChange,
+		value,
+		...rest
+	} = props;
 
-  useEffect(() => {
-    const el: HTMLTextAreaElement | null = ourRef.current;
-    if (resize === 'smart' && el) {
-      setSmartHeight(el);
-    }
-  }, [resize, value]);
+	useEffect(() => {
+		const el: HTMLTextAreaElement | null = ourRef.current;
+		if (resize === 'smart' && el) {
+			setSmartHeight(el);
+		}
+	}, [resize, value]);
 
-  const onBlurWithAnalytics = usePlatformLeafEventHandler({
-    fn: (event: React.FocusEvent<HTMLTextAreaElement>) => {
-      onBlur && onBlur(event);
-    },
-    action: 'blurred',
-    ...analyticsParams,
-  });
+	const onBlurWithAnalytics = usePlatformLeafEventHandler({
+		fn: (event: React.FocusEvent<HTMLTextAreaElement>) => {
+			onBlur && onBlur(event);
+		},
+		action: 'blurred',
+		...analyticsParams,
+	});
 
-  const onFocusWithAnalytics = usePlatformLeafEventHandler({
-    fn: (event: React.FocusEvent<HTMLTextAreaElement>) => {
-      onFocus && onFocus(event);
-    },
-    action: 'focused',
-    ...analyticsParams,
-  });
+	const onFocusWithAnalytics = usePlatformLeafEventHandler({
+		fn: (event: React.FocusEvent<HTMLTextAreaElement>) => {
+			onFocus && onFocus(event);
+		},
+		action: 'focused',
+		...analyticsParams,
+	});
 
-  const getTextAreaRef = (elementRef: HTMLTextAreaElement | null) => {
-    ourRef.current = elementRef;
-    if (ref && typeof ref === 'object') {
-      // @ts-ignore
-      ref.current = elementRef;
-    }
-    if (ref && typeof ref === 'function') {
-      ref(elementRef);
-    }
-  };
+	const getTextAreaRef = (elementRef: HTMLTextAreaElement | null) => {
+		ourRef.current = elementRef;
+		if (ref && typeof ref === 'object') {
+			// @ts-ignore
+			ref.current = elementRef;
+		}
+		if (ref && typeof ref === 'function') {
+			ref(elementRef);
+		}
+	};
 
-  const handleOnChange: React.ChangeEventHandler<HTMLTextAreaElement> =
-    useCallback(
-      (e) => {
-        const el: HTMLTextAreaElement | null = ourRef.current;
-        if (resize === 'smart' && el) {
-          setSmartHeight(el);
-        }
-        onChange && onChange(e);
-      },
-      [onChange, resize],
-    );
+	const handleOnChange: React.ChangeEventHandler<HTMLTextAreaElement> = useCallback(
+		(e) => {
+			const el: HTMLTextAreaElement | null = ourRef.current;
+			if (resize === 'smart' && el) {
+				setSmartHeight(el);
+			}
+			onChange && onChange(e);
+		},
+		[onChange, resize],
+	);
 
-  const controlProps = {
-    'data-invalid': isInvalid ? isInvalid : undefined,
-    'data-compact': isCompact ? isCompact : undefined,
-    'data-testid': testId ? testId : undefined,
-  };
+	const controlProps = {
+		'data-invalid': isInvalid ? isInvalid : undefined,
+		'data-compact': isCompact ? isCompact : undefined,
+		'data-testid': testId ? testId : undefined,
+	};
 
-  const baseStyles = useMemo(
-    () =>
-      getBaseStyles({
-        minimumRows,
-        resize,
-        appearance,
-        isMonospaced,
-        maxHeight,
-      }),
-    [minimumRows, resize, appearance, isMonospaced, maxHeight],
-  );
+	const baseStyles = useMemo(
+		() =>
+			getBaseStyles({
+				minimumRows,
+				resize,
+				appearance,
+				isMonospaced,
+				maxHeight,
+			}),
+		[minimumRows, resize, appearance, isMonospaced, maxHeight],
+	);
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments -- Ignored via go/DSP-18766
-  const textAreaStyles = css([baseStyles, dynamicStyles(appearance)]);
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments -- Ignored via go/DSP-18766
+	const textAreaStyles = css([baseStyles, dynamicStyles(appearance)]);
 
-  return (
-    <textarea
-      {...controlProps}
-      value={value}
-      disabled={isDisabled}
-      readOnly={isReadOnly}
-      required={isRequired}
-      ref={getTextAreaRef}
-      onChange={handleOnChange}
-      onBlur={onBlurWithAnalytics}
-      onFocus={onFocusWithAnalytics}
-      rows={minimumRows}
-      // TODO refactor to follow emotion styling rules
-      // see: https://product-fabric.atlassian.net/browse/DSP-6060
-      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-      css={textAreaStyles}
-      {...rest}
-    />
-  );
+	return (
+		<textarea
+			{...controlProps}
+			value={value}
+			disabled={isDisabled}
+			readOnly={isReadOnly}
+			required={isRequired}
+			ref={getTextAreaRef}
+			onChange={handleOnChange}
+			onBlur={onBlurWithAnalytics}
+			onFocus={onFocusWithAnalytics}
+			rows={minimumRows}
+			// TODO refactor to follow emotion styling rules
+			// see: https://product-fabric.atlassian.net/browse/DSP-6060
+			// @ts-ignore - This was added when `@atlaskit/textarea` was enrolled into JFE local consumption
+			// There seems to be an incompatibility in the `css` prop between jira and platform
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			css={textAreaStyles}
+			{...rest}
+		/>
+	);
 });
 
 /**
@@ -153,12 +147,14 @@ const InnerTextArea = forwardRef((props: TextAreaProps, ref) => {
  * - [Usage](https://atlassian.design/components/textarea/usage)
  */
 const TextArea = memo(
-  forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
-    props: TextAreaProps,
-    ref: React.Ref<HTMLTextAreaElement>,
-  ) {
-    return <InnerTextArea ref={ref} {...props} />;
-  }),
+	forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
+		props: TextAreaProps,
+		ref: React.Ref<HTMLTextAreaElement>,
+	) {
+		// @ts-ignore - This was added when `@atlaskit/textarea` was enrolled into JFE local consumption
+		// There seems to be an incompatibility in the `css` prop between jira and platform
+		return <InnerTextArea ref={ref} {...props} />;
+	}),
 );
 
 TextArea.displayName = 'TextArea';

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugins
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.0
+
+### Major Changes
+
+- [#106543](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106543)
+  [`2141b277161c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2141b277161c) -
+  Removed `PrependToolbarButtons` and `AddToolbarItems` types.
+
+### Patch Changes
+
+- [#105253](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105253)
+  [`a5f3cd26fbd6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a5f3cd26fbd6) -
+  Clean up platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g FF
+- Updated dependencies
+
 ## 2.7.21
 
 ### Patch Changes

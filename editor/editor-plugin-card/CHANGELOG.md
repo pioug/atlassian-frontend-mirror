@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-card
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.0
+
+### Major Changes
+
+- [#106543](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106543)
+  [`2141b277161c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2141b277161c) -
+  Added API actions to retrieve toolbar items and removed `mountHyperlink` used to inject behavior
+  into hyperlink.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.15.1
 
 ### Patch Changes

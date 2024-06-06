@@ -9,35 +9,35 @@ import { smallImage, wideImage } from '@atlaskit/media-test-helpers';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const context = getContext({
-  preview: { type: MediaType.Image, url: smallImage },
+	preview: { type: MediaType.Image, url: smallImage },
 });
 
 const containerStyles = css({
-  margin: '1rem 0',
-  width: '300px',
+	margin: '1rem 0',
+	width: '300px',
 });
 const overrideCss = css({
-  backgroundColor: exampleTokens.overrideColor,
-  borderRadius: '0.5rem',
-  '> img': {
-    objectFit: 'contain',
-  },
+	backgroundColor: exampleTokens.overrideColor,
+	borderRadius: '0.5rem',
+	'> img': {
+		objectFit: 'contain',
+	},
 });
 
 export default () => (
-  <VRTestWrapper>
-    <FlexibleUiContext.Provider value={context}>
-      <h5>Media type: Image</h5>
-      <div css={containerStyles}>
-        <Preview testId="vr-test-media" />
-      </div>
-      <div css={containerStyles}>
-        <Preview overrideUrl={wideImage} />
-      </div>
-      <h5>Override CSS</h5>
-      <div css={containerStyles}>
-        <Preview overrideCss={overrideCss} />
-      </div>
-    </FlexibleUiContext.Provider>
-  </VRTestWrapper>
+	<VRTestWrapper>
+		<FlexibleUiContext.Provider value={context}>
+			<h5>Media type: Image</h5>
+			<div css={containerStyles}>
+				<Preview testId="vr-test-media" />
+			</div>
+			<div css={containerStyles}>
+				<Preview overrideUrl={wideImage} />
+			</div>
+			<h5>Override CSS</h5>
+			<div css={containerStyles}>
+				<Preview overrideCss={overrideCss} />
+			</div>
+		</FlexibleUiContext.Provider>
+	</VRTestWrapper>
 );

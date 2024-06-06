@@ -1,12 +1,54 @@
-/**
- * __Section__
- *
- * A dropdown item group includes all the actions or items in a dropdown menu.
- *
- * - [Examples](https://atlassian.design/components/dropdown-menu/dropdown-item-group/examples)
- * - [Code](https://atlassian.design/components/dropdown-menu/dropdown-item-group/code)
- * - [Usage](https://atlassian.design/components/dropdown-menu/dropdown-item-group/usage)
- */
-import Section from '@atlaskit/menu/section';
+import React, { forwardRef } from 'react';
 
-export default Section;
+import { useUID } from 'react-uid';
+
+import { Section, type SectionProps } from '@atlaskit/menu';
+
+import GroupTitle from './internal/components/group-title';
+
+/**
+ * __Dropdown item checkbox group__
+ *
+ * A wrapping element for dropdown menu items.
+ *
+ */
+const DropdownMenuItemGroup = forwardRef<HTMLElement, SectionProps>(
+	(
+		{
+			children,
+			id,
+			isList,
+			isScrollable,
+			title,
+			testId,
+			hasSeparator,
+			overrides,
+			...rest
+		}: SectionProps,
+		ref,
+	) => {
+		const uid = useUID();
+		const titleId = `dropdown-menu-item-group-title-${uid}`;
+
+		return (
+			<Section
+				id={id}
+				ref={ref}
+				isList={isList}
+				isScrollable={isScrollable}
+				hasSeparator={hasSeparator}
+				testId={testId}
+				titleId={title ? titleId : undefined}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
+				overrides={overrides}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
+			>
+				{title && <GroupTitle id={titleId} title={title} />}
+				{children}
+			</Section>
+		);
+	},
+);
+
+export default DropdownMenuItemGroup;

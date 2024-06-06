@@ -5,20 +5,20 @@ import { mockConfluenceResponse } from '../../src/view/HoverCard/__tests__/__moc
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomClient extends Client {
-  fetchData(url: string) {
-    return Promise.resolve(mockConfluenceResponse as ResolveResponse);
-  }
+	fetchData(url: string) {
+		return Promise.resolve(mockConfluenceResponse as ResolveResponse);
+	}
 }
 
 export default () => (
-  <VRTestWrapper>
-    <Provider
-      client={new CustomClient('staging')}
-      featureFlags={{ enableImprovedPreviewAction: true }}
-    >
-      <HoverCardComponent url="https://www.mockurl.com" noFadeDelay={true}>
-        <button>Hover over me!</button>
-      </HoverCardComponent>
-    </Provider>
-  </VRTestWrapper>
+	<VRTestWrapper>
+		<Provider
+			client={new CustomClient('staging')}
+			featureFlags={{ enableImprovedPreviewAction: true }}
+		>
+			<HoverCardComponent url="https://www.mockurl.com" noFadeDelay={true}>
+				<button>Hover over me!</button>
+			</HoverCardComponent>
+		</Provider>
+	</VRTestWrapper>
 );

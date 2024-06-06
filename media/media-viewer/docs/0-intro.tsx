@@ -10,11 +10,11 @@ ${(<AtlassianInternalWarning />)}
 MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate
 
   ${(
-    <DocsContentTabs
-      tabs={[
-        { name: 'Usage', content: example },
-        { name: 'Props', content: props },
-      ]}
-    />
-  )}
+		<DocsContentTabs
+			tabs={[
+				{ name: 'Usage', content: example },
+				{ name: 'Props', content: props },
+			]}
+		/>
+	)}
   `;

@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  AtlassianInternalWarning,
-  code,
-  Example,
-  md,
-  Props,
-} from '@atlaskit/docs';
+import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -19,18 +13,18 @@ export default md`
   ${code`import MobileHeader from '@atlaskit/mobile-header';`}
 
   ${(
-    <Example
-      packageName="@atlaskit/mobile-header"
-      Component={require('../examples/01-basic').default}
-      title="Basic"
-      source={require('!!raw-loader!../examples/01-basic')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/mobile-header"
+			Component={require('../examples/01-basic').default}
+			title="Basic"
+			source={require('!!raw-loader!../examples/01-basic')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Mobile Header Props"
-      props={require('!!extract-react-types-loader!../src/components/MobileHeader')}
-    />
-  )}
+		<Props
+			heading="Mobile Header Props"
+			props={require('!!extract-react-types-loader!../src/components/MobileHeader')}
+		/>
+	)}
 `;

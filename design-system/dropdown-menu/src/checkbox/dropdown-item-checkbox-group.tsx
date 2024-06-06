@@ -1,8 +1,11 @@
 import React from 'react';
 
+import { useUID } from 'react-uid';
+
 import type { SectionProps } from '@atlaskit/menu';
 import Section from '@atlaskit/menu/section';
 
+import GroupTitle from '../internal/components/group-title';
 import { CheckboxGroupContext } from '../internal/context/checkbox-group-context';
 
 interface DropdownItemCheckboxGroupProps extends SectionProps {
@@ -30,6 +33,9 @@ const DropdownItemCheckboxGroup = ({
   // DSP-13312 TODO: remove spread props in future major release
   ...rest
 }: DropdownItemCheckboxGroupProps) => {
+  const uid = useUID();
+  const titleId = `dropdown-menu-item-checkbox-group-title-${uid}`;
+
   return (
     <CheckboxGroupContext.Provider value={id}>
       <Section
@@ -40,10 +46,13 @@ const DropdownItemCheckboxGroup = ({
         // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         overrides={overrides}
         testId={testId}
-        title={title}
+        titleId={title ? titleId : undefined}
         // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...rest}
       >
+        {title && (
+          <GroupTitle id={titleId} title={title} />
+        )}
         {children}
       </Section>
     </CheckboxGroupContext.Provider>

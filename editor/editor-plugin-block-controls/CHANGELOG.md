@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.10
+
+### Patch Changes
+
+- [#105071](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105071)
+  [`e70e9b713e1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e70e9b713e1e) -
+  ED23246 - Refactor decorations to render wrapper around each node to track mouseenter events and
+  show drag handle when active node is set
+
+## 1.4.9
+
+### Patch Changes
+
+- [#106586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106586)
+  [`861ecd061c72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/861ecd061c72) -
+  Increase the editor page guttering for full page appearance to support block drag and drop
+- [#107579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107579)
+  [`4953d4a32c98`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4953d4a32c98) -
+  [ux] Expand blocks drop target to full doc width
+- Updated dependencies
+
 ## 1.4.8
 
 ### Patch Changes

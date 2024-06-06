@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { DevTools } from '@af/editor-examples-helpers';
+import { DevTools } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { backgroundColorPlugin } from '@atlaskit/editor-plugins/background-color';

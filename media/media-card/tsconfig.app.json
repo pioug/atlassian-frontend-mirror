@@ -64,6 +64,9 @@
 			"path": "../media-state/tsconfig.app.json"
 		},
 		{
+			"path": "../media-svg/tsconfig.app.json"
+		},
+		{
 			"path": "../media-ui/tsconfig.app.json"
 		},
 		{

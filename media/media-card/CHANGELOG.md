@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 77.12.0
+
+### Minor Changes
+
+- [#105003](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105003)
+  [`bfeca76e5015`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfeca76e5015) -
+  [ux] Added support for native SVG rendering (currently behind a feature flag)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 77.11.3
 
 ### Patch Changes

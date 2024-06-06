@@ -14,22 +14,22 @@ Within your React component, you can import the component from the package and t
 import { ViewPage } from '@atlaskit/embedded-confluence';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-const MyComponent = props => {
-  //Get the themeState Object from useThemeObserver or you can create your own Object for 3rd party products
-  const themeState = useThemeObserver();
-  //For the latest list of supported fields in `themeState` Object please visit the design systems documentation : https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
-  return (
-    <ArticleWrapper>
-      <ViewPage
-        contentId={'1234'}
-        locale={'en-US'}
-        hostname={'acmeexample.atlassian.net'}
-        parentProduct={'PRODUCT'}
-        spaceKey={'ABC'}
-        themeState={themeState}
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	//Get the themeState Object from useThemeObserver or you can create your own Object for 3rd party products
+	const themeState = useThemeObserver();
+	//For the latest list of supported fields in `themeState` Object please visit the design systems documentation : https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
+	return (
+		<ArticleWrapper>
+			<ViewPage
+				contentId={'1234'}
+				locale={'en-US'}
+				hostname={'acmeexample.atlassian.net'}
+				parentProduct={'PRODUCT'}
+				spaceKey={'ABC'}
+				themeState={themeState}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
@@ -63,22 +63,22 @@ Within your React component, you can import the component from the package and t
 import { EditPage } from '@atlaskit/embedded-confluence';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-const MyComponent = props => {
-  //Get the themeState Object from useThemeObserver or you can create your own Object for 3rd party products
-  const themeState = useThemeObserver();
-  // For the latest list of supported fields in `themeState` Object please visit the design systems documentation : https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
-  return (
-    <ArticleWrapper>
-      <EditPage
-        contentId={'1234'}
-        locale={'en-US'}
-        hostname={'acmeexample.atlassian.net'}
-        parentProduct={'PRODUCT'}
-        spaceKey={'ABC'}
-        themeState={themeState}
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	//Get the themeState Object from useThemeObserver or you can create your own Object for 3rd party products
+	const themeState = useThemeObserver();
+	// For the latest list of supported fields in `themeState` Object please visit the design systems documentation : https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
+	return (
+		<ArticleWrapper>
+			<EditPage
+				contentId={'1234'}
+				locale={'en-US'}
+				hostname={'acmeexample.atlassian.net'}
+				parentProduct={'PRODUCT'}
+				spaceKey={'ABC'}
+				themeState={themeState}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
@@ -97,8 +97,13 @@ const MyComponent = props => {
 
 ### Note
 
-- To handle navigation when user click on the "Close" button, please subscribe to experience tracker event: `"taskSuccess"` of `"edit-page/close"` experience. Please refer to Experience Tracker section for more details.
-- To handle navigation when publish is successful after user click on the "Publish" button, please subscribe to experience tracker event: `"taskSuccess"` of `"edit-page/publish"` experience. For failed publish, you can subscribe to `"taskFail"` of the `"edit-page/publish"` experience. Please refer to Experience Tracker section for more details.
+- To handle navigation when user click on the "Close" button, please subscribe to experience tracker
+  event: `"taskSuccess"` of `"edit-page/close"` experience. Please refer to Experience Tracker
+  section for more details.
+- To handle navigation when publish is successful after user click on the "Publish" button, please
+  subscribe to experience tracker event: `"taskSuccess"` of `"edit-page/publish"` experience. For
+  failed publish, you can subscribe to `"taskFail"` of the `"edit-page/publish"` experience. Please
+  refer to Experience Tracker section for more details.
 
 ## Page
 
@@ -106,19 +111,30 @@ const MyComponent = props => {
 
 Within your React component, you can import the component from the package and then compose it.
 
-Unlike `ViewPage`, the `Page` component renders the `ViewPage` component that can then be switched between `View` and `Edit` components. `url:string` is a highly recommended property to be passed in. `Page` parses this URL and extracts properties including protocol, hostname, content id, space key, parent product. If any of those URL-parsed properties are also explicitly passed in, then those passed-in properties will take priority over URL-parsed properties. The URL does not have to include a protocol or domain. Protocol by default will be "https:" and domain will be default be the same as `window.location`.
+Unlike `ViewPage`, the `Page` component renders the `ViewPage` component that can then be switched
+between `View` and `Edit` components. `url:string` is a highly recommended property to be passed in.
+`Page` parses this URL and extracts properties including protocol, hostname, content id, space key,
+parent product. If any of those URL-parsed properties are also explicitly passed in, then those
+passed-in properties will take priority over URL-parsed properties. The URL does not have to include
+a protocol or domain. Protocol by default will be "https:" and domain will be default be the same as
+`window.location`.
 
-`Page` matches this URL against a predicate of routes that embedded Confluence will support. Currently we support the following routes:
+`Page` matches this URL against a predicate of routes that embedded Confluence will support.
+Currently we support the following routes:
 
 - View Page: `/wiki/spaces/:spaceKey/pages/:contentId(\\d+)/:contentSlug?`
 - View Blog: `/wiki/spaces/:spaceKey/blog/:contentId(\\d+)/:contentSlug?`
-- View Blog Date Legacy: `/wiki/spaces/:spaceKey/blog/:year(\\d+)/:month(\\d+)/:day(\\d+)/:contentId(\\d+)/:contentSlug?`
+- View Blog Date Legacy:
+  `/wiki/spaces/:spaceKey/blog/:year(\\d+)/:month(\\d+)/:day(\\d+)/:contentId(\\d+)/:contentSlug?`
 
-If an unsupported URL is passed in, you should be able to see the corresponding error message in the console and `Page` will not render anything.
+If an unsupported URL is passed in, you should be able to see the corresponding error message in the
+console and `Page` will not render anything.
 
 #### Note
 
-In case of the unpublished draft page, `Page` component can't display a `ViewPage` because the actual page for `View` doesn't exist. For this case, Parent Product should use the `EditPage` component instead.
+In case of the unpublished draft page, `Page` component can't display a `ViewPage` because the
+actual page for `View` doesn't exist. For this case, Parent Product should use the `EditPage`
+component instead.
 
 ```jsx
 // Given a confluence page located at:
@@ -127,16 +143,14 @@ In case of the unpublished draft page, `Page` component can't display a `ViewPag
 
 import { Page } from '@atlaskit/embedded-confluence';
 
-const MyComponent = props => {
-  return (
-    <ArticleWrapper>
-      <Page
-        url={
-          'https://acmeexample.atlassian.net/wiki/spaces/ABC/pages/123?parentProduct=PRODUCT'
-        }
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	return (
+		<ArticleWrapper>
+			<Page
+				url={'https://acmeexample.atlassian.net/wiki/spaces/ABC/pages/123?parentProduct=PRODUCT'}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
@@ -158,7 +172,9 @@ const MyComponent = props => {
 | `themeState`                      | Object                                                                                                                    | **(Optional)** an optional prop that can be provided to the Embedded components to ensure that they apply the same theme preference as their parent product. For the latest list of supported fields in `themeState` Object please visit the design systems documentation [here](https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader). If no `themeState` is provided, the Embedded component will display with it's original styles. |
 | `url`                             | string                                                                                                                    | **(Optional)** If provided, `contentId`, `spaceKey`, `parentProduct`, `hostname`, `protocol`, `draftShareId` and queries will be parsed from the URL. If those properties are provided along with `url`, then those properties takes priority over parsed properties from the `url`                                                                                                                                                                                    |
 
-\*\* Even though all properties are optional, the required properties for `Page` to render an embedded Confluence page are `contentId`, `spaceKey`, and `parentProduct`. They can be passed in either explicitly or via URL.
+\*\* Even though all properties are optional, the required properties for `Page` to render an
+embedded Confluence page are `contentId`, `spaceKey`, and `parentProduct`. They can be passed in
+either explicitly or via URL.
 
 # Components
 
@@ -176,21 +192,21 @@ Within your React component, you can import the component from the package and t
 import { ViewPage } from '@atlaskit/embedded-confluence';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-const MyComponent = props => {
-  //Get the themeState Object from useThemeObserver or you can create your own Object for 3rd party products
-  const themeState = useThemeObserver(); // For the latest list of supported fields in `themeState` Object please visit the design systems documentation : https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
-  return (
-    <ArticleWrapper>
-      <ViewPage
-        contentId={'1234'}
-        locale={'en-US'}
-        hostname={'acmeexample.atlassian.net'}
-        parentProduct={'PRODUCT'}
-        spaceKey={'ABC'}
-        themeState={themeState}
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	//Get the themeState Object from useThemeObserver or you can create your own Object for 3rd party products
+	const themeState = useThemeObserver(); // For the latest list of supported fields in `themeState` Object please visit the design systems documentation : https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
+	return (
+		<ArticleWrapper>
+			<ViewPage
+				contentId={'1234'}
+				locale={'en-US'}
+				hostname={'acmeexample.atlassian.net'}
+				parentProduct={'PRODUCT'}
+				spaceKey={'ABC'}
+				themeState={themeState}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
@@ -224,22 +240,22 @@ Within your React component, you can import the component from the package and t
 import { EditPage } from '@atlaskit/embedded-confluence';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-const MyComponent = props => {
-  //Get the themeState Object from useThemeObserver or you can create your own Object for 3rd party products
-  const themeState = useThemeObserver();
-  // For the latest list of supported fields in `themeState` Object please visit the design systems documentation : https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
-  return (
-    <ArticleWrapper>
-      <EditPage
-        contentId={'1234'}
-        locale={'en-US'}
-        hostname={'acmeexample.atlassian.net'}
-        parentProduct={'PRODUCT'}
-        spaceKey={'ABC'}
-        themeState={themeState}
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	//Get the themeState Object from useThemeObserver or you can create your own Object for 3rd party products
+	const themeState = useThemeObserver();
+	// For the latest list of supported fields in `themeState` Object please visit the design systems documentation : https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
+	return (
+		<ArticleWrapper>
+			<EditPage
+				contentId={'1234'}
+				locale={'en-US'}
+				hostname={'acmeexample.atlassian.net'}
+				parentProduct={'PRODUCT'}
+				spaceKey={'ABC'}
+				themeState={themeState}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
@@ -258,8 +274,13 @@ const MyComponent = props => {
 
 ### Note
 
-- To handle navigation when user click on the "Close" button, please subscribe to experience tracker event: `"taskSuccess"` of `"edit-page/close"` experience. Please refer to Experience Tracker section for more details.
-- To handle navigation when publish is successful after user click on the "Publish" button, please subscribe to experience tracker event: `"taskSuccess"` of `"edit-page/publish"` experience. For failed publish, you can subscribe to `"taskFail"` of the `"edit-page/publish"` experience. Please refer to Experience Tracker section for more details.
+- To handle navigation when user click on the "Close" button, please subscribe to experience tracker
+  event: `"taskSuccess"` of `"edit-page/close"` experience. Please refer to Experience Tracker
+  section for more details.
+- To handle navigation when publish is successful after user click on the "Publish" button, please
+  subscribe to experience tracker event: `"taskSuccess"` of `"edit-page/publish"` experience. For
+  failed publish, you can subscribe to `"taskFail"` of the `"edit-page/publish"` experience. Please
+  refer to Experience Tracker section for more details.
 
 ## Page
 
@@ -267,19 +288,30 @@ const MyComponent = props => {
 
 Within your React component, you can import the component from the package and then compose it.
 
-Unlike `ViewPage`, the `Page` component renders the `ViewPage` component that can then be switched between `View` and `Edit` components. `url:string` is a highly recommended property to be passed in. `Page` parses this URL and extracts properties including protocol, hostname, content id, space key, parent product. If any of those URL-parsed properties are also explicitly passed in, then those passed-in properties will take priority over URL-parsed properties. The URL does not have to include a protocol or domain. Protocol by default will be "https:" and domain will be default be the same as `window.location`.
+Unlike `ViewPage`, the `Page` component renders the `ViewPage` component that can then be switched
+between `View` and `Edit` components. `url:string` is a highly recommended property to be passed in.
+`Page` parses this URL and extracts properties including protocol, hostname, content id, space key,
+parent product. If any of those URL-parsed properties are also explicitly passed in, then those
+passed-in properties will take priority over URL-parsed properties. The URL does not have to include
+a protocol or domain. Protocol by default will be "https:" and domain will be default be the same as
+`window.location`.
 
-`Page` matches this URL against a predicate of routes that embedded Confluence will support. Currently we support the following routes:
+`Page` matches this URL against a predicate of routes that embedded Confluence will support.
+Currently we support the following routes:
 
 - View Page: `/wiki/spaces/:spaceKey/pages/:contentId(\\d+)/:contentSlug?`
 - View Blog: `/wiki/spaces/:spaceKey/blog/:contentId(\\d+)/:contentSlug?`
-- View Blog Date Legacy: `/wiki/spaces/:spaceKey/blog/:year(\\d+)/:month(\\d+)/:day(\\d+)/:contentId(\\d+)/:contentSlug?`
+- View Blog Date Legacy:
+  `/wiki/spaces/:spaceKey/blog/:year(\\d+)/:month(\\d+)/:day(\\d+)/:contentId(\\d+)/:contentSlug?`
 
-If an unsupported URL is passed in, you should be able to see the corresponding error message in the console and `Page` will not render anything.
+If an unsupported URL is passed in, you should be able to see the corresponding error message in the
+console and `Page` will not render anything.
 
 #### Note
 
-In case of the unpublished draft page, `Page` component can't display a `ViewPage` because the actual page for `View` doesn't exist. For this case, Parent Product should use the `EditPage` component instead.
+In case of the unpublished draft page, `Page` component can't display a `ViewPage` because the
+actual page for `View` doesn't exist. For this case, Parent Product should use the `EditPage`
+component instead.
 
 ```jsx
 // Given a confluence page located at:
@@ -288,16 +320,14 @@ In case of the unpublished draft page, `Page` component can't display a `ViewPag
 
 import { Page } from '@atlaskit/embedded-confluence';
 
-const MyComponent = props => {
-  return (
-    <ArticleWrapper>
-      <Page
-        url={
-          'https://acmeexample.atlassian.net/wiki/spaces/ABC/pages/123?parentProduct=PRODUCT'
-        }
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	return (
+		<ArticleWrapper>
+			<Page
+				url={'https://acmeexample.atlassian.net/wiki/spaces/ABC/pages/123?parentProduct=PRODUCT'}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
@@ -319,4 +349,6 @@ const MyComponent = props => {
 | `themeState`                      | Object                                                                                                                    | **(Optional)** an optional prop that can be provided to the Embedded components to ensure that they apply the same theme preference as their parent product. For the latest list of supported fields in `themeState` Object please visit the design systems documentation [here](https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader). If no `themeState` is provided, the Embedded component will display with it's original styles. |
 | `url`                             | string                                                                                                                    | **(Optional)** If provided, `contentId`, `spaceKey`, `parentProduct`, `hostname`, `protocol`, `draftShareId` and queries will be parsed from the URL. If those properties are provided along with `url`, then those properties takes priority over parsed properties from the `url`                                                                                                                                                                                    |
 
-\*\* Even though all properties are optional, the required properties for `Page` to render an embedded Confluence page are `contentId`, `spaceKey`, and `parentProduct`. They can be passed in either explicitly or via URL.
+\*\* Even though all properties are optional, the required properties for `Page` to render an
+embedded Confluence page are `contentId`, `spaceKey`, and `parentProduct`. They can be passed in
+either explicitly or via URL.

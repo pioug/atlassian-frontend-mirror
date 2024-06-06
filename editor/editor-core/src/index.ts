@@ -99,3 +99,5 @@ const ignoreFunction = () => {
 	getBooleanFF('__live-view-toggle');
 	return;
 };
+
+export { createEditorContentStyle } from './ui/ContentStyles';

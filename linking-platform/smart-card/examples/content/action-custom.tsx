@@ -6,37 +6,37 @@ import { ActionName, FooterBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 const styles = css({
-  '[data-smart-element-badge]': {
-    opacity: 0.2,
-  },
+	'[data-smart-element-badge]': {
+		opacity: 0.2,
+	},
 });
 
 export default () => (
-  <ExampleContainer>
-    <FooterBlock
-      actions={[
-        {
-          name: ActionName.CustomAction,
-          icon: <DownloadIcon label="download" />,
-          content: 'Download',
-          onClick: () => {},
-        },
-        {
-          name: ActionName.CustomAction,
-          icon: <PremiumIcon label="magic" />,
-          content: 'Magic!',
-          onClick: () => {},
-        },
-        {
-          name: ActionName.CustomAction,
-          icon: <PremiumIcon label="magic" />,
-          content:
-            'This is an example of a custom action with hidden content. Note how the content still appears in the tooltip.',
-          hideContent: true,
-          onClick: () => {},
-        },
-      ]}
-      overrideCss={styles}
-    />
-  </ExampleContainer>
+	<ExampleContainer>
+		<FooterBlock
+			actions={[
+				{
+					name: ActionName.CustomAction,
+					icon: <DownloadIcon label="download" />,
+					content: 'Download',
+					onClick: () => {},
+				},
+				{
+					name: ActionName.CustomAction,
+					icon: <PremiumIcon label="magic" />,
+					content: 'Magic!',
+					onClick: () => {},
+				},
+				{
+					name: ActionName.CustomAction,
+					icon: <PremiumIcon label="magic" />,
+					content:
+						'This is an example of a custom action with hidden content. Note how the content still appears in the tooltip.',
+					hideContent: true,
+					onClick: () => {},
+				},
+			]}
+			overrideCss={styles}
+		/>
+	</ExampleContainer>
 );

@@ -1,17 +1,17 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import {
-  type MediaClient,
-  type FileState,
-  type ProcessedFileState,
-  type UploadingFileState,
-  type ProcessingFileState,
-  type Identifier,
-  isExternalImageIdentifier,
-  isFileIdentifier,
-  type ExternalImageIdentifier,
-  type MediaSubscription,
-  type ProcessingFailedState,
+	type MediaClient,
+	type FileState,
+	type ProcessedFileState,
+	type UploadingFileState,
+	type ProcessingFileState,
+	type Identifier,
+	isExternalImageIdentifier,
+	isFileIdentifier,
+	type ExternalImageIdentifier,
+	type MediaSubscription,
+	type ProcessingFailedState,
 } from '@atlaskit/media-client';
 import { FormattedMessage } from 'react-intl-next';
 import { messages, type WithShowControlMethodProp } from '@atlaskit/media-ui';
@@ -22,19 +22,16 @@ import deepEqual from 'deep-equal';
 import ErrorMessage from './errorMessage';
 import { MediaViewerError } from './errors';
 import { ErrorViewDownloadButton } from './download';
-import {
-  withAnalyticsEvents,
-  type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { createCommencedEvent } from './analytics/events/operational/commenced';
 import { createLoadSucceededEvent } from './analytics/events/operational/loadSucceeded';
 import { fireAnalytics, getFileAttributes } from './analytics';
 import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
 import {
-  getRandomHex,
-  type MediaFeatureFlags,
-  type MediaTraceContext,
+	getRandomHex,
+	type MediaFeatureFlags,
+	type MediaTraceContext,
 } from '@atlaskit/media-common';
 import type { ImageViewerProps } from './viewers/image';
 import type { Props as VideoViewerProps } from './viewers/video';
@@ -42,417 +39,381 @@ import type { Props as AudioViewerProps } from './viewers/audio';
 import type { Props as DocViewerProps } from './viewers/doc';
 import type { Props as CodeViewerProps } from './viewers/codeViewer';
 import {
-  startMediaFileUfoExperience,
-  succeedMediaFileUfoExperience,
+	startMediaFileUfoExperience,
+	succeedMediaFileUfoExperience,
 } from './analytics/ufoExperiences';
 import { type FileStateFlags } from './components/types';
 
 const ImageViewer = Loadable({
-  loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
-    import('./viewers/image').then((mod) => mod.ImageViewer),
-  loading: () => <Spinner />,
+	loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
+		import('./viewers/image').then((mod) => mod.ImageViewer),
+	loading: () => <Spinner />,
 });
 const VideoViewer = Loadable({
-  loader: (): Promise<React.ComponentType<VideoViewerProps>> =>
-    import('./viewers/video').then((mod) => mod.VideoViewer),
-  loading: () => <Spinner />,
+	loader: (): Promise<React.ComponentType<VideoViewerProps>> =>
+		import('./viewers/video').then((mod) => mod.VideoViewer),
+	loading: () => <Spinner />,
 });
 const AudioViewer = Loadable({
-  loader: (): Promise<React.ComponentType<AudioViewerProps>> =>
-    import('./viewers/audio').then((mod) => mod.AudioViewer),
-  loading: () => <Spinner />,
+	loader: (): Promise<React.ComponentType<AudioViewerProps>> =>
+		import('./viewers/audio').then((mod) => mod.AudioViewer),
+	loading: () => <Spinner />,
 });
 const DocViewer = Loadable({
-  loader: (): Promise<React.ComponentType<DocViewerProps>> =>
-    import('./viewers/doc').then((mod) => mod.DocViewer),
-  loading: () => <Spinner />,
+	loader: (): Promise<React.ComponentType<DocViewerProps>> =>
+		import('./viewers/doc').then((mod) => mod.DocViewer),
+	loading: () => <Spinner />,
 });
 const CodeViewer = Loadable({
-  loader: (): Promise<React.ComponentType<CodeViewerProps>> =>
-    import('./viewers/codeViewer').then((mod) => mod.CodeViewer),
-  loading: () => <Spinner />,
+	loader: (): Promise<React.ComponentType<CodeViewerProps>> =>
+		import('./viewers/codeViewer').then((mod) => mod.CodeViewer),
+	loading: () => <Spinner />,
 });
 
 export type Props = Readonly<{
-  identifier: Identifier;
-  mediaClient: MediaClient;
-  onClose?: () => void;
-  previewCount: number;
-  contextId?: string;
-  featureFlags?: MediaFeatureFlags;
+	identifier: Identifier;
+	mediaClient: MediaClient;
+	onClose?: () => void;
+	previewCount: number;
+	contextId?: string;
+	featureFlags?: MediaFeatureFlags;
 }> &
-  WithAnalyticsEventsProps &
-  WithShowControlMethodProp;
+	WithAnalyticsEventsProps &
+	WithShowControlMethodProp;
 
 export type FileItem = FileState | 'external-image';
 
-export const isExternalImageItem = (
-  fileItem: FileItem,
-): fileItem is 'external-image' => fileItem === 'external-image';
+export const isExternalImageItem = (fileItem: FileItem): fileItem is 'external-image' =>
+	fileItem === 'external-image';
 
 export const isFileStateItem = (fileItem: FileItem): fileItem is FileState =>
-  !isExternalImageItem(fileItem);
+	!isExternalImageItem(fileItem);
 
 export type State = {
-  item: Outcome<FileItem, MediaViewerError>;
+	item: Outcome<FileItem, MediaViewerError>;
 };
 
 const initialState: State = {
-  item: Outcome.pending(),
+	item: Outcome.pending(),
 };
 
 export const MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER = 10 * 1024 * 1024;
 
 export class ItemViewerBase extends React.Component<Props, State> {
-  state: State = initialState;
+	state: State = initialState;
 
-  private subscription?: MediaSubscription;
-  private fileStateFlags: FileStateFlags = {
-    wasStatusUploading: false,
-    wasStatusProcessing: false,
-  };
+	private subscription?: MediaSubscription;
+	private fileStateFlags: FileStateFlags = {
+		wasStatusUploading: false,
+		wasStatusProcessing: false,
+	};
 
-  isMounted = false;
+	isMounted = false;
 
-  private traceContext: MediaTraceContext = { traceId: getRandomHex(8) };
+	private traceContext: MediaTraceContext = { traceId: getRandomHex(8) };
 
-  safeSetState = (newState: State) => {
-    if (this.isMounted) {
-      this.setState(newState);
-    }
-  };
+	safeSetState = (newState: State) => {
+		if (this.isMounted) {
+			this.setState(newState);
+		}
+	};
 
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    if (this.needsReset(this.props, nextProps)) {
-      this.release();
-      this.safeSetState(initialState);
-    }
-  }
+	UNSAFE_componentWillReceiveProps(nextProps: Props) {
+		if (this.needsReset(this.props, nextProps)) {
+			this.release();
+			this.safeSetState(initialState);
+		}
+	}
 
-  componentDidUpdate(oldProps: Props) {
-    if (this.needsReset(oldProps, this.props)) {
-      this.init(this.props);
-    }
-  }
+	componentDidUpdate(oldProps: Props) {
+		if (this.needsReset(oldProps, this.props)) {
+			this.init(this.props);
+		}
+	}
 
-  componentWillUnmount() {
-    this.isMounted = false;
-    this.release();
-  }
+	componentWillUnmount() {
+		this.isMounted = false;
+		this.release();
+	}
 
-  componentDidMount() {
-    this.isMounted = true;
-    this.init(this.props);
-  }
+	componentDidMount() {
+		this.isMounted = true;
+		this.init(this.props);
+	}
 
-  private onSuccess = () => {
-    const { item } = this.state;
-    item.whenSuccessful((fileItem) => {
-      if (isFileStateItem(fileItem)) {
-        const fileAttributes = getFileAttributes(fileItem);
-        fireAnalytics(
-          createLoadSucceededEvent(fileAttributes, this.traceContext),
-          this.props.createAnalyticsEvent,
-        );
-        succeedMediaFileUfoExperience({
-          fileAttributes,
-          fileStateFlags: this.fileStateFlags,
-        });
-      }
-    });
-  };
+	private onSuccess = () => {
+		const { item } = this.state;
+		item.whenSuccessful((fileItem) => {
+			if (isFileStateItem(fileItem)) {
+				const fileAttributes = getFileAttributes(fileItem);
+				fireAnalytics(
+					createLoadSucceededEvent(fileAttributes, this.traceContext),
+					this.props.createAnalyticsEvent,
+				);
+				succeedMediaFileUfoExperience({
+					fileAttributes,
+					fileStateFlags: this.fileStateFlags,
+				});
+			}
+		});
+	};
 
-  private onLoadFail = (
-    mediaViewerError: MediaViewerError,
-    data?: FileItem,
-  ) => {
-    this.safeSetState({
-      item: Outcome.failed(mediaViewerError, data),
-    });
-  };
+	private onLoadFail = (mediaViewerError: MediaViewerError, data?: FileItem) => {
+		this.safeSetState({
+			item: Outcome.failed(mediaViewerError, data),
+		});
+	};
 
-  private onExternalImgSuccess = () => {
-    fireAnalytics(
-      createLoadSucceededEvent({
-        fileId: 'external-image',
-      }),
-      this.props.createAnalyticsEvent,
-    );
-    succeedMediaFileUfoExperience({
-      fileAttributes: {
-        fileId: 'external-image',
-      },
-      fileStateFlags: this.fileStateFlags,
-    });
-  };
+	private onExternalImgSuccess = () => {
+		fireAnalytics(
+			createLoadSucceededEvent({
+				fileId: 'external-image',
+			}),
+			this.props.createAnalyticsEvent,
+		);
+		succeedMediaFileUfoExperience({
+			fileAttributes: {
+				fileId: 'external-image',
+			},
+			fileStateFlags: this.fileStateFlags,
+		});
+	};
 
-  private onExternalImgError = () => {
-    this.safeSetState({
-      item: Outcome.failed(
-        new MediaViewerError('imageviewer-external-onerror'),
-      ),
-    });
-  };
+	private onExternalImgError = () => {
+		this.safeSetState({
+			item: Outcome.failed(new MediaViewerError('imageviewer-external-onerror')),
+		});
+	};
 
-  private renderItem(
-    fileState:
-      | ProcessedFileState
-      | UploadingFileState
-      | ProcessingFileState
-      | ProcessingFailedState,
-  ) {
-    const {
-      mediaClient,
-      identifier,
-      showControls,
-      onClose,
-      previewCount,
-      contextId,
-    } = this.props;
-    const collectionName = isFileIdentifier(identifier)
-      ? identifier.collectionName
-      : undefined;
-    const viewerProps = {
-      mediaClient,
-      item: fileState,
-      collectionName,
-      onClose,
-      previewCount,
-    };
+	private renderItem(
+		fileState:
+			| ProcessedFileState
+			| UploadingFileState
+			| ProcessingFileState
+			| ProcessingFailedState,
+	) {
+		const { mediaClient, identifier, showControls, onClose, previewCount, contextId } = this.props;
+		const collectionName = isFileIdentifier(identifier) ? identifier.collectionName : undefined;
+		const viewerProps = {
+			mediaClient,
+			item: fileState,
+			collectionName,
+			onClose,
+			previewCount,
+		};
 
-    if (isCodeViewerItem(fileState.name, fileState.mimeType)) {
-      //Render error message if code file has size over 10MB.
-      //Required by https://product-fabric.atlassian.net/browse/MEX-1788
-      if (fileState.size > MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER) {
-        return this.renderError(
-          new MediaViewerError('codeviewer-file-size-exceeds'),
-          fileState,
-        );
-      }
+		if (isCodeViewerItem(fileState.name, fileState.mimeType)) {
+			//Render error message if code file has size over 10MB.
+			//Required by https://product-fabric.atlassian.net/browse/MEX-1788
+			if (fileState.size > MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER) {
+				return this.renderError(new MediaViewerError('codeviewer-file-size-exceeds'), fileState);
+			}
 
-      return (
-        <CodeViewer
-          onSuccess={this.onSuccess}
-          onError={this.onLoadFail}
-          {...viewerProps}
-        />
-      );
-    }
+			return <CodeViewer onSuccess={this.onSuccess} onError={this.onLoadFail} {...viewerProps} />;
+		}
 
-    switch (fileState.mediaType) {
-      case 'image':
-        return (
-          <ImageViewer
-            onLoad={this.onSuccess}
-            onError={this.onLoadFail}
-            contextId={contextId}
-            traceContext={this.traceContext}
-            {...viewerProps}
-          />
-        );
-      case 'audio':
-        return (
-          <AudioViewer
-            showControls={showControls}
-            onCanPlay={this.onSuccess}
-            onError={this.onLoadFail}
-            {...viewerProps}
-          />
-        );
-      case 'video':
-        return (
-          <VideoViewer
-            showControls={showControls}
-            onCanPlay={this.onSuccess}
-            onError={this.onLoadFail}
-            {...viewerProps}
-          />
-        );
-      case 'doc':
-        return (
-          <DocViewer
-            onSuccess={this.onSuccess}
-            onError={(err) => {
-              this.onLoadFail(err, fileState);
-            }}
-            {...viewerProps}
-          />
-        );
-      case 'archive':
-        return (
-          <ArchiveViewerLoader
-            onSuccess={this.onSuccess}
-            onError={this.onLoadFail}
-            {...viewerProps}
-          />
-        );
-    }
+		switch (fileState.mediaType) {
+			case 'image':
+				return (
+					<ImageViewer
+						onLoad={this.onSuccess}
+						onError={this.onLoadFail}
+						contextId={contextId}
+						traceContext={this.traceContext}
+						{...viewerProps}
+					/>
+				);
+			case 'audio':
+				return (
+					<AudioViewer
+						showControls={showControls}
+						onCanPlay={this.onSuccess}
+						onError={this.onLoadFail}
+						{...viewerProps}
+					/>
+				);
+			case 'video':
+				return (
+					<VideoViewer
+						showControls={showControls}
+						onCanPlay={this.onSuccess}
+						onError={this.onLoadFail}
+						{...viewerProps}
+					/>
+				);
+			case 'doc':
+				return (
+					<DocViewer
+						onSuccess={this.onSuccess}
+						onError={(err) => {
+							this.onLoadFail(err, fileState);
+						}}
+						{...viewerProps}
+					/>
+				);
+			case 'archive':
+				return (
+					<ArchiveViewerLoader
+						onSuccess={this.onSuccess}
+						onError={this.onLoadFail}
+						{...viewerProps}
+					/>
+				);
+		}
 
-    return this.renderError(new MediaViewerError('unsupported'), fileState);
-  }
+		return this.renderError(new MediaViewerError('unsupported'), fileState);
+	}
 
-  private renderError(error: MediaViewerError, fileItem?: FileItem) {
-    const { identifier } = this.props;
-    if (fileItem) {
-      let fileState: FileState;
-      if (fileItem === 'external-image') {
-        // external image error outcome
-        fileState = { id: 'external-image', status: 'error' };
-      } else {
-        // FileState error outcome
-        fileState = fileItem;
-      }
-      return (
-        <ErrorMessage
-          fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
-          error={error}
-          fileState={fileState}
-          fileStateFlags={this.fileStateFlags}
-          traceContext={this.traceContext}
-        >
-          <p>
-            <FormattedMessage {...messages.try_downloading_file} />
-          </p>
-          {this.renderDownloadButton(fileState, error)}
-        </ErrorMessage>
-      );
-    } else {
-      return (
-        <ErrorMessage
-          fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
-          error={error}
-          fileStateFlags={this.fileStateFlags}
-        />
-      );
-    }
-  }
+	private renderError(error: MediaViewerError, fileItem?: FileItem) {
+		const { identifier } = this.props;
+		if (fileItem) {
+			let fileState: FileState;
+			if (fileItem === 'external-image') {
+				// external image error outcome
+				fileState = { id: 'external-image', status: 'error' };
+			} else {
+				// FileState error outcome
+				fileState = fileItem;
+			}
+			return (
+				<ErrorMessage
+					fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
+					error={error}
+					fileState={fileState}
+					fileStateFlags={this.fileStateFlags}
+					traceContext={this.traceContext}
+				>
+					<p>
+						<FormattedMessage {...messages.try_downloading_file} />
+					</p>
+					{this.renderDownloadButton(fileState, error)}
+				</ErrorMessage>
+			);
+		} else {
+			return (
+				<ErrorMessage
+					fileId={isFileIdentifier(identifier) ? identifier.id : 'undefined'}
+					error={error}
+					fileStateFlags={this.fileStateFlags}
+				/>
+			);
+		}
+	}
 
-  render() {
-    const { item } = this.state;
-    const { identifier } = this.props;
+	render() {
+		const { item } = this.state;
+		const { identifier } = this.props;
 
-    return item.match({
-      successful: (fileItem) => {
-        if (fileItem === 'external-image') {
-          // render an external image
-          const { dataURI } = identifier as ExternalImageIdentifier;
-          return (
-            <InteractiveImg
-              src={dataURI}
-              onLoad={this.onExternalImgSuccess}
-              onError={this.onExternalImgError}
-            />
-          );
-        } else {
-          // render a FileState fetched through media-client
-          switch (fileItem.status) {
-            case 'processed':
-            case 'uploading':
-            case 'processing':
-              return this.renderItem(fileItem);
-            case 'failed-processing':
-              if (
-                fileItem.mediaType === 'doc' &&
-                fileItem.mimeType === 'application/pdf'
-              ) {
-                return this.renderItem(fileItem);
-              }
-              return this.renderError(
-                new MediaViewerError(
-                  'itemviewer-file-failed-processing-status',
-                ),
-                fileItem,
-              );
-            case 'error':
-              return this.renderError(
-                new MediaViewerError('itemviewer-file-error-status'),
-                fileItem,
-              );
-          }
-        }
-      },
-      pending: () => <Spinner />,
-      failed: (error, data) => this.renderError(error, data),
-    });
-  }
+		return item.match({
+			successful: (fileItem) => {
+				if (fileItem === 'external-image') {
+					// render an external image
+					const { dataURI } = identifier as ExternalImageIdentifier;
+					return (
+						<InteractiveImg
+							src={dataURI}
+							onLoad={this.onExternalImgSuccess}
+							onError={this.onExternalImgError}
+						/>
+					);
+				} else {
+					// render a FileState fetched through media-client
+					switch (fileItem.status) {
+						case 'processed':
+						case 'uploading':
+						case 'processing':
+							return this.renderItem(fileItem);
+						case 'failed-processing':
+							if (fileItem.mediaType === 'doc' && fileItem.mimeType === 'application/pdf') {
+								return this.renderItem(fileItem);
+							}
+							return this.renderError(
+								new MediaViewerError('itemviewer-file-failed-processing-status'),
+								fileItem,
+							);
+						case 'error':
+							return this.renderError(
+								new MediaViewerError('itemviewer-file-error-status'),
+								fileItem,
+							);
+					}
+				}
+			},
+			pending: () => <Spinner />,
+			failed: (error, data) => this.renderError(error, data),
+		});
+	}
 
-  private renderDownloadButton(fileState: FileState, error: MediaViewerError) {
-    const { mediaClient, identifier } = this.props;
-    const collectionName = isFileIdentifier(identifier)
-      ? identifier.collectionName
-      : undefined;
-    return (
-      <ErrorViewDownloadButton
-        fileState={fileState}
-        mediaClient={mediaClient}
-        error={error}
-        collectionName={collectionName}
-      />
-    );
-  }
+	private renderDownloadButton(fileState: FileState, error: MediaViewerError) {
+		const { mediaClient, identifier } = this.props;
+		const collectionName = isFileIdentifier(identifier) ? identifier.collectionName : undefined;
+		return (
+			<ErrorViewDownloadButton
+				fileState={fileState}
+				mediaClient={mediaClient}
+				error={error}
+				collectionName={collectionName}
+			/>
+		);
+	}
 
-  updateFileStateFlag(fileState?: FileState) {
-    if (!fileState) {
-      return;
-    }
-    const { status } = fileState;
-    if (status === 'processing') {
-      this.fileStateFlags.wasStatusProcessing = true;
-    } else if (status === 'uploading') {
-      this.fileStateFlags.wasStatusUploading = true;
-    }
-  }
+	updateFileStateFlag(fileState?: FileState) {
+		if (!fileState) {
+			return;
+		}
+		const { status } = fileState;
+		if (status === 'processing') {
+			this.fileStateFlags.wasStatusProcessing = true;
+		} else if (status === 'uploading') {
+			this.fileStateFlags.wasStatusUploading = true;
+		}
+	}
 
-  private init(props: Props) {
-    const { mediaClient, identifier, createAnalyticsEvent } = props;
+	private init(props: Props) {
+		const { mediaClient, identifier, createAnalyticsEvent } = props;
 
-    if (isExternalImageIdentifier(identifier)) {
-      // external images do not need to talk to our backend,
-      // so therefore no need for media-client subscriptions.
-      // just set a successful outcome of type "external-image".
-      this.safeSetState({
-        item: Outcome.successful('external-image'),
-      });
-      return;
-    }
+		if (isExternalImageIdentifier(identifier)) {
+			// external images do not need to talk to our backend,
+			// so therefore no need for media-client subscriptions.
+			// just set a successful outcome of type "external-image".
+			this.safeSetState({
+				item: Outcome.successful('external-image'),
+			});
+			return;
+		}
 
-    const { id } = identifier;
+		const { id } = identifier;
 
-    fireAnalytics(
-      createCommencedEvent(id, this.traceContext),
-      createAnalyticsEvent,
-    );
-    startMediaFileUfoExperience();
-    this.subscription = mediaClient.file
-      .getFileState(id, {
-        collectionName: identifier.collectionName,
-      })
-      .subscribe({
-        next: (file) => {
-          this.updateFileStateFlag(file);
-          this.safeSetState({
-            item: Outcome.successful(file),
-          });
-        },
-        error: (error: Error) => {
-          this.safeSetState({
-            item: Outcome.failed(
-              new MediaViewerError('itemviewer-fetch-metadata', error),
-            ),
-          });
-        },
-      });
-  }
+		fireAnalytics(createCommencedEvent(id, this.traceContext), createAnalyticsEvent);
+		startMediaFileUfoExperience();
+		this.subscription = mediaClient.file
+			.getFileState(id, {
+				collectionName: identifier.collectionName,
+			})
+			.subscribe({
+				next: (file) => {
+					this.updateFileStateFlag(file);
+					this.safeSetState({
+						item: Outcome.successful(file),
+					});
+				},
+				error: (error: Error) => {
+					this.safeSetState({
+						item: Outcome.failed(new MediaViewerError('itemviewer-fetch-metadata', error)),
+					});
+				},
+			});
+	}
 
-  private needsReset(propsA: Props, propsB: Props) {
-    return !deepEqual(propsA.identifier, propsB.identifier);
-  }
+	private needsReset(propsA: Props, propsB: Props) {
+		return !deepEqual(propsA.identifier, propsB.identifier);
+	}
 
-  private release() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
+	private release() {
+		if (this.subscription) {
+			this.subscription.unsubscribe();
+		}
+	}
 }
 
 export const ItemViewer = withAnalyticsEvents()(ItemViewerBase);

@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
@@ -11,12 +12,19 @@ import { token } from '@atlaskit/tokens';
 
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin } from '../types';
+import { getLeftPosition, getTopPosition } from '../utils/drag-handle-positions';
 import { getSelection } from '../utils/getSelection';
 
-import { DRAG_HANDLE_BORDER_RADIUS, DRAG_HANDLE_HEIGHT, DRAG_HANDLE_WIDTH } from './consts';
+import {
+	DRAG_HANDLE_BORDER_RADIUS,
+	DRAG_HANDLE_HEIGHT,
+	DRAG_HANDLE_WIDTH,
+	dragHandleGap,
+} from './consts';
 import { dragPreview } from './drag-preview';
 
 const dragHandleButtonStyles = css({
+	position: 'absolute',
 	padding: `${token('space.025', '2px')} 0`,
 	boxSizing: 'border-box',
 	display: 'flex',
@@ -30,12 +38,13 @@ const dragHandleButtonStyles = css({
 	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
 	color: token('color.icon', '#44546F'),
 	cursor: 'grab',
+	zIndex: 2,
 
-	':hover': {
+	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered', '#091E420F'),
 	},
 
-	':active': {
+	'&:active': {
 		backgroundColor: token('color.background.neutral.subtle.pressed', '#091E4224'),
 	},
 });
@@ -46,30 +55,33 @@ const selectedStyles = css({
 });
 
 export const DragHandle = ({
-	dom,
+	view,
 	api,
-	start,
+	getPos,
+	anchorName,
+	nodeType,
 }: {
-	dom: HTMLElement;
+	view: EditorView;
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
-	start: number;
+	getPos: () => number | undefined;
+	anchorName: string;
+	nodeType: string;
 }) => {
+	const start = getPos();
 	const buttonRef = useRef<HTMLButtonElement>(null);
-	const domRef = useRef<HTMLElement>(dom);
-	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 
+	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const handleClick = useCallback(() => {
 		setDragHandleSelected(!dragHandleSelected);
-		// TODO - add drag menu
-		// api?.core?.actions.execute(({ tr }) =>
-		//   tr.setMeta(key, {
-		//     toggleMenu: true,
-		//   }),
-		// );
 		api?.core?.actions.execute(({ tr }) => {
+			if (start === undefined) {
+				return tr;
+			}
 			tr.setSelection(getSelection(tr, start));
+			tr.setMeta(key, { pos: start });
 			return tr;
 		});
+
 		api?.core?.actions.focus();
 	}, [start, api, dragHandleSelected, setDragHandleSelected]);
 
@@ -81,42 +93,70 @@ export const DragHandle = ({
 
 		return draggable({
 			element,
-
 			onGenerateDragPreview: ({ nativeSetDragImage }) => {
 				setCustomNativeDragPreview({
 					render: ({ container }) => {
-						return dragPreview(container, domRef);
+						const dom: HTMLElement | null = view.dom.querySelector(
+							`[data-drag-handler-anchor-name="${anchorName}"]`,
+						);
+						if (!dom) {
+							return;
+						}
+						return dragPreview(container, dom);
 					},
 					nativeSetDragImage,
 				});
 			},
 			onDragStart() {
-				api?.core?.actions.execute(({ tr }) => {
-					const newTr = tr;
-					newTr.setSelection(getSelection(newTr, start));
-					newTr.setMeta(key, {
-						isDragging: true,
-						start,
-					});
-					return newTr;
-				});
+				if (start === undefined) {
+					return;
+				}
+				api?.core?.actions.execute(api?.blockControls?.commands.setNodeDragged(start, anchorName));
 				api?.core?.actions.focus();
 			},
 			onDrop() {
-				api?.core?.actions.execute(({ tr }) =>
-					tr.setMeta(key, {
-						isDragging: false,
-					}),
-				);
+				api?.core?.actions.execute(({ tr }) => {
+					return tr.setMeta(key, { isDragging: false });
+				});
 			},
 		});
-	}, [api, start]);
+	}, [api, start, view, anchorName]);
+
+	const positionStyles = useMemo(() => {
+		const supportsAnchor =
+			CSS.supports('top', `anchor(${anchorName} start)`) &&
+			CSS.supports('left', `anchor(${anchorName} start)`);
+		const dom: HTMLElement | null = view.dom.querySelector(
+			`[data-drag-handler-anchor-name="${anchorName}"]`,
+		);
+		if (supportsAnchor) {
+			const hasResizer =
+				(anchorName.includes('table') || anchorName.includes('mediaSingle')) && dom;
+			return {
+				left: hasResizer
+					? getLeftPosition(dom, nodeType)
+					: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
+				top: anchorName.includes('table')
+					? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
+					: `anchor(${anchorName} start)`,
+			};
+		}
+		if (!dom) {
+			return;
+		}
+
+		return {
+			left: getLeftPosition(dom, nodeType),
+			top: getTopPosition(dom),
+		};
+	}, [anchorName, view, nodeType]);
 
 	return (
 		<button
 			type="button"
 			css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
 			ref={buttonRef}
+			style={positionStyles}
 			onClick={handleClick}
 			data-testid="block-ctrl-drag-handle"
 		>

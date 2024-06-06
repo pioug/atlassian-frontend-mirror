@@ -7,6 +7,19 @@
  */
 //Japanese
 export default {
+  'automation-menu.empty-state.image.alt': '空の自動化リストのアイコン',
+  'automation-menu.empty-state.learn-more.link': '手動トリガーの詳細をご確認ください',
+  'automation-menu.modal.empty.automations.admin.description':
+    '手動トリガーをメニューの選択肢として使用すると、ワンクリックの自動化としてユーザー (特定のユーザーを指定することもできる) が適用できるようになります。',
+  'automation-menu.modal.empty.automations.user.description':
+    '管理者が手動でトリガーされる自動化をまだ設定していません。',
+  'automation-menu.modal.error.description': '読み込みにはしばらく時間がかかります。ページを更新してください。',
+  'automation-menu.modal.error.image.alt': 'エラー アイコン',
+  'automation-menu.modal.footer.automate-button': '自動化',
+  'automation-menu.modal.footer.cancel-button': 'キャンセル',
+  'automation-menu.modal.footer.get-started-button': '自動化を作成',
+  'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': '自動化モーダル ヘッダー アイコン',
   'fabric.linking.access_exists_description':
     '{hostname} からこのコンテンツを閲覧するには、アクセス権をリクエストしてください。',
   'fabric.linking.actions': 'アクション',
@@ -33,8 +46,8 @@ export default {
     '<b>{name}</b> に自動化を適用します。{br}選択可能な項目は、Confluence とスペース管理者によって管理されます。',
   'fabric.linking.automation-action.confluence.page.modal.title': 'ページ自動化',
   'fabric.linking.automation-action.icon.label': '自動化アイコン',
-  'fabric.linking.automation-action.title': '自動化を実行...',
-  'fabric.linking.automation-action.tooltip': '自動化モーダルを開く',
+  'fabric.linking.automation-action.title': '自動化ルールを表示...',
+  'fabric.linking.automation-action.tooltip': '実行する自動化ルールを選択',
   'fabric.linking.beta': 'ベータ版',
   'fabric.linking.cancel': 'キャンセル',
   'fabric.linking.cannot_connect': '接続できません、もう一度お試しください。',
@@ -126,6 +139,10 @@ export default {
   'fabric.linking.priority_undefined': '未定義',
   'fabric.linking.read_time': '読了時間 {context} 分',
   'fabric.linking.related': '関連',
+  'fabric.linking.related_links_found_in': '次のリソース内に見つかりました。',
+  'fabric.linking.related_links_includes_links_to': '次へのリンクが含まれています。',
+  'fabric.linking.related_links_modal_title': '最近閲覧したリンク',
+  'fabric.linking.related_links_not_found': 'ここに表示するリンクが見つかりませんでした。',
   'fabric.linking.related_work_items_not_found': 'このリンクは他のどこでも言及されていません。',
   'fabric.linking.request_access': 'アクセスをリクエスト',
   'fabric.linking.request_access_description':

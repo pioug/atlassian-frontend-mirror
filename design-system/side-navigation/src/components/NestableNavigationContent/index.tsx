@@ -34,7 +34,6 @@ export interface NestableNavigationContentProps {
    * A `testId` prop is provided for specified elements,
    * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
    * serving as a hook for automated tests.
-   *
    * Will set these elements when defined:
    * - This wrapper - `{testId}`
    * - The back item (displayed when inside a nested view) - `{testId}--go-back-item`

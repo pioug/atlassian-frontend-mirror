@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.6.0
+
+### Minor Changes
+
+- [#99829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99829)
+  [`f15d4f35b8f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f15d4f35b8f6) -
+  Add `use-menu-section-title` eslint rule.
+
 ## 10.5.0
 
 ### Minor Changes

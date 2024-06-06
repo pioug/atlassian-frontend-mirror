@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.17
+
+### Patch Changes
+
+- [#106586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106586)
+  [`f3486a7d141c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3486a7d141c) -
+  Update usage of akEditorGutterPadding to its dynamic version which can increase padding to support
+  editor drag and drop. Breakout logic is also updated to accommodate extra padding.
+- [#107920](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107920)
+  [`f918580d1700`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f918580d1700) -
+  [ux] Removes Table Lock button and addes a new menu item 'Fixed column widths' in the table's
+  floating toolbar menu instead of the button.
+- [#107415](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107415)
+  [`f7f135cdedb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7f135cdedb8) -
+  ED-23441: Added analytics for table aligment changes caused by resizing or appearance changes"
+- [#100714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100714)
+  [`81849acfe13c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81849acfe13c) -
+  ECA11Y-228: Added new shortcuts for insert column and row and added correct formatting for help
+  modal dialog
+- Updated dependencies
+
 ## 7.16.16
 
 ### Patch Changes

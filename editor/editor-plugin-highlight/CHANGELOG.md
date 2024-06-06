@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.7.1
+
+### Patch Changes
+
+- [#108295](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108295)
+  [`965a0e6c1088`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/965a0e6c1088) -
+  NO-ISSUE Condition adding primary toolbar plugin components based on their presence instead of on
+  the feature flag to avoid it not rendering in examples
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

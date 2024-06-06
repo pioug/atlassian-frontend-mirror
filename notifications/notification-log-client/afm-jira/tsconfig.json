@@ -1,0 +1,25 @@
+{
+  "extends": "../../../../tsconfig.products.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__notification-log-client/app",
+    "composite": true,
+    "rootDir": "../",
+    "baseUrl": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/**/examples.*"
+  ],
+  "references": [
+    {
+      "path": "../../../elements/util-service-support/afm-jira/tsconfig.json"
+    }
+  ]
+}

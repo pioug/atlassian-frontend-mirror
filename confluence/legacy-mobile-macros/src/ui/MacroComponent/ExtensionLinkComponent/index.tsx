@@ -7,21 +7,21 @@ import { useMacroViewedAnalyticsEvent } from '../../../common/utils';
 import { type ExtensionLinkComponentProps } from './types';
 
 export const ExtensionLinkComponent = (props: ExtensionLinkComponentProps) => {
-  const { extension, render } = props;
-  const { extensionKey } = extension;
-  const fireMacroViewedAnalyticsEvent = useMacroViewedAnalyticsEvent();
-  useEffect(() => {
-    fireMacroViewedAnalyticsEvent(extensionKey, 'link');
-  }, [extensionKey, fireMacroViewedAnalyticsEvent]);
-  const url = extension.parameters.macroParams.url.value;
-  const document = doc(
-    paragraph(
-      link({
-        href: url,
-        title: url,
-      })(text(url)),
-    ),
-  );
+	const { extension, render } = props;
+	const { extensionKey } = extension;
+	const fireMacroViewedAnalyticsEvent = useMacroViewedAnalyticsEvent();
+	useEffect(() => {
+		fireMacroViewedAnalyticsEvent(extensionKey, 'link');
+	}, [extensionKey, fireMacroViewedAnalyticsEvent]);
+	const url = extension.parameters.macroParams.url.value;
+	const document = doc(
+		paragraph(
+			link({
+				href: url,
+				title: url,
+			})(text(url)),
+		),
+	);
 
-  return render(document);
+	return render(document);
 };

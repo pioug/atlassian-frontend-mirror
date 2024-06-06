@@ -6,7 +6,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
-	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
 
@@ -127,7 +127,7 @@ const calcLegacyWideWidth = (containerWidth: number, origWidth: number, contentW
  * @param containerWidth width of editor container
  */
 export const calcMediaSingleMaxWidth = (containerWidth: number) => {
-	const fullWidthPadding = akEditorGutterPadding * 2;
+	const fullWidthPadding = akEditorGutterPaddingDynamic() * 2;
 	return Math.min(containerWidth - fullWidthPadding, akEditorFullWidthLayoutWidth);
 };
 

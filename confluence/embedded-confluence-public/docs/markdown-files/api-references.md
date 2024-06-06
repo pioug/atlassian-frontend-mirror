@@ -4,11 +4,13 @@
 
 ### `navigationPolicy` description
 
-Both `ViewPage` and `EditPage` components accept `navigationPolicy` prop. This is the prop 3rd parties can provide their implementation of handling a navigation request based on URL.
+Both `ViewPage` and `EditPage` components accept `navigationPolicy` prop. This is the prop 3rd
+parties can provide their implementation of handling a navigation request based on URL.
 
 ### `navigationPolicy` definition
 
-The navigation policy includes an optional `shimUrl`, `domainNamesToReplace` and a `navigate` function.
+The navigation policy includes an optional `shimUrl`, `domainNamesToReplace` and a `navigate`
+function.
 
 ```ts
 {
@@ -18,27 +20,36 @@ The navigation policy includes an optional `shimUrl`, `domainNamesToReplace` and
 }
 ```
 
-- `navigate`: (Optional) Function that 3rd parties provides. This allow 3rd parties to customize the navigation for URL. Through the `navigate`, 3rd parties will have access to:
+- `navigate`: (Optional) Function that 3rd parties provides. This allow 3rd parties to customize the
+  navigation for URL. Through the `navigate`, 3rd parties will have access to:
 
   - `url`: The URL that navigation is targeting on.
   - `modifiers`: An object contains modifiers that 3rd parties may be interested.
 
-    - `target`: `'_self' | '_blank'` - specify if the navigation should stay within the same window: `_self`, or should open a new tab: `_blank`.
-    - `contentId`: `string | undefined` - the id of content from Confluence perspective parsed from the `url`.
-    - `spaceKey`: `string | undefined` - the key of space the content belongs to from Confluence perspective parsed from the `url`.
-    - `routeName`: `string | undefined` - the Embedded Confluence route name derived from the `url`. Currently only the following routes are supported:
+    - `target`: `'_self' | '_blank'` - specify if the navigation should stay within the same window:
+      `_self`, or should open a new tab: `_blank`.
+    - `contentId`: `string | undefined` - the id of content from Confluence perspective parsed from
+      the `url`.
+    - `spaceKey`: `string | undefined` - the key of space the content belongs to from Confluence
+      perspective parsed from the `url`.
+    - `routeName`: `string | undefined` - the Embedded Confluence route name derived from the `url`.
+      Currently only the following routes are supported:
 
       | RouteName       | Description                                                                                                  |
       | --------------- | ------------------------------------------------------------------------------------------------------------ |
       | EDIT_PAGE_EMBED | This route name specifies that the URL is for Embedded Editor. This editor uses Native Collab Service (NCS). |
       | VIEW_PAGE       | This route name specifies that the URL is for the View Page.                                                 |
 
-  - `defaultNavigate`: A function that 3rd parties can optionally choose to proceed with as default navigation behaviors. This gives 3rd parties an option to opt in to handle the navigation of `url`, or choose to opt out and fallback to default navigation behaviors.
+  - `defaultNavigate`: A function that 3rd parties can optionally choose to proceed with as default
+    navigation behaviors. This gives 3rd parties an option to opt in to handle the navigation of
+    `url`, or choose to opt out and fallback to default navigation behaviors.
 
-- `shimUrl`: (Optional) If provided, any URL that navigates to Confluence app will be converted to the URL of the 3rd party. <br>
+- `shimUrl`: (Optional) If provided, any URL that navigates to Confluence app will be converted to
+  the URL of the 3rd party. <br>
 
-  - Example:
-    If 3rd party tenant is `https://domain1.com/` and it is linked to Confluence Cloud, here is a table explains how this link `https://domain1.com/wiki/a/b/c` would be converted based on different `shimUrl` values:
+  - Example: If 3rd party tenant is `https://domain1.com/` and it is linked to Confluence Cloud,
+    here is a table explains how this link `https://domain1.com/wiki/a/b/c` would be converted based
+    on different `shimUrl` values:
 
     | Provided `shimUrl` by 3rd party | URL in Embedded Confluence                  |
     | ------------------------------- | ------------------------------------------- |
@@ -50,7 +61,8 @@ The navigation policy includes an optional `shimUrl`, `domainNamesToReplace` and
     | `domain1.com/xyz`               | `https://domain1.com/domain1.com/xyz/a/b/c` |
     | `domain1.com`                   | `https://domain1.com/domain1.com/a/b/c`     |
 
-- `domainNamesToReplace`: (Optional) A list of domain names that should be replaced with the current base URL for EP before applying any URL shimming. <br>
+- `domainNamesToReplace`: (Optional) A list of domain names that should be replaced with the current
+  base URL for EP before applying any URL shimming. <br>
 
 ### `navigationPolicy` examples
 
@@ -80,7 +92,8 @@ const MyComponent = props => {
 };
 ```
 
-2. Parent product chooses to proceed with default navigation after making customization to the inputs under some conditions.
+2. Parent product chooses to proceed with default navigation after making customization to the
+   inputs under some conditions.
 
 ```jsx
 import { EditPage } from '@atlaskit/embedded-confluence';
@@ -113,25 +126,25 @@ const MyComponent = props => {
 ```jsx
 import { EditPage } from '@atlaskit/embedded-confluence';
 
-const MyComponent = props => {
-  const navigationPolicy = {
-    navigate(url, modifiers, defaultNavigate) {
-      if (modifiers.contentId === props.contentId) {
-        switch (modifiers.routeName) {
-          case EDIT_PAGE_EMBED:
-            // Navigate to the "edit page" experience for contentId supported by embedded-confluence
-            break;
+const MyComponent = (props) => {
+	const navigationPolicy = {
+		navigate(url, modifiers, defaultNavigate) {
+			if (modifiers.contentId === props.contentId) {
+				switch (modifiers.routeName) {
+					case EDIT_PAGE_EMBED:
+						// Navigate to the "edit page" experience for contentId supported by embedded-confluence
+						break;
 
-          case VIEW_PAGE:
-            // Navigate to the "view page" experience of contentId supported by embedded-confluence
-            break;
-        }
-      }
-      return defaultNavigate(url, modifiers);
-    },
-  };
+					case VIEW_PAGE:
+						// Navigate to the "view page" experience of contentId supported by embedded-confluence
+						break;
+				}
+			}
+			return defaultNavigate(url, modifiers);
+		},
+	};
 
-  return <EditPage navigationPolicy={navigationPolicy} {...otherProps} />;
+	return <EditPage navigationPolicy={navigationPolicy} {...otherProps} />;
 };
 ```
 
@@ -143,7 +156,10 @@ There are two different types of `allowedFeatures` depending on the components.
 
 ### `allowedFeatures` for `View`/`Edit` page
 
-`allowedFeatures` provides a list of names of all EP features for 3rd parties. If provided, only features included in the list will be enabled, features not in the list will be disabled. `[]` will disable all features. `'all'` will enable all features. If not provided, default features will be enabled.
+`allowedFeatures` provides a list of names of all EP features for 3rd parties. If provided, only
+features included in the list will be enabled, features not in the list will be disabled. `[]` will
+disable all features. `'all'` will enable all features. If not provided, default features will be
+enabled.
 
 #### A list of features for `ViewPage`:
 
@@ -174,18 +190,18 @@ This following example will provide all the features for the `ViewPage` componen
 ```jsx
 import { ViewPage } from '@atlaskit/embedded-confluence';
 
-const MyComponent = props => {
-  return (
-    <ArticleWrapper>
-      <ViewPage
-        contentId={props.contentId}
-        parentProductContentContainerId={props.parentProductContentContainerId}
-        parentProduct={props.parentProduct}
-        spaceKey={props.spaceKey}
-        allowedFeatures={'all'}
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	return (
+		<ArticleWrapper>
+			<ViewPage
+				contentId={props.contentId}
+				parentProductContentContainerId={props.parentProductContentContainerId}
+				parentProduct={props.parentProduct}
+				spaceKey={props.spaceKey}
+				allowedFeatures={'all'}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
@@ -194,68 +210,73 @@ This following example will provide none of the features for the `ViewPage` comp
 ```jsx
 import { ViewPage } from '@atlaskit/embedded-confluence';
 
-const MyComponent = props => {
-  return (
-    <ArticleWrapper>
-      <ViewPage
-        contentId={props.contentId}
-        parentProductContentContainerId={props.parentProductContentContainerId}
-        parentProduct={props.parentProduct}
-        spaceKey={props.spaceKey}
-        allowedFeatures={[]}
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	return (
+		<ArticleWrapper>
+			<ViewPage
+				contentId={props.contentId}
+				parentProductContentContainerId={props.parentProductContentContainerId}
+				parentProduct={props.parentProduct}
+				spaceKey={props.spaceKey}
+				allowedFeatures={[]}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
-This following example will provide the Edit and Delete Buttons for the `ViewPage` component. The other features: `'inline-comments'`,`'sticky-header'`, `'byline-contributors'`,`'byline-extensions'`,`'page-comments'`,`'page-reactions'` will be disabled.
+This following example will provide the Edit and Delete Buttons for the `ViewPage` component. The
+other features: `'inline-comments'`,`'sticky-header'`,
+`'byline-contributors'`,`'byline-extensions'`,`'page-comments'`,`'page-reactions'` will be disabled.
 
 ```jsx
 import { ViewPage } from '@atlaskit/embedded-confluence';
 
-const MyComponent = props => {
-  return (
-    <ArticleWrapper>
-      <ViewPage
-        contentId={props.contentId}
-        parentProductContentContainerId={props.parentProductContentContainerId}
-        parentProduct={props.parentProduct}
-        spaceKey={props.spaceKey}
-        allowedFeatures={['edit', 'delete']}
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	return (
+		<ArticleWrapper>
+			<ViewPage
+				contentId={props.contentId}
+				parentProductContentContainerId={props.parentProductContentContainerId}
+				parentProduct={props.parentProduct}
+				spaceKey={props.spaceKey}
+				allowedFeatures={['edit', 'delete']}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
-The following example will provide all the features for the view mode and no features for the edit mode within the `Page` component:
+The following example will provide all the features for the view mode and no features for the edit
+mode within the `Page` component:
 
 ```jsx
 import { Page } from '@atlaskit/embedded-confluence';
 
-const MyComponent = props => {
-  return (
-    <ArticleWrapper>
-      <Page
-        contentId={props.contentId}
-        parentProductContentContainerId={props.parentProductContentContainerId}
-        parentProduct={props.parentProduct}
-        spaceKey={props.spaceKey}
-        allowedFeatures={{ view: 'all', edit: [] }}
-      />
-    </ArticleWrapper>
-  );
+const MyComponent = (props) => {
+	return (
+		<ArticleWrapper>
+			<Page
+				contentId={props.contentId}
+				parentProductContentContainerId={props.parentProductContentContainerId}
+				parentProduct={props.parentProduct}
+				spaceKey={props.spaceKey}
+				allowedFeatures={{ view: 'all', edit: [] }}
+			/>
+		</ArticleWrapper>
+	);
 };
 ```
 
 ## `locale`
 
-`@atlaskit/embedded-confluence` package currently can accept `locale` from parent products in two options:
+`@atlaskit/embedded-confluence` package currently can accept `locale` from parent products in two
+options:
 
 1. Pass `locale` using `<IntlProvider>` by [`react-intl`](https://www.npmjs.com/package/react-intl).
 
-   Please make sure `<IntlProvider>` exists in the React DOM and wraps `@atlaskit/embedded-confluence` components.
+   Please make sure `<IntlProvider>` exists in the React DOM and wraps
+   `@atlaskit/embedded-confluence` components.
 
    `@atlaskit/embedded-confluence` use `react-intl@5.21.2`.
 
@@ -264,17 +285,17 @@ import { IntlProvider } from 'react-intl';
 
 import { ViewPage } from '@atlaskit/embedded-confluence';
 
-const App = props => {
-  return (
-    <IntlProvider locale="en-US">
-      <ViewPage
-        contentId={props.contentId}
-        parentProductContentContainerId={props.parentProductContentContainerId}
-        parentProduct={props.parentProduct}
-        spaceKey={props.spaceKey}
-      />
-    </IntlProvider>
-  );
+const App = (props) => {
+	return (
+		<IntlProvider locale="en-US">
+			<ViewPage
+				contentId={props.contentId}
+				parentProductContentContainerId={props.parentProductContentContainerId}
+				parentProduct={props.parentProduct}
+				spaceKey={props.spaceKey}
+			/>
+		</IntlProvider>
+	);
 };
 ```
 
@@ -283,16 +304,16 @@ const App = props => {
 ```jsx
 import { ViewPage } from '@atlaskit/embedded-confluence';
 
-const App = props => {
-  return (
-    <ViewPage
-      contentId={props.contentId}
-      locale={'en-US'}
-      parentProductContentContainerId={props.parentProductContentContainerId}
-      parentProduct={props.parentProduct}
-      spaceKey={props.spaceKey}
-    />
-  );
+const App = (props) => {
+	return (
+		<ViewPage
+			contentId={props.contentId}
+			locale={'en-US'}
+			parentProductContentContainerId={props.parentProductContentContainerId}
+			parentProduct={props.parentProduct}
+			spaceKey={props.spaceKey}
+		/>
+	);
 };
 ```
 
@@ -329,13 +350,16 @@ Here are the supported locales for `@atlaskit/embedded-confluence`
 
 ### `themeState` description
 
-Both `ViewPage` and `EditPage` components accept `themeState` prop. This is the prop that the embedding parent can use to apply a user’s Atlassian theme preference to the Embedded component.
+Both `ViewPage` and `EditPage` components accept `themeState` prop. This is the prop that the
+embedding parent can use to apply a user’s Atlassian theme preference to the Embedded component.
 
-You can learn more about theme preferences at the Atlassian Design Systems documentation [`here`](https://atlassian.design/components/tokens/code#setglobalthemethemestate)
+You can learn more about theme preferences at the Atlassian Design Systems documentation
+[`here`](https://atlassian.design/components/tokens/code#setglobalthemethemestate)
 
 ### `themeState` definition
 
-- `themeState` : (Optional) ThemeState that represents the theme preference provided by the embedding parent as a React prop.
+- `themeState` : (Optional) ThemeState that represents the theme preference provided by the
+  embedding parent as a React prop.
 
 ```ts
 // https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
@@ -362,23 +386,25 @@ Applying a theme to the View Page Component:
 import { ViewPage } from '@atlaskit/embedded-confluence';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-const MyComponent = props => {
-  const themeState = useThemeObserver();
+const MyComponent = (props) => {
+	const themeState = useThemeObserver();
 
-  return (
-    <ViewPage
-      contentId={props.contentId}
-      locale={'en-US'}
-      parentProductContentContainerId={props.parentProductContentContainerId}
-      parentProduct={props.parentProduct}
-      spaceKey={props.spaceKey}
-      themeState={themeState}
-    />
-  );
+	return (
+		<ViewPage
+			contentId={props.contentId}
+			locale={'en-US'}
+			parentProductContentContainerId={props.parentProductContentContainerId}
+			parentProduct={props.parentProduct}
+			spaceKey={props.spaceKey}
+			themeState={themeState}
+		/>
+	);
 };
 ```
 
-If you are using `Page` component you can get the `themeState` object from `useThemeObserver`, then append the encoded version of `themeState` to the value of `url` prop. You can use `themeStateObjectToQueryString` utility to convert themeState Object to encoded string :
+If you are using `Page` component you can get the `themeState` object from `useThemeObserver`, then
+append the encoded version of `themeState` to the value of `url` prop. You can use
+`themeStateObjectToQueryString` utility to convert themeState Object to encoded string :
 
 ```jsx
 import { useThemeObserver } from '@atlaskit/tokens';

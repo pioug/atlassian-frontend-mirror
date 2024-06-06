@@ -5,6 +5,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import type { SerializedStyles } from '@emotion/react';
 import { css, jsx } from '@emotion/react';
 
+import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils';
 import type { DocNode } from '@atlaskit/adf-schema';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -43,7 +44,6 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { MockActivityResource } from '../example-helpers/activity-provider';
-import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { EditorActions } from '../src';
 import { Editor } from '../src';

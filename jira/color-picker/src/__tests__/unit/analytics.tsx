@@ -7,66 +7,65 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { IntlProvider } from 'react-intl-next';
 
 jest.mock('@atlaskit/platform-feature-flags');
-const mockGetBooleanFF = getBooleanFF as jest.MockedFunction<
-  typeof getBooleanFF
->;
+const mockGetBooleanFF = getBooleanFF as jest.MockedFunction<typeof getBooleanFF>;
 
 describe('Analytics on Tigger', () => {
-  const mockFn = jest.fn();
+	const mockFn = jest.fn();
 
-  const renderUI = () => {
-    const palette = [
-      { value: 'blue', label: 'Blue' },
-      { value: 'red', label: 'Red' },
-    ];
-    return render(
-      <IntlProvider locale="en">
-        <ColorPicker palette={palette} onChange={mockFn} />
-      </IntlProvider>,
-    );
-  };
+	const renderUI = () => {
+		const palette = [
+			{ value: 'blue', label: 'Blue' },
+			{ value: 'red', label: 'Red' },
+		];
+		return render(
+			<IntlProvider locale="en">
+				<ColorPicker palette={palette} onChange={mockFn} />
+			</IntlProvider>,
+		);
+	};
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  it('Analytics event should occur on color change', async () => {
-    const { getByLabelText } = renderUI();
-    // get color button or Trigger
-    const colorButton = getByLabelText('Color picker, Blue selected');
-    expect(colorButton).toHaveAttribute('aria-expanded', 'false');
-    expect(colorButton).toBeInTheDocument();
+	it('Analytics event should occur on color change', async () => {
+		const { getByLabelText } = renderUI();
 
-    // click on trigger
-    await userEvent.click(colorButton);
-    expect(colorButton).toHaveAttribute('aria-expanded', 'true');
+		// get color button or Trigger
+		const colorButton = getByLabelText('Blue selected, Color picker');
+		expect(colorButton).toHaveAttribute('aria-expanded', 'false');
+		expect(colorButton).toBeInTheDocument();
 
-    // click on color option and check onChange called with Analytics
-    await userEvent.click(getByLabelText('Red'));
-    expect(mockFn.mock.calls.length).toBe(1);
-    expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
-  });
+		// click on trigger
+		await userEvent.click(colorButton);
+		expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
-  describe('FFs true', () => {
-    beforeEach(() => {
-      mockGetBooleanFF.mockReturnValue(true);
-    });
+		// click on color option and check onChange called with Analytics
+		await userEvent.click(getByLabelText('Red'));
+		expect(mockFn.mock.calls.length).toBe(1);
+		expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
+	});
 
-    it('Analytics event should occur on color change', async () => {
-      const { getByLabelText, getAllByRole } = renderUI();
-      // get color button or Trigger
-      const colorButton = getByLabelText('Blue selected, Color picker');
-      expect(colorButton).toHaveAttribute('aria-expanded', 'false');
-      expect(colorButton).toBeInTheDocument();
+	describe('FFs true', () => {
+		beforeEach(() => {
+			mockGetBooleanFF.mockReturnValue(true);
+		});
 
-      // click on trigger
-      await userEvent.click(colorButton);
-      expect(colorButton).toHaveAttribute('aria-expanded', 'true');
+		it('Analytics event should occur on color change', async () => {
+			const { getByLabelText, getAllByRole } = renderUI();
+			// get color button or Trigger
+			const colorButton = getByLabelText('Blue selected, Color picker');
+			expect(colorButton).toHaveAttribute('aria-expanded', 'false');
+			expect(colorButton).toBeInTheDocument();
 
-      // click on color option and check onChange called with Analytics
-      await userEvent.click(getAllByRole('radio')[1]);
-      expect(mockFn.mock.calls.length).toBe(1);
-      expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
-    });
-  });
+			// click on trigger
+			await userEvent.click(colorButton);
+			expect(colorButton).toHaveAttribute('aria-expanded', 'true');
+
+			// click on color option and check onChange called with Analytics
+			await userEvent.click(getAllByRole('radio')[1]);
+			expect(mockFn.mock.calls.length).toBe(1);
+			expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
+		});
+	});
 });

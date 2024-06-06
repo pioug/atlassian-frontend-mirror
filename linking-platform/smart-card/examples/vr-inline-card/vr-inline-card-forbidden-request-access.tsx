@@ -4,8 +4,5 @@ import VRCardView from '../utils/vr-card-view';
 import { ForbiddenWithObjectRequestAccessClient } from '../utils/custom-client';
 
 export default () => (
-  <VRCardView
-    appearance="inline"
-    client={new ForbiddenWithObjectRequestAccessClient()}
-  />
+	<VRCardView appearance="inline" client={new ForbiddenWithObjectRequestAccessClient()} />
 );

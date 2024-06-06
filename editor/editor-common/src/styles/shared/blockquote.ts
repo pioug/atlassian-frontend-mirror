@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 export const blockquoteSharedStyles = css({
 	'& blockquote': {
 		boxSizing: 'border-box',
+		color: 'inherit',
 		paddingLeft: token('space.200', '16px'),
 		borderLeft: `2px solid ${token('color.border', akEditorBlockquoteBorderColor)}`,
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview

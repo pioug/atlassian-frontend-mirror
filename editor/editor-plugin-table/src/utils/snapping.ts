@@ -4,7 +4,7 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
-	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 } from '@atlaskit/editor-shared-styles';
 
 const numberOfLanesInDefaultLayoutWidth = 12;
@@ -39,9 +39,9 @@ export const calculateDefaultTablePreserveSnappings = (
 	},
 ) => {
 	const dynamicFullWidthLine =
-		editorContainerWith - akEditorGutterPadding * 2 >= akEditorFullWidthLayoutWidth
+		editorContainerWith - akEditorGutterPaddingDynamic() * 2 >= akEditorFullWidthLayoutWidth
 			? akEditorFullWidthLayoutWidth
-			: editorContainerWith - akEditorGutterPadding * 2;
+			: editorContainerWith - akEditorGutterPaddingDynamic() * 2;
 
 	const guides = [dynamicFullWidthLine - lengthOffset];
 
@@ -77,7 +77,7 @@ export const defaultTablePreserveSnappingWidths = (
 		breakoutPoints: false,
 	},
 ) => {
-	return editorContainerWidth - akEditorGutterPadding * 2 > akEditorFullWidthLayoutWidth
+	return editorContainerWidth - akEditorGutterPaddingDynamic() * 2 > akEditorFullWidthLayoutWidth
 		? calculateDefaultSnappings()
 		: calculateDefaultTablePreserveSnappings(lengthOffset, editorContainerWidth, exclude); // lengthOffset was hardcoded 0 here, created PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET instead.
 };

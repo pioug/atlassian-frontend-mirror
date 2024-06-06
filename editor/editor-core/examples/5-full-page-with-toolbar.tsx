@@ -4,7 +4,8 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { DevTools } from '@af/editor-examples-helpers';
+import { contentStyles, wrapperStyles } from '@af/editor-examples-helpers/example-presets';
+import { DevTools } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
@@ -20,7 +21,6 @@ import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
-import { contentStyles, wrapperStyles } from './5-full-page';
 
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');

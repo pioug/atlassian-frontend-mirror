@@ -7,6 +7,19 @@
  */
 //Hungarian
 export default {
+  'automation-menu.empty-state.image.alt': 'Üres automatizálási lista ikonja',
+  'automation-menu.empty-state.learn-more.link': 'További információ a manuális eseményindítóról',
+  'automation-menu.modal.empty.automations.admin.description':
+    'A manuális eseményindítóval kitölthetsz egy menüt azokkal a kiválasztásokkal, amelyeket bárki vagy az általad megadott személyek egykattintásos automatizálásként alkalmazhatnak.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Az adminisztrátorok még nem konfiguráltak egyetlen manuálisan indítható automatizálást sem.',
+  'automation-menu.modal.error.description': 'A betöltés hosszabb időt vesz igénybe. Frissítsd az oldalt.',
+  'automation-menu.modal.error.image.alt': 'Hiba ikon',
+  'automation-menu.modal.footer.automate-button': 'Automatizálás',
+  'automation-menu.modal.footer.cancel-button': 'Mégse',
+  'automation-menu.modal.footer.get-started-button': 'Automatizálás létrehozása',
+  'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': 'Automatizálási párbeszédablak fejlécikonja',
   'fabric.linking.access_exists_description': 'Kérj hozzáférést, hogy megtekinthesd ezt a tartalmat innen: {hostname}.',
   'fabric.linking.actions': 'Műveletek',
   'fabric.linking.add_account': 'Fiók hozzáadása',
@@ -32,8 +45,8 @@ export default {
     'Automatizálás alkalmazása a következőhöz: <b>{name}</b>.{br}Az elérhető kiválasztásokat a Confluence és a munkatér-adminisztrátorok szabályozzák.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Oldal automatizálása',
   'fabric.linking.automation-action.icon.label': 'Automatizálás ikon',
-  'fabric.linking.automation-action.title': 'Automatizálás futtatása…',
-  'fabric.linking.automation-action.tooltip': 'Automatizálási párbeszédablak megnyitása',
+  'fabric.linking.automation-action.title': 'Automatizálási szabályok megtekintése…',
+  'fabric.linking.automation-action.tooltip': 'Futtatandó automatizálási szabály kiválasztása',
   'fabric.linking.beta': 'Béta',
   'fabric.linking.cancel': 'Mégse',
   'fabric.linking.cannot_connect': 'Nem sikerült kapcsolódni, próbálkozz újra',
@@ -130,6 +143,10 @@ export default {
   'fabric.linking.priority_undefined': 'Nincs meghatározva',
   'fabric.linking.read_time': '{context} perc olvasási idő',
   'fabric.linking.related': 'Kapcsolódó',
+  'fabric.linking.related_links_found_in': 'Itt található:',
+  'fabric.linking.related_links_includes_links_to': 'A következőkre mutató linkeket tartalmaz:',
+  'fabric.linking.related_links_modal_title': 'Legutóbbi linkek',
+  'fabric.linking.related_links_not_found': 'Nem találtunk itt megjeleníthető linkeket.',
   'fabric.linking.related_work_items_not_found': 'Ez a link sehol máshol nincs megemlítve.',
   'fabric.linking.request_access': 'Hozzáférés kérése',
   'fabric.linking.request_access_description':

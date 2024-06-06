@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
+import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { useSharedPluginState } from '../../../hooks';
@@ -48,7 +48,7 @@ const InlineExtension = (props: Props) => {
 		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
 	});
 
-	const rendererContainerWidth = widthState ? widthState.width - akEditorGutterPadding * 2 : 0;
+	const rendererContainerWidth = widthState ? widthState.width - akEditorGutterPaddingDynamic() * 2 : 0;
 
 	const extendedInlineExtension =
 		getBooleanFF('platform.editor.inline_extension.extended_lcqdn') || false;

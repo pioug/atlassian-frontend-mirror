@@ -4,7 +4,6 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ACTION_SUBJECT_ID, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, buildEditLinkPayload, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { HyperlinkAddToolbarProps } from '@atlaskit/editor-common/link';
 import { HyperlinkAddToolbar as HyperlinkToolbar } from '@atlaskit/editor-common/link';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
@@ -32,11 +31,7 @@ import { hideLinkToolbar, showLinkToolbar } from '../pm-plugins/actions';
 import { changeSelectedCardToLink, updateCard } from '../pm-plugins/doc';
 import { displayInfoForCard, findCardInfo } from '../utils';
 
-interface InjectionAPI {
-	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
-}
-
-export type EditLinkToolbarProps = InjectionAPI & {
+export type EditLinkToolbarProps = {
 	view: EditorView;
 	providerFactory: ProviderFactory;
 	url: string | undefined;
@@ -66,9 +61,7 @@ export function HyperlinkAddToolbarWithState({
 	onClose,
 	onEscapeCallback,
 	onClickAwayCallback,
-	pluginInjectionApi,
-}: HyperlinkAddToolbarProps & InjectionAPI) {
-	const { hyperlinkState } = useSharedPluginState(pluginInjectionApi, ['hyperlink']);
+}: HyperlinkAddToolbarProps) {
 	return (
 		<HyperlinkToolbar
 			linkPickerOptions={linkPickerOptions}
@@ -83,7 +76,6 @@ export function HyperlinkAddToolbarWithState({
 			onClose={onClose}
 			onEscapeCallback={onEscapeCallback}
 			onClickAwayCallback={onClickAwayCallback}
-			hyperlinkPluginState={hyperlinkState}
 		/>
 	);
 }
@@ -113,14 +105,12 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 			text,
 			view,
 			onSubmit,
-			pluginInjectionApi,
 			forceFocusSelector,
 			lpLinkPicker,
 		} = this.props;
 
 		return (
 			<HyperlinkAddToolbarWithState
-				pluginInjectionApi={pluginInjectionApi}
 				view={view}
 				linkPickerOptions={linkPickerOptions}
 				providerFactory={providerFactory}
@@ -138,7 +128,6 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 				}}
 				onEscapeCallback={(state, dispatch) => {
 					const { tr } = state;
-					pluginInjectionApi?.hyperlink?.actions.hideLinkToolbar(tr);
 					hideLinkToolbar(tr);
 
 					forceFocusSelector?.(`[aria-label="${linkToolbarMessages.editLink.defaultMessage}"]`)(tr);
@@ -151,7 +140,6 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 				}}
 				onClickAwayCallback={(state, dispatch) => {
 					const { tr } = state;
-					pluginInjectionApi?.hyperlink?.actions.hideLinkToolbar(tr);
 
 					if (dispatch) {
 						dispatch(tr);
@@ -193,14 +181,14 @@ export const editLink =
 export const buildEditLinkToolbar = ({
 	providerFactory,
 	node,
-	linkPicker,
 	pluginInjectionApi,
+	linkPicker,
 	lpLinkPicker,
 }: {
 	providerFactory: ProviderFactory;
 	node: Node;
-	linkPicker?: LinkPickerOptions;
 	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+	linkPicker?: LinkPickerOptions;
 	lpLinkPicker: boolean;
 }): FloatingToolbarItem<Command> => {
 	return {
@@ -216,7 +204,6 @@ export const buildEditLinkToolbar = ({
 
 			return (
 				<EditLinkToolbar
-					pluginInjectionApi={pluginInjectionApi}
 					key={idx}
 					view={view}
 					linkPickerOptions={linkPicker}

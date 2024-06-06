@@ -4,12 +4,8 @@ import { ErroredClient } from '../utils/custom-client';
 import VRCardView from '../utils/vr-card-view';
 
 export const BlockCardErrorView = () => (
-  <VRCardView appearance="block" client={new ErroredClient()} />
+	<VRCardView appearance="block" client={new ErroredClient()} />
 );
 export const BlockCardErrorViewLegacy = () => (
-  <VRCardView
-    appearance="block"
-    client={new ErroredClient()}
-    useLegacyBlockCard={true}
-  />
+	<VRCardView appearance="block" client={new ErroredClient()} useLegacyBlockCard={true} />
 );

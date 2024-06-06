@@ -1,129 +1,135 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 1.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.7
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.3.6
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.3.5
 
 ### Patch Changes
 
--   [#97693](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97693)
-    [`64b813e4a555`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64b813e4a555) -
-    [ux] Disable the selection marker while the editor is disabled to use the native styling.
--   Updated dependencies
+- [#97693](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97693)
+  [`64b813e4a555`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64b813e4a555) -
+  [ux] Disable the selection marker while the editor is disabled to use the native styling.
+- Updated dependencies
 
 ## 1.3.4
 
 ### Patch Changes
 
--   [#97698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97698)
-    [`1c7b378c0d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c7b378c0d3b) -
-    [HOT-108999] We had an incident where the cursor jumps back a character in table headers for any
-    language triggering composition on an empty line.This was fixed in a patch bump of
-    prosemirror-view. https://github.com/ProseMirror/prosemirror-view/compare/1.33.4...1.33.5
--   Updated dependencies
+- [#97698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97698)
+  [`1c7b378c0d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c7b378c0d3b) -
+  [HOT-108999] We had an incident where the cursor jumps back a character in table headers for any
+  language triggering composition on an empty line.This was fixed in a patch bump of
+  prosemirror-view. https://github.com/ProseMirror/prosemirror-view/compare/1.33.4...1.33.5
+- Updated dependencies
 
 ## 1.3.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.3.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.3.1
 
 ### Patch Changes
 
--   [#95182](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95182)
-    [`3d3dd335b8e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d3dd335b8e8) -
-    The internal composition of this component has changed. There is no expected change in behavior.
+- [#95182](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95182)
+  [`3d3dd335b8e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d3dd335b8e8) -
+  The internal composition of this component has changed. There is no expected change in behavior.
 
 ## 1.3.0
 
 ### Minor Changes
 
--   [#91934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91934)
-    [`b76a78c6a199`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b76a78c6a199) -
-    bumped editor-prosemirror version to 4.0.0
+- [#91934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91934)
+  [`b76a78c6a199`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b76a78c6a199) -
+  bumped editor-prosemirror version to 4.0.0
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.2.2
 
 ### Patch Changes
 
--   [#91886](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91886)
-    [`5c0443e007d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c0443e007d9) -
-    [ux] Fix bug where selection marker shows when focussing on the expand title with the keyboard.
+- [#91886](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91886)
+  [`5c0443e007d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c0443e007d9) -
+  [ux] Fix bug where selection marker shows when focussing on the expand title with the keyboard.
 
 ## 1.2.1
 
 ### Patch Changes
 
--   [#90925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90925)
-    [`431c0d17e3e3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/431c0d17e3e3) -
-    [ux] Improve the selection marker by hiding it when in an expand and improving styling by making
-    it more subtle.
+- [#90925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90925)
+  [`431c0d17e3e3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/431c0d17e3e3) -
+  [ux] Improve the selection marker by hiding it when in an expand and improving styling by making
+  it more subtle.
 
 ## 1.2.0
 
 ### Minor Changes
 
--   [#90866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90866)
-    [`519e3bd71a35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/519e3bd71a35) -
-    [ux] [ED-22985] - Limit selection-marker plugin to only decorate text nodes
+- [#90866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90866)
+  [`519e3bd71a35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/519e3bd71a35) -
+  [ux] [ED-22985] - Limit selection-marker plugin to only decorate text nodes
 
 ## 1.1.3
 
 ### Patch Changes
 
--   [#79359](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79359)
-    [`3441b8062083`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3441b8062083) -
-    [ux] Make the selection marker styling more subtle.
+- [#79359](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79359)
+  [`3441b8062083`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3441b8062083) -
+  [ux] Make the selection marker styling more subtle.
 
 ## 1.1.2
 
 ### Patch Changes
 
--   [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
-    [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
-    Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 1.1.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 1.1.0
 
 ### Minor Changes
 
--   [#80131](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80131)
-    [`336116d18762`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/336116d18762) -
-    Expose a new method hideDecoration on selection marker which can be used to temporarily disable
-    the selection marker behaviour.
+- [#80131](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80131)
+  [`336116d18762`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/336116d18762) -
+  Expose a new method hideDecoration on selection marker which can be used to temporarily disable
+  the selection marker behaviour.
 
 ## 1.0.1
 
 ### Patch Changes
 
--   [#81026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81026)
-    [`9f75ed822487`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f75ed822487) -
-    [ux] Fix selection marker background with input fields (ie. expands).
+- [#81026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81026)
+  [`9f75ed822487`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f75ed822487) -
+  [ux] Fix selection marker background with input fields (ie. expands).

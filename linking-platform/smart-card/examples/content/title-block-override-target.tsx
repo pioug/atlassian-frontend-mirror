@@ -3,7 +3,7 @@ import { TitleBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 export default () => (
-  <ExampleContainer>
-    <TitleBlock anchorTarget="_self" />
-  </ExampleContainer>
+	<ExampleContainer>
+		<TitleBlock anchorTarget="_self" />
+	</ExampleContainer>
 );

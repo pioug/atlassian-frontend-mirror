@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media
 
+## 1.20.8
+
+### Patch Changes
+
+- [#106586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106586)
+  [`f3486a7d141c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3486a7d141c) -
+  Update usage of akEditorGutterPadding to its dynamic version which can increase padding to support
+  editor drag and drop. Breakout logic is also updated to accommodate extra padding.
+- [#107903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107903)
+  [`adfd4df52e6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/adfd4df52e6d) -
+  fix issue where selection was not being set correctly after changing media to inline
+- Updated dependencies
+
 ## 1.20.7
 
 ### Patch Changes

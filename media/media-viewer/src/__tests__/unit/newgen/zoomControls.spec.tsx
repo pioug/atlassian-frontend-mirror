@@ -6,92 +6,92 @@ import { ZoomLevel } from '../../../domain/zoomLevel';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 
 describe('Zooming', () => {
-  describe('<ZoomControls />', () => {
-    const setupBase = (props?: Partial<ZoomControlsProps>) => {
-      const onChange = jest.fn();
-      const createAnalyticsEventSpy = jest.fn();
-      createAnalyticsEventSpy.mockReturnValue({ fire: jest.fn() });
+	describe('<ZoomControls />', () => {
+		const setupBase = (props?: Partial<ZoomControlsProps>) => {
+			const onChange = jest.fn();
+			const createAnalyticsEventSpy = jest.fn();
+			createAnalyticsEventSpy.mockReturnValue({ fire: jest.fn() });
 
-      const component = mount(
-        <ZoomControlsBase
-          createAnalyticsEvent={createAnalyticsEventSpy}
-          zoomLevel={new ZoomLevel(1)}
-          onChange={onChange}
-          intl={fakeIntl}
-          {...props}
-        />,
-      );
+			const component = mount(
+				<ZoomControlsBase
+					createAnalyticsEvent={createAnalyticsEventSpy}
+					zoomLevel={new ZoomLevel(1)}
+					onChange={onChange}
+					intl={fakeIntl}
+					{...props}
+				/>,
+			);
 
-      return {
-        onChange,
-        component,
-        createAnalyticsEventSpy,
-      };
-    };
+			return {
+				onChange,
+				component,
+				createAnalyticsEventSpy,
+			};
+		};
 
-    it('should increase and decrease zoom', () => {
-      const { component, onChange } = setupBase();
-      const zoomLevel = new ZoomLevel(1);
+		it('should increase and decrease zoom', () => {
+			const { component, onChange } = setupBase();
+			const zoomLevel = new ZoomLevel(1);
 
-      component.find('button').first().simulate('click');
-      expect(onChange).lastCalledWith(zoomLevel.zoomOut());
-      component.find('button').last().simulate('click');
-      expect(onChange).lastCalledWith(zoomLevel.zoomIn());
-    });
+			component.find('button').first().simulate('click');
+			expect(onChange).lastCalledWith(zoomLevel.zoomOut());
+			component.find('button').last().simulate('click');
+			expect(onChange).lastCalledWith(zoomLevel.zoomIn());
+		});
 
-    it('should not allow zooming above upper limit', () => {
-      const { component, onChange } = setupBase({
-        zoomLevel: new ZoomLevel(1).fullyZoomIn(),
-      });
-      component.find('button').last().simulate('click');
-      expect(onChange).not.toBeCalled();
-    });
+		it('should not allow zooming above upper limit', () => {
+			const { component, onChange } = setupBase({
+				zoomLevel: new ZoomLevel(1).fullyZoomIn(),
+			});
+			component.find('button').last().simulate('click');
+			expect(onChange).not.toBeCalled();
+		});
 
-    it('should not allow zooming below lower limit', () => {
-      const { component, onChange } = setupBase({
-        zoomLevel: new ZoomLevel(1).fullyZoomOut(),
-      });
-      component.find('button').first().simulate('click');
-      expect(onChange).not.toBeCalled();
-    });
+		it('should not allow zooming below lower limit', () => {
+			const { component, onChange } = setupBase({
+				zoomLevel: new ZoomLevel(1).fullyZoomOut(),
+			});
+			component.find('button').first().simulate('click');
+			expect(onChange).not.toBeCalled();
+		});
 
-    describe('zoom level indicator', () => {
-      it('shows 100% zoom level', () => {
-        const { component } = setupBase();
-        expect(component.find(ZoomRightControls).text()).toEqual('100 %');
-      });
-    });
+		describe('zoom level indicator', () => {
+			it('shows 100% zoom level', () => {
+				const { component } = setupBase();
+				expect(component.find(ZoomRightControls).text()).toEqual('100 %');
+			});
+		});
 
-    describe('analytics', () => {
-      it('triggers analytics events on zoom Out', () => {
-        const { component, createAnalyticsEventSpy } = setupBase();
-        component.find('button').first().simulate('click');
+		describe('analytics', () => {
+			it('triggers analytics events on zoom Out', () => {
+				const { component, createAnalyticsEventSpy } = setupBase();
+				component.find('button').first().simulate('click');
 
-        expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
-          eventType: 'ui',
-          action: 'clicked',
-          actionSubject: 'button',
-          actionSubjectId: 'zoomOut',
-          attributes: {
-            zoomScale: 0.48,
-          },
-        });
-      });
+				expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
+					eventType: 'ui',
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'zoomOut',
+					attributes: {
+						zoomScale: 0.48,
+					},
+				});
+			});
 
-      it('triggers analytics events on zoom in', () => {
-        const { component, createAnalyticsEventSpy } = setupBase();
-        component.find('button').last().simulate('click');
+			it('triggers analytics events on zoom in', () => {
+				const { component, createAnalyticsEventSpy } = setupBase();
+				component.find('button').last().simulate('click');
 
-        expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
-          eventType: 'ui',
-          action: 'clicked',
-          actionSubject: 'button',
-          actionSubjectId: 'zoomIn',
-          attributes: {
-            zoomScale: 1.5,
-          },
-        });
-      });
-    });
-  });
+				expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
+					eventType: 'ui',
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'zoomIn',
+					attributes: {
+						zoomScale: 1.5,
+					},
+				});
+			});
+		});
+	});
 });

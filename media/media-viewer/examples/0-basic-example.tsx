@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
-  createStorybookMediaClientConfig,
-  defaultCollectionName,
+	createStorybookMediaClientConfig,
+	defaultCollectionName,
 } from '@atlaskit/media-test-helpers';
 import { type Identifier, MediaClient } from '@atlaskit/media-client';
 import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
@@ -12,28 +12,26 @@ const mediaClientConfig = createStorybookMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);
 
 const Example = () => {
-  const [selectedIdentifier, setSelectedIdentifier] = useState<
-    Identifier | undefined
-  >();
+	const [selectedIdentifier, setSelectedIdentifier] = useState<Identifier | undefined>();
 
-  return (
-    <>
-      <NativeMediaPreview
-        identifier={imageItem}
-        mediaClient={mediaClient}
-        onClick={() => setSelectedIdentifier(imageItem)}
-      />
-      {selectedIdentifier && (
-        <MediaViewer
-          mediaClientConfig={mediaClientConfig}
-          selectedItem={selectedIdentifier}
-          items={[selectedIdentifier]}
-          collectionName={defaultCollectionName}
-          onClose={() => setSelectedIdentifier(undefined)}
-        />
-      )}
-    </>
-  );
+	return (
+		<>
+			<NativeMediaPreview
+				identifier={imageItem}
+				mediaClient={mediaClient}
+				onClick={() => setSelectedIdentifier(imageItem)}
+			/>
+			{selectedIdentifier && (
+				<MediaViewer
+					mediaClientConfig={mediaClientConfig}
+					selectedItem={selectedIdentifier}
+					items={[selectedIdentifier]}
+					collectionName={defaultCollectionName}
+					onClose={() => setSelectedIdentifier(undefined)}
+				/>
+			)}
+		</>
+	);
 };
 
 export default Example;

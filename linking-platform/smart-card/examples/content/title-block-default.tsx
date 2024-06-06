@@ -3,7 +3,7 @@ import { TitleBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 export default () => (
-  <ExampleContainer>
-    <TitleBlock />
-  </ExampleContainer>
+	<ExampleContainer>
+		<TitleBlock />
+	</ExampleContainer>
 );

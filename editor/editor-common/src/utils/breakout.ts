@@ -32,8 +32,12 @@ const breakoutConsts: any = {
 	/**
 	 * This function can return percentage value or px value depending upon the inputs
 	 */
-	calcBreakoutWidth: (layout: 'full-width' | 'wide' | string, containerWidth: number) => {
-		const effectiveFullWidth = containerWidth - breakoutConsts.padding;
+	calcBreakoutWidth: (
+		layout: 'full-width' | 'wide' | string,
+		containerWidth: number,
+		padding?: number,
+	) => {
+		const effectiveFullWidth = containerWidth - (padding ?? breakoutConsts.padding);
 
 		switch (layout) {
 			case 'full-width':
@@ -43,7 +47,7 @@ const breakoutConsts: any = {
 					return '100%';
 				}
 
-				let wideWidth = breakoutConsts.calcWideWidth(containerWidth);
+				let wideWidth = breakoutConsts.calcWideWidth(containerWidth, undefined, undefined, padding);
 				if (wideWidth.endsWith('%')) {
 					return `${Math.min(effectiveFullWidth, breakoutConsts.fullWidthLayoutWidth)}px`;
 				}
@@ -57,8 +61,9 @@ const breakoutConsts: any = {
 		containerWidth: number = breakoutConsts.defaultLayoutWidth,
 		maxWidth: number = Infinity,
 		fallback: string = '100%',
+		padding?: number,
 	) => {
-		const effectiveFullWidth = containerWidth - breakoutConsts.padding;
+		const effectiveFullWidth = containerWidth - (padding ?? breakoutConsts.padding);
 		const layoutMaxWidth = breakoutConsts.mapBreakpointToLayoutMaxWidth(
 			breakoutConsts.getBreakpoint(containerWidth),
 		);
@@ -155,8 +160,12 @@ export function calculateBreakoutStyles({
 	};
 }
 
-export function calcBreakoutWidthPx(mode: BreakoutMarkAttrs['mode'], widthStateWidth?: number) {
-	return parsePx(calcBreakoutWidth(mode, widthStateWidth)) as number;
+export function calcBreakoutWidthPx(
+	mode: BreakoutMarkAttrs['mode'],
+	widthStateWidth?: number,
+	padding?: number,
+) {
+	return parsePx(calcBreakoutWidth(mode, widthStateWidth, padding)) as number;
 }
 
 export const getNextBreakoutMode = (currentMode?: BreakoutMode): BreakoutMode => {

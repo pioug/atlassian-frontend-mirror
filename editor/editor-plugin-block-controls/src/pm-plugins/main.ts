@@ -1,13 +1,19 @@
+import rafSchedule from 'raf-schd';
+
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockControlsPlugin, PluginState } from '../types';
 
-import { dragHandleDecoration, dropTargetDecorations } from './decorations';
+import {
+	dragHandleDecoration,
+	dropTargetDecorations,
+	mouseMoveWrapperDecorations,
+	nodeDecorations,
+} from './decorations';
 
 export const key = new PluginKey<PluginState>('blockControls');
 
@@ -24,6 +30,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					isMenuOpen: false,
 					start: null,
 					end: null,
+					editorHeight: 0,
 				};
 			},
 			apply(
@@ -33,16 +40,51 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				newState: EditorState,
 			) {
 				// return currentState;
-				let { activeNode, decorations, isMenuOpen, decorationState } = currentState;
+				let { activeNode, decorations, isMenuOpen, decorationState, editorHeight } = currentState;
 				const meta = tr.getMeta(key);
 
-				// Drag handle decoration
-				if (meta && meta.pos !== activeNode?.pos && api) {
-					decorations = dragHandleDecoration(newState, meta, api);
-				}
-				// Drop target decorations
-				if (meta?.isDragging && api) {
+				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
+				const redrawDecorations =
+					decorations === DecorationSet.empty ||
+					(meta?.editorHeight !== undefined && meta?.editorHeight !== editorHeight) ||
+					(tr.docChanged && tr.doc.childCount === newState.doc.childCount) ||
+					(meta?.nodeMoved && tr.docChanged);
+				if (redrawDecorations && api) {
 					decorations = DecorationSet.create(newState.doc, []);
+					const nodeDecs = nodeDecorations(newState);
+					const mouseWrapperDecs = mouseMoveWrapperDecorations(newState, api);
+					decorations = decorations.add(newState.doc, [...nodeDecs, ...mouseWrapperDecs]);
+					if (activeNode) {
+						const draghandleDec = dragHandleDecoration(
+							activeNode.pos,
+							activeNode.anchorName,
+							activeNode.nodeType,
+							api,
+						);
+						decorations = decorations.add(newState.doc, [draghandleDec]);
+					}
+				}
+
+				// Remove previous drag handle widget and draw new drag handle widget when activeNode changes
+				if (
+					meta?.activeNode &&
+					meta?.activeNode.pos !== activeNode?.pos &&
+					meta?.activeNode.anchorName !== activeNode?.anchorName &&
+					api
+				) {
+					const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
+					decorations = decorations.remove(oldHandle);
+					const decs = dragHandleDecoration(
+						meta.activeNode.pos,
+						meta.activeNode.anchorName,
+						meta.activeNode.nodeType,
+						api,
+					);
+					decorations = decorations.add(newState.doc, [decs]);
+				}
+
+				// Add drop targets when node is being dragged
+				if (meta?.isDragging && !tr.docChanged && api) {
 					const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
 						oldState,
 						newState,
@@ -52,14 +94,12 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					decorations = decorations.add(newState.doc, decs);
 				}
 
-				// Remove drop target decorations when dragging is stopped
-				if (meta?.isDragging === false) {
-					decorations = DecorationSet.create(newState.doc, []);
-				}
-
-				// Map decorations when the document changes
-				if (tr.docChanged && decorations !== DecorationSet.empty) {
-					decorations = decorations.map(tr.mapping, tr.doc);
+				// Remove drop target decoration when dragging stops
+				if (meta?.isDragging === false && !tr.docChanged) {
+					const dropTargetDecs = decorations
+						.find()
+						.filter(({ spec }) => spec.type === 'drop-target-decoration');
+					decorations = decorations.remove(dropTargetDecs);
 				}
 
 				// Map drop target decoration positions when the document changes
@@ -72,58 +112,56 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					});
 				}
 
+				// Map decorations if document changes and node decorations do not need to be redrawn
+				if (tr.docChanged && !redrawDecorations) {
+					decorations = decorations.map(tr.mapping, tr.doc);
+				}
+
 				// Map active node position when the document changes
 				const mappedActiveNodePos =
-					tr.docChanged && activeNode ? tr.mapping.map(activeNode.pos) : activeNode?.pos;
+					tr.docChanged && activeNode
+						? { pos: tr.mapping.map(activeNode.pos), anchorName: activeNode.anchorName }
+						: activeNode;
 
 				return {
 					decorations,
 					decorationState: decorationState ?? currentState.decorationState,
-					activeNode: {
-						pos: meta?.pos ?? mappedActiveNodePos,
-					},
+					activeNode: meta?.activeNode ?? mappedActiveNodePos,
 					isDragging: meta?.isDragging ?? currentState.isDragging,
 					isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
+					editorHeight: meta?.editorHeight ?? currentState.editorHeight,
 				};
 			},
 		},
-
 		props: {
 			decorations: (state: EditorState) => {
 				return key.getState(state)?.decorations;
 			},
-			handleDOMEvents: {
-				mousemove(view: EditorView, event: MouseEvent) {
-					const pos = view.posAtCoords({
-						left: event.clientX,
-						top: event.clientY,
-					});
+		},
+		view: (editorView: EditorView) => {
+			const dom = editorView.dom;
 
-					if (pos?.inside !== undefined && pos.inside >= 0) {
-						const node = view.state.doc.nodeAt(pos.inside);
-						if (!node) {
-							return;
-						}
-						const resolvedPos = view.state.doc.resolve(pos.pos);
-						const topLevelPos = resolvedPos.before(1); // 1 here restricts the depth to the root level
-						const topLevelNode = view.state.doc.nodeAt(topLevelPos);
-						if (!topLevelNode) {
-							return;
-						}
-						const dom = view.nodeDOM(topLevelPos);
-						if (!dom) {
-							return;
-						}
-						api?.core?.actions.execute(({ tr }) =>
-							tr.setMeta(key, {
-								pos: topLevelPos,
-								dom,
-								type: topLevelNode.type.name,
-							}),
-						);
+			// Use ResizeObserver to observe height changes
+			const resizeObserver = new ResizeObserver(
+				rafSchedule(() => {
+					const editorHeight = dom.offsetHeight;
+
+					// Update the plugin state when the height changes
+					const pluginState = key.getState(editorView.state);
+					if (!pluginState?.isDragging) {
+						editorView.dispatch(editorView.state.tr.setMeta(key, { editorHeight }));
 					}
+				}),
+			);
+
+			// Start observing the editor DOM element
+			resizeObserver.observe(dom);
+
+			return {
+				destroy() {
+					resizeObserver.unobserve(dom);
 				},
-			},
+			};
 		},
 	});
 };

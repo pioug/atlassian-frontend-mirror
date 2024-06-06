@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f5a2e39689cb7db642a65999cdc6f03a>>
+ * @codegen <<SignedSource::b7ed527a03208f0bc68f9d34e4ef2260>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 export default {
@@ -28,6 +28,7 @@ export default {
 		'@atlaskit/design-system/use-heading-level-in-spotlight-card': 'warn',
 		'@atlaskit/design-system/use-href-in-link-item': 'warn',
 		'@atlaskit/design-system/use-latest-xcss-syntax': 'error',
+		'@atlaskit/design-system/use-menu-section-title': 'warn',
 		'@atlaskit/design-system/use-popup-label': 'warn',
 		'@atlaskit/design-system/use-visually-hidden': 'error',
 	},

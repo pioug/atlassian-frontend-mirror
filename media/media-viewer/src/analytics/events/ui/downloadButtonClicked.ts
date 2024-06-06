@@ -4,30 +4,29 @@ import { getFileAttributes } from '../..';
 import { type ButtonClickEventPayload } from './_clickedButton';
 
 export type DownloadButtonClickedAttributes = WithFileAttributes & {
-  fileProcessingStatus: FileStatus;
+	fileProcessingStatus: FileStatus;
 };
 
 export type DownloadButtonClickedEventPayload =
-  ButtonClickEventPayload<DownloadButtonClickedAttributes>;
+	ButtonClickEventPayload<DownloadButtonClickedAttributes>;
 
 export const createDownloadButtonClickedEvent = (
-  fileState: FileState,
+	fileState: FileState,
 ): DownloadButtonClickedEventPayload => {
-  const { fileId, fileMediatype, fileMimetype, fileSize } =
-    getFileAttributes(fileState);
-  return {
-    eventType: 'ui',
-    action: 'clicked',
-    actionSubject: 'button',
-    actionSubjectId: 'downloadButton',
-    attributes: {
-      fileAttributes: {
-        fileId,
-        fileMediatype,
-        fileMimetype,
-        fileSize,
-      },
-      fileProcessingStatus: fileState.status,
-    },
-  };
+	const { fileId, fileMediatype, fileMimetype, fileSize } = getFileAttributes(fileState);
+	return {
+		eventType: 'ui',
+		action: 'clicked',
+		actionSubject: 'button',
+		actionSubjectId: 'downloadButton',
+		attributes: {
+			fileAttributes: {
+				fileId,
+				fileMediatype,
+				fileMimetype,
+				fileSize,
+			},
+			fileProcessingStatus: fileState.status,
+		},
+	};
 };

@@ -139,10 +139,11 @@ export const changeMediaCardToInline =
 		let content = Fragment.from([mediaInlineNode, space]);
 		const node = paragraph.createChecked({}, content);
 
-		const nodePos = state.tr.doc.resolve(state.selection.from).start() - 1;
+		const nodePos = state.tr.doc.resolve(state.selection.from).start();
 
 		let tr = removeMediaGroupNode(state);
-		tr = safeInsert(node, nodePos, false)(tr);
+		// Minus 1 to insert the node before the media group
+		tr = safeInsert(node, nodePos - 1, false)(tr);
 
 		if (dispatch) {
 			editorAnalyticsAPI?.attachAnalyticsEvent({
@@ -155,7 +156,7 @@ export const changeMediaCardToInline =
 				},
 			})(tr);
 
-			const newSelection = NodeSelection.create(tr.doc, state.selection.anchor);
+			const newSelection = NodeSelection.create(tr.doc, nodePos);
 			tr.setSelection(newSelection);
 			forceFocusSelector?.(`.inline-appearance`)(tr);
 			dispatch(tr);

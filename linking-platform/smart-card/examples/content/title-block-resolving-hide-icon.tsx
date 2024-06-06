@@ -4,7 +4,7 @@ import ExampleContainer from './example-container';
 import { SmartLinkStatus } from '../../src/constants';
 
 export default () => (
-  <ExampleContainer>
-    <TitleBlock hideIcon={true} status={SmartLinkStatus.Resolving} />
-  </ExampleContainer>
+	<ExampleContainer>
+		<TitleBlock hideIcon={true} status={SmartLinkStatus.Resolving} />
+	</ExampleContainer>
 );

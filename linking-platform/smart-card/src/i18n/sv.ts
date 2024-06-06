@@ -7,6 +7,19 @@
  */
 //Swedish
 export default {
+  'automation-menu.empty-state.image.alt': 'Ikon för tom automatiseringslista',
+  'automation-menu.empty-state.learn-more.link': 'Ta reda på mer om den manuella utlösaren',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Använd den manuella utlösaren för att fylla i en meny med val som vem som helst, eller personer som du anger, kan tillämpa som automatiseringar med ett klick.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Administratörer har inte konfigurerat några manuellt utlösta automatiseringar än.',
+  'automation-menu.modal.error.description': 'Detta tar en stund att läsa in. Testa att uppdatera sidan.',
+  'automation-menu.modal.error.image.alt': 'Fel-ikon',
+  'automation-menu.modal.footer.automate-button': 'Automatisera',
+  'automation-menu.modal.footer.cancel-button': 'Avbryt',
+  'automation-menu.modal.footer.get-started-button': 'Skapa automatisering',
+  'automation-menu.modal.footer.ok-button': 'Okej',
+  'automation-menu.modal.header.icon.label': 'Rubriksymbol för automatiseringsmodal',
   'fabric.linking.access_exists_description': 'Begär åtkomst för att visa det här innehållet från {hostname}.',
   'fabric.linking.actions': 'Åtgärder',
   'fabric.linking.add_account': 'Lägg till konto',
@@ -31,8 +44,8 @@ export default {
     'Tillämpa en automatisering för <b>{name}</b>.{br}Tillgängliga val styrs av Confluence- och utrymmesadministratörer.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sidautomatiseringar',
   'fabric.linking.automation-action.icon.label': 'Automatiseringssymbol',
-  'fabric.linking.automation-action.title': 'Kör automatisering ...',
-  'fabric.linking.automation-action.tooltip': 'Öppna en automatiseringsmodal',
+  'fabric.linking.automation-action.title': 'Visa automatiseringsregler ...',
+  'fabric.linking.automation-action.tooltip': 'Välj en automatiseringsregel att köra',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Avbryt',
   'fabric.linking.cannot_connect': 'Det går inte att ansluta, försök igen',
@@ -126,6 +139,10 @@ export default {
   'fabric.linking.priority_undefined': 'Ej definierad',
   'fabric.linking.read_time': '{context} minuters läsning',
   'fabric.linking.related': 'Relaterat',
+  'fabric.linking.related_links_found_in': 'Hittades i',
+  'fabric.linking.related_links_includes_links_to': 'Inkluderar länkar till',
+  'fabric.linking.related_links_modal_title': 'Senaste länkar',
+  'fabric.linking.related_links_not_found': 'Vi hittade inga länkar att visa här.',
   'fabric.linking.related_work_items_not_found': 'Länken nämns inte någon annanstans.',
   'fabric.linking.request_access': 'Begär åtkomst',
   'fabric.linking.request_access_description':

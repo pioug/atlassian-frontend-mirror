@@ -9,25 +9,25 @@ import { IconType, SmartLinkSize } from '../src/constants';
 import { css } from '@emotion/react';
 
 export default () => (
-  <VRTestWrapper
-    overrideCss={css({
-      height: '700px',
-    })}
-  >
-    <EmbedModal
-      analytics={mockAnalytics}
-      download="https://download-url"
-      icon={{
-        icon: <Icon icon={IconType.Task} size={SmartLinkSize.Large} />,
-        isFlexibleUi: true,
-      }}
-      iframeName="iframe-name"
-      onClose={() => {}}
-      providerName="Nowhere"
-      showModal={true}
-      src={overrideEmbedContent}
-      title="This is a visual regression test for embed modal"
-      url="https://link-url"
-    />
-  </VRTestWrapper>
+	<VRTestWrapper
+		overrideCss={css({
+			height: '700px',
+		})}
+	>
+		<EmbedModal
+			analytics={mockAnalytics}
+			download="https://download-url"
+			icon={{
+				icon: <Icon icon={IconType.Task} size={SmartLinkSize.Large} />,
+				isFlexibleUi: true,
+			}}
+			iframeName="iframe-name"
+			onClose={() => {}}
+			providerName="Nowhere"
+			showModal={true}
+			src={overrideEmbedContent}
+			title="This is a visual regression test for embed modal"
+			url="https://link-url"
+		/>
+	</VRTestWrapper>
 );

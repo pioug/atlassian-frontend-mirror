@@ -7,6 +7,19 @@
  */
 //Finnish
 export default {
+  'automation-menu.empty-state.image.alt': 'Tyhjän automaatioluettelon kuvake',
+  'automation-menu.empty-state.learn-more.link': 'Lue lisää manuaalisesta laukaisimesta',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Täytä manuaalisen laukaisimen avulla valikko valinnoilla, joita kuka tahansa tai määrittämäsi henkilöt voivat käyttää yhden napsautuksen automaatioina.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Ylläpitäjät eivät ole vielä määrittäneet yhtään manuaalisesti laukaistavaa automaatiota.',
+  'automation-menu.modal.error.description': 'Lataaminen kestää jonkin aikaa. Yritä päivittää sivu.',
+  'automation-menu.modal.error.image.alt': 'Virhekuvake',
+  'automation-menu.modal.footer.automate-button': 'Automatisoi',
+  'automation-menu.modal.footer.cancel-button': 'Peruuta',
+  'automation-menu.modal.footer.get-started-button': 'Luo automaatio',
+  'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': 'Automaation modaalisen ikkunan ylätunnisteen kuvake',
   'fabric.linking.access_exists_description': 'Pyydä oikeutta tarkastella tätä sisältöä kohteesta {hostname}.',
   'fabric.linking.actions': 'Toiminnot',
   'fabric.linking.add_account': 'Lisää tili',
@@ -31,8 +44,8 @@ export default {
     'Käytä automaatiota sivulla <b>{name}</b>.{br}Confluencen ja työtilan ylläpitäjät hallitsevat käytettävissä olevia valintoja.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sivun automaatiot',
   'fabric.linking.automation-action.icon.label': 'Automaatiokuvake',
-  'fabric.linking.automation-action.title': 'Suorita automaatio...',
-  'fabric.linking.automation-action.tooltip': 'Avaa automaation modaalinen ikkuna',
+  'fabric.linking.automation-action.title': 'Näytä automaatiosäännöt...',
+  'fabric.linking.automation-action.tooltip': 'Valitse suoritettava automaatiosääntö',
   'fabric.linking.beta': 'Beeta',
   'fabric.linking.cancel': 'Peruuta',
   'fabric.linking.cannot_connect': 'Ei voi muodostaa yhteyttä, yritä uudelleen',
@@ -128,6 +141,10 @@ export default {
   'fabric.linking.priority_undefined': 'Määrittelemätön',
   'fabric.linking.read_time': 'Lukuaika: {context}',
   'fabric.linking.related': 'Liittyvät',
+  'fabric.linking.related_links_found_in': 'Löydetty kohteesta',
+  'fabric.linking.related_links_includes_links_to': 'Sisältää linkit kohteeseen',
+  'fabric.linking.related_links_modal_title': 'Viimeaikaiset linkit',
+  'fabric.linking.related_links_not_found': 'Täältä ei löytynyt näytettäviä linkkejä.',
   'fabric.linking.related_work_items_not_found': 'Tätä linkkiä ei ole mainittu missään muualla.',
   'fabric.linking.request_access': 'Pyydä pääsyä',
   'fabric.linking.request_access_description':

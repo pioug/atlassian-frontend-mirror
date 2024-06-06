@@ -6,7 +6,9 @@ import type { IntlShape } from 'react-intl-next';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { CardPluginActions, OptionConfig } from '@atlaskit/editor-common/card';
+import type {
+  OptionConfig,
+} from '@atlaskit/editor-common/card';
 import {
 	commandWithMetadata,
 	getButtonGroupOption,
@@ -23,6 +25,7 @@ import type { CardContext } from '@atlaskit/link-provider';
 import type { CardPlatform } from '@atlaskit/smart-card';
 
 import { LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR } from '../common/local-storage';
+import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 import { shouldRenderToolbarPulse } from '../toolbar';
 import { getResolvedAttributesFromStore } from '../utils';
 
@@ -38,7 +41,6 @@ export interface LinkToolbarAppearanceProps {
 	allowEmbeds?: boolean;
 	allowBlockCards?: boolean;
 	platform?: CardPlatform;
-	cardActions: CardPluginActions | undefined;
 	showUpgradeDiscoverability?: boolean;
 	isDatasourceView?: boolean;
 }
@@ -61,7 +63,6 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 			allowBlockCards = true,
 			platform,
 			editorAnalyticsApi,
-			cardActions,
 			showUpgradeDiscoverability = true,
 			isDatasourceView,
 		} = this.props;
@@ -98,7 +99,7 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 				appearance: 'embed' as const,
 				title: intl.formatMessage(messages.embed),
 				onClick:
-					cardActions?.setSelectedCardAppearance('embed', editorAnalyticsApi) ?? defaultCommand,
+					setSelectedCardAppearance('embed', editorAnalyticsApi) ?? defaultCommand,
 				selected: currentAppearance === 'embed',
 				hidden: false,
 				testId: 'embed-appearance',
@@ -112,7 +113,7 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 			appearance: 'block' as const,
 			title: intl.formatMessage(messages.block),
 			onClick:
-				cardActions?.setSelectedCardAppearance('block', editorAnalyticsApi) ?? defaultCommand,
+				setSelectedCardAppearance('block', editorAnalyticsApi) ?? defaultCommand,
 			selected: currentAppearance === 'block' && !isDatasourceView,
 			testId: 'block-appearance',
 			disabled: !isBlockCardLinkSupportedInParent,
@@ -125,7 +126,7 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 			{
 				title: intl.formatMessage(messages.url),
 				onClick: commandWithMetadata(
-					cardActions?.changeSelectedCardToLink(
+					changeSelectedCardToLink(
 						url,
 						url,
 						true,
@@ -144,7 +145,7 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 				appearance: 'inline',
 				title: intl.formatMessage(messages.inline),
 				onClick:
-					cardActions?.setSelectedCardAppearance('inline', editorAnalyticsApi) ?? defaultCommand,
+					setSelectedCardAppearance('inline', editorAnalyticsApi) ?? defaultCommand,
 				selected: currentAppearance === 'inline',
 				testId: 'inline-appearance',
 			},

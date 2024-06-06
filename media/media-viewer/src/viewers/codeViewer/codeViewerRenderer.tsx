@@ -9,11 +9,7 @@ import CodeBlock from '@atlaskit/code/block';
 import ErrorMessage from '../../errorMessage';
 import { MediaViewerError } from '../../errors';
 import { lineCount } from './util';
-import {
-  codeViewerHeaderBarStyles,
-  codeViewWrapperStyles,
-  codeViewerHTMLStyles,
-} from './styles';
+import { codeViewerHeaderBarStyles, codeViewWrapperStyles, codeViewerHTMLStyles } from './styles';
 import { TouchScrollable } from 'react-scrolllock';
 
 // Based on some basic benchmarking with @atlaskit/code it was found that ~10,000 lines took around ~5secs to render, which locks the main thread.
@@ -25,106 +21,105 @@ const MAX_FORMATTED_LINES = 10000;
 const MAX_FILE_SIZE_USE_CODE_VIEWER = 5 * 1024 * 1024;
 
 export const CodeViewWrapper = ({
-  children,
-  'data-testid': testId,
+	children,
+	'data-testid': testId,
 }: {
-  children: ReactNode;
-  'data-testid': string | undefined;
+	children: ReactNode;
+	'data-testid': string | undefined;
 }) => {
-  return (
-    <TouchScrollable>
-      <div css={codeViewWrapperStyles} data-testid={testId}>
-        {children}
-      </div>
-    </TouchScrollable>
-  );
+	return (
+		<TouchScrollable>
+			<div css={codeViewWrapperStyles} data-testid={testId}>
+				{children}
+			</div>
+		</TouchScrollable>
+	);
 };
 
 export const CodeViewerHeaderBar = () => {
-  return <div css={codeViewerHeaderBarStyles}></div>;
+	return <div css={codeViewerHeaderBarStyles}></div>;
 };
 export type Props = {
-  item: Exclude<FileState, ErrorFileState>;
-  src: string;
-  language: SupportedLanguages;
-  testId?: string;
-  onClose?: () => void;
-  onSuccess?: () => void;
-  onError?: (error: MediaViewerError) => void;
+	item: Exclude<FileState, ErrorFileState>;
+	src: string;
+	language: SupportedLanguages;
+	testId?: string;
+	onClose?: () => void;
+	onSuccess?: () => void;
+	onError?: (error: MediaViewerError) => void;
 };
 
 export type State = {
-  doc: Outcome<any, MediaViewerError>;
+	doc: Outcome<any, MediaViewerError>;
 };
 
 const initialState: State = {
-  doc: Outcome.pending(),
+	doc: Outcome.pending(),
 };
 
 export class CodeViewRenderer extends Component<Props, State> {
-  state: State = initialState;
+	state: State = initialState;
 
-  componentDidMount() {
-    this.init();
-  }
+	componentDidMount() {
+		this.init();
+	}
 
-  componentWillUnmount() {}
+	componentWillUnmount() {}
 
-  private async init() {
-    const { src, onSuccess, onError } = this.props;
+	private async init() {
+		const { src, onSuccess, onError } = this.props;
 
-    try {
-      this.setState({ doc: Outcome.successful(src) });
-      if (onSuccess) {
-        onSuccess();
-      }
-    } catch (error) {
-      const mediaError = new MediaViewerError(
-        'codeviewer-load-src',
-        error instanceof Error ? error : undefined,
-      );
-      this.setState({
-        doc: Outcome.failed(mediaError),
-      });
+		try {
+			this.setState({ doc: Outcome.successful(src) });
+			if (onSuccess) {
+				onSuccess();
+			}
+		} catch (error) {
+			const mediaError = new MediaViewerError(
+				'codeviewer-load-src',
+				error instanceof Error ? error : undefined,
+			);
+			this.setState({
+				doc: Outcome.failed(mediaError),
+			});
 
-      if (onError) {
-        onError(mediaError);
-      }
-    }
-  }
+			if (onError) {
+				onError(mediaError);
+			}
+		}
+	}
 
-  render() {
-    const { item, src, language, testId } = this.props;
-    //Use src to measure the real file size
-    //item.size is incorrect for archives with mutiple docs inside.
-    const fileSize = new Blob([src]).size;
+	render() {
+		const { item, src, language, testId } = this.props;
+		//Use src to measure the real file size
+		//item.size is incorrect for archives with mutiple docs inside.
+		const fileSize = new Blob([src]).size;
 
-    const codeViewer =
-      lineCount(src) > MAX_FORMATTED_LINES ||
-      fileSize > MAX_FILE_SIZE_USE_CODE_VIEWER ? (
-        <code css={codeViewerHTMLStyles} data-testid="code-block">
-          {src}
-        </code>
-      ) : (
-        <CodeBlock language={language} text={src} testId="code-block" />
-      );
+		const codeViewer =
+			lineCount(src) > MAX_FORMATTED_LINES || fileSize > MAX_FILE_SIZE_USE_CODE_VIEWER ? (
+				<code css={codeViewerHTMLStyles} data-testid="code-block">
+					{src}
+				</code>
+			) : (
+				<CodeBlock language={language} text={src} testId="code-block" />
+			);
 
-    return this.state.doc.match({
-      pending: () => <Spinner />,
-      successful: () => (
-        <CodeViewWrapper data-testid={testId}>
-          <CodeViewerHeaderBar />
-          {codeViewer}
-        </CodeViewWrapper>
-      ),
-      failed: (error) => (
-        <ErrorMessage
-          fileId={item.id}
-          fileState={item}
-          error={error}
-          supressAnalytics={true} // item-viewer.tsx will send
-        />
-      ),
-    });
-  }
+		return this.state.doc.match({
+			pending: () => <Spinner />,
+			successful: () => (
+				<CodeViewWrapper data-testid={testId}>
+					<CodeViewerHeaderBar />
+					{codeViewer}
+				</CodeViewWrapper>
+			),
+			failed: (error) => (
+				<ErrorMessage
+					fileId={item.id}
+					fileState={item}
+					error={error}
+					supressAnalytics={true} // item-viewer.tsx will send
+				/>
+			),
+		});
+	}
 }

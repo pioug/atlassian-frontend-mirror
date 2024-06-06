@@ -13,61 +13,48 @@ import { AISummaryBlockErrorIndicator } from '../../src/view/FlexibleCard/compon
 import { ActionFooter } from '../../src/view/FlexibleCard/components/blocks/action-block/action-footer';
 
 class MaximumResolvedCustomClient extends CardClient {
-  fetchData(url: string) {
-    return Promise.resolve(
-      getJsonLdResponse(url, JiraIssue.meta, JiraIssue.data),
-    );
-  }
+	fetchData(url: string) {
+		return Promise.resolve(getJsonLdResponse(url, JiraIssue.meta, JiraIssue.data));
+	}
 }
 
 const mockState: AISummaryState = {
-  status: 'error',
-  content: '',
-  error: 'NETWORK_ERROR',
+	status: 'error',
+	content: '',
+	error: 'NETWORK_ERROR',
 };
 
 const mockUseAiSummary = injectable(useAISummary, () => ({
-  summariseUrl: () => Promise.resolve(mockState),
-  state: mockState,
+	summariseUrl: () => Promise.resolve(mockState),
+	state: mockState,
 }));
 
-const mockAISummaryBlockErrorIndicator = injectable(
-  AISummaryBlockErrorIndicator,
-  (props) => (
-    <AISummaryBlockErrorIndicator {...props} showErrorIndicator={true} />
-  ),
-);
+const mockAISummaryBlockErrorIndicator = injectable(AISummaryBlockErrorIndicator, (props) => (
+	<AISummaryBlockErrorIndicator {...props} showErrorIndicator={true} />
+));
 
 const mockActionFooter = injectable(ActionFooter, (props) => {
-  const message = getErrorMessage(mockState.error);
+	const message = getErrorMessage(mockState.error);
 
-  return <ActionFooter {...props} message={message} />;
+	return <ActionFooter {...props} message={message} />;
 });
 
-const dependencies = [
-  mockUseAiSummary,
-  mockAISummaryBlockErrorIndicator,
-  mockActionFooter,
-];
+const dependencies = [mockUseAiSummary, mockAISummaryBlockErrorIndicator, mockActionFooter];
 
 export default () => (
-  <VRTestWrapper>
-    <DiProvider use={dependencies}>
-      <Provider
-        client={new MaximumResolvedCustomClient()}
-        isAdminHubAIEnabled={true}
-        product="JSM"
-      >
-        <Card
-          appearance="block"
-          url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
-          showHoverPreview={true}
-          isSelected={true}
-        >
-          <TitleBlock hideTitleTooltip={true} />
-          <SnippetBlock />
-        </Card>
-      </Provider>
-    </DiProvider>
-  </VRTestWrapper>
+	<VRTestWrapper>
+		<DiProvider use={dependencies}>
+			<Provider client={new MaximumResolvedCustomClient()} isAdminHubAIEnabled={true} product="JSM">
+				<Card
+					appearance="block"
+					url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
+					showHoverPreview={true}
+					isSelected={true}
+				>
+					<TitleBlock hideTitleTooltip={true} />
+					<SnippetBlock />
+				</Card>
+			</Provider>
+		</DiProvider>
+	</VRTestWrapper>
 );

@@ -29,7 +29,6 @@ import {
 	fireAnalyticsEvent,
 	INPUT_METHOD,
 } from '../../../analytics';
-import type { HyperlinkState } from '../../../link';
 import type { QuickSearchResult, SearchProvider } from '../../../provider-factory';
 import type { Command, LinkInputType } from '../../../types';
 import { Announcer, PanelTextInput } from '../../../ui';
@@ -141,10 +140,12 @@ interface BaseProps {
 	activityProvider?: Promise<ActivityProvider>;
 	searchProvider?: Promise<SearchProvider>;
 	displayUrl?: string;
-	pluginState: HyperlinkState;
 	view: EditorView;
 	onEscapeCallback?: Command;
 	onClickAwayCallback?: Command;
+	searchSessionId?: string;
+	inputMethod?: string;
+	timesViewed?: number;
 }
 
 interface DefaultProps {
@@ -242,7 +243,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 	}
 
 	async componentDidMount() {
-		const { pluginState } = this.props;
+		const { timesViewed, inputMethod, searchSessionId } = this.props;
 
 		document.addEventListener('mousedown', this.handleClickOutside);
 
@@ -250,9 +251,9 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 			action: ACTION.VIEWED,
 			actionSubject: ACTION_SUBJECT.CREATE_LINK_INLINE_DIALOG,
 			attributes: {
-				timesViewed: pluginState.timesViewed,
-				searchSessionId: pluginState.searchSessionId ?? '',
-				trigger: pluginState.inputMethod ?? '',
+				timesViewed: timesViewed ?? 0,
+				searchSessionId: searchSessionId ?? '',
+				trigger: inputMethod ?? '',
 			},
 			eventType: EVENT_TYPE.SCREEN,
 		});
@@ -269,7 +270,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 	}
 
 	componentWillUnmount() {
-		const { pluginState } = this.props;
+		const { searchSessionId } = this.props;
 
 		document.removeEventListener('mousedown', this.handleClickOutside);
 
@@ -279,7 +280,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				actionSubject: ACTION_SUBJECT.CREATE_LINK_INLINE_DIALOG,
 				attributes: {
 					source: this.analyticSource,
-					searchSessionId: pluginState.searchSessionId ?? '',
+					searchSessionId: searchSessionId ?? '',
 					trigger: 'blur',
 				},
 				eventType: EVENT_TYPE.UI,
@@ -288,7 +289,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 	}
 
 	private async getRecentItems(activityProvider: ActivityProvider, query?: string) {
-		const { pluginState } = this.props;
+		const { searchSessionId } = this.props;
 		const perfStart = performance.now();
 		try {
 			const activityRecentItems = limit(
@@ -318,7 +319,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				attributes: {
 					source: this.analyticSource,
 					preQueryRequestDurationMs: duration,
-					searchSessionId: pluginState.searchSessionId ?? '',
+					searchSessionId: searchSessionId ?? '',
 					resultCount: items.length,
 					results: activityRecentItems.map((item) => ({
 						resultContentId: item.objectId,
@@ -375,7 +376,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		quickSearchLimit: number,
 	) => {
 		const { searchProvider, displayUrl } = this.state;
-		const { pluginState } = this.props;
+		const { searchSessionId } = this.props;
 		if (!searchProvider) {
 			return;
 		}
@@ -389,7 +390,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				queryLength: input.length,
 				queryVersion,
 				queryHash: sha1(input),
-				searchSessionId: pluginState.searchSessionId ?? '',
+				searchSessionId: searchSessionId ?? '',
 				wordCount: wordCount(input),
 				source: this.analyticSource,
 			},
@@ -436,7 +437,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				attributes: {
 					source: this.analyticSource,
 					postQueryRequestDurationMs: duration,
-					searchSessionId: pluginState.searchSessionId ?? '',
+					searchSessionId: searchSessionId ?? '',
 					resultCount: searchProviderResultItems.length,
 					results: searchProviderResultItems.map((item) => ({
 						resultContentId: item.objectId,
@@ -710,7 +711,10 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		inputType: LinkInputType,
 		interaction: 'click' | 'keyboard' | 'notselected',
 	) => {
-		const { pluginState, onSubmit } = this.props;
+		const {
+			searchSessionId,
+			onSubmit,
+		} = this.props;
 		const { items, selectedIndex, displayText } = this.state;
 		if (onSubmit) {
 			this.submitted = true;
@@ -729,7 +733,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
 				attributes: {
 					source: this.analyticSource,
-					searchSessionId: pluginState.searchSessionId ?? '',
+					searchSessionId: searchSessionId ?? '',
 					trigger: interaction,
 					resultCount: items.length,
 					selectedResultId: selectedItem.objectId,
@@ -797,7 +801,11 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
 	private handleKeyDown = (event: KeyboardEvent<any>) => {
 		const { items, selectedIndex } = this.state;
-		const { pluginState, view, onEscapeCallback } = this.props;
+		const {
+			view,
+			onEscapeCallback,
+			searchSessionId,
+		} = this.props;
 		const { keyCode } = event;
 		const KEY_CODE_ESCAPE = 27;
 		const KEY_CODE_ARROW_DOWN = 40;
@@ -839,7 +847,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				actionSubject: ACTION_SUBJECT.SEARCH_RESULT,
 				attributes: {
 					source: this.analyticSource,
-					searchSessionId: pluginState.searchSessionId ?? '',
+					searchSessionId: searchSessionId ?? '',
 					selectedResultId: items[updatedIndex].objectId,
 					selectedRelativePosition: updatedIndex,
 				},

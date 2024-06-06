@@ -39,7 +39,6 @@ import {
   optionToSelectableOptions,
 } from './utils';
 import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type BaseUserPickerProps = UserPickerProps & {
   SelectComponent: React.ComponentType<any>;
@@ -59,14 +58,7 @@ export type BaseUserPickerProps = UserPickerProps & {
 
 const loadingMessage = () => null;
 
-const observerOptions = {
-  subtree: true,
-  attributes: true,
-  attributeFilter: ['class'],
-};
-
 const classNamePrefix = 'fabric-user-picker';
-const optionFocusedClass = `${classNamePrefix}__option--is-focused`;
 export class BaseUserPickerWithoutAnalytics extends React.Component<
   BaseUserPickerProps,
   UserPickerState
@@ -446,75 +438,12 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     }
   }
 
-  private focusedOptionObserverCallback: MutationCallback = (
-    mutationList: MutationRecord[],
-  ) => {
-    for (const mutation of mutationList) {
-      if (
-        mutation.type === 'attributes' &&
-        mutation.attributeName === 'class'
-      ) {
-        const target = mutation.target as Element;
-        if (target.classList.contains(optionFocusedClass)) {
-          this.selectRef.select.inputRef?.setAttribute(
-            'aria-activedescendant',
-            target.id,
-          );
-          break;
-        }
-      }
-    }
-  };
-
-  // Create a MutationObserver which will observe the menu list for changes. In
-  // node environments such as SSR, MutationObserver doesn't exist and this
-  // variable will be falsy.
-  private focusedOptionObserver =
-    typeof MutationObserver === 'function' &&
-    new MutationObserver(this.focusedOptionObserverCallback);
-
   componentDidUpdate(_: UserPickerProps, prevState: UserPickerState) {
     const { menuIsOpen, options, resolving, count, inputValue } = this.state;
 
     // Create a new session when the menu is opened and there is no session
     if (menuIsOpen && !prevState.menuIsOpen && !this.session) {
       this.startSession();
-    }
-
-    if (
-      getBooleanFF(
-        'platform.design-system-team.select-aria-activedescendant_psxzq',
-      )
-    ) {
-      // When the menu is opened, set aria-activedescendant attribute on the
-      // input and instrument a mutation observer. On the first opening of the
-      // menu, menuIsOpen is true but the menu isn't actually in the DOM yet.
-      // For this reason, we the use the existence of the attribute.
-      const inputHasAriaActiveDescendant =
-        this.selectRef?.select?.inputRef?.getAttribute('aria-activedescendant');
-      const inputRef = this.selectRef?.select?.inputRef as HTMLInputElement;
-      const menuRef = this.selectRef?.select?.menuListRef;
-      if (menuIsOpen && menuRef && !inputHasAriaActiveDescendant) {
-        // Set the aria-activedescendant attribute on the input element
-        // to the first menu item
-        menuRef.children[0]?.classList.contains(optionFocusedClass) &&
-          inputRef && inputRef.setAttribute(
-            'aria-activedescendant',
-            menuRef.children[0].id,
-          );
-
-        // Setup MutationObserver so when the selected option changes, update
-        // the aria-activedescendant attribute on the input element
-        this.focusedOptionObserver &&
-          this.focusedOptionObserver.observe(menuRef, observerOptions);
-      }
-
-      // Remove the aria-active-descendant attribute and disconnect the observer
-      // when the menu is closed
-      if (!menuIsOpen && prevState.menuIsOpen) {
-        inputRef && inputRef.removeAttribute('aria-activedescendant');
-        this.focusedOptionObserver && this.focusedOptionObserver.disconnect();
-      }
     }
 
     // Load options when user picker opens or when input value changes

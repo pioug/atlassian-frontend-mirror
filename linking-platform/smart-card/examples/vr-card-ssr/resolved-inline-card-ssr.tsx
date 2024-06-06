@@ -5,13 +5,13 @@ import { url, cardState } from '../utils/smart-card-ssr-state';
 import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
 
 const storeOptions: CardProviderStoreOpts = {
-  initialState: {
-    [url]: cardState,
-  },
+	initialState: {
+		[url]: cardState,
+	},
 };
 
 export default () => (
-  <Provider storeOptions={storeOptions} client={new Client('stg')}>
-    <CardSSR appearance="inline" url={url} />
-  </Provider>
+	<Provider storeOptions={storeOptions} client={new Client('stg')}>
+		<CardSSR appearance="inline" url={url} />
+	</Provider>
 );

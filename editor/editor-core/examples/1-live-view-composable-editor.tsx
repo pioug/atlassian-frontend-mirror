@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { EditorExampleControls } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
@@ -16,7 +17,7 @@ import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
-import { EditorExampleControls } from '../example-helpers/full-page/editor-example-controls';
+
 import type { EditorActions } from '../src';
 import WithEditorActions from '../src/ui/WithEditorActions';
 

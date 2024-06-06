@@ -5,15 +5,13 @@ import { jsx } from '@emotion/react';
 
 import { Box } from '@atlaskit/primitives';
 
+import { DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
 import type { LinkCreateProps } from '../../common/types';
 import { ConfirmDismissDialog } from '../../common/ui/confirm-dismiss-dialog';
 import { EditModal } from '../../common/ui/edit-modal';
 import { ErrorBoundary } from '../../common/ui/error-boundary';
 import { LinkCreateContent } from '../../common/ui/link-create-content';
-import {
-	LinkCreateCallbackProvider,
-	// useLinkCreateCallback,
-} from '../../controllers/callback-context';
+import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
 import {
 	EditPostCreateModalProvider,
 	useEditPostCreateModal,
@@ -25,9 +23,7 @@ import {
 import { FormContextProvider } from '../../controllers/form-context';
 import { LinkCreatePluginsProvider, useLinkCreatePlugins } from '../../controllers/plugin-context';
 
-export const TEST_ID = 'link-create';
-// todo: EDM-10075 trigger the screen.viewed_linkCreateScreen event when inline-create is mounted
-// const SCREEN_ID = 'linkCreateScreen';
+import { InlineAnalytics } from './inline-analytics';
 
 const InlineCreateContent = ({
 	onCreate,
@@ -36,7 +32,7 @@ const InlineCreateContent = ({
 	onComplete,
 	plugins,
 	entityKey,
-	testId,
+	testId = DEFAULT_TEST_ID,
 }: LinkCreateProps) => {
 	const { getShouldShowWarning } = useExitWarningModal();
 	const [showExitWarning, setShowExitWarning] = useState(false);
@@ -58,9 +54,11 @@ const InlineCreateContent = ({
 	return (
 		<LinkCreateCallbackProvider onCreate={onCreate} onFailure={onFailure} onCancel={handleCancel}>
 			<ErrorBoundary>
-				<Box testId={testId}>
-					<LinkCreateContent plugins={plugins} entityKey={entityKey} />
-				</Box>
+				<InlineAnalytics screen={SCREEN_ID}>
+					<Box testId={testId}>
+						<LinkCreateContent plugins={plugins} entityKey={entityKey} />
+					</Box>
+				</InlineAnalytics>
 			</ErrorBoundary>
 
 			{onComplete && (

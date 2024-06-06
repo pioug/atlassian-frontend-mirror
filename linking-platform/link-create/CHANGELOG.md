@@ -1,5 +1,19 @@
 # @atlaskit/link-create
 
+## 2.3.0
+
+### Minor Changes
+
+- [#107796](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107796)
+  [`15f419051682`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15f419051682) -
+  Fire screen viewed analytics event for Inline Create
+
+### Patch Changes
+
+- [#107877](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107877)
+  [`3f82794369ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f82794369ce) -
+  Internal changes to types. No expected functional changes.
+
 ## 2.2.0
 
 ### Minor Changes

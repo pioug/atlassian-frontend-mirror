@@ -153,10 +153,13 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					aria-expanded={active}
 					blockTypeName={currentBlockType.name}
 				/>
-				<span
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-					css={separatorStyles}
-				/>
+
+				{!api?.primaryToolbar && (
+					<span
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						css={separatorStyles}
+					/>
+				)}
 			</span>
 		);
 	}

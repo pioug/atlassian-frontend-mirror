@@ -7,6 +7,19 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'automation-menu.empty-state.image.alt': 'Biểu tượng danh sách tự động hóa trống',
+  'automation-menu.empty-state.learn-more.link': 'Tìm hiểu thêm về công tắc thủ công',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Dùng công tắc thủ công để điền menu các lựa chọn mà một người bất kỳ, hoặc người do bạn chỉ định, có thể áp dụng dưới dạng tự động hóa bằng một cú nhấp chuột.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Quản trị viên chưa định cấu hình phần tự động hóa kích hoạt thủ công nào.',
+  'automation-menu.modal.error.description': 'Nội dung này có thể mất một lúc để tải. Hãy thử làm mới trang.',
+  'automation-menu.modal.error.image.alt': 'Biểu tượng lỗi',
+  'automation-menu.modal.footer.automate-button': 'Tự động hóa',
+  'automation-menu.modal.footer.cancel-button': 'Hủy',
+  'automation-menu.modal.footer.get-started-button': 'Tạo tự động hóa',
+  'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': 'Biểu tượng tiêu đề phương thức tự động hóa',
   'fabric.linking.access_exists_description': 'Yêu cầu quyền truy cập để xem nội dung này từ {hostname}.',
   'fabric.linking.actions': 'Hành động',
   'fabric.linking.add_account': 'Thêm tài khoản',
@@ -31,8 +44,8 @@ export default {
     'Áp dụng một phương thức tự động hóa cho <b>{name}</b>.{br}Các lựa chọn có sẵn được kiểm soát bởi Confluence và quản lý không gian.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Tự động hóa đối với trang',
   'fabric.linking.automation-action.icon.label': 'Biểu tượng tự động hóa',
-  'fabric.linking.automation-action.title': 'Chạy phương thức tự động hóa...',
-  'fabric.linking.automation-action.tooltip': 'Mở phương thức tự động hóa',
+  'fabric.linking.automation-action.title': 'Xem quy tắc tự động hóa...',
+  'fabric.linking.automation-action.tooltip': 'Chọn quy tắc tự động hóa để chạy',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Hủy',
   'fabric.linking.cannot_connect': 'Không thể kết nối, hãy thử lại',
@@ -127,6 +140,10 @@ export default {
   'fabric.linking.priority_undefined': 'Chưa xác định',
   'fabric.linking.read_time': '{context} phút đọc',
   'fabric.linking.related': 'Có liên quan',
+  'fabric.linking.related_links_found_in': 'Tìm thấy trong',
+  'fabric.linking.related_links_includes_links_to': 'Bao gồm liên kết trong',
+  'fabric.linking.related_links_modal_title': 'Liên kết gần đây',
+  'fabric.linking.related_links_not_found': 'Chúng tôi không tìm được liên kết nào để hiển thị ở đây.',
   'fabric.linking.related_work_items_not_found': 'Liên kết này chưa được nhắc đến ở bất cứ đâu.',
   'fabric.linking.request_access': 'Yêu cầu cấp quyền truy cập',
   'fabric.linking.request_access_description':

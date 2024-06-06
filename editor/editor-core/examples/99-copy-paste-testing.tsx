@@ -4,6 +4,7 @@ import React from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
@@ -27,7 +28,6 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { MockActivityResource } from '../example-helpers/activity-provider';
-import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { EditorActions } from '../src';
 import type { EditorAppearance, EditorProps } from '../src/editor';

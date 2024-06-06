@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DeletedExample } from '@af/editor-examples-helpers';
+import { DeletedExample } from '@af/editor-examples-helpers/utils';
 
 export default function Example() {
 	return (

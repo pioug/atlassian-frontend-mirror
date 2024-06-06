@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { akEditorUnitZIndex, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import * as colors from '@atlaskit/theme/colors';
-import { N400 } from '@atlaskit/theme/colors';
+import { B300, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const header = css({
@@ -130,4 +130,11 @@ export const shortcutsArray = css({
 
 export const componentFromKeymapWrapperStyles = css({
 	flexShrink: 0,
+});
+
+export const toolbarButton = css({
+	'&:focus': {
+		outline: `2px solid ${token('color.border.focused', B300)}`,
+		outlineOffset: token('space.025', '2px'),
+	},
 });

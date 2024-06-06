@@ -9,11 +9,11 @@ export default md`
   **Use this pattern sparingly** when you want to give extra visual indication to the rating component.
 
   ${(
-    <Example
-      packageName="@atlaskit/rating"
-      Component={require('../examples/with-motion').default}
-      title="Star composed with motion"
-      source={require('!!raw-loader!../examples/with-motion')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/rating"
+			Component={require('../examples/with-motion').default}
+			title="Star composed with motion"
+			source={require('!!raw-loader!../examples/with-motion')}
+		/>
+	)}
 `;

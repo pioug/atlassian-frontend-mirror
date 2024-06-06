@@ -15,8 +15,7 @@ const Container = (props: CustomItemComponentProps) => {
 
 const linkStyles = css({
   color: token('color.text.subtle', N200),
-  fontSize: 12,
-  ':hover': {
+  '&:hover': {
     color: token('color.link', B400),
     cursor: 'pointer',
     textDecoration: 'none',

@@ -11,12 +11,17 @@
     "5-full-page-template-context-panel.tsx"
   ],
   "exampleDependencies": [
+    "@af/editor-examples-helpers",
+    "@atlaskit/collab-provider",
     "@atlaskit/editor-plugin-editor-viewmode",
     "@atlaskit/media-core",
-    "@atlaskit/primitives",
     "@atlaskit/smart-card",
     "@atlaskit/synchrony-test-helpers",
     "@atlassian/link-picker-plugins",
-    "@atlassian/ufo"
+    "@atlassian/search-provider",
+    "@atlassian/ufo",
+    "clipboard-polyfill",
+    "diff",
+    "url-search-params"
   ]
 }

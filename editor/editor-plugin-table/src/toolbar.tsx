@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 
 import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { CHANGE_ALIGNMENT_REASON, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/editor-common/keymaps';
 import commonMessages, { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
@@ -69,10 +69,10 @@ import {
 	setTableAlignmentWithAnalytics,
 	sortColumnWithAnalytics,
 	splitCellWithAnalytics,
+	toggleFixedColumnWidthsOptionAnalytics,
 	toggleHeaderColumnWithAnalytics,
 	toggleHeaderRowWithAnalytics,
 	toggleNumberColumnWithAnalytics,
-	toggleTableLockWithAnalytics,
 	wrapTableInExpandWithAnalytics,
 } from './commands-with-analytics';
 import type { TablePluginOptions } from './plugin';
@@ -90,7 +90,6 @@ import type {
 } from './types';
 import { TableCssClassName } from './types';
 import { FloatingAlignmentButtons } from './ui/FloatingAlignmentButtons/FloatingAlignmentButtons';
-import { DisplayModeIcon } from './ui/icons';
 import {
 	getMergedCellsPositions,
 	getSelectedColumnIndexes,
@@ -104,6 +103,8 @@ export const getToolbarMenuConfig = (
 	state: ToolbarMenuState,
 	{ formatMessage }: ToolbarMenuContext,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+	isTableScalingWithFixedColumnWidthsOptionShown = false,
+	areTableColumnWidthsFixed = false,
 ): FloatingToolbarItem<Command> => {
 	const optionItem: typeOption = getBooleanFF(
 		'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
@@ -112,6 +113,14 @@ export const getToolbarMenuConfig = (
 		: 'item';
 
 	const options = [
+		{
+			id: 'editor.table.lockColumnWidths',
+			title: formatMessage(messages.lockColumnWidths),
+			onClick: toggleFixedColumnWidthsOptionAnalytics(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),
+			selected: areTableColumnWidthsFixed,
+			hidden: !isTableScalingWithFixedColumnWidthsOptionShown,
+			domItemOptions: { type: optionItem },
+		},
 		{
 			id: 'editor.table.headerRow',
 			title: formatMessage(messages.headerRow),
@@ -156,6 +165,7 @@ export const getToolbarMenuConfig = (
 			title: formatMessage(messages.tableOptions),
 			hidden: options.every((option) => option.hidden),
 			options,
+			dropdownWidth: isTableScalingWithFixedColumnWidthsOptionShown ? 192 : undefined,
 		};
 	} else {
 		return {
@@ -165,6 +175,7 @@ export const getToolbarMenuConfig = (
 			title: formatMessage(messages.tableOptions),
 			hidden: options.every((option) => option.hidden),
 			options,
+			dropdownWidth: isTableScalingWithFixedColumnWidthsOptionShown ? 192 : undefined,
 		};
 	}
 };
@@ -434,6 +445,7 @@ export const getToolbarConfig =
 		getEditorFeatureFlags: GetEditorFeatureFlags,
 		getEditorView: () => EditorView | null,
 		options?: TablePluginOptions,
+		isTableScalingWithFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 	) =>
 	(config: PluginConfig): FloatingToolbarHandler =>
@@ -448,11 +460,21 @@ export const getToolbarConfig =
 
 		if (tableObject && pluginState.editorHasFocus && !isWidthResizing) {
 			const nodeType = state.schema.nodes.table;
-			const menu = getToolbarMenuConfig(config, pluginState, intl, editorAnalyticsAPI);
+			const isNested = pluginState.tablePos && isTableNested(state, pluginState.tablePos);
+			const isTableScalingWithFixedColumnWidthsOptionShown =
+				isTableScalingWithFixedColumnWidthsOptionEnabled && !isNested;
+			const areTableColumWidthsFixed = tableObject.node.attrs.displayMode === 'fixed';
+
+			const menu = getToolbarMenuConfig(
+				config,
+				pluginState,
+				intl,
+				editorAnalyticsAPI,
+				isTableScalingWithFixedColumnWidthsOptionShown,
+				areTableColumWidthsFixed,
+			);
 
 			let alignmentMenu: Array<FloatingToolbarItem<Command>>;
-			const isNested = pluginState.tablePos && isTableNested(state, pluginState.tablePos);
-
 			alignmentMenu =
 				options?.isTableAlignmentEnabled && !isNested
 					? getAlignmentOptionsConfig(state, intl, editorAnalyticsAPI, getEditorContainerWidth)
@@ -612,29 +634,6 @@ const getCellItems = (
 	return [];
 };
 
-export const getLockBtnConfig =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null): Command =>
-	(state, dispatch, editorView) => {
-		const selectionOrTableRect = getClosestSelectionOrTableRect(state);
-		if (!editorView || !selectionOrTableRect) {
-			return false;
-		}
-
-		const { tr } = state;
-		const table = findTable(tr.selection);
-
-		if (!table) {
-			return false;
-		} else {
-			const { displayMode } = table.node.attrs;
-			toggleTableLockWithAnalytics(editorAnalyticsAPI)(displayMode, INPUT_METHOD.FLOATING_TB)(
-				state,
-				dispatch,
-			);
-			return true;
-		}
-	};
-
 export const getDistributeConfig =
 	(
 		getEditorContainerWidth: GetEditorContainerWidth,
@@ -692,32 +691,6 @@ const getColumnSettingItems = (
 	const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
 
 	const items: Array<FloatingToolbarItem<Command>> = [];
-
-	const isNested = pluginState.tablePos && isTableNested(editorState, pluginState.tablePos);
-
-	const isTableScalingLockBtnEnabled =
-		!isNested &&
-		isTableScalingEnabled &&
-		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
-
-	if (isTableScalingLockBtnEnabled) {
-		const areColumnWidthsLocked = pluginState?.tableNode?.attrs.displayMode === 'fixed';
-
-		const title = areColumnWidthsLocked
-			? formatMessage(messages.unlockColumnWidths)
-			: formatMessage(messages.lockColumnWidths);
-
-		items.push({
-			id: 'editor.table.lockColumns',
-			type: 'button',
-			title,
-			icon: () => <DisplayModeIcon size="medium" label={title} />,
-			onClick: (state, dispatch, view) =>
-				getLockBtnConfig(editorAnalyticsAPI)(state, dispatch, view),
-			selected: areColumnWidthsLocked,
-			testId: 'table-lock-column-widths-btn',
-		});
-	}
 
 	if (pluginState?.pluginConfig?.allowDistributeColumns && pluginState.isDragAndDropEnabled) {
 		items.push({
@@ -875,6 +848,7 @@ export const getAlignmentOptionsConfig = (
 				value,
 				currentLayout,
 				INPUT_METHOD.FLOATING_TB,
+				CHANGE_ALIGNMENT_REASON.TOOLBAR_OPTION_CHANGED,
 			),
 			...(isLayoutOptionDisabled(tableObject.node, getEditorContainerWidth) && {
 				disabled: value !== 'center',

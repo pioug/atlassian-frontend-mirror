@@ -7,6 +7,19 @@
  */
 //Thai (Thailand)
 export default {
+  'automation-menu.empty-state.image.alt': 'ไอคอนรายการระบบอัตโนมัติว่างเปล่า',
+  'automation-menu.empty-state.learn-more.link': 'เรียนรู้เพิ่มเติมเกี่ยวกับการกระตุ้นด้วยตัวเอง',
+  'automation-menu.modal.empty.automations.admin.description':
+    'ใช้การกระตุ้นด้วยตัวเองเพื่อเติมเมนูตัวเลือกที่ทุกคนหรือบุคคลที่คุณระบุสามารถปรับใช้เป็นระบบอัตโนมัติได้ในคลิกเดียว',
+  'automation-menu.modal.empty.automations.user.description':
+    'ผู้ดูแลระบบยังไม่ได้กำหนดค่าระบบอัตโนมัติที่มีการกระตุ้นด้วยตัวเอง',
+  'automation-menu.modal.error.description': 'อาจใช้เวลาในการโหลดสักครู่ ลองรีเฟรชหน้าข้อมูล',
+  'automation-menu.modal.error.image.alt': 'ไอคอนข้อผิดพลาด',
+  'automation-menu.modal.footer.automate-button': 'ใช้กฎอัตโนมัติ',
+  'automation-menu.modal.footer.cancel-button': 'ยกเลิก',
+  'automation-menu.modal.footer.get-started-button': 'สร้างระบบอัตโนมัติ',
+  'automation-menu.modal.footer.ok-button': 'ตกลง',
+  'automation-menu.modal.header.icon.label': 'ไอคอนส่วนหัววิถีระบบอัตโนมัติ',
   'fabric.linking.access_exists_description': 'ส่งคำขอการเข้าถึงเพื่อดูเนื้อหานี้จาก {hostname}',
   'fabric.linking.actions': 'การดำเนินการ',
   'fabric.linking.add_account': 'เพิ่มบัญชี',
@@ -31,8 +44,8 @@ export default {
     'ใช้ระบบอัตโนมัติกับ <b>{name}</b>{br}ตัวเลือกที่มีอยู่จะได้รับการควบคุมโดย Confluence และผู้ดูแลระบบพื้นที่',
   'fabric.linking.automation-action.confluence.page.modal.title': 'ระบบอัตโนมัติของหน้าข้อมูล',
   'fabric.linking.automation-action.icon.label': 'ไอคอนระบบอัตโนมัติ',
-  'fabric.linking.automation-action.title': 'เปิดใช้ระบบอัตโนมัติ...',
-  'fabric.linking.automation-action.tooltip': 'เปิดวิถีระบบอัตโนมัติ',
+  'fabric.linking.automation-action.title': 'ดูกฎอัตโนมัติ...',
+  'fabric.linking.automation-action.tooltip': 'เลือกกฎอัตโนมัติที่จะเรียกใช้',
   'fabric.linking.beta': 'เบต้า',
   'fabric.linking.cancel': 'ยกเลิก',
   'fabric.linking.cannot_connect': 'ไม่สามารถเชื่อมต่อได้ โปรดลองอีกครั้ง',
@@ -126,6 +139,10 @@ export default {
   'fabric.linking.priority_undefined': 'ไม่ได้ระบุ',
   'fabric.linking.read_time': 'อ่าน {context} นาที',
   'fabric.linking.related': 'เกี่ยวข้อง',
+  'fabric.linking.related_links_found_in': 'พบใน',
+  'fabric.linking.related_links_includes_links_to': 'รวมลิงก์ไปยัง',
+  'fabric.linking.related_links_modal_title': 'ลิงก์ล่าสุด',
+  'fabric.linking.related_links_not_found': 'เราไม่พบลิงก์ที่จะแสดงที่นี่',
   'fabric.linking.related_work_items_not_found': 'ลิงก์นี้ไม่ได้ถูกกล่าวถึงในที่อื่น',
   'fabric.linking.request_access': 'ส่งคำขอเพื่อเข้าถึง',
   'fabric.linking.request_access_description':

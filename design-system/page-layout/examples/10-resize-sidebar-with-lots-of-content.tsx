@@ -74,8 +74,7 @@ const elementStyles = css({
   margin: token('space.025', '0'),
   padding: token('space.100', '0'),
   backgroundColor: 'var(--local-color)',
-  fontSize: token('font.size.200', '0'),
-  fontWeight: 'bold',
+  font: token('font.heading.small'),
 });
 
 const colors = [

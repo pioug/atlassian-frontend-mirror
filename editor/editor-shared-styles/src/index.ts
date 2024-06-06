@@ -25,6 +25,7 @@ export {
 	akEditorFullWidthLayoutLineLength,
 	akEditorGridLineZIndex,
 	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 	akEditorInactiveForeground,
 	akEditorMediaResizeHandlerPadding,
 	akEditorMediaResizeHandlerPaddingWide,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DevTools } from '@af/editor-examples-helpers';
+import { DevTools } from '@af/editor-examples-helpers/utils';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import TextArea from '@atlaskit/textarea';

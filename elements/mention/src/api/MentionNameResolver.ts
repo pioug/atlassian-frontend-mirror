@@ -19,12 +19,16 @@ type QueueItem = [string, Callback[]];
 
 export class DefaultMentionNameResolver implements MentionNameResolver {
   public static waitForBatch = 100; // ms
+  private static waitForResolveAll: number = 800; // ms
   private client: MentionNameClient;
   private nameCache: Map<string, MentionNameDetails> = new Map();
   private nameQueue: Queue = new Map();
   private nameStartTime: Map<string, number> = new Map();
   private processingQueue: Queue = new Map();
   private debounce: number = 0;
+  private debounceOnResolve: number | null = null;
+  private onResolvedAll: () => void;
+  private isOnResolvedAllCalled: boolean = false;
   private fireHydrationEvent: (
     action: string,
     userId: string,
@@ -35,16 +39,23 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
   constructor(
     client: MentionNameClient,
     analyticsProps: WithAnalyticsEventsProps = {},
+    onResolvedAll: () => void = () => {},
   ) {
     this.client = client;
     this.fireHydrationEvent =
       fireAnalyticsMentionHydrationEvent(analyticsProps);
+    // If provided, this will be called once all pending mentions in the queue are resolved.
+    // A sample usage is scrolling to a mention on page load, after the mentions have loadad.
+    this.onResolvedAll = onResolvedAll;
   }
 
   lookupName(id: string): Promise<MentionNameDetails> | MentionNameDetails {
     const name = this.nameCache.get(id);
     if (name) {
       this.fireAnalytics(true, name);
+      if (this.nameQueue.size === 0) {
+        this.scheduleOnAllResolved();
+      }
       return name;
     }
     return new Promise<MentionNameDetails>((resolve) => {
@@ -84,6 +95,19 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
         DefaultMentionNameResolver.waitForBatch,
       );
     }
+  }
+
+  private scheduleOnAllResolved(): void {
+    if (this.debounceOnResolve) {
+      clearTimeout(this.debounceOnResolve);
+    }
+    this.debounceOnResolve = window.setTimeout(() => {
+      if (this.isOnResolvedAllCalled) {
+        return;
+      }
+      this.onResolvedAll();
+      this.isOnResolvedAllCalled = true;
+    }, DefaultMentionNameResolver.waitForResolveAll)
   }
 
   private isQueueAtLimit() {
@@ -155,6 +179,8 @@ export class DefaultMentionNameResolver implements MentionNameResolver {
     // Make sure anything left in the queue gets processed.
     if (this.nameQueue.size > 0) {
       this.scheduleProcessQueue();
+    } else {
+      this.scheduleOnAllResolved();
     }
   };
 

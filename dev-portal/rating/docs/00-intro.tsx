@@ -6,12 +6,12 @@ export default md`
 ${(<DevPreviewWarning />)}
 
 ${(
-  <Example
-    packageName="@atlaskit/rating"
-    Component={require('../examples/star-rating').default}
-    title="Composing with star group and star"
-    source={require('!!raw-loader!../examples/star-rating')}
-  />
+	<Example
+		packageName="@atlaskit/rating"
+		Component={require('../examples/star-rating').default}
+		title="Composing with star group and star"
+		source={require('!!raw-loader!../examples/star-rating')}
+	/>
 )}
 
 ## RatingGroup
@@ -22,10 +22,10 @@ compose this with the out-of-the-box \`<Star />\` or compose your own rating ite
 ### Props
 
 ${(
-  <Props
-    heading=""
-    props={require('!!extract-react-types-loader!../src/components/rating-group')}
-  />
+	<Props
+		heading=""
+		props={require('!!extract-react-types-loader!../src/components/rating-group')}
+	/>
 )}
 
 ## Star
@@ -36,21 +36,21 @@ Don't use this by itself - it won't work as you expect it to.
 Use this in conjunction with \`<RatingGroup />\`.
 
 ${(
-  <Example
-    packageName="@atlaskit/rating"
-    Component={require('../examples/uncontrolled').default}
-    title="Composing with star"
-    source={require('!!raw-loader!../examples/uncontrolled')}
-  />
+	<Example
+		packageName="@atlaskit/rating"
+		Component={require('../examples/uncontrolled').default}
+		title="Composing with star"
+		source={require('!!raw-loader!../examples/uncontrolled')}
+	/>
 )}
 
 ### Props
 
 ${(
-  <Props
-    heading=""
-    props={require('!!extract-react-types-loader!../src/extract-react-types/star')}
-  />
+	<Props
+		heading=""
+		props={require('!!extract-react-types-loader!../src/extract-react-types/star')}
+	/>
 )}
 
 ## Rating
@@ -62,21 +62,21 @@ Don't use this by itself - it won't work as you expect it to.
 Use this in conjunction with \`<RatingGroup />\`.
 
 ${(
-  <Example
-    packageName="@atlaskit/rating"
-    Component={require('../examples/custom-rating').default}
-    title="Composing with rating"
-    source={require('!!raw-loader!../examples/custom-rating')}
-  />
+	<Example
+		packageName="@atlaskit/rating"
+		Component={require('../examples/custom-rating').default}
+		title="Composing with rating"
+		source={require('!!raw-loader!../examples/custom-rating')}
+	/>
 )}
 
 ### Props
 
 ${(
-  <Props
-    heading=""
-    props={require('!!extract-react-types-loader!../src/extract-react-types/rating')}
-  />
+	<Props
+		heading=""
+		props={require('!!extract-react-types-loader!../src/extract-react-types/rating')}
+	/>
 )}
 
 ### Gotchas

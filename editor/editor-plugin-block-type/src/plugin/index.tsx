@@ -7,7 +7,6 @@ import {
 	blockquoteWithList,
 	hardBreak,
 	heading,
-	headingStage0,
 } from '@atlaskit/adf-schema';
 import {
 	ACTION,
@@ -183,16 +182,13 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		name: 'blockType',
 
 		nodes() {
-			const blockquoteNode = getBooleanFF('platform.editor.allow-list-in-blockquote')
+			const blockquoteNode = getBooleanFF(
+				'platform.editor.allow-list-in-blockquote',
+			)
 				? blockquoteWithList
 				: blockquote;
-			const headingNode = getBooleanFF(
-				'platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g',
-			)
-				? headingStage0
-				: heading;
 			const nodes: BlockTypeNode[] = [
-				{ name: 'heading', node: headingNode },
+				{ name: 'heading', node: heading },
 				{ name: 'blockquote', node: blockquoteNode },
 				{ name: 'hardBreak', node: hardBreak },
 			];

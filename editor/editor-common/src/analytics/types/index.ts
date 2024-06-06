@@ -44,6 +44,7 @@ export type {
 	InsertEventPayload,
 } from './insert-events';
 export {
+	CHANGE_ALIGNMENT_REASON,
 	TABLE_ACTION,
 	TABLE_BREAKOUT,
 	TABLE_OVERFLOW_CHANGE_TRIGGER,

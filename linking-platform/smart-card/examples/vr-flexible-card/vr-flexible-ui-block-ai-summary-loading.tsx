@@ -11,46 +11,38 @@ import { useAISummary } from '../../src/state/hooks/use-ai-summary';
 import AIPrism from '../../src/view/common/ai-prism';
 
 class MaximumResolvedCustomClient extends CardClient {
-  fetchData(url: string) {
-    return Promise.resolve(
-      getJsonLdResponse(url, JiraIssue.meta, JiraIssue.data),
-    );
-  }
+	fetchData(url: string) {
+		return Promise.resolve(getJsonLdResponse(url, JiraIssue.meta, JiraIssue.data));
+	}
 }
 
-const mockAIPrism = injectable(AIPrism, (props) => (
-  <AIPrism {...props} isMoving={false} />
-));
+const mockAIPrism = injectable(AIPrism, (props) => <AIPrism {...props} isMoving={false} />);
 
 const mockState: AISummaryState = {
-  status: 'loading',
-  content: `Here's some partial content`,
+	status: 'loading',
+	content: `Here's some partial content`,
 };
 const mockUseAiSummary = injectable(useAISummary, () => ({
-  summariseUrl: () => Promise.resolve(mockState),
-  state: mockState,
+	summariseUrl: () => Promise.resolve(mockState),
+	state: mockState,
 }));
 
 const dependencies = [mockUseAiSummary, mockAIPrism];
 
 export default () => (
-  <DiProvider use={dependencies}>
-    <VRTestWrapper>
-      <Provider
-        client={new MaximumResolvedCustomClient()}
-        isAdminHubAIEnabled={true}
-        product="JSM"
-      >
-        <Card
-          appearance="block"
-          url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
-          showHoverPreview={true}
-          isSelected={true}
-        >
-          <TitleBlock hideTitleTooltip={true} />
-          <SnippetBlock />
-        </Card>
-      </Provider>
-    </VRTestWrapper>
-  </DiProvider>
+	<DiProvider use={dependencies}>
+		<VRTestWrapper>
+			<Provider client={new MaximumResolvedCustomClient()} isAdminHubAIEnabled={true} product="JSM">
+				<Card
+					appearance="block"
+					url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
+					showHoverPreview={true}
+					isSelected={true}
+				>
+					<TitleBlock hideTitleTooltip={true} />
+					<SnippetBlock />
+				</Card>
+			</Provider>
+		</VRTestWrapper>
+	</DiProvider>
 );

@@ -7,7 +7,7 @@ import { Context } from './context';
 import type { Provider, ProviderProps } from '../provider';
 import { getProvider } from '../provider';
 import type { Document } from '../model';
-import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
+import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 export const akEditorFullPageMaxWidth = 680;
@@ -16,7 +16,7 @@ const Content = styled.div({
 	lineHeight: '24px',
 	height: '100%',
 	width: '100%',
-	maxWidth: `${akEditorFullPageMaxWidth + akEditorGutterPadding * 2}px`,
+	maxWidth: `${akEditorFullPageMaxWidth + akEditorGutterPaddingDynamic() * 2}px`,
 	paddingTop: token('space.600', '48px'),
 	margin: '0 auto',
 	display: 'flex',

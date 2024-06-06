@@ -3,7 +3,7 @@ import { SnippetBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 export default () => (
-  <ExampleContainer>
-    <SnippetBlock />
-  </ExampleContainer>
+	<ExampleContainer>
+		<SnippetBlock />
+	</ExampleContainer>
 );

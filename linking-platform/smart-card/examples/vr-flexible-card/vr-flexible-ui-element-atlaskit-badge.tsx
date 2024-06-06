@@ -8,26 +8,26 @@ import { exampleTokens, getContext } from '../utils/flexible-ui';
 import { StoryPoints } from '../../src/view/FlexibleCard/components/elements';
 
 const context = getContext({
-  storyPoints: 3,
+	storyPoints: 3,
 });
 
 const overrideCss = css({
-  '> span': {
-    backgroundColor: exampleTokens.overrideColor,
-  },
+	'> span': {
+		backgroundColor: exampleTokens.overrideColor,
+	},
 });
 
 export default () => (
-  <VRTestWrapper>
-    <FlexibleUiContext.Provider value={context}>
-      <h5>Default View</h5>
-      <HorizontalWrapper>
-        <StoryPoints testId="vr-test-badge-storyPoint" />
-      </HorizontalWrapper>
-      <h5>Override CSS</h5>
-      <HorizontalWrapper>
-        <StoryPoints overrideCss={overrideCss} />
-      </HorizontalWrapper>
-    </FlexibleUiContext.Provider>
-  </VRTestWrapper>
+	<VRTestWrapper>
+		<FlexibleUiContext.Provider value={context}>
+			<h5>Default View</h5>
+			<HorizontalWrapper>
+				<StoryPoints testId="vr-test-badge-storyPoint" />
+			</HorizontalWrapper>
+			<h5>Override CSS</h5>
+			<HorizontalWrapper>
+				<StoryPoints overrideCss={overrideCss} />
+			</HorizontalWrapper>
+		</FlexibleUiContext.Provider>
+	</VRTestWrapper>
 );

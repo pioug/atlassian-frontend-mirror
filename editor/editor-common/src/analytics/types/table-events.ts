@@ -352,13 +352,20 @@ type TableChangedDisplayModeAEP = TableAEP<
 // currently duplicated in editor-plugin-table/src/types.ts
 type AlignmentOptions = 'center' | 'align-start';
 
+export enum CHANGE_ALIGNMENT_REASON {
+	TABLE_RESIZING = 'tableResizing',
+	EDITOR_APPEARANCE_CHANGED = 'editorAppearanceChanged',
+	TOOLBAR_OPTION_CHANGED = 'toolbarOptionChanged',
+}
+
 type TableChangedAlignmentAEP = TableAEP<
 	TABLE_ACTION.CHANGED_ALIGNMENT,
 	{
 		newAlignment: AlignmentOptions;
 		previousAlignment: AlignmentOptions | null;
 		tableWidth: number | null;
-		inputMethod: INPUT_METHOD.FLOATING_TB;
+		inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.AUTO;
+		reason: CHANGE_ALIGNMENT_REASON;
 	} & TotalRowAndColCount,
 	undefined
 >;

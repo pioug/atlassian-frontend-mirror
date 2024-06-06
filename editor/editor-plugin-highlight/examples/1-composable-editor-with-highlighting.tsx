@@ -465,6 +465,7 @@ const Editor = () => {
 			.add(historyPlugin)
 			.add([analyticsPlugin, {}])
 			.add(typeAheadPlugin)
+			.add(primaryToolbarPlugin)
 			.add(undoRedoPlugin)
 			.add(textFormattingPlugin)
 			.add(textColorPlugin)
@@ -507,7 +508,6 @@ const Editor = () => {
 			.add(editorDisabledPlugin)
 			.add(floatingToolbarPlugin)
 			.add(emojiPlugin)
-			.add(primaryToolbarPlugin)
 			.add(backgroundColorPlugin)
 			.add(highlightPlugin),
 	);

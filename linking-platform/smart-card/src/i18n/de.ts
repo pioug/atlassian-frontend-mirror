@@ -7,9 +7,20 @@
  */
 //German (Germany)
 export default {
+  'automation-menu.empty-state.image.alt': 'Symbol: Leere Automatisierungsliste',
+  'automation-menu.empty-state.learn-more.link': 'Weitere Informationen zum manuellen Trigger',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Verwenden Sie den manuellen Trigger, um ein Auswahlmenü auszufüllen, das alle, oder von Ihnen festgelegte Personen, als Ein-Klick-Automatisierungen anwenden können.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Die Administratoren haben noch keine Automatisierungen mit manuellem Trigger konfiguriert.',
+  'automation-menu.modal.error.description':
+    'Der Ladevorgang dauert eine Weile. Versuchen Sie, die Seite zu aktualisieren.',
   'automation-menu.modal.error.image.alt': 'Symbol: Fehler',
+  'automation-menu.modal.footer.automate-button': 'Automatisieren',
   'automation-menu.modal.footer.cancel-button': 'Abbrechen',
+  'automation-menu.modal.footer.get-started-button': 'Automatisierung erstellen',
   'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': 'Symbol im Header des Automatisierungsfensters',
   'fabric.linking.access_exists_description':
     'Bitten Sie Ihren Administrator um Zugriffsrechte für die Anzeige dieses Inhalts von {hostname}.',
   'fabric.linking.actions': 'Aktionen',
@@ -36,8 +47,8 @@ export default {
     'Wenden Sie eine Automatisierung auf <b>{name}</b> an.{br}Die verfügbaren Auswahlen werden von Confluence- und Bereichsadministratoren gesteuert.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Seitenautomatisierungen',
   'fabric.linking.automation-action.icon.label': 'Symbol: Automatisierung',
-  'fabric.linking.automation-action.title': 'Automatisierung ausführen …',
-  'fabric.linking.automation-action.tooltip': 'Automatisierungsfenster öffnen',
+  'fabric.linking.automation-action.title': 'Automatisierungsregeln anzeigen ...',
+  'fabric.linking.automation-action.tooltip': 'Wählen Sie eine Automatisierungsregel aus, die ausgeführt werden soll.',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Abbrechen',
   'fabric.linking.cannot_connect': 'Verbindung nicht möglich, versuchen Sie es erneut',
@@ -133,6 +144,10 @@ export default {
   'fabric.linking.priority_undefined': 'Nicht definiert',
   'fabric.linking.read_time': 'Lesedauer: {context} Min.',
   'fabric.linking.related': 'Zugehörig',
+  'fabric.linking.related_links_found_in': 'Gefunden in',
+  'fabric.linking.related_links_includes_links_to': 'Beinhaltet Links zu',
+  'fabric.linking.related_links_modal_title': 'Zuletzt aufgerufene Links',
+  'fabric.linking.related_links_not_found': 'Es wurden keine Links zum Anzeigen gefunden.',
   'fabric.linking.related_work_items_not_found': 'Dieser Link wird nirgendwo sonst erwähnt.',
   'fabric.linking.request_access': 'Zugriff anfordern',
   'fabric.linking.request_access_description':

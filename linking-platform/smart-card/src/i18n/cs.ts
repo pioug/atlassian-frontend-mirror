@@ -7,6 +7,20 @@
  */
 //Czech
 export default {
+  'automation-menu.empty-state.image.alt': 'Ikona prázdného seznamu automatizace',
+  'automation-menu.empty-state.learn-more.link': 'Další informace o ručním spouštěči',
+  'automation-menu.modal.empty.automations.admin.description':
+    'Pomocí ručního spouštěče můžete vytvořit nabídku výběrů, které může kdokoli nebo vámi určené osoby jedním kliknutím použít jako automatizaci.',
+  'automation-menu.modal.empty.automations.user.description':
+    'Správci zatím nenakonfigurovali žádné ručně spouštěné automatizace.',
+  'automation-menu.modal.error.description': 'Načtení může chvíli trvat. Zkuste obnovit stránku.',
+  'automation-menu.modal.error.image.alt': 'Ikona chyby',
+  'automation-menu.modal.footer.automate-button': 'Automatizovat',
+  'automation-menu.modal.footer.cancel-button': 'Zrušit',
+  'automation-menu.modal.footer.get-started-button': 'Vytvořit automatizaci',
+  'automation-menu.modal.footer.ok-button': 'OK',
+  'automation-menu.modal.header.icon.label': 'Ikona v záhlaví modálního okna automatizace',
+  'automation-menu.success-state.message': 'Vaše automatizace probíhá',
   'fabric.linking.access_exists_description': 'Požádejte o přístup k zobrazení tohoto obsahu z webu {hostname}.',
   'fabric.linking.actions': 'Akce',
   'fabric.linking.add_account': 'Přidat účet',
@@ -31,8 +45,8 @@ export default {
     'Použijte automatizaci u položky <b>{name}</b>.{br}Dostupné výběry jsou určeny správci Confluence a prostorů.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Automatizace stránek',
   'fabric.linking.automation-action.icon.label': 'Ikona automatizace',
-  'fabric.linking.automation-action.title': 'Spustit automatizaci…',
-  'fabric.linking.automation-action.tooltip': 'Otevřít modální okno automatizace',
+  'fabric.linking.automation-action.title': 'Zobrazit pravidla automatizace…',
+  'fabric.linking.automation-action.tooltip': 'Vyberte pravidlo automatizace, které chcete spustit.',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Zrušit',
   'fabric.linking.cannot_connect': 'Nelze se připojit, zkuste to znovu.',
@@ -125,6 +139,11 @@ export default {
   'fabric.linking.priority_undefined': 'Nedefinováno',
   'fabric.linking.read_time': '{context} min. čtení',
   'fabric.linking.related': 'Souvisící',
+  'fabric.linking.related_links_found_in': 'Nalezeno v:',
+  'fabric.linking.related_links_includes_links_to': 'Zahrnuje odkazy na:',
+  'fabric.linking.related_links_modal_title': 'Nedávné odkazy',
+  'fabric.linking.related_links_not_found': 'Nebyly nalezeny žádné odkazy, které bychom tu mohli zobrazit.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Zobrazit nedávné odkazy…',
   'fabric.linking.related_work_items_not_found': 'Tento odkaz není nikde jinde zmíněn.',
   'fabric.linking.request_access': 'Požádat o přístup',
   'fabric.linking.request_access_description': 'Váš tým spolupracuje v {product}. Pošlete správci žádost o přístup.',

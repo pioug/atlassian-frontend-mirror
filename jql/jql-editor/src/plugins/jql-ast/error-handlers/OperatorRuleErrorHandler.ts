@@ -9,15 +9,12 @@ import { errorMessages } from '../messages';
 /**
  * Show the appropriate error message when parsing JQL fails and an operator rule was expected.
  */
-export const handleOperatorRuleError = (
-  currentToken: Token,
-  intl: IntlShape,
-): string => {
-  const isEOF = currentToken.type === JQLLexer.EOF;
+export const handleOperatorRuleError = (currentToken: Token, intl: IntlShape): string => {
+	const isEOF = currentToken.type === JQLLexer.EOF;
 
-  return isEOF
-    ? intl.formatMessage(errorMessages.expectingOperatorBeforeEOF)
-    : intl.formatMessage(errorMessages.expectingOperatorButReceived, {
-        received: currentToken.text,
-      });
+	return isEOF
+		? intl.formatMessage(errorMessages.expectingOperatorBeforeEOF)
+		: intl.formatMessage(errorMessages.expectingOperatorButReceived, {
+				received: currentToken.text,
+			});
 };

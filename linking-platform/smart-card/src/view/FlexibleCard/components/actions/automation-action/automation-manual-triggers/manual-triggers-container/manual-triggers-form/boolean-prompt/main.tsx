@@ -8,19 +8,19 @@ import { CheckboxField } from '@atlaskit/form';
 import type { UserInputBooleanPrompt } from '../../common/types';
 
 interface BooleanInputPromptProps {
-  userInputPrompt: UserInputBooleanPrompt;
+	userInputPrompt: UserInputBooleanPrompt;
 }
 
 const BooleanInputPrompt = ({ userInputPrompt }: BooleanInputPromptProps) => {
-  di(Checkbox, CheckboxField);
+	di(Checkbox, CheckboxField);
 
-  const { variableName, displayName, defaultValue } = userInputPrompt;
+	const { variableName, displayName, defaultValue } = userInputPrompt;
 
-  return (
-    <CheckboxField name={variableName} defaultIsChecked={defaultValue || false}>
-      {({ fieldProps }) => <Checkbox {...fieldProps} label={displayName} />}
-    </CheckboxField>
-  );
+	return (
+		<CheckboxField name={variableName} defaultIsChecked={defaultValue || false}>
+			{({ fieldProps }) => <Checkbox {...fieldProps} label={displayName} />}
+		</CheckboxField>
+	);
 };
 
 export default BooleanInputPrompt;

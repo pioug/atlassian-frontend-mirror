@@ -6,10 +6,10 @@ import { PlayButtonWrapper } from '../playButtonWrapper';
 import { PlayButtonBackground } from '../playButtonBackground';
 
 describe('PlayButton', () => {
-  it('should render PlayButton properly', () => {
-    const playButton = shallow(<PlayButton />);
-    expect(playButton.find(PlayButtonWrapper)).toHaveLength(1);
-    expect(playButton.find(PlayButtonBackground)).toHaveLength(1);
-    expect(playButton.find(VidPlayIcon)).toHaveLength(1);
-  });
+	it('should render PlayButton properly', () => {
+		const playButton = shallow(<PlayButton />);
+		expect(playButton.find(PlayButtonWrapper)).toHaveLength(1);
+		expect(playButton.find(PlayButtonBackground)).toHaveLength(1);
+		expect(playButton.find(VidPlayIcon)).toHaveLength(1);
+	});
 });

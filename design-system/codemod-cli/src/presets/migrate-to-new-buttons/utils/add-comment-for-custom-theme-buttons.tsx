@@ -4,42 +4,41 @@ import { addCommentBefore } from '@atlaskit/codemod-utils';
 import { entryPointsMapping, customThemeButtonComment } from './constants';
 
 export const addCommentForCustomThemeButtons = (
-  fileSource: Collection<any>,
-  j: API['jscodeshift'],
+	fileSource: Collection<any>,
+	j: API['jscodeshift'],
 ) => {
-  let customThemeButtonImportName: string | undefined;
-  fileSource
-    .find(j.ImportDeclaration)
-    .filter(
-      (path) => path.node.source.value === entryPointsMapping.CustomThemeButton,
-    )
-    ?.forEach((path) => {
-      path.node.specifiers?.forEach((specifier) => {
-        if (specifier.type === 'ImportDefaultSpecifier') {
-          customThemeButtonImportName = specifier.local?.name;
-        }
-      });
-    });
-  if (!customThemeButtonImportName) {
-    return;
-  }
+	let customThemeButtonImportName: string | undefined;
+	fileSource
+		.find(j.ImportDeclaration)
+		.filter((path) => path.node.source.value === entryPointsMapping.CustomThemeButton)
+		?.forEach((path) => {
+			path.node.specifiers?.forEach((specifier) => {
+				if (specifier.type === 'ImportDefaultSpecifier') {
+					customThemeButtonImportName = specifier.local?.name;
+				}
+			});
+		});
 
-  const customThemeButtonElement = fileSource
-    .find(j.JSXElement)
-    .filter(
-      (path) =>
-        path.value.openingElement.name.type === 'JSXIdentifier' &&
-        path.value.openingElement.name.name === customThemeButtonImportName,
-    );
+	if (!customThemeButtonImportName) {
+		return;
+	}
 
-  if (!customThemeButtonElement.length) {
-    return;
-  }
+	const customThemeButtonElement = fileSource
+		.find(j.JSXElement)
+		.filter(
+			(path) =>
+				path.value.openingElement.name.type === 'JSXIdentifier' &&
+				path.value.openingElement.name.name === customThemeButtonImportName,
+		);
 
-  addCommentBefore(
-    j,
-    j(customThemeButtonElement.get(0).node.openingElement),
-    customThemeButtonComment,
-    'line',
-  );
+	if (!customThemeButtonElement.length) {
+		return;
+	}
+
+	addCommentBefore(
+		j,
+		j(customThemeButtonElement.get(0).node.openingElement),
+		customThemeButtonComment,
+		'block',
+	);
 };

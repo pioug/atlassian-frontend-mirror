@@ -861,7 +861,6 @@ describe('Link create', () => {
 								testId={testId}
 								plugins={plugins}
 								entityKey="entity-key"
-								active={true}
 								onFailure={onFailureMock}
 								onCreate={onCreateMock}
 								onCancel={onCancelMock}
@@ -893,21 +892,21 @@ describe('Link create', () => {
 		});
 
 		it('should fire screen viewed analytics event when it opens', async () => {
-		  setUpInlineCreate();
+			setUpInlineCreate();
 
-		  expect(screen.getByTestId(testId)).toBeInTheDocument();
+			expect(screen.getByTestId(testId)).toBeInTheDocument();
 
-		  expect(onAnalyticsEventMock).toBeCalled();
-		  const mockCall = onAnalyticsEventMock.mock.calls[0];
-		  expect(mockCall[0]).toMatchObject({
-		    payload: {
-		      eventType: 'screen',
-		      name: 'linkCreateScreen',
-		      action: 'viewed',
-		      // Attributes from AnalyticsContext will not yet show up here
-		      attributes: expect.any(Object),
-		    },
-		  });
+			expect(onAnalyticsEventMock).toBeCalled();
+			const mockCall = onAnalyticsEventMock.mock.calls[0];
+			expect(mockCall[0]).toMatchObject({
+				payload: {
+					eventType: 'screen',
+					name: 'linkCreateScreen',
+					action: 'viewed',
+					// Attributes from AnalyticsContext will not yet show up here
+					attributes: expect.any(Object),
+				},
+			});
 		});
 
 		it('should only trigger the callback onCreate when it submits the form when onComplete is not provided', async () => {
@@ -1152,7 +1151,7 @@ describe('Link create', () => {
 				});
 			});
 
-			it('should display outer error boundary on unhandled error outside the link create modal', async () => {
+			it('should display outer error boundary on unhandled error outside inline create', async () => {
 				setUpInlineCreate({ plugins: 'error' as any });
 
 				// should capture exception to sentry when error boundary is hit
@@ -1167,7 +1166,7 @@ describe('Link create', () => {
 						},
 					},
 				});
-				expect(await screen.findByTestId('link-create-error-boundary-modal')).toBeInTheDocument();
+				expect(await screen.findByTestId('link-create-error-boundary-ui')).toBeInTheDocument();
 			});
 		});
 

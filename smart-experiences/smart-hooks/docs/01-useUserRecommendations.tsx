@@ -27,20 +27,20 @@ export default md`
   Convert a @atlaskit/user-picker to a provider-backed user-picker using useUserRecommendations hook.
 
   ${(
-    <Example
-      packageName="@atlaskit/smart-hooks"
-      Component={require('../examples/01-useUserRecommendations').default}
-      title="useUserRecommendations with @atlaskit/user-picker"
-      source={require('!!raw-loader!../examples/01-useUserRecommendations')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/smart-hooks"
+			Component={require('../examples/01-useUserRecommendations').default}
+			title="useUserRecommendations with @atlaskit/user-picker"
+			source={require('!!raw-loader!../examples/01-useUserRecommendations')}
+		/>
+	)}
 
 
   ${(
-    <Props
-      heading="useUserRecommendations Props"
-      props={require('!!extract-react-types-loader!../src/services/use-user-recommendations')}
-    />
-  )}
+		<Props
+			heading="useUserRecommendations Props"
+			props={require('!!extract-react-types-loader!../src/services/use-user-recommendations')}
+		/>
+	)}
 
 `;

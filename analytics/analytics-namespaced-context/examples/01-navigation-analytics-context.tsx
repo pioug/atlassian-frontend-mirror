@@ -7,24 +7,19 @@ import { NavigationAnalyticsContext } from '../src';
 const myOnClickHandler = () => {};
 
 const listenerHandler = (event: UIAnalyticsEvent, channel?: string) => {
-  console.log('listenerHandler, event: ', event, ' channel: ', channel);
+	console.log('listenerHandler, event: ', event, ' channel: ', channel);
 };
 
-const ElementsComponentWithAnalytics = createDummyComponentWithAnalytics(
-  FabricChannel.navigation,
-);
+const ElementsComponentWithAnalytics = createDummyComponentWithAnalytics(FabricChannel.navigation);
 
 export default function Example() {
-  return (
-    <AnalyticsListener
-      onEvent={listenerHandler}
-      channel={FabricChannel.navigation}
-    >
-      <div>
-        <NavigationAnalyticsContext data={{ greeting: 'hello' }}>
-          <ElementsComponentWithAnalytics onClick={myOnClickHandler} />
-        </NavigationAnalyticsContext>
-      </div>
-    </AnalyticsListener>
-  );
+	return (
+		<AnalyticsListener onEvent={listenerHandler} channel={FabricChannel.navigation}>
+			<div>
+				<NavigationAnalyticsContext data={{ greeting: 'hello' }}>
+					<ElementsComponentWithAnalytics onClick={myOnClickHandler} />
+				</NavigationAnalyticsContext>
+			</div>
+		</AnalyticsListener>
+	);
 }

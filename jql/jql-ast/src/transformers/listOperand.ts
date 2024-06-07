@@ -9,9 +9,7 @@ import { type ListOperand, type Operand } from '../types';
  * @param operand Operand to add
  */
 export function appendOperand(this: ListOperand, operand: Operand): void {
-  this.values.push(
-    ...(operand.operandType === OPERAND_TYPE_LIST ? operand.values : [operand]),
-  );
+	this.values.push(...(operand.operandType === OPERAND_TYPE_LIST ? operand.values : [operand]));
 
-  assignParent(this);
+	assignParent(this);
 }

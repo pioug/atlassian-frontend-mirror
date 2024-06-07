@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import {
   AtlassianAccessIcon,
@@ -12,51 +12,38 @@ import {
   AtlassianMarketplaceIcon,
   AtlassianMarketplaceLogo,
   AtlassianStartLogo,
-  AtlassianWordmark,
   BitbucketIcon,
   BitbucketLogo,
-  BitbucketWordmark,
   CompassIcon,
   CompassLogo,
-  CompassWordmark,
   ConfluenceIcon,
   ConfluenceLogo,
-  ConfluenceWordmark,
   GuardIcon,
   GuardLogo,
   HalpIcon,
   HalpLogo,
-  HalpWordmark,
   JiraAlignIcon,
   JiraAlignLogo,
-  JiraAlignWordmark,
   JiraIcon,
   JiraLogo,
   JiraProductDiscoveryIcon,
   JiraProductDiscoveryLogo,
   JiraServiceManagementIcon,
   JiraServiceManagementLogo,
-  JiraServiceManagementWordmark,
   JiraSoftwareIcon,
   JiraSoftwareLogo,
-  JiraSoftwareWordmark,
-  JiraWordmark,
   JiraWorkManagementIcon,
   JiraWorkManagementLogo,
-  JiraWorkManagementWordmark,
   LoomIcon,
   LoomLogo,
   OpsgenieIcon,
   OpsgenieLogo,
-  OpsgenieWordmark,
   RovoIcon,
   RovoLogo,
   StatuspageIcon,
   StatuspageLogo,
-  StatuspageWordmark,
   TrelloIcon,
   TrelloLogo,
-  TrelloWordmark,
 } from '../src';
 
 export default () => (
@@ -65,7 +52,6 @@ export default () => (
       <thead>
         <tr>
           <th>Logo</th>
-          <th>Wordmark</th>
           <th>Icon</th>
         </tr>
       </thead>
@@ -73,9 +59,6 @@ export default () => (
         <tr>
           <td>
             <AtlassianLogo />
-          </td>
-          <td>
-            <AtlassianWordmark />
           </td>
           <td>
             <AtlassianIcon />
@@ -91,18 +74,12 @@ export default () => (
             <BitbucketLogo />
           </td>
           <td>
-            <BitbucketWordmark />
-          </td>
-          <td>
             <BitbucketIcon />
           </td>
         </tr>
         <tr>
           <td>
             <CompassLogo />
-          </td>
-          <td>
-            <CompassWordmark />
           </td>
           <td>
             <CompassIcon />
@@ -113,18 +90,12 @@ export default () => (
             <HalpLogo />
           </td>
           <td>
-            <HalpWordmark />
-          </td>
-          <td>
             <HalpIcon />
           </td>
         </tr>
         <tr>
           <td>
             <ConfluenceLogo />
-          </td>
-          <td>
-            <ConfluenceWordmark />
           </td>
           <td>
             <ConfluenceIcon />
@@ -135,18 +106,12 @@ export default () => (
             <JiraAlignLogo />
           </td>
           <td>
-            <JiraAlignWordmark />
-          </td>
-          <td>
             <JiraAlignIcon />
           </td>
         </tr>
         <tr>
           <td>
             <JiraLogo />
-          </td>
-          <td>
-            <JiraWordmark />
           </td>
           <td>
             <JiraIcon />
@@ -157,18 +122,12 @@ export default () => (
             <JiraProductDiscoveryLogo />
           </td>
           <td>
-            <Fragment />
-          </td>
-          <td>
             <JiraProductDiscoveryIcon />
           </td>
         </tr>
         <tr>
           <td>
             <JiraServiceManagementLogo />
-          </td>
-          <td>
-            <JiraServiceManagementWordmark />
           </td>
           <td>
             <JiraServiceManagementIcon />
@@ -179,18 +138,12 @@ export default () => (
             <JiraSoftwareLogo />
           </td>
           <td>
-            <JiraSoftwareWordmark />
-          </td>
-          <td>
             <JiraSoftwareIcon />
           </td>
         </tr>
         <tr>
           <td>
             <JiraWorkManagementLogo />
-          </td>
-          <td>
-            <JiraWorkManagementWordmark />
           </td>
           <td>
             <JiraWorkManagementIcon />
@@ -201,18 +154,12 @@ export default () => (
             <LoomLogo />
           </td>
           <td>
-            <Fragment />
-          </td>
-          <td>
             <LoomIcon />
           </td>
         </tr>
         <tr>
           <td>
             <OpsgenieLogo />
-          </td>
-          <td>
-            <OpsgenieWordmark />
           </td>
           <td>
             <OpsgenieIcon />
@@ -223,18 +170,12 @@ export default () => (
             <StatuspageLogo />
           </td>
           <td>
-            <StatuspageWordmark />
-          </td>
-          <td>
             <StatuspageIcon />
           </td>
         </tr>
         <tr>
           <td>
             <TrelloLogo />
-          </td>
-          <td>
-            <TrelloWordmark />
           </td>
           <td>
             <TrelloIcon />
@@ -245,18 +186,12 @@ export default () => (
             <GuardLogo />
           </td>
           <td>
-            <Fragment />
-          </td>
-          <td>
             <GuardIcon />
           </td>
         </tr>
         <tr>
           <td>
             <RovoLogo />
-          </td>
-          <td>
-            <Fragment />
           </td>
           <td>
             <RovoIcon />
@@ -267,18 +202,12 @@ export default () => (
             <AtlassianMarketplaceLogo />
           </td>
           <td>
-            <Fragment />
-          </td>
-          <td>
             <AtlassianMarketplaceIcon />
           </td>
         </tr>
         <tr>
           <td>
             <AtlassianAdministrationLogo />
-          </td>
-          <td>
-            <Fragment />
           </td>
           <td>
             <AtlassianAdministrationIcon />
@@ -289,18 +218,12 @@ export default () => (
             <AtlassianAdminLogo />
           </td>
           <td>
-            <Fragment />
-          </td>
-          <td>
             <AtlassianAdminIcon />
           </td>
         </tr>
         <tr>
           <td>
             <AtlassianAccessLogo />
-          </td>
-          <td>
-            <Fragment />
           </td>
           <td>
             <AtlassianAccessIcon />

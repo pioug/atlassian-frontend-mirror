@@ -7,19 +7,17 @@ export type ComponentName = 'browser' | 'clipboard' | 'dropzone';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-export function getPackageAttributes(
-  componentName: ComponentName,
-): PackageAttributes {
-  return {
-    packageName,
-    packageVersion,
-    componentName,
-    component: componentName,
-  };
+export function getPackageAttributes(componentName: ComponentName): PackageAttributes {
+	return {
+		packageName,
+		packageVersion,
+		componentName,
+		component: componentName,
+	};
 }
 
 export function getRequestMetadata(error?: Error): RequestMetadata | undefined {
-  if (error && isRequestError(error)) {
-    return error.metadata;
-  }
+	if (error && isRequestError(error)) {
+		return error.metadata;
+	}
 }

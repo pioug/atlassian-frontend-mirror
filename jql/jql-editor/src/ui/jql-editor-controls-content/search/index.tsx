@@ -12,17 +12,17 @@ import { BaseSearch } from '../base-search';
 import { messages } from './messages';
 
 export const Search = () => {
-  const [intl] = useIntl();
-  const [, { onSearch }] = useStoreActions();
-  const label = intl.formatMessage(messages.searchLabel);
-  const [isSearching] = useIsSearching();
-  return (
-    <Tooltip
-      position={'bottom'}
-      content={<TooltipContent>{label}</TooltipContent>}
-      tag={TooltipTag}
-    >
-      <BaseSearch label={label} onSearch={onSearch} isSearching={isSearching} />
-    </Tooltip>
-  );
+	const [intl] = useIntl();
+	const [, { onSearch }] = useStoreActions();
+	const label = intl.formatMessage(messages.searchLabel);
+	const [isSearching] = useIsSearching();
+	return (
+		<Tooltip
+			position={'bottom'}
+			content={<TooltipContent>{label}</TooltipContent>}
+			tag={TooltipTag}
+		>
+			<BaseSearch label={label} onSearch={onSearch} isSearching={isSearching} />
+		</Tooltip>
+	);
 };

@@ -15,41 +15,41 @@ import { menuWrapperWidth } from '../ShareMenuItem';
  * Since loading container has 100% width, it adjusts accordingly.
  */
 const calculateFormWrapperWidth = ({
-  integrationMode,
-  isMenuItemSelected,
+	integrationMode,
+	isMenuItemSelected,
 }: {
-  integrationMode?: IntegrationMode;
-  isMenuItemSelected?: boolean;
+	integrationMode?: IntegrationMode;
+	isMenuItemSelected?: boolean;
 }) => {
-  const formWidth = `${8 * 44}px`;
+	const formWidth = `${8 * 44}px`;
 
-  if (!isMenuItemSelected && integrationMode === 'menu') {
-    return menuWrapperWidth;
-  }
+	if (!isMenuItemSelected && integrationMode === 'menu') {
+		return menuWrapperWidth;
+	}
 
-  return formWidth;
+	return formWidth;
 };
 
 export const InlineDialogFormWrapper = ({
-  children,
-  integrationMode,
-  isMenuItemSelected,
+	children,
+	integrationMode,
+	isMenuItemSelected,
 }: PropsWithChildren<{
-  integrationMode?: IntegrationMode;
-  isMenuItemSelected?: boolean;
+	integrationMode?: IntegrationMode;
+	isMenuItemSelected?: boolean;
 }>) => {
-  return (
-    <div
-      css={{
-        width: calculateFormWrapperWidth({
-          integrationMode,
-          isMenuItemSelected,
-        }),
-      }}
-    >
-      {children}
-    </div>
-  );
+	return (
+		<div
+			css={{
+				width: calculateFormWrapperWidth({
+					integrationMode,
+					isMenuItemSelected,
+				}),
+			}}
+		>
+			{children}
+		</div>
+	);
 };
 
 /**
@@ -59,17 +59,17 @@ export const InlineDialogFormWrapper = ({
  * packages/design-system/inline-dialog/src/InlineDialog/styled.ts:20:3
  */
 export const InlineDialogContentWrapper = ({
-  children,
-  label,
+	children,
+	label,
 }: PropsWithChildren<{ label?: string }>) => {
-  return (
-    <div
-      css={{
-        padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
-      }}
-      aria-label={label}
-    >
-      {children}
-    </div>
-  );
+	return (
+		<div
+			css={{
+				padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
+			}}
+			aria-label={label}
+		>
+			{children}
+		</div>
+	);
 };

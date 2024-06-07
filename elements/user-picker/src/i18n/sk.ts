@@ -6,10 +6,10 @@
  */
 //Slovak
 export default {
-  'fabric.elements.user-picker.email.add': 'Pridať používateľa',
-  'fabric.elements.user-picker.group.byline': 'Skupina spravovaná správcom',
-  'fabric.elements.user-picker.multi.remove-item': 'Odstrániť',
-  'fabric.elements.user-picker.placeholder': 'Zadajte ľudí alebo tímy...',
-  'fabric.elements.user-picker.placeholder.add-more': 'pridať ďalších ľudí...',
-  'fabric.elements.user-picker.single.clear': 'Vymazať',
+	'fabric.elements.user-picker.email.add': 'Pridať používateľa',
+	'fabric.elements.user-picker.group.byline': 'Skupina spravovaná správcom',
+	'fabric.elements.user-picker.multi.remove-item': 'Odstrániť',
+	'fabric.elements.user-picker.placeholder': 'Zadajte ľudí alebo tímy...',
+	'fabric.elements.user-picker.placeholder.add-more': 'pridať ďalších ľudí...',
+	'fabric.elements.user-picker.single.clear': 'Vymazať',
 };

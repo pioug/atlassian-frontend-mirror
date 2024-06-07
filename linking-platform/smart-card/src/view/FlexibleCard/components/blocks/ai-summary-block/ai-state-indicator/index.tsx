@@ -8,22 +8,20 @@ import type { AIStateIndicatorProps } from './types';
 import AIStateError from './ai-state-error';
 
 const AIStateIndicator: React.FC<AIStateIndicatorProps> = ({
-  state,
-  appearance = 'default',
-  testId = 'ai-state-indicator',
-  error,
+	state,
+	appearance = 'default',
+	testId = 'ai-state-indicator',
+	error,
 }) => {
-  switch (state) {
-    case 'error':
-      return (
-        <AIStateError appearance={appearance} testId={testId} error={error} />
-      );
-    case 'loading':
-      return <AIStateLoading appearance={appearance} testId={testId} />;
-    case 'done':
-      return <AIStateDone appearance={appearance} testId={testId} />;
-    default:
-      return null;
-  }
+	switch (state) {
+		case 'error':
+			return <AIStateError appearance={appearance} testId={testId} error={error} />;
+		case 'loading':
+			return <AIStateLoading appearance={appearance} testId={testId} />;
+		case 'done':
+			return <AIStateDone appearance={appearance} testId={testId} />;
+		default:
+			return null;
+	}
 };
 export default AIStateIndicator;

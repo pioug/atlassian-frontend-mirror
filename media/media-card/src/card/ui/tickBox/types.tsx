@@ -1,4 +1,4 @@
 export type TickBoxProps = {
-  selected?: boolean;
-  children?: any;
+	selected?: boolean;
+	children?: any;
 };

@@ -10,20 +10,20 @@ import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../../src/ui/confluence-search-
 import { ConfluenceSearchConfigModal } from '../../src/ui/confluence-search-modal/modal';
 
 mockDatasourceFetchRequests({
-  type: 'confluence',
-  delayedResponse: false,
-  availableSitesOverride: [],
-  shouldMockORSBatch: true,
+	type: 'confluence',
+	delayedResponse: false,
+	availableSitesOverride: [],
+	shouldMockORSBatch: true,
 });
 
 export default () => (
-  <IntlProvider locale="en">
-    <SmartCardProvider client={new SmartLinkClient()}>
-      <ConfluenceSearchConfigModal
-        datasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}
-        onCancel={() => {}}
-        onInsert={() => {}}
-      />
-    </SmartCardProvider>
-  </IntlProvider>
+	<IntlProvider locale="en">
+		<SmartCardProvider client={new SmartLinkClient()}>
+			<ConfluenceSearchConfigModal
+				datasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}
+				onCancel={() => {}}
+				onInsert={() => {}}
+			/>
+		</SmartCardProvider>
+	</IntlProvider>
 );

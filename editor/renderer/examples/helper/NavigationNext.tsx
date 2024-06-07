@@ -12,7 +12,7 @@ import {
 	Separator,
 	Wordmark,
 } from '@atlaskit/navigation-next';
-import { JiraIcon, JiraWordmark } from '@atlaskit/logo';
+import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
 import BoardIcon from '@atlaskit/icon/glyph/board';
 import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
@@ -89,7 +89,7 @@ const ProductNavigation = () => (
 			{({ className }: ClassNameProps) => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				<div className={className}>
-					<Wordmark wordmark={JiraWordmark} />
+					<Wordmark wordmark={JiraLogo} />
 				</div>
 			)}
 		</HeaderSection>

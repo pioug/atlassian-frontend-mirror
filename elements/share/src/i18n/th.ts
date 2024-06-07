@@ -52,6 +52,8 @@ export default {
   'fabric.elements.share.invite.to.jira': 'เชิญไปยัง Jira',
   'fabric.elements.share.main.tab.text.confluence': 'แชร์หน้าข้อมูล',
   'fabric.elements.share.main.tab.text.jira': 'แชร์ปัญหา',
+  'fabric.elements.share.menu.email.label': 'อีเมล',
+  'fabric.elements.share.menu.slack.label': 'Slack',
   'fabric.elements.share.popup.label': 'แชร์',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {แชร์โพสต์บล็อกแล้ว}board {แชร์บอร์ดแล้ว}calendar {แชร์ปฏิทินแล้ว}draft {แชร์แบบร่างแล้ว}filter {แชร์ตัวกรองแล้ว}issue {แชร์ปัญหาแล้ว}summary {แชร์สรุปแล้ว}list {แชร์รายการแล้ว}timeline {แชร์เส้นเวลา (ไทม์ไลน์) แล้ว}form {แชร์แบบฟอร์มแล้ว}media {แชร์สื่อแล้ว}page {แชร์หน้าข้อมูลแล้ว}project {แชร์โปรเจกต์แล้ว}pullrequest {แชร์ Pull Request แล้ว}question {แชร์คำถามแล้ว}report {แชร์รายงานแล้ว}repository {แชร์คลังรายการแล้ว}request {แชร์คำขอแล้ว}roadmap {แชร์เส้นเวลา (ไทม์ไลน์) แล้ว}site {แชร์เว็บไซต์แล้ว}space {แชร์พื้นที่แล้ว}other {แชร์ลิงก์แล้ว}}',

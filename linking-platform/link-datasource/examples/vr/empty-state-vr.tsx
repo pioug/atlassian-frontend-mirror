@@ -10,16 +10,16 @@ import { ScrollableContainerHeight } from '../../src/ui/issue-like-table/styled'
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
-  maxHeight: ScrollableContainerHeight,
-  padding: token('space.100', '8px'),
+	maxHeight: ScrollableContainerHeight,
+	padding: token('space.100', '8px'),
 });
 
 export default () => {
-  return (
-    <Container>
-      <HoverableContainer>
-        <EmptyState />
-      </HoverableContainer>
-    </Container>
-  );
+	return (
+		<Container>
+			<HoverableContainer>
+				<EmptyState />
+			</HoverableContainer>
+		</Container>
+	);
 };

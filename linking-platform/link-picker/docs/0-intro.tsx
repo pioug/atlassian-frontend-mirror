@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  AtlassianInternalWarning,
-  code,
-  Example,
-  md,
-  Props,
-} from '@atlaskit/docs';
+import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
 ${(<AtlassianInternalWarning />)}
@@ -40,11 +34,11 @@ ${(<AtlassianInternalWarning />)}
 `}
 
 ${(
-  <Props
-    shouldCollapseProps
-    heading="Props"
-    props={require('!!extract-react-types-loader!../src/ui')}
-  />
+	<Props
+		shouldCollapseProps
+		heading="Props"
+		props={require('!!extract-react-types-loader!../src/ui')}
+	/>
 )}
 
   <br/>
@@ -183,11 +177,11 @@ ${(
   It is expected to be used in a popup (see other examples).
 
   ${(
-    <Example
-      packageName="@atlaskit/link-picker"
-      Component={require('../examples/60-link-picker-plugins').default}
-      title="Example"
-      source={require('!!raw-loader!../examples/60-link-picker-plugins')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-picker"
+			Component={require('../examples/60-link-picker-plugins').default}
+			title="Example"
+			source={require('!!raw-loader!../examples/60-link-picker-plugins')}
+		/>
+	)}
 `;

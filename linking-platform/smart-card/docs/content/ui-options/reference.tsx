@@ -8,10 +8,5 @@ export default md`
 Flexible Smart Links options can be applied at the top level of a
 Smart Link in order to yield some different appearances.
 
-${(
-  <Props
-    heading=""
-    props={require('!!extract-react-types-loader!../../utils/props-ui')}
-  />
-)}
+${(<Props heading="" props={require('!!extract-react-types-loader!../../utils/props-ui')} />)}
 `;

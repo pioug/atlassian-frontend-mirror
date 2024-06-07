@@ -12,13 +12,13 @@ import { processEventPayload } from './process-event-payload';
 import { type AnalyticsWebClient } from './types';
 
 export const handleEvent = (
-  event: UIAnalyticsEvent,
-  logger: Logger,
-  client?: AnalyticsWebClient | Promise<AnalyticsWebClient>,
+	event: UIAnalyticsEvent,
+	logger: Logger,
+	client?: AnalyticsWebClient | Promise<AnalyticsWebClient>,
 ) => {
-  if (!event.payload) {
-    return;
-  }
-  const payload = processEventPayload(event);
-  sendEvent(logger, client)(payload);
+	if (!event.payload) {
+		return;
+	}
+	const payload = processEventPayload(event);
+	sendEvent(logger, client)(payload);
 };

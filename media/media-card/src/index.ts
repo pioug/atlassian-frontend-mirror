@@ -7,26 +7,26 @@ export type { NumericalCardDimensions } from '@atlaskit/media-common';
 export type { CardAction, CardEventHandler } from './card/actions';
 
 export type {
-  CardStatus,
-  CardAppearance,
-  CardDimensionValue,
-  CardPreview,
-  TitleBoxIcon,
-  CardEvent,
-  InlineCardEvent,
-  SharedCardProps,
-  CardOnClickCallback,
-  InlineCardOnClickCallback,
-  CardProps,
-  CardState,
-  CardDimensions,
+	CardStatus,
+	CardAppearance,
+	CardDimensionValue,
+	CardPreview,
+	TitleBoxIcon,
+	CardEvent,
+	InlineCardEvent,
+	SharedCardProps,
+	CardOnClickCallback,
+	InlineCardOnClickCallback,
+	CardProps,
+	CardState,
+	CardDimensions,
 } from './types';
 
 export { Card } from './card';
 export {
-  MediaInlineCard,
-  fireFailedMediaInlineEvent,
-  fireSucceededMediaInlineEvent,
+	MediaInlineCard,
+	fireFailedMediaInlineEvent,
+	fireSucceededMediaInlineEvent,
 } from './inline';
 
 export { MediaCardError } from './errors';

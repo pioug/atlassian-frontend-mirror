@@ -1,5 +1,1 @@
-export {
-  AutomationMenuContextContainer,
-  useAutomationMenu,
-  type RuleExecutionState,
-} from './main';
+export { AutomationMenuContextContainer, useAutomationMenu, type RuleExecutionState } from './main';

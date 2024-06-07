@@ -1,14 +1,4 @@
-import {
-  B500,
-  N0,
-  N20,
-  N30,
-  N50,
-  N500,
-  N60,
-  N800,
-  N90,
-} from '@atlaskit/theme/colors';
+import { B500, N0, N20, N30, N50, N500, N60, N800, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export const bgColor = token('elevation.surface.overlay', N0);
@@ -17,10 +7,7 @@ export const headerBgColor = token('color.background.brand.bold', B500);
 
 export const teamHeaderBgColor = token('color.background.neutral', N50);
 
-export const headerBgColorDisabledUser = token(
-  'color.background.disabled',
-  N30,
-);
+export const headerBgColorDisabledUser = token('color.background.disabled', N30);
 
 export const headerTextColor = token('color.text.inverse', N0);
 

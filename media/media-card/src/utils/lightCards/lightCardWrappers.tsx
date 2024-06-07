@@ -5,9 +5,9 @@ import { wrapperStyles } from './styles';
 import { type WrapperProps } from './types';
 
 export const Wrapper = (props: WrapperProps) => {
-  return (
-    <div css={wrapperStyles({ dimensions: props.dimensions })} {...props}>
-      {props.children}
-    </div>
-  );
+	return (
+		<div css={wrapperStyles({ dimensions: props.dimensions })} {...props}>
+			{props.children}
+		</div>
+	);
 };

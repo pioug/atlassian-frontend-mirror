@@ -12,36 +12,27 @@ import { messages } from '../messages';
 import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';
 
 interface AkProps {
-  isDismissAllowed?: boolean;
-  description?: React.ReactText;
-  title?: React.ReactText;
-  onDismissed?: (...args: Array<any>) => void;
+	isDismissAllowed?: boolean;
+	description?: React.ReactText;
+	title?: React.ReactText;
+	onDismissed?: (...args: Array<any>) => void;
 }
 const FeedbackFlag = ({ description, title }: AkProps) => {
-  const { formatMessage } = useIntl();
-  return (
-    <AutoDismissFlag
-      icon={
-        <SuccessIcon
-          primaryColor={token('color.icon.success', G300)}
-          label="Success"
-        />
-      }
-      id="feedbackSent"
-      description={
-        description || formatMessage(messages.feedbackSuccessFlagDescription)
-      }
-      title={title || formatMessage(messages.feedbackSuccessFlagTitle)}
-    />
-  );
+	const { formatMessage } = useIntl();
+	return (
+		<AutoDismissFlag
+			icon={<SuccessIcon primaryColor={token('color.icon.success', G300)} label="Success" />}
+			id="feedbackSent"
+			description={description || formatMessage(messages.feedbackSuccessFlagDescription)}
+			title={title || formatMessage(messages.feedbackSuccessFlagTitle)}
+		/>
+	);
 };
 
-const FeedbackFlagWithIntl: FunctionComponent<AkProps & { locale?: string }> = (
-  props,
-) => (
-  <IntlProviderWithResolvedMessages locale={props.locale}>
-    <FeedbackFlag {...props} />
-  </IntlProviderWithResolvedMessages>
+const FeedbackFlagWithIntl: FunctionComponent<AkProps & { locale?: string }> = (props) => (
+	<IntlProviderWithResolvedMessages locale={props.locale}>
+		<FeedbackFlag {...props} />
+	</IntlProviderWithResolvedMessages>
 );
 
 export default FeedbackFlagWithIntl;

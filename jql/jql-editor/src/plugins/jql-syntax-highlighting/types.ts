@@ -1,5 +1,5 @@
 export type Highlight = {
-  documentFrom: number;
-  documentTo: number;
-  tokenType: string;
+	documentFrom: number;
+	documentTo: number;
+	tokenType: string;
 };

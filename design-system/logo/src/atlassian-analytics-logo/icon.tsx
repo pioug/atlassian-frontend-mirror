@@ -3,18 +3,20 @@ import React from 'react';
 
 import { uid } from 'react-uid';
 
+import { useThemeObserver } from '@atlaskit/tokens';
+
 import { defaultLogoParams } from '../constants';
-import { type LogoPropsAppearanceRequired } from '../types';
+import type { LogoPropsAppearanceRequired } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = ({ appearance }: LogoPropsAppearanceRequired) => {
-  // Replace with React 18's useId() hook when we update.
-  // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-  const id = uid({ appearance });
-  const colors = getColorsFromAppearanceOldLogos(appearance);
+const svg = ({ appearance }: LogoPropsAppearanceRequired, colorMode: string | undefined) => {
+	// Replace with React 18's useId() hook when we update.
+	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
+	const id = uid({ appearance });
+	const colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
 
-  return `<svg height="32" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+	return `<svg height="32" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="${id}-a" x1="12.595" x2="12.595" y1="40" y2="30" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="${colors.iconGradientStart}"/>
@@ -45,18 +47,19 @@ const svg = ({ appearance }: LogoPropsAppearanceRequired) => {
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const AtlassianAnalyticsIcon = ({
-  appearance,
-  label = 'Atlassian Analytics',
-  size = defaultLogoParams.size,
-  testId,
+	appearance,
+	label = 'Atlassian Analytics',
+	size = defaultLogoParams.size,
+	testId,
 }: LogoPropsAppearanceRequired) => {
-  return (
-    <Wrapper
-      appearance={appearance}
-      label={label}
-      svg={svg({ appearance })}
-      size={size}
-      testId={testId}
-    />
-  );
+	const { colorMode } = useThemeObserver();
+	return (
+		<Wrapper
+			appearance={appearance}
+			label={label}
+			svg={svg({ appearance }, colorMode)}
+			size={size}
+			testId={testId}
+		/>
+	);
 };

@@ -4,13 +4,9 @@ import { PageWrapper } from '../example-helpers/common';
 import { LinkPicker } from '../src';
 
 export default function VrHideDisplayText() {
-  return (
-    <PageWrapper>
-      <LinkPicker
-        onSubmit={() => {}}
-        onCancel={() => {}}
-        hideDisplayText={true}
-      />
-    </PageWrapper>
-  );
+	return (
+		<PageWrapper>
+			<LinkPicker onSubmit={() => {}} onCancel={() => {}} hideDisplayText={true} />
+		</PageWrapper>
+	);
 }

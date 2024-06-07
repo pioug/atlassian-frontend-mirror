@@ -35,7 +35,7 @@ export default function Anchor<
 >(
   _: {
     /**
-     * A link can be provided as a string If a router link configuration is set in the [app provider](https://atlassian.design/components/app-provider/examples), this can be mapped to an underlying router link component. For advanced usage an object can be passed. See [the code examples](https://atlassian.design/components/primitives/anchor/examples#router-links) for more information.
+     * The URL or link location, which can be provided as a string if a router link configuration is set in the [app provider](https://atlassian.design/components/app-provider/examples). This can be mapped to an underlying router link component. For advanced usage, an object can be passed. See [routing examples](https://atlassian.design/components/primitives/anchor/examples#router-links) for more information.
      */
     href: string | RouterLinkConfig;
 
@@ -85,7 +85,7 @@ export default function Anchor<
     paddingInlineEnd?: Space;
 
     /**
-     * Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/anchor/examples#gasv3-analytics).
+     * Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See examples for [firing Atlaskit analytics events](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/anchor/examples#gasv3-analytics).
      */
     onClick?: (
       e: React.MouseEvent<HTMLButtonElement>,
@@ -93,23 +93,22 @@ export default function Anchor<
     ) => void;
 
     /**
-     * An optional component name used to identify this component to Atlaskit analytics press listeners. This can be altered if a parent component's name is preferred rather than the default 'Anchor'. See [the code example](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) for more information.
+     * An optional component name used to identify this component to Atlaskit analytics press listeners. This can be altered if a parent component's name is preferred rather than the default 'Anchor'. See [the Atlaskit analytics example](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) for more information.
      */
     componentName?: string;
 
     /**
-     * Additional information to be included in the `context` of Atlaskit analytics events that come from anchor. See [the code example](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) for more information.
+     * Additional information to be included in the `context` of Atlaskit analytics events that come from anchor. See [the analytics example](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) for more information.
      */
     analyticsContext?: Record<string, any>;
 
     /**
-     * An optional name used to identify the anchor to interaction content listeners. By default, anchor fires React UFO (Unified Frontend Observability) press interactions for available listeners. This helps Atlassian measure performance and reliability. See [the code example](https://atlassian.design/components/primitives/anchor/examples#react-ufo-press-interactions) for more information.
+     * An optional name used to identify the anchor to interaction content listeners. By default, anchor fires React UFO (Unified Frontend Observability) press interactions for available listeners. This helps Atlassian measure performance and reliability. See [the React UFO press example](https://atlassian.design/components/primitives/anchor/examples#react-ufo-press-interactions) for more information.
      */
     interactionName?: string;
 
     /**
-     * A token alias for background color. See:<br>
-     * [https://atlassian.design/components/tokens/all-tokens#color-background](https://atlassian.design/components/tokens/all-tokens#color-background)<br>
+     * A token alias for background color ([background color tokens](https://atlassian.design/components/components/tokens/all-tokens#color-background)).
      * When the background color is set to a [surface token](/components/tokens/all-tokens#elevation-surface),
      * the [current surface](/components/tokens/code#current-surface-color) CSS variable will also be set to this value in the Box styles.
      */

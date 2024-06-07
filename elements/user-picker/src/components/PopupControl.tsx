@@ -11,34 +11,34 @@ const innerHeight = spacing * 2; // 16px
 const lineHeight = innerHeight / fontSize;
 
 const controlWrapper = css({
-  display: 'flex',
-  flexDirection: 'column',
-  padding: `0px ${token('space.100', '8px')} ${token('space.100', '8px')}`,
+	display: 'flex',
+	flexDirection: 'column',
+	padding: `0px ${token('space.100', '8px')} ${token('space.100', '8px')}`,
 });
 
 const getLabelStyle = () =>
-  css({
-    color: token('color.text.subtlest', N200),
-    fontSize: `${fontSize}px`,
-    fontWeight: 600,
-    lineHeight: `${lineHeight}`,
-    paddingBottom: token('space.050', '4px'),
-    paddingLeft: token('space.0', '0px'),
-    paddingRight: token('space.0', '0px'),
-    paddingTop: token('space.250', '20px'),
-  });
+	css({
+		color: token('color.text.subtlest', N200),
+		fontSize: `${fontSize}px`,
+		fontWeight: 600,
+		lineHeight: `${lineHeight}`,
+		paddingBottom: token('space.050', '4px'),
+		paddingLeft: token('space.0', '0px'),
+		paddingRight: token('space.0', '0px'),
+		paddingTop: token('space.250', '20px'),
+	});
 
 export class PopupControl extends React.PureComponent<ControlProps<any>> {
-  render() {
-    const {
-      selectProps: { popupTitle },
-    } = this.props;
+	render() {
+		const {
+			selectProps: { popupTitle },
+		} = this.props;
 
-    return (
-      <div css={controlWrapper}>
-        <div css={getLabelStyle()}>{popupTitle}</div>
-        <components.Control {...this.props} />
-      </div>
-    );
-  }
+		return (
+			<div css={controlWrapper}>
+				<div css={getLabelStyle()}>{popupTitle}</div>
+				<components.Control {...this.props} />
+			</div>
+		);
+	}
 }

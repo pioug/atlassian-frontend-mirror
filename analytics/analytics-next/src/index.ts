@@ -1,22 +1,10 @@
 export type { CreateUIAnalyticsEvent } from './types';
 
 // Analytics event classes
-export {
-  default as AnalyticsEvent,
-  isAnalyticsEvent,
-} from './events/AnalyticsEvent';
-export type {
-  AnalyticsEventPayload,
-  AnalyticsEventProps,
-} from './events/AnalyticsEvent';
-export {
-  default as UIAnalyticsEvent,
-  isUIAnalyticsEvent,
-} from './events/UIAnalyticsEvent';
-export type {
-  UIAnalyticsEventProps,
-  UIAnalyticsEventHandler,
-} from './events/UIAnalyticsEvent';
+export { default as AnalyticsEvent, isAnalyticsEvent } from './events/AnalyticsEvent';
+export type { AnalyticsEventPayload, AnalyticsEventProps } from './events/AnalyticsEvent';
+export { default as UIAnalyticsEvent, isUIAnalyticsEvent } from './events/UIAnalyticsEvent';
+export type { UIAnalyticsEventProps, UIAnalyticsEventHandler } from './events/UIAnalyticsEvent';
 
 // AnalyticsListener component
 export { default as AnalyticsListener } from './components/AnalyticsListener/index';
@@ -46,14 +34,14 @@ export { useCallbackWithAnalytics } from './hooks/useCallbackWithAnalytics';
 export type { UseCallbackWithAnalyticsHook } from './hooks/useCallbackWithAnalytics';
 export { usePlatformLeafEventHandler } from './hooks/usePlatformLeafEventHandler';
 export type {
-  UsePlatformLeafEventHandlerHookArgs,
-  UsePlatformLeafEventHandlerHook,
+	UsePlatformLeafEventHandlerHookArgs,
+	UsePlatformLeafEventHandlerHook,
 } from './hooks/usePlatformLeafEventHandler';
 
 export { usePlatformLeafSyntheticEventHandler } from './hooks/usePlatformLeafSyntheticEventHandler';
 export type {
-  UsePlatformLeafSyntheticEventHandlerHookArgs,
-  UsePlatformLeafSyntheticEventHandlerHook,
+	UsePlatformLeafSyntheticEventHandlerHookArgs,
+	UsePlatformLeafSyntheticEventHandlerHook,
 } from './hooks/usePlatformLeafSyntheticEventHandler';
 
 // Helper functions

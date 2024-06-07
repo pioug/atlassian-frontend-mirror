@@ -10,93 +10,87 @@ import { SizeableAvatar } from './SizeableAvatar';
 import { hasValue } from './utils';
 
 export type UserOptionProps = {
-  user: User;
-  status?: string;
-  isSelected: boolean;
+	user: User;
+	status?: string;
+	isSelected: boolean;
 };
 
 export class UserOption extends React.PureComponent<UserOptionProps> {
-  getPrimaryText = () => {
-    const {
-      user: { name, publicName, highlight },
-    } = this.props;
+	getPrimaryText = () => {
+		const {
+			user: { name, publicName, highlight },
+		} = this.props;
 
-    const result = [
-      <span
-        key="name"
-        css={textWrapper(
-          this.props.isSelected
-            ? token('color.text.selected', B400)
-            : token('color.text', N800),
-        )}
-      >
-        <HighlightText highlights={highlight && highlight.name}>
-          {name}
-        </HighlightText>
-      </span>,
-    ];
-    if (hasValue(publicName) && name.trim() !== publicName.trim()) {
-      result.push(
-        <React.Fragment key="publicName">
-          {' '}
-          <span
-            css={textWrapper(
-              this.props.isSelected
-                ? token('color.text.selected', B400)
-                : token('color.text.subtlest', N200),
-            )}
-          >
-            (
-            <HighlightText highlights={highlight && highlight.publicName}>
-              {publicName}
-            </HighlightText>
-            )
-          </span>
-        </React.Fragment>,
-      );
-    }
-    return result;
-  };
+		const result = [
+			<span
+				key="name"
+				css={textWrapper(
+					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
+				)}
+			>
+				<HighlightText highlights={highlight && highlight.name}>{name}</HighlightText>
+			</span>,
+		];
+		if (hasValue(publicName) && name.trim() !== publicName.trim()) {
+			result.push(
+				<React.Fragment key="publicName">
+					{' '}
+					<span
+						css={textWrapper(
+							this.props.isSelected
+								? token('color.text.selected', B400)
+								: token('color.text.subtlest', N200),
+						)}
+					>
+						(
+						<HighlightText highlights={highlight && highlight.publicName}>
+							{publicName}
+						</HighlightText>
+						)
+					</span>
+				</React.Fragment>,
+			);
+		}
+		return result;
+	};
 
-  renderSecondaryText = () =>
-    this.props.user.byline ? (
-      <span
-        css={textWrapper(
-          this.props.isSelected
-            ? token('color.text.selected', B400)
-            : token('color.text.subtlest', N200),
-        )}
-      >
-        {this.props.user.byline}
-      </span>
-    ) : undefined;
+	renderSecondaryText = () =>
+		this.props.user.byline ? (
+			<span
+				css={textWrapper(
+					this.props.isSelected
+						? token('color.text.selected', B400)
+						: token('color.text.subtlest', N200),
+				)}
+			>
+				{this.props.user.byline}
+			</span>
+		) : undefined;
 
-  private renderAvatar = () => {
-    const {
-      user: { avatarUrl },
-      status,
-    } = this.props;
-    return (
-      <SizeableAvatar appearance="big" src={avatarUrl} presence={status} />
-    );
-  };
+	private renderAvatar = () => {
+		const {
+			user: { avatarUrl },
+			status,
+		} = this.props;
+		return <SizeableAvatar appearance="big" src={avatarUrl} presence={status} />;
+	};
 
-  private getLozengeProps = () =>
-    typeof this.props.user.lozenge === 'string'
-      ? {
-          text: this.props.user.lozenge,
-        }
-      : this.props.user.lozenge;
+	private getLozengeProps = () =>
+		typeof this.props.user.lozenge === 'string'
+			? {
+					text: this.props.user.lozenge,
+				}
+			: this.props.user.lozenge;
 
-  render() {
-    return (
-      <AvatarItemOption
-        avatar={this.renderAvatar()}
-        lozenge={this.getLozengeProps()}
-        isDisabled={this.props.user.isDisabled}
-        primaryText={this.getPrimaryText()}
-        secondaryText={this.renderSecondaryText()}
-      />
-    );
-  }
+	render() {
+		return (
+			<AvatarItemOption
+				avatar={this.renderAvatar()}
+				lozenge={this.getLozengeProps()}
+				isDisabled={this.props.user.isDisabled}
+				primaryText={this.getPrimaryText()}
+				secondaryText={this.renderSecondaryText()}
+			/>
+		);
+	}
 }

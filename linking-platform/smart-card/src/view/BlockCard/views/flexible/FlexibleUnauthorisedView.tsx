@@ -3,10 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { useCallback, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import {
-  getExtensionKey,
-  hasAuthScopeOverrides,
-} from '../../../../state/helpers';
+import { getExtensionKey, hasAuthScopeOverrides } from '../../../../state/helpers';
 import { type ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
 import { type FlexibleBlockCardProps } from './types';
@@ -18,9 +15,9 @@ import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 const contentStyles = css({
-  color: token('color.text.subtlest', '#626F86'),
-  marginTop: token('space.100', '0.5rem'),
-  fontSize: '0.75rem',
+	color: token('color.text.subtlest', '#626F86'),
+	marginTop: token('space.100', '0.5rem'),
+	fontSize: '0.75rem',
 });
 
 /**
@@ -31,67 +28,59 @@ const contentStyles = css({
  * @see FlexibleCardProps
  */
 const FlexibleUnauthorisedView = ({
-  testId = 'smart-block-unauthorized-view',
-  ...props
+	testId = 'smart-block-unauthorized-view',
+	...props
 }: FlexibleBlockCardProps) => {
-  const { analytics, cardState, onAuthorize } = props;
-  const extensionKey = getExtensionKey(cardState?.details) ?? '';
-  const data = cardState.details?.data as JsonLd.Data.BaseData;
-  const providerName = extractProvider(data)?.text;
-  const isProductIntegrationSupported = hasAuthScopeOverrides(
-    cardState?.details,
-  );
+	const { analytics, cardState, onAuthorize } = props;
+	const extensionKey = getExtensionKey(cardState?.details) ?? '';
+	const data = cardState.details?.data as JsonLd.Data.BaseData;
+	const providerName = extractProvider(data)?.text;
+	const isProductIntegrationSupported = hasAuthScopeOverrides(cardState?.details);
 
-  const handleAuthorize = useCallback(() => {
-    if (onAuthorize) {
-      analytics?.track.appAccountAuthStarted({
-        extensionKey,
-      });
+	const handleAuthorize = useCallback(() => {
+		if (onAuthorize) {
+			analytics?.track.appAccountAuthStarted({
+				extensionKey,
+			});
 
-      onAuthorize();
-    }
-  }, [onAuthorize, extensionKey, analytics?.track]);
+			onAuthorize();
+		}
+	}, [onAuthorize, extensionKey, analytics?.track]);
 
-  const content = useMemo(
-    () =>
-      onAuthorize ? (
-        <UnauthorisedViewContent
-          providerName={providerName}
-          isProductIntegrationSupported={isProductIntegrationSupported}
-          analytics={analytics}
-          testId={testId}
-        />
-      ) : (
-        <FormattedMessage
-          {...messages[
-            providerName
-              ? 'unauthorised_account_description'
-              : 'unauthorised_account_description_no_provider'
-          ]}
-          values={{ context: providerName }}
-        />
-      ),
-    [
-      analytics,
-      isProductIntegrationSupported,
-      onAuthorize,
-      providerName,
-      testId,
-    ],
-  );
+	const content = useMemo(
+		() =>
+			onAuthorize ? (
+				<UnauthorisedViewContent
+					providerName={providerName}
+					isProductIntegrationSupported={isProductIntegrationSupported}
+					analytics={analytics}
+					testId={testId}
+				/>
+			) : (
+				<FormattedMessage
+					{...messages[
+						providerName
+							? 'unauthorised_account_description'
+							: 'unauthorised_account_description_no_provider'
+					]}
+					values={{ context: providerName }}
+				/>
+			),
+		[analytics, isProductIntegrationSupported, onAuthorize, providerName, testId],
+	);
 
-  const actions = useMemo<ActionItem[]>(
-    () => (onAuthorize ? [AuthorizeAction(handleAuthorize, providerName)] : []),
-    [handleAuthorize, onAuthorize, providerName],
-  );
+	const actions = useMemo<ActionItem[]>(
+		() => (onAuthorize ? [AuthorizeAction(handleAuthorize, providerName)] : []),
+		[handleAuthorize, onAuthorize, providerName],
+	);
 
-  return (
-    <UnresolvedView {...props} actions={actions} testId={testId}>
-      <div css={contentStyles} data-testid={`${testId}-content`}>
-        {content}
-      </div>
-    </UnresolvedView>
-  );
+	return (
+		<UnresolvedView {...props} actions={actions} testId={testId}>
+			<div css={contentStyles} data-testid={`${testId}-content`}>
+				{content}
+			</div>
+		</UnresolvedView>
+	);
 };
 
 export default withFlexibleUIBlockCardStyle(FlexibleUnauthorisedView);

@@ -7,16 +7,13 @@ import { type RuleConfig } from './config';
  * It also breaks CI, which was the reason this error boundary was added. It's a final
  * catch all.
  */
-export const errorBoundary = (
-  func: () => void,
-  { config }: { config: RuleConfig },
-) => {
-  try {
-    func();
-  } catch (err) {
-    if (!config.failSilently) {
-      // eslint-disable-next-line no-console
-      console.warn(err);
-    }
-  }
+export const errorBoundary = (func: () => void, { config }: { config: RuleConfig }) => {
+	try {
+		func();
+	} catch (err) {
+		if (!config.failSilently) {
+			// eslint-disable-next-line no-console
+			console.warn(err);
+		}
+	}
 };

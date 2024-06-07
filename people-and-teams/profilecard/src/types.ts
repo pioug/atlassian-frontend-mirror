@@ -2,114 +2,111 @@ import type React from 'react';
 
 import { type IntlShape } from 'react-intl-next';
 
-import {
-  type AnalyticsEventPayload,
-  type CreateUIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import type TeamCentralCardClient from './client/TeamCentralCardClient';
 import type TeamProfileCardClient from './client/TeamProfileCardClient';
 import type UserProfileCardClient from './client/UserProfileCardClient';
 
 export interface ApiClientResponse {
-  User: {
-    id: string;
-    accountType: string;
-    isBot: boolean;
-    isCurrentUser: boolean;
-    avatarUrl: string | null;
-    email: string | null;
-    fullName: string | null;
-    location: string | null;
-    meta: string | null;
-    nickname: string | null;
-    companyName: string | null;
-    remoteTimeString: string | null;
-    remoteWeekdayIndex: string | null;
-    remoteWeekdayString: string | null;
-    status: StatusType;
-    statusModifiedDate: number | null;
-  };
+	User: {
+		id: string;
+		accountType: string;
+		isBot: boolean;
+		isCurrentUser: boolean;
+		avatarUrl: string | null;
+		email: string | null;
+		fullName: string | null;
+		location: string | null;
+		meta: string | null;
+		nickname: string | null;
+		companyName: string | null;
+		remoteTimeString: string | null;
+		remoteWeekdayIndex: string | null;
+		remoteWeekdayString: string | null;
+		status: StatusType;
+		statusModifiedDate: number | null;
+	};
 }
 
 export interface Team {
-  // Header image props
-  largeAvatarImageUrl?: string;
-  smallAvatarImageUrl?: string;
-  largeHeaderImageUrl?: string;
-  smallHeaderImageUrl?: string;
-  // Regular team details
-  id: string;
-  displayName: string;
-  description: string;
-  organizationId?: string;
-  members?: {
-    id: string;
-    fullName: string;
-    avatarUrl: string;
-  }[];
+	// Header image props
+	largeAvatarImageUrl?: string;
+	smallAvatarImageUrl?: string;
+	largeHeaderImageUrl?: string;
+	smallHeaderImageUrl?: string;
+	// Regular team details
+	id: string;
+	displayName: string;
+	description: string;
+	organizationId?: string;
+	members?: {
+		id: string;
+		fullName: string;
+		avatarUrl: string;
+	}[];
 }
 
 export interface ProfileCardClientData {
-  isBot: boolean;
-  isCurrentUser: boolean;
-  avatarUrl?: string;
-  email?: string;
-  fullName?: string;
-  location?: string;
-  meta?: string;
-  nickname?: string;
-  companyName?: string;
-  timestring?: string;
-  status: StatusType;
-  statusModifiedDate?: number | null;
-  customLozenges?: LozengeProps[];
-  accountType?: string;
+	isBot: boolean;
+	isCurrentUser: boolean;
+	avatarUrl?: string;
+	email?: string;
+	fullName?: string;
+	location?: string;
+	meta?: string;
+	nickname?: string;
+	companyName?: string;
+	timestring?: string;
+	status: StatusType;
+	statusModifiedDate?: number | null;
+	customLozenges?: LozengeProps[];
+	accountType?: string;
 }
 
 export interface ReportingLinesUserPII {
-  name: string;
-  picture?: string;
+	name: string;
+	picture?: string;
 }
 
 export interface ReportingLinesUser {
-  accountIdentifier: string;
-  identifierType: 'ATLASSIAN_ID' | 'BASE64_HASH' | 'UNKNOWN';
-  pii?: ReportingLinesUserPII;
+	accountIdentifier: string;
+	identifierType: 'ATLASSIAN_ID' | 'BASE64_HASH' | 'UNKNOWN';
+	pii?: ReportingLinesUserPII;
 }
 
 export interface TeamCentralReportingLinesData {
-  managers?: ReportingLinesUser[];
-  reports?: ReportingLinesUser[];
+	managers?: ReportingLinesUser[];
+	reports?: ReportingLinesUser[];
 }
 
 export interface ProfileCardResourcedProps {
-  userId: string;
-  cloudId: string;
-  resourceClient: ProfileClient;
-  actions?: ProfileCardAction[];
-  reportingLinesProfileUrl?: string;
-  onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  position?: ProfilecardTriggerPosition;
-  trigger?: TriggerType;
-  children?: React.ReactNode;
-  addFlag?: (flag: any) => void;
+	userId: string;
+	cloudId: string;
+	resourceClient: ProfileClient;
+	actions?: ProfileCardAction[];
+	reportingLinesProfileUrl?: string;
+	onReportingLinesClick?: (user: ReportingLinesUser) => void;
+	position?: ProfilecardTriggerPosition;
+	trigger?: TriggerType;
+	children?: React.ReactNode;
+	addFlag?: (flag: any) => void;
 }
 
 export interface ProfileCardResourcedState {
-  visible?: boolean;
-  isLoading?: boolean;
-  hasError: boolean;
-  error?: ProfileCardErrorType;
-  data: ProfileCardClientData | null;
-  reportingLinesData?: TeamCentralReportingLinesData;
-  isKudosEnabled?: boolean;
-  kudosDrawerOpen: boolean;
+	visible?: boolean;
+	isLoading?: boolean;
+	hasError: boolean;
+	error?: ProfileCardErrorType;
+	data: ProfileCardClientData | null;
+	reportingLinesData?: TeamCentralReportingLinesData;
+	isKudosEnabled?: boolean;
+	kudosDrawerOpen: boolean;
 }
 
 export interface ProfileCardTriggerProps {
-  userId: string;
-  /**
+	userId: string;
+	/**
     A cloudId can be provided, and we'll verify that the target userId is an
     actual user in the specified site.
 
@@ -120,75 +117,75 @@ export interface ProfileCardTriggerProps {
     verifying that the shown user is in a particular site, don't provide a
     cloudId.
    */
-  cloudId?: string;
-  resourceClient: ProfileClient;
-  actions?: ProfileCardAction[];
-  reportingLinesProfileUrl?: string;
-  onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  position?: ProfilecardTriggerPosition;
-  trigger?: TriggerType;
-  children: React.ReactNode;
-  testId?: string;
-  addFlag?: (flag: any) => void;
-  ariaLabel?: string;
-  ariaLabelledBy?: string;
-  prepopulatedData?: PrepopulatedData;
-  disabledAriaAttributes?: boolean;
-  onVisibilityChange?: (isVisible: boolean) => void;
-  isVisible?: boolean;
-  displayConfig?: {
-    showKudos?: boolean;
-  }
+	cloudId?: string;
+	resourceClient: ProfileClient;
+	actions?: ProfileCardAction[];
+	reportingLinesProfileUrl?: string;
+	onReportingLinesClick?: (user: ReportingLinesUser) => void;
+	position?: ProfilecardTriggerPosition;
+	trigger?: TriggerType;
+	children: React.ReactNode;
+	testId?: string;
+	addFlag?: (flag: any) => void;
+	ariaLabel?: string;
+	ariaLabelledBy?: string;
+	prepopulatedData?: PrepopulatedData;
+	disabledAriaAttributes?: boolean;
+	onVisibilityChange?: (isVisible: boolean) => void;
+	isVisible?: boolean;
+	displayConfig?: {
+		showKudos?: boolean;
+	};
 }
 
 export interface ProfileCardTriggerState {
-  visible?: boolean;
-  isLoading?: boolean;
-  hasError: boolean;
-  error?: ProfileCardErrorType;
-  data: ProfileCardClientData | null;
-  reportingLinesData?: TeamCentralReportingLinesData;
-  shouldShowGiveKudos?: boolean;
-  teamCentralBaseUrl?: string;
-  kudosDrawerOpen: boolean;
+	visible?: boolean;
+	isLoading?: boolean;
+	hasError: boolean;
+	error?: ProfileCardErrorType;
+	data: ProfileCardClientData | null;
+	reportingLinesData?: TeamCentralReportingLinesData;
+	shouldShowGiveKudos?: boolean;
+	teamCentralBaseUrl?: string;
+	kudosDrawerOpen: boolean;
 }
 
 export interface TeamProfileCardTriggerState {
-  visible?: boolean;
-  isLoading?: boolean;
-  hasError: boolean;
-  error?: any;
-  data: Team | null;
-  renderError?: boolean;
-  shouldShowGiveKudos?: boolean;
-  teamCentralBaseUrl?: string;
-  kudosDrawerOpen: boolean;
+	visible?: boolean;
+	isLoading?: boolean;
+	hasError: boolean;
+	error?: any;
+	data: Team | null;
+	renderError?: boolean;
+	shouldShowGiveKudos?: boolean;
+	teamCentralBaseUrl?: string;
+	kudosDrawerOpen: boolean;
 }
 
 export interface TeamProfilecardCoreProps {
-  /**
+	/**
     The id of the user viewing the profile card.
 
     This is used to determine whether to say that the member count is
     "including you" or not.
    */
-  viewingUserId?: string;
-  /**
+	viewingUserId?: string;
+	/**
     A list of extra buttons to be displayed at the bottom of the card.
     View Profile is always included by default.
    */
-  actions?: ProfileCardAction[];
-  /**
+	actions?: ProfileCardAction[];
+	/**
     A function allowing products to provide an href for the user avatars in the
     profilecard, e.g. so they can link to user's profile pages.
    */
-  generateUserLink?: (userId: string) => string;
-  /**
+	generateUserLink?: (userId: string) => string;
+	/**
     A function allowing products to provide an onClick handler for when the
     user clicks on a user's avatar or avatar group item.
    */
-  onUserClick?: (userId: string, event: React.MouseEvent<Element>) => void;
-  /**
+	onUserClick?: (userId: string, event: React.MouseEvent<Element>) => void;
+	/**
     This should be a link to the team's profile page. This will be used for:
 
     - Wrapping the trigger in a link to the team profile page (unless
@@ -196,8 +193,8 @@ export interface TeamProfilecardCoreProps {
 
     - Providing the link for the View Profile action button on the card.
    */
-  viewProfileLink: string;
-  /**
+	viewProfileLink: string;
+	/**
     An onClick action that navigates to the team's profile page. Something you
     may want, e.g. for an SPA site or tracking analytics of navigation. This
     is optional, just the viewProfileLink will suffice. Will be used for:
@@ -207,24 +204,24 @@ export interface TeamProfilecardCoreProps {
 
     - Providing an onClick for the View Profile action button on the card.
    */
-  viewProfileOnClick?: (event?: React.MouseEvent<Element>) => void;
+	viewProfileOnClick?: (event?: React.MouseEvent<Element>) => void;
 }
 
 export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
-  /** The id of the team. */
-  teamId: string;
-  /**
+	/** The id of the team. */
+	teamId: string;
+	/**
     The id of the organization that the team belongs to.
     Currently this is unused, but will become necessary in the future.
    */
-  orgId: string;
-  /** An instance of ProfileClient. */
-  resourceClient: ProfileClient;
-  /**
+	orgId: string;
+	/** An instance of ProfileClient. */
+	resourceClient: ProfileClient;
+	/**
     The position relative to the trigger that the card should be displayed in.
    */
-  position?: ProfilecardTriggerPosition;
-  /**
+	position?: ProfilecardTriggerPosition;
+	/**
     The interaction method used to trigger the team profile card to appear.
 
     - Click is generally recommended, but your needs may vary.
@@ -241,8 +238,8 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
     see how they behave, or ask in #help-people-and-teams-xpc on Slack for our
     recommendations.
    */
-  trigger?: 'hover' | 'click' | 'hover-click';
-  /**
+	trigger?: 'hover' | 'click' | 'hover-click';
+	/**
     We generally prefer to wrap the trigger in a link to the team profile
     page. This prop determines how that link behaves.
 
@@ -262,23 +259,23 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
     Look at the example on "Trigger Link Types" for more in-depth analysis, or
     ask in #help-people-and-teams-xpc on Slack for our recommendations.
    */
-  triggerLinkType?: 'none' | 'link' | 'clickable-link';
-  /**
+	triggerLinkType?: 'none' | 'link' | 'clickable-link';
+	/**
     This is the component that will cause a team profile card to appear when
     interacted with according to the method specified by the trigger prop.
    */
-  children?: React.ReactNode;
-  /**
-   * Used by the card to show Flags.
-   */
-  addFlag?: (flag: any) => void;
-  /**
-   * Optional cloudId. Pass this if rendering card within a sited context.
-   */
-  cloudId?: string;
-  displayConfig?: {
-    showKudos?: boolean;
-  }
+	children?: React.ReactNode;
+	/**
+	 * Used by the card to show Flags.
+	 */
+	addFlag?: (flag: any) => void;
+	/**
+	 * Optional cloudId. Pass this if rendering card within a sited context.
+	 */
+	cloudId?: string;
+	displayConfig?: {
+		showKudos?: boolean;
+	};
 }
 
 export type StatusType = 'active' | 'inactive' | 'closed';
@@ -286,82 +283,76 @@ export type StatusType = 'active' | 'inactive' | 'closed';
 export type TriggerType = 'hover' | 'click';
 
 export type StatusModifiedDateType =
-  | 'noDate'
-  | 'thisWeek'
-  | 'thisMonth'
-  | 'lastMonth'
-  | 'aFewMonths'
-  | 'severalMonths'
-  | 'moreThanAYear';
+	| 'noDate'
+	| 'thisWeek'
+	| 'thisMonth'
+	| 'lastMonth'
+	| 'aFewMonths'
+	| 'severalMonths'
+	| 'moreThanAYear';
 
 export interface ProfileCardAction {
-  callback?: (...args: any[]) => any;
-  shouldRender?: (data: any) => boolean;
-  id?: string;
-  label: React.ReactNode;
-  // Link to provide general link behaviour to the button. If both link and callback are provided link behaviour will be suppressed on click.
-  link?: string;
+	callback?: (...args: any[]) => any;
+	shouldRender?: (data: any) => boolean;
+	id?: string;
+	label: React.ReactNode;
+	// Link to provide general link behaviour to the button. If both link and callback are provided link behaviour will be suppressed on click.
+	link?: string;
 }
 
-export type LozengeColor =
-  | 'default'
-  | 'success'
-  | 'removed'
-  | 'inprogress'
-  | 'new'
-  | 'moved';
+export type LozengeColor = 'default' | 'success' | 'removed' | 'inprogress' | 'new' | 'moved';
 
 export interface LozengeProps {
-  text: React.ReactNode;
-  appearance?: LozengeColor; // defaults to 'default'
-  isBold?: boolean; // defaults to false
+	text: React.ReactNode;
+	appearance?: LozengeColor; // defaults to 'default'
+	isBold?: boolean; // defaults to false
 }
 
 export interface ProfilecardProps {
-  isLoading?: boolean;
-  hasError?: boolean;
-  errorType?: ProfileCardErrorType;
-  accountType?: string;
-  status?: StatusType;
-  isBot?: boolean;
-  avatarUrl?: string;
-  fullName?: string;
-  meta?: string;
-  userId?: string;
-  isCurrentUser?: boolean;
-  // Nick name is also known as public name
-  nickname?: string;
-  email?: string;
-  location?: string;
-  companyName?: string;
-  timestring?: string;
-  actions?: ProfileCardAction[];
-  clientFetchProfile?: () => void;
-  statusModifiedDate?: number | null;
-  withoutElevation?: boolean;
-  /** Show manager and direct reports section on profile hover card, if available */
-  reportingLines?: TeamCentralReportingLinesData;
-  /** Base URL to populate href value for manager's and direct reports' user avatar  */
-  reportingLinesProfileUrl?: string;
-  /** Click handler when user clicks on manager's and direct reports' user avatar, un-clickable otherwise */
-  onReportingLinesClick?: (user: ReportingLinesUser) => void;
-  isKudosEnabled?: boolean;
-  teamCentralBaseUrl?: string;
-  addFlag?: (flag: any) => void;
-  cloudId?: string;
+	isLoading?: boolean;
+	hasError?: boolean;
+	errorType?: ProfileCardErrorType;
+	accountType?: string;
+	status?: StatusType;
+	isBot?: boolean;
+	avatarUrl?: string;
+	fullName?: string;
+	meta?: string;
+	userId?: string;
+	isCurrentUser?: boolean;
+	// Nick name is also known as public name
+	nickname?: string;
+	email?: string;
+	location?: string;
+	companyName?: string;
+	timestring?: string;
+	actions?: ProfileCardAction[];
+	clientFetchProfile?: () => void;
+	statusModifiedDate?: number | null;
+	withoutElevation?: boolean;
+	/** Show manager and direct reports section on profile hover card, if available */
+	reportingLines?: TeamCentralReportingLinesData;
+	/** Base URL to populate href value for manager's and direct reports' user avatar  */
+	reportingLinesProfileUrl?: string;
+	/** Click handler when user clicks on manager's and direct reports' user avatar, un-clickable otherwise */
+	onReportingLinesClick?: (user: ReportingLinesUser) => void;
+	isKudosEnabled?: boolean;
+	teamCentralBaseUrl?: string;
+	addFlag?: (flag: any) => void;
+	cloudId?: string;
 
-  // Allow to pass custom message for disabled account which `status` prop is `inactive` or `closed`.
-  // `disabledAccountMessage` should not contain react-intl-next components, ex: `FormattedMessage`,
-  // because ProfileCard component is wrapped in its own `IntlProvider` and `FormattedMessage` will loads messages of `@atlaskit/profilecard`,
-  // not from the consumer of `@atlaskit/profilecard`.
-  disabledAccountMessage?: React.ReactNode;
-  // Allow to show a status lozenge for disabled account which `status` prop is `inactive` or `closed`
-  hasDisabledAccountLozenge?: boolean;
-  // Allow consumers to pass in custom lozenges that will be displayed under the heading
-  customLozenges?: LozengeProps[];
-  openKudosDrawer?: () => void;
-  isTriggeredUsingKeyboard?: boolean;
-  disabledAriaAttributes?: boolean;
+	// Allow to pass custom message for disabled account which `status` prop is `inactive` or `closed`.
+	// `disabledAccountMessage` should not contain react-intl-next components, ex: `FormattedMessage`,
+	// because ProfileCard component is wrapped in its own `IntlProvider` and `FormattedMessage` will loads messages of `@atlaskit/profilecard`,
+	// not from the consumer of `@atlaskit/profilecard`.
+	disabledAccountMessage?: React.ReactNode;
+	// Allow to show a status lozenge for disabled account which `status` prop is `inactive` or `closed`
+	hasDisabledAccountLozenge?: boolean;
+	// Allow consumers to pass in custom lozenges that will be displayed under the heading
+	customLozenges?: LozengeProps[];
+	openKudosDrawer?: () => void;
+	isTriggeredUsingKeyboard?: boolean;
+	disabledAriaAttributes?: boolean;
 }
 
 export type AnalyticsFromDuration = (duration: number) => AnalyticsEventPayload;
@@ -369,102 +360,102 @@ export type AnalyticsFromDuration = (duration: number) => AnalyticsEventPayload;
 export type AnalyticsFunction = (generator: AnalyticsFromDuration) => void;
 
 export interface AnalyticsProps {
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }
 
 export interface AnalyticsWithDurationProps {
-  fireAnalyticsWithDuration: AnalyticsFunction;
+	fireAnalyticsWithDuration: AnalyticsFunction;
 }
 
 export interface TeamProfilecardProps extends TeamProfilecardCoreProps {
-  /** Indicates whether the team's details are still loading. */
-  isLoading?: boolean;
-  /** Indicates whether an error occurred whilst fetching team details. */
-  hasError?: boolean;
-  /** Describes the type of error that occurred, if any. */
-  errorType?: TeamProfileCardErrorType;
-  /** The details of the team to be shown. */
-  team?: Team;
-  /** A callback that will try to re-fetch data in case an error occurred. */
-  clientFetchProfile?: () => void;
-  /** Details relevant to passing around analytics. */
-  analytics: AnalyticsFunction;
+	/** Indicates whether the team's details are still loading. */
+	isLoading?: boolean;
+	/** Indicates whether an error occurred whilst fetching team details. */
+	hasError?: boolean;
+	/** Describes the type of error that occurred, if any. */
+	errorType?: TeamProfileCardErrorType;
+	/** The details of the team to be shown. */
+	team?: Team;
+	/** A callback that will try to re-fetch data in case an error occurred. */
+	clientFetchProfile?: () => void;
+	/** Details relevant to passing around analytics. */
+	analytics: AnalyticsFunction;
 }
 
 export interface MessageIntlProviderProps {
-  children: React.ReactNode;
-  intl: IntlShape;
+	children: React.ReactNode;
+	intl: IntlShape;
 }
 
 export type RelativeDateKeyType =
-  | 'ThisWeek'
-  | 'ThisMonth'
-  | 'LastMonth'
-  | 'AFewMonths'
-  | 'SeveralMonths'
-  | 'MoreThanAYear'
-  | null;
+	| 'ThisWeek'
+	| 'ThisMonth'
+	| 'LastMonth'
+	| 'AFewMonths'
+	| 'SeveralMonths'
+	| 'MoreThanAYear'
+	| null;
 
 export interface ProfileClient {
-  flushCache: () => void;
-  getProfile: (
-    cloudId: string,
-    userId: string,
-    analytics?: (event: AnalyticsEventPayload) => void,
-  ) => Promise<ProfileCardClientData>;
-  getTeamProfile: (
-    teamId: string,
-    orgId?: string,
-    fireAnalytics?: (event: AnalyticsEventPayload) => void,
-  ) => Promise<Team>;
-  getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
-  shouldShowGiveKudos: () => Promise<boolean>;
-  getTeamCentralBaseUrl: () => string | undefined;
+	flushCache: () => void;
+	getProfile: (
+		cloudId: string,
+		userId: string,
+		analytics?: (event: AnalyticsEventPayload) => void,
+	) => Promise<ProfileCardClientData>;
+	getTeamProfile: (
+		teamId: string,
+		orgId?: string,
+		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+	) => Promise<Team>;
+	getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
+	shouldShowGiveKudos: () => Promise<boolean>;
+	getTeamCentralBaseUrl: () => string | undefined;
 }
 
 export type ProfilecardTriggerPosition =
-  | 'bottom-start'
-  | 'bottom'
-  | 'bottom-end'
-  | 'left-start'
-  | 'left'
-  | 'left-end'
-  | 'top-end'
-  | 'top'
-  | 'top-start'
-  | 'right-end'
-  | 'right'
-  | 'right-start';
+	| 'bottom-start'
+	| 'bottom'
+	| 'bottom-end'
+	| 'left-start'
+	| 'left'
+	| 'left-end'
+	| 'top-end'
+	| 'top'
+	| 'top-start'
+	| 'right-end'
+	| 'right'
+	| 'right-start';
 
 export type ProfileCardErrorType = {
-  reason: 'default' | 'NotFound';
+	reason: 'default' | 'NotFound';
 } | null;
 
 export type TeamProfileCardErrorType = {
-  reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
+	reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
 } | null;
 
 export interface ProfileClientOptions {
-  url: string;
-  gatewayGraphqlUrl?: string;
-  cacheSize?: number;
-  cacheMaxAge?: number;
-  /** Enables Team Central functionality if enabled e.g. /gateway/api/watermelon/graphql*/
-  teamCentralUrl?: string;
-  /** URL to the Team Central app e.g. team.atlassian.com */
-  teamCentralBaseUrl?: string;
-  /** Name of integrating product e.g. jira, atlas, confluence **/
-  productIdentifier?: string;
-  cloudId?: string;
+	url: string;
+	gatewayGraphqlUrl?: string;
+	cacheSize?: number;
+	cacheMaxAge?: number;
+	/** Enables Team Central functionality if enabled e.g. /gateway/api/watermelon/graphql*/
+	teamCentralUrl?: string;
+	/** URL to the Team Central app e.g. team.atlassian.com */
+	teamCentralBaseUrl?: string;
+	/** Name of integrating product e.g. jira, atlas, confluence **/
+	productIdentifier?: string;
+	cloudId?: string;
 }
 
 export interface ClientOverrides {
-  userClient?: UserProfileCardClient;
-  teamClient?: TeamProfileCardClient;
-  teamCentralClient?: TeamCentralCardClient;
+	userClient?: UserProfileCardClient;
+	teamClient?: TeamProfileCardClient;
+	teamCentralClient?: TeamCentralCardClient;
 }
 
 /** This interface represents the data that is prepopulated in the profile card. **/
 export interface PrepopulatedData {
-  fullName?: string;
+	fullName?: string;
 }

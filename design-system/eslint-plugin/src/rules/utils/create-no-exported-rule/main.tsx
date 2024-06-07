@@ -1,8 +1,8 @@
 import type { Rule } from 'eslint';
 
 import {
-  getImportSources,
-  type SupportedNameChecker,
+	getImportSources,
+	type SupportedNameChecker,
 } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { checkIfSupportedExport } from './check-if-supported-export';
@@ -24,47 +24,47 @@ type RuleModule = Rule.RuleModule;
  * @returns An eslint rule.
  */
 export const createNoExportedRule =
-  (isUsage: SupportedNameChecker, messageId: string): RuleModule['create'] =>
-  (context) => {
-    const importSources = getImportSources(context);
+	(isUsage: SupportedNameChecker, messageId: string): RuleModule['create'] =>
+	(context) => {
+		const importSources = getImportSources(context);
 
-    const { text } = context.getSourceCode();
-    if (importSources.every((importSource) => !text.includes(importSource))) {
-      return {};
-    }
+		const { text } = context.getSourceCode();
+		if (importSources.every((importSource) => !text.includes(importSource))) {
+			return {};
+		}
 
-    return {
-      CallExpression(node) {
-        const { references } = context.getScope();
-        if (!isUsage(node.callee, references, importSources)) {
-          return;
-        }
+		return {
+			CallExpression(node) {
+				const { references } = context.getScope();
+				if (!isUsage(node.callee, references, importSources)) {
+					return;
+				}
 
-        const state = checkIfSupportedExport(context, node, importSources);
-        if (!state.isExport) {
-          return;
-        }
+				const state = checkIfSupportedExport(context, node, importSources);
+				if (!state.isExport) {
+					return;
+				}
 
-        context.report({
-          messageId,
-          node: state.node,
-        });
-      },
-      TaggedTemplateExpression(node) {
-        const { references } = context.getScope();
-        if (!isUsage(node.tag, references, importSources)) {
-          return;
-        }
+				context.report({
+					messageId,
+					node: state.node,
+				});
+			},
+			TaggedTemplateExpression(node) {
+				const { references } = context.getScope();
+				if (!isUsage(node.tag, references, importSources)) {
+					return;
+				}
 
-        const state = checkIfSupportedExport(context, node, importSources);
-        if (!state.isExport) {
-          return;
-        }
+				const state = checkIfSupportedExport(context, node, importSources);
+				if (!state.isExport) {
+					return;
+				}
 
-        context.report({
-          messageId,
-          node: state.node,
-        });
-      },
-    };
-  };
+				context.report({
+					messageId,
+					node: state.node,
+				});
+			},
+		};
+	};

@@ -3,10 +3,7 @@ import { DatasourceAction } from '../../analytics/types';
 export const COLUMN_BASE_WIDTH = 8;
 export const COLUMN_MIN_WIDTH = COLUMN_BASE_WIDTH * 3;
 
-export type GetWidthCss = (arg: {
-  shouldUseWidth: boolean;
-  width?: number;
-}) => React.CSSProperties;
+export type GetWidthCss = (arg: { shouldUseWidth: boolean; width?: number }) => React.CSSProperties;
 
 /**
  * Generate width related portion of css for table cell.
@@ -18,16 +15,16 @@ export type GetWidthCss = (arg: {
  * @param width Sometimes set to undefined for last column to make it occupy remainder of the table width
  */
 export const getWidthCss: GetWidthCss = ({ shouldUseWidth, width }) => {
-  if (!width) {
-    return {};
-  }
-  if (shouldUseWidth) {
-    return {
-      width,
-    };
-  } else {
-    return { maxWidth: width };
-  }
+	if (!width) {
+		return {};
+	}
+	if (shouldUseWidth) {
+		return {
+			width,
+		};
+	} else {
+		return { maxWidth: width };
+	}
 };
 
 /**
@@ -35,17 +32,17 @@ export const getWidthCss: GetWidthCss = ({ shouldUseWidth, width }) => {
  * The assumption is that since only one action is changed at each time, we don't have to verify the actual contents of the lists.
  */
 export const getColumnAction = (
-  oldVisibleColumnKeys: string[],
-  newVisibleColumnKeys: string[],
+	oldVisibleColumnKeys: string[],
+	newVisibleColumnKeys: string[],
 ): DatasourceAction => {
-  const newColumnSize = newVisibleColumnKeys.length;
-  const oldColumnSize = oldVisibleColumnKeys.length;
+	const newColumnSize = newVisibleColumnKeys.length;
+	const oldColumnSize = oldVisibleColumnKeys.length;
 
-  if (newColumnSize > oldColumnSize) {
-    return DatasourceAction.COLUMN_ADDED;
-  } else if (newColumnSize < oldColumnSize) {
-    return DatasourceAction.COLUMN_REMOVED;
-  } else {
-    return DatasourceAction.COLUMN_REORDERED;
-  }
+	if (newColumnSize > oldColumnSize) {
+		return DatasourceAction.COLUMN_ADDED;
+	} else if (newColumnSize < oldColumnSize) {
+		return DatasourceAction.COLUMN_REMOVED;
+	} else {
+		return DatasourceAction.COLUMN_REORDERED;
+	}
 };

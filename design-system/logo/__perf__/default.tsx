@@ -1,5 +1,5 @@
 import React from 'react';
 
-import { AtlassianWordmark } from '../src';
+import { AtlassianLogo } from '../src';
 
-export default () => <AtlassianWordmark />;
+export default () => <AtlassianLogo />;

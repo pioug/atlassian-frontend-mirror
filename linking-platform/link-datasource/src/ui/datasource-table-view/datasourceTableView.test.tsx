@@ -7,8 +7,8 @@ import { IntlProvider } from 'react-intl-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import {
-  type DatasourceDataResponseItem,
-  type DatasourceTableStatusType,
+	type DatasourceDataResponseItem,
+	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
 
@@ -16,8 +16,8 @@ import { EVENT_CHANNEL } from '../../analytics';
 import { type DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
 import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id';
 import {
-  type DatasourceTableState,
-  useDatasourceTableState,
+	type DatasourceTableState,
+	useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import * as issueLikeModule from '../issue-like-table';
@@ -38,937 +38,914 @@ const mockTableRenderUfoAddMetadata = jest.fn();
 const mockColumnPickerRenderUfoFailure = jest.fn();
 
 jest.mock('@atlaskit/ufo', () => ({
-  __esModule: true,
-  ...jest.requireActual<object>('@atlaskit/ufo'),
-  ConcurrentExperience: (
-    experienceId: string,
-  ): Partial<ConcurrentExperience> => ({
-    experienceId: experienceId,
-    getInstance: jest.fn().mockImplementation(() => {
-      if (experienceId === 'datasource-rendered') {
-        return {
-          start: mockTableRenderUfoStart,
-          success: mockTableRenderUfoSuccess,
-          failure: mockTableRenderUfoFailure,
-          addMetadata: mockTableRenderUfoAddMetadata,
-        };
-      }
-      if (experienceId === 'column-picker-rendered') {
-        return {
-          failure: mockColumnPickerRenderUfoFailure,
-        };
-      }
-    }),
-  }),
+	__esModule: true,
+	...jest.requireActual<object>('@atlaskit/ufo'),
+	ConcurrentExperience: (experienceId: string): Partial<ConcurrentExperience> => ({
+		experienceId: experienceId,
+		getInstance: jest.fn().mockImplementation(() => {
+			if (experienceId === 'datasource-rendered') {
+				return {
+					start: mockTableRenderUfoStart,
+					success: mockTableRenderUfoSuccess,
+					failure: mockTableRenderUfoFailure,
+					addMetadata: mockTableRenderUfoAddMetadata,
+				};
+			}
+			if (experienceId === 'column-picker-rendered') {
+				return {
+					failure: mockColumnPickerRenderUfoFailure,
+				};
+			}
+		}),
+	}),
 }));
 
 jest.mock('@atlaskit/outbound-auth-flow-client', () => ({
-  __esModule: true,
-  ...jest.requireActual<object>('@atlaskit/outbound-auth-flow-client'),
-  auth: (url: string) => {
-    if (url === 'test.success.url') {
-      return Promise.resolve();
-    }
+	__esModule: true,
+	...jest.requireActual<object>('@atlaskit/outbound-auth-flow-client'),
+	auth: (url: string) => {
+		if (url === 'test.success.url') {
+			return Promise.resolve();
+		}
 
-    return Promise.reject();
-  },
+		return Promise.reject();
+	},
 }));
 
 const onAnalyticFireEvent = jest.fn();
 
 const setup = (
-  stateOverride: Partial<DatasourceTableState> & {
-    visibleColumnKeys?: string[] | null;
-    onVisibleColumnKeysChange?: ((visibleColumnKeys: string[]) => void) | null;
-    responseItems?: DatasourceDataResponseItem[];
-  } = {},
-  propsOverride: Partial<DatasourceTableViewProps> = {},
+	stateOverride: Partial<DatasourceTableState> & {
+		visibleColumnKeys?: string[] | null;
+		onVisibleColumnKeysChange?: ((visibleColumnKeys: string[]) => void) | null;
+		responseItems?: DatasourceDataResponseItem[];
+	} = {},
+	propsOverride: Partial<DatasourceTableViewProps> = {},
 ) => {
-  const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } =
-    stateOverride;
+	const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } = stateOverride;
 
-  const mockReset = jest.fn();
-  asMock(useDatasourceTableState).mockReturnValue({
-    reset: mockReset,
-    status: 'resolved',
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    hasNextPage: false,
-    responseItems: responseItems || [
-      {
-        myColumn: {
-          data: 'some-value',
-        },
-        id: {
-          data: 'some-id1',
-        },
-      },
-    ],
-    totalCount: responseItems?.length || 2,
-    columns: [
-      { key: 'myColumn', title: 'My Column', type: 'string' },
-      { key: 'id', title: 'Id' },
-    ],
-    defaultVisibleColumnKeys: ['myColumn'],
-    extensionKey: 'jira-object-provider',
-    destinationObjectTypes: ['issue'],
-    ...(stateOverride || {}),
-  } as DatasourceTableState);
+	const mockReset = jest.fn();
+	asMock(useDatasourceTableState).mockReturnValue({
+		reset: mockReset,
+		status: 'resolved',
+		onNextPage: jest.fn(),
+		loadDatasourceDetails: jest.fn(),
+		hasNextPage: false,
+		responseItems: responseItems || [
+			{
+				myColumn: {
+					data: 'some-value',
+				},
+				id: {
+					data: 'some-id1',
+				},
+			},
+		],
+		totalCount: responseItems?.length || 2,
+		columns: [
+			{ key: 'myColumn', title: 'My Column', type: 'string' },
+			{ key: 'id', title: 'Id' },
+		],
+		defaultVisibleColumnKeys: ['myColumn'],
+		extensionKey: 'jira-object-provider',
+		destinationObjectTypes: ['issue'],
+		...(stateOverride || {}),
+	} as DatasourceTableState);
 
-  const renderResult = render(
-    <DatasourceExperienceIdProvider>
-      <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-        <IntlProvider locale="en">
-          <DatasourceTableView
-            datasourceId={'some-datasource-id'}
-            parameters={{
-              cloudId: 'some-cloud-id',
-              jql: 'some-jql-query',
-            }}
-            visibleColumnKeys={
-              visibleColumnKeys === null
-                ? undefined
-                : visibleColumnKeys || ['visible-column-1', 'visible-column-2']
-            }
-            onVisibleColumnKeysChange={
-              onVisibleColumnKeysChange === null
-                ? undefined
-                : onVisibleColumnKeysChange || jest.fn()
-            }
-            {...propsOverride}
-          />
-        </IntlProvider>
-      </AnalyticsListener>
-    </DatasourceExperienceIdProvider>
-    ,
-  );
+	const renderResult = render(
+		<DatasourceExperienceIdProvider>
+			<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+				<IntlProvider locale="en">
+					<DatasourceTableView
+						datasourceId={'some-datasource-id'}
+						parameters={{
+							cloudId: 'some-cloud-id',
+							jql: 'some-jql-query',
+						}}
+						visibleColumnKeys={
+							visibleColumnKeys === null
+								? undefined
+								: visibleColumnKeys || ['visible-column-1', 'visible-column-2']
+						}
+						onVisibleColumnKeysChange={
+							onVisibleColumnKeysChange === null
+								? undefined
+								: onVisibleColumnKeysChange || jest.fn()
+						}
+						{...propsOverride}
+					/>
+				</IntlProvider>
+			</AnalyticsListener>
+		</DatasourceExperienceIdProvider>,
+	);
 
-  return { mockReset, ...renderResult };
+	return { mockReset, ...renderResult };
 };
 
 const setupAssetsTable = (
-  stateOverride: Partial<DatasourceTableState> & {
-    visibleColumnKeys?: string[] | null;
-    onVisibleColumnKeysChange?: ((visibleColumnKeys: string[]) => void) | null;
-    responseItems?: DatasourceDataResponseItem[];
-  } = {},
-  propsOverride: Partial<DatasourceTableViewProps> = {},
+	stateOverride: Partial<DatasourceTableState> & {
+		visibleColumnKeys?: string[] | null;
+		onVisibleColumnKeysChange?: ((visibleColumnKeys: string[]) => void) | null;
+		responseItems?: DatasourceDataResponseItem[];
+	} = {},
+	propsOverride: Partial<DatasourceTableViewProps> = {},
 ) => {
-  const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } =
-    stateOverride;
+	const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } = stateOverride;
 
-  const mockReset = jest.fn();
-  asMock(useDatasourceTableState).mockReturnValue({
-    reset: mockReset,
-    status: 'resolved',
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    hasNextPage: false,
-    responseItems: responseItems || [
-      {
-        myColumn: {
-          data: 'some-value',
-        },
-        id: {
-          data: 'some-id1',
-        },
-      },
-    ],
-    totalCount: responseItems?.length || 2,
-    columns: [
-      { key: 'myColumn', title: 'My Column', type: 'string' },
-      { key: 'id', title: 'Id' },
-    ],
-    defaultVisibleColumnKeys: ['myColumn'],
-    extensionKey: 'jsm-cmdb-gateway',
-    destinationObjectTypes: ['assets'],
-    ...(stateOverride || {}),
-  } as DatasourceTableState);
+	const mockReset = jest.fn();
+	asMock(useDatasourceTableState).mockReturnValue({
+		reset: mockReset,
+		status: 'resolved',
+		onNextPage: jest.fn(),
+		loadDatasourceDetails: jest.fn(),
+		hasNextPage: false,
+		responseItems: responseItems || [
+			{
+				myColumn: {
+					data: 'some-value',
+				},
+				id: {
+					data: 'some-id1',
+				},
+			},
+		],
+		totalCount: responseItems?.length || 2,
+		columns: [
+			{ key: 'myColumn', title: 'My Column', type: 'string' },
+			{ key: 'id', title: 'Id' },
+		],
+		defaultVisibleColumnKeys: ['myColumn'],
+		extensionKey: 'jsm-cmdb-gateway',
+		destinationObjectTypes: ['assets'],
+		...(stateOverride || {}),
+	} as DatasourceTableState);
 
-  const renderResult = render(
-    <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-      <IntlProvider locale="en">
-        <DatasourceTableView
-          datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
-          parameters={{
-            workspaceId: 'workspaceId',
-            aql: 'name like a',
-            schemaId: '2',
-          }}
-          visibleColumnKeys={
-            visibleColumnKeys === null
-              ? undefined
-              : visibleColumnKeys || ['visible-column-1', 'visible-column-2']
-          }
-          onVisibleColumnKeysChange={
-            onVisibleColumnKeysChange === null
-              ? undefined
-              : onVisibleColumnKeysChange || jest.fn()
-          }
-          {...propsOverride}
-        />
-      </IntlProvider>
-    </AnalyticsListener>,
-  );
+	const renderResult = render(
+		<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+			<IntlProvider locale="en">
+				<DatasourceTableView
+					datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
+					parameters={{
+						workspaceId: 'workspaceId',
+						aql: 'name like a',
+						schemaId: '2',
+					}}
+					visibleColumnKeys={
+						visibleColumnKeys === null
+							? undefined
+							: visibleColumnKeys || ['visible-column-1', 'visible-column-2']
+					}
+					onVisibleColumnKeysChange={
+						onVisibleColumnKeysChange === null ? undefined : onVisibleColumnKeysChange || jest.fn()
+					}
+					{...propsOverride}
+				/>
+			</IntlProvider>
+		</AnalyticsListener>,
+	);
 
-  return { mockReset, ...renderResult };
+	return { mockReset, ...renderResult };
 };
 
 describe('DatasourceTableView', () => {
-  it('should call useDatasourceTableState with the correct arguments', () => {
-    setup();
+	it('should call useDatasourceTableState with the correct arguments', () => {
+		setup();
 
-    expect(useDatasourceTableState).toHaveBeenCalledWith({
-      datasourceId: 'some-datasource-id',
-      parameters: {
-        cloudId: 'some-cloud-id',
-        jql: 'some-jql-query',
-      },
-      fieldKeys: ['visible-column-1', 'visible-column-2'],
-    });
-  });
+		expect(useDatasourceTableState).toHaveBeenCalledWith({
+			datasourceId: 'some-datasource-id',
+			parameters: {
+				cloudId: 'some-cloud-id',
+				jql: 'some-jql-query',
+			},
+			fieldKeys: ['visible-column-1', 'visible-column-2'],
+		});
+	});
 
-  it('should call IssueLikeDataTableView with right props', () => {
-    // Not exactly "correct" way of testing with React Testing Library,
-    // But in this case 4 props we want to check are just passed through and
-    // the only way to test them would be to test how they affect UI
-    // which is already tested in IssueLikeDataTableView unit tests
-    const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
-      issueLikeModule,
-      'IssueLikeDataTableView',
-    );
-    const mockOnColumnResize = jest.fn();
-    const mockOnWrappedColumnChange = jest.fn();
-    const { getByTestId } = setup(
-      {
-        visibleColumnKeys: ['myColumn'],
-      },
-      {
-        columnCustomSizes: { myColumn: 67 },
-        wrappedColumnKeys: ['myColumn'],
-        onColumnResize: mockOnColumnResize,
-        onWrappedColumnChange: mockOnWrappedColumnChange,
-      },
-    );
+	it('should call IssueLikeDataTableView with right props', () => {
+		// Not exactly "correct" way of testing with React Testing Library,
+		// But in this case 4 props we want to check are just passed through and
+		// the only way to test them would be to test how they affect UI
+		// which is already tested in IssueLikeDataTableView unit tests
+		const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+			issueLikeModule,
+			'IssueLikeDataTableView',
+		);
+		const mockOnColumnResize = jest.fn();
+		const mockOnWrappedColumnChange = jest.fn();
+		const { getByTestId } = setup(
+			{
+				visibleColumnKeys: ['myColumn'],
+			},
+			{
+				columnCustomSizes: { myColumn: 67 },
+				wrappedColumnKeys: ['myColumn'],
+				onColumnResize: mockOnColumnResize,
+				onWrappedColumnChange: mockOnWrappedColumnChange,
+			},
+		);
 
-    expect(getByTestId('myColumn-column-heading')).toHaveTextContent(
-      'My Column',
-    );
-    expect(
-      getByTestId('datasource-table-view--row-some-id1'),
-    ).toHaveTextContent('some-value');
+		expect(getByTestId('myColumn-column-heading')).toHaveTextContent('My Column');
+		expect(getByTestId('datasource-table-view--row-some-id1')).toHaveTextContent('some-value');
 
-    expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
-    const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy
-      .mock.calls[0][0] as IssueLikeDataTableViewProps;
+		expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+		const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+			.calls[0][0] as IssueLikeDataTableViewProps;
 
-    expect(issueLikeDataTableViewProps).toEqual(
-      expect.objectContaining({
-        columnCustomSizes: { myColumn: 67 },
-        wrappedColumnKeys: ['myColumn'],
-        onColumnResize: mockOnColumnResize,
-        onWrappedColumnChange: mockOnWrappedColumnChange,
-      }),
-    );
-  });
+		expect(issueLikeDataTableViewProps).toEqual(
+			expect.objectContaining({
+				columnCustomSizes: { myColumn: 67 },
+				wrappedColumnKeys: ['myColumn'],
+				onColumnResize: mockOnColumnResize,
+				onWrappedColumnChange: mockOnWrappedColumnChange,
+			}),
+		);
+	});
 
-  it('should call onVisibleColumnKeysChange with defaultVisibleColumnKeys if no visibleColumnKeys are received from props', () => {
-    const onVisibleColumnKeysChange = jest.fn();
-    const { getByTestId } = setup({
-      onVisibleColumnKeysChange,
-      visibleColumnKeys: null,
-    });
+	it('should call onVisibleColumnKeysChange with defaultVisibleColumnKeys if no visibleColumnKeys are received from props', () => {
+		const onVisibleColumnKeysChange = jest.fn();
+		const { getByTestId } = setup({
+			onVisibleColumnKeysChange,
+			visibleColumnKeys: null,
+		});
 
-    expect(getByTestId('myColumn-column-heading')).toHaveTextContent(
-      'My Column',
-    );
-    expect(onVisibleColumnKeysChange).toHaveBeenCalledWith(['myColumn']);
-  });
+		expect(getByTestId('myColumn-column-heading')).toHaveTextContent('My Column');
+		expect(onVisibleColumnKeysChange).toHaveBeenCalledWith(['myColumn']);
+	});
 
-  it('should NOT call onVisibleColumnKeysChange with defaultVisibleColumnKeys if visibleColumnKeys are received from props', () => {
-    const onVisibleColumnKeysChange = jest.fn();
-    setup({
-      visibleColumnKeys: ['myColumn'],
-      onVisibleColumnKeysChange,
-    });
+	it('should NOT call onVisibleColumnKeysChange with defaultVisibleColumnKeys if visibleColumnKeys are received from props', () => {
+		const onVisibleColumnKeysChange = jest.fn();
+		setup({
+			visibleColumnKeys: ['myColumn'],
+			onVisibleColumnKeysChange,
+		});
 
-    expect(onVisibleColumnKeysChange).not.toHaveBeenCalled();
-  });
+		expect(onVisibleColumnKeysChange).not.toHaveBeenCalled();
+	});
 
-  it('should NOT call onVisibleColumnKeysChange with defaultVisibleColumnKeys if no defaultVisibleColumnKeys are returned from hook', () => {
-    const onVisibleColumnKeysChange = jest.fn();
-    setup({
-      defaultVisibleColumnKeys: [],
-      onVisibleColumnKeysChange,
-    });
+	it('should NOT call onVisibleColumnKeysChange with defaultVisibleColumnKeys if no defaultVisibleColumnKeys are returned from hook', () => {
+		const onVisibleColumnKeysChange = jest.fn();
+		setup({
+			defaultVisibleColumnKeys: [],
+			onVisibleColumnKeysChange,
+		});
 
-    expect(onVisibleColumnKeysChange).not.toHaveBeenCalled();
-  });
+		expect(onVisibleColumnKeysChange).not.toHaveBeenCalled();
+	});
 
-  it('should wait for data AND columns before rendering table', () => {
-    const { queryByTestId } = setup({
-      columns: [],
-      visibleColumnKeys: ['myColumn'],
-    });
+	it('should wait for data AND columns before rendering table', () => {
+		const { queryByTestId } = setup({
+			columns: [],
+			visibleColumnKeys: ['myColumn'],
+		});
 
-    expect(queryByTestId('datasource-table-view')).toBe(null);
-    expect(queryByTestId('datasource-table-view-skeleton')).toBeInTheDocument();
-  });
+		expect(queryByTestId('datasource-table-view')).toBe(null);
+		expect(queryByTestId('datasource-table-view-skeleton')).toBeInTheDocument();
+	});
 
-  it('should render table footer', () => {
-    const { getByTestId } = setup();
+	it('should render table footer', () => {
+		const { getByTestId } = setup();
 
-    expect(getByTestId('table-footer')).toBeInTheDocument();
-  });
+		expect(getByTestId('table-footer')).toBeInTheDocument();
+	});
 
-  it('should render the powered by JSM Assets link with Assets DatasourceId', async () => {
-    const { queryByTestId } = setupAssetsTable();
-    const assetsLink = queryByTestId('powered-by-jsm-assets-link');
+	it('should render the powered by JSM Assets link with Assets DatasourceId', async () => {
+		const { queryByTestId } = setupAssetsTable();
+		const assetsLink = queryByTestId('powered-by-jsm-assets-link');
 
-    expect(assetsLink).toBeInTheDocument();
-  });
+		expect(assetsLink).toBeInTheDocument();
+	});
 
-  it('should fire ui.link.clicked.poweredBy when Assets link is clicked', async () => {
-    const { findByTestId } = setupAssetsTable();
-    const assetsLink = await findByTestId('powered-by-jsm-assets-link');
-    expect(assetsLink).toBeInTheDocument();
+	it('should fire ui.link.clicked.poweredBy when Assets link is clicked', async () => {
+		const { findByTestId } = setupAssetsTable();
+		const assetsLink = await findByTestId('powered-by-jsm-assets-link');
+		expect(assetsLink).toBeInTheDocument();
 
-    await assetsLink.click();
-    await waitFor(() => {
-      expect(onAnalyticFireEvent).toHaveBeenCalledWith(
-        expect.objectContaining({
-          payload: expect.objectContaining({
-            action: 'clicked',
-            actionSubject: 'link',
-            actionSubjectId: 'poweredBy',
-            eventType: 'ui',
-            attributes: {
-              componentHierarchy: 'datasourceTable',
-              extensionKey: 'jsm-cmdb-gateway',
-            },
-          }),
-        }),
-        EVENT_CHANNEL,
-      );
-    });
-  });
+		await assetsLink.click();
+		await waitFor(() => {
+			expect(onAnalyticFireEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: expect.objectContaining({
+						action: 'clicked',
+						actionSubject: 'link',
+						actionSubjectId: 'poweredBy',
+						eventType: 'ui',
+						attributes: {
+							componentHierarchy: 'datasourceTable',
+							extensionKey: 'jsm-cmdb-gateway',
+						},
+					}),
+				}),
+				EVENT_CHANNEL,
+			);
+		});
+	});
 
-  it('should not render the powered by JSM Assets link on footer if datasource is not Assets', async () => {
-    const { queryByTestId } = setup();
-    const assetsLink = queryByTestId('powered-by-jsm-assets-link');
+	it('should not render the powered by JSM Assets link on footer if datasource is not Assets', async () => {
+		const { queryByTestId } = setup();
+		const assetsLink = queryByTestId('powered-by-jsm-assets-link');
 
-    expect(assetsLink).not.toBeInTheDocument();
-  });
+		expect(assetsLink).not.toBeInTheDocument();
+	});
 
-  it('should not call reset() on initial load (only when parameters change)', () => {
-    const { mockReset } = setup();
-    expect(mockReset).not.toHaveBeenCalled();
-  });
+	it('should not call reset() on initial load (only when parameters change)', () => {
+		const { mockReset } = setup();
+		expect(mockReset).not.toHaveBeenCalled();
+	});
 
-  it('should call reset() when parameters change', () => {
-    const { rerender, mockReset } = setup();
+	it('should call reset() when parameters change', () => {
+		const { rerender, mockReset } = setup();
 
-    const newParameters = {
-      cloudId: 'new-cloud-id',
-      jql: 'some-jql-query',
-    };
+		const newParameters = {
+			cloudId: 'new-cloud-id',
+			jql: 'some-jql-query',
+		};
 
-    rerender(
-      <DatasourceExperienceIdProvider>
-        <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-          <IntlProvider locale="en">
-            <DatasourceTableView
-              datasourceId={'some-datasource-id'}
-              parameters={newParameters}
-              visibleColumnKeys={['visible-column-1', 'visible-column-2']}
-              onVisibleColumnKeysChange={jest.fn()}
-            />
-          </IntlProvider>
-        </AnalyticsListener>
-      </DatasourceExperienceIdProvider>,
-    );
+		rerender(
+			<DatasourceExperienceIdProvider>
+				<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+					<IntlProvider locale="en">
+						<DatasourceTableView
+							datasourceId={'some-datasource-id'}
+							parameters={newParameters}
+							visibleColumnKeys={['visible-column-1', 'visible-column-2']}
+							onVisibleColumnKeysChange={jest.fn()}
+						/>
+					</IntlProvider>
+				</AnalyticsListener>
+			</DatasourceExperienceIdProvider>,
+		);
 
-    expect(mockReset).toBeCalledTimes(1);
-  });
+		expect(mockReset).toBeCalledTimes(1);
+	});
 
-  it('should call reset() when refresh button is preset', () => {
-    const { getByRole, mockReset } = setup();
+	it('should call reset() when refresh button is preset', () => {
+		const { getByRole, mockReset } = setup();
 
-    asMock(mockReset).mockReset();
+		asMock(mockReset).mockReset();
 
-    getByRole('button', { name: 'Refresh' }).click();
+		getByRole('button', { name: 'Refresh' }).click();
 
-    expect(mockReset).toHaveBeenCalledTimes(1);
-    expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
-  });
+		expect(mockReset).toHaveBeenCalledTimes(1);
+		expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
+	});
 
-  it('should not show duplicate response items when a new column is added', () => {
-    const { rerender, getByTestId } = setup({
-      visibleColumnKeys: ['title'],
-      responseItems: [
-        {
-          title: {
-            data: 'title1',
-          },
-          id: {
-            data: 'id1',
-          },
-          date: {
-            data: 'date1',
-          },
-        },
-      ],
-    });
+	it('should not show duplicate response items when a new column is added', () => {
+		const { rerender, getByTestId } = setup({
+			visibleColumnKeys: ['title'],
+			responseItems: [
+				{
+					title: {
+						data: 'title1',
+					},
+					id: {
+						data: 'id1',
+					},
+					date: {
+						data: 'date1',
+					},
+				},
+			],
+		});
 
-    // check there is 1 response item
-    expect(getByTestId('item-count').textContent).toEqual('1 item');
+		// check there is 1 response item
+		expect(getByTestId('item-count').textContent).toEqual('1 item');
 
-    // rerender the component with the new column added
-    rerender(
-      <IntlProvider locale="en">
-        <DatasourceTableView
-          datasourceId={'some-datasource-id'}
-          parameters={{
-            cloudId: 'some-cloud-id',
-            jql: 'some-jql-query',
-          }}
-          visibleColumnKeys={['title', 'id']}
-          onVisibleColumnKeysChange={jest.fn()}
-        />
-      </IntlProvider>,
-    );
+		// rerender the component with the new column added
+		rerender(
+			<IntlProvider locale="en">
+				<DatasourceTableView
+					datasourceId={'some-datasource-id'}
+					parameters={{
+						cloudId: 'some-cloud-id',
+						jql: 'some-jql-query',
+					}}
+					visibleColumnKeys={['title', 'id']}
+					onVisibleColumnKeysChange={jest.fn()}
+				/>
+			</IntlProvider>,
+		);
 
-    // ensure hook is called with the new column
-    expect(useDatasourceTableState).toHaveBeenCalledWith({
-      datasourceId: 'some-datasource-id',
-      parameters: {
-        cloudId: 'some-cloud-id',
-        jql: 'some-jql-query',
-      },
-      fieldKeys: ['title', 'id'],
-    });
+		// ensure hook is called with the new column
+		expect(useDatasourceTableState).toHaveBeenCalledWith({
+			datasourceId: 'some-datasource-id',
+			parameters: {
+				cloudId: 'some-cloud-id',
+				jql: 'some-jql-query',
+			},
+			fieldKeys: ['title', 'id'],
+		});
 
-    // check there is still only 1 response item
-    expect(getByTestId('item-count').textContent).toEqual('1 item');
-  });
+		// check there is still only 1 response item
+		expect(getByTestId('item-count').textContent).toEqual('1 item');
+	});
 
-  it.each([
-    ['should', true, true],
-    ['should not', true, false],
-    ['should not', false, true],
-    ['should not', false, false],
-  ])(
-    `%p call onNextPage when hasNextPage is %p and isLastItemVisible is %p`,
-    (outcome, hasNextPage, isLastItemVisible) => {
-      asMock(useIsOnScreen).mockReturnValue(isLastItemVisible);
-      const onNextPage = jest.fn();
+	it.each([
+		['should', true, true],
+		['should not', true, false],
+		['should not', false, true],
+		['should not', false, false],
+	])(
+		`%p call onNextPage when hasNextPage is %p and isLastItemVisible is %p`,
+		(outcome, hasNextPage, isLastItemVisible) => {
+			asMock(useIsOnScreen).mockReturnValue(isLastItemVisible);
+			const onNextPage = jest.fn();
 
-      setup({ hasNextPage, onNextPage });
+			setup({ hasNextPage, onNextPage });
 
-      if (outcome === 'should') {
-        expect(onNextPage).toHaveBeenCalled();
-      } else {
-        expect(onNextPage).not.toHaveBeenCalled();
-      }
-    },
-  );
+			if (outcome === 'should') {
+				expect(onNextPage).toHaveBeenCalled();
+			} else {
+				expect(onNextPage).not.toHaveBeenCalled();
+			}
+		},
+	);
 
-  describe('when results are not returned', () => {
-    it('should show no results if no responseItems are returned', () => {
-      const { mockReset, getByRole, getByText } = setup({
-        responseItems: [],
-      });
+	describe('when results are not returned', () => {
+		it('should show no results if no responseItems are returned', () => {
+			const { mockReset, getByRole, getByText } = setup({
+				responseItems: [],
+			});
 
-      expect(getByText('No results found')).toBeInTheDocument();
+			expect(getByText('No results found')).toBeInTheDocument();
 
-      getByRole('button', { name: 'Refresh' }).click();
-      expect(mockReset).toHaveBeenCalledTimes(1);
-      expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
-    });
-  });
+			getByRole('button', { name: 'Refresh' }).click();
+			expect(mockReset).toHaveBeenCalledTimes(1);
+			expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
+		});
+	});
 
-  describe('when an error on /data request occurs', () => {
-    it('should show an error message on request failure', () => {
-      const { getByRole, getByText, mockReset } = setup({
-        status: 'rejected',
-      });
+	describe('when an error on /data request occurs', () => {
+		it('should show an error message on request failure', () => {
+			const { getByRole, getByText, mockReset } = setup({
+				status: 'rejected',
+			});
 
-      expect(getByText('Unable to load items')).toBeInTheDocument();
+			expect(getByText('Unable to load items')).toBeInTheDocument();
 
-      getByRole('button', { name: 'Refresh' }).click();
-      expect(mockReset).toHaveBeenCalledTimes(1);
-      expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
-    });
+			getByRole('button', { name: 'Refresh' }).click();
+			expect(mockReset).toHaveBeenCalledTimes(1);
+			expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
+		});
 
-    it('should show an no results message on 403 response', () => {
-      const { getByTestId } = setup({ status: 'forbidden' });
+		it('should show an no results message on 403 response', () => {
+			const { getByTestId } = setup({ status: 'forbidden' });
 
-      expect(getByTestId('datasource-modal--no-results')).toBeInTheDocument();
-    });
-  });
+			expect(getByTestId('datasource-modal--no-results')).toBeInTheDocument();
+		});
+	});
 
-  describe('when the request status is unauthorized', () => {
-    it('should display the access error ui', () => {
-      const { getByTestId } = setup({ status: 'unauthorized' });
-      expect(getByTestId('datasource--access-required')).toBeInTheDocument();
-    });
+	describe('when the request status is unauthorized', () => {
+		it('should display the access error ui', () => {
+			const { getByTestId } = setup({ status: 'unauthorized' });
+			expect(getByTestId('datasource--access-required')).toBeInTheDocument();
+		});
 
-    it('should display the access error ui with auth connection info when auth details is available', () => {
-      const { getByTestId, getByRole } = setup({
-        status: 'unauthorized',
-        providerName: 'Amplitude',
-        authDetails: [
-          {
-            key: 'amplitude',
-            displayName: 'Atlassian Links - Amplitude',
-            url: 'https://id.atlassian.com/login',
-          },
-        ],
-      });
+		it('should display the access error ui with auth connection info when auth details is available', () => {
+			const { getByTestId, getByRole } = setup({
+				status: 'unauthorized',
+				providerName: 'Amplitude',
+				authDetails: [
+					{
+						key: 'amplitude',
+						displayName: 'Atlassian Links - Amplitude',
+						url: 'https://id.atlassian.com/login',
+					},
+				],
+			});
 
-      const authUI = getByTestId('datasource--access-required-with-auth');
-      expect(authUI).toBeInTheDocument();
-      expect(getByRole('button')).toHaveTextContent('Connect');
-      expect(getByRole('heading')).toHaveTextContent(
-        'Connect your Amplitude account',
-      );
-      expect(getByRole('link')).toHaveTextContent(
-        'Learn more about Smart Links.',
-      );
-      expect(authUI).toHaveTextContent(
-        `Connect your Amplitude account to collaborate on work across Atlassian products.`,
-      );
-    });
+			const authUI = getByTestId('datasource--access-required-with-auth');
+			expect(authUI).toBeInTheDocument();
+			expect(getByRole('button')).toHaveTextContent('Connect');
+			expect(getByRole('heading')).toHaveTextContent('Connect your Amplitude account');
+			expect(getByRole('link')).toHaveTextContent('Learn more about Smart Links.');
+			expect(authUI).toHaveTextContent(
+				`Connect your Amplitude account to collaborate on work across Atlassian products.`,
+			);
+		});
 
-    it('should display default access error ui text when providerName is undefined', () => {
-      const { getByTestId, getByRole } = setup({
-        status: 'unauthorized',
-        authDetails: [
-          {
-            key: 'amplitude',
-            displayName: 'Atlassian Links - Amplitude',
-            url: 'https://id.atlassian.com/login',
-          },
-        ],
-      });
-      expect(getByRole('heading')).toHaveTextContent('Connect your account');
-      expect(
-        getByTestId('datasource--access-required-with-auth'),
-      ).toHaveTextContent(
-        'Connect your account to collaborate on work across Atlassian products.',
-      );
-    });
+		it('should display default access error ui text when providerName is undefined', () => {
+			const { getByTestId, getByRole } = setup({
+				status: 'unauthorized',
+				authDetails: [
+					{
+						key: 'amplitude',
+						displayName: 'Atlassian Links - Amplitude',
+						url: 'https://id.atlassian.com/login',
+					},
+				],
+			});
+			expect(getByRole('heading')).toHaveTextContent('Connect your account');
+			expect(getByTestId('datasource--access-required-with-auth')).toHaveTextContent(
+				'Connect your account to collaborate on work across Atlassian products.',
+			);
+		});
 
-    it('should call reset when auth completes successfully', async () => {
-      const { getByRole, mockReset } = setup({
-        status: 'unauthorized',
-        authDetails: [
-          {
-            key: 'amplitude',
-            displayName: 'Atlassian Links - Amplitude',
-            url: 'test.success.url',
-          },
-        ],
-      });
+		it('should call reset when auth completes successfully', async () => {
+			const { getByRole, mockReset } = setup({
+				status: 'unauthorized',
+				authDetails: [
+					{
+						key: 'amplitude',
+						displayName: 'Atlassian Links - Amplitude',
+						url: 'test.success.url',
+					},
+				],
+			});
 
-      const authConnectButton = getByRole('button');
-      fireEvent.click(authConnectButton);
+			const authConnectButton = getByRole('button');
+			fireEvent.click(authConnectButton);
 
-      await waitFor(() => expect(mockReset).toHaveBeenCalled());
-    });
+			await waitFor(() => expect(mockReset).toHaveBeenCalled());
+		});
 
-    it('should call reset when auth fails', async () => {
-      const { getByRole, mockReset } = setup({
-        status: 'unauthorized',
-        authDetails: [
-          {
-            key: 'amplitude',
-            displayName: 'Atlassian Links - Amplitude',
-            url: 'test.fail.url',
-          },
-        ],
-      });
+		it('should call reset when auth fails', async () => {
+			const { getByRole, mockReset } = setup({
+				status: 'unauthorized',
+				authDetails: [
+					{
+						key: 'amplitude',
+						displayName: 'Atlassian Links - Amplitude',
+						url: 'test.fail.url',
+					},
+				],
+			});
 
-      const authConnectButton = getByRole('button');
-      fireEvent.click(authConnectButton);
+			const authConnectButton = getByRole('button');
+			fireEvent.click(authConnectButton);
 
-      await waitFor(() => expect(mockReset).toHaveBeenCalled());
-    });
-  });
+			await waitFor(() => expect(mockReset).toHaveBeenCalled());
+		});
+	});
 });
 describe('Analytics: DatasourceTableView', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
 
-  it('should fire "ui.emptyResult.shown.datasource" when datasource results are empty', () => {
-    setup({
-      responseItems: [],
-    });
+	it('should fire "ui.emptyResult.shown.datasource" when datasource results are empty', () => {
+		setup({
+			responseItems: [],
+		});
 
-    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          action: 'shown',
-          actionSubject: 'emptyResult',
-          actionSubjectId: 'datasource',
-          attributes: {},
-          eventType: 'ui',
-        },
-      },
-      EVENT_CHANNEL,
-    );
-  });
+		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					action: 'shown',
+					actionSubject: 'emptyResult',
+					actionSubjectId: 'datasource',
+					attributes: {},
+					eventType: 'ui',
+				},
+			},
+			EVENT_CHANNEL,
+		);
+	});
 
-  it('should fire "ui.error.shown" with reason as "access" when the user unauthorised', () => {
-    setup({
-      status: 'unauthorized',
-    });
+	it('should fire "ui.error.shown" with reason as "access" when the user unauthorised', () => {
+		setup({
+			status: 'unauthorized',
+		});
 
-    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          action: 'shown',
-          actionSubject: 'error',
-          attributes: {
-            reason: 'access',
-          },
-          eventType: 'ui',
-        },
-      },
-      EVENT_CHANNEL,
-    );
-  });
+		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					action: 'shown',
+					actionSubject: 'error',
+					attributes: {
+						reason: 'access',
+					},
+					eventType: 'ui',
+				},
+			},
+			EVENT_CHANNEL,
+		);
+	});
 
-  it('should fire "ui.error.shown" with reason as "network" when the user request failed', () => {
-    setup({
-      status: 'rejected',
-    });
+	it('should fire "ui.error.shown" with reason as "network" when the user request failed', () => {
+		setup({
+			status: 'rejected',
+		});
 
-    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          action: 'shown',
-          actionSubject: 'error',
-          attributes: {
-            reason: 'network',
-          },
-          eventType: 'ui',
-        },
-      },
-      EVENT_CHANNEL,
-    );
-  });
+		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					action: 'shown',
+					actionSubject: 'error',
+					attributes: {
+						reason: 'network',
+					},
+					eventType: 'ui',
+				},
+			},
+			EVENT_CHANNEL,
+		);
+	});
 
-  it('should fire "ui.button.clicked.sync" event when refresh button is clicked', async () => {
-    const { getByRole } = setup();
+	it('should fire "ui.button.clicked.sync" event when refresh button is clicked', async () => {
+		const { getByRole } = setup();
 
-    getByRole('button', { name: 'Refresh' }).click();
-    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          eventType: 'ui',
-          actionSubject: 'button',
-          action: 'clicked',
-          actionSubjectId: 'sync',
-          attributes: {
-            extensionKey: 'jira-object-provider',
-            destinationObjectTypes: ['issue'],
-          },
-        },
-        context: [
-          {
-            component: 'datasourceTable',
-          },
-        ],
-      },
-      EVENT_CHANNEL,
-    );
-  });
+		getByRole('button', { name: 'Refresh' }).click();
+		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					eventType: 'ui',
+					actionSubject: 'button',
+					action: 'clicked',
+					actionSubjectId: 'sync',
+					attributes: {
+						extensionKey: 'jira-object-provider',
+						destinationObjectTypes: ['issue'],
+					},
+				},
+				context: [
+					{
+						component: 'datasourceTable',
+					},
+				],
+			},
+			EVENT_CHANNEL,
+		);
+	});
 
-  describe('"ui.datasource.renderSuccess" event', () => {
-    const getEventPayload = (
-      overrideAttributes: Partial<DatasourceRenderSuccessAttributesType> = {},
-    ) => ({
-      payload: {
-        action: 'renderSuccess',
-        actionSubject: 'datasource',
-        attributes: {
-          extensionKey: 'jira-object-provider',
-          destinationObjectTypes: ['issue'],
-          displayedColumnCount: 2,
-          display: 'table',
-          ...overrideAttributes,
-        },
-        eventType: 'ui',
-      },
-      context: [
-        {
-          component: 'datasourceTable',
-        },
-      ],
-    });
+	describe('"ui.datasource.renderSuccess" event', () => {
+		const getEventPayload = (
+			overrideAttributes: Partial<DatasourceRenderSuccessAttributesType> = {},
+		) => ({
+			payload: {
+				action: 'renderSuccess',
+				actionSubject: 'datasource',
+				attributes: {
+					extensionKey: 'jira-object-provider',
+					destinationObjectTypes: ['issue'],
+					displayedColumnCount: 2,
+					display: 'table',
+					...overrideAttributes,
+				},
+				eventType: 'ui',
+			},
+			context: [
+				{
+					component: 'datasourceTable',
+				},
+			],
+		});
 
-    it('should fire "ui.datasource.renderSuccess" event with display = "table" when the data is present and status is resolved', () => {
-      setup();
+		it('should fire "ui.datasource.renderSuccess" event with display = "table" when the data is present and status is resolved', () => {
+			setup();
 
-      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-        getEventPayload({ totalItemCount: 2 }),
-        EVENT_CHANNEL,
-      );
-    });
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				getEventPayload({ totalItemCount: 2 }),
+				EVENT_CHANNEL,
+			);
+		});
 
-    it.each(['unauthorized', 'empty', 'rejected'])(
-      'should not fire "ui.datasource.renderSuccess" event with display = "table" when the status is %s',
-      status => {
-        setup({ status: status as DatasourceTableStatusType });
+		it.each(['unauthorized', 'empty', 'rejected'])(
+			'should not fire "ui.datasource.renderSuccess" event with display = "table" when the status is %s',
+			(status) => {
+				setup({ status: status as DatasourceTableStatusType });
 
-        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
-          getEventPayload(),
-          EVENT_CHANNEL,
-        );
-      },
-    );
+				expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+					getEventPayload(),
+					EVENT_CHANNEL,
+				);
+			},
+		);
 
-    it.each([
-      {
-        columns: [],
-      },
-      {
-        responseItems: [],
-      },
-      {
-        totalCount: 0,
-      },
-    ])(
-      'should not fire "ui.datasource.renderSuccess" event with display = "table" when status is resolved, but %s',
-      override => {
-        setup({ status: 'resolved', ...override });
+		it.each([
+			{
+				columns: [],
+			},
+			{
+				responseItems: [],
+			},
+			{
+				totalCount: 0,
+			},
+		])(
+			'should not fire "ui.datasource.renderSuccess" event with display = "table" when status is resolved, but %s',
+			(override) => {
+				setup({ status: 'resolved', ...override });
 
-        expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
-          getEventPayload(),
-          EVENT_CHANNEL,
-        );
-      },
-    );
-  });
+				expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
+					getEventPayload(),
+					EVENT_CHANNEL,
+				);
+			},
+		);
+	});
 
-  it('should Fire "operational.provider.authSuccess" on sucessful auth flow', async () => {
-    const { getByRole } = setup({
-      status: 'unauthorized',
-      authDetails: [
-        {
-          key: 'Jira',
-          displayName: 'Atlassian Links - Jira',
-          url: 'test.success.url',
-        },
-      ],
-    });
+	it('should Fire "operational.provider.authSuccess" on sucessful auth flow', async () => {
+		const { getByRole } = setup({
+			status: 'unauthorized',
+			authDetails: [
+				{
+					key: 'Jira',
+					displayName: 'Atlassian Links - Jira',
+					url: 'test.success.url',
+				},
+			],
+		});
 
-    const authConnectButton = getByRole('button');
-    fireEvent.click(authConnectButton);
+		const authConnectButton = getByRole('button');
+		fireEvent.click(authConnectButton);
 
-    await waitFor(() => {
-      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-        {
-          payload: {
-            action: 'authSuccess',
-            actionSubject: 'provider',
-            attributes: {
-              extensionKey: 'jira-object-provider',
-              experience: 'datasource',
-            },
-            eventType: 'operational',
-          },
-        },
-        EVENT_CHANNEL,
-      );
-    });
-  });
+		await waitFor(() => {
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'authSuccess',
+						actionSubject: 'provider',
+						attributes: {
+							extensionKey: 'jira-object-provider',
+							experience: 'datasource',
+						},
+						eventType: 'operational',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+	});
 
-  it('should Fire "operational.provider.authFailure" on auth failure', async () => {
-    const { getByRole } = setup({
-      status: 'unauthorized',
-      authDetails: [
-        {
-          key: 'Jira',
-          displayName: 'Atlassian Links - Jira',
-          url: 'test.fail.url',
-        },
-      ],
-    });
+	it('should Fire "operational.provider.authFailure" on auth failure', async () => {
+		const { getByRole } = setup({
+			status: 'unauthorized',
+			authDetails: [
+				{
+					key: 'Jira',
+					displayName: 'Atlassian Links - Jira',
+					url: 'test.fail.url',
+				},
+			],
+		});
 
-    const authConnectButton = getByRole('button');
-    fireEvent.click(authConnectButton);
+		const authConnectButton = getByRole('button');
+		fireEvent.click(authConnectButton);
 
-    await waitFor(() => {
-      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-        {
-          payload: {
-            action: 'authFailure',
-            actionSubject: 'provider',
-            attributes: {
-              reason: null,
-              extensionKey: 'jira-object-provider',
-              experience: 'datasource',
-            },
-            eventType: 'operational',
-          },
-        },
-        EVENT_CHANNEL,
-      );
-    });
-  });
+		await waitFor(() => {
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'authFailure',
+						actionSubject: 'provider',
+						attributes: {
+							reason: null,
+							extensionKey: 'jira-object-provider',
+							experience: 'datasource',
+						},
+						eventType: 'operational',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+	});
 });
 
 describe('UFO metrics: DatasourceTableView', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
 
-  describe('TableRendered', () => {
-    it('should start ufo experience when DatasourceTableView is initialised', async () => {
-      setup({
-        status: 'loading',
-      });
+	describe('TableRendered', () => {
+		it('should start ufo experience when DatasourceTableView is initialised', async () => {
+			setup({
+				status: 'loading',
+			});
 
-      expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(1);
+			expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(1);
 
-      expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
-      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
-    });
+			expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
+			expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
+		});
 
-    it('should add extensionKey metadata to ufo experience when DatasourceTableView is initialised', async () => {
-      setup({
-        status: 'loading',
-      });
+		it('should add extensionKey metadata to ufo experience when DatasourceTableView is initialised', async () => {
+			setup({
+				status: 'loading',
+			});
 
-      expect(mockTableRenderUfoAddMetadata).toHaveBeenCalledTimes(1);
-      expect(mockTableRenderUfoAddMetadata).toHaveBeenCalledWith({
-        extensionKey: 'jira-object-provider',
-      });
-    });
+			expect(mockTableRenderUfoAddMetadata).toHaveBeenCalledTimes(1);
+			expect(mockTableRenderUfoAddMetadata).toHaveBeenCalledWith({
+				extensionKey: 'jira-object-provider',
+			});
+		});
 
-    it('should mark as a successful experience when DatasourceTableView results are resolved', async () => {
-      setup({
-        responseItems: [
-          {
-            id: {
-              data: 'some-id1',
-            },
-          },
-          {
-            id: {
-              data: 'some-id2',
-            },
-          },
-        ],
-      });
+		it('should mark as a successful experience when DatasourceTableView results are resolved', async () => {
+			setup({
+				responseItems: [
+					{
+						id: {
+							data: 'some-id1',
+						},
+					},
+					{
+						id: {
+							data: 'some-id2',
+						},
+					},
+				],
+			});
 
-      expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
+			expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
 
-      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
-    });
+			expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
+		});
 
-    it('should start experience when DatasourceTableView gets re-rendered', async () => {
-      const { rerender } = setup({
-        status: 'loading',
-      });
+		it('should start experience when DatasourceTableView gets re-rendered', async () => {
+			const { rerender } = setup({
+				status: 'loading',
+			});
 
-      const newParameters = {
-        cloudId: 'new-cloud-id',
-        jql: 'some-jql-query',
-      };
+			const newParameters = {
+				cloudId: 'new-cloud-id',
+				jql: 'some-jql-query',
+			};
 
-      rerender(
-        <IntlProvider locale="en">
-          <DatasourceTableView
-            datasourceId={'some-datasource-id'}
-            parameters={newParameters}
-            visibleColumnKeys={[
-              'visible-column-1',
-              'visible-column-2',
-              'visible-column-3',
-            ]}
-          />
-        </IntlProvider>,
-      );
+			rerender(
+				<IntlProvider locale="en">
+					<DatasourceTableView
+						datasourceId={'some-datasource-id'}
+						parameters={newParameters}
+						visibleColumnKeys={['visible-column-1', 'visible-column-2', 'visible-column-3']}
+					/>
+				</IntlProvider>,
+			);
 
-      expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(2);
-    });
+			expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(2);
+		});
 
-    it('should not start experience when DatasourceTableView gets re-rendered but hook status is resolved', async () => {
-      const { rerender } = setup({
-        status: 'loading',
-      });
+		it('should not start experience when DatasourceTableView gets re-rendered but hook status is resolved', async () => {
+			const { rerender } = setup({
+				status: 'loading',
+			});
 
-      const newParameters = {
-        cloudId: 'new-cloud-id',
-        jql: 'some-jql-query',
-      };
+			const newParameters = {
+				cloudId: 'new-cloud-id',
+				jql: 'some-jql-query',
+			};
 
-      setup();
+			setup();
 
-      rerender(
-        <IntlProvider locale="en">
-          <DatasourceTableView
-            datasourceId={'some-datasource-id'}
-            parameters={newParameters}
-            visibleColumnKeys={['visible-column-1']}
-          />
-        </IntlProvider>,
-      );
+			rerender(
+				<IntlProvider locale="en">
+					<DatasourceTableView
+						datasourceId={'some-datasource-id'}
+						parameters={newParameters}
+						visibleColumnKeys={['visible-column-1']}
+					/>
+				</IntlProvider>,
+			);
 
-      expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(1);
-    });
+			expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(1);
+		});
 
-    it('should mark as a failed experience when DatasourceTableView request fails', async () => {
-      setup({
-        status: 'rejected',
-      });
+		it('should mark as a failed experience when DatasourceTableView request fails', async () => {
+			setup({
+				status: 'rejected',
+			});
 
-      expect(mockTableRenderUfoFailure).toHaveBeenCalled();
-      expect(mockTableRenderUfoFailure).toHaveBeenCalledTimes(1);
+			expect(mockTableRenderUfoFailure).toHaveBeenCalled();
+			expect(mockTableRenderUfoFailure).toHaveBeenCalledTimes(1);
 
-      expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
-    });
+			expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
+		});
 
-    it('should mark as a failed experience when DatasourceTableView data request returns unauthorised response', async () => {
-      setup({
-        status: 'unauthorized',
-      });
+		it('should mark as a failed experience when DatasourceTableView data request returns unauthorised response', async () => {
+			setup({
+				status: 'unauthorized',
+			});
 
-      expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
-      expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
+			expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
+			expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
 
-      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
-    });
+			expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
+		});
 
-    it('should abort the experience when DatasourceTableView results are empty', async () => {
-      setup({
-        responseItems: [],
-      });
+		it('should abort the experience when DatasourceTableView results are empty', async () => {
+			setup({
+				responseItems: [],
+			});
 
-      expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
-      expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
+			expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
+			expect(mockTableRenderUfoSuccess).toHaveBeenCalledTimes(1);
 
-      expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
-    });
-  });
+			expect(mockTableRenderUfoFailure).not.toHaveBeenCalled();
+		});
+	});
 
-  describe('ColumnPickerRendered', () => {
-    it('should not mark as a failed experience when status is resolved', async () => {
-      setup();
+	describe('ColumnPickerRendered', () => {
+		it('should not mark as a failed experience when status is resolved', async () => {
+			setup();
 
-      expect(mockColumnPickerRenderUfoFailure).not.toHaveBeenCalled();
-    });
+			expect(mockColumnPickerRenderUfoFailure).not.toHaveBeenCalled();
+		});
 
-    it('should mark as a failed experience when status is rejected', async () => {
-      setup({
-        status: 'rejected',
-      });
+		it('should mark as a failed experience when status is rejected', async () => {
+			setup({
+				status: 'rejected',
+			});
 
-      expect(mockColumnPickerRenderUfoFailure).toHaveBeenCalledTimes(1);
-    });
-  });
+			expect(mockColumnPickerRenderUfoFailure).toHaveBeenCalledTimes(1);
+		});
+	});
 });

@@ -14,55 +14,55 @@ import { LoadingErrorSVG } from './loading-error-svg';
 import { loadingErrorMessages } from './messages';
 
 const errorContainerStyles = css({
-  display: 'grid',
-  gap: token('space.200', '16px'),
-  placeItems: 'center',
-  placeSelf: 'center',
+	display: 'grid',
+	gap: token('space.200', '16px'),
+	placeItems: 'center',
+	placeSelf: 'center',
 });
 
 const errorMessageContainerStyles = css({
-  display: 'grid',
-  gap: token('space.100', '8px'),
-  placeItems: 'center',
+	display: 'grid',
+	gap: token('space.100', '8px'),
+	placeItems: 'center',
 });
 
 const errorMessageStyles = css({
-  font: token('font.heading.small', fontFallback.heading.small),
+	font: token('font.heading.small', fontFallback.heading.small),
 });
 
 const errorDescriptionStyles = css({
-  margin: 0,
+	margin: 0,
 });
 
 interface LoadingErrorProps {
-  onRefresh?: () => void;
+	onRefresh?: () => void;
 }
 
 export const LoadingError = ({ onRefresh }: LoadingErrorProps) => {
-  const { fireEvent } = useDatasourceAnalyticsEvents();
+	const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  useEffect(() => {
-    fireEvent('ui.error.shown', {
-      reason: 'network',
-    });
-  }, [fireEvent]);
+	useEffect(() => {
+		fireEvent('ui.error.shown', {
+			reason: 'network',
+		});
+	}, [fireEvent]);
 
-  return (
-    <div css={errorContainerStyles} data-testid="datasource--loading-error">
-      <LoadingErrorSVG />
-      <div css={errorMessageContainerStyles}>
-        <span css={errorMessageStyles}>
-          <FormattedMessage {...loadingErrorMessages.unableToLoadItems} />
-        </span>
-        <p css={errorDescriptionStyles}>
-          <FormattedMessage {...loadingErrorMessages.checkConnection} />
-        </p>
-        {onRefresh && (
-          <Button appearance="primary" onClick={onRefresh}>
-            <FormattedMessage {...loadingErrorMessages.refresh} />
-          </Button>
-        )}
-      </div>
-    </div>
-  );
+	return (
+		<div css={errorContainerStyles} data-testid="datasource--loading-error">
+			<LoadingErrorSVG />
+			<div css={errorMessageContainerStyles}>
+				<span css={errorMessageStyles}>
+					<FormattedMessage {...loadingErrorMessages.unableToLoadItems} />
+				</span>
+				<p css={errorDescriptionStyles}>
+					<FormattedMessage {...loadingErrorMessages.checkConnection} />
+				</p>
+				{onRefresh && (
+					<Button appearance="primary" onClick={onRefresh}>
+						<FormattedMessage {...loadingErrorMessages.refresh} />
+					</Button>
+				)}
+			</div>
+		</div>
+	);
 };

@@ -62,13 +62,13 @@ export default md`
   );`}
 
   ${(
-    <Example
-      packageName="@atlaskit/emoji"
-      Component={ResourcedEmojiExample}
-      title="Resourced Emoji"
-      source={ResourcedEmojiSource}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/emoji"
+			Component={ResourcedEmojiExample}
+			title="Resourced Emoji"
+			source={ResourcedEmojiSource}
+		/>
+	)}
 
   ${(<Props props={ResourcedEmojiProps} />)}
 `;

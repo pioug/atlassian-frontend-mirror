@@ -109,12 +109,12 @@ ${(<AtlassianInternalWarning />)}
   `}
 
   ${(
-    <Example
-      Component={require('../examples/00-basic').default}
-      title="Basic"
-      source={require('!!raw-loader!../examples/00-basic')}
-    />
-  )}
+		<Example
+			Component={require('../examples/00-basic').default}
+			title="Basic"
+			source={require('!!raw-loader!../examples/00-basic')}
+		/>
+	)}
 
   ### Using the trackFeatureFlag endpoint
   The trackFeatureFlag endpoint can be used to trigger both manual and automatic exposures depending on how your client is

@@ -1,6 +1,8 @@
 import type { BrowserOptions, EventHint, Scope, Event as SentryEvent } from '@sentry/browser';
 import type { Integration, Primitive } from '@sentry/types';
 
+import { isFedRamp } from './environment';
+
 const SENTRY_DSN =
 	'https://0b10c8e02fb44d8796c047b102c9bee8@o55978.ingest.sentry.io/4505129224110080';
 
@@ -35,7 +37,7 @@ export const logException = async (error: Error, tags?: { [key: string]: Primiti
 		);
 
 		const sentryOptions: BrowserOptions = {
-			dsn: SENTRY_DSN,
+			dsn: isFedRamp() ? undefined : SENTRY_DSN,
 			release: `${packageName}@${packageVersion}`,
 			environment: process.env.CLOUD_ENV ?? 'unknown',
 			ignoreErrors: [

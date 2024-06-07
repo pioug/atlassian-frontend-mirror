@@ -54,33 +54,32 @@ snapshot(EmbedCardUnauthorisedViewWithProviderImage);
 snapshot(EmbedCardUnauthorisedViewWithNoAuth);
 
 snapshot(EmbedCardFrameWithHref, {
-  description: 'embed card frame should render as a link when there is an href',
-  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	description: 'embed card frame should render as a link when there is an href',
+	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
 snapshot(EmbedCardFrameWithNoHref, {
-  description:
-    'embed card frame should not render as a link when there is no href',
-  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	description: 'embed card frame should not render as a link when there is no href',
+	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
 snapshot(EmbedCardFrameWithPlaceholderAndHref, {
-  description:
-    'embed card frame should not be interactive when isPlaceholder=true and href is defined',
-  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	description:
+		'embed card frame should not be interactive when isPlaceholder=true and href is defined',
+	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
 snapshot(EmbedCardFrameWithPlaceholderAndOnClick, {
-  description:
-    'embed card frame should not be interactive when isPlaceholder=true and onClick is defined',
-  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	description:
+		'embed card frame should not be interactive when isPlaceholder=true and onClick is defined',
+	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
 snapshot(EmbedCardFrameWithNoPlaceholderWithHref, {
-  description:
-    'embed card frame should be interactive when isPlaceholder=false and href is defined',
-  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	description:
+		'embed card frame should be interactive when isPlaceholder=false and href is defined',
+	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
 snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
-  description:
-    'embed card frame should be interactive when isPlaceholder=false and onClick is defined',
-  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	description:
+		'embed card frame should be interactive when isPlaceholder=false and onClick is defined',
+	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
 
 snapshot(EmbedCardFrameStyleHide);
@@ -89,8 +88,8 @@ snapshot(EmbedCardFrameStyleShow);
 snapshot(EmbedCardFrameStyleShowAndSelected);
 snapshot(EmbedCardFrameStyleShowOnHover);
 snapshot(EmbedCardFrameStyleShowOnHover, {
-  description: 'embed card frame style show on hover when hover',
-  states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	description: 'embed card frame style show on hover when hover',
+	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
 snapshot(EmbedCardFrameStyleShowOnHoverAndSelected);
 snapshot(EmbedCardForbiddenViewFrameHide);

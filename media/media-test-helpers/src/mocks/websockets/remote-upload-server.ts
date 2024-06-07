@@ -15,10 +15,10 @@ import { tap } from 'rxjs/operators/tap';
 import uuid from 'uuid/v4';
 
 import {
-  notifyMetadataPayload,
-  remoteUploadStartPayload,
-  remoteUploadProgressPayload,
-  remoteUploadEndPayload,
+	notifyMetadataPayload,
+	remoteUploadStartPayload,
+	remoteUploadProgressPayload,
+	remoteUploadEndPayload,
 } from './messages';
 
 import { type WebSocketServer } from './types';
@@ -34,7 +34,7 @@ const DELAY_MESSAGES_SLOW_MS = 1000;
 const DELAY_MESSAGES_VARIATION = 500;
 
 type WsMessage = any & {
-  type: string;
+	type: string;
 };
 
 /**
@@ -45,69 +45,66 @@ type WsMessage = any & {
  * @returns Observable emitting websocket messages (referencing the currently active socket)
  */
 function getUpstreamMessages(
-  wsServer: Server,
+	wsServer: Server,
 ): Observable<{ socket: WebSocket; message: WsMessage }> {
-  return Observable.create((observer: Observer<Client>) =>
-    wsServer.on('connection', (socket: Client) => observer.next(socket)),
-  ).pipe(
-    switchMap((socket: Client) =>
-      Observable.create(
-        (observer: Observer<string | Blob | ArrayBuffer | ArrayBufferView>) =>
-          socket.on(
-            'message',
-            (data: string | Blob | ArrayBuffer | ArrayBufferView) =>
-              observer.next(data),
-          ),
-      ).pipe(
-        // ignore empty messages
-        filter((data: any) => typeof data === 'string' && data.length > 0),
-        // parse messages as JSON
-        map((data: string) => ({ socket, message: JSON.parse(data) })),
-      ),
-    ),
-  );
+	return Observable.create((observer: Observer<Client>) =>
+		wsServer.on('connection', (socket: Client) => observer.next(socket)),
+	).pipe(
+		switchMap((socket: Client) =>
+			Observable.create((observer: Observer<string | Blob | ArrayBuffer | ArrayBufferView>) =>
+				socket.on('message', (data: string | Blob | ArrayBuffer | ArrayBufferView) =>
+					observer.next(data),
+				),
+			).pipe(
+				// ignore empty messages
+				filter((data: any) => typeof data === 'string' && data.length > 0),
+				// parse messages as JSON
+				map((data: string) => ({ socket, message: JSON.parse(data) })),
+			),
+		),
+	);
 }
 
 function createUserFile(
-  database: Database<MediaDatabaseSchema>,
-  fileId: string,
-  name: string,
-  collection: string,
+	database: Database<MediaDatabaseSchema>,
+	fileId: string,
+	name: string,
+	collection: string,
 ) {
-  database.push(
-    'collectionItem',
-    // backend initially creates cloud files
-    // having mediaType=unknown and mimeType=binary/octet-stream
-    createCollectionItem({
-      name,
-      mediaType: 'unknown',
-      mimeType: 'binary/octet-stream',
-      collectionName: collection,
-      blob: mapDataUriToBlob(smallImage),
-      id: fileId,
-      processingStatus: 'pending',
-    }),
-  );
+	database.push(
+		'collectionItem',
+		// backend initially creates cloud files
+		// having mediaType=unknown and mimeType=binary/octet-stream
+		createCollectionItem({
+			name,
+			mediaType: 'unknown',
+			mimeType: 'binary/octet-stream',
+			collectionName: collection,
+			blob: mapDataUriToBlob(smallImage),
+			id: fileId,
+			processingStatus: 'pending',
+		}),
+	);
 }
 
 function sendDownstreamMessage(
-  wsUrl: string,
-  socket: WebSocket,
-  database: Database<MediaDatabaseSchema>,
-  message: WsMessage,
+	wsUrl: string,
+	socket: WebSocket,
+	database: Database<MediaDatabaseSchema>,
+	message: WsMessage,
 ): void {
-  const { type, ...payload } = message;
+	const { type, ...payload } = message;
 
-  // logs every message in console
-  logWsMessage({
-    url: wsUrl,
-    dir: WsDirection.Downstream,
-    type,
-    payload,
-    database,
-  });
+	// logs every message in console
+	logWsMessage({
+		url: wsUrl,
+		dir: WsDirection.Downstream,
+		type,
+		payload,
+		database,
+	});
 
-  socket.send(JSON.stringify(message));
+	socket.send(JSON.stringify(message));
 }
 
 /**
@@ -124,84 +121,80 @@ function sendDownstreamMessage(
  * @param isSlowServer boolean to set to true to simulate a slower websocket server
  */
 function generateDownstreamMessages(
-  wsUrl: string,
-  database: Database<MediaDatabaseSchema>,
-  isSlowServer?: boolean,
+	wsUrl: string,
+	database: Database<MediaDatabaseSchema>,
+	isSlowServer?: boolean,
 ) {
-  const delayMessages = isSlowServer
-    ? DELAY_MESSAGES_SLOW_MS
-    : DELAY_MESSAGS_MS;
+	const delayMessages = isSlowServer ? DELAY_MESSAGES_SLOW_MS : DELAY_MESSAGS_MS;
 
-  return (messages: Observable<{ socket: WebSocket; message: WsMessage }>) =>
-    messages.pipe(
-      filter(({ message: { type } }) => type === 'fetchFile'),
-      mergeMap(({ socket, message }) => {
-        const {
-          params: { fileName, collection, jobId: tenantFileId },
-        } = message;
+	return (messages: Observable<{ socket: WebSocket; message: WsMessage }>) =>
+		messages.pipe(
+			filter(({ message: { type } }) => type === 'fetchFile'),
+			mergeMap(({ socket, message }) => {
+				const {
+					params: { fileName, collection, jobId: tenantFileId },
+				} = message;
 
-        const userFileId = uuid();
-        const fileSize = getFakeFileSize();
+				const userFileId = uuid();
+				const fileSize = getFakeFileSize();
 
-        // create user file in database
-        createUserFile(database, userFileId, fileName, collection);
+				// create user file in database
+				createUserFile(database, userFileId, fileName, collection);
 
-        return from([
-          notifyMetadataPayload(tenantFileId, fileSize),
-          remoteUploadStartPayload(tenantFileId),
-          remoteUploadProgressPayload(tenantFileId, fileSize),
-          remoteUploadEndPayload(tenantFileId, userFileId),
-        ]).pipe(
-          concatMap((message) =>
-            of(message).pipe(
-              tap((message) =>
-                sendDownstreamMessage(wsUrl, socket, database, message),
-              ),
-              delay(delayMessages + Math.random() * DELAY_MESSAGES_VARIATION),
-            ),
-          ),
-        );
-      }),
-    );
+				return from([
+					notifyMetadataPayload(tenantFileId, fileSize),
+					remoteUploadStartPayload(tenantFileId),
+					remoteUploadProgressPayload(tenantFileId, fileSize),
+					remoteUploadEndPayload(tenantFileId, userFileId),
+				]).pipe(
+					concatMap((message) =>
+						of(message).pipe(
+							tap((message) => sendDownstreamMessage(wsUrl, socket, database, message)),
+							delay(delayMessages + Math.random() * DELAY_MESSAGES_VARIATION),
+						),
+					),
+				);
+			}),
+		);
 }
 
 export type RemoteUploadActivityServerParams = {
-  database: Database<MediaDatabaseSchema>;
-  isSlowServer?: boolean;
+	database: Database<MediaDatabaseSchema>;
+	isSlowServer?: boolean;
 };
 
 export class RemoteUploadActivityServer implements WebSocketServer {
-  private wsServer: Server;
-  private msgSubscription: Subscription;
+	private wsServer: Server;
+	private msgSubscription: Subscription;
 
-  constructor(params: RemoteUploadActivityServerParams) {
-    const { database, isSlowServer } = params;
-    const wsUrl = getWsUrl(defaultBaseUrl, '/picker/ws/');
+	constructor(params: RemoteUploadActivityServerParams) {
+		const { database, isSlowServer } = params;
+		const wsUrl = getWsUrl(defaultBaseUrl, '/picker/ws/');
 
-    this.wsServer = new Server(wsUrl);
-    this.msgSubscription = getUpstreamMessages(this.wsServer)
-      .pipe(
-        tap(({ message: { type, ...payload } }) =>
-          logWsMessage({
-            url: wsUrl,
-            dir: WsDirection.Upstream,
-            type,
-            payload,
-            database,
-          }),
-        ),
-        generateDownstreamMessages(wsUrl, database, isSlowServer),
-      )
-      .subscribe();
-  }
+		this.wsServer = new Server(wsUrl);
+		this.msgSubscription = getUpstreamMessages(this.wsServer)
+			.pipe(
+				tap(({ message: { type, ...payload } }) =>
+					logWsMessage({
+						url: wsUrl,
+						dir: WsDirection.Upstream,
+						type,
+						payload,
+						database,
+					}),
+				),
+				generateDownstreamMessages(wsUrl, database, isSlowServer),
+			)
+			.subscribe();
+	}
 
-  start() {
-    this.wsServer.mockWebsocket();
-  }
+	start() {
+		this.wsServer.mockWebsocket();
+	}
 
-  stop() {
-    this.msgSubscription.unsubscribe();
-    this.wsServer.restoreWebsocket();
-    this.wsServer.stop();
-  }
+	stop() {
+		this.msgSubscription.unsubscribe();
+		this.wsServer.restoreWebsocket();
+		this.wsServer.stop();
+	}
 }

@@ -7,17 +7,17 @@ import { type MediaEnv, mediaPickerAuthProvider } from './mediaPickerAuthProvide
 export const defaultBaseUrl = 'https://media.dev.atl-paas.net';
 
 export const defaultParams = {
-  clientId: '5a9812fc-d029-4a39-8a46-d3cc36eed7ab',
-  asapIssuer: 'micros/media-playground',
-  baseUrl: defaultBaseUrl,
+	clientId: '5a9812fc-d029-4a39-8a46-d3cc36eed7ab',
+	asapIssuer: 'micros/media-playground',
+	baseUrl: defaultBaseUrl,
 };
 
 interface AuthParameter {
-  authType: 'client' | 'asap';
+	authType: 'client' | 'asap';
 }
 
 const defaultAuthParameter: AuthParameter = {
-  authType: 'client',
+	authType: 'client',
 };
 
 /**
@@ -27,34 +27,33 @@ const defaultAuthParameter: AuthParameter = {
  * @returns {Context}
  */
 export const createStorybookMediaClient = (
-  authParameter: AuthParameter = defaultAuthParameter,
+	authParameter: AuthParameter = defaultAuthParameter,
 ): MediaClient => {
-  return new MediaClient(createStorybookMediaClientConfig(authParameter));
+	return new MediaClient(createStorybookMediaClientConfig(authParameter));
 };
 
 export const createStorybookMediaClientConfig = (
-  authParameter: AuthParameter = defaultAuthParameter,
+	authParameter: AuthParameter = defaultAuthParameter,
 ): MediaClientConfig => {
-  const scopes: { [resource: string]: string[] } = {
-    'urn:filestore:file:*': ['read'],
-    'urn:filestore:chunk:*': ['read'],
-  };
-  collectionNames.forEach((c) => {
-    scopes[`urn:filestore:collection:${c}`] = ['read', 'update'];
-  });
+	const scopes: { [resource: string]: string[] } = {
+		'urn:filestore:file:*': ['read'],
+		'urn:filestore:chunk:*': ['read'],
+	};
+	collectionNames.forEach((c) => {
+		scopes[`urn:filestore:collection:${c}`] = ['read', 'update'];
+	});
 
-  const isAsapEnvironment = authParameter.authType === 'asap';
-  const authProvider = StoryBookAuthProvider.create(isAsapEnvironment, scopes);
-  return { authProvider };
+	const isAsapEnvironment = authParameter.authType === 'asap';
+	const authProvider = StoryBookAuthProvider.create(isAsapEnvironment, scopes);
+	return { authProvider };
 };
 
-export const createUploadMediaClient = () =>
-  new MediaClient(createUploadMediaClientConfig());
+export const createUploadMediaClient = () => new MediaClient(createUploadMediaClientConfig());
 
 export const createUploadMediaClientConfig = (
-  stargateBaseUrl?: string,
-  env?: MediaEnv,
+	stargateBaseUrl?: string,
+	env?: MediaEnv,
 ): MediaClientConfig => ({
-  authProvider: mediaPickerAuthProvider('asap', env),
-  stargateBaseUrl,
+	authProvider: mediaPickerAuthProvider('asap', env),
+	stargateBaseUrl,
 });

@@ -4,23 +4,23 @@ import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { openEmbedModal } from '../utils';
 
 describe('openEmbedModal', () => {
-  const testId = 'smart-embed-preview-modal';
+	const testId = 'smart-embed-preview-modal';
 
-  it('opens embed modal', async () => {
-    const Wrapper = () => {
-      useEffect(() => {
-        openEmbedModal();
-      }, []);
-      return <div>Open</div>;
-    };
+	it('opens embed modal', async () => {
+		const Wrapper = () => {
+			useEffect(() => {
+				openEmbedModal();
+			}, []);
+			return <div>Open</div>;
+		};
 
-    const { findByTestId } = renderWithIntl(<Wrapper />);
+		const { findByTestId } = renderWithIntl(<Wrapper />);
 
-    const modal = await findByTestId(testId);
-    expect(modal).toBeInTheDocument();
+		const modal = await findByTestId(testId);
+		expect(modal).toBeInTheDocument();
 
-    const mountPoint = await findByTestId('preview-modal');
-    expect(mountPoint).toBeInTheDocument();
-    expect(mountPoint?.id).toBe('twp-editor-preview-iframe');
-  });
+		const mountPoint = await findByTestId('preview-modal');
+		expect(mountPoint).toBeInTheDocument();
+		expect(mountPoint?.id).toBe('twp-editor-preview-iframe');
+	});
 });

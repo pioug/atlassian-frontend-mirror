@@ -4,39 +4,39 @@ import { css, jsx } from '@emotion/react';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 
 const panelStyle = css({
-  '> div': {
-    width: '100%',
-  },
+	'> div': {
+		width: '100%',
+	},
 });
 
 type TabItems = {
-  name: string;
-  content: ReactNode;
+	name: string;
+	content: ReactNode;
 };
 type DocsContentTabsProps = {
-  tabs: TabItems[];
+	tabs: TabItems[];
 };
 
 const CustomTabPanel = ({ children }: { children: ReactNode }) => {
-  const context = useTabPanel();
-  return (
-    <div css={panelStyle} {...context}>
-      {children}
-    </div>
-  );
+	const context = useTabPanel();
+	return (
+		<div css={panelStyle} {...context}>
+			{children}
+		</div>
+	);
 };
 
 export const DocsContentTabs: React.FC<DocsContentTabsProps> = ({
-  tabs = [],
+	tabs = [],
 }: DocsContentTabsProps) => (
-  <Tabs id="default">
-    <TabList>
-      {tabs.map(({ name }, idx: number) => (
-        <Tab key={idx}>{name}</Tab>
-      ))}
-    </TabList>
-    {tabs.map(({ content }, idx: number) => (
-      <CustomTabPanel key={idx}>{content}</CustomTabPanel>
-    ))}
-  </Tabs>
+	<Tabs id="default">
+		<TabList>
+			{tabs.map(({ name }, idx: number) => (
+				<Tab key={idx}>{name}</Tab>
+			))}
+		</TabList>
+		{tabs.map(({ content }, idx: number) => (
+			<CustomTabPanel key={idx}>{content}</CustomTabPanel>
+		))}
+	</Tabs>
 );

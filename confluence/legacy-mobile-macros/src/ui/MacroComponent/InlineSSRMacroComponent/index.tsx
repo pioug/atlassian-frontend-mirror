@@ -12,9 +12,9 @@ import {
 } from './types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const SSRMacroWrapper = styled.span`
-	white-space: normal;
-`;
+const SSRMacroWrapper = styled.span({
+	whiteSpace: 'normal',
+});
 
 export const InlineSSRMacroComponent: ((props: InlineSSRMacroComponentProps) => JSX.Element) & {
 	tocObserver?: MutationObserver;

@@ -1,14 +1,14 @@
 import uuidV4 from 'uuid/v4';
 import {
-  UploadController,
-  type TouchFileDescriptor,
-  type UploadableFileUpfrontIds,
-  type UploadableFile,
-  type MediaType,
-  type MediaClient,
-  globalMediaEventEmitter,
-  RequestError,
-  type TouchedFiles,
+	UploadController,
+	type TouchFileDescriptor,
+	type UploadableFileUpfrontIds,
+	type UploadableFile,
+	type MediaType,
+	type MediaClient,
+	globalMediaEventEmitter,
+	RequestError,
+	type TouchedFiles,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { EventEmitter2 } from 'eventemitter2';
@@ -17,434 +17,417 @@ import { type FileEmptyData, type MediaFile, type UploadParams } from '../types'
 import { getPreviewFromImage } from '../util/getPreviewFromImage';
 import { type MediaErrorName, type UploadRejectionData } from '../types';
 import {
-  type UploadService,
-  type UploadServiceEventListener,
-  type UploadServiceEventPayloadTypes,
+	type UploadService,
+	type UploadServiceEventListener,
+	type UploadServiceEventPayloadTypes,
 } from './types';
 import { LocalFileSource, type LocalFileWithSource } from '../service/types';
 import { getPreviewFromBlob } from '../util/getPreviewFromBlob';
 import {
-  getRandomHex,
-  type MediaTraceContext,
-  isMimeTypeSupportedByBrowser,
-  getMediaTypeFromMimeType,
+	getRandomHex,
+	type MediaTraceContext,
+	isMimeTypeSupportedByBrowser,
+	getMediaTypeFromMimeType,
 } from '@atlaskit/media-common';
 
 export interface CancellableFileUpload {
-  mediaFile: MediaFile;
-  file: File;
-  source: LocalFileSource;
-  cancel?: () => void;
+	mediaFile: MediaFile;
+	file: File;
+	source: LocalFileSource;
+	cancel?: () => void;
 }
 
 const generateTraceContext = (): MediaTraceContext => ({
-  traceId: getRandomHex(8),
+	traceId: getRandomHex(8),
 });
 
 export class UploadServiceImpl implements UploadService {
-  private readonly userMediaClient?: MediaClient;
-  private readonly emitter: EventEmitter2;
-  private cancellableFilesUploads: { [key: string]: CancellableFileUpload };
-  private fileRejectionHandler?: (rejectionData: UploadRejectionData) => void;
-  private fileEmptyHandler?: (fileEmptyData: FileEmptyData) => void;
+	private readonly userMediaClient?: MediaClient;
+	private readonly emitter: EventEmitter2;
+	private cancellableFilesUploads: { [key: string]: CancellableFileUpload };
+	private fileRejectionHandler?: (rejectionData: UploadRejectionData) => void;
+	private fileEmptyHandler?: (fileEmptyData: FileEmptyData) => void;
 
-  constructor(
-    private readonly tenantMediaClient: MediaClient,
-    private tenantUploadParams: UploadParams,
-    private readonly shouldCopyFileToRecents: boolean,
-    private readonly maxUploadBatchSize = 255, // Max supported batch is 255. We parametrise it for testing purposes
-  ) {
-    this.emitter = new EventEmitter2();
-    this.cancellableFilesUploads = {};
-  }
+	constructor(
+		private readonly tenantMediaClient: MediaClient,
+		private tenantUploadParams: UploadParams,
+		private readonly shouldCopyFileToRecents: boolean,
+		private readonly maxUploadBatchSize = 255, // Max supported batch is 255. We parametrise it for testing purposes
+	) {
+		this.emitter = new EventEmitter2();
+		this.cancellableFilesUploads = {};
+	}
 
-  setUploadParams(uploadParams: UploadParams): void {
-    this.tenantUploadParams = uploadParams;
-  }
+	setUploadParams(uploadParams: UploadParams): void {
+		this.tenantUploadParams = uploadParams;
+	}
 
-  // Used for testing
-  private createUploadController(): UploadController {
-    return new UploadController();
-  }
+	// Used for testing
+	private createUploadController(): UploadController {
+		return new UploadController();
+	}
 
-  addFiles(files: File[]): void {
-    this.addFilesWithSource(
-      files.map((file: File) => ({
-        file,
-        source: LocalFileSource.LocalUpload,
-      })),
-    );
-  }
+	addFiles(files: File[]): void {
+		this.addFilesWithSource(
+			files.map((file: File) => ({
+				file,
+				source: LocalFileSource.LocalUpload,
+			})),
+		);
+	}
 
-  addFile(file: File, replaceFileId?: string) {
-    this.addFilesWithSource([
-      { file, source: LocalFileSource.LocalUpload, replaceFileId },
-    ]);
-  }
+	addFile(file: File, replaceFileId?: string) {
+		this.addFilesWithSource([{ file, source: LocalFileSource.LocalUpload, replaceFileId }]);
+	}
 
-  async addFilesWithSource(
-    files: LocalFileWithSource[],
-    traceContext = generateTraceContext(),
-  ): Promise<void> {
-    const batches: Promise<void>[] = [];
-    for (
-      let iterator = 0;
-      iterator < files.length;
-      iterator += this.maxUploadBatchSize
-    ) {
-      batches.push(
-        this.addFilesAndUpload(
-          files.slice(iterator, iterator + this.maxUploadBatchSize),
-          traceContext,
-        ),
-      );
-    }
-    await Promise.all(batches);
-  }
+	async addFilesWithSource(
+		files: LocalFileWithSource[],
+		traceContext = generateTraceContext(),
+	): Promise<void> {
+		const batches: Promise<void>[] = [];
+		for (let iterator = 0; iterator < files.length; iterator += this.maxUploadBatchSize) {
+			batches.push(
+				this.addFilesAndUpload(
+					files.slice(iterator, iterator + this.maxUploadBatchSize),
+					traceContext,
+				),
+			);
+		}
+		await Promise.all(batches);
+	}
 
-  isCancellableFileUpload(
-    fileUpload: null | CancellableFileUpload,
-  ): fileUpload is CancellableFileUpload {
-    return fileUpload !== null;
-  }
+	isCancellableFileUpload(
+		fileUpload: null | CancellableFileUpload,
+	): fileUpload is CancellableFileUpload {
+		return fileUpload !== null;
+	}
 
-  cancel(id?: string): void {
-    if (id) {
-      const cancellableFileUpload = this.cancellableFilesUploads[id];
-      if (cancellableFileUpload && cancellableFileUpload.cancel) {
-        cancellableFileUpload.cancel();
-      }
-    } else {
-      Object.keys(this.cancellableFilesUploads).forEach((key) => {
-        const cancellableFileUpload = this.cancellableFilesUploads[key];
-        if (cancellableFileUpload.cancel) {
-          cancellableFileUpload.cancel();
-        }
-      });
-    }
-  }
+	cancel(id?: string): void {
+		if (id) {
+			const cancellableFileUpload = this.cancellableFilesUploads[id];
+			if (cancellableFileUpload && cancellableFileUpload.cancel) {
+				cancellableFileUpload.cancel();
+			}
+		} else {
+			Object.keys(this.cancellableFilesUploads).forEach((key) => {
+				const cancellableFileUpload = this.cancellableFilesUploads[key];
+				if (cancellableFileUpload.cancel) {
+					cancellableFileUpload.cancel();
+				}
+			});
+		}
+	}
 
-  on<E extends keyof UploadServiceEventPayloadTypes>(
-    event: E,
-    listener: UploadServiceEventListener<E>,
-  ): void {
-    this.emitter.on(event, listener);
-  }
+	on<E extends keyof UploadServiceEventPayloadTypes>(
+		event: E,
+		listener: UploadServiceEventListener<E>,
+	): void {
+		this.emitter.on(event, listener);
+	}
 
-  off<E extends keyof UploadServiceEventPayloadTypes>(
-    event: E,
-    listener: UploadServiceEventListener<E>,
-  ): void {
-    this.emitter.off(event, listener);
-  }
+	off<E extends keyof UploadServiceEventPayloadTypes>(
+		event: E,
+		listener: UploadServiceEventListener<E>,
+	): void {
+		this.emitter.off(event, listener);
+	}
 
-  private async addFilesAndUpload(
-    files: LocalFileWithSource[],
-    traceContext: MediaTraceContext,
-  ): Promise<void> {
-    if (files.length === 0) {
-      return;
-    }
+	private async addFilesAndUpload(
+		files: LocalFileWithSource[],
+		traceContext: MediaTraceContext,
+	): Promise<void> {
+		if (files.length === 0) {
+			return;
+		}
 
-    const creationDate = Date.now();
+		const creationDate = Date.now();
 
-    const { userMediaClient, tenantMediaClient, shouldCopyFileToRecents } =
-      this;
-    const mediaClient = shouldCopyFileToRecents
-      ? tenantMediaClient
-      : userMediaClient;
+		const { userMediaClient, tenantMediaClient, shouldCopyFileToRecents } = this;
+		const mediaClient = shouldCopyFileToRecents ? tenantMediaClient : userMediaClient;
 
-    const { collection: collectionTentant, expireAfter } =
-      this.tenantUploadParams;
+		const { collection: collectionTentant, expireAfter } = this.tenantUploadParams;
 
-    const collection = shouldCopyFileToRecents
-      ? collectionTentant
-      : RECENTS_COLLECTION;
+		const collection = shouldCopyFileToRecents ? collectionTentant : RECENTS_COLLECTION;
 
-    if (!mediaClient) {
-      return;
-    }
+		if (!mediaClient) {
+			return;
+		}
 
-    const touchFileDescriptors: (TouchFileDescriptor & {
-      occurrenceKey: string;
-    })[] = [];
-    for (let i = 0; i < files.length; i++) {
-      const { replaceFileId, file } = files[i];
-      touchFileDescriptors.push({
-        fileId: replaceFileId || uuidV4(),
-        occurrenceKey: uuidV4(),
-        collection,
-        size: file.size,
-        expireAfter,
-      });
-    }
+		const touchFileDescriptors: (TouchFileDescriptor & {
+			occurrenceKey: string;
+		})[] = [];
+		for (let i = 0; i < files.length; i++) {
+			const { replaceFileId, file } = files[i];
+			touchFileDescriptors.push({
+				fileId: replaceFileId || uuidV4(),
+				occurrenceKey: uuidV4(),
+				collection,
+				size: file.size,
+				expireAfter,
+			});
+		}
 
-    let touchedFiles: TouchedFiles;
-    let caughtError: unknown;
-    try {
-      touchedFiles = await mediaClient.file.touchFiles(
-        touchFileDescriptors,
-        collection,
-        traceContext,
-      );
-    } catch (error) {
-      caughtError = error;
-    }
+		let touchedFiles: TouchedFiles;
+		let caughtError: unknown;
+		try {
+			touchedFiles = await mediaClient.file.touchFiles(
+				touchFileDescriptors,
+				collection,
+				traceContext,
+			);
+		} catch (error) {
+			caughtError = error;
+		}
 
-    const cancellableFileUploads: (null | CancellableFileUpload)[] = files.map(
-      ({ file, source }, i) => {
-        const { fileId: id, occurrenceKey } = touchFileDescriptors[i];
+		const cancellableFileUploads: (null | CancellableFileUpload)[] = files.map(
+			({ file, source }, i) => {
+				const { fileId: id, occurrenceKey } = touchFileDescriptors[i];
 
-        // exclude rejected files from being uploaded
-        const rejectedFile = touchedFiles?.rejected?.find(
-          ({ fileId: rejectedFileId }) => rejectedFileId === id,
-        );
-        if (rejectedFile) {
-          if (this.fileRejectionHandler) {
-            this.fileRejectionHandler({
-              reason: 'fileSizeLimitExceeded',
-              fileName: file.name,
-              limit: rejectedFile.error.limit,
-            });
-          }
-          return null;
-        }
+				// exclude rejected files from being uploaded
+				const rejectedFile = touchedFiles?.rejected?.find(
+					({ fileId: rejectedFileId }) => rejectedFileId === id,
+				);
+				if (rejectedFile) {
+					if (this.fileRejectionHandler) {
+						this.fileRejectionHandler({
+							reason: 'fileSizeLimitExceeded',
+							fileName: file.name,
+							limit: rejectedFile.error.limit,
+						});
+					}
+					return null;
+				}
 
-        // exclude empty files from being uploaded
-        if (file.size === 0) {
-          if (this.fileEmptyHandler) {
-            this.fileEmptyHandler({
-              reason: 'fileEmpty',
-              fileName: file.name,
-            });
-          }
-          return null;
-        }
+				// exclude empty files from being uploaded
+				if (file.size === 0) {
+					if (this.fileEmptyHandler) {
+						this.fileEmptyHandler({
+							reason: 'fileEmpty',
+							fileName: file.name,
+						});
+					}
+					return null;
+				}
 
-        const touchedFile = touchedFiles?.created.find(
-          (touchedFile) => touchedFile.fileId === id,
-        );
+				const touchedFile = touchedFiles?.created.find((touchedFile) => touchedFile.fileId === id);
 
-        let deferredUploadId: Promise<string>;
-        const isIdConflictError =
-          caughtError instanceof RequestError &&
-          caughtError.metadata?.statusCode === 409;
-        if (touchedFile) {
-          deferredUploadId = Promise.resolve(touchedFile.uploadId);
-        } else if (isIdConflictError) {
-          // will occur when the backend receives a fileId that already exists in which case
-          // we will create a single upload session for that file and use that uploadId
-          deferredUploadId = mediaClient.mediaStore
-            .createUpload(1, collection, traceContext)
-            .then((res) => {
-              return res.data[0].id;
-            });
-        } else {
-          // in the case of unexpected errors, we want to defer the throwing of the error
-          // until after the files-added has been emitted,
-          // allows editor to show a broken media card for unexpected errors
-          deferredUploadId = Promise.reject(caughtError);
-        }
+				let deferredUploadId: Promise<string>;
+				const isIdConflictError =
+					caughtError instanceof RequestError && caughtError.metadata?.statusCode === 409;
+				if (touchedFile) {
+					deferredUploadId = Promise.resolve(touchedFile.uploadId);
+				} else if (isIdConflictError) {
+					// will occur when the backend receives a fileId that already exists in which case
+					// we will create a single upload session for that file and use that uploadId
+					deferredUploadId = mediaClient.mediaStore
+						.createUpload(1, collection, traceContext)
+						.then((res) => {
+							return res.data[0].id;
+						});
+				} else {
+					// in the case of unexpected errors, we want to defer the throwing of the error
+					// until after the files-added has been emitted,
+					// allows editor to show a broken media card for unexpected errors
+					deferredUploadId = Promise.reject(caughtError);
+				}
 
-        const uploadableFile: UploadableFile = {
-          collection,
-          content: file,
-          name: file.name,
-          mimeType: file.type,
-          size: file.size,
-        };
+				const uploadableFile: UploadableFile = {
+					collection,
+					content: file,
+					name: file.name,
+					mimeType: file.type,
+					size: file.size,
+				};
 
-        const uploadableUpfrontIds: UploadableFileUpfrontIds = {
-          id,
-          occurrenceKey,
-          deferredUploadId,
-        };
+				const uploadableUpfrontIds: UploadableFileUpfrontIds = {
+					id,
+					occurrenceKey,
+					deferredUploadId,
+				};
 
-        const controller = this.createUploadController();
-        const sourceFileObservable = mediaClient.file.upload(
-          uploadableFile,
-          controller,
-          uploadableUpfrontIds,
-          traceContext,
-        );
+				const controller = this.createUploadController();
+				const sourceFileObservable = mediaClient.file.upload(
+					uploadableFile,
+					controller,
+					uploadableUpfrontIds,
+					traceContext,
+				);
 
-        const mediaFile: MediaFile = {
-          id,
-          name: file.name,
-          size: file.size,
-          creationDate,
-          type: file.type,
-          occurrenceKey,
-        };
+				const mediaFile: MediaFile = {
+					id,
+					name: file.name,
+					size: file.size,
+					creationDate,
+					type: file.type,
+					occurrenceKey,
+				};
 
-        const cancellableFileUpload: CancellableFileUpload = {
-          mediaFile,
-          file,
-          source,
-          cancel: () => {
-            // we can't do "cancellableFileUpload.cancel = controller.abort" because will change the "this" mediaClient
-            controller.abort();
-          },
-        };
+				const cancellableFileUpload: CancellableFileUpload = {
+					mediaFile,
+					file,
+					source,
+					cancel: () => {
+						// we can't do "cancellableFileUpload.cancel = controller.abort" because will change the "this" mediaClient
+						controller.abort();
+					},
+				};
 
-        const { unsubscribe } = sourceFileObservable.subscribe({
-          next: (state) => {
-            if (
-              state.status === 'processing' ||
-              state.status === 'processed' ||
-              state.status === 'failed-processing'
-            ) {
-              unsubscribe();
-              if (shouldCopyFileToRecents) {
-                mediaClient.emit('file-added', state);
-                globalMediaEventEmitter.emit('file-added', state);
-              }
-              this.onFileSuccess(cancellableFileUpload, id, traceContext);
-            }
-            if (state.status === 'error') {
-              this.onFileError(
-                mediaFile,
-                'upload_fail',
-                state.message || 'no-message',
-                traceContext,
-              );
-            }
-          },
-          error: (error) => {
-            this.onFileError(mediaFile, 'upload_fail', error, traceContext);
-          },
-        });
+				const { unsubscribe } = sourceFileObservable.subscribe({
+					next: (state) => {
+						if (
+							state.status === 'processing' ||
+							state.status === 'processed' ||
+							state.status === 'failed-processing'
+						) {
+							unsubscribe();
+							if (shouldCopyFileToRecents) {
+								mediaClient.emit('file-added', state);
+								globalMediaEventEmitter.emit('file-added', state);
+							}
+							this.onFileSuccess(cancellableFileUpload, id, traceContext);
+						}
+						if (state.status === 'error') {
+							this.onFileError(
+								mediaFile,
+								'upload_fail',
+								state.message || 'no-message',
+								traceContext,
+							);
+						}
+					},
+					error: (error) => {
+						this.onFileError(mediaFile, 'upload_fail', error, traceContext);
+					},
+				});
 
-        this.cancellableFilesUploads[id] = cancellableFileUpload;
+				this.cancellableFilesUploads[id] = cancellableFileUpload;
 
-        return cancellableFileUpload;
-      },
-    );
+				return cancellableFileUpload;
+			},
+		);
 
-    const filteredCancellableFileUploads = cancellableFileUploads.filter(
-      this.isCancellableFileUpload,
-    );
+		const filteredCancellableFileUploads = cancellableFileUploads.filter(
+			this.isCancellableFileUpload,
+		);
 
-    const mediaFiles = filteredCancellableFileUploads.map(
-      (cancellableFileUpload) => cancellableFileUpload.mediaFile,
-    );
+		const mediaFiles = filteredCancellableFileUploads.map(
+			(cancellableFileUpload) => cancellableFileUpload.mediaFile,
+		);
 
-    this.emit('files-added', { files: mediaFiles, traceContext });
-    this.emitPreviews(filteredCancellableFileUploads);
-  }
+		this.emit('files-added', { files: mediaFiles, traceContext });
+		this.emitPreviews(filteredCancellableFileUploads);
+	}
 
-  private readonly emit = <E extends keyof UploadServiceEventPayloadTypes>(
-    event: E,
-    payload: UploadServiceEventPayloadTypes[E],
-  ): void => {
-    this.emitter.emit(event, payload);
-  };
+	private readonly emit = <E extends keyof UploadServiceEventPayloadTypes>(
+		event: E,
+		payload: UploadServiceEventPayloadTypes[E],
+	): void => {
+		this.emitter.emit(event, payload);
+	};
 
-  private emitPreviews(cancellableFileUploads: CancellableFileUpload[]) {
-    cancellableFileUploads.forEach((cancellableFileUpload) => {
-      const { file, mediaFile, source } = cancellableFileUpload;
-      const { type } = file;
-      const mediaType = this.getMediaTypeFromFile(file);
+	private emitPreviews(cancellableFileUploads: CancellableFileUpload[]) {
+		cancellableFileUploads.forEach((cancellableFileUpload) => {
+			const { file, mediaFile, source } = cancellableFileUpload;
+			const { type } = file;
+			const mediaType = this.getMediaTypeFromFile(file);
 
-      if (!isMimeTypeSupportedByBrowser(type)) {
-        this.emit('file-preview-update', {
-          file: mediaFile,
-          preview: {},
-        });
-        return;
-      }
+			if (!isMimeTypeSupportedByBrowser(type)) {
+				this.emit('file-preview-update', {
+					file: mediaFile,
+					preview: {},
+				});
+				return;
+			}
 
-      if (mediaType === 'image') {
-        getPreviewFromImage(
-          file,
-          source === LocalFileSource.PastedScreenshot
-            ? window.devicePixelRatio
-            : undefined,
-        ).then((preview) => {
-          this.emit('file-preview-update', {
-            file: mediaFile,
-            preview,
-          });
-        });
-      } else {
-        getPreviewFromBlob(mediaType, file)
-          .then((preview) => {
-            this.emit('file-preview-update', {
-              file: mediaFile,
-              preview,
-            });
-          })
-          .catch(() =>
-            this.emit('file-preview-update', {
-              file: mediaFile,
-              preview: {},
-            }),
-          );
-      }
-    });
-  }
+			if (mediaType === 'image') {
+				getPreviewFromImage(
+					file,
+					source === LocalFileSource.PastedScreenshot ? window.devicePixelRatio : undefined,
+				).then((preview) => {
+					this.emit('file-preview-update', {
+						file: mediaFile,
+						preview,
+					});
+				});
+			} else {
+				getPreviewFromBlob(mediaType, file)
+					.then((preview) => {
+						this.emit('file-preview-update', {
+							file: mediaFile,
+							preview,
+						});
+					})
+					.catch(() =>
+						this.emit('file-preview-update', {
+							file: mediaFile,
+							preview: {},
+						}),
+					);
+			}
+		});
+	}
 
-  private getMediaTypeFromFile(file: File): MediaType {
-    const { type } = file;
+	private getMediaTypeFromFile(file: File): MediaType {
+		const { type } = file;
 
-    return getMediaTypeFromMimeType(type);
-  }
+		return getMediaTypeFromMimeType(type);
+	}
 
-  private releaseCancellableFile(mediaFile: MediaFile): void {
-    delete this.cancellableFilesUploads[mediaFile.id];
-  }
+	private releaseCancellableFile(mediaFile: MediaFile): void {
+		delete this.cancellableFilesUploads[mediaFile.id];
+	}
 
-  private readonly onFileSuccess = async (
-    cancellableFileUpload: CancellableFileUpload,
-    fileId: string,
-    traceContext?: MediaTraceContext,
-  ) => {
-    const { mediaFile } = cancellableFileUpload;
+	private readonly onFileSuccess = async (
+		cancellableFileUpload: CancellableFileUpload,
+		fileId: string,
+		traceContext?: MediaTraceContext,
+	) => {
+		const { mediaFile } = cancellableFileUpload;
 
-    this.emit('file-converting', {
-      file: mediaFile,
-      traceContext,
-    });
+		this.emit('file-converting', {
+			file: mediaFile,
+			traceContext,
+		});
 
-    cancellableFileUpload.cancel = () => {
-      this.releaseCancellableFile(mediaFile);
-    };
-  };
+		cancellableFileUpload.cancel = () => {
+			this.releaseCancellableFile(mediaFile);
+		};
+	};
 
-  private readonly onFileError = (
-    mediaFile: MediaFile,
-    name: MediaErrorName,
-    error: Error | string,
-    traceContext?: MediaTraceContext,
-  ) => {
-    this.releaseCancellableFile(mediaFile);
+	private readonly onFileError = (
+		mediaFile: MediaFile,
+		name: MediaErrorName,
+		error: Error | string,
+		traceContext?: MediaTraceContext,
+	) => {
+		this.releaseCancellableFile(mediaFile);
 
-    if (error === 'canceled') {
-      // Specific error coming from chunkinator via rejected fileId promise.
-      // We do not want to trigger error in this case.
-      return;
-    }
+		if (error === 'canceled') {
+			// Specific error coming from chunkinator via rejected fileId promise.
+			// We do not want to trigger error in this case.
+			return;
+		}
 
-    const description = error instanceof Error ? error.message : error;
-    const rawError = error instanceof Error ? error : undefined;
+		const description = error instanceof Error ? error.message : error;
+		const rawError = error instanceof Error ? error : undefined;
 
-    this.emit('file-upload-error', {
-      fileId: mediaFile.id,
-      error: {
-        fileId: mediaFile.id,
-        name,
-        description,
-        rawError,
-      },
-      traceContext,
-    });
-  };
+		this.emit('file-upload-error', {
+			fileId: mediaFile.id,
+			error: {
+				fileId: mediaFile.id,
+				name,
+				description,
+				rawError,
+			},
+			traceContext,
+		});
+	};
 
-  onFileEmpty(handler: (fileEmptyData: FileEmptyData) => void) {
-    this.fileEmptyHandler = handler;
-  }
+	onFileEmpty(handler: (fileEmptyData: FileEmptyData) => void) {
+		this.fileEmptyHandler = handler;
+	}
 
-  onFileRejection(handler: (rejectionData: UploadRejectionData) => void) {
-    this.fileRejectionHandler = handler;
-  }
+	onFileRejection(handler: (rejectionData: UploadRejectionData) => void) {
+		this.fileRejectionHandler = handler;
+	}
 }

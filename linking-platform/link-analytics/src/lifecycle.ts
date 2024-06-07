@@ -1,16 +1,13 @@
 import { useMemo } from 'react';
-import {
-  useAnalyticsEvents,
-  createAndFireEvent,
-} from '@atlaskit/analytics-next';
+import { useAnalyticsEvents, createAndFireEvent } from '@atlaskit/analytics-next';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 import {
-  type DatasourceLifecycleEventCallback,
-  type DatasourceLifecycleMethods,
-  type LifecycleAction,
-  type LinkLifecycleEventCallback,
-  type SmartLinkLifecycleMethods,
+	type DatasourceLifecycleEventCallback,
+	type DatasourceLifecycleMethods,
+	type LifecycleAction,
+	type LinkLifecycleEventCallback,
+	type SmartLinkLifecycleMethods,
 } from './types';
 import { ANALYTICS_CHANNEL } from './consts';
 import createEventPayload from './common/utils/analytics/analytics.codegen';
@@ -40,87 +37,82 @@ import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
  * ```
  */
 export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
-  const { createAnalyticsEvent } = useAnalyticsEvents();
-  const {
-    store,
-    connections: { client },
-  } = useSmartLinkContext();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const {
+		store,
+		connections: { client },
+	} = useSmartLinkContext();
 
-  return useMemo(() => {
-    const factory =
-      (action: LifecycleAction): LinkLifecycleEventCallback =>
-      (...args) => {
-        try {
-          runWhenIdle(() => {
-            createAndFireEvent(ANALYTICS_CHANNEL)(
-              createEventPayload('operational.fireAnalyticEvent.commenced', {
-                action,
-              }),
-            )(createAnalyticsEvent);
-          });
-          runWhenIdle(async () => {
-            const { default: fireEvent } = await import(
-              /* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-event'
-            );
-            fireEvent(action, createAnalyticsEvent, client, store)(...args);
-          });
-        } catch (error: unknown) {
-          createAndFireEvent(ANALYTICS_CHANNEL)(
-            createEventPayload('operational.fireAnalyticEvent.failed', {
-              error: error instanceof Error ? error.toString() : '',
-              action,
-            }),
-          )(createAnalyticsEvent);
-        }
-      };
+	return useMemo(() => {
+		const factory =
+			(action: LifecycleAction): LinkLifecycleEventCallback =>
+			(...args) => {
+				try {
+					runWhenIdle(() => {
+						createAndFireEvent(ANALYTICS_CHANNEL)(
+							createEventPayload('operational.fireAnalyticEvent.commenced', {
+								action,
+							}),
+						)(createAnalyticsEvent);
+					});
+					runWhenIdle(async () => {
+						const { default: fireEvent } = await import(
+							/* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-event'
+						);
+						fireEvent(action, createAnalyticsEvent, client, store)(...args);
+					});
+				} catch (error: unknown) {
+					createAndFireEvent(ANALYTICS_CHANNEL)(
+						createEventPayload('operational.fireAnalyticEvent.failed', {
+							error: error instanceof Error ? error.toString() : '',
+							action,
+						}),
+					)(createAnalyticsEvent);
+				}
+			};
 
-    return {
-      linkCreated: factory('created'),
-      linkUpdated: factory('updated'),
-      linkDeleted: factory('deleted'),
-    };
-  }, [client, store, createAnalyticsEvent]);
+		return {
+			linkCreated: factory('created'),
+			linkUpdated: factory('updated'),
+			linkDeleted: factory('deleted'),
+		};
+	}, [client, store, createAnalyticsEvent]);
 };
 
-export const useDatasourceLifecycleAnalytics =
-  (): DatasourceLifecycleMethods => {
-    const { createAnalyticsEvent } = useAnalyticsEvents();
-    const { getDatasourceData } = useDatasourceClientExtension();
-    return useMemo(() => {
-      const factory =
-        (action: LifecycleAction): DatasourceLifecycleEventCallback =>
-        (...args) => {
-          try {
-            runWhenIdle(() => {
-              createAndFireEvent(ANALYTICS_CHANNEL)(
-                createEventPayload('operational.fireAnalyticEvent.commenced', {
-                  action,
-                }),
-              )(createAnalyticsEvent);
-            });
-            runWhenIdle(async () => {
-              const { fireDatasourceEvent } = await import(
-                /* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-event'
-              );
-              fireDatasourceEvent(
-                action,
-                createAnalyticsEvent,
-                getDatasourceData,
-              )(...args);
-            });
-          } catch (error) {
-            createAndFireEvent(ANALYTICS_CHANNEL)(
-              createEventPayload('operational.fireAnalyticEvent.failed', {
-                error: error instanceof Error ? error.toString() : '',
-                action,
-              }),
-            )(createAnalyticsEvent);
-          }
-        };
-      return {
-        datasourceCreated: factory('created'),
-        datasourceUpdated: factory('updated'),
-        datasourceDeleted: factory('deleted'),
-      };
-    }, [createAnalyticsEvent, getDatasourceData]);
-  };
+export const useDatasourceLifecycleAnalytics = (): DatasourceLifecycleMethods => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { getDatasourceData } = useDatasourceClientExtension();
+	return useMemo(() => {
+		const factory =
+			(action: LifecycleAction): DatasourceLifecycleEventCallback =>
+			(...args) => {
+				try {
+					runWhenIdle(() => {
+						createAndFireEvent(ANALYTICS_CHANNEL)(
+							createEventPayload('operational.fireAnalyticEvent.commenced', {
+								action,
+							}),
+						)(createAnalyticsEvent);
+					});
+					runWhenIdle(async () => {
+						const { fireDatasourceEvent } = await import(
+							/* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-event'
+						);
+						fireDatasourceEvent(action, createAnalyticsEvent, getDatasourceData)(...args);
+					});
+				} catch (error) {
+					createAndFireEvent(ANALYTICS_CHANNEL)(
+						createEventPayload('operational.fireAnalyticEvent.failed', {
+							error: error instanceof Error ? error.toString() : '',
+							action,
+						}),
+					)(createAnalyticsEvent);
+				}
+			};
+		return {
+			datasourceCreated: factory('created'),
+			datasourceUpdated: factory('updated'),
+			datasourceDeleted: factory('deleted'),
+		};
+	}, [createAnalyticsEvent, getDatasourceData]);
+};

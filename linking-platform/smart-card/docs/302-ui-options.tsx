@@ -19,11 +19,11 @@ The UI options is a new prop on Card component used to configure Flexible Smart 
 It can be combined to provide a wide range of integrations.
 
 ${(
-  <ContentTabs
-    tabs={[
-      { name: TabName.Examples, content: examples },
-      { name: TabName.Reference, content: reference },
-    ]}
-  />
+	<ContentTabs
+		tabs={[
+			{ name: TabName.Examples, content: examples },
+			{ name: TabName.Reference, content: reference },
+		]}
+	/>
 )}
 `;

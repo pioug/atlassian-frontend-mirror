@@ -3,28 +3,28 @@ import { StyledBar } from './styledBar';
 import { Breakpoint } from '../common';
 
 export type ProgressBarProps = {
-  progress?: number;
-  breakpoint?: Breakpoint;
-  positionBottom?: boolean;
-  showOnTop?: boolean;
+	progress?: number;
+	breakpoint?: Breakpoint;
+	positionBottom?: boolean;
+	showOnTop?: boolean;
 };
 
 export const getNormalizedProgress = (progress?: number) => {
-  return Math.min(1, Math.max(0, progress || 0)) * 100;
+	return Math.min(1, Math.max(0, progress || 0)) * 100;
 };
 
 export const ProgressBar = ({
-  progress,
-  breakpoint = Breakpoint.SMALL,
-  positionBottom = false,
-  showOnTop = false,
+	progress,
+	breakpoint = Breakpoint.SMALL,
+	positionBottom = false,
+	showOnTop = false,
 }: ProgressBarProps) => {
-  return (
-    <StyledBar
-      progress={getNormalizedProgress(progress)}
-      breakpoint={breakpoint}
-      positionBottom={positionBottom}
-      showOnTop={showOnTop}
-    />
-  );
+	return (
+		<StyledBar
+			progress={getNormalizedProgress(progress)}
+			breakpoint={breakpoint}
+			positionBottom={positionBottom}
+			showOnTop={showOnTop}
+		/>
+	);
 };

@@ -7,9 +7,9 @@ import { spacingTests } from '../../ensure-design-token-usage/__tests__/spacing.
  * As such these tests will fail. The only exist to demonstrate what the rule used to achieve.
  */
 typescriptEslintTester.run(
-  'ensure-design-token-usage/preview',
-  // @ts-expect-error
-  rule,
-  spacingTests,
+	'ensure-design-token-usage/preview',
+	// @ts-expect-error
+	rule,
+	spacingTests,
 );
 tester.run('ensure-design-token-usage/preview', rule, spacingTests);

@@ -9,12 +9,12 @@ import { N40 } from '@atlaskit/theme/colors';
 export const className = 'media-card-frame';
 
 export interface WrapperProps {
-  minWidth?: number;
-  maxWidth?: number;
-  isInteractive?: boolean;
-  isSelected?: boolean;
-  frameStyle?: FrameStyle;
-  inheritDimensions?: boolean;
+	minWidth?: number;
+	maxWidth?: number;
+	isInteractive?: boolean;
+	isSelected?: boolean;
+	frameStyle?: FrameStyle;
+	inheritDimensions?: boolean;
 }
 
 export const borderRadius = `
@@ -30,9 +30,9 @@ const contentBorderRadius = `
 `;
 
 export const ellipsis = (maxWidth: string | number = '100%') => {
-  const unit = typeof maxWidth === 'number' ? 'px' : '';
+	const unit = typeof maxWidth === 'number' ? 'px' : '';
 
-  return `
+	return `
     max-width: ${maxWidth}${unit};
     overflow: hidden;
     text-overflow: ellipsis;
@@ -41,33 +41,33 @@ export const ellipsis = (maxWidth: string | number = '100%') => {
 };
 
 export const csssize = (value: string | number = '100%') => {
-  const unit = typeof value === 'number' ? 'px' : '';
+	const unit = typeof value === 'number' ? 'px' : '';
 
-  return `
+	return `
     width: ${value}${unit};
     height: ${value}${unit};
   `;
 };
 
 function minWidth({ minWidth }: WrapperProps) {
-  if (minWidth) {
-    return `min-width: ${minWidth}px;`;
-  } else {
-    return '';
-  }
+	if (minWidth) {
+		return `min-width: ${minWidth}px;`;
+	} else {
+		return '';
+	}
 }
 
 function maxWidth({ maxWidth }: WrapperProps) {
-  if (maxWidth) {
-    return `max-width: ${maxWidth}px; margin: 0 auto;`;
-  } else {
-    return 'margin: 0 auto;';
-  }
+	if (maxWidth) {
+		return `max-width: ${maxWidth}px; margin: 0 auto;`;
+	} else {
+		return 'margin: 0 auto;';
+	}
 }
 
 function getInteractiveStyles({ isInteractive, frameStyle }: WrapperProps) {
-  return isInteractive
-    ? `
+	return isInteractive
+		? `
       &:hover {
         ${frameStyle !== 'hide' && visibleStyles}
 
@@ -76,12 +76,12 @@ function getInteractiveStyles({ isInteractive, frameStyle }: WrapperProps) {
         background-color: ${token('color.background.selected', colors.B50)};
       }
     `
-    : '';
+		: '';
 }
 
 function selected({ isSelected, frameStyle }: WrapperProps) {
-  return isSelected && frameStyle !== 'hide'
-    ? `
+	return isSelected && frameStyle !== 'hide'
+		? `
     ${visibleStyles}
     &::after {
       cursor: pointer;
@@ -95,13 +95,13 @@ function selected({ isSelected, frameStyle }: WrapperProps) {
       ${wrapperBorderRadius}
     }
     `
-    : isSelected && frameStyle === 'hide'
-    ? contentBorderRadius
-    : '';
+		: isSelected && frameStyle === 'hide'
+			? contentBorderRadius
+			: '';
 }
 
 const height = ({ inheritDimensions }: WrapperProps) =>
-  inheritDimensions ? 'height: 100%;' : `height: ${gridSize(54)}`;
+	inheritDimensions ? 'height: 100%;' : `height: ${gridSize(54)}`;
 
 const wrapperStyles = (props: WrapperProps) => `
   ${wrapperBorderRadius}
@@ -136,11 +136,11 @@ const wrapperStyles = (props: WrapperProps) => `
 // 100% of the content +16px and position it left -8px to make it appear
 // outside the container
 const wrapperSizing = ({ frameStyle }: WrapperProps) =>
-  frameStyle === 'show'
-    ? `
+	frameStyle === 'show'
+		? `
     box-sizing: border-box;
     width: 100%;`
-    : `
+		: `
     width: calc(100% + ${token('space.200', '16px')});
     left: ${token('space.negative.100', '-8px')};`;
 
@@ -154,108 +154,105 @@ const visibleStyles = `
   }`;
 
 function visible({ frameStyle }: WrapperProps) {
-  return frameStyle === 'show' ? visibleStyles : '';
+	return frameStyle === 'show' ? visibleStyles : '';
 }
 
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LinkWrapper = styled.div`
-  ${(props: WrapperProps) => wrapperStyles(props)} &:hover {
-    text-decoration: none;
-  }
+	${(props: WrapperProps) => wrapperStyles(props)} &:hover {
+		text-decoration: none;
+	}
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-export const Wrapper = styled.div<WrapperProps>(
-  (props) => wrapperStyles(props),
-  {
-    // We are keeping this margin as a hardcoded variable as it is not a standard token size and needs
-    // to be thoroughly checked with a designer so that we do not miss an unintended visual change
-    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-    marginTop: '10px',
-  },
-);
+export const Wrapper = styled.div<WrapperProps>((props) => wrapperStyles(props), {
+	// We are keeping this margin as a hardcoded variable as it is not a standard token size and needs
+	// to be thoroughly checked with a designer so that we do not miss an unintended visual change
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	marginTop: '10px',
+});
 
 export interface HeaderProps {
-  frameStyle?: FrameStyle;
+	frameStyle?: FrameStyle;
 }
 
 export const embedHeaderHeight = 32;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Header = styled.div(
-  {
-    height: `${embedHeaderHeight}px`,
-    position: 'absolute',
-    zIndex: 1,
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    color: token('color.icon', colors.N300),
-    opacity: 0,
-    transition: '300ms opacity cubic-bezier(0.15, 1, 0.3, 1)',
-  },
-  ({ frameStyle }: HeaderProps) =>
-    frameStyle === 'show'
-      ? `
+	{
+		height: `${embedHeaderHeight}px`,
+		position: 'absolute',
+		zIndex: 1,
+		width: '100%',
+		display: 'flex',
+		alignItems: 'center',
+		color: token('color.icon', colors.N300),
+		opacity: 0,
+		transition: '300ms opacity cubic-bezier(0.15, 1, 0.3, 1)',
+	},
+	({ frameStyle }: HeaderProps) =>
+		frameStyle === 'show'
+			? `
         box-sizing: border-box;
         padding: 0 ${token('space.100', '8px')};
       `
-      : '',
+			: '',
 );
 
 export interface PlaceholderProps {
-  isPlaceholder: boolean;
+	isPlaceholder: boolean;
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconWrapper = styled.div(
-  borderRadius,
-  csssize(16),
-  ({ isPlaceholder }: PlaceholderProps) => {
-    if (isPlaceholder) {
-      return `
+	borderRadius,
+	csssize(16),
+	({ isPlaceholder }: PlaceholderProps) => {
+		if (isPlaceholder) {
+			return `
       background-color: ${token('color.skeleton', colors.N30)};
     `;
-    } else {
-      return '';
-    }
-  },
-  {
-    marginRight: token('space.050', '4px'),
-  },
+		} else {
+			return '';
+		}
+	},
+	{
+		marginRight: token('space.050', '4px'),
+	},
 );
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TextWrapper = styled.div(
-  ({ isPlaceholder }: PlaceholderProps) => {
-    if (isPlaceholder) {
-      return `
+	({ isPlaceholder }: PlaceholderProps) => {
+		if (isPlaceholder) {
+			return `
         ${borderRadius}
         width: 125px;
         height: 12px;
         background-color: ${token('color.skeleton', colors.N30)};
       `;
-    } else {
-      return '';
-    }
-  },
-  {
-    color: token('color.text.subtlest', colors.N300),
-    fontSize: '12px',
-    lineHeight: '16px',
-  },
-  ellipsis('none'),
+		} else {
+			return '';
+		}
+	},
+	{
+		color: token('color.text.subtlest', colors.N300),
+		fontSize: '12px',
+		lineHeight: '16px',
+	},
+	ellipsis('none'),
 );
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TooltipWrapper = styled.div({
-  overflow: 'hidden',
+	overflow: 'hidden',
 });
 
 export interface ContentProps {
-  isInteractive: boolean;
-  allowScrollBar: boolean;
-  removeOverflow?: boolean;
-  frameStyle?: FrameStyle;
+	isInteractive: boolean;
+	allowScrollBar: boolean;
+	removeOverflow?: boolean;
+	frameStyle?: FrameStyle;
 }
 
 // NB: `overflow` is kept as `hidden` since
@@ -263,158 +260,150 @@ export interface ContentProps {
 // manage scrolling behaviour.
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Content = styled.div`
-  ${contentBorderRadius};
-  border: 1px solid ${token('color.border', N40)};
-  background-color: ${token('elevation.surface.raised', 'white')};
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  transition: box-shadow 0.3s;
+	${contentBorderRadius};
+	border: 1px solid ${token('color.border', N40)};
+	background-color: ${token('elevation.surface.raised', 'white')};
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	transition: box-shadow 0.3s;
 
-  > .calc-height > div > div {
-    left: unset !important;
-    width: unset !important;
-    height: unset !important;
-    position: initial !important;
-    padding-bottom: unset !important;
-  }
-  > .embed-preview > div {
-    margin: 0 auto;
-  }
+	> .calc-height > div > div {
+		left: unset !important;
+		width: unset !important;
+		height: unset !important;
+		position: initial !important;
+		padding-bottom: unset !important;
+	}
+	> .embed-preview > div {
+		margin: 0 auto;
+	}
 
-  ${({ allowScrollBar, removeOverflow }: ContentProps) => {
-    if (removeOverflow) {
-      return '';
-    }
-    return allowScrollBar ? 'overflow: auto;' : 'overflow: hidden;';
-  }}
+	${({ allowScrollBar, removeOverflow }: ContentProps) => {
+		if (removeOverflow) {
+			return '';
+		}
+		return allowScrollBar ? 'overflow: auto;' : 'overflow: hidden;';
+	}}
 
-  ${({ frameStyle }: ContentProps) =>
-    frameStyle === 'show'
-      ? `
+	${({ frameStyle }: ContentProps) =>
+		frameStyle === 'show'
+			? `
         width: calc(100% - ${token('space.200', '16px')} - 2px);
         margin: 0 ${token('space.100', '8px')} ${token('space.100', '8px')};
       `
-      : ''}
+			: ''}
 
   ${({ frameStyle }: ContentProps) =>
-    frameStyle === 'hide'
-      ? 'height: 100%;'
-      : `
+		frameStyle === 'hide'
+			? 'height: 100%;'
+			: `
         height: calc(100% - ${token('space.400', '32px')});
         top: ${token('space.400', '32px')};
       `}
 `;
 
 export interface ImageProps {
-  size: number;
+	size: number;
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-export const Image = styled.img(
-  ({ size }: ImageProps) => csssize(size),
-  borderRadius,
-  {
-    overflow: 'hidden',
-  },
-);
+export const Image = styled.img(({ size }: ImageProps) => csssize(size), borderRadius, {
+	overflow: 'hidden',
+});
 
 export const maxAvatarCount = 6;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ContentWrapper = styled.div({
-  display: 'flex',
-  flexDirection: 'row',
-  boxSizing: 'border-box',
-  padding: `${token('space.100', '8px')} ${token('space.150', '12px')} ${token(
-    'space.150',
-    '12px',
-  )} ${token('space.150', '12px')}`,
+	display: 'flex',
+	flexDirection: 'row',
+	boxSizing: 'border-box',
+	padding: `${token('space.100', '8px')} ${token('space.150', '12px')} ${token(
+		'space.150',
+		'12px',
+	)} ${token('space.150', '12px')}`,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Title = styled.div({
-  color: token('color.text', colors.N900),
-  fontSize: '16px',
-  fontWeight: 500,
-  lineHeight: 20 / 16,
-  maxHeight: `${20 * 4}px`,
-  overflow: 'hidden',
+	color: token('color.text', colors.N900),
+	fontSize: '16px',
+	fontWeight: 500,
+	lineHeight: 20 / 16,
+	maxHeight: `${20 * 4}px`,
+	overflow: 'hidden',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Byline = styled.div(
-  {
-    marginTop: token('space.050', '4px'),
-    color: token('color.text.subtlest', colors.N300),
-    fontSize: '12px',
-    fontWeight: 'normal',
-    lineHeight: 16 / 12,
-  },
-  ellipsis('100%'),
+	{
+		marginTop: token('space.050', '4px'),
+		color: token('color.text.subtlest', colors.N300),
+		fontSize: '12px',
+		fontWeight: 'normal',
+		lineHeight: 16 / 12,
+	},
+	ellipsis('100%'),
 );
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Description = styled.div({
-  marginTop: `calc(${token('space.100', '8px')} - 1px)`,
-  color: token('color.text', colors.N800),
-  fontSize: '12px',
-  fontWeight: 'normal',
-  lineHeight: 18 / 12,
-  maxHeight: `${18 * 3}px`,
-  overflow: 'hidden',
+	marginTop: `calc(${token('space.100', '8px')} - 1px)`,
+	color: token('color.text', colors.N800),
+	fontSize: '12px',
+	fontWeight: 'normal',
+	lineHeight: 18 / 12,
+	maxHeight: `${18 * 3}px`,
+	overflow: 'hidden',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ResolvedViewIconWrapper = styled.div({
-  marginTop: token('space.050', '4px'),
+	marginTop: token('space.050', '4px'),
 });
 
 export interface ThumbnailProps {
-  src: string;
+	src: string;
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-export const Thumbnail = styled.div<ThumbnailProps>(
-  borderRadius,
-  csssize(48),
-  (props) => ({
-    float: 'right',
-    margin: `${token('space.050', '4px')} 0 ${token(
-      'space.150',
-      '12px',
-    )} ${token('space.150', '12px')}`,
-    backgroundColor: token('color.skeleton', colors.N30),
-    backgroundImage: `url(${props.src})`,
-    backgroundSize: 'cover',
-  }),
-);
+export const Thumbnail = styled.div<ThumbnailProps>(borderRadius, csssize(48), (props) => ({
+	float: 'right',
+	margin: `${token('space.050', '4px')} 0 ${token(
+		'space.150',
+		'12px',
+	)} ${token('space.150', '12px')}`,
+	backgroundColor: token('color.skeleton', colors.N30),
+	backgroundImage: `url(${props.src})`,
+	backgroundSize: 'cover',
+}));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const UsersWrapper = styled.div({
-  marginTop: token('space.100', '8px'),
+	marginTop: token('space.100', '8px'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ActionsWrapper = styled.div({
-  marginTop: token('space.100', '8px'),
-  textAlign: 'right',
-  '> *': {
-    marginTop: token('space.050', '4px'),
-  },
-  '> * + *': {
-    marginLeft: token('space.050', '4px'),
-  },
+	marginTop: token('space.100', '8px'),
+	textAlign: 'right',
+	'> *': {
+		marginTop: token('space.050', '4px'),
+	},
+	'> * + *': {
+		marginLeft: token('space.050', '4px'),
+	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AlertWrapper = styled.div({
-  position: 'absolute',
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-  overflow: 'hidden',
-  pointerEvents: 'none',
-  zIndex: maxAvatarCount + 1,
+	position: 'absolute',
+	top: 0,
+	right: 0,
+	bottom: 0,
+	left: 0,
+	overflow: 'hidden',
+	pointerEvents: 'none',
+	zIndex: maxAvatarCount + 1,
 });

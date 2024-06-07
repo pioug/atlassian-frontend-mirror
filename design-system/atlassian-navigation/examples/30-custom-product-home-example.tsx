@@ -9,7 +9,6 @@ import {
   bitbucketPrimaryItems,
   confluencePrimaryItems,
   jiraPrimaryItems,
-  opsGeniePrimaryItems,
 } from './shared/primary-items';
 import {
   BitbucketProductHome,
@@ -18,8 +17,6 @@ import {
   DefaultCustomProductHome,
   JiraProductHome,
   JiraServiceManagementProductHome,
-  JiraSoftwareProductHome,
-  OpsGenieProductHome,
 } from './shared/product-home';
 import { ProfilePopup } from './shared/profile-popup';
 import { DefaultSearch } from './shared/search';
@@ -82,34 +79,6 @@ const CustomProductHomeExample = () => (
       renderSearch={DefaultSearch}
       renderSettings={DefaultSettings}
       testId="jsm-nav"
-    />
-    <br />
-    <AtlassianNavigation
-      label="site"
-      primaryItems={jiraPrimaryItems}
-      renderAppSwitcher={SwitcherPopup}
-      renderCreate={DefaultCreate}
-      renderHelp={HelpPopup}
-      renderNotifications={NotificationsPopup}
-      renderProductHome={JiraSoftwareProductHome}
-      renderProfile={ProfilePopup}
-      renderSearch={DefaultSearch}
-      renderSettings={DefaultSettings}
-      testId="jsw-nav"
-    />
-    <br />
-    <AtlassianNavigation
-      label="site"
-      primaryItems={opsGeniePrimaryItems}
-      renderAppSwitcher={SwitcherPopup}
-      renderCreate={DefaultCreate}
-      renderHelp={HelpPopup}
-      renderNotifications={NotificationsPopup}
-      renderProductHome={OpsGenieProductHome}
-      renderProfile={ProfilePopup}
-      renderSearch={DefaultSearch}
-      renderSettings={DefaultSettings}
-      testId="opsgenie-nav"
     />
     <br />
     <AtlassianNavigation

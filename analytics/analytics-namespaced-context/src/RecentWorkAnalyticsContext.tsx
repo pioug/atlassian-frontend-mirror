@@ -3,5 +3,7 @@ import createNamespaceContext, { type Props } from './helper/createNamespaceCont
 
 export const RECENT_WORK_CONTEXT = 'RecentWorkCtx';
 
-export const RecentWorkAnalyticsContext: FunctionComponent<Props> =
-  createNamespaceContext(RECENT_WORK_CONTEXT, 'RecentWorkAnalyticsContext');
+export const RecentWorkAnalyticsContext: FunctionComponent<Props> = createNamespaceContext(
+	RECENT_WORK_CONTEXT,
+	'RecentWorkAnalyticsContext',
+);

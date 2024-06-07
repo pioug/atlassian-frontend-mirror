@@ -9,32 +9,26 @@ export const ROW_CLASSNAME = 'media-table-row';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const exampleWrapperStyles = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
-  .${ROW_HIGHLIGHT_CLASSNAME} {
-    background-color: ${token('color.background.warning', colors.Y50)};
+	.${ROW_HIGHLIGHT_CLASSNAME} {
+		background-color: ${token('color.background.warning', colors.Y50)};
 
-    &:hover {
-      background-color: ${token(
-        'color.background.warning.hovered',
-        colors.Y75,
-      )};
-    }
-  }
+		&:hover {
+			background-color: ${token('color.background.warning.hovered', colors.Y75)};
+		}
+	}
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const greenOnHoverStyles = css`
-  background-color: ${token('color.background.danger.bold', 'red')};
-  height: 8px;
-  width: 8px;
+	background-color: ${token('color.background.danger.bold', 'red')};
+	height: 8px;
+	width: 8px;
 
-  .${ROW_CLASSNAME}:hover & {
-    background-color: ${token(
-      'color.background.success.bold.hovered',
-      'green',
-    )};
-  }
+	.${ROW_CLASSNAME}:hover & {
+		background-color: ${token('color.background.success.bold.hovered', 'green')};
+	}
 `;

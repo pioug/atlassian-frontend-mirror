@@ -1,11 +1,7 @@
-import type {
-  DragDropContext,
-  Draggable,
-  Droppable,
-} from 'react-beautiful-dnd';
+import type { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 export type RbdApi = {
-  DragDropContext: typeof DragDropContext;
-  Draggable: typeof Draggable;
-  Droppable: typeof Droppable;
+	DragDropContext: typeof DragDropContext;
+	Draggable: typeof Draggable;
+	Droppable: typeof Droppable;
 };

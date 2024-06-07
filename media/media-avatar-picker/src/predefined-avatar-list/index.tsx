@@ -10,40 +10,42 @@ import { useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 
 export interface PredefinedAvatarListProps {
-  avatars: Array<Avatar>;
-  selectedAvatar?: Avatar;
-  onShowMore?: () => void;
-  onAvatarSelected: (avatar: Avatar) => void;
-  selectAvatarLabel?: string;
-  showMoreAvatarsButtonLabel?: string;
+	avatars: Array<Avatar>;
+	selectedAvatar?: Avatar;
+	onShowMore?: () => void;
+	onAvatarSelected: (avatar: Avatar) => void;
+	selectAvatarLabel?: string;
+	showMoreAvatarsButtonLabel?: string;
 }
 
 export const PredefinedAvatarList = ({
-  avatars = [],
-  selectedAvatar,
-  onShowMore,
-  onAvatarSelected,
-  selectAvatarLabel,
-  showMoreAvatarsButtonLabel
+	avatars = [],
+	selectedAvatar,
+	onShowMore,
+	onAvatarSelected,
+	selectAvatarLabel,
+	showMoreAvatarsButtonLabel,
 }: PredefinedAvatarListProps) => {
-  const intl = useIntl();
+	const intl = useIntl();
 
-  return (
-    <div css={predefinedAvatarsWrapperStyles} id="predefined-avatar-wrapper">
-      <AvatarList
-        avatars={avatars}
-        selectedAvatar={selectedAvatar}
-        onItemClick={onAvatarSelected}
-        selectAvatarLabel={selectAvatarLabel}
-      />
-      <Button
-        aria-label={ showMoreAvatarsButtonLabel || intl.formatMessage(messages.show_more_avatars_btn_label) }
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className="show-more-button"
-        appearance="subtle"
-        iconAfter={<EditorMoreIcon label="" size="large" />}
-        onClick={onShowMore}
-      />
-    </div>
-  );
+	return (
+		<div css={predefinedAvatarsWrapperStyles} id="predefined-avatar-wrapper">
+			<AvatarList
+				avatars={avatars}
+				selectedAvatar={selectedAvatar}
+				onItemClick={onAvatarSelected}
+				selectAvatarLabel={selectAvatarLabel}
+			/>
+			<Button
+				aria-label={
+					showMoreAvatarsButtonLabel || intl.formatMessage(messages.show_more_avatars_btn_label)
+				}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="show-more-button"
+				appearance="subtle"
+				iconAfter={<EditorMoreIcon label="" size="large" />}
+				onClick={onShowMore}
+			/>
+		</div>
+	);
 };

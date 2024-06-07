@@ -78,8 +78,6 @@ export const themes: Themes = [
         backgroundColor: '#0052CC',
         color: '#253858',
         borderRight: '1px solid rgba(107, 119, 140, 0.3)',
-        iconGradientStart: '#0052CC',
-        iconGradientStop: '#2684FF',
         iconColor: '#2684FF',
       },
       primaryButton: {

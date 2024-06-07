@@ -7,21 +7,21 @@ import { css, jsx } from '@emotion/react';
  * @returns
  */
 const ValueContainerWrapper = ({
-  children,
-  isEnabled,
-  onMouseDown,
+	children,
+	isEnabled,
+	onMouseDown,
 }: {
-  children: React.ReactElement;
-  isEnabled: boolean;
-  onMouseDown: () => void;
+	children: React.ReactElement;
+	isEnabled: boolean;
+	onMouseDown: () => void;
 }) => {
-  return isEnabled ? (
-    <div css={css({ flexGrow: 1 })} onMouseDown={onMouseDown}>
-      {children}
-    </div>
-  ) : (
-    children
-  );
+	return isEnabled ? (
+		<div css={css({ flexGrow: 1 })} onMouseDown={onMouseDown}>
+			{children}
+		</div>
+	) : (
+		children
+	);
 };
 
 export default ValueContainerWrapper;

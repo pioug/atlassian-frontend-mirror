@@ -44,13 +44,13 @@ export default md`
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/emoji"
-      Component={EmojiPickerExample}
-      title="Emoji Picker"
-      source={EmojiPickerSource}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/emoji"
+			Component={EmojiPickerExample}
+			title="Emoji Picker"
+			source={EmojiPickerSource}
+		/>
+	)}
 
   ${(<Props props={EmojiPickerProps} />)}
 `;

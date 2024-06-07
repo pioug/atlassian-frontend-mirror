@@ -1,93 +1,87 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 import {
-  callExpression,
-  type CallExpression,
-  type EslintNode,
-  identifier,
-  insertAtStartOfFile,
-  insertImportDeclaration,
-  isNodeOfType,
-  literal,
-  type ObjectExpression,
-  type Property,
-  type SpreadElement,
-  type TaggedTemplateExpression,
+	callExpression,
+	type CallExpression,
+	type EslintNode,
+	identifier,
+	insertAtStartOfFile,
+	insertImportDeclaration,
+	isNodeOfType,
+	literal,
+	type ObjectExpression,
+	type Property,
+	type SpreadElement,
+	type TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
 import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
 
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
-import {
-  isColorCssPropertyName,
-  isCurrentSurfaceCustomPropertyName,
-} from '../utils/is-color';
+import { isColorCssPropertyName, isCurrentSurfaceCustomPropertyName } from '../utils/is-color';
 
 import {
-  borderWidthValueToToken,
-  isBorderRadius,
-  isBorderSizeProperty,
-  isShapeProperty,
-  radiusValueToToken,
+	borderWidthValueToToken,
+	isBorderRadius,
+	isBorderSizeProperty,
+	isShapeProperty,
+	radiusValueToToken,
 } from './shape';
 import { type Domains } from './types';
 
 const properties = [
-  'padding',
-  'paddingBlock',
-  'paddingInline',
-  'paddingLeft',
-  'paddingTop',
-  'paddingRight',
-  'paddingBottom',
-  'paddingInline',
-  'paddingInlineStart',
-  'paddingInlineEnd',
-  'paddingBlock',
-  'paddingBlockStart',
-  'paddingBlockEnd',
-  'marginLeft',
-  'marginTop',
-  'marginRight',
-  'marginBottom',
-  'marginInline',
-  'marginInlineStart',
-  'marginInlineEnd',
-  'marginBlock',
-  'marginBlockStart',
-  'marginBlockEnd',
-  'margin',
-  'gap',
-  'rowGap',
-  'gridRowGap',
-  'columnGap',
-  'gridColumnGap',
-  'top',
-  'left',
-  'right',
-  'bottom',
-  'inlineStart',
-  'inlineEnd',
-  'blockStart',
-  'blockEnd',
-  'outline-offset',
+	'padding',
+	'paddingBlock',
+	'paddingInline',
+	'paddingLeft',
+	'paddingTop',
+	'paddingRight',
+	'paddingBottom',
+	'paddingInline',
+	'paddingInlineStart',
+	'paddingInlineEnd',
+	'paddingBlock',
+	'paddingBlockStart',
+	'paddingBlockEnd',
+	'marginLeft',
+	'marginTop',
+	'marginRight',
+	'marginBottom',
+	'marginInline',
+	'marginInlineStart',
+	'marginInlineEnd',
+	'marginBlock',
+	'marginBlockStart',
+	'marginBlockEnd',
+	'margin',
+	'gap',
+	'rowGap',
+	'gridRowGap',
+	'columnGap',
+	'gridColumnGap',
+	'top',
+	'left',
+	'right',
+	'bottom',
+	'inlineStart',
+	'inlineEnd',
+	'blockStart',
+	'blockEnd',
+	'outline-offset',
 ];
 
 export type ProcessedCSSLines = [string, string][];
 
 const spacingValueToToken = Object.fromEntries(
-  spacingScale.map((token) => [token.value, token.cleanName]),
+	spacingScale.map((token) => [token.value, token.cleanName]),
 );
 
 export function insertTokensImport(fixer: Rule.RuleFixer) {
-  return insertAtStartOfFile(
-    fixer,
-    `${insertImportDeclaration('@atlaskit/tokens', ['token'])}\n`,
-  );
+	return insertAtStartOfFile(fixer, `${insertImportDeclaration('@atlaskit/tokens', ['token'])}\n`);
 }
 
 export const isSpacingProperty = (propertyName: string) => {
-  return properties.includes(propertyName);
+	return properties.includes(propertyName);
 };
 
 /**
@@ -102,223 +96,208 @@ export const isSpacingProperty = (propertyName: string) => {
  * For input `-${gridSize / 2}px ${token(...)} 18px -> [`-${gridSize / 2}px`, `${token(...)}`, `18px`]
  */
 export const splitShorthandValues = (str: string): string[] => {
-  return str
-    .split(/(\S*\$\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}\S*)|\s+/g)
-    .filter(Boolean);
+	return str.split(/(\S*\$\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}\S*)|\s+/g).filter(Boolean);
 };
 
 export const getValueFromShorthand = (str: unknown): (string | number)[] => {
-  const valueString = String(str);
-  const fontFamily = /(Charlie)|(sans-serif$)|(monospace$)/;
-  const fontWeightString = /(regular$)|(medium$)|(semibold$)|(bold$)/;
-  const fontStyleString = /(inherit$)|(normal$)|(italic$)/;
-  if (
-    fontFamily.test(valueString) ||
-    fontWeightString.test(valueString) ||
-    fontStyleString.test(valueString)
-  ) {
-    return [valueString];
-  }
-  // If we want to filter out NaN just add .filter(Boolean)
-  return splitShorthandValues(String(str).trim()).map(removePixelSuffix);
+	const valueString = String(str);
+	const fontFamily = /(Charlie)|(sans-serif$)|(monospace$)/;
+	const fontWeightString = /(regular$)|(medium$)|(semibold$)|(bold$)/;
+	const fontStyleString = /(inherit$)|(normal$)|(italic$)/;
+	if (
+		fontFamily.test(valueString) ||
+		fontWeightString.test(valueString) ||
+		fontStyleString.test(valueString)
+	) {
+		return [valueString];
+	}
+	// If we want to filter out NaN just add .filter(Boolean)
+	return splitShorthandValues(String(str).trim()).map(removePixelSuffix);
 };
 
 const isGridSize = (node: EslintNode): node is CallExpression =>
-  isNodeOfType(node, 'CallExpression') &&
-  isNodeOfType(node.callee, 'Identifier') &&
-  (node.callee.name === 'gridSize' || node.callee.name === 'getGridSize') &&
-  // If there are arguments we know it's a custom gridSize function and cannot be certain what it returns
-  node.arguments.length === 0;
+	isNodeOfType(node, 'CallExpression') &&
+	isNodeOfType(node.callee, 'Identifier') &&
+	(node.callee.name === 'gridSize' || node.callee.name === 'getGridSize') &&
+	// If there are arguments we know it's a custom gridSize function and cannot be certain what it returns
+	node.arguments.length === 0;
 
 const isToken = (node: EslintNode): node is CallExpression =>
-  isNodeOfType(node, 'CallExpression') &&
-  isNodeOfType(node.callee, 'Identifier') &&
-  node.callee.name === 'token';
+	isNodeOfType(node, 'CallExpression') &&
+	isNodeOfType(node.callee, 'Identifier') &&
+	node.callee.name === 'token';
 
-const getRawExpressionForToken = (
-  node: CallExpression,
-  context: Rule.RuleContext,
-): string => {
-  const args = node.arguments;
-  const call = `\${token(${args
-    .map((argNode) => {
-      if (isNodeOfType(argNode, 'Literal')) {
-        return argNode.raw;
-      }
+const getRawExpressionForToken = (node: CallExpression, context: Rule.RuleContext): string => {
+	const args = node.arguments;
+	const call = `\${token(${args
+		.map((argNode) => {
+			if (isNodeOfType(argNode, 'Literal')) {
+				return argNode.raw;
+			}
 
-      if (isNodeOfType(argNode, 'Identifier')) {
-        return argNode.name;
-      }
+			if (isNodeOfType(argNode, 'Identifier')) {
+				return argNode.name;
+			}
 
-      if (isNodeOfType(argNode, 'MemberExpression')) {
-        return getValue(argNode, context);
-      }
-    })
-    .join(', ')})}`;
-  return call;
+			if (isNodeOfType(argNode, 'MemberExpression')) {
+				return getValue(argNode, context);
+			}
+		})
+		.join(', ')})}`;
+	return call;
 };
 
 const isFontSize = (node: EslintNode): node is CallExpression =>
-  isNodeOfType(node, 'CallExpression') &&
-  isNodeOfType(node.callee, 'Identifier') &&
-  (node.callee.name === 'fontSize' || node.callee.name === 'getFontSize');
+	isNodeOfType(node, 'CallExpression') &&
+	isNodeOfType(node.callee, 'Identifier') &&
+	(node.callee.name === 'fontSize' || node.callee.name === 'getFontSize');
 
 const isFontSizeSmall = (node: EslintNode): node is CallExpression =>
-  isNodeOfType(node, 'CallExpression') &&
-  isNodeOfType(node.callee, 'Identifier') &&
-  node.callee.name === 'fontSizeSmall';
+	isNodeOfType(node, 'CallExpression') &&
+	isNodeOfType(node.callee, 'Identifier') &&
+	node.callee.name === 'fontSizeSmall';
 
-const getValueFromCallExpression = (
-  node: EslintNode,
-  context: Rule.RuleContext,
-) => {
-  if (!isNodeOfType(node, 'CallExpression')) {
-    return null;
-  }
+const getValueFromCallExpression = (node: EslintNode, context: Rule.RuleContext) => {
+	if (!isNodeOfType(node, 'CallExpression')) {
+		return null;
+	}
 
-  if (isGridSize(node)) {
-    return 8;
-  }
+	if (isGridSize(node)) {
+		return 8;
+	}
 
-  if (isBorderRadius(node)) {
-    return 3;
-  }
+	if (isBorderRadius(node)) {
+		return 3;
+	}
 
-  if (isFontSize(node)) {
-    return 14;
-  }
+	if (isFontSize(node)) {
+		return 14;
+	}
 
-  if (isFontSizeSmall(node)) {
-    return 11;
-  }
+	if (isFontSizeSmall(node)) {
+		return 11;
+	}
 
-  if (isToken(node)) {
-    return getRawExpressionForToken(node, context);
-  }
+	if (isToken(node)) {
+		return getRawExpressionForToken(node, context);
+	}
 
-  return null;
+	return null;
 };
 
 export const getValue = (
-  node: EslintNode,
-  context: Rule.RuleContext,
+	node: EslintNode,
+	context: Rule.RuleContext,
 ): string | number | (string | number)[] | null | undefined => {
-  if (isNodeOfType(node, 'Literal')) {
-    return getValueFromShorthand(node.value);
-  }
+	if (isNodeOfType(node, 'Literal')) {
+		return getValueFromShorthand(node.value);
+	}
 
-  if (isNodeOfType(node, 'BinaryExpression')) {
-    return getValueFromBinaryExpression(node, context);
-  }
+	if (isNodeOfType(node, 'BinaryExpression')) {
+		return getValueFromBinaryExpression(node, context);
+	}
 
-  if (isNodeOfType(node, 'UnaryExpression')) {
-    return getValueFromUnaryExpression(node, context);
-  }
+	if (isNodeOfType(node, 'UnaryExpression')) {
+		return getValueFromUnaryExpression(node, context);
+	}
 
-  if (isNodeOfType(node, 'CallExpression')) {
-    return getValueFromCallExpression(node, context);
-  }
+	if (isNodeOfType(node, 'CallExpression')) {
+		return getValueFromCallExpression(node, context);
+	}
 
-  if (isNodeOfType(node, 'Identifier')) {
-    return getValueFromIdentifier(node, context);
-  }
+	if (isNodeOfType(node, 'Identifier')) {
+		return getValueFromIdentifier(node, context);
+	}
 
-  if (isNodeOfType(node, 'TemplateLiteral')) {
-    return getValueFromTemplateLiteral(node, context);
-  }
+	if (isNodeOfType(node, 'TemplateLiteral')) {
+		return getValueFromTemplateLiteral(node, context);
+	}
 
-  return null;
+	return null;
 };
 
-export const getRawExpression = (
-  node: EslintNode,
-  context: Rule.RuleContext,
-): string | null => {
-  if (
-    !(
-      // if not one of our recognized types or doesn't have a range prop, early return
-      (
-        isNodeOfType(node, 'Literal') ||
-        isNodeOfType(node, 'Identifier') ||
-        isNodeOfType(node, 'BinaryExpression') ||
-        isNodeOfType(node, 'UnaryExpression') ||
-        isNodeOfType(node, 'TemplateLiteral') ||
-        isNodeOfType(node, 'CallExpression')
-      )
-    ) ||
-    !Array.isArray(node.range)
-  ) {
-    return null;
-  }
-  const [start, end] = node.range;
+export const getRawExpression = (node: EslintNode, context: Rule.RuleContext): string | null => {
+	if (
+		!(
+			// if not one of our recognized types or doesn't have a range prop, early return
+			(
+				isNodeOfType(node, 'Literal') ||
+				isNodeOfType(node, 'Identifier') ||
+				isNodeOfType(node, 'BinaryExpression') ||
+				isNodeOfType(node, 'UnaryExpression') ||
+				isNodeOfType(node, 'TemplateLiteral') ||
+				isNodeOfType(node, 'CallExpression')
+			)
+		) ||
+		!Array.isArray(node.range)
+	) {
+		return null;
+	}
+	const [start, end] = node.range;
 
-  return context
-    .getSourceCode()
-    .getText()
-    .substring(start, end)
-    .replaceAll('\n', '');
+	return context.getSourceCode().getText().substring(start, end).replaceAll('\n', '');
 };
 
 const getValueFromIdentifier = (
-  node: EslintNode,
-  context: Rule.RuleContext,
+	node: EslintNode,
+	context: Rule.RuleContext,
 ): number | null | any[] | string | undefined => {
-  if (!isNodeOfType(node, 'Identifier')) {
-    return null;
-  }
+	if (!isNodeOfType(node, 'Identifier')) {
+		return null;
+	}
 
-  if (node.name === 'gridSize') {
-    return 8;
-  }
+	if (node.name === 'gridSize') {
+		return 8;
+	}
 
-  const scope = context.getScope();
-  const variable = findIdentifierInParentScope({
-    scope,
-    identifierName: node.name,
-  });
+	const scope = context.getScope();
+	const variable = findIdentifierInParentScope({
+		scope,
+		identifierName: node.name,
+	});
 
-  if (!variable) {
-    return null;
-  }
+	if (!variable) {
+		return null;
+	}
 
-  const definition = variable.defs[0];
+	const definition = variable.defs[0];
 
-  if (
-    isNodeOfType(definition.node, 'ImportSpecifier') &&
-    isNodeOfType(definition.node.parent!, 'ImportDeclaration') &&
-    definition.node.parent.source.value ===
-      '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles'
-  ) {
-    return definition.node.imported.name === 'gridSize' ? 8 : null;
-  }
+	if (
+		isNodeOfType(definition.node, 'ImportSpecifier') &&
+		isNodeOfType(definition.node.parent!, 'ImportDeclaration') &&
+		definition.node.parent.source.value ===
+			'@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles'
+	) {
+		return definition.node.imported.name === 'gridSize' ? 8 : null;
+	}
 
-  if (!isNodeOfType(definition.node, 'VariableDeclarator')) {
-    return null;
-  }
+	if (!isNodeOfType(definition.node, 'VariableDeclarator')) {
+		return null;
+	}
 
-  if (!definition.node.init) {
-    return null;
-  }
+	if (!definition.node.init) {
+		return null;
+	}
 
-  return getValue(definition.node.init, context);
+	return getValue(definition.node.init, context);
 };
 
 const getValueFromUnaryExpression = (
-  node: EslintNode,
-  context: Rule.RuleContext,
+	node: EslintNode,
+	context: Rule.RuleContext,
 ): number | null => {
-  if (!isNodeOfType(node, 'UnaryExpression')) {
-    return null;
-  }
+	if (!isNodeOfType(node, 'UnaryExpression')) {
+		return null;
+	}
 
-  const value = getValue(node.argument, context);
+	const value = getValue(node.argument, context);
 
-  if (!value) {
-    return null;
-  }
+	if (!value) {
+		return null;
+	}
 
-  // eslint-disable-next-line no-eval
-  return eval(`${node.operator}(${value})`);
+	// eslint-disable-next-line no-eval
+	return eval(`${node.operator}(${value})`);
 };
 
 /**
@@ -336,161 +315,153 @@ const getValueFromUnaryExpression = (
  * ```
  */
 export const getValueFromTemplateLiteralRaw = (
-  node: EslintNode,
-  context: Rule.RuleContext,
+	node: EslintNode,
+	context: Rule.RuleContext,
 ): string[] | string | null => {
-  if (!isNodeOfType(node, `TemplateLiteral`)) {
-    return null;
-  }
+	if (!isNodeOfType(node, `TemplateLiteral`)) {
+		return null;
+	}
 
-  const combinedString = node.quasis
-    .map((q, i) => {
-      return `${q.value.raw}${
-        node.expressions[i] ? getValue(node.expressions[i], context) : ''
-      }`;
-    })
-    .join('')
-    .trim();
+	const combinedString = node.quasis
+		.map((q, i) => {
+			return `${q.value.raw}${node.expressions[i] ? getValue(node.expressions[i], context) : ''}`;
+		})
+		.join('')
+		.trim();
 
-  const fontFamily = /(sans-serif$)|(monospace$)/;
-  if (fontFamily.test(combinedString)) {
-    return combinedString;
-  }
+	const fontFamily = /(sans-serif$)|(monospace$)/;
+	if (fontFamily.test(combinedString)) {
+		return combinedString;
+	}
 
-  return combinedString.split(' ');
+	return combinedString.split(' ');
 };
 
 const getValueFromTemplateLiteral = (
-  node: EslintNode,
-  context: Rule.RuleContext,
+	node: EslintNode,
+	context: Rule.RuleContext,
 ): number[] | string[] | string | null => {
-  const value = getValueFromTemplateLiteralRaw(node, context);
+	const value = getValueFromTemplateLiteralRaw(node, context);
 
-  return Array.isArray(value) ? (value.map(removePixelSuffix) as any[]) : value;
+	return Array.isArray(value) ? (value.map(removePixelSuffix) as any[]) : value;
 };
 
 const getValueFromBinaryExpression = (
-  node: EslintNode,
-  context: Rule.RuleContext,
+	node: EslintNode,
+	context: Rule.RuleContext,
 ): number | null => {
-  if (!isNodeOfType(node, 'BinaryExpression')) {
-    return null;
-  }
+	if (!isNodeOfType(node, 'BinaryExpression')) {
+		return null;
+	}
 
-  const { left, right, operator } = node;
+	const { left, right, operator } = node;
 
-  const leftValue = getValue(left, context);
-  const rightValue = getValue(right, context);
-  const final =
-    rightValue && leftValue
-      ? // eslint-disable-next-line no-eval
-        eval(`${leftValue}${operator}${rightValue}`)
-      : null;
+	const leftValue = getValue(left, context);
+	const rightValue = getValue(right, context);
+	const final =
+		rightValue && leftValue
+			? // eslint-disable-next-line no-eval
+				eval(`${leftValue}${operator}${rightValue}`)
+			: null;
 
-  return final;
+	return final;
 };
 
 const emRegex = /(.*\d+)em$/;
 const percentageRegex = /(%$)/;
 
-export const emToPixels = <T extends unknown>(
-  value: T,
-  fontSize: number | null | undefined,
-) => {
-  if (typeof value === 'string') {
-    const emMatch = value.match(emRegex);
-    if (emMatch && typeof fontSize === 'number') {
-      return Number(emMatch[1]) * fontSize;
-    } else if (value.match(percentageRegex)) {
-      return value;
-    } else {
-      return null;
-    }
-  }
-  return value;
+export const emToPixels = <T extends unknown>(value: T, fontSize: number | null | undefined) => {
+	if (typeof value === 'string') {
+		const emMatch = value.match(emRegex);
+		if (emMatch && typeof fontSize === 'number') {
+			return Number(emMatch[1]) * fontSize;
+		} else if (value.match(percentageRegex)) {
+			return value;
+		} else {
+			return null;
+		}
+	}
+	return value;
 };
 
 const percentageOrEmOrAuto = /(%$)|(\d+em$)|(auto$)/;
 
 export const removePixelSuffix = (value: string | number): string | number => {
-  if (
-    typeof value === 'string' &&
-    (percentageOrEmOrAuto.test(value) || isCalc(value))
-  ) {
-    return value;
-  }
+	if (typeof value === 'string' && (percentageOrEmOrAuto.test(value) || isCalc(value))) {
+		return value;
+	}
 
-  return Number(typeof value === 'string' ? value.replace('px', '') : value);
+	return Number(typeof value === 'string' ? value.replace('px', '') : value);
 };
 
 const invalidSpacingUnitRegex = /(\d+rem$)|(vw$)|(vh$)/;
 
 export const isValidSpacingValue = (
-  value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
-  fontSize?: number | null | undefined,
+	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
+	fontSize?: number | null | undefined,
 ) => {
-  if (typeof value === 'string') {
-    if (invalidSpacingUnitRegex.test(value)) {
-      return false;
-    }
-  } else if (Array.isArray(value)) {
-    // could be array due to shorthand
-    for (const val in value) {
-      if (invalidSpacingUnitRegex.test(val)) {
-        return false;
-      }
-    }
-  }
+	if (typeof value === 'string') {
+		if (invalidSpacingUnitRegex.test(value)) {
+			return false;
+		}
+	} else if (Array.isArray(value)) {
+		// could be array due to shorthand
+		for (const val in value) {
+			if (invalidSpacingUnitRegex.test(val)) {
+				return false;
+			}
+		}
+	}
 
-  if (emRegex.test(value as string) && typeof fontSize !== 'number') {
-    return false;
-  }
-  return true;
+	if (emRegex.test(value as string) && typeof fontSize !== 'number') {
+		return false;
+	}
+	return true;
 };
 
 const calcRegex = /(^calc)/;
 
 export const isCalc = (
-  value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
+	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
 ) => {
-  if (typeof value === 'string') {
-    if (calcRegex.test(value)) {
-      return true;
-    }
-  }
-  return false;
+	if (typeof value === 'string') {
+		if (calcRegex.test(value)) {
+			return true;
+		}
+	}
+	return false;
 };
 
 export const isZero = (
-  value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
+	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
 ) => {
-  if (typeof value === 'string') {
-    if (value === '0px' || value === '0') {
-      return true;
-    }
-  }
-  if (typeof value === 'number') {
-    if (value === 0) {
-      return true;
-    }
-  }
-  return false;
+	if (typeof value === 'string') {
+		if (value === '0px' || value === '0') {
+			return true;
+		}
+	}
+	if (typeof value === 'number') {
+		if (value === 0) {
+			return true;
+		}
+	}
+	return false;
 };
 
 export const isAuto = (
-  value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
+	value: string | number | boolean | RegExp | null | undefined | any[] | bigint,
 ) => {
-  if (typeof value === 'string') {
-    if (value === 'auto') {
-      return true;
-    }
-  }
-  return false;
+	if (typeof value === 'string') {
+		if (value === 'auto') {
+			return true;
+		}
+	}
+	return false;
 };
 
 // convert line-height to lineHeight
 export const convertHyphenatedNameToCamelCase = (prop: string) => {
-  return prop.replace(/-./g, (m) => m[1].toUpperCase());
+	return prop.replace(/-./g, (m) => m[1].toUpperCase());
 };
 
 /**
@@ -498,14 +469,14 @@ export const convertHyphenatedNameToCamelCase = (prop: string) => {
  * @returns The furthest parent node that is on the same line as the input node.
  */
 export const findParentNodeForLine = (node: Rule.Node): Rule.Node => {
-  if (!node.parent) {
-    return node;
-  }
-  if (node.loc?.start.line !== node.parent.loc?.start.line) {
-    return node;
-  } else {
-    return findParentNodeForLine(node.parent);
-  }
+	if (!node.parent) {
+		return node;
+	}
+	if (node.loc?.start.line !== node.parent.loc?.start.line) {
+		return node;
+	} else {
+		return findParentNodeForLine(node.parent);
+	}
 };
 
 /**
@@ -519,28 +490,24 @@ export const findParentNodeForLine = (node: Rule.Node): Rule.Node => {
  * propertyName: backgroundColor, targetOptions: ['color', 'spacing'] -> returns ['color']
  * ```
  */
-export function getDomainsForProperty(
-  propertyName: string,
-  targetOptions: Domains,
-): Domains {
-  const domains: Domains = [];
-  if (
-    (isColorCssPropertyName(propertyName) ||
-      isCurrentSurfaceCustomPropertyName(propertyName)) &&
-    targetOptions.includes('color')
-  ) {
-    domains.push('color');
-  }
+export function getDomainsForProperty(propertyName: string, targetOptions: Domains): Domains {
+	const domains: Domains = [];
+	if (
+		(isColorCssPropertyName(propertyName) || isCurrentSurfaceCustomPropertyName(propertyName)) &&
+		targetOptions.includes('color')
+	) {
+		domains.push('color');
+	}
 
-  if (isSpacingProperty(propertyName) && targetOptions.includes('spacing')) {
-    domains.push('spacing');
-  }
+	if (isSpacingProperty(propertyName) && targetOptions.includes('spacing')) {
+		domains.push('spacing');
+	}
 
-  if (isShapeProperty(propertyName) && targetOptions.includes('shape')) {
-    domains.push('shape');
-  }
+	if (isShapeProperty(propertyName) && targetOptions.includes('shape')) {
+		domains.push('shape');
+	}
 
-  return domains;
+	return domains;
 }
 
 /**
@@ -548,7 +515,7 @@ export function getDomainsForProperty(
  * sometimes makers will have single or multiline comments in their tagged template literals styles, this can mess with our parsing logic.
  */
 export function cleanComments(str: string): string {
-  return str.replace(/\/\*([\s\S]*?)\*\//g, '').replace(/\/\/(.*)/g, '');
+	return str.replace(/\/\*([\s\S]*?)\*\//g, '').replace(/\/\/(.*)/g, '');
 }
 
 /**
@@ -564,40 +531,38 @@ export function cleanComments(str: string): string {
  * ```
  */
 export function processCssNode(
-  node: TaggedTemplateExpression & Rule.NodeParentExtension,
-  context: Rule.RuleContext,
+	node: TaggedTemplateExpression & Rule.NodeParentExtension,
+	context: Rule.RuleContext,
 ): ProcessedCSSLines | undefined {
-  const combinedString = node.quasi.quasis
-    .map((q, i) => {
-      return `${q.value.raw}${
-        node.quasi.expressions[i]
-          ? getValue(node.quasi.expressions[i], context)
-          : ''
-      }`;
-    })
-    .join('');
+	const combinedString = node.quasi.quasis
+		.map((q, i) => {
+			return `${q.value.raw}${
+				node.quasi.expressions[i] ? getValue(node.quasi.expressions[i], context) : ''
+			}`;
+		})
+		.join('');
 
-  const rawString = node.quasi.quasis
-    .map((q, i) => {
-      return `${q.value.raw}${
-        node.quasi.expressions[i]
-          ? getRawExpression(node.quasi.expressions[i], context)
-            ? `\${${getRawExpression(node.quasi.expressions[i], context)}}`
-            : null
-          : ''
-      }`;
-    })
-    .join('');
-  const cssProperties = splitCssProperties(cleanComments(combinedString));
-  const unalteredCssProperties = splitCssProperties(cleanComments(rawString));
-  if (cssProperties.length !== unalteredCssProperties.length) {
-    // this means something went wrong with the parsing, the original lines can't be reconciled with the processed lines
-    return undefined;
-  }
-  return cssProperties.map((cssProperty, index): [string, string] => [
-    cssProperty,
-    unalteredCssProperties[index],
-  ]);
+	const rawString = node.quasi.quasis
+		.map((q, i) => {
+			return `${q.value.raw}${
+				node.quasi.expressions[i]
+					? getRawExpression(node.quasi.expressions[i], context)
+						? `\${${getRawExpression(node.quasi.expressions[i], context)}}`
+						: null
+					: ''
+			}`;
+		})
+		.join('');
+	const cssProperties = splitCssProperties(cleanComments(combinedString));
+	const unalteredCssProperties = splitCssProperties(cleanComments(rawString));
+	if (cssProperties.length !== unalteredCssProperties.length) {
+		// this means something went wrong with the parsing, the original lines can't be reconciled with the processed lines
+		return undefined;
+	}
+	return cssProperties.map((cssProperty, index): [string, string] => [
+		cssProperty,
+		unalteredCssProperties[index],
+	]);
 }
 
 /**
@@ -611,39 +576,35 @@ export function processCssNode(
  * ```
  */
 export function getTokenNodeForValue(propertyName: string, value: string) {
-  const token = findTokenNameByPropertyValue(propertyName, value);
-  const fallbackValue =
-    propertyName === 'fontFamily'
-      ? { value: `${value}`, raw: `\`${value}\`` }
-      : `${value}`;
+	const token = findTokenNameByPropertyValue(propertyName, value);
+	const fallbackValue =
+		propertyName === 'fontFamily' ? { value: `${value}`, raw: `\`${value}\`` } : `${value}`;
 
-  return callExpression({
-    callee: identifier({ name: 'token' }),
-    arguments: [
-      literal({
-        value: `'${token ?? ''}'`,
-      }),
-      literal(fallbackValue),
-    ],
-    optional: false,
-  });
+	return callExpression({
+		callee: identifier({ name: 'token' }),
+		arguments: [
+			literal({
+				value: `'${token ?? ''}'`,
+			}),
+			literal(fallbackValue),
+		],
+		optional: false,
+	});
 }
 
-export function getFontSizeValueInScope(
-  cssProperties: ProcessedCSSLines,
-): number | undefined {
-  const fontSizeNode = cssProperties.find(([style]) => {
-    const [rawProperty, value] = style.split(':');
-    return /font-size/.test(rawProperty) ? value : null;
-  });
-  if (!fontSizeNode) {
-    return undefined;
-  }
-  const [_, fontSizeValue] = fontSizeNode[0].split(':');
-  if (!fontSizeValue) {
-    return undefined;
-  }
-  return getValueFromShorthand(fontSizeValue)[0] as number;
+export function getFontSizeValueInScope(cssProperties: ProcessedCSSLines): number | undefined {
+	const fontSizeNode = cssProperties.find(([style]) => {
+		const [rawProperty, value] = style.split(':');
+		return /font-size/.test(rawProperty) ? value : null;
+	});
+	if (!fontSizeNode) {
+		return undefined;
+	}
+	const [_, fontSizeValue] = fontSizeNode[0].split(':');
+	if (!fontSizeValue) {
+		return undefined;
+	}
+	return getValueFromShorthand(fontSizeValue)[0] as number;
 }
 
 /**
@@ -652,23 +613,23 @@ export function getFontSizeValueInScope(
  * @param styleString string of css properties
  */
 export function splitCssProperties(styleString: string): string[] {
-  return (
-    styleString
-      .split('\n')
-      .filter((line) => !line.trim().startsWith('@'))
-      // sometimes makers will end a css line with `;` that's output from a function expression
-      // since we'll rely on `;` to split each line, we need to ensure it's there
-      .map((line) => (line.endsWith(';') ? line : `${line};`))
-      .join('\n')
-      .replace(/\n/g, '')
-      .split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
-      // filters lines that are completely null, this could be from function expressions that output both property and value
-      .filter((line) => line.trim() !== 'null' && line.trim() !== 'null;')
-      .map((el) => el.trim() || '')
-      // we won't be able to reason about lines that don't have colon (:)
-      .filter((line) => line.split(':').length === 2)
-      .filter(Boolean)
-  );
+	return (
+		styleString
+			.split('\n')
+			.filter((line) => !line.trim().startsWith('@'))
+			// sometimes makers will end a css line with `;` that's output from a function expression
+			// since we'll rely on `;` to split each line, we need to ensure it's there
+			.map((line) => (line.endsWith(';') ? line : `${line};`))
+			.join('\n')
+			.replace(/\n/g, '')
+			.split(/;|(?<!\$){|(?<!\${.+?)}/) // don't split on template literal expressions i.e. `${...}`
+			// filters lines that are completely null, this could be from function expressions that output both property and value
+			.filter((line) => line.trim() !== 'null' && line.trim() !== 'null;')
+			.map((el) => el.trim() || '')
+			// we won't be able to reason about lines that don't have colon (:)
+			.filter((line) => line.split(':').length === 2)
+			.filter(Boolean)
+	);
 }
 
 /**
@@ -676,11 +637,11 @@ export function splitCssProperties(styleString: string): string[] {
  * @param originalVaue string representing a css property value e.g 1em, 12px.
  */
 export function isTokenValueString(originalValue: string): boolean {
-  return originalValue.startsWith('${token(') && originalValue.endsWith('}');
+	return originalValue.startsWith('${token(') && originalValue.endsWith('}');
 }
 
 export function includesTokenString(originalValue: string): boolean {
-  return originalValue.includes('${token(');
+	return originalValue.includes('${token(');
 }
 
 /**
@@ -692,46 +653,40 @@ export function includesTokenString(originalValue: string): boolean {
  *
  * @internal
  */
-export function normaliseValue(
-  propertyName: string,
-  value: string | number,
-): string {
-  const isFontStringProperty = /fontWeight|fontFamily|fontStyle/.test(
-    propertyName,
-  );
-  const isLineHeight = /lineHeight/.test(propertyName);
-  const propertyValue = typeof value === 'string' ? value.trim() : value;
+export function normaliseValue(propertyName: string, value: string | number): string {
+	const isFontStringProperty = /fontWeight|fontFamily|fontStyle/.test(propertyName);
+	const isLineHeight = /lineHeight/.test(propertyName);
+	const propertyValue = typeof value === 'string' ? value.trim() : value;
 
-  let lookupValue;
+	let lookupValue;
 
-  if (isFontStringProperty) {
-    lookupValue = `${propertyValue}`;
-  } else if (isLineHeight) {
-    lookupValue = value === 1 ? `${propertyValue}` : `${propertyValue}px`;
-  } else {
-    lookupValue =
-      typeof propertyValue === 'string' ? propertyValue : `${propertyValue}px`;
-  }
+	if (isFontStringProperty) {
+		lookupValue = `${propertyValue}`;
+	} else if (isLineHeight) {
+		lookupValue = value === 1 ? `${propertyValue}` : `${propertyValue}px`;
+	} else {
+		lookupValue = typeof propertyValue === 'string' ? propertyValue : `${propertyValue}px`;
+	}
 
-  return lookupValue;
+	return lookupValue;
 }
 
 export function findTokenNameByPropertyValue(
-  propertyName: string,
-  value: string,
+	propertyName: string,
+	value: string,
 ): string | undefined {
-  const lookupValue = normaliseValue(propertyName, value);
-  const tokenName = isShapeProperty(propertyName)
-    ? isBorderSizeProperty(propertyName)
-      ? borderWidthValueToToken[lookupValue]
-      : radiusValueToToken[lookupValue]
-    : spacingValueToToken[lookupValue];
+	const lookupValue = normaliseValue(propertyName, value);
+	const tokenName = isShapeProperty(propertyName)
+		? isBorderSizeProperty(propertyName)
+			? borderWidthValueToToken[lookupValue]
+			: radiusValueToToken[lookupValue]
+		: spacingValueToToken[lookupValue];
 
-  if (!tokenName) {
-    return undefined;
-  }
+	if (!tokenName) {
+		return undefined;
+	}
 
-  return tokenName;
+	return tokenName;
 }
 
 /**
@@ -741,47 +696,45 @@ export function findTokenNameByPropertyValue(
  * @param value The computed value e.g '8px' -> '8'.
  */
 export function getTokenReplacement(propertyName: string, value: string) {
-  const tokenName = findTokenNameByPropertyValue(propertyName, value);
+	const tokenName = findTokenNameByPropertyValue(propertyName, value);
 
-  if (!tokenName) {
-    return undefined;
-  }
+	if (!tokenName) {
+		return undefined;
+	}
 
-  const fallbackValue = normaliseValue(propertyName, value);
+	const fallbackValue = normaliseValue(propertyName, value);
 
-  return getTokenNodeForValue(propertyName, fallbackValue);
+	return getTokenNodeForValue(propertyName, fallbackValue);
 }
 
 export function getPropertyNodeFromParent(
-  property: string,
-  parentNode: ObjectExpression & Rule.NodeParentExtension,
+	property: string,
+	parentNode: ObjectExpression & Rule.NodeParentExtension,
 ) {
-  const propertyNode = parentNode.properties.find((node) => {
-    if (!isNodeOfType(node, 'Property')) {
-      return;
-    }
+	const propertyNode = parentNode.properties.find((node) => {
+		if (!isNodeOfType(node, 'Property')) {
+			return;
+		}
 
-    if (!isNodeOfType(node.key, 'Identifier')) {
-      return;
-    }
+		if (!isNodeOfType(node.key, 'Identifier')) {
+			return;
+		}
 
-    return node.key.name === property;
-  });
+		return node.key.name === property;
+	});
 
-  return propertyNode;
+	return propertyNode;
 }
 
 export function getValueForPropertyNode(
-  propertyNode: Property | SpreadElement,
-  context: Rule.RuleContext,
+	propertyNode: Property | SpreadElement,
+	context: Rule.RuleContext,
 ): string | number | null | undefined {
-  const propertyValueRaw = isNodeOfType(propertyNode!, 'Property')
-    ? getValue(propertyNode.value, context)
-    : null;
+	const propertyValueRaw = isNodeOfType(propertyNode!, 'Property')
+		? getValue(propertyNode.value, context)
+		: null;
 
-  const propertyValue = Array.isArray(propertyValueRaw)
-    ? propertyValueRaw[0]
-    : propertyValueRaw;
+	const propertyValue = Array.isArray(propertyValueRaw) ? propertyValueRaw[0] : propertyValueRaw;
 
-  return propertyValue;
+	return propertyValue;
 }

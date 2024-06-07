@@ -1,28 +1,28 @@
 import type { EmojiResponse } from '../types';
 
 import {
-  denormaliseEmojiServiceResponse,
-  type EmojiLoaderConfig,
-  emojiRequest,
+	denormaliseEmojiServiceResponse,
+	type EmojiLoaderConfig,
+	emojiRequest,
 } from './EmojiUtils';
 
 /**
  * Emoji providers should return JSON in the format defined by EmojiServiceResponse.
  */
 export default class EmojiLoader {
-  private config: EmojiLoaderConfig;
+	private config: EmojiLoaderConfig;
 
-  constructor(config: EmojiLoaderConfig) {
-    this.config = config;
-  }
+	constructor(config: EmojiLoaderConfig) {
+		this.config = config;
+	}
 
-  /**
-   * Returns a promise with an array of Emoji from all providers.
-   */
-  loadEmoji(): Promise<EmojiResponse> {
-    const emojisPromise = emojiRequest(this.config);
-    return emojisPromise.then((emojiServiceResponse) =>
-      denormaliseEmojiServiceResponse(emojiServiceResponse),
-    );
-  }
+	/**
+	 * Returns a promise with an array of Emoji from all providers.
+	 */
+	loadEmoji(): Promise<EmojiResponse> {
+		const emojisPromise = emojiRequest(this.config);
+		return emojisPromise.then((emojiServiceResponse) =>
+			denormaliseEmojiServiceResponse(emojiServiceResponse),
+		);
+	}
 }

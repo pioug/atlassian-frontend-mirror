@@ -24,7 +24,7 @@ export default class ExampleEditor extends React.Component<Props, State> {
 		return (
 			<IntlProvider locale={this.getProperLanguageKey(locale)} messages={messages}>
 				<FullPageExample
-          disableIntlProviderInExample={true}
+					disableIntlProviderInExample={true}
 					editorProps={{
 						allowHelpDialog: true,
 						primaryToolbarComponents: (

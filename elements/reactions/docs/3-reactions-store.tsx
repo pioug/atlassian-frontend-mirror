@@ -8,26 +8,25 @@ export default md`
   It serves as one of the key props passed to the connected HoC used in Reactions: (\`ConnectedReactionPicker\` and \`ConnectedReactions\`).
 
   ${(
-    <>
-      <br />
-      <SectionMessage appearance="information" title="">
-        You can instantiate an instance of the ReactionsStore object using the
-        built in <strong>MemoryReactionsStore</strong> class object that
-        contains all logic required to communicate with the store. It provides
-        all the methods to interact with the store and the API calls to the
-        server, including logging
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://developer.atlassian.com/platform/ufo/"
-        >
-          UFO
-        </a>
-        .
-        <br />
-      </SectionMessage>
-    </>
-  )}
+		<>
+			<br />
+			<SectionMessage appearance="information" title="">
+				You can instantiate an instance of the ReactionsStore object using the built in{' '}
+				<strong>MemoryReactionsStore</strong> class object that contains all logic required to
+				communicate with the store. It provides all the methods to interact with the store and the
+				API calls to the server, including logging
+				<a
+					target="_blank"
+					rel="noopener noreferrer"
+					href="https://developer.atlassian.com/platform/ufo/"
+				>
+					UFO
+				</a>
+				.
+				<br />
+			</SectionMessage>
+		</>
+	)}
 
   ## Usage
 
@@ -56,16 +55,16 @@ export default md`
 `}
 
   ${(
-    <Props
-      heading="Store Type"
-      props={require('!!extract-react-types-loader!../extract-react-type/reactionsStore')}
-    />
-  )}
+		<Props
+			heading="Store Type"
+			props={require('!!extract-react-types-loader!../extract-react-type/reactionsStore')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Actions type"
-      props={require('!!extract-react-types-loader!../extract-react-type/actions')}
-    />
-  )}
+		<Props
+			heading="Actions type"
+			props={require('!!extract-react-types-loader!../extract-react-type/actions')}
+		/>
+	)}
 `;

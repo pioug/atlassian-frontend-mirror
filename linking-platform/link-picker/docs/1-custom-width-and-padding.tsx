@@ -14,13 +14,13 @@ ${(<AtlassianInternalWarning />)}
   By enabling the \`disableWidth\` prop the link picker will instead have a width of 100% to fill the available space.
 
   ${(
-    <Example
-      packageName="@atlaskit/link-picker"
-      Component={require('../examples/03-disable-width').default}
-      title="Disable Width"
-      source={require('!!raw-loader!../examples/03-disable-width')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-picker"
+			Component={require('../examples/03-disable-width').default}
+			title="Disable Width"
+			source={require('!!raw-loader!../examples/03-disable-width')}
+		/>
+	)}
 
   ## Customising the built-in padding
 
@@ -29,13 +29,13 @@ ${(<AtlassianInternalWarning />)}
   This allows for the list results to be able to bleed into the padding and should support most use-cases.
 
   ${(
-    <Example
-      packageName="@atlaskit/link-picker"
-      Component={require('../examples/04-custom-padding').default}
-      title="Custom Padding"
-      source={require('!!raw-loader!../examples/04-custom-padding')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-picker"
+			Component={require('../examples/04-custom-padding').default}
+			title="Custom Padding"
+			source={require('!!raw-loader!../examples/04-custom-padding')}
+		/>
+	)}
 
   For consistency the top and bottom paddings can also be controlled/overridden via \`paddingTop\` and \`paddingBottom\` props respectively.
   If you find however that you want to customise these its more likely you'd be better off using these props to disable the padding altogether by providing values of \`'0'\`,

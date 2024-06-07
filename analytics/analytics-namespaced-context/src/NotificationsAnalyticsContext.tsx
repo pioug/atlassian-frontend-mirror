@@ -3,8 +3,7 @@ import createNamespaceContext, { type Props } from './helper/createNamespaceCont
 
 export const NOTIFICATIONS_CONTEXT = 'NotificationsCtx';
 
-export const NotificationsAnalyticsContext: FunctionComponent<Props> =
-  createNamespaceContext(
-    NOTIFICATIONS_CONTEXT,
-    'NotificationsAnalyticsContext',
-  );
+export const NotificationsAnalyticsContext: FunctionComponent<Props> = createNamespaceContext(
+	NOTIFICATIONS_CONTEXT,
+	'NotificationsAnalyticsContext',
+);

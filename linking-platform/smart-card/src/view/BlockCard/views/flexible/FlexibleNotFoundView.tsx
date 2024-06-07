@@ -18,46 +18,44 @@ import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardSty
  * @see FlexibleCardProps
  */
 const FlexibleNotFoundView = ({
-  testId = 'smart-block-not-found-view',
-  ...props
+	testId = 'smart-block-not-found-view',
+	...props
 }: FlexibleBlockCardProps) => {
-  const intl = useIntl();
+	const intl = useIntl();
 
-  const { cardState } = props;
+	const { cardState } = props;
 
-  const product = useMemo(() => {
-    const provider = extractProvider(
-      cardState?.details?.data as JsonLd.Data.BaseData,
-    );
-    return provider?.text ?? '';
-  }, [cardState?.details?.data]);
+	const product = useMemo(() => {
+		const provider = extractProvider(cardState?.details?.data as JsonLd.Data.BaseData);
+		return provider?.text ?? '';
+	}, [cardState?.details?.data]);
 
-  const title = useMemo(
-    () =>
-      intl.formatMessage(messages.not_found_title, {
-        product,
-      }),
-    [intl, product],
-  );
+	const title = useMemo(
+		() =>
+			intl.formatMessage(messages.not_found_title, {
+				product,
+			}),
+		[intl, product],
+	);
 
-  const description = useMemo(
-    () => ({
-      descriptor: messages.not_found_description,
-    }),
-    [],
-  );
+	const description = useMemo(
+		() => ({
+			descriptor: messages.not_found_description,
+		}),
+		[],
+	);
 
-  return (
-    <UnresolvedView {...props} testId={testId} title={title}>
-      <LockIcon
-        label="not-found-lock-icon"
-        size="small"
-        primaryColor={token('color.icon.danger', R300)}
-        testId={`${testId}-lock-icon`}
-      />
-      <Text message={description} testId={`${testId}-message`} maxLines={3} />
-    </UnresolvedView>
-  );
+	return (
+		<UnresolvedView {...props} testId={testId} title={title}>
+			<LockIcon
+				label="not-found-lock-icon"
+				size="small"
+				primaryColor={token('color.icon.danger', R300)}
+				testId={`${testId}-lock-icon`}
+			/>
+			<Text message={description} testId={`${testId}-message`} maxLines={3} />
+		</UnresolvedView>
+	);
 };
 
 export default withFlexibleUIBlockCardStyle(FlexibleNotFoundView);

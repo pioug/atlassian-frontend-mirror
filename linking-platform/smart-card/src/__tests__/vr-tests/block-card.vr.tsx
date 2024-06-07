@@ -1,52 +1,52 @@
 import { snapshot } from '@af/visual-regression';
 
 import {
-  BlockCardErrorView,
-  BlockCardErrorViewLegacy,
+	BlockCardErrorView,
+	BlockCardErrorViewLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-error';
 import {
-  BlockCardForbiddenView,
-  BlockCardForbiddenViewLegacy,
+	BlockCardForbiddenView,
+	BlockCardForbiddenViewLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-forbidden';
 import {
-  BlockCardNotFoundView,
-  BlockCardNotFoundViewLegacy,
+	BlockCardNotFoundView,
+	BlockCardNotFoundViewLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-not-found';
 import {
-  BlockCardNotFoundSiteAccessExists,
-  BlockCardNotFoundSiteAccessExistsLegacy,
+	BlockCardNotFoundSiteAccessExists,
+	BlockCardNotFoundSiteAccessExistsLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-not-found-site-access-exists';
 import {
-  BlockCardUnauthorisedView,
-  BlockCardUnauthorisedViewLegacy,
+	BlockCardUnauthorisedView,
+	BlockCardUnauthorisedViewLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-unauthorised';
 import {
-  BlockCardUnauthorisedViewWithNoAuth,
-  BlockCardUnauthorisedViewWithNoAuthLegacy,
+	BlockCardUnauthorisedViewWithNoAuth,
+	BlockCardUnauthorisedViewWithNoAuthLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
 import {
-  BlockCardJira,
-  BlockCardJiraLegacy,
+	BlockCardJira,
+	BlockCardJiraLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
 import {
-  BlockCardConfluence,
-  BlockCardConfluenceLegacy,
+	BlockCardConfluence,
+	BlockCardConfluenceLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
 import {
-  BlockCardTrello,
-  BlockCardTrelloLegacy,
+	BlockCardTrello,
+	BlockCardTrelloLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
 import {
-  BlockCardAtlas,
-  BlockCardAtlasLegacy,
+	BlockCardAtlas,
+	BlockCardAtlasLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-resolved-atlas';
 import {
-  BlockCardBitbucket,
-  BlockCardBitbucketLegacy,
+	BlockCardBitbucket,
+	BlockCardBitbucketLegacy,
 } from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
 import {
-  BlockCardForbiddenViews,
-  BlockCardForbiddenViewsLegacy,
+	BlockCardForbiddenViews,
+	BlockCardForbiddenViewsLegacy,
 } from '../../../examples/vr-block-card/vr-flexible-block-card-variants-of-forbidden-views';
 
 snapshot(BlockCardErrorView);

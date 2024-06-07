@@ -54,6 +54,8 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Bjud in till Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Dela sida',
   'fabric.elements.share.main.tab.text.jira': 'Dela ärende',
+  'fabric.elements.share.menu.email.label': 'E-post',
+  'fabric.elements.share.menu.slack.label': 'Slack',
   'fabric.elements.share.popup.label': 'Dela',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Blogginlägg har delats}board {Tavla har delats}calendar {Kalender har delats}draft {Utkast har delats}filter {Filter har delats}issue {Ärende har delats}summary {Sammanfattning har delats}list {Lista har delats}timeline {Tidslinje har delats}form {Formulär har delats}media {Media har delats}page {Sida har delats}project {Projekt har delats}pullrequest {Pull request har delats}question {Fråga har delats}report {Rapport har delats}repository {Lagringsplats har delats}request {Förfrågan har delats}roadmap {Tidslinje har delats}site {Webbplats har delats}space {Utrymme har delats}other {Länk har delats}}',

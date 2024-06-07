@@ -11,11 +11,11 @@ import { CloseButton } from '../../CloseButton';
 // Messages
 const cache = createIntlCache();
 const intl = createIntl(
-  {
-    locale: 'en',
-    messages: {},
-  },
-  cache,
+	{
+		locale: 'en',
+		messages: {},
+	},
+	cache,
 );
 const messageClose = intl.formatMessage(messages.help_panel_header_close);
 
@@ -23,28 +23,26 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('BackButton', () => {
-  it('Should match snapshot', () => {
-    const { container } = render(
-      <CloseButton intl={intl} onClick={mockOnClick} />,
-    );
+	it('Should match snapshot', () => {
+		const { container } = render(<CloseButton intl={intl} onClick={mockOnClick} />);
 
-    expect(container.firstChild).toMatchSnapshot();
-  });
+		expect(container.firstChild).toMatchSnapshot();
+	});
 
-  it('Should execute the prop function "mockOnClick" when the close button is clicked', () => {
-    const { getByLabelText } = render(
-      <AnalyticsListener channel="help" onEvent={analyticsSpy}>
-        <CloseButton intl={intl} onClick={mockOnClick} />,
-      </AnalyticsListener>,
-    );
+	it('Should execute the prop function "mockOnClick" when the close button is clicked', () => {
+		const { getByLabelText } = render(
+			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
+				<CloseButton intl={intl} onClick={mockOnClick} />,
+			</AnalyticsListener>,
+		);
 
-    const buttonClose = getByLabelText(messageClose).closest('button');
+		const buttonClose = getByLabelText(messageClose).closest('button');
 
-    expect(buttonClose).not.toBeNull;
+		expect(buttonClose).not.toBeNull;
 
-    if (buttonClose) {
-      fireEvent.click(buttonClose);
-      expect(mockOnClick).toHaveBeenCalledTimes(1);
-    }
-  });
+		if (buttonClose) {
+			fireEvent.click(buttonClose);
+			expect(mockOnClick).toHaveBeenCalledTimes(1);
+		}
+	});
 });

@@ -11,11 +11,11 @@ import { ArticleWasHelpfulNoButton } from '../../WasHelpfulNoButton';
 // Messages
 const cache = createIntlCache();
 const intl = createIntl(
-  {
-    locale: 'en',
-    messages: {},
-  },
-  cache,
+	{
+		locale: 'en',
+		messages: {},
+	},
+	cache,
 );
 const messageNo = intl.formatMessage(messages.help_article_rating_option_no);
 
@@ -23,35 +23,27 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('ArticleContent', () => {
-  it('Match snapshot', () => {
-    const { container } = render(
-      <ArticleWasHelpfulNoButton
-        isSelected={false}
-        onClick={mockOnClick}
-        intl={intl}
-      />,
-    );
+	it('Match snapshot', () => {
+		const { container } = render(
+			<ArticleWasHelpfulNoButton isSelected={false} onClick={mockOnClick} intl={intl} />,
+		);
 
-    expect(container.firstChild).toMatchSnapshot();
-  });
+		expect(container.firstChild).toMatchSnapshot();
+	});
 
-  it('props methods "onWasHelpfulNoButtonClick" and "onClick" should be executed when the user click the button', () => {
-    const { getByText } = render(
-      <AnalyticsListener channel="help" onEvent={analyticsSpy}>
-        <ArticleWasHelpfulNoButton
-          isSelected={false}
-          onClick={mockOnClick}
-          intl={intl}
-        />
-      </AnalyticsListener>,
-    );
+	it('props methods "onWasHelpfulNoButtonClick" and "onClick" should be executed when the user click the button', () => {
+		const { getByText } = render(
+			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
+				<ArticleWasHelpfulNoButton isSelected={false} onClick={mockOnClick} intl={intl} />
+			</AnalyticsListener>,
+		);
 
-    const buttonNo = getByText(messageNo).closest('button');
-    expect(buttonNo).not.toBeNull;
+		const buttonNo = getByText(messageNo).closest('button');
+		expect(buttonNo).not.toBeNull;
 
-    if (buttonNo) {
-      fireEvent.click(buttonNo);
-      expect(mockOnClick).toHaveBeenCalledTimes(1);
-    }
-  });
+		if (buttonNo) {
+			fireEvent.click(buttonNo);
+			expect(mockOnClick).toHaveBeenCalledTimes(1);
+		}
+	});
 });

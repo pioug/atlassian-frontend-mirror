@@ -4,23 +4,23 @@ import React from 'react';
 import { getAvatarSize } from './utils';
 
 export type Props = {
-  appearance: string;
-  src?: string;
-  presence?: string;
-  type?: 'person' | 'team';
+	appearance: string;
+	src?: string;
+	presence?: string;
+	type?: 'person' | 'team';
 };
 
 export class SizeableAvatar extends React.PureComponent<Props> {
-  render() {
-    const { src, presence, appearance, type = 'person' } = this.props;
+	render() {
+		const { src, presence, appearance, type = 'person' } = this.props;
 
-    const props: AvatarPropTypes = {
-      size: getAvatarSize(appearance),
-      src,
-      borderColor: 'transparent',
-      presence,
-    };
+		const props: AvatarPropTypes = {
+			size: getAvatarSize(appearance),
+			src,
+			borderColor: 'transparent',
+			presence,
+		};
 
-    return type === 'team' ? <TeamAvatar {...props} /> : <Avatar {...props} />;
-  }
+		return type === 'team' ? <TeamAvatar {...props} /> : <Avatar {...props} />;
+	}
 }

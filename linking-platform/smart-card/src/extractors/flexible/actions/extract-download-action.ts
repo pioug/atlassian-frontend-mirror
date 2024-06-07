@@ -7,22 +7,22 @@ import { getActionsFromJsonLd } from '../../common/actions/extractActions';
 import { extractDownloadUrl } from '../../common/detail';
 
 export const extractDownloadAction = (
-  data: JsonLd.Data.BaseData,
-  actionOptions?: CardActionOptions,
+	data: JsonLd.Data.BaseData,
+	actionOptions?: CardActionOptions,
 ): DownloadActionData | undefined => {
-  if (!canShowAction(CardAction.DownloadAction, actionOptions)) {
-    return;
-  }
+	if (!canShowAction(CardAction.DownloadAction, actionOptions)) {
+		return;
+	}
 
-  const downloadActionExists = getActionsFromJsonLd(data).find(
-    (action) => action['@type'] === 'DownloadAction',
-  );
+	const downloadActionExists = getActionsFromJsonLd(data).find(
+		(action) => action['@type'] === 'DownloadAction',
+	);
 
-  if (downloadActionExists) {
-    return {
-      downloadUrl: extractDownloadUrl(data as JsonLd.Data.Document),
-    };
-  }
+	if (downloadActionExists) {
+		return {
+			downloadUrl: extractDownloadUrl(data as JsonLd.Data.Document),
+		};
+	}
 
-  return;
+	return;
 };

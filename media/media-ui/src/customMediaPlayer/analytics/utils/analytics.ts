@@ -1,12 +1,9 @@
-import {
-  type CreateUIAnalyticsEvent,
-  createAndFireEvent,
-} from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent, createAndFireEvent } from '@atlaskit/analytics-next';
 
 import {
-  ANALYTICS_MEDIA_CHANNEL,
-  type UIAttributes,
-  type UIEventPayload,
+	ANALYTICS_MEDIA_CHANNEL,
+	type UIAttributes,
+	type UIEventPayload,
 } from '@atlaskit/media-common';
 
 import { type CustomMediaPlayerScreenEventPayload } from '../events/screen/customMediaPlayer';
@@ -20,46 +17,46 @@ import { type PlayedTrackEventPayload } from '../events/track/played';
 import { type CustomMediaPlayerType } from '../../types';
 
 export type CustomMediaPlayerUIEventPayload = UIEventPayload<
-  UIAttributes & {
-    type: CustomMediaPlayerType;
-  },
-  'default',
-  'customMediaPlayer'
+	UIAttributes & {
+		type: CustomMediaPlayerType;
+	},
+	'default',
+	'customMediaPlayer'
 >;
 
 export type CustomMediaPlayerUIEvent =
-  | 'mediaButtonClick'
-  | 'shortcutPress'
-  | 'playPauseBlanketClick'
-  | 'timeRangeNavigate'
-  | 'volumeRangeNavigate'
-  | 'playbackSpeedChange';
+	| 'mediaButtonClick'
+	| 'shortcutPress'
+	| 'playPauseBlanketClick'
+	| 'timeRangeNavigate'
+	| 'volumeRangeNavigate'
+	| 'playbackSpeedChange';
 
 export type CustomMediaPlayerAnalyticsEventPayload =
-  | CustomMediaPlayerScreenEventPayload
-  | MediaButtonClickEventPayload
-  | PlaybackSpeedChangeEventPayload
-  | PlayPauseBlanketClickEventPayload
-  | ShortcutPressEventPayload
-  | TimeRangeNavigateEventPayload
-  | CustomMediaPlayerUIEventPayload
-  | FirstPlayedTrackEventPayload
-  | PlayedTrackEventPayload;
+	| CustomMediaPlayerScreenEventPayload
+	| MediaButtonClickEventPayload
+	| PlaybackSpeedChangeEventPayload
+	| PlayPauseBlanketClickEventPayload
+	| ShortcutPressEventPayload
+	| TimeRangeNavigateEventPayload
+	| CustomMediaPlayerUIEventPayload
+	| FirstPlayedTrackEventPayload
+	| PlayedTrackEventPayload;
 
 // can be called in a component whose props extend WithAnalyticsEventsProps
 export function fireAnalyticsEvent(
-  payload: CustomMediaPlayerAnalyticsEventPayload,
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
+	payload: CustomMediaPlayerAnalyticsEventPayload,
+	createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) {
-  if (createAnalyticsEvent) {
-    const event = createAnalyticsEvent(payload);
-    event.fire(ANALYTICS_MEDIA_CHANNEL);
-  }
+	if (createAnalyticsEvent) {
+		const event = createAnalyticsEvent(payload);
+		event.fire(ANALYTICS_MEDIA_CHANNEL);
+	}
 }
 
 // can be used inside withAnalyticsEvents() hook
 export const createAndFireMediaCustomMediaPlayerEvent = (
-  payload: CustomMediaPlayerAnalyticsEventPayload,
+	payload: CustomMediaPlayerAnalyticsEventPayload,
 ) => {
-  return createAndFireEvent(ANALYTICS_MEDIA_CHANNEL)(payload);
+	return createAndFireEvent(ANALYTICS_MEDIA_CHANNEL)(payload);
 };

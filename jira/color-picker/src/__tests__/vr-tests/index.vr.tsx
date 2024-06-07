@@ -7,25 +7,25 @@ import { default as ColorPickerSmallSwatchNoColor } from '../../../examples/07-c
 import { default as ColorPickerSmallSwatch } from '../../../examples/08-color-picker-small-swatch';
 
 const options: SnapshotTestOptions<{}> = {
-  variants: [
-    {
-      name: 'light mode',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'dark mode',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'dark mode',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 };
 
 const featureFlags = {
-  'platform.color-picker-radio-button-functionality_6hkcy': true,
-  'platform.design-system-team.update-input-border-wdith_5abwv': true,
+	'platform.color-picker-radio-button-functionality_6hkcy': true,
+	'platform.design-system-team.update-input-border-wdith_5abwv': true,
 };
 
 snapshot(ColorPicker, { ...options, featureFlags });

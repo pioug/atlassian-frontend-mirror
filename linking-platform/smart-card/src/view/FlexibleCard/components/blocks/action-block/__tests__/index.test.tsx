@@ -8,76 +8,66 @@ import type { ActionBlockProps } from '../types';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
-  ...jest.requireActual('../../../../../../state/flexible-ui-context'),
-  useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
+	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+	useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
 }));
 jest.mock('../../../../../../state/hooks/use-invoke', () => jest.fn());
 jest.mock('../../../../../../state/hooks/use-resolve', () => jest.fn());
 
 describe('ActionBlock', () => {
-  const setup = (props?: Partial<ActionBlockProps>) =>
-    render(
-      <IntlProvider locale="en">
-        <SmartCardProvider client={new CardClient()} >
-          <ActionBlock status={SmartLinkStatus.Resolved} {...props} />
-        </SmartCardProvider>
-      </IntlProvider>,
-    );
+	const setup = (props?: Partial<ActionBlockProps>) =>
+		render(
+			<IntlProvider locale="en">
+				<SmartCardProvider client={new CardClient()}>
+					<ActionBlock status={SmartLinkStatus.Resolved} {...props} />
+				</SmartCardProvider>
+			</IntlProvider>,
+		);
 
-  it('renders ActionBlock', async () => {
-    const { findByTestId } = setup();
-    const block = await findByTestId('smart-block-action');
-    expect(block).toBeInTheDocument();
-  });
+	it('renders ActionBlock', async () => {
+		const { findByTestId } = setup();
+		const block = await findByTestId('smart-block-action');
+		expect(block).toBeInTheDocument();
+	});
 
-  it('renders list of actions', async () => {
-    const { findByTestId } = setup();
+	it('renders list of actions', async () => {
+		const { findByTestId } = setup();
 
-    const downloadAction = await findByTestId('smart-action-download-action');
-    expect(downloadAction).toBeInTheDocument();
+		const downloadAction = await findByTestId('smart-action-download-action');
+		expect(downloadAction).toBeInTheDocument();
 
-    const followAction = await findByTestId('smart-action-follow-action');
-    expect(followAction).toBeInTheDocument();
+		const followAction = await findByTestId('smart-action-follow-action');
+		expect(followAction).toBeInTheDocument();
 
-    const previewAction = await findByTestId('smart-action-preview-action');
-    expect(previewAction).toBeInTheDocument();
+		const previewAction = await findByTestId('smart-action-preview-action');
+		expect(previewAction).toBeInTheDocument();
 
-    const aiSummaryAction = await findByTestId(
-      'smart-action-ai-summary-action-summarise-action',
-    );
-    expect(aiSummaryAction).toBeInTheDocument();
+		const aiSummaryAction = await findByTestId('smart-action-ai-summary-action-summarise-action');
+		expect(aiSummaryAction).toBeInTheDocument();
 
-    const viewRelatedLinksAction = await findByTestId(
-      'smart-action-view-related-links-action',
-    );
-    expect(viewRelatedLinksAction).toBeInTheDocument();
-  });
+		const viewRelatedLinksAction = await findByTestId('smart-action-view-related-links-action');
+		expect(viewRelatedLinksAction).toBeInTheDocument();
+	});
 
-  it('sorts list of actions', async () => {
-    const { findAllByRole, findByTestId } = setup();
+	it('sorts list of actions', async () => {
+		const { findAllByRole, findByTestId } = setup();
 
-    const buttons = await findAllByRole('button');
-    const copyLinkAction = await findByTestId('smart-action-copy-link-action');
-    const downloadAction = await findByTestId('smart-action-download-action');
-    const followAction = await findByTestId('smart-action-follow-action');
-    const previewAction = await findByTestId('smart-action-preview-action');
-    const aiSummaryAction = await findByTestId(
-      'smart-action-ai-summary-action-summarise-action',
-    );
-    const automationAction = await findByTestId(
-      'smart-action-automation-action',
-    );
-    const viewRelatedLinksAction = await findByTestId(
-      'smart-action-view-related-links-action',
-    );
+		const buttons = await findAllByRole('button');
+		const copyLinkAction = await findByTestId('smart-action-copy-link-action');
+		const downloadAction = await findByTestId('smart-action-download-action');
+		const followAction = await findByTestId('smart-action-follow-action');
+		const previewAction = await findByTestId('smart-action-preview-action');
+		const aiSummaryAction = await findByTestId('smart-action-ai-summary-action-summarise-action');
+		const automationAction = await findByTestId('smart-action-automation-action');
+		const viewRelatedLinksAction = await findByTestId('smart-action-view-related-links-action');
 
-    expect(buttons.length).toBe(7);
-    expect(buttons[0]).toBe(previewAction);
-    expect(buttons[1]).toBe(copyLinkAction);
-    expect(buttons[2]).toBe(aiSummaryAction);
-    expect(buttons[3]).toBe(downloadAction);
-    expect(buttons[4]).toBe(followAction);
-    expect(buttons[5]).toBe(automationAction);
-    expect(buttons[6]).toBe(viewRelatedLinksAction);
-  });
+		expect(buttons.length).toBe(7);
+		expect(buttons[0]).toBe(previewAction);
+		expect(buttons[1]).toBe(copyLinkAction);
+		expect(buttons[2]).toBe(aiSummaryAction);
+		expect(buttons[3]).toBe(downloadAction);
+		expect(buttons[4]).toBe(followAction);
+		expect(buttons[5]).toBe(automationAction);
+		expect(buttons[6]).toBe(viewRelatedLinksAction);
+	});
 });

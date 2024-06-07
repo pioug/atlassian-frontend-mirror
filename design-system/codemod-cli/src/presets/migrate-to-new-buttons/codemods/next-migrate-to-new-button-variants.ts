@@ -202,6 +202,51 @@ const transformer = (file: FileInfo, api: API): string => {
 				hasVariant.iconButton = true;
 			} else {
 				hasVariant.defaultButton = true;
+
+				// rename existing Button to LegacyButton
+				const existingDefaultButtonSpecifier = fileSource
+					.find(j.ImportDefaultSpecifier)
+					.filter((path) => path.value.local?.name === NEW_BUTTON_VARIANTS.default);
+				if (existingDefaultButtonSpecifier.length > 0) {
+					fileSource
+						.find(j.JSXElement)
+						.filter(
+							(path) =>
+								path.value.openingElement.name.type === 'JSXIdentifier' &&
+								path.value.openingElement.name.name === NEW_BUTTON_VARIANTS.default,
+						)
+						.forEach((element) => {
+							// find all default <Button> JSX elements and replace with <LegacyButton>
+							j(element).replaceWith(
+								j.jsxElement(
+									j.jsxOpeningElement(
+										j.jsxIdentifier('LegacyButton'),
+										element.value.openingElement.attributes,
+										element.value.children?.length === 0,
+									),
+									element.value.children?.length === 0
+										? null
+										: j.jsxClosingElement(j.jsxIdentifier('LegacyButton')),
+									element.value.children,
+								),
+							);
+						});
+
+					// rename Button to LegacyButton in all call expressions i.e. render(Button), find(Button)
+					fileSource
+						.find(j.CallExpression)
+						.find(j.Identifier)
+						.forEach((path) => {
+							if (path.node.name === NEW_BUTTON_VARIANTS.default) {
+								path.node.name = 'LegacyButton';
+							}
+						});
+
+					// rename Button to LegacyButton in import declaration
+					existingDefaultButtonSpecifier.forEach((specifier) =>
+						j(specifier).replaceWith(j.importDefaultSpecifier(j.identifier('LegacyButton'))),
+					);
+				}
 			}
 
 			j(element).replaceWith(newElement);
@@ -368,6 +413,8 @@ const transformer = (file: FileInfo, api: API): string => {
 				path.node.specifiers.length === 0,
 		)
 		.remove();
+
+	addCommentForCustomThemeButtons(fileSource, j);
 
 	return fileSource.toSource(PRINT_SETTINGS);
 };

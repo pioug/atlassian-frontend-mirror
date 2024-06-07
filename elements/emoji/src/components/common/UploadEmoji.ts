@@ -1,9 +1,6 @@
 import type { MessageDescriptor } from 'react-intl-next';
 
-import {
-  type EmojiProvider,
-  supportsUploadFeature,
-} from '../../api/EmojiResource';
+import { type EmojiProvider, supportsUploadFeature } from '../../api/EmojiResource';
 
 import type { EmojiDescription, EmojiUpload } from '../../types';
 import { uploadFailedEvent, uploadSucceededEvent } from '../../util/analytics';
@@ -14,44 +11,44 @@ import { ufoExperiences } from '../../util/analytics/ufoExperiences';
 import { extractErrorInfo } from '../../util/analytics/analytics';
 
 export const uploadEmoji = (
-  upload: EmojiUpload,
-  emojiProvider: EmojiProvider,
-  errorSetter: (message: MessageDescriptor | undefined) => void,
-  onSuccess: (emojiDescription: EmojiDescription) => void,
-  fireAnalytics: (event: AnalyticsEventPayload) => void,
-  retry: boolean,
+	upload: EmojiUpload,
+	emojiProvider: EmojiProvider,
+	errorSetter: (message: MessageDescriptor | undefined) => void,
+	onSuccess: (emojiDescription: EmojiDescription) => void,
+	fireAnalytics: (event: AnalyticsEventPayload) => void,
+	retry: boolean,
 ) => {
-  const startTime = Date.now();
-  errorSetter(undefined);
-  if (supportsUploadFeature(emojiProvider)) {
-    ufoExperiences['emoji-uploaded'].start();
-    emojiProvider
-      .uploadCustomEmoji(upload, retry)
-      .then((emojiDescription) => {
-        fireAnalytics(
-          uploadSucceededEvent({
-            duration: Date.now() - startTime,
-          }),
-        );
-        onSuccess(emojiDescription);
-        ufoExperiences['emoji-uploaded'].success();
-      })
-      .catch((err) => {
-        errorSetter(messages.emojiUploadFailed);
-        // eslint-disable-next-line no-console
-        console.error('Unable to upload emoji', err);
-        fireAnalytics(
-          uploadFailedEvent({
-            duration: Date.now() - startTime,
-            reason: messages.emojiUploadFailed.defaultMessage,
-          }),
-        );
-        ufoExperiences['emoji-uploaded'].failure({
-          metadata: {
-            source: 'UploadEmoji',
-            error: extractErrorInfo(err),
-          },
-        });
-      });
-  }
+	const startTime = Date.now();
+	errorSetter(undefined);
+	if (supportsUploadFeature(emojiProvider)) {
+		ufoExperiences['emoji-uploaded'].start();
+		emojiProvider
+			.uploadCustomEmoji(upload, retry)
+			.then((emojiDescription) => {
+				fireAnalytics(
+					uploadSucceededEvent({
+						duration: Date.now() - startTime,
+					}),
+				);
+				onSuccess(emojiDescription);
+				ufoExperiences['emoji-uploaded'].success();
+			})
+			.catch((err) => {
+				errorSetter(messages.emojiUploadFailed);
+				// eslint-disable-next-line no-console
+				console.error('Unable to upload emoji', err);
+				fireAnalytics(
+					uploadFailedEvent({
+						duration: Date.now() - startTime,
+						reason: messages.emojiUploadFailed.defaultMessage,
+					}),
+				);
+				ufoExperiences['emoji-uploaded'].failure({
+					metadata: {
+						source: 'UploadEmoji',
+						error: extractErrorInfo(err),
+					},
+				});
+			});
+	}
 };

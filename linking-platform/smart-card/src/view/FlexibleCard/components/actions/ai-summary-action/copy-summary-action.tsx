@@ -8,39 +8,37 @@ import type { AISummaryActionData } from '../../../../../state/flexible-ui-conte
 import type { AISummaryActionProps } from './types';
 
 export function CopySummaryAction({
-  url,
-  ari,
-  product,
-  onClick: onClickCallback,
-  testId,
-  content,
-  ...props
+	url,
+	ari,
+	product,
+	onClick: onClickCallback,
+	testId,
+	content,
+	...props
 }: AISummaryActionProps & AISummaryActionData & { content: string }) {
-  const { fireEvent } = useAnalyticsEvents();
+	const { fireEvent } = useAnalyticsEvents();
 
-  const [tooltipMessage, setTooltipMessage] = useState(
-    messages.copy_summary_action_description,
-  );
+	const [tooltipMessage, setTooltipMessage] = useState(messages.copy_summary_action_description);
 
-  const handleCopySummaryClick = useCallback(async () => {
-    fireEvent('ui.button.clicked.copySummary', {});
+	const handleCopySummaryClick = useCallback(async () => {
+		fireEvent('ui.button.clicked.copySummary', {});
 
-    await navigator.clipboard.writeText(content ?? '');
+		await navigator.clipboard.writeText(content ?? '');
 
-    setTooltipMessage(messages.copied_summary_action_description);
+		setTooltipMessage(messages.copied_summary_action_description);
 
-    onClickCallback?.();
-  }, [fireEvent, onClickCallback, content]);
+		onClickCallback?.();
+	}, [fireEvent, onClickCallback, content]);
 
-  return (
-    <Action
-      content={<FormattedMessage {...messages.copy_summary_action} />}
-      icon={<CopyIcon label="Copy Summary" />}
-      onClick={handleCopySummaryClick}
-      testId={`${testId}-copy-summary-action`}
-      tooltipMessage={<FormattedMessage {...tooltipMessage} />}
-      tooltipOnHide={() => setTooltipMessage(messages.copy_summary_action_description) }
-      {...props}
-    />
-  );
+	return (
+		<Action
+			content={<FormattedMessage {...messages.copy_summary_action} />}
+			icon={<CopyIcon label="Copy Summary" />}
+			onClick={handleCopySummaryClick}
+			testId={`${testId}-copy-summary-action`}
+			tooltipMessage={<FormattedMessage {...tooltipMessage} />}
+			tooltipOnHide={() => setTooltipMessage(messages.copy_summary_action_description)}
+			{...props}
+		/>
+	);
 }

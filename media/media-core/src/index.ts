@@ -5,13 +5,13 @@ export { mediaState } from './cache';
 export type { CachedMediaState, StateDeferredValue } from './cache';
 export { isClientBasedAuth, isAsapBasedAuth, authToOwner } from './auth';
 export type {
-  ClientBasedAuth,
-  AsapBasedAuth,
-  ClientAltBasedAuth,
-  Auth,
-  AuthContext,
-  AuthProvider,
-  MediaApiConfig,
-  MediaClientConfig,
+	ClientBasedAuth,
+	AsapBasedAuth,
+	ClientAltBasedAuth,
+	Auth,
+	AuthContext,
+	AuthProvider,
+	MediaApiConfig,
+	MediaClientConfig,
 } from './auth';
 export { ChunkHashAlgorithm } from './ChunkHashAlgorithm';

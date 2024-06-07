@@ -44,10 +44,10 @@ type OnErrorCallback = (data: {
     \`fallbackComponent\` is optional and if not provided, the **Smart Card** renders \`null\` in case of an unhandled error.
 
 ${(
-  <Example
-    Component={require('../examples/19-error-handler').default}
-    title="An example"
-    source={require('!!raw-loader!../examples/19-error-handler')}
-  />
+	<Example
+		Component={require('../examples/19-error-handler').default}
+		title="An example"
+		source={require('!!raw-loader!../examples/19-error-handler')}
+	/>
 )}
 `;

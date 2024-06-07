@@ -54,6 +54,8 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Kutsu Jiraan',
   'fabric.elements.share.main.tab.text.confluence': 'Jaa sivu',
   'fabric.elements.share.main.tab.text.jira': 'Jaa asia',
+  'fabric.elements.share.menu.email.label': 'Sähköposti',
+  'fabric.elements.share.menu.slack.label': 'Slack',
   'fabric.elements.share.popup.label': 'Jaa',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Blogijulkaisu jaettu}board {Taulu jaettu}calendar {Kalenteri jaettu}draft {Luonnos jaettu}filter {Suodatin jaettu}issue {Asia jaettu}summary {Yhteenveto jaettu}list {Luettelo jaettu}timeline {Aikajana jaettu}form {Lomake jaettu}media {Media jaettu}page {Sivu jaettu}project {Projekti jaettu}pullrequest {Pull-pyyntö jaettu}question {Kysymys jaettu}report {Raportti jaettu}repository {Säilö jaettu}request {Pyyntö jaettu}roadmap {Aikajana jaettu}site {Sivusto jaettu}space {Työtila jaettu}other {Linkki jaettu}}',

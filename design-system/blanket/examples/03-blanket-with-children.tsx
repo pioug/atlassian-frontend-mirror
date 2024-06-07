@@ -1,58 +1,56 @@
 /** @jsx jsx */
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
+import { Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Blanket from '../src';
 
-const blanketChildStyles = css({
-  width: '50%',
-  margin: `${token('space.300', '24px')} auto`,
-  padding: token('space.500', '40px'),
-  backgroundColor: token('elevation.surface'),
+const blanketChildStyles = xcss({
+	width: '50%',
+	margin: `${token('space.800', '64px')} auto`,
+	padding: 'space.500',
+	backgroundColor: 'elevation.surface',
 });
 
 const BasicExample = () => {
-  const [isBlanketVisible, setIsBlanketVisible] = useState(false);
-  const [shouldAllowClickThrough, setShouldAllowClickThrough] = useState(true);
+	const [isBlanketVisible, setIsBlanketVisible] = useState(false);
+	const [shouldAllowClickThrough, setShouldAllowClickThrough] = useState(true);
 
-  const showBlanketClick = useCallback(() => {
-    setIsBlanketVisible(true);
-    setShouldAllowClickThrough(false);
-  }, []);
+	const showBlanketClick = useCallback(() => {
+		setIsBlanketVisible(true);
+		setShouldAllowClickThrough(false);
+	}, []);
 
-  const onBlanketClicked = useCallback(() => {
-    setIsBlanketVisible(false);
-    setShouldAllowClickThrough(true);
-  }, []);
+	const onBlanketClicked = useCallback(() => {
+		setIsBlanketVisible(false);
+		setShouldAllowClickThrough(true);
+	}, []);
 
-  return (
-    <div>
-      <Button
-        appearance="default"
-        onClick={showBlanketClick}
-        testId="show-button"
-      >
-        Show blanket
-      </Button>
-      <p>
-        Click "Show blanket" button to open the blanket & click the blanket to
-        dismiss it.
-      </p>
-      <Blanket
-        onBlanketClicked={onBlanketClicked}
-        isTinted={isBlanketVisible}
-        shouldAllowClickThrough={shouldAllowClickThrough}
-        testId="blanket-with-children"
-      >
-        <Lorem css={blanketChildStyles} count={20} />
-      </Blanket>
-    </div>
-  );
+	return (
+		<Fragment>
+			<p>Select "Show blanket" to open the blanket. Press Escape to dismiss the blanket.</p>
+			<Button appearance="default" onClick={showBlanketClick} testId="show-button">
+				Show blanket
+			</Button>
+			<Blanket
+				onBlanketClicked={onBlanketClicked}
+				isTinted={isBlanketVisible}
+				shouldAllowClickThrough={shouldAllowClickThrough}
+				testId="blanket-with-children"
+			>
+				<Stack space="space.200" xcss={blanketChildStyles}>
+					<Heading size="xlarge">Blanket Heading</Heading>
+					<Lorem count={20} />
+				</Stack>
+			</Blanket>
+		</Fragment>
+	);
 };
 
 export default BasicExample;

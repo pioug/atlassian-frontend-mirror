@@ -8,35 +8,35 @@ import { JQLParseError } from './jql-parse-error';
  * display to users.
  */
 export class JQLSyntaxError extends JQLParseError {
-  /**
-   * The starting character position (zero-indexed) of the offending token.
-   */
-  start: number;
-  /**
-   * The last character position (zero-indexed) of the offending token.
-   */
-  stop: number;
-  /**
-   * The line number (starting from 1) in the input where the error occurred.
-   */
-  line: number;
-  /**
-   * The character position (zero-indexed) within that line where the error occurred.
-   */
-  charPositionInLine: number;
+	/**
+	 * The starting character position (zero-indexed) of the offending token.
+	 */
+	start: number;
+	/**
+	 * The last character position (zero-indexed) of the offending token.
+	 */
+	stop: number;
+	/**
+	 * The line number (starting from 1) in the input where the error occurred.
+	 */
+	line: number;
+	/**
+	 * The character position (zero-indexed) within that line where the error occurred.
+	 */
+	charPositionInLine: number;
 
-  constructor(
-    message: string,
-    start: number,
-    stop: number,
-    line: number,
-    charPositionInLine: number,
-  ) {
-    super(message);
-    this.name = 'JQLSyntaxError';
-    this.start = start;
-    this.stop = stop;
-    this.line = line;
-    this.charPositionInLine = charPositionInLine;
-  }
+	constructor(
+		message: string,
+		start: number,
+		stop: number,
+		line: number,
+		charPositionInLine: number,
+	) {
+		super(message);
+		this.name = 'JQLSyntaxError';
+		this.start = start;
+		this.stop = stop;
+		this.line = line;
+		this.charPositionInLine = charPositionInLine;
+	}
 }

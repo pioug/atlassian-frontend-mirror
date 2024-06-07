@@ -6,70 +6,70 @@ import rule from '../index';
 const errors = ['Unexpected `css` tagged template expression'];
 
 const createInvalidTestCasesForImport = (importName: string) => [
-  {
-    filename: 'single-line-empty.ts',
-    code: `
+	{
+		filename: 'single-line-empty.ts',
+		code: `
         import { css } from '${importName}';
 
         css\`\`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         css({});
       `,
-    errors,
-  },
-  {
-    filename: 'single-line-static-rule.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'single-line-static-rule.ts',
+		code: `
         import { css } from '${importName}';
 
         css\`color: blue\`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         css({
           color: "blue"
         });
       `,
-    errors,
-  },
-  {
-    filename: 'single-line-static-rule-comments.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'single-line-static-rule-comments.ts',
+		code: `
         import { css } from '${importName}';
 
         css\`/* before */ color: /* inline */ blue /* after */\`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         css({
           color: "blue"
         });
       `,
-    errors,
-  },
-  {
-    filename: 'multiline-empty.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'multiline-empty.ts',
+		code: `
         import { css } from '${importName}';
 
         css\`
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         css({});
       `,
-    errors,
-  },
-  {
-    filename: 'multiline-static-rules.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'multiline-static-rules.ts',
+		code: `
         import { css } from '${importName}';
 
         css\`
@@ -85,7 +85,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           display: block;
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         css({
@@ -106,11 +106,11 @@ const createInvalidTestCasesForImport = (importName: string) => [
           display: "block"
         });
       `,
-    errors,
-  },
-  {
-    filename: 'no-trailing-semicolon-multiline-static-rules.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'no-trailing-semicolon-multiline-static-rules.ts',
+		code: `
         import { css } from '${importName}';
 
         css\`
@@ -126,7 +126,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           display: block
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         css({
@@ -147,11 +147,11 @@ const createInvalidTestCasesForImport = (importName: string) => [
           display: "block"
         });
       `,
-    errors,
-  },
-  {
-    filename: 'multiline-static-rules-comments.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'multiline-static-rules-comments.ts',
+		code: `
         import { css } from '${importName}';
 
         css\`
@@ -191,7 +191,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           /* after declaration 6 */
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         css({
@@ -212,11 +212,11 @@ const createInvalidTestCasesForImport = (importName: string) => [
           display: "block"
         });
       `,
-    errors,
-  },
-  {
-    filename: 'nested-selectors.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'nested-selectors.ts',
+		code: `
         import { css } from '${importName}';
 
         css\`
@@ -239,7 +239,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           }
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         css({
@@ -262,11 +262,11 @@ const createInvalidTestCasesForImport = (importName: string) => [
           }
         });
       `,
-    errors,
-  },
-  {
-    filename: 'nested-selectors-comments.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'nested-selectors-comments.ts',
+		code: `
         import { css } from '${importName}';
 
         css\`
@@ -301,7 +301,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           /* after media query */
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         css({
@@ -324,11 +324,11 @@ const createInvalidTestCasesForImport = (importName: string) => [
           }
         });
       `,
-    errors,
-  },
-  {
-    filename: 'interpolated-declaration-values.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'interpolated-declaration-values.ts',
+		code: `
         import { css } from '${importName}';
 
         const color = 'blue';
@@ -339,7 +339,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           opacity: \${opacity};
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         const color = 'blue';
@@ -350,11 +350,11 @@ const createInvalidTestCasesForImport = (importName: string) => [
           opacity: opacity
         });
       `,
-    errors,
-  },
-  {
-    filename: 'interpolated-declaration-values-comments.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'interpolated-declaration-values-comments.ts',
+		code: `
         import { css } from '${importName}';
 
         const color = 'blue';
@@ -372,7 +372,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
              */
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         const color = 'blue';
@@ -383,11 +383,11 @@ const createInvalidTestCasesForImport = (importName: string) => [
           opacity: opacity
         });
       `,
-    errors,
-  },
-  {
-    filename: 'affixed-declaration-values.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'affixed-declaration-values.ts',
+		code: `
         import { css } from '${importName}';
 
         const size = 8;
@@ -397,7 +397,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           padding: calc(\${size} * 2);
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
 
         const size = 8;
@@ -407,27 +407,27 @@ const createInvalidTestCasesForImport = (importName: string) => [
           padding: \`calc(\${size} * 2)\`
         });
       `,
-    errors,
-  },
-  {
-    filename: 'colon-in-value.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'colon-in-value.ts',
+		code: `
         import { css } from '${importName}';
         css\`
           background-image: url('https://some-url-b');
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
         css({
           backgroundImage: "url('https://some-url-b')"
         });
       `,
-    errors,
-  },
-  {
-    filename: 'single-line-comments.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'single-line-comments.ts',
+		code: `
         import { css } from '${importName}';
         css\`
           // color: orange;
@@ -437,17 +437,17 @@ const createInvalidTestCasesForImport = (importName: string) => [
           // color: yellow;
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
         css({
           color: "blue"
         });
       `,
-    errors,
-  },
-  {
-    filename: 'interpolations.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'interpolations.ts',
+		code: `
         import { css } from '${importName}';
         css\`
           color: \${color};
@@ -456,7 +456,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           padding: \${(props) => props.paddingBlock} \${(props) => props.paddingInline};
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
         css({
           color: color,
@@ -465,29 +465,29 @@ const createInvalidTestCasesForImport = (importName: string) => [
           padding: \`\${(props) => props.paddingBlock} \${(props) => props.paddingInline}\`
         });
       `,
-    errors,
-  },
-  {
-    filename: 'css-vars.ts',
-    code: `
+		errors,
+	},
+	{
+		filename: 'css-vars.ts',
+		code: `
         import { css } from '${importName}';
         css\`
           --my-var: 4px;
           padding: var(--my-var);
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
         css({
           "--my-var": "4px",
           padding: "var(--my-var)"
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
-  },
-  {
-    filename: 'content-property.ts',
-    code: `
+		errors: ['Unexpected `css` tagged template expression'],
+	},
+	{
+		filename: 'content-property.ts',
+		code: `
         import { css } from '${importName}';
         css\`
           content: 'abc';
@@ -496,7 +496,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           content: '"';
         \`;
       `,
-    output: `
+		output: `
         import { css } from '${importName}';
         css({
           content: "'abc'",
@@ -505,11 +505,11 @@ const createInvalidTestCasesForImport = (importName: string) => [
           content: "'\\"'"
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
-  },
-  {
-    filename: 'invalid-interpolated-property.tsx',
-    code: `
+		errors: ['Unexpected `css` tagged template expression'],
+	},
+	{
+		filename: 'invalid-interpolated-property.tsx',
+		code: `
       import { css } from '@emotion/react';
       export const InsertMarker = (cssString?: string) => css\`
         .\${ClassName.CONTROLS_INSERT_MARKER} {
@@ -518,32 +518,32 @@ const createInvalidTestCasesForImport = (importName: string) => [
         }
       \`;
     `,
-    errors: ['Unexpected `css` tagged template expression'],
-  },
+		errors: ['Unexpected `css` tagged template expression'],
+	},
 ];
 
 tester.run('no-css-tagged-template-expression', rule, {
-  valid: [
-    `
+	valid: [
+		`
       import { css } from 'css';
 
       css\`color: blue\`;
     `,
-    `
+		`
       import { css } from 'other-unsupported-lib';
 
       css\`color: blue\`;
     `,
-  ],
-  invalid: [
-    ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.compiled),
-    ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.emotionReact),
-    ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.emotionCore),
-    ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.styledComponents),
+	],
+	invalid: [
+		...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.compiled),
+		...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.emotionReact),
+		...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.emotionCore),
+		...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.styledComponents),
 
-    {
-      filename: 'mixins.ts',
-      code: `
+		{
+			filename: 'mixins.ts',
+			code: `
           import { css } from '@compiled/react';
 
           const primary = css({ color: 'blue' });
@@ -557,7 +557,7 @@ tester.run('no-css-tagged-template-expression', rule, {
             }
           \`;
         `,
-      output: `
+			output: `
           import { css } from '@compiled/react';
 
           const primary = css({ color: 'blue' });
@@ -571,11 +571,11 @@ tester.run('no-css-tagged-template-expression', rule, {
             }
           );
         `,
-      errors,
-    },
-    {
-      filename: 'no-trailing-semicolon-mixins.ts',
-      code: `
+			errors,
+		},
+		{
+			filename: 'no-trailing-semicolon-mixins.ts',
+			code: `
           import { css } from '@compiled/react';
 
           const primary = css({ color: 'blue' });
@@ -589,7 +589,7 @@ tester.run('no-css-tagged-template-expression', rule, {
             }
           \`;
         `,
-      output: `
+			output: `
           import { css } from '@compiled/react';
 
           const primary = css({ color: 'blue' });
@@ -603,11 +603,11 @@ tester.run('no-css-tagged-template-expression', rule, {
             }
           );
         `,
-      errors,
-    },
-    {
-      filename: 'mixins-comments.ts',
-      code: `
+			errors,
+		},
+		{
+			filename: 'mixins-comments.ts',
+			code: `
           import { css } from '@compiled/react';
 
           const primary = css({ color: 'blue' });
@@ -626,7 +626,7 @@ tester.run('no-css-tagged-template-expression', rule, {
             }
           \`;
         `,
-      output: `
+			output: `
           import { css } from '@compiled/react';
 
           const primary = css({ color: 'blue' });
@@ -640,11 +640,11 @@ tester.run('no-css-tagged-template-expression', rule, {
             }
           );
         `,
-      errors,
-    },
-    {
-      filename: 'mixins-nested-with-multiple-arguments.ts',
-      code: `
+			errors,
+		},
+		{
+			filename: 'mixins-nested-with-multiple-arguments.ts',
+			code: `
           import { css } from '@compiled/react';
 
           const primary = css({ color: 'blue' });
@@ -659,7 +659,7 @@ tester.run('no-css-tagged-template-expression', rule, {
             }
           \`;
         `,
-      errors,
-    },
-  ],
+			errors,
+		},
+	],
 });

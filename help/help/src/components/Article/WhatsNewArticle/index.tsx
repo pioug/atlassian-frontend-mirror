@@ -15,118 +15,106 @@ import { WhatsNewTypeIcon, DividerLine } from '../../../util/styled';
 
 import Loading from './Loading';
 import {
-  WhatsNewTypeTitle,
-  WhatsNewTitleText,
-  WhatsNewIconContainer,
-  RelatedLinkContainer,
-  ExternalLinkIconContainer,
+	WhatsNewTypeTitle,
+	WhatsNewTitleText,
+	WhatsNewIconContainer,
+	RelatedLinkContainer,
+	ExternalLinkIconContainer,
 } from './styled';
 
 const analyticsContextData = {
-  componentName: 'ArticlesListItem',
-  packageName: process.env._PACKAGE_NAME_,
-  packageVersion: process.env._PACKAGE_VERSION_,
+	componentName: 'ArticlesListItem',
+	packageName: process.env._PACKAGE_NAME_,
+	packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 interface Props {
-  article?: WhatsNewArticleType;
-  isLoading?: boolean;
+	article?: WhatsNewArticleType;
+	isLoading?: boolean;
 }
 
 export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
-  intl: { formatMessage },
-  article,
-  isLoading,
+	intl: { formatMessage },
+	article,
+	isLoading,
 }) => {
-  if (isLoading) {
-    return <Loading />;
-  }
+	if (isLoading) {
+		return <Loading />;
+	}
 
-  if (article) {
-    const typeTitle = article.type
-      ? formatMessage(getTypeTitle(article.type))
-      : '';
+	if (article) {
+		const typeTitle = article.type ? formatMessage(getTypeTitle(article.type)) : '';
 
-    return (
-      <>
-        <WhatsNewIconContainer>
-          <WhatsNewTypeIcon type={article.type}>
-            {getTypeIcon(article.type)}
-          </WhatsNewTypeIcon>
-          <WhatsNewTypeTitle>{typeTitle}</WhatsNewTypeTitle>
-        </WhatsNewIconContainer>
-        <WhatsNewTitleText>{article.title}</WhatsNewTitleText>
-        <HelpArticleContent
-          body={article.description}
-          bodyFormat={
-            article.bodyFormat ? article.bodyFormat : BODY_FORMAT_TYPES.html
-          }
-        />
-        {(article.relatedExternalLinks || article.communityUrl) && (
-          <>
-            <DividerLine
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-              style={{ marginTop: 0, marginBottom: token('space.200', '16px') }}
-            />
-            <WhatsNewTitleText>RELATED LINKS</WhatsNewTitleText>
-            <AnalyticsContext
-              data={{
-                componentName: 'searchExternalUrl',
-              }}
-            >
-              {article.relatedExternalLinks && (
-                <RelatedLinkContainer>
-                  <Button
-                    appearance="link"
-                    spacing="none"
-                    href={article.relatedExternalLinks}
-                    target="_blank"
-                  >
-                    {formatMessage(
-                      messages.help_whats_new_related_link_support,
-                    )}
-                  </Button>
-                  <ExternalLinkIconContainer>
-                    <ShortcutIcon size="small" label="" />
-                  </ExternalLinkIconContainer>
-                </RelatedLinkContainer>
-              )}
+		return (
+			<>
+				<WhatsNewIconContainer>
+					<WhatsNewTypeIcon type={article.type}>{getTypeIcon(article.type)}</WhatsNewTypeIcon>
+					<WhatsNewTypeTitle>{typeTitle}</WhatsNewTypeTitle>
+				</WhatsNewIconContainer>
+				<WhatsNewTitleText>{article.title}</WhatsNewTitleText>
+				<HelpArticleContent
+					body={article.description}
+					bodyFormat={article.bodyFormat ? article.bodyFormat : BODY_FORMAT_TYPES.html}
+				/>
+				{(article.relatedExternalLinks || article.communityUrl) && (
+					<>
+						<DividerLine
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							style={{ marginTop: 0, marginBottom: token('space.200', '16px') }}
+						/>
+						<WhatsNewTitleText>RELATED LINKS</WhatsNewTitleText>
+						<AnalyticsContext
+							data={{
+								componentName: 'searchExternalUrl',
+							}}
+						>
+							{article.relatedExternalLinks && (
+								<RelatedLinkContainer>
+									<Button
+										appearance="link"
+										spacing="none"
+										href={article.relatedExternalLinks}
+										target="_blank"
+									>
+										{formatMessage(messages.help_whats_new_related_link_support)}
+									</Button>
+									<ExternalLinkIconContainer>
+										<ShortcutIcon size="small" label="" />
+									</ExternalLinkIconContainer>
+								</RelatedLinkContainer>
+							)}
 
-              {article.communityUrl && (
-                <RelatedLinkContainer>
-                  <Button
-                    appearance="link"
-                    spacing="none"
-                    href={article.communityUrl}
-                    target="_blank"
-                  >
-                    {formatMessage(
-                      messages.help_whats_new_related_link_community,
-                    )}
-                  </Button>
-                  <ExternalLinkIconContainer>
-                    <ShortcutIcon size="small" label="" />
-                  </ExternalLinkIconContainer>
-                </RelatedLinkContainer>
-              )}
-            </AnalyticsContext>
-          </>
-        )}
-      </>
-    );
-  }
+							{article.communityUrl && (
+								<RelatedLinkContainer>
+									<Button
+										appearance="link"
+										spacing="none"
+										href={article.communityUrl}
+										target="_blank"
+									>
+										{formatMessage(messages.help_whats_new_related_link_community)}
+									</Button>
+									<ExternalLinkIconContainer>
+										<ShortcutIcon size="small" label="" />
+									</ExternalLinkIconContainer>
+								</RelatedLinkContainer>
+							)}
+						</AnalyticsContext>
+					</>
+				)}
+			</>
+		);
+	}
 
-  return null;
+	return null;
 };
 
-const WhatsNewArticleWithContext: React.FC<Props & WrappedComponentProps> = (
-  props,
-) => {
-  return (
-    <AnalyticsContext data={analyticsContextData}>
-      <WhatsNewArticle {...props} />
-    </AnalyticsContext>
-  );
+const WhatsNewArticleWithContext: React.FC<Props & WrappedComponentProps> = (props) => {
+	return (
+		<AnalyticsContext data={analyticsContextData}>
+			<WhatsNewArticle {...props} />
+		</AnalyticsContext>
+	);
 };
 
 export default injectIntl(WhatsNewArticleWithContext);

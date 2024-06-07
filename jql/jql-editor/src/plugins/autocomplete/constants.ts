@@ -16,12 +16,10 @@ export const TAB_KEY = 'Tab';
 
 // No-op autocomplete provider used when creating the initial state
 export const defaultAutocompleteProvider: AutocompleteProvider = {
-  onFields: () => empty(),
-  onOperators: () => empty(),
-  onValues: () => empty(),
-  onFunctions: () => empty(),
+	onFields: () => empty(),
+	onOperators: () => empty(),
+	onValues: () => empty(),
+	onFunctions: () => empty(),
 };
 
-export const JQLAutocompletePluginKey = new PluginKey<void>(
-  AUTOCOMPLETE_PLUGIN_NAME,
-);
+export const JQLAutocompletePluginKey = new PluginKey<void>(AUTOCOMPLETE_PLUGIN_NAME);

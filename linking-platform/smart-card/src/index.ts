@@ -2,19 +2,15 @@ import { type JsonLd } from 'json-ld-types';
 
 export type ResolveResponse = JsonLd.Response;
 
-export {
-  SmartCardProvider as Provider,
-  SmartCardContext,
-  useSmartLinkAnalytics,
-} from './state';
+export { SmartCardProvider as Provider, SmartCardContext, useSmartLinkAnalytics } from './state';
 export type { ProviderProps, CardType } from './state';
 export type {
-  CardAdf,
-  InlineCardAdf,
-  BlockCardAdf,
-  EmbedCardAdf,
-  DatasourceAdf,
-  DatasourceAdfView,
+	CardAdf,
+	InlineCardAdf,
+	BlockCardAdf,
+	EmbedCardAdf,
+	DatasourceAdf,
+	DatasourceAdfView,
 } from '@atlaskit/linking-common';
 export { APIError } from '@atlaskit/linking-common';
 export { CardClient as Client } from '@atlaskit/link-provider';
@@ -29,52 +25,49 @@ export { SmartLinkEvents } from './utils/analytics/analytics';
 export { useSmartLinkEvents } from './view/SmartLinkEvents/useSmartLinkEvents';
 // Classnames for integrators
 export {
-  contentFooterClassName,
-  metadataListClassName,
-  blockCardResolvingViewClassName,
-  blockCardResolvedViewClassName,
-  blockCardForbiddenViewClassName,
-  blockCardIconImageClassName,
-  blockCardResolvedViewByClassName,
-  blockCardForbiddenViewLinkClassName,
-  blockCardContentClassName,
-  blockCardContentHeaderClassName,
-  blockCardContentHeaderNameClassName,
-  blockCardNotFoundViewClassName,
-  blockCardErroredViewClassName,
+	contentFooterClassName,
+	metadataListClassName,
+	blockCardResolvingViewClassName,
+	blockCardResolvedViewClassName,
+	blockCardForbiddenViewClassName,
+	blockCardIconImageClassName,
+	blockCardResolvedViewByClassName,
+	blockCardForbiddenViewLinkClassName,
+	blockCardContentClassName,
+	blockCardContentHeaderClassName,
+	blockCardContentHeaderNameClassName,
+	blockCardNotFoundViewClassName,
+	blockCardErroredViewClassName,
 } from './classNames';
 export { loadingPlaceholderClassName } from './view/CardWithUrl/component-lazy/LazyFallback';
 // Flexible UI
 export {
-  ActionName,
-  ElementName,
-  MediaPlacement,
-  SmartLinkDirection,
-  SmartLinkPosition,
-  SmartLinkSize,
-  SmartLinkTheme,
+	ActionName,
+	ElementName,
+	MediaPlacement,
+	SmartLinkDirection,
+	SmartLinkPosition,
+	SmartLinkSize,
+	SmartLinkTheme,
 } from './constants';
 export {
-  MetadataBlock,
-  PreviewBlock,
-  SnippetBlock,
-  TitleBlock,
-  FooterBlock,
-  CustomBlock,
+	MetadataBlock,
+	PreviewBlock,
+	SnippetBlock,
+	TitleBlock,
+	FooterBlock,
+	CustomBlock,
 } from './view/FlexibleCard/components/blocks';
 export type {
-  ActionItem,
-  ElementItem,
-  OnActionMenuOpenChangeOptions,
+	ActionItem,
+	ElementItem,
+	OnActionMenuOpenChangeOptions,
 } from './view/FlexibleCard/components/blocks/types';
 export type {
-  AnalyticsAction,
-  AnalyticsActionSubject,
-  AnalyticsPayload,
-  AnalyticsHandler,
+	AnalyticsAction,
+	AnalyticsActionSubject,
+	AnalyticsPayload,
+	AnalyticsHandler,
 } from './utils/types';
 /** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-661 Internal documentation for deprecation (no external access)} */
-export {
-  editorCardProvider,
-  EditorCardProvider,
-} from '@atlaskit/link-provider';
+export { editorCardProvider, EditorCardProvider } from '@atlaskit/link-provider';

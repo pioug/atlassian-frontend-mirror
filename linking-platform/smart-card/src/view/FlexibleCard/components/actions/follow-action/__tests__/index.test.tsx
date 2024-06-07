@@ -11,44 +11,44 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import userEvent from '@testing-library/user-event';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
-  ...jest.requireActual('../../../../../../state/flexible-ui-context'),
-  useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
+	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+	useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
 }));
 
 describe('FollowAction', () => {
-  const testId = 'smart-action-follow-action';
+	const testId = 'smart-action-follow-action';
 
-  const setup = (props?: Partial<FollowActionProps>) => {
-    const onEvent = jest.fn();
+	const setup = (props?: Partial<FollowActionProps>) => {
+		const onEvent = jest.fn();
 
-    return render(
-      <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-        <IntlProvider locale="en">
-          <SmartCardProvider>
-            <FollowAction {...props} />
-          </SmartCardProvider>
-        </IntlProvider>
-      </AnalyticsListener>,
-    );
-  };
+		return render(
+			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+				<IntlProvider locale="en">
+					<SmartCardProvider>
+						<FollowAction {...props} />
+					</SmartCardProvider>
+				</IntlProvider>
+			</AnalyticsListener>,
+		);
+	};
 
-  describe('existing follow action button', () => {
-    it('renders follow action button', async () => {
-      const { findByTestId } = setup();
-      const element = await findByTestId(testId);
-      expect(element).toBeInTheDocument();
-      expect(element.textContent).toBe('Follow');
-    });
+	describe('existing follow action button', () => {
+		it('renders follow action button', async () => {
+			const { findByTestId } = setup();
+			const element = await findByTestId(testId);
+			expect(element).toBeInTheDocument();
+			expect(element.textContent).toBe('Follow');
+		});
 
-    it('renders tooltip', async () => {
-      const user = userEvent.setup();
-      const { findByRole, findByTestId } = setup();
+		it('renders tooltip', async () => {
+			const user = userEvent.setup();
+			const { findByRole, findByTestId } = setup();
 
-      const element = await findByTestId(testId);
-      await user.hover(element);
+			const element = await findByTestId(testId);
+			await user.hover(element);
 
-      const tooltip = await findByRole('tooltip');
-      expect(tooltip.textContent).toBe('Follow');
-    });
-  });
+			const tooltip = await findByRole('tooltip');
+			expect(tooltip.textContent).toBe('Follow');
+		});
+	});
 });

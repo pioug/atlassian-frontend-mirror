@@ -1,43 +1,39 @@
 import {
-  type JastListener,
-  type JastVisitor,
-  type OrderByDirection,
-  type OrderByDirectionValue,
-  type Position,
+	type JastListener,
+	type JastVisitor,
+	type OrderByDirection,
+	type OrderByDirectionValue,
+	type Position,
 } from '../types';
 
 import { noChildren } from './common';
 
-function acceptOrderByDirection<Result>(
-  this: OrderByDirection,
-  visitor: JastVisitor<Result>,
-) {
-  return visitor.visitOrderByDirection
-    ? visitor.visitOrderByDirection(this)
-    : visitor.visitChildren(this);
+function acceptOrderByDirection<Result>(this: OrderByDirection, visitor: JastVisitor<Result>) {
+	return visitor.visitOrderByDirection
+		? visitor.visitOrderByDirection(this)
+		: visitor.visitChildren(this);
 }
 
 function enterNode(this: OrderByDirection, listener: JastListener): void {
-  listener.enterOrderByDirection && listener.enterOrderByDirection(this);
+	listener.enterOrderByDirection && listener.enterOrderByDirection(this);
 }
 
 function exitNode(this: OrderByDirection, listener: JastListener): void {
-  listener.exitOrderByDirection && listener.exitOrderByDirection(this);
+	listener.exitOrderByDirection && listener.exitOrderByDirection(this);
 }
 
-export const orderByDirection = (
-  value: OrderByDirectionValue,
-): OrderByDirection => orderByDirectionInternal(value);
+export const orderByDirection = (value: OrderByDirectionValue): OrderByDirection =>
+	orderByDirectionInternal(value);
 
 export const orderByDirectionInternal = (
-  value: OrderByDirectionValue,
-  position: Position | null = null,
+	value: OrderByDirectionValue,
+	position: Position | null = null,
 ): OrderByDirection => ({
-  value,
-  position,
-  accept: acceptOrderByDirection,
-  enterNode,
-  exitNode,
-  getChildren: noChildren,
-  parent: null,
+	value,
+	position,
+	accept: acceptOrderByDirection,
+	enterNode,
+	exitNode,
+	getChildren: noChildren,
+	parent: null,
 });

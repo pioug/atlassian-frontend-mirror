@@ -12,8 +12,8 @@ const LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS = 15552000000; // 180 days
 const LOCAL_STORAGE_DISCOVERY_REQUIRED_TIME = 2000;
 
 export type FeatureDiscoveryProps = {
-  children: React.ReactElement;
-  testId?: string;
+	children: React.ReactElement;
+	testId?: string;
 };
 
 /**
@@ -21,52 +21,44 @@ export type FeatureDiscoveryProps = {
  * This implementation must be removed once the experiment is completed.
  * Cleanup on https://product-fabric.atlassian.net/browse/EDM-9649
  */
-const FeatureDiscovery = ({
-  children,
-  testId,
-}: FeatureDiscoveryProps): JSX.Element => {
-  const renderedTime = useRef<number>();
+const FeatureDiscovery = ({ children, testId }: FeatureDiscoveryProps): JSX.Element => {
+	const renderedTime = useRef<number>();
 
-  const storageClient = useMemo(
-    () => new StorageClient(LOCAL_STORAGE_CLIENT_KEY),
-    [],
-  );
+	const storageClient = useMemo(() => new StorageClient(LOCAL_STORAGE_CLIENT_KEY), []);
 
-  const discovered = useMemo(
-    () =>
-      storageClient.getItem(LOCAL_STORAGE_DISCOVERY_KEY) ===
-      LOCAL_STORAGE_DISCOVERY_VALUE,
-    [storageClient],
-  );
+	const discovered = useMemo(
+		() => storageClient.getItem(LOCAL_STORAGE_DISCOVERY_KEY) === LOCAL_STORAGE_DISCOVERY_VALUE,
+		[storageClient],
+	);
 
-  useEffect(() => {
-    renderedTime.current = Date.now();
+	useEffect(() => {
+		renderedTime.current = Date.now();
 
-    return () => {
-      if (!discovered && renderedTime.current) {
-        const duration = Date.now() - renderedTime.current;
-        if (duration > LOCAL_STORAGE_DISCOVERY_REQUIRED_TIME) {
-          storageClient.setItemWithExpiry(
-            LOCAL_STORAGE_DISCOVERY_KEY,
-            LOCAL_STORAGE_DISCOVERY_VALUE,
-            LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS,
-          );
-        }
-      }
-    };
-  }, [storageClient, discovered]);
+		return () => {
+			if (!discovered && renderedTime.current) {
+				const duration = Date.now() - renderedTime.current;
+				if (duration > LOCAL_STORAGE_DISCOVERY_REQUIRED_TIME) {
+					storageClient.setItemWithExpiry(
+						LOCAL_STORAGE_DISCOVERY_KEY,
+						LOCAL_STORAGE_DISCOVERY_VALUE,
+						LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS,
+					);
+				}
+			}
+		};
+	}, [storageClient, discovered]);
 
-  const component = useMemo(() => {
-    if (!discovered) {
-      return (
-        <span css={getPulseStyles()} data-testid={`${testId}-discovery`}>
-          {children}
-        </span>
-      );
-    }
-  }, [children, discovered, testId]);
+	const component = useMemo(() => {
+		if (!discovered) {
+			return (
+				<span css={getPulseStyles()} data-testid={`${testId}-discovery`}>
+					{children}
+				</span>
+			);
+		}
+	}, [children, discovered, testId]);
 
-  return component ?? children;
+	return component ?? children;
 };
 
 export default FeatureDiscovery;

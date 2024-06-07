@@ -3,20 +3,22 @@ import React from 'react';
 
 import { uid } from 'react-uid';
 
+import { useThemeObserver } from '@atlaskit/tokens';
+
 import { defaultLogoParams } from '../constants';
-import { type LogoPropsAppearanceRequired } from '../types';
+import type { LogoPropsAppearanceRequired } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = ({ appearance }: LogoPropsAppearanceRequired) => {
-  // Will be fixed upon removal of deprecated iconGradientStart and
-  // iconGradientStop props, or with React 18's useId() hook when we update.
-  // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-  let id = uid({ appearance });
+const svg = ({ appearance }: LogoPropsAppearanceRequired, colorMode: string | undefined) => {
+	// Will be fixed upon removal of deprecated iconGradientStart and
+	// iconGradientStop props, or with React 18's useId() hook when we update.
+	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
+	let id = uid({ appearance });
 
-  const colors = getColorsFromAppearanceOldLogos(appearance);
+	const colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
 
-  return `
+	return `
   <svg height="32" viewBox="0 0 477 48" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="${id}-a" x1="447.285" x2="447.285" y1="40" y2="30" gradientUnits="userSpaceOnUse">
@@ -51,20 +53,24 @@ const svg = ({ appearance }: LogoPropsAppearanceRequired) => {
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const AtlassianAnalyticsLogo = ({
-  appearance,
-  label = 'Atlassian Analytics',
-  size = defaultLogoParams.size,
-  testId,
+	appearance,
+	label = 'Atlassian Analytics',
+	size = defaultLogoParams.size,
+	testId,
 }: LogoPropsAppearanceRequired) => {
-  return (
-    <Wrapper
-      appearance={appearance}
-      label={label}
-      size={size}
-      svg={svg({
-        appearance,
-      })}
-      testId={testId}
-    />
-  );
+	const { colorMode } = useThemeObserver();
+	return (
+		<Wrapper
+			appearance={appearance}
+			label={label}
+			size={size}
+			svg={svg(
+				{
+					appearance,
+				},
+				colorMode,
+			)}
+			testId={testId}
+		/>
+	);
 };

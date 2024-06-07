@@ -1,19 +1,19 @@
 export interface TouchEventProps {
-  touches: Touch[];
+	touches: Touch[];
 }
 
 export const createTouchEvent = (
-  name: string,
-  props: TouchEventProps = { touches: [] },
+	name: string,
+	props: TouchEventProps = { touches: [] },
 ): TouchEvent => {
-  const touches = props.touches;
+	const touches = props.touches;
 
-  return new TouchEvent(name, {
-    cancelable: true,
-    bubbles: true,
-    touches,
-    targetTouches: [],
-    changedTouches: touches,
-    shiftKey: true,
-  });
+	return new TouchEvent(name, {
+		cancelable: true,
+		bubbles: true,
+		touches,
+		targetTouches: [],
+		changedTouches: touches,
+		shiftKey: true,
+	});
 };

@@ -4,7 +4,7 @@ import { type Tests } from '../../__tests__/utils/_types';
 import { noRawSpacingValues as error } from '../index';
 
 const valid: string[] = [
-  outdent`
+	outdent`
     // ignores valid styles
     import { xcss } from '@atlaskit/primitives';
 
@@ -14,7 +14,7 @@ const valid: string[] = [
     });
   `,
 
-  outdent`
+	outdent`
     // ignores 0
     import { xcss } from '@atlaskit/primitives';
 
@@ -22,7 +22,7 @@ const valid: string[] = [
       margin: '0',
     });
   `,
-  outdent`
+	outdent`
     // ignores already tokenised values
     import { xcss } from '@atlaskit/primitives';
     import { token } from '@atlaskit/tokens';
@@ -31,7 +31,7 @@ const valid: string[] = [
       margin: 'space.100',
     });
   `,
-  outdent`
+	outdent`
     // ignores xcss global values
     import { xcss } from '@atlaskit/primitives';
 
@@ -41,7 +41,7 @@ const valid: string[] = [
     });
   `,
 
-  outdent`
+	outdent`
     // ignores complicated values
     import { xcss } from '@atlaskit/primitives';
 
@@ -56,8 +56,8 @@ const valid: string[] = [
 ];
 
 const invalid = [
-  {
-    code: outdent`
+	{
+		code: outdent`
     // ignores multi-values
     import { xcss } from '@atlaskit/primitives';
 
@@ -65,49 +65,49 @@ const invalid = [
       padding: '8px 12px',
     });
   `,
-    errors: [error],
-  },
-  {
-    code: outdent`
+		errors: [error],
+	},
+	{
+		code: outdent`
       // it raises a violation for xcss call with hardcoded pixel value
       import { xcss } from '@atlaskit/primitives';
 
       const paddingStyles = xcss({ padding: '8px' });
     `,
-    errors: [error],
-  },
+		errors: [error],
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // raises a violation with no fixes for non-tokenisable values
       import { xcss } from '@atlaskit/primitives';
       const containerStyles = xcss({ padding: '9px' });
     `,
-    errors: [error],
-  },
+		errors: [error],
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // reports on xcss array syntax
       import { xcss } from '@atlaskit/primitives';
       const paddingStyles = xcss([{ padding: '8px' }]);
     `,
-    errors: [error],
-  },
+		errors: [error],
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // it suggests token valid negative values
       import { xcss } from '@atlaskit/primitives';
       const containerStyles = xcss({
         padding: '-8px',
       });
     `,
-    errors: [error],
-  },
+		errors: [error],
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // handles nested styles
       import { xcss } from '@atlaskit/primitives';
       const containerStyles = xcss({
@@ -116,11 +116,11 @@ const invalid = [
         }
       });
     `,
-    errors: [error],
-  },
+		errors: [error],
+	},
 ];
 
 export const tests: Tests = {
-  valid,
-  invalid,
+	valid,
+	invalid,
 };

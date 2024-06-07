@@ -1,33 +1,28 @@
 import { type ReactNode } from 'react';
 
 export interface WithShowControlMethodProp {
-  showControls?: () => void;
+	showControls?: () => void;
 }
 
 export interface ContextViewModel {
-  icon?: ReactNode;
-  text: string;
+	icon?: ReactNode;
+	text: string;
 }
 
 export type AccessTypes =
-  | 'REQUEST_ACCESS'
-  | 'PENDING_REQUEST_EXISTS'
-  | 'FORBIDDEN'
-  | 'DIRECT_ACCESS'
-  | 'DENIED_REQUEST_EXISTS'
-  | 'APPROVED_REQUEST_EXISTS'
-  | 'ACCESS_EXISTS';
+	| 'REQUEST_ACCESS'
+	| 'PENDING_REQUEST_EXISTS'
+	| 'FORBIDDEN'
+	| 'DIRECT_ACCESS'
+	| 'DENIED_REQUEST_EXISTS'
+	| 'APPROVED_REQUEST_EXISTS'
+	| 'ACCESS_EXISTS';
 
 export interface AccessContext {
-  accessType?: AccessTypes;
-  cloudId?: string;
-  url?: string;
-  smartLinksAccessMetadataExperimentCohort?:
-    | 'experiment'
-    | 'control'
-    | 'not-enrolled';
+	accessType?: AccessTypes;
+	cloudId?: string;
+	url?: string;
+	smartLinksAccessMetadataExperimentCohort?: 'experiment' | 'control' | 'not-enrolled';
 }
 
-export type InlinePreloaderStyle =
-  | 'on-left-with-skeleton'
-  | 'on-right-without-skeleton';
+export type InlinePreloaderStyle = 'on-left-with-skeleton' | 'on-right-without-skeleton';

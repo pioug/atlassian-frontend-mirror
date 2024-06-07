@@ -5,81 +5,78 @@ import { fireEvent, render } from '@testing-library/react';
 import { useTrackedRef } from '../../useTrackedRef';
 
 const ComponentUsingHook = ({
-  data,
-  callback,
-  callBackRefUpdate,
+	data,
+	callback,
+	callBackRefUpdate,
 }: {
-  data: string;
-  callback: (data: MutableRefObject<string>) => void;
-  callBackRefUpdate?: (
-    ref: MutableRefObject<string>,
-    snapshotData: string,
-  ) => void;
+	data: string;
+	callback: (data: MutableRefObject<string>) => void;
+	callBackRefUpdate?: (ref: MutableRefObject<string>, snapshotData: string) => void;
 }) => {
-  const dataRef = useTrackedRef(data);
+	const dataRef = useTrackedRef(data);
 
-  useEffect(() => {
-    if (callBackRefUpdate) {
-      callBackRefUpdate(dataRef, dataRef.current);
-    }
-  }, [dataRef, callBackRefUpdate]);
+	useEffect(() => {
+		if (callBackRefUpdate) {
+			callBackRefUpdate(dataRef, dataRef.current);
+		}
+	}, [dataRef, callBackRefUpdate]);
 
-  const onClick = useCallback(() => {
-    callback(dataRef);
-  }, [dataRef, callback]);
+	const onClick = useCallback(() => {
+		callback(dataRef);
+	}, [dataRef, callback]);
 
-  return <button onClick={onClick}>Button</button>;
+	return <button onClick={onClick}>Button</button>;
 };
 
 describe('useTrackedRef', () => {
-  it('should return a reference that tracks the last value rendered', () => {
-    const callback = jest.fn();
+	it('should return a reference that tracks the last value rendered', () => {
+		const callback = jest.fn();
 
-    const { rerender, getByText } = render(
-      <ComponentUsingHook data="firstValue" callback={callback} />,
-    );
+		const { rerender, getByText } = render(
+			<ComponentUsingHook data="firstValue" callback={callback} />,
+		);
 
-    fireEvent.click(getByText('Button'));
+		fireEvent.click(getByText('Button'));
 
-    expect(callback).toBeCalled();
+		expect(callback).toBeCalled();
 
-    const ref = callback.mock.calls[0][0];
-    expect(ref.current).toBe('firstValue');
+		const ref = callback.mock.calls[0][0];
+		expect(ref.current).toBe('firstValue');
 
-    callback.mockReset();
+		callback.mockReset();
 
-    rerender(<ComponentUsingHook data="secondValue" callback={callback} />);
+		rerender(<ComponentUsingHook data="secondValue" callback={callback} />);
 
-    fireEvent.click(getByText('Button'));
+		fireEvent.click(getByText('Button'));
 
-    expect(callback).toBeCalledWith(ref);
-    expect(ref.current).toBe('secondValue');
-  });
+		expect(callback).toBeCalledWith(ref);
+		expect(ref.current).toBe('secondValue');
+	});
 
-  it('should useEffect not trigger again althouhg "data" prop is updated', () => {
-    const callback = jest.fn();
-    const callBackRefUpdate = jest.fn();
+	it('should useEffect not trigger again althouhg "data" prop is updated', () => {
+		const callback = jest.fn();
+		const callBackRefUpdate = jest.fn();
 
-    const { rerender } = render(
-      <ComponentUsingHook
-        data="firstValue"
-        callback={callback}
-        callBackRefUpdate={callBackRefUpdate}
-      />,
-    );
+		const { rerender } = render(
+			<ComponentUsingHook
+				data="firstValue"
+				callback={callback}
+				callBackRefUpdate={callBackRefUpdate}
+			/>,
+		);
 
-    // Update `data` -> `useTrackedRef` is passed with the new data -> but `useEffect` of a component is not triggered.
-    // This is normal with `useRef` and `useEffect`.
-    rerender(<ComponentUsingHook data="secondValue" callback={callback} />);
+		// Update `data` -> `useTrackedRef` is passed with the new data -> but `useEffect` of a component is not triggered.
+		// This is normal with `useRef` and `useEffect`.
+		rerender(<ComponentUsingHook data="secondValue" callback={callback} />);
 
-    expect(callBackRefUpdate).toHaveBeenCalledTimes(1);
+		expect(callBackRefUpdate).toHaveBeenCalledTimes(1);
 
-    // callback of `useEffect` is called only one time when the component is mounted.
-    const snapshoData = callBackRefUpdate.mock.calls[0][1];
-    expect(snapshoData).toBe('firstValue');
+		// callback of `useEffect` is called only one time when the component is mounted.
+		const snapshoData = callBackRefUpdate.mock.calls[0][1];
+		expect(snapshoData).toBe('firstValue');
 
-    // `ref` object always points to the last value.
-    const ref = callBackRefUpdate.mock.calls[0][0];
-    expect(ref.current).toBe('secondValue');
-  });
+		// `ref` object always points to the last value.
+		const ref = callBackRefUpdate.mock.calls[0][0];
+		expect(ref.current).toBe('secondValue');
+	});
 });

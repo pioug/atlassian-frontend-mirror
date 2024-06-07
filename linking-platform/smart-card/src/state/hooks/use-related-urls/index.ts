@@ -4,19 +4,19 @@ import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { type JsonLd } from 'json-ld-types';
 
 export type RelatedUrlsResponse = {
-  resolvedResults?: JsonLd.Response[];
+	resolvedResults?: JsonLd.Response[];
 };
 
 const useRelatedUrls = () => {
-  const { connections } = useSmartLinkContext();
-  const clientExt = useSmartLinkClientExtension(connections.client);
+	const { connections } = useSmartLinkContext();
+	const clientExt = useSmartLinkClientExtension(connections.client);
 
-  return useCallback(
-    async (url: string) => {
-      return await clientExt.relatedUrls<RelatedUrlsResponse>(url);
-    },
-    [clientExt],
-  );
+	return useCallback(
+		async (url: string) => {
+			return await clientExt.relatedUrls<RelatedUrlsResponse>(url);
+		},
+		[clientExt],
+	);
 };
 
 export default useRelatedUrls;

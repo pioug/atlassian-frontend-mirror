@@ -11,12 +11,10 @@ Its data is mapped to \`atlassian:attachmentCount\` from a link resolver.
 
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-attachment-count').default
-    }
-    source={require('!!raw-loader!../../../examples/content/element-attachment-count')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-attachment-count').default}
+		source={require('!!raw-loader!../../../examples/content/element-attachment-count')}
+	/>
 )}
 
 ### Authors
@@ -25,13 +23,11 @@ A \`AuthorGroup\` element shows the group of people who have attributed to the l
 Its data is mapped to \`attributedTo\` from a link resolver.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-author-group').default
-    }
-    highlight="9"
-    source={require('!!raw-loader!../../../examples/content/element-author-group')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-author-group').default}
+		highlight="9"
+		source={require('!!raw-loader!../../../examples/content/element-author-group')}
+	/>
 )}
 
 Use \`size\` to override block sizing on author group.
@@ -46,12 +42,10 @@ Its data is mapped to \`atlassian:checkItems\` from a link resolver.
 
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-checklist-progress').default
-    }
-    source={require('!!raw-loader!../../../examples/content/element-checklist-progress')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-checklist-progress').default}
+		source={require('!!raw-loader!../../../examples/content/element-checklist-progress')}
+	/>
 )}
 
 
@@ -62,12 +56,10 @@ Its data is mapped to \`atlassian:updatedBy\` from a link resolver.
 
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-collaborator-group').default
-    }
-    source={require('!!raw-loader!../../../examples/content/element-collaborator-group')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-collaborator-group').default}
+		source={require('!!raw-loader!../../../examples/content/element-collaborator-group')}
+	/>
 )}
 
 Use \`size\` to override block sizing on collaborator group.
@@ -79,12 +71,10 @@ Its data is mapped to \`schema:commentCount\` from a link resolver.
 
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-comment-count').default
-    }
-    source={require('!!raw-loader!../../../examples/content/element-comment-count')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-comment-count').default}
+		source={require('!!raw-loader!../../../examples/content/element-comment-count')}
+	/>
 )}
 
 ### Created by
@@ -93,10 +83,10 @@ A \`CreatedBy\` element shows the name of the person who created the link resour
 Its data is mapped to \`attributedTo\` from a link resolver.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-created-by').default}
-    source={require('!!raw-loader!../../../examples/content/element-created-by')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-created-by').default}
+		source={require('!!raw-loader!../../../examples/content/element-created-by')}
+	/>
 )}
 
 ### Created on
@@ -105,10 +95,10 @@ A \`CreatedOn\` element shows the relative creation time of the link resource.
 Its data is mapped to \`schema:dateCreated\` from a link resolver. The text 'Created on' can be customized by adding a \`text\` field.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-created-on').default}
-    source={require('!!raw-loader!../../../examples/content/element-created-on')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-created-on').default}
+		source={require('!!raw-loader!../../../examples/content/element-created-on')}
+	/>
 )}
 
 ### Due on
@@ -117,10 +107,10 @@ A \`DueOn\` element shows the due date of the link resource.
 Its data is mapped to \`endTime\` from a link resolver.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-due-on').default}
-    source={require('!!raw-loader!../../../examples/content/element-due-on')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-due-on').default}
+		source={require('!!raw-loader!../../../examples/content/element-due-on')}
+	/>
 )}
 
 ### Latest commit
@@ -129,12 +119,10 @@ A \`LatestCommit\` element shows the latest commit to a given repository.
 Its data is mapped to \`atlassian:latestCommit\` from a link resolver.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-latest-commit').default
-    }
-    source={require('!!raw-loader!../../../examples/content/element-latest-commit')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-latest-commit').default}
+		source={require('!!raw-loader!../../../examples/content/element-latest-commit')}
+	/>
 )}
 
 ### Modified by
@@ -143,10 +131,10 @@ A \`ModifiedBy\` element shows the name of the last person who has updated the l
 Its data is mapped to \`atlassian:updatedBy\` from a link resolver.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-modified-by').default}
-    source={require('!!raw-loader!../../../examples/content/element-modified-by')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-modified-by').default}
+		source={require('!!raw-loader!../../../examples/content/element-modified-by')}
+	/>
 )}
 
 ### Modified on
@@ -155,10 +143,10 @@ A \`ModifiedOn\` element shows the last relative modification time of the link r
 Its data is mapped to \`updated\` from a link resolver. The text 'Modified on' can be customized by adding a \`text\` field.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-modified-on').default}
-    source={require('!!raw-loader!../../../examples/content/element-modified-on')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-modified-on').default}
+		source={require('!!raw-loader!../../../examples/content/element-modified-on')}
+	/>
 )}
 
 ### Priority
@@ -168,22 +156,20 @@ Its data is mapped to \`atlassian:priority\` from a link resolver.
 The data is only available from link of task type.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-priority').default}
-    source={require('!!raw-loader!../../../examples/content/element-priority')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-priority').default}
+		source={require('!!raw-loader!../../../examples/content/element-priority')}
+	/>
 )}
 
 Following are the different priorities for the priority element.
 A link resolver can also specify a icon url to use with the priority element.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-priority-variants').default
-    }
-    sourceVisible={false}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-priority-variants').default}
+		sourceVisible={false}
+	/>
 )}
 
 ### Programming language
@@ -193,12 +179,10 @@ It is mainly used in repository or pull request link.
 Its data is mapped to \`schema:programmingLanguage\` from a link resolver.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-programming-language').default
-    }
-    source={require('!!raw-loader!../../../examples/content/element-programming-language')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-programming-language').default}
+		source={require('!!raw-loader!../../../examples/content/element-programming-language')}
+	/>
 )}
 
 ### Provider
@@ -207,10 +191,10 @@ A \`Provider\` element shows the icon and name of the link provider.
 Its data is mapped to \`generator\` from a link resolver.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-provider').default}
-    source={require('!!raw-loader!../../../examples/content/element-provider')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-provider').default}
+		source={require('!!raw-loader!../../../examples/content/element-provider')}
+	/>
 )}
 
 ### React
@@ -219,10 +203,10 @@ A \`ReactCount\` element shows the number of react or likes of the link resource
 Its data is mapped to \`atlassian:reactCount\` from a link resolver.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-react-count').default}
-    source={require('!!raw-loader!../../../examples/content/element-react-count')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-react-count').default}
+		source={require('!!raw-loader!../../../examples/content/element-react-count')}
+	/>
 )}
 
 ### Source branch and target branch
@@ -236,12 +220,10 @@ The elements data are mapped to \`atlassian:mergeSource\` and
 \`atlassian:mergeDestination\` respectively.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-source-target-branch').default
-    }
-    source={require('!!raw-loader!../../../examples/content/element-source-target-branch')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-source-target-branch').default}
+		source={require('!!raw-loader!../../../examples/content/element-source-target-branch')}
+	/>
 )}
 
 ### State
@@ -251,21 +233,19 @@ For a link of type document, project and pull request, a state element data is m
 For a link of type task, a state element data can be mapped to \`tag\` or \`atlassian:taskStatus\` or \`atlassian:taskType\`.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-state').default}
-    source={require('!!raw-loader!../../../examples/content/element-state')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-state').default}
+		source={require('!!raw-loader!../../../examples/content/element-state')}
+	/>
 )}
 
 A state can have different text and appearances as specified by link resolver.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-state-variants').default
-    }
-    sourceVisible={false}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-state-variants').default}
+		sourceVisible={false}
+	/>
 )}
 
 ### Subscribers
@@ -275,12 +255,10 @@ Its data is mapped to \`atlassian:subscriberCount\` from a link resolver.
 
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/element-subscriber-count').default
-    }
-    source={require('!!raw-loader!../../../examples/content/element-subscriber-count')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-subscriber-count').default}
+		source={require('!!raw-loader!../../../examples/content/element-subscriber-count')}
+	/>
 )}
 
 
@@ -291,10 +269,10 @@ Its data is mapped to \`atlassian:viewCount\` from a link resolver.
 
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-view-count').default}
-    source={require('!!raw-loader!../../../examples/content/element-view-count')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-view-count').default}
+		source={require('!!raw-loader!../../../examples/content/element-view-count')}
+	/>
 )}
 
 ### Votes
@@ -303,10 +281,10 @@ A \`VoteCount\` element shows the number of votes on the link resource.
 Its data is mapped to \`atlassian:voteCount\` from a link resolver.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/element-vote-count').default}
-    source={require('!!raw-loader!../../../examples/content/element-vote-count')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/element-vote-count').default}
+		source={require('!!raw-loader!../../../examples/content/element-vote-count')}
+	/>
 )}
 
 `;

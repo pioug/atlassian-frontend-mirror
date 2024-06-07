@@ -9,51 +9,46 @@ import { messages } from '../../messages';
 import { ToggleShowMoreArticlesContainer } from '../ArticlesList/styled';
 
 export interface Props {
-  itemsType?: string;
-  minItemsToDisplay: number;
-  maxItemsToDisplay: number;
-  showMoreToggeled: boolean;
-  loading?: boolean;
-  onToggle: (
-    event: React.MouseEvent<HTMLElement>,
-    analyticsEvent: UIAnalyticsEvent,
-  ) => void;
+	itemsType?: string;
+	minItemsToDisplay: number;
+	maxItemsToDisplay: number;
+	showMoreToggeled: boolean;
+	loading?: boolean;
+	onToggle: (event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => void;
 }
 
 export const ShowMoreButton: React.FC<Props & WrappedComponentProps> = ({
-  showMoreToggeled,
-  onToggle,
-  minItemsToDisplay,
-  maxItemsToDisplay,
-  itemsType,
-  loading = false,
-  intl: { formatMessage },
+	showMoreToggeled,
+	onToggle,
+	minItemsToDisplay,
+	maxItemsToDisplay,
+	itemsType,
+	loading = false,
+	intl: { formatMessage },
 }) =>
-  showMoreToggeled ? (
-    <ToggleShowMoreArticlesContainer>
-      <Button appearance="link" spacing="compact" onClick={onToggle}>
-        {formatMessage(messages.help_show_more_button_label_more, {
-          numberOfItemsLeft:
-            maxItemsToDisplay > minItemsToDisplay
-              ? maxItemsToDisplay - minItemsToDisplay
-              : 0,
+	showMoreToggeled ? (
+		<ToggleShowMoreArticlesContainer>
+			<Button appearance="link" spacing="compact" onClick={onToggle}>
+				{formatMessage(messages.help_show_more_button_label_more, {
+					numberOfItemsLeft:
+						maxItemsToDisplay > minItemsToDisplay ? maxItemsToDisplay - minItemsToDisplay : 0,
 
-          itemsType: itemsType,
-        })}
-        {loading && (
-          <span>
-            {' '}
-            <Spinner size="medium" />
-          </span>
-        )}
-      </Button>
-    </ToggleShowMoreArticlesContainer>
-  ) : (
-    <ToggleShowMoreArticlesContainer>
-      <Button appearance="link" spacing="compact" onClick={onToggle}>
-        {formatMessage(messages.help_show_more_button_label_less)}
-      </Button>
-    </ToggleShowMoreArticlesContainer>
-  );
+					itemsType: itemsType,
+				})}
+				{loading && (
+					<span>
+						{' '}
+						<Spinner size="medium" />
+					</span>
+				)}
+			</Button>
+		</ToggleShowMoreArticlesContainer>
+	) : (
+		<ToggleShowMoreArticlesContainer>
+			<Button appearance="link" spacing="compact" onClick={onToggle}>
+				{formatMessage(messages.help_show_more_button_label_less)}
+			</Button>
+		</ToggleShowMoreArticlesContainer>
+	);
 
 export default injectIntl(ShowMoreButton);

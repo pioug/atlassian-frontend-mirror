@@ -12,48 +12,48 @@ import { wrapperStyles } from '../example-helpers/styles';
 const avatars: Array<Avatar> = generateAvatars(5);
 
 export default () => (
-  <IntlProvider locale="en">
-    <div>
-      <div>
-        <h1>Avatar List</h1>
-        <div css={wrapperStyles}>
-          <AvatarList avatars={avatars} />
-        </div>
-      </div>
-      <div>
-        <h1>Predefined Avatars (none preselected)</h1>
-        <div css={wrapperStyles}>
-          <PredefinedAvatarList
-            avatars={avatars}
-            onAvatarSelected={() => {
-              console.log('onAvatarSelected');
-            }}
-          />
-        </div>
-      </div>
-      <div>
-        <h1>Predefined Avatars (preselected)</h1>
-        <div css={wrapperStyles}>
-          <PredefinedAvatarList
-            avatars={avatars}
-            selectedAvatar={avatars[2]}
-            onAvatarSelected={() => {
-              console.log('onAvatarSelected');
-            }}
-          />
-        </div>
-      </div>
-      <div>
-        <h1>Predefined Avatar View</h1>
-        <div css={wrapperStyles}>
-          <PredefinedAvatarView
-            avatars={generateAvatars(25)}
-            onAvatarSelected={() => {
-              console.log('onAvatarSelected');
-            }}
-          />
-        </div>
-      </div>
-    </div>
-  </IntlProvider>
+	<IntlProvider locale="en">
+		<div>
+			<div>
+				<h1>Avatar List</h1>
+				<div css={wrapperStyles}>
+					<AvatarList avatars={avatars} />
+				</div>
+			</div>
+			<div>
+				<h1>Predefined Avatars (none preselected)</h1>
+				<div css={wrapperStyles}>
+					<PredefinedAvatarList
+						avatars={avatars}
+						onAvatarSelected={() => {
+							console.log('onAvatarSelected');
+						}}
+					/>
+				</div>
+			</div>
+			<div>
+				<h1>Predefined Avatars (preselected)</h1>
+				<div css={wrapperStyles}>
+					<PredefinedAvatarList
+						avatars={avatars}
+						selectedAvatar={avatars[2]}
+						onAvatarSelected={() => {
+							console.log('onAvatarSelected');
+						}}
+					/>
+				</div>
+			</div>
+			<div>
+				<h1>Predefined Avatar View</h1>
+				<div css={wrapperStyles}>
+					<PredefinedAvatarView
+						avatars={generateAvatars(25)}
+						onAvatarSelected={() => {
+							console.log('onAvatarSelected');
+						}}
+					/>
+				</div>
+			</div>
+		</div>
+	</IntlProvider>
 );

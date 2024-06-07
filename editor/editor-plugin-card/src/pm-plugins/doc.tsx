@@ -803,83 +803,93 @@ export const editDatasource =
 		return false;
 	};
 
-export const getStartingToolbarItems = (options: CardPluginOptions, api?: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
-  return (
-    intl: IntlShape,
-    link: string,
-    providerFactory: ProviderFactory,
-    onEditLink: Command,
-    metadata: { url: string; title: string; },
-  ): FloatingToolbarItem<Command>[] => {
-	const isEditDropdownEnabled = getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
-		options.platform !== 'mobile' &&
-		options.allowDatasource;
+export const getStartingToolbarItems = (
+	options: CardPluginOptions,
+	api?: ExtractInjectionAPI<typeof cardPlugin> | undefined,
+) => {
+	return (
+		intl: IntlShape,
+		link: string,
+		providerFactory: ProviderFactory,
+		onEditLink: Command,
+		metadata: { url: string; title: string },
+	): FloatingToolbarItem<Command>[] => {
+		const isEditDropdownEnabled =
+			getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
+			options.platform !== 'mobile' &&
+			options.allowDatasource;
 
-    const editLinkItem: FloatingToolbarItem<Command>[] = (isEditDropdownEnabled ? [{
-      type: 'custom',
-      fallback: [],
-      render: (editorView) => {
-        if (!editorView) {
-          return null;
-        }
-        return (
-          <EditToolbarButton
-            key="edit-toolbar-button"
-            intl={intl}
-            editorAnalyticsApi={api?.analytics?.actions}
-            url={link}
-            editorView={editorView}
-            onLinkEditClick={onEditLink}
-          />
-        );
-      },
-    }] : [{
-      id: 'editor.link.edit',
-      testId: 'editor.link.edit',
-      type: 'button',
-      onClick: onEditLink,
-      title: intl.formatMessage(linkToolbarMessages.editLink),
-      showTitle: true,
-      metadata: metadata,
-    }]);
-    return [
-      {
-        type: 'custom',
-        fallback: [],
-        render: (editorView) => (
-          <ToolbarViewedEvent
-            key="edit.link.menu.viewed"
-            url={link}
-            display="url"
-            editorView={editorView}
-          />
-        ),
-      },
-      {
-        type: 'custom',
-        fallback: [],
-        render: (editorView) => {
-          if (!editorView) {
-            return null;
-          }
-          return (
-            <HyperlinkToolbarAppearance
-              key="link-appearance"
-              url={link}
-              intl={intl}
-              editorView={editorView}
-              editorState={editorView.state}
-              cardOptions={options}
-              providerFactory={providerFactory}
-              platform={options?.platform}
-              editorAnalyticsApi={api?.analytics?.actions}
-            />
-          );
-        },
-      },
-      ...editLinkItem,
-    ];
-  }
+		const editLinkItem: FloatingToolbarItem<Command>[] = isEditDropdownEnabled
+			? [
+					{
+						type: 'custom',
+						fallback: [],
+						render: (editorView) => {
+							if (!editorView) {
+								return null;
+							}
+							return (
+								<EditToolbarButton
+									key="edit-toolbar-button"
+									intl={intl}
+									editorAnalyticsApi={api?.analytics?.actions}
+									url={link}
+									editorView={editorView}
+									onLinkEditClick={onEditLink}
+								/>
+							);
+						},
+					},
+				]
+			: [
+					{
+						id: 'editor.link.edit',
+						testId: 'editor.link.edit',
+						type: 'button',
+						onClick: onEditLink,
+						title: intl.formatMessage(linkToolbarMessages.editLink),
+						showTitle: true,
+						metadata: metadata,
+					},
+				];
+		return [
+			{
+				type: 'custom',
+				fallback: [],
+				render: (editorView) => (
+					<ToolbarViewedEvent
+						key="edit.link.menu.viewed"
+						url={link}
+						display="url"
+						editorView={editorView}
+					/>
+				),
+			},
+			{
+				type: 'custom',
+				fallback: [],
+				render: (editorView) => {
+					if (!editorView) {
+						return null;
+					}
+					return (
+						<HyperlinkToolbarAppearance
+							key="link-appearance"
+							url={link}
+							intl={intl}
+							editorView={editorView}
+							editorState={editorView.state}
+							cardOptions={options}
+							providerFactory={providerFactory}
+							platform={options?.platform}
+							editorAnalyticsApi={api?.analytics?.actions}
+						/>
+					);
+				},
+			},
+			...editLinkItem,
+		];
+	};
 };
 
 export const getEndingToolbarItems =

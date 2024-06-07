@@ -16,33 +16,33 @@ import { type MediaProps } from './types';
  * contents within the element's box.
  */
 const styles = css({
-  aspectRatio: '16 / 9',
-  display: 'flex',
-  width: '100%',
-  height: 'fit-content',
-  '@supports not (aspect-ratio: auto)': {
-    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
-    paddingTop: '56.25%', // 16:9 ratio (9 / 16 = 0.5625)
-    height: 0,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  '> img, > span': {
-    minHeight: '100%',
-    minWidth: '100%',
-    maxHeight: '100%',
-    maxWidth: '100%',
-    objectFit: 'cover',
-    objectPosition: 'center center',
-    '@supports not (aspect-ratio: auto)': {
-      position: 'absolute',
-      transform: 'translate(-50%, -50%)',
-      left: '50%',
-      top: '50%',
-      width: 'auto',
-      height: 'auto',
-    },
-  },
+	aspectRatio: '16 / 9',
+	display: 'flex',
+	width: '100%',
+	height: 'fit-content',
+	'@supports not (aspect-ratio: auto)': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
+		paddingTop: '56.25%', // 16:9 ratio (9 / 16 = 0.5625)
+		height: 0,
+		position: 'relative',
+		overflow: 'hidden',
+	},
+	'> img, > span': {
+		minHeight: '100%',
+		minWidth: '100%',
+		maxHeight: '100%',
+		maxWidth: '100%',
+		objectFit: 'cover',
+		objectPosition: 'center center',
+		'@supports not (aspect-ratio: auto)': {
+			position: 'absolute',
+			transform: 'translate(-50%, -50%)',
+			left: '50%',
+			top: '50%',
+			width: 'auto',
+			height: 'auto',
+		},
+	},
 });
 
 /**
@@ -52,33 +52,33 @@ const styles = css({
  * @see Preview
  */
 const Media: React.FC<MediaProps> = ({
-  name,
-  overrideCss,
-  testId = 'smart-element-media',
-  type,
-  url,
-  onLoad,
-  onError,
+	name,
+	overrideCss,
+	testId = 'smart-element-media',
+	type,
+	url,
+	onLoad,
+	onError,
 }) => {
-  if (!type || !url) {
-    return null;
-  }
-  return (
-    <div
-      css={[styles, overrideCss]}
-      data-smart-element={name}
-      data-smart-element-media={type}
-      data-testid={testId}
-    >
-      <ImageIcon
-        testId={`${testId}-image`}
-        url={url}
-        onError={onError}
-        onLoad={onLoad}
-        defaultIcon={null}
-      />
-    </div>
-  );
+	if (!type || !url) {
+		return null;
+	}
+	return (
+		<div
+			css={[styles, overrideCss]}
+			data-smart-element={name}
+			data-smart-element-media={type}
+			data-testid={testId}
+		>
+			<ImageIcon
+				testId={`${testId}-image`}
+				url={url}
+				onError={onError}
+				onLoad={onLoad}
+				defaultIcon={null}
+			/>
+		</div>
+	);
 };
 
 export default Media;

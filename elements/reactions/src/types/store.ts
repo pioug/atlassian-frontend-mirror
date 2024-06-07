@@ -12,30 +12,28 @@ export type OnChangeCallback = (state: State) => void;
  * Map of state props
  */
 export interface StoreProps {
-  /**
-   * Get current state of the stor
-   */
-  getState: () => State;
-  /**
-   * Register a callbsack event on change to the store instance state data
-   * @param callback event to register
-   * @deprecated initially implemented by the MemoryReactionsStore class and kept. This will be removed in a future release
-   */
-  onChange: (callback: OnChangeCallback) => void;
-  /**
-   * Deregister any callback event on changes to the store instance state data
-   * @param callback event to de-register
-   * @deprecated initially implemented by the MemoryReactionsStore class and kept. This will be removed in a future release
-   */
-  removeOnChangeListener: (callback: OnChangeCallback) => void;
-  /**
-   * Add Atlaskit analytics events to different operations in the store
-   * @param createAnalyticsEvent analytics event trigger
-   * @deprecated initially implemented by the MemoryReactionsStore class and kept. This will be removed in a future release
-   */
-  setCreateAnalyticsEvent?: (
-    createAnalyticsEvent: CreateUIAnalyticsEvent,
-  ) => void;
+	/**
+	 * Get current state of the stor
+	 */
+	getState: () => State;
+	/**
+	 * Register a callbsack event on change to the store instance state data
+	 * @param callback event to register
+	 * @deprecated initially implemented by the MemoryReactionsStore class and kept. This will be removed in a future release
+	 */
+	onChange: (callback: OnChangeCallback) => void;
+	/**
+	 * Deregister any callback event on changes to the store instance state data
+	 * @param callback event to de-register
+	 * @deprecated initially implemented by the MemoryReactionsStore class and kept. This will be removed in a future release
+	 */
+	removeOnChangeListener: (callback: OnChangeCallback) => void;
+	/**
+	 * Add Atlaskit analytics events to different operations in the store
+	 * @param createAnalyticsEvent analytics event trigger
+	 * @deprecated initially implemented by the MemoryReactionsStore class and kept. This will be removed in a future release
+	 */
+	setCreateAnalyticsEvent?: (createAnalyticsEvent: CreateUIAnalyticsEvent) => void;
 }
 
 /**
@@ -52,18 +50,18 @@ export type StorePropInput = Store | Promise<Store>; //This was needed due to ex
  * store main structure
  */
 export type State = {
-  /**
-   * collection of the different reactions (key => unique reaction id , value => state of the reaction)
-   */
-  reactions: {
-    [key: string]: ReactionsState;
-  };
-  /**
-   * custom animation for given emojis as true|false (key => unique reaction id, value => collection of emojiIds and true|false to apply custom animation)
-   */
-  flash: {
-    [key: string]: {
-      [emojiId: string]: boolean;
-    };
-  };
+	/**
+	 * collection of the different reactions (key => unique reaction id , value => state of the reaction)
+	 */
+	reactions: {
+		[key: string]: ReactionsState;
+	};
+	/**
+	 * custom animation for given emojis as true|false (key => unique reaction id, value => collection of emojiIds and true|false to apply custom animation)
+	 */
+	flash: {
+		[key: string]: {
+			[emojiId: string]: boolean;
+		};
+	};
 };

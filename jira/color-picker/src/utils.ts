@@ -7,39 +7,35 @@ import { Mode, type Palette } from './types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const getWidth = (cols: number, mode?: Mode) => {
-  const width = cols * (COLOR_CARD_SIZE + gridSize() / 2);
+	const width = cols * (COLOR_CARD_SIZE + gridSize() / 2);
 
-  return mode === Mode.Standard ? width + gridSize() : width;
+	return mode === Mode.Standard ? width + gridSize() : width;
 };
 
 export const getOptions = memoizeOne(
-  (
-    palette: Palette,
-    selectedColor?: string,
-    showDefaultSwatchColor?: boolean,
-  ) => {
-    let focusedItemIndex = 0;
-    let defaultSelectedColor = palette[0];
-    if (
-      getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy') &&
-      !showDefaultSwatchColor
-    ) {
-      defaultSelectedColor = { label: '', value: '' };
-    }
-    const value =
-      palette.find((color, index) => {
-        if (color.value === selectedColor) {
-          focusedItemIndex = index;
-          return true;
-        }
+	(palette: Palette, selectedColor?: string, showDefaultSwatchColor?: boolean) => {
+		let focusedItemIndex = 0;
+		let defaultSelectedColor = palette[0];
+		if (
+			getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy') &&
+			!showDefaultSwatchColor
+		) {
+			defaultSelectedColor = { label: '', value: '' };
+		}
+		const value =
+			palette.find((color, index) => {
+				if (color.value === selectedColor) {
+					focusedItemIndex = index;
+					return true;
+				}
 
-        return false;
-      }) || defaultSelectedColor;
+				return false;
+			}) || defaultSelectedColor;
 
-    return {
-      options: palette,
-      value,
-      focusedItemIndex,
-    };
-  },
+		return {
+			options: palette,
+			value,
+			focusedItemIndex,
+		};
+	},
 );

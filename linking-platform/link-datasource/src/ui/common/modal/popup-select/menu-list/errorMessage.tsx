@@ -14,56 +14,44 @@ import { asyncPopupSelectMessages } from './messages';
 import CustomSelectMessage from './selectMessage';
 
 const getErrorReasonType = (
-  errors?: unknown[],
+	errors?: unknown[],
 ): ErrorShownBasicSearchDropdownAttributesType['reason'] => {
-  const [error] = errors || [];
+	const [error] = errors || [];
 
-  if (error instanceof Error) {
-    return 'network';
-  }
+	if (error instanceof Error) {
+		return 'network';
+	}
 
-  if (errors && errors.length > 0) {
-    return 'agg';
-  }
+	if (errors && errors.length > 0) {
+		return 'agg';
+	}
 
-  return 'unknown';
+	return 'unknown';
 };
 
-const CustomErrorMessage = ({
-  filterName,
-  errors,
-}: {
-  filterName: string;
-  errors?: unknown[];
-}) => {
-  const { fireEvent } = useDatasourceAnalyticsEvents();
+const CustomErrorMessage = ({ filterName, errors }: { filterName: string; errors?: unknown[] }) => {
+	const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  /**
-   * Debounce is required because our search is debounced
-   * ref: ./noOptionsMessage.tsx
-   */
-  const [debouncedAnalyticsCallback] = useDebouncedCallback(() => {
-    fireEvent('ui.error.shown.basicSearchDropdown', {
-      filterName,
-      reason: getErrorReasonType(errors),
-    });
-  }, SEARCH_DEBOUNCE_MS);
+	/**
+	 * Debounce is required because our search is debounced
+	 * ref: ./noOptionsMessage.tsx
+	 */
+	const [debouncedAnalyticsCallback] = useDebouncedCallback(() => {
+		fireEvent('ui.error.shown.basicSearchDropdown', {
+			filterName,
+			reason: getErrorReasonType(errors),
+		});
+	}, SEARCH_DEBOUNCE_MS);
 
-  useEffect(debouncedAnalyticsCallback, [debouncedAnalyticsCallback]);
+	useEffect(debouncedAnalyticsCallback, [debouncedAnalyticsCallback]);
 
-  return (
-    <CustomSelectMessage
-      icon={
-        <ErrorIcon
-          primaryColor={token('color.icon', N500)}
-          label=""
-          size="xlarge"
-        />
-      }
-      message={asyncPopupSelectMessages.errorMessage}
-      testId={`${filterName}--error-message`}
-    />
-  );
+	return (
+		<CustomSelectMessage
+			icon={<ErrorIcon primaryColor={token('color.icon', N500)} label="" size="xlarge" />}
+			message={asyncPopupSelectMessages.errorMessage}
+			testId={`${filterName}--error-message`}
+		/>
+	);
 };
 
 export default CustomErrorMessage;

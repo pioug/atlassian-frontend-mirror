@@ -6,22 +6,22 @@ import { onUploadEmoji, onUploadCancelled } from '../example-helpers';
 import { IntlProvider } from 'react-intl-next';
 
 const defaultStyles = {
-  width: emojiPickerWidth,
-  border: `1px solid ${token('color.border', '#ddd')}`,
-  margin: '20px',
+	width: emojiPickerWidth,
+	border: `1px solid ${token('color.border', '#ddd')}`,
+	margin: '20px',
 };
 
 export default function Example() {
-  return (
-    <IntlProvider locale="en">
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={defaultStyles}>
-        <EmojiUploadPicker
-          errorMessage="Unable to upload"
-          onUploadEmoji={onUploadEmoji}
-          onUploadCancelled={onUploadCancelled}
-        />
-      </div>
-    </IntlProvider>
-  );
+	return (
+		<IntlProvider locale="en">
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={defaultStyles}>
+				<EmojiUploadPicker
+					errorMessage="Unable to upload"
+					onUploadEmoji={onUploadEmoji}
+					onUploadCancelled={onUploadCancelled}
+				/>
+			</div>
+		</IntlProvider>
+	);
 }

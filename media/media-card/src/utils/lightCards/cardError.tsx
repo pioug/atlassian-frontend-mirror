@@ -6,22 +6,22 @@ import { type StaticCardProps } from './types';
 import { getDimensionsWithDefault } from './getDimensionsWithDefault';
 
 export interface ErrorCardProps extends StaticCardProps {
-  readonly size: 'small' | 'medium' | 'large' | 'xlarge';
+	readonly size: 'small' | 'medium' | 'large' | 'xlarge';
 }
 
 export class CardError extends Component<ErrorCardProps, {}> {
-  static defaultProps = {
-    size: 'medium',
-  };
+	static defaultProps = {
+		size: 'medium',
+	};
 
-  render() {
-    const dimensions = getDimensionsWithDefault(this.props.dimensions);
-    return <Wrapper dimensions={dimensions}>{this.icon}</Wrapper>;
-  }
+	render() {
+		const dimensions = getDimensionsWithDefault(this.props.dimensions);
+		return <Wrapper dimensions={dimensions}>{this.icon}</Wrapper>;
+	}
 
-  get icon() {
-    const { size } = this.props;
+	get icon() {
+		const { size } = this.props;
 
-    return <ErrorIcon size={size} />;
-  }
+		return <ErrorIcon size={size} />;
+	}
 }

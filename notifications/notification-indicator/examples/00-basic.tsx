@@ -5,19 +5,17 @@ import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import { NotificationIndicator } from '../src';
 
 class MockNotificationLogClient extends NotificationLogClient {
-  constructor() {
-    super('', '');
-  }
+	constructor() {
+		super('', '');
+	}
 
-  public async countUnseenNotifications() {
-    return Promise.resolve({ count: 5 });
-  }
+	public async countUnseenNotifications() {
+		return Promise.resolve({ count: 5 });
+	}
 }
 
 export default function Example() {
-  const client = new MockNotificationLogClient();
+	const client = new MockNotificationLogClient();
 
-  return (
-    <NotificationIndicator notificationLogProvider={Promise.resolve(client)} />
-  );
+	return <NotificationIndicator notificationLogProvider={Promise.resolve(client)} />;
 }

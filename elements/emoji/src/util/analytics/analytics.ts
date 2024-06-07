@@ -1,274 +1,229 @@
 import {
-  createAndFireEvent,
-  type AnalyticsEventPayload,
-  type CreateUIAnalyticsEvent,
+	createAndFireEvent,
+	type AnalyticsEventPayload,
+	type CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import type { EmojiDescription } from '../../types';
 
-export const createAndFireEventInElementsChannel =
-  createAndFireEvent('fabric-elements');
+export const createAndFireEventInElementsChannel = createAndFireEvent('fabric-elements');
 
 const createEvent = (
-  eventType: 'ui' | 'operational',
-  action: string,
-  actionSubject: string,
-  actionSubjectId?: string,
-  attributes = {},
+	eventType: 'ui' | 'operational',
+	action: string,
+	actionSubject: string,
+	actionSubjectId?: string,
+	attributes = {},
 ): AnalyticsEventPayload => ({
-  eventType,
-  action,
-  actionSubject,
-  actionSubjectId,
-  attributes: {
-    packageName: process.env._PACKAGE_NAME_,
-    packageVersion: process.env._PACKAGE_VERSION_,
-    ...attributes,
-  },
+	eventType,
+	action,
+	actionSubject,
+	actionSubjectId,
+	attributes: {
+		packageName: process.env._PACKAGE_NAME_,
+		packageVersion: process.env._PACKAGE_VERSION_,
+		...attributes,
+	},
 });
 
-export type EmojiInsertionAnalytic = (
-  source: 'picker' | 'typeahead',
-) => AnalyticsEventPayload;
+export type EmojiInsertionAnalytic = (source: 'picker' | 'typeahead') => AnalyticsEventPayload;
 
 export const recordSucceeded: EmojiInsertionAnalytic = (source) => {
-  return createEvent(
-    'operational',
-    'succeeded',
-    'recordEmojiSelection',
-    undefined,
-    {
-      source,
-    },
-  );
+	return createEvent('operational', 'succeeded', 'recordEmojiSelection', undefined, {
+		source,
+	});
 };
 
 export const recordFailed: EmojiInsertionAnalytic = (source) => {
-  return createEvent(
-    'operational',
-    'failed',
-    'recordEmojiSelection',
-    undefined,
-    {
-      source,
-    },
-  );
+	return createEvent('operational', 'failed', 'recordEmojiSelection', undefined, {
+		source,
+	});
 };
 interface Duration {
-  duration: number;
+	duration: number;
 }
 
-const emojiPickerEvent = (
-  action: string,
-  attributes = {},
-  actionSubjectId?: string,
-) => createEvent('ui', action, 'emojiPicker', actionSubjectId, attributes);
+const emojiPickerEvent = (action: string, attributes = {}, actionSubjectId?: string) =>
+	createEvent('ui', action, 'emojiPicker', actionSubjectId, attributes);
 
 export const openedPickerEvent = () => emojiPickerEvent('opened');
 
-export const closedPickerEvent = (attributes: Duration) =>
-  emojiPickerEvent('closed', attributes);
+export const closedPickerEvent = (attributes: Duration) => emojiPickerEvent('closed', attributes);
 
 interface EmojiAttributes {
-  emojiId: string;
-  baseEmojiId?: string; // mobile only
-  skinToneModifier?: string;
-  category: string;
-  type: string;
+	emojiId: string;
+	baseEmojiId?: string; // mobile only
+	skinToneModifier?: string;
+	category: string;
+	type: string;
 }
 
 const skinTones = [
-  { id: '-1f3fb', skinToneModifier: 'light' },
-  { id: '-1f3fc', skinToneModifier: 'mediumLight' },
-  { id: '-1f3fd', skinToneModifier: 'medium' },
-  { id: '-1f3fe', skinToneModifier: 'mediumDark' },
-  { id: '-1f3ff', skinToneModifier: 'dark' },
+	{ id: '-1f3fb', skinToneModifier: 'light' },
+	{ id: '-1f3fc', skinToneModifier: 'mediumLight' },
+	{ id: '-1f3fd', skinToneModifier: 'medium' },
+	{ id: '-1f3fe', skinToneModifier: 'mediumDark' },
+	{ id: '-1f3ff', skinToneModifier: 'dark' },
 ];
 
 const getSkinTone = (emojiId?: string) => {
-  if (!emojiId) {
-    return {};
-  }
-  for (const { id, skinToneModifier } of skinTones) {
-    if (emojiId.indexOf(id) !== -1) {
-      return { skinToneModifier, baseEmojiId: emojiId.replace(id, '') };
-    }
-  }
+	if (!emojiId) {
+		return {};
+	}
+	for (const { id, skinToneModifier } of skinTones) {
+		if (emojiId.indexOf(id) !== -1) {
+			return { skinToneModifier, baseEmojiId: emojiId.replace(id, '') };
+		}
+	}
 
-  return {};
+	return {};
 };
 
 export const pickerClickedEvent = (
-  attributes: { queryLength: number } & EmojiAttributes & Duration,
+	attributes: { queryLength: number } & EmojiAttributes & Duration,
 ) =>
-  emojiPickerEvent(
-    'clicked',
-    {
-      ...getSkinTone(attributes.emojiId),
-      ...attributes,
-    },
-    'emoji',
-  );
+	emojiPickerEvent(
+		'clicked',
+		{
+			...getSkinTone(attributes.emojiId),
+			...attributes,
+		},
+		'emoji',
+	);
 
 export const categoryClickedEvent = (attributes: { category: string }) =>
-  emojiPickerEvent('clicked', attributes, 'category');
+	emojiPickerEvent('clicked', attributes, 'category');
 
-export const pickerSearchedEvent = (attributes: {
-  queryLength: number;
-  numMatches: number;
-}) => emojiPickerEvent('searched', attributes, 'query');
+export const pickerSearchedEvent = (attributes: { queryLength: number; numMatches: number }) =>
+	emojiPickerEvent('searched', attributes, 'query');
 
 const skintoneSelectorEvent = (action: string, attributes = {}) =>
-  createEvent('ui', action, 'emojiSkintoneSelector', undefined, attributes);
+	createEvent('ui', action, 'emojiSkintoneSelector', undefined, attributes);
 
 export const toneSelectedEvent = (attributes: { skinToneModifier: string }) =>
-  skintoneSelectorEvent('clicked', attributes);
+	skintoneSelectorEvent('clicked', attributes);
 
-export const toneSelectorOpenedEvent = (attributes: {
-  skinToneModifier?: string;
-}) => skintoneSelectorEvent('opened', attributes);
+export const toneSelectorOpenedEvent = (attributes: { skinToneModifier?: string }) =>
+	skintoneSelectorEvent('opened', attributes);
 
 export const toneSelectorClosedEvent = () => skintoneSelectorEvent('cancelled');
 
-const emojiUploaderEvent = (
-  action: string,
-  actionSubjectId?: string,
-  attributes?: any,
-) => createEvent('ui', action, 'emojiUploader', actionSubjectId, attributes);
+const emojiUploaderEvent = (action: string, actionSubjectId?: string, attributes?: any) =>
+	createEvent('ui', action, 'emojiUploader', actionSubjectId, attributes);
 
-export const uploadBeginButton = () =>
-  emojiUploaderEvent('clicked', 'addButton');
+export const uploadBeginButton = () => emojiUploaderEvent('clicked', 'addButton');
 
 export const uploadConfirmButton = (attributes: { retry: boolean }) =>
-  emojiUploaderEvent('clicked', 'confirmButton', attributes);
+	emojiUploaderEvent('clicked', 'confirmButton', attributes);
 
-export const uploadCancelButton = () =>
-  emojiUploaderEvent('clicked', 'cancelButton');
+export const uploadCancelButton = () => emojiUploaderEvent('clicked', 'cancelButton');
 
 export const uploadSucceededEvent = (attributes: Duration) =>
-  createEvent(
-    'operational',
-    'finished',
-    'emojiUploader',
-    undefined,
-    attributes,
-  );
+	createEvent('operational', 'finished', 'emojiUploader', undefined, attributes);
 
 export const uploadFailedEvent = (attributes: { reason: string } & Duration) =>
-  createEvent('operational', 'failed', 'emojiUploader', undefined, attributes);
+	createEvent('operational', 'failed', 'emojiUploader', undefined, attributes);
 
 interface Attributes {
-  emojiId?: string;
+	emojiId?: string;
 }
 
 export const deleteBeginEvent = (attributes: Attributes) =>
-  createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiTrigger', attributes);
+	createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiTrigger', attributes);
 
 export const deleteConfirmEvent = (attributes: Attributes) =>
-  createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiConfirm', attributes);
+	createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiConfirm', attributes);
 
 export const deleteCancelEvent = (attributes: Attributes) =>
-  createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiCancel', attributes);
+	createEvent('ui', 'clicked', 'emojiPicker', 'deleteEmojiCancel', attributes);
 
-export const selectedFileEvent = () =>
-  createEvent('ui', 'clicked', 'emojiUploader', 'selectFile');
+export const selectedFileEvent = () => createEvent('ui', 'clicked', 'emojiUploader', 'selectFile');
 
 interface CommonAttributes {
-  queryLength: number;
-  spaceInQuery: boolean;
-  emojiIds: string[];
+	queryLength: number;
+	spaceInQuery: boolean;
+	emojiIds: string[];
 }
 
 const extractCommonAttributes = (
-  query?: string,
-  emojiList?: EmojiDescription[],
+	query?: string,
+	emojiList?: EmojiDescription[],
 ): CommonAttributes => {
-  return {
-    queryLength: query ? query.length : 0,
-    spaceInQuery: query ? query.indexOf(' ') !== -1 : false,
-    emojiIds: emojiList
-      ? emojiList
-          .map((emoji) => emoji.id!)
-          .filter(Boolean)
-          .slice(0, 20)
-      : [],
-  };
+	return {
+		queryLength: query ? query.length : 0,
+		spaceInQuery: query ? query.indexOf(' ') !== -1 : false,
+		emojiIds: emojiList
+			? emojiList
+					.map((emoji) => emoji.id!)
+					.filter(Boolean)
+					.slice(0, 20)
+			: [],
+	};
 };
 
 export const typeaheadCancelledEvent = (
-  duration: number,
-  query?: string,
-  emojiList?: EmojiDescription[],
+	duration: number,
+	query?: string,
+	emojiList?: EmojiDescription[],
 ) =>
-  createEvent('ui', 'cancelled', 'emojiTypeahead', undefined, {
-    duration,
-    ...extractCommonAttributes(query, emojiList),
-  });
+	createEvent('ui', 'cancelled', 'emojiTypeahead', undefined, {
+		duration,
+		...extractCommonAttributes(query, emojiList),
+	});
 
 const getPosition = (
-  emojiList: EmojiDescription[] | undefined,
-  selectedEmoji: EmojiDescription,
+	emojiList: EmojiDescription[] | undefined,
+	selectedEmoji: EmojiDescription,
 ): number | undefined => {
-  if (emojiList) {
-    const index = emojiList.findIndex((emoji) => emoji.id === selectedEmoji.id);
-    return index === -1 ? undefined : index;
-  }
-  return;
+	if (emojiList) {
+		const index = emojiList.findIndex((emoji) => emoji.id === selectedEmoji.id);
+		return index === -1 ? undefined : index;
+	}
+	return;
 };
 
 export const typeaheadSelectedEvent = (
-  pressed: boolean,
-  duration: number,
-  emoji: EmojiDescription,
-  emojiList?: EmojiDescription[],
-  query?: string,
-  exactMatch?: boolean,
+	pressed: boolean,
+	duration: number,
+	emoji: EmojiDescription,
+	emojiList?: EmojiDescription[],
+	query?: string,
+	exactMatch?: boolean,
 ) =>
-  createEvent(
-    'ui',
-    pressed ? 'pressed' : 'clicked',
-    'emojiTypeahead',
-    undefined,
-    {
-      duration,
-      position: getPosition(emojiList, emoji),
-      ...extractCommonAttributes(query, emojiList),
-      ...getSkinTone(emoji.id),
-      emojiType: emoji.type,
-      exactMatch: exactMatch || false,
-    },
-  );
+	createEvent('ui', pressed ? 'pressed' : 'clicked', 'emojiTypeahead', undefined, {
+		duration,
+		position: getPosition(emojiList, emoji),
+		...extractCommonAttributes(query, emojiList),
+		...getSkinTone(emoji.id),
+		emojiType: emoji.type,
+		exactMatch: exactMatch || false,
+	});
 
 export const typeaheadRenderedEvent = (
-  duration: number,
-  query?: string,
-  emojiList?: EmojiDescription[],
+	duration: number,
+	query?: string,
+	emojiList?: EmojiDescription[],
 ) =>
-  createEvent('operational', 'rendered', 'emojiTypeahead', undefined, {
-    duration,
-    ...extractCommonAttributes(query, emojiList),
-  });
+	createEvent('operational', 'rendered', 'emojiTypeahead', undefined, {
+		duration,
+		...extractCommonAttributes(query, emojiList),
+	});
 
 // it's used in editor typeahead to fire success record analytics
 export const recordSelectionSucceededSli =
-  (options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) => () => {
-    if (options && options.createAnalyticsEvent) {
-      createAndFireEvent('editor')(recordSucceeded('typeahead'))(
-        options.createAnalyticsEvent,
-      );
-    }
-  };
+	(options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) => () => {
+		if (options && options.createAnalyticsEvent) {
+			createAndFireEvent('editor')(recordSucceeded('typeahead'))(options.createAnalyticsEvent);
+		}
+	};
 
 // it's used in editor typeahead to fire failure record analytics
 export const recordSelectionFailedSli =
-  (options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) =>
-  (err: Error) => {
-    if (options && options.createAnalyticsEvent) {
-      createAndFireEvent('editor')(recordFailed('typeahead'))(
-        options.createAnalyticsEvent,
-      );
-    }
-    return Promise.reject(err);
-  };
+	(options?: { createAnalyticsEvent?: CreateUIAnalyticsEvent }) => (err: Error) => {
+		if (options && options.createAnalyticsEvent) {
+			createAndFireEvent('editor')(recordFailed('typeahead'))(options.createAnalyticsEvent);
+		}
+		return Promise.reject(err);
+	};
 
 /**
  * Used for store failure metadata for analytics
@@ -276,11 +231,11 @@ export const recordSelectionFailedSli =
  * @returns any
  */
 export const extractErrorInfo = (error: any) => {
-  if (error instanceof Error) {
-    return {
-      name: error.name,
-      message: error.message,
-    };
-  }
-  return error;
+	if (error instanceof Error) {
+		return {
+			name: error.name,
+			message: error.message,
+		};
+	}
+	return error;
 };

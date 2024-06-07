@@ -4,9 +4,7 @@ import ProfileCardClient from './client/ProfileCardClient';
 // Note: when generating and updating Flow types in Jira, `TeamProfileClient` and `TeamProfileCardClient` are the same type
 import TeamProfileClient from './client/TeamProfileCardClient';
 // Note: when generating and updating Flow types in Jira, `UserProfileClient` and `UserProfileCardClient` are the same type
-import UserProfileClient, {
-  modifyResponse,
-} from './client/UserProfileCardClient';
+import UserProfileClient, { modifyResponse } from './client/UserProfileCardClient';
 import TeamProfileCardTrigger from './components/Team/TeamProfileCardTrigger';
 import ProfileCard from './components/User/ProfileCard';
 import ProfileCardResourced from './components/User/ProfileCardResourced';
@@ -18,26 +16,26 @@ export { default as withOuterListeners } from './util/withOuterListeners';
 export type { WithOuterListenersProps } from './util/withOuterListeners';
 
 export type {
-  // Types
-  ProfileCardErrorType,
-  ProfilecardTriggerPosition,
-  RelativeDateKeyType,
-  StatusModifiedDateType,
-  StatusType,
-  TriggerType,
-  // Interfaces
-  ApiClientResponse,
-  MessageIntlProviderProps,
-  ProfileCardAction,
-  ProfileCardClientData,
-  ProfileCardResourcedProps,
-  ProfileCardResourcedState,
-  ProfileCardTriggerProps,
-  ProfileCardTriggerState,
-  ProfileClientOptions,
-  ProfilecardProps,
-  PrepopulatedData,
-  Team,
+	// Types
+	ProfileCardErrorType,
+	ProfilecardTriggerPosition,
+	RelativeDateKeyType,
+	StatusModifiedDateType,
+	StatusType,
+	TriggerType,
+	// Interfaces
+	ApiClientResponse,
+	MessageIntlProviderProps,
+	ProfileCardAction,
+	ProfileCardClientData,
+	ProfileCardResourcedProps,
+	ProfileCardResourcedState,
+	ProfileCardTriggerProps,
+	ProfileCardTriggerState,
+	ProfileClientOptions,
+	ProfilecardProps,
+	PrepopulatedData,
+	Team,
 } from './types';
 
 // We cannot export this component inside `./components/Team/index.ts` because it breaks the lazyload
@@ -47,12 +45,7 @@ export { default as TeamProfileCard } from './components/Team/TeamProfileCard';
 export { ProfileCard };
 export { ProfileCardTrigger };
 export { TeamProfileCardTrigger };
-export {
-  ProfileCardClient as ProfileClient,
-  TeamProfileClient,
-  UserProfileClient,
-  modifyResponse,
-};
+export { ProfileCardClient as ProfileClient, TeamProfileClient, UserProfileClient, modifyResponse };
 export { DELAY_MS_SHOW, DELAY_MS_HIDE };
 
 export default ProfileCardResourced;

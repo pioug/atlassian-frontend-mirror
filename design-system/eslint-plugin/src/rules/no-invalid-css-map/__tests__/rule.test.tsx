@@ -4,14 +4,14 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'css-map',
-  // @ts-expect-error typescript-eslint and eslint have slightly different types
-  rule,
-  {
-    valid: [
-      {
-        name: 'example valid css map',
-        code: outdent`
+	'css-map',
+	// @ts-expect-error typescript-eslint and eslint have slightly different types
+	rule,
+	{
+		valid: [
+			{
+				name: 'example valid css map',
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -26,11 +26,11 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with valid function calls',
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
-        code: outdent`
+			},
+			{
+				name: 'valid css map with valid function calls',
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { token } from '@atlaskit/token';
@@ -46,19 +46,19 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with several valid function calls',
-        options: [
-          {
-            allowedFunctionCalls: [
-              ['example', 'firstFunction'],
-              ['example', 'otherFunction'],
-              ['example2', 'thirdFunction'],
-            ],
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'valid css map with several valid function calls',
+				options: [
+					{
+						allowedFunctionCalls: [
+							['example', 'firstFunction'],
+							['example', 'otherFunction'],
+							['example2', 'thirdFunction'],
+						],
+					},
+				],
+				code: outdent`
         import { firstFunction, otherFunction } from 'example';
         import { thirdFunction } from 'example2';
         import React from 'react';
@@ -73,10 +73,10 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with string extracted into a variable',
-        code: outdent`
+			},
+			{
+				name: 'valid css map with string extracted into a variable',
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -88,10 +88,10 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with string concatenation',
-        code: outdent`
+			},
+			{
+				name: 'valid css map with string concatenation',
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -101,11 +101,11 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with valid function call thru `import { X as Y } from Z`',
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
-        code: outdent`
+			},
+			{
+				name: 'valid css map with valid function call thru `import { X as Y } from Z`',
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { token as myOtherFunction } from '@atlaskit/token';
@@ -121,10 +121,10 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with imported variable',
-        code: outdent`
+			},
+			{
+				name: 'valid css map with imported variable',
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { bap } from '@atlaskit/token';
@@ -135,10 +135,10 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with variable in template strings',
-        code: outdent`
+			},
+			{
+				name: 'valid css map with variable in template strings',
+				code: outdent`
         import { firstFunction } from 'example';
         import React from 'react';
         import { cssMap } from '@compiled/react';
@@ -152,17 +152,17 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-    ],
-    invalid: [
-      {
-        name: 'invalid test with `import as`',
-        errors: [
-          {
-            messageId: 'noSpreadElement',
-          },
-        ],
-        code: outdent`
+			},
+		],
+		invalid: [
+			{
+				name: 'invalid test with `import as`',
+				errors: [
+					{
+						messageId: 'noSpreadElement',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { css as someFunction, cssMap as someOtherFunction } from '@compiled/react';
 
@@ -179,15 +179,15 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'css map not declared at the top-most scope, variant 1',
-        errors: [
-          {
-            messageId: 'mustBeTopLevelScope',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'css map not declared at the top-most scope, variant 1',
+				errors: [
+					{
+						messageId: 'mustBeTopLevelScope',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -199,15 +199,15 @@ typescriptEslintTester.run(
           });
         };
       `,
-      },
-      {
-        name: 'css map not declared at the top-most scope, variant 2',
-        errors: [
-          {
-            messageId: 'mustBeTopLevelScope',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'css map not declared at the top-most scope, variant 2',
+				errors: [
+					{
+						messageId: 'mustBeTopLevelScope',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -219,15 +219,15 @@ typescriptEslintTester.run(
           }),
         };
       `,
-      },
-      {
-        name: 'css map not declared at the top-most scope, variant 3',
-        errors: [
-          {
-            messageId: 'mustBeTopLevelScope',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'css map not declared at the top-most scope, variant 3',
+				errors: [
+					{
+						messageId: 'mustBeTopLevelScope',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -239,15 +239,15 @@ typescriptEslintTester.run(
           });
         }
       `,
-      },
-      {
-        name: 'css map not declared at the top-most scope, variant 4',
-        errors: [
-          {
-            messageId: 'mustBeTopLevelScope',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'css map not declared at the top-most scope, variant 4',
+				errors: [
+					{
+						messageId: 'mustBeTopLevelScope',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -259,15 +259,15 @@ typescriptEslintTester.run(
           });
         }
       `,
-      },
-      {
-        name: 'css map not declared at the top-most scope, variant 5',
-        errors: [
-          {
-            messageId: 'mustBeTopLevelScope',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'css map not declared at the top-most scope, variant 5',
+				errors: [
+					{
+						messageId: 'mustBeTopLevelScope',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -279,15 +279,15 @@ typescriptEslintTester.run(
           });
         }
       `,
-      },
-      {
-        name: 'spread element',
-        errors: [
-          {
-            messageId: 'noSpreadElement',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'spread element',
+				errors: [
+					{
+						messageId: 'noSpreadElement',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -304,15 +304,15 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'exporting css map',
-        errors: [
-          {
-            messageId: 'noExportedCssMap',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'exporting css map',
+				errors: [
+					{
+						messageId: 'noExportedCssMap',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -322,15 +322,15 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'exporting css map (through `export default`)',
-        errors: [
-          {
-            messageId: 'noExportedCssMap',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'exporting css map (through `export default`)',
+				errors: [
+					{
+						messageId: 'noExportedCssMap',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -340,17 +340,17 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'getters (object methods)',
-        errors: [
-          {
-            messageId: 'noInlineFunctions',
-          },
-        ],
-        // This should not match the danger() used in cssMap
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'danger']] }],
-        code: outdent`
+			},
+			{
+				name: 'getters (object methods)',
+				errors: [
+					{
+						messageId: 'noInlineFunctions',
+					},
+				],
+				// This should not match the danger() used in cssMap
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'danger']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { token } from '@atlaskit/token';
@@ -361,17 +361,17 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'arrow functions',
-        errors: [
-          {
-            messageId: 'noInlineFunctions',
-          },
-        ],
-        // This should not match the danger() used in cssMap
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'danger']] }],
-        code: outdent`
+			},
+			{
+				name: 'arrow functions',
+				errors: [
+					{
+						messageId: 'noInlineFunctions',
+					},
+				],
+				// This should not match the danger() used in cssMap
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'danger']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { token } from '@atlaskit/token';
@@ -380,16 +380,16 @@ typescriptEslintTester.run(
           danger: () => { color: '#123456' },
         });
       `,
-      },
-      {
-        name: 'function call to a forbidden imported function',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
-        code: outdent`
+			},
+			{
+				name: 'function call to a forbidden imported function',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { token, myInvalidFunction } from '@atlaskit/token';
@@ -405,16 +405,16 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'function call to a default export',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
-        code: outdent`
+			},
+			{
+				name: 'function call to a default export',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import token from '@atlaskit/token';
@@ -426,23 +426,23 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        // We currently do not support whitelisting default exports
-        // through the allowedFunctionCalls option
-        //
-        // so ['@atlaskit/token', 'token'] will allow
-        //     import { token } from '@atlaskit/token'
-        // but not
-        //     import token from '@atlaskit/token'
-        name: 'function call to a default export listed in allowedFunctionCalls',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
-        code: outdent`
+			},
+			{
+				// We currently do not support whitelisting default exports
+				// through the allowedFunctionCalls option
+				//
+				// so ['@atlaskit/token', 'token'] will allow
+				//     import { token } from '@atlaskit/token'
+				// but not
+				//     import token from '@atlaskit/token'
+				name: 'function call to a default export listed in allowedFunctionCalls',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import token from '@atlaskit/token';
@@ -457,16 +457,16 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'function call to a local function',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
-        code: outdent`
+			},
+			{
+				name: 'function call to a local function',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -479,16 +479,16 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'function calls to forbidden functions with cheeky loophole (import from correct package)',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
-        code: outdent`
+			},
+			{
+				name: 'function calls to forbidden functions with cheeky loophole (import from correct package)',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { invalidFunction as token } from '@atlaskit/token';
@@ -503,16 +503,16 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'function calls to forbidden functions with cheeky loophole (import from wrong package)',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
-        code: outdent`
+			},
+			{
+				name: 'function calls to forbidden functions with cheeky loophole (import from wrong package)',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { invalidFunction as token } from 'obviously-the-wrong-package';
@@ -527,16 +527,16 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with invalid function calls in template strings, variant 1',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        options: [{ allowedFunctionCalls: [['example', 'firstFunction']] }],
-        code: outdent`
+			},
+			{
+				name: 'valid css map with invalid function calls in template strings, variant 1',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				options: [{ allowedFunctionCalls: [['example', 'firstFunction']] }],
+				code: outdent`
         import { firstFunction } from 'example';
         import React from 'react';
         import { cssMap } from '@compiled/react';
@@ -551,18 +551,16 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with invalid function calls in template strings, variant 2',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        options: [
-          { allowedFunctionCalls: [['@atlaskit/token', 'firstFunction']] },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'valid css map with invalid function calls in template strings, variant 2',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				options: [{ allowedFunctionCalls: [['@atlaskit/token', 'firstFunction']] }],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { firstFunction, token } from '@atlaskit/token';
@@ -576,15 +574,15 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with invalid function calls in logical expressions',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'valid css map with invalid function calls in logical expressions',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { token } from '@atlaskit/token';
@@ -597,15 +595,15 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with invalid function calls thru variable',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'valid css map with invalid function calls thru variable',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { token } from '@atlaskit/token';
@@ -619,15 +617,15 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with invalid function calls thru variable (imported function)',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'valid css map with invalid function calls thru variable (imported function)',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { firstFunction, token } from '@atlaskit/token';
@@ -640,15 +638,15 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'valid css map with invalid function calls in string concatenation',
-        errors: [
-          {
-            messageId: 'noFunctionCalls',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'valid css map with invalid function calls in string concatenation',
+				errors: [
+					{
+						messageId: 'noFunctionCalls',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
         import { token } from '@atlaskit/token';
@@ -661,15 +659,15 @@ typescriptEslintTester.run(
           },
         });
       `,
-      },
-      {
-        name: 'css map declared within an arrow function',
-        errors: [
-          {
-            messageId: 'mustBeTopLevelScope',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'css map declared within an arrow function',
+				errors: [
+					{
+						messageId: 'mustBeTopLevelScope',
+					},
+				],
+				code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
 
@@ -681,15 +679,15 @@ typescriptEslintTester.run(
           });
         };
       `,
-      },
-      {
-        name: 'should detect lint errors when cssMap is imported from @atlaskit/css',
-        errors: [
-          {
-            messageId: 'noSpreadElement',
-          },
-        ],
-        code: outdent`
+			},
+			{
+				name: 'should detect lint errors when cssMap is imported from @atlaskit/css',
+				errors: [
+					{
+						messageId: 'noSpreadElement',
+					},
+				],
+				code: outdent`
           import React from 'react';
           import { css as someFunction, cssMap as someOtherFunction } from '@atlaskit/css';
 
@@ -706,7 +704,7 @@ typescriptEslintTester.run(
             },
           });
         `,
-      },
-    ],
-  },
+			},
+		],
+	},
 );

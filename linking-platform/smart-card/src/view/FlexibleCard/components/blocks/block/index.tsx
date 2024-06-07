@@ -4,40 +4,31 @@ import { useEffect } from 'react';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { type BlockProps } from '../types';
-import {
-  ElementName,
-  SmartLinkDirection,
-  SmartLinkSize,
-} from '../../../../../constants';
-import {
-  getBaseStyles,
-  getGapSize,
-  highlightRemoveStyles,
-  renderChildren,
-} from '../utils';
+import { ElementName, SmartLinkDirection, SmartLinkSize } from '../../../../../constants';
+import { getBaseStyles, getGapSize, highlightRemoveStyles, renderChildren } from '../utils';
 
 const getBlockStyles = (
-  direction: SmartLinkDirection,
-  size: SmartLinkSize,
-  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+	direction: SmartLinkDirection,
+	size: SmartLinkSize,
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 ): SerializedStyles => css`
-  ${getBaseStyles(direction, size)}
-  ${highlightRemoveStyles}
+	${getBaseStyles(direction, size)}
+	${highlightRemoveStyles}
   justify-content: flex-start;
-  [data-separator] + [data-separator]:before {
-    content: '•';
-    margin-right: ${getGapSize(size)}rem;
-  }
-  // Pull request elements: source branch → target branch
-  [data-smart-element='${ElementName.SourceBranch}']
-    + [data-smart-element='${ElementName.TargetBranch}']:before {
-    content: '→';
-  }
-  // Pull request elements: target branch ← source branch
-  [data-smart-element='${ElementName.TargetBranch}']
-    + [data-smart-element='${ElementName.SourceBranch}']:before {
-    content: '←';
-  }
+	[data-separator] + [data-separator]:before {
+		content: '•';
+		margin-right: ${getGapSize(size)}rem;
+	}
+	// Pull request elements: source branch → target branch
+	[data-smart-element='${ElementName.SourceBranch}']
+		+ [data-smart-element='${ElementName.TargetBranch}']:before {
+		content: '→';
+	}
+	// Pull request elements: target branch ← source branch
+	[data-smart-element='${ElementName.TargetBranch}']
+		+ [data-smart-element='${ElementName.SourceBranch}']:before {
+		content: '←';
+	}
 `;
 
 /**
@@ -48,30 +39,30 @@ const getBlockStyles = (
  * @see Action
  */
 const Block = ({
-  children,
-  direction = SmartLinkDirection.Horizontal,
-  size = SmartLinkSize.Medium,
-  testId = 'smart-block',
-  overrideCss,
-  blockRef,
-  onRender,
-  onTransitionEnd,
+	children,
+	direction = SmartLinkDirection.Horizontal,
+	size = SmartLinkSize.Medium,
+	testId = 'smart-block',
+	overrideCss,
+	blockRef,
+	onRender,
+	onTransitionEnd,
 }: BlockProps) => {
-  useEffect(() => {
-    onRender && onRender();
-  }, [onRender]);
+	useEffect(() => {
+		onRender && onRender();
+	}, [onRender]);
 
-  return (
-    <div
-      css={[getBlockStyles(direction, size), overrideCss]}
-      data-smart-block
-      data-testid={testId}
-      onTransitionEnd={onTransitionEnd}
-      ref={blockRef}
-    >
-      {renderChildren(children, size)}
-    </div>
-  );
+	return (
+		<div
+			css={[getBlockStyles(direction, size), overrideCss]}
+			data-smart-block
+			data-testid={testId}
+			onTransitionEnd={onTransitionEnd}
+			ref={blockRef}
+		>
+			{renderChildren(children, size)}
+		</div>
+	);
 };
 
 export default Block;

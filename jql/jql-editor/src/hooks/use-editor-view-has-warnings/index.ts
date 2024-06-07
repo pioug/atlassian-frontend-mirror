@@ -3,10 +3,10 @@ import { di } from 'react-magnetic-di';
 import { useExternalMessages, useHydratedDeprecations } from '../../state';
 
 export const useEditorViewHasWarnings = (): boolean => {
-  di(useHydratedDeprecations, useExternalMessages);
+	di(useHydratedDeprecations, useExternalMessages);
 
-  const [hydratedDeprecations] = useHydratedDeprecations();
-  const [{ warnings: externalWarnings }] = useExternalMessages();
+	const [hydratedDeprecations] = useHydratedDeprecations();
+	const [{ warnings: externalWarnings }] = useExternalMessages();
 
-  return hydratedDeprecations.length > 0 || externalWarnings.length > 0;
+	return hydratedDeprecations.length > 0 || externalWarnings.length > 0;
 };

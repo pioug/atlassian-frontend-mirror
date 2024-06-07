@@ -8,54 +8,48 @@ import { EmojiCommonProvider } from '../context/EmojiCommonProvider';
 import { useEmoji } from './useEmoji';
 
 describe('useEmoji', () => {
-  const ContextWrapper = ({
-    children,
-    emojiProvider,
-  }: React.PropsWithChildren<{
-    emojiProvider: EmojiResource;
-    children?: React.ReactNode;
-  }>) => (
-    <EmojiCommonProvider emojiProvider={emojiProvider}>
-      {children}
-    </EmojiCommonProvider>
-  );
+	const ContextWrapper = ({
+		children,
+		emojiProvider,
+	}: React.PropsWithChildren<{
+		emojiProvider: EmojiResource;
+		children?: React.ReactNode;
+	}>) => <EmojiCommonProvider emojiProvider={emojiProvider}>{children}</EmojiCommonProvider>;
 
-  const renderHookWithProvider = async (uploadSupported = false) => {
-    const emojiProvider = await getEmojiResource({ uploadSupported });
+	const renderHookWithProvider = async (uploadSupported = false) => {
+		const emojiProvider = await getEmojiResource({ uploadSupported });
 
-    return renderHook(() => useEmoji(), {
-      wrapper: ContextWrapper,
-      initialProps: { emojiProvider },
-    });
-  };
+		return renderHook(() => useEmoji(), {
+			wrapper: ContextWrapper,
+			initialProps: { emojiProvider },
+		});
+	};
 
-  describe('throws', () => {
-    test('when using hook without emoji context', () => {
-      const { result } = renderHook(() => useEmoji());
+	describe('throws', () => {
+		test('when using hook without emoji context', () => {
+			const { result } = renderHook(() => useEmoji());
 
-      expect(result.error?.message).toEqual(
-        'useEmoji must be used within EmojiContext',
-      );
-    });
-  });
+			expect(result.error?.message).toEqual('useEmoji must be used within EmojiContext');
+		});
+	});
 
-  test('gives access to provider', async () => {
-    const { result } = await renderHookWithProvider();
-    expect(result.current.emojiProvider).not.toBeNull();
-    expect(result.current.isUploadSupported).toBe(false);
-  });
+	test('gives access to provider', async () => {
+		const { result } = await renderHookWithProvider();
+		expect(result.current.emojiProvider).not.toBeNull();
+		expect(result.current.isUploadSupported).toBe(false);
+	});
 
-  test('sets upload to false when not enabled', async () => {
-    const { result } = await renderHookWithProvider(false);
-    expect(result.current.emojiProvider).not.toBeNull();
-    expect(result.current.isUploadSupported).toBe(false);
-  });
+	test('sets upload to false when not enabled', async () => {
+		const { result } = await renderHookWithProvider(false);
+		expect(result.current.emojiProvider).not.toBeNull();
+		expect(result.current.isUploadSupported).toBe(false);
+	});
 
-  test('sets upload to true when enabled', async () => {
-    await act(async () => {
-      const { result } = await renderHookWithProvider(true);
-      expect(result.current.emojiProvider).not.toBeNull();
-      await waitFor(() => expect(result.current.isUploadSupported).toBe(true));
-    });
-  });
+	test('sets upload to true when enabled', async () => {
+		await act(async () => {
+			const { result } = await renderHookWithProvider(true);
+			expect(result.current.emojiProvider).not.toBeNull();
+			await waitFor(() => expect(result.current.isUploadSupported).toBe(true));
+		});
+	});
 });

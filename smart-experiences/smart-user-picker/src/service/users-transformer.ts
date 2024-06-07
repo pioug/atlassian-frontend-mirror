@@ -1,146 +1,143 @@
 import {
-  type ExternalUser,
-  ExternalUserType,
-  type Group,
-  GroupType,
-  type LozengeProps,
-  type OptionData,
-  type Team,
-  type TeamMember,
-  TeamType,
-  type User,
-  UserType,
+	type ExternalUser,
+	ExternalUserType,
+	type Group,
+	GroupType,
+	type LozengeProps,
+	type OptionData,
+	type Team,
+	type TeamMember,
+	TeamType,
+	type User,
+	UserType,
 } from '@atlaskit/user-picker';
 import { type IntlShape } from 'react-intl-next';
 import { messages } from '../i18n';
 import { EntityType } from '../types';
 
 interface ServerItem {
-  id: string;
-  name?: string;
-  entityType: EntityType;
-  avatarUrl: string;
-  description?: string;
-  teamAri?: string;
-  displayName?: string;
-  title?: string;
+	id: string;
+	name?: string;
+	entityType: EntityType;
+	avatarUrl: string;
+	description?: string;
+	teamAri?: string;
+	displayName?: string;
+	title?: string;
 }
 
 interface ServerUser extends ServerItem {
-  name: string;
-  entityType: EntityType.USER;
-  avatarUrl: string;
-  email?: string;
-  attributes?: Record<string, string>;
-  nonLicensedUser?: boolean;
+	name: string;
+	entityType: EntityType.USER;
+	avatarUrl: string;
+	email?: string;
+	attributes?: Record<string, string>;
+	nonLicensedUser?: boolean;
 }
 
 interface ServerTeam extends ServerItem {
-  displayName?: string;
-  entityType: EntityType.TEAM;
-  description?: string;
-  largeAvatarImageUrl?: string;
-  smallAvatarImageUrl?: string;
-  memberCount?: number;
-  members?: TeamMember[];
-  includesYou?: boolean;
+	displayName?: string;
+	entityType: EntityType.TEAM;
+	description?: string;
+	largeAvatarImageUrl?: string;
+	smallAvatarImageUrl?: string;
+	memberCount?: number;
+	members?: TeamMember[];
+	includesYou?: boolean;
 }
 
 interface ServerGroup extends ServerItem {
-  entityType: EntityType.GROUP;
-  attributes?: Record<string, string>;
+	entityType: EntityType.GROUP;
+	attributes?: Record<string, string>;
 }
 
 interface ServerResponse {
-  recommendedUsers: ServerItem[];
-  intl: IntlShape;
+	recommendedUsers: ServerItem[];
+	intl: IntlShape;
 }
 
 const getLozenzeProperties = (
-  entity: ServerUser | ServerGroup,
-  intl: IntlShape,
+	entity: ServerUser | ServerGroup,
+	intl: IntlShape,
 ): string | LozengeProps | undefined => {
-  if (entity.attributes?.workspaceMember) {
-    return intl.formatMessage(messages.memberLozengeText);
-  }
+	if (entity.attributes?.workspaceMember) {
+		return intl.formatMessage(messages.memberLozengeText);
+	}
 
-  if (entity.attributes?.isConfluenceExternalCollaborator) {
-    const lozengeTooltipMessage =
-      entity.entityType === EntityType.GROUP
-        ? messages.guestGroupLozengeTooltip
-        : messages.guestUserLozengeTooltip;
-    return {
-      text: intl.formatMessage(messages.guestLozengeText),
-      tooltip: intl.formatMessage(lozengeTooltipMessage),
-      appearance: 'default',
-    };
-  }
+	if (entity.attributes?.isConfluenceExternalCollaborator) {
+		const lozengeTooltipMessage =
+			entity.entityType === EntityType.GROUP
+				? messages.guestGroupLozengeTooltip
+				: messages.guestUserLozengeTooltip;
+		return {
+			text: intl.formatMessage(messages.guestLozengeText),
+			tooltip: intl.formatMessage(lozengeTooltipMessage),
+			appearance: 'default',
+		};
+	}
 
-  return undefined;
+	return undefined;
 };
 
 const transformUser = (
-  item: ServerItem,
-  intl: IntlShape,
+	item: ServerItem,
+	intl: IntlShape,
 ): User | ExternalUser | Team | Group | void => {
-  const type = item.entityType;
+	const type = item.entityType;
 
-  if (type === EntityType.USER) {
-    const user = item as ServerUser;
+	if (type === EntityType.USER) {
+		const user = item as ServerUser;
 
-    const lozenge = getLozenzeProperties(user, intl);
+		const lozenge = getLozenzeProperties(user, intl);
 
-    return {
-      id: user.id,
-      type: user.nonLicensedUser ? ExternalUserType : UserType,
-      avatarUrl: user.avatarUrl,
-      name: user.name,
-      email: user.email,
-      title: user.title,
-      lozenge: lozenge,
-      tooltip: user.name,
-      isExternal: Boolean(user.nonLicensedUser),
-      sources: user.nonLicensedUser ? ['other-atlassian'] : undefined,
-    };
-  }
+		return {
+			id: user.id,
+			type: user.nonLicensedUser ? ExternalUserType : UserType,
+			avatarUrl: user.avatarUrl,
+			name: user.name,
+			email: user.email,
+			title: user.title,
+			lozenge: lozenge,
+			tooltip: user.name,
+			isExternal: Boolean(user.nonLicensedUser),
+			sources: user.nonLicensedUser ? ['other-atlassian'] : undefined,
+		};
+	}
 
-  if (type === EntityType.TEAM) {
-    const team = item as ServerTeam;
+	if (type === EntityType.TEAM) {
+		const team = item as ServerTeam;
 
-    return {
-      id: team.id,
-      type: TeamType,
-      description: team.description || '',
-      name: team.displayName || '',
-      memberCount: team.memberCount,
-      members: team.members,
-      includesYou: team.includesYou,
-      avatarUrl: team.largeAvatarImageUrl || team.smallAvatarImageUrl,
-      tooltip: team.displayName,
-    };
-  }
+		return {
+			id: team.id,
+			type: TeamType,
+			description: team.description || '',
+			name: team.displayName || '',
+			memberCount: team.memberCount,
+			members: team.members,
+			includesYou: team.includesYou,
+			avatarUrl: team.largeAvatarImageUrl || team.smallAvatarImageUrl,
+			tooltip: team.displayName,
+		};
+	}
 
-  if (type === EntityType.GROUP) {
-    const group = item as ServerGroup;
+	if (type === EntityType.GROUP) {
+		const group = item as ServerGroup;
 
-    const lozenge = getLozenzeProperties(group, intl);
+		const lozenge = getLozenzeProperties(group, intl);
 
-    return {
-      id: group.id,
-      type: GroupType,
-      name: group.name || '',
-      lozenge: lozenge,
-    };
-  }
+		return {
+			id: group.id,
+			type: GroupType,
+			name: group.name || '',
+			lozenge: lozenge,
+		};
+	}
 
-  return;
+	return;
 };
 
-export const transformUsers = (
-  serverResponse: ServerResponse,
-  intl: IntlShape,
-): OptionData[] =>
-  (serverResponse.recommendedUsers || [])
-    .map((item) => transformUser(item, intl))
-    .filter((user) => !!user)
-    .map((user) => user as OptionData);
+export const transformUsers = (serverResponse: ServerResponse, intl: IntlShape): OptionData[] =>
+	(serverResponse.recommendedUsers || [])
+		.map((item) => transformUser(item, intl))
+		.filter((user) => !!user)
+		.map((user) => user as OptionData);

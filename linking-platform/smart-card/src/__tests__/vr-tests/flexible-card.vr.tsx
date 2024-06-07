@@ -31,40 +31,40 @@ import FlexibleUiBlockCardErroredStates from '../../../examples/vr-flexible-card
 // Variants
 snapshot(FlexibleUiOptions);
 snapshot(FlexibleUiComposition, {
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-action-delete-action-0',
-      },
-      state: 'hovered',
-    },
-  ],
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-action-delete-action-0',
+			},
+			state: 'hovered',
+		},
+	],
 });
 
 // Blocks
 snapshot(FlexibleUiBlock);
 snapshot(FlexibleUiBlockTitle);
 snapshot(FlexibleUiBlockTitle, {
-  description: 'flexible-ui-block-title--title hovered',
-  states: [
-    {
-      selector: {
-        byTestId: 'actions-on-hover-title-block-resolved-view',
-      },
-      state: 'hovered',
-    },
-  ],
+	description: 'flexible-ui-block-title--title hovered',
+	states: [
+		{
+			selector: {
+				byTestId: 'actions-on-hover-title-block-resolved-view',
+			},
+			state: 'hovered',
+		},
+	],
 });
 snapshot(FlexibleUiBlockTitle, {
-  description: 'flexible-ui-block-title--more actions hovered',
-  states: [
-    {
-      selector: {
-        byTestId: 'action-group-more-button',
-      },
-      state: 'hovered',
-    },
-  ],
+	description: 'flexible-ui-block-title--more actions hovered',
+	states: [
+		{
+			selector: {
+				byTestId: 'action-group-more-button',
+			},
+			state: 'hovered',
+		},
+	],
 });
 snapshot(FlexibleUiBlockMetadata);
 snapshot(FlexibleUiBlockSnippet);
@@ -75,18 +75,14 @@ snapshot(FlexibleUiBlockActionList);
 snapshot(FlexibleUiBlockAction);
 snapshot(FlexibleUiBlockActionGroup, { drawsOutsideBounds: true });
 snapshot(FlexibleUiBlockActionGroup, {
-  description: 'flexible-ui-block-action-group--item hovered',
-  drawsOutsideBounds: true,
-  states: [
-    { selector: { byTestId: 'smart-action-delete-action' }, state: 'hovered' },
-  ],
+	description: 'flexible-ui-block-action-group--item hovered',
+	drawsOutsideBounds: true,
+	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'hovered' }],
 });
 snapshot(FlexibleUiBlockActionGroup, {
-  description: 'flexible-ui-block-action-group--item focused',
-  drawsOutsideBounds: true,
-  states: [
-    { selector: { byTestId: 'smart-action-delete-action' }, state: 'focused' },
-  ],
+	description: 'flexible-ui-block-action-group--item focused',
+	drawsOutsideBounds: true,
+	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'focused' }],
 });
 
 // Elements
@@ -98,84 +94,84 @@ snapshot(FlexibleUiElementMedia);
 
 // Hovercard
 snapshot(FlexibleUiHoverCard, {
-  drawsOutsideBounds: true,
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'hovered',
-    },
-  ],
+	drawsOutsideBounds: true,
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'hovered',
+		},
+	],
 });
 snapshot(FlexibleUiHoverCardNoPreviewButton, {
-  drawsOutsideBounds: true,
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'hovered',
-    },
-  ],
+	drawsOutsideBounds: true,
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'hovered',
+		},
+	],
 });
 
 // Accessibility
 snapshot(FlexibleUiAccessibility, {
-  description: 'flexible=ui-accessibility--title focused',
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'focused',
-    },
-  ],
+	description: 'flexible=ui-accessibility--title focused',
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'focused',
+		},
+	],
 });
 snapshot(FlexibleUiAccessibility, {
-  description: 'flexible=ui-accessibility--hidden action button focused',
-  states: [
-    {
-      selector: {
-        byTestId: 'action-group-more-button',
-      },
-      state: 'focused',
-    },
-  ],
-  drawsOutsideBounds: true,
+	description: 'flexible=ui-accessibility--hidden action button focused',
+	states: [
+		{
+			selector: {
+				byTestId: 'action-group-more-button',
+			},
+			state: 'focused',
+		},
+	],
+	drawsOutsideBounds: true,
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
-  description: 'flexible=ui-accessibility--forbidden title focused',
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'focused',
-    },
-  ],
+	description: 'flexible=ui-accessibility--forbidden title focused',
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'focused',
+		},
+	],
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
-  description: 'flexible=ui-accessibility--error message focused',
-  states: [
-    {
-      selector: {
-        byTestId: 'keyboard-2-errored-view-message',
-      },
-      state: 'focused',
-    },
-  ],
+	description: 'flexible=ui-accessibility--error message focused',
+	states: [
+		{
+			selector: {
+				byTestId: 'keyboard-2-errored-view-message',
+			},
+			state: 'focused',
+		},
+	],
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
-  description: 'flexible=ui-accessibility--custom action item focused',
-  states: [
-    {
-      selector: {
-        byTestId: 'action-item-custom',
-      },
-      state: 'focused',
-    },
-  ],
+	description: 'flexible=ui-accessibility--custom action item focused',
+	states: [
+		{
+			selector: {
+				byTestId: 'action-item-custom',
+			},
+			state: 'focused',
+		},
+	],
 });
 
 // Error states

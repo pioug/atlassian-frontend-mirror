@@ -12,88 +12,75 @@ import { useTabPanel } from '@atlaskit/tabs';
 import { messages } from '../../shared/i18n';
 import { type ReactionSummary } from '../../types';
 
-import {
-  reactionViewStyle,
-  userListStyle,
-  userStyle,
-  centerSpinner,
-} from './styles';
+import { reactionViewStyle, userListStyle, userStyle, centerSpinner } from './styles';
 
 export interface ReactionViewProps {
-  /**
-   * Selected reaction to get user data from
-   */
-  reaction: ReactionSummary;
-  /**
-   * Current emoji selected in the reactions dialog
-   */
-  selectedEmojiId: string;
-  /**
-   * Provider for loading emojis
-   */
-  emojiProvider: Promise<EmojiProvider>;
+	/**
+	 * Selected reaction to get user data from
+	 */
+	reaction: ReactionSummary;
+	/**
+	 * Current emoji selected in the reactions dialog
+	 */
+	selectedEmojiId: string;
+	/**
+	 * Provider for loading emojis
+	 */
+	emojiProvider: Promise<EmojiProvider>;
 }
 
-export const ReactionView = ({
-  selectedEmojiId,
-  emojiProvider,
-  reaction,
-}: ReactionViewProps) => {
-  const intl = useIntl();
-  const [emojiName, setEmojiName] = useState<string>('');
+export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: ReactionViewProps) => {
+	const intl = useIntl();
+	const [emojiName, setEmojiName] = useState<string>('');
 
-  useEffect(() => {
-    (async () => {
-      const provider = await emojiProvider;
-      const emoji = await provider.findByEmojiId({
-        shortName: '',
-        id: selectedEmojiId,
-      });
-      if (emoji && emoji.name) {
-        setEmojiName(emoji.name);
-      }
-    })();
-  }, [emojiProvider, selectedEmojiId]);
+	useEffect(() => {
+		(async () => {
+			const provider = await emojiProvider;
+			const emoji = await provider.findByEmojiId({
+				shortName: '',
+				id: selectedEmojiId,
+			});
+			if (emoji && emoji.name) {
+				setEmojiName(emoji.name);
+			}
+		})();
+	}, [emojiProvider, selectedEmojiId]);
 
-  const alphabeticalNames = useMemo(() => {
-    const reactionObj = reaction;
+	const alphabeticalNames = useMemo(() => {
+		const reactionObj = reaction;
 
-    return (
-      reactionObj.users?.sort((a, b) =>
-        a.displayName.localeCompare(b.displayName),
-      ) || []
-    );
-  }, [reaction]);
+		return reactionObj.users?.sort((a, b) => a.displayName.localeCompare(b.displayName)) || [];
+	}, [reaction]);
 
-  const tabPanelAttributes = useTabPanel();
+	const tabPanelAttributes = useTabPanel();
 
-  return (
-    <div css={reactionViewStyle} {...tabPanelAttributes}>
-      <p>
-        <ResourcedEmoji
-          emojiProvider={emojiProvider}
-          emojiId={{ id: selectedEmojiId, shortName: '' }}
-          fitToHeight={24}
-        />
-        {intl.formatMessage(messages.emojiName, { emojiName })}
-      </p>
-      {alphabeticalNames.length === 0 ? (
-        <div css={centerSpinner}>
-          <Spinner size="large" />
-        </div>
-      ) : (
-        <ul css={userListStyle}>
-          {alphabeticalNames.map((user) => {
-            const profile = user.profilePicture?.path;
-            return (
-              <li css={userStyle} key={user.id}>
-                <Avatar size="large" src={profile} />
-                <span>{user.displayName}</span>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
-  );
+	return (
+		<div css={reactionViewStyle} {...tabPanelAttributes}>
+			<p>
+				<ResourcedEmoji
+					emojiProvider={emojiProvider}
+					emojiId={{ id: selectedEmojiId, shortName: '' }}
+					fitToHeight={24}
+				/>
+				{intl.formatMessage(messages.emojiName, { emojiName })}
+			</p>
+			{alphabeticalNames.length === 0 ? (
+				<div css={centerSpinner}>
+					<Spinner size="large" />
+				</div>
+			) : (
+				<ul css={userListStyle}>
+					{alphabeticalNames.map((user) => {
+						const profile = user.profilePicture?.path;
+						return (
+							<li css={userStyle} key={user.id}>
+								<Avatar size="large" src={profile} />
+								<span>{user.displayName}</span>
+							</li>
+						);
+					})}
+				</ul>
+			)}
+		</div>
+	);
 };

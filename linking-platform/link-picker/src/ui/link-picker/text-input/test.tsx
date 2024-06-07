@@ -8,175 +8,175 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 import { testIds, TextInput, type TextInputProps } from './index';
 
 jest.mock('@atlaskit/linking-common/user-agent', () => ({
-  browser: jest.fn(() => ({
-    mac: false,
-  })),
+	browser: jest.fn(() => ({
+		mac: false,
+	})),
 }));
 
 describe('TextInput', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
 
-  const setup = (props?: Partial<TextInputProps>) => {
-    render(<TextInput testId="link-url" name="test" value="" {...props} />);
+	const setup = (props?: Partial<TextInputProps>) => {
+		render(<TextInput testId="link-url" name="test" value="" {...props} />);
 
-    return {
-      input: screen.getByRole('textbox'),
-    };
-  };
+		return {
+			input: screen.getByRole('textbox'),
+		};
+	};
 
-  it('should call `onKeyDown` when a key is pressed', () => {
-    const onKeyDown = jest.fn();
-    const { input } = setup({ onKeyDown });
+	it('should call `onKeyDown` when a key is pressed', () => {
+		const onKeyDown = jest.fn();
+		const { input } = setup({ onKeyDown });
 
-    const event = createEvent.keyDown(input, {
-      bubbles: true,
-      cancelable: true,
-    });
+		const event = createEvent.keyDown(input, {
+			bubbles: true,
+			cancelable: true,
+		});
 
-    fireEvent(input, event);
-    expect(onKeyDown).toHaveBeenCalled();
-  });
+		fireEvent(input, event);
+		expect(onKeyDown).toHaveBeenCalled();
+	});
 
-  it('should not `preventDefault` on KeyDown event when key is pressed', () => {
-    const { input } = setup();
+	it('should not `preventDefault` on KeyDown event when key is pressed', () => {
+		const { input } = setup();
 
-    const event = createEvent.keyDown(input, {
-      bubbles: true,
-      cancelable: true,
-    });
+		const event = createEvent.keyDown(input, {
+			bubbles: true,
+			cancelable: true,
+		});
 
-    fireEvent(input, event);
-    expect(event.defaultPrevented).toBe(false);
-  });
+		fireEvent(input, event);
+		expect(event.defaultPrevented).toBe(false);
+	});
 
-  describe('undo/redo', () => {
-    describe('on win platform', () => {
-      it('on ctrl+z calls `onUndo` handler', async () => {
-        const onUndo = jest.fn();
-        const { input } = setup({ onUndo });
+	describe('undo/redo', () => {
+		describe('on win platform', () => {
+			it('on ctrl+z calls `onUndo` handler', async () => {
+				const onUndo = jest.fn();
+				const { input } = setup({ onUndo });
 
-        const event = createEvent.keyDown(input, {
-          bubbles: true,
-          cancelable: true,
-          keyCode: 90,
-          ctrlKey: true,
-        });
+				const event = createEvent.keyDown(input, {
+					bubbles: true,
+					cancelable: true,
+					keyCode: 90,
+					ctrlKey: true,
+				});
 
-        fireEvent(input, event);
+				fireEvent(input, event);
 
-        expect(onUndo).toHaveBeenCalled();
-        expect(event.defaultPrevented).toBe(true);
-      });
+				expect(onUndo).toHaveBeenCalled();
+				expect(event.defaultPrevented).toBe(true);
+			});
 
-      it('on ctrl+y calls `onRedo` handler', async () => {
-        const onRedo = jest.fn();
-        const { input } = setup({ onRedo });
+			it('on ctrl+y calls `onRedo` handler', async () => {
+				const onRedo = jest.fn();
+				const { input } = setup({ onRedo });
 
-        const event = createEvent.keyDown(input, {
-          bubbles: true,
-          cancelable: true,
-          keyCode: 89,
-          ctrlKey: true,
-        });
+				const event = createEvent.keyDown(input, {
+					bubbles: true,
+					cancelable: true,
+					keyCode: 89,
+					ctrlKey: true,
+				});
 
-        fireEvent(input, event);
+				fireEvent(input, event);
 
-        expect(onRedo).toHaveBeenCalled();
-        expect(event.defaultPrevented).toBe(true);
-      });
-    });
+				expect(onRedo).toHaveBeenCalled();
+				expect(event.defaultPrevented).toBe(true);
+			});
+		});
 
-    describe('on mac platform', () => {
-      beforeEach(() => {
-        asMock(browser).mockReturnValue({ mac: true });
-      });
+		describe('on mac platform', () => {
+			beforeEach(() => {
+				asMock(browser).mockReturnValue({ mac: true });
+			});
 
-      it('on cmd+z calls `onUndo` handler', async () => {
-        const onUndo = jest.fn();
-        const { input } = setup({ onUndo });
+			it('on cmd+z calls `onUndo` handler', async () => {
+				const onUndo = jest.fn();
+				const { input } = setup({ onUndo });
 
-        const event = createEvent.keyDown(input, {
-          bubbles: true,
-          cancelable: true,
-          keyCode: 90,
-          metaKey: true,
-        });
+				const event = createEvent.keyDown(input, {
+					bubbles: true,
+					cancelable: true,
+					keyCode: 90,
+					metaKey: true,
+				});
 
-        fireEvent(input, event);
+				fireEvent(input, event);
 
-        expect(onUndo).toHaveBeenCalled();
-        expect(event.defaultPrevented).toBe(true);
-      });
+				expect(onUndo).toHaveBeenCalled();
+				expect(event.defaultPrevented).toBe(true);
+			});
 
-      it('on cmd+shift+z calls onRedo handler', () => {
-        const onRedo = jest.fn();
-        const { input } = setup({ onRedo });
+			it('on cmd+shift+z calls onRedo handler', () => {
+				const onRedo = jest.fn();
+				const { input } = setup({ onRedo });
 
-        const event = createEvent.keyDown(input, {
-          bubbles: true,
-          cancelable: true,
-          keyCode: 90,
-          shiftKey: true,
-          metaKey: true,
-        });
+				const event = createEvent.keyDown(input, {
+					bubbles: true,
+					cancelable: true,
+					keyCode: 90,
+					shiftKey: true,
+					metaKey: true,
+				});
 
-        fireEvent(input, event);
+				fireEvent(input, event);
 
-        expect(onRedo).toHaveBeenCalled();
-        expect(event.defaultPrevented).toBe(true);
-      });
+				expect(onRedo).toHaveBeenCalled();
+				expect(event.defaultPrevented).toBe(true);
+			});
 
-      it('should not undo if cmd+z is pressed with shift', () => {
-        const onUndo = jest.fn();
-        const { input } = setup({ onUndo });
+			it('should not undo if cmd+z is pressed with shift', () => {
+				const onUndo = jest.fn();
+				const { input } = setup({ onUndo });
 
-        const event = createEvent.keyDown(input, {
-          bubbles: true,
-          cancelable: true,
-          keyCode: 90,
-          shiftKey: true,
-          metaKey: true,
-        });
+				const event = createEvent.keyDown(input, {
+					bubbles: true,
+					cancelable: true,
+					keyCode: 90,
+					shiftKey: true,
+					metaKey: true,
+				});
 
-        fireEvent(input, event);
+				fireEvent(input, event);
 
-        expect(onUndo).not.toHaveBeenCalled();
-        expect(event.defaultPrevented).toBe(false);
-      });
-    });
-  });
+				expect(onUndo).not.toHaveBeenCalled();
+				expect(event.defaultPrevented).toBe(false);
+			});
+		});
+	});
 
-  it('should not focus input if `autoFocus` prop is not provided', () => {
-    const { input } = setup();
+	it('should not focus input if `autoFocus` prop is not provided', () => {
+		const { input } = setup();
 
-    expect(input).not.toHaveFocus();
-  });
+		expect(input).not.toHaveFocus();
+	});
 
-  it('should focus input if `autoFocus` prop set to true', () => {
-    const { input } = setup({ autoFocus: true });
+	it('should focus input if `autoFocus` prop set to true', () => {
+		const { input } = setup({ autoFocus: true });
 
-    expect(input).toHaveFocus();
-  });
+		expect(input).toHaveFocus();
+	});
 
-  it('should stop propagation of the event when clear button is activated', async () => {
-    setup({ value: 'XYZ' });
+	it('should stop propagation of the event when clear button is activated', async () => {
+		setup({ value: 'XYZ' });
 
-    const clearButton = screen.getByTestId(testIds.clearUrlButton);
-    clearButton.focus();
+		const clearButton = screen.getByTestId(testIds.clearUrlButton);
+		clearButton.focus();
 
-    const event = createEvent.click(clearButton, {
-      bubbles: true,
-      cancelable: true,
-    });
+		const event = createEvent.click(clearButton, {
+			bubbles: true,
+			cancelable: true,
+		});
 
-    Object.assign(event, {
-      stopPropagation: jest.fn(),
-    });
+		Object.assign(event, {
+			stopPropagation: jest.fn(),
+		});
 
-    fireEvent(clearButton, event);
-    expect(event.defaultPrevented).toBe(true);
-    expect(event.stopPropagation).toHaveBeenCalled();
-  });
+		fireEvent(clearButton, event);
+		expect(event.defaultPrevented).toBe(true);
+		expect(event.stopPropagation).toHaveBeenCalled();
+	});
 });

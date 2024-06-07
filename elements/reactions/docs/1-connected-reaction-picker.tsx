@@ -99,35 +99,35 @@ export default md`
   );`}
 
   ${(
-    <>
-      <br />
-      <SectionMessage
-        appearance="warning"
-        title="There should be only one instance of EmojiResource in your application"
-      >
-        <p>
-          Make sure EmojiResource is initialised only once to avoid performance
-          issues using useMemo.
-        </p>
-      </SectionMessage>
-    </>
-  )}
+		<>
+			<br />
+			<SectionMessage
+				appearance="warning"
+				title="There should be only one instance of EmojiResource in your application"
+			>
+				<p>
+					Make sure EmojiResource is initialised only once to avoid performance issues using
+					useMemo.
+				</p>
+			</SectionMessage>
+		</>
+	)}
 
   ### Example:
 
   ${(
-    <Example
-      packageName="@atlaskit/reactions"
-      Component={ConnectedReactionPickerExample}
-      title="Connected Reactions Picker"
-      source={require('!!raw-loader!../examples/00-connected-reaction-picker')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/reactions"
+			Component={ConnectedReactionPickerExample}
+			title="Connected Reactions Picker"
+			source={require('!!raw-loader!../examples/00-connected-reaction-picker')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="ConnectedReactionPicker Props"
-      props={require('!!extract-react-types-loader!../extract-react-type/ConnectedReactionPicker')}
-    />
-  )}
+		<Props
+			heading="ConnectedReactionPicker Props"
+			props={require('!!extract-react-types-loader!../extract-react-type/ConnectedReactionPicker')}
+		/>
+	)}
 `;

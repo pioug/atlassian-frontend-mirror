@@ -1,10 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import algoliasearch from 'algoliasearch';
-import type {
-  Article,
-  ArticleItem,
-  articleId as articleIdType,
-} from '../../../src/index';
+import type { Article, ArticleItem, articleId as articleIdType } from '../../../src/index';
 import { ARTICLE_ITEM_TYPES } from '../../../src/index';
 
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
@@ -53,212 +49,184 @@ const ArticleExtraStyles = `
  * @param {string} articleContent
  */
 const fixImagesAndLinkTags = (articleContent: string): string => {
-  const htmlObject = document.createElement('div');
-  htmlObject.innerHTML = articleContent;
+	const htmlObject = document.createElement('div');
+	htmlObject.innerHTML = articleContent;
 
-  const imgs = htmlObject.getElementsByTagName('img');
-  const links = htmlObject.getElementsByTagName('a');
+	const imgs = htmlObject.getElementsByTagName('img');
+	const links = htmlObject.getElementsByTagName('a');
 
-  // Open images in a new tab/window
-  for (let q = 0; q < imgs.length; q += 1) {
-    const img = imgs[q];
-    const imgParent = img.parentNode;
-    const imgUrl = img.getAttribute('src');
-    const wrapper = document.createElement('a');
-    if (imgUrl != null) {
-      img.setAttribute(
-        'style',
-        'display: block; margin-top: 0; max-width: 100%;',
-      );
-      wrapper.setAttribute('href', imgUrl);
-      wrapper.setAttribute('target', '_blank');
-      wrapper.setAttribute(
-        'style',
-        'display:inline-block; max-width: 100%; margin-top: 20px;',
-      );
-      if (imgParent) {
-        imgParent.insertBefore(wrapper, img);
-        wrapper.appendChild(img);
-      }
-    }
-  }
+	// Open images in a new tab/window
+	for (let q = 0; q < imgs.length; q += 1) {
+		const img = imgs[q];
+		const imgParent = img.parentNode;
+		const imgUrl = img.getAttribute('src');
+		const wrapper = document.createElement('a');
+		if (imgUrl != null) {
+			img.setAttribute('style', 'display: block; margin-top: 0; max-width: 100%;');
+			wrapper.setAttribute('href', imgUrl);
+			wrapper.setAttribute('target', '_blank');
+			wrapper.setAttribute('style', 'display:inline-block; max-width: 100%; margin-top: 20px;');
+			if (imgParent) {
+				imgParent.insertBefore(wrapper, img);
+				wrapper.appendChild(img);
+			}
+		}
+	}
 
-  // open links in a new tab/window
-  for (let q = 0; q < links.length; q += 1) {
-    const link = links[q];
-    link.setAttribute('target', '_blank');
-  }
+	// open links in a new tab/window
+	for (let q = 0; q < links.length; q += 1) {
+		const link = links[q];
+		link.setAttribute('target', '_blank');
+	}
 
-  const style = document.createElement('style');
-  style.innerText = ArticleExtraStyles;
-  htmlObject.prepend(style);
+	const style = document.createElement('style');
+	style.innerText = ArticleExtraStyles;
+	htmlObject.prepend(style);
 
-  return htmlObject.outerHTML;
+	return htmlObject.outerHTML;
 };
 
 // Algolia configuration
-const ALGOLIA_CLIENT = algoliasearch(
-  '8K6J5OJIQW',
-  '55176fdca77978d05c6da060d8724fe7',
-);
+const ALGOLIA_CLIENT = algoliasearch('8K6J5OJIQW', '55176fdca77978d05c6da060d8724fe7');
 
 interface useAlgoliaProps {
-  productName?: string;
-  productExperience?: string;
-  algoliaIndexName?: string;
+	productName?: string;
+	productExperience?: string;
+	algoliaIndexName?: string;
 }
 
 export const useAlgolia = ({
-  productName: productNameValue = 'Jira Software',
-  productExperience: productExperienceValue = 'Classic',
-  algoliaIndexName: algoliaIndexNameValue = 'product_help_uat_copsi',
+	productName: productNameValue = 'Jira Software',
+	productExperience: productExperienceValue = 'Classic',
+	algoliaIndexName: algoliaIndexNameValue = 'product_help_uat_copsi',
 }: useAlgoliaProps) => {
-  const [algoliaIndexName, setAlgoliaIndexName] = useState(
-    algoliaIndexNameValue,
-  );
-  const [productName, setProductName] = useState(productNameValue);
-  const [productExperience, setProductExperience] = useState(
-    productExperienceValue,
-  );
-  const algoliaIndex = useRef(ALGOLIA_CLIENT.initIndex(algoliaIndexName));
+	const [algoliaIndexName, setAlgoliaIndexName] = useState(algoliaIndexNameValue);
+	const [productName, setProductName] = useState(productNameValue);
+	const [productExperience, setProductExperience] = useState(productExperienceValue);
+	const algoliaIndex = useRef(ALGOLIA_CLIENT.initIndex(algoliaIndexName));
 
-  useEffect(() => {
-    if (algoliaIndexNameValue !== algoliaIndexName) {
-      setAlgoliaIndexName(algoliaIndexNameValue);
-      algoliaIndex.current = ALGOLIA_CLIENT.initIndex(algoliaIndexName);
-    }
-  }, [algoliaIndexName, algoliaIndexNameValue]);
+	useEffect(() => {
+		if (algoliaIndexNameValue !== algoliaIndexName) {
+			setAlgoliaIndexName(algoliaIndexNameValue);
+			algoliaIndex.current = ALGOLIA_CLIENT.initIndex(algoliaIndexName);
+		}
+	}, [algoliaIndexName, algoliaIndexNameValue]);
 
-  const getArticleById = async (articleId: articleIdType): Promise<Article> => {
-    return new Promise((resolve, reject) => {
-      if (articleId.id === '') {
-        resolve({
-          body: '',
-          bodyFormat: BODY_FORMAT_TYPES.adf,
-          relatedArticles: [],
-          id: '',
-          lastPublished: '',
-          title: '',
-          type: ARTICLE_ITEM_TYPES.topicInProduct,
-          routes: [],
-        });
-        return;
-      }
+	const getArticleById = async (articleId: articleIdType): Promise<Article> => {
+		return new Promise((resolve, reject) => {
+			if (articleId.id === '') {
+				resolve({
+					body: '',
+					bodyFormat: BODY_FORMAT_TYPES.adf,
+					relatedArticles: [],
+					id: '',
+					lastPublished: '',
+					title: '',
+					type: ARTICLE_ITEM_TYPES.topicInProduct,
+					routes: [],
+				});
+				return;
+			}
 
-      algoliaIndex.current.search(
-        {
-          filters: `id:${articleId.id}`,
-        },
-        (err, res: any = {}) => {
-          if (err) {
-            reject(err);
-          }
+			algoliaIndex.current.search(
+				{
+					filters: `id:${articleId.id}`,
+				},
+				(err, res: any = {}) => {
+					if (err) {
+						reject(err);
+					}
 
-          const article = res.hits[0];
-          if (article) {
-            const articleBodyUpdate = fixImagesAndLinkTags(article.body);
-            article.body = articleBodyUpdate;
+					const article = res.hits[0];
+					if (article) {
+						const articleBodyUpdate = fixImagesAndLinkTags(article.body);
+						article.body = articleBodyUpdate;
 
-            resolve(article);
-          } else {
-            reject(res.message);
-          }
-        },
-      );
-    });
-  };
+						resolve(article);
+					} else {
+						reject(res.message);
+					}
+				},
+			);
+		});
+	};
 
-  const getRelatedArticles = (
-    routeGroup?: string | string[],
-    routeName?: string | string[],
-    articleId?: articleIdType,
-  ): Promise<ArticleItem[]> =>
-    new Promise((resolve, reject) => {
-      let facetFiltersValue: (string | string[])[];
+	const getRelatedArticles = (
+		routeGroup?: string | string[],
+		routeName?: string | string[],
+		articleId?: articleIdType,
+	): Promise<ArticleItem[]> =>
+		new Promise((resolve, reject) => {
+			let facetFiltersValue: (string | string[])[];
 
-      if (articleId?.id == null) {
-        facetFiltersValue = [
-          [
-            `routes.routeGroup:${routeGroup || ''}<score=10>`,
-            'routes.hasGroup:false<score=1>',
-          ],
-          routeName != null
-            ? [
-                `routes.routeName:${routeName || ''}<score=5>`,
-                'routes.hasName:false<score=1>',
-              ]
-            : ['routes.hasName:false<score=1>'],
-          `productName:${productName}`,
-          'routes.routeGroup:-hide',
-          'routes.routeName:-hide',
-          `productExperience:${productExperience}`,
-        ];
-      } else {
-        facetFiltersValue = [
-          [
-            `routes.routeGroup:${routeGroup || ''}<score=10>`,
-            'routes.hasGroup:false<score=1>',
-          ],
-          routeName != null
-            ? [
-                `routes.routeName:${routeName || ''}<score=5>`,
-                'routes.hasName:false<score=1>',
-              ]
-            : ['routes.hasName:false<score=1>'],
-          `id:-${articleId.id}`,
-          `productName:${productName}`,
-          'routes.routeGroup:-hide',
-          'routes.routeName:-hide',
-          `productExperience:${productExperience}`,
-        ];
-      }
+			if (articleId?.id == null) {
+				facetFiltersValue = [
+					[`routes.routeGroup:${routeGroup || ''}<score=10>`, 'routes.hasGroup:false<score=1>'],
+					routeName != null
+						? [`routes.routeName:${routeName || ''}<score=5>`, 'routes.hasName:false<score=1>']
+						: ['routes.hasName:false<score=1>'],
+					`productName:${productName}`,
+					'routes.routeGroup:-hide',
+					'routes.routeName:-hide',
+					`productExperience:${productExperience}`,
+				];
+			} else {
+				facetFiltersValue = [
+					[`routes.routeGroup:${routeGroup || ''}<score=10>`, 'routes.hasGroup:false<score=1>'],
+					routeName != null
+						? [`routes.routeName:${routeName || ''}<score=5>`, 'routes.hasName:false<score=1>']
+						: ['routes.hasName:false<score=1>'],
+					`id:-${articleId.id}`,
+					`productName:${productName}`,
+					'routes.routeGroup:-hide',
+					'routes.routeName:-hide',
+					`productExperience:${productExperience}`,
+				];
+			}
 
-      const facetFilters = facetFiltersValue as
-        | string[]
-        | string[][]
-        | undefined;
+			const facetFilters = facetFiltersValue as string[] | string[][] | undefined;
 
-      algoliaIndex.current.search(
-        {
-          facetFilters,
-          // sumOrFiltersScores: true,
-        },
-        (err, res: any = {}) => {
-          if (err) {
-            reject(err);
-          }
+			algoliaIndex.current.search(
+				{
+					facetFilters,
+					// sumOrFiltersScores: true,
+				},
+				(err, res: any = {}) => {
+					if (err) {
+						reject(err);
+					}
 
-          resolve(res.hits);
-        },
-      );
-    });
+					resolve(res.hits);
+				},
+			);
+		});
 
-  const searchArticles = async (query: string): Promise<ArticleItem[]> =>
-    new Promise((resolve, reject) => {
-      algoliaIndex.current.search(
-        {
-          query,
-          filters: `productName:"${productName}" AND NOT routes.routeGroup:"hide" AND NOT routes.routeName:"hide" AND productExperience:${productExperience}`,
-        },
-        (err, res: any = {}) => {
-          if (err) {
-            reject(err);
-          }
+	const searchArticles = async (query: string): Promise<ArticleItem[]> =>
+		new Promise((resolve, reject) => {
+			algoliaIndex.current.search(
+				{
+					query,
+					filters: `productName:"${productName}" AND NOT routes.routeGroup:"hide" AND NOT routes.routeName:"hide" AND productExperience:${productExperience}`,
+				},
+				(err, res: any = {}) => {
+					if (err) {
+						reject(err);
+					}
 
-          resolve(res.hits);
-        },
-      );
-    });
+					resolve(res.hits);
+				},
+			);
+		});
 
-  return {
-    getArticleById,
-    getRelatedArticles,
-    searchArticles,
-    productName,
-    setProductName,
-    productExperience,
-    setProductExperience,
-    algoliaIndexName,
-    setAlgoliaIndexName,
-  };
+	return {
+		getArticleById,
+		getRelatedArticles,
+		searchArticles,
+		productName,
+		setProductName,
+		productExperience,
+		setProductExperience,
+		algoliaIndexName,
+		setAlgoliaIndexName,
+	};
 };

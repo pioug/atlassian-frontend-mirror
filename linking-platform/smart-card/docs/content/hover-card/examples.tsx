@@ -13,13 +13,11 @@ In the below example, we are given some info about a YouTube video, an 'Open lin
 action will always open the page content as a modal.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/hover-card-atlassian-basic').default
-    }
-    source={require('!!raw-loader!../../../examples/content/hover-card-atlassian-basic')}
-    background={true}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/hover-card-atlassian-basic').default}
+		source={require('!!raw-loader!../../../examples/content/hover-card-atlassian-basic')}
+		background={true}
+	/>
 )}
 
 ### Can open
@@ -31,11 +29,11 @@ This prop will default to \`true\`.
 Use the checkbox below to see \`canOpen\` working.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/hover-card-can-open').default}
-    source={require('!!raw-loader!../../../examples/content/hover-card-can-open')}
-    background={true}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/hover-card-can-open').default}
+		source={require('!!raw-loader!../../../examples/content/hover-card-can-open')}
+		background={true}
+	/>
 )}
 
 ### Close when children are clicked
@@ -45,13 +43,10 @@ Use the \`closeOnChildClick\` prop to cause the hover card to close when a user 
 This prop will default to \`false\`, i.e. the hover card will not close upon clicking children.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/hover-card-close-on-child-click')
-        .default
-    }
-    source={require('!!raw-loader!../../../examples/content/hover-card-close-on-child-click')}
-    background={true}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/hover-card-close-on-child-click').default}
+		source={require('!!raw-loader!../../../examples/content/hover-card-close-on-child-click')}
+		background={true}
+	/>
 )}
 `;

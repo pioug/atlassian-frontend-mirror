@@ -6,19 +6,16 @@
  */
 //Estonian
 export default {
-  'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
-    'Loobu',
-  'fabric.elements.mentions.team.mention.highlight.description':
-    'Kaasa kõik lehele ühe klõpsuga. Pole meeskonda?',
-  'fabric.elements.mentions.team.mention.highlight.description.link':
-    'Loo üks.',
-  'fabric.elements.mentions.team.mention.highlight.title': 'Maini meeskonda',
-  'fabric.mention.error.defaultAction': 'Proovi paari sekundi pärast uuesti',
-  'fabric.mention.error.defaultHeadline': 'Midagi läks nässu',
-  'fabric.mention.error.differentText': 'Proovi sisestada muud teksti',
-  'fabric.mention.error.loginAgain': 'Proovi logida välja ja taas sisse',
-  'fabric.mention.noAccess.label': 'Juurdepääs puudub',
-  'fabric.mention.noAccess.warning':
-    'Kasutajat {name} ei teavitata, kuna tal puudub juurdepääs',
-  'fabric.mention.unknow.user.error': 'Tundmatu kasutaja: {userId}',
+	'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip': 'Loobu',
+	'fabric.elements.mentions.team.mention.highlight.description':
+		'Kaasa kõik lehele ühe klõpsuga. Pole meeskonda?',
+	'fabric.elements.mentions.team.mention.highlight.description.link': 'Loo üks.',
+	'fabric.elements.mentions.team.mention.highlight.title': 'Maini meeskonda',
+	'fabric.mention.error.defaultAction': 'Proovi paari sekundi pärast uuesti',
+	'fabric.mention.error.defaultHeadline': 'Midagi läks nässu',
+	'fabric.mention.error.differentText': 'Proovi sisestada muud teksti',
+	'fabric.mention.error.loginAgain': 'Proovi logida välja ja taas sisse',
+	'fabric.mention.noAccess.label': 'Juurdepääs puudub',
+	'fabric.mention.noAccess.warning': 'Kasutajat {name} ei teavitata, kuna tal puudub juurdepääs',
+	'fabric.mention.unknow.user.error': 'Tundmatu kasutaja: {userId}',
 };

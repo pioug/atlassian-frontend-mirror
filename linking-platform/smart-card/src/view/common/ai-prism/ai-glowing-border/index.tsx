@@ -8,16 +8,16 @@ import type { AIGlowingBorderProps } from './types';
 import { INNER_BORDER_RADIUS } from '../constants';
 
 const borderContainerStyles = css({
-  display: 'flex',
-  position: 'relative',
-  padding: token('space.025', '2px'),
-  width: 'fit-content',
+	display: 'flex',
+	position: 'relative',
+	padding: token('space.025', '2px'),
+	width: 'fit-content',
 });
 
 export const borderContentStyles = css({
-  borderRadius: INNER_BORDER_RADIUS,
-  flexGrow: 1,
-  zIndex: 1, // needs to be more than the svg container at least
+	borderRadius: INNER_BORDER_RADIUS,
+	flexGrow: 1,
+	zIndex: 1, // needs to be more than the svg container at least
 });
 
 /**
@@ -26,32 +26,29 @@ export const borderContentStyles = css({
  * with modifications.
  */
 const AIGlowingBorder: React.FC<AIGlowingBorderProps> = ({
-  children,
-  palette,
-  isMoving = true,
-  isGlowing,
-  testId,
-  additionalCss,
+	children,
+	palette,
+	isMoving = true,
+	isGlowing,
+	testId,
+	additionalCss,
 }) => (
-  <div
-    css={[borderContainerStyles, additionalCss?.container]}
-    data-testid={testId}
-  >
-    <AnimatedSvgContainer
-      palette={palette}
-      isMoving={isMoving}
-      additionalCss={additionalCss?.animatedSvgContainer}
-    />
-    {isGlowing && (
-      <AnimatedSvgContainer
-        palette={palette}
-        isMoving={isMoving}
-        isGlowing
-        additionalCss={additionalCss?.animatedSvgContainer}
-      />
-    )}
-    <div css={borderContentStyles}>{children} </div>
-  </div>
+	<div css={[borderContainerStyles, additionalCss?.container]} data-testid={testId}>
+		<AnimatedSvgContainer
+			palette={palette}
+			isMoving={isMoving}
+			additionalCss={additionalCss?.animatedSvgContainer}
+		/>
+		{isGlowing && (
+			<AnimatedSvgContainer
+				palette={palette}
+				isMoving={isMoving}
+				isGlowing
+				additionalCss={additionalCss?.animatedSvgContainer}
+			/>
+		)}
+		<div css={borderContentStyles}>{children} </div>
+	</div>
 );
 
 export default AIGlowingBorder;

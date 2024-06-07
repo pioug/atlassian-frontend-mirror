@@ -9,17 +9,15 @@ import type { EmojiDescription } from '../src';
 const emojiService = getEmojiRepository();
 
 export const RenderSpriteEmojis = () => {
-  const handshakeEmoji = emojiService.findByShortName(
-    ':handshake:',
-  ) as EmojiDescription;
+	const handshakeEmoji = emojiService.findByShortName(':handshake:') as EmojiDescription;
 
-  return <Emoji emoji={handshakeEmoji} showTooltip fitToHeight={24} />;
+	return <Emoji emoji={handshakeEmoji} showTooltip fitToHeight={24} />;
 };
 
 export default function Example() {
-  return (
-    <IntlProvider locale="en">
-      <RenderSpriteEmojis />
-    </IntlProvider>
-  );
+	return (
+		<IntlProvider locale="en">
+			<RenderSpriteEmojis />
+		</IntlProvider>
+	);
 }

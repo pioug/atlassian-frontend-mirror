@@ -6,6 +6,6 @@
  */
 //Estonian
 export default {
-  'fabric.reactions.error.unexpected': 'Midagi läks nässu',
-  'fabric.reactions.loading': 'Laadimine...',
+	'fabric.reactions.error.unexpected': 'Midagi läks nässu',
+	'fabric.reactions.loading': 'Laadimine...',
 };

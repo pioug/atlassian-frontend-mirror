@@ -6,55 +6,55 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ExampleWrapper = styled.div({
-  display: 'flex',
-  position: 'relative',
-  width: '100%',
-  height: '100%',
+	display: 'flex',
+	position: 'relative',
+	width: '100%',
+	height: '100%',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ExampleDefaultContent = styled.div({
-  padding: token('space.200', '16px'),
+	padding: token('space.200', '16px'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const FooterContent = styled.div({
-  textAlign: 'center',
-  fontSize: '11px',
-  color: token('color.text.subtlest', colors.N200),
+	textAlign: 'center',
+	fontSize: '11px',
+	color: token('color.text.subtlest', colors.N200),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ButtonsWrapper = styled.div({
-  padding: token('space.200', '16px'),
-  boxSizing: 'border-box',
-  display: 'inline-block',
-  width: '100%',
+	padding: token('space.200', '16px'),
+	boxSizing: 'border-box',
+	display: 'inline-block',
+	width: '100%',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ControlsWrapper = styled.div({
-  padding: token('space.200', '16px'),
-  boxSizing: 'border-box',
-  display: 'inline-block',
-  width: '50%',
+	padding: token('space.200', '16px'),
+	boxSizing: 'border-box',
+	display: 'inline-block',
+	width: '50%',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const HelpWrapper = styled.div({
-  width: `${gridSize() * 46}px`,
-  height: '100%',
-  position: 'relative',
-  overflowX: 'hidden',
-  backgroundColor: token('elevation.surface', colors.N200),
+	width: `${gridSize() * 46}px`,
+	height: '100%',
+	position: 'relative',
+	overflowX: 'hidden',
+	backgroundColor: token('elevation.surface', colors.N200),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const HelpContainer = styled.div({
-  display: 'inline-block',
-  height: '100%',
-  verticalAlign: 'top',
-  padding: token('space.200', '16px'),
-  boxSizing: 'border-box',
-  backgroundColor: token('color.background.neutral.bold', colors.N200),
+	display: 'inline-block',
+	height: '100%',
+	verticalAlign: 'top',
+	padding: token('space.200', '16px'),
+	boxSizing: 'border-box',
+	backgroundColor: token('color.background.neutral.bold', colors.N200),
 });

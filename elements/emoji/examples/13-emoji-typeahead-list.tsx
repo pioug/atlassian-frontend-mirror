@@ -8,64 +8,60 @@ import type { EmojiDescription } from '../src/types';
 import { IntlProvider } from 'react-intl-next';
 
 function randomEmojis(): EmojiDescription[] {
-  return getEmojis()
-    .filter(() => Math.random() < 0.02)
-    .slice(0, 50);
+	return getEmojis()
+		.filter(() => Math.random() < 0.02)
+		.slice(0, 50);
 }
 
 export default function RefreshableEmojiList() {
-  const [emojis, setEmojis] = useState<EmojiDescription[]>(randomEmojis());
-  const emojiListRef = useRef<EmojiTypeAheadList | null>(null);
+	const [emojis, setEmojis] = useState<EmojiDescription[]>(randomEmojis());
+	const emojiListRef = useRef<EmojiTypeAheadList | null>(null);
 
-  const updateData = () => {
-    setEmojis(randomEmojis());
-  };
+	const updateData = () => {
+		setEmojis(randomEmojis());
+	};
 
-  const moveUp = () => {
-    emojiListRef.current?.selectPrevious();
-  };
+	const moveUp = () => {
+		emojiListRef.current?.selectPrevious();
+	};
 
-  const moveDown = () => {
-    emojiListRef.current?.selectNext();
-  };
+	const moveDown = () => {
+		emojiListRef.current?.selectNext();
+	};
 
-  const emojiList = (
-    <IntlProvider locale="en">
-      <EmojiTypeAheadList
-        emojis={emojis}
-        onEmojiSelected={onSelection}
-        ref={emojiListRef}
-      />
-    </IntlProvider>
-  );
+	const emojiList = (
+		<IntlProvider locale="en">
+			<EmojiTypeAheadList emojis={emojis} onEmojiSelected={onSelection} ref={emojiListRef} />
+		</IntlProvider>
+	);
 
-  return (
-    <div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ paddingBottom: '10px' }}>
-        <button
-          onClick={updateData}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          style={{ height: '30px', marginRight: '10px' }}
-        >
-          Random refresh
-        </button>
-        <button
-          onClick={moveUp}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          style={{ height: '30px', marginRight: '10px' }}
-        >
-          Up
-        </button>
-        <button
-          onClick={moveDown}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          style={{ height: '30px', marginRight: '10px' }}
-        >
-          Down
-        </button>
-      </div>
-      {emojiList}
-    </div>
-  );
+	return (
+		<div>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ paddingBottom: '10px' }}>
+				<button
+					onClick={updateData}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={{ height: '30px', marginRight: '10px' }}
+				>
+					Random refresh
+				</button>
+				<button
+					onClick={moveUp}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={{ height: '30px', marginRight: '10px' }}
+				>
+					Up
+				</button>
+				<button
+					onClick={moveDown}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={{ height: '30px', marginRight: '10px' }}
+				>
+					Down
+				</button>
+			</div>
+			{emojiList}
+		</div>
+	);
 }

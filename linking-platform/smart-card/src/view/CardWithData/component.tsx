@@ -7,44 +7,31 @@ import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
 import { BlockCardResolvedView } from '../BlockCard';
 
 export class CardWithDataContent extends React.Component<Props> {
-  render() {
-    const {
-      data: details,
-      isSelected,
-      appearance,
-      onClick,
-      onResolve,
-      testId,
-    } = this.props;
+	render() {
+		const { data: details, isSelected, appearance, onClick, onResolve, testId } = this.props;
 
-    if (appearance === 'inline') {
-      const props = extractInlineProps(details || getEmptyJsonLd());
-      if (onResolve) {
-        onResolve({ title: props.title });
-      }
+		if (appearance === 'inline') {
+			const props = extractInlineProps(details || getEmptyJsonLd());
+			if (onResolve) {
+				onResolve({ title: props.title });
+			}
 
-      return (
-        <InlineCardResolvedView
-          {...props}
-          isSelected={isSelected}
-          onClick={onClick}
-          testId={testId}
-        />
-      );
-    } else {
-      const props = extractBlockProps(details || getEmptyJsonLd());
+			return (
+				<InlineCardResolvedView
+					{...props}
+					isSelected={isSelected}
+					onClick={onClick}
+					testId={testId}
+				/>
+			);
+		} else {
+			const props = extractBlockProps(details || getEmptyJsonLd());
 
-      if (onResolve) {
-        onResolve({ title: props.title });
-      }
+			if (onResolve) {
+				onResolve({ title: props.title });
+			}
 
-      return (
-        <BlockCardResolvedView
-          {...props}
-          isSelected={isSelected}
-          onClick={onClick}
-        />
-      );
-    }
-  }
+			return <BlockCardResolvedView {...props} isSelected={isSelected} onClick={onClick} />;
+		}
+	}
 }

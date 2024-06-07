@@ -6,7 +6,7 @@ import { messages } from '../../../messages';
 import { openUrl } from '../../../utils';
 
 export const ViewAction = ({ url }: { url?: string }): ActionProps => ({
-  id: 'view-content',
-  text: <FormattedMessage {...messages.view} />,
-  promise: () => openUrl(url),
+	id: 'view-content',
+	text: <FormattedMessage {...messages.view} />,
+	promise: () => openUrl(url),
 });

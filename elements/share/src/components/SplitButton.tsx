@@ -6,14 +6,11 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import {
-  SplitButton as AKSplitButton,
-  IconButton,
-  type IconButtonProps,
+	SplitButton as AKSplitButton,
+	IconButton,
+	type IconButtonProps,
 } from '@atlaskit/button/new';
-import DropdownMenu, {
-  DropdownItem,
-  DropdownItemGroup,
-} from '@atlaskit/dropdown-menu';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { type OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { N800 } from '@atlaskit/theme/colors';
@@ -27,138 +24,135 @@ import IntegrationButton from './IntegrationButton';
 
 // span
 const dropDownIntegrationButtonWrapperStyles = css({
-  ['button:hover']: {
-    background: 'transparent',
-  },
+	['button:hover']: {
+		background: 'transparent',
+	},
 });
 
 type SplitButtonProps = {
-  shareButton: React.ReactNode;
-  handleOpenSplitButton: () => void;
-  handleCloseSplitButton: () => void;
-  isUsingSplitButton: boolean;
-  shareIntegrations: Array<Integration>;
-  onIntegrationClick: (integration: Integration) => void;
-  triggerButtonAppearance?: IconButtonProps['appearance'];
-  dialogZIndex?: number;
-  dialogPlacement?: DialogPlacement;
-  createAndFireEvent: (payload: AnalyticsEventPayload) => void;
+	shareButton: React.ReactNode;
+	handleOpenSplitButton: () => void;
+	handleCloseSplitButton: () => void;
+	isUsingSplitButton: boolean;
+	shareIntegrations: Array<Integration>;
+	onIntegrationClick: (integration: Integration) => void;
+	triggerButtonAppearance?: IconButtonProps['appearance'];
+	dialogZIndex?: number;
+	dialogPlacement?: DialogPlacement;
+	createAndFireEvent: (payload: AnalyticsEventPayload) => void;
 };
 
 type SplitButtonDropdownProps = Pick<
-  SplitButtonProps,
-  | 'triggerButtonAppearance'
-  | 'isUsingSplitButton'
-  | 'handleOpenSplitButton'
-  | 'handleCloseSplitButton'
-  | 'shareIntegrations'
-  | 'createAndFireEvent'
-  | 'onIntegrationClick'
+	SplitButtonProps,
+	| 'triggerButtonAppearance'
+	| 'isUsingSplitButton'
+	| 'handleOpenSplitButton'
+	| 'handleCloseSplitButton'
+	| 'shareIntegrations'
+	| 'createAndFireEvent'
+	| 'onIntegrationClick'
 >;
 
 const integrationButtonText = (integrationName: string) => (
-  <FormattedMessage
-    {...messages.shareToIntegrationButtonText}
-    values={{ integrationName }}
-  />
+	<FormattedMessage {...messages.shareToIntegrationButtonText} values={{ integrationName }} />
 );
 
 const SplitButtonDropdown: React.FC<SplitButtonDropdownProps> = (props) => {
-  const {
-    triggerButtonAppearance,
-    isUsingSplitButton,
-    handleOpenSplitButton,
-    handleCloseSplitButton,
-    shareIntegrations,
-    onIntegrationClick,
-    createAndFireEvent,
-  } = props;
+	const {
+		triggerButtonAppearance,
+		isUsingSplitButton,
+		handleOpenSplitButton,
+		handleCloseSplitButton,
+		shareIntegrations,
+		onIntegrationClick,
+		createAndFireEvent,
+	} = props;
 
-  const onOpenChange = useCallback(
-    ({ isOpen }: OnOpenChangeArgs) => {
-      if (isOpen) {
-        handleOpenSplitButton();
-      } else {
-        handleCloseSplitButton();
-      }
-    },
-    [handleOpenSplitButton, handleCloseSplitButton],
-  );
+	const onOpenChange = useCallback(
+		({ isOpen }: OnOpenChangeArgs) => {
+			if (isOpen) {
+				handleOpenSplitButton();
+			} else {
+				handleCloseSplitButton();
+			}
+		},
+		[handleOpenSplitButton, handleCloseSplitButton],
+	);
 
-  const onIntegrationButtonClick = useCallback(
-    (integration: Integration) => {
-      onIntegrationClick(integration);
-      createAndFireEvent(shareIntegrationButtonEvent(integration.type));
-    },
-    [createAndFireEvent, onIntegrationClick],
-  );
+	const onIntegrationButtonClick = useCallback(
+		(integration: Integration) => {
+			onIntegrationClick(integration);
+			createAndFireEvent(shareIntegrationButtonEvent(integration.type));
+		},
+		[createAndFireEvent, onIntegrationClick],
+	);
 
-  return (
-    <DropdownMenu<HTMLButtonElement>
-      testId="split-button-dropdown"
-      trigger={({ triggerRef, ...providedProps }) => (
-        <IconButton
-          label=""
-          {...providedProps}
-          ref={triggerRef}
-          icon={ChevronDownIcon}
-          appearance={triggerButtonAppearance}
-        />
-      )}
-      placement="bottom-end"
-      isOpen={isUsingSplitButton}
-      onOpenChange={onOpenChange}
-    >
-      <DropdownItemGroup>
-        {shareIntegrations.map((integration: Integration) => (
-          <DropdownItem
-            key={integration.type}
-            testId={`split-button-dropdownitem-${integration.type}`}
-          >
-            <span css={dropDownIntegrationButtonWrapperStyles}>
-              <IntegrationButton
-                textColor={token('color.text', N800)}
-                appearance="subtle"
-                onClick={() => onIntegrationButtonClick(integration)}
-                shouldFitContainer={true}
-                text={integrationButtonText(integration.type)}
-                IntegrationIcon={integration.Icon}
-              />
-            </span>
-          </DropdownItem>
-        ))}
-      </DropdownItemGroup>
-    </DropdownMenu>
-  );
+	return (
+		<DropdownMenu<HTMLButtonElement>
+			testId="split-button-dropdown"
+			trigger={({ triggerRef, ...providedProps }) => (
+				<IconButton
+					label=""
+					{...providedProps}
+					ref={triggerRef}
+					icon={ChevronDownIcon}
+					appearance={triggerButtonAppearance}
+				/>
+			)}
+			placement="bottom-end"
+			isOpen={isUsingSplitButton}
+			onOpenChange={onOpenChange}
+		>
+			<DropdownItemGroup>
+				{shareIntegrations.map((integration: Integration) => (
+					<DropdownItem
+						key={integration.type}
+						testId={`split-button-dropdownitem-${integration.type}`}
+					>
+						<span css={dropDownIntegrationButtonWrapperStyles}>
+							<IntegrationButton
+								textColor={token('color.text', N800)}
+								appearance="subtle"
+								onClick={() => onIntegrationButtonClick(integration)}
+								shouldFitContainer={true}
+								text={integrationButtonText(integration.type)}
+								IntegrationIcon={integration.Icon}
+							/>
+						</span>
+					</DropdownItem>
+				))}
+			</DropdownItemGroup>
+		</DropdownMenu>
+	);
 };
 
 SplitButtonDropdown.displayName = 'SplitButtonDropdown';
 
 export default function SplitButton({
-  shareButton,
-  handleOpenSplitButton,
-  handleCloseSplitButton,
-  isUsingSplitButton,
-  shareIntegrations,
-  onIntegrationClick,
-  triggerButtonAppearance,
-  createAndFireEvent,
+	shareButton,
+	handleOpenSplitButton,
+	handleCloseSplitButton,
+	isUsingSplitButton,
+	shareIntegrations,
+	onIntegrationClick,
+	triggerButtonAppearance,
+	createAndFireEvent,
 }: SplitButtonProps): JSX.Element {
-  return (
-    <AKSplitButton
-      data-testid="split-button"
-      appearance={triggerButtonAppearance as 'primary' | 'default'}
-    >
-      {shareButton}
-      <SplitButtonDropdown
-        shareIntegrations={shareIntegrations}
-        triggerButtonAppearance={triggerButtonAppearance}
-        isUsingSplitButton={isUsingSplitButton}
-        handleOpenSplitButton={handleOpenSplitButton}
-        handleCloseSplitButton={handleCloseSplitButton}
-        onIntegrationClick={onIntegrationClick}
-        createAndFireEvent={createAndFireEvent}
-      />
-    </AKSplitButton>
-  );
+	return (
+		<AKSplitButton
+			data-testid="split-button"
+			appearance={triggerButtonAppearance as 'primary' | 'default'}
+		>
+			{shareButton}
+			<SplitButtonDropdown
+				shareIntegrations={shareIntegrations}
+				triggerButtonAppearance={triggerButtonAppearance}
+				isUsingSplitButton={isUsingSplitButton}
+				handleOpenSplitButton={handleOpenSplitButton}
+				handleCloseSplitButton={handleCloseSplitButton}
+				onIntegrationClick={onIntegrationClick}
+				createAndFireEvent={createAndFireEvent}
+			/>
+		</AKSplitButton>
+	);
 }

@@ -11,74 +11,71 @@ import type { CategoryGroupKey } from './categories';
 import { messages } from '../i18n';
 
 export interface Props {
-  category: CategoryGroupKey;
-  emojis: EmojiDescription[];
-  title: string;
-  showDelete: boolean;
-  onSelected?: OnEmojiEvent;
-  onMouseMove?: OnEmojiEvent;
-  onFocus?: OnEmojiEvent;
-  onDelete?: OnEmojiEvent;
-  virtualItemContext?: VirtualItemContext;
+	category: CategoryGroupKey;
+	emojis: EmojiDescription[];
+	title: string;
+	showDelete: boolean;
+	onSelected?: OnEmojiEvent;
+	onMouseMove?: OnEmojiEvent;
+	onFocus?: OnEmojiEvent;
+	onDelete?: OnEmojiEvent;
+	virtualItemContext?: VirtualItemContext;
 }
 
 const EmojiPickerEmojiRow = ({
-  emojis,
-  onSelected,
-  onMouseMove,
-  onFocus,
-  title,
-  showDelete,
-  onDelete,
-  virtualItemContext,
+	emojis,
+	onSelected,
+	onMouseMove,
+	onFocus,
+	title,
+	showDelete,
+	onDelete,
+	virtualItemContext,
 }: Props) => {
-  const { currentEmojisFocus, setEmojisFocus } = useEmojiPickerListContext();
-  const rowIndex = virtualItemContext?.index || 0;
-  const { formatMessage } = useIntl();
-  const handleFocus: (index: number) => OnEmojiEvent<HTMLSpanElement> =
-    (index) => (emojiId, emoji, event) => {
-      setEmojisFocus({
-        rowIndex,
-        columnIndex: index,
-      });
-      onFocus && onFocus(emojiId, emoji, event);
-    };
-  return (
-    <div css={emojiPickerRow} role="presentation">
-      {emojis.map((emoji, index) => {
-        const { shortName, id } = emoji;
-        const key = id ? `${id}-${title}` : `${shortName}-${title}`;
-        const focus =
-          currentEmojisFocus.rowIndex === rowIndex &&
-          currentEmojisFocus.columnIndex === index;
-        return (
-          <span
-            css={emojiItem}
-            key={key}
-            role="gridcell"
-            aria-colindex={index + 1} // aria-colindex is 1 based
-          >
-            <CachingEmoji
-              emoji={emoji}
-              selectOnHover={true}
-              onSelected={onSelected}
-              onMouseMove={onMouseMove}
-              onFocus={handleFocus(index)}
-              showDelete={showDelete}
-              onDelete={onDelete}
-              placeholderSize={24}
-              data-focus-index={`${rowIndex}-${index}`}
-              tabIndex={focus ? 0 : -1}
-              aria-roledescription={formatMessage(
-                messages.emojiButtonRoleDescription,
-              )}
-              shouldBeInteractive
-            />
-          </span>
-        );
-      })}
-    </div>
-  );
+	const { currentEmojisFocus, setEmojisFocus } = useEmojiPickerListContext();
+	const rowIndex = virtualItemContext?.index || 0;
+	const { formatMessage } = useIntl();
+	const handleFocus: (index: number) => OnEmojiEvent<HTMLSpanElement> =
+		(index) => (emojiId, emoji, event) => {
+			setEmojisFocus({
+				rowIndex,
+				columnIndex: index,
+			});
+			onFocus && onFocus(emojiId, emoji, event);
+		};
+	return (
+		<div css={emojiPickerRow} role="presentation">
+			{emojis.map((emoji, index) => {
+				const { shortName, id } = emoji;
+				const key = id ? `${id}-${title}` : `${shortName}-${title}`;
+				const focus =
+					currentEmojisFocus.rowIndex === rowIndex && currentEmojisFocus.columnIndex === index;
+				return (
+					<span
+						css={emojiItem}
+						key={key}
+						role="gridcell"
+						aria-colindex={index + 1} // aria-colindex is 1 based
+					>
+						<CachingEmoji
+							emoji={emoji}
+							selectOnHover={true}
+							onSelected={onSelected}
+							onMouseMove={onMouseMove}
+							onFocus={handleFocus(index)}
+							showDelete={showDelete}
+							onDelete={onDelete}
+							placeholderSize={24}
+							data-focus-index={`${rowIndex}-${index}`}
+							tabIndex={focus ? 0 : -1}
+							aria-roledescription={formatMessage(messages.emojiButtonRoleDescription)}
+							shouldBeInteractive
+						/>
+					</span>
+				);
+			})}
+		</div>
+	);
 };
 
 export default memo(EmojiPickerEmojiRow);

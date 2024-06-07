@@ -1,23 +1,23 @@
 import type { EmojiProvider } from '../../api/EmojiResource';
 
 export interface EmojiContext {
-  emoji: {
-    emojiProvider: EmojiProvider;
-  };
+	emoji: {
+		emojiProvider: EmojiProvider;
+	};
 }
 
 interface FocusIndexes {
-  rowIndex: number;
-  columnIndex: number;
+	rowIndex: number;
+	columnIndex: number;
 }
 
 export interface EmojiPickerListContextType {
-  currentEmojisFocus: FocusIndexes;
-  setEmojisFocus: (indexes: FocusIndexes) => void;
+	currentEmojisFocus: FocusIndexes;
+	setEmojisFocus: (indexes: FocusIndexes) => void;
 }
 
 export enum UploadStatus {
-  Waiting,
-  Uploading,
-  Error,
+	Waiting,
+	Uploading,
+	Error,
 }

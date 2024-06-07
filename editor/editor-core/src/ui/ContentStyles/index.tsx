@@ -235,7 +235,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${blocktypeStyles()}
   ${codeMarkSharedStyles()}
   ${textColorStyles}
-  ${backgroundColorStyles(props.colorMode)}
+  ${backgroundColorStyles}
   ${listsStyles}
   ${ruleStyles()}
   ${mediaStyles}

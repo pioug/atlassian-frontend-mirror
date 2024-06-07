@@ -1,10 +1,7 @@
 import React, { Fragment, useMemo, useState } from 'react';
 
 import Range from '@atlaskit/range';
-import {
-  AtlassianLinkPickerPlugin,
-  Scope,
-} from '@atlassian/link-picker-atlassian-plugin';
+import { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassian-plugin';
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { PageWrapper } from '../example-helpers/common';
@@ -18,46 +15,34 @@ mockEndpoints(undefined, undefined, mockRecentData);
 const NOOP = () => {};
 
 function CustomWidth() {
-  const [width, setWidth] = useState(400);
-  const plugins = useMemo(
-    () => [
-      new AtlassianLinkPickerPlugin({
-        cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
-        scope: Scope.ConfluenceContentType,
-        aggregatorUrl:
-          'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
-        activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
-      }),
-    ],
-    [],
-  );
+	const [width, setWidth] = useState(400);
+	const plugins = useMemo(
+		() => [
+			new AtlassianLinkPickerPlugin({
+				cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
+				scope: Scope.ConfluenceContentType,
+				aggregatorUrl: 'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
+				activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
+			}),
+		],
+		[],
+	);
 
-  return (
-    <Fragment>
-      <label>Container Width</label>
-      <Range
-        min={200}
-        max={1000}
-        step={20}
-        value={width}
-        onChange={value => setWidth(value)}
-      />
-      <div style={{ width }}>
-        <LinkPicker
-          plugins={plugins}
-          onSubmit={NOOP}
-          onCancel={NOOP}
-          disableWidth
-        />
-      </div>
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			<label>Container Width</label>
+			<Range min={200} max={1000} step={20} value={width} onChange={(value) => setWidth(value)} />
+			<div style={{ width }}>
+				<LinkPicker plugins={plugins} onSubmit={NOOP} onCancel={NOOP} disableWidth />
+			</div>
+		</Fragment>
+	);
 }
 
 export default function CustomWidthWrapper() {
-  return (
-    <PageWrapper>
-      <CustomWidth />
-    </PageWrapper>
-  );
+	return (
+		<PageWrapper>
+			<CustomWidth />
+		</PageWrapper>
+	);
 }

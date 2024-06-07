@@ -13,21 +13,21 @@ const mockOnShowMoreButtonClick = jest.fn();
 let WhatsNewResultsListProps: Partial<WhatsNewResultsListInterface>;
 
 describe('WhatsNewResultsList', () => {
-  beforeEach(() => {
-    WhatsNewResultsListProps = {
-      whatsNewArticles: getMockWhatsNewArticleItemList(10),
-      onWhatsNewResultItemClick: mockOnWhatsNewArticleItemClick,
-      onShowMoreButtonClick: mockOnShowMoreButtonClick,
-    };
-  });
+	beforeEach(() => {
+		WhatsNewResultsListProps = {
+			whatsNewArticles: getMockWhatsNewArticleItemList(10),
+			onWhatsNewResultItemClick: mockOnWhatsNewArticleItemClick,
+			onShowMoreButtonClick: mockOnShowMoreButtonClick,
+		};
+	});
 
-  it.skip('Should match snapshot', () => {
-    const { container } = render(
-      <IntlProvider locale="en">
-        <WhatsNewResultsList {...WhatsNewResultsListProps} />
-      </IntlProvider>,
-    );
+	it.skip('Should match snapshot', () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<WhatsNewResultsList {...WhatsNewResultsListProps} />
+			</IntlProvider>,
+		);
 
-    expect(container.firstChild).toMatchSnapshot();
-  });
+		expect(container.firstChild).toMatchSnapshot();
+	});
 });

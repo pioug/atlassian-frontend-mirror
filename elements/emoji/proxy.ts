@@ -23,54 +23,47 @@ config({ path: path.join(__dirname, '.env') });
 // local emoji backend service API
 // please run `yarn run setup-first-time` if you don't have .env and local-config.ts
 const devConfig: WebpackDevServer.Configuration['proxy'] = {
-  '/emoji': {
-    target: process.env.PROXY_LOCALDEV_URL,
-    changeOrigin: false,
-    logLevel: 'debug',
-    followRedirects: true,
-    onProxyReq: (proxyReq) => {
-      if (process.env.PROXY_LOCALDEV_ASAP_TOKEN) {
-        proxyReq.setHeader(
-          'Authorization',
-          `Bearer ${process.env.PROXY_LOCALDEV_ASAP_TOKEN}`,
-        );
-        proxyReq.setHeader(
-          'User-Context',
-          process.env.PROXY_LOCALDEV_ASAP_TOKEN,
-        );
-      }
-      proxyReq.setHeader('X-Slauth-User-Context-Account-Id', 'adminAccountId');
-      proxyReq.setHeader('X-Slauth-Authorization', 'true');
-      proxyReq.setHeader('X-Slauth-Principal', 'micros/edge-authenticator');
-    },
-  },
+	'/emoji': {
+		target: process.env.PROXY_LOCALDEV_URL,
+		changeOrigin: false,
+		logLevel: 'debug',
+		followRedirects: true,
+		onProxyReq: (proxyReq) => {
+			if (process.env.PROXY_LOCALDEV_ASAP_TOKEN) {
+				proxyReq.setHeader('Authorization', `Bearer ${process.env.PROXY_LOCALDEV_ASAP_TOKEN}`);
+				proxyReq.setHeader('User-Context', process.env.PROXY_LOCALDEV_ASAP_TOKEN);
+			}
+			proxyReq.setHeader('X-Slauth-User-Context-Account-Id', 'adminAccountId');
+			proxyReq.setHeader('X-Slauth-Authorization', 'true');
+			proxyReq.setHeader('X-Slauth-Principal', 'micros/edge-authenticator');
+		},
+	},
 };
 
 // staging emoji service
 // please ensure you have copied session cookie from ddev/staging/prod instance to your localhost.
 const overEdgeConfig: WebpackDevServer.Configuration['proxy'] = {
-  '/emoji': {
-    target: process.env.PROXY_OVEREDGE_URL,
-    changeOrigin: true,
-    logLevel: 'debug',
-    followRedirects: true,
-  },
+	'/emoji': {
+		target: process.env.PROXY_OVEREDGE_URL,
+		changeOrigin: true,
+		logLevel: 'debug',
+		followRedirects: true,
+	},
 };
 
 // get proxy config based on target env, which was set from scripts via package.json
 const getConfigByTargetEnvironment = () => {
-  switch (process.env.PROXY_TARGET_ENV) {
-    // for ddev/staging/prod instanses proxy
-    case 'edge': {
-      return overEdgeConfig;
-    }
-    default:
-      // for local backend proxy
-      return devConfig;
-  }
+	switch (process.env.PROXY_TARGET_ENV) {
+		// for ddev/staging/prod instanses proxy
+		case 'edge': {
+			return overEdgeConfig;
+		}
+		default:
+			// for local backend proxy
+			return devConfig;
+	}
 };
 
-const proxyConfig: WebpackDevServer.Configuration['proxy'] =
-  getConfigByTargetEnvironment();
+const proxyConfig: WebpackDevServer.Configuration['proxy'] = getConfigByTargetEnvironment();
 
 export default proxyConfig;

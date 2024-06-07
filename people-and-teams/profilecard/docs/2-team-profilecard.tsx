@@ -2,13 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import {
-  AtlassianInternalWarning,
-  code,
-  Example,
-  md,
-  Props,
-} from '@atlaskit/docs';
+import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -42,37 +36,37 @@ const profileClient = new ProfileClient({
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/profilecard"
-      Component={require('../examples/09-team-profilecard-trigger').default}
-      title="Profilecard"
-      source={require('!!raw-loader!../examples/09-team-profilecard-trigger')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/profilecard"
+			Component={require('../examples/09-team-profilecard-trigger').default}
+			title="Profilecard"
+			source={require('!!raw-loader!../examples/09-team-profilecard-trigger')}
+		/>
+	)}
 
   Here are some relevant examples for better understanding the \`trigger\` and \`triggerLinkType\`
   props:
 
   ${(
-    <ul>
-      <li>
-        <Link to="/examples/people-and-teams/profilecard/trigger-link-types">
-          Trigger link types
-        </Link>
-      </li>
-      <li>
-        <Link to="/examples/people-and-teams/profilecard/team-profilecard-trigger">
-          Team profilecard trigger
-        </Link>
-      </li>
-    </ul>
-  )}
+		<ul>
+			<li>
+				<Link to="/examples/people-and-teams/profilecard/trigger-link-types">
+					Trigger link types
+				</Link>
+			</li>
+			<li>
+				<Link to="/examples/people-and-teams/profilecard/team-profilecard-trigger">
+					Team profilecard trigger
+				</Link>
+			</li>
+		</ul>
+	)}
 
   ${(
-    <Props
-      heading="TeamProfileCardTrigger Props..."
-      props={require('!!extract-react-types-loader!../src/components/Team/TeamProfileCardTrigger')}
-    />
-  )}
+		<Props
+			heading="TeamProfileCardTrigger Props..."
+			props={require('!!extract-react-types-loader!../src/components/Team/TeamProfileCardTrigger')}
+		/>
+	)}
 
 `;

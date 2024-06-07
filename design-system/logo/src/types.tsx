@@ -20,15 +20,6 @@ export type LogoProps = {
    */
   iconColor?: string;
   /**
-   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-173 Internal documentation for deprecation (no external access)} CSS color to start the gradient/shadow on the icon. The use of this prop is not recommended as it is not compatible with design tokens; use the `appearance` prop instead.
-   */
-  iconGradientStart?: string;
-  /**
-   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-174 Internal documentation for deprecation (no external access)} CSS color to end the gradient/shadow on the icon. Should usually match iconColor to avoid
-   * rendering issues in some browsers such as Safari. The use of this prop is not recommended as it is not compatible with design tokens; use the `appearance` prop instead.
-   */
-  iconGradientStop?: string;
-  /**
    * Accessible text to be used for screen readers (it's optional since the default props provide a label that matches the logo).
    */
   label?: string;
@@ -49,5 +40,5 @@ type WithRequiredProperty<Type, Key extends keyof Type> = Type & {
 
 export type LogoPropsAppearanceRequired = Omit<
   WithRequiredProperty<LogoProps, 'appearance'>,
-  'iconColor' | 'iconGradientStart' | 'iconGradientStop' | 'textColor'
+  'iconColor' | 'textColor'
 >;

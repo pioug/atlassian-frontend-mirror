@@ -2,12 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import {
-	blockquote,
-	blockquoteWithList,
-	hardBreak,
-	heading,
-} from '@atlaskit/adf-schema';
+import { blockquote, blockquoteWithList, hardBreak, heading } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -182,9 +177,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		name: 'blockType',
 
 		nodes() {
-			const blockquoteNode = getBooleanFF(
-				'platform.editor.allow-list-in-blockquote',
-			)
+			const blockquoteNode = getBooleanFF('platform.editor.allow-list-in-blockquote')
 				? blockquoteWithList
 				: blockquote;
 			const nodes: BlockTypeNode[] = [

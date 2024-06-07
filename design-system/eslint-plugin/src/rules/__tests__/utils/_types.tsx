@@ -5,6 +5,6 @@ type ValidTests = NonNullable<TestsBase['valid']>;
 type InvalidTests = NonNullable<TestsBase['invalid']>;
 
 export type Tests = {
-  valid: ValidTests;
-  invalid: InvalidTests;
+	valid: ValidTests;
+	invalid: InvalidTests;
 };

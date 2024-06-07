@@ -14,7 +14,5 @@ import { screen } from '@testing-library/react';
  *
  */
 export const expectElementWithText = async (testId: string, text: string) => {
-  expect(await screen.findByTestId(testId)).toHaveTextContent(
-    new RegExp(`^${text}$`),
-  );
+	expect(await screen.findByTestId(testId)).toHaveTextContent(new RegExp(`^${text}$`));
 };

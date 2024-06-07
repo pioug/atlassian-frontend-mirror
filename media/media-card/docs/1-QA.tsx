@@ -1,32 +1,32 @@
 import { md } from '@atlaskit/docs';
 
 export default md`
-  # Testing
+	# Testing
 
-  > This page contains relevant docs on how to "QA demo" media-card component
+	> This page contains relevant docs on how to "QA demo" media-card component
 
-  ## Contexts
+	## Contexts
 
-  Here are the places where you can find media-cards:
+	Here are the places where you can find media-cards:
 
-  - Components
+	- Components
 
-    - editor-core
-      - single node
-      - within filmstrip
-    - renderer
-      - single node
-      - within filmstrip
-    - media picker
-      - single cards in recents view
+	  - editor-core
+	    - single node
+	    - within filmstrip
+	  - renderer
+	    - single node
+	    - within filmstrip
+	  - media picker
+	    - single cards in recents view
 
-  - Products
-    - Stride
-      - conversation view => renderer
-      - message composition => editor
-    - Confluence
-      - editor full screen
-    - Jira
-      - issue detail
-        - within filmstrip
+	- Products
+	  - Stride
+	    - conversation view => renderer
+	    - message composition => editor
+	  - Confluence
+	    - editor full screen
+	  - Jira
+	    - issue detail
+	      - within filmstrip
 `;

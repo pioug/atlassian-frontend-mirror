@@ -20,11 +20,11 @@ A snippet block provides a description for a link.
 Its data is mapped to \`summary\` from a link resolver.
 
 ${(
-  <ContentTabs
-    tabs={[
-      { name: TabName.Examples, content: examples },
-      { name: TabName.Reference, content: reference },
-    ]}
-  />
+	<ContentTabs
+		tabs={[
+			{ name: TabName.Examples, content: examples },
+			{ name: TabName.Reference, content: reference },
+		]}
+	/>
 )}
 `;

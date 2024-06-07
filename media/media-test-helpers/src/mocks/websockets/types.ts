@@ -1,4 +1,4 @@
 export interface WebSocketServer {
-  start: () => void;
-  stop: () => void;
+	start: () => void;
+	stop: () => void;
 }

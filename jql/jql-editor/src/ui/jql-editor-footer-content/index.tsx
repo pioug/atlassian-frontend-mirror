@@ -15,31 +15,31 @@ import { ErrorMessages, InfoMessages, WarningMessages } from './jql-messages';
  */
 
 export const JQLEditorFooterContent = () => {
-  di(
-    useEditorViewIsInvalid,
-    useEditorViewHasWarnings,
-    useEditorViewHasInfos,
-    ErrorMessages,
-    WarningMessages,
-    InfoMessages,
-    JQLEditorHelp,
-  );
+	di(
+		useEditorViewIsInvalid,
+		useEditorViewHasWarnings,
+		useEditorViewHasInfos,
+		ErrorMessages,
+		WarningMessages,
+		InfoMessages,
+		JQLEditorHelp,
+	);
 
-  const editorViewIsInvalid = useEditorViewIsInvalid();
-  const editorViewHasWarnings = useEditorViewHasWarnings();
-  const editorViewHasInfos = useEditorViewHasInfos();
+	const editorViewIsInvalid = useEditorViewIsInvalid();
+	const editorViewHasWarnings = useEditorViewHasWarnings();
+	const editorViewHasInfos = useEditorViewHasInfos();
 
-  if (editorViewIsInvalid) {
-    return <ErrorMessages />;
-  }
+	if (editorViewIsInvalid) {
+		return <ErrorMessages />;
+	}
 
-  if (editorViewHasWarnings) {
-    return <WarningMessages />;
-  }
+	if (editorViewHasWarnings) {
+		return <WarningMessages />;
+	}
 
-  if (editorViewHasInfos) {
-    return <InfoMessages />;
-  }
+	if (editorViewHasInfos) {
+		return <InfoMessages />;
+	}
 
-  return <JQLEditorHelp />;
+	return <JQLEditorHelp />;
 };

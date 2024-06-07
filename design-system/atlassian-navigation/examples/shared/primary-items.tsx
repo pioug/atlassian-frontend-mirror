@@ -240,51 +240,6 @@ export const jiraPrimaryItems = [
   </NavigationButton>,
 ];
 
-export const opsGeniePrimaryItems = [
-  <NavigationButton
-    onClick={(...args: any[]) => {
-      console.log('Alerts click', ...args);
-    }}
-  >
-    Alerts
-  </NavigationButton>,
-  <NavigationButton
-    onClick={(...args: any[]) => {
-      console.log('Incidents click', ...args);
-    }}
-  >
-    Incidents
-  </NavigationButton>,
-  <NavigationButton
-    onClick={(...args: any[]) => {
-      console.log('Who is on-call click', ...args);
-    }}
-  >
-    Who is on-call
-  </NavigationButton>,
-  <NavigationButton
-    onClick={(...args: any[]) => {
-      console.log('Teams click', ...args);
-    }}
-  >
-    Teams
-  </NavigationButton>,
-  <NavigationButton
-    onClick={(...args: any[]) => {
-      console.log('Services click', ...args);
-    }}
-  >
-    Services
-  </NavigationButton>,
-  <NavigationButton
-    onClick={(...args: any[]) => {
-      console.log('Analytics click', ...args);
-    }}
-  >
-    Analytics
-  </NavigationButton>,
-];
-
 export const jiraPrimaryItemsGerman = [
   <NavigationButton
     onClick={(...args: any[]) => {

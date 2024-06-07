@@ -8,20 +8,20 @@ import { ExampleIssueLikeTable } from '../../examples-helpers/buildIssueLikeTabl
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
-  margin: token('space.600', '48px'),
-  height: '400px',
-  width: '600px',
+	margin: token('space.600', '48px'),
+	height: '400px',
+	width: '600px',
 });
 
 export default () => {
-  return (
-    <div>
-      <Container>
-        <ExampleIssueLikeTable />
-      </Container>
-      <Container>
-        <ExampleIssueLikeTable />
-      </Container>
-    </div>
-  );
+	return (
+		<div>
+			<Container>
+				<ExampleIssueLikeTable />
+			</Container>
+			<Container>
+				<ExampleIssueLikeTable />
+			</Container>
+		</div>
+	);
 };

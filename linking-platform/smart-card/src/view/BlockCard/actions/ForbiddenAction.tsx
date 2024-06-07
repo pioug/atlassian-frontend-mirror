@@ -6,13 +6,13 @@ import { type ActionProps } from '../components/Action';
 import { messages } from '../../../messages';
 
 export const ForbiddenAction = (
-  handler: () => void,
-  id = 'connect-other-account',
-  message = messages.try_another_account,
-  values = {},
+	handler: () => void,
+	id = 'connect-other-account',
+	message = messages.try_another_account,
+	values = {},
 ): ActionProps => ({
-  id,
-  text: <FormattedMessage {...message} values={values} />,
-  promise: () => new Promise((resolve) => resolve(handler())),
-  buttonAppearance: 'default' as Appearance,
+	id,
+	text: <FormattedMessage {...message} values={values} />,
+	promise: () => new Promise((resolve) => resolve(handler())),
+	buttonAppearance: 'default' as Appearance,
 });

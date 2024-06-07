@@ -10,193 +10,192 @@ import { ANALYTICS_CHANNEL } from '../../../../../common/constants';
 import { useTrackResultsShown } from './index';
 
 interface HookProps {
-  isLoading: Parameters<typeof useTrackResultsShown>[0];
-  items: Parameters<typeof useTrackResultsShown>[1];
-  hasSearchTerm: Parameters<typeof useTrackResultsShown>[2];
+	isLoading: Parameters<typeof useTrackResultsShown>[0];
+	items: Parameters<typeof useTrackResultsShown>[1];
+	hasSearchTerm: Parameters<typeof useTrackResultsShown>[2];
 }
 
 describe('useTrackResultsShown', () => {
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
+	beforeAll(() => {
+		jest.useFakeTimers();
+	});
 
-  afterAll(() => {
-    jest.useRealTimers();
-  });
+	afterAll(() => {
+		jest.useRealTimers();
+	});
 
-  const setup = () => {
-    const onEvent = jest.fn();
+	const setup = () => {
+		const onEvent = jest.fn();
 
-    const renderResult = renderHook<HookProps, unknown>(
-      (props: HookProps) =>
-        useTrackResultsShown(props.isLoading, props.items, props.hasSearchTerm),
-      {
-        initialProps: { isLoading: false, items: null, hasSearchTerm: false },
-        wrapper: ({ children }) => (
-          <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
-            {children}
-          </AnalyticsListener>
-        ),
-      },
-    );
+		const renderResult = renderHook<HookProps, unknown>(
+			(props: HookProps) => useTrackResultsShown(props.isLoading, props.items, props.hasSearchTerm),
+			{
+				initialProps: { isLoading: false, items: null, hasSearchTerm: false },
+				wrapper: ({ children }) => (
+					<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
+						{children}
+					</AnalyticsListener>
+				),
+			},
+		);
 
-    return { onEvent, ...renderResult };
-  };
+		return { onEvent, ...renderResult };
+	};
 
-  it('should NOT fire an event if there are no items', () => {
-    const { onEvent } = setup();
+	it('should NOT fire an event if there are no items', () => {
+		const { onEvent } = setup();
 
-    expect(onEvent).not.toHaveBeenCalled();
-  });
+		expect(onEvent).not.toHaveBeenCalled();
+	});
 
-  it('should NOT fire an event if isLoading', async () => {
-    const { onEvent, rerender } = setup();
+	it('should NOT fire an event if isLoading', async () => {
+		const { onEvent, rerender } = setup();
 
-    expect(onEvent).not.toHaveBeenCalled();
+		expect(onEvent).not.toHaveBeenCalled();
 
-    rerender({ isLoading: true, items: null, hasSearchTerm: true });
+		rerender({ isLoading: true, items: null, hasSearchTerm: true });
 
-    expect(onEvent).not.toHaveBeenCalled();
-  });
+		expect(onEvent).not.toHaveBeenCalled();
+	});
 
-  it('should NOT fire an event if items changes but still isLoading', async () => {
-    const { onEvent, rerender } = setup();
+	it('should NOT fire an event if items changes but still isLoading', async () => {
+		const { onEvent, rerender } = setup();
 
-    expect(onEvent).not.toHaveBeenCalled();
+		expect(onEvent).not.toHaveBeenCalled();
 
-    rerender({ isLoading: true, items: [], hasSearchTerm: true });
+		rerender({ isLoading: true, items: [], hasSearchTerm: true });
 
-    expect(onEvent).not.toHaveBeenCalled();
-  });
+		expect(onEvent).not.toHaveBeenCalled();
+	});
 
-  it('should fire a pre-query event if NOT isLoading and items changes and there is no search term', async () => {
-    const { onEvent, rerender } = setup();
+	it('should fire a pre-query event if NOT isLoading and items changes and there is no search term', async () => {
+		const { onEvent, rerender } = setup();
 
-    expect(onEvent).not.toHaveBeenCalled();
+		expect(onEvent).not.toHaveBeenCalled();
 
-    rerender({ isLoading: false, items: [], hasSearchTerm: false });
+		rerender({ isLoading: false, items: [], hasSearchTerm: false });
 
-    act(() => {
-      jest.runAllTimers();
-    });
+		act(() => {
+			jest.runAllTimers();
+		});
 
-    expect(onEvent).toHaveBeenCalledTimes(1);
-    expect(onEvent).toBeCalledWith(
-      expect.objectContaining({
-        hasFired: true,
-        payload: expect.objectContaining({
-          action: 'shown',
-          actionSubject: 'searchResults',
-          actionSubjectId: 'preQuerySearchResults',
-          attributes: expect.objectContaining({
-            resultCount: 0,
-          }),
-          eventType: 'ui',
-        }),
-      }),
-      ANALYTICS_CHANNEL,
-    );
-  });
+		expect(onEvent).toHaveBeenCalledTimes(1);
+		expect(onEvent).toBeCalledWith(
+			expect.objectContaining({
+				hasFired: true,
+				payload: expect.objectContaining({
+					action: 'shown',
+					actionSubject: 'searchResults',
+					actionSubjectId: 'preQuerySearchResults',
+					attributes: expect.objectContaining({
+						resultCount: 0,
+					}),
+					eventType: 'ui',
+				}),
+			}),
+			ANALYTICS_CHANNEL,
+		);
+	});
 
-  it('should fire a post-query event if NOT isLoading and items changes and there IS a search term', async () => {
-    const { onEvent, rerender } = setup();
+	it('should fire a post-query event if NOT isLoading and items changes and there IS a search term', async () => {
+		const { onEvent, rerender } = setup();
 
-    expect(onEvent).not.toHaveBeenCalled();
+		expect(onEvent).not.toHaveBeenCalled();
 
-    rerender({ isLoading: false, items: [], hasSearchTerm: true });
+		rerender({ isLoading: false, items: [], hasSearchTerm: true });
 
-    act(() => {
-      jest.runAllTimers();
-    });
+		act(() => {
+			jest.runAllTimers();
+		});
 
-    expect(onEvent).toHaveBeenCalledTimes(1);
-    expect(onEvent).toBeCalledWith(
-      expect.objectContaining({
-        hasFired: true,
-        payload: expect.objectContaining({
-          action: 'shown',
-          actionSubject: 'searchResults',
-          actionSubjectId: 'postQuerySearchResults',
-          attributes: expect.objectContaining({
-            resultCount: 0,
-          }),
-          eventType: 'ui',
-        }),
-      }),
-      ANALYTICS_CHANNEL,
-    );
-  });
+		expect(onEvent).toHaveBeenCalledTimes(1);
+		expect(onEvent).toBeCalledWith(
+			expect.objectContaining({
+				hasFired: true,
+				payload: expect.objectContaining({
+					action: 'shown',
+					actionSubject: 'searchResults',
+					actionSubjectId: 'postQuerySearchResults',
+					attributes: expect.objectContaining({
+						resultCount: 0,
+					}),
+					eventType: 'ui',
+				}),
+			}),
+			ANALYTICS_CHANNEL,
+		);
+	});
 
-  it('should fire event with correct `resultCount` value', async () => {
-    const { onEvent, rerender } = setup();
+	it('should fire event with correct `resultCount` value', async () => {
+		const { onEvent, rerender } = setup();
 
-    expect(onEvent).not.toHaveBeenCalled();
+		expect(onEvent).not.toHaveBeenCalled();
 
-    const items = mockedPluginData.slice(0, 3);
+		const items = mockedPluginData.slice(0, 3);
 
-    rerender({ isLoading: false, items, hasSearchTerm: true });
+		rerender({ isLoading: false, items, hasSearchTerm: true });
 
-    act(() => {
-      jest.runAllTimers();
-    });
+		act(() => {
+			jest.runAllTimers();
+		});
 
-    expect(onEvent).toHaveBeenCalledTimes(1);
-    expect(onEvent).toBeCalledWith(
-      expect.objectContaining({
-        payload: expect.objectContaining({
-          attributes: expect.objectContaining({
-            resultCount: items.length,
-          }),
-        }),
-      }),
-      ANALYTICS_CHANNEL,
-    );
-  });
+		expect(onEvent).toHaveBeenCalledTimes(1);
+		expect(onEvent).toBeCalledWith(
+			expect.objectContaining({
+				payload: expect.objectContaining({
+					attributes: expect.objectContaining({
+						resultCount: items.length,
+					}),
+				}),
+			}),
+			ANALYTICS_CHANNEL,
+		);
+	});
 
-  it('should debounce the state and only fire an event once it is stable', async () => {
-    const { onEvent, rerender } = setup();
+	it('should debounce the state and only fire an event once it is stable', async () => {
+		const { onEvent, rerender } = setup();
 
-    expect(onEvent).not.toHaveBeenCalled();
+		expect(onEvent).not.toHaveBeenCalled();
 
-    const items = mockedPluginData.slice(0, 3);
+		const items = mockedPluginData.slice(0, 3);
 
-    rerender({ isLoading: true, items, hasSearchTerm: true });
-    rerender({ isLoading: false, items, hasSearchTerm: true });
-    rerender({ isLoading: true, items: null, hasSearchTerm: false });
-    rerender({ isLoading: true, items, hasSearchTerm: false });
+		rerender({ isLoading: true, items, hasSearchTerm: true });
+		rerender({ isLoading: false, items, hasSearchTerm: true });
+		rerender({ isLoading: true, items: null, hasSearchTerm: false });
+		rerender({ isLoading: true, items, hasSearchTerm: false });
 
-    act(() => {
-      jest.advanceTimersByTime(200);
-    });
+		act(() => {
+			jest.advanceTimersByTime(200);
+		});
 
-    expect(onEvent).toHaveBeenCalledTimes(0);
+		expect(onEvent).toHaveBeenCalledTimes(0);
 
-    rerender({ isLoading: true, items: null, hasSearchTerm: true });
-    rerender({ isLoading: true, items, hasSearchTerm: true });
-    rerender({ isLoading: false, items, hasSearchTerm: true });
+		rerender({ isLoading: true, items: null, hasSearchTerm: true });
+		rerender({ isLoading: true, items, hasSearchTerm: true });
+		rerender({ isLoading: false, items, hasSearchTerm: true });
 
-    expect(onEvent).toHaveBeenCalledTimes(0);
+		expect(onEvent).toHaveBeenCalledTimes(0);
 
-    act(() => {
-      jest.advanceTimersByTime(200);
-    });
+		act(() => {
+			jest.advanceTimersByTime(200);
+		});
 
-    expect(onEvent).toHaveBeenCalledTimes(0);
+		expect(onEvent).toHaveBeenCalledTimes(0);
 
-    act(() => {
-      jest.advanceTimersByTime(200);
-    });
+		act(() => {
+			jest.advanceTimersByTime(200);
+		});
 
-    expect(onEvent).toHaveBeenCalledTimes(1);
-    expect(onEvent).toBeCalledWith(
-      expect.objectContaining({
-        payload: expect.objectContaining({
-          attributes: expect.objectContaining({
-            resultCount: items.length,
-          }),
-        }),
-      }),
-      ANALYTICS_CHANNEL,
-    );
-  });
+		expect(onEvent).toHaveBeenCalledTimes(1);
+		expect(onEvent).toBeCalledWith(
+			expect.objectContaining({
+				payload: expect.objectContaining({
+					attributes: expect.objectContaining({
+						resultCount: items.length,
+					}),
+				}),
+			}),
+			ANALYTICS_CHANNEL,
+		);
+	});
 });

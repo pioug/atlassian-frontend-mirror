@@ -11,15 +11,15 @@ import { type JsonLd } from 'json-ld-types';
  * @returns URL string if one is found, otherwise undefined.
  */
 export const extractUrlFromLinkJsonLd = (
-  link: JsonLd.Primitives.Link | JsonLd.Primitives.Link[],
+	link: JsonLd.Primitives.Link | JsonLd.Primitives.Link[],
 ): string | undefined => {
-  if (typeof link === 'string') {
-    return link;
-  } else if (Array.isArray(link)) {
-    if (link.length > 0) {
-      return extractUrlFromLinkJsonLd(link[0]);
-    }
-  } else {
-    return link.href;
-  }
+	if (typeof link === 'string') {
+		return link;
+	} else if (Array.isArray(link)) {
+		if (link.length > 0) {
+			return extractUrlFromLinkJsonLd(link[0]);
+		}
+	} else {
+		return link.href;
+	}
 };

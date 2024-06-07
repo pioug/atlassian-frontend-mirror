@@ -3,44 +3,44 @@ import type { Team } from '../types';
 import { AGGQuery } from './graphqlUtils';
 
 interface AGGTeam extends Omit<Team, 'members'> {
-  members?: {
-    nodes: AGGMember[];
-  };
+	members?: {
+		nodes: AGGMember[];
+	};
 }
 
 interface AGGMember {
-  member: {
-    accountId: string;
-    name: string;
-    picture: string;
-  };
+	member: {
+		accountId: string;
+		name: string;
+		picture: string;
+	};
 }
 
 interface AGGResult {
-  team: AGGTeam;
+	team: AGGTeam;
 }
 
 export const extractIdFromAri = (ari: string) => {
-  const slashPos = ari.indexOf('/');
-  const id = ari.slice(slashPos + 1);
-  return id;
+	const slashPos = ari.indexOf('/');
+	const id = ari.slice(slashPos + 1);
+	return id;
 };
 
 export const idToAri = (teamId: string) => {
-  return `ari:cloud:identity::team/${teamId}`;
+	return `ari:cloud:identity::team/${teamId}`;
 };
 
 export const convertTeam = (result: AGGResult): Team => {
-  const { team } = result;
-  return {
-    ...team,
-    id: extractIdFromAri(team.id),
-    members: team.members?.nodes.map(({ member }) => ({
-      id: member.accountId,
-      fullName: member.name,
-      avatarUrl: member.picture,
-    })),
-  };
+	const { team } = result;
+	return {
+		...team,
+		id: extractIdFromAri(team.id),
+		members: team.members?.nodes.map(({ member }) => ({
+			id: member.accountId,
+			fullName: member.name,
+			avatarUrl: member.picture,
+		})),
+	};
 };
 
 // indented so it's
@@ -75,33 +75,29 @@ export const GATEWAY_QUERY_V2 = `query TeamCard($teamId: ID!, $siteId: String!) 
 type TeamQueryVariables = { teamId: string; siteId?: string };
 
 export const buildGatewayQuery = ({ teamId, siteId }: TeamQueryVariables) => ({
-  query: GATEWAY_QUERY_V2,
-  variables: {
-    teamId: idToAri(teamId),
-    siteId: siteId || 'None',
-  },
+	query: GATEWAY_QUERY_V2,
+	variables: {
+		teamId: idToAri(teamId),
+		siteId: siteId || 'None',
+	},
 });
 
 export const addHeaders = (headers: Headers): Headers => {
-  headers.append('X-ExperimentalApi', 'teams-beta');
-  headers.append('X-ExperimentalApi', 'team-members-beta');
-  headers.append('atl-client-name', process.env._PACKAGE_NAME_ as string);
-  headers.append('atl-client-version', process.env._PACKAGE_VERSION_ as string);
+	headers.append('X-ExperimentalApi', 'teams-beta');
+	headers.append('X-ExperimentalApi', 'team-members-beta');
+	headers.append('atl-client-name', process.env._PACKAGE_NAME_ as string);
+	headers.append('atl-client-version', process.env._PACKAGE_VERSION_ as string);
 
-  return headers;
+	return headers;
 };
 
-export async function getTeamFromAGG(
-  url: string,
-  teamId: string,
-  siteId?: string,
-): Promise<Team> {
-  const query = buildGatewayQuery({
-    teamId,
-    siteId,
-  });
+export async function getTeamFromAGG(url: string, teamId: string, siteId?: string): Promise<Team> {
+	const query = buildGatewayQuery({
+		teamId,
+		siteId,
+	});
 
-  const { Team } = await AGGQuery<{ Team: AGGResult }>(url, query, addHeaders);
+	const { Team } = await AGGQuery<{ Team: AGGResult }>(url, query, addHeaders);
 
-  return convertTeam(Team);
+	return convertTeam(Team);
 }

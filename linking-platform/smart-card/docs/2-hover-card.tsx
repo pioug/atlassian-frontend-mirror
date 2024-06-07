@@ -47,11 +47,11 @@ import { HoverCard } from '@atlaskit/smart-card/hover-card';
 `}
 
 ${(
-  <ContentTabs
-    tabs={[
-      { name: TabName.Examples, content: examples },
-      { name: TabName.Reference, content: reference },
-    ]}
-  />
+	<ContentTabs
+		tabs={[
+			{ name: TabName.Examples, content: examples },
+			{ name: TabName.Reference, content: reference },
+		]}
+	/>
 )}
 `;

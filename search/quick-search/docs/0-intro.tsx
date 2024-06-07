@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  md,
-  Example,
-  Props,
-  code,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
+import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -37,17 +31,13 @@ export default md`
   `}
 
   ${(
-    <Example
-      Component={require('../examples/1-Object-Results').default}
-      title="Objects"
-      source={require('!!raw-loader!../examples/1-Object-Results')}
-    />
-  )}
+		<Example
+			Component={require('../examples/1-Object-Results').default}
+			title="Objects"
+			source={require('!!raw-loader!../examples/1-Object-Results')}
+		/>
+	)}
 
-  ${(
-    <Props
-      props={require('!!extract-react-types-loader!../src/components/QuickSearch')}
-    />
-  )}
+  ${(<Props props={require('!!extract-react-types-loader!../src/components/QuickSearch')} />)}
 
 `;

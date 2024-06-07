@@ -13,18 +13,12 @@ import PreviewBlockResolvedView from './resolved';
  * @see Block
  */
 const PreviewBlock: React.FC<PreviewBlockProps> = ({
-  status = SmartLinkStatus.Fallback,
-  testId = 'smart-block-preview',
-  overrideUrl,
-  ...blockProps
+	status = SmartLinkStatus.Fallback,
+	testId = 'smart-block-preview',
+	overrideUrl,
+	...blockProps
 }) => {
-  return (
-    <PreviewBlockResolvedView
-      {...blockProps}
-      testId={testId}
-      overrideUrl={overrideUrl}
-    />
-  );
+	return <PreviewBlockResolvedView {...blockProps} testId={testId} overrideUrl={overrideUrl} />;
 };
 
 export default PreviewBlock;

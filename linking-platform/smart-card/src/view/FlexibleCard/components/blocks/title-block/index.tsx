@@ -10,37 +10,34 @@ import TitleBlockResolvingView from './resolving';
 import ActionGroup from '../action-group';
 import { Title } from '../../elements';
 
-const getActionStyles = (
-  showOnHover?: boolean,
-  isOpen?: boolean,
-): SerializedStyles | undefined => {
-  if (showOnHover && !isOpen) {
-    return css({
-      '.actions-button-group': {
-        opacity: 0,
-      },
-      '&:hover .actions-button-group, .actions-button-group:focus-within': {
-        opacity: 1,
-      },
-    });
-  }
+const getActionStyles = (showOnHover?: boolean, isOpen?: boolean): SerializedStyles | undefined => {
+	if (showOnHover && !isOpen) {
+		return css({
+			'.actions-button-group': {
+				opacity: 0,
+			},
+			'&:hover .actions-button-group, .actions-button-group:focus-within': {
+				opacity: 1,
+			},
+		});
+	}
 };
 
 const getTitleBlockViewComponent = (status: SmartLinkStatus) => {
-  switch (status) {
-    case SmartLinkStatus.Pending:
-    case SmartLinkStatus.Resolving:
-      return TitleBlockResolvingView;
-    case SmartLinkStatus.Resolved:
-      return TitleBlockResolvedView;
-    case SmartLinkStatus.Unauthorized:
-    case SmartLinkStatus.Forbidden:
-    case SmartLinkStatus.NotFound:
-    case SmartLinkStatus.Errored:
-    case SmartLinkStatus.Fallback:
-    default:
-      return TitleBlockErroredView;
-  }
+	switch (status) {
+		case SmartLinkStatus.Pending:
+		case SmartLinkStatus.Resolving:
+			return TitleBlockResolvingView;
+		case SmartLinkStatus.Resolved:
+			return TitleBlockResolvedView;
+		case SmartLinkStatus.Unauthorized:
+		case SmartLinkStatus.Forbidden:
+		case SmartLinkStatus.NotFound:
+		case SmartLinkStatus.Errored:
+		case SmartLinkStatus.Fallback:
+		default:
+			return TitleBlockErroredView;
+	}
 };
 
 /**
@@ -56,77 +53,77 @@ const getTitleBlockViewComponent = (status: SmartLinkStatus) => {
  * @see TitleBlockErroredView
  */
 const TitleBlock: React.FC<TitleBlockProps> = ({
-  actions = [],
-  anchorTarget,
-  hideTitleTooltip,
-  maxLines,
-  onActionMenuOpenChange,
-  onClick,
-  overrideCss,
-  status = SmartLinkStatus.Fallback,
-  showActionOnHover,
-  testId = 'smart-block-title',
-  text,
-  icon,
-  theme,
-  hideRetry,
-  metadataPosition,
-  hideIcon = false,
-  ...props
+	actions = [],
+	anchorTarget,
+	hideTitleTooltip,
+	maxLines,
+	onActionMenuOpenChange,
+	onClick,
+	overrideCss,
+	status = SmartLinkStatus.Fallback,
+	showActionOnHover,
+	testId = 'smart-block-title',
+	text,
+	icon,
+	theme,
+	hideRetry,
+	metadataPosition,
+	hideIcon = false,
+	...props
 }) => {
-  if (hideRetry && props.retry) {
-    delete props.retry;
-  }
+	if (hideRetry && props.retry) {
+		delete props.retry;
+	}
 
-  const [actionDropdownOpen, setActionDropdownOpen] = useState(false);
-  const onDropdownOpenChange = useCallback(
-    (isOpen: boolean) => {
-      setActionDropdownOpen(isOpen);
-      if (onActionMenuOpenChange) {
-        onActionMenuOpenChange({ isOpen });
-      }
-    },
-    [onActionMenuOpenChange],
-  );
-  const actionGroup = actions.length > 0 && (
-    <ActionGroup
-      items={actions}
-      visibleButtonsNum={showActionOnHover ? 1 : 2}
-      onDropdownOpenChange={onDropdownOpenChange}
-    />
-  );
-  const actionStyles = getActionStyles(showActionOnHover, actionDropdownOpen);
-  const combinedCss = css(actionStyles, overrideCss);
+	const [actionDropdownOpen, setActionDropdownOpen] = useState(false);
+	const onDropdownOpenChange = useCallback(
+		(isOpen: boolean) => {
+			setActionDropdownOpen(isOpen);
+			if (onActionMenuOpenChange) {
+				onActionMenuOpenChange({ isOpen });
+			}
+		},
+		[onActionMenuOpenChange],
+	);
+	const actionGroup = actions.length > 0 && (
+		<ActionGroup
+			items={actions}
+			visibleButtonsNum={showActionOnHover ? 1 : 2}
+			onDropdownOpenChange={onDropdownOpenChange}
+		/>
+	);
+	const actionStyles = getActionStyles(showActionOnHover, actionDropdownOpen);
+	const combinedCss = css(actionStyles, overrideCss);
 
-  const overrideText = !!text ? { text } : {};
+	const overrideText = !!text ? { text } : {};
 
-  const onMouseDown = useMouseDownEvent();
+	const onMouseDown = useMouseDownEvent();
 
-  const title = (
-    <Title
-      hideTooltip={hideTitleTooltip}
-      maxLines={maxLines}
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-      target={anchorTarget}
-      theme={theme}
-      {...overrideText}
-    />
-  );
+	const title = (
+		<Title
+			hideTooltip={hideTitleTooltip}
+			maxLines={maxLines}
+			onClick={onClick}
+			onMouseDown={onMouseDown}
+			target={anchorTarget}
+			theme={theme}
+			{...overrideText}
+		/>
+	);
 
-  const Component = getTitleBlockViewComponent(status);
-  return (
-    <Component
-      {...props}
-      actionGroup={actionGroup}
-      overrideCss={combinedCss}
-      testId={testId}
-      title={title}
-      metadataPosition={metadataPosition}
-      hideIcon={hideIcon}
-      icon={icon}
-    />
-  );
+	const Component = getTitleBlockViewComponent(status);
+	return (
+		<Component
+			{...props}
+			actionGroup={actionGroup}
+			overrideCss={combinedCss}
+			testId={testId}
+			title={title}
+			metadataPosition={metadataPosition}
+			hideIcon={hideIcon}
+			icon={icon}
+		/>
+	);
 };
 
 export default TitleBlock;

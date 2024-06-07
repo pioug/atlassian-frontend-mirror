@@ -9,7 +9,6 @@ import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { PACKAGE_DATA } from '../../common/constants';
 import type { LinkCreateWithModalProps } from '../../common/types';
 import { ErrorBoundary } from '../../common/ui/error-boundary';
-import { ErrorBoundaryModal } from '../../common/ui/error-boundary-modal';
 import { Experience } from '../../common/ui/experience-tracker';
 import { withLinkCreateAnalyticsContext } from '../../common/utils/analytics';
 import { fetchMessagesForLocale } from '../../common/utils/locale/fetch-messages-for-locale';
@@ -21,10 +20,7 @@ const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(
 	memo((props: LinkCreateWithModalProps) => {
 		return (
 			<Experience>
-				{/* todo: EDM-10093 - move to a non-modal error boundary */}
-				<ErrorBoundary
-					errorComponent={<ErrorBoundaryModal active={props.active} onClose={props.onCancel} />}
-				>
+				<ErrorBoundary>
 					<InlineCreate {...props} />
 				</ErrorBoundary>
 			</Experience>

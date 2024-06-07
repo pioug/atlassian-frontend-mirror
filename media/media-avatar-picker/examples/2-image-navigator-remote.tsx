@@ -9,40 +9,38 @@ let onLoadParams: any;
 let imageElement: any;
 
 const onLoad = (params: any) => {
-  onLoadParams = params;
+	onLoadParams = params;
 };
 const exportImage = () => {
-  const imageData = onLoadParams.export();
+	const imageData = onLoadParams.export();
 
-  imageElement.src = imageData;
+	imageElement.src = imageData;
 };
 
 function handleImgRef(img: any) {
-  imageElement = img;
+	imageElement = img;
 }
 
 export default () => (
-  <IntlProvider locale="en">
-    <div>
-      <h1>Remote image</h1>
-      <ImageNavigator
-        imageSource={remoteImage}
-        onImageLoaded={(file: any) => console.log('onImageLoaded', file)}
-        onRemoveImage={() => console.log('onRemoveImage')}
-        onImageError={(errorMessage: any) =>
-          console.log('onImageError', errorMessage)
-        }
-        onLoad={onLoad}
-        onImageUploaded={(file: any) => console.log('onImageLoaded', file)}
-      />
-      <button onClick={exportImage}>Export</button>
-    </div>
-    <img
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      style={{ marginTop: token('space.100', '8px') }}
-      src=""
-      alt=""
-      ref={handleImgRef}
-    />
-  </IntlProvider>
+	<IntlProvider locale="en">
+		<div>
+			<h1>Remote image</h1>
+			<ImageNavigator
+				imageSource={remoteImage}
+				onImageLoaded={(file: any) => console.log('onImageLoaded', file)}
+				onRemoveImage={() => console.log('onRemoveImage')}
+				onImageError={(errorMessage: any) => console.log('onImageError', errorMessage)}
+				onLoad={onLoad}
+				onImageUploaded={(file: any) => console.log('onImageLoaded', file)}
+			/>
+			<button onClick={exportImage}>Export</button>
+		</div>
+		<img
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={{ marginTop: token('space.100', '8px') }}
+			src=""
+			alt=""
+			ref={handleImgRef}
+		/>
+	</IntlProvider>
 );

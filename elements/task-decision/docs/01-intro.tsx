@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  md,
-  Example,
-  Props,
-  code,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
+import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
 import TaskDecisionExample from '../examples/00-decision-item';
 const TaskDecisionSource = require('!!raw-loader!../examples/00-decision-item');
@@ -34,13 +28,13 @@ export default md`
    };`}
 
    ${(
-     <Example
-       packageName="@atlaskit/status"
-       Component={TaskDecisionExample}
-       title="Status Picker"
-       source={TaskDecisionSource}
-     />
-   )}
+			<Example
+				packageName="@atlaskit/status"
+				Component={TaskDecisionExample}
+				title="Status Picker"
+				source={TaskDecisionSource}
+			/>
+		)}
 
   ${(<Props heading="Decision Props" props={TaskDecisionProps} />)}
 `;

@@ -183,11 +183,11 @@ linkCreated({ url, smartLinkId }, analytic)
 ## Complete Example
 
 ${(
-  <Example
-    Component={require('../examples/00-lifecycle-events').default}
-    title="Example"
-    source={require('!!raw-loader!../examples/00-lifecycle-events')}
-  />
+	<Example
+		Component={require('../examples/00-lifecycle-events').default}
+		title="Example"
+		source={require('!!raw-loader!../examples/00-lifecycle-events')}
+	/>
 )}
 
 `;

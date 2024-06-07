@@ -3,22 +3,22 @@ import { IMPORT_NAME } from '../constants';
 import rule from '../index';
 
 tester.run('use-visually-hidden', rule, {
-  valid: [
-    {
-      code: `import VisuallyHidden from '@atlaskit/visually-hidden';`,
-    },
-    {
-      code: `
+	valid: [
+		{
+			code: `import VisuallyHidden from '@atlaskit/visually-hidden';`,
+		},
+		{
+			code: `
 const SomeComponentObject = styled.span({
   width: '1px',
   height: '1px',
   padding: '0',
 });`,
-    },
-  ],
-  invalid: [
-    {
-      code: `
+		},
+	],
+	invalid: [
+		{
+			code: `
 const SomeComponentObject = styled.span({
   width: '1px',
   height: '1px',
@@ -30,10 +30,10 @@ const SomeComponentObject = styled.span({
   whiteSpace: 'nowrap',
 });
 `,
-      errors: [{ messageId: 'suggestion' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'suggestion' }],
+		},
+		{
+			code: `
 const SomeComponentLiteral = styled.span\`
   width: 1px;
   height: 1px;
@@ -45,10 +45,10 @@ const SomeComponentLiteral = styled.span\`
   white-space: nowrap;
 \`;
 `,
-      errors: [{ messageId: 'suggestion' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'suggestion' }],
+		},
+		{
+			code: `
 import styled from '@emotion/styled';
 
 const SomeComponentLiteral = styled.span\`
@@ -62,16 +62,16 @@ const SomeComponentLiteral = styled.span\`
   white-space: nowrap;
 \`;
 `,
-      errors: [{ messageId: 'suggestion' }],
-      output: `
+			errors: [{ messageId: 'suggestion' }],
+			output: `
 import ${IMPORT_NAME} from '@atlaskit/visually-hidden';
 import styled from '@emotion/styled';
 
 const SomeComponentLiteral = ${IMPORT_NAME};
 `,
-    },
-    {
-      code: `
+		},
+		{
+			code: `
 import styled from '@emotion/styled';
 
 const SomeComponentObject = styled.span({
@@ -85,16 +85,16 @@ const SomeComponentObject = styled.span({
   whiteSpace: 'nowrap',
 });
 `,
-      errors: [{ messageId: 'suggestion' }],
-      output: `
+			errors: [{ messageId: 'suggestion' }],
+			output: `
 import ${IMPORT_NAME} from '@atlaskit/visually-hidden';
 import styled from '@emotion/styled';
 
 const SomeComponentObject = ${IMPORT_NAME};
 `,
-    },
-    {
-      code: `
+		},
+		{
+			code: `
 import randomImportName from '@atlaskit/visually-hidden';
 import styled from '@emotion/styled';
 
@@ -109,16 +109,16 @@ const SomeComponentLiteral = styled.span\`
   white-space: nowrap;
 \`;
 `,
-      errors: [{ messageId: 'suggestion' }],
-      output: `
+			errors: [{ messageId: 'suggestion' }],
+			output: `
 import randomImportName from '@atlaskit/visually-hidden';
 import styled from '@emotion/styled';
 
 const SomeComponentLiteral = randomImportName;
 `,
-    },
-    {
-      code: `
+		},
+		{
+			code: `
 const visuallyHidden = css\`
   width: 1px;
   height: 1px;
@@ -130,10 +130,10 @@ const visuallyHidden = css\`
   white-space: nowrap;
 \`;
 `,
-      errors: [{ messageId: 'suggestion' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'suggestion' }],
+		},
+		{
+			code: `
 import { css, jsx } from '@emotion/core';
 
 const visuallyHiddenStyles = css({
@@ -151,10 +151,10 @@ const MyComponent = () => (
   <div css={visuallyHiddenStyles} />
 );
 `,
-      errors: [{ messageId: 'suggestion' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'suggestion' }],
+		},
+		{
+			code: `
 import { assistive } from '@atlaskit/theme/constants';
 import { jsx } from '@emotion/core';
 
@@ -162,11 +162,8 @@ const MyComponent = () => (
   <span css={assistive} />
 );
 `,
-      errors: [
-        { messageId: 'noDeprecated' },
-        { messageId: 'noDeprecatedUsage' },
-      ],
-      output: `
+			errors: [{ messageId: 'noDeprecated' }, { messageId: 'noDeprecatedUsage' }],
+			output: `
 import ${IMPORT_NAME} from '@atlaskit/visually-hidden';
 import { assistive } from '@atlaskit/theme/constants';
 import { jsx } from '@emotion/core';
@@ -175,9 +172,9 @@ const MyComponent = () => (
   <${IMPORT_NAME} />
 );
 `,
-    },
-    {
-      code: `
+		},
+		{
+			code: `
 import { something } from '@atlaskit/theme/constants';
 import { css, jsx } from '@emotion/core';
 
@@ -196,8 +193,8 @@ const MyComponent = () => (
   <div css={assistive} />
 );
 `,
-      errors: [{ messageId: 'suggestion' }],
-      output: `
+			errors: [{ messageId: 'suggestion' }],
+			output: `
 import { something } from '@atlaskit/theme/constants';
 import { css, jsx } from '@emotion/core';
 
@@ -216,17 +213,17 @@ const MyComponent = () => (
   <div css={assistive} />
 );
 `,
-    },
+		},
 
-    {
-      code: `
+		{
+			code: `
 import { visuallyHidden } from '@atlaskit/theme/constants';
 import { jsx } from '@emotion/core';
 
 const MyComponent = () => (
   <div css={visuallyHidden} />
 );`,
-      output: `
+			output: `
 import ${IMPORT_NAME} from '@atlaskit/visually-hidden';
 import { visuallyHidden } from '@atlaskit/theme/constants';
 import { jsx } from '@emotion/core';
@@ -234,68 +231,56 @@ import { jsx } from '@emotion/core';
 const MyComponent = () => (
   <${IMPORT_NAME} />
 );`,
-      errors: [
-        { messageId: 'noDeprecated' },
-        { messageId: 'noDeprecatedUsage' },
-      ],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'noDeprecated' }, { messageId: 'noDeprecatedUsage' }],
+		},
+		{
+			code: `
 import styled from '@emotion/styled';
 import { visuallyHidden } from '@atlaskit/theme';
 
 export const ScreenReadersOnly = styled.span\`
   \${visuallyHidden()}
 \`;`,
-      errors: [
-        { messageId: 'noDeprecated' },
-        { messageId: 'noDeprecatedUsage' },
-      ],
-      output: `
+			errors: [{ messageId: 'noDeprecated' }, { messageId: 'noDeprecatedUsage' }],
+			output: `
 import ${IMPORT_NAME} from '@atlaskit/visually-hidden';
 import styled from '@emotion/styled';
 import { visuallyHidden } from '@atlaskit/theme';
 
 export const ScreenReadersOnly = ${IMPORT_NAME};`,
-    },
-    {
-      code: `
+		},
+		{
+			code: `
 import styled from '@emotion/styled';
 import { visuallyHidden } from '@atlaskit/theme';
 
 export const ScreenReadersOnly = styled.span\`
   \${visuallyHidden()}
 \`;`,
-      errors: [
-        { messageId: 'noDeprecated' },
-        { messageId: 'noDeprecatedUsage' },
-      ],
-      output: `
+			errors: [{ messageId: 'noDeprecated' }, { messageId: 'noDeprecatedUsage' }],
+			output: `
 import ${IMPORT_NAME} from '@atlaskit/visually-hidden';
 import styled from '@emotion/styled';
 import { visuallyHidden } from '@atlaskit/theme';
 
 export const ScreenReadersOnly = ${IMPORT_NAME};`,
-    },
-    {
-      code: `
+		},
+		{
+			code: `
 import styled from '@emotion/styled';
 import { visuallyHidden } from '@atlaskit/theme';
 
 export const ScreenReadersOnly = styled.span(visuallyHidden);`,
-      errors: [
-        { messageId: 'noDeprecated' },
-        { messageId: 'noDeprecatedUsage' },
-      ],
-      output: `
+			errors: [{ messageId: 'noDeprecated' }, { messageId: 'noDeprecatedUsage' }],
+			output: `
 import ${IMPORT_NAME} from '@atlaskit/visually-hidden';
 import styled from '@emotion/styled';
 import { visuallyHidden } from '@atlaskit/theme';
 
 export const ScreenReadersOnly = ${IMPORT_NAME};`,
-    },
-    {
-      code: `
+		},
+		{
+			code: `
 import { jsx } from '@emotion/core';
 
 export const ScreenReadersOnly = () => (
@@ -312,27 +297,24 @@ export const ScreenReadersOnly = () => (
     }}
   />
 );`,
-      errors: [{ messageId: 'suggestion' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'suggestion' }],
+		},
+		{
+			code: `
 import styled from '@emotion/styled';
 import { visuallyHidden } from '@atlaskit/theme';
 
 export const ScreenReadersOnly = () => (
   <div css={visuallyHidden} />
 );`,
-      output: `
+			output: `
 import ${IMPORT_NAME} from '@atlaskit/visually-hidden';
 import styled from '@emotion/styled';
 import { visuallyHidden } from '@atlaskit/theme';\n
 export const ScreenReadersOnly = () => (
   <${IMPORT_NAME} />
 );`,
-      errors: [
-        { messageId: 'noDeprecated' },
-        { messageId: 'noDeprecatedUsage' },
-      ],
-    },
-  ],
+			errors: [{ messageId: 'noDeprecated' }, { messageId: 'noDeprecatedUsage' }],
+		},
+	],
 });

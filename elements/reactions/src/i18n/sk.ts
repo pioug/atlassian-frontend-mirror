@@ -6,6 +6,6 @@
  */
 //Slovak
 export default {
-  'fabric.reactions.error.unexpected': 'Niečo sa nepodarilo',
-  'fabric.reactions.loading': 'Načítava sa...',
+	'fabric.reactions.error.unexpected': 'Niečo sa nepodarilo',
+	'fabric.reactions.loading': 'Načítava sa...',
 };

@@ -10,16 +10,15 @@ export default md`
   ## Using Mentions in AK Editor
 
   ${(
-    <>
-      <p>
-        To use Mention in{' '}
-        <a href="/packages/editor/editor-core">@atlaskit/editor-core</a>
-        {', '}
-        check the 'Editor with mentions' section in editor-core, then follow
-        these steps for a more involved tutorial:
-      </p>
-    </>
-  )}
+		<>
+			<p>
+				To use Mention in <a href="/packages/editor/editor-core">@atlaskit/editor-core</a>
+				{', '}
+				check the 'Editor with mentions' section in editor-core, then follow these steps for a more
+				involved tutorial:
+			</p>
+		</>
+	)}
 
   ### Option 1: Instantiate a \`MentionResource\`
 
@@ -58,13 +57,13 @@ export default md`
   Extend the \`AbstractMentionResource\` to provide a more customized mentions experience.
 
   ${(
-    <Example
-      packageName="@atlaskit/mention"
-      Component={MentionWithEditorExample}
-      title="Mention With Editor"
-      source={MentionWithEditorExampleSource}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/mention"
+			Component={MentionWithEditorExample}
+			title="Mention With Editor"
+			source={MentionWithEditorExampleSource}
+		/>
+	)}
 
   ### Option 3: Extend and instantiate a \`SmartMentionResource\`
 

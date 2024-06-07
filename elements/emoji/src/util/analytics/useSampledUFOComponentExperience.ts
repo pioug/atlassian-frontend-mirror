@@ -3,12 +3,12 @@ import type { CustomData, UFOExperience } from '@atlaskit/ufo';
 import { withSampling } from './samplingUfo';
 
 const useConstructor = (callback: () => void) => {
-  const hasBeenFired = useRef(false);
-  if (!hasBeenFired.current) {
-    callback();
-    hasBeenFired.current = true;
-  }
-  return null;
+	const hasBeenFired = useRef(false);
+	if (!hasBeenFired.current) {
+		callback();
+		hasBeenFired.current = true;
+	}
+	return null;
 };
 
 /**
@@ -18,24 +18,24 @@ const useConstructor = (callback: () => void) => {
  * @param experience the experience to start and abort
  */
 export const useSampledUFOComponentExperience = (
-  experience: UFOExperience,
-  samplingRate: number,
-  metadata?: CustomData,
+	experience: UFOExperience,
+	samplingRate: number,
+	metadata?: CustomData,
 ) => {
-  useEffect(() => {
-    return () => {
-      withSampling(experience).abort();
-    };
-    // we want this cleanup to only happen on unmount so this is a legit use of empty array
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+	useEffect(() => {
+		return () => {
+			withSampling(experience).abort();
+		};
+		// we want this cleanup to only happen on unmount so this is a legit use of empty array
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-  useConstructor(() => {
-    withSampling(experience).start({ samplingRate });
-    const isMetadataEmpty = Object.keys(experience.metadata).length === 0;
-    if (metadata && isMetadataEmpty) {
-      experience.addMetadata(metadata);
-    }
-  });
-  return null;
+	useConstructor(() => {
+		withSampling(experience).start({ samplingRate });
+		const isMetadataEmpty = Object.keys(experience.metadata).length === 0;
+		if (metadata && isMetadataEmpty) {
+			experience.addMetadata(metadata);
+		}
+	});
+	return null;
 };

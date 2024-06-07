@@ -6,26 +6,26 @@ import { type MediaType } from '@atlaskit/media-client';
  */
 
 export const getMediaCardCursor = (
-  useInlinePlayer: boolean,
-  useMediaViewer: boolean,
-  isErrorStatus: boolean,
-  hasCardPreview: boolean,
-  mediaType?: MediaType,
+	useInlinePlayer: boolean,
+	useMediaViewer: boolean,
+	isErrorStatus: boolean,
+	hasCardPreview: boolean,
+	mediaType?: MediaType,
 ): MediaCardCursor | undefined => {
-  // If error status or no action is requested = NoAction
-  if (isErrorStatus || (!useInlinePlayer && !useMediaViewer)) {
-    return;
-  }
+	// If error status or no action is requested = NoAction
+	if (isErrorStatus || (!useInlinePlayer && !useMediaViewer)) {
+		return;
+	}
 
-  if (!mediaType && (useInlinePlayer || (useInlinePlayer && useMediaViewer))) {
-    return MediaCardCursor.NotReady;
-  } else if (mediaType === 'video' && hasCardPreview && useInlinePlayer) {
-    return MediaCardCursor.Action;
-  }
+	if (!mediaType && (useInlinePlayer || (useInlinePlayer && useMediaViewer))) {
+		return MediaCardCursor.NotReady;
+	} else if (mediaType === 'video' && hasCardPreview && useInlinePlayer) {
+		return MediaCardCursor.Action;
+	}
 
-  if (useMediaViewer) {
-    return MediaCardCursor.Action;
-  }
+	if (useMediaViewer) {
+		return MediaCardCursor.Action;
+	}
 
-  return;
+	return;
 };

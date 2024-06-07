@@ -6,75 +6,71 @@ import { IntlProvider } from 'react-intl-next';
 import { BasicSearchInput, type BasicSearchInputProps } from './index';
 
 describe('BasicSearchInput', () => {
-  const setup = (propsOverride: Partial<BasicSearchInputProps> = {}) => {
-    const mockOnChange = jest.fn();
-    const mockOnSearch = jest.fn();
+	const setup = (propsOverride: Partial<BasicSearchInputProps> = {}) => {
+		const mockOnChange = jest.fn();
+		const mockOnSearch = jest.fn();
 
-    const component = render(
-      <IntlProvider locale="en">
-        <BasicSearchInput
-          onChange={mockOnChange}
-          onSearch={mockOnSearch}
-          searchTerm="testing"
-          testId="basic-search-input"
-          placeholder={{
-            id: 'test',
-            description: 'placeholder',
-            defaultMessage: 'custom placeholder',
-          }}
-          {...propsOverride}
-        />
-      </IntlProvider>,
-    );
+		const component = render(
+			<IntlProvider locale="en">
+				<BasicSearchInput
+					onChange={mockOnChange}
+					onSearch={mockOnSearch}
+					searchTerm="testing"
+					testId="basic-search-input"
+					placeholder={{
+						id: 'test',
+						description: 'placeholder',
+						defaultMessage: 'custom placeholder',
+					}}
+					{...propsOverride}
+				/>
+			</IntlProvider>,
+		);
 
-    return { mockOnChange, mockOnSearch, ...component };
-  };
+		return { mockOnChange, mockOnSearch, ...component };
+	};
 
-  it('renders with the provided input text', async () => {
-    const { getByDisplayValue } = setup();
+	it('renders with the provided input text', async () => {
+		const { getByDisplayValue } = setup();
 
-    expect(getByDisplayValue('testing')).toBeInTheDocument();
-  });
+		expect(getByDisplayValue('testing')).toBeInTheDocument();
+	});
 
-  it('calls onSearch with the input text', async () => {
-    const { findByTestId, mockOnSearch } = setup();
+	it('calls onSearch with the input text', async () => {
+		const { findByTestId, mockOnSearch } = setup();
 
-    (await findByTestId('basic-search-input--basic-search-button')).click();
+		(await findByTestId('basic-search-input--basic-search-button')).click();
 
-    expect(mockOnSearch).toHaveBeenCalledWith('testing');
-  });
+		expect(mockOnSearch).toHaveBeenCalledWith('testing');
+	});
 
-  it('disables search button when expected', async () => {
-    const { findByTestId, mockOnSearch } = setup({ isDisabled: true });
+	it('disables search button when expected', async () => {
+		const { findByTestId, mockOnSearch } = setup({ isDisabled: true });
 
-    const searchButton = await findByTestId(
-      'basic-search-input--basic-search-button',
-    );
+		const searchButton = await findByTestId('basic-search-input--basic-search-button');
 
-    expect(searchButton).toBeDisabled();
+		expect(searchButton).toBeDisabled();
 
-    searchButton.click();
-    expect(mockOnSearch).not.toHaveBeenCalled();
-  });
+		searchButton.click();
+		expect(mockOnSearch).not.toHaveBeenCalled();
+	});
 
-  it('shows search button in a loading state when searching', async () => {
-    const { findByTestId } = setup({ isSearching: true });
+	it('shows search button in a loading state when searching', async () => {
+		const { findByTestId } = setup({ isSearching: true });
 
-    const searchButton = await findByTestId(
-      'basic-search-input--basic-search-button',
-    );
+		const searchButton = await findByTestId('basic-search-input--basic-search-button');
 
-    expect(searchButton.getAttribute('data-has-overlay')).toEqual('true');
-  });
+		expect(searchButton.getAttribute('data-has-overlay')).toEqual('true');
+	});
 
-  it('calls onSearch on form submit', async () => {
-    const { getByPlaceholderText, mockOnSearch } = setup();
+	it('calls onSearch on form submit', async () => {
+		const { getByPlaceholderText, mockOnSearch } = setup();
 
-    const input = getByPlaceholderText('custom placeholder');
+		const input = getByPlaceholderText('custom placeholder');
 
-    fireEvent.click(input);
-    fireEvent.submit(input);
+		fireEvent.click(input);
+		fireEvent.submit(input);
 
-    expect(mockOnSearch).toHaveBeenCalledTimes(1);
-  });
+		expect(mockOnSearch).toHaveBeenCalledTimes(1);
+	});
 });

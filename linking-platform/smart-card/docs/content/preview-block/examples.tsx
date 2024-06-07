@@ -15,12 +15,10 @@ Center alignment of the selected replaced element's contents within the element'
 
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/preview-block-default').default
-    }
-    source={require('!!raw-loader!../../../examples/content/preview-block-default')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/preview-block-default').default}
+		source={require('!!raw-loader!../../../examples/content/preview-block-default')}
+	/>
 )}
 
 ### Left and Right Placement
@@ -30,12 +28,10 @@ left or right of the Flexible Smart Link content. This will scale to 30% of the
 width of the card.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/preview-block-placement').default
-    }
-    source={require('!!raw-loader!../../../examples/content/preview-block-placement')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/preview-block-placement').default}
+		source={require('!!raw-loader!../../../examples/content/preview-block-placement')}
+	/>
 )}
 
 ### Ignore Container Padding
@@ -45,22 +41,18 @@ in situations where there is a focus on the content of the Preview Block.
 This works regardless of placement (normal, left and right) of the card.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/preview-block-ignore-padding').default
-    }
-    source={require('!!raw-loader!../../../examples/content/preview-block-ignore-padding')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/preview-block-ignore-padding').default}
+		source={require('!!raw-loader!../../../examples/content/preview-block-ignore-padding')}
+	/>
 )}
 
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/preview-block-placement').default
-    }
-    source={require('!!raw-loader!../../../examples/content/preview-block-placement')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/preview-block-placement').default}
+		source={require('!!raw-loader!../../../examples/content/preview-block-placement')}
+	/>
 )}
 
 ### Sizing
@@ -80,12 +72,10 @@ The following example shows the preview block styles being override to show in
 4:3 aspect ratio.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/preview-block-override-css').default
-    }
-    source={require('!!raw-loader!../../../examples/content/preview-block-override-css')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/preview-block-override-css').default}
+		source={require('!!raw-loader!../../../examples/content/preview-block-override-css')}
+	/>
 )}
 
 `;

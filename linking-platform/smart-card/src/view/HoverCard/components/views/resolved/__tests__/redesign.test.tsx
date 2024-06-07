@@ -10,10 +10,7 @@ import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
 import mockAtlasProjectWithAiSummary from '../../../../../../__fixtures__/atlas-project-with-ai-summary';
 import { SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
-import {
-  type AnalyticsFacade,
-  useSmartLinkAnalytics,
-} from '../../../../../../state/analytics';
+import { type AnalyticsFacade, useSmartLinkAnalytics } from '../../../../../../state/analytics';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { AISummariesStore } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/store';
 import * as useInvoke from '../../../../../../state/hooks/use-invoke';
@@ -21,425 +18,392 @@ import * as useResolve from '../../../../../../state/hooks/use-resolve';
 import { mocks } from '../../../../../../utils/mocks';
 
 import {
-  mockBaseResponseWithErrorPreview,
-  mockBaseResponseWithPreview,
-  mockConfluenceResponse,
-  mockIframelyResponse,
-  mockJiraResponse,
-  mockJiraResponseWithDatasources,
+	mockBaseResponseWithErrorPreview,
+	mockBaseResponseWithPreview,
+	mockConfluenceResponse,
+	mockIframelyResponse,
+	mockJiraResponse,
+	mockJiraResponseWithDatasources,
 } from '../../../../__tests__/__mocks__/mocks';
 import HoverCardResolvedView from '../redesign';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => {
-  const original = jest.requireActual(
-    '../../../../../../state/hooks/use-ai-summary',
-  );
-  return {
-    useAISummary: jest.fn().mockImplementation(({ url, ari, product }) => {
-      return {
-        summariseUrl: original.useAISummary({ url, ari, product }).summariseUrl,
-        state: { status: 'ready', content: '' },
-      };
-    }),
-  };
+	const original = jest.requireActual('../../../../../../state/hooks/use-ai-summary');
+	return {
+		useAISummary: jest.fn().mockImplementation(({ url, ari, product }) => {
+			return {
+				summariseUrl: original.useAISummary({ url, ari, product }).summariseUrl,
+				state: { status: 'ready', content: '' },
+			};
+		}),
+	};
 });
 
 // Must be similar to the product name we use inside the mocked module below.
 const productName: ProductType = 'ATLAS';
 jest.mock('@atlaskit/link-provider', () => ({
-  useSmartLinkContext: () => ({
-    connections: { client: {} as any },
-    store: {
-      getState: jest.fn().mockReturnValue({ 'test-url': mocks.analytics }),
-      dispatch: jest.fn(),
-    },
-    product: 'ATLAS' as ProductType, // It is not allowed to reference any out-of-scope variables e.g. productName above
-    isAdminHubAIEnabled: true,
-  }),
-  useFeatureFlag: jest.fn(),
+	useSmartLinkContext: () => ({
+		connections: { client: {} as any },
+		store: {
+			getState: jest.fn().mockReturnValue({ 'test-url': mocks.analytics }),
+			dispatch: jest.fn(),
+		},
+		product: 'ATLAS' as ProductType, // It is not allowed to reference any out-of-scope variables e.g. productName above
+		isAdminHubAIEnabled: true,
+	}),
+	useFeatureFlag: jest.fn(),
 }));
 
 const titleBlockProps = {
-  maxLines: 2,
-  size: SmartLinkSize.Large,
-  position: SmartLinkPosition.Center,
+	maxLines: 2,
+	size: SmartLinkSize.Large,
+	position: SmartLinkPosition.Center,
 };
 
 describe('HoverCardResolvedView', () => {
-  let analyticsEvents: AnalyticsFacade;
-  const id = 'resolved-test-id';
-  const location = 'resolved-test-location';
-  const dispatchAnalytics = jest.fn();
-  const url = 'test-url';
+	let analyticsEvents: AnalyticsFacade;
+	const id = 'resolved-test-id';
+	const location = 'resolved-test-location';
+	const dispatchAnalytics = jest.fn();
+	const url = 'test-url';
 
-  const TestComponent = ({
-    mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
-    isAISummaryEnabled,
-    cardState,
-  }: {
-    mockResponse?: JsonLd.Response;
-    isAISummaryEnabled?: boolean;
-    cardState: any;
-  }) => {
-    return (
-      <IntlProvider locale="en">
-        <HoverCardResolvedView
-          analytics={analyticsEvents}
-          extensionKey={mockResponse.meta.key}
-          id="123"
-          flexibleCardProps={{ cardState, children: {}, url }}
-          onActionClick={jest.fn()}
-          cardState={cardState}
-          url={url}
-          titleBlockProps={titleBlockProps}
-          isAISummaryEnabled={isAISummaryEnabled}
-        />
-      </IntlProvider>
-    );
-  };
+	const TestComponent = ({
+		mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
+		isAISummaryEnabled,
+		cardState,
+	}: {
+		mockResponse?: JsonLd.Response;
+		isAISummaryEnabled?: boolean;
+		cardState: any;
+	}) => {
+		return (
+			<IntlProvider locale="en">
+				<HoverCardResolvedView
+					analytics={analyticsEvents}
+					extensionKey={mockResponse.meta.key}
+					id="123"
+					flexibleCardProps={{ cardState, children: {}, url }}
+					onActionClick={jest.fn()}
+					cardState={cardState}
+					url={url}
+					titleBlockProps={titleBlockProps}
+					isAISummaryEnabled={isAISummaryEnabled}
+				/>
+			</IntlProvider>
+		);
+	};
 
-  beforeEach(() => {
-    jest.useFakeTimers();
-    const { result } = renderHook(() =>
-      useSmartLinkAnalytics(url, dispatchAnalytics, id, location),
-    );
-    analyticsEvents = result.current;
-  });
+	beforeEach(() => {
+		jest.useFakeTimers();
+		const { result } = renderHook(() =>
+			useSmartLinkAnalytics(url, dispatchAnalytics, id, location),
+		);
+		analyticsEvents = result.current;
+	});
 
-  afterEach(() => {
-    jest.clearAllMocks();
-    jest.useRealTimers();
-  });
+	afterEach(() => {
+		jest.clearAllMocks();
+		jest.useRealTimers();
+	});
 
-  const setup = ({
-    mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
-    isAISummaryEnabled,
-  }: {
-    mockResponse?: JsonLd.Response;
-    isAISummaryEnabled?: boolean;
-  } = {}) => {
-    const cardState = getCardState({
-      data: mockResponse.data,
-      meta: mockResponse.meta,
-      status: 'resolved',
-      datasources: (mockResponse as JsonLdDatasourceResponse).datasources,
-    });
+	const setup = ({
+		mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
+		isAISummaryEnabled,
+	}: {
+		mockResponse?: JsonLd.Response;
+		isAISummaryEnabled?: boolean;
+	} = {}) => {
+		const cardState = getCardState({
+			data: mockResponse.data,
+			meta: mockResponse.meta,
+			status: 'resolved',
+			datasources: (mockResponse as JsonLdDatasourceResponse).datasources,
+		});
 
-    const renderResult = render(
-      <TestComponent
-        cardState={cardState}
-        mockResponse={mockResponse}
-        isAISummaryEnabled={isAISummaryEnabled}
-      />,
-    );
+		const renderResult = render(
+			<TestComponent
+				cardState={cardState}
+				mockResponse={mockResponse}
+				isAISummaryEnabled={isAISummaryEnabled}
+			/>,
+		);
 
-    const rerenderTestComponent = () =>
-      renderResult.rerender(
-        <TestComponent
-          cardState={cardState}
-          mockResponse={mockResponse}
-          isAISummaryEnabled={isAISummaryEnabled}
-        />,
-      );
+		const rerenderTestComponent = () =>
+			renderResult.rerender(
+				<TestComponent
+					cardState={cardState}
+					mockResponse={mockResponse}
+					isAISummaryEnabled={isAISummaryEnabled}
+				/>,
+			);
 
-    return { ...renderResult, rerenderTestComponent };
-  };
+		return { ...renderResult, rerenderTestComponent };
+	};
 
-  ffTest.on(
-    'platform.linking-platform.smart-card.hover-card-action-redesign',
-    'Redesign FF on',
-    () => {
-      it('renders hover card blocks', async () => {
-        const { findAllByTestId, findByTestId } = setup();
-        jest.runAllTimers();
-        const titleBlock = await findByTestId(
-          'smart-block-title-resolved-view',
-        );
-        await findAllByTestId('smart-block-metadata-resolved-view');
-        const snippetBlock = await findByTestId(
-          'smart-block-snippet-resolved-view',
-        );
-        const actionBlock = await findByTestId('smart-block-action');
+	ffTest.on(
+		'platform.linking-platform.smart-card.hover-card-action-redesign',
+		'Redesign FF on',
+		() => {
+			it('renders hover card blocks', async () => {
+				const { findAllByTestId, findByTestId } = setup();
+				jest.runAllTimers();
+				const titleBlock = await findByTestId('smart-block-title-resolved-view');
+				await findAllByTestId('smart-block-metadata-resolved-view');
+				const snippetBlock = await findByTestId('smart-block-snippet-resolved-view');
+				const actionBlock = await findByTestId('smart-block-action');
 
-        const footerBlock = await findByTestId(
-          'smart-ai-footer-block-resolved-view',
-        );
-        expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-        expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-        expect(actionBlock).toBeInTheDocument();
-        expect(footerBlock.textContent?.trim()).toBe('Confluence');
-      });
+				const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
+				expect(titleBlock.textContent?.trim()).toBe('I love cheese');
+				expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
+				expect(actionBlock).toBeInTheDocument();
+				expect(footerBlock.textContent?.trim()).toBe('Confluence');
+			});
 
-      describe('preview or snippet', () => {
-        it('should render preview instead of snippet when preview data is available', async () => {
-          const { findByTestId, queryByTestId } = setup({
-            mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
-          });
-          jest.runAllTimers();
-          await findByTestId('smart-block-title-resolved-view');
-          await findByTestId('smart-block-preview-resolved-view');
+			describe('preview or snippet', () => {
+				it('should render preview instead of snippet when preview data is available', async () => {
+					const { findByTestId, queryByTestId } = setup({
+						mockResponse: mockBaseResponseWithPreview as JsonLd.Response,
+					});
+					jest.runAllTimers();
+					await findByTestId('smart-block-title-resolved-view');
+					await findByTestId('smart-block-preview-resolved-view');
 
-          expect(queryByTestId('smart-block-snippet-resolved-view')).toBeNull();
-        });
+					expect(queryByTestId('smart-block-snippet-resolved-view')).toBeNull();
+				});
 
-        it('should fallback to rendering snippet if preview data is available but fails to load', async () => {
-          const { findByTestId, queryByTestId } = setup({
-            mockResponse: mockBaseResponseWithErrorPreview as JsonLd.Response,
-          });
-          jest.runAllTimers();
-          await findByTestId('smart-block-title-resolved-view');
-          fireEvent.transitionEnd(
-            await findByTestId('smart-block-preview-resolved-view'),
-          );
-          await findByTestId('smart-block-snippet-resolved-view');
+				it('should fallback to rendering snippet if preview data is available but fails to load', async () => {
+					const { findByTestId, queryByTestId } = setup({
+						mockResponse: mockBaseResponseWithErrorPreview as JsonLd.Response,
+					});
+					jest.runAllTimers();
+					await findByTestId('smart-block-title-resolved-view');
+					fireEvent.transitionEnd(await findByTestId('smart-block-preview-resolved-view'));
+					await findByTestId('smart-block-snippet-resolved-view');
 
-          expect(queryByTestId('smart-block-preview-resolved-view')).toBeNull();
-        });
-      });
+					expect(queryByTestId('smart-block-preview-resolved-view')).toBeNull();
+				});
+			});
 
-      describe('metadata', () => {
-        it('renders correctly for confluence links', async () => {
-          const { findByTestId } = setup();
-          await findByTestId('authorgroup-metadata-element');
-          const commentCount = await findByTestId(
-            'commentcount-metadata-element',
-          );
-          const reactCount = await findByTestId('reactcount-metadata-element');
+			describe('metadata', () => {
+				it('renders correctly for confluence links', async () => {
+					const { findByTestId } = setup();
+					await findByTestId('authorgroup-metadata-element');
+					const commentCount = await findByTestId('commentcount-metadata-element');
+					const reactCount = await findByTestId('reactcount-metadata-element');
 
-          expect(commentCount.textContent).toBe('4');
-          expect(reactCount.textContent).toBe('8');
-        });
+					expect(commentCount.textContent).toBe('4');
+					expect(reactCount.textContent).toBe('8');
+				});
 
-        it('renders correctly for jira links', async () => {
-          const { findByTestId } = setup({
-            mockResponse: mockJiraResponse as JsonLd.Response,
-          });
-          await findByTestId('assignedtogroup-metadata-element');
-          const priority = await findByTestId('priority-metadata-element');
-          const state = await findByTestId('state-metadata-element');
+				it('renders correctly for jira links', async () => {
+					const { findByTestId } = setup({
+						mockResponse: mockJiraResponse as JsonLd.Response,
+					});
+					await findByTestId('assignedtogroup-metadata-element');
+					const priority = await findByTestId('priority-metadata-element');
+					const state = await findByTestId('state-metadata-element');
 
-          expect(priority.textContent).toBe('Major');
-          expect(state.textContent).toBe('Done');
-        });
+					expect(priority.textContent).toBe('Major');
+					expect(state.textContent).toBe('Done');
+				});
 
-        it('renders correctly for other providers', async () => {
-          const { findByTestId } = setup({
-            mockResponse: mockIframelyResponse as JsonLd.Response,
-          });
-          const titleBlock = await findByTestId(
-            'smart-block-title-resolved-view',
-          );
-          const modifiedOn = await findByTestId('modifiedon-metadata-element');
-          await findByTestId('authorgroup-metadata-element');
+				it('renders correctly for other providers', async () => {
+					const { findByTestId } = setup({
+						mockResponse: mockIframelyResponse as JsonLd.Response,
+					});
+					const titleBlock = await findByTestId('smart-block-title-resolved-view');
+					const modifiedOn = await findByTestId('modifiedon-metadata-element');
+					await findByTestId('authorgroup-metadata-element');
 
-          expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-          expect(modifiedOn.textContent).toBe('Updated on Jan 1, 2022');
-        });
-      });
+					expect(titleBlock.textContent?.trim()).toBe('I love cheese');
+					expect(modifiedOn.textContent).toBe('Updated on Jan 1, 2022');
+				});
+			});
 
-      describe('actions', () => {
-        it('renders PreviewAction', async () => {
-          const { findByTestId } = setup();
+			describe('actions', () => {
+				it('renders PreviewAction', async () => {
+					const { findByTestId } = setup();
 
-          const action = await findByTestId('smart-action-preview-action');
-          expect(action.textContent).toBe('Open preview');
-        });
+					const action = await findByTestId('smart-action-preview-action');
+					expect(action.textContent).toBe('Open preview');
+				});
 
-        it('renders CopyLinkAction', async () => {
-          const { findByTestId } = setup();
+				it('renders CopyLinkAction', async () => {
+					const { findByTestId } = setup();
 
-          const action = await findByTestId('smart-action-copy-link-action');
-          expect(action.textContent).toBe('Copy link');
-        });
+					const action = await findByTestId('smart-action-copy-link-action');
+					expect(action.textContent).toBe('Copy link');
+				});
 
-        it('renders FollowAction', async () => {
-          jest.spyOn(useInvoke, 'default').mockReturnValue(jest.fn());
-          jest.spyOn(useResolve, 'default').mockReturnValue(jest.fn());
-          const { findByTestId } = setup({
-            mockResponse: MockAtlasProject,
-          });
+				it('renders FollowAction', async () => {
+					jest.spyOn(useInvoke, 'default').mockReturnValue(jest.fn());
+					jest.spyOn(useResolve, 'default').mockReturnValue(jest.fn());
+					const { findByTestId } = setup({
+						mockResponse: MockAtlasProject,
+					});
 
-          const action = await findByTestId('smart-action-follow-action');
-          expect(action?.textContent).toEqual('Follow project');
-        });
+					const action = await findByTestId('smart-action-follow-action');
+					expect(action?.textContent).toEqual('Follow project');
+				});
 
-        describe('AISummaryAction', () => {
-          ffTest.on(
-            'platform.linking-platform.smart-card.hover-card-ai-summaries',
-            'AI summary FF on',
-            () => {
-              describe('with AI summary enabled', () => {
-                beforeEach(() => {
-                  AISummariesStore.clear();
-                });
+				describe('AISummaryAction', () => {
+					ffTest.on(
+						'platform.linking-platform.smart-card.hover-card-ai-summaries',
+						'AI summary FF on',
+						() => {
+							describe('with AI summary enabled', () => {
+								beforeEach(() => {
+									AISummariesStore.clear();
+								});
 
-                it('renders AI summary action', async () => {
-                  const { findByTestId } = setup({
-                    mockResponse: mockAtlasProjectWithAiSummary,
-                    isAISummaryEnabled: true,
-                  });
+								it('renders AI summary action', async () => {
+									const { findByTestId } = setup({
+										mockResponse: mockAtlasProjectWithAiSummary,
+										isAISummaryEnabled: true,
+									});
 
-                  const aiSummaryAction = await findByTestId(
-                    'smart-action-ai-summary-action-summarise-action',
-                  );
-                  expect(aiSummaryAction?.textContent).toEqual(
-                    'Summarize with AI',
-                  );
-                });
+									const aiSummaryAction = await findByTestId(
+										'smart-action-ai-summary-action-summarise-action',
+									);
+									expect(aiSummaryAction?.textContent).toEqual('Summarize with AI');
+								});
 
-                it('renders snippet as a placeholder', async () => {
-                  const { findByTestId } = setup({
-                    mockResponse: mockAtlasProjectWithAiSummary,
-                    isAISummaryEnabled: true,
-                  });
+								it('renders snippet as a placeholder', async () => {
+									const { findByTestId } = setup({
+										mockResponse: mockAtlasProjectWithAiSummary,
+										isAISummaryEnabled: true,
+									});
 
-                  const snippet = await findByTestId(
-                    'smart-block-snippet-resolved-view',
-                  );
+									const snippet = await findByTestId('smart-block-snippet-resolved-view');
 
-                  expect(snippet).toBeInTheDocument();
-                });
+									expect(snippet).toBeInTheDocument();
+								});
 
-                it('renders AI summary block and hides the snippet when is summary content available', async () => {
-                  (useAISummary as jest.Mock).mockReturnValueOnce({
-                    state: { status: 'loading', content: '' },
-                    summariseUrl: jest.fn(),
-                  });
+								it('renders AI summary block and hides the snippet when is summary content available', async () => {
+									(useAISummary as jest.Mock).mockReturnValueOnce({
+										state: { status: 'loading', content: '' },
+										summariseUrl: jest.fn(),
+									});
 
-                  const { findByTestId, queryByTestId, rerenderTestComponent } =
-                    setup({
-                      mockResponse: mockAtlasProjectWithAiSummary,
-                      isAISummaryEnabled: true,
-                    });
+									const { findByTestId, queryByTestId, rerenderTestComponent } = setup({
+										mockResponse: mockAtlasProjectWithAiSummary,
+										isAISummaryEnabled: true,
+									});
 
-                  const snippet = queryByTestId(
-                    'smart-block-snippet-resolved-view',
-                  );
-                  expect(snippet).toBeInTheDocument();
+									const snippet = queryByTestId('smart-block-snippet-resolved-view');
+									expect(snippet).toBeInTheDocument();
 
-                  (useAISummary as jest.Mock).mockReturnValueOnce({
-                    state: {
-                      status: 'loading',
-                      content: 'first piece of summary is here',
-                    },
-                    summariseUrl: jest.fn(),
-                  });
+									(useAISummary as jest.Mock).mockReturnValueOnce({
+										state: {
+											status: 'loading',
+											content: 'first piece of summary is here',
+										},
+										summariseUrl: jest.fn(),
+									});
 
-                  rerenderTestComponent();
+									rerenderTestComponent();
 
-                  const aiSumamryBlock = await findByTestId(
-                    'smart-ai-summary-block-resolved-view',
-                  );
-                  const snippetAfterRerender = queryByTestId(
-                    'smart-block-snippet-resolved-view',
-                  );
+									const aiSumamryBlock = await findByTestId('smart-ai-summary-block-resolved-view');
+									const snippetAfterRerender = queryByTestId('smart-block-snippet-resolved-view');
 
-                  expect(aiSumamryBlock).toBeInTheDocument();
-                  expect(snippetAfterRerender).not.toBeInTheDocument();
-                });
+									expect(aiSumamryBlock).toBeInTheDocument();
+									expect(snippetAfterRerender).not.toBeInTheDocument();
+								});
 
-                it('should use a resolved data URL instead of provided URL', async () => {
-                  // Provided URL can be different from the data URL obtained from the resolver (see short links as example).
-                  // We want to ensure that all components within the Hover Card subscribe to the same URL AI Summary update
-                  // and do not create two different instances of AI Summary Service.
-                  await setup({
-                    mockResponse: {
-                      ...mockAtlasProjectWithAiSummary,
-                      data: {
-                        ...mockAtlasProjectWithAiSummary.data,
-                        url: 'http://data-link-url.com',
-                      },
-                    },
-                    isAISummaryEnabled: true,
-                  });
+								it('should use a resolved data URL instead of provided URL', async () => {
+									// Provided URL can be different from the data URL obtained from the resolver (see short links as example).
+									// We want to ensure that all components within the Hover Card subscribe to the same URL AI Summary update
+									// and do not create two different instances of AI Summary Service.
+									await setup({
+										mockResponse: {
+											...mockAtlasProjectWithAiSummary,
+											data: {
+												...mockAtlasProjectWithAiSummary.data,
+												url: 'http://data-link-url.com',
+											},
+										},
+										isAISummaryEnabled: true,
+									});
 
-                  expect(AISummariesStore.size).toBe(1);
-                  // Provided URL
-                  expect(AISummariesStore.get(url)).not.toBeDefined();
-                  // Data url from the cardState
-                  expect(
-                    AISummariesStore.get('http://data-link-url.com'),
-                  ).toBeDefined();
-                });
+									expect(AISummariesStore.size).toBe(1);
+									// Provided URL
+									expect(AISummariesStore.get(url)).not.toBeDefined();
+									// Data url from the cardState
+									expect(AISummariesStore.get('http://data-link-url.com')).toBeDefined();
+								});
 
-                it('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', async () => {
-                  await setup({
-                    mockResponse: mockAtlasProjectWithAiSummary,
-                    isAISummaryEnabled: true,
-                  });
+								it('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', async () => {
+									await setup({
+										mockResponse: mockAtlasProjectWithAiSummary,
+										isAISummaryEnabled: true,
+									});
 
-                  expect(useAISummary).toHaveBeenCalledWith(
-                    expect.objectContaining({
-                      product: productName,
-                    }),
-                  );
-                });
-              });
-            },
-          );
+									expect(useAISummary).toHaveBeenCalledWith(
+										expect.objectContaining({
+											product: productName,
+										}),
+									);
+								});
+							});
+						},
+					);
 
-          describe('with AI summary disabled', () => {
-            it('does not render AISummary block', async () => {
-              const { queryByTestId } = setup({
-                mockResponse: mockAtlasProjectWithAiSummary,
-              });
+					describe('with AI summary disabled', () => {
+						it('does not render AISummary block', async () => {
+							const { queryByTestId } = setup({
+								mockResponse: mockAtlasProjectWithAiSummary,
+							});
 
-              expect(
-                queryByTestId('smart-ai-summary-block-resolved-view'),
-              ).toBeNull();
-              expect(
-                queryByTestId('smart-ai-summary-block-ai-summary-action'),
-              ).toBeNull();
-            });
-          });
-        });
-      });
+							expect(queryByTestId('smart-ai-summary-block-resolved-view')).toBeNull();
+							expect(queryByTestId('smart-ai-summary-block-ai-summary-action')).toBeNull();
+						});
+					});
+				});
+			});
 
-      describe('analytics', () => {
-        const getExpectedRenderSuccessEventPayload = (
-          canBeDatasource: boolean,
-        ) => ({
-          action: 'renderSuccess',
-          actionSubject: 'smartLink',
-          attributes: {
-            id: expect.any(String),
-            componentName: 'smart-cards',
-            definitionId: 'spaghetti-id',
-            display: 'hoverCardPreview',
-            destinationObjectType: 'spaghetti-resource',
-            destinationProduct: 'spaghetti-product',
-            destinationSubproduct: 'spaghetti-subproduct',
-            extensionKey: 'spaghetti-key',
-            location: 'resolved-test-location',
-            packageName: expect.any(String),
-            packageVersion: expect.any(String),
-            resourceType: 'spaghetti-resource',
-            status: 'resolved',
-            canBeDatasource: canBeDatasource,
-          },
-          eventType: 'ui',
-        });
+			describe('analytics', () => {
+				const getExpectedRenderSuccessEventPayload = (canBeDatasource: boolean) => ({
+					action: 'renderSuccess',
+					actionSubject: 'smartLink',
+					attributes: {
+						id: expect.any(String),
+						componentName: 'smart-cards',
+						definitionId: 'spaghetti-id',
+						display: 'hoverCardPreview',
+						destinationObjectType: 'spaghetti-resource',
+						destinationProduct: 'spaghetti-product',
+						destinationSubproduct: 'spaghetti-subproduct',
+						extensionKey: 'spaghetti-key',
+						location: 'resolved-test-location',
+						packageName: expect.any(String),
+						packageVersion: expect.any(String),
+						resourceType: 'spaghetti-resource',
+						status: 'resolved',
+						canBeDatasource: canBeDatasource,
+					},
+					eventType: 'ui',
+				});
 
-        it('should fire render success event when hover card is rendered', async () => {
-          const { findByTestId } = setup();
-          await findByTestId('smart-block-title-resolved-view');
+				it('should fire render success event when hover card is rendered', async () => {
+					const { findByTestId } = setup();
+					await findByTestId('smart-block-title-resolved-view');
 
-          expect(dispatchAnalytics).toHaveBeenCalledWith(
-            getExpectedRenderSuccessEventPayload(false),
-          );
-        });
+					expect(dispatchAnalytics).toHaveBeenCalledWith(
+						getExpectedRenderSuccessEventPayload(false),
+					);
+				});
 
-        it('should fire render success event with canBeDatasource = true when hover card is rendered and state has datasources data', async () => {
-          const { findByTestId } = setup({
-            mockResponse: mockJiraResponseWithDatasources as JsonLd.Response,
-          });
-          await findByTestId('smart-block-title-resolved-view');
+				it('should fire render success event with canBeDatasource = true when hover card is rendered and state has datasources data', async () => {
+					const { findByTestId } = setup({
+						mockResponse: mockJiraResponseWithDatasources as JsonLd.Response,
+					});
+					await findByTestId('smart-block-title-resolved-view');
 
-          expect(dispatchAnalytics).toHaveBeenCalledWith(
-            getExpectedRenderSuccessEventPayload(true),
-          );
-        });
-      });
-    },
-  );
+					expect(dispatchAnalytics).toHaveBeenCalledWith(
+						getExpectedRenderSuccessEventPayload(true),
+					);
+				});
+			});
+		},
+	);
 });

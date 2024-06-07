@@ -3,22 +3,22 @@
  *
  * Extract component prop types from UIKit 2 components - DatePickerProps
  *
- * @codegen <<SignedSource::d04d3ce6574c309a5c0469b43a1891ff>>
+ * @codegen <<SignedSource::f4e6b9ae946e8fe8074d89a3ff2ac52e>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/datepicker/__generated__/index.partial.tsx <<SignedSource::c81073870b6e0df94ccfaf046550c325>>
  */
 export interface FieldProps {
-  id: string;
-  isRequired: boolean;
-  isDisabled: boolean;
-  isInvalid: boolean;
-  onChange: (event: any) => any;
-  onBlur: () => any;
-  onFocus: () => any;
-  value: any;
-  'aria-invalid': 'true' | 'false';
-  'aria-labelledby': string;
-  name: string;
+	id: string;
+	isRequired: boolean;
+	isDisabled: boolean;
+	isInvalid: boolean;
+	onChange: (event: any) => any;
+	onBlur: () => any;
+	onFocus: () => any;
+	value: any;
+	'aria-invalid': 'true' | 'false';
+	'aria-labelledby': string;
+	name: string;
 }
 
 type Appearance = 'default' | 'subtle' | 'none';

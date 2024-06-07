@@ -6,18 +6,18 @@ import { type CardState } from '@atlaskit/linking-common';
 export type { CardType } from '@atlaskit/linking-common';
 
 const PENDING_STATE = {
-  status: 'pending',
+	status: 'pending',
 };
 
 export function useSmartCardState(url: string): CardState {
-  const { store } = useSmartLinkContext();
+	const { store } = useSmartLinkContext();
 
-  const cardState = useSyncExternalStoreWithSelector(
-    store.subscribe,
-    store.getState,
-    store.getState,
-    (state) => state[url],
-  );
+	const cardState = useSyncExternalStoreWithSelector(
+		store.subscribe,
+		store.getState,
+		store.getState,
+		(state) => state[url],
+	);
 
-  return cardState ?? PENDING_STATE;
+	return cardState ?? PENDING_STATE;
 }

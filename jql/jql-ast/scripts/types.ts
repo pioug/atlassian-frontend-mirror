@@ -1,9 +1,9 @@
 export type QueryRecord = {
-  jql: string;
-  count: number;
+	jql: string;
+	count: number;
 };
 
 export type QueryPerformance = {
-  jql: string;
-  milliseconds: number;
+	jql: string;
+	milliseconds: number;
 };

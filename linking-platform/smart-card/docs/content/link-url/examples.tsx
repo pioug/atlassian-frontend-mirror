@@ -5,9 +5,9 @@ import customMd from '../../utils/custom-md';
 export default customMd`
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/link-url').default}
-    source={require('!!raw-loader!../../../examples/link-url')}
-  />
+	<CustomExample
+		Component={require('../../../examples/link-url').default}
+		source={require('!!raw-loader!../../../examples/link-url')}
+	/>
 )}
 `;

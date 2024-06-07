@@ -8,69 +8,69 @@ import 'jest-extended';
 import useInvoke from '../index';
 
 jest.mock('@atlaskit/link-provider', () => ({
-  useSmartLinkContext: jest.fn().mockReturnValue({
-    connections: { client: {} },
-  }),
+	useSmartLinkContext: jest.fn().mockReturnValue({
+		connections: { client: {} },
+	}),
 }));
 
 jest.mock('@atlaskit/link-client-extension', () => ({
-  useSmartLinkClientExtension: jest.fn(),
+	useSmartLinkClientExtension: jest.fn(),
 }));
 
 describe('useInvoke', () => {
-  const request: InvokeRequest = {
-    action: {
-      actionType: SmartLinkActionType.GetStatusTransitionsAction,
-      resourceIdentifiers: {
-        issueKey: 'issue-id',
-        hostname: 'some-hostname',
-      },
-    },
-    providerKey: 'object-provider',
-  };
+	const request: InvokeRequest = {
+		action: {
+			actionType: SmartLinkActionType.GetStatusTransitionsAction,
+			resourceIdentifiers: {
+				issueKey: 'issue-id',
+				hostname: 'some-hostname',
+			},
+		},
+		providerKey: 'object-provider',
+	};
 
-  it('makes request to client extension', async () => {
-    const mockInvoke = jest.fn();
-    mocked(useSmartLinkClientExtension).mockReturnValue({
-      invoke: mockInvoke,
-      relatedUrls: jest.fn(),
-    });
+	it('makes request to client extension', async () => {
+		const mockInvoke = jest.fn();
+		mocked(useSmartLinkClientExtension).mockReturnValue({
+			invoke: mockInvoke,
+			relatedUrls: jest.fn(),
+		});
 
-    const { result } = renderHook(() => useInvoke());
+		const { result } = renderHook(() => useInvoke());
 
-    await result.current(request);
+		await result.current(request);
 
-    expect(mockInvoke).toHaveBeenCalledTimes(1);
-    expect(mockInvoke).toHaveBeenCalledWith(request);
-  });
+		expect(mockInvoke).toHaveBeenCalledTimes(1);
+		expect(mockInvoke).toHaveBeenCalledWith(request);
+	});
 
-  it('returns response', async () => {
-    const expectedResponse = { a: 'invoke-response' };
-    const mockInvoke = jest.fn().mockResolvedValueOnce(expectedResponse);
-    mocked(useSmartLinkClientExtension).mockReturnValue({
-      invoke: mockInvoke,
-      relatedUrls: jest.fn(),
-    });
+	it('returns response', async () => {
+		const expectedResponse = { a: 'invoke-response' };
+		const mockInvoke = jest.fn().mockResolvedValueOnce(expectedResponse);
+		mocked(useSmartLinkClientExtension).mockReturnValue({
+			invoke: mockInvoke,
+			relatedUrls: jest.fn(),
+		});
 
-    const { result } = renderHook(() => useInvoke());
+		const { result } = renderHook(() => useInvoke());
 
-    const response = await result.current(request);
+		const response = await result.current(request);
 
-    expect(response).toBe(expectedResponse);
-  });
+		expect(response).toBe(expectedResponse);
+	});
 
-  it('executes callback function', async () => {
-    const expectedResponse = { b: 'transform-response' };
-    const callback = jest.fn().mockReturnValue(expectedResponse);
-    mocked(useSmartLinkClientExtension).mockReturnValue({
-      invoke: jest.fn().mockResolvedValueOnce({ a: 'invoke-response' }),
-      relatedUrls: jest.fn(),
-    });
+	it('executes callback function', async () => {
+		const expectedResponse = { b: 'transform-response' };
+		const callback = jest.fn().mockReturnValue(expectedResponse);
+		mocked(useSmartLinkClientExtension).mockReturnValue({
+			invoke: jest.fn().mockResolvedValueOnce({ a: 'invoke-response' }),
+			relatedUrls: jest.fn(),
+		});
 
-    const { result } = renderHook(() => useInvoke());
+		const { result } = renderHook(() => useInvoke());
 
-    const response = await result.current(request, callback);
+		const response = await result.current(request, callback);
 
-    expect(response).toBe(expectedResponse);
-  });
+		expect(response).toBe(expectedResponse);
+	});
 });

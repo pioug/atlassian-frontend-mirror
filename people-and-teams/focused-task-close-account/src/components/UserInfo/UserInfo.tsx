@@ -5,24 +5,24 @@ import { type User } from '../../types';
 import * as Styled from './styles';
 
 interface Props {
-  user: User;
+	user: User;
 }
 
 export class UserInfo extends React.Component<Props> {
-  render() {
-    const { user } = this.props;
-    return (
-      <Styled.UserInfoOuter>
-        <Styled.Avatar>
-          <Avatar size="large" src={user.avatarUrl} />
-        </Styled.Avatar>
-        <Styled.UserDetails>
-          <Styled.UserName>{user.fullName}</Styled.UserName>
-          <Styled.UserEmail>{user.email}</Styled.UserEmail>
-        </Styled.UserDetails>
-      </Styled.UserInfoOuter>
-    );
-  }
+	render() {
+		const { user } = this.props;
+		return (
+			<Styled.UserInfoOuter>
+				<Styled.Avatar>
+					<Avatar size="large" src={user.avatarUrl} />
+				</Styled.Avatar>
+				<Styled.UserDetails>
+					<Styled.UserName>{user.fullName}</Styled.UserName>
+					<Styled.UserEmail>{user.email}</Styled.UserEmail>
+				</Styled.UserDetails>
+			</Styled.UserInfoOuter>
+		);
+	}
 }
 
 export default UserInfo;

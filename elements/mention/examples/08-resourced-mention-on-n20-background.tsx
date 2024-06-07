@@ -14,101 +14,93 @@ import { ELEMENTS_CHANNEL } from '../src/_constants';
 import ResourcedMention from '../src/components/Mention/ResourcedMention';
 
 const style = {
-  backgroundColor: token('elevation.surface.sunken', N20),
-  width: '100%',
-  padding: `${token('space.250', '20px')}`,
+	backgroundColor: token('elevation.surface.sunken', N20),
+	width: '100%',
+	padding: `${token('space.250', '20px')}`,
 };
 
 const padding = { padding: '10px' };
 
 const listenerHandler = (e: UIAnalyticsEvent) => {
-  debug(
-    'Analytics Next handler - payload:',
-    e.payload,
-    ' context: ',
-    e.context,
-  );
+	debug('Analytics Next handler - payload:', e.payload, ' context: ', e.context);
 };
 
 export default function Example() {
-  const mentionProvider = Promise.resolve(mentionResourceProviderWithResolver);
+	const mentionProvider = Promise.resolve(mentionResourceProviderWithResolver);
 
-  return (
-    <IntlProvider locale="en">
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={style}>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={padding}>
-          <AnalyticsListener
-            onEvent={listenerHandler}
-            channel={ELEMENTS_CHANNEL}
-          >
-            <ResourcedMention
-              {...mentionData}
-              accessLevel={'CONTAINER'}
-              mentionProvider={mentionProvider}
-              onClick={onMentionEvent}
-              onMouseEnter={onMentionEvent}
-              onMouseLeave={onMentionEvent}
-            />
-          </AnalyticsListener>
-        </div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={padding}>
-          <ResourcedMention
-            id="oscar"
-            text="@Oscar Wallhult"
-            mentionProvider={mentionProvider}
-            onClick={onMentionEvent}
-            onMouseEnter={onMentionEvent}
-            onMouseLeave={onMentionEvent}
-          />
-        </div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={padding}>
-          <ResourcedMention
-            {...mentionData}
-            accessLevel={'NONE'}
-            mentionProvider={mentionProvider}
-            onClick={onMentionEvent}
-            onMouseEnter={onMentionEvent}
-            onMouseLeave={onMentionEvent}
-          />
-        </div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={padding}>
-          <ResourcedMention
-            {...mentionData}
-            text=""
-            mentionProvider={mentionProvider}
-            onClick={onMentionEvent}
-            onMouseEnter={onMentionEvent}
-            onMouseLeave={onMentionEvent}
-          />
-        </div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={padding}>
-          <ResourcedMention
-            id="unknown"
-            text=""
-            mentionProvider={mentionProvider}
-            onClick={onMentionEvent}
-            onMouseEnter={onMentionEvent}
-            onMouseLeave={onMentionEvent}
-          />
-        </div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={padding}>
-          <ResourcedMention
-            id="service_error"
-            text=""
-            mentionProvider={mentionProvider}
-            onClick={onMentionEvent}
-            onMouseEnter={onMentionEvent}
-            onMouseLeave={onMentionEvent}
-          />
-        </div>
-      </div>
-    </IntlProvider>
-  );
+	return (
+		<IntlProvider locale="en">
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={style}>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<AnalyticsListener onEvent={listenerHandler} channel={ELEMENTS_CHANNEL}>
+						<ResourcedMention
+							{...mentionData}
+							accessLevel={'CONTAINER'}
+							mentionProvider={mentionProvider}
+							onClick={onMentionEvent}
+							onMouseEnter={onMentionEvent}
+							onMouseLeave={onMentionEvent}
+						/>
+					</AnalyticsListener>
+				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<ResourcedMention
+						id="oscar"
+						text="@Oscar Wallhult"
+						mentionProvider={mentionProvider}
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<ResourcedMention
+						{...mentionData}
+						accessLevel={'NONE'}
+						mentionProvider={mentionProvider}
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<ResourcedMention
+						{...mentionData}
+						text=""
+						mentionProvider={mentionProvider}
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<ResourcedMention
+						id="unknown"
+						text=""
+						mentionProvider={mentionProvider}
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={padding}>
+					<ResourcedMention
+						id="service_error"
+						text=""
+						mentionProvider={mentionProvider}
+						onClick={onMentionEvent}
+						onMouseEnter={onMentionEvent}
+						onMouseLeave={onMentionEvent}
+					/>
+				</div>
+			</div>
+		</IntlProvider>
+	);
 }

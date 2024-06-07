@@ -6,54 +6,54 @@ import { type CardPreview } from '../../../types';
 import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
 
 export type ImageRendererProps = {
-  readonly cardPreview: CardPreview;
-  readonly mediaType: MediaType;
-  readonly alt?: string;
-  readonly resizeMode?: ImageResizeMode;
-  readonly onDisplayImage?: () => void;
-  readonly onImageError?: (cardPreview: CardPreview) => void;
-  readonly onImageLoad?: (cardPreview: CardPreview) => void;
-  readonly nativeLazyLoad?: boolean;
-  readonly forceSyncDisplay?: boolean;
+	readonly cardPreview: CardPreview;
+	readonly mediaType: MediaType;
+	readonly alt?: string;
+	readonly resizeMode?: ImageResizeMode;
+	readonly onDisplayImage?: () => void;
+	readonly onImageError?: (cardPreview: CardPreview) => void;
+	readonly onImageLoad?: (cardPreview: CardPreview) => void;
+	readonly nativeLazyLoad?: boolean;
+	readonly forceSyncDisplay?: boolean;
 };
 
 export const ImageRenderer: React.FC<ImageRendererProps> = ({
-  cardPreview,
-  alt,
-  resizeMode,
-  onImageLoad,
-  onImageError,
-  onDisplayImage,
-  mediaType,
-  nativeLazyLoad,
-  forceSyncDisplay,
+	cardPreview,
+	alt,
+	resizeMode,
+	onImageLoad,
+	onImageError,
+	onDisplayImage,
+	mediaType,
+	nativeLazyLoad,
+	forceSyncDisplay,
 }) => {
-  const onDisplayImageRef = useCurrentValueRef(onDisplayImage);
-  useEffect(() => {
-    // TODO: trigger accordingly with the succeeded event. This could be a breaking change
-    if (mediaType === 'image') {
-      onDisplayImageRef.current?.();
-    }
-  }, [mediaType, onDisplayImageRef]);
+	const onDisplayImageRef = useCurrentValueRef(onDisplayImage);
+	useEffect(() => {
+		// TODO: trigger accordingly with the succeeded event. This could be a breaking change
+		if (mediaType === 'image') {
+			onDisplayImageRef.current?.();
+		}
+	}, [mediaType, onDisplayImageRef]);
 
-  const onLoad = () => {
-    onImageLoad && onImageLoad(cardPreview);
-  };
+	const onLoad = () => {
+		onImageLoad && onImageLoad(cardPreview);
+	};
 
-  const onError = () => {
-    onImageError && onImageError(cardPreview);
-  };
+	const onError = () => {
+		onImageError && onImageError(cardPreview);
+	};
 
-  return (
-    <MediaImage
-      dataURI={cardPreview.dataURI}
-      alt={alt}
-      previewOrientation={cardPreview.orientation}
-      onImageLoad={onLoad}
-      onImageError={onError}
-      loading={nativeLazyLoad ? 'lazy' : undefined}
-      forceSyncDisplay={forceSyncDisplay}
-      {...resizeModeToMediaImageProps(resizeMode)}
-    />
-  );
+	return (
+		<MediaImage
+			dataURI={cardPreview.dataURI}
+			alt={alt}
+			previewOrientation={cardPreview.orientation}
+			onImageLoad={onLoad}
+			onImageError={onError}
+			loading={nativeLazyLoad ? 'lazy' : undefined}
+			forceSyncDisplay={forceSyncDisplay}
+			{...resizeModeToMediaImageProps(resizeMode)}
+		/>
+	);
 };

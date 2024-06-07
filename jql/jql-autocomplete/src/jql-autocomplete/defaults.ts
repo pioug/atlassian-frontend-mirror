@@ -1,19 +1,19 @@
 import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
 
 export const defaultIgnoredTokens = new Set([
-  JQLLexer.EOF,
-  JQLLexer.LPAREN,
-  JQLLexer.RPAREN,
-  JQLLexer.LBRACKET,
-  JQLLexer.RBRACKET,
-  JQLLexer.STRING,
-  JQLLexer.QUOTE_STRING,
-  JQLLexer.SQUOTE_STRING,
-  JQLLexer.POSNUMBER,
-  JQLLexer.NEGNUMBER,
-  JQLLexer.BANG,
-  JQLLexer.CUSTOMFIELD,
-  JQLLexer.COMMA,
+	JQLLexer.EOF,
+	JQLLexer.LPAREN,
+	JQLLexer.RPAREN,
+	JQLLexer.LBRACKET,
+	JQLLexer.RBRACKET,
+	JQLLexer.STRING,
+	JQLLexer.QUOTE_STRING,
+	JQLLexer.SQUOTE_STRING,
+	JQLLexer.POSNUMBER,
+	JQLLexer.NEGNUMBER,
+	JQLLexer.BANG,
+	JQLLexer.CUSTOMFIELD,
+	JQLLexer.COMMA,
 ]);
 
 /**
@@ -38,27 +38,27 @@ export const defaultIgnoredTokens = new Set([
  *   rule will still be returned
  */
 export const unhandledRules: number[] = [
-  JQLParser.RULE_jqlFieldProperty, // stop field from being suggested after whitespace
+	JQLParser.RULE_jqlFieldProperty, // stop field from being suggested after whitespace
 ];
 
 const operatorRules = [
-  JQLParser.RULE_jqlEqualsOperator,
-  JQLParser.RULE_jqlLikeOperator,
-  JQLParser.RULE_jqlComparisonOperator,
-  JQLParser.RULE_jqlInOperator,
-  JQLParser.RULE_jqlIsOperator,
-  JQLParser.RULE_jqlWasOperator,
-  JQLParser.RULE_jqlWasInOperator,
-  JQLParser.RULE_jqlChangedOperator,
+	JQLParser.RULE_jqlEqualsOperator,
+	JQLParser.RULE_jqlLikeOperator,
+	JQLParser.RULE_jqlComparisonOperator,
+	JQLParser.RULE_jqlInOperator,
+	JQLParser.RULE_jqlIsOperator,
+	JQLParser.RULE_jqlWasOperator,
+	JQLParser.RULE_jqlWasInOperator,
+	JQLParser.RULE_jqlChangedOperator,
 ];
 
 const operandRules = [
-  JQLParser.RULE_jqlValue,
-  JQLParser.RULE_jqlFunction,
-  // If a new list can be started at caret position, autocomplete will return a special `list` rule
-  // that consumers can use do special handling. In the case of JQL editor, this means showing
-  // operands before the opening parenthesis has been typed, and then auto-inserting it for the user.
-  JQLParser.RULE_jqlListStart,
+	JQLParser.RULE_jqlValue,
+	JQLParser.RULE_jqlFunction,
+	// If a new list can be started at caret position, autocomplete will return a special `list` rule
+	// that consumers can use do special handling. In the case of JQL editor, this means showing
+	// operands before the opening parenthesis has been typed, and then auto-inserting it for the user.
+	JQLParser.RULE_jqlListStart,
 ];
 
 /**
@@ -71,16 +71,13 @@ const operandRules = [
  * More info at https://github.com/mike-lischke/antlr4-c3#preferred-rules
  */
 export const defaultPreferredRules = new Set([
-  JQLParser.RULE_jqlField,
-  ...operatorRules,
-  ...operandRules,
-  ...unhandledRules,
-  // Disable token suggestions for predicate operands.
-  // To be removed when we build proper autocomplete support.
-  JQLParser.RULE_jqlPredicateOperand,
+	JQLParser.RULE_jqlField,
+	...operatorRules,
+	...operandRules,
+	...unhandledRules,
+	// Disable token suggestions for predicate operands.
+	// To be removed when we build proper autocomplete support.
+	JQLParser.RULE_jqlPredicateOperand,
 ]);
 
-export const defaultDelimiterTokens = new Set([
-  JQLLexer.LPAREN,
-  JQLLexer.COMMA,
-]);
+export const defaultDelimiterTokens = new Set([JQLLexer.LPAREN, JQLLexer.COMMA]);

@@ -1,7 +1,7 @@
 import { type User } from '../../types';
 
 export interface DeactivateUserOverviewScreenProps {
-  accessibleSites: string[];
-  isCurrentUser: boolean;
-  user: User;
+	accessibleSites: string[];
+	isCurrentUser: boolean;
+	user: User;
 }

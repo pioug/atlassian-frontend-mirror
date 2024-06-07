@@ -21,7 +21,6 @@ import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
-
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
 

@@ -1,27 +1,27 @@
 import React from 'react';
 import {
-  md,
-  Example,
-  code,
-  Props,
-  AtlassianInternalWarning,
-  DevPreviewWarning,
+	md,
+	Example,
+	code,
+	Props,
+	AtlassianInternalWarning,
+	DevPreviewWarning,
 } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
 
 export default md`
   ${(
-    <>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ marginBottom: token('space.100', '8px') }}>
-        <AtlassianInternalWarning />
-      </div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ marginTop: token('space.100', '8px') }}>
-        <DevPreviewWarning />
-      </div>
-    </>
-  )}
+		<>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ marginBottom: token('space.100', '8px') }}>
+				<AtlassianInternalWarning />
+			</div>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ marginTop: token('space.100', '8px') }}>
+				<DevPreviewWarning />
+			</div>
+		</>
+	)}
 
   The React experiment framework is a set of React component that facilitate easier product experimentation.
 
@@ -60,25 +60,25 @@ export default md`
   In terms of tracking the success and failures of the experiment; the framework provides callbacks for onExposure (when an experience is shown), and onError (when an error was encountered due to misconfiguration or the component provided threw at render)
 
   ${(
-    <Example
-      packageName="@atlaskit/growth"
-      Component={require('../examples/00-basic').default}
-      title="Basic"
-      source={require('!!raw-loader!../examples/00-basic')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/growth"
+			Component={require('../examples/00-basic').default}
+			title="Basic"
+			source={require('!!raw-loader!../examples/00-basic')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="ExperimentController Props"
-      props={require('!!extract-react-types-loader!../src/ExperimentController')}
-    />
-  )}
+		<Props
+			heading="ExperimentController Props"
+			props={require('!!extract-react-types-loader!../src/ExperimentController')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="CohortTracker Props"
-      props={require('!!extract-react-types-loader!../src/CohortTracker')}
-    />
-  )}
+		<Props
+			heading="CohortTracker Props"
+			props={require('!!extract-react-types-loader!../src/CohortTracker')}
+		/>
+	)}
 `;

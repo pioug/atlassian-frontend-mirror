@@ -5,24 +5,24 @@ import { fetchMessagesForLocale } from './fetch-messages-for-locale';
 // The list of impacted locales is listed in traduki-descriptor-linking-platform-master.yml and has been used to write this test.
 
 describe('fetchMessageForLocale', () => {
-  test.each`
-    locale     | expected
-    ${'en-GB'} | ${'en_GB'}
-    ${'pt-BR'} | ${'pt_BR'}
-    ${'zh-TW'} | ${'zh_TW'}
-    ${'en-US'} | ${'en'}
-    ${'fr'}    | ${'fr'}
-  `(
-    'should resolve `$expected` messages for the `$locale` locale',
-    async ({ locale, expected }) => {
-      jest.mock(`../../../../i18n/${expected}`, () => {
-        return {
-          __esModule: true,
-          default: 'OK',
-        };
-      });
-      const result = await fetchMessagesForLocale(locale);
-      expect(result).toBe('OK');
-    },
-  );
+	test.each`
+		locale     | expected
+		${'en-GB'} | ${'en_GB'}
+		${'pt-BR'} | ${'pt_BR'}
+		${'zh-TW'} | ${'zh_TW'}
+		${'en-US'} | ${'en'}
+		${'fr'}    | ${'fr'}
+	`(
+		'should resolve `$expected` messages for the `$locale` locale',
+		async ({ locale, expected }) => {
+			jest.mock(`../../../../i18n/${expected}`, () => {
+				return {
+					__esModule: true,
+					default: 'OK',
+				};
+			});
+			const result = await fetchMessagesForLocale(locale);
+			expect(result).toBe('OK');
+		},
+	);
 });

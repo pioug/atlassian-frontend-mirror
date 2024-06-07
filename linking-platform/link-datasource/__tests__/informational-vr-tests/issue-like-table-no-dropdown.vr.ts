@@ -7,57 +7,55 @@ import JiraIssuesTableNoWrapControl from '../../examples/vr/issue-like-table-no-
 import JiraIssuesTableReadonly from '../../examples/vr/issue-like-table-readonly';
 
 snapshotInformational(JiraIssuesTableReadonly, {
-  prepare: async (page: Page, _component: Locator) => {
-    // Changing size of the viewport to focus on what is interesting to us.
-    page.setViewportSize({ height: 100, width: 300 });
+	prepare: async (page: Page, _component: Locator) => {
+		// Changing size of the viewport to focus on what is interesting to us.
+		page.setViewportSize({ height: 100, width: 300 });
 
-    // Hack to make test actually fail when hover effect is not there.
-    // We override default (pretty pale gray) hover color with red.
-    await page.addStyleTag({
-      content: `
+		// Hack to make test actually fail when hover effect is not there.
+		// We override default (pretty pale gray) hover color with red.
+		await page.addStyleTag({
+			content: `
         html {
           --ds-background-input-hovered: red !important;
         }
       `,
-    });
+		});
 
-    await page.getByTestId(`people-column-heading`).hover();
-  },
-  description: `Hovering over people header in readonly mode`,
-  ignoredErrors: [
-    {
-      pattern: /(received unsupported error)|(The above error occurred in the)/,
-      ignoredBecause:
-        'Intentionally triggering an error to capture error boundary fallback',
-      jiraIssueId: 'NONE-123',
-    },
-  ],
+		await page.getByTestId(`people-column-heading`).hover();
+	},
+	description: `Hovering over people header in readonly mode`,
+	ignoredErrors: [
+		{
+			pattern: /(received unsupported error)|(The above error occurred in the)/,
+			ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
+			jiraIssueId: 'NONE-123',
+		},
+	],
 });
 
 snapshotInformational(JiraIssuesTableNoWrapControl, {
-  prepare: async (page: Page, _component: Locator) => {
-    // Changing size of the viewport to focus on what is interesting to us.
-    page.setViewportSize({ height: 100, width: 300 });
+	prepare: async (page: Page, _component: Locator) => {
+		// Changing size of the viewport to focus on what is interesting to us.
+		page.setViewportSize({ height: 100, width: 300 });
 
-    // Hack to make test actually fail when hover effect is not there.
-    // We override default (pretty pale gray) hover color with red.
-    await page.addStyleTag({
-      content: `
+		// Hack to make test actually fail when hover effect is not there.
+		// We override default (pretty pale gray) hover color with red.
+		await page.addStyleTag({
+			content: `
         html {
           --ds-background-input-hovered: red !important;
         }
       `,
-    });
+		});
 
-    await page.getByTestId(`people-column-heading`).hover();
-  },
-  description: `Hovering over people header in no wrap controls mode`,
-  ignoredErrors: [
-    {
-      pattern: /(received unsupported error)|(The above error occurred in the)/,
-      ignoredBecause:
-        'Intentionally triggering an error to capture error boundary fallback',
-      jiraIssueId: 'NONE-123',
-    },
-  ],
+		await page.getByTestId(`people-column-heading`).hover();
+	},
+	description: `Hovering over people header in no wrap controls mode`,
+	ignoredErrors: [
+		{
+			pattern: /(received unsupported error)|(The above error occurred in the)/,
+			ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
+			jiraIssueId: 'NONE-123',
+		},
+	],
 });

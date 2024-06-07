@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { di } from 'react-magnetic-di';
 
-import {
-  useEditorStateHasJqlError,
-  useExternalMessages,
-  useJqlError,
-} from '../../state';
+import { useEditorStateHasJqlError, useExternalMessages, useJqlError } from '../../state';
 
 /**
  * Determine if the editor view should be displayed in an invalid state. To determine if the editor is invalid we adopt
@@ -19,28 +15,28 @@ import {
  *    shown until their next search
  */
 export const useEditorViewIsInvalid = (): boolean => {
-  di(useJqlError, useExternalMessages, useEditorStateHasJqlError);
+	di(useJqlError, useExternalMessages, useEditorStateHasJqlError);
 
-  const [jqlError] = useJqlError();
-  const [{ errors: externalErrors }] = useExternalMessages();
-  const [editorStateHasJqlError] = useEditorStateHasJqlError();
+	const [jqlError] = useJqlError();
+	const [{ errors: externalErrors }] = useExternalMessages();
+	const [editorStateHasJqlError] = useEditorStateHasJqlError();
 
-  // Determines if the last searched query contained an error that has not been fixed in the editor
-  const [hasActiveError, setHasActiveError] = useState(false);
+	// Determines if the last searched query contained an error that has not been fixed in the editor
+	const [hasActiveError, setHasActiveError] = useState(false);
 
-  const hasActiveExternalError = jqlError === null && externalErrors.length > 0;
+	const hasActiveExternalError = jqlError === null && externalErrors.length > 0;
 
-  // Update hasActiveError whenever a query has been searched and the resulting jqlError has changed
-  useEffect(() => {
-    setHasActiveError(jqlError !== null);
-  }, [jqlError]);
+	// Update hasActiveError whenever a query has been searched and the resulting jqlError has changed
+	useEffect(() => {
+		setHasActiveError(jqlError !== null);
+	}, [jqlError]);
 
-  // Set hasActiveError to false whenever the editor JQL is valid
-  useEffect(() => {
-    if (!editorStateHasJqlError) {
-      setHasActiveError(false);
-    }
-  }, [editorStateHasJqlError]);
+	// Set hasActiveError to false whenever the editor JQL is valid
+	useEffect(() => {
+		if (!editorStateHasJqlError) {
+			setHasActiveError(false);
+		}
+	}, [editorStateHasJqlError]);
 
-  return hasActiveError || hasActiveExternalError;
+	return hasActiveError || hasActiveExternalError;
 };

@@ -10,49 +10,41 @@ import { ArticleLoadingFail } from '../../index';
 // Messages
 const cache = createIntlCache();
 const intl = createIntl(
-  {
-    locale: 'en',
-    messages: {},
-  },
-  cache,
+	{
+		locale: 'en',
+		messages: {},
+	},
+	cache,
 );
-const messageButtonLabel = intl.formatMessage(
-  messages.help_article_error_button_label,
-);
+const messageButtonLabel = intl.formatMessage(messages.help_article_error_button_label);
 
 const mockOnTryAgainButtonClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('ArticleLoadingFail', () => {
-  it('Should match snapshot', () => {
-    const { container } = render(
-      <AnalyticsListener channel="help" onEvent={analyticsSpy}>
-        <ArticleLoadingFail
-          onTryAgainButtonClick={mockOnTryAgainButtonClick}
-          intl={intl}
-        />
-      </AnalyticsListener>,
-    );
+	it('Should match snapshot', () => {
+		const { container } = render(
+			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
+				<ArticleLoadingFail onTryAgainButtonClick={mockOnTryAgainButtonClick} intl={intl} />
+			</AnalyticsListener>,
+		);
 
-    expect(container.firstChild).toMatchSnapshot();
-  });
+		expect(container.firstChild).toMatchSnapshot();
+	});
 
-  it('it should call handleOnClick when the user click the loading error button', () => {
-    const { getByText } = render(
-      <AnalyticsListener channel="help" onEvent={analyticsSpy}>
-        <ArticleLoadingFail
-          onTryAgainButtonClick={mockOnTryAgainButtonClick}
-          intl={intl}
-        />
-      </AnalyticsListener>,
-    );
+	it('it should call handleOnClick when the user click the loading error button', () => {
+		const { getByText } = render(
+			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
+				<ArticleLoadingFail onTryAgainButtonClick={mockOnTryAgainButtonClick} intl={intl} />
+			</AnalyticsListener>,
+		);
 
-    const buttonTryAgain = getByText(messageButtonLabel).closest('button');
-    expect(buttonTryAgain).not.toBeNull;
+		const buttonTryAgain = getByText(messageButtonLabel).closest('button');
+		expect(buttonTryAgain).not.toBeNull;
 
-    if (buttonTryAgain) {
-      fireEvent.click(buttonTryAgain);
-      expect(mockOnTryAgainButtonClick).toHaveBeenCalledTimes(1);
-    }
-  });
+		if (buttonTryAgain) {
+			fireEvent.click(buttonTryAgain);
+			expect(mockOnTryAgainButtonClick).toHaveBeenCalledTimes(1);
+		}
+	});
 });

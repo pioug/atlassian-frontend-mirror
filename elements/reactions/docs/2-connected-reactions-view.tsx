@@ -98,33 +98,33 @@ export default md`
   };`}
 
   ${(
-    <>
-      <br />
-      <SectionMessage
-        appearance="warning"
-        title="There should be only one instance of EmojiResource in your application"
-      >
-        <p>
-          Make sure EmojiResource is initialised only once to avoid performance
-          issues using useMemo.
-        </p>
-      </SectionMessage>
-    </>
-  )}
+		<>
+			<br />
+			<SectionMessage
+				appearance="warning"
+				title="There should be only one instance of EmojiResource in your application"
+			>
+				<p>
+					Make sure EmojiResource is initialised only once to avoid performance issues using
+					useMemo.
+				</p>
+			</SectionMessage>
+		</>
+	)}
 
   ${(
-    <Example
-      packageName="@atlaskit/reactions"
-      Component={ConnectedReactionsViewExample}
-      title="Connected Reactions View"
-      source={require('!!raw-loader!../examples/01-connected-reactions-view')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/reactions"
+			Component={ConnectedReactionsViewExample}
+			title="Connected Reactions View"
+			source={require('!!raw-loader!../examples/01-connected-reactions-view')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="ConnectedReactionsView type"
-      props={require('!!extract-react-types-loader!../extract-react-type/ConnectedReactionsView')}
-    />
-  )}
+		<Props
+			heading="ConnectedReactionsView type"
+			props={require('!!extract-react-types-loader!../extract-react-type/ConnectedReactionsView')}
+		/>
+	)}
 `;

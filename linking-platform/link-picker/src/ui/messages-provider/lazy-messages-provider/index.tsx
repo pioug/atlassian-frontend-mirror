@@ -7,18 +7,13 @@ import en from '../../../i18n/en';
 import { fetchMessagesForLocale } from './utils/fetch-messages-for-locale';
 
 type LazyMessagesProviderProps = {
-  children?: React.ReactNode;
+	children?: React.ReactNode;
 };
 
-export const LazyMessagesProvider = ({
-  children,
-}: LazyMessagesProviderProps) => {
-  return (
-    <IntlMessagesProvider
-      defaultMessages={en}
-      loaderFn={fetchMessagesForLocale}
-    >
-      {children}
-    </IntlMessagesProvider>
-  );
+export const LazyMessagesProvider = ({ children }: LazyMessagesProviderProps) => {
+	return (
+		<IntlMessagesProvider defaultMessages={en} loaderFn={fetchMessagesForLocale}>
+			{children}
+		</IntlMessagesProvider>
+	);
 };

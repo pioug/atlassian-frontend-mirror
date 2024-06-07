@@ -9,27 +9,23 @@ import { type JQLEditorCommand } from '../../schema';
  * A Prosemirror Command that will select the first JQL error in the query if present.
  */
 export const selectErrorCommand: JQLEditorCommand = (state, _, view) => {
-  const jast = getJastFromState(state);
-  const error = jast.errors.length > 0 ? jast.errors[0] : null;
-  if (!(error instanceof JQLSyntaxError) || !view) {
-    return false;
-  }
+	const jast = getJastFromState(state);
+	const error = jast.errors.length > 0 ? jast.errors[0] : null;
+	if (!(error instanceof JQLSyntaxError) || !view) {
+		return false;
+	}
 
-  const transaction = state.tr;
+	const transaction = state.tr;
 
-  const documentFrom = getDocumentPosition(transaction.doc, error.start);
-  const documentTo = getDocumentPosition(transaction.doc, error.stop);
+	const documentFrom = getDocumentPosition(transaction.doc, error.start);
+	const documentTo = getDocumentPosition(transaction.doc, error.stop);
 
-  const selection = TextSelection.create(
-    transaction.doc,
-    documentFrom,
-    documentTo,
-  );
-  transaction.setSelection(selection);
-  transaction.scrollIntoView();
+	const selection = TextSelection.create(transaction.doc, documentFrom, documentTo);
+	transaction.setSelection(selection);
+	transaction.scrollIntoView();
 
-  view.focus();
-  view.dispatch(transaction);
+	view.focus();
+	view.dispatch(transaction);
 
-  return true;
+	return true;
 };

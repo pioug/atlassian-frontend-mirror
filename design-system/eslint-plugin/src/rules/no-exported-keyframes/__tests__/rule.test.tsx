@@ -4,55 +4,55 @@ import rule from '../index';
 const indent = (level: number) => ' '.repeat(level * 2);
 
 const keyframes = [
-  () => 'keyframes``',
-  () => 'keyframes({})',
-  (level: number) =>
-    [
-      'keyframes`',
-      indent(level + 1) + 'from { opacity: 1 }',
-      indent(level + 1) + 'to   { opacity: 0 }',
-      indent(level) + '`',
-    ].join('\n'),
-  (level: number) =>
-    [
-      'keyframes({',
-      indent(level + 1) + 'from: { opacity: 1 },',
-      indent(level + 1) + 'to:   { opacity: 0 }',
-      indent(level) + '})',
-    ].join('\n'),
+	() => 'keyframes``',
+	() => 'keyframes({})',
+	(level: number) =>
+		[
+			'keyframes`',
+			indent(level + 1) + 'from { opacity: 1 }',
+			indent(level + 1) + 'to   { opacity: 0 }',
+			indent(level) + '`',
+		].join('\n'),
+	(level: number) =>
+		[
+			'keyframes({',
+			indent(level + 1) + 'from: { opacity: 1 },',
+			indent(level + 1) + 'to:   { opacity: 0 }',
+			indent(level) + '})',
+		].join('\n'),
 ];
 
 const level = 5;
 
 const createTestCases = (importSource: string) =>
-  keyframes.flatMap((createKeyframe) => [
-    {
-      code: `
+	keyframes.flatMap((createKeyframe) => [
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           ${createKeyframe(level)};
         `,
-      errors: [],
-    },
-    {
-      // name: 'should also fail for renamed imports',
-      code: `
+			errors: [],
+		},
+		{
+			// name: 'should also fail for renamed imports',
+			code: `
           import { keyframes as keyframes2 } from '${importSource}';
 
           export const animation = keyframes2\`\`;
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           export const Component = () => (
@@ -63,10 +63,10 @@ const createTestCases = (importSource: string) =>
             />
           );
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animationName = ${createKeyframe(level)};
@@ -75,10 +75,10 @@ const createTestCases = (importSource: string) =>
             <div css={{ animationName }} />
           );
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           export default () => (
@@ -89,10 +89,10 @@ const createTestCases = (importSource: string) =>
             />
           );
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animationName = ${createKeyframe(level)};
@@ -101,38 +101,38 @@ const createTestCases = (importSource: string) =>
             <div css={{ animationName }} />
           );
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           export const animation = ${createKeyframe(level)};
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
 
           export const keyframe = animation;
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           export const animations = {
             animation: ${createKeyframe(level + 1)},
           };
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
@@ -141,10 +141,10 @@ const createTestCases = (importSource: string) =>
             animation,
           };
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = {
@@ -153,10 +153,10 @@ const createTestCases = (importSource: string) =>
 
           export const keyframe = animations.animation;
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
@@ -167,10 +167,10 @@ const createTestCases = (importSource: string) =>
 
           export const keyframe = animations.animation;
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = {
@@ -180,10 +180,10 @@ const createTestCases = (importSource: string) =>
 
           export const keyframe = animations.foo;
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
@@ -195,41 +195,41 @@ const createTestCases = (importSource: string) =>
 
           export const keyframe = animations.foo;
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
 
           export { animation };
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
 
           export const animations = [animation];
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      // Note: Array indices are not inspected
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			// Note: Array indices are not inspected
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = [${createKeyframe(level)}];
 
           export const animation = animations[0];
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = {
@@ -238,10 +238,10 @@ const createTestCases = (importSource: string) =>
 
           export { animations };
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
@@ -252,10 +252,10 @@ const createTestCases = (importSource: string) =>
 
           export { animations };
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = {
@@ -266,10 +266,10 @@ const createTestCases = (importSource: string) =>
 
           export { animation };
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = {
@@ -281,28 +281,28 @@ const createTestCases = (importSource: string) =>
 
           export { animation };
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           export default ${createKeyframe(level)};
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
 
           export default animation;
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = {
@@ -311,10 +311,10 @@ const createTestCases = (importSource: string) =>
 
           export default animations;
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
@@ -325,10 +325,10 @@ const createTestCases = (importSource: string) =>
 
           export default animations;
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = {
@@ -337,10 +337,10 @@ const createTestCases = (importSource: string) =>
 
           export default animations.animation;
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
@@ -351,10 +351,10 @@ const createTestCases = (importSource: string) =>
 
           export default animations.animation;
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = {
@@ -364,10 +364,10 @@ const createTestCases = (importSource: string) =>
 
           export default animations.foo;
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
@@ -379,71 +379,67 @@ const createTestCases = (importSource: string) =>
 
           export default animations.foo;
         `,
-      errors: [],
-    },
-    {
-      code: `
+			errors: [],
+		},
+		{
+			code: `
           import { keyframes } from '${importSource}';
 
           const animation = ${createKeyframe(level)};
 
           export default [animation];
         `,
-      errors: [{ messageId: 'unexpected' }],
-    },
-    {
-      // Note: Array indices are not inspected
-      code: `
+			errors: [{ messageId: 'unexpected' }],
+		},
+		{
+			// Note: Array indices are not inspected
+			code: `
           import { keyframes } from '${importSource}';
 
           const animations = [${createKeyframe(level)}];
 
           export default animations[0];
         `,
-      errors: [],
-    },
-    {
-      // name: 'should not parse package imports not defined in importSources',
-      code: `
+			errors: [],
+		},
+		{
+			// name: 'should not parse package imports not defined in importSources',
+			code: `
           import { keyframes } from '@emotion/react';
 
           const animation = ${createKeyframe(level)};
 
           export { animation };
         `,
-      options: [{ importSources: ['my-package'] }],
-      errors: [],
-    },
-    {
-      // name: 'should not parse unrelated package imports when importSources not defined',
-      code: `
+			options: [{ importSources: ['my-package'] }],
+			errors: [],
+		},
+		{
+			// name: 'should not parse unrelated package imports when importSources not defined',
+			code: `
           import { keyframes } from 'my-package';
 
           const animation = ${createKeyframe(level)};
 
           export { animation };
         `,
-      errors: [],
-    },
-    {
-      // name: 'should include package imports defined in importSources',
-      code: `
+			errors: [],
+		},
+		{
+			// name: 'should include package imports defined in importSources',
+			code: `
           import { keyframes } from '@emotion/react';
 
           const animation = ${createKeyframe(level)};
 
           export { animation };
         `,
-      options: [{ importSources: ['@emotion/react'] }],
-      errors: [{ messageId: 'unexpected' }],
-    },
-  ]);
+			options: [{ importSources: ['@emotion/react'] }],
+			errors: [{ messageId: 'unexpected' }],
+		},
+	]);
 
 tester.run('no-exported-keyframes', rule, {
-  valid: createTestCases('@compiled/react').filter(
-    ({ errors }) => !errors.length,
-  ),
-  invalid: createTestCases('@compiled/react').filter(
-    ({ errors }) => errors.length,
-  ),
+	valid: createTestCases('@compiled/react').filter(({ errors }) => !errors.length),
+	invalid: createTestCases('@compiled/react').filter(({ errors }) => errors.length),
 });

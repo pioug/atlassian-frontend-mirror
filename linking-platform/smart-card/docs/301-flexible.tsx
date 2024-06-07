@@ -99,30 +99,30 @@ For example, we can hide the background, elevation and padding,
 creating the “list” appearance common in Atlassian sidebars.
 
 ${(
-  <CustomExample
-    Component={require('../examples/content/flexible-ui-list').default}
-    source={require('!!raw-loader!../examples/content/flexible-ui-list')}
-  />
+	<CustomExample
+		Component={require('../examples/content/flexible-ui-list').default}
+		source={require('!!raw-loader!../examples/content/flexible-ui-list')}
+	/>
 )}
 
 Use [TitleBlock](./title-block) together with [PreviewBlock](./preview-block), [MetadataBlock](./metadata-block), [SnippetBlock](./snippet-block), and [FooterBlock](./footer-block)
 can create a comprehensive content for the link resource.
 
 ${(
-  <CustomExample
-    Component={require('../examples/content/flexible-ui-card').default}
-    source={require('!!raw-loader!../examples/content/flexible-ui-card')}
-  />
+	<CustomExample
+		Component={require('../examples/content/flexible-ui-card').default}
+		source={require('!!raw-loader!../examples/content/flexible-ui-card')}
+	/>
 )}
 
 There is no limit on how many blocks you can put inside Flexible Smart Links.
 Repeat the [MetadataBlock](./metadata-block) to enrich the linking experience.
 
 ${(
-  <CustomExample
-    Component={require('../examples/content/flexible-ui-card-list').default}
-    source={require('!!raw-loader!../examples/content/flexible-ui-card-list')}
-  />
+	<CustomExample
+		Component={require('../examples/content/flexible-ui-card-list').default}
+		source={require('!!raw-loader!../examples/content/flexible-ui-card-list')}
+	/>
 )}
 
 This is just the beginning!

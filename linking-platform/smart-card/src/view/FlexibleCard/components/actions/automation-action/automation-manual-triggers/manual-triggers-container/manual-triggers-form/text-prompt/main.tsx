@@ -9,41 +9,39 @@ import messages from '../../common/messages';
 import type { UserInputTextPrompt } from '../../common/types';
 
 interface TextInputPromptProps {
-  userInputPrompt: UserInputTextPrompt;
+	userInputPrompt: UserInputTextPrompt;
 }
 
 enum Errors {
-  EMPTY = 'EMPTY',
+	EMPTY = 'EMPTY',
 }
 
 const TextInputPrompt = ({ userInputPrompt }: TextInputPromptProps) => {
-  di(ErrorMessage, Field, Textfield);
+	di(ErrorMessage, Field, Textfield);
 
-  const { variableName, required, displayName, defaultValue } = userInputPrompt;
+	const { variableName, required, displayName, defaultValue } = userInputPrompt;
 
-  const validate = (value?: string): Errors | undefined =>
-    required && !value ? Errors.EMPTY : undefined;
+	const validate = (value?: string): Errors | undefined =>
+		required && !value ? Errors.EMPTY : undefined;
 
-  return (
-    <Field
-      name={variableName}
-      label={displayName}
-      defaultValue={defaultValue}
-      isRequired={required}
-      validate={validate}
-    >
-      {({ fieldProps, error }) => (
-        <>
-          <Textfield {...fieldProps} />
-          {error === Errors.EMPTY && (
-            <ErrorMessage>
-              {messages.errorInputMustNotBeEmpty.defaultMessage}
-            </ErrorMessage>
-          )}
-        </>
-      )}
-    </Field>
-  );
+	return (
+		<Field
+			name={variableName}
+			label={displayName}
+			defaultValue={defaultValue}
+			isRequired={required}
+			validate={validate}
+		>
+			{({ fieldProps, error }) => (
+				<>
+					<Textfield {...fieldProps} />
+					{error === Errors.EMPTY && (
+						<ErrorMessage>{messages.errorInputMustNotBeEmpty.defaultMessage}</ErrorMessage>
+					)}
+				</>
+			)}
+		</Field>
+	);
 };
 
 export default TextInputPrompt;

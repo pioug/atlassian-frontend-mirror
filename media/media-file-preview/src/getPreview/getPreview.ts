@@ -1,131 +1,113 @@
 import {
-  addFileAttrsToUrl,
-  type FilePreview,
-  type MediaBlobUrlAttrs,
-  type MediaClient,
-  type MediaStoreGetFileImageParams,
+	addFileAttrsToUrl,
+	type FilePreview,
+	type MediaBlobUrlAttrs,
+	type MediaClient,
+	type MediaStoreGetFileImageParams,
 } from '@atlaskit/media-client';
 import { type MediaTraceContext, type SSR } from '@atlaskit/media-common';
 
 import { SsrPreviewError } from '../errors';
 import {
-  type MediaFilePreview,
-  type MediaFilePreviewDimensions,
-  type MediaFilePreviewSource,
+	type MediaFilePreview,
+	type MediaFilePreviewDimensions,
+	type MediaFilePreviewSource,
 } from '../types';
 
 import { mediaFilePreviewCache } from './cache';
 import { getLocalPreview, getRemotePreview } from './helpers';
 
 const extendAndCachePreview = (
-  id: string,
-  mode: MediaStoreGetFileImageParams['mode'] | undefined,
-  preview: MediaFilePreview,
-  mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+	id: string,
+	mode: MediaStoreGetFileImageParams['mode'] | undefined,
+	preview: MediaFilePreview,
+	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
 ): MediaFilePreview => {
-  let source: MediaFilePreview['source'];
-  switch (preview.source) {
-    case 'local':
-      source = 'cache-local';
-      break;
-    case 'remote':
-      source = 'cache-remote';
-      break;
-    default:
-      source = preview.source;
-  }
-  // We want to embed some meta context into dataURI for Copy/Paste to work.
-  const dataURI = mediaBlobUrlAttrs
-    ? addFileAttrsToUrl(preview.dataURI, mediaBlobUrlAttrs)
-    : preview.dataURI;
-  // We store new cardPreview into cache
-  mediaFilePreviewCache.set(id, mode, { ...preview, source, dataURI });
-  return { ...preview, dataURI };
+	let source: MediaFilePreview['source'];
+	switch (preview.source) {
+		case 'local':
+			source = 'cache-local';
+			break;
+		case 'remote':
+			source = 'cache-remote';
+			break;
+		default:
+			source = preview.source;
+	}
+	// We want to embed some meta context into dataURI for Copy/Paste to work.
+	const dataURI = mediaBlobUrlAttrs
+		? addFileAttrsToUrl(preview.dataURI, mediaBlobUrlAttrs)
+		: preview.dataURI;
+	// We store new cardPreview into cache
+	mediaFilePreviewCache.set(id, mode, { ...preview, source, dataURI });
+	return { ...preview, dataURI };
 };
 
 export const getSSRPreview = (
-  ssr: SSR,
-  mediaClient: MediaClient,
-  id: string,
-  params: MediaStoreGetFileImageParams,
-  mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+	ssr: SSR,
+	mediaClient: MediaClient,
+	id: string,
+	params: MediaStoreGetFileImageParams,
+	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
 ): MediaFilePreview => {
-  let dataURI: string;
-  try {
-    const rawDataURI = mediaClient.getImageUrlSync(id, params);
-    // We want to embed some meta context into dataURI for Copy/Paste to work.
-    dataURI = mediaBlobUrlAttrs
-      ? addFileAttrsToUrl(rawDataURI, mediaBlobUrlAttrs)
-      : rawDataURI;
-    const source = ssr === 'client' ? 'ssr-client' : 'ssr-server';
-    return { dataURI, source, orientation: 1 };
-  } catch (e) {
-    const reason = ssr === 'server' ? 'ssr-server-uri' : 'ssr-client-uri';
-    throw new SsrPreviewError(reason, e instanceof Error ? e : undefined);
-  }
+	let dataURI: string;
+	try {
+		const rawDataURI = mediaClient.getImageUrlSync(id, params);
+		// We want to embed some meta context into dataURI for Copy/Paste to work.
+		dataURI = mediaBlobUrlAttrs ? addFileAttrsToUrl(rawDataURI, mediaBlobUrlAttrs) : rawDataURI;
+		const source = ssr === 'client' ? 'ssr-client' : 'ssr-server';
+		return { dataURI, source, orientation: 1 };
+	} catch (e) {
+		const reason = ssr === 'server' ? 'ssr-server-uri' : 'ssr-client-uri';
+		throw new SsrPreviewError(reason, e instanceof Error ? e : undefined);
+	}
 };
 
 export const isLocalPreview = (preview: MediaFilePreview) => {
-  const localSources: MediaFilePreviewSource[] = ['local', 'cache-local'];
-  return localSources.includes(preview.source);
+	const localSources: MediaFilePreviewSource[] = ['local', 'cache-local'];
+	return localSources.includes(preview.source);
 };
 
 export const isRemotePreview = (preview: MediaFilePreview) => {
-  const remoteSources: MediaFilePreviewSource[] = ['remote', 'cache-remote'];
-  return remoteSources.includes(preview.source);
+	const remoteSources: MediaFilePreviewSource[] = ['remote', 'cache-remote'];
+	return remoteSources.includes(preview.source);
 };
 
-export const isSSRClientPreview = (preview: MediaFilePreview) =>
-  preview.source === 'ssr-client';
+export const isSSRClientPreview = (preview: MediaFilePreview) => preview.source === 'ssr-client';
 
-export const isSSRDataPreview = (preview: MediaFilePreview) =>
-  preview.source === 'ssr-data';
+export const isSSRDataPreview = (preview: MediaFilePreview) => preview.source === 'ssr-data';
 
 export const isSSRPreview = (preview: MediaFilePreview) => {
-  const ssrClientSources: MediaFilePreviewSource[] = [
-    'ssr-client',
-    'ssr-server',
-    'ssr-data',
-  ];
-  return ssrClientSources.includes(preview.source);
+	const ssrClientSources: MediaFilePreviewSource[] = ['ssr-client', 'ssr-server', 'ssr-data'];
+	return ssrClientSources.includes(preview.source);
 };
 
 export const getAndCacheRemotePreview = async (
-  mediaClient: MediaClient,
-  id: string,
-  dimensions: MediaFilePreviewDimensions,
-  params: MediaStoreGetFileImageParams,
-  mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
-  traceContext?: MediaTraceContext,
+	mediaClient: MediaClient,
+	id: string,
+	dimensions: MediaFilePreviewDimensions,
+	params: MediaStoreGetFileImageParams,
+	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+	traceContext?: MediaTraceContext,
 ) => {
-  const remotePreview = await getRemotePreview(
-    mediaClient,
-    id,
-    params,
-    traceContext,
-  );
+	const remotePreview = await getRemotePreview(mediaClient, id, params, traceContext);
 
-  return extendAndCachePreview(
-    id,
-    params.mode,
-    { ...remotePreview, dimensions },
-    mediaBlobUrlAttrs,
-  );
+	return extendAndCachePreview(
+		id,
+		params.mode,
+		{ ...remotePreview, dimensions },
+		mediaBlobUrlAttrs,
+	);
 };
 
 export const getAndCacheLocalPreview = async (
-  id: string,
-  filePreview: FilePreview | Promise<FilePreview>,
-  dimensions: MediaFilePreviewDimensions,
-  mode: MediaStoreGetFileImageParams['mode'],
-  mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
+	id: string,
+	filePreview: FilePreview | Promise<FilePreview>,
+	dimensions: MediaFilePreviewDimensions,
+	mode: MediaStoreGetFileImageParams['mode'],
+	mediaBlobUrlAttrs?: MediaBlobUrlAttrs,
 ) => {
-  const localPreview = await getLocalPreview(filePreview);
+	const localPreview = await getLocalPreview(filePreview);
 
-  return extendAndCachePreview(
-    id,
-    mode,
-    { ...localPreview, dimensions },
-    mediaBlobUrlAttrs,
-  );
+	return extendAndCachePreview(id, mode, { ...localPreview, dimensions }, mediaBlobUrlAttrs);
 };

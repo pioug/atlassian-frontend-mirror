@@ -21,11 +21,11 @@ Each action item accepts an onClick event and provides preset icon and label.
 With exception of a custom action which either Icon or label must be provided.
 
 ${(
-  <ContentTabs
-    tabs={[
-      { name: TabName.Examples, content: examples },
-      { name: TabName.Reference, content: reference },
-    ]}
-  />
+	<ContentTabs
+		tabs={[
+			{ name: TabName.Examples, content: examples },
+			{ name: TabName.Reference, content: reference },
+		]}
+	/>
 )}
 `;

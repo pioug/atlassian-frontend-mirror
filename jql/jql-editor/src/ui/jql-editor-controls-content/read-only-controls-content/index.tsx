@@ -11,18 +11,18 @@ import { BaseSearch } from '../base-search';
 import { BaseSyntaxHelp } from '../base-syntax-help';
 
 export const ReadOnlyControlsContent = () => {
-  const { isSearch } = useEditorThemeContext();
-  return (
-    <>
-      <BaseExpandToggle
-        label={''}
-        editorId={''}
-        expanded={false}
-        onClick={noop}
-        isDisabled={true}
-      />
-      <BaseSyntaxHelp label={''} onClick={noop} isDisabled={true} />
-      {isSearch && <BaseSearch label={''} onSearch={noop} isDisabled={true} />}
-    </>
-  );
+	const { isSearch } = useEditorThemeContext();
+	return (
+		<>
+			<BaseExpandToggle
+				label={''}
+				editorId={''}
+				expanded={false}
+				onClick={noop}
+				isDisabled={true}
+			/>
+			<BaseSyntaxHelp label={''} onClick={noop} isDisabled={true} />
+			{isSearch && <BaseSearch label={''} onSearch={noop} isDisabled={true} />}
+		</>
+	);
 };

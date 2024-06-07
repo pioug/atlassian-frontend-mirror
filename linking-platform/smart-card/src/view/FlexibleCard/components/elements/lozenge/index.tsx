@@ -7,8 +7,8 @@ import type { LozengeProps } from './types';
 import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
 
 const styles = css({
-  display: 'inline-flex',
-  lineHeight: 'inherit',
+	display: 'inline-flex',
+	lineHeight: 'inherit',
 });
 
 /**
@@ -18,49 +18,49 @@ const styles = css({
  * @see State
  */
 const Lozenge: React.FC<LozengeProps> = ({
-  action,
-  appearance = 'default',
-  name,
-  overrideCss,
-  style,
-  text,
-  testId = 'smart-element-lozenge',
+	action,
+	appearance = 'default',
+	name,
+	overrideCss,
+	style,
+	text,
+	testId = 'smart-element-lozenge',
 }) => {
-  const ui = useFlexibleUiOptionContext();
-  if (!text) {
-    return null;
-  }
+	const ui = useFlexibleUiOptionContext();
+	if (!text) {
+		return null;
+	}
 
-  const lozenge = action ? (
-    <LozengeAction
-      action={action}
-      appearance={appearance}
-      testId={testId}
-      text={text}
-      zIndex={ui?.zIndex}
-    />
-  ) : (
-    <AtlaskitLozenge
-      appearance={appearance}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      style={style}
-      testId={`${testId}-lozenge`}
-    >
-      {text}
-    </AtlaskitLozenge>
-  );
+	const lozenge = action ? (
+		<LozengeAction
+			action={action}
+			appearance={appearance}
+			testId={testId}
+			text={text}
+			zIndex={ui?.zIndex}
+		/>
+	) : (
+		<AtlaskitLozenge
+			appearance={appearance}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={style}
+			testId={`${testId}-lozenge`}
+		>
+			{text}
+		</AtlaskitLozenge>
+	);
 
-  return (
-    <span
-      css={[styles, overrideCss]}
-      data-fit-to-content
-      data-smart-element={name}
-      data-smart-element-lozenge
-      data-testid={testId}
-    >
-      {lozenge}
-    </span>
-  );
+	return (
+		<span
+			css={[styles, overrideCss]}
+			data-fit-to-content
+			data-smart-element={name}
+			data-smart-element-lozenge
+			data-testid={testId}
+		>
+			{lozenge}
+		</span>
+	);
 };
 
 export default Lozenge;

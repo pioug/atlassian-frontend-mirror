@@ -8,11 +8,9 @@ import type { ImportDeclaration } from 'eslint-codemod-utils';
  * @returns {ImportDeclaration}
  */
 export const getImportedNodeBySource = (source: SourceCode, path: string) => {
-  return source.ast.body
-    .filter(
-      (node): node is ImportDeclaration => node.type === 'ImportDeclaration',
-    )
-    .find((node) => node.source.value === path);
+	return source.ast.body
+		.filter((node): node is ImportDeclaration => node.type === 'ImportDeclaration')
+		.find((node) => node.source.value === path);
 };
 
 /**
@@ -21,34 +19,28 @@ export const getImportedNodeBySource = (source: SourceCode, path: string) => {
  * getModuleOfIdentifier(source, 'Button'); // "@atlaskit/button"
  */
 export const getModuleOfIdentifier = (
-  source: SourceCode,
-  identifierName: string,
+	source: SourceCode,
+	identifierName: string,
 ): { moduleName: string; importName: string } | undefined => {
-  for (const node of source.ast.body) {
-    if (node.type === 'ImportDeclaration') {
-      for (const spec of node.specifiers) {
-        if (
-          spec.type === 'ImportDefaultSpecifier' &&
-          spec.local.name === identifierName
-        ) {
-          return {
-            moduleName: node.source.value + '',
-            importName: identifierName,
-          };
-        }
+	for (const node of source.ast.body) {
+		if (node.type === 'ImportDeclaration') {
+			for (const spec of node.specifiers) {
+				if (spec.type === 'ImportDefaultSpecifier' && spec.local.name === identifierName) {
+					return {
+						moduleName: node.source.value + '',
+						importName: identifierName,
+					};
+				}
 
-        if (
-          spec.type === 'ImportSpecifier' &&
-          spec.local.name === identifierName
-        ) {
-          return {
-            moduleName: node.source.value + '',
-            importName: spec.imported.name,
-          };
-        }
-      }
-    }
-  }
+				if (spec.type === 'ImportSpecifier' && spec.local.name === identifierName) {
+					return {
+						moduleName: node.source.value + '',
+						importName: spec.imported.name,
+					};
+				}
+			}
+		}
+	}
 
-  return undefined;
+	return undefined;
 };

@@ -15,14 +15,14 @@ There is two ways of integrating the \`Browser\` component:
   - **onBrowserFn?: _(browse: () => void) => void_** - provides a callback to manually invoke the dialog. This can be useful for cases where the action is required outside of React render lifecycle
 
   ${(
-    <DocsContentTabs
-      tabs={[
-        {
-          name: 'Usage',
-          content: example,
-        },
-        { name: 'Props', content: props },
-      ]}
-    />
-  )}
+		<DocsContentTabs
+			tabs={[
+				{
+					name: 'Usage',
+					content: example,
+				},
+				{ name: 'Props', content: props },
+			]}
+		/>
+	)}
 `;

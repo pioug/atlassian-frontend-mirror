@@ -1,7 +1,7 @@
 const numericSeparatorPreset = {
-  plugins: [['@babel/plugin-proposal-numeric-separator']],
+	plugins: [['@babel/plugin-proposal-numeric-separator']],
 };
 
 module.exports = {
-  presets: [numericSeparatorPreset],
+	presets: [numericSeparatorPreset],
 };

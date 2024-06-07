@@ -25,70 +25,63 @@ import { type PluginContainerKey } from '../types';
  * ```
  */
 export default abstract class ReactPluginView<ComponentProps extends {}> {
-  protected readonly componentSubject: Subject<ComponentProps> =
-    new Subject<ComponentProps>();
-  private readonly portalActions: PortalActions;
-  private readonly portalKey: string;
-  private readonly containerKey: PluginContainerKey;
+	protected readonly componentSubject: Subject<ComponentProps> = new Subject<ComponentProps>();
+	private readonly portalActions: PortalActions;
+	private readonly portalKey: string;
+	private readonly containerKey: PluginContainerKey;
 
-  /**
-   * Construct a Prosemirror plugin view which will render a React component in a portal.
-   *
-   * @param portalActions Provides callback functions which can be invoked to create and destroy a portal.
-   * @param portalKey Unique identifier for the plugin component.
-   * @param containerKey Key representing the HTML container the React component will be portalled into.
-   * @protected
-   */
-  protected constructor(
-    portalActions: PortalActions,
-    portalKey: string,
-    containerKey: PluginContainerKey,
-  ) {
-    this.portalActions = portalActions;
-    this.portalKey = portalKey;
-    this.containerKey = containerKey;
-  }
+	/**
+	 * Construct a Prosemirror plugin view which will render a React component in a portal.
+	 *
+	 * @param portalActions Provides callback functions which can be invoked to create and destroy a portal.
+	 * @param portalKey Unique identifier for the plugin component.
+	 * @param containerKey Key representing the HTML container the React component will be portalled into.
+	 * @protected
+	 */
+	protected constructor(
+		portalActions: PortalActions,
+		portalKey: string,
+		containerKey: PluginContainerKey,
+	) {
+		this.portalActions = portalActions;
+		this.portalKey = portalKey;
+		this.containerKey = containerKey;
+	}
 
-  init = () => {
-    const Component = this.getComponent();
+	init = () => {
+		const Component = this.getComponent();
 
-    const PortallingComponent = () => {
-      const [state, setState] = useState<ComponentProps>(() =>
-        this.getInitialComponentProps(),
-      );
+		const PortallingComponent = () => {
+			const [state, setState] = useState<ComponentProps>(() => this.getInitialComponentProps());
 
-      useEffect(() => {
-        // Subscribe to the RxJS subject so concrete subclasses can emit events to re-render the plugin component.
-        const subscription = this.componentSubject.subscribe(updatedProps => {
-          setState(updatedProps);
-        });
+			useEffect(() => {
+				// Subscribe to the RxJS subject so concrete subclasses can emit events to re-render the plugin component.
+				const subscription = this.componentSubject.subscribe((updatedProps) => {
+					setState(updatedProps);
+				});
 
-        return () => subscription.unsubscribe();
-      }, []);
+				return () => subscription.unsubscribe();
+			}, []);
 
-      return <Component {...state} />;
-    };
+			return <Component {...state} />;
+		};
 
-    // Dispatch onCreatePortal which will allow the handler to create a new portalled React component
-    this.portalActions.onCreatePortal(
-      this.portalKey,
-      <PortallingComponent />,
-      this.containerKey,
-    );
-  };
+		// Dispatch onCreatePortal which will allow the handler to create a new portalled React component
+		this.portalActions.onCreatePortal(this.portalKey, <PortallingComponent />, this.containerKey);
+	};
 
-  destroy() {
-    // Dispatch onDestroyPortal which will allow the handler to remove the portalled React component.
-    this.portalActions.onDestroyPortal(this.portalKey);
-  }
+	destroy() {
+		// Dispatch onDestroyPortal which will allow the handler to remove the portalled React component.
+		this.portalActions.onDestroyPortal(this.portalKey);
+	}
 
-  /**
-   * Return a React component to render for the plugin.
-   */
-  protected abstract getComponent: () => FunctionComponent<ComponentProps>;
+	/**
+	 * Return a React component to render for the plugin.
+	 */
+	protected abstract getComponent: () => FunctionComponent<ComponentProps>;
 
-  /**
-   * Return props to set on the component for initial render.
-   */
-  protected abstract getInitialComponentProps: () => ComponentProps;
+	/**
+	 * Return props to set on the component for initial render.
+	 */
+	protected abstract getInitialComponentProps: () => ComponentProps;
 }

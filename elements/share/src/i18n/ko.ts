@@ -52,6 +52,8 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Jira에 초대',
   'fabric.elements.share.main.tab.text.confluence': '페이지 공유',
   'fabric.elements.share.main.tab.text.jira': '이슈 공유',
+  'fabric.elements.share.menu.email.label': '이메일',
+  'fabric.elements.share.menu.slack.label': 'Slack',
   'fabric.elements.share.popup.label': '공유',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {공유한 블로그 게시물}board {공유한 보드}calendar {공유한 캘린더}draft {공유한 초안}filter {공유한 필터}issue {공유한 이슈}summary {공유한 요약}list {공유한 목록}timeline {공유한 타임라인}form {공유한 양식}media {공유한 미디어}page {공유한 페이지}project {공유한 프로젝트}pullrequest {공유한 풀리퀘스트}question {공유한 질문}report {공유한 보고서}repository {공유한 리포지토리}request {공유한 요청}timeline {공유한 타임라인}site {공유한 사이트}space {공유한 스페이스}other {공유한 링크}}',

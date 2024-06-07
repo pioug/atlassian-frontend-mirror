@@ -36,168 +36,156 @@ export const name = 'no-deprecated-imports';
 export const importNameWithCustomMessageId = 'importNameWithCustomMessage';
 export const pathWithCustomMessageId = 'pathWithCustomMessage';
 
-const rule = createRule<
-  [{ deprecatedConfig: DeprecatedConfig }],
-  string,
-  TSESLint.RuleListener
->({
-  name,
-  defaultOptions: [{ deprecatedConfig: getConfig('imports') }],
-  meta: {
-    type: 'suggestion',
+const rule = createRule<[{ deprecatedConfig: DeprecatedConfig }], string, TSESLint.RuleListener>({
+	name,
+	defaultOptions: [{ deprecatedConfig: getConfig('imports') }],
+	meta: {
+		type: 'suggestion',
 
-    docs: {
-      description: 'Disallow importing deprecated modules.',
-      recommended: 'error',
-    },
+		docs: {
+			description: 'Disallow importing deprecated modules.',
+			recommended: 'error',
+		},
 
-    messages: {
-      pathWithCustomMessage:
-        "'{{importSource}}' import is restricted from being used. {{customMessage}}",
-      importNameWithCustomMessage:
-        "'{{importName}}' import from '{{importSource}}' is restricted. {{customMessage}}",
-    },
-    schema: [
-      {
-        type: 'object',
-        properties: {
-          deprecatedConfig: {
-            type: 'object',
-            properties: {
-              '.+': {
-                type: 'object',
-                properties: {
-                  message: { type: 'string' },
-                  importSpecifiers: {
-                    type: 'array',
-                    items: {
-                      type: 'object',
-                      properties: {
-                        importName: { type: 'string' },
-                        message: { type: 'string' },
-                      },
-                      required: ['importName'],
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    ],
-  },
+		messages: {
+			pathWithCustomMessage:
+				"'{{importSource}}' import is restricted from being used. {{customMessage}}",
+			importNameWithCustomMessage:
+				"'{{importName}}' import from '{{importSource}}' is restricted. {{customMessage}}",
+		},
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					deprecatedConfig: {
+						type: 'object',
+						properties: {
+							'.+': {
+								type: 'object',
+								properties: {
+									message: { type: 'string' },
+									importSpecifiers: {
+										type: 'array',
+										items: {
+											type: 'object',
+											properties: {
+												importName: { type: 'string' },
+												message: { type: 'string' },
+											},
+											required: ['importName'],
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		],
+	},
 
-  create(context, [options]) {
-    const { deprecatedConfig: defaultDeprecatedConfig } = options;
+	create(context, [options]) {
+		const { deprecatedConfig: defaultDeprecatedConfig } = options;
 
-    const restrictedPathMessages =
-      context.options[0]?.deprecatedConfig || defaultDeprecatedConfig;
+		const restrictedPathMessages = context.options[0]?.deprecatedConfig || defaultDeprecatedConfig;
 
-    if (!isDeprecatedImportConfig(restrictedPathMessages)) {
-      throw new Error('Config is invalid for deprecated imports');
-    }
+		if (!isDeprecatedImportConfig(restrictedPathMessages)) {
+			throw new Error('Config is invalid for deprecated imports');
+		}
 
-    /**
-     * Report a restricted path.
-     * @param {string} importSource path of the import
-     * @param {node} node representing the restricted path reference
-     * @param {Map<string,TSESTree.Node>} importNames Map of import names that are being imported
-     * @returns {void}
-     * @private
-     */
-    function checkRestrictedPathAndReport(
-      importSource: string,
-      node: TSESTree.Node,
-      importNames: Map<string, TSESTree.Node>,
-    ): void {
-      if (
-        !Object.prototype.hasOwnProperty.call(
-          restrictedPathMessages,
-          importSource,
-        )
-      ) {
-        return;
-      }
+		/**
+		 * Report a restricted path.
+		 * @param {string} importSource path of the import
+		 * @param {node} node representing the restricted path reference
+		 * @param {Map<string,TSESTree.Node>} importNames Map of import names that are being imported
+		 * @returns {void}
+		 * @private
+		 */
+		function checkRestrictedPathAndReport(
+			importSource: string,
+			node: TSESTree.Node,
+			importNames: Map<string, TSESTree.Node>,
+		): void {
+			if (!Object.prototype.hasOwnProperty.call(restrictedPathMessages, importSource)) {
+				return;
+			}
 
-      const config = restrictedPathMessages[importSource];
+			const config = restrictedPathMessages[importSource];
 
-      // The message will only exist if the import is completely banned,
-      // eg a deprecated package
-      if ('message' in config) {
-        context.report({
-          node,
-          messageId: pathWithCustomMessageId,
-          data: {
-            importSource,
-            customMessage: config.message,
-          } as any,
-        });
-      }
+			// The message will only exist if the import is completely banned,
+			// eg a deprecated package
+			if ('message' in config) {
+				context.report({
+					node,
+					messageId: pathWithCustomMessageId,
+					data: {
+						importSource,
+						customMessage: config.message,
+					} as any,
+				});
+			}
 
-      // if there are specific named exports that are banned,
-      // iterate through and check if they're being imported
-      if ('importSpecifiers' in config) {
-        config.importSpecifiers?.forEach((restrictedImport) => {
-          if (importNames.has(restrictedImport.importName)) {
-            context.report({
-              node: importNames.get(restrictedImport.importName)!,
-              messageId: importNameWithCustomMessageId,
-              data: {
-                importName: restrictedImport.importName,
-                importSource: importSource,
-                customMessage: restrictedImport.message,
-              },
-            });
-          }
-        });
-      }
-    }
+			// if there are specific named exports that are banned,
+			// iterate through and check if they're being imported
+			if ('importSpecifiers' in config) {
+				config.importSpecifiers?.forEach((restrictedImport) => {
+					if (importNames.has(restrictedImport.importName)) {
+						context.report({
+							node: importNames.get(restrictedImport.importName)!,
+							messageId: importNameWithCustomMessageId,
+							data: {
+								importName: restrictedImport.importName,
+								importSource: importSource,
+								customMessage: restrictedImport.message,
+							},
+						});
+					}
+				});
+			}
+		}
 
-    /**
-     * Checks a node to see if any problems should be reported.
-     * @param {ASTNode} node The node to check.
-     * @returns {void}
-     * @private
-     */
-    const checkNode = <ImportExportNode extends TSESTree.Node>(
-      node: ImportExportNode,
-    ): void => {
-      const importSource = (node as any).source.value.trim();
-      const importNames = new Map<string, TSESTree.Node>();
+		/**
+		 * Checks a node to see if any problems should be reported.
+		 * @param {ASTNode} node The node to check.
+		 * @returns {void}
+		 * @private
+		 */
+		const checkNode = <ImportExportNode extends TSESTree.Node>(node: ImportExportNode): void => {
+			const importSource = (node as any).source.value.trim();
+			const importNames = new Map<string, TSESTree.Node>();
 
-      if ('specifiers' in node) {
-        for (const specifier of node.specifiers) {
-          let name;
+			if ('specifiers' in node) {
+				for (const specifier of node.specifiers) {
+					let name;
 
-          if (specifier.type === 'ImportDefaultSpecifier') {
-            name = 'default';
-          } else if (specifier.type === 'ImportNamespaceSpecifier') {
-            name = '*';
-          } else if (specifier.type === 'ImportSpecifier') {
-            name = specifier.imported.name;
-          } else if (specifier.local) {
-            name = specifier.local.name;
-          }
+					if (specifier.type === 'ImportDefaultSpecifier') {
+						name = 'default';
+					} else if (specifier.type === 'ImportNamespaceSpecifier') {
+						name = '*';
+					} else if (specifier.type === 'ImportSpecifier') {
+						name = specifier.imported.name;
+					} else if (specifier.local) {
+						name = specifier.local.name;
+					}
 
-          if (name) {
-            importNames.set(name, specifier as TSESTree.Node);
-          }
-        }
-      }
+					if (name) {
+						importNames.set(name, specifier as TSESTree.Node);
+					}
+				}
+			}
 
-      checkRestrictedPathAndReport(importSource, node, importNames);
-    };
+			checkRestrictedPathAndReport(importSource, node, importNames);
+		};
 
-    return {
-      ImportDeclaration: checkNode,
-      ExportNamedDeclaration(node) {
-        if (node.source) {
-          checkNode(node);
-        }
-      },
-    };
-  },
+		return {
+			ImportDeclaration: checkNode,
+			ExportNamedDeclaration(node) {
+				if (node.source) {
+					checkNode(node);
+				}
+			},
+		};
+	},
 });
 
 export default rule;

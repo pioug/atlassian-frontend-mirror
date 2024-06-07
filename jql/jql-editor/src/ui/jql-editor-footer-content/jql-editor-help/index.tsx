@@ -10,32 +10,29 @@ import { messages } from './messages';
 import { HelpContainer } from './styled';
 
 export const JQLEditorHelp = () => {
-  const [{ formatMessage }] = useIntl();
-  const [editorViewHasFocus] = useEditorViewHasFocus();
-  const { isSearch } = useEditorThemeContext();
-  const [helpContentId] = useScopedId(JQL_EDITOR_HELP_CONTENT_ID);
-  const SearchMessage = (
-    <span>
-      {formatMessage(messages.searchCommand, {
-        b: (text: React.ReactNode[]) => <b>{text}</b>,
-      })}
-    </span>
-  );
-  const NewLineMessage = (
-    <span>
-      {formatMessage(
-        isSearch ? messages.newLineCommand : messages.fieldNewLineCommand,
-        {
-          b: (text: React.ReactNode[]) => <b>{text}</b>,
-        },
-      )}
-    </span>
-  );
+	const [{ formatMessage }] = useIntl();
+	const [editorViewHasFocus] = useEditorViewHasFocus();
+	const { isSearch } = useEditorThemeContext();
+	const [helpContentId] = useScopedId(JQL_EDITOR_HELP_CONTENT_ID);
+	const SearchMessage = (
+		<span>
+			{formatMessage(messages.searchCommand, {
+				b: (text: React.ReactNode[]) => <b>{text}</b>,
+			})}
+		</span>
+	);
+	const NewLineMessage = (
+		<span>
+			{formatMessage(isSearch ? messages.newLineCommand : messages.fieldNewLineCommand, {
+				b: (text: React.ReactNode[]) => <b>{text}</b>,
+			})}
+		</span>
+	);
 
-  return (
-    <HelpContainer id={helpContentId} isVisible={editorViewHasFocus}>
-      {isSearch && <HelperMessage>{SearchMessage}</HelperMessage>}
-      <HelperMessage>{NewLineMessage}</HelperMessage>
-    </HelpContainer>
-  );
+	return (
+		<HelpContainer id={helpContentId} isVisible={editorViewHasFocus}>
+			{isSearch && <HelperMessage>{SearchMessage}</HelperMessage>}
+			<HelperMessage>{NewLineMessage}</HelperMessage>
+		</HelpContainer>
+	);
 };

@@ -6,39 +6,39 @@ import AIStateIndicator from '../../FlexibleCard/components/blocks/ai-summary-bl
 import UList from './ulist';
 
 const AITooltipIcon: MarkdownToJSX.Override = () => (
-  <AIStateIndicator appearance="icon-only" state="done" testId="ai-tooltip" />
+	<AIStateIndicator appearance="icon-only" state="done" testId="ai-tooltip" />
 );
 
 const AISummaryCSSStyles = css({
-  fontSize: '0.75rem',
-  lineHeight: '1rem',
-  wordWrap: 'break-word',
-  wordBreak: 'break-word',
-  whiteSpace: 'normal',
-  WebkitUserSelect: 'text',
-  MozUserSelect: 'text',
-  MsUserSelect: 'text',
-  userSelect: 'text',
+	fontSize: '0.75rem',
+	lineHeight: '1rem',
+	wordWrap: 'break-word',
+	wordBreak: 'break-word',
+	whiteSpace: 'normal',
+	WebkitUserSelect: 'text',
+	MozUserSelect: 'text',
+	MsUserSelect: 'text',
+	userSelect: 'text',
 });
 
 type AISummaryProps = {
-  /* Raw markdawn format text to display.*/
-  content?: string;
-  /* Should the summary icon be shown at the end of the content */
-  showIcon?: boolean;
-  /* Optional icon component to override icon at the end of content */
-  iconComponent?: MarkdownToJSX.Override;
-  /* Additional CSS properties */
-  overrideCss?: SerializedStyles;
-  /**
-   * appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests
-   */
-  testId?: string;
-  /**
-   * Minimum height requirement for the AISummary component to prevent fluctuations in a card size on the summary action.
-   */
-  minHeight?: number;
+	/* Raw markdawn format text to display.*/
+	content?: string;
+	/* Should the summary icon be shown at the end of the content */
+	showIcon?: boolean;
+	/* Optional icon component to override icon at the end of content */
+	iconComponent?: MarkdownToJSX.Override;
+	/* Additional CSS properties */
+	overrideCss?: SerializedStyles;
+	/**
+	 * appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests
+	 */
+	testId?: string;
+	/**
+	 * Minimum height requirement for the AISummary component to prevent fluctuations in a card size on the summary action.
+	 */
+	minHeight?: number;
 };
 
 /**
@@ -48,32 +48,32 @@ type AISummaryProps = {
  */
 
 const AISummary: React.FC<AISummaryProps> = ({
-  content = '',
-  showIcon = false,
-  iconComponent,
-  overrideCss,
-  testId = 'ai-summary',
-  minHeight = 0,
+	content = '',
+	showIcon = false,
+	iconComponent,
+	overrideCss,
+	testId = 'ai-summary',
+	minHeight = 0,
 }) => {
-  if (!content && minHeight === 0) {
-    return null;
-  }
+	if (!content && minHeight === 0) {
+		return null;
+	}
 
-  return (
-    <Markdown
-      data-testid={testId}
-      css={[AISummaryCSSStyles, overrideCss]}
-      children={showIcon ? `${content}&nbsp;<Icon />` : content}
-      options={{
-        forceWrapper: true,
-        overrides: {
-          Icon: iconComponent ?? AITooltipIcon,
-          ul: UList,
-        },
-      }}
-      style={{ minHeight: minHeight }}
-    />
-  );
+	return (
+		<Markdown
+			data-testid={testId}
+			css={[AISummaryCSSStyles, overrideCss]}
+			children={showIcon ? `${content}&nbsp;<Icon />` : content}
+			options={{
+				forceWrapper: true,
+				overrides: {
+					Icon: iconComponent ?? AITooltipIcon,
+					ul: UList,
+				},
+			}}
+			style={{ minHeight: minHeight }}
+		/>
+	);
 };
 
 export default AISummary;

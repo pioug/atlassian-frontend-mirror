@@ -50,6 +50,8 @@ export default {
   'fabric.elements.share.invite.to.jira': '邀請加入 Jira',
   'fabric.elements.share.main.tab.text.confluence': '分享頁面',
   'fabric.elements.share.main.tab.text.jira': '共用議題',
+  'fabric.elements.share.menu.email.label': '電子郵件',
+  'fabric.elements.share.menu.slack.label': 'Slack',
   'fabric.elements.share.popup.label': '分享',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {已分享部落格貼文}board {已分享看板}calendar {已分享行事曆}draft {已分享草稿}filter {已分享篩選條件}issue {已分享議題}summary {已分享摘要}list {已分享列表}timeline {已分享時間表}form {已分享表單}media {已分享媒體}page {已分享頁面}project {已分享專案}pullrequest {已分享提取要求}question {已分享問題}report {已分享報告}repository {已分享存放庫}request {已分享要求}roadmap {已分享時間軸}site {已分享網站}space {已分享空間}other {已分享連結}}',

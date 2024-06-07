@@ -3,29 +3,29 @@ import { HttpError } from '../util/errors';
 import { handleAGGErrors, handleDirectoryGraphQLErrors } from './errorUtils';
 
 const buildHeaders = () => {
-  const headers = new Headers();
-  headers.append('Content-Type', 'application/json');
+	const headers = new Headers();
+	headers.append('Content-Type', 'application/json');
 
-  return headers;
+	return headers;
 };
 
 interface Query {
-  query: string;
-  variables: Record<string, any>;
+	query: string;
+	variables: Record<string, any>;
 }
 
 export interface GraphQLError {
-  code?: number;
-  reason?: string;
-  source?: string;
-  message?: string;
-  traceId?: string;
-  category: string;
-  type: string;
-  path: string[];
-  extensions: {
-    errorNumber: number;
-  } & Record<string, any>;
+	code?: number;
+	reason?: string;
+	source?: string;
+	message?: string;
+	traceId?: string;
+	category: string;
+	type: string;
+	path: string[];
+	extensions: {
+		errorNumber: number;
+	} & Record<string, any>;
 }
 
 type HeaderProcessor = (headers: Headers) => Headers;
@@ -37,16 +37,11 @@ const id: HeaderProcessor = (headers) => headers;
  * @param {HeaderProcessor} processHeaders - a function to add extra headers to the request
  */
 export async function directoryGraphqlQuery<D>(
-  serviceUrl: string,
-  query: Query,
-  processHeaders: HeaderProcessor = id,
+	serviceUrl: string,
+	query: Query,
+	processHeaders: HeaderProcessor = id,
 ): Promise<D> {
-  return graphQLQuery(
-    serviceUrl,
-    query,
-    processHeaders,
-    handleDirectoryGraphQLErrors,
-  );
+	return graphQLQuery(serviceUrl, query, processHeaders, handleDirectoryGraphQLErrors);
 }
 
 /**
@@ -55,49 +50,42 @@ export async function directoryGraphqlQuery<D>(
  * @param {HeaderProcessor} processHeaders - a function to add extra headers to the request
  */
 export async function AGGQuery<D>(
-  serviceUrl: string,
-  query: Query,
-  processHeaders: HeaderProcessor = id,
+	serviceUrl: string,
+	query: Query,
+	processHeaders: HeaderProcessor = id,
 ): Promise<D> {
-  return graphQLQuery(serviceUrl, query, processHeaders, handleAGGErrors);
+	return graphQLQuery(serviceUrl, query, processHeaders, handleAGGErrors);
 }
 
 async function graphQLQuery(
-  serviceUrl: string,
-  query: Query,
-  processHeaders: HeaderProcessor = id,
-  handleErrors: (errors: any, traceId: string | null) => void,
+	serviceUrl: string,
+	query: Query,
+	processHeaders: HeaderProcessor = id,
+	handleErrors: (errors: any, traceId: string | null) => void,
 ): Promise<any> {
-  const headers = processHeaders(buildHeaders());
+	const headers = processHeaders(buildHeaders());
 
-  const response = await fetch(
-    new Request(serviceUrl, {
-      method: 'POST',
-      credentials: 'include',
-      mode: 'cors',
-      headers,
-      body: JSON.stringify(query),
-    }),
-  );
+	const response = await fetch(
+		new Request(serviceUrl, {
+			method: 'POST',
+			credentials: 'include',
+			mode: 'cors',
+			headers,
+			body: JSON.stringify(query),
+		}),
+	);
 
-  const traceIdFromHeaders = response?.headers?.get('atl-traceid');
+	const traceIdFromHeaders = response?.headers?.get('atl-traceid');
 
-  if (!response.ok) {
-    throw new HttpError(
-      response.status,
-      response.statusText,
-      traceIdFromHeaders,
-    );
-  }
+	if (!response.ok) {
+		throw new HttpError(response.status, response.statusText, traceIdFromHeaders);
+	}
 
-  const json = await response.json();
+	const json = await response.json();
 
-  if (json.errors) {
-    handleErrors(
-      json.errors,
-      json.extensions?.gateway?.request_id ?? traceIdFromHeaders,
-    );
-  }
+	if (json.errors) {
+		handleErrors(json.errors, json.extensions?.gateway?.request_id ?? traceIdFromHeaders);
+	}
 
-  return json.data;
+	return json.data;
 }

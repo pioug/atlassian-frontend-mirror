@@ -6,9 +6,9 @@ import { type Clause, type NotClause } from '../types';
  * references to the child node.
  */
 export function remove(this: NotClause): void {
-  if (this.parent) {
-    this.parent.removeClause(this);
-  }
+	if (this.parent) {
+		this.parent.removeClause(this);
+	}
 }
 
 /**
@@ -18,9 +18,9 @@ export function remove(this: NotClause): void {
  * @param clause Clause to remove
  */
 export function removeClause(this: NotClause, clause: Clause): void {
-  if (this.clause === clause) {
-    this.remove();
-  }
+	if (this.clause === clause) {
+		this.remove();
+	}
 }
 
 /**
@@ -28,9 +28,9 @@ export function removeClause(this: NotClause, clause: Clause): void {
  * the logic to replace any references to the child node.
  */
 export function replace(this: NotClause, nextClause: Clause): void {
-  if (this.parent) {
-    this.parent.replaceClause(this, nextClause);
-  }
+	if (this.parent) {
+		this.parent.replaceClause(this, nextClause);
+	}
 }
 
 /**
@@ -40,13 +40,9 @@ export function replace(this: NotClause, nextClause: Clause): void {
  * @param clause Clause to be replaced
  * @param nextClause Clause to set as the new value
  */
-export function replaceClause(
-  this: NotClause,
-  clause: Clause,
-  nextClause: Clause,
-): void {
-  if (this.clause === clause) {
-    this.clause = nextClause;
-    assignParent(this);
-  }
+export function replaceClause(this: NotClause, clause: Clause, nextClause: Clause): void {
+	if (this.clause === clause) {
+		this.clause = nextClause;
+		assignParent(this);
+	}
 }

@@ -43,23 +43,23 @@ export const IconOverrides = `
 // NB: the second set of overrides style icons imported from @atlaskit/icon correctly.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconWrapper = styled.span(
-  {
-    userSelect: 'none',
-  },
-  IconOverrides,
-  IconObjectOverrides,
+	{
+		userSelect: 'none',
+	},
+	IconOverrides,
+	IconObjectOverrides,
 );
 
 // Wraps all emoji in Inline Links similar to icon
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const EmojiWrapper = styled.span(
-  {
-    display: 'inline-block',
-    marginRight: token('space.025', '2px'),
-    userSelect: 'none',
-  },
-  IconOverrides,
-  IconObjectOverrides,
+	{
+		display: 'inline-block',
+		marginRight: token('space.025', '2px'),
+		userSelect: 'none',
+	},
+	IconOverrides,
+	IconObjectOverrides,
 );
 
 // The main 'wrapping' element, title of the content.
@@ -67,25 +67,25 @@ export const EmojiWrapper = styled.span(
 // NB: `word-break` line breaks as soon as an overflow takes place.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconTitleWrapper = styled.span({
-  whiteSpace: 'pre-wrap',
-  wordBreak: 'break-all',
-  boxDecorationBreak: 'clone',
-  padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
+	whiteSpace: 'pre-wrap',
+	wordBreak: 'break-all',
+	boxDecorationBreak: 'clone',
+	padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
 });
 
 // TODO: Replace overrides with proper AtlasKit solution.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LozengeWrapper = styled.span({
-  display: 'inline-block',
-  verticalAlign: '1px',
-  margin: `0 ${token('space.050', '4px')} 0 ${token('space.025', '2px')}`,
+	display: 'inline-block',
+	verticalAlign: '1px',
+	margin: `0 ${token('space.050', '4px')} 0 ${token('space.025', '2px')}`,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const RightIconPositionWrapper = styled.span({
-  marginLeft: token('space.025', '2px'),
-  position: 'relative',
-  display: 'inline-block',
+	marginLeft: token('space.025', '2px'),
+	position: 'relative',
+	display: 'inline-block',
 });
 
 // The following components are used to absolutely position icons in the vertical center.
@@ -93,17 +93,17 @@ export const RightIconPositionWrapper = styled.span({
 // - IconEmptyWrapper: the child which forces `IconPositionWrapper` to have a height.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconPositionWrapper = styled.span({
-  marginRight: token('space.050', '4px'),
-  position: 'relative',
-  display: 'inline-block',
+	marginRight: token('space.050', '4px'),
+	position: 'relative',
+	display: 'inline-block',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconEmptyWrapper = styled.span({
-  width: '14px',
-  height: '100%',
-  display: 'inline-block',
-  opacity: 0,
+	width: '14px',
+	height: '100%',
+	display: 'inline-block',
+	opacity: 0,
 });
 
 // With emotion it's not possible to use reference to `TitleWrapper` as part of a selector,

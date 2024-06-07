@@ -1,5 +1,5 @@
 export type FormValues = {
-  feedbackScore: number;
-  canContact: boolean;
-  writtenFeedback: string;
+	feedbackScore: number;
+	canContact: boolean;
+	writtenFeedback: string;
 };

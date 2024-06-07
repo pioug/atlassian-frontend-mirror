@@ -14,93 +14,93 @@ import ensurePublishValid from './rules/ensure-publish-valid';
 import ensureNativeAndAfExportsSynced from './rules/ensure-native-and-af-exports-synced';
 
 export const rules = {
-  'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
-  'ensure-feature-flag-prefix': ensureFeatureFlagPrefix,
-  'ensure-test-runner-arguments': ensureTestRunnerArguments,
-  'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
-  'ensure-atlassian-team': ensureAtlassianTeam,
-  'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
-  'no-duplicate-dependencies': noDuplicateDependencies,
-  'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
-  'no-pre-post-install-scripts': noPreAndPostInstallScripts,
-  'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
-  'ensure-publish-valid': ensurePublishValid,
-  'ensure-native-and-af-exports-synced': ensureNativeAndAfExportsSynced,
+	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
+	'ensure-feature-flag-prefix': ensureFeatureFlagPrefix,
+	'ensure-test-runner-arguments': ensureTestRunnerArguments,
+	'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
+	'ensure-atlassian-team': ensureAtlassianTeam,
+	'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
+	'no-duplicate-dependencies': noDuplicateDependencies,
+	'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
+	'no-pre-post-install-scripts': noPreAndPostInstallScripts,
+	'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
+	'ensure-publish-valid': ensurePublishValid,
+	'ensure-native-and-af-exports-synced': ensureNativeAndAfExportsSynced,
 };
 
 export const configs = {
-  recommended: {
-    plugins: ['@atlaskit/platform'],
-    rules: {
-      '@atlaskit/platform/ensure-feature-flag-registration': 'error',
-      '@atlaskit/platform/ensure-feature-flag-prefix': [
-        'error',
-        { allowedPrefixes: ['platform.'] },
-      ],
-      '@atlaskit/platform/ensure-test-runner-arguments': 'error',
-      '@atlaskit/platform/ensure-test-runner-nested-count': 'warn',
-      '@atlaskit/platform/no-invalid-feature-flag-usage': 'error',
-      '@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
-      '@atlaskit/platform/ensure-atlassian-team': 'error',
-    },
-  },
+	recommended: {
+		plugins: ['@atlaskit/platform'],
+		rules: {
+			'@atlaskit/platform/ensure-feature-flag-registration': 'error',
+			'@atlaskit/platform/ensure-feature-flag-prefix': [
+				'error',
+				{ allowedPrefixes: ['platform.'] },
+			],
+			'@atlaskit/platform/ensure-test-runner-arguments': 'error',
+			'@atlaskit/platform/ensure-test-runner-nested-count': 'warn',
+			'@atlaskit/platform/no-invalid-feature-flag-usage': 'error',
+			'@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
+			'@atlaskit/platform/ensure-atlassian-team': 'error',
+		},
+	},
 };
 
 const jsonPrefix =
-  '/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, @typescript-eslint/semi, no-template-curly-in-string */ module.exports = ';
+	'/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, @typescript-eslint/semi, no-template-curly-in-string */ module.exports = ';
 
 const jsonPrefixForFlatConfig =
-  '/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, no-template-curly-in-string */ module.exports = ';
+	'/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, no-template-curly-in-string */ module.exports = ';
 
 export const processors = {
-  'package-json-processor': {
-    preprocess: (source: string) => {
-      // augment the json into a js file
-      return [jsonPrefix + source.trim()];
-    },
-    postprocess: (messages) => {
-      return messages[0].map((message) => {
-        const { fix } = message;
-        if (!fix) {
-          return message;
-        }
+	'package-json-processor': {
+		preprocess: (source: string) => {
+			// augment the json into a js file
+			return [jsonPrefix + source.trim()];
+		},
+		postprocess: (messages) => {
+			return messages[0].map((message) => {
+				const { fix } = message;
+				if (!fix) {
+					return message;
+				}
 
-        const offset = jsonPrefix.length;
-        return {
-          ...message,
-          fix: {
-            ...fix,
-            range: [fix.range[0] - offset, fix.range[1] - offset],
-          },
-        };
-      });
-    },
-    supportsAutofix: true,
-  } as Linter.Processor,
-  // This processor is used for ESLint FlatConfig,
-  // once we roll out FlatConfig, we can remove the above processor
-  'package-json-processor-for-flat-config': {
-    preprocess: (source: string) => {
-      // augment the json into a js file
-      return [jsonPrefixForFlatConfig + source.trim()];
-    },
-    postprocess: (messages) => {
-      return messages[0].map((message) => {
-        const { fix } = message;
-        if (!fix) {
-          return message;
-        }
+				const offset = jsonPrefix.length;
+				return {
+					...message,
+					fix: {
+						...fix,
+						range: [fix.range[0] - offset, fix.range[1] - offset],
+					},
+				};
+			});
+		},
+		supportsAutofix: true,
+	} as Linter.Processor,
+	// This processor is used for ESLint FlatConfig,
+	// once we roll out FlatConfig, we can remove the above processor
+	'package-json-processor-for-flat-config': {
+		preprocess: (source: string) => {
+			// augment the json into a js file
+			return [jsonPrefixForFlatConfig + source.trim()];
+		},
+		postprocess: (messages) => {
+			return messages[0].map((message) => {
+				const { fix } = message;
+				if (!fix) {
+					return message;
+				}
 
-        const offset = jsonPrefixForFlatConfig.length;
-        return {
-          ...message,
-          fix: {
-            ...fix,
-            range: [fix.range[0] - offset, fix.range[1] - offset],
-          },
-        };
-      });
-    },
-    supportsAutofix: true,
-  } as Linter.Processor,
+				const offset = jsonPrefixForFlatConfig.length;
+				return {
+					...message,
+					fix: {
+						...fix,
+						range: [fix.range[0] - offset, fix.range[1] - offset],
+					},
+				};
+			});
+		},
+		supportsAutofix: true,
+	} as Linter.Processor,
 };

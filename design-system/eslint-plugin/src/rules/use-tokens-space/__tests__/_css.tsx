@@ -3,10 +3,10 @@ import outdent from 'outdent';
 import { type Tests } from '../../__tests__/utils/_types';
 
 const error =
-  'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.';
+	'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.';
 
 const valid: string[] = [
-  outdent`
+	outdent`
     // ignores styles that don't contain fixable properties
     import { css } from '@emotion/react';
 
@@ -15,7 +15,7 @@ const valid: string[] = [
       width: '8px',
     });
   `,
-  outdent`
+	outdent`
     // ignores styles that use template literal syntax
     import { css } from '@emotion/react';
 
@@ -24,7 +24,7 @@ const valid: string[] = [
       width: 8px;
     \`;
   `,
-  outdent`
+	outdent`
     // ignores multi-values
     import { css } from '@emotion/react';
 
@@ -32,7 +32,7 @@ const valid: string[] = [
       padding: '8px 12px',
     });
   `,
-  outdent`
+	outdent`
     // ignores 0 (to match ensure-design-token-usage)
     import { css } from '@compiled/react';
 
@@ -43,7 +43,7 @@ const valid: string[] = [
       paddingInline: '0em',
     });
   `,
-  outdent`
+	outdent`
     // ignores already tokenised values
     import { css } from '@compiled/react';
     import { token } from '@atlaskit/tokens';
@@ -52,7 +52,7 @@ const valid: string[] = [
       padding: token('space.100'),
     });
   `,
-  outdent`
+	outdent`
     // ignores CSS global values
     import { css } from '@compiled/react';
     import { token } from '@atlaskit/tokens';
@@ -62,7 +62,7 @@ const valid: string[] = [
       margin: 'auto',
     });
   `,
-  outdent`
+	outdent`
     // ignores CSS vars
     import { css } from '@compiled/react';
     import { token } from '@atlaskit/tokens';
@@ -71,7 +71,7 @@ const valid: string[] = [
       padding: 'var(--grid)',
     });
   `,
-  outdent`
+	outdent`
     // ignores complicated values
     import { css } from '@compiled/react';
 
@@ -87,72 +87,72 @@ const valid: string[] = [
 ];
 
 const invalid = [
-  {
-    code: outdent`
+	{
+		code: outdent`
       // it suggests token for css call with tokenisable entry
       import { css } from '@emotion/react';
 
       const paddingStyles = css({ padding: '8px' });
     `,
-    output: outdent`
+		output: outdent`
       // it suggests token for css call with tokenisable entry
       import { token } from '@atlaskit/tokens';
       import { css } from '@emotion/react';
 
       const paddingStyles = css({ padding: token('space.100', '8px') });
     `,
-    errors: [error],
-  },
+		errors: [error],
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // raises a violation with no fixes for non-tokenisable values
       import { css } from '@emotion/react';
       const containerStyles = css({ padding: '9px' });
     `,
-    errors: [error],
-  },
+		errors: [error],
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // reports on css array syntax
       import { css } from '@emotion/react';
       const paddingStyles = css([{ padding: '8px' }]);
     `,
-    errors: [error],
-    output: outdent`
+		errors: [error],
+		output: outdent`
       // reports on css array syntax
       import { token } from '@atlaskit/tokens';
       import { css } from '@emotion/react';
       const paddingStyles = css([{ padding: token('space.100', '8px') }]);
     `,
-  },
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // it suggests token for css call with numbers
       import { css } from '@emotion/react';
       const paddingStyles = css({ padding: 8 });
     `,
-    errors: [error],
-    output: outdent`
+		errors: [error],
+		output: outdent`
       // it suggests token for css call with numbers
       import { token } from '@atlaskit/tokens';
       import { css } from '@emotion/react';
       const paddingStyles = css({ padding: token('space.100', '8') });
     `,
-  },
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // it suggests token valid negative values
       import { css } from '@emotion/react';
       const containerStyles = css({
         padding: '-8px',
       });
     `,
-    errors: [error],
-    output: outdent`
+		errors: [error],
+		output: outdent`
       // it suggests token valid negative values
       import { token } from '@atlaskit/tokens';
       import { css } from '@emotion/react';
@@ -160,10 +160,10 @@ const invalid = [
         padding: token('space.negative.100', '-8px'),
       });
     `,
-  },
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // handles nested styles
       import { css } from '@emotion/react';
       const containerStyles = css({
@@ -172,9 +172,9 @@ const invalid = [
         }
       });
     `,
-    errors: [error],
+		errors: [error],
 
-    output: outdent`
+		output: outdent`
       // handles nested styles
       import { token } from '@atlaskit/tokens';
       import { css } from '@emotion/react';
@@ -184,10 +184,10 @@ const invalid = [
         }
       });
     `,
-  },
+	},
 ];
 
 export const tests: Tests = {
-  valid,
-  invalid,
+	valid,
+	invalid,
 };

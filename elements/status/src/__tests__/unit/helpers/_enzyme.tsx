@@ -12,13 +12,11 @@ import { mount, type ReactWrapper } from 'enzyme';
 
 import { IntlProvider } from 'react-intl-next';
 
-export function mountWithIntl<
-  P = {},
-  S = {},
-  C extends Component<P, S> = Component<P, S>,
->(jsx: JSX.Element): ReactWrapper<P, S, C> {
-  return mount<C, P, S>(jsx, {
-    wrappingComponent: IntlProvider,
-    wrappingComponentProps: { locale: 'en' },
-  } as any);
+export function mountWithIntl<P = {}, S = {}, C extends Component<P, S> = Component<P, S>>(
+	jsx: JSX.Element,
+): ReactWrapper<P, S, C> {
+	return mount<C, P, S>(jsx, {
+		wrappingComponent: IntlProvider,
+		wrappingComponentProps: { locale: 'en' },
+	} as any);
 }

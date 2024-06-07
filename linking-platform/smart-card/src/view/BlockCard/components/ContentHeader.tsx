@@ -3,9 +3,9 @@ import { jsx } from '@emotion/react';
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 
 export interface ContentHeaderProps {
-  onClick: React.MouseEventHandler;
-  link: string;
-  children: React.ReactNode;
+	onClick: React.MouseEventHandler;
+	link: string;
+	children: React.ReactNode;
 }
 
 /**
@@ -16,31 +16,27 @@ export interface ContentHeaderProps {
  */
 export const blockCardContentHeaderClassName = 'block-card-content-header';
 
-export const ContentHeader = ({
-  onClick,
-  link,
-  children,
-}: ContentHeaderProps) => {
-  const onMouseDown = useMouseDownEvent();
+export const ContentHeader = ({ onClick, link, children }: ContentHeaderProps) => {
+	const onMouseDown = useMouseDownEvent();
 
-  return (
-    <a
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-      href={link}
-      target="_blank"
-      css={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        // EDM-713: fixes copy-paste from renderer to editor for Firefox
-        // due to HTML its unwrapping behaviour on paste.
-        MozUserSelect: 'none',
-      }}
-      data-trello-do-not-use-override="block-card-content-header"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className={blockCardContentHeaderClassName}
-    >
-      {children}
-    </a>
-  );
+	return (
+		<a
+			onClick={onClick}
+			onMouseDown={onMouseDown}
+			href={link}
+			target="_blank"
+			css={{
+				display: 'flex',
+				alignItems: 'flex-start',
+				// EDM-713: fixes copy-paste from renderer to editor for Firefox
+				// due to HTML its unwrapping behaviour on paste.
+				MozUserSelect: 'none',
+			}}
+			data-trello-do-not-use-override="block-card-content-header"
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={blockCardContentHeaderClassName}
+		>
+			{children}
+		</a>
+	);
 };

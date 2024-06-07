@@ -4,17 +4,15 @@ import { normaliseJqlString, sanitiseJqlString } from '../utils';
 import { noChildren } from './common';
 
 function acceptArgument<Result>(this: Argument, visitor: JastVisitor<Result>) {
-  return visitor.visitArgument
-    ? visitor.visitArgument(this)
-    : visitor.visitChildren(this);
+	return visitor.visitArgument ? visitor.visitArgument(this) : visitor.visitChildren(this);
 }
 
 function enterNode(this: Argument, listener: JastListener): void {
-  listener.enterArgument && listener.enterArgument(this);
+	listener.enterArgument && listener.enterArgument(this);
 }
 
 function exitNode(this: Argument, listener: JastListener): void {
-  listener.exitArgument && listener.exitArgument(this);
+	listener.exitArgument && listener.exitArgument(this);
 }
 
 /**
@@ -30,7 +28,7 @@ function exitNode(this: Argument, listener: JastListener): void {
  * which may require quoting/escaping to produce a valid JQL string.
  */
 export const argument = (value: string): Argument =>
-  argumentInternal(value, sanitiseJqlString(value));
+	argumentInternal(value, sanitiseJqlString(value));
 
 /**
  * Creates a Argument AST node from a value that has been pre-treated to produce a valid JQL string.
@@ -42,19 +40,19 @@ export const argument = (value: string): Argument =>
  * when building the AST node.
  */
 export const argumentByText = (text: string): Argument =>
-  argumentInternal(normaliseJqlString(text), text);
+	argumentInternal(normaliseJqlString(text), text);
 
 export const argumentInternal = (
-  value: string,
-  text: string,
-  position: Position | null = null,
+	value: string,
+	text: string,
+	position: Position | null = null,
 ): Argument => ({
-  text,
-  value,
-  position,
-  accept: acceptArgument,
-  enterNode,
-  exitNode,
-  getChildren: noChildren,
-  parent: null,
+	text,
+	value,
+	position,
+	accept: acceptArgument,
+	enterNode,
+	exitNode,
+	getChildren: noChildren,
+	parent: null,
 });

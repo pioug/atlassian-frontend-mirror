@@ -2,6 +2,6 @@
 export const mockFileFromDataURI = new File([], 'some-file-name');
 
 jest.mock('@atlaskit/media-ui', () => ({
-  ...jest.requireActual<Object>('@atlaskit/media-ui'),
-  dataURItoFile: jest.fn(() => mockFileFromDataURI),
+	...jest.requireActual<Object>('@atlaskit/media-ui'),
+	dataURItoFile: jest.fn(() => mockFileFromDataURI),
 }));

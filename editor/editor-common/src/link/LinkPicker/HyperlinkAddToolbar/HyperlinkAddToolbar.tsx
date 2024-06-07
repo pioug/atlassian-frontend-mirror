@@ -711,10 +711,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		inputType: LinkInputType,
 		interaction: 'click' | 'keyboard' | 'notselected',
 	) => {
-		const {
-			searchSessionId,
-			onSubmit,
-		} = this.props;
+		const { searchSessionId, onSubmit } = this.props;
 		const { items, selectedIndex, displayText } = this.state;
 		if (onSubmit) {
 			this.submitted = true;
@@ -801,11 +798,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 
 	private handleKeyDown = (event: KeyboardEvent<any>) => {
 		const { items, selectedIndex } = this.state;
-		const {
-			view,
-			onEscapeCallback,
-			searchSessionId,
-		} = this.props;
+		const { view, onEscapeCallback, searchSessionId } = this.props;
 		const { keyCode } = event;
 		const KEY_CODE_ESCAPE = 27;
 		const KEY_CODE_ARROW_DOWN = 40;

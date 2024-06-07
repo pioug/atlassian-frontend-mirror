@@ -6,7 +6,7 @@ import { messages } from '../../../messages';
 import { downloadUrl } from '../../../utils';
 
 export const DownloadAction = ({ url }: { url?: string }): ActionProps => ({
-  id: 'download-content',
-  text: <FormattedMessage {...messages.download} />,
-  promise: () => downloadUrl(url),
+	id: 'download-content',
+	text: <FormattedMessage {...messages.download} />,
+	promise: () => downloadUrl(url),
 });

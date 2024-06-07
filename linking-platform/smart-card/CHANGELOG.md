@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.5.2
+
+### Patch Changes
+
+- [#104892](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104892)
+  [`58eee9b7de5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/58eee9b7de5a) -
+  Use pascal case for X-Product
+
 ## 27.5.1
 
 ### Patch Changes

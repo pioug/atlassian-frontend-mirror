@@ -5,99 +5,98 @@ import { ImageComponent } from './styled';
 import { getCssFromImageOrientation, isRotated } from '../imageMetaData';
 
 export interface MediaImageProps {
-  dataURI: string;
-  alt?: string;
-  crop?: boolean;
-  stretch?: boolean;
-  previewOrientation?: number | 'from-image';
-  crossOrigin?: '' | 'anonymous' | 'use-credentials';
-  onImageLoad?: (loadedImage: HTMLImageElement) => void;
-  onImageError?: () => void;
-  loading?: 'lazy' | 'eager';
-  //An option to force display image with showImage rules bypassed
-  forceSyncDisplay?: boolean;
+	dataURI: string;
+	alt?: string;
+	crop?: boolean;
+	stretch?: boolean;
+	previewOrientation?: number | 'from-image';
+	crossOrigin?: '' | 'anonymous' | 'use-credentials';
+	onImageLoad?: (loadedImage: HTMLImageElement) => void;
+	onImageError?: () => void;
+	loading?: 'lazy' | 'eager';
+	//An option to force display image with showImage rules bypassed
+	forceSyncDisplay?: boolean;
 }
 
 export interface MediaImageState {
-  isImageLoaded: boolean;
-  imgWidth: number;
-  imgHeight: number;
-  parentWidth: number;
-  parentHeight: number;
+	isImageLoaded: boolean;
+	imgWidth: number;
+	imgHeight: number;
+	parentWidth: number;
+	parentHeight: number;
 }
 
 export class MediaImage extends Component<MediaImageProps, MediaImageState> {
-  static defaultProps: Partial<MediaImageProps> = {
-    crop: true,
-    stretch: false,
-    forceSyncDisplay: false,
-  };
-  imageRef: React.RefObject<HTMLImageElement>;
+	static defaultProps: Partial<MediaImageProps> = {
+		crop: true,
+		stretch: false,
+		forceSyncDisplay: false,
+	};
+	imageRef: React.RefObject<HTMLImageElement>;
 
-  constructor(props: MediaImageProps) {
-    super(props);
-    this.imageRef = React.createRef();
+	constructor(props: MediaImageProps) {
+		super(props);
+		this.imageRef = React.createRef();
 
-    this.state = {
-      isImageLoaded: false,
-      imgWidth: 0,
-      imgHeight: 0,
-      parentWidth: Infinity,
-      parentHeight: Infinity,
-    };
-  }
+		this.state = {
+			isImageLoaded: false,
+			imgWidth: 0,
+			imgHeight: 0,
+			parentWidth: Infinity,
+			parentHeight: Infinity,
+		};
+	}
 
-  // TODO FIL-4060 we need to check whether the dataURI changes in UNSAFE_componentWillReceiveProps()
-  // and if it does recalculate the image height and width
+	// TODO FIL-4060 we need to check whether the dataURI changes in UNSAFE_componentWillReceiveProps()
+	// and if it does recalculate the image height and width
 
-  componentDidMount() {
-    const parent = ReactDOM.findDOMNode(this)!.parentElement;
-    if (!parent) {
-      return;
-    }
-    const { width, height } = parent.getBoundingClientRect();
+	componentDidMount() {
+		const parent = ReactDOM.findDOMNode(this)!.parentElement;
+		if (!parent) {
+			return;
+		}
+		const { width, height } = parent.getBoundingClientRect();
 
-    this.setState({
-      parentWidth: width,
-      parentHeight: height,
-    });
-  }
+		this.setState({
+			parentWidth: width,
+			parentHeight: height,
+		});
+	}
 
-  onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    if (!this.imageRef || !this.imageRef.current) {
-      return;
-    }
-    const { onImageLoad } = this.props;
-    this.setState({
-      isImageLoaded: true,
-      imgWidth: this.imageRef.current.naturalWidth,
-      imgHeight: this.imageRef.current.naturalHeight,
-    });
-    if (onImageLoad) {
-      onImageLoad(e.currentTarget);
-    }
-  };
+	onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+		if (!this.imageRef || !this.imageRef.current) {
+			return;
+		}
+		const { onImageLoad } = this.props;
+		this.setState({
+			isImageLoaded: true,
+			imgWidth: this.imageRef.current.naturalWidth,
+			imgHeight: this.imageRef.current.naturalHeight,
+		});
+		if (onImageLoad) {
+			onImageLoad(e.currentTarget);
+		}
+	};
 
-  render() {
-    const {
-      crop,
-      stretch,
-      dataURI,
-      previewOrientation = 1,
-      crossOrigin,
-      onImageError,
-      alt = '',
-      loading,
-      forceSyncDisplay,
-    } = this.props;
-    const { parentWidth, parentHeight, imgWidth, imgHeight, isImageLoaded } =
-      this.state;
+	render() {
+		const {
+			crop,
+			stretch,
+			dataURI,
+			previewOrientation = 1,
+			crossOrigin,
+			onImageError,
+			alt = '',
+			loading,
+			forceSyncDisplay,
+		} = this.props;
+		const { parentWidth, parentHeight, imgWidth, imgHeight, isImageLoaded } = this.state;
 
-    const parentRatio = parentWidth / parentHeight;
-    let imgRatio = imgWidth / imgHeight;
-    let percentSize = '100%';
+		const parentRatio = parentWidth / parentHeight;
+		let imgRatio = imgWidth / imgHeight;
+		let percentSize = '100%';
 
-    /*
+		/*
       Cover strategy means we want to full entire screen with an image. Here is an example:
 
          Image           Container   Result (░ - is what cropped out)
@@ -108,9 +107,9 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
      │▓▓▓▓▓▓▓▓▓▓▓▓▓▓│    └──────┘    └───┴──────┴───┘
      └──────────────┘
     */
-    const isCoverStrategy = crop;
+		const isCoverStrategy = crop;
 
-    /*
+		/*
       Fit strategy means image is fully inside container even if there is empty space left.
       Here is an example:
 
@@ -122,12 +121,11 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
      │▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓│    │      │    ├──────┤
      └────────────────────┘    └──────┘    └──────┘
      */
-    const isFitStrategy = !crop;
+		const isFitStrategy = !crop;
 
-    const isImageRotated =
-      previewOrientation !== 'from-image' && isRotated(previewOrientation);
+		const isImageRotated = previewOrientation !== 'from-image' && isRotated(previewOrientation);
 
-    /*
+		/*
       When photo has orientation of 90deg or 270deg (stored in EXIF meta data)
       things get very tricky. Let me go through an two examples to explain how we deal with that:
 
@@ -274,12 +272,12 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
 
       So, 100x134 image in 100x200 container.
      */
-    if (isImageRotated) {
-      imgRatio = 1 / imgRatio;
-      percentSize = `${Math.ceil(imgRatio * 100)}%`;
-    }
+		if (isImageRotated) {
+			imgRatio = 1 / imgRatio;
+			percentSize = `${Math.ceil(imgRatio * 100)}%`;
+		}
 
-    /*
+		/*
       Here is an example of when isImageMoreLandscapyThanContainer is true:
 
         Image      Container   OR   Image      Container
@@ -292,30 +290,30 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
 
       For false just swap "Image" and "Container" in the example above.
      */
-    const isImageMoreLandscapyThanContainer = imgRatio > parentRatio;
-    const isImgLandscape = imgWidth > imgHeight;
+		const isImageMoreLandscapyThanContainer = imgRatio > parentRatio;
+		const isImgLandscape = imgWidth > imgHeight;
 
-    /*
+		/*
     This is two cases we need to cover as described in Example #2 above, but only for rotated landscape images.
      */
-    if (isImageRotated && isImgLandscape) {
-      if (
-        isFitStrategy ||
-        isImageMoreLandscapyThanContainer ||
-        (isCoverStrategy && !isImageMoreLandscapyThanContainer)
-      ) {
-        percentSize = `${Math.ceil((1 / imgRatio) * 100)}%`;
-      }
-    }
+		if (isImageRotated && isImgLandscape) {
+			if (
+				isFitStrategy ||
+				isImageMoreLandscapyThanContainer ||
+				(isCoverStrategy && !isImageMoreLandscapyThanContainer)
+			) {
+				percentSize = `${Math.ceil((1 / imgRatio) * 100)}%`;
+			}
+		}
 
-    /*
+		/*
       When isStretchingAllowed is false image is as big as it is, but as small as container
       (according to strategy - cover or fit).
       isStretchingAllowed is true if image is bigger then container.
      */
-    const isStretchingAllowed = stretch;
+		const isStretchingAllowed = stretch;
 
-    /*
+		/*
       We do not want to show image until we finish deciding on sizing strategy.
       Though if it is a "fit" strategy (and image hasn't been rotated) we can display it right away,
       since it doesn't depend on isImageMoreLandscapyThanContainer nor it will change when isStretchingAllowed
@@ -323,16 +321,15 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       The reason for exclude isImageRotated is that we need to calculate percentSize variable
       and we can do that only when image is loaded (and we have image size)
      */
-    const showImage =
-      forceSyncDisplay || isImageLoaded || (isFitStrategy && !isImageRotated);
+		const showImage = forceSyncDisplay || isImageLoaded || (isFitStrategy && !isImageRotated);
 
-    const style: CSSProperties = {
-      transform: 'translate(-50%, -50%)',
-    };
+		const style: CSSProperties = {
+			transform: 'translate(-50%, -50%)',
+		};
 
-    if (isStretchingAllowed) {
-      if (isFitStrategy && isImageMoreLandscapyThanContainer) {
-        /*
+		if (isStretchingAllowed) {
+			if (isFitStrategy && isImageMoreLandscapyThanContainer) {
+				/*
           Image matches its width to container's and height scales accordingly.
 
             Image       Container       Result
@@ -343,14 +340,14 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
            └──────┘    │         │    ├─────────┤
                        └─────────┘    └─────────┘
          */
-        style.width = percentSize;
-      } else if (isFitStrategy && !isImageMoreLandscapyThanContainer) {
-        /*
+				style.width = percentSize;
+			} else if (isFitStrategy && !isImageMoreLandscapyThanContainer) {
+				/*
           Image matches its height to container's and width scales accordingly.
          */
-        style.height = percentSize;
-      } else if (isCoverStrategy && isImageMoreLandscapyThanContainer) {
-        /*
+				style.height = percentSize;
+			} else if (isCoverStrategy && isImageMoreLandscapyThanContainer) {
+				/*
           In order to cover whole container guaranteed (even in expense of stretching)
           image matches its height to container's. Width scales accordingly and crops out sides.
 
@@ -362,13 +359,13 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
            └──────┘    │         │    │░░│▓▓▓▓▓▓│░░│
                        └─────────┘    └──┴──────┴──┘
          */
-        style.height = percentSize;
-      } else if (isCoverStrategy && !isImageMoreLandscapyThanContainer) {
-        style.width = percentSize;
-      }
-    } else {
-      if (isFitStrategy) {
-        /*
+				style.height = percentSize;
+			} else if (isCoverStrategy && !isImageMoreLandscapyThanContainer) {
+				style.width = percentSize;
+			}
+		} else {
+			if (isFitStrategy) {
+				/*
           We want image to be as wide and as height as container but not bigger then it's own size.
 
             Image       Container       Result
@@ -392,10 +389,10 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
                        │          │    │          │
                        └──────────┘    └──────────┘
          */
-        style.maxWidth = percentSize;
-        style.maxHeight = percentSize;
-      } else if (isCoverStrategy && isImageMoreLandscapyThanContainer) {
-        /*
+				style.maxWidth = percentSize;
+				style.maxHeight = percentSize;
+			} else if (isCoverStrategy && isImageMoreLandscapyThanContainer) {
+				/*
           We want to fill container but we can't stretch an image if it's smaller then container.
 
             Image            Container       Result
@@ -407,38 +404,38 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
            └────────────┘
 
          */
-        style.maxHeight = percentSize;
-      } else if (isCoverStrategy && !isImageMoreLandscapyThanContainer) {
-        style.maxWidth = percentSize;
-      }
-    }
+				style.maxHeight = percentSize;
+			} else if (isCoverStrategy && !isImageMoreLandscapyThanContainer) {
+				style.maxWidth = percentSize;
+			}
+		}
 
-    if (!showImage) {
-      style.display = 'none';
-    }
+		if (!showImage) {
+			style.display = 'none';
+		}
 
-    if (previewOrientation === 'from-image') {
-      style.imageOrientation = 'from-image';
-    } else if (previewOrientation > 1) {
-      const transform = getCssFromImageOrientation(previewOrientation);
+		if (previewOrientation === 'from-image') {
+			style.imageOrientation = 'from-image';
+		} else if (previewOrientation > 1) {
+			const transform = getCssFromImageOrientation(previewOrientation);
 
-      style.transform += ` ${transform}`;
-    }
+			style.transform += ` ${transform}`;
+		}
 
-    return (
-      <ImageComponent
-        loading={loading}
-        data-testid="media-image"
-        draggable={false}
-        alt={alt}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        style={style}
-        onLoad={this.onImageLoad}
-        onError={onImageError}
-        imageRef={this.imageRef}
-        src={dataURI}
-        crossOrigin={crossOrigin}
-      />
-    );
-  }
+		return (
+			<ImageComponent
+				loading={loading}
+				data-testid="media-image"
+				draggable={false}
+				alt={alt}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={style}
+				onLoad={this.onImageLoad}
+				onError={onImageError}
+				imageRef={this.imageRef}
+				src={dataURI}
+				crossOrigin={crossOrigin}
+			/>
+		);
+	}
 }

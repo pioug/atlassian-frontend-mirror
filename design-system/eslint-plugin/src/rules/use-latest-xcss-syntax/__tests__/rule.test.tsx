@@ -6,6 +6,6 @@ import rule from '../index';
 import { tests as xcss } from './_xcss';
 
 ruleTester.run('use-tokens-space', rule, {
-  valid: xcss.valid,
-  invalid: xcss.invalid,
+	valid: xcss.valid,
+	invalid: xcss.invalid,
 });

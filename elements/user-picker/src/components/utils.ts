@@ -1,165 +1,144 @@
 import memoizeOne from 'memoize-one';
 import { type ReactChild, type ReactElement, type ReactNode } from 'react';
 import {
-  type AtlaskitSelectValue,
-  type ExternalUser,
-  type Custom,
-  CustomType,
-  type Email,
-  EmailType,
-  type Option,
-  type OptionData,
-  type Promisable,
-  type Team,
-  TeamType,
-  type Group,
-  GroupType,
-  type User,
-  UserType,
-  type Value,
-  type OptionIdentifier,
-  type DefaultValue,
-  type LozengeProps,
-  ExternalUserType,
+	type AtlaskitSelectValue,
+	type ExternalUser,
+	type Custom,
+	CustomType,
+	type Email,
+	EmailType,
+	type Option,
+	type OptionData,
+	type Promisable,
+	type Team,
+	TeamType,
+	type Group,
+	GroupType,
+	type User,
+	UserType,
+	type Value,
+	type OptionIdentifier,
+	type DefaultValue,
+	type LozengeProps,
+	ExternalUserType,
 } from '../types';
 import { PopupSelect } from '@atlaskit/select';
 
 export const isExternalUser = (option: OptionData): option is ExternalUser =>
-  option.type === ExternalUserType ||
-  Boolean((option as ExternalUser).isExternal);
+	option.type === ExternalUserType || Boolean((option as ExternalUser).isExternal);
 
 export const isUser = (option: OptionData): option is User =>
-  option.type === undefined || option.type === UserType;
+	option.type === undefined || option.type === UserType;
 
-export const isTeam = (option: OptionData): option is Team =>
-  option.type === TeamType;
+export const isTeam = (option: OptionData): option is Team => option.type === TeamType;
 
-export const isGroup = (option: OptionData): option is Group =>
-  option.type === GroupType;
+export const isGroup = (option: OptionData): option is Group => option.type === GroupType;
 
-export const isEmail = (option: OptionData): option is Email =>
-  option.type === EmailType;
+export const isEmail = (option: OptionData): option is Email => option.type === EmailType;
 
-export const isCustom = (option: OptionData): option is Custom =>
-  option.type === CustomType;
+export const isCustom = (option: OptionData): option is Custom => option.type === CustomType;
 
 export const isDefaultValuePopulated = (value?: DefaultValue) =>
-  (value && !Array.isArray(value)) ||
-  (Array.isArray(value) && value.length > 0);
+	(value && !Array.isArray(value)) || (Array.isArray(value) && value.length > 0);
 
 const isOptionData = (option: any): option is OptionData =>
-  (option as OptionData).name !== undefined;
+	(option as OptionData).name !== undefined;
 
-export const optionToSelectableOption = (
-  option: OptionData | OptionIdentifier,
-): Option => {
-  if (isOptionData(option)) {
-    return {
-      data: option,
-      isDisabled: option.isDisabled,
-      label: option.name,
-      value: option.id,
-    };
-  } else {
-    return {
-      data: {
-        ...option,
-        name: option.id,
-      },
-      isDisabled: option.isDisabled,
-      label: option.id,
-      value: option.id,
-    };
-  }
+export const optionToSelectableOption = (option: OptionData | OptionIdentifier): Option => {
+	if (isOptionData(option)) {
+		return {
+			data: option,
+			isDisabled: option.isDisabled,
+			label: option.name,
+			value: option.id,
+		};
+	} else {
+		return {
+			data: {
+				...option,
+				name: option.id,
+			},
+			isDisabled: option.isDisabled,
+			label: option.id,
+			value: option.id,
+		};
+	}
 };
 
 export const extractOptionValue = (value: AtlaskitSelectValue) => {
-  if (!value) {
-    return undefined;
-  }
-  if (Array.isArray(value)) {
-    return value.map(({ data: option }) => option);
-  }
-  return value.data;
+	if (!value) {
+		return undefined;
+	}
+	if (Array.isArray(value)) {
+		return value.map(({ data: option }) => option);
+	}
+	return value.data;
 };
 
-export const isIterable = (
-  a: any,
-): a is Iterable<Promisable<OptionData | OptionData[]>> =>
-  typeof a[Symbol.iterator] === 'function';
+export const isIterable = (a: any): a is Iterable<Promisable<OptionData | OptionData[]>> =>
+	typeof a[Symbol.iterator] === 'function';
 
 export const getOptions = memoizeOne((options: OptionData[]) =>
-  options.map(optionToSelectableOption),
+	options.map(optionToSelectableOption),
 );
 
 export interface OptionToSelectableOptions {
-  (defaultValue: OptionData): Option;
-  (defaultValue: OptionData[]): Option[];
-  (defaultValue?: null): null;
-  (defaultValue?: DefaultValue): Option | Option[] | null | undefined;
+	(defaultValue: OptionData): Option;
+	(defaultValue: OptionData[]): Option[];
+	(defaultValue?: null): null;
+	(defaultValue?: DefaultValue): Option | Option[] | null | undefined;
 }
 
 export const optionToSelectableOptions = memoizeOne((defaultValue: Value) => {
-  if (!defaultValue) {
-    return null;
-  }
-  if (Array.isArray(defaultValue)) {
-    return defaultValue.map(optionToSelectableOption);
-  }
-  return optionToSelectableOption(defaultValue);
+	if (!defaultValue) {
+		return null;
+	}
+	if (Array.isArray(defaultValue)) {
+		return defaultValue.map(optionToSelectableOption);
+	}
+	return optionToSelectableOption(defaultValue);
 }) as OptionToSelectableOptions;
 
-export const getAvatarSize = (
-  appearance: string,
-): 'xsmall' | 'small' | 'medium' =>
-  appearance === 'big' ? 'medium' : appearance === 'multi' ? 'xsmall' : 'small';
+export const getAvatarSize = (appearance: string): 'xsmall' | 'small' | 'medium' =>
+	appearance === 'big' ? 'medium' : appearance === 'multi' ? 'xsmall' : 'small';
 
 export const isChildInput = (child: ReactChild): child is ReactElement<any> =>
-  child &&
-  typeof child === 'object' &&
-  child.props &&
-  child.props.type === 'text';
+	child && typeof child === 'object' && child.props && child.props.type === 'text';
 
 export const isSingleValue = (value?: AtlaskitSelectValue): value is Option =>
-  !!value && !Array.isArray(value);
+	!!value && !Array.isArray(value);
 
-export const hasValue = (value?: string): value is string =>
-  !!value && value.trim().length > 0;
+export const hasValue = (value?: string): value is string => !!value && value.trim().length > 0;
 
 export const callCallback = <U extends any[], R>(
-  callback: ((...U: U) => R) | undefined,
-  ...args: U
+	callback: ((...U: U) => R) | undefined,
+	...args: U
 ): R | undefined => {
-  if (typeof callback === 'function') {
-    try {
-      //  there is mystery error in IE 11, so we need this try-catch
-      return callback(...args);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(
-        '@atlassian/user-select: an error happening in `callCallback`: ',
-        error,
-      );
-    }
-  }
+	if (typeof callback === 'function') {
+		try {
+			//  there is mystery error in IE 11, so we need this try-catch
+			return callback(...args);
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.error('@atlassian/user-select: an error happening in `callCallback`: ', error);
+		}
+	}
 };
 
 export const getAvatarUrl = (optionData: OptionData) => {
-  if (isUser(optionData) || isTeam(optionData) || isCustom(optionData)) {
-    return optionData.avatarUrl;
-  }
-  return undefined;
+	if (isUser(optionData) || isTeam(optionData) || isCustom(optionData)) {
+		return optionData.avatarUrl;
+	}
+	return undefined;
 };
 
-export const isPopupUserPickerByComponent = (
-  SelectComponent: React.ComponentType<any>,
-) => SelectComponent === PopupSelect;
+export const isPopupUserPickerByComponent = (SelectComponent: React.ComponentType<any>) =>
+	SelectComponent === PopupSelect;
 
-export const isPopupUserPickerByProps = (selectProps: any) =>
-  selectProps.searchThreshold === -1;
+export const isPopupUserPickerByProps = (selectProps: any) => selectProps.searchThreshold === -1;
 
 export const isLozengeText = (
-  lozengeProp: ReactNode | LozengeProps,
+	lozengeProp: ReactNode | LozengeProps,
 ): lozengeProp is LozengeProps => {
-  return lozengeProp?.hasOwnProperty('text') || false;
+	return lozengeProp?.hasOwnProperty('text') || false;
 };

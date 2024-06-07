@@ -41,12 +41,12 @@ ${(<AtlassianInternalWarning />)}
   The component only accepts images up to 10Mib.
 
 ${(
-  <DocsContentTabs
-    tabs={[
-      { name: 'Usage', content: example },
-      { name: 'Props', content: props },
-    ]}
-  />
+	<DocsContentTabs
+		tabs={[
+			{ name: 'Usage', content: example },
+			{ name: 'Props', content: props },
+		]}
+	/>
 )}
 `;
 

@@ -11,33 +11,31 @@ import { CardActionsView } from '../cardActions';
 import { ActionsBarWrapper } from '../actionsBarWrapper';
 
 describe('ActionsBar', () => {
-  const deleteAction: CardAction = {
-    label: 'Delete',
-    handler: jest.fn(),
-    icon: <DeleteIcon label="delete-icon" />,
-  };
-  const downloadAction: CardAction = {
-    label: 'Download',
-    handler: jest.fn(),
-    icon: <DownloadIcon label="download-icon" />,
-  };
-  const replaceAction: CardAction = {
-    label: 'Replace',
-    handler: jest.fn(),
-    icon: <EditIcon label="replace-icon" />,
-  };
+	const deleteAction: CardAction = {
+		label: 'Delete',
+		handler: jest.fn(),
+		icon: <DeleteIcon label="delete-icon" />,
+	};
+	const downloadAction: CardAction = {
+		label: 'Download',
+		handler: jest.fn(),
+		icon: <DownloadIcon label="download-icon" />,
+	};
+	const replaceAction: CardAction = {
+		label: 'Replace',
+		handler: jest.fn(),
+		icon: <EditIcon label="replace-icon" />,
+	};
 
-  it('will not render on empty actions', () => {
-    const component = shallow(<ActionsBar actions={[]} />);
-    expect(component.find(ActionsBarWrapper)).toHaveLength(0);
-    expect(component.find(CardActionsView)).toHaveLength(0);
-  });
+	it('will not render on empty actions', () => {
+		const component = shallow(<ActionsBar actions={[]} />);
+		expect(component.find(ActionsBarWrapper)).toHaveLength(0);
+		expect(component.find(CardActionsView)).toHaveLength(0);
+	});
 
-  it('will render if there are actions', () => {
-    const component = mount(
-      <ActionsBar actions={[deleteAction, downloadAction, replaceAction]} />,
-    );
-    expect(component.find(ActionsBarWrapper)).toHaveLength(1);
-    expect(component.find(CardActionsView)).toHaveLength(1);
-  });
+	it('will render if there are actions', () => {
+		const component = mount(<ActionsBar actions={[deleteAction, downloadAction, replaceAction]} />);
+		expect(component.find(ActionsBarWrapper)).toHaveLength(1);
+		expect(component.find(CardActionsView)).toHaveLength(1);
+	});
 });

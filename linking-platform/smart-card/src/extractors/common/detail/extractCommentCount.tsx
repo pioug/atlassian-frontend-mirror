@@ -7,27 +7,25 @@ import { type JsonLd } from 'json-ld-types';
 import { type LinkDetail } from './types';
 
 export type LinkCommentType =
-  | JsonLd.Data.Document
-  | JsonLd.Data.Page
-  | JsonLd.Data.Project
-  | JsonLd.Data.SourceCodeCommit
-  | JsonLd.Data.TaskType;
+	| JsonLd.Data.Document
+	| JsonLd.Data.Page
+	| JsonLd.Data.Project
+	| JsonLd.Data.SourceCodeCommit
+	| JsonLd.Data.TaskType;
 
-export const extractCommentCount = (
-  jsonLd: LinkCommentType,
-): LinkDetail | undefined => {
-  const commentCount = jsonLd['schema:commentCount'];
-  if (commentCount) {
-    return {
-      text: commentCount.toString(),
-      icon: (
-        <ChatIcon
-          label="comment-count"
-          key="comments-count-icon"
-          size="small"
-          primaryColor={token('color.icon.subtle', N600)}
-        />
-      ),
-    };
-  }
+export const extractCommentCount = (jsonLd: LinkCommentType): LinkDetail | undefined => {
+	const commentCount = jsonLd['schema:commentCount'];
+	if (commentCount) {
+		return {
+			text: commentCount.toString(),
+			icon: (
+				<ChatIcon
+					label="comment-count"
+					key="comments-count-icon"
+					size="small"
+					primaryColor={token('color.icon.subtle', N600)}
+				/>
+			),
+		};
+	}
 };

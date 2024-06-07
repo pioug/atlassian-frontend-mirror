@@ -6,68 +6,66 @@ import { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 
 export const Grid = ({ children }: React.PropsWithChildren<unknown>) => (
-  <div
-    css={{
-      display: 'flex',
-      flexWrap: 'wrap',
-      flexDirection: 'row',
-    }}
-  >
-    {children}
-  </div>
+	<div
+		css={{
+			display: 'flex',
+			flexWrap: 'wrap',
+			flexDirection: 'row',
+		}}
+	>
+		{children}
+	</div>
 );
 
 export const Item = ({ children }: React.PropsWithChildren<unknown>) => (
-  <div
-    css={{
-      flex: '1 1 0',
-      margin: 10,
-    }}
-  >
-    {children}
-  </div>
+	<div
+		css={{
+			flex: '1 1 0',
+			margin: 10,
+		}}
+	>
+		{children}
+	</div>
 );
 
 export const dumpRef = (ref: HTMLElement | null) => {
-  // eslint-disable-next-line no-console
-  console.log('Content HTML', ref && ref.outerHTML);
+	// eslint-disable-next-line no-console
+	console.log('Content HTML', ref && ref.outerHTML);
 };
 
 export const action = (action: string) => () => {
-  // eslint-disable-next-line no-console
-  console.log({ action });
+	// eslint-disable-next-line no-console
+	console.log({ action });
 };
 
 interface Props {
-  render: (
-    taskStates: Map<string, boolean>,
-    onChangeListener: (taskId: string, done: boolean) => void,
-  ) => JSX.Element;
+	render: (
+		taskStates: Map<string, boolean>,
+		onChangeListener: (taskId: string, done: boolean) => void,
+	) => JSX.Element;
 }
 
 interface State {
-  tick: number;
+	tick: number;
 }
 
 export class TaskStateManager extends PureComponent<Props, State> {
-  private taskStates = new Map<string, boolean>();
+	private taskStates = new Map<string, boolean>();
 
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      tick: 0,
-    };
-  }
+	constructor(props: Props) {
+		super(props);
+		this.state = {
+			tick: 0,
+		};
+	}
 
-  private onChangeListener = (taskId: string, done: boolean) => {
-    action('onChange')();
-    this.taskStates.set(taskId, done);
-    this.setState({ tick: this.state.tick + 1 });
-  };
+	private onChangeListener = (taskId: string, done: boolean) => {
+		action('onChange')();
+		this.taskStates.set(taskId, done);
+		this.setState({ tick: this.state.tick + 1 });
+	};
 
-  render() {
-    return (
-      <div>{this.props.render(this.taskStates, this.onChangeListener)}</div>
-    );
-  }
+	render() {
+		return <div>{this.props.render(this.taskStates, this.onChangeListener)}</div>;
+	}
 }

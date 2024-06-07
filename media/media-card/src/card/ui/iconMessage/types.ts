@@ -2,22 +2,22 @@ import { type ReactNode } from 'react';
 import { type MessageDescriptor } from 'react-intl-next';
 
 export type InternalIconMessageProps = {
-  messageDescriptor: MessageDescriptor;
-  animated?: boolean;
-  reducedFont?: boolean;
+	messageDescriptor: MessageDescriptor;
+	animated?: boolean;
+	reducedFont?: boolean;
 };
 
 export type CreatingPreviewProps = {
-  disableAnimation?: boolean;
+	disableAnimation?: boolean;
 };
 
 export type StyledTextProps = {
-  animated?: boolean;
-  reducedFont?: boolean;
+	animated?: boolean;
+	reducedFont?: boolean;
 };
 
 export type IconMessageWrapperProps = {
-  animated?: boolean;
-  reducedFont?: boolean;
-  children?: ReactNode;
+	animated?: boolean;
+	reducedFont?: boolean;
+	children?: ReactNode;
 };

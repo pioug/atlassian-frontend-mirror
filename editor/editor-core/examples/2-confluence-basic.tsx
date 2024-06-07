@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { FullPageBase } from "@af/editor-examples-helpers/example-presets"
+import { FullPageBase } from '@af/editor-examples-helpers/example-presets';
 
 const Example = () => {
-  return <FullPageBase />;
-}
+	return <FullPageBase />;
+};
 
 export default Example;

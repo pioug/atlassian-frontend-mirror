@@ -13,63 +13,57 @@ import { useAutomationMenu } from '../../menu-context';
 import { ManualTriggerGlyph } from './manual-trigger-icon';
 
 const i18n = defineMessages({
-  modalHeaderIconLabel: {
-    id: 'automation-menu.modal.header.icon.label',
-    defaultMessage: 'Automation modal header icon',
-    description: 'A label for the icon in the header of the automation modal.',
-  },
+	modalHeaderIconLabel: {
+		id: 'automation-menu.modal.header.icon.label',
+		defaultMessage: 'Automation modal header icon',
+		description: 'A label for the icon in the header of the automation modal.',
+	},
 });
 
 const iconStyle = xcss({
-  marginRight: 'space.150',
-  backgroundColor: 'color.background.accent.green.subtlest',
-  borderRadius: 'border.radius',
+	marginRight: 'space.150',
+	backgroundColor: 'color.background.accent.green.subtlest',
+	borderRadius: 'border.radius',
 });
 
 const modalDescriptionStyle = xcss({
-  marginTop: 'space.150',
+	marginTop: 'space.150',
 });
 
 type AutomationModalHeaderProps = {
-  modalTitle?: React.ReactNode;
-  modalDescription?: React.ReactNode;
+	modalTitle?: React.ReactNode;
+	modalDescription?: React.ReactNode;
 };
 
 export const AutomationModalHeader = ({
-  modalTitle,
-  modalDescription,
+	modalTitle,
+	modalDescription,
 }: AutomationModalHeaderProps) => {
-  const { formatMessage } = useIntl();
+	const { formatMessage } = useIntl();
 
-  const { initialised, rules } = useAutomationMenu();
-  const { titleId } = useModal();
+	const { initialised, rules } = useAutomationMenu();
+	const { titleId } = useModal();
 
-  const showDescription = initialised && rules.length > 0 && !!modalDescription;
+	const showDescription = initialised && rules.length > 0 && !!modalDescription;
 
-  return (
-    <ModalHeader>
-      <Stack>
-        <Inline alignBlock="center">
-          <Box
-            xcss={iconStyle}
-            paddingInline="space.050"
-            paddingBlock="space.025"
-          >
-            <Icon
-              size="small"
-              glyph={ManualTriggerGlyph}
-              label={formatMessage(i18n.modalHeaderIconLabel)}
-              primaryColor={token('color.icon.accent.green', G50)}
-            />
-          </Box>
-          <Heading level="h600" id={titleId}>
-            {modalTitle}
-          </Heading>
-        </Inline>
-        {showDescription && (
-          <Box xcss={modalDescriptionStyle}>{modalDescription}</Box>
-        )}
-      </Stack>
-    </ModalHeader>
-  );
+	return (
+		<ModalHeader>
+			<Stack>
+				<Inline alignBlock="center">
+					<Box xcss={iconStyle} paddingInline="space.050" paddingBlock="space.025">
+						<Icon
+							size="small"
+							glyph={ManualTriggerGlyph}
+							label={formatMessage(i18n.modalHeaderIconLabel)}
+							primaryColor={token('color.icon.accent.green', G50)}
+						/>
+					</Box>
+					<Heading level="h600" id={titleId}>
+						{modalTitle}
+					</Heading>
+				</Inline>
+				{showDescription && <Box xcss={modalDescriptionStyle}>{modalDescription}</Box>}
+			</Stack>
+		</ModalHeader>
+	);
 };

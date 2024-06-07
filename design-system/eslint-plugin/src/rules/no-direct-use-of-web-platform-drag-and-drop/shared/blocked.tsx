@@ -1,19 +1,19 @@
 export const blockedJSXAttributeLookup = new Set([
-  'onDragStart',
-  'onDragEnter',
-  'onDragLeave',
-  'onDragOver',
-  'onDrag',
-  'onDrop',
-  'onDragEnd',
+	'onDragStart',
+	'onDragEnter',
+	'onDragLeave',
+	'onDragOver',
+	'onDrag',
+	'onDrop',
+	'onDragEnd',
 ]);
 
 export const blockedEventNameLookup = new Set([
-  'dragstart',
-  'dragenter',
-  'dragleave',
-  'dragover',
-  'drag',
-  'drop',
-  'dragend',
+	'dragstart',
+	'dragenter',
+	'dragleave',
+	'dragover',
+	'drag',
+	'drop',
+	'dragend',
 ]);

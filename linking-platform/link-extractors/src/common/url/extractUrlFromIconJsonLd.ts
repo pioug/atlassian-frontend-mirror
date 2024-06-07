@@ -10,15 +10,15 @@ import { extractUrlFromLinkJsonLd } from './extractUrlFromLinkJsonLd';
  * @returns URL string if one is found, otherwise undefined.
  */
 export const extractUrlFromIconJsonLd = (
-  icon: JsonLd.Primitives.Link | JsonLd.Primitives.Image,
+	icon: JsonLd.Primitives.Link | JsonLd.Primitives.Image,
 ): string | undefined => {
-  if (typeof icon === 'string') {
-    return icon;
-  } else if (icon['@type'] === 'Link') {
-    return extractUrlFromLinkJsonLd(icon);
-  } else {
-    if (icon.url) {
-      return extractUrlFromLinkJsonLd(icon.url);
-    }
-  }
+	if (typeof icon === 'string') {
+		return icon;
+	} else if (icon['@type'] === 'Link') {
+		return extractUrlFromLinkJsonLd(icon);
+	} else {
+		if (icon.url) {
+			return extractUrlFromLinkJsonLd(icon.url);
+		}
+	}
 };

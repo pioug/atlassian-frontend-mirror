@@ -6,9 +6,9 @@ export default md`
 ##
 ## Icon Explorer
   ${(
-    <p>
-      <IconExplorer />
-    </p>
-  )}
+		<p>
+			<IconExplorer />
+		</p>
+	)}
 
 `;

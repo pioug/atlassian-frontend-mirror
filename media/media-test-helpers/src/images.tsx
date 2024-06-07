@@ -7,4 +7,4 @@ export { VRTestSmallImage } from './dataURIs/vr_test_small_image';
 
 // image urls
 export const remoteImage =
-  'https://mediaviewer-examples.s3-ap-southeast-2.amazonaws.com/image/image.jpg';
+	'https://mediaviewer-examples.s3-ap-southeast-2.amazonaws.com/image/image.jpg';

@@ -1,5 +1,5 @@
 export const catherineHirons = {
-  avatarUrl: '',
-  fullName: 'Catherine Hirons',
-  email: 'catherine.hirons@acme.com',
+	avatarUrl: '',
+	fullName: 'Catherine Hirons',
+	email: 'catherine.hirons@acme.com',
 };

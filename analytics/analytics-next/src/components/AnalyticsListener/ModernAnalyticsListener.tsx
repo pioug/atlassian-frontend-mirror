@@ -8,40 +8,29 @@ import { useTrackedRef } from '../../hooks/useTrackedRef';
 
 import { type AnalyticsListenerFunction } from './types';
 
-const AnalyticsListener: AnalyticsListenerFunction = ({
-  children,
-  channel,
-  onEvent,
-}) => {
-  const analyticsContext = useAnalyticsContext();
-  const onEventRef = useTrackedRef(onEvent);
-  const channelRef = useTrackedRef(channel);
+const AnalyticsListener: AnalyticsListenerFunction = ({ children, channel, onEvent }) => {
+	const analyticsContext = useAnalyticsContext();
+	const onEventRef = useTrackedRef(onEvent);
+	const channelRef = useTrackedRef(channel);
 
-  const getAtlaskitAnalyticsEventHandlers = useCallback(() => {
-    const thisHandler: UIAnalyticsEventHandler = (event, eventChannel) => {
-      if (channelRef.current === '*' || channelRef.current === eventChannel) {
-        onEventRef.current(event, eventChannel);
-      }
-    };
+	const getAtlaskitAnalyticsEventHandlers = useCallback(() => {
+		const thisHandler: UIAnalyticsEventHandler = (event, eventChannel) => {
+			if (channelRef.current === '*' || channelRef.current === eventChannel) {
+				onEventRef.current(event, eventChannel);
+			}
+		};
 
-    return [
-      ...analyticsContext.getAtlaskitAnalyticsEventHandlers(),
-      thisHandler,
-    ];
-  }, [analyticsContext, channelRef, onEventRef]);
+		return [...analyticsContext.getAtlaskitAnalyticsEventHandlers(), thisHandler];
+	}, [analyticsContext, channelRef, onEventRef]);
 
-  const value = useMemo(() => {
-    return {
-      getAtlaskitAnalyticsEventHandlers,
-      getAtlaskitAnalyticsContext: analyticsContext.getAtlaskitAnalyticsContext,
-    };
-  }, [analyticsContext, getAtlaskitAnalyticsEventHandlers]);
+	const value = useMemo(() => {
+		return {
+			getAtlaskitAnalyticsEventHandlers,
+			getAtlaskitAnalyticsContext: analyticsContext.getAtlaskitAnalyticsContext,
+		};
+	}, [analyticsContext, getAtlaskitAnalyticsEventHandlers]);
 
-  return (
-    <AnalyticsReactContext.Provider value={value}>
-      {children}
-    </AnalyticsReactContext.Provider>
-  );
+	return <AnalyticsReactContext.Provider value={value}>{children}</AnalyticsReactContext.Provider>;
 };
 
 export default AnalyticsListener;

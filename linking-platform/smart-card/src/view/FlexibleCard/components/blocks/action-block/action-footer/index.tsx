@@ -7,63 +7,63 @@ import MotionWrapper from '../../../common/motion-wrapper';
 import { type ActionFooterProps } from './types';
 
 const containerStyles = xcss({
-  all: 'unset',
-  borderRadius: 'border.radius',
-  margin: 'space.100',
-  marginBottom: 'space.0',
-  lineHeight: '20px',
-  padding: 'space.075',
-  paddingInline: 'space.100',
-  width: '100%',
-  ':empty': {
-    display: 'none',
-  },
+	all: 'unset',
+	borderRadius: 'border.radius',
+	margin: 'space.100',
+	marginBottom: 'space.0',
+	lineHeight: '20px',
+	padding: 'space.075',
+	paddingInline: 'space.100',
+	width: '100%',
+	':empty': {
+		display: 'none',
+	},
 });
 
 const errorStyles = xcss({
-  backgroundColor: 'color.background.danger',
+	backgroundColor: 'color.background.danger',
 });
 
 const titleStyles = xcss({
-  color: 'color.text.subtle',
-  fontSize: '12px',
-  fontStyle: 'normal',
-  fontWeight: '400',
-  lineHeight: '16px',
+	color: 'color.text.subtle',
+	fontSize: '12px',
+	fontStyle: 'normal',
+	fontWeight: '400',
+	lineHeight: '16px',
 });
 
 const getIcon = (appearance?: ActionMessageAppearance) => {
-  switch (appearance) {
-    case 'error':
-      return (
-        <ErrorIcon
-          primaryColor={token('color.icon.danger', '#C9372C')}
-          label="Error"
-          size="small"
-          testId="action-error-icon"
-        />
-      );
-    default:
-      return null;
-  }
+	switch (appearance) {
+		case 'error':
+			return (
+				<ErrorIcon
+					primaryColor={token('color.icon.danger', '#C9372C')}
+					label="Error"
+					size="small"
+					testId="action-error-icon"
+				/>
+			);
+		default:
+			return null;
+	}
 };
 
 export const ActionFooter: FC<ActionFooterProps> = ({ message, testId }) => {
-  if (!message) {
-    return null;
-  }
+	if (!message) {
+		return null;
+	}
 
-  return (
-    <Box
-      testId={`${testId}-footer`}
-      xcss={[containerStyles, message.appearance === 'error' && errorStyles]}
-    >
-      <MotionWrapper isFadeIn={true} show={true} showTransition={true}>
-        <Inline alignBlock="start" grow="fill" space="space.050">
-          {message.icon || getIcon(message.appearance)}
-          <Box xcss={titleStyles}>{message.title}</Box>
-        </Inline>
-      </MotionWrapper>
-    </Box>
-  );
+	return (
+		<Box
+			testId={`${testId}-footer`}
+			xcss={[containerStyles, message.appearance === 'error' && errorStyles]}
+		>
+			<MotionWrapper isFadeIn={true} show={true} showTransition={true}>
+				<Inline alignBlock="start" grow="fill" space="space.050">
+					{message.icon || getIcon(message.appearance)}
+					<Box xcss={titleStyles}>{message.title}</Box>
+				</Inline>
+			</MotionWrapper>
+		</Box>
+	);
 };

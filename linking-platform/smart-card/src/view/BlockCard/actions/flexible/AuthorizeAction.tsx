@@ -12,21 +12,18 @@ import { messages } from '../../../../messages';
  * @param onAuthorize a function that will be called on the click of the button
  * @param providerName a string which is inserted into the message of the button
  */
-export const AuthorizeAction = (
-  onAuthorize: () => void,
-  providerName?: string,
-): CustomActionItem =>
-  ({
-    appearance: 'primary',
-    name: ActionName.CustomAction,
-    content: providerName ? (
-      <FormattedMessage
-        {...messages.connect_unauthorised_account_action}
-        values={{ context: providerName }}
-      />
-    ) : (
-      <FormattedMessage {...messages.connect_link_account_card} />
-    ),
-    onClick: onAuthorize,
-    testId: 'smart-action-connect-account',
-  } as CustomActionItem);
+export const AuthorizeAction = (onAuthorize: () => void, providerName?: string): CustomActionItem =>
+	({
+		appearance: 'primary',
+		name: ActionName.CustomAction,
+		content: providerName ? (
+			<FormattedMessage
+				{...messages.connect_unauthorised_account_action}
+				values={{ context: providerName }}
+			/>
+		) : (
+			<FormattedMessage {...messages.connect_link_account_card} />
+		),
+		onClick: onAuthorize,
+		testId: 'smart-action-connect-account',
+	}) as CustomActionItem;

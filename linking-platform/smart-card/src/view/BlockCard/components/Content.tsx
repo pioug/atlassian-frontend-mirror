@@ -3,9 +3,9 @@ import { jsx } from '@emotion/react';
 import { gs, mq } from '../../common/utils';
 
 export interface ContentProps {
-  children: React.ReactNode;
-  /* Reduces padding by half to visualize content more compactly */
-  isCompact?: boolean;
+	children: React.ReactNode;
+	/* Reduces padding by half to visualize content more compactly */
+	isCompact?: boolean;
 }
 
 /**
@@ -17,19 +17,19 @@ export interface ContentProps {
 export const blockCardContentClassName = 'block-card-content';
 
 export const Content = ({ children, isCompact = false }: ContentProps) => (
-  <div
-    css={mq({
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-      padding: isCompact ? gs(1) : gs(2),
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: isCompact ? 'unset' : ['unset', 'space-between'],
-      flexGrow: 1,
-    })}
-    data-trello-do-not-use-override="block-card-content"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-    className={blockCardContentClassName}
-  >
-    {children}
-  </div>
+	<div
+		css={mq({
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+			padding: isCompact ? gs(1) : gs(2),
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: isCompact ? 'unset' : ['unset', 'space-between'],
+			flexGrow: 1,
+		})}
+		data-trello-do-not-use-override="block-card-content"
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		className={blockCardContentClassName}
+	>
+		{children}
+	</div>
 );

@@ -20,37 +20,37 @@ const POPUP_MOUNT_POINT_ID = 'twp-editor-preview-iframe';
   refactor it.
 */
 export async function openEmbedModal({
-  onClose = () => {},
-  ...props
+	onClose = () => {},
+	...props
 }: Partial<EmbedModalProps> = {}) {
-  let popupMountPoint: HTMLElement | null;
+	let popupMountPoint: HTMLElement | null;
 
-  popupMountPoint = document.getElementById(POPUP_MOUNT_POINT_ID);
-  if (!popupMountPoint) {
-    popupMountPoint = document.createElement('div');
-    popupMountPoint.id = POPUP_MOUNT_POINT_ID;
-    popupMountPoint.setAttribute('data-testid', 'preview-modal');
-    document.body.appendChild(popupMountPoint);
-  }
+	popupMountPoint = document.getElementById(POPUP_MOUNT_POINT_ID);
+	if (!popupMountPoint) {
+		popupMountPoint = document.createElement('div');
+		popupMountPoint.id = POPUP_MOUNT_POINT_ID;
+		popupMountPoint.setAttribute('data-testid', 'preview-modal');
+		document.body.appendChild(popupMountPoint);
+	}
 
-  let Modal = await import('./index');
+	let Modal = await import('./index');
 
-  ReactDOM.render(
-    <IntlProvider locale="en">
-      <Modal.default
-        {...props}
-        iframeName={IFRAME_NAME}
-        onClose={(_context) => {
-          if (popupMountPoint) {
-            ReactDOM.unmountComponentAtNode(popupMountPoint);
-          }
-          if (onClose) {
-            onClose(_context);
-          }
-        }}
-        showModal={true}
-      />
-    </IntlProvider>,
-    popupMountPoint,
-  );
+	ReactDOM.render(
+		<IntlProvider locale="en">
+			<Modal.default
+				{...props}
+				iframeName={IFRAME_NAME}
+				onClose={(_context) => {
+					if (popupMountPoint) {
+						ReactDOM.unmountComponentAtNode(popupMountPoint);
+					}
+					if (onClose) {
+						onClose(_context);
+					}
+				}}
+				showModal={true}
+			/>
+		</IntlProvider>,
+		popupMountPoint,
+	);
 }

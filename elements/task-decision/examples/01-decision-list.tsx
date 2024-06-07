@@ -8,31 +8,31 @@ import DecisionItem from '../src/components/DecisionItem';
 import { dumpRef } from '../example-helpers/story-utils';
 
 export default () => (
-  <div>
-    <h3>Simple DecisionList</h3>
-    <DecisionList>
-      <DecisionItem contentRef={dumpRef}>
-        Hello <b>world</b>.
-      </DecisionItem>
-      <DecisionItem contentRef={dumpRef}>
-        <Renderer document={document as DocNode} />
-      </DecisionItem>
-      <DecisionItem contentRef={dumpRef}>
-        Hello <b>world</b>.
-      </DecisionItem>
-      <DecisionItem contentRef={dumpRef}>
-        <Renderer document={document as DocNode} />
-      </DecisionItem>
-    </DecisionList>
+	<div>
+		<h3>Simple DecisionList</h3>
+		<DecisionList>
+			<DecisionItem contentRef={dumpRef}>
+				Hello <b>world</b>.
+			</DecisionItem>
+			<DecisionItem contentRef={dumpRef}>
+				<Renderer document={document as DocNode} />
+			</DecisionItem>
+			<DecisionItem contentRef={dumpRef}>
+				Hello <b>world</b>.
+			</DecisionItem>
+			<DecisionItem contentRef={dumpRef}>
+				<Renderer document={document as DocNode} />
+			</DecisionItem>
+		</DecisionList>
 
-    <h3>Single item DecisionList</h3>
-    <DecisionList>
-      <DecisionItem contentRef={dumpRef}>
-        Hello <b>world</b>.
-      </DecisionItem>
-    </DecisionList>
+		<h3>Single item DecisionList</h3>
+		<DecisionList>
+			<DecisionItem contentRef={dumpRef}>
+				Hello <b>world</b>.
+			</DecisionItem>
+		</DecisionList>
 
-    <h3>Empty DecisionList</h3>
-    <DecisionList />
-  </div>
+		<h3>Empty DecisionList</h3>
+		<DecisionList />
+	</div>
 );

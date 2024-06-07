@@ -6,40 +6,37 @@ import isValid from 'date-fns/isValid';
 import { type RelativeDateKeyType } from '../types';
 
 export function isValidDate(date: Date, today: Date = new Date()) {
-  return !!date.getTime && isValid(date) && date.getTime() <= today.getTime();
+	return !!date.getTime && isValid(date) && date.getTime() <= today.getTime();
 }
 
 export default function getRelativeDateKey(
-  date?: Date | null,
-  today: Date = new Date(),
+	date?: Date | null,
+	today: Date = new Date(),
 ): RelativeDateKeyType {
-  if (!date || !isValidDate(date, today)) {
-    return null;
-  }
+	if (!date || !isValidDate(date, today)) {
+		return null;
+	}
 
-  if (isThisWeek(date)) {
-    return 'ThisWeek';
-  }
+	if (isThisWeek(date)) {
+		return 'ThisWeek';
+	}
 
-  if (isThisMonth(date)) {
-    return 'ThisMonth';
-  }
+	if (isThisMonth(date)) {
+		return 'ThisMonth';
+	}
 
-  if (
-    date.getFullYear() === today.getFullYear() &&
-    date.getMonth() === today.getMonth() - 1
-  ) {
-    return 'LastMonth';
-  }
+	if (date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() - 1) {
+		return 'LastMonth';
+	}
 
-  const diffInMonths = differenceInMonths(today, date);
-  if (diffInMonths < 6) {
-    return 'AFewMonths';
-  }
+	const diffInMonths = differenceInMonths(today, date);
+	if (diffInMonths < 6) {
+		return 'AFewMonths';
+	}
 
-  if (diffInMonths <= 12) {
-    return 'SeveralMonths';
-  }
+	if (diffInMonths <= 12) {
+		return 'SeveralMonths';
+	}
 
-  return 'MoreThanAYear';
+	return 'MoreThanAYear';
 }

@@ -4,22 +4,17 @@ import { renderHighlight } from '../MentionItem/MentionHighlightHelpers';
 import { DescriptionBylineStyle } from './styles';
 
 export default class UserMentionDescriptionByline extends React.PureComponent<
-  DescriptionBylineProps,
-  {}
+	DescriptionBylineProps,
+	{}
 > {
-  render() {
-    const { highlight, name, nickname } = this.props.mention;
-    const nicknameHighlights = highlight && highlight.nickname;
+	render() {
+		const { highlight, name, nickname } = this.props.mention;
+		const nicknameHighlights = highlight && highlight.nickname;
 
-    if (name === nickname) {
-      return null;
-    }
+		if (name === nickname) {
+			return null;
+		}
 
-    return renderHighlight(
-      DescriptionBylineStyle,
-      nickname,
-      nicknameHighlights,
-      '@',
-    );
-  }
+		return renderHighlight(DescriptionBylineStyle, nickname, nicknameHighlights, '@');
+	}
 }

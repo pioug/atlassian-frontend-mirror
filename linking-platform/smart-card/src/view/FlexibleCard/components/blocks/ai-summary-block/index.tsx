@@ -11,15 +11,15 @@ import { SmartLinkStatus } from '../../../../../constants';
  * @see Block
  */
 const AISummaryBlock: React.FC<AISummaryBlockProps> = ({
-  status,
-  testId = 'smart-ai-summary-block',
-  ...props
+	status,
+	testId = 'smart-ai-summary-block',
+	...props
 }) => {
-  if (status !== SmartLinkStatus.Resolved) {
-    return null;
-  }
+	if (status !== SmartLinkStatus.Resolved) {
+		return null;
+	}
 
-  return <AISummaryBlockResolvedView {...props} testId={testId} />;
+	return <AISummaryBlockResolvedView {...props} testId={testId} />;
 };
 
 export default AISummaryBlock;

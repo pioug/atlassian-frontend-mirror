@@ -9,32 +9,32 @@ import { AutomationModalEmptyState } from '../empty-state';
 import { AutomationModalRule } from '../rule';
 
 type AutomationModalRuleListProps = {
-  selectedRule: ManualRule | undefined;
-  setSelectedRule: Dispatch<SetStateAction<ManualRule | undefined>>;
+	selectedRule: ManualRule | undefined;
+	setSelectedRule: Dispatch<SetStateAction<ManualRule | undefined>>;
 };
 
 export const AutomationModalRuleList = ({
-  selectedRule,
-  setSelectedRule,
+	selectedRule,
+	setSelectedRule,
 }: AutomationModalRuleListProps) => {
-  const { rules } = useAutomationMenu();
+	const { rules } = useAutomationMenu();
 
-  if (rules.length === 0) {
-    return <AutomationModalEmptyState />;
-  }
+	if (rules.length === 0) {
+		return <AutomationModalEmptyState />;
+	}
 
-  return (
-    <MenuGroup>
-      <Stack space="space.050">
-        {rules.map((rule: ManualRule) => (
-          <AutomationModalRule
-            key={`manual-rule-${rule.id}`}
-            rule={rule}
-            selectedRule={selectedRule}
-            setSelectedRule={setSelectedRule}
-          />
-        ))}
-      </Stack>
-    </MenuGroup>
-  );
+	return (
+		<MenuGroup>
+			<Stack space="space.050">
+				{rules.map((rule: ManualRule) => (
+					<AutomationModalRule
+						key={`manual-rule-${rule.id}`}
+						rule={rule}
+						selectedRule={selectedRule}
+						setSelectedRule={setSelectedRule}
+					/>
+				))}
+			</Stack>
+		</MenuGroup>
+	);
 };

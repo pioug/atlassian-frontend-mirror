@@ -15,38 +15,36 @@ import findField$ from '../../utils/find-field-observable';
 import { type OnOperators } from '../use-autocomplete-provider/types';
 
 const useOnOperators = (jqlSearchableFields$: Observable<JQLFieldResponse>) => {
-  return useCallback<OnOperators>(
-    (query?: string, field?: string): Observable<AutocompleteOptions> => {
-      if (typeof field !== 'string' || field === '') {
-        return empty();
-      }
+	return useCallback<OnOperators>(
+		(query?: string, field?: string): Observable<AutocompleteOptions> => {
+			if (typeof field !== 'string' || field === '') {
+				return empty();
+			}
 
-      const filterRegex =
-        typeof query === 'string' && query !== ''
-          ? new RegExp(`^${escapeRegExp(query)}[^$]`, 'i')
-          : undefined;
+			const filterRegex =
+				typeof query === 'string' && query !== ''
+					? new RegExp(`^${escapeRegExp(query)}[^$]`, 'i')
+					: undefined;
 
-      // Find operators for matching field
-      return findField$(jqlSearchableFields$, field).pipe(
-        concatMap(({ operators }) => operators),
-        // Filter operators that match query
-        filter(
-          operator => !filterRegex || operator.match(filterRegex) !== null,
-        ),
-        map(operator => {
-          const value = operator.toUpperCase();
-          return {
-            name: value,
-            value,
-          };
-        }),
-        toArray(),
-        // We can filter out empty arrays as there is nothing to consume
-        filter(operators => operators.length > 0),
-      );
-    },
-    [jqlSearchableFields$],
-  );
+			// Find operators for matching field
+			return findField$(jqlSearchableFields$, field).pipe(
+				concatMap(({ operators }) => operators),
+				// Filter operators that match query
+				filter((operator) => !filterRegex || operator.match(filterRegex) !== null),
+				map((operator) => {
+					const value = operator.toUpperCase();
+					return {
+						name: value,
+						value,
+					};
+				}),
+				toArray(),
+				// We can filter out empty arrays as there is nothing to consume
+				filter((operators) => operators.length > 0),
+			);
+		},
+		[jqlSearchableFields$],
+	);
 };
 
 export default useOnOperators;

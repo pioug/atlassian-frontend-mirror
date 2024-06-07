@@ -11,9 +11,9 @@ import { SimulateSsr } from '../example-helpers/ssrHelpers';
 import { createMockedMediaClientProviderWithBinaries } from '../src/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const rowStyle = {
-  display: 'flex',
-  flexDirection: 'row',
-  marginBottom: 20,
+	display: 'flex',
+	flexDirection: 'row',
+	marginBottom: 20,
 } as const;
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
@@ -22,118 +22,102 @@ let MockedMediaClientProvider: any;
 let identifiers: FileIdentifier[] = [];
 
 const prepareMediaState = async () => {
-  const items = await Promise.all([
-    generateItemWithBinaries.workingVideo.videoFire(),
-    generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
-    generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
-  ]);
+	const items = await Promise.all([
+		generateItemWithBinaries.workingVideo.videoFire(),
+		generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
+		generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
+	]);
 
-  const initialItemsWithBinaries = items.map(
-    ([itemWithBinaries]) => itemWithBinaries,
-  );
-  identifiers = items.map(([, identifier]) => identifier);
+	const initialItemsWithBinaries = items.map(([itemWithBinaries]) => itemWithBinaries);
+	identifiers = items.map(([, identifier]) => identifier);
 
-  const { MockedMediaClientProvider: localMockedMediaClientProvider } =
-    createMockedMediaClientProviderWithBinaries({ initialItemsWithBinaries });
+	const { MockedMediaClientProvider: localMockedMediaClientProvider } =
+		createMockedMediaClientProviderWithBinaries({ initialItemsWithBinaries });
 
-  MockedMediaClientProvider = localMockedMediaClientProvider;
+	MockedMediaClientProvider = localMockedMediaClientProvider;
 };
 
 const Page = ({
-  ssr,
-  title,
-  mediaGroup,
-  identifier,
+	ssr,
+	title,
+	mediaGroup,
+	identifier,
 }: {
-  ssr: SSR;
-  title: string;
-  mediaGroup?: boolean;
-  identifier: FileIdentifier;
+	ssr: SSR;
+	title: string;
+	mediaGroup?: boolean;
+	identifier: FileIdentifier;
 }) => (
-  <MockedMediaClientProvider>
-    <h3>{title}</h3>
-    <MediaCardV2
-      mediaClientConfig={dummyMediaClientConfig}
-      identifier={identifier}
-      dimensions={{ width: 300, height: 200 }}
-      ssr={ssr}
-      useInlinePlayer={true}
-      shouldOpenMediaViewer={true}
-      resizeMode={!mediaGroup ? 'stretchy-fit' : undefined}
-      disableOverlay={!mediaGroup ? true : false}
-    />
-  </MockedMediaClientProvider>
+	<MockedMediaClientProvider>
+		<h3>{title}</h3>
+		<MediaCardV2
+			mediaClientConfig={dummyMediaClientConfig}
+			identifier={identifier}
+			dimensions={{ width: 300, height: 200 }}
+			ssr={ssr}
+			useInlinePlayer={true}
+			shouldOpenMediaViewer={true}
+			resizeMode={!mediaGroup ? 'stretchy-fit' : undefined}
+			disableOverlay={!mediaGroup ? true : false}
+		/>
+	</MockedMediaClientProvider>
 );
 
 const SimulateSsrPage = ({
-  title,
-  identifier,
-  mediaGroup,
+	title,
+	identifier,
+	mediaGroup,
 }: {
-  title: string;
-  identifier: FileIdentifier;
-  mediaGroup?: boolean;
+	title: string;
+	identifier: FileIdentifier;
+	mediaGroup?: boolean;
 }) => {
-  const serverPage = useMemo(
-    () => (
-      <Page
-        ssr="server"
-        title={'SSR Only'}
-        identifier={identifier}
-        mediaGroup={mediaGroup}
-      />
-    ),
-    [identifier, mediaGroup],
-  );
-  const hydratePage = useMemo(
-    () => (
-      <Page
-        ssr="client"
-        title={'Hydrated'}
-        identifier={identifier}
-        mediaGroup={mediaGroup}
-      />
-    ),
-    [identifier, mediaGroup],
-  );
+	const serverPage = useMemo(
+		() => <Page ssr="server" title={'SSR Only'} identifier={identifier} mediaGroup={mediaGroup} />,
+		[identifier, mediaGroup],
+	);
+	const hydratePage = useMemo(
+		() => <Page ssr="client" title={'Hydrated'} identifier={identifier} mediaGroup={mediaGroup} />,
+		[identifier, mediaGroup],
+	);
 
-  return (
-    <>
-      <h2>{title}</h2>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={rowStyle}>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <SimulateSsr serverPage={serverPage} style={{ marginRight: 20 }} />
-        <SimulateSsr
-          serverPage={serverPage}
-          hydratePage={hydratePage}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          style={{ marginRight: 20 }}
-        />
-      </div>
-    </>
-  );
+	return (
+		<>
+			<h2>{title}</h2>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={rowStyle}>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<SimulateSsr serverPage={serverPage} style={{ marginRight: 20 }} />
+				<SimulateSsr
+					serverPage={serverPage}
+					hydratePage={hydratePage}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={{ marginRight: 20 }}
+				/>
+			</div>
+		</>
+	);
 };
 
 export default () => {
-  const [areModulesReady, setAreModulesReady] = useState(false);
-  const [isMediaStateReady, setIsMediaStateReady] = useState(false);
-  useEffect(() => {
-    prepareMediaState().then(() => setIsMediaStateReady(true));
-    Loadable.preloadAll().then(() => setAreModulesReady(true));
-  }, []);
+	const [areModulesReady, setAreModulesReady] = useState(false);
+	const [isMediaStateReady, setIsMediaStateReady] = useState(false);
+	useEffect(() => {
+		prepareMediaState().then(() => setIsMediaStateReady(true));
+		Loadable.preloadAll().then(() => setAreModulesReady(true));
+	}, []);
 
-  if (!areModulesReady || !isMediaStateReady) {
-    return <MainWrapper developmentOnly>LOADING MODULES</MainWrapper>;
-  }
+	if (!areModulesReady || !isMediaStateReady) {
+		return <MainWrapper developmentOnly>LOADING MODULES</MainWrapper>;
+	}
 
-  const [videoFileId, imageFileId, pdfFileId] = identifiers;
+	const [videoFileId, imageFileId, pdfFileId] = identifiers;
 
-  return (
-    <MainWrapper developmentOnly>
-      <SimulateSsrPage title="Image" identifier={imageFileId} />
-      <SimulateSsrPage title="Video" identifier={videoFileId} />
-      <SimulateSsrPage title="Doc" identifier={pdfFileId} mediaGroup />
-    </MainWrapper>
-  );
+	return (
+		<MainWrapper developmentOnly>
+			<SimulateSsrPage title="Image" identifier={imageFileId} />
+			<SimulateSsrPage title="Video" identifier={videoFileId} />
+			<SimulateSsrPage title="Doc" identifier={pdfFileId} mediaGroup />
+		</MainWrapper>
+	);
 };

@@ -1,9 +1,9 @@
 export { isRetina } from './isRetina';
 export {
-  defaultHorizontalCardDimensions,
-  defaultImageCardDimensions,
-  defaultSquareCardDimensions,
-  getDefaultCardDimensions,
+	defaultHorizontalCardDimensions,
+	defaultImageCardDimensions,
+	defaultSquareCardDimensions,
+	getDefaultCardDimensions,
 } from './cardDimensions';
 export { isValidPercentageUnit } from './isValidPercentageUnit';
 export { getElementDimension } from './getElementDimension';

@@ -11,47 +11,44 @@ import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ANALYTICS_MEDIA_CHANNEL } from '../util';
 
 interface Props {
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+	onClick: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 const MediaDownloadButton = (props: Props & WrappedComponentProps) => {
-  const {
-    onClick,
-    intl: { formatMessage },
-  } = props;
+	const {
+		onClick,
+		intl: { formatMessage },
+	} = props;
 
-  return (
-    <Button
-      appearance="subtle"
-      testId="download-button"
-      iconAfter={<DownloadIcon label={formatMessage(messages.download)} />}
-      onKeyPress={(event) => event.stopPropagation()}
-      onClick={(
-        event: React.MouseEvent<HTMLElement>,
-        analyticsEvent: UIAnalyticsEvent,
-      ) => {
-        analyticsEvent
-          .update((payload) => ({
-            ...payload,
-            eventType: 'ui',
-            actionSubjectId: 'mediaTableDownload',
-          }))
-          .fire(ANALYTICS_MEDIA_CHANNEL);
+	return (
+		<Button
+			appearance="subtle"
+			testId="download-button"
+			iconAfter={<DownloadIcon label={formatMessage(messages.download)} />}
+			onKeyPress={(event) => event.stopPropagation()}
+			onClick={(event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
+				analyticsEvent
+					.update((payload) => ({
+						...payload,
+						eventType: 'ui',
+						actionSubjectId: 'mediaTableDownload',
+					}))
+					.fire(ANALYTICS_MEDIA_CHANNEL);
 
-        onClick(event);
-      }}
-      theme={(current, themeProps) => ({
-        buttonStyles: {
-          ...current(themeProps).buttonStyles,
-          minWidth: 'max-content',
-          '&:hover': {
-            background: token('color.background.neutral.hovered', N40),
-          },
-        },
-        spinnerStyles: current(themeProps).spinnerStyles,
-      })}
-    />
-  );
+				onClick(event);
+			}}
+			theme={(current, themeProps) => ({
+				buttonStyles: {
+					...current(themeProps).buttonStyles,
+					minWidth: 'max-content',
+					'&:hover': {
+						background: token('color.background.neutral.hovered', N40),
+					},
+				},
+				spinnerStyles: current(themeProps).spinnerStyles,
+			})}
+		/>
+	);
 };
 
 export default injectIntl(MediaDownloadButton);

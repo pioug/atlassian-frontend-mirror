@@ -16,12 +16,12 @@ import type { IntegrationMode } from '../types/ShareEntities';
 export const zIndexAddition: number = 10;
 
 export const generateSelectZIndex = (dialogZIndex?: number): number => {
-  // If user provided non-number value for zIndex, ignore and return undefined,
-  // which will default to `layers.layer()` inside PopUp
-  if (typeof dialogZIndex !== 'number' || !dialogZIndex) {
-    return layers.modal() + zIndexAddition;
-  }
-  return dialogZIndex + zIndexAddition;
+	// If user provided non-number value for zIndex, ignore and return undefined,
+	// which will default to `layers.layer()` inside PopUp
+	if (typeof dialogZIndex !== 'number' || !dialogZIndex) {
+		return layers.modal() + zIndexAddition;
+	}
+	return dialogZIndex + zIndexAddition;
 };
 
 /**
@@ -29,53 +29,53 @@ export const generateSelectZIndex = (dialogZIndex?: number): number => {
  * part of React's `ref` object.
  */
 export const getMenuPortalTargetCurrentHTML = (
-  ref?: React.Ref<HTMLDivElement>,
+	ref?: React.Ref<HTMLDivElement>,
 ): HTMLDivElement | null => {
-  if (!ref) {
-    return null;
-  }
-  if (!Object.prototype.hasOwnProperty.call(ref, 'current')) {
-    return null;
-  }
-  // @ts-ignore ts(2339) - ref not having property current
-  return ref.current as HTMLDivElement | null;
+	if (!ref) {
+		return null;
+	}
+	if (!Object.prototype.hasOwnProperty.call(ref, 'current')) {
+		return null;
+	}
+	// @ts-ignore ts(2339) - ref not having property current
+	return ref.current as HTMLDivElement | null;
 };
 
 export const optionDataToUsers = (optionDataArray: OptionData[]): User[] =>
-  optionDataArray.map((optionData: OptionData) => {
-    switch (optionData.type) {
-      case 'email':
-        const user: UserWithEmail = {
-          type: 'user',
-          email: optionData.id,
-        };
-        return user;
-      case 'external_user':
-        // When optionData.type is 'external_user', we need to convert it to 'user'
-        // because 'external_user' isn't a valid type for the '/gateway/api/share' API.
-        return {
-          type: 'user',
-          id: optionData.id,
-        };
-      default:
-        return {
-          type: optionData.type || 'user',
-          id: optionData.id,
-        };
-    }
-  });
+	optionDataArray.map((optionData: OptionData) => {
+		switch (optionData.type) {
+			case 'email':
+				const user: UserWithEmail = {
+					type: 'user',
+					email: optionData.id,
+				};
+				return user;
+			case 'external_user':
+				// When optionData.type is 'external_user', we need to convert it to 'user'
+				// because 'external_user' isn't a valid type for the '/gateway/api/share' API.
+				return {
+					type: 'user',
+					id: optionData.id,
+				};
+			default:
+				return {
+					type: optionData.type || 'user',
+					id: optionData.id,
+				};
+		}
+	});
 
 export const allowEmails = (config?: ConfigResponse): boolean =>
-  !(config && config.disableSharingToEmails);
+	!(config && config.disableSharingToEmails);
 
 export const resolveShareFooter = (
-  integrationMode: IntegrationMode | undefined,
-  tabIndex: number,
-  customFooter: React.ReactNode,
+	integrationMode: IntegrationMode | undefined,
+	tabIndex: number,
+	customFooter: React.ReactNode,
 ): React.ReactNode | undefined => {
-  if (customFooter) {
-    if (integrationMode !== 'tabs' || tabIndex === 0) {
-      return customFooter;
-    }
-  }
+	if (customFooter) {
+		if (integrationMode !== 'tabs' || tabIndex === 0) {
+			return customFooter;
+		}
+	}
 };

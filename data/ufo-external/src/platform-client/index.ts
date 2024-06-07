@@ -1,8 +1,8 @@
 export {
-  UFOExperienceState,
-  UFOExperience,
-  ConcurrentExperience,
-  ExperienceTypes,
-  ExperiencePerformanceTypes,
-  GlobalPageLoadExperience,
+	UFOExperienceState,
+	UFOExperience,
+	ConcurrentExperience,
+	ExperienceTypes,
+	ExperiencePerformanceTypes,
+	GlobalPageLoadExperience,
 } from './core';

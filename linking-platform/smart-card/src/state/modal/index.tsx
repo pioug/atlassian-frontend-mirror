@@ -1,53 +1,45 @@
 import React, {
-  type ReactElement,
-  type ReactNode,
-  Suspense,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
+	type ReactElement,
+	type ReactNode,
+	Suspense,
+	useCallback,
+	useContext,
+	useMemo,
+	useState,
 } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import {
-  type SmartLinkModalAPI,
-  type SmartLinkModalProviderProps,
-} from './types';
+import { type SmartLinkModalAPI, type SmartLinkModalProviderProps } from './types';
 
 const FALLBACK_API = { open: () => {}, close: () => {} };
 
-export const SmartLinkModalContext =
-  React.createContext<SmartLinkModalAPI>(FALLBACK_API);
+export const SmartLinkModalContext = React.createContext<SmartLinkModalAPI>(FALLBACK_API);
 
-export const SmartLinkModalProvider = ({
-  children,
-}: SmartLinkModalProviderProps) => {
-  const [element, setElement] = useState<ReactNode | ReactElement>(null);
+export const SmartLinkModalProvider = ({ children }: SmartLinkModalProviderProps) => {
+	const [element, setElement] = useState<ReactNode | ReactElement>(null);
 
-  const api: SmartLinkModalAPI = useMemo(
-    () => ({
-      open: (modal) => setElement(<Suspense fallback={null}>{modal}</Suspense>),
-      close: () => setElement(null),
-    }),
-    [],
-  );
+	const api: SmartLinkModalAPI = useMemo(
+		() => ({
+			open: (modal) => setElement(<Suspense fallback={null}>{modal}</Suspense>),
+			close: () => setElement(null),
+		}),
+		[],
+	);
 
-  const fallbackRender = useCallback(({ resetErrorBoundary }) => {
-    resetErrorBoundary();
-    return null;
-  }, []);
+	const fallbackRender = useCallback(({ resetErrorBoundary }) => {
+		resetErrorBoundary();
+		return null;
+	}, []);
 
-  const onReset = useCallback(() => setElement(null), []);
+	const onReset = useCallback(() => setElement(null), []);
 
-  return (
-    <>
-      <SmartLinkModalContext.Provider value={api}>
-        {children}
-      </SmartLinkModalContext.Provider>
-      <ErrorBoundary fallbackRender={fallbackRender} onReset={onReset}>
-        {element}
-      </ErrorBoundary>
-    </>
-  );
+	return (
+		<>
+			<SmartLinkModalContext.Provider value={api}>{children}</SmartLinkModalContext.Provider>
+			<ErrorBoundary fallbackRender={fallbackRender} onReset={onReset}>
+				{element}
+			</ErrorBoundary>
+		</>
+	);
 };
 
 /**

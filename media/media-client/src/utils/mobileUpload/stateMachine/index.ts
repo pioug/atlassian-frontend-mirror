@@ -13,76 +13,71 @@ import { machineProcessedState } from './states/processed';
 import { machineProcessingFailedState } from './states/processingFailed';
 import { machineErrorState } from './states/error';
 import {
-  type StateMachineContext,
-  type StateMachineEvent,
-  type StateMachineSchema,
-  type StateMachineTypestate,
+	type StateMachineContext,
+	type StateMachineEvent,
+	type StateMachineSchema,
+	type StateMachineTypestate,
 } from './types';
 
 export const createMobileUploadStateMachine = (
-  dataloader: DataLoader<DataloaderKey, DataloaderResult>,
-  initialState: UploadingFileState,
-  collectionName?: string,
+	dataloader: DataLoader<DataloaderKey, DataloaderResult>,
+	initialState: UploadingFileState,
+	collectionName?: string,
 ) =>
-  createMachine<StateMachineContext, StateMachineEvent, StateMachineTypestate>(
-    {
-      // Initial state
-      initial: initialState.status,
+	createMachine<StateMachineContext, StateMachineEvent, StateMachineTypestate>(
+		{
+			// Initial state
+			initial: initialState.status,
 
-      // Context
-      context: {
-        currentFileState: initialState,
-      },
+			// Context
+			context: {
+				currentFileState: initialState,
+			},
 
-      // State definitions
-      states: {
-        uploading: machineUploadingState,
-        processing: machineProcessingState,
-        processed: machineProcessedState,
-        processingFailed: machineProcessingFailedState,
-        error: machineErrorState,
-      },
-    },
-    {
-      services: {
-        shouldFetchRemoteFileStates: async (ctx: StateMachineContext) => {
-          const { currentFileState } = ctx;
+			// State definitions
+			states: {
+				uploading: machineUploadingState,
+				processing: machineProcessingState,
+				processed: machineProcessedState,
+				processingFailed: machineProcessingFailedState,
+				error: machineErrorState,
+			},
+		},
+		{
+			services: {
+				shouldFetchRemoteFileStates: async (ctx: StateMachineContext) => {
+					const { currentFileState } = ctx;
 
-          if (isProcessingFileState(currentFileState)) {
-            const { mediaType, mimeType, preview } = currentFileState;
-            return shouldFetchRemoteFileStates(mediaType, mimeType, preview);
-          }
+					if (isProcessingFileState(currentFileState)) {
+						const { mediaType, mimeType, preview } = currentFileState;
+						return shouldFetchRemoteFileStates(mediaType, mimeType, preview);
+					}
 
-          return false;
-        },
-        fetchRemoteFileStates: (ctx: StateMachineContext) =>
-          createMobileDownloadFileStream(
-            dataloader,
-            ctx.currentFileState.id,
-            collectionName,
-            ctx.currentFileState.occurrenceKey,
-          ).pipe(
-            map((fileState) => ({
-              type: 'REMOTE_FILESTATE_RESULT',
-              fileState,
-            })),
-          ),
-      },
-    },
-  );
+					return false;
+				},
+				fetchRemoteFileStates: (ctx: StateMachineContext) =>
+					createMobileDownloadFileStream(
+						dataloader,
+						ctx.currentFileState.id,
+						collectionName,
+						ctx.currentFileState.occurrenceKey,
+					).pipe(
+						map((fileState) => ({
+							type: 'REMOTE_FILESTATE_RESULT',
+							fileState,
+						})),
+					),
+			},
+		},
+	);
 
 export function createMobileUploadService(
-  machine: StateMachine<
-    StateMachineContext,
-    StateMachineSchema,
-    StateMachineEvent,
-    StateMachineTypestate
-  >,
-): Interpreter<
-  StateMachineContext,
-  StateMachineSchema,
-  StateMachineEvent,
-  StateMachineTypestate
-> {
-  return interpret(machine);
+	machine: StateMachine<
+		StateMachineContext,
+		StateMachineSchema,
+		StateMachineEvent,
+		StateMachineTypestate
+	>,
+): Interpreter<StateMachineContext, StateMachineSchema, StateMachineEvent, StateMachineTypestate> {
+	return interpret(machine);
 }

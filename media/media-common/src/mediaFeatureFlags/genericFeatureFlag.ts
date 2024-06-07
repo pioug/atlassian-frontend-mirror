@@ -19,22 +19,20 @@ import { getLocalMediaFeatureFlag } from '../mediaFeatureFlag-local';
  *  2: featureFlags parameter
  *  3: defaults parameter
  */
-export function getGenericFeatureFlag<
-  T,
-  K extends string,
-  M extends Record<K, any>,
->(flagName: K, defaults: M, featureFlags?: Partial<M>): T {
-  const devOverride = getLocalMediaFeatureFlag(flagName);
-  if (devOverride !== null) {
-    try {
-      return JSON.parse(devOverride) as T;
-    } catch (e) {}
-  }
+export function getGenericFeatureFlag<T, K extends string, M extends Record<K, any>>(
+	flagName: K,
+	defaults: M,
+	featureFlags?: Partial<M>,
+): T {
+	const devOverride = getLocalMediaFeatureFlag(flagName);
+	if (devOverride !== null) {
+		try {
+			return JSON.parse(devOverride) as T;
+		} catch (e) {}
+	}
 
-  if (featureFlags) {
-    return (flagName in featureFlags
-      ? featureFlags[flagName]
-      : defaults[flagName]) as unknown as T;
-  }
-  return defaults[flagName] as unknown as T;
+	if (featureFlags) {
+		return (flagName in featureFlags ? featureFlags[flagName] : defaults[flagName]) as unknown as T;
+	}
+	return defaults[flagName] as unknown as T;
 }

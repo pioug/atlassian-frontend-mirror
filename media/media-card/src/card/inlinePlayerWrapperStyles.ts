@@ -3,9 +3,9 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { getDimensionsWithDefault } from '../utils/lightCards/getDimensionsWithDefault';
 import { type InlinePlayerWrapperProps } from './types';
 import {
-  getSelectionStyles,
-  SelectionStyle,
-  hideNativeBrowserTextSelectionStyles,
+	getSelectionStyles,
+	SelectionStyle,
+	hideNativeBrowserTextSelectionStyles,
 } from '@atlaskit/editor-shared-styles/selection';
 
 /*
@@ -31,24 +31,24 @@ const getSelectedBorderStyle = ({ selected }: { selected?: boolean }) => `
 export const inlinePlayerClassName = 'media-card-inline-player';
 
 export const inlinePlayerWrapperStyles = ({
-  dimensions,
-  selected,
+	dimensions,
+	selected,
 }: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 InlinePlayerWrapperProps) => css`
-  width: ${getDimensionsWithDefault(dimensions).width || '100%'};
-  height: ${getDimensionsWithDefault(dimensions).height || 'auto'};
-  overflow: hidden;
-  border-radius: ${borderRadius()}px;
-  position: relative;
-  max-width: 100%;
-  max-height: 100%;
+	width: ${getDimensionsWithDefault(dimensions).width || '100%'};
+	height: ${getDimensionsWithDefault(dimensions).height || 'auto'};
+	overflow: hidden;
+	border-radius: ${borderRadius()}px;
+	position: relative;
+	max-width: 100%;
+	max-height: 100%;
 
-  ${getSelectedBorderStyle(selected)}
+	${getSelectedBorderStyle(selected)}
 
-  video {
-    width: 100%;
-    height: 100%;
-  }
+	video {
+		width: 100%;
+		height: 100%;
+	}
 `;
 
 inlinePlayerWrapperStyles.displayName = 'InlinePlayerWrapper';

@@ -1,4 +1,4 @@
 export interface LinkPerson {
-  name: string;
-  src?: string;
+	name: string;
+	src?: string;
 }

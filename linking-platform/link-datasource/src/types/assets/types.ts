@@ -1,39 +1,39 @@
 export type GetWorkspaceDetailsResponse = {
-  results: [
-    {
-      id: string;
-    },
-  ];
+	results: [
+		{
+			id: string;
+		},
+	];
 };
 
 export type ObjectSchema = {
-  id: string;
-  name: string;
+	id: string;
+	name: string;
 };
 
 export type ObjectSchemaOption = {
-  label: string;
-  value: string;
+	label: string;
+	value: string;
 };
 
 export type FetchObjectSchemaResponse = ObjectSchema;
 
 export type FetchObjectSchemasResponse = {
-  startAt: number;
-  maxResults: number;
-  total: number;
-  values: ObjectSchema[];
-  isLast: boolean;
+	startAt: number;
+	maxResults: number;
+	total: number;
+	values: ObjectSchema[];
+	isLast: boolean;
 };
 
 export type ValidationError = {
-  iql?: string;
+	iql?: string;
 };
 
 export type AqlValidateResponse = {
-  isValid: boolean;
-  errorMessages: string[];
-  errors?: ValidationError;
+	isValid: boolean;
+	errorMessages: string[];
+	errors?: ValidationError;
 };
 
 // These are to enforce the field "name" property and keep everything typed
@@ -41,6 +41,6 @@ export const objectSchemaKey = 'objectSchema' as const;
 export const aqlKey = 'aql' as const;
 
 export type SearchForm = {
-  [objectSchemaKey]: ObjectSchemaOption | undefined | null;
-  [aqlKey]: string;
+	[objectSchemaKey]: ObjectSchemaOption | undefined | null;
+	[aqlKey]: string;
 };

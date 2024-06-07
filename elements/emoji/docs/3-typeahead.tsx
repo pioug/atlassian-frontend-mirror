@@ -8,13 +8,13 @@ const TypeAheadProps = require('!!extract-react-types-loader!../src/components/t
 export default md`
 
   ${(
-    <Example
-      packageName="@atlaskit/emoji"
-      Component={TypeAheadiExample}
-      title="Typeahead"
-      source={TypeAheadSource}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/emoji"
+			Component={TypeAheadiExample}
+			title="Typeahead"
+			source={TypeAheadSource}
+		/>
+	)}
 
   ${(<Props props={TypeAheadProps} />)}
 `;

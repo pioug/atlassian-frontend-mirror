@@ -7,101 +7,82 @@ import FlexUiBlockAiSummaryDoneOnMount from '../../../examples/vr-flexible-card/
 import FlexUiBlockAiSummaryError from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary-error';
 
 snapshot(FlexUiBlockAiSummaryReady, {
-  drawsOutsideBounds: true,
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'hovered',
-    },
-  ],
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-ai-summaries': [
-      true,
-      false,
-    ],
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
+	drawsOutsideBounds: true,
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'hovered',
+		},
+	],
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-ai-summaries': [true, false],
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
 });
 
 snapshot(FlexUiBlockAiSummaryLoading, {
-  drawsOutsideBounds: true,
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'hovered',
-    },
-  ],
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
+	drawsOutsideBounds: true,
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'hovered',
+		},
+	],
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
 });
 
 snapshot(FlexUiBlockAiSummaryDone, {
-  drawsOutsideBounds: true,
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'hovered',
-    },
-  ],
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
-    'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable':
-      [true, false],
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
+	drawsOutsideBounds: true,
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'hovered',
+		},
+	],
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
+		'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable': [true, false],
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
 });
 
 snapshot(FlexUiBlockAiSummaryDoneOnMount, {
-  drawsOutsideBounds: true,
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'hovered',
-    },
-  ],
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
+	drawsOutsideBounds: true,
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'hovered',
+		},
+	],
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
 });
 
 snapshot(FlexUiBlockAiSummaryError, {
-  drawsOutsideBounds: true,
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'hovered',
-    },
-  ],
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
+	drawsOutsideBounds: true,
+	states: [
+		{
+			selector: {
+				byTestId: 'smart-element-link',
+			},
+			state: 'hovered',
+		},
+	],
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
 });

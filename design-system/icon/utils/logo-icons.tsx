@@ -6,13 +6,9 @@ import {
   AtlassianIcon,
   BitbucketIcon,
   ConfluenceIcon,
-  HipchatIcon,
-  JiraCoreIcon,
-  JiraServiceDeskIcon,
   JiraSoftwareIcon,
   JiraIcon,
   StatuspageIcon,
-  StrideIcon,
 } from '@atlaskit/logo';
 
 export default {
@@ -37,27 +33,6 @@ export default {
     keywords: ['product', 'logo', 'confluence'],
     package: '@atlaskit/logo',
   },
-  HipchatIcon: {
-    componentName: 'HipchatIcon',
-    isNamedImport: true,
-    component: HipchatIcon,
-    keywords: ['product', 'logo', 'hipchat'],
-    package: '@atlaskit/logo',
-  },
-  JiraCoreIcon: {
-    componentName: 'JiraCoreIcon',
-    isNamedImport: true,
-    component: JiraCoreIcon,
-    keywords: ['product', 'logo', 'jira', 'core'],
-    package: '@atlaskit/logo',
-  },
-  JiraServiceDeskIcon: {
-    componentName: 'JiraServiceDeskIcon',
-    isNamedImport: true,
-    component: JiraServiceDeskIcon,
-    keywords: ['product', 'logo', 'jira', 'servicedesk'],
-    package: '@atlaskit/logo',
-  },
   JiraSoftwareIcon: {
     componentName: 'JiraSoftwareIcon',
     isNamedImport: true,
@@ -77,13 +52,6 @@ export default {
     isNamedImport: true,
     component: StatuspageIcon,
     keywords: ['product', 'logo', 'statuspage'],
-    package: '@atlaskit/logo',
-  },
-  StrideIcon: {
-    componentName: 'StrideIcon',
-    isNamedImport: true,
-    component: StrideIcon,
-    keywords: ['product', 'logo', 'stride'],
     package: '@atlaskit/logo',
   },
 };

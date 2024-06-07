@@ -3,7 +3,7 @@ import { type RelatedUrlsResponse } from '../../../../../../state/hooks/use-rela
 import { type BlockProps } from '../../types';
 
 export type RelatedUrlsProps = {
-  relatedUrlsResponse: RelatedUrlsResponse;
-  renderers?: CardProviderRenderers;
-  initializeOpened?: boolean;
+	relatedUrlsResponse: RelatedUrlsResponse;
+	renderers?: CardProviderRenderers;
+	initializeOpened?: boolean;
 } & BlockProps;

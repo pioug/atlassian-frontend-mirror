@@ -1,278 +1,268 @@
 {
-    "jsxAttributes": {
-        "cssFn": [
-            {
-                "moduleSpecifier": "@atlaskit/menu"
-            },
-            {
-                "moduleSpecifier": "@atlaskit/side-navigation"
-            }
-        ],
-        "overrides": [
-            {
-                "moduleSpecifier": "@atlaskit/menu"
-            },
-            {
-                "moduleSpecifier": "@atlaskit/side-navigation"
-            },
-            {
-                "moduleSpecifier": "@atlaskit/drawer"
-            }
-        ],
-        "type": [
-            {
-                "moduleSpecifier": "@atlaskit/inline-message"
-            }
-        ],
-        "textColor": [
-            {
-                "moduleSpecifier": "@atlaskit/logo"
-            }
-        ],
-        "iconColor": [
-            {
-                "moduleSpecifier": "@atlaskit/logo"
-            }
-        ],
-        "iconGradientStart": [
-            {
-                "moduleSpecifier": "@atlaskit/logo"
-            }
-        ],
-        "iconGradientStop": [
-            {
-                "moduleSpecifier": "@atlaskit/logo"
-            }
-        ]
+  "jsxAttributes": {
+    "cssFn": [
+      {
+        "moduleSpecifier": "@atlaskit/menu"
+      },
+      {
+        "moduleSpecifier": "@atlaskit/side-navigation"
+      }
+    ],
+    "overrides": [
+      {
+        "moduleSpecifier": "@atlaskit/menu"
+      },
+      {
+        "moduleSpecifier": "@atlaskit/side-navigation"
+      },
+      {
+        "moduleSpecifier": "@atlaskit/drawer"
+      }
+    ],
+    "type": [
+      {
+        "moduleSpecifier": "@atlaskit/inline-message"
+      }
+    ],
+    "textColor": [
+      {
+        "moduleSpecifier": "@atlaskit/logo"
+      }
+    ],
+    "iconColor": [
+      {
+        "moduleSpecifier": "@atlaskit/logo"
+      }
+    ]
+  },
+  "imports": {
+    "@atlaskit/navigation-next": {
+      "message": "navigation-next is deprecated. Please use '@atlaskit/atlassian-navigation' instead."
     },
-    "imports": {
-        "@atlaskit/navigation-next": {
-            "message": "navigation-next is deprecated. Please use '@atlaskit/atlassian-navigation' instead."
+    "@atlaskit/field-base": {
+      "message": "field-base is deprecated. Please use the '@atlaskit/form' package instead."
+    },
+    "@atlaskit/field-radio-group": {
+      "message": "field-radio-group is deprecated. Please use '@atlaskit/radio' instead, and check the migration guide."
+    },
+    "@atlaskit/field-range": {
+      "message": "field-range is deprecated. Please use '@atlaskit/range' instead."
+    },
+    "@atlaskit/field-text": {
+      "message": "field-text is deprecated. Please use '@atlaskit/textfield' instead."
+    },
+    "@atlaskit/field-text-area": {
+      "message": "field-text-area is deprecated. Please use '@atlaskit/textarea' instead."
+    },
+    "@atlaskit/navigation": {
+      "message": "navigation is deprecated. Please use '@atlaskit/atlassian-navigation' instead."
+    },
+    "@atlaskit/global-navigation": {
+      "message": "global-navigation is deprecated. Please use '@atlaskit/atlassian-navigation' for the horizontal nav bar, '@atlaskit/side-navigation' for the side nav, and '@atlaskit/page-layout' to layout your application."
+    },
+    "@atlaskit/input": {
+      "message": "input is deprecated. This was an internal component and should not be used directly."
+    },
+    "@atlaskit/layer": {
+      "message": "layer is deprecated. This was an internal component and should not be used directly."
+    },
+    "@atlaskit/single-select": {
+      "message": "single-select is deprecated. Please use '@atlaskit/select' instead."
+    },
+    "@atlaskit/multi-select": {
+      "message": "multi-select is deprecated. Please use '@atlaskit/select' instead."
+    },
+    "@atlaskit/droplist": {
+      "message": "droplist is deprecated. For the pop-up behaviour please use '@atlaskit/popup' and for common menu components please use '@atlaskit/menu'."
+    },
+    "@atlaskit/item": {
+      "message": "item is deprecated. Please use '@atlaskit/menu' instead."
+    },
+    "@atlaskit/theme/elevation": {
+      "importSpecifiers": [
+        {
+          "importName": "e100",
+          "message": "Elevation mixin is deprecated. Please use design tokens instead."
         },
-        "@atlaskit/field-base": {
-            "message": "field-base is deprecated. Please use the '@atlaskit/form' package instead."
+        {
+          "importName": "e200",
+          "message": "Elevation mixin is deprecated. Please use design tokens instead."
         },
-        "@atlaskit/field-radio-group": {
-            "message": "field-radio-group is deprecated. Please use '@atlaskit/radio' instead, and check the migration guide."
+        {
+          "importName": "e300",
+          "message": "Elevation mixin is deprecated. Please use design tokens instead."
         },
-        "@atlaskit/field-range": {
-            "message": "field-range is deprecated. Please use '@atlaskit/range' instead."
+        {
+          "importName": "e400",
+          "message": "Elevation mixin is deprecated. Please use design tokens instead."
         },
-        "@atlaskit/field-text": {
-            "message": "field-text is deprecated. Please use '@atlaskit/textfield' instead."
-        },
-        "@atlaskit/field-text-area": {
-            "message": "field-text-area is deprecated. Please use '@atlaskit/textarea' instead."
-        },
-        "@atlaskit/navigation": {
-            "message": "navigation is deprecated. Please use '@atlaskit/atlassian-navigation' instead."
-        },
-        "@atlaskit/global-navigation": {
-            "message": "global-navigation is deprecated. Please use '@atlaskit/atlassian-navigation' for the horizontal nav bar, '@atlaskit/side-navigation' for the side nav, and '@atlaskit/page-layout' to layout your application."
-        },
-        "@atlaskit/input": {
-            "message": "input is deprecated. This was an internal component and should not be used directly."
-        },
-        "@atlaskit/layer": {
-            "message": "layer is deprecated. This was an internal component and should not be used directly."
-        },
-        "@atlaskit/single-select": {
-            "message": "single-select is deprecated. Please use '@atlaskit/select' instead."
-        },
-        "@atlaskit/multi-select": {
-            "message": "multi-select is deprecated. Please use '@atlaskit/select' instead."
-        },
-        "@atlaskit/droplist": {
-            "message": "droplist is deprecated. For the pop-up behaviour please use '@atlaskit/popup' and for common menu components please use '@atlaskit/menu'."
-        },
-        "@atlaskit/item": {
-            "message": "item is deprecated. Please use '@atlaskit/menu' instead."
-        },
-        "@atlaskit/theme/elevation": {
-            "importSpecifiers": [
-                {
-                    "importName": "e100",
-                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
-                },
-                {
-                    "importName": "e200",
-                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
-                },
-                {
-                    "importName": "e300",
-                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
-                },
-                {
-                    "importName": "e400",
-                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
-                },
-                {
-                    "importName": "e500",
-                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
-                }
-            ]
-        },
-        "@atlaskit/theme/constants": {
-            "importSpecifiers": [
-                {
-                    "importName": "assistive",
-                    "message": "The assistive mixin is deprecated. Please use `@atlaskit/visually-hidden` instead."
-                },
-                {
-                    "importName": "visuallyHidden",
-                    "message": "The visuallyHidden mixin is deprecated. Please use `@atlaskit/visually-hidden` instead."
-                },
-                {
-                    "importName": "focusRing",
-                    "message": "The focusRing mixin is deprecated. Please use `@atlaskit/focus-ring` instead."
-                },
-                {
-                    "importName": "gridSize",
-                    "message": "The gridSize mixin is deprecated. Please use space tokens via `@atlaskit/tokens` instead."
-                }
-            ]
-        },
-        "@atlaskit/theme/colors": {
-            "importSpecifiers": [
-                { "importName": "background", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "backgroundActive", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "backgroundHover", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "backgroundOnLayer", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "text", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "textHover", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "textActive", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "subtleText", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "placeholderText", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "heading", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "subtleHeading", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "codeBlock", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "link", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "linkHover", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "linkActive", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "linkOutline", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "primary", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "blue", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "teal", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "purple", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "red", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "yellow", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "green", "message": "Named color utils are deprecated in favor of design tokens." },
-                { "importName": "skeleton", "message": "Named color utils are deprecated in favor of design tokens." }
-            ]
-        },
-        "@atlaskit/theme/components": {
-            "message": "Legacy theming is deprecated in favor of design tokens."
-        },
-        "@atlaskit/theme": {
-            "importSpecifiers": [
-                {
-                    "importName": "assistive",
-                    "message": "The assistive mixin is deprecated. Please use `@atlaskit/visually-hidden` instead."
-                },
-                {
-                    "importName": "visuallyHidden",
-                    "message": "The visuallyHidden mixin is deprecated. Please use `@atlaskit/visually-hidden` instead."
-                },
-                {
-                    "importName": "focusRing",
-                    "message": "The focusRing mixin is deprecated. Please use `@atlaskit/focus-ring` instead."
-                },
-                {
-                    "importName": "gridSize",
-                    "message": "The gridSize mixin is deprecated. Please use space tokens via `@atlaskit/tokens` instead."
-                },
-                {
-                    "importName": "elevation",
-                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
-                },
-                {
-                    "importName": "themed",
-                    "message": "Legacy theming is deprecated in favor of design tokens."
-                },
-                {
-                    "importName": "AtlaskitThemeProvider",
-                    "message": "Legacy theming is deprecated in favor of design tokens."
-                }
-            ]
-        },
-        "@atlaskit/icon-priority": {
-            "message": "icon-priority was deprecated due to limited usage in Cloud products and is no longer supported."
-        },
-        "@atlaskit/logo/constants": {
-            "importSpecifiers": [
-                {
-                    "importName": "DefaultProps",
-                    "message": "DefaultProps has been renamed to defaultLogoParams."
-                },
-                {
-                    "importName": "Props",
-                    "message": "Props has been renamed to LogoProps."
-                }
-            ]
-        },
-        "@atlaskit/logo": {
-            "importSpecifiers": [
-                {
-                    "importName": "StrideLogo",
-                    "message": "StrideLogo is deprecated. Stride is no longer an Atlassian product."
-                },
-                {
-                    "importName": "StrideIcon",
-                    "message": "StrideIcon is deprecated. Stride is no longer an Atlassian product."
-                },
-                {
-                    "importName": "StrideWordmark",
-                    "message": "StrideWordmark is deprecated. Stride is no longer an Atlassian product."
-                },
-                {
-                    "importName": "HipchatLogo",
-                    "message": "HipchatLogo is deprecated. Hipchat is no longer an Atlassian product."
-                },
-                {
-                    "importName": "HipchatIcon",
-                    "message": "HipchatIcon is deprecated. Hipchat is no longer an Atlassian product."
-                },
-                {
-                    "importName": "HipchatWordmark",
-                    "message": "HipchatWordmark is deprecated. Hipchat is no longer an Atlassian product."
-                },
-                {
-                    "importName": "JiraCoreLogo",
-                    "message": "JiraCoreLogo is deprecated. Please use JiraWorkManagementLogo instead."
-                },
-                {
-                    "importName": "JiraCoreIcon",
-                    "message": "JiraCoreIcon is deprecated. Please use JiraWorkManagementIcon instead."
-                },
-                {
-                    "importName": "JiraCoreWordmark",
-                    "message": "JiraCoreWordmark is deprecated. Please use JiraWorkManagementWordmark instead."
-                },
-                {
-                    "importName": "JiraServiceDeskLogo",
-                    "message": "JiraServiceDeskLogo is deprecated. Please use JiraServiceManagementLogo instead."
-                },
-                {
-                    "importName": "JiraServiceDeskIcon",
-                    "message": "JiraServiceDeskIcon is deprecated. Please use JiraServiceManagementIcon instead."
-                },
-                {
-                    "importName": "JiraServiceDeskWordmark",
-                    "message": "JiraServiceDeskWordmark is deprecated. Please use JiraServiceManagementWordmark instead."
-                },
-                {
-                    "importName": "OpsGenieLogo",
-                    "message": "OpsGenieLogo was incorrectly spelled and has been marked deprecated. Please use OpsgenieLogo instead (no capital \"g\")."
-                },
-                {
-                    "importName": "OpsGenieIcon",
-                    "message": "OpsGenieIcon was incorrectly spelled and has been marked deprecated. Please use OpsgenieIcon instead (no capital \"g\")."
-                },
-                {
-                    "importName": "OpsGenieWordmark",
-                    "message": "OpsGenieWordmark was incorrectly spelled and is deprecated. Please use OpsgenieWordmark instead (no capital \"g\")."
-                }
-            ]
+        {
+          "importName": "e500",
+          "message": "Elevation mixin is deprecated. Please use design tokens instead."
         }
+      ]
+    },
+    "@atlaskit/theme/constants": {
+      "importSpecifiers": [
+        {
+          "importName": "assistive",
+          "message": "The assistive mixin is deprecated. Please use `@atlaskit/visually-hidden` instead."
+        },
+        {
+          "importName": "visuallyHidden",
+          "message": "The visuallyHidden mixin is deprecated. Please use `@atlaskit/visually-hidden` instead."
+        },
+        {
+          "importName": "focusRing",
+          "message": "The focusRing mixin is deprecated. Please use `@atlaskit/focus-ring` instead."
+        },
+        {
+          "importName": "gridSize",
+          "message": "The gridSize mixin is deprecated. Please use space tokens via `@atlaskit/tokens` instead."
+        }
+      ]
+    },
+    "@atlaskit/theme/colors": {
+      "importSpecifiers": [
+        {
+          "importName": "background",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "backgroundActive",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "backgroundHover",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "backgroundOnLayer",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "text",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "textHover",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "textActive",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "subtleText",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "placeholderText",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "heading",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "subtleHeading",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "codeBlock",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "link",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "linkHover",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "linkActive",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "linkOutline",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "primary",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "blue",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "teal",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "purple",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "red",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "yellow",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "green",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        },
+        {
+          "importName": "skeleton",
+          "message": "Named color utils are deprecated in favor of design tokens."
+        }
+      ]
+    },
+    "@atlaskit/theme/components": {
+      "message": "Legacy theming is deprecated in favor of design tokens."
+    },
+    "@atlaskit/theme": {
+      "importSpecifiers": [
+        {
+          "importName": "assistive",
+          "message": "The assistive mixin is deprecated. Please use `@atlaskit/visually-hidden` instead."
+        },
+        {
+          "importName": "visuallyHidden",
+          "message": "The visuallyHidden mixin is deprecated. Please use `@atlaskit/visually-hidden` instead."
+        },
+        {
+          "importName": "focusRing",
+          "message": "The focusRing mixin is deprecated. Please use `@atlaskit/focus-ring` instead."
+        },
+        {
+          "importName": "gridSize",
+          "message": "The gridSize mixin is deprecated. Please use space tokens via `@atlaskit/tokens` instead."
+        },
+        {
+          "importName": "elevation",
+          "message": "Elevation mixin is deprecated. Please use design tokens instead."
+        },
+        {
+          "importName": "themed",
+          "message": "Legacy theming is deprecated in favor of design tokens."
+        },
+        {
+          "importName": "AtlaskitThemeProvider",
+          "message": "Legacy theming is deprecated in favor of design tokens."
+        }
+      ]
+    },
+    "@atlaskit/icon-priority": {
+      "message": "icon-priority was deprecated due to limited usage in Cloud products and is no longer supported."
+    },
+    "@atlaskit/logo": {
+      "importSpecifiers": [
+      ]
     }
+  }
 }

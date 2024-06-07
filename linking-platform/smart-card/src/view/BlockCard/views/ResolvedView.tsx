@@ -26,48 +26,48 @@ import { handleClickCommon } from '../utils/handlers';
 import { type LozengeProps } from '../../../types';
 
 const styles = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'flex-start',
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'flex-start',
 });
 export interface ResolvedViewProps {
-  /* Details about the provider for the link */
-  context?: ContextViewModel;
-  /* URL to the link */
-  link?: string;
-  /* Icon for the header of the link */
-  icon: IconProps;
-  /* Metadata items for the link */
-  details?: Array<MetadataProps>;
-  /* Summary, description, or details about the resource */
-  byline?: React.ReactNode;
-  /* Summary, description, or details about the resource */
-  lozenge?: LozengeProps;
-  /* Image for the link */
-  thumbnail?: string;
-  /* Name or title */
-  title?: string;
-  /* Color of title text */
-  titleTextColor?: string;
-  /* Collaborators of the link */
-  users?: Collaborator[];
-  /* Actions which can be taken on the URL */
-  actions?: Array<ActionProps>;
-  /* Event handler - on avatar item */
-  handleAvatarClick?: AvatarClickEventHandler;
-  /* Event handler - on avatar dropdown items */
-  handleMoreAvatarsClick?: React.MouseEventHandler;
-  /* Event handler - on click of the card, to be passed down to clickable components */
-  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-  /* If selected, would be true in edit mode */
-  isSelected?: boolean;
-  testId?: string;
-  /* The Emoji prefix component that was added to the title text via Add emoji button */
-  titlePrefix?: React.ReactNode;
-  /* A flag that determines whether link source can be trusted in iframe */
-  isTrusted?: boolean;
-  /** It determines whether a link source supports different design theme modes */
-  isSupportTheming?: boolean;
+	/* Details about the provider for the link */
+	context?: ContextViewModel;
+	/* URL to the link */
+	link?: string;
+	/* Icon for the header of the link */
+	icon: IconProps;
+	/* Metadata items for the link */
+	details?: Array<MetadataProps>;
+	/* Summary, description, or details about the resource */
+	byline?: React.ReactNode;
+	/* Summary, description, or details about the resource */
+	lozenge?: LozengeProps;
+	/* Image for the link */
+	thumbnail?: string;
+	/* Name or title */
+	title?: string;
+	/* Color of title text */
+	titleTextColor?: string;
+	/* Collaborators of the link */
+	users?: Collaborator[];
+	/* Actions which can be taken on the URL */
+	actions?: Array<ActionProps>;
+	/* Event handler - on avatar item */
+	handleAvatarClick?: AvatarClickEventHandler;
+	/* Event handler - on avatar dropdown items */
+	handleMoreAvatarsClick?: React.MouseEventHandler;
+	/* Event handler - on click of the card, to be passed down to clickable components */
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	/* If selected, would be true in edit mode */
+	isSelected?: boolean;
+	testId?: string;
+	/* The Emoji prefix component that was added to the title text via Add emoji button */
+	titlePrefix?: React.ReactNode;
+	/* A flag that determines whether link source can be trusted in iframe */
+	isTrusted?: boolean;
+	/** It determines whether a link source supports different design theme modes */
+	isSupportTheming?: boolean;
 }
 
 /**
@@ -86,95 +86,89 @@ export const blockCardResolvedViewClassName = 'block-card-resolved-view';
 export const blockCardResolvedViewByClassName = 'block-card-resolved-view-by';
 
 export const ResolvedView = ({
-  icon = {},
-  actions = [],
-  thumbnail,
-  context = { text: '' },
-  title = '',
-  titleTextColor,
-  titlePrefix,
-  isSelected = false,
-  users = [],
-  handleAvatarClick = () => {},
-  handleMoreAvatarsClick = () => {},
-  onClick = () => {},
-  link = '',
-  byline = '',
-  lozenge,
-  details = [],
-  testId = 'block-card-resolved-view',
+	icon = {},
+	actions = [],
+	thumbnail,
+	context = { text: '' },
+	title = '',
+	titleTextColor,
+	titlePrefix,
+	isSelected = false,
+	users = [],
+	handleAvatarClick = () => {},
+	handleMoreAvatarsClick = () => {},
+	onClick = () => {},
+	link = '',
+	byline = '',
+	lozenge,
+	details = [],
+	testId = 'block-card-resolved-view',
 }: ResolvedViewProps) => {
-  const resolvedMetadata =
-    details.length > 0 ? (
-      <MetadataList
-        testId={testId ? `${testId}-meta` : undefined}
-        items={details}
-      />
-    ) : undefined;
-  const resolvedByline = (
-    <Byline
-      testId={testId ? `${testId}-by` : undefined}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className={blockCardResolvedViewByClassName}
-    >
-      {byline}
-    </Byline>
-  );
+	const resolvedMetadata =
+		details.length > 0 ? (
+			<MetadataList testId={testId ? `${testId}-meta` : undefined} items={details} />
+		) : undefined;
+	const resolvedByline = (
+		<Byline
+			testId={testId ? `${testId}-by` : undefined}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={blockCardResolvedViewByClassName}
+		>
+			{byline}
+		</Byline>
+	);
 
-  const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
+	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
 
-  const hasActions = actions.length > 0;
+	const hasActions = actions.length > 0;
 
-  return (
-    <Frame
-      isSelected={isSelected}
-      testId={testId}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className={blockCardResolvedViewClassName}
-    >
-      <Content>
-        <div>
-          <div css={styles}>
-            <ContentHeader onClick={handleClick} link={link}>
-              {titlePrefix ? <Emoji emoji={titlePrefix} /> : <Icon {...icon} />}
-              <Name name={title} textColor={titleTextColor} />
-              {lozenge && (
-                <LozengeBlockWrapper
-                  css={{
-                    height: gs(2.5),
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-                  <Lozenge style={lozenge.style} {...lozenge}>
-                    {lozenge.text}
-                  </Lozenge>
-                </LozengeBlockWrapper>
-              )}
-            </ContentHeader>
-            <CollaboratorList
-              items={users}
-              handleAvatarClick={handleAvatarClick}
-              handleMoreAvatarsClick={handleMoreAvatarsClick}
-              testId={testId ? `${testId}-collaborator-list` : undefined}
-            />
-          </div>
-          {resolvedByline}
-          {resolvedMetadata}
-        </div>
-        <ContentFooter hasSpaceBetween={hasActions}>
-          <Provider name={context.text} icon={context.icon} />
-          {hasActions && <ActionList items={actions} />}
-        </ContentFooter>
-      </Content>
-      {thumbnail ? (
-        <Thumbnail
-          src={thumbnail}
-          testId={testId ? `${testId}-thumb` : undefined}
-        />
-      ) : null}
-    </Frame>
-  );
+	return (
+		<Frame
+			isSelected={isSelected}
+			testId={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={blockCardResolvedViewClassName}
+		>
+			<Content>
+				<div>
+					<div css={styles}>
+						<ContentHeader onClick={handleClick} link={link}>
+							{titlePrefix ? <Emoji emoji={titlePrefix} /> : <Icon {...icon} />}
+							<Name name={title} textColor={titleTextColor} />
+							{lozenge && (
+								<LozengeBlockWrapper
+									css={{
+										height: gs(2.5),
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+									}}
+								>
+									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+									<Lozenge style={lozenge.style} {...lozenge}>
+										{lozenge.text}
+									</Lozenge>
+								</LozengeBlockWrapper>
+							)}
+						</ContentHeader>
+						<CollaboratorList
+							items={users}
+							handleAvatarClick={handleAvatarClick}
+							handleMoreAvatarsClick={handleMoreAvatarsClick}
+							testId={testId ? `${testId}-collaborator-list` : undefined}
+						/>
+					</div>
+					{resolvedByline}
+					{resolvedMetadata}
+				</div>
+				<ContentFooter hasSpaceBetween={hasActions}>
+					<Provider name={context.text} icon={context.icon} />
+					{hasActions && <ActionList items={actions} />}
+				</ContentFooter>
+			</Content>
+			{thumbnail ? (
+				<Thumbnail src={thumbnail} testId={testId ? `${testId}-thumb` : undefined} />
+			) : null}
+		</Frame>
+	);
 };

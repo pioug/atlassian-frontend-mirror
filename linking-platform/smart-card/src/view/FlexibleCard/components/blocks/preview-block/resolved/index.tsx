@@ -23,45 +23,43 @@ import { Preview } from '../../../elements';
  * @param ignoreContainerPadding
  */
 const getPreviewBlockStyles = (
-  placement?: MediaPlacement,
-  ignoreContainerPadding?: boolean,
+	placement?: MediaPlacement,
+	ignoreContainerPadding?: boolean,
 ): SerializedStyles | undefined => {
-  if (placement === MediaPlacement.Left || placement === MediaPlacement.Right) {
-    const containerPadding = ignoreContainerPadding
-      ? '0rem'
-      : 'var(--container-padding)';
-    // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-    return css`
-      position: absolute;
-      top: ${containerPadding};
-      bottom: ${containerPadding};
-      width: calc(var(--preview-block-width) - ${containerPadding});
+	if (placement === MediaPlacement.Left || placement === MediaPlacement.Right) {
+		const containerPadding = ignoreContainerPadding ? '0rem' : 'var(--container-padding)';
+		// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+		return css`
+			position: absolute;
+			top: ${containerPadding};
+			bottom: ${containerPadding};
+			width: calc(var(--preview-block-width) - ${containerPadding});
 
-      ${placement === MediaPlacement.Left ? `left: ${containerPadding};` : ''}
-      ${placement === MediaPlacement.Right ? `right: ${containerPadding};` : ''}
+			${placement === MediaPlacement.Left ? `left: ${containerPadding};` : ''}
+			${placement === MediaPlacement.Right ? `right: ${containerPadding};` : ''}
 
       [data-smart-element-media='image'] {
-        aspect-ratio: unset;
-        padding-top: unset;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    `;
-  }
+				aspect-ratio: unset;
+				padding-top: unset;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		`;
+	}
 
-  if (ignoreContainerPadding) {
-    return css({
-      marginLeft: 'calc(var(--container-gap-left) * -1)',
-      marginRight: 'calc(var(--container-gap-right) * -1)',
-      '&:first-of-type': {
-        marginTop: 'calc(var(--container-padding) * -1)',
-      },
-      '&:last-of-type': {
-        marginBottom: 'calc(var(--container-padding) * -1)',
-      },
-    });
-  }
+	if (ignoreContainerPadding) {
+		return css({
+			marginLeft: 'calc(var(--container-gap-left) * -1)',
+			marginRight: 'calc(var(--container-gap-right) * -1)',
+			'&:first-of-type': {
+				marginTop: 'calc(var(--container-padding) * -1)',
+			},
+			'&:last-of-type': {
+				marginBottom: 'calc(var(--container-padding) * -1)',
+			},
+		});
+	}
 };
 
 /**
@@ -71,54 +69,39 @@ const getPreviewBlockStyles = (
  * @see Block
  */
 const PreviewBlockResolvedView: React.FC<PreviewBlockProps> = ({
-  ignoreContainerPadding = false,
-  onError,
-  overrideCss,
-  placement,
-  testId,
-  overrideUrl,
-  ...blockProps
+	ignoreContainerPadding = false,
+	onError,
+	overrideCss,
+	placement,
+	testId,
+	overrideUrl,
+	...blockProps
 }) => {
-  const [styles, setStyles] = useState<SerializedStyles | undefined>(
-    overrideCss,
-  );
+	const [styles, setStyles] = useState<SerializedStyles | undefined>(overrideCss);
 
-  const updateStyles = useCallback(() => {
-    setStyles(
-      css(
-        getPreviewBlockStyles(placement, ignoreContainerPadding),
-        overrideCss,
-      ),
-    );
-  }, [ignoreContainerPadding, overrideCss, placement]);
+	const updateStyles = useCallback(() => {
+		setStyles(css(getPreviewBlockStyles(placement, ignoreContainerPadding), overrideCss));
+	}, [ignoreContainerPadding, overrideCss, placement]);
 
-  useEffect(() => {
-    updateStyles();
-  }, [ignoreContainerPadding, overrideCss, placement, updateStyles]);
+	useEffect(() => {
+		updateStyles();
+	}, [ignoreContainerPadding, overrideCss, placement, updateStyles]);
 
-  const handleOnLoad = useCallback(() => {
-    updateStyles();
-  }, [updateStyles]);
+	const handleOnLoad = useCallback(() => {
+		updateStyles();
+	}, [updateStyles]);
 
-  const handleOnError = useCallback(() => {
-    if (onError) {
-      onError();
-    }
-  }, [onError]);
+	const handleOnError = useCallback(() => {
+		if (onError) {
+			onError();
+		}
+	}, [onError]);
 
-  return (
-    <Block
-      {...blockProps}
-      overrideCss={styles}
-      testId={`${testId}-resolved-view`}
-    >
-      <Preview
-        onError={handleOnError}
-        onLoad={handleOnLoad}
-        overrideUrl={overrideUrl}
-      />
-    </Block>
-  );
+	return (
+		<Block {...blockProps} overrideCss={styles} testId={`${testId}-resolved-view`}>
+			<Preview onError={handleOnError} onLoad={handleOnLoad} overrideUrl={overrideUrl} />
+		</Block>
+	);
 };
 
 export default PreviewBlockResolvedView;

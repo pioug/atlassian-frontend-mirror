@@ -1,93 +1,84 @@
 import React, { type MouseEvent, useCallback } from 'react';
 
 import {
-  AnalyticsListener,
-  type CreateUIAnalyticsEvent,
-  type UIAnalyticsEvent,
-  withAnalyticsEvents,
-  type WithAnalyticsEventsProps,
+	AnalyticsListener,
+	type CreateUIAnalyticsEvent,
+	type UIAnalyticsEvent,
+	withAnalyticsEvents,
+	type WithAnalyticsEventsProps,
 } from '../src';
 
 interface ButtonBaseProps extends WithAnalyticsEventsProps {
-  onClick: (
-    e: MouseEvent<HTMLButtonElement>,
-    analyticsEvent?: UIAnalyticsEvent,
-  ) => void;
-  children: React.ReactNode;
+	onClick: (e: MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void;
+	children: React.ReactNode;
 }
 
-const ManualButtonBase = ({
-  createAnalyticsEvent,
-  onClick,
-  ...rest
-}: ButtonBaseProps) => {
-  const handleClick = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
-      // Create our analytics event
-      const analyticsEvent = createAnalyticsEvent!({
-        action: 'click',
-      });
+const ManualButtonBase = ({ createAnalyticsEvent, onClick, ...rest }: ButtonBaseProps) => {
+	const handleClick = useCallback(
+		(e: MouseEvent<HTMLButtonElement>) => {
+			// Create our analytics event
+			const analyticsEvent = createAnalyticsEvent!({
+				action: 'click',
+			});
 
-      if (onClick) {
-        // Pass the event through the corresponding callback prop
-        onClick(e, analyticsEvent);
-      }
-    },
-    [onClick, createAnalyticsEvent],
-  );
+			if (onClick) {
+				// Pass the event through the corresponding callback prop
+				onClick(e, analyticsEvent);
+			}
+		},
+		[onClick, createAnalyticsEvent],
+	);
 
-  return <button {...rest} onClick={handleClick} />;
+	return <button {...rest} onClick={handleClick} />;
 };
 
 const ButtonBase = ({ createAnalyticsEvent, ...rest }: ButtonBaseProps) => {
-  return <button {...rest} />;
+	return <button {...rest} />;
 };
 
 const ManualButton = withAnalyticsEvents()(ManualButtonBase);
 const VerboseButton = withAnalyticsEvents({
-  onClick: (create: CreateUIAnalyticsEvent) => create({ action: 'click' }),
+	onClick: (create: CreateUIAnalyticsEvent) => create({ action: 'click' }),
 })(ButtonBase);
 const ShorthandButton = withAnalyticsEvents({
-  onClick: { action: 'click' },
+	onClick: { action: 'click' },
 })(ButtonBase);
 
 const ButtonGroup = () => {
-  const onClick = useCallback(
-    (e: MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) =>
-      analyticsEvent && analyticsEvent.fire('atlaskit'),
-    [],
-  );
+	const onClick = useCallback(
+		(e: MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) =>
+			analyticsEvent && analyticsEvent.fire('atlaskit'),
+		[],
+	);
 
-  return (
-    <div>
-      <div>
-        <ManualButton onClick={onClick}>
-          Manually creating and passing up the event
-        </ManualButton>
-      </div>
-      <div>
-        <VerboseButton onClick={onClick}>
-          {`Using a function in the 'create event map' option`}
-        </VerboseButton>
-      </div>
-      <div>
-        <ShorthandButton onClick={onClick}>
-          {`Using the payload object shorthand in the 'create event map' option`}
-        </ShorthandButton>
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<div>
+				<ManualButton onClick={onClick}>Manually creating and passing up the event</ManualButton>
+			</div>
+			<div>
+				<VerboseButton onClick={onClick}>
+					{`Using a function in the 'create event map' option`}
+				</VerboseButton>
+			</div>
+			<div>
+				<ShorthandButton onClick={onClick}>
+					{`Using the payload object shorthand in the 'create event map' option`}
+				</ShorthandButton>
+			</div>
+		</div>
+	);
 };
 
 export default () => {
-  const handleEvent = (analyticsEvent: UIAnalyticsEvent) => {
-    const { payload, context } = analyticsEvent;
-    console.log('Received event:', { payload, context });
-  };
+	const handleEvent = (analyticsEvent: UIAnalyticsEvent) => {
+		const { payload, context } = analyticsEvent;
+		console.log('Received event:', { payload, context });
+	};
 
-  return (
-    <AnalyticsListener channel="atlaskit" onEvent={handleEvent}>
-      <ButtonGroup />
-    </AnalyticsListener>
-  );
+	return (
+		<AnalyticsListener channel="atlaskit" onEvent={handleEvent}>
+			<ButtonGroup />
+		</AnalyticsListener>
+	);
 };

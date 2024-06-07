@@ -6,10 +6,10 @@ export default md`
 ### Props
 
 ${(
-  <Props
-    heading=""
-    props={require('!!extract-react-types-loader!../../utils/props-element-item')}
-  />
+	<Props
+		heading=""
+		props={require('!!extract-react-types-loader!../../utils/props-element-item')}
+	/>
 )}
 
 `;

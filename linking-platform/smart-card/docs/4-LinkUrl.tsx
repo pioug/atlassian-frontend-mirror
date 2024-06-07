@@ -48,12 +48,12 @@ Please, click on the link below to see the warning message.
 ${(<LinkUrl href="https://www.google.com/">www.atlassian.com</LinkUrl>)}
 
 ${(
-  <ContentTabs
-    tabs={[
-      { name: TabName.Examples, content: examples },
-      { name: TabName.Reference, content: reference },
-    ]}
-  />
+	<ContentTabs
+		tabs={[
+			{ name: TabName.Examples, content: examples },
+			{ name: TabName.Reference, content: reference },
+		]}
+	/>
 )}
 
 `;

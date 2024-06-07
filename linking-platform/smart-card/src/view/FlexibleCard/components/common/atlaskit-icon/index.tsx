@@ -95,48 +95,48 @@ const importIconMapper: {
 };
 
 const getIconImportFn = (icon: IconType): (() => Promise<any>) | undefined =>
-  importIconMapper[icon];
+	importIconMapper[icon];
 
 const importIcon = (importFn: () => Promise<any>): any => {
-  return Loadable({
-    loader: () => importFn().then((module) => module.default),
-    loading: () => null,
-  }) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
+	return Loadable({
+		loader: () => importFn().then((module) => module.default),
+		loading: () => null,
+	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
 
 const AtlaskitIcon: React.FC<AtlaskitIconProps> = ({ icon, label, testId }) => {
-  // Check for synchonously loaded icons first for SSR purposes
-  switch (icon) {
-    case IconType.Document:
-      return <DocumentIcon label={label || 'document'} testId={testId} />;
-    case IconType.Blog:
-      return <BlogIcon label={label || 'blog'} testId={testId} />;
-  }
+	// Check for synchonously loaded icons first for SSR purposes
+	switch (icon) {
+		case IconType.Document:
+			return <DocumentIcon label={label || 'document'} testId={testId} />;
+		case IconType.Blog:
+			return <BlogIcon label={label || 'blog'} testId={testId} />;
+	}
 
-  const importFn = getIconImportFn(icon);
-  if (!importFn) {
-    return null;
-  }
+	const importFn = getIconImportFn(icon);
+	if (!importFn) {
+		return null;
+	}
 
-  const ImportedIcon = importIcon(importFn);
+	const ImportedIcon = importIcon(importFn);
 
-  switch (icon) {
-    case IconType.Confluence:
-      return <ConfluenceIcon appearance="brand" testId={testId} />;
-    case IconType.Jira:
-      return <JiraIcon appearance="brand" testId={testId} />;
-    case IconType.Error:
-    case IconType.Forbidden:
-      return (
-        <ImportedIcon
-          label={label}
-          testId={testId}
-          primaryColor={token('color.icon.danger', R400)}
-        />
-      );
-    default:
-      return <ImportedIcon label={label} testId={testId} />;
-  }
+	switch (icon) {
+		case IconType.Confluence:
+			return <ConfluenceIcon appearance="brand" testId={testId} />;
+		case IconType.Jira:
+			return <JiraIcon appearance="brand" testId={testId} />;
+		case IconType.Error:
+		case IconType.Forbidden:
+			return (
+				<ImportedIcon
+					label={label}
+					testId={testId}
+					primaryColor={token('color.icon.danger', R400)}
+				/>
+			);
+		default:
+			return <ImportedIcon label={label} testId={testId} />;
+	}
 };
 
 export default AtlaskitIcon;

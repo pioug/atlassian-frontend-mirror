@@ -31,73 +31,72 @@ export const emojiPickerHeight = 295;
 export const emojiPickerListHeight = emojiPickerHeight - 58; // picker height - actions height
 
 export const emojiPickerPreviewHeight = 54;
-export const emojiPickerHeightWithPreview =
-  emojiPickerHeight + emojiPickerPreviewHeight;
+export const emojiPickerHeightWithPreview = emojiPickerHeight + emojiPickerPreviewHeight;
 
 export const localStoragePrefix = 'fabric.emoji';
 export const selectedToneStorageKey = `${localStoragePrefix}.selectedTone`;
 export const defaultCategories: CategoryId[] = [
-  'PEOPLE',
-  'NATURE',
-  'FOODS',
-  'ACTIVITY',
-  'PLACES',
-  'OBJECTS',
-  'SYMBOLS',
-  'FLAGS',
+	'PEOPLE',
+	'NATURE',
+	'FOODS',
+	'ACTIVITY',
+	'PLACES',
+	'OBJECTS',
+	'SYMBOLS',
+	'FLAGS',
 ];
 
 export enum KeyboardKeys {
-  ArrowLeft = 'ArrowLeft',
-  ArrowRight = 'ArrowRight',
-  ArrowUp = 'ArrowUp',
-  ArrowDown = 'ArrowDown',
-  PageUp = 'PageUp',
-  PageDown = 'PageDown',
-  Home = 'Home',
-  End = 'End',
-  Enter = 'Enter',
-  Tab = 'Tab',
-  Space = ' ',
-  Backspace = 'Backspace',
+	ArrowLeft = 'ArrowLeft',
+	ArrowRight = 'ArrowRight',
+	ArrowUp = 'ArrowUp',
+	ArrowDown = 'ArrowDown',
+	PageUp = 'PageUp',
+	PageDown = 'PageDown',
+	Home = 'Home',
+	End = 'End',
+	Enter = 'Enter',
+	Tab = 'Tab',
+	Space = ' ',
+	Backspace = 'Backspace',
 }
 
 // Used to search available emoji in the picker list to focus
 export enum KeyboardNavigationDirection {
-  Down = 'Down',
-  Up = 'Up',
-  Left = 'Left',
-  Right = 'Right',
+	Down = 'Down',
+	Up = 'Up',
+	Left = 'Left',
+	Right = 'Right',
 }
 
 export const CATEGORYSELECTOR_KEYBOARD_KEYS_SUPPORTED: string[] = [
-  KeyboardKeys.ArrowRight,
-  KeyboardKeys.ArrowLeft,
-  KeyboardKeys.Home,
-  KeyboardKeys.End,
+	KeyboardKeys.ArrowRight,
+	KeyboardKeys.ArrowLeft,
+	KeyboardKeys.Home,
+	KeyboardKeys.End,
 ];
 
 export const EMOJI_KEYBOARD_KEYS_SUPPORTED: string[] = [
-  KeyboardKeys.Enter,
-  KeyboardKeys.Backspace,
-  KeyboardKeys.Space,
+	KeyboardKeys.Enter,
+	KeyboardKeys.Backspace,
+	KeyboardKeys.Space,
 ];
 
 export const TONESELECTOR_KEYBOARD_KEYS_SUPPORTED: string[] = [
-  KeyboardKeys.Enter,
-  KeyboardKeys.Tab,
-  KeyboardKeys.Space,
+	KeyboardKeys.Enter,
+	KeyboardKeys.Tab,
+	KeyboardKeys.Space,
 ];
 
 export const EMOJIPICKERLIST_KEYBOARD_KEYS_SUPPORTED: string[] = [
-  KeyboardKeys.ArrowRight,
-  KeyboardKeys.ArrowLeft,
-  KeyboardKeys.Home,
-  KeyboardKeys.End,
-  KeyboardKeys.ArrowUp,
-  KeyboardKeys.ArrowDown,
-  KeyboardKeys.PageUp,
-  KeyboardKeys.PageDown,
+	KeyboardKeys.ArrowRight,
+	KeyboardKeys.ArrowLeft,
+	KeyboardKeys.Home,
+	KeyboardKeys.End,
+	KeyboardKeys.ArrowUp,
+	KeyboardKeys.ArrowDown,
+	KeyboardKeys.PageUp,
+	KeyboardKeys.PageDown,
 ];
 
 export const DEFAULT_TONE = 0;

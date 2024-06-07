@@ -1,9 +1,9 @@
 import React from 'react';
 import { md, AtlassianInternalWarning } from '@atlaskit/docs';
 import {
-  createRxjsNotice,
-  createMediaUseOnlyNotice,
-  createSingletonNotice,
+	createRxjsNotice,
+	createMediaUseOnlyNotice,
+	createSingletonNotice,
 } from '@atlaskit/media-common/docs';
 
 const packageName = 'Media Core';
@@ -12,8 +12,8 @@ export default md`
 ${createSingletonNotice(packageName)}
 
 ${createMediaUseOnlyNotice(packageName, [
-  { name: 'Media Card', link: '/packages/media/media-card' },
-  { name: 'Media Picker', link: '/packages/media/media-picker' },
+	{ name: 'Media Card', link: '/packages/media/media-card' },
+	{ name: 'Media Picker', link: '/packages/media/media-picker' },
 ])}
 
 ${(<AtlassianInternalWarning />)}

@@ -16,63 +16,63 @@ import GenericIconSmall from '@atlaskit/icon-file-type/glyph/generic/16';
 import { type MediaType } from '@atlaskit/media-common';
 
 export interface IconWrapperProps {
-  type: MediaType;
+	type: MediaType;
 }
 
 export interface FileIconProps {
-  testId?: string;
-  type?: MediaType;
-  size?: 'small' | 'large';
-  className?: string;
+	testId?: string;
+	type?: MediaType;
+	size?: 'small' | 'large';
+	className?: string;
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconWrapper = styled.span(
-  {
-    display: 'inline-flex',
-  },
-  ({ size }: { size: Required<FileIconProps['size']> }) =>
-    size === 'large' ? `padding: 4px;` : '',
+	{
+		display: 'inline-flex',
+	},
+	({ size }: { size: Required<FileIconProps['size']> }) =>
+		size === 'large' ? `padding: 4px;` : '',
 );
 IconWrapper.displayName = 'IconWrapper';
 
 const largeIcons = {
-  image: ImageIcon,
-  audio: AudioIcon,
-  video: VideoIcon,
-  doc: DocIcon,
-  archive: ArchiveIcon,
-  unknown: GenericIcon,
+	image: ImageIcon,
+	audio: AudioIcon,
+	video: VideoIcon,
+	doc: DocIcon,
+	archive: ArchiveIcon,
+	unknown: GenericIcon,
 };
 
 const smallIcons = {
-  image: ImageIconSmall,
-  audio: AudioIconSmall,
-  video: VideoIconSmall,
-  doc: DocIconSmall,
-  archive: ArchiveIconSmall,
-  unknown: GenericIconSmall,
+	image: ImageIconSmall,
+	audio: AudioIconSmall,
+	video: VideoIconSmall,
+	doc: DocIconSmall,
+	archive: ArchiveIconSmall,
+	unknown: GenericIconSmall,
 };
 
 const defaultType = 'unknown';
 
 export class MediaTypeIcon extends React.Component<FileIconProps, {}> {
-  static defaultProps: FileIconProps = {
-    type: defaultType,
-    testId: 'file-type-icon',
-    size: 'large',
-  };
+	static defaultProps: FileIconProps = {
+		type: defaultType,
+		testId: 'file-type-icon',
+		size: 'large',
+	};
 
-  render() {
-    const { type, size, testId } = this.props;
-    const typeWithDefault = type || defaultType;
-    const icons = size === 'large' ? largeIcons : smallIcons;
-    const Icon = icons[typeWithDefault] || icons[defaultType];
+	render() {
+		const { type, size, testId } = this.props;
+		const typeWithDefault = type || defaultType;
+		const icons = size === 'large' ? largeIcons : smallIcons;
+		const Icon = icons[typeWithDefault] || icons[defaultType];
 
-    return (
-      <IconWrapper data-testid={testId} data-type={type} size={size}>
-        <Icon label="media-type" />
-      </IconWrapper>
-    );
-  }
+		return (
+			<IconWrapper data-testid={testId} data-type={type} size={size}>
+				<Icon label="media-type" />
+			</IconWrapper>
+		);
+	}
 }

@@ -20,11 +20,11 @@ export default md`
   directly.
 
   ${(
-    <DocsContentTabs
-      tabs={[
-        { name: 'Usage', content: example },
-        { name: 'Props', content: props },
-      ]}
-    />
-  )}
+		<DocsContentTabs
+			tabs={[
+				{ name: 'Usage', content: example },
+				{ name: 'Props', content: props },
+			]}
+		/>
+	)}
 `;

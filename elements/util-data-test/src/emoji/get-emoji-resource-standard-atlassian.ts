@@ -6,13 +6,13 @@ import { mockEmojiResourceFactory } from './mock-emoji-resource-factory';
 import { type MockEmojiResourceConfig } from './types';
 
 export const getEmojiResourceWithStandardAndAtlassianEmojis = (
-  config?: MockEmojiResourceConfig,
+	config?: MockEmojiResourceConfig,
 ) => {
-  const standardEmojis: EmojiDescription[] = getStandardEmojis();
-  const atlassianEmojis: EmojiDescription[] = getAtlassianEmojis();
+	const standardEmojis: EmojiDescription[] = getStandardEmojis();
+	const atlassianEmojis: EmojiDescription[] = getAtlassianEmojis();
 
-  return mockEmojiResourceFactory(
-    new EmojiRepository([...standardEmojis, ...atlassianEmojis]),
-    config,
-  );
+	return mockEmojiResourceFactory(
+		new EmojiRepository([...standardEmojis, ...atlassianEmojis]),
+		config,
+	);
 };

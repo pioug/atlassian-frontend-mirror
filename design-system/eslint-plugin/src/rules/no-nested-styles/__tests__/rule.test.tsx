@@ -2,8 +2,8 @@ import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 tester.run('no-nested-styles', rule, {
-  valid: [
-    `
+	valid: [
+		`
     const focusRingStyles = css({
       '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
         '&:focus-visible': {
@@ -12,14 +12,14 @@ tester.run('no-nested-styles', rule, {
       },
     });
     `,
-    `
+		`
     const iconExplorerLinkStyles = css({
       '&,&:hover,&:active,&:focus': {
         lineHeight: 0,
       },
     });
     `,
-    `
+		`
     import { media } from '@atlaskit/primitives/responsive';
 
     css({
@@ -33,12 +33,12 @@ tester.run('no-nested-styles', rule, {
       },
     })
     `,
-    `
+		`
     css({
       color: 'red',
     })
   `,
-    `
+		`
     import { media as somethingElse } from '@atlaskit/primitives/responsive';
 
     xcss({
@@ -52,12 +52,12 @@ tester.run('no-nested-styles', rule, {
       },
     })
     `,
-    `
+		`
     xcss({
       color: 'red',
     })
   `,
-    `
+		`
     css({
       ':hover': { color: 'blue' },
       '&:hover': { color: 'blue' },
@@ -66,7 +66,7 @@ tester.run('no-nested-styles', rule, {
       },
     })
     `,
-    `
+		`
     xcss({
       ':hover': { color: 'blue' },
       '&:hover': { color: 'blue' },
@@ -75,124 +75,124 @@ tester.run('no-nested-styles', rule, {
       },
     })
     `,
-  ],
-  invalid: ['css', 'xcss'].flatMap((style) => [
-    {
-      code: `
+	],
+	invalid: ['css', 'xcss'].flatMap((style) => [
+		{
+			code: `
         ${style}({
           div: {
             color: 'red',
           }
         })
     `,
-      errors: [
-        {
-          messageId: 'noNestedStyles',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noNestedStyles',
+				},
+			],
+		},
+		{
+			code: `
         ${style}({
           '& :hover': {
             color: 'red',
           }
         })
     `,
-      errors: [
-        {
-          messageId: 'noNestedStyles',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noNestedStyles',
+				},
+			],
+		},
+		{
+			code: `
         ${style}({
           '[data-disabled]': {
             color: 'red',
           }
         })
     `,
-      errors: [
-        {
-          messageId: 'noNestedStyles',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noNestedStyles',
+				},
+			],
+		},
+		{
+			code: `
         ${style}({
           '&[data-disabled]': {
             color: 'red',
           }
         })
     `,
-      errors: [
-        {
-          messageId: 'noDirectNestedStyles',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noDirectNestedStyles',
+				},
+			],
+		},
+		{
+			code: `
         ${style}({
           '&, &[data-disabled]': {
             color: 'red',
           }
         })
     `,
-      errors: [
-        {
-          messageId: 'noDirectNestedStyles',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noDirectNestedStyles',
+				},
+			],
+		},
+		{
+			code: `
         ${style}({
           '> div': {
             color: 'red',
           }
         })
     `,
-      errors: [
-        {
-          messageId: 'noNestedStyles',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noNestedStyles',
+				},
+			],
+		},
+		{
+			code: `
         ${style}({
           '&': {
             color: 'red',
           }
         })
     `,
-      errors: [
-        {
-          messageId: 'noNestedStyles',
-        },
-      ],
-    },
-    // No import for media query
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noNestedStyles',
+				},
+			],
+		},
+		// No import for media query
+		{
+			code: `
       xcss({
         [media.above.md]: {
           color: 'green',
         },
       })
       `,
-      errors: [
-        {
-          messageId: 'noNestedStyles',
-        },
-      ],
-    },
-    // Sus definition for media query
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noNestedStyles',
+				},
+			],
+		},
+		// Sus definition for media query
+		{
+			code: `
       const media = {
         above: {
           md: '> div'
@@ -204,39 +204,39 @@ tester.run('no-nested-styles', rule, {
         },
       })
       `,
-      errors: [
-        {
-          messageId: 'noNestedStyles',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noNestedStyles',
+				},
+			],
+		},
+		{
+			code: `
         ${style}({
           '@media (max-width: 664px)': {
             color: 'red',
           }
         })
       `,
-      errors: [
-        {
-          messageId: 'noWidthQueries',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noWidthQueries',
+				},
+			],
+		},
+		{
+			code: `
         ${style}({
           '@media (min-width: 664px)': {
             width: '35%',
           }
         })
       `,
-      errors: [
-        {
-          messageId: 'noWidthQueries',
-        },
-      ],
-    },
-  ]),
+			errors: [
+				{
+					messageId: 'noWidthQueries',
+				},
+			],
+		},
+	]),
 });

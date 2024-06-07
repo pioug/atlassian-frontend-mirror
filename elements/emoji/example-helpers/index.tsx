@@ -10,13 +10,13 @@ export const onOpen: OnLifecycle = () => debug('picker opened');
 export const onClose: OnLifecycle = () => debug('picker closed');
 
 export const onSelection: OnEmojiEvent = (emojiId, emoji) =>
-  debug('emoji selected', emojiId, emoji);
+	debug('emoji selected', emojiId, emoji);
 
 export const onToneSelected: OnToneSelected = (variation: number) =>
-  debug('tone selected', variation);
+	debug('tone selected', variation);
 
 export const onUploadEmoji: OnUploadEmoji = (upload: EmojiUpload) =>
-  debug('uploaded emoji', upload);
+	debug('uploaded emoji', upload);
 
 export const onUploadCancelled = () => debug('upload cancelled');
 

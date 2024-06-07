@@ -3,13 +3,13 @@ import { type AISummaryConfig } from './types';
 import { useMemo } from 'react';
 
 export const useAISummaryConfig = (): AISummaryConfig => {
-  const { product, isAdminHubAIEnabled } = useSmartLinkContext();
+	const { product, isAdminHubAIEnabled } = useSmartLinkContext();
 
-  return useMemo(
-    () => ({
-      product,
-      isAdminHubAIEnabled,
-    }),
-    [product, isAdminHubAIEnabled],
-  );
+	return useMemo(
+		() => ({
+			product,
+			isAdminHubAIEnabled,
+		}),
+		[product, isAdminHubAIEnabled],
+	);
 };

@@ -1,9 +1,9 @@
 import React from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import {
-  useAnalyticsEvents,
-  type UIAnalyticsEvent,
-  AnalyticsContext,
+	useAnalyticsEvents,
+	type UIAnalyticsEvent,
+	AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/standard-button';
@@ -14,11 +14,11 @@ import { messages } from '../../messages';
 import { CloseButtonContainer } from './styled';
 
 interface Props {
-  // Function executed when the user clicks the close button
-  onClick(
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-    analyticsEvent?: UIAnalyticsEvent,
-  ): void;
+	// Function executed when the user clicks the close button
+	onClick(
+		event: React.MouseEvent<HTMLElement, MouseEvent>,
+		analyticsEvent?: UIAnalyticsEvent,
+	): void;
 }
 
 /**
@@ -28,58 +28,51 @@ interface Props {
  * @param onClick - Function executed when the close btn is clicked
  */
 export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
-  onClick,
-  intl: { formatMessage },
+	onClick,
+	intl: { formatMessage },
 }) => {
-  const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const handleOnClick = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>,
-  ): void => {
-    if (onClick) {
-      const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
-        action: 'clicked',
-      });
-      onClick(event, analyticsEvent);
-    }
-  };
+	const handleOnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+		if (onClick) {
+			const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
+				action: 'clicked',
+			});
+			onClick(event, analyticsEvent);
+		}
+	};
 
-  return (
-    <CloseButtonContainer>
-      <Tooltip
-        content={formatMessage(messages.help_panel_header_close)}
-        position="left"
-      >
-        <Button
-          onClick={handleOnClick}
-          appearance="subtle"
-          aria-label={formatMessage(messages.help_panel_header_close_button)}
-          iconBefore={
-            <EditorCloseIcon
-              label={formatMessage(messages.help_panel_header_close)}
-              size="medium"
-            />
-          }
-        />
-      </Tooltip>
-    </CloseButtonContainer>
-  );
+	return (
+		<CloseButtonContainer>
+			<Tooltip content={formatMessage(messages.help_panel_header_close)} position="left">
+				<Button
+					onClick={handleOnClick}
+					appearance="subtle"
+					aria-label={formatMessage(messages.help_panel_header_close_button)}
+					iconBefore={
+						<EditorCloseIcon
+							label={formatMessage(messages.help_panel_header_close)}
+							size="medium"
+						/>
+					}
+				/>
+			</Tooltip>
+		</CloseButtonContainer>
+	);
 };
 
-const CloseButtonWithContext: React.FC<Props & WrappedComponentProps> = (
-  props,
-) => {
-  return (
-    <AnalyticsContext
-      data={{
-        componentName: 'closeButton',
-        packageName: process.env._PACKAGE_NAME_,
-        packageVersion: process.env._PACKAGE_VERSION_,
-      }}
-    >
-      <CloseButton {...props} />
-    </AnalyticsContext>
-  );
+const CloseButtonWithContext: React.FC<Props & WrappedComponentProps> = (props) => {
+	return (
+		<AnalyticsContext
+			data={{
+				componentName: 'closeButton',
+				packageName: process.env._PACKAGE_NAME_,
+				packageVersion: process.env._PACKAGE_VERSION_,
+			}}
+		>
+			<CloseButton {...props} />
+		</AnalyticsContext>
+	);
 };
 
 export default injectIntl(CloseButtonWithContext);

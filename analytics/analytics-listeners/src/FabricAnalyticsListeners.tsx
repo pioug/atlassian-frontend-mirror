@@ -17,64 +17,59 @@ import PostOfficeAnalyticsListener from './postOffice/PostOfficeAnalyticsListene
 import AIMateAnalyticsListener from './aiMate/AIMateAnalyticsListener';
 
 export type Props = {
-  /** Children! */
-  children?: React.ReactNode;
-  client?: AnalyticsWebClient | Promise<AnalyticsWebClient>;
-  logLevel?: number;
-  /** A list of individual listeners to exclude, identified by channel */
-  excludedChannels?: FabricChannel[];
+	/** Children! */
+	children?: React.ReactNode;
+	client?: AnalyticsWebClient | Promise<AnalyticsWebClient>;
+	logLevel?: number;
+	/** A list of individual listeners to exclude, identified by channel */
+	excludedChannels?: FabricChannel[];
 };
 
 const listenerMap = {
-  [FabricChannel.elements]: FabricElementsListener,
-  [FabricChannel.editor]: FabricEditorListener,
-  [FabricChannel.atlaskit]: AtlaskitListener,
-  [FabricChannel.navigation]: NavigationListener,
-  [FabricChannel.media]: MediaAnalyticsListener,
-  [FabricChannel.peopleTeams]: PeopleTeamsAnalyticsListener,
-  [FabricChannel.notifications]: NotificationsAnalyticsListener,
-  [FabricChannel.recentWork]: RecentWorkAnalyticsListener,
-  [FabricChannel.atlas]: AtlasAnalyticsListener,
-  [FabricChannel.crossFlow]: CrossFlowAnalyticsListener,
-  [FabricChannel.linkingPlatform]: LinkingPlatformAnalyticsListener,
-  [FabricChannel.postOffice]: PostOfficeAnalyticsListener,
-  [FabricChannel.aiMate]: AIMateAnalyticsListener,
+	[FabricChannel.elements]: FabricElementsListener,
+	[FabricChannel.editor]: FabricEditorListener,
+	[FabricChannel.atlaskit]: AtlaskitListener,
+	[FabricChannel.navigation]: NavigationListener,
+	[FabricChannel.media]: MediaAnalyticsListener,
+	[FabricChannel.peopleTeams]: PeopleTeamsAnalyticsListener,
+	[FabricChannel.notifications]: NotificationsAnalyticsListener,
+	[FabricChannel.recentWork]: RecentWorkAnalyticsListener,
+	[FabricChannel.atlas]: AtlasAnalyticsListener,
+	[FabricChannel.crossFlow]: CrossFlowAnalyticsListener,
+	[FabricChannel.linkingPlatform]: LinkingPlatformAnalyticsListener,
+	[FabricChannel.postOffice]: PostOfficeAnalyticsListener,
+	[FabricChannel.aiMate]: AIMateAnalyticsListener,
 };
 
 class FabricAnalyticsListeners extends React.Component<Props> {
-  logger: Logger;
+	logger: Logger;
 
-  constructor(props: Props) {
-    super(props);
+	constructor(props: Props) {
+		super(props);
 
-    this.logger = new Logger({ logLevel: props.logLevel });
-  }
+		this.logger = new Logger({ logLevel: props.logLevel });
+	}
 
-  render() {
-    const { client, children, logLevel, excludedChannels } = this.props;
-    if (typeof logLevel === 'number') {
-      this.logger.setLogLevel(logLevel);
-    }
+	render() {
+		const { client, children, logLevel, excludedChannels } = this.props;
+		if (typeof logLevel === 'number') {
+			this.logger.setLogLevel(logLevel);
+		}
 
-    const listeners = (Object.keys(listenerMap) as FabricChannel[])
-      .filter(
-        (channel) => !excludedChannels || excludedChannels.indexOf(channel) < 0,
-      )
-      .map((channel) => listenerMap[channel])
-      .reduce(
-        (
-          prev: React.ReactNode,
-          Listener: React.ComponentType<ListenerProps>,
-        ) => (
-          <Listener client={client} logger={this.logger}>
-            {prev}
-          </Listener>
-        ),
-        children,
-      );
+		const listeners = (Object.keys(listenerMap) as FabricChannel[])
+			.filter((channel) => !excludedChannels || excludedChannels.indexOf(channel) < 0)
+			.map((channel) => listenerMap[channel])
+			.reduce(
+				(prev: React.ReactNode, Listener: React.ComponentType<ListenerProps>) => (
+					<Listener client={client} logger={this.logger}>
+						{prev}
+					</Listener>
+				),
+				children,
+			);
 
-    return listeners;
-  }
+		return listeners;
+	}
 }
 
 export default FabricAnalyticsListeners;

@@ -23,56 +23,49 @@ config({ path: path.join(__dirname, '.env') });
 // local reactions backend service API
 // please run `yarn run setup-first-time` if you don't have .env and local-config.ts
 const devConfig: WebpackDevServer.Configuration['proxy'] = {
-  '/reactions': {
-    target: process.env.PROXY_LOCALDEV_URL,
-    changeOrigin: false,
-    logLevel: 'debug',
-    followRedirects: true,
-    onProxyReq: (proxyReq) => {
-      if (process.env.PROXY_LOCALDEV_ASAP_TOKEN) {
-        proxyReq.setHeader(
-          'Authorization',
-          `Bearer ${process.env.PROXY_LOCALDEV_ASAP_TOKEN}`,
-        );
-        proxyReq.setHeader(
-          'User-Context',
-          process.env.PROXY_LOCALDEV_ASAP_TOKEN,
-        );
-      }
-      if (process.env.PROXY_LOCALDEV_ACCOUNT_ID) {
-        proxyReq.setHeader(
-          'X-Slauth-User-Context-Account-Id',
-          process.env.PROXY_LOCALDEV_ACCOUNT_ID,
-        );
-      }
-      proxyReq.setHeader('X-Slauth-Authorization', 'true');
-      proxyReq.setHeader('X-Slauth-Principal', 'micros/edge-authenticator');
-    },
-  },
+	'/reactions': {
+		target: process.env.PROXY_LOCALDEV_URL,
+		changeOrigin: false,
+		logLevel: 'debug',
+		followRedirects: true,
+		onProxyReq: (proxyReq) => {
+			if (process.env.PROXY_LOCALDEV_ASAP_TOKEN) {
+				proxyReq.setHeader('Authorization', `Bearer ${process.env.PROXY_LOCALDEV_ASAP_TOKEN}`);
+				proxyReq.setHeader('User-Context', process.env.PROXY_LOCALDEV_ASAP_TOKEN);
+			}
+			if (process.env.PROXY_LOCALDEV_ACCOUNT_ID) {
+				proxyReq.setHeader(
+					'X-Slauth-User-Context-Account-Id',
+					process.env.PROXY_LOCALDEV_ACCOUNT_ID,
+				);
+			}
+			proxyReq.setHeader('X-Slauth-Authorization', 'true');
+			proxyReq.setHeader('X-Slauth-Principal', 'micros/edge-authenticator');
+		},
+	},
 };
 
 // staging reactions service
 const overEdgeConfig: WebpackDevServer.Configuration['proxy'] = {
-  '/reactions': {
-    target: process.env.PROXY_OVEREDGE_URL,
-    changeOrigin: true,
-    logLevel: 'debug',
-    followRedirects: true,
-  },
+	'/reactions': {
+		target: process.env.PROXY_OVEREDGE_URL,
+		changeOrigin: true,
+		logLevel: 'debug',
+		followRedirects: true,
+	},
 };
 
 // get proxy config based on target env, which was set from scripts via package.json
 const getConfigByTargetEnvironment = () => {
-  switch (process.env.PROXY_TARGET_ENV) {
-    case 'edge': {
-      return overEdgeConfig;
-    }
-    default:
-      return devConfig;
-  }
+	switch (process.env.PROXY_TARGET_ENV) {
+		case 'edge': {
+			return overEdgeConfig;
+		}
+		default:
+			return devConfig;
+	}
 };
 
-const proxyConfig: WebpackDevServer.Configuration['proxy'] =
-  getConfigByTargetEnvironment();
+const proxyConfig: WebpackDevServer.Configuration['proxy'] = getConfigByTargetEnvironment();
 
 export default proxyConfig;

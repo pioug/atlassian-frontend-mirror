@@ -17,7 +17,6 @@ import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
-
 import type { EditorActions } from '../src';
 import WithEditorActions from '../src/ui/WithEditorActions';
 

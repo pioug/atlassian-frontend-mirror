@@ -15,7 +15,8 @@ Naming in the code:
 
 ### analytics
 
-documented here https://hello.atlassian.net/wiki/spaces/PData/pages/401815409/Minimum+event+spec+-+Share
+documented here
+https://hello.atlassian.net/wiki/spaces/PData/pages/401815409/Minimum+event+spec+-+Share
 
 ### SSR
 
@@ -27,8 +28,9 @@ If needed: to test SSR in JIRA, see \`<jira repo>/services/jira-frontend-ssr/REA
 
 ### Should origin Id be regenerated on each click on "copy"?
 
-Clicking the “copy” button is not really a share action, the share happens when the url is pasted somewhere…
-Since we have no control over the actual share action, it shouldn’t be needed to re-generate on each “copy” click.
+Clicking the “copy” button is not really a share action, the share happens when the url is pasted
+somewhere… Since we have no control over the actual share action, it shouldn’t be needed to
+re-generate on each “copy” click.
 
 ## Quick dev commands
 

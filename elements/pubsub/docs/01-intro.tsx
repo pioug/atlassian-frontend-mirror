@@ -57,13 +57,13 @@ export default md`
   You should then make the pubSubClient available to components.
 
   ${(
-    <Example
-      packageName="@atlaskit/pubsub"
-      Component={PubSubExample}
-      title="Client"
-      source={PubSubdSource}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/pubsub"
+			Component={PubSubExample}
+			title="Client"
+			source={PubSubdSource}
+		/>
+	)}
 
   ### Enabling the Atlassian PubSub (aka APS) protocol
 

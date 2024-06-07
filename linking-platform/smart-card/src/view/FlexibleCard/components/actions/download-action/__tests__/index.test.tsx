@@ -10,62 +10,60 @@ import DownloadAction from '../index';
 import { type DownloadActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
-  ...jest.requireActual('../../../../../../state/flexible-ui-context'),
-  useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
+	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+	useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
 }));
 
 describe('DownloadAction', () => {
-  const testId = 'smart-action-download-action';
+	const testId = 'smart-action-download-action';
 
-  const setup = (props?: Partial<DownloadActionProps>) => {
-    const onEvent = jest.fn();
+	const setup = (props?: Partial<DownloadActionProps>) => {
+		const onEvent = jest.fn();
 
-    return render(
-      <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-        <IntlProvider locale="en">
-          <DownloadAction {...props} />
-        </IntlProvider>
-      </AnalyticsListener>,
-    );
-  };
+		return render(
+			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+				<IntlProvider locale="en">
+					<DownloadAction {...props} />
+				</IntlProvider>
+			</AnalyticsListener>,
+		);
+	};
 
-  it('renders action', async () => {
-    const { findByTestId } = setup();
-    const element = await findByTestId(testId);
-    expect(element).toBeInTheDocument();
-    expect(element.textContent).toBe('Download');
-  });
+	it('renders action', async () => {
+		const { findByTestId } = setup();
+		const element = await findByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element.textContent).toBe('Download');
+	});
 
-  it('renders stack item action', async () => {
-    const { findByTestId } = setup({ as: 'stack-item' });
-    const element = await findByTestId(testId);
-    expect(element).toBeInTheDocument();
-    expect(element.textContent).toBe('Download file');
-  });
+	it('renders stack item action', async () => {
+		const { findByTestId } = setup({ as: 'stack-item' });
+		const element = await findByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element.textContent).toBe('Download file');
+	});
 
-  describe('with tooltip', () => {
-    it('renders tooltip', async () => {
-      const user = userEvent.setup();
-      const { findByRole, findByTestId } = setup();
+	describe('with tooltip', () => {
+		it('renders tooltip', async () => {
+			const user = userEvent.setup();
+			const { findByRole, findByTestId } = setup();
 
-      const element = await findByTestId(testId);
-      await user.hover(element);
+			const element = await findByTestId(testId);
+			await user.hover(element);
 
-      const tooltip = await findByRole('tooltip');
-      expect(tooltip.textContent).toBe('Download');
-    });
+			const tooltip = await findByRole('tooltip');
+			expect(tooltip.textContent).toBe('Download');
+		});
 
-    it('renders stack item tooltip', async () => {
-      const user = userEvent.setup();
-      const { findByRole, findByTestId } = setup({ as: 'stack-item' });
+		it('renders stack item tooltip', async () => {
+			const user = userEvent.setup();
+			const { findByRole, findByTestId } = setup({ as: 'stack-item' });
 
-      const element = await findByTestId(testId);
-      await user.hover(element);
+			const element = await findByTestId(testId);
+			await user.hover(element);
 
-      const tooltip = await findByRole('tooltip');
-      expect(tooltip.textContent).toBe(
-        'Download this file into your local storage',
-      );
-    });
-  });
+			const tooltip = await findByRole('tooltip');
+			expect(tooltip.textContent).toBe('Download this file into your local storage');
+		});
+	});
 });

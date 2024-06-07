@@ -2,20 +2,17 @@ import type { GetStatusTransitionsInvokeResponse } from '@atlaskit/linking-types
 import type { ThemeAppearance } from '@atlaskit/lozenge';
 import { type LozengeItem } from '../../view/FlexibleCard/components/elements/lozenge/lozenge-action/types';
 
-const extractLozengeActionItems = (
-  response: GetStatusTransitionsInvokeResponse,
-): LozengeItem[] => {
-  const items =
-    response?.transitions?.map(({ appearance, id, name }) => ({
-      appearance: (appearance as ThemeAppearance) ?? 'default',
-      id,
-      text: name,
-    })) ?? [];
+const extractLozengeActionItems = (response: GetStatusTransitionsInvokeResponse): LozengeItem[] => {
+	const items =
+		response?.transitions?.map(({ appearance, id, name }) => ({
+			appearance: (appearance as ThemeAppearance) ?? 'default',
+			id,
+			text: name,
+		})) ?? [];
 
-  return items.sort(
-    (a, b) =>
-      a.appearance.localeCompare(b.appearance) || a.text.localeCompare(b.text),
-  );
+	return items.sort(
+		(a, b) => a.appearance.localeCompare(b.appearance) || a.text.localeCompare(b.text),
+	);
 };
 
 export default extractLozengeActionItems;

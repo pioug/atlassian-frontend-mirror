@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  md,
-  Example,
-  code,
-  AtlassianInternalWarning,
-  Props,
-} from '@atlaskit/docs';
+import { md, Example, code, AtlassianInternalWarning, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 import SimpleEmojiExample from '../examples/00-simple-emoji';
 
@@ -59,19 +53,19 @@ export default md`
 
 
   ${(
-    <>
-      <br />
-      <SectionMessage
-        appearance="warning"
-        title="Emoji provider is required to be configured in order to use components from this package."
-      >
-        <p>
-          Please refer to `Emoji picker` section for more information on how to
-          configure emoji provider.
-        </p>
-      </SectionMessage>
-    </>
-  )}
+		<>
+			<br />
+			<SectionMessage
+				appearance="warning"
+				title="Emoji provider is required to be configured in order to use components from this package."
+			>
+				<p>
+					Please refer to `Emoji picker` section for more information on how to configure emoji
+					provider.
+				</p>
+			</SectionMessage>
+		</>
+	)}
 
   ### Other emoji components import examples
 
@@ -97,13 +91,13 @@ export default md`
   There is an example file local-config-example.ts that can be copied.
 
   ${(
-    <Example
-      packageName="@atlaskit/emoji"
-      Component={SimpleEmojiExample}
-      title=" Simple Emoji"
-      source={SimpleEmojiSource}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/emoji"
+			Component={SimpleEmojiExample}
+			title=" Simple Emoji"
+			source={SimpleEmojiSource}
+		/>
+	)}
 
   ${(<Props props={EmojiProps} />)}
 `;

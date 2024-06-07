@@ -3,9 +3,9 @@ import { di } from 'react-magnetic-di';
 import { useExternalMessages } from '../../state';
 
 export const useEditorViewHasInfos = (): boolean => {
-  di(useExternalMessages);
+	di(useExternalMessages);
 
-  const [{ infos: externalInfos }] = useExternalMessages();
+	const [{ infos: externalInfos }] = useExternalMessages();
 
-  return externalInfos.length > 0;
+	return externalInfos.length > 0;
 };

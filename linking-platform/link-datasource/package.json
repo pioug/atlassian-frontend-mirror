@@ -96,7 +96,7 @@
   "devDependencies": {
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/link-provider": "^1.9.0",
+    "@atlaskit/link-provider": "^1.10.0",
     "@atlaskit/link-test-helpers": "^7.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -156,6 +156,9 @@
     "./i18n/*": "./src/i18n/*.ts"
   },
   "platform-feature-flags": {
+    "platform.linking-platform.datasource-assets_add_version_parameter": {
+      "type": "boolean"
+    },
     "platform.linking-platform.datasource.show-jlol-basic-filters": {
       "type": "boolean"
     },

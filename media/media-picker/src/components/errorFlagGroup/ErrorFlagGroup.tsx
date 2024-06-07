@@ -7,104 +7,89 @@ import { token } from '@atlaskit/tokens';
 
 import { type FlagData } from '../../types';
 import { errorFlagMessages } from './messages';
-import {
-  injectIntl,
-  IntlProvider,
-  useIntl,
-  type WrappedComponentProps,
-} from 'react-intl-next';
+import { injectIntl, IntlProvider, useIntl, type WrappedComponentProps } from 'react-intl-next';
 
 export interface ErrorFlagGroupProps {
-  readonly flagData: FlagData[];
-  onFlagDismissed: () => void;
+	readonly flagData: FlagData[];
+	onFlagDismissed: () => void;
 }
 const defaultOptions = {
-  style: 'unit',
-  unitDisplay: 'short',
-  minimumFractionDigits: 2,
+	style: 'unit',
+	unitDisplay: 'short',
+	minimumFractionDigits: 2,
 } as Intl.NumberFormatOptions;
 
 const fileSizeFormatters = {
-  kilobyte: new Intl.NumberFormat('en', {
-    ...defaultOptions,
-    unit: 'kilobyte',
-  }),
-  megabyte: new Intl.NumberFormat('en', {
-    ...defaultOptions,
-    unit: 'megabyte',
-  }),
-  gigabyte: new Intl.NumberFormat('en', {
-    ...defaultOptions,
-    unit: 'gigabyte',
-  }),
+	kilobyte: new Intl.NumberFormat('en', {
+		...defaultOptions,
+		unit: 'kilobyte',
+	}),
+	megabyte: new Intl.NumberFormat('en', {
+		...defaultOptions,
+		unit: 'megabyte',
+	}),
+	gigabyte: new Intl.NumberFormat('en', {
+		...defaultOptions,
+		unit: 'gigabyte',
+	}),
 };
 
 const formatFileSize = (size: number) => {
-  let formattedSize: number;
-  if (size < 1_000_000) {
-    formattedSize = size / 1_000;
-    return fileSizeFormatters.kilobyte.format(formattedSize);
-  } else if (size >= 1_000_000 && size < 1_000_000_000) {
-    formattedSize = size / 1_000_000;
-    return fileSizeFormatters.megabyte.format(formattedSize);
-  } else {
-    formattedSize = size / 1_000_000_000;
-    return fileSizeFormatters.gigabyte.format(formattedSize);
-  }
+	let formattedSize: number;
+	if (size < 1_000_000) {
+		formattedSize = size / 1_000;
+		return fileSizeFormatters.kilobyte.format(formattedSize);
+	} else if (size >= 1_000_000 && size < 1_000_000_000) {
+		formattedSize = size / 1_000_000;
+		return fileSizeFormatters.megabyte.format(formattedSize);
+	} else {
+		formattedSize = size / 1_000_000_000;
+		return fileSizeFormatters.gigabyte.format(formattedSize);
+	}
 };
 
-const FlagGroupContent = ({
-  flagData,
-  onFlagDismissed,
-}: ErrorFlagGroupProps) => {
-  const intl = useIntl();
-  return (
-    <FlagGroup onDismissed={onFlagDismissed}>
-      {flagData.map((data: FlagData, i: number) => (
-        <AutoDismissFlag
-          id={i}
-          icon={
-            <FailIcon
-              primaryColor={token('color.icon.danger', R300)}
-              label="Fail"
-              size="medium"
-            />
-          }
-          key={i}
-          title={intl.formatMessage(errorFlagMessages.errorTitle)}
-          description={
-            data.reason === 'fileEmpty'
-              ? intl.formatMessage(errorFlagMessages.fileEmptyDescription, {
-                  fileName: data.fileName,
-                })
-              : intl.formatMessage(
-                  errorFlagMessages.uploadRejectionDescription,
-                  {
-                    fileName: data.fileName,
-                    limit: formatFileSize(data.limit),
-                  },
-                )
-          }
-        />
-      ))}
-    </FlagGroup>
-  );
+const FlagGroupContent = ({ flagData, onFlagDismissed }: ErrorFlagGroupProps) => {
+	const intl = useIntl();
+	return (
+		<FlagGroup onDismissed={onFlagDismissed}>
+			{flagData.map((data: FlagData, i: number) => (
+				<AutoDismissFlag
+					id={i}
+					icon={
+						<FailIcon primaryColor={token('color.icon.danger', R300)} label="Fail" size="medium" />
+					}
+					key={i}
+					title={intl.formatMessage(errorFlagMessages.errorTitle)}
+					description={
+						data.reason === 'fileEmpty'
+							? intl.formatMessage(errorFlagMessages.fileEmptyDescription, {
+									fileName: data.fileName,
+								})
+							: intl.formatMessage(errorFlagMessages.uploadRejectionDescription, {
+									fileName: data.fileName,
+									limit: formatFileSize(data.limit),
+								})
+					}
+				/>
+			))}
+		</FlagGroup>
+	);
 };
 
 const ErrorFlagGroup = ({
-  flagData,
-  onFlagDismissed,
-  intl,
+	flagData,
+	onFlagDismissed,
+	intl,
 }: ErrorFlagGroupProps & WrappedComponentProps) => {
-  return intl ? (
-    <FlagGroupContent flagData={flagData} onFlagDismissed={onFlagDismissed} />
-  ) : (
-    <IntlProvider locale="en">
-      <FlagGroupContent flagData={flagData} onFlagDismissed={onFlagDismissed} />
-    </IntlProvider>
-  );
+	return intl ? (
+		<FlagGroupContent flagData={flagData} onFlagDismissed={onFlagDismissed} />
+	) : (
+		<IntlProvider locale="en">
+			<FlagGroupContent flagData={flagData} onFlagDismissed={onFlagDismissed} />
+		</IntlProvider>
+	);
 };
 
 export default injectIntl(ErrorFlagGroup, {
-  enforceContext: false,
+	enforceContext: false,
 });

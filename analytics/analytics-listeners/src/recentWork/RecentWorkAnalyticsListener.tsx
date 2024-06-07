@@ -5,11 +5,11 @@ import processEvent from './process-event';
 import GenericAnalyticsListener from '../GenericAnalyticsListener';
 
 export default function RecentWorkAnalyticsListener(props: ListenerProps) {
-  return (
-    <GenericAnalyticsListener
-      {...props}
-      channel={FabricChannel.recentWork}
-      processEvent={processEvent}
-    />
-  );
+	return (
+		<GenericAnalyticsListener
+			{...props}
+			channel={FabricChannel.recentWork}
+			processEvent={processEvent}
+		/>
+	);
 }

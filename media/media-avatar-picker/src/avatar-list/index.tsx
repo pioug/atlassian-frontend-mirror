@@ -5,61 +5,59 @@ import { messages } from '@atlaskit/media-ui';
 import { avatarListWrapperStyles, smallAvatarImageStyles } from './styles';
 
 export interface Avatar {
-  dataURI: string;
-  name?: string;
+	dataURI: string;
+	name?: string;
 }
 
 export interface AvatarListProps {
-  avatars: Array<Avatar>;
-  onItemClick?: (avatar: Avatar) => void;
-  selectedAvatar?: Avatar;
-  selectAvatarLabel?: string;
+	avatars: Array<Avatar>;
+	onItemClick?: (avatar: Avatar) => void;
+	selectedAvatar?: Avatar;
+	selectAvatarLabel?: string;
 }
 
 export const AvatarList = ({
-  avatars = [],
-  selectedAvatar,
-  onItemClick,
-  selectAvatarLabel,
+	avatars = [],
+	selectedAvatar,
+	onItemClick,
+	selectAvatarLabel,
 }: AvatarListProps) => {
-  const intl = useIntl();
+	const intl = useIntl();
 
-  const createOnItemClickHandler = (avatar: Avatar) => () => {
-    if (onItemClick) {
-      onItemClick(avatar);
-    }
-  };
+	const createOnItemClickHandler = (avatar: Avatar) => () => {
+		if (onItemClick) {
+			onItemClick(avatar);
+		}
+	};
 
-  const cards = avatars.map((avatar, idx) => {
-    const elementKey = `predefined-avatar-${idx}`;
-    return (
-      <label key={elementKey}>
-        <input
-          type="radio"
-          name="avatar"
-          value={avatar.dataURI}
-          aria-label={avatar.name || undefined}
-          checked={avatar === selectedAvatar}
-          onChange={createOnItemClickHandler(avatar)}
-        />
+	const cards = avatars.map((avatar, idx) => {
+		const elementKey = `predefined-avatar-${idx}`;
+		return (
+			<label key={elementKey}>
+				<input
+					type="radio"
+					name="avatar"
+					value={avatar.dataURI}
+					aria-label={avatar.name || undefined}
+					checked={avatar === selectedAvatar}
+					onChange={createOnItemClickHandler(avatar)}
+				/>
 				{/**
 				 * The alt is intentionally empty to avoid double announement of screen reader
 				 * see: https://www.loom.com/share/1c19ca856478460b9ab1b75cc599b122
 				 */}
-        <img css={smallAvatarImageStyles} src={avatar.dataURI} alt="" />
-      </label>
-    );
-  });
+				<img css={smallAvatarImageStyles} src={avatar.dataURI} alt="" />
+			</label>
+		);
+	});
 
-  return (
-    <div
-      role="radiogroup"
-      aria-label={
-        selectAvatarLabel || intl.formatMessage(messages.select_an_avatar)
-      }
-      css={avatarListWrapperStyles}
-    >
-      {cards}
-    </div>
-  );
+	return (
+		<div
+			role="radiogroup"
+			aria-label={selectAvatarLabel || intl.formatMessage(messages.select_an_avatar)}
+			css={avatarListWrapperStyles}
+		>
+			{cards}
+		</div>
+	);
 };

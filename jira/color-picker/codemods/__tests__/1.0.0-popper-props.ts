@@ -5,43 +5,43 @@ import transformer from '../1.0.0-popper-props';
 const applyTransform = require('jscodeshift/dist/testUtils').applyTransform;
 
 type TestArgs = {
-  it: string;
-  original: string;
-  expected: string;
-  mode?: 'only' | 'skip';
-  before?: () => void;
-  after?: () => void;
+	it: string;
+	original: string;
+	expected: string;
+	mode?: 'only' | 'skip';
+	before?: () => void;
+	after?: () => void;
 };
 
 function noop() {}
 
 function check({
-  it: name,
-  original,
-  expected,
-  before = noop,
-  after = noop,
-  mode = undefined,
+	it: name,
+	original,
+	expected,
+	before = noop,
+	after = noop,
+	mode = undefined,
 }: TestArgs) {
-  const run = mode === 'only' ? it.only : mode === 'skip' ? it.skip : it;
+	const run = mode === 'only' ? it.only : mode === 'skip' ? it.skip : it;
 
-  run(name, () => {
-    before();
-    try {
-      const output: string = applyTransform(
-        { default: transformer, parser: 'tsx' },
-        {},
-        { source: original },
-      );
-      expect(output).toBe(expected.trim());
-    } catch (e) {
-      // a failed assertion will throw
-      after();
-      throw e;
-    }
-    // will only be hit if we don't throw
-    after();
-  });
+	run(name, () => {
+		before();
+		try {
+			const output: string = applyTransform(
+				{ default: transformer, parser: 'tsx' },
+				{},
+				{ source: original },
+			);
+			expect(output).toBe(expected.trim());
+		} catch (e) {
+			// a failed assertion will throw
+			after();
+			throw e;
+		}
+		// will only be hit if we don't throw
+		after();
+	});
 }
 
 /**
@@ -50,9 +50,9 @@ function check({
 */
 
 describe('Convert positionFixed:boolean to strategy:"fixed"|"absolute"', () => {
-  check({
-    it: 'Convert `positionFixed: true` to `strategy: "fixed"`',
-    original: `
+	check({
+		it: 'Convert `positionFixed: true` to `strategy: "fixed"`',
+		original: `
       import ColorPicker from '@atlaskit/color-picker';
 
       export default () => (
@@ -68,7 +68,7 @@ describe('Convert positionFixed:boolean to strategy:"fixed"|"absolute"', () => {
         />
       );
     `,
-    expected: `
+		expected: `
       import ColorPicker from '@atlaskit/color-picker';
 
       export default () => (
@@ -84,11 +84,11 @@ describe('Convert positionFixed:boolean to strategy:"fixed"|"absolute"', () => {
         />
       );
     `,
-  });
+	});
 
-  check({
-    it: 'Convert `positionFixed: {something truthy}` to `strategy: "fixed"`',
-    original: `
+	check({
+		it: 'Convert `positionFixed: {something truthy}` to `strategy: "fixed"`',
+		original: `
       import ColorPicker from '@atlaskit/color-picker';
 
       export default () => (
@@ -104,7 +104,7 @@ describe('Convert positionFixed:boolean to strategy:"fixed"|"absolute"', () => {
         />
       );
     `,
-    expected: `
+		expected: `
       import ColorPicker from '@atlaskit/color-picker';
 
       export default () => (
@@ -120,11 +120,11 @@ describe('Convert positionFixed:boolean to strategy:"fixed"|"absolute"', () => {
         />
       );
     `,
-  });
+	});
 
-  check({
-    it: 'Convert `positionFixed: false` to `strategy:"absolute"`',
-    original: `
+	check({
+		it: 'Convert `positionFixed: false` to `strategy:"absolute"`',
+		original: `
       import ColorPicker from '@atlaskit/color-picker';
 
       export default () => (
@@ -140,7 +140,7 @@ describe('Convert positionFixed:boolean to strategy:"fixed"|"absolute"', () => {
         />
       );
     `,
-    expected: `
+		expected: `
       import ColorPicker from '@atlaskit/color-picker';
 
       export default () => (
@@ -156,7 +156,7 @@ describe('Convert positionFixed:boolean to strategy:"fixed"|"absolute"', () => {
         />
       );
     `,
-  });
+	});
 });
 
 /**
@@ -165,9 +165,9 @@ describe('Convert positionFixed:boolean to strategy:"fixed"|"absolute"', () => {
 */
 
 describe('Warn use of the `modifiers` prop', () => {
-  check({
-    it: 'should add warning comment when using the modifier prop in `popperProps`',
-    original: `
+	check({
+		it: 'should add warning comment when using the modifier prop in `popperProps`',
+		original: `
       import ColorPicker from '@atlaskit/color-picker';
 
       export default () => (
@@ -183,7 +183,7 @@ describe('Warn use of the `modifiers` prop', () => {
         />
       );
     `,
-    expected: `
+		expected: `
     /* TODO: (from codemod) Popper.js has been upgraded from 1.14.1 to 2.4.2,
       and as a result the modifier prop has changed significantly. The format has been
       changed from object of objects, to array of objects, with the key for each modifier
@@ -205,5 +205,5 @@ describe('Warn use of the `modifiers` prop', () => {
         />
       );
     `,
-  });
+	});
 });

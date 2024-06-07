@@ -3,36 +3,32 @@ import React from 'react';
 
 import { uid } from 'react-uid';
 
-import { defaultLogoParams } from '../constants';
-import { type LogoProps } from '../types';
+import { useThemeObserver } from '@atlaskit/tokens';
+
+import { defaultLogoParams, legacyDefaultLogoParams } from '../constants';
+import type { LogoProps } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = ({
-  appearance,
-  iconGradientStart,
-  iconGradientStop,
-  iconColor,
-  textColor,
-}: LogoProps) => {
-  let colors = {
-    iconGradientStart,
-    iconGradientStop,
-    iconColor,
-    textColor,
-    // We treat the word "Atlassian" differently to normal product logos, it has a bold brand look
-    atlassianLogoTextColor: textColor,
-  };
-  // Will be fixed upon removal of deprecated iconGradientStart and
-  // iconGradientStop props, or with React 18's useId() hook when we update.
-  // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-  let id = uid({ iconGradientStart: iconGradientStop });
+const svg = ({ appearance, iconColor, textColor }: LogoProps, colorMode: string | undefined) => {
+	let colors: ReturnType<typeof getColorsFromAppearanceOldLogos> = {
+		iconGradientStart: legacyDefaultLogoParams.iconGradientStart,
+		iconGradientStop: legacyDefaultLogoParams.iconGradientStart,
+		iconColor,
+		textColor,
+		// We treat the word "Atlassian" differently to normal product logos, it has a bold brand look
+		atlassianLogoTextColor: textColor,
+	};
+	// Will be fixed upon removal of deprecated iconGradientStart and
+	// iconGradientStop props, or with React 18's useId() hook when we update.
+	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
+	let id = uid({ iconGradientStart: colors.iconGradientStop });
 
-  if (appearance) {
-    colors = getColorsFromAppearanceOldLogos(appearance);
-  }
+	if (appearance) {
+		colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
+	}
 
-  return `
+	return `
 <svg fill="none" viewBox="0 0 270 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"2>
   <defs>
     <linearGradient
@@ -44,8 +40,8 @@ const svg = ({
       y2="23.6252"
     >
       <stop offset="0" stop-color="${colors.iconGradientStart}" ${
-    colors.iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
-  } />
+				colors.iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
+			} />
       <stop offset="92%" stop-color="${colors.iconGradientStop}" />
     </linearGradient>
   </defs>
@@ -76,43 +72,44 @@ const svg = ({
 </svg>`;
 };
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**
- * __Atlassian start logo__
+ * __Atlassian Start logo__
  *
  * The Atlassian Start logo with both the wordmark and the icon combined.
  *
  * - [Examples](https://atlassian.design/components/logo/examples)
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
+ *
+ * @deprecated AtlassianStartLogo is deprecated and will be removed from atlaskit/logo in the next major release.
  */
 export const AtlassianStartLogo = ({
-  appearance,
-  label = 'Atlassian Start',
-  size = defaultLogoParams.size,
-  testId,
-  iconColor = defaultLogoParams.iconColor,
-  iconGradientStart = defaultLogoParams.iconGradientStart,
-  iconGradientStop = defaultLogoParams.iconGradientStop,
-  textColor = defaultLogoParams.textColor,
+	appearance,
+	label = 'Atlassian Start',
+	size = defaultLogoParams.size,
+	testId,
+	iconColor = defaultLogoParams.iconColor,
+	textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  return (
-    <Wrapper
-      appearance={appearance}
-      label={label}
-      iconColor={iconColor}
-      iconGradientStart={iconGradientStart}
-      iconGradientStop={iconGradientStop}
-      size={size}
-      svg={svg({
-        appearance,
-        label,
-        iconGradientStart,
-        iconGradientStop,
-        iconColor,
-        textColor,
-      })}
-      testId={testId}
-      textColor={textColor}
-    />
-  );
+	const { colorMode } = useThemeObserver();
+	return (
+		<Wrapper
+			appearance={appearance}
+			label={label}
+			iconColor={iconColor}
+			size={size}
+			svg={svg(
+				{
+					appearance,
+					label,
+					iconColor,
+					textColor,
+				},
+				colorMode,
+			)}
+			testId={testId}
+			textColor={textColor}
+		/>
+	);
 };

@@ -7,23 +7,23 @@ import { type AISummaryConfig } from '../../../state/hooks/use-ai-summary-config
 import { extractAri } from '@atlaskit/link-extractors';
 
 export const extractAISummaryAction = (
-  response: JsonLd.Response,
-  url?: string,
-  actionOptions?: CardActionOptions,
-  aiSummaryConfig?: AISummaryConfig,
+	response: JsonLd.Response,
+	url?: string,
+	actionOptions?: CardActionOptions,
+	aiSummaryConfig?: AISummaryConfig,
 ): AISummaryActionData | undefined => {
-  if (
-    !canShowAction(CardAction.AISummaryAction, actionOptions) ||
-    !getIsAISummaryEnabled(aiSummaryConfig?.isAdminHubAIEnabled, response) ||
-    !aiSummaryConfig?.product ||
-    !url
-  ) {
-    return;
-  }
+	if (
+		!canShowAction(CardAction.AISummaryAction, actionOptions) ||
+		!getIsAISummaryEnabled(aiSummaryConfig?.isAdminHubAIEnabled, response) ||
+		!aiSummaryConfig?.product ||
+		!url
+	) {
+		return;
+	}
 
-  return {
-    url,
-    ari: extractAri(response.data as JsonLd.Data.BaseData),
-    product: aiSummaryConfig?.product,
-  };
+	return {
+		url,
+		ari: extractAri(response.data as JsonLd.Data.BaseData),
+		product: aiSummaryConfig?.product,
+	};
 };

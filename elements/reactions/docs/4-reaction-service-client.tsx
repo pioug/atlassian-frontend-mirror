@@ -34,9 +34,9 @@ export default md`
 `}
 
   ${(
-    <Props
-      heading="ReactionClient type"
-      props={require('!!extract-react-types-loader!../extract-react-type/reactionClient')}
-    />
-  )}
+		<Props
+			heading="ReactionClient type"
+			props={require('!!extract-react-types-loader!../extract-react-type/reactionClient')}
+		/>
+	)}
 `;

@@ -10,70 +10,70 @@ import CopyLinkAction from '../index';
 import { type CopyLinkActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
-  ...jest.requireActual('../../../../../../state/flexible-ui-context'),
-  useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
+	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+	useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
 }));
 
 describe('CopyLinkAction', () => {
-  const testId = 'smart-action-copy-link-action';
+	const testId = 'smart-action-copy-link-action';
 
-  const setup = (props?: CopyLinkActionProps) => {
-    const onEvent = jest.fn();
+	const setup = (props?: CopyLinkActionProps) => {
+		const onEvent = jest.fn();
 
-    return render(
-      <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-        <IntlProvider locale="en">
-          <CopyLinkAction {...props} as="stack-item" />
-        </IntlProvider>
-      </AnalyticsListener>,
-    );
-  };
+		return render(
+			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+				<IntlProvider locale="en">
+					<CopyLinkAction {...props} as="stack-item" />
+				</IntlProvider>
+			</AnalyticsListener>,
+		);
+	};
 
-  it('renders stack item action', async () => {
-    const { findByTestId } = setup();
-    const element = await findByTestId(testId);
-    expect(element).toBeInTheDocument();
-    expect(element.textContent).toBe('Copy link');
-  });
+	it('renders stack item action', async () => {
+		const { findByTestId } = setup();
+		const element = await findByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element.textContent).toBe('Copy link');
+	});
 
-  describe('with tooltip', () => {
-    it('renders stack item tooltip', async () => {
-      const user = userEvent.setup();
-      const { findByRole, findByTestId } = setup();
+	describe('with tooltip', () => {
+		it('renders stack item tooltip', async () => {
+			const user = userEvent.setup();
+			const { findByRole, findByTestId } = setup();
 
-      const element = await findByTestId(testId);
-      await user.hover(element);
+			const element = await findByTestId(testId);
+			await user.hover(element);
 
-      const tooltip = await findByRole('tooltip');
-      expect(tooltip.textContent).toBe('Copy link');
-    });
+			const tooltip = await findByRole('tooltip');
+			expect(tooltip.textContent).toBe('Copy link');
+		});
 
-    it('renders updated tooltip after onClick', async () => {
-      const user = userEvent.setup();
-      const { findByRole, findByTestId } = setup();
+		it('renders updated tooltip after onClick', async () => {
+			const user = userEvent.setup();
+			const { findByRole, findByTestId } = setup();
 
-      const element = await findByTestId(testId);
-      await user.click(element);
+			const element = await findByTestId(testId);
+			await user.click(element);
 
-      const tooltip = await findByRole('tooltip');
-      expect(tooltip.textContent).toBe('Copied!');
-    });
+			const tooltip = await findByRole('tooltip');
+			expect(tooltip.textContent).toBe('Copied!');
+		});
 
-    it('resets tooltip message after tooltip hides', async () => {
-      const user = userEvent.setup();
-      const { findAllByText, queryAllByText, findByTestId } = setup();
+		it('resets tooltip message after tooltip hides', async () => {
+			const user = userEvent.setup();
+			const { findAllByText, queryAllByText, findByTestId } = setup();
 
-      const element = await findByTestId(testId);
+			const element = await findByTestId(testId);
 
-      await user.click(element);
-      await findAllByText('Copied!');
+			await user.click(element);
+			await findAllByText('Copied!');
 
-      await user.unhover(element);
-      await waitForElementToBeRemoved(() => queryAllByText(`Copied!`));
+			await user.unhover(element);
+			await waitForElementToBeRemoved(() => queryAllByText(`Copied!`));
 
-      await userEvent.hover(element);
-      const tooltip = await findAllByText('Copy link');
-      expect(tooltip).toBeTruthy();
-    });
-  });
+			await userEvent.hover(element);
+			const tooltip = await findAllByText('Copy link');
+			expect(tooltip).toBeTruthy();
+		});
+	});
 });

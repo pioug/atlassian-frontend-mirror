@@ -6,33 +6,33 @@ import accessibleSites from '../../mocks/accessibleSites';
 import { type DeactivateUserOverviewScreenProps } from '../../components/DeactivateUserOverviewScreen/types';
 
 const defaultProps: Partial<DeactivateUserOverviewScreenProps> = {
-  accessibleSites,
-  isCurrentUser: false,
-  user: catherineHirons,
+	accessibleSites,
+	isCurrentUser: false,
+	user: catherineHirons,
 };
 
 const render = (props = {}) =>
-  shallow(<DeactivateUserOverviewScreen {...defaultProps} {...props} />);
+	shallow(<DeactivateUserOverviewScreen {...defaultProps} {...props} />);
 
 test('DeactivateUserOverviewScreen', () => {
-  expect(render()).toMatchSnapshot();
+	expect(render()).toMatchSnapshot();
 });
 
 describe('accessibleSites display', () => {
-  test('text displayed is different when no accessibleSites prop is passed', () => {
-    expect(
-      render({
-        accessibleSites: [],
-      }),
-    ).toMatchSnapshot();
-  });
+	test('text displayed is different when no accessibleSites prop is passed', () => {
+		expect(
+			render({
+				accessibleSites: [],
+			}),
+		).toMatchSnapshot();
+	});
 
-  test('text displayed is different when no accessibleSites prop is passed for current user', () => {
-    expect(
-      render({
-        accessibleSites: [],
-        isCurrentUser: true,
-      }),
-    ).toMatchSnapshot();
-  });
+	test('text displayed is different when no accessibleSites prop is passed for current user', () => {
+		expect(
+			render({
+				accessibleSites: [],
+				isCurrentUser: true,
+			}),
+		).toMatchSnapshot();
+	});
 });

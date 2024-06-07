@@ -1,30 +1,30 @@
 // Cannot import from `../i18n` because there is `../i18n.tsx` file there.
 /* eslint-disable @atlassian/tangerine/import/no-dangling-index */
 import {
-  cs,
-  da,
-  de,
-  en,
-  en_GB,
-  es,
-  et,
-  fi,
-  fr,
-  hu,
-  is,
-  it,
-  ja,
-  ko,
-  nb,
-  nl,
-  pl,
-  pt_BR,
-  pt_PT,
-  ro,
-  ru,
-  sk,
-  sv,
-  zh,
+	cs,
+	da,
+	de,
+	en,
+	en_GB,
+	es,
+	et,
+	fi,
+	fr,
+	hu,
+	is,
+	it,
+	ja,
+	ko,
+	nb,
+	nl,
+	pl,
+	pt_BR,
+	pt_PT,
+	ro,
+	ru,
+	sk,
+	sv,
+	zh,
 } from '../i18n/index';
 import type languages from '../i18n/languages';
 
@@ -34,32 +34,32 @@ type LocaleMessages = { [key: string]: string };
 type LocaleMessagesMap = { [key in LangCode]: LocaleMessages };
 
 const localesMessagesMap: LocaleMessagesMap = {
-  cs,
-  da,
-  de,
-  en,
-  en_GB,
-  es,
-  et,
-  fi,
-  fr,
-  hu,
-  is,
-  it,
-  ja,
-  ko,
-  nb,
-  nl,
-  pl,
-  pt_BR,
-  'pt-BR': pt_BR, // should resolve pt-BR and pt_BR
-  pt_PT,
-  'pt-PT': pt_PT,
-  ro,
-  ru,
-  sk,
-  sv,
-  zh,
+	cs,
+	da,
+	de,
+	en,
+	en_GB,
+	es,
+	et,
+	fi,
+	fr,
+	hu,
+	is,
+	it,
+	ja,
+	ko,
+	nb,
+	nl,
+	pl,
+	pt_BR,
+	'pt-BR': pt_BR, // should resolve pt-BR and pt_BR
+	pt_PT,
+	'pt-PT': pt_PT,
+	ro,
+	ru,
+	sk,
+	sv,
+	zh,
 };
 
 /**
@@ -73,16 +73,16 @@ const localesMessagesMap: LocaleMessagesMap = {
  * @param locale string specifying the locale like 'en_GB', or 'fr'.
  */
 export const getMessagesForLocale = (locale: LangCode) => {
-  let messages = localesMessagesMap[locale];
+	let messages = localesMessagesMap[locale];
 
-  if (!messages) {
-    const parentLocale = locale.split(/[-_]/)[0] as LangCode;
-    messages = localesMessagesMap[parentLocale];
-  }
+	if (!messages) {
+		const parentLocale = locale.split(/[-_]/)[0] as LangCode;
+		messages = localesMessagesMap[parentLocale];
+	}
 
-  if (!messages) {
-    messages = en;
-  }
+	if (!messages) {
+		messages = en;
+	}
 
-  return messages;
+	return messages;
 };

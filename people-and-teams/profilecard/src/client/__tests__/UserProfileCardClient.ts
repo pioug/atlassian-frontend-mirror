@@ -3,5 +3,5 @@ import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-je
 import { buildUserQuery } from '../UserProfileCardClient';
 
 describe('TeamCentralCardClient', () => {
-  parseAndTestGraphQLQueries([buildUserQuery('', '').query]);
+	parseAndTestGraphQLQueries([buildUserQuery('', '').query]);
 });

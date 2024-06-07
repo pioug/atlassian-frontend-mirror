@@ -11,30 +11,27 @@ import { EmojiPreviewComponent } from '../src/components/common/EmojiPreviewComp
 
 const emojis = getEmojis();
 
-const tongueEmoji = filters.byShortName(
-  emojis,
-  ':stuck_out_tongue_closed_eyes:',
-);
+const tongueEmoji = filters.byShortName(emojis, ':stuck_out_tongue_closed_eyes:');
 const longTongueEmoji = {
-  ...tongueEmoji,
-  name: `${tongueEmoji.name} ${tongueEmoji.name} ${tongueEmoji.name}`,
-  shortName: `${tongueEmoji.shortName}_${tongueEmoji.shortName}_${tongueEmoji.shortName}`,
+	...tongueEmoji,
+	name: `${tongueEmoji.name} ${tongueEmoji.name} ${tongueEmoji.name}`,
+	shortName: `${tongueEmoji.shortName}_${tongueEmoji.shortName}_${tongueEmoji.shortName}`,
 };
 
 const borderedStyle = {
-  margin: '20px',
-  border: `1px solid ${token('color.border', '#ddd')}`,
-  backgroundColor: token('elevation.surface', 'white'),
-  width: emojiPickerWidth,
+	margin: '20px',
+	border: `1px solid ${token('color.border', '#ddd')}`,
+	backgroundColor: token('elevation.surface', 'white'),
+	width: emojiPickerWidth,
 };
 
 export default function Example() {
-  return (
-    <IntlProvider locale="en">
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={borderedStyle}>
-        {longTongueEmoji && <EmojiPreviewComponent emoji={longTongueEmoji} />}
-      </div>
-    </IntlProvider>
-  );
+	return (
+		<IntlProvider locale="en">
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={borderedStyle}>
+				{longTongueEmoji && <EmojiPreviewComponent emoji={longTongueEmoji} />}
+			</div>
+		</IntlProvider>
+	);
 }

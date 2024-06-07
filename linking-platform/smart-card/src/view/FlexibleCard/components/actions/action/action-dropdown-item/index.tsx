@@ -4,22 +4,22 @@ import { handleOnClick } from '../../../../../../utils';
 import { type ActionDropdownItemProps } from './types';
 
 const ActionDropdownItem: React.FC<ActionDropdownItemProps> = ({
-  content,
-  iconAfter,
-  iconBefore,
-  isLoading,
-  onClick,
-  testId,
+	content,
+	iconAfter,
+	iconBefore,
+	isLoading,
+	onClick,
+	testId,
 }) => (
-  <DropdownItem
-    elemAfter={iconAfter}
-    elemBefore={iconBefore}
-    isDisabled={isLoading}
-    onClick={handleOnClick(onClick)}
-    testId={testId}
-  >
-    {content}
-  </DropdownItem>
+	<DropdownItem
+		elemAfter={iconAfter}
+		elemBefore={iconBefore}
+		isDisabled={isLoading}
+		onClick={handleOnClick(onClick)}
+		testId={testId}
+	>
+		{content}
+	</DropdownItem>
 );
 
 export default ActionDropdownItem;

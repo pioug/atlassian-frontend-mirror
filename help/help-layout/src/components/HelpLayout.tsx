@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  withAnalyticsEvents,
-  type WithAnalyticsEventsProps,
-  withAnalyticsContext,
+	withAnalyticsEvents,
+	type WithAnalyticsEventsProps,
+	withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import { defaultAnalyticsAttributes } from '../analytics';
 import { type HelpLayout as HelpLayoutProps } from '../model/HelpLayout';
@@ -14,15 +14,13 @@ import HelpContent from './HelpLayoutContent';
 export type Props = HelpLayoutProps & WithAnalyticsEventsProps;
 
 export class HelpLayout extends React.PureComponent<Props> {
-  render() {
-    return (
-      <MessagesIntlProvider>
-        <HelpContent {...this.props} />
-      </MessagesIntlProvider>
-    );
-  }
+	render() {
+		return (
+			<MessagesIntlProvider>
+				<HelpContent {...this.props} />
+			</MessagesIntlProvider>
+		);
+	}
 }
 
-export default withAnalyticsContext(defaultAnalyticsAttributes)(
-  withAnalyticsEvents()(HelpLayout),
-);
+export default withAnalyticsContext(defaultAnalyticsAttributes)(withAnalyticsEvents()(HelpLayout));

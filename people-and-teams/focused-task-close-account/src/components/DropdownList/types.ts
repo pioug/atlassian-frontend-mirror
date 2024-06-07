@@ -1,3 +1,3 @@
 export interface DropDownListProps {
-  accessibleSites: string[];
+	accessibleSites: string[];
 }

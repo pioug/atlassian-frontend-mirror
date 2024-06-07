@@ -4,9 +4,9 @@ import { md, PropsTable } from '@atlaskit/docs';
 export default md`
 
 ${(
-  <PropsTable
-    props={require('!!extract-react-types-loader!../../../src/components/dropzone/dropzone')}
-  />
+	<PropsTable
+		props={require('!!extract-react-types-loader!../../../src/components/dropzone/dropzone')}
+	/>
 )}
 
 `;

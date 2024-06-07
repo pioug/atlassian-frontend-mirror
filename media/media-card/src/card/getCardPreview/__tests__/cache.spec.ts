@@ -3,72 +3,70 @@ import { CardPreviewCacheImpl, getCacheKey } from '../cache';
 import { type CardPreview } from '../../../types';
 import { type ImageResizeMode } from '@atlaskit/media-client';
 const objectURLCache = {
-  set: jest.fn(),
-  get: jest.fn(),
-  remove: jest.fn(),
+	set: jest.fn(),
+	get: jest.fn(),
+	remove: jest.fn(),
 };
-const cache = new CardPreviewCacheImpl(
-  objectURLCache as unknown as ObjectURLCache,
-);
+const cache = new CardPreviewCacheImpl(objectURLCache as unknown as ObjectURLCache);
 
 describe('CardPreviewCache', () => {
-  beforeEach(() => {
-    objectURLCache.get.mockClear();
-    objectURLCache.set.mockClear();
-  });
+	beforeEach(() => {
+		objectURLCache.get.mockClear();
+		objectURLCache.set.mockClear();
+	});
 
-  it('should generate a cache key based on file id and requested dimensions', () => {
-    const id = 'some-id';
-    const newId = 'some-new-id';
+	it('should generate a cache key based on file id and requested dimensions', () => {
+		const id = 'some-id';
+		const newId = 'some-new-id';
 
-    const mode: ImageResizeMode = 'fit';
-    const newMode: ImageResizeMode = 'crop';
+		const mode: ImageResizeMode = 'fit';
+		const newMode: ImageResizeMode = 'crop';
 
-    const key = getCacheKey(id, mode);
-    const sameKey = getCacheKey(id, mode);
-    const newKeyIdChanged = getCacheKey(newId, mode);
-    const newKeyModeChanged = getCacheKey(id, newMode);
+		const key = getCacheKey(id, mode);
+		const sameKey = getCacheKey(id, mode);
+		const newKeyIdChanged = getCacheKey(newId, mode);
+		const newKeyModeChanged = getCacheKey(id, newMode);
 
-    expect(key === sameKey).toBe(true);
-    expect(key !== newKeyIdChanged).toBe(true);
-    expect(key !== newKeyModeChanged).toBe(true);
-  });
+		expect(key === sameKey).toBe(true);
+		expect(key !== newKeyIdChanged).toBe(true);
+		expect(key !== newKeyModeChanged).toBe(true);
+	});
 
-  it('should add a cardPreview to cache', () => {
-    const id = 'some-id';
-    const mode: ImageResizeMode = 'fit';
+	it('should add a cardPreview to cache', () => {
+		const id = 'some-id';
+		const mode: ImageResizeMode = 'fit';
 
-    const preview: CardPreview = {
-      dataURI: 'i-am-a-card-preview',
-      source: 'remote',
-    };
+		const preview: CardPreview = {
+			dataURI: 'i-am-a-card-preview',
+			source: 'remote',
+		};
 
-    cache.set(id, mode, preview);
+		cache.set(id, mode, preview);
 
-    const cacheKey = getCacheKey(id, mode);
-    expect(objectURLCache.set).toBeCalledWith(cacheKey, preview);
-  });
+		const cacheKey = getCacheKey(id, mode);
+		expect(objectURLCache.set).toBeCalledWith(cacheKey, preview);
+	});
 
-  it('should get a cardPreview from cache', () => {
-    const expectedPreview = { dataURI: 'i-am-a-card-preview' };
-    objectURLCache.get.mockReturnValueOnce(expectedPreview);
+	it('should get a cardPreview from cache', () => {
+		const expectedPreview = { dataURI: 'i-am-a-card-preview' };
+		objectURLCache.get.mockReturnValueOnce(expectedPreview);
 
-    const id = 'some-id';
-    const mode: ImageResizeMode = 'full-fit';
+		const id = 'some-id';
+		const mode: ImageResizeMode = 'full-fit';
 
-    const preview = cache.get(id, mode);
+		const preview = cache.get(id, mode);
 
-    const cacheKey = getCacheKey(id, mode);
-    expect(objectURLCache.get).toBeCalledWith(cacheKey);
-    expect(preview).toBe(expectedPreview);
-  });
+		const cacheKey = getCacheKey(id, mode);
+		expect(objectURLCache.get).toBeCalledWith(cacheKey);
+		expect(preview).toBe(expectedPreview);
+	});
 
-  it('should remove a cardPreview from cache', () => {
-    const id = 'some-id';
-    const mode: ImageResizeMode = 'crop';
-    cache.remove(id, mode);
+	it('should remove a cardPreview from cache', () => {
+		const id = 'some-id';
+		const mode: ImageResizeMode = 'crop';
+		cache.remove(id, mode);
 
-    const cacheKey = getCacheKey(id, mode);
-    expect(objectURLCache.remove).toBeCalledWith(cacheKey);
-  });
+		const cacheKey = getCacheKey(id, mode);
+		expect(objectURLCache.remove).toBeCalledWith(cacheKey);
+	});
 });

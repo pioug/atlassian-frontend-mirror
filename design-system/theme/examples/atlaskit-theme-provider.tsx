@@ -14,9 +14,8 @@ import DeprecatedThemeProvider from '../src/deprecated-provider-please-do-not-us
 const LIGHT = 'light';
 const DARK = 'dark';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Heading = styled.div<{ mixin: any }>`
-  ${(props) => props.mixin};
-`;
+const Heading = styled.div<{ mixin: any }>(
+  (props) => props.mixin);
 
 const containerStyles = css({
   display: 'grid',

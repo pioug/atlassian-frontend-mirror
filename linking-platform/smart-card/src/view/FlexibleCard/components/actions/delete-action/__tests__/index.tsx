@@ -9,29 +9,29 @@ import DeleteAction from '../index';
 import { type DeleteActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
-  ...jest.requireActual('../../../../../../state/flexible-ui-context'),
-  useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
+	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+	useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
 }));
 
 describe('DeleteAction', () => {
-  const testId = 'smart-action-delete-action';
+	const testId = 'smart-action-delete-action';
 
-  const setup = (props: DeleteActionProps) => {
-    const onEvent = jest.fn();
+	const setup = (props: DeleteActionProps) => {
+		const onEvent = jest.fn();
 
-    return render(
-      <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-        <IntlProvider locale="en">
-          <DeleteAction {...props} />
-        </IntlProvider>
-      </AnalyticsListener>,
-    );
-  };
+		return render(
+			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+				<IntlProvider locale="en">
+					<DeleteAction {...props} />
+				</IntlProvider>
+			</AnalyticsListener>,
+		);
+	};
 
-  it('renders action', async () => {
-    const { findByTestId } = setup({ onClick: () => '' });
-    const element = await findByTestId(testId);
-    expect(element).toBeInTheDocument();
-    expect(element.textContent).toBe('Delete');
-  });
+	it('renders action', async () => {
+		const { findByTestId } = setup({ onClick: () => '' });
+		const element = await findByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element.textContent).toBe('Delete');
+	});
 });

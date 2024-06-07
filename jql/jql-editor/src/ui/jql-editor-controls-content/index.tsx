@@ -7,12 +7,12 @@ import { Search } from './search';
 import { SyntaxHelp } from './syntax-help';
 
 export const JQLEditorControlsContent = () => {
-  const { isSearch } = useEditorThemeContext();
-  return (
-    <>
-      <ExpandToggle />
-      <SyntaxHelp />
-      {isSearch && <Search />}
-    </>
-  );
+	const { isSearch } = useEditorThemeContext();
+	return (
+		<>
+			<ExpandToggle />
+			<SyntaxHelp />
+			{isSearch && <Search />}
+		</>
+	);
 };

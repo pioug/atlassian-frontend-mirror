@@ -1,7 +1,7 @@
 import {
-  setBooleanResolver,
-  resolveBooleanFlag,
-  type FeatureFlagResolverBoolean,
+	setBooleanResolver,
+	resolveBooleanFlag,
+	type FeatureFlagResolverBoolean,
 } from './resolvers';
 
 /**
@@ -10,10 +10,8 @@ import {
  *
  * @param flagResolver
  */
-export function setBooleanFeatureFlagResolver(
-  flagResolver: FeatureFlagResolverBoolean,
-): void {
-  setBooleanResolver(flagResolver);
+export function setBooleanFeatureFlagResolver(flagResolver: FeatureFlagResolverBoolean): void {
+	setBooleanResolver(flagResolver);
 }
 
 /**
@@ -22,5 +20,5 @@ export function setBooleanFeatureFlagResolver(
  * @param name
  */
 export function getBooleanFF(name: string): boolean {
-  return resolveBooleanFlag(name);
+	return resolveBooleanFlag(name);
 }

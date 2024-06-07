@@ -5,19 +5,14 @@ import { EmojiPreviewComponent } from '../../../../components/common/EmojiPrevie
 import { renderWithIntl } from '../../_testing-library';
 
 const emoji: EmojiDescriptionWithVariations = {
-  ...imageEmoji,
+	...imageEmoji,
 };
 
 describe('<EmojiPreviewComponent />', () => {
-  it('should render an emoji preview if one is selected', async () => {
-    const result = await renderWithIntl(
-      <EmojiPreviewComponent emoji={emoji} />,
-    );
+	it('should render an emoji preview if one is selected', async () => {
+		const result = await renderWithIntl(<EmojiPreviewComponent emoji={emoji} />);
 
-    const component = await result.findByAltText(emoji.shortName);
-    expect(component).toHaveAttribute(
-      'src',
-      imageEmoji.representation.imagePath,
-    );
-  });
+		const component = await result.findByAltText(emoji.shortName);
+		expect(component).toHaveAttribute('src', imageEmoji.representation.imagePath);
+	});
 });

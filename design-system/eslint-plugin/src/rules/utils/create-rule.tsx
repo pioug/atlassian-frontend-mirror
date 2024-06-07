@@ -1,9 +1,6 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 
-import {
-  getCreateLintRule,
-  getPathSafeName,
-} from '@atlaskit/eslint-utils/create-rule';
+import { getCreateLintRule, getPathSafeName } from '@atlaskit/eslint-utils/create-rule';
 
 /**
  * We are moving to our own small abstraction to create a lint rule that we have the power
@@ -24,6 +21,6 @@ export const createRule = ESLintUtils.RuleCreator((name) => getRuleUrl(name));
 export const createLintRule = getCreateLintRule(getRuleUrl);
 
 function getRuleUrl(ruleName: string) {
-  const name = getPathSafeName(ruleName);
-  return `https://atlassian.design/components/eslint-plugin-design-system/${name}/usage`;
+	const name = getPathSafeName(ruleName);
+	return `https://atlassian.design/components/eslint-plugin-design-system/${name}/usage`;
 }

@@ -3,7 +3,6 @@ order: 0
 ---
 
 import LogoIcon from '../../examples/constellation/logo-icon';
-import LogoWordmark from '../../examples/constellation/logo-wordmark';
 import LogoSmall from '../../examples/constellation/logo-small';
 import LogoMedium from '../../examples/constellation/logo-medium';
 import LogoLarge from '../../examples/constellation/logo-large';
@@ -45,22 +44,6 @@ An icon is an image or symbol that represents a brand or product. It generally d
 
 <Example Component={LogoIcon} packageName="@atlaskit/logo" />
 
-### Wordmark
-
-<SectionMessage
-  appearance="warning"
-  title="Deprecation notice — 31 August 2022"
->
-  We are deprecating wordmark, and it will be removed in a future major release.{' '}
-  <a href="https://atlassian.design/components/logo/examples#icon">Icon</a> or{' '}
-  <a href="https://atlassian.design/components/logo/examples#lockup">Lockup</a>{' '}
-  should be used instead.
-</SectionMessage>
-
-The brand or product name only. A wordmark is a brand or product name styled as a logo.
-
-<Example Component={LogoWordmark} packageName="@atlaskit/logo" />
-
 ### Lockup
 
 A lockup is the combination of wordmark (the brand or product name) and its icon, generally referred altogether as a logo.
@@ -69,7 +52,7 @@ A lockup is the combination of wordmark (the brand or product name) and its icon
 
 ## Appearance
 
-By default, the wordmark and icon inherit their colors from the parent element, however, this can lead to incorrect color combinations.
+By default, the lockup and icon inherit their colors from the parent element, however, this can lead to incorrect color combinations.
 Moving forward, all usages of `@atlaskit/logo` should use the `appearance` prop to choose between three brand-approved appearances: brand, neutral, and inverse.
 
 ### Brand

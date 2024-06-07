@@ -1,25 +1,25 @@
 export type {
-  AnalyticsWebClient,
-  ClientOptions,
-  CustomAttributes,
-  FromValuesClientOptions,
-  GetExperimentOptions,
-  GetExperimentValueOptions,
-  Identifiers,
-  InitializeValues,
-  UpdateUserCompletionCallback,
+	AnalyticsWebClient,
+	ClientOptions,
+	CustomAttributes,
+	FromValuesClientOptions,
+	GetExperimentOptions,
+	GetExperimentValueOptions,
+	Identifiers,
+	InitializeValues,
+	UpdateUserCompletionCallback,
 
-  // Statsig
-  EvaluationDetails,
-  LocalOverrides,
+	// Statsig
+	EvaluationDetails,
+	LocalOverrides,
 } from './client';
 
 export {
-  default,
-  FeatureGateEnvironment,
-  PerimeterType,
+	default,
+	FeatureGateEnvironment,
+	PerimeterType,
 
-  // Statsig
-  DynamicConfig,
-  EvaluationReason,
+	// Statsig
+	DynamicConfig,
+	EvaluationReason,
 } from './client';

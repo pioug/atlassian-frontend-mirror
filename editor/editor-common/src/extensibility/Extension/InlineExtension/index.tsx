@@ -48,7 +48,9 @@ const InlineExtension = (props: Props) => {
 		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
 	});
 
-	const rendererContainerWidth = widthState ? widthState.width - akEditorGutterPaddingDynamic() * 2 : 0;
+	const rendererContainerWidth = widthState
+		? widthState.width - akEditorGutterPaddingDynamic() * 2
+		: 0;
 
 	const extendedInlineExtension =
 		getBooleanFF('platform.editor.inline_extension.extended_lcqdn') || false;

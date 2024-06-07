@@ -1,11 +1,4 @@
-import React, {
-  type AriaAttributes,
-  forwardRef,
-  memo,
-  type Ref,
-  useEffect,
-  useState,
-} from 'react';
+import React, { type AriaAttributes, forwardRef, memo, type Ref, useEffect, useState } from 'react';
 
 // How to use:
 // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#Preferring_specialized_live_region_roles
@@ -18,29 +11,29 @@ import React, {
 // For using a forced announcement in this case, set the 'key' attribute - key={Date.now()}
 
 type AnnouncerProps = {
-  ref?: Ref<HTMLDivElement>;
+	ref?: Ref<HTMLDivElement>;
 
-  /** Set 'false' for announcing only changed text
-   * (not announce duplicate part of string after second render),
-   * and 'true' for announcing all the string after each render */
-  ariaAtomic?: AriaAttributes['aria-atomic'];
+	/** Set 'false' for announcing only changed text
+	 * (not announce duplicate part of string after second render),
+	 * and 'true' for announcing all the string after each render */
+	ariaAtomic?: AriaAttributes['aria-atomic'];
 
-  /** Set politeness settings */
-  ariaLive?: AriaAttributes['aria-live'];
+	/** Set politeness settings */
+	ariaLive?: AriaAttributes['aria-live'];
 
-  /** Used to describe what types of changes have occurred to an aria-live region */
-  ariaRelevant?: AriaAttributes['aria-relevant'];
+	/** Used to describe what types of changes have occurred to an aria-live region */
+	ariaRelevant?: AriaAttributes['aria-relevant'];
 
-  /** Role used to set attribute role. See more details https://dequeuniversity.com/library/aria/liveregion-playground#configOptions */
-  role?: 'status' | 'log' | 'alert' | 'timer' | 'marquee';
+	/** Role used to set attribute role. See more details https://dequeuniversity.com/library/aria/liveregion-playground#configOptions */
+	role?: 'status' | 'log' | 'alert' | 'timer' | 'marquee';
 
-  /** Text message that will be announced */
-  text: string;
+	/** Text message that will be announced */
+	text: string;
 
-  /** Debounce delay.
-   *  Set delay (ms) to prevent announce the same string multiple times.
-   *  It can be useful for cases when the parent component re-renders with the same announcer's text. */
-  delay?: number;
+	/** Debounce delay.
+	 *  Set delay (ms) to prevent announce the same string multiple times.
+	 *  It can be useful for cases when the parent component re-renders with the same announcer's text. */
+	delay?: number;
 };
 
 // Note: Flag 'contentRendered' resolves bug with duplicates messages (NVDA + Firefox)
@@ -48,43 +41,43 @@ type AnnouncerProps = {
 
 let timer: ReturnType<typeof setTimeout>;
 export const Announcer: React.FC<AnnouncerProps> = memo(
-  forwardRef(
-    (
-      {
-        ariaAtomic = 'true',
-        ariaLive = 'polite',
-        ariaRelevant = 'all',
-        role = 'status',
-        text = '',
-        delay = 0,
-      },
-      ref,
-    ) => {
-      const [contentRendered, setContentRendered] = useState(false);
+	forwardRef(
+		(
+			{
+				ariaAtomic = 'true',
+				ariaLive = 'polite',
+				ariaRelevant = 'all',
+				role = 'status',
+				text = '',
+				delay = 0,
+			},
+			ref,
+		) => {
+			const [contentRendered, setContentRendered] = useState(false);
 
-      useEffect(() => {
-        clearTimeout(timer);
-        setContentRendered(false);
-        timer = setTimeout(() => {
-          setContentRendered(true);
-        }, delay);
+			useEffect(() => {
+				clearTimeout(timer);
+				setContentRendered(false);
+				timer = setTimeout(() => {
+					setContentRendered(true);
+				}, delay);
 
-        return () => clearTimeout(timer);
-      }, [text, delay]);
+				return () => clearTimeout(timer);
+			}, [text, delay]);
 
-      return (
-        <div
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-          className="assistive"
-          ref={ref}
-          role={role}
-          aria-atomic={ariaAtomic}
-          aria-relevant={ariaRelevant}
-          aria-live={ariaLive}
-        >
-          {contentRendered && <span>{text}</span>}
-        </div>
-      );
-    },
-  ),
+			return (
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className="assistive"
+					ref={ref}
+					role={role}
+					aria-atomic={ariaAtomic}
+					aria-relevant={ariaRelevant}
+					aria-live={ariaLive}
+				>
+					{contentRendered && <span>{text}</span>}
+				</div>
+			);
+		},
+	),
 );

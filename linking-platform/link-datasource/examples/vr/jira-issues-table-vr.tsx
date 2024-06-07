@@ -4,7 +4,7 @@ import { ExampleJiraIssuesTableView } from '../../examples-helpers/buildJiraIssu
 import { HoverableContainer } from '../../examples-helpers/hoverableContainer';
 
 export default () => (
-  <HoverableContainer>
-    <ExampleJiraIssuesTableView />
-  </HoverableContainer>
+	<HoverableContainer>
+		<ExampleJiraIssuesTableView />
+	</HoverableContainer>
 );

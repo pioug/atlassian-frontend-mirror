@@ -11,11 +11,11 @@ export default md`
   This package provides the capability to display the already uploaded media in tabular format with pagination.
 
   ${(
-    <DocsContentTabs
-      tabs={[
-        { name: 'Usage', content: UsageTab },
-        { name: 'Props Definition', content: PropsDefinitionTab },
-      ]}
-    />
-  )}
+		<DocsContentTabs
+			tabs={[
+				{ name: 'Usage', content: UsageTab },
+				{ name: 'Props Definition', content: PropsDefinitionTab },
+			]}
+		/>
+	)}
 `;

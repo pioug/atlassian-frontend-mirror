@@ -3,13 +3,13 @@
  *
  * Extract component prop types from UIKit 2 components - ListProps
  *
- * @codegen <<SignedSource::80f168be93a61bc21c0b297b2d10885d>>
+ * @codegen <<SignedSource::88bd33364e6b1b51b0f4029d67f57638>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/list/list.tsx <<SignedSource::7f49ec36996a3c002f6eed821ae9e6b1>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/list/list.tsx <<SignedSource::57e321a70e722fdc469452b50f6365de>>
  */
 import React from 'react';
 
 export interface ListProps {
-  type: 'ordered' | 'unordered';
-  children: React.ReactNode;
+	type: 'ordered' | 'unordered';
+	children: React.ReactNode;
 }

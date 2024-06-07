@@ -1,12 +1,12 @@
 import {
-  AbstractJastVisitor,
-  type Clause,
-  type CompoundClause,
-  type ListOperand,
-  type NotClause,
-  type Query,
-  type TerminalClause,
-  type ValueOperand,
+	AbstractJastVisitor,
+	type Clause,
+	type CompoundClause,
+	type ListOperand,
+	type NotClause,
+	type Query,
+	type TerminalClause,
+	type ValueOperand,
 } from '@atlaskit/jql-ast';
 
 /**
@@ -23,48 +23,48 @@ import {
  * - Equivalent query: "project = EM and status in (Done)"
  */
 export class ValidQueryVisitor extends AbstractJastVisitor<string> {
-  visitQuery = (query: Query): string => {
-    if (!query.where) {
-      return '';
-    }
-    return query.where.accept(this);
-  };
+	visitQuery = (query: Query): string => {
+		if (!query.where) {
+			return '';
+		}
+		return query.where.accept(this);
+	};
 
-  visitCompoundClause = (compoundClause: CompoundClause): string => {
-    return compoundClause.clauses
-      .map((clause: Clause) => clause.accept(this))
-      .filter(value => !!value)
-      .join(' and ');
-  };
+	visitCompoundClause = (compoundClause: CompoundClause): string => {
+		return compoundClause.clauses
+			.map((clause: Clause) => clause.accept(this))
+			.filter((value) => !!value)
+			.join(' and ');
+	};
 
-  visitTerminalClause = (terminalClause: TerminalClause): string => {
-    const { field, operator, operand } = terminalClause;
-    if (!operator || !operand) {
-      return '';
-    }
-    const operandValue = operand.accept(this);
-    if (!operandValue) {
-      return '';
-    }
-    return `${field.text} ${operator.value} ${operandValue}`;
-  };
+	visitTerminalClause = (terminalClause: TerminalClause): string => {
+		const { field, operator, operand } = terminalClause;
+		if (!operator || !operand) {
+			return '';
+		}
+		const operandValue = operand.accept(this);
+		if (!operandValue) {
+			return '';
+		}
+		return `${field.text} ${operator.value} ${operandValue}`;
+	};
 
-  visitNotClause = (notClause: NotClause): string => {
-    return notClause.clause.accept(this);
-  };
+	visitNotClause = (notClause: NotClause): string => {
+		return notClause.clause.accept(this);
+	};
 
-  visitValueOperand = (valueOperand: ValueOperand): string => {
-    return valueOperand.text;
-  };
+	visitValueOperand = (valueOperand: ValueOperand): string => {
+		return valueOperand.text;
+	};
 
-  visitListOperand = (listOperand: ListOperand): string => {
-    return `(${listOperand.values
-      .map(value => value.accept(this))
-      .filter(value => !!value)
-      .join(', ')})`;
-  };
+	visitListOperand = (listOperand: ListOperand): string => {
+		return `(${listOperand.values
+			.map((value) => value.accept(this))
+			.filter((value) => !!value)
+			.join(', ')})`;
+	};
 
-  protected defaultResult(): string {
-    return '';
-  }
+	protected defaultResult(): string {
+		return '';
+	}
 }

@@ -10,23 +10,23 @@
  */
 
 export const getMessagesForLocale = async (locale: string) => {
-  locale = locale.replace('-', '_');
-  try {
-    const messages = await import(
-      /* webpackChunkName: "@atlaskit-internal_feedback-collector/i18n-tranlations" */ `../i18n/${locale}`
-    );
-    return messages.default;
-  } catch (e) {
-    // ignore
-  }
-  try {
-    const parentLocale = locale.split(/[-_]/)[0];
+	locale = locale.replace('-', '_');
+	try {
+		const messages = await import(
+			/* webpackChunkName: "@atlaskit-internal_feedback-collector/i18n-tranlations" */ `../i18n/${locale}`
+		);
+		return messages.default;
+	} catch (e) {
+		// ignore
+	}
+	try {
+		const parentLocale = locale.split(/[-_]/)[0];
 
-    const messages = await import(
-      /* webpackChunkName: "@atlaskit-internal_feedback-collector/i18n-tranlations" */ `../i18n/${parentLocale}`
-    );
-    return messages.default;
-  } catch (e) {
-    // ignore
-  }
+		const messages = await import(
+			/* webpackChunkName: "@atlaskit-internal_feedback-collector/i18n-tranlations" */ `../i18n/${parentLocale}`
+		);
+		return messages.default;
+	} catch (e) {
+		// ignore
+	}
 };

@@ -1,21 +1,21 @@
 export { isImagePreview } from './domain/preview';
 
 export type {
-  BrowserConfig,
-  DropzoneConfig,
-  ClipboardConfig,
-  UploadParams,
-  UploadsStartEventPayload,
-  UploadPreviewUpdateEventPayload,
-  UploadEndEventPayload,
-  UploadErrorEventPayload,
-  UploadRejectionData,
-  MediaFile,
-  Preview,
-  NonImagePreview,
-  ImagePreview,
-  MediaError,
-  MediaErrorName,
+	BrowserConfig,
+	DropzoneConfig,
+	ClipboardConfig,
+	UploadParams,
+	UploadsStartEventPayload,
+	UploadPreviewUpdateEventPayload,
+	UploadEndEventPayload,
+	UploadErrorEventPayload,
+	UploadRejectionData,
+	MediaFile,
+	Preview,
+	NonImagePreview,
+	ImagePreview,
+	MediaError,
+	MediaErrorName,
 } from './types';
 export type { LocalUploadConfig } from './components/types';
 

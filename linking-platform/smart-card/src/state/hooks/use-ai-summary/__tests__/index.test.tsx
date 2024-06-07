@@ -12,220 +12,221 @@ import * as ufo from '../../../analytics/ufoExperiences';
 import { readStream } from '../ai-summary-service/readStream';
 
 jest.mock('uuid', () => ({
-  ...jest.requireActual('uuid'),
-  __esModule: true,
-  default: jest.fn().mockReturnValue('some-uuid-1'),
+	...jest.requireActual('uuid'),
+	__esModule: true,
+	default: jest.fn().mockReturnValue('some-uuid-1'),
 }));
 
 jest.mock('../ai-summary-service/readStream', () => ({
-  readStream: jest.fn(),
+	readStream: jest.fn(),
 }));
 
 const { act } = TestRenderer;
 
 const successMock = {
-  type: 'ANSWER_PART',
-  message: { content: 'something' },
+	type: 'ANSWER_PART',
+	message: { content: 'something' },
 };
 
 const errorMock = {
-  type: 'ERROR',
-  message: {
-    message_template: 'NETWORK_ERROR',
-    content: 'Error answering prompt',
-    status_code: 500,
-    error: 'The server has encountered trouble with some components',
-  },
+	type: 'ERROR',
+	message: {
+		message_template: 'NETWORK_ERROR',
+		content: 'Error answering prompt',
+		status_code: 500,
+		error: 'The server has encountered trouble with some components',
+	},
 };
 
 const unexpectedErrorMock = {
-  type: 'ERROR',
-  message: {
-    message_template: 'RANDOM-BLAH-1234',
-    content: 'Error answering prompt',
-    status_code: 500,
-    error: 'The server has encountered trouble with some components',
-  },
+	type: 'ERROR',
+	message: {
+		message_template: 'RANDOM-BLAH-1234',
+		content: 'Error answering prompt',
+		status_code: 500,
+		error: 'The server has encountered trouble with some components',
+	},
 };
 
 async function* mockReadStreamSuccess() {
-  yield successMock;
+	yield successMock;
 }
 
 async function* mockReadStreamError() {
-  yield errorMock;
+	yield errorMock;
 }
 
 async function* mockReadStreamErrorMulti() {
-  yield successMock;
-  yield errorMock;
+	yield successMock;
+	yield errorMock;
 }
 
 async function* mockReadStreamErrorUnexpectedMulti() {
-  yield successMock;
-  yield unexpectedErrorMock;
+	yield successMock;
+	yield unexpectedErrorMock;
 }
 
 const mockUseAISummaryProps = { url: 'test-url', ari: 'test-ari' };
 
 describe('useAISummary', () => {
-  beforeEach(() => {
-    fetchMock.resetMocks();
-    AISummariesStore.clear();
-  });
+	beforeEach(() => {
+		fetchMock.resetMocks();
+		AISummariesStore.clear();
+	});
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  it('should not try to initiate AI Summary Service when URL is an empty string', async () => {
-    const storeSetSpy = jest.spyOn(AISummariesStore, 'set');
+	it('should not try to initiate AI Summary Service when URL is an empty string', async () => {
+		const storeSetSpy = jest.spyOn(AISummariesStore, 'set');
 
-    renderHook(() =>
-      useAISummary({
-        url: '',
-      }),
-    );
+		renderHook(() =>
+			useAISummary({
+				url: '',
+			}),
+		);
 
-    expect(storeSetSpy).toHaveBeenCalledTimes(0);
-    storeSetSpy.mockRestore();
-  });
+		expect(storeSetSpy).toHaveBeenCalledTimes(0);
+		storeSetSpy.mockRestore();
+	});
 
-  it('sets status on successful response', async () => {
-    fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    (readStream as jest.Mock).mockImplementationOnce(mockReadStreamSuccess);
+	it('sets status on successful response', async () => {
+		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
+		(readStream as jest.Mock).mockImplementationOnce(mockReadStreamSuccess);
 
-    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
-    await act(async () => {
-      await result.current.summariseUrl();
-    });
+		const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
+		await act(async () => {
+			await result.current.summariseUrl();
+		});
 
-    expect(result.current.state?.status).toBe('done');
-    expect(result.current.state?.content).toBe('something');
-  });
+		expect(result.current.state?.status).toBe('done');
+		expect(result.current.state?.content).toBe('something');
+	});
 
-  it('sets status on summariseUrl error response', async () => {
-    fetchMock.mockRejectOnce(new Error('foo'));
-    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
-    await act(async () => {
-      await result.current.summariseUrl();
-    });
-    expect(result.current.state?.status).toBe('error');
-    expect(result.current.state?.content).toBe('');
-  });
+	it('sets status on summariseUrl error response', async () => {
+		fetchMock.mockRejectOnce(new Error('foo'));
+		const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
+		await act(async () => {
+			await result.current.summariseUrl();
+		});
+		expect(result.current.state?.status).toBe('error');
+		expect(result.current.state?.content).toBe('');
+	});
 
-  it('sets status on summariseUrl successful response with error message', async () => {
-    fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    (readStream as jest.Mock).mockImplementationOnce(mockReadStreamError);
+	it('sets status on summariseUrl successful response with error message', async () => {
+		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
+		(readStream as jest.Mock).mockImplementationOnce(mockReadStreamError);
 
-    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
-    await act(async () => {
-      await result.current.summariseUrl();
-    });
-    expect(result.current.state?.status).toBe('error');
-    expect(result.current.state?.content).toBe('');
-    expect(result.current.state?.error).toBe('NETWORK_ERROR');
-  });
+		const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
+		await act(async () => {
+			await result.current.summariseUrl();
+		});
+		expect(result.current.state?.status).toBe('error');
+		expect(result.current.state?.content).toBe('');
+		expect(result.current.state?.error).toBe('NETWORK_ERROR');
+	});
 
-  it('sets status on summariseUrl successful response with error message mid stream', async () => {
-    fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    (readStream as jest.Mock).mockImplementationOnce(mockReadStreamErrorMulti);
+	it('sets status on summariseUrl successful response with error message mid stream', async () => {
+		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
+		(readStream as jest.Mock).mockImplementationOnce(mockReadStreamErrorMulti);
 
-    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
-    await act(async () => {
-      await result.current.summariseUrl();
-    });
-    expect(result.current.state?.status).toBe('error');
-    expect(result.current.state?.content).toBe('');
-    expect(result.current.state?.error).toBe('NETWORK_ERROR');
-  });
+		const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
+		await act(async () => {
+			await result.current.summariseUrl();
+		});
+		expect(result.current.state?.status).toBe('error');
+		expect(result.current.state?.content).toBe('');
+		expect(result.current.state?.error).toBe('NETWORK_ERROR');
+	});
 
-  it('sets error on error mid stream with an unexpected error message', async () => {
-    fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    (readStream as jest.Mock).mockImplementationOnce(
-      mockReadStreamErrorUnexpectedMulti,
-    );
+	it('sets error on error mid stream with an unexpected error message', async () => {
+		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
+		(readStream as jest.Mock).mockImplementationOnce(mockReadStreamErrorUnexpectedMulti);
 
-    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
-    await act(async () => {
-      await result.current.summariseUrl();
-    });
-    expect(result.current.state?.status).toBe('error');
-    expect(result.current.state?.content).toBe('');
-    expect(result.current.state?.error).toBe('UNEXPECTED');
-  });
+		const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
+		await act(async () => {
+			await result.current.summariseUrl();
+		});
+		expect(result.current.state?.status).toBe('error');
+		expect(result.current.state?.content).toBe('');
+		expect(result.current.state?.error).toBe('UNEXPECTED');
+	});
 
-  it('sends summary success event', async () => {
-    const experienceId = 'ufo-experience-success-id';
-    const onEventSpy = jest.fn();
-    const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-    const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+	it('sends summary success event', async () => {
+		const experienceId = 'ufo-experience-success-id';
+		const onEventSpy = jest.fn();
+		const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
+		const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
 
-    uuid.mockReturnValueOnce(experienceId);
-    fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    (readStream as jest.Mock).mockImplementationOnce(mockReadStreamSuccess);
+		uuid.mockReturnValueOnce(experienceId);
+		fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
+		(readStream as jest.Mock).mockImplementationOnce(mockReadStreamSuccess);
 
-    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
-      wrapper: ({ children }) => (
-        <AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
-          {children}
-        </AnalyticsListener>
-      ),
-    });
+		const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
+			wrapper: ({ children }) => (
+				<AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
+					{children}
+				</AnalyticsListener>
+			),
+		});
 
-    await act(async () => {
-      await result.current.summariseUrl();
-    });
+		await act(async () => {
+			await result.current.summariseUrl();
+		});
 
-    expect(onEventSpy).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          actionSubject: 'summary',
-          action: 'success',
-        },
-      },
-      ANALYTICS_CHANNEL,
-    );
-    expect(ufoStartSpy).toBeCalledTimes(1);
-    expect(ufoStartSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
-    expect(ufoSucceedSpy).toBeCalledTimes(1);
-    expect(ufoSucceedSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
-  });
+		expect(onEventSpy).toBeFiredWithAnalyticEventOnce(
+			{
+				payload: {
+					actionSubject: 'summary',
+					action: 'success',
+				},
+			},
+			ANALYTICS_CHANNEL,
+		);
+		expect(ufoStartSpy).toBeCalledTimes(1);
+		expect(ufoStartSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
+		expect(ufoSucceedSpy).toBeCalledTimes(1);
+		expect(ufoSucceedSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
+	});
 
-  it.each([
-    [false, 'ACCEPTABLE_USE_VIOLATIONS'],
-    [false, 'HIPAA_CONTENT_DETECTED'],
-    [false, 'EXCEEDING_CONTEXT_LENGTH_ERROR'],
-    [true, 'UNEXPECTED'],
-    [true, 'RATE_LIMIT'],
-  ])('sends summary failed event with %s for isSloError when reason is %s', async (expected: boolean, reason?: string ) => {
-    const onEventSpy = jest.fn();
+	it.each([
+		[false, 'ACCEPTABLE_USE_VIOLATIONS'],
+		[false, 'HIPAA_CONTENT_DETECTED'],
+		[false, 'EXCEEDING_CONTEXT_LENGTH_ERROR'],
+		[true, 'UNEXPECTED'],
+		[true, 'RATE_LIMIT'],
+	])(
+		'sends summary failed event with %s for isSloError when reason is %s',
+		async (expected: boolean, reason?: string) => {
+			const onEventSpy = jest.fn();
 
-    fetchMock.mockRejectOnce(new Error(reason));
+			fetchMock.mockRejectOnce(new Error(reason));
 
-    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
-      wrapper: ({ children }) => (
-        <AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
-          {children}
-        </AnalyticsListener>
-      ),
-    });
-    await act(async () => {
-      await result.current.summariseUrl();
-    });
+			const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
+				wrapper: ({ children }) => (
+					<AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
+						{children}
+					</AnalyticsListener>
+				),
+			});
+			await act(async () => {
+				await result.current.summariseUrl();
+			});
 
-    expect(onEventSpy).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          actionSubject: 'summary',
-          action: 'failed',
-          attributes: {
-            reason: reason,
-            isSloError: expected
-          },
-        },
-      },
-      ANALYTICS_CHANNEL,
-    );
-  });
+			expect(onEventSpy).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						actionSubject: 'summary',
+						action: 'failed',
+						attributes: {
+							reason: reason,
+							isSloError: expected,
+						},
+					},
+				},
+				ANALYTICS_CHANNEL,
+			);
+		},
+	);
 });

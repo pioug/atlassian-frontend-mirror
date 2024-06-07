@@ -5,48 +5,45 @@ import { type CallExpression, isNodeOfType } from 'eslint-codemod-utils';
 import { getModuleOfIdentifier } from '../../utils/get-import-node-by-source';
 import { isBlockedEventBinding } from '../shared/is-blocked-event-binding';
 
-export function isBlockedBindAll(
-  context: Rule.RuleContext,
-  node: CallExpression,
-): boolean {
-  const callee = node.callee;
+export function isBlockedBindAll(context: Rule.RuleContext, node: CallExpression): boolean {
+	const callee = node.callee;
 
-  if (!isNodeOfType(callee, 'Identifier')) {
-    return false;
-  }
+	if (!isNodeOfType(callee, 'Identifier')) {
+		return false;
+	}
 
-  if (callee.name !== 'bindAll') {
-    return false;
-  }
+	if (callee.name !== 'bindAll') {
+		return false;
+	}
 
-  const module = getModuleOfIdentifier(context.sourceCode, 'bindAll');
+	const module = getModuleOfIdentifier(context.sourceCode, 'bindAll');
 
-  if (module?.moduleName !== 'bind-event-listener') {
-    return false;
-  }
+	if (module?.moduleName !== 'bind-event-listener') {
+		return false;
+	}
 
-  const secondArg = node.arguments[1];
+	const secondArg = node.arguments[1];
 
-  if (!isNodeOfType(secondArg, 'ArrayExpression')) {
-    return false;
-  }
+	if (!isNodeOfType(secondArg, 'ArrayExpression')) {
+		return false;
+	}
 
-  for (const element of secondArg.elements) {
-    if (!element) {
-      continue;
-    }
+	for (const element of secondArg.elements) {
+		if (!element) {
+			continue;
+		}
 
-    if (!isNodeOfType(element, 'ObjectExpression')) {
-      continue;
-    }
+		if (!isNodeOfType(element, 'ObjectExpression')) {
+			continue;
+		}
 
-    for (const property of element.properties) {
-      if (isBlockedEventBinding(property)) {
-        return true;
-      }
-    }
-  }
+		for (const property of element.properties) {
+			if (isBlockedEventBinding(property)) {
+				return true;
+			}
+		}
+	}
 
-  // no exit conditions hit
-  return false;
+	// no exit conditions hit
+	return false;
 }

@@ -12,33 +12,33 @@ import { useExternalMessages } from '../../../../state';
 import { FormatMessages, MessageContainer } from '../format';
 
 export const useFormattedInfoMessage = (): ReactNode => {
-  di(useExternalMessages, useEditorViewHasInfos);
+	di(useExternalMessages, useEditorViewHasInfos);
 
-  const [{ infos: externalInfos }] = useExternalMessages();
-  const hasInfos = useEditorViewHasInfos();
+	const [{ infos: externalInfos }] = useExternalMessages();
+	const hasInfos = useEditorViewHasInfos();
 
-  if (!hasInfos) {
-    return null;
-  }
+	if (!hasInfos) {
+		return null;
+	}
 
-  return <FormatMessages messages={externalInfos} />;
+	return <FormatMessages messages={externalInfos} />;
 };
 
 export const InfoMessages = () => {
-  di(useFormattedInfoMessage);
+	di(useFormattedInfoMessage);
 
-  const infoMessage = useFormattedInfoMessage();
+	const infoMessage = useFormattedInfoMessage();
 
-  return infoMessage != null ? (
-    <MessageContainer>
-      <HelperMessage testId="jql-editor-info-message">
-        <InfoIcon
-          label=""
-          primaryColor={token('color.icon.information', colors.B500)}
-          size="small"
-        />
-        {infoMessage}
-      </HelperMessage>
-    </MessageContainer>
-  ) : null;
+	return infoMessage != null ? (
+		<MessageContainer>
+			<HelperMessage testId="jql-editor-info-message">
+				<InfoIcon
+					label=""
+					primaryColor={token('color.icon.information', colors.B500)}
+					size="small"
+				/>
+				{infoMessage}
+			</HelperMessage>
+		</MessageContainer>
+	) : null;
 };

@@ -17,28 +17,28 @@ const MINIMUM_MAX_LINES = 1;
  * @see Block
  */
 const SnippetBlock: React.FC<SnippetBlockProps> = ({
-  maxLines = DEFAULT_MAX_LINES,
-  status = SmartLinkStatus.Fallback,
-  testId = 'smart-block-snippet',
-  text,
-  ...blockProps
+	maxLines = DEFAULT_MAX_LINES,
+	status = SmartLinkStatus.Fallback,
+	testId = 'smart-block-snippet',
+	text,
+	...blockProps
 }) => {
-  if (status !== SmartLinkStatus.Resolved && !text) {
-    return null;
-  }
-  const snippetMaxLines = getMaxLines(
-    maxLines,
-    DEFAULT_MAX_LINES,
-    MAXIMUM_MAX_LINES,
-    MINIMUM_MAX_LINES,
-  );
-  const statusTestId = !text ? 'resolved' : 'non-resolved';
+	if (status !== SmartLinkStatus.Resolved && !text) {
+		return null;
+	}
+	const snippetMaxLines = getMaxLines(
+		maxLines,
+		DEFAULT_MAX_LINES,
+		MAXIMUM_MAX_LINES,
+		MINIMUM_MAX_LINES,
+	);
+	const statusTestId = !text ? 'resolved' : 'non-resolved';
 
-  return (
-    <Block {...blockProps} testId={`${testId}-${statusTestId}-view`}>
-      <Snippet maxLines={snippetMaxLines} content={text} />
-    </Block>
-  );
+	return (
+		<Block {...blockProps} testId={`${testId}-${statusTestId}-view`}>
+			<Snippet maxLines={snippetMaxLines} content={text} />
+		</Block>
+	);
 };
 
 export default SnippetBlock;

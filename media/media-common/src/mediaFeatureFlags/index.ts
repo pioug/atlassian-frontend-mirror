@@ -1,12 +1,8 @@
 export {
-  getMediaFeatureFlag,
-  defaultMediaFeatureFlags,
-  filterFeatureFlagNames,
-  getFeatureFlagKeysAllProducts,
+	getMediaFeatureFlag,
+	defaultMediaFeatureFlags,
+	filterFeatureFlagNames,
+	getFeatureFlagKeysAllProducts,
 } from './mediaFeatureFlags';
 
-export type {
-  MediaFeatureFlags,
-  WithMediaFeatureFlags,
-  SupportedProduct,
-} from './types';
+export type { MediaFeatureFlags, WithMediaFeatureFlags, SupportedProduct } from './types';

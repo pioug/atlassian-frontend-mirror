@@ -17,84 +17,84 @@ const useEditorViewHasWarningsMock = jest.fn<boolean, []>(() => false);
 const useEditorViewHasInfosMock = jest.fn<boolean, []>(() => false);
 
 const deps = [
-  injectable(useEditorViewIsInvalid, useEditorViewIsInvalidMock),
-  injectable(useEditorViewHasWarnings, useEditorViewHasWarningsMock),
-  injectable(useEditorViewHasInfos, useEditorViewHasInfosMock),
-  injectable(ErrorMessages, () => <>ErrorMessages</>),
-  injectable(WarningMessages, () => <>WarningMessages</>),
-  injectable(InfoMessages, () => <>InfoMessages</>),
-  injectable(JQLEditorHelp, () => <>JQLEditorHelp</>),
+	injectable(useEditorViewIsInvalid, useEditorViewIsInvalidMock),
+	injectable(useEditorViewHasWarnings, useEditorViewHasWarningsMock),
+	injectable(useEditorViewHasInfos, useEditorViewHasInfosMock),
+	injectable(ErrorMessages, () => <>ErrorMessages</>),
+	injectable(WarningMessages, () => <>WarningMessages</>),
+	injectable(InfoMessages, () => <>InfoMessages</>),
+	injectable(JQLEditorHelp, () => <>JQLEditorHelp</>),
 ];
 
 const renderComponent = () => {
-  return render(<JQLEditorFooterContent />, {
-    wrapper: props => <DiProvider use={deps} {...props} />,
-  });
+	return render(<JQLEditorFooterContent />, {
+		wrapper: (props) => <DiProvider use={deps} {...props} />,
+	});
 };
 
 const componentNames = [
-  'ErrorMessages',
-  'WarningMessages',
-  'InfoMessages',
-  'JQLEditorHelp',
+	'ErrorMessages',
+	'WarningMessages',
+	'InfoMessages',
+	'JQLEditorHelp',
 ] as const;
 type ComponentName = (typeof componentNames)[number];
 
 const assertOnlyOneIsRendered = (name: ComponentName) => {
-  const { getByText, queryByText } = renderComponent();
-  let hasAtLeastOneMatched = false;
+	const { getByText, queryByText } = renderComponent();
+	let hasAtLeastOneMatched = false;
 
-  componentNames.forEach(componentName => {
-    if (componentName === name) {
-      hasAtLeastOneMatched = true;
-      expect(getByText(componentName)).toBeInTheDocument();
-    } else {
-      expect(queryByText(componentName)).not.toBeInTheDocument();
-    }
-  });
+	componentNames.forEach((componentName) => {
+		if (componentName === name) {
+			hasAtLeastOneMatched = true;
+			expect(getByText(componentName)).toBeInTheDocument();
+		} else {
+			expect(queryByText(componentName)).not.toBeInTheDocument();
+		}
+	});
 
-  expect(hasAtLeastOneMatched).toBe(true);
+	expect(hasAtLeastOneMatched).toBe(true);
 };
 
 describe('basic behaviour', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    useEditorViewIsInvalidMock.mockReturnValue(false);
-    useEditorViewHasWarningsMock.mockReturnValue(false);
-    useEditorViewHasInfosMock.mockReturnValue(false);
-  });
+	beforeEach(() => {
+		jest.clearAllMocks();
+		useEditorViewIsInvalidMock.mockReturnValue(false);
+		useEditorViewHasWarningsMock.mockReturnValue(false);
+		useEditorViewHasInfosMock.mockReturnValue(false);
+	});
 
-  it('should render only JQLEditorHelp if there are no messages to display', () => {
-    assertOnlyOneIsRendered('JQLEditorHelp');
-  });
+	it('should render only JQLEditorHelp if there are no messages to display', () => {
+		assertOnlyOneIsRendered('JQLEditorHelp');
+	});
 
-  it('should render only errors if there are some to display', () => {
-    useEditorViewIsInvalidMock.mockReturnValue(true);
-    assertOnlyOneIsRendered('ErrorMessages');
-  });
+	it('should render only errors if there are some to display', () => {
+		useEditorViewIsInvalidMock.mockReturnValue(true);
+		assertOnlyOneIsRendered('ErrorMessages');
+	});
 
-  it('should render only warnings if there are some to display', () => {
-    useEditorViewHasWarningsMock.mockReturnValue(true);
-    assertOnlyOneIsRendered('WarningMessages');
-  });
+	it('should render only warnings if there are some to display', () => {
+		useEditorViewHasWarningsMock.mockReturnValue(true);
+		assertOnlyOneIsRendered('WarningMessages');
+	});
 
-  it('should render only warnings if there are some to display', () => {
-    useEditorViewHasInfosMock.mockReturnValue(true);
-    assertOnlyOneIsRendered('InfoMessages');
-  });
+	it('should render only warnings if there are some to display', () => {
+		useEditorViewHasInfosMock.mockReturnValue(true);
+		assertOnlyOneIsRendered('InfoMessages');
+	});
 
-  describe('renders only a single type of messages at once considering their priority', () => {
-    it('should render only errors when there are error, warning and info messages present', () => {
-      useEditorViewIsInvalidMock.mockReturnValue(true);
-      useEditorViewHasWarningsMock.mockReturnValue(true);
-      useEditorViewHasInfosMock.mockReturnValue(true);
-      assertOnlyOneIsRendered('ErrorMessages');
-    });
+	describe('renders only a single type of messages at once considering their priority', () => {
+		it('should render only errors when there are error, warning and info messages present', () => {
+			useEditorViewIsInvalidMock.mockReturnValue(true);
+			useEditorViewHasWarningsMock.mockReturnValue(true);
+			useEditorViewHasInfosMock.mockReturnValue(true);
+			assertOnlyOneIsRendered('ErrorMessages');
+		});
 
-    it('should render only warnings when there are warning and info messages present', () => {
-      useEditorViewHasWarningsMock.mockReturnValue(true);
-      useEditorViewHasInfosMock.mockReturnValue(true);
-      assertOnlyOneIsRendered('WarningMessages');
-    });
-  });
+		it('should render only warnings when there are warning and info messages present', () => {
+			useEditorViewHasWarningsMock.mockReturnValue(true);
+			useEditorViewHasInfosMock.mockReturnValue(true);
+			assertOnlyOneIsRendered('WarningMessages');
+		});
+	});
 });

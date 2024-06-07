@@ -9,27 +9,27 @@ import { type JQLEditorUIProps } from './ui/jql-editor/types';
 import { type JQLEditorProps } from './ui/types';
 
 const JQLEditor = lazyForPaint<ComponentType<JQLEditorUIProps>>(
-  () =>
-    import(/* webpackChunkName: "async-jql-editor" */ './ui/jql-editor').then(
-      ({ default: JQLEditorUI }) => JQLEditorUI,
-    ),
-  { ssr: false },
+	() =>
+		import(/* webpackChunkName: "async-jql-editor" */ './ui/jql-editor').then(
+			({ default: JQLEditorUI }) => JQLEditorUI,
+		),
+	{ ssr: false },
 );
 
 export const JQLEditorAsync = withIntlProvider<JQLEditorProps>(
-  withErrorBoundary<JQLEditorUIProps>((props: JQLEditorUIProps) => {
-    return (
-      <LazySuspense
-        fallback={
-          <JQLEditorReadOnly
-            query={props.query}
-            isSearch={!!props.onSearch}
-            isCompact={props.isCompact}
-          />
-        }
-      >
-        <JQLEditor {...props} />
-      </LazySuspense>
-    );
-  }),
+	withErrorBoundary<JQLEditorUIProps>((props: JQLEditorUIProps) => {
+		return (
+			<LazySuspense
+				fallback={
+					<JQLEditorReadOnly
+						query={props.query}
+						isSearch={!!props.onSearch}
+						isCompact={props.isCompact}
+					/>
+				}
+			>
+				<JQLEditor {...props} />
+			</LazySuspense>
+		);
+	}),
 );

@@ -21,12 +21,12 @@ export default md`
   * **container?**: HTMLElement - Container element for dropzone to render
 
   ${(
-    <DocsContentTabs
-      tabs={[
-        { name: 'Usage', content: dropZoneExamples },
-        { name: 'Props', content: dropZoneProps },
-      ]}
-    />
-  )}
+		<DocsContentTabs
+			tabs={[
+				{ name: 'Usage', content: dropZoneExamples },
+				{ name: 'Props', content: dropZoneProps },
+			]}
+		/>
+	)}
 
 `;

@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  AtlassianInternalWarning,
-  code,
-  Example,
-  md,
-  Props,
-} from '@atlaskit/docs';
+import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
 ${(<AtlassianInternalWarning />)}
@@ -34,23 +28,23 @@ return (
 `}
 
 ${(
-  <Props
-    shouldCollapseProps
-    heading="Props"
-    props={require('!!extract-react-types-loader!../src/ui/datasource-table-view')}
-  />
+	<Props
+		shouldCollapseProps
+		heading="Props"
+		props={require('!!extract-react-types-loader!../src/ui/datasource-table-view')}
+	/>
 )}
 
   ## Smart Link List View Component Example
 
   ${(
-    <Example
-      packageName="@atlaskit/link-datasource"
-      Component={require('./examples/basic-jira-issues-list').default}
-      title="Smart Link List View"
-      source={require('!!raw-loader!./examples/basic-jira-issues-list')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-datasource"
+			Component={require('./examples/basic-jira-issues-list').default}
+			title="Smart Link List View"
+			source={require('!!raw-loader!./examples/basic-jira-issues-list')}
+		/>
+	)}
 
   ## Using the Configuration Modal Component
 
@@ -106,11 +100,11 @@ export type ConfigModalProps<ADF, Parameters> = {
   ## Configuration Modal Component Example
 
   ${(
-    <Example
-      packageName="@atlaskit/link-datasource"
-      Component={require('./examples/basic-jira-issues-config-modal').default}
-      title="Configuration Modal Component"
-      source={require('!!raw-loader!./examples/basic-jira-issues-config-modal')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-datasource"
+			Component={require('./examples/basic-jira-issues-config-modal').default}
+			title="Configuration Modal Component"
+			source={require('!!raw-loader!./examples/basic-jira-issues-config-modal')}
+		/>
+	)}
 `;

@@ -9,18 +9,15 @@ import { type Clause, type CompoundClause } from '../types';
  * @param clause Clause to append
  */
 export function appendClause(this: CompoundClause, clause: Clause): void {
-  let clausesToAppend = [clause];
+	let clausesToAppend = [clause];
 
-  // If the clause to append is compound with a matching operator then we flatten it into the current clause
-  if (
-    clause.clauseType === CLAUSE_TYPE_COMPOUND &&
-    clause.operator.value === this.operator.value
-  ) {
-    clausesToAppend = clause.clauses;
-  }
+	// If the clause to append is compound with a matching operator then we flatten it into the current clause
+	if (clause.clauseType === CLAUSE_TYPE_COMPOUND && clause.operator.value === this.operator.value) {
+		clausesToAppend = clause.clauses;
+	}
 
-  this.clauses.push(...clausesToAppend);
-  assignParent(this);
+	this.clauses.push(...clausesToAppend);
+	assignParent(this);
 }
 
 /**
@@ -28,9 +25,9 @@ export function appendClause(this: CompoundClause, clause: Clause): void {
  * references to the child node.
  */
 export function remove(this: CompoundClause): void {
-  if (this.parent) {
-    this.parent.removeClause(this);
-  }
+	if (this.parent) {
+		this.parent.removeClause(this);
+	}
 }
 
 /**
@@ -44,12 +41,12 @@ export function remove(this: CompoundClause): void {
  * @param clause Clause to remove
  */
 export function removeClause(this: CompoundClause, clause: Clause): void {
-  this.clauses = this.clauses.filter(val => val !== clause);
-  if (this.clauses.length === 1) {
-    this.replace(this.clauses[0]);
-  } else if (this.clauses.length === 0) {
-    this.remove();
-  }
+	this.clauses = this.clauses.filter((val) => val !== clause);
+	if (this.clauses.length === 1) {
+		this.replace(this.clauses[0]);
+	} else if (this.clauses.length === 0) {
+		this.remove();
+	}
 }
 
 /**
@@ -57,9 +54,9 @@ export function removeClause(this: CompoundClause, clause: Clause): void {
  * the logic to replace any references to the child node.
  */
 export function replace(this: CompoundClause, nextClause: Clause): void {
-  if (this.parent) {
-    this.parent.replaceClause(this, nextClause);
-  }
+	if (this.parent) {
+		this.parent.replaceClause(this, nextClause);
+	}
 }
 
 /**
@@ -69,13 +66,9 @@ export function replace(this: CompoundClause, nextClause: Clause): void {
  * @param clause Clause to be replaced
  * @param nextClause Clause to set as the new value
  */
-export function replaceClause(
-  this: CompoundClause,
-  clause: Clause,
-  nextClause: Clause,
-): void {
-  this.clauses = this.clauses.map(child => {
-    return child === clause ? nextClause : child;
-  });
-  assignParent(this);
+export function replaceClause(this: CompoundClause, clause: Clause, nextClause: Clause): void {
+	this.clauses = this.clauses.map((child) => {
+		return child === clause ? nextClause : child;
+	});
+	assignParent(this);
 }

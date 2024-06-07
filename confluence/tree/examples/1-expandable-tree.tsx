@@ -13,19 +13,19 @@ import Tree, {
 import { treeWithTwoBranches } from '../mockdata/treeWithTwoBranches';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Container = styled.div`
-	display: flex;
-`;
+const Container = styled.div({
+	display: 'flex',
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Dot = styled.span`
-	display: flex;
-	width: 24px;
-	height: 32px;
-	justify-content: center;
-	font-size: 12px;
-	line-height: 32px;
-`;
+const Dot = styled.span({
+	display: 'flex',
+	width: '24px',
+	height: '32px',
+	justifyContent: 'center',
+	fontSize: '12px',
+	lineHeight: '32px',
+});
 
 type State = {
 	tree: TreeData;

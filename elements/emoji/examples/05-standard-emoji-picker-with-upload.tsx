@@ -12,35 +12,31 @@ import type { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
 const EmojiPickerWithUpload = () => {
-  const [siteEmojiEnabled, setSiteEmojiEnabled] = useState(true);
+	const [siteEmojiEnabled, setSiteEmojiEnabled] = useState(true);
 
-  const emojiProvider = useMemo<Promise<EmojiProvider>>(() => {
-    return siteEmojiEnabled
-      ? getEmojiResource({
-          uploadSupported: true,
-          currentUser: { id: loggedUser },
-        })
-      : getEmojiResourceWithStandardAndAtlassianEmojis({
-          uploadSupported: true,
-          currentUser: { id: loggedUser },
-        });
-  }, [siteEmojiEnabled]);
+	const emojiProvider = useMemo<Promise<EmojiProvider>>(() => {
+		return siteEmojiEnabled
+			? getEmojiResource({
+					uploadSupported: true,
+					currentUser: { id: loggedUser },
+				})
+			: getEmojiResourceWithStandardAndAtlassianEmojis({
+					uploadSupported: true,
+					currentUser: { id: loggedUser },
+				});
+	}, [siteEmojiEnabled]);
 
-  return (
-    <IntlProvider locale="en">
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ padding: '10px' }}>
-        <EmojiPicker emojiProvider={emojiProvider} onSelection={onSelection} />
+	return (
+		<IntlProvider locale="en">
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ padding: '10px' }}>
+				<EmojiPicker emojiProvider={emojiProvider} onSelection={onSelection} />
 
-        <button onClick={() => setSiteEmojiEnabled(true)}>
-          EmojiProvider with Site emoji
-        </button>
-        <button onClick={() => setSiteEmojiEnabled(false)}>
-          EmojiProvider without Site emoji
-        </button>
-      </div>
-    </IntlProvider>
-  );
+				<button onClick={() => setSiteEmojiEnabled(true)}>EmojiProvider with Site emoji</button>
+				<button onClick={() => setSiteEmojiEnabled(false)}>EmojiProvider without Site emoji</button>
+			</div>
+		</IntlProvider>
+	);
 };
 
 export default EmojiPickerWithUpload;

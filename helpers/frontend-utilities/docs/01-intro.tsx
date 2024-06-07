@@ -1,16 +1,16 @@
 import { md } from '@atlaskit/docs';
 
 export default md`
-  ## Error Handling
+	## Error Handling
 
-  - [Convert to Error](./frontend-utilities/docs/convert-to-error)
+	- [Convert to Error](./frontend-utilities/docs/convert-to-error)
 
-  ## Network
+	## Network
 
-  - [Retry Operation](./frontend-utilities/docs/retry-operation)
+	- [Retry Operation](./frontend-utilities/docs/retry-operation)
 
-  ## Storage
+	## Storage
 
-  - [Local Storage mock](./frontend-utilities/docs/local-storage)
-  - [Storage Client](./frontend-utilities/docs/storage-client)
+	- [Local Storage mock](./frontend-utilities/docs/local-storage)
+	- [Storage Client](./frontend-utilities/docs/storage-client)
 `;

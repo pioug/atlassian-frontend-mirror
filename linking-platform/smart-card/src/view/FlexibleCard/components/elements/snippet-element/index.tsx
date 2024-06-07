@@ -9,33 +9,33 @@ import { type TextProps } from '../text/types';
 const SNIPPET_DEFAULT_MAX_LINES = 3;
 
 const getSnippetStyles = (overrideCss?: SerializedStyles) =>
-  css(
-    {
-      color: token('color.text', '#172B4D'),
-      WebkitUserSelect: 'text',
-      MozUserSelect: 'text',
-      MsUserSelect: 'text',
-      userSelect: 'text',
-    },
-    overrideCss,
-  );
+	css(
+		{
+			color: token('color.text', '#172B4D'),
+			WebkitUserSelect: 'text',
+			MozUserSelect: 'text',
+			MsUserSelect: 'text',
+			userSelect: 'text',
+		},
+		overrideCss,
+	);
 
 const SnippetElement: React.FC<TextProps> = ({
-  content: overrideContent,
-  maxLines = SNIPPET_DEFAULT_MAX_LINES,
-  overrideCss,
-  ...props
+	content: overrideContent,
+	maxLines = SNIPPET_DEFAULT_MAX_LINES,
+	overrideCss,
+	...props
 } = {}) => {
-  const context = useContext(FlexibleUiContext);
+	const context = useContext(FlexibleUiContext);
 
-  return (
-    <Text
-      content={overrideContent ?? context?.snippet}
-      maxLines={maxLines}
-      overrideCss={getSnippetStyles(overrideCss)}
-      {...props}
-    />
-  );
+	return (
+		<Text
+			content={overrideContent ?? context?.snippet}
+			maxLines={maxLines}
+			overrideCss={getSnippetStyles(overrideCss)}
+			{...props}
+		/>
+	);
 };
 
 export default SnippetElement;

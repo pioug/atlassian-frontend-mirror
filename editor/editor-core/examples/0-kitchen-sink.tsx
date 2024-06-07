@@ -19,7 +19,6 @@ export default function KitchenSinkExample() {
 	const [messages, setMessages] = React.useState<any>(enMessages);
 	//console.log('KitchenSinkExample', locale);
 
-
 	return (
 		<IntlProvider locale={getProperLanguageKey(locale)} messages={messages}>
 			<EditorContext>
@@ -27,7 +26,7 @@ export default function KitchenSinkExample() {
 					render={(actions) => (
 						<React.Fragment>
 							<DevTools editorView={actions._privateGetEditorView()} />
-              <KitchenSink
+							<KitchenSink
 								actions={actions}
 								locale={locale}
 								setLocale={setLocale}

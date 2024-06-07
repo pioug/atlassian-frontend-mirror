@@ -13,10 +13,10 @@ import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../i18n';
 import type {
-  MenuType,
-  ShareData,
-  ShareDialogWithTriggerProps,
-  ShareDialogWithTriggerStates,
+	MenuType,
+	ShareData,
+	ShareDialogWithTriggerProps,
+	ShareDialogWithTriggerStates,
 } from '../../types';
 import { INTEGRATION_MODAL_SOURCE } from '../analytics/analytics';
 import { IntegrationForm, type IntegrationFormProps } from '../IntegrationForm';
@@ -25,192 +25,186 @@ import { ShareFormWrapper } from '../ShareFormWrapper';
 import { allowEmails } from '../utils';
 
 export type LazyShareFormProps = Pick<
-  ShareDialogWithTriggerProps,
-  | 'copyLink'
-  | 'config'
-  | 'isFetchingConfig'
-  | 'loadUserOptions'
-  | 'shareFormTitle'
-  | 'shareFormHelperMessage'
-  | 'bottomMessage'
-  | 'submitButtonLabel'
-  | 'product'
-  | 'customFooter'
-  | 'enableSmartUserPicker'
-  | 'loggedInAccountId'
-  | 'cloudId'
-  | 'shareFieldsFooter'
-  | 'onUserSelectionChange'
-  | 'isPublicLink'
-  | 'copyTooltipText'
-  | 'shareIntegrations'
-  | 'integrationMode'
-  | 'onDialogClose'
-  | 'orgId'
-  | 'isBrowseUsersDisabled'
-  | 'userPickerOptions'
-  | 'isMenuItemSelected'
+	ShareDialogWithTriggerProps,
+	| 'copyLink'
+	| 'config'
+	| 'isFetchingConfig'
+	| 'loadUserOptions'
+	| 'shareFormTitle'
+	| 'shareFormHelperMessage'
+	| 'bottomMessage'
+	| 'submitButtonLabel'
+	| 'product'
+	| 'customFooter'
+	| 'enableSmartUserPicker'
+	| 'loggedInAccountId'
+	| 'cloudId'
+	| 'shareFieldsFooter'
+	| 'onUserSelectionChange'
+	| 'isPublicLink'
+	| 'copyTooltipText'
+	| 'shareIntegrations'
+	| 'integrationMode'
+	| 'onDialogClose'
+	| 'orgId'
+	| 'isBrowseUsersDisabled'
+	| 'userPickerOptions'
+	| 'isMenuItemSelected'
 > &
-  Pick<
-    ShareDialogWithTriggerStates,
-    | 'showIntegrationForm'
-    | 'selectedIntegration'
-    | 'isSharing'
-    | 'shareError'
-    | 'defaultValue'
-  > &
-  Pick<IntegrationFormProps, 'Content'> & {
-    // actions
-    onLinkCopy: () => void;
-    onDismiss: (data: ShareData) => void;
-    onSubmit: (data: ShareData) => void;
-    onTabChange: (index: number) => void;
-    onMenuItemChange: (menuType: MenuType) => void;
-    loadOptions?: LoadOptions;
+	Pick<
+		ShareDialogWithTriggerStates,
+		'showIntegrationForm' | 'selectedIntegration' | 'isSharing' | 'shareError' | 'defaultValue'
+	> &
+	Pick<IntegrationFormProps, 'Content'> & {
+		// actions
+		onLinkCopy: () => void;
+		onDismiss: (data: ShareData) => void;
+		onSubmit: (data: ShareData) => void;
+		onTabChange: (index: number) => void;
+		onMenuItemChange: (menuType: MenuType) => void;
+		loadOptions?: LoadOptions;
 
-    // ref
-    selectPortalRef: any;
+		// ref
+		selectPortalRef: any;
 
-    // others
-    showTitle: boolean;
-    setIsLoading: (isLoading: boolean) => void;
-  };
+		// others
+		showTitle: boolean;
+		setIsLoading: (isLoading: boolean) => void;
+	};
 
 /**
  * A Share form content which is lazy-loaded.
  * Make sure this component is not exported inside main entry points `src/index.ts`
  */
 function LazyShareForm(props: LazyShareFormProps) {
-  const {
-    copyLink,
-    config,
-    isFetchingConfig,
-    setIsLoading,
-    loadOptions,
-    shareFormTitle,
-    shareFormHelperMessage,
-    bottomMessage,
-    submitButtonLabel,
-    product,
-    customFooter,
-    enableSmartUserPicker,
-    loggedInAccountId,
-    cloudId,
-    shareFieldsFooter,
-    onUserSelectionChange,
-    isPublicLink,
-    copyTooltipText,
-    shareIntegrations,
-    integrationMode,
-    isMenuItemSelected,
-    // actions
-    onLinkCopy,
-    onDismiss,
-    onSubmit,
-    onDialogClose,
-    onTabChange,
-    onMenuItemChange,
-    // ref
-    selectPortalRef,
-    // props from states of parent:
-    showIntegrationForm,
-    selectedIntegration,
-    isSharing,
-    shareError,
-    defaultValue,
-    showTitle,
-    orgId,
-    isBrowseUsersDisabled,
-    userPickerOptions,
-  } = props;
+	const {
+		copyLink,
+		config,
+		isFetchingConfig,
+		setIsLoading,
+		loadOptions,
+		shareFormTitle,
+		shareFormHelperMessage,
+		bottomMessage,
+		submitButtonLabel,
+		product,
+		customFooter,
+		enableSmartUserPicker,
+		loggedInAccountId,
+		cloudId,
+		shareFieldsFooter,
+		onUserSelectionChange,
+		isPublicLink,
+		copyTooltipText,
+		shareIntegrations,
+		integrationMode,
+		isMenuItemSelected,
+		// actions
+		onLinkCopy,
+		onDismiss,
+		onSubmit,
+		onDialogClose,
+		onTabChange,
+		onMenuItemChange,
+		// ref
+		selectPortalRef,
+		// props from states of parent:
+		showIntegrationForm,
+		selectedIntegration,
+		isSharing,
+		shareError,
+		defaultValue,
+		showTitle,
+		orgId,
+		isBrowseUsersDisabled,
+		userPickerOptions,
+	} = props;
 
-  const footer = (
-    <div>
-      {bottomMessage ? (
-        <div css={{ width: `${gridSize() * 44}px` }}>{bottomMessage}</div>
-      ) : null}
-      {customFooter && selectedIntegration === null && (
-        <div
-          css={{
-            margin: `0 ${token('space.negative.300', '-24px')} ${token(
-              'space.negative.200',
-              '-16px',
-            )} ${token('space.negative.300', '-24px')}`,
-          }}
-        >
-          {customFooter}
-        </div>
-      )}
-    </div>
-  );
+	const footer = (
+		<div>
+			{bottomMessage ? <div css={{ width: `${gridSize() * 44}px` }}>{bottomMessage}</div> : null}
+			{customFooter && selectedIntegration === null && (
+				<div
+					css={{
+						margin: `0 ${token('space.negative.300', '-24px')} ${token(
+							'space.negative.200',
+							'-16px',
+						)} ${token('space.negative.300', '-24px')}`,
+					}}
+				>
+					{customFooter}
+				</div>
+			)}
+		</div>
+	);
 
-  React.useEffect(() => {
-    setIsLoading(false);
-  });
+	React.useEffect(() => {
+		setIsLoading(false);
+	});
 
-  const allowEmail = allowEmails(config);
+	const allowEmail = allowEmails(config);
 
-  return (
-    <ShareFormWrapper
-      footer={footer}
-      // form title will be determined by `title` and `showTitle` prop passed to `ShareForm`,
-      // so we don't need to show title via ShareFormWrapper
-      integrationMode={integrationMode}
-      isMenuItemSelected={isMenuItemSelected}
-      shouldShowTitle={false}
-    >
-      {showIntegrationForm && selectedIntegration !== null ? (
-        <AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
-          <IntegrationForm
-            Content={selectedIntegration.Content}
-            onIntegrationClose={onDialogClose}
-          />
-        </AnalyticsContext>
-      ) : (
-        <>
-          {allowEmail || !isBrowseUsersDisabled ? (
-            <ShareForm
-              copyLink={copyLink}
-              loadOptions={loadOptions}
-              title={shareFormTitle}
-              showTitle={showTitle}
-              helperMessage={shareFormHelperMessage}
-              shareError={shareError}
-              defaultValue={defaultValue}
-              config={config}
-              submitButtonLabel={submitButtonLabel}
-              product={product}
-              enableSmartUserPicker={enableSmartUserPicker}
-              loggedInAccountId={loggedInAccountId}
-              cloudId={cloudId}
-              fieldsFooter={shareFieldsFooter}
-              selectPortalRef={selectPortalRef}
-              copyTooltipText={copyTooltipText}
-              integrationMode={integrationMode}
-              shareIntegrations={shareIntegrations}
-              isSharing={isSharing}
-              isFetchingConfig={isFetchingConfig}
-              isPublicLink={isPublicLink}
-              orgId={orgId}
-              onSubmit={onSubmit}
-              onDismiss={onDismiss}
-              onLinkCopy={onLinkCopy}
-              onUserSelectionChange={onUserSelectionChange}
-              handleCloseDialog={onDialogClose}
-              onTabChange={onTabChange}
-              onMenuItemChange={onMenuItemChange}
-              isBrowseUsersDisabled={isBrowseUsersDisabled}
-              userPickerOptions={userPickerOptions}
-            />
-          ) : (
-            <p>
-              <FormattedMessage {...messages.formNoPermissions} />
-            </p>
-          )}
-        </>
-      )}
-    </ShareFormWrapper>
-  );
+	return (
+		<ShareFormWrapper
+			footer={footer}
+			// form title will be determined by `title` and `showTitle` prop passed to `ShareForm`,
+			// so we don't need to show title via ShareFormWrapper
+			integrationMode={integrationMode}
+			isMenuItemSelected={isMenuItemSelected}
+			shouldShowTitle={false}
+		>
+			{showIntegrationForm && selectedIntegration !== null ? (
+				<AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
+					<IntegrationForm
+						Content={selectedIntegration.Content}
+						onIntegrationClose={onDialogClose}
+					/>
+				</AnalyticsContext>
+			) : (
+				<>
+					{allowEmail || !isBrowseUsersDisabled ? (
+						<ShareForm
+							copyLink={copyLink}
+							loadOptions={loadOptions}
+							title={shareFormTitle}
+							showTitle={showTitle}
+							helperMessage={shareFormHelperMessage}
+							shareError={shareError}
+							defaultValue={defaultValue}
+							config={config}
+							submitButtonLabel={submitButtonLabel}
+							product={product}
+							enableSmartUserPicker={enableSmartUserPicker}
+							loggedInAccountId={loggedInAccountId}
+							cloudId={cloudId}
+							fieldsFooter={shareFieldsFooter}
+							selectPortalRef={selectPortalRef}
+							copyTooltipText={copyTooltipText}
+							integrationMode={integrationMode}
+							shareIntegrations={shareIntegrations}
+							isSharing={isSharing}
+							isFetchingConfig={isFetchingConfig}
+							isPublicLink={isPublicLink}
+							orgId={orgId}
+							onSubmit={onSubmit}
+							onDismiss={onDismiss}
+							onLinkCopy={onLinkCopy}
+							onUserSelectionChange={onUserSelectionChange}
+							handleCloseDialog={onDialogClose}
+							onTabChange={onTabChange}
+							onMenuItemChange={onMenuItemChange}
+							isBrowseUsersDisabled={isBrowseUsersDisabled}
+							userPickerOptions={userPickerOptions}
+						/>
+					) : (
+						<p>
+							<FormattedMessage {...messages.formNoPermissions} />
+						</p>
+					)}
+				</>
+			)}
+		</ShareFormWrapper>
+	);
 }
 
 export default LazyShareForm;

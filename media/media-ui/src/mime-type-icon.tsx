@@ -5,11 +5,11 @@ import { MediaTypeIcon } from './media-type-icon';
 import { IconWrapper } from './media-type-icon';
 
 type MediaTypeProps = {
-  testId?: string;
-  mediaType?: MediaType;
-  mimeType?: string;
-  name?: string;
-  size?: 'small' | 'large';
+	testId?: string;
+	mediaType?: MediaType;
+	mimeType?: string;
+	name?: string;
+	size?: 'small' | 'large';
 };
 
 /*
@@ -17,26 +17,26 @@ type MediaTypeProps = {
  * Else, render an icon corresponding to its mediaType (doc/audio/image/video/unknown)
  */
 export const MimeTypeIcon = ({
-  mediaType = 'unknown',
-  mimeType = 'unknown',
-  name = 'unknown',
-  testId,
-  size = 'large',
+	mediaType = 'unknown',
+	mimeType = 'unknown',
+	name = 'unknown',
+	testId,
+	size = 'large',
 }: MediaTypeProps) => {
-  // retrieve mimetype icon and label
-  const iconInfo = getMimeIcon(mimeType, name);
+	// retrieve mimetype icon and label
+	const iconInfo = getMimeIcon(mimeType, name);
 
-  // a corresponding mimetype icon and label was found.
-  if (iconInfo) {
-    const Icon = iconInfo.icon;
-    return (
-      <IconWrapper data-testid={testId} data-type={iconInfo.label} size={size}>
-        <Icon label={iconInfo.label} />
-      </IconWrapper>
-    );
-  }
+	// a corresponding mimetype icon and label was found.
+	if (iconInfo) {
+		const Icon = iconInfo.icon;
+		return (
+			<IconWrapper data-testid={testId} data-type={iconInfo.label} size={size}>
+				<Icon label={iconInfo.label} />
+			</IconWrapper>
+		);
+	}
 
-  // no corresponding mimetype icon/label was found.
-  // Hence, return a mediatype (image/doc/audio/video/unknown) icon
-  return <MediaTypeIcon testId={testId} type={mediaType} size={size} />;
+	// no corresponding mimetype icon/label was found.
+	// Hence, return a mediatype (image/doc/audio/video/unknown) icon
+	return <MediaTypeIcon testId={testId} type={mediaType} size={size} />;
 };

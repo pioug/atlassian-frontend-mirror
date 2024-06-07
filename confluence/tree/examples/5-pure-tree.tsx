@@ -15,12 +15,12 @@ import { treeWithTwoBranches } from '../mockdata/treeWithTwoBranches';
 const PADDING_PER_LEVEL = 16;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const PreTextIcon = styled.span`
-	display: inline-block;
-	width: 16px;
-	justify-content: center;
-	cursor: pointer;
-`;
+const PreTextIcon = styled.span({
+	display: 'inline-block',
+	width: '16px',
+	justifyContent: 'center',
+	cursor: 'pointer',
+});
 
 type State = {
 	tree: TreeData;

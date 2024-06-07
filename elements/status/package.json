@@ -42,7 +42,7 @@
     "@af/visual-regression": "*",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/visual-regression": "*",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^12.1.5",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",

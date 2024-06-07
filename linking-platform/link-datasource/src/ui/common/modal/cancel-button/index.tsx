@@ -11,27 +11,23 @@ import { type ButtonClickedCancelAttributesType } from '../../../../analytics/ge
 
 import { cancelButtonMessages } from './messages';
 export interface CancelButtonProps {
-  getAnalyticsPayload: () => ButtonClickedCancelAttributesType;
-  onCancel: () => void;
-  testId: string;
+	getAnalyticsPayload: () => ButtonClickedCancelAttributesType;
+	onCancel: () => void;
+	testId: string;
 }
 
-export const CancelButton = ({
-  getAnalyticsPayload,
-  onCancel,
-  testId,
-}: CancelButtonProps) => {
-  const { fireEvent } = useDatasourceAnalyticsEvents();
+export const CancelButton = ({ getAnalyticsPayload, onCancel, testId }: CancelButtonProps) => {
+	const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  const onCancelClick = useCallback(() => {
-    fireEvent('ui.button.clicked.cancel', getAnalyticsPayload());
+	const onCancelClick = useCallback(() => {
+		fireEvent('ui.button.clicked.cancel', getAnalyticsPayload());
 
-    onCancel();
-  }, [getAnalyticsPayload, fireEvent, onCancel]);
+		onCancel();
+	}, [getAnalyticsPayload, fireEvent, onCancel]);
 
-  return (
-    <Button appearance="default" onClick={onCancelClick} testId={testId}>
-      <FormattedMessage {...cancelButtonMessages.cancelButtonText} />
-    </Button>
-  );
+	return (
+		<Button appearance="default" onClick={onCancelClick} testId={testId}>
+			<FormattedMessage {...cancelButtonMessages.cancelButtonText} />
+		</Button>
+	);
 };

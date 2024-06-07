@@ -112,9 +112,6 @@
   "platform-feature-flags": {
     "platform.design-system-team.navigation-v2-no-jank_5yhbd": {
       "type": "boolean"
-    },
-    "platform.design-system-team.brand-refresh-update-product-logos_q7coo": {
-      "type": "boolean"
     }
   }
 }

@@ -5,13 +5,13 @@ import { token } from '@atlaskit/tokens';
 
 export default md`
   ${(
-    <>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ marginBottom: token('space.100', '0.5rem') }}>
-        <AtlassianInternalWarning />
-      </div>
-    </>
-  )}
+		<>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ marginBottom: token('space.100', '0.5rem') }}>
+				<AtlassianInternalWarning />
+			</div>
+		</>
+	)}
 
   ## Usage
 
@@ -70,25 +70,20 @@ export default md`
   }
   `}
 
-  ${(
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    <div style={{ paddingTop: token('space.200', '16px') }}>
-      <Button
-        onClick={() =>
-          window.open(
-            '/examples/help/right-side-panel/0-Right-Side-Panel',
-            '_self',
-          )
-        }
-      >
-        Open Example
-      </Button>
-    </div>
-  )}
+  ${
+		(
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			<div style={{ paddingTop: token('space.200', '16px') }}>
+				<Button
+					onClick={() => window.open('/examples/help/right-side-panel/0-Right-Side-Panel', '_self')}
+				>
+					Open Example
+				</Button>
+			</div>
+		)
+	}
 
   ${(
-    <Props
-      props={require('!!extract-react-types-loader!../src/components/RightSidePanel/index')}
-    />
-  )}
+		<Props props={require('!!extract-react-types-loader!../src/components/RightSidePanel/index')} />
+	)}
 `;

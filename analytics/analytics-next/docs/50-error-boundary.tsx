@@ -46,9 +46,9 @@ class ButtonWithAnalyticsErrorBoundary extends React.Component {
 `}
 
   ${(
-    <Props
-      heading="AnalyticsErrorBoundary Props"
-      props={require('!!extract-react-types-loader!../src/components/AnalyticsErrorBoundary')}
-    />
-  )}
+		<Props
+			heading="AnalyticsErrorBoundary Props"
+			props={require('!!extract-react-types-loader!../src/components/AnalyticsErrorBoundary')}
+		/>
+	)}
 `;

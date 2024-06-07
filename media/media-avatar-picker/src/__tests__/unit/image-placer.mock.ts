@@ -2,10 +2,10 @@
 import { mockCanvas, loadImageMockSetup } from '@atlaskit/media-test-helpers';
 
 jest.mock('../../util', () => {
-  return {
-    ...jest.requireActual<Object>('../../util'),
-    getCanvas: jest.fn().mockReturnValue(mockCanvasMock),
-  };
+	return {
+		...jest.requireActual<Object>('../../util'),
+		getCanvas: jest.fn().mockReturnValue(mockCanvasMock),
+	};
 });
 
 const mockCanvasMock = mockCanvas();
@@ -13,8 +13,8 @@ const mockCanvasMock = mockCanvas();
 loadImageMockSetup(); // setup calls jest.mock('@atlaskit/media-ui') that hoists mocked package
 
 export const mockImage = {
-  naturalWidth: 1,
-  naturalHeight: 2,
+	naturalWidth: 1,
+	naturalHeight: 2,
 } as HTMLImageElement;
 export const translate = mockCanvasMock.context.translate! as jest.Mock;
 export const scale = mockCanvasMock.context.scale! as jest.Mock;

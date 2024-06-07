@@ -17,32 +17,30 @@ import { extractTitle } from '@atlaskit/link-extractors';
  * @param data - The JSON-LD data to extract the provider icon and label from.
  * @returns IconDescriptor with optional icon string name, url and label, or `undefined` if the data is not provided.
  */
-const extractProviderIcon = (
-  data?: JsonLd.Data.BaseData,
-): IconDescriptor | undefined => {
-  if (!data) {
-    return undefined;
-  }
-  const generator = data.generator as JsonLd.Primitives.Object;
-  const provider = generator?.['@id'];
-  const icon = generator?.icon;
-  const label = generator?.name || extractTitle(data);
+const extractProviderIcon = (data?: JsonLd.Data.BaseData): IconDescriptor | undefined => {
+	if (!data) {
+		return undefined;
+	}
+	const generator = data.generator as JsonLd.Primitives.Object;
+	const provider = generator?.['@id'];
+	const icon = generator?.icon;
+	const label = generator?.name || extractTitle(data);
 
-  if (provider === CONFLUENCE_GENERATOR_ID) {
-    return {
-      icon: IconType.Confluence,
-      label: label || 'Confluence',
-    };
-  }
+	if (provider === CONFLUENCE_GENERATOR_ID) {
+		return {
+			icon: IconType.Confluence,
+			label: label || 'Confluence',
+		};
+	}
 
-  if (provider === JIRA_GENERATOR_ID) {
-    return {
-      icon: IconType.Jira,
-      label: label || 'Jira',
-    };
-  }
+	if (provider === JIRA_GENERATOR_ID) {
+		return {
+			icon: IconType.Jira,
+			label: label || 'Jira',
+		};
+	}
 
-  return extractUrlIcon(icon, label);
+	return extractUrlIcon(icon, label);
 };
 
 export default extractProviderIcon;

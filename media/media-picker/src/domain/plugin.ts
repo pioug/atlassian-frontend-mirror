@@ -1,8 +1,8 @@
 export interface PluginFile {
-  id: string;
-  metadata: any;
+	id: string;
+	metadata: any;
 }
 export interface PluginItemPayload {
-  pluginName: string;
-  pluginFile: PluginFile;
+	pluginName: string;
+	pluginFile: PluginFile;
 }

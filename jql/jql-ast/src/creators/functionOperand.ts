@@ -1,61 +1,58 @@
 import { NODE_TYPE_OPERAND, OPERAND_TYPE_FUNCTION } from '../constants';
 import {
-  type Argument,
-  type AstNode,
-  type FunctionOperand,
-  type FunctionString,
-  type JastListener,
-  type JastVisitor,
-  type Position,
+	type Argument,
+	type AstNode,
+	type FunctionOperand,
+	type FunctionString,
+	type JastListener,
+	type JastVisitor,
+	type Position,
 } from '../types';
 
 import { assignParent } from './common';
 
-function acceptFunctionOperand<Result>(
-  this: FunctionOperand,
-  visitor: JastVisitor<Result>,
-) {
-  return visitor.visitFunctionOperand
-    ? visitor.visitFunctionOperand(this)
-    : visitor.visitChildren(this);
+function acceptFunctionOperand<Result>(this: FunctionOperand, visitor: JastVisitor<Result>) {
+	return visitor.visitFunctionOperand
+		? visitor.visitFunctionOperand(this)
+		: visitor.visitChildren(this);
 }
 
 function enterNode(this: FunctionOperand, listener: JastListener): void {
-  listener.enterFunctionOperand && listener.enterFunctionOperand(this);
+	listener.enterFunctionOperand && listener.enterFunctionOperand(this);
 }
 
 function exitNode(this: FunctionOperand, listener: JastListener): void {
-  listener.exitFunctionOperand && listener.exitFunctionOperand(this);
+	listener.exitFunctionOperand && listener.exitFunctionOperand(this);
 }
 
 function getChildren(this: FunctionOperand): AstNode[] {
-  return [this.function, ...this.arguments];
+	return [this.function, ...this.arguments];
 }
 
 export const functionOperand = (
-  functionString: FunctionString,
-  args: Argument[] = [],
+	functionString: FunctionString,
+	args: Argument[] = [],
 ): FunctionOperand => functionOperandInternal(functionString, args);
 
 export const functionOperandInternal = (
-  functionString: FunctionString,
-  args: Argument[],
-  position: Position | null = null,
+	functionString: FunctionString,
+	args: Argument[],
+	position: Position | null = null,
 ): FunctionOperand => {
-  const node: FunctionOperand = {
-    type: NODE_TYPE_OPERAND,
-    operandType: OPERAND_TYPE_FUNCTION,
-    function: functionString,
-    arguments: args,
-    position,
-    accept: acceptFunctionOperand,
-    enterNode,
-    exitNode,
-    getChildren,
-    parent: null,
-  };
+	const node: FunctionOperand = {
+		type: NODE_TYPE_OPERAND,
+		operandType: OPERAND_TYPE_FUNCTION,
+		function: functionString,
+		arguments: args,
+		position,
+		accept: acceptFunctionOperand,
+		enterNode,
+		exitNode,
+		getChildren,
+		parent: null,
+	};
 
-  assignParent(node);
+	assignParent(node);
 
-  return node;
+	return node;
 };

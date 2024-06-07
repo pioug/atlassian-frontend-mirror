@@ -12,73 +12,68 @@ import { isEmptyFile } from '../detectEmptyFile';
 import { PollingFunction } from '../polling';
 import { MobileUploadError } from './error';
 import {
-  type StateMachineContext,
-  type StateMachineEvent,
-  type StateMachineTypestate,
+	type StateMachineContext,
+	type StateMachineEvent,
+	type StateMachineTypestate,
 } from './stateMachine/types';
 
 export const createMobileFileStateSubject = (
-  service: Interpreter<
-    StateMachineContext,
-    any,
-    StateMachineEvent,
-    StateMachineTypestate
-  >,
+	service: Interpreter<StateMachineContext, any, StateMachineEvent, StateMachineTypestate>,
 ): ReplaySubject<FileState> => {
-  const subject = new ReplaySubject<FileState>(1);
+	const subject = new ReplaySubject<FileState>(1);
 
-  from(service.start())
-    .pipe(map((state) => state.context.currentFileState))
-    .subscribe(subject);
+	from(service.start())
+		.pipe(map((state) => state.context.currentFileState))
+		.subscribe(subject);
 
-  return subject;
+	return subject;
 };
 
 export const createMobileDownloadFileStream = (
-  dataloader: Dataloader<DataloaderKey, DataloaderResult>,
-  id: string,
-  collectionName?: string,
-  occurrenceKey?: string,
+	dataloader: Dataloader<DataloaderKey, DataloaderResult>,
+	id: string,
+	collectionName?: string,
+	occurrenceKey?: string,
 ): ReplaySubject<FileState> => {
-  const subject = createMediaSubject<FileState>();
-  const poll = new PollingFunction();
+	const subject = createMediaSubject<FileState>();
+	const poll = new PollingFunction();
 
-  // ensure subject errors if polling exceeds max iterations or uncaught exception in executor
-  poll.onError = (error: Error) => subject.error(error);
+	// ensure subject errors if polling exceeds max iterations or uncaught exception in executor
+	poll.onError = (error: Error) => subject.error(error);
 
-  poll.execute(async () => {
-    const response = await dataloader.load({
-      id,
-      collectionName,
-    });
+	poll.execute(async () => {
+		const response = await dataloader.load({
+			id,
+			collectionName,
+		});
 
-    if (!response) {
-      throw new MobileUploadError('emptyItems', id, {
-        collectionName,
-        occurrenceKey,
-      });
-    }
+		if (!response) {
+			throw new MobileUploadError('emptyItems', id, {
+				collectionName,
+				occurrenceKey,
+			});
+		}
 
-    if (isEmptyFile(response)) {
-      throw new MobileUploadError('zeroVersionFile', id, {
-        collectionName,
-        occurrenceKey,
-      });
-    }
+		if (isEmptyFile(response)) {
+			throw new MobileUploadError('zeroVersionFile', id, {
+				collectionName,
+				occurrenceKey,
+			});
+		}
 
-    const fileState = mapMediaItemToFileState(id, response);
-    subject.next(fileState);
+		const fileState = mapMediaItemToFileState(id, response);
+		subject.next(fileState);
 
-    switch (fileState.status) {
-      case 'processing':
-        // the only case for continuing polling, otherwise this function is run once only
-        poll.next();
-        break;
-      case 'processed':
-        subject.complete();
-        break;
-    }
-  });
+		switch (fileState.status) {
+			case 'processing':
+				// the only case for continuing polling, otherwise this function is run once only
+				poll.next();
+				break;
+			case 'processed':
+				subject.complete();
+				break;
+		}
+	});
 
-  return subject;
+	return subject;
 };

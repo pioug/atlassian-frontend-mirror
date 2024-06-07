@@ -4,11 +4,11 @@ import { processEvent } from './process-event';
 import GenericAnalyticsListener from '../GenericAnalyticsListener';
 
 export default function MediaAnalyticsListener(props: ListenerProps) {
-  return (
-    <GenericAnalyticsListener
-      {...props}
-      channel={FabricChannel.media}
-      processEvent={processEvent}
-    />
-  );
+	return (
+		<GenericAnalyticsListener
+			{...props}
+			channel={FabricChannel.media}
+			processEvent={processEvent}
+		/>
+	);
 }

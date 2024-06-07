@@ -1,10 +1,10 @@
 jest.mock('@atlaskit/media-file-preview', () => {
-  const actualModule = jest.requireActual('@atlaskit/media-file-preview');
-  return {
-    __esModule: true,
-    ...actualModule,
-    useFilePreview: jest.fn(actualModule.useFilePreview),
-  };
+	const actualModule = jest.requireActual('@atlaskit/media-file-preview');
+	return {
+		__esModule: true,
+		...actualModule,
+		useFilePreview: jest.fn(actualModule.useFilePreview),
+	};
 });
 import { render, screen } from '@testing-library/react';
 import React from 'react';
@@ -18,46 +18,39 @@ import MediaImageWithErrorBoundary from './mediaImageWithErrorBoundary';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 const baseProps = {
-  mediaClientConfig: dummyMediaClientConfig,
-  apiConfig: {
-    width: 10,
-    height: 10,
-  },
-  children: ({ error, loading, data }: MediaImageChildrenProps) => {
-    return error ? (
-      <p>error</p>
-    ) : loading ? (
-      <p>some-loading</p>
-    ) : (
-      <p>{`${data?.src}`}</p>
-    );
-  },
+	mediaClientConfig: dummyMediaClientConfig,
+	apiConfig: {
+		width: 10,
+		height: 10,
+	},
+	children: ({ error, loading, data }: MediaImageChildrenProps) => {
+		return error ? <p>error</p> : loading ? <p>some-loading</p> : <p>{`${data?.src}`}</p>;
+	},
 };
 
 describe('MediaImageWithErrorBoundary', () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
+	afterEach(() => {
+		jest.restoreAllMocks();
+	});
 
-  it('should catch when an error occurs in MediaImage', async () => {
-    const [fileItem, identifier] =
-      generateSampleFileItem.workingImgWithRemotePreview();
-    const { mediaApi } = createMockedMediaApi(fileItem);
-    const props = {
-      identifier,
-      ...baseProps,
-    };
+	it('should catch when an error occurs in MediaImage', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+		const props = {
+			identifier,
+			...baseProps,
+		};
 
-    (useFilePreview as jest.Mock).mockImplementation(() => {
-      throw new Error('an error occurred');
-    });
+		(useFilePreview as jest.Mock).mockImplementation(() => {
+			throw new Error('an error occurred');
+		});
 
-    render(
-      <MockedMediaClientProvider mockedMediaApi={mediaApi}>
-        <MediaImageWithErrorBoundary {...props} />
-      </MockedMediaClientProvider>,
-    );
+		render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaImageWithErrorBoundary {...props} />
+			</MockedMediaClientProvider>,
+		);
 
-    expect(await screen.findByText('error')).toBeInTheDocument();
-  });
+		expect(await screen.findByText('error')).toBeInTheDocument();
+	});
 });

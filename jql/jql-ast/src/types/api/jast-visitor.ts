@@ -1,26 +1,26 @@
 import {
-  type Argument,
-  type AstNode,
-  type CompoundClause,
-  type CompoundOperator,
-  type Field,
-  type FunctionOperand,
-  type FunctionString,
-  type KeywordOperand,
-  type ListOperand,
-  type NotClause,
-  type NotClauseOperator,
-  type Operator,
-  type OrderBy,
-  type OrderByDirection,
-  type OrderByField,
-  type OrderByOperator,
-  type Predicate,
-  type PredicateOperator,
-  type Property,
-  type Query,
-  type TerminalClause,
-  type ValueOperand,
+	type Argument,
+	type AstNode,
+	type CompoundClause,
+	type CompoundOperator,
+	type Field,
+	type FunctionOperand,
+	type FunctionString,
+	type KeywordOperand,
+	type ListOperand,
+	type NotClause,
+	type NotClauseOperator,
+	type Operator,
+	type OrderBy,
+	type OrderByDirection,
+	type OrderByField,
+	type OrderByOperator,
+	type Predicate,
+	type PredicateOperator,
+	type Property,
+	type Query,
+	type TerminalClause,
+	type ValueOperand,
 } from '../ast';
 
 /**
@@ -30,62 +30,62 @@ import {
  * operations with no return type.
  */
 export interface JastVisitor<Result> {
-  visitQuery?: (query: Query) => Result;
+	visitQuery?: (query: Query) => Result;
 
-  visitCompoundClause?: (compoundClause: CompoundClause) => Result;
+	visitCompoundClause?: (compoundClause: CompoundClause) => Result;
 
-  visitCompoundOperator?: (compoundOperator: CompoundOperator) => Result;
+	visitCompoundOperator?: (compoundOperator: CompoundOperator) => Result;
 
-  visitTerminalClause?: (terminalClause: TerminalClause) => Result;
+	visitTerminalClause?: (terminalClause: TerminalClause) => Result;
 
-  visitNotClause?: (notClause: NotClause) => Result;
+	visitNotClause?: (notClause: NotClause) => Result;
 
-  visitNotClauseOperator?: (notClauseOperator: NotClauseOperator) => Result;
+	visitNotClauseOperator?: (notClauseOperator: NotClauseOperator) => Result;
 
-  visitField?: (field: Field) => Result;
+	visitField?: (field: Field) => Result;
 
-  visitProperty?: (property: Property) => Result;
+	visitProperty?: (property: Property) => Result;
 
-  visitOperator?: (operator: Operator) => Result;
+	visitOperator?: (operator: Operator) => Result;
 
-  visitListOperand?: (listOperand: ListOperand) => Result;
+	visitListOperand?: (listOperand: ListOperand) => Result;
 
-  visitValueOperand?: (valueOperand: ValueOperand) => Result;
+	visitValueOperand?: (valueOperand: ValueOperand) => Result;
 
-  visitKeywordOperand?: (keywordOperand: KeywordOperand) => Result;
+	visitKeywordOperand?: (keywordOperand: KeywordOperand) => Result;
 
-  visitFunctionOperand?: (functionOperand: FunctionOperand) => Result;
+	visitFunctionOperand?: (functionOperand: FunctionOperand) => Result;
 
-  visitFunction?: (functionString: FunctionString) => Result;
+	visitFunction?: (functionString: FunctionString) => Result;
 
-  visitArgument?: (argument: Argument) => Result;
+	visitArgument?: (argument: Argument) => Result;
 
-  visitPredicate?: (predicate: Predicate) => Result;
+	visitPredicate?: (predicate: Predicate) => Result;
 
-  visitPredicateOperator?: (predicateOperator: PredicateOperator) => Result;
+	visitPredicateOperator?: (predicateOperator: PredicateOperator) => Result;
 
-  visitOrderBy?: (orderBy: OrderBy) => Result;
+	visitOrderBy?: (orderBy: OrderBy) => Result;
 
-  visitOrderByOperator?: (orderByOperator: OrderByOperator) => Result;
+	visitOrderByOperator?: (orderByOperator: OrderByOperator) => Result;
 
-  visitOrderByField?: (orderByField: OrderByField) => Result;
+	visitOrderByField?: (orderByField: OrderByField) => Result;
 
-  visitOrderByDirection?: (orderByDirection: OrderByDirection) => Result;
+	visitOrderByDirection?: (orderByDirection: OrderByDirection) => Result;
 
-  /**
-   * Visit a node, and return a user-defined result of the operation.
-   *
-   * @param node The {@link AstNode} who should be visited.
-   * @returns The result of visiting the node.
-   */
-  visit(node: AstNode): Result;
+	/**
+	 * Visit a node, and return a user-defined result of the operation.
+	 *
+	 * @param node The {@link AstNode} who should be visited.
+	 * @returns The result of visiting the node.
+	 */
+	visit(node: AstNode): Result;
 
-  /**
-   * Visit the children of a node, and return a user-defined result
-   * of the operation.
-   *
-   * @param node The {@link AstNode} whose children should be visited.
-   * @returns The result of visiting the children of the node.
-   */
-  visitChildren(node: AstNode): Result;
+	/**
+	 * Visit the children of a node, and return a user-defined result
+	 * of the operation.
+	 *
+	 * @param node The {@link AstNode} whose children should be visited.
+	 * @returns The result of visiting the children of the node.
+	 */
+	visitChildren(node: AstNode): Result;
 }

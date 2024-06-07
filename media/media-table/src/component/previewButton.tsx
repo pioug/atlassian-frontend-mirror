@@ -9,46 +9,41 @@ import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ANALYTICS_MEDIA_CHANNEL } from '../util';
 
 interface Props {
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+	onClick: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 const MediaPreviewButton = (props: Props & WrappedComponentProps) => {
-  const {
-    onClick,
-    intl: { formatMessage },
-  } = props;
+	const {
+		onClick,
+		intl: { formatMessage },
+	} = props;
 
-  return (
-    <Button
-      appearance="subtle"
-      testId="preview-button"
-      iconAfter={
-        <EditorFilePreviewIcon label={formatMessage(messages.preview)} />
-      }
-      onKeyPress={(event) => event.stopPropagation()}
-      onClick={(
-        event: React.MouseEvent<HTMLElement>,
-        analyticsEvent: UIAnalyticsEvent,
-      ) => {
-        analyticsEvent
-          .update((payload) => ({
-            ...payload,
-            eventType: 'ui',
-            actionSubjectId: 'mediaTablePreview',
-          }))
-          .fire(ANALYTICS_MEDIA_CHANNEL);
+	return (
+		<Button
+			appearance="subtle"
+			testId="preview-button"
+			iconAfter={<EditorFilePreviewIcon label={formatMessage(messages.preview)} />}
+			onKeyPress={(event) => event.stopPropagation()}
+			onClick={(event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
+				analyticsEvent
+					.update((payload) => ({
+						...payload,
+						eventType: 'ui',
+						actionSubjectId: 'mediaTablePreview',
+					}))
+					.fire(ANALYTICS_MEDIA_CHANNEL);
 
-        onClick(event);
-      }}
-      theme={(current, themeProps) => ({
-        buttonStyles: {
-          ...current(themeProps).buttonStyles,
-          minWidth: 'max-content',
-        },
-        spinnerStyles: current(themeProps).spinnerStyles,
-      })}
-    />
-  );
+				onClick(event);
+			}}
+			theme={(current, themeProps) => ({
+				buttonStyles: {
+					...current(themeProps).buttonStyles,
+					minWidth: 'max-content',
+				},
+				spinnerStyles: current(themeProps).spinnerStyles,
+			})}
+		/>
+	);
 };
 
 export default injectIntl(MediaPreviewButton);

@@ -8,52 +8,48 @@ import { SAMPLING_RATE_EMOJI_RENDERED_EXP } from '../../util/constants';
 export interface Props extends ResourcedEmojiProps {}
 
 const ResourcedEmojiComponent = Loadable({
-  loader: (): Promise<React.ComponentType<React.PropsWithChildren<Props>>> =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_resourcedEmojiComponent" */ './ResourcedEmojiComponent'
-    ).then((component) => component.ResourcedEmojiComponent),
-  loading: () => null,
+	loader: (): Promise<React.ComponentType<React.PropsWithChildren<Props>>> =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_resourcedEmojiComponent" */ './ResourcedEmojiComponent'
+		).then((component) => component.ResourcedEmojiComponent),
+	loading: () => null,
 });
 
 const ResourcedEmoji = (props: React.PropsWithChildren<Props>) => {
-  const { emojiId, optimisticImageURL } = props;
+	const { emojiId, optimisticImageURL } = props;
 
-  useEffect(() => {
-    if (!emojiId) {
-      return;
-    }
+	useEffect(() => {
+		if (!emojiId) {
+			return;
+		}
 
-    sampledUfoRenderedEmoji(emojiId).start({
-      samplingRate: SAMPLING_RATE_EMOJI_RENDERED_EXP,
-    });
-    ufoExperiences['emoji-rendered']
-      .getInstance(emojiId.id || emojiId.shortName)
-      .addMetadata({
-        source: 'ResourcedEmoji',
-        emojiId: emojiId.id,
-        isOptimisticImageURL: !!optimisticImageURL,
-      });
-    return () => {
-      sampledUfoRenderedEmoji(emojiId).abort({
-        metadata: {
-          source: 'ResourcedEmoji',
-          reason: 'unmount',
-        },
-      });
-    };
-  }, [emojiId, optimisticImageURL]);
+		sampledUfoRenderedEmoji(emojiId).start({
+			samplingRate: SAMPLING_RATE_EMOJI_RENDERED_EXP,
+		});
+		ufoExperiences['emoji-rendered'].getInstance(emojiId.id || emojiId.shortName).addMetadata({
+			source: 'ResourcedEmoji',
+			emojiId: emojiId.id,
+			isOptimisticImageURL: !!optimisticImageURL,
+		});
+		return () => {
+			sampledUfoRenderedEmoji(emojiId).abort({
+				metadata: {
+					source: 'ResourcedEmoji',
+					reason: 'unmount',
+				},
+			});
+		};
+	}, [emojiId, optimisticImageURL]);
 
-  return (
-    <UfoErrorBoundary
-      experiences={[
-        ufoExperiences['emoji-rendered'].getInstance(
-          props.emojiId.id || props.emojiId.shortName,
-        ),
-      ]}
-    >
-      <ResourcedEmojiComponent {...props} />
-    </UfoErrorBoundary>
-  );
+	return (
+		<UfoErrorBoundary
+			experiences={[
+				ufoExperiences['emoji-rendered'].getInstance(props.emojiId.id || props.emojiId.shortName),
+			]}
+		>
+			<ResourcedEmojiComponent {...props} />
+		</UfoErrorBoundary>
+	);
 };
 
 export default ResourcedEmoji;

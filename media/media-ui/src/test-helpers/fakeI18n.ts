@@ -5,7 +5,7 @@ const jest = getJest();
 
 // fakeIntl["..."] here to indicate those went through formatMessage and not just left as string itself
 export const fakeIntl: any = {
-  formatMessage: jest.fn(
-    ({ defaultMessage }: MessageDescriptor) => `fakeIntl["${defaultMessage}"]`,
-  ),
+	formatMessage: jest.fn(
+		({ defaultMessage }: MessageDescriptor) => `fakeIntl["${defaultMessage}"]`,
+	),
 };

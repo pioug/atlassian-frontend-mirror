@@ -9,20 +9,20 @@ import { type FileState } from '@atlaskit/media-state';
  */
 
 export const toPromise = (
-  mediaSubscribable: MediaSubscribable,
-  subscription = new Subscription(),
+	mediaSubscribable: MediaSubscribable,
+	subscription = new Subscription(),
 ): Promise<FileState> =>
-  new Promise((resolve, reject) =>
-    subscription.add(
-      mediaSubscribable.subscribe({
-        next: (state) => {
-          resolve(state);
-          subscription.unsubscribe();
-        },
-        error: (error: any) => {
-          reject(error);
-          subscription.unsubscribe();
-        },
-      }),
-    ),
-  );
+	new Promise((resolve, reject) =>
+		subscription.add(
+			mediaSubscribable.subscribe({
+				next: (state) => {
+					resolve(state);
+					subscription.unsubscribe();
+				},
+				error: (error: any) => {
+					reject(error);
+					subscription.unsubscribe();
+				},
+			}),
+		),
+	);

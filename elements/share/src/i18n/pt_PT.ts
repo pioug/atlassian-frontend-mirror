@@ -6,34 +6,34 @@
  */
 //Portuguese (Portugal)
 export default {
-  'fabric.elements.share.copied.to.clipboard.message':
-    'Ligação copiada para a área de transferência',
-  'fabric.elements.share.copylink.button.text': 'Copiar ligação',
-  'fabric.elements.share.failure.icon.label': 'Ícone de erro',
-  'fabric.elements.share.failure.message': 'Não é possível partilhar',
-  'fabric.elements.share.form.comment.placeholder': 'Adicionar uma mensagem',
-  'fabric.elements.share.form.retry': 'Tentar novamente',
-  'fabric.elements.share.form.send': 'Enviar',
-  'fabric.elements.share.form.title': 'Partilhar',
-  'fabric.elements.share.form.user-picker.add-more': 'Introduza mais',
-  'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
-    'Não foi possível encontrar resultados para "{inputValue}".',
-  'fabric.elements.share.form.user-picker.no-options.generic':
-    'Não foi possível encontrar resultados para "{inputValue}". Convite pessoas adicionando um endereço de e-mail.',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly':
-    'Introduza o nome ou equipa',
-  'fabric.elements.share.form.user-picker.placeholder.generic':
-    'Introduza o nome, grupo, equipa ou e-mail',
-  'fabric.elements.share.form.user-picker.placeholder.jira':
-    'Introduza o nome, a equipa ou o e-mail',
-  'fabric.elements.share.form.user-picker.validation.required':
-    'Selecione, pelo menos, um utilizador, grupo, equipa ou e-mail.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Selecione, pelo menos, um utilizador, equipa ou e-mail.',
-  'fabric.elements.share.success.message':
-    '{object, select, blogpost {Publicação do blogue partilhada} board {Quadro partilhado} calendar {Calendário partilhado} draft {Rascunho partilhado} filter {Filtro partilhado} issue {Problema partilhado} media {Multimédia partilhado} page {Página partilhada} project {Projeto partilhado} pullrequest {Pedidos Pull partilhados} question {Pergunta partilhada} report {Relatório partilhado} repository {Repositório partilhado} request {Pedido partilhado} roadmap {Roteiro partilhado} site {Site partilhado} space {Espaço partilhado} other {Ligação partilhada}}',
-  'fabric.elements.share.trigger.button.icon.label': 'Partilhar ícone',
-  'fabric.elements.share.trigger.button.invite.text': 'Convidar',
-  'fabric.elements.share.trigger.button.text': 'Partilhar',
-  'fabric.elements.share.trigger.button.tooltip.text': 'Partilhar',
+	'fabric.elements.share.copied.to.clipboard.message':
+		'Ligação copiada para a área de transferência',
+	'fabric.elements.share.copylink.button.text': 'Copiar ligação',
+	'fabric.elements.share.failure.icon.label': 'Ícone de erro',
+	'fabric.elements.share.failure.message': 'Não é possível partilhar',
+	'fabric.elements.share.form.comment.placeholder': 'Adicionar uma mensagem',
+	'fabric.elements.share.form.retry': 'Tentar novamente',
+	'fabric.elements.share.form.send': 'Enviar',
+	'fabric.elements.share.form.title': 'Partilhar',
+	'fabric.elements.share.form.user-picker.add-more': 'Introduza mais',
+	'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
+		'Não foi possível encontrar resultados para "{inputValue}".',
+	'fabric.elements.share.form.user-picker.no-options.generic':
+		'Não foi possível encontrar resultados para "{inputValue}". Convite pessoas adicionando um endereço de e-mail.',
+	'fabric.elements.share.form.user-picker.placeholder.existingUserOnly':
+		'Introduza o nome ou equipa',
+	'fabric.elements.share.form.user-picker.placeholder.generic':
+		'Introduza o nome, grupo, equipa ou e-mail',
+	'fabric.elements.share.form.user-picker.placeholder.jira':
+		'Introduza o nome, a equipa ou o e-mail',
+	'fabric.elements.share.form.user-picker.validation.required':
+		'Selecione, pelo menos, um utilizador, grupo, equipa ou e-mail.',
+	'fabric.elements.share.form.user-picker.validation.required.jira':
+		'Selecione, pelo menos, um utilizador, equipa ou e-mail.',
+	'fabric.elements.share.success.message':
+		'{object, select, blogpost {Publicação do blogue partilhada} board {Quadro partilhado} calendar {Calendário partilhado} draft {Rascunho partilhado} filter {Filtro partilhado} issue {Problema partilhado} media {Multimédia partilhado} page {Página partilhada} project {Projeto partilhado} pullrequest {Pedidos Pull partilhados} question {Pergunta partilhada} report {Relatório partilhado} repository {Repositório partilhado} request {Pedido partilhado} roadmap {Roteiro partilhado} site {Site partilhado} space {Espaço partilhado} other {Ligação partilhada}}',
+	'fabric.elements.share.trigger.button.icon.label': 'Partilhar ícone',
+	'fabric.elements.share.trigger.button.invite.text': 'Convidar',
+	'fabric.elements.share.trigger.button.text': 'Partilhar',
+	'fabric.elements.share.trigger.button.tooltip.text': 'Partilhar',
 };

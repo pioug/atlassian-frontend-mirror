@@ -6,13 +6,13 @@ import { IntlProvider } from 'react-intl-next';
 import RelatedArticlesLoading from '../../RelatedArticlesLoading';
 
 describe('RelatedArticlesLoading', () => {
-  it('Should match snapshot', () => {
-    const { container } = render(
-      <IntlProvider locale="en">
-        <RelatedArticlesLoading />
-      </IntlProvider>,
-    );
+	it('Should match snapshot', () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<RelatedArticlesLoading />
+			</IntlProvider>,
+		);
 
-    expect(container.firstChild).toMatchSnapshot();
-  });
+		expect(container.firstChild).toMatchSnapshot();
+	});
 });

@@ -8,24 +8,19 @@ import { FabricElementsAnalyticsContext } from '../src';
 const myOnClickHandler = () => {};
 
 const listenerHandler = (event: UIAnalyticsEvent, channel?: string) => {
-  console.log('listenerHandler, event: ', event, ' channel: ', channel);
+	console.log('listenerHandler, event: ', event, ' channel: ', channel);
 };
 
-const ElementsComponentWithAnalytics = createDummyComponentWithAnalytics(
-  FabricChannel.elements,
-);
+const ElementsComponentWithAnalytics = createDummyComponentWithAnalytics(FabricChannel.elements);
 
 export default function Example() {
-  return (
-    <AnalyticsListener
-      onEvent={listenerHandler}
-      channel={FabricChannel.elements}
-    >
-      <div>
-        <FabricElementsAnalyticsContext data={{ greeting: 'hello' }}>
-          <ElementsComponentWithAnalytics onClick={myOnClickHandler} />
-        </FabricElementsAnalyticsContext>
-      </div>
-    </AnalyticsListener>
-  );
+	return (
+		<AnalyticsListener onEvent={listenerHandler} channel={FabricChannel.elements}>
+			<div>
+				<FabricElementsAnalyticsContext data={{ greeting: 'hello' }}>
+					<ElementsComponentWithAnalytics onClick={myOnClickHandler} />
+				</FabricElementsAnalyticsContext>
+			</div>
+		</AnalyticsListener>
+	);
 }

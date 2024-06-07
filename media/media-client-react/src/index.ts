@@ -1,8 +1,8 @@
 export {
-  MediaClientContext,
-  MediaClientProvider,
-  useMediaClient,
-  getMediaClient,
+	MediaClientContext,
+	MediaClientProvider,
+	useMediaClient,
+	getMediaClient,
 } from './MediaClientProvider';
 
 export { useFileState } from './useFileState';
@@ -13,9 +13,9 @@ export type { UseFileStateResult, UseFileStateOptions } from './useFileState';
 export { withMediaClient } from './withMediaClient';
 
 export type {
-  WithMediaClientConfigProps,
-  WithMediaClientFunction,
-  WithMediaClientConfig,
+	WithMediaClientConfigProps,
+	WithMediaClientFunction,
+	WithMediaClientConfig,
 } from './withMediaClient';
 
 export { MediaFileStateError } from './MediaFileStateError';

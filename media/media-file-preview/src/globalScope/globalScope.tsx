@@ -18,73 +18,67 @@ export const GLOBAL_MEDIA_CARD_SSR = 'mediaCardSsr';
 export const GLOBAL_MEDIA_NAMESPACE = '__MEDIA_INTERNAL';
 
 export type MediaGlobalScope = {
-  [GLOBAL_MEDIA_CARD_SSR]?: MediaCardSsr;
+	[GLOBAL_MEDIA_CARD_SSR]?: MediaCardSsr;
 };
 
-export function getMediaGlobalScope(
-  globalScope: any = window,
-): MediaGlobalScope {
-  // Must match GLOBAL_MEDIA_NAMESPACE. Can't reference the constant from here.
-  const namespace = '__MEDIA_INTERNAL';
-  if (!globalScope[namespace]) {
-    globalScope[namespace] = {};
-  }
-  return globalScope[namespace];
+export function getMediaGlobalScope(globalScope: any = window): MediaGlobalScope {
+	// Must match GLOBAL_MEDIA_NAMESPACE. Can't reference the constant from here.
+	const namespace = '__MEDIA_INTERNAL';
+	if (!globalScope[namespace]) {
+		globalScope[namespace] = {};
+	}
+	return globalScope[namespace];
 }
 
 export function getMediaCardSSR(globalScope: any = window): MediaCardSsr {
-  const globalMedia = getMediaGlobalScope(globalScope);
-  // Must match GLOBAL_MEDIA_CARD_SSR. Can't reference the constant from here.
-  const key = 'mediaCardSsr';
-  if (!globalMedia[key]) {
-    globalMedia[key] = {};
-  }
-  return globalMedia[key] as MediaCardSsr;
+	const globalMedia = getMediaGlobalScope(globalScope);
+	// Must match GLOBAL_MEDIA_CARD_SSR. Can't reference the constant from here.
+	const key = 'mediaCardSsr';
+	if (!globalMedia[key]) {
+		globalMedia[key] = {};
+	}
+	return globalMedia[key] as MediaCardSsr;
 }
 
 const dashed = (param?: string) => (param ? `-${param}` : '');
 
 export const getKey = ({ id, collectionName, occurrenceKey }: FileIdentifier) =>
-  `${id}${dashed(collectionName)}${dashed(occurrenceKey)}`;
+	`${id}${dashed(collectionName)}${dashed(occurrenceKey)}`;
 
 export const storeDataURI = (
-  key: string,
-  dataURI?: string,
-  dimensions?: Partial<NumericalCardDimensions>,
-  error?: MediaFilePreviewErrorInfo,
-  globalScope: any = window,
+	key: string,
+	dataURI?: string,
+	dimensions?: Partial<NumericalCardDimensions>,
+	error?: MediaFilePreviewErrorInfo,
+	globalScope: any = window,
 ) => {
-  const mediaCardSsr = getMediaCardSSR(globalScope);
-  mediaCardSsr[key] = { dataURI, dimensions, error };
+	const mediaCardSsr = getMediaCardSSR(globalScope);
+	mediaCardSsr[key] = { dataURI, dimensions, error };
 };
 
 const generateScript = (
-  identifier: FileIdentifier,
-  dataURI?: string,
-  dimensions?: Partial<NumericalCardDimensions>,
-  error?: MediaFilePreviewErrorInfo,
+	identifier: FileIdentifier,
+	dataURI?: string,
+	dimensions?: Partial<NumericalCardDimensions>,
+	error?: MediaFilePreviewErrorInfo,
 ) => {
-  const functionCall = printFunctionCall(
-    storeDataURI,
-    getKey(identifier),
-    dataURI,
-    dimensions,
-    error,
-  );
-  return printScript([
-    getMediaCardSSR.toString(),
-    getMediaGlobalScope.toString(),
-    functionCall,
-  ]);
+	const functionCall = printFunctionCall(
+		storeDataURI,
+		getKey(identifier),
+		dataURI,
+		dimensions,
+		error,
+	);
+	return printScript([getMediaCardSSR.toString(), getMediaGlobalScope.toString(), functionCall]);
 };
 
 export const generateScriptProps = (
-  identifier: FileIdentifier,
-  dataURI?: string,
-  dimensions?: Partial<NumericalCardDimensions>,
-  error?: MediaFilePreviewErrorInfo,
+	identifier: FileIdentifier,
+	dataURI?: string,
+	dimensions?: Partial<NumericalCardDimensions>,
+	error?: MediaFilePreviewErrorInfo,
 ): React.ScriptHTMLAttributes<HTMLScriptElement> => ({
-  dangerouslySetInnerHTML: {
-    __html: generateScript(identifier, dataURI, dimensions, error),
-  },
+	dangerouslySetInnerHTML: {
+		__html: generateScript(identifier, dataURI, dimensions, error),
+	},
 });

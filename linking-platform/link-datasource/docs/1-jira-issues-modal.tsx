@@ -29,11 +29,11 @@ filter?: string
   ## Example
 
   ${(
-    <Example
-      packageName="@atlaskit/link-datasource"
-      Component={require('./examples/basic-jira-issues-config-modal').default}
-      title="Jira Issues Configuration Modal"
-      source={require('!!raw-loader!./examples/basic-jira-issues-config-modal')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-datasource"
+			Component={require('./examples/basic-jira-issues-config-modal').default}
+			title="Jira Issues Configuration Modal"
+			source={require('!!raw-loader!./examples/basic-jira-issues-config-modal')}
+		/>
+	)}
 `;

@@ -9,21 +9,21 @@ import { errorIconColor, errorTextColor, errorTitleColor } from './constants';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ErrorWrapper = styled.div({
-  textAlign: 'center',
-  padding: token('space.300', '24px'),
-  color: errorIconColor,
+	textAlign: 'center',
+	padding: token('space.300', '24px'),
+	color: errorIconColor,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ErrorTitle = styled.p({
-  color: errorTitleColor,
-  lineHeight: `${gridSize() * 3}px`,
-  margin: `${token('space.100', '8px')} 0`,
+	color: errorTitleColor,
+	lineHeight: `${gridSize() * 3}px`,
+	margin: `${token('space.100', '8px')} 0`,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ErrorText = styled.span({
-  color: errorTextColor,
+	color: errorTextColor,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -31,6 +31,6 @@ export const TeamErrorTitle = styled.p(h400);
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TeamErrorText = styled.p({
-  color: token('color.text.subtlest', N200),
-  marginTop: token('space.100', '8px'),
+	color: token('color.text.subtlest', N200),
+	marginTop: token('space.100', '8px'),
 });

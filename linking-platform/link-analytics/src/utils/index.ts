@@ -5,7 +5,7 @@ export { getUrlAttributes } from './get-url-attributes';
 export { resolveAttributes } from './resolve-attributes';
 export { runWhenIdle } from './run-when-idle';
 export {
-  getDomainFromUrl,
-  mergeAttributes,
-  processAttributesFromBaseEvent,
+	getDomainFromUrl,
+	mergeAttributes,
+	processAttributesFromBaseEvent,
 } from './process-attributes';

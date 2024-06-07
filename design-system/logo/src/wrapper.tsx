@@ -48,17 +48,13 @@ const Wrapper = ({
   svg,
   size,
   appearance,
-  iconGradientStart,
-  iconGradientStop,
   iconColor,
   textColor,
   testId: userDefinedTestId,
   ...rest
 }: WrapperProps) => {
-  const shouldApplyStopColor =
-    iconGradientStart === 'inherit' &&
-    iconGradientStop === 'inherit' &&
-    appearance === undefined;
+  // Only required for old logos with gradients, which set gradient values to `inherit` when no appearance is provided
+  const shouldApplyStopColor = appearance === undefined;
 
   const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
 

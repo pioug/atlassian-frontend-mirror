@@ -9,48 +9,48 @@ import { WhatsNewResultsEmpty } from '../..';
 
 const cache = createIntlCache();
 const intl = createIntl(
-  {
-    locale: 'en',
-    messages: {},
-  },
-  cache,
+	{
+		locale: 'en',
+		messages: {},
+	},
+	cache,
 );
 const messageClearFilterLink = intl.formatMessage(
-  messages.help_whats_new_no_results_clear_filter_button_label,
+	messages.help_whats_new_no_results_clear_filter_button_label,
 );
 
 const mockOnClearFilter = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('WhatsNewResultsEmpty', () => {
-  it('Should match snapshot', () => {
-    const { container } = render(
-      <WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />,
-    );
+	it('Should match snapshot', () => {
+		const { container } = render(
+			<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />,
+		);
 
-    expect(container.firstChild).toMatchSnapshot();
-  });
+		expect(container.firstChild).toMatchSnapshot();
+	});
 
-  it('Execute the function prop "onClearFilter" when the user clicks the link to open clear the filter', () => {
-    const { queryByText } = render(
-      <AnalyticsListener channel="help" onEvent={analyticsSpy}>
-        <WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />
-      </AnalyticsListener>,
-    );
+	it('Execute the function prop "onClearFilter" when the user clicks the link to open clear the filter', () => {
+		const { queryByText } = render(
+			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
+				<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />
+			</AnalyticsListener>,
+		);
 
-    const LinkLabel = queryByText(messageClearFilterLink);
-    expect(LinkLabel).not.toBeNull();
+		const LinkLabel = queryByText(messageClearFilterLink);
+		expect(LinkLabel).not.toBeNull();
 
-    if (LinkLabel) {
-      const link = LinkLabel.closest('a');
+		if (LinkLabel) {
+			const link = LinkLabel.closest('a');
 
-      expect(link).not.toBeNull();
+			expect(link).not.toBeNull();
 
-      if (link) {
-        expect(mockOnClearFilter).toHaveBeenCalledTimes(0);
-        fireEvent.click(link);
-        expect(mockOnClearFilter).toHaveBeenCalledTimes(1);
-      }
-    }
-  });
+			if (link) {
+				expect(mockOnClearFilter).toHaveBeenCalledTimes(0);
+				fireEvent.click(link);
+				expect(mockOnClearFilter).toHaveBeenCalledTimes(1);
+			}
+		}
+	});
 });

@@ -1,9 +1,9 @@
 import { borderRadius as akBorderRadius } from '@atlaskit/theme/constants';
 
 export const ellipsis = (maxWidth: string | number = '100%') => {
-  const unit = typeof maxWidth === 'number' ? 'px' : '';
+	const unit = typeof maxWidth === 'number' ? 'px' : '';
 
-  return `
+	return `
     max-width: ${maxWidth}${unit};
     overflow: hidden;
     text-overflow: ellipsis;
@@ -12,9 +12,9 @@ export const ellipsis = (maxWidth: string | number = '100%') => {
 };
 
 export const size = (value: string | number = '100%') => {
-  const unit = typeof value === 'number' ? 'px' : '';
+	const unit = typeof value === 'number' ? 'px' : '';
 
-  return `
+	return `
     width: ${value}${unit};
     height: ${value}${unit};
   `;

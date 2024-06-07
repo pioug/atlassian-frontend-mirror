@@ -1,6 +1,6 @@
 export type {
-  AutocompleteOption,
-  AutocompleteOptions,
-  AutocompleteProvider,
-  AutocompleteValueType,
+	AutocompleteOption,
+	AutocompleteOptions,
+	AutocompleteProvider,
+	AutocompleteValueType,
 } from './types';

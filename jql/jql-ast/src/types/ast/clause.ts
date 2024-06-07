@@ -1,9 +1,9 @@
 import {
-  type CLAUSE_OPERATOR_NOT,
-  type CLAUSE_TYPE_COMPOUND,
-  type CLAUSE_TYPE_NOT,
-  type CLAUSE_TYPE_TERMINAL,
-  type NODE_TYPE_CLAUSE,
+	type CLAUSE_OPERATOR_NOT,
+	type CLAUSE_TYPE_COMPOUND,
+	type CLAUSE_TYPE_NOT,
+	type CLAUSE_TYPE_TERMINAL,
+	type NODE_TYPE_CLAUSE,
 } from '../../constants';
 
 import { type AstNode, type Removable, type Replaceable } from './common';
@@ -14,27 +14,27 @@ import { type Operator } from './operator';
 import { type Predicate } from './predicate';
 
 export interface ParentOfClause {
-  /**
-   * Remove the provided clause from the node. If the clause to remove is not found as a child of the current node then
-   * no changes will be made.
-   *
-   * If this is called on a `CompoundClause` node which has only 1 child clause remaining after the operation, then the
-   * current node will be replaced with the child clause (flattening the tree structure). If there are 0 child clauses
-   * remaining then the compound clause will be removed entirely.
-   *
-   * If this is called on a `NotClause` node then the not clause will be removed entirely.
-   *
-   * @param clause Clause to remove
-   */
-  removeClause: (clause: Clause) => void;
-  /**
-   * Replace the matching child clause with the provided `nextClause` node. If the clause to replace is not found as a
-   * child of the current node then no changes will be made.
-   *
-   * @param clause Clause to be replaced
-   * @param nextClause Clause to set as the new value
-   */
-  replaceClause: (clause: Clause, nextClause: Clause) => void;
+	/**
+	 * Remove the provided clause from the node. If the clause to remove is not found as a child of the current node then
+	 * no changes will be made.
+	 *
+	 * If this is called on a `CompoundClause` node which has only 1 child clause remaining after the operation, then the
+	 * current node will be replaced with the child clause (flattening the tree structure). If there are 0 child clauses
+	 * remaining then the compound clause will be removed entirely.
+	 *
+	 * If this is called on a `NotClause` node then the not clause will be removed entirely.
+	 *
+	 * @param clause Clause to remove
+	 */
+	removeClause: (clause: Clause) => void;
+	/**
+	 * Replace the matching child clause with the provided `nextClause` node. If the clause to replace is not found as a
+	 * child of the current node then no changes will be made.
+	 *
+	 * @param clause Clause to be replaced
+	 * @param nextClause Clause to set as the new value
+	 */
+	replaceClause: (clause: Clause, nextClause: Clause) => void;
 }
 
 /**
@@ -51,68 +51,68 @@ export type Clause = CompoundClause | TerminalClause | NotClause;
  * for more information about precedence in JQL queries.
  */
 export interface CompoundClause
-  extends AstNode<ParentOfClause & AstNode>,
-    Removable,
-    Replaceable<Clause>,
-    ParentOfClause {
-  type: typeof NODE_TYPE_CLAUSE;
-  clauseType: typeof CLAUSE_TYPE_COMPOUND;
-  /**
-   * The operator between the clauses.
-   */
-  operator: CompoundOperator;
-  /**
-   * List of nested clauses.
-   */
-  clauses: Clause[];
+	extends AstNode<ParentOfClause & AstNode>,
+		Removable,
+		Replaceable<Clause>,
+		ParentOfClause {
+	type: typeof NODE_TYPE_CLAUSE;
+	clauseType: typeof CLAUSE_TYPE_COMPOUND;
+	/**
+	 * The operator between the clauses.
+	 */
+	operator: CompoundOperator;
+	/**
+	 * List of nested clauses.
+	 */
+	clauses: Clause[];
 
-  /**
-   * Append the provided clause to this compound clause. If the clause to append is also a compound clause sharing the
-   * same operator as this node then the two compound clauses will be merged.
-   *
-   * @param clause Clause to append
-   */
-  appendClause: (clause: Clause) => void;
+	/**
+	 * Append the provided clause to this compound clause. If the clause to append is also a compound clause sharing the
+	 * same operator as this node then the two compound clauses will be merged.
+	 *
+	 * @param clause Clause to append
+	 */
+	appendClause: (clause: Clause) => void;
 }
 
 /**
  * A leaf JQL query clause that asserts a field value (present or past), or whether that value has changed.
  */
 export interface TerminalClause
-  extends AstNode<ParentOfClause & AstNode>,
-    Removable,
-    Replaceable<Clause> {
-  type: typeof NODE_TYPE_CLAUSE;
-  clauseType: typeof CLAUSE_TYPE_TERMINAL;
-  /**
-   * The field in the clause.
-   */
-  field: Field;
-  /**
-   * The operator between the field and operand.
-   * @see https://support.atlassian.com/jira-software-cloud/docs/advanced-search-reference-jql-operators
-   */
-  operator: Operator | void;
-  /**
-   * The operand to which the operator is applied.
-   */
-  operand: Operand | void;
-  /**
-   * The list of time predicates.
-   */
-  predicates: Predicate[];
-  /**
-   * Function to update operator
-   */
-  setOperator: (this: TerminalClause, operator: Operator) => void;
-  /**
-   * Function to update operand
-   */
-  setOperand: (this: TerminalClause, operand: Operand) => void;
-  /**
-   * Function to add operand to existing operand
-   */
-  appendOperand: (this: TerminalClause, operand: Operand) => void;
+	extends AstNode<ParentOfClause & AstNode>,
+		Removable,
+		Replaceable<Clause> {
+	type: typeof NODE_TYPE_CLAUSE;
+	clauseType: typeof CLAUSE_TYPE_TERMINAL;
+	/**
+	 * The field in the clause.
+	 */
+	field: Field;
+	/**
+	 * The operator between the field and operand.
+	 * @see https://support.atlassian.com/jira-software-cloud/docs/advanced-search-reference-jql-operators
+	 */
+	operator: Operator | void;
+	/**
+	 * The operand to which the operator is applied.
+	 */
+	operand: Operand | void;
+	/**
+	 * The list of time predicates.
+	 */
+	predicates: Predicate[];
+	/**
+	 * Function to update operator
+	 */
+	setOperator: (this: TerminalClause, operator: Operator) => void;
+	/**
+	 * Function to update operand
+	 */
+	setOperand: (this: TerminalClause, operand: Operand) => void;
+	/**
+	 * Function to add operand to existing operand
+	 */
+	appendOperand: (this: TerminalClause, operand: Operand) => void;
 }
 
 /**
@@ -120,24 +120,21 @@ export interface TerminalClause
  * expression. For example, <code>NOT (labels in (urgent, blocker) OR lastCommentedBy = currentUser())</code>.
  */
 export interface NotClause
-  extends AstNode<ParentOfClause & AstNode>,
-    Removable,
-    Replaceable<Clause>,
-    ParentOfClause {
-  type: typeof NODE_TYPE_CLAUSE;
-  clauseType: typeof CLAUSE_TYPE_NOT;
-  clause: Clause;
-  operator: NotClauseOperator;
+	extends AstNode<ParentOfClause & AstNode>,
+		Removable,
+		Replaceable<Clause>,
+		ParentOfClause {
+	type: typeof NODE_TYPE_CLAUSE;
+	clauseType: typeof CLAUSE_TYPE_NOT;
+	clause: Clause;
+	operator: NotClauseOperator;
 }
 
 /**
  * The operator before the sub-clause in a NOT clause.
  */
 export interface NotClauseOperator extends AstNode {
-  value: typeof CLAUSE_OPERATOR_NOT;
+	value: typeof CLAUSE_OPERATOR_NOT;
 }
 
-export type TerminalClauseRhs = Pick<
-  TerminalClause,
-  'operator' | 'operand' | 'predicates'
->;
+export type TerminalClauseRhs = Pick<TerminalClause, 'operator' | 'operand' | 'predicates'>;

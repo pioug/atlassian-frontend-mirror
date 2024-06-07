@@ -17,23 +17,21 @@ type RuleContext = Rule.RuleContext;
  * @returns The first import declaration found in the file.
  */
 export const getFirstSupportedImport = (
-  context: RuleContext,
-  importSources: ImportSource[],
+	context: RuleContext,
+	importSources: ImportSource[],
 ): ImportDeclaration | undefined => {
-  const isSupportedImport = (
-    node: Program['body'][number],
-  ): node is ImportDeclaration => {
-    return (
-      isNodeOfType(node, 'ImportDeclaration') &&
-      typeof node.source.value === 'string' &&
-      importSources.includes(node.source.value as ImportSource)
-    );
-  };
+	const isSupportedImport = (node: Program['body'][number]): node is ImportDeclaration => {
+		return (
+			isNodeOfType(node, 'ImportDeclaration') &&
+			typeof node.source.value === 'string' &&
+			importSources.includes(node.source.value as ImportSource)
+		);
+	};
 
-  const source = context.getSourceCode();
-  const supportedImports = source.ast.body.filter(isSupportedImport);
+	const source = context.getSourceCode();
+	const supportedImports = source.ast.body.filter(isSupportedImport);
 
-  if (supportedImports.length) {
-    return supportedImports[0];
-  }
+	if (supportedImports.length) {
+		return supportedImports[0];
+	}
 };

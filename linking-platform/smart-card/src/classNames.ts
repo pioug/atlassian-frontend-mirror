@@ -2,12 +2,12 @@ export { contentFooterClassName } from './view/BlockCard/components/ContentFoote
 export { metadataListClassName } from './view/common/MetadataList';
 export { blockCardResolvingViewClassName } from './view/BlockCard/views/ResolvingView';
 export {
-  blockCardResolvedViewClassName,
-  blockCardResolvedViewByClassName,
+	blockCardResolvedViewClassName,
+	blockCardResolvedViewByClassName,
 } from './view/BlockCard/views/ResolvedView';
 export {
-  blockCardForbiddenViewClassName,
-  blockCardForbiddenViewLinkClassName,
+	blockCardForbiddenViewClassName,
+	blockCardForbiddenViewLinkClassName,
 } from './view/BlockCard/views/ForbiddenView';
 export { blockCardIconImageClassName } from './view/common/Icon';
 export { blockCardContentClassName } from './view/BlockCard/components/Content';

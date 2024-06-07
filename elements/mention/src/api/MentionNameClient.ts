@@ -7,8 +7,8 @@
 import { type MentionNameDetails } from '../types';
 
 export interface MentionNameClient {
-  getLookupLimit(): number;
-  lookupMentionNames(ids: string[]): Promise<MentionNameDetails[]>;
+	getLookupLimit(): number;
+	lookupMentionNames(ids: string[]): Promise<MentionNameDetails[]>;
 }
 
 // interface PRSResponseItem {

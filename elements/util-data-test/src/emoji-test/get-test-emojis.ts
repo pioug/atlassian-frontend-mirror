@@ -4,7 +4,7 @@ import { getTestSiteEmojis } from './get-test-site-emojis';
 import { getTestStandardEmojis } from './get-test-standard-emojis';
 
 export const getTestEmojis = () => [
-  ...denormaliseEmojiServiceResponse(getTestStandardEmojis()).emojis,
-  ...denormaliseEmojiServiceResponse(getTestAtlassianEmojis()).emojis,
-  ...getTestSiteEmojis().emojis,
+	...denormaliseEmojiServiceResponse(getTestStandardEmojis()).emojis,
+	...denormaliseEmojiServiceResponse(getTestAtlassianEmojis()).emojis,
+	...getTestSiteEmojis().emojis,
 ];

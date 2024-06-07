@@ -9,21 +9,19 @@ import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-contex
 import type { AIFooterBlockProps } from '../types';
 
 const AIFooterBlockResolvedView = (props: AIFooterBlockProps) => {
-  const context = useFlexibleUiContext();
+	const context = useFlexibleUiContext();
 
-  const actionData = context?.actions?.[InternalActionName.AISummaryAction];
+	const actionData = context?.actions?.[InternalActionName.AISummaryAction];
 
-  const { testId } = props;
+	const { testId } = props;
 
-  return (
-    <Block {...props} testId={`${testId}-resolved-view`}>
-      <Provider testId={`${testId}-provider`} />
+	return (
+		<Block {...props} testId={`${testId}-resolved-view`}>
+			<Provider testId={`${testId}-provider`} />
 
-      {actionData ? (
-        <AIFooterMetadata {...actionData} testId={`${testId}-ai-metadata`} />
-      ) : null}
-    </Block>
-  );
+			{actionData ? <AIFooterMetadata {...actionData} testId={`${testId}-ai-metadata`} /> : null}
+		</Block>
+	);
 };
 
 export default AIFooterBlockResolvedView;

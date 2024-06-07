@@ -10,20 +10,20 @@ import type { AIBorderPalette } from '../types';
  */
 
 export type AIGlowingBorderProps = {
-  children: ReactNode;
-  palette: AIBorderPalette;
-  isMoving?: boolean;
-  isGlowing?: boolean;
-  testId?: string;
-  additionalCss?: {
-    container?: SerializedStyles;
-    animatedSvgContainer?: SerializedStyles;
-  };
+	children: ReactNode;
+	palette: AIBorderPalette;
+	isMoving?: boolean;
+	isGlowing?: boolean;
+	testId?: string;
+	additionalCss?: {
+		container?: SerializedStyles;
+		animatedSvgContainer?: SerializedStyles;
+	};
 };
 
 export type AnimatedSvgContainerProps = {
-  palette: AIBorderPalette;
-  isMoving?: boolean;
-  isGlowing?: boolean;
-  additionalCss?: SerializedStyles;
+	palette: AIBorderPalette;
+	isMoving?: boolean;
+	isGlowing?: boolean;
+	additionalCss?: SerializedStyles;
 };

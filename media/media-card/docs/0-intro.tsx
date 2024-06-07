@@ -16,13 +16,13 @@ It leverages the returned id opon a successful file upload and does all the work
 Additionaly it also takes care of displaying the upload status of the file.
 
   ${(
-    <DocsContentTabs
-      tabs={[
-        { name: 'Usage', content: UsageTab },
-        { name: 'Props Definition', content: PropsDefinitionTab },
-      ]}
-    />
-  )}
+		<DocsContentTabs
+			tabs={[
+				{ name: 'Usage', content: UsageTab },
+				{ name: 'Props Definition', content: PropsDefinitionTab },
+			]}
+		/>
+	)}
 
   ### Error UI Design Matrix for Media Card
 

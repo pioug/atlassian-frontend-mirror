@@ -11,11 +11,11 @@ import { extractUrlFromIconJsonLd } from '@atlaskit/link-extractors';
  * @returns IconDescriptor, which will contain label and url, or undefined
  */
 const extractUrlIcon = (
-  icon?: JsonLd.Primitives.Image | JsonLd.Primitives.Link,
-  label?: string,
+	icon?: JsonLd.Primitives.Image | JsonLd.Primitives.Link,
+	label?: string,
 ): IconDescriptor | undefined => {
-  const url = icon && extractUrlFromIconJsonLd(icon);
-  return url ? { label, url } : undefined;
+	const url = icon && extractUrlFromIconJsonLd(icon);
+	return url ? { label, url } : undefined;
 };
 
 export default extractUrlIcon;

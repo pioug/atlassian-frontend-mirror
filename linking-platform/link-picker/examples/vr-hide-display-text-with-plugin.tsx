@@ -7,14 +7,14 @@ import { MockLinkPickerPlugin } from '../src/__tests__/__helpers/mock-plugins';
 const plugins = [new MockLinkPickerPlugin()];
 
 export default function VrHideDisplayTextSinglePlugin() {
-  return (
-    <PageWrapper>
-      <LinkPicker
-        plugins={plugins}
-        onSubmit={() => {}}
-        onCancel={() => {}}
-        hideDisplayText={true}
-      />
-    </PageWrapper>
-  );
+	return (
+		<PageWrapper>
+			<LinkPicker
+				plugins={plugins}
+				onSubmit={() => {}}
+				onCancel={() => {}}
+				hideDisplayText={true}
+			/>
+		</PageWrapper>
+	);
 }

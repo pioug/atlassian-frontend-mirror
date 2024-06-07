@@ -6,20 +6,20 @@ import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
 
 export const extractViewAction = (
-  data: JsonLd.Data.BaseData,
-  actionOptions?: CardActionOptions,
+	data: JsonLd.Data.BaseData,
+	actionOptions?: CardActionOptions,
 ): ViewActionData | undefined => {
-  if (!canShowAction(CardAction.ViewAction, actionOptions)) {
-    return;
-  }
+	if (!canShowAction(CardAction.ViewAction, actionOptions)) {
+		return;
+	}
 
-  const viewActionExists = getActionsFromJsonLd(data).find(
-    (action) => action['@type'] === 'ViewAction',
-  );
-  if (viewActionExists) {
-    return {
-      viewUrl: extractLink(data),
-    };
-  }
-  return undefined;
+	const viewActionExists = getActionsFromJsonLd(data).find(
+		(action) => action['@type'] === 'ViewAction',
+	);
+	if (viewActionExists) {
+		return {
+			viewUrl: extractLink(data),
+		};
+	}
+	return undefined;
 };

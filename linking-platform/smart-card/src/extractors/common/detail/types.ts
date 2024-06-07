@@ -1,4 +1,4 @@
 export interface LinkDetail {
-  text: string;
-  icon: React.ReactNode;
+	text: string;
+	icon: React.ReactNode;
 }

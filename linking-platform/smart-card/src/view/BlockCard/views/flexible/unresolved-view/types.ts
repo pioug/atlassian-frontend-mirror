@@ -3,9 +3,9 @@ import type { ActionItem } from '../../../../FlexibleCard/components/blocks/type
 import type { FlexibleBlockCardProps } from '../types';
 
 export type UnresolvedViewProps = PropsWithChildren<
-  FlexibleBlockCardProps & {
-    actions?: ActionItem[];
-    showPreview?: boolean;
-    title?: string;
-  }
+	FlexibleBlockCardProps & {
+		actions?: ActionItem[];
+		showPreview?: boolean;
+		title?: string;
+	}
 >;

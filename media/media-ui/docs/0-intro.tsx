@@ -4,9 +4,9 @@ import { createMediaUseOnlyNotice } from '@atlaskit/media-common/docs';
 
 export default md`
   ${createMediaUseOnlyNotice('Media UI', [
-    { name: 'Media Card', link: '/packages/media/media-card' },
-    { name: 'Media Picker', link: '/packages/media/media-picker' },
-  ])}
+		{ name: 'Media Card', link: '/packages/media/media-card' },
+		{ name: 'Media Picker', link: '/packages/media/media-picker' },
+	])}
 
   ${(<AtlassianInternalWarning />)}
 

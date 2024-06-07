@@ -3,30 +3,28 @@ import { type RequestData } from '.';
 import { matches } from '@atlaskit/media-common';
 
 export const matchMethod = (req: MockRequest, data: RequestData) => {
-  return data.method ? data.method === req.method() : true;
+	return data.method ? data.method === req.method() : true;
 };
 
 export const exactMatchUrl = (req: MockRequest, data: RequestData) => {
-  return data.url ? matches(data.url)(req.url()) : true;
+	return data.url ? matches(data.url)(req.url()) : true;
 };
 
 export const exactMatchHeaders = (req: MockRequest, data: RequestData) => {
-  return data.headers ? matches(data.headers)(req.headers()) : true;
+	return data.headers ? matches(data.headers)(req.headers()) : true;
 };
 
 export const exactMatchBody = (req: MockRequest, data: RequestData) => {
-  try {
-    return data.body
-      ? matches(JSON.parse(data.body))(JSON.parse(req.body() || '{}'))
-      : true;
-  } catch (e) {
-    return false;
-  }
+	try {
+		return data.body ? matches(JSON.parse(data.body))(JSON.parse(req.body() || '{}')) : true;
+	} catch (e) {
+		return false;
+	}
 };
 
 export const exactMatch = (req: MockRequest, data: RequestData) => {
-  return [matchMethod, exactMatchUrl, exactMatchHeaders, exactMatchBody].reduce(
-    (coll, fn) => coll && fn(req, data),
-    true,
-  );
+	return [matchMethod, exactMatchUrl, exactMatchHeaders, exactMatchBody].reduce(
+		(coll, fn) => coll && fn(req, data),
+		true,
+	);
 };

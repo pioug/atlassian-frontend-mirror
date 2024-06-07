@@ -4,11 +4,11 @@ import { ExampleJiraIssuesTableView } from '../../examples-helpers/buildJiraIssu
 import { HoverableContainer } from '../../examples-helpers/hoverableContainer';
 
 export default () => (
-  <HoverableContainer>
-    <ExampleJiraIssuesTableView
-      parameters={{
-        cloudId: '11111',
-      }}
-    />
-  </HoverableContainer>
+	<HoverableContainer>
+		<ExampleJiraIssuesTableView
+			parameters={{
+				cloudId: '11111',
+			}}
+		/>
+	</HoverableContainer>
 );

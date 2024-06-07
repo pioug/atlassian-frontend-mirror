@@ -16,27 +16,27 @@ import { getIconSizeStyles, getIconWidth } from '../../../utils';
  * @see TitleBlock
  */
 const TitleBlockResolvingView: React.FC<TitleBlockViewProps> = ({
-  actionGroup,
-  testId,
-  title,
-  hideIcon,
-  ...blockProps
+	actionGroup,
+	testId,
+	title,
+	hideIcon,
+	...blockProps
 }) => {
-  const { size = SmartLinkSize.Medium } = blockProps;
-  const iconWidth = getIconWidth(size);
-  const iconStyles = getIconSizeStyles(iconWidth);
+	const { size = SmartLinkSize.Medium } = blockProps;
+	const iconWidth = getIconWidth(size);
+	const iconStyles = getIconSizeStyles(iconWidth);
 
-  return (
-    <Block {...blockProps} testId={`${testId}-resolving-view`}>
-      {!hideIcon && (
-        <span css={iconStyles} data-testid={`${testId}-icon`}>
-          <LoadingSkeleton testId={`${testId}-icon-loading`} />
-        </span>
-      )}
-      {title}
-      {actionGroup}
-    </Block>
-  );
+	return (
+		<Block {...blockProps} testId={`${testId}-resolving-view`}>
+			{!hideIcon && (
+				<span css={iconStyles} data-testid={`${testId}-icon`}>
+					<LoadingSkeleton testId={`${testId}-icon-loading`} />
+				</span>
+			)}
+			{title}
+			{actionGroup}
+		</Block>
+	);
 };
 
 export default TitleBlockResolvingView;

@@ -9,221 +9,211 @@ import { type AIStateIndicatorProps } from '../ai-state-indicator/types';
 import { CONTENT_URL_AI_TROUBLESHOOTING } from '../../../../../../constants';
 
 describe('AIStateIndicator', () => {
-  const testId = 'indicator-test';
+	const testId = 'indicator-test';
 
-  const setup = (props?: AIStateIndicatorProps) =>
-    render(
-      <IntlProvider locale="en">
-        <AIStateIndicator state="ready" testId={testId} {...props} />
-      </IntlProvider>,
-    );
+	const setup = (props?: AIStateIndicatorProps) =>
+		render(
+			<IntlProvider locale="en">
+				<AIStateIndicator state="ready" testId={testId} {...props} />
+			</IntlProvider>,
+		);
 
-  describe('ready state', () => {
-    it('does not render', () => {
-      const { container } = setup();
-      expect(container.firstChild).toBeNull();
-    });
-  });
+	describe('ready state', () => {
+		it('does not render', () => {
+			const { container } = setup();
+			expect(container.firstChild).toBeNull();
+		});
+	});
 
-  describe('loading state', () => {
-    const state = 'loading';
+	describe('loading state', () => {
+		const state = 'loading';
 
-    it('renders default appearance by default', async () => {
-      const { findByTestId } = setup({ state });
-      const icon = await findByTestId(`${testId}-loading-icon`);
-      const msg = await findByTestId(`${testId}-loading-message`);
+		it('renders default appearance by default', async () => {
+			const { findByTestId } = setup({ state });
+			const icon = await findByTestId(`${testId}-loading-icon`);
+			const msg = await findByTestId(`${testId}-loading-message`);
 
-      expect(icon).toBeInTheDocument();
-      expect(msg).toBeInTheDocument();
-    });
+			expect(icon).toBeInTheDocument();
+			expect(msg).toBeInTheDocument();
+		});
 
-    it('renders default appearance', async () => {
-      const { findByTestId } = setup({ state, appearance: 'default' });
-      const icon = await findByTestId(`${testId}-loading-icon`);
-      const msg = await findByTestId(`${testId}-loading-message`);
+		it('renders default appearance', async () => {
+			const { findByTestId } = setup({ state, appearance: 'default' });
+			const icon = await findByTestId(`${testId}-loading-icon`);
+			const msg = await findByTestId(`${testId}-loading-message`);
 
-      expect(icon).toBeInTheDocument();
-      expect(msg).toBeInTheDocument();
-      expect(msg.textContent).toBe('Atlassian Intelligence is working...');
-    });
+			expect(icon).toBeInTheDocument();
+			expect(msg).toBeInTheDocument();
+			expect(msg.textContent).toBe('Atlassian Intelligence is working...');
+		});
 
-    it('does not render icon-only appearance', async () => {
-      const { container } = setup({
-        state,
-        appearance: 'icon-only',
-      });
-      expect(container.firstChild).toBeNull();
-    });
-  });
+		it('does not render icon-only appearance', async () => {
+			const { container } = setup({
+				state,
+				appearance: 'icon-only',
+			});
+			expect(container.firstChild).toBeNull();
+		});
+	});
 
-  describe('done', () => {
-    const state = 'done';
+	describe('done', () => {
+		const state = 'done';
 
-    it('renders default appearance by default', async () => {
-      const { findByTestId } = setup({ state });
-      const icon = await findByTestId(`${testId}-done-icon`);
-      const msg = await findByTestId(`${testId}-done-message`);
+		it('renders default appearance by default', async () => {
+			const { findByTestId } = setup({ state });
+			const icon = await findByTestId(`${testId}-done-icon`);
+			const msg = await findByTestId(`${testId}-done-message`);
 
-      expect(icon).toBeInTheDocument();
-      expect(msg).toBeInTheDocument();
-    });
+			expect(icon).toBeInTheDocument();
+			expect(msg).toBeInTheDocument();
+		});
 
-    describe('renders default appearance', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable',
-        async () => {
-          const user = userEvent.setup();
-          const { findByRole, findByTestId, queryByTestId } = setup({
-            state,
-            appearance: 'default',
-          });
-          const icon = await findByTestId(`${testId}-done-icon`);
-          const msg = await findByTestId(`${testId}-done-message`);
-          const beta = queryByTestId(`${testId}-beta`);
-          const tooltipTrigger = await findByTestId(`${testId}-done-info`);
+		describe('renders default appearance', () => {
+			ffTest(
+				'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable',
+				async () => {
+					const user = userEvent.setup();
+					const { findByRole, findByTestId, queryByTestId } = setup({
+						state,
+						appearance: 'default',
+					});
+					const icon = await findByTestId(`${testId}-done-icon`);
+					const msg = await findByTestId(`${testId}-done-message`);
+					const beta = queryByTestId(`${testId}-beta`);
+					const tooltipTrigger = await findByTestId(`${testId}-done-info`);
 
-          expect(icon).toBeInTheDocument();
-          expect(msg).toBeInTheDocument();
-          expect(msg.textContent).toBe('Summarized by Atlassian Intelligence');
-          expect(beta).not.toBeInTheDocument();
-          expect(tooltipTrigger).toBeInTheDocument();
+					expect(icon).toBeInTheDocument();
+					expect(msg).toBeInTheDocument();
+					expect(msg.textContent).toBe('Summarized by Atlassian Intelligence');
+					expect(beta).not.toBeInTheDocument();
+					expect(tooltipTrigger).toBeInTheDocument();
 
-          await user.hover(tooltipTrigger);
+					await user.hover(tooltipTrigger);
 
-          const tooltip = await findByRole('tooltip');
-          const tooltipContent = await within(tooltip).findByTestId(
-            `${testId}-done-tooltip`,
-          );
-          expect(tooltipContent).toBeInTheDocument();
-        },
-        async () => {
-          const user = userEvent.setup();
-          const { findByRole, findByTestId } = setup({
-            state,
-            appearance: 'default',
-          });
-          const icon = await findByTestId(`${testId}-done-icon`);
-          const msg = await findByTestId(`${testId}-done-message`);
-          const beta = await findByTestId(`${testId}-beta`);
-          const tooltipTrigger = await findByTestId(`${testId}-done-info`);
+					const tooltip = await findByRole('tooltip');
+					const tooltipContent = await within(tooltip).findByTestId(`${testId}-done-tooltip`);
+					expect(tooltipContent).toBeInTheDocument();
+				},
+				async () => {
+					const user = userEvent.setup();
+					const { findByRole, findByTestId } = setup({
+						state,
+						appearance: 'default',
+					});
+					const icon = await findByTestId(`${testId}-done-icon`);
+					const msg = await findByTestId(`${testId}-done-message`);
+					const beta = await findByTestId(`${testId}-beta`);
+					const tooltipTrigger = await findByTestId(`${testId}-done-info`);
 
-          expect(icon).toBeInTheDocument();
-          expect(msg).toBeInTheDocument();
-          expect(msg.textContent).toBe('Summarized by AI');
-          expect(beta).toBeInTheDocument();
-          expect(tooltipTrigger).toBeInTheDocument();
+					expect(icon).toBeInTheDocument();
+					expect(msg).toBeInTheDocument();
+					expect(msg.textContent).toBe('Summarized by AI');
+					expect(beta).toBeInTheDocument();
+					expect(tooltipTrigger).toBeInTheDocument();
 
-          await user.hover(tooltipTrigger);
+					await user.hover(tooltipTrigger);
 
-          const tooltip = await findByRole('tooltip');
-          const tooltipContent = await within(tooltip).findByTestId(
-            `${testId}-done-tooltip`,
-          );
-          expect(tooltipContent).toBeInTheDocument();
-        },
-      );
-    });
+					const tooltip = await findByRole('tooltip');
+					const tooltipContent = await within(tooltip).findByTestId(`${testId}-done-tooltip`);
+					expect(tooltipContent).toBeInTheDocument();
+				},
+			);
+		});
 
-    describe('renders icon-only appearance', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable',
-        async () => {
-          const user = userEvent.setup();
-          const { findByRole, findByTestId, queryByTestId } = setup({
-            state,
-            appearance: 'icon-only',
-          });
-          const icon = await findByTestId(`${testId}-done-icon`);
-          const msg = queryByTestId(`${testId}-done-message`);
-          const tooltipTrigger = icon.closest('div');
+		describe('renders icon-only appearance', () => {
+			ffTest(
+				'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable',
+				async () => {
+					const user = userEvent.setup();
+					const { findByRole, findByTestId, queryByTestId } = setup({
+						state,
+						appearance: 'icon-only',
+					});
+					const icon = await findByTestId(`${testId}-done-icon`);
+					const msg = queryByTestId(`${testId}-done-message`);
+					const tooltipTrigger = icon.closest('div');
 
-          expect(icon).toBeInTheDocument();
-          expect(msg).not.toBeInTheDocument();
+					expect(icon).toBeInTheDocument();
+					expect(msg).not.toBeInTheDocument();
 
-          expect(tooltipTrigger).toBeInTheDocument();
+					expect(tooltipTrigger).toBeInTheDocument();
 
-          if (tooltipTrigger) {
-            await user.hover(tooltipTrigger);
-          }
+					if (tooltipTrigger) {
+						await user.hover(tooltipTrigger);
+					}
 
-          const tooltip = await findByRole('tooltip');
-          const tooltipMsg = await within(tooltip).findByTestId(
-            `${testId}-done-message`,
-          );
-          const beta = within(tooltip).queryByTestId(`${testId}-beta`);
+					const tooltip = await findByRole('tooltip');
+					const tooltipMsg = await within(tooltip).findByTestId(`${testId}-done-message`);
+					const beta = within(tooltip).queryByTestId(`${testId}-beta`);
 
-          expect(tooltipMsg.textContent).toBe(
-            'Summarized by Atlassian Intelligence',
-          );
-          expect(beta).not.toBeInTheDocument();
-        },
-        async () => {
-          const user = userEvent.setup();
-          const { findByRole, findByTestId, queryByTestId } = setup({
-            state,
-            appearance: 'icon-only',
-          });
-          const icon = await findByTestId(`${testId}-done-icon`);
-          const msg = queryByTestId(`${testId}-done-message`);
-          const tooltipTrigger = icon.closest('div');
+					expect(tooltipMsg.textContent).toBe('Summarized by Atlassian Intelligence');
+					expect(beta).not.toBeInTheDocument();
+				},
+				async () => {
+					const user = userEvent.setup();
+					const { findByRole, findByTestId, queryByTestId } = setup({
+						state,
+						appearance: 'icon-only',
+					});
+					const icon = await findByTestId(`${testId}-done-icon`);
+					const msg = queryByTestId(`${testId}-done-message`);
+					const tooltipTrigger = icon.closest('div');
 
-          expect(icon).toBeInTheDocument();
-          expect(msg).not.toBeInTheDocument();
-          expect(queryByTestId(`${testId}-beta`)).not.toBeInTheDocument();
-          expect(tooltipTrigger).toBeInTheDocument();
+					expect(icon).toBeInTheDocument();
+					expect(msg).not.toBeInTheDocument();
+					expect(queryByTestId(`${testId}-beta`)).not.toBeInTheDocument();
+					expect(tooltipTrigger).toBeInTheDocument();
 
-          if (tooltipTrigger) {
-            await user.hover(tooltipTrigger);
-          }
+					if (tooltipTrigger) {
+						await user.hover(tooltipTrigger);
+					}
 
-          const tooltip = await findByRole('tooltip');
-          const tooltipMsg = await within(tooltip).findByTestId(
-            `${testId}-done-message`,
-          );
-          const beta = await within(tooltip).findByTestId(`${testId}-beta`);
+					const tooltip = await findByRole('tooltip');
+					const tooltipMsg = await within(tooltip).findByTestId(`${testId}-done-message`);
+					const beta = await within(tooltip).findByTestId(`${testId}-beta`);
 
-          expect(tooltipMsg.textContent).toBe('Summarized by AI');
-          expect(beta).toBeInTheDocument();
-        },
-      );
-    });
-  });
+					expect(tooltipMsg.textContent).toBe('Summarized by AI');
+					expect(beta).toBeInTheDocument();
+				},
+			);
+		});
+	});
 
-  describe('error state', () => {
-    const state = 'error';
+	describe('error state', () => {
+		const state = 'error';
 
-    it('renders default appearance by default', async () => {
-      const { findByTestId } = setup({ state });
-      const icon = await findByTestId(`${testId}-error-icon`);
-      const msg = await findByTestId(`${testId}-error-message`);
+		it('renders default appearance by default', async () => {
+			const { findByTestId } = setup({ state });
+			const icon = await findByTestId(`${testId}-error-icon`);
+			const msg = await findByTestId(`${testId}-error-message`);
 
-      expect(icon).toBeInTheDocument();
-      expect(msg).toBeInTheDocument();
-    });
+			expect(icon).toBeInTheDocument();
+			expect(msg).toBeInTheDocument();
+		});
 
-    it('renders default appearance', async () => {
-      const { findByRole, findByTestId } = setup({
-        state,
-        appearance: 'default',
-      });
-      const icon = await findByTestId(`${testId}-error-icon`);
-      const msg = await findByTestId(`${testId}-error-message`);
-      const anchor = await findByRole('link');
+		it('renders default appearance', async () => {
+			const { findByRole, findByTestId } = setup({
+				state,
+				appearance: 'default',
+			});
+			const icon = await findByTestId(`${testId}-error-icon`);
+			const msg = await findByTestId(`${testId}-error-message`);
+			const anchor = await findByRole('link');
 
-      expect(icon).toBeInTheDocument();
-      expect(msg).toBeInTheDocument();
-      expect(msg.textContent).toBe(
-        'Atlassian Intelligence (AI) isn’t responding. Try again later or check the status of AI.',
-      );
-      expect(anchor).toHaveAttribute('href', CONTENT_URL_AI_TROUBLESHOOTING);
-    });
+			expect(icon).toBeInTheDocument();
+			expect(msg).toBeInTheDocument();
+			expect(msg.textContent).toBe(
+				'Atlassian Intelligence (AI) isn’t responding. Try again later or check the status of AI.',
+			);
+			expect(anchor).toHaveAttribute('href', CONTENT_URL_AI_TROUBLESHOOTING);
+		});
 
-    it('does not render icon-only appearance', async () => {
-      const { container } = setup({
-        state,
-        appearance: 'icon-only',
-      });
-      expect(container.firstChild).toBeNull();
-    });
-  });
+		it('does not render icon-only appearance', async () => {
+			const { container } = setup({
+				state,
+				appearance: 'icon-only',
+			});
+			expect(container.firstChild).toBeNull();
+		});
+	});
 });

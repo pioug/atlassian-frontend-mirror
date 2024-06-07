@@ -5,8 +5,8 @@ import { css, jsx } from '@emotion/react';
 import { type AtlaskitBadgeProps } from './types';
 
 const badgeStyles = css({
-  alignItems: 'center',
-  display: 'inline-flex',
+	alignItems: 'center',
+	display: 'inline-flex',
 });
 
 /**
@@ -16,26 +16,26 @@ const badgeStyles = css({
  * */
 
 const AtlaskitBadge: React.FC<AtlaskitBadgeProps> = ({
-  value,
-  name,
-  overrideCss,
-  testId = 'smart-element-atlaskit-badge',
+	value,
+	name,
+	overrideCss,
+	testId = 'smart-element-atlaskit-badge',
 }) => {
-  if (!value) {
-    return null;
-  }
+	if (!value) {
+		return null;
+	}
 
-  return (
-    <span
-      css={[badgeStyles, overrideCss]}
-      data-fit-to-content
-      data-smart-element={name}
-      data-smart-element-atlaskit-badge
-      data-testid={testId}
-    >
-      <AKBadge>{value}</AKBadge>
-    </span>
-  );
+	return (
+		<span
+			css={[badgeStyles, overrideCss]}
+			data-fit-to-content
+			data-smart-element={name}
+			data-smart-element-atlaskit-badge
+			data-testid={testId}
+		>
+			<AKBadge>{value}</AKBadge>
+		</span>
+	);
 };
 
 export default AtlaskitBadge;

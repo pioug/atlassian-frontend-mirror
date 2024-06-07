@@ -1,66 +1,49 @@
 /** @jsx jsx */
-import {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import {
-  FormattedMessage,
-  FormattedNumber,
-} from 'react-intl-next';
+import { FormattedMessage, FormattedNumber } from 'react-intl-next';
 
-import {
-  type UIAnalyticsEvent,
-  withAnalyticsContext,
-} from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import type { InlineCardAdf } from '@atlaskit/linking-common/types';
 import type { Link } from '@atlaskit/linking-types';
 import {
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-  ModalTransition,
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import {
-  EVENT_CHANNEL,
-  useDatasourceAnalyticsEvents,
-} from '../../../analytics';
+import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
 import type {
-  AnalyticsContextAttributesType,
-  AnalyticsContextType,
-  ComponentMetaDataType,
+	AnalyticsContextAttributesType,
+	AnalyticsContextType,
+	ComponentMetaDataType,
 } from '../../../analytics/generated/analytics.types';
 import { DatasourceAction, DatasourceDisplay } from '../../../analytics/types';
 import { startUfoExperience } from '../../../analytics/ufoExperiences';
 import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { mapSearchMethod } from '../../../analytics/utils';
-import type {
-  DisplayViewModes,
-  JiraSearchMethod,
-  Site,
-} from '../../../common/types';
+import type { DisplayViewModes, JiraSearchMethod, Site } from '../../../common/types';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
-import { DatasourceExperienceIdProvider, useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
+import {
+	DatasourceExperienceIdProvider,
+	useDatasourceExperienceId,
+} from '../../../contexts/datasource-experience-id';
 import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
 import {
-  type onNextPageProps,
-  useDatasourceTableState,
+	type onNextPageProps,
+	useDatasourceTableState,
 } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
 import { useAvailableSites } from '../../../services/useAvailableSites';
@@ -73,10 +56,7 @@ import { InitialStateView } from '../../common/initial-state-view';
 import { initialStateViewMessages } from '../../common/initial-state-view/messages';
 import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
-import {
-  SmartCardPlaceholder,
-  SmartLink,
-} from '../../common/modal/count-view-smart-link';
+import { SmartCardPlaceholder, SmartLink } from '../../common/modal/count-view-smart-link';
 import { DatasourceModal } from '../../common/modal/datasource-modal';
 import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
 import { SiteSelector } from '../../common/modal/site-selector';
@@ -89,721 +69,671 @@ import { availableBasicFilterTypes } from '../basic-filters/ui';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { JiraSearchContainer } from '../jira-search-container';
 import type {
-  JiraConfigModalProps,
-  JiraIssueDatasourceParameters,
-  JiraIssueDatasourceParametersQuery,
+	JiraConfigModalProps,
+	JiraIssueDatasourceParameters,
+	JiraIssueDatasourceParametersQuery,
 } from '../types';
 
 import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
 
 const issueCountStyles = css({
-  flex: 1,
-  fontWeight: 600,
+	flex: 1,
+	fontWeight: 600,
 });
 
-const getDisplayValue = (
-  currentViewMode: DisplayViewModes,
-  itemCount: number,
-) => {
-  if (currentViewMode === 'table') {
-    return DatasourceDisplay.DATASOURCE_TABLE;
-  }
-  return itemCount === 1
-    ? DatasourceDisplay.INLINE
-    : DatasourceDisplay.DATASOURCE_INLINE;
+const getDisplayValue = (currentViewMode: DisplayViewModes, itemCount: number) => {
+	if (currentViewMode === 'table') {
+		return DatasourceDisplay.DATASOURCE_TABLE;
+	}
+	return itemCount === 1 ? DatasourceDisplay.INLINE : DatasourceDisplay.DATASOURCE_INLINE;
 };
 
 const jqlSupportDocumentLink =
-  'https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/';
+	'https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/';
 
 const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
-  const {
-    datasourceId,
-    columnCustomSizes: initialColumnCustomSizes,
-    wrappedColumnKeys: initialWrappedColumnKeys,
-    onCancel,
-    onInsert,
-    viewMode = 'table',
-    parameters: initialParameters,
-    url: urlBeingEdited,
-    visibleColumnKeys: initialVisibleColumnKeys,
-  } = props;
+	const {
+		datasourceId,
+		columnCustomSizes: initialColumnCustomSizes,
+		wrappedColumnKeys: initialWrappedColumnKeys,
+		onCancel,
+		onInsert,
+		viewMode = 'table',
+		parameters: initialParameters,
+		url: urlBeingEdited,
+		visibleColumnKeys: initialVisibleColumnKeys,
+	} = props;
 
-  const [currentViewMode, setCurrentViewMode] =
-    useState<DisplayViewModes>(viewMode);
-  const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
-  const { availableSites, selectedSite: selectedJiraSite } = useAvailableSites(
-    'jira',
-    cloudId,
-  );
-  const [jql, setJql] = useState(initialParameters?.jql);
-  const [searchBarJql, setSearchBarJql] = useState<string | undefined>(
-    initialParameters?.jql,
-  );
-  const [visibleColumnKeys, setVisibleColumnKeys] = useState(
-    initialVisibleColumnKeys,
-  );
+	const [currentViewMode, setCurrentViewMode] = useState<DisplayViewModes>(viewMode);
+	const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
+	const { availableSites, selectedSite: selectedJiraSite } = useAvailableSites('jira', cloudId);
+	const [jql, setJql] = useState(initialParameters?.jql);
+	const [searchBarJql, setSearchBarJql] = useState<string | undefined>(initialParameters?.jql);
+	const [visibleColumnKeys, setVisibleColumnKeys] = useState(initialVisibleColumnKeys);
 
-  // analytics related parameters
-  const searchCount = useRef(0);
-  const userInteractions = useUserInteractions();
-  const initialSearchMethod: JiraSearchMethod =
-    getBooleanFF(
-      'platform.linking-platform.datasource.show-jlol-basic-filters',
-    ) && !isQueryTooComplex(initialParameters?.jql || '')
-      ? 'basic'
-      : 'jql';
-  const [currentSearchMethod, setCurrentSearchMethod] =
-    useState<JiraSearchMethod>(initialSearchMethod);
-  const searchMethodSearchedWith = useRef<JiraSearchMethod | null>(null);
-  const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
-  const basicFilterSelectionsSearchedWith = useRef<SelectedOptionsMap>({});
-  const isSearchedWithComplexQuery = useRef<boolean>(false);
+	// analytics related parameters
+	const searchCount = useRef(0);
+	const userInteractions = useUserInteractions();
+	const initialSearchMethod: JiraSearchMethod =
+		getBooleanFF('platform.linking-platform.datasource.show-jlol-basic-filters') &&
+		!isQueryTooComplex(initialParameters?.jql || '')
+			? 'basic'
+			: 'jql';
+	const [currentSearchMethod, setCurrentSearchMethod] =
+		useState<JiraSearchMethod>(initialSearchMethod);
+	const searchMethodSearchedWith = useRef<JiraSearchMethod | null>(null);
+	const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
+	const basicFilterSelectionsSearchedWith = useRef<SelectedOptionsMap>({});
+	const isSearchedWithComplexQuery = useRef<boolean>(false);
 
-  const parameters = useMemo<JiraIssueDatasourceParameters | undefined>(
-    () =>
-      !!cloudId
-        ? {
-            cloudId,
-            jql: jql || '',
-          }
-        : undefined,
-    [cloudId, jql],
-  );
+	const parameters = useMemo<JiraIssueDatasourceParameters | undefined>(
+		() =>
+			!!cloudId
+				? {
+						cloudId,
+						jql: jql || '',
+					}
+				: undefined,
+		[cloudId, jql],
+	);
 
-  const isParametersSet = !!(jql && cloudId);
+	const isParametersSet = !!(jql && cloudId);
 
-  const { columnCustomSizes, onColumnResize } = useColumnResize(
-    initialColumnCustomSizes,
-  );
+	const { columnCustomSizes, onColumnResize } = useColumnResize(initialColumnCustomSizes);
 
-  const { wrappedColumnKeys, onWrappedColumnChange } = useColumnWrapping(
-    initialWrappedColumnKeys,
-  );
+	const { wrappedColumnKeys, onWrappedColumnChange } = useColumnWrapping(initialWrappedColumnKeys);
 
-  const {
-    reset,
-    status,
-    onNextPage,
-    responseItems,
-    hasNextPage,
-    columns,
-    defaultVisibleColumnKeys,
-    loadDatasourceDetails,
-    totalCount,
-    extensionKey = null,
-    destinationObjectTypes,
-  } = useDatasourceTableState({
-    datasourceId,
-    parameters: isParametersSet ? parameters : undefined,
-    fieldKeys: visibleColumnKeys,
-  });
+	const {
+		reset,
+		status,
+		onNextPage,
+		responseItems,
+		hasNextPage,
+		columns,
+		defaultVisibleColumnKeys,
+		loadDatasourceDetails,
+		totalCount,
+		extensionKey = null,
+		destinationObjectTypes,
+	} = useDatasourceTableState({
+		datasourceId,
+		parameters: isParametersSet ? parameters : undefined,
+		fieldKeys: visibleColumnKeys,
+	});
 
-  const { fireEvent } = useDatasourceAnalyticsEvents();
-  const experienceId = useDatasourceExperienceId();
+	const { fireEvent } = useDatasourceAnalyticsEvents();
+	const experienceId = useDatasourceExperienceId();
 
-  const analyticsPayload = useMemo(
-    () => ({
-      extensionKey,
-      destinationObjectTypes,
-    }),
-    [destinationObjectTypes, extensionKey],
-  );
+	const analyticsPayload = useMemo(
+		() => ({
+			extensionKey,
+			destinationObjectTypes,
+		}),
+		[destinationObjectTypes, extensionKey],
+	);
 
-  const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
-  const jqlUrl =
-    selectedJiraSite &&
-    jql &&
-    `${selectedJiraSite.url}/issues/?jql=${encodeURI(jql)}`;
+	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
+	const jqlUrl = selectedJiraSite && jql && `${selectedJiraSite.url}/issues/?jql=${encodeURI(jql)}`;
 
-  const isInsertDisabled =
-    !isParametersSet ||
-    status === 'rejected' ||
-    status === 'unauthorized' ||
-    status === 'loading';
+	const isInsertDisabled =
+		!isParametersSet || status === 'rejected' || status === 'unauthorized' || status === 'loading';
 
-  const shouldShowIssueCount =
-    !!totalCount && totalCount !== 1 && currentViewMode === 'table';
+	const shouldShowIssueCount = !!totalCount && totalCount !== 1 && currentViewMode === 'table';
 
-  const isDataReady = (visibleColumnKeys || []).length > 0;
-  const hasNoJiraSites = availableSites && availableSites.length === 0;
+	const isDataReady = (visibleColumnKeys || []).length > 0;
+	const hasNoJiraSites = availableSites && availableSites.length === 0;
 
-  useEffect(() => {
-    if (availableSites) {
-      fireEvent('ui.modal.ready.datasource', {
-        instancesCount: availableSites.length,
-        schemasCount: null,
-      });
-    }
-  }, [fireEvent, availableSites]);
+	useEffect(() => {
+		if (availableSites) {
+			fireEvent('ui.modal.ready.datasource', {
+				instancesCount: availableSites.length,
+				schemasCount: null,
+			});
+		}
+	}, [fireEvent, availableSites]);
 
-  useEffect(() => {
-    const shouldStartUfoExperience = status === 'loading';
+	useEffect(() => {
+		const shouldStartUfoExperience = status === 'loading';
 
-    if (shouldStartUfoExperience) {
-      startUfoExperience(
-        {
-          name: 'datasource-rendered',
-        },
-        experienceId,
-      );
-    }
-  }, [experienceId, status]);
+		if (shouldStartUfoExperience) {
+			startUfoExperience(
+				{
+					name: 'datasource-rendered',
+				},
+				experienceId,
+			);
+		}
+	}, [experienceId, status]);
 
-  useDataRenderedUfoExperience({
-    status,
-    experienceId: experienceId,
-    itemCount: responseItems.length,
-    canBeLink: currentViewMode === 'inline',
-    extensionKey,
-  });
+	useDataRenderedUfoExperience({
+		status,
+		experienceId: experienceId,
+		itemCount: responseItems.length,
+		canBeLink: currentViewMode === 'inline',
+		extensionKey,
+	});
 
-  useEffect(() => {
-    const newVisibleColumnKeys =
-      !initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
-        ? defaultVisibleColumnKeys
-        : initialVisibleColumnKeys;
+	useEffect(() => {
+		const newVisibleColumnKeys =
+			!initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
+				? defaultVisibleColumnKeys
+				: initialVisibleColumnKeys;
 
-    visibleColumnCount.current = newVisibleColumnKeys.length;
-    setVisibleColumnKeys(newVisibleColumnKeys);
-  }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
+		visibleColumnCount.current = newVisibleColumnKeys.length;
+		setVisibleColumnKeys(newVisibleColumnKeys);
+	}, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
 
-  useEffect(() => {
-    if (
-      selectedJiraSite &&
-      (!cloudId || cloudId !== selectedJiraSite.cloudId)
-    ) {
-      setCloudId(selectedJiraSite.cloudId);
-    }
-  }, [cloudId, selectedJiraSite]);
+	useEffect(() => {
+		if (selectedJiraSite && (!cloudId || cloudId !== selectedJiraSite.cloudId)) {
+			setCloudId(selectedJiraSite.cloudId);
+		}
+	}, [cloudId, selectedJiraSite]);
 
-  const fireSingleItemViewedEvent = useCallback(() => {
-    fireEvent('ui.link.viewed.singleItem', {
-      ...analyticsPayload,
-      searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
-    });
-  }, [analyticsPayload, fireEvent]);
+	const fireSingleItemViewedEvent = useCallback(() => {
+		fireEvent('ui.link.viewed.singleItem', {
+			...analyticsPayload,
+			searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
+		});
+	}, [analyticsPayload, fireEvent]);
 
-  const fireCountViewedEvent = useCallback(() => {
-    fireEvent('ui.link.viewed.count', {
-      ...analyticsPayload,
-      searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
-      totalItemCount: totalCount || 0,
-    });
-  }, [analyticsPayload, fireEvent, totalCount]);
+	const fireCountViewedEvent = useCallback(() => {
+		fireEvent('ui.link.viewed.count', {
+			...analyticsPayload,
+			searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
+			totalItemCount: totalCount || 0,
+		});
+	}, [analyticsPayload, fireEvent, totalCount]);
 
-  const fireTableViewedEvent = useCallback(() => {
-    if (isDataReady) {
-      fireEvent('ui.table.viewed.datasourceConfigModal', {
-        ...analyticsPayload,
-        totalItemCount: totalCount || 0,
-        searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
-        displayedColumnCount: visibleColumnCount.current,
-      });
-    }
-  }, [analyticsPayload, fireEvent, totalCount, isDataReady]);
+	const fireTableViewedEvent = useCallback(() => {
+		if (isDataReady) {
+			fireEvent('ui.table.viewed.datasourceConfigModal', {
+				...analyticsPayload,
+				totalItemCount: totalCount || 0,
+				searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
+				displayedColumnCount: visibleColumnCount.current,
+			});
+		}
+	}, [analyticsPayload, fireEvent, totalCount, isDataReady]);
 
-  const fireIssueViewAnalytics = useCallback(() => {
-    if (!totalCount) {
-      return;
-    }
+	const fireIssueViewAnalytics = useCallback(() => {
+		if (!totalCount) {
+			return;
+		}
 
-    if (totalCount > 1) {
-      fireTableViewedEvent();
-    } else if (totalCount === 1) {
-      fireSingleItemViewedEvent();
-    }
-  }, [fireSingleItemViewedEvent, fireTableViewedEvent, totalCount]);
+		if (totalCount > 1) {
+			fireTableViewedEvent();
+		} else if (totalCount === 1) {
+			fireSingleItemViewedEvent();
+		}
+	}, [fireSingleItemViewedEvent, fireTableViewedEvent, totalCount]);
 
-  useEffect(() => {
-    const isResolved = status === 'resolved';
-    const isIssueViewMode = currentViewMode === 'table';
-    const isCountViewMode = currentViewMode === 'inline';
+	useEffect(() => {
+		const isResolved = status === 'resolved';
+		const isIssueViewMode = currentViewMode === 'table';
+		const isCountViewMode = currentViewMode === 'inline';
 
-    if (!isResolved) {
-      return;
-    }
+		if (!isResolved) {
+			return;
+		}
 
-    if (isIssueViewMode) {
-      fireIssueViewAnalytics();
-    } else if (isCountViewMode) {
-      fireCountViewedEvent();
-    }
-  }, [currentViewMode, status, fireIssueViewAnalytics, fireCountViewedEvent]);
+		if (isIssueViewMode) {
+			fireIssueViewAnalytics();
+		} else if (isCountViewMode) {
+			fireCountViewedEvent();
+		}
+	}, [currentViewMode, status, fireIssueViewAnalytics, fireCountViewedEvent]);
 
-  useColumnPickerRenderedFailedUfoExperience(status, experienceId);
+	useColumnPickerRenderedFailedUfoExperience(status, experienceId);
 
-  const onSearch = useCallback(
-    (
-      newParameters: JiraIssueDatasourceParametersQuery,
-      {
-        searchMethod,
-        basicFilterSelections,
-        isQueryComplex,
-      }: {
-        searchMethod: JiraSearchMethod;
-        basicFilterSelections: SelectedOptionsMap;
-        isQueryComplex: boolean;
-      },
-    ) => {
-      searchCount.current++;
-      searchMethodSearchedWith.current = searchMethod;
-      basicFilterSelectionsSearchedWith.current = basicFilterSelections;
-      isSearchedWithComplexQuery.current = isQueryComplex;
+	const onSearch = useCallback(
+		(
+			newParameters: JiraIssueDatasourceParametersQuery,
+			{
+				searchMethod,
+				basicFilterSelections,
+				isQueryComplex,
+			}: {
+				searchMethod: JiraSearchMethod;
+				basicFilterSelections: SelectedOptionsMap;
+				isQueryComplex: boolean;
+			},
+		) => {
+			searchCount.current++;
+			searchMethodSearchedWith.current = searchMethod;
+			basicFilterSelectionsSearchedWith.current = basicFilterSelections;
+			isSearchedWithComplexQuery.current = isQueryComplex;
 
-      if (jql !== newParameters.jql) {
-        userInteractions.add(DatasourceAction.QUERY_UPDATED);
-      }
+			if (jql !== newParameters.jql) {
+				userInteractions.add(DatasourceAction.QUERY_UPDATED);
+			}
 
-      setJql(newParameters.jql);
-      reset({ shouldForceRequest: true });
-    },
-    [jql, reset, userInteractions],
-  );
+			setJql(newParameters.jql);
+			reset({ shouldForceRequest: true });
+		},
+		[jql, reset, userInteractions],
+	);
 
-  const onSiteSelection = useCallback(
-    (site: Site) => {
-      userInteractions.add(DatasourceAction.INSTANCE_UPDATED);
-      setJql('');
-      setCloudId(site.cloudId);
-      reset({ shouldForceRequest: true });
-    },
-    [reset, userInteractions],
-  );
+	const onSiteSelection = useCallback(
+		(site: Site) => {
+			userInteractions.add(DatasourceAction.INSTANCE_UPDATED);
+			setJql('');
+			setCloudId(site.cloudId);
+			reset({ shouldForceRequest: true });
+		},
+		[reset, userInteractions],
+	);
 
-  const retrieveUrlForSmartCardRender = useCallback(() => {
-    const [data] = responseItems;
-    // agreement with BE that we will use `key` for rendering smartlink
-    return (data?.key?.data as Link)?.url;
-  }, [responseItems]);
+	const retrieveUrlForSmartCardRender = useCallback(() => {
+		const [data] = responseItems;
+		// agreement with BE that we will use `key` for rendering smartlink
+		return (data?.key?.data as Link)?.url;
+	}, [responseItems]);
 
-  const onInsertPressed = useCallback(
-    (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
-      if (!isParametersSet || !jql || !selectedJiraSite) {
-        return;
-      }
+	const onInsertPressed = useCallback(
+		(e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
+			if (!isParametersSet || !jql || !selectedJiraSite) {
+				return;
+			}
 
-      // During insertion, we want the JQL of the datasource to be whatever is in the search bar,
-      // even if the user didn't previously click search
-      const upToDateJql = searchBarJql ?? jql;
+			// During insertion, we want the JQL of the datasource to be whatever is in the search bar,
+			// even if the user didn't previously click search
+			const upToDateJql = searchBarJql ?? jql;
 
-      const upToDateJqlUrl =
-        selectedJiraSite &&
-        jql &&
-        `${selectedJiraSite.url}/issues/?jql=${encodeURIComponent(upToDateJql)}`;
+			const upToDateJqlUrl =
+				selectedJiraSite &&
+				jql &&
+				`${selectedJiraSite.url}/issues/?jql=${encodeURIComponent(upToDateJql)}`;
 
-      const filterSelectionCount = availableBasicFilterTypes.reduce(
-        (current, filter) => ({
-          ...current,
-          [`${filter}BasicFilterSelectionCount`]:
-            basicFilterSelectionsSearchedWith.current[filter]?.length || 0,
-        }),
-        {},
-      );
+			const filterSelectionCount = availableBasicFilterTypes.reduce(
+				(current, filter) => ({
+					...current,
+					[`${filter}BasicFilterSelectionCount`]:
+						basicFilterSelectionsSearchedWith.current[filter]?.length || 0,
+				}),
+				{},
+			);
 
-      const insertButtonClickedEvent = analyticsEvent.update({
-        actionSubjectId: 'insert',
-        attributes: {
-          ...analyticsPayload,
-          totalItemCount: totalCount || 0,
-          displayedColumnCount: visibleColumnCount.current,
-          display: getDisplayValue(currentViewMode, totalCount || 0),
-          searchCount: searchCount.current,
-          searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
-          actions: userInteractions.get(),
-          isQueryComplex: isSearchedWithComplexQuery.current,
-          ...(searchMethodSearchedWith.current === 'basic'
-            ? { ...filterSelectionCount }
-            : {}),
-        },
-        eventType: 'ui',
-      });
+			const insertButtonClickedEvent = analyticsEvent.update({
+				actionSubjectId: 'insert',
+				attributes: {
+					...analyticsPayload,
+					totalItemCount: totalCount || 0,
+					displayedColumnCount: visibleColumnCount.current,
+					display: getDisplayValue(currentViewMode, totalCount || 0),
+					searchCount: searchCount.current,
+					searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
+					actions: userInteractions.get(),
+					isQueryComplex: isSearchedWithComplexQuery.current,
+					...(searchMethodSearchedWith.current === 'basic' ? { ...filterSelectionCount } : {}),
+				},
+				eventType: 'ui',
+			});
 
-      // additional event for tracking in confluence against JIM
-      const macroInsertedEvent = analyticsEvent.clone();
-      macroInsertedEvent?.update({
-        eventType: 'track',
-        action: 'inserted',
-        actionSubject: 'macro',
-        actionSubjectId: 'jlol',
-        attributes: {
-          ...analyticsPayload,
-          totalItemCount: totalCount || 0,
-          displayedColumnCount: visibleColumnCount.current,
-          display: getDisplayValue(currentViewMode, totalCount || 0),
-          searchCount: searchCount.current,
-          searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
-          actions: userInteractions.get(),
-        },
-      });
+			// additional event for tracking in confluence against JIM
+			const macroInsertedEvent = analyticsEvent.clone();
+			macroInsertedEvent?.update({
+				eventType: 'track',
+				action: 'inserted',
+				actionSubject: 'macro',
+				actionSubjectId: 'jlol',
+				attributes: {
+					...analyticsPayload,
+					totalItemCount: totalCount || 0,
+					displayedColumnCount: visibleColumnCount.current,
+					display: getDisplayValue(currentViewMode, totalCount || 0),
+					searchCount: searchCount.current,
+					searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
+					actions: userInteractions.get(),
+				},
+			});
 
-      const consumerEvent = insertButtonClickedEvent.clone() ?? undefined;
-      insertButtonClickedEvent.fire(EVENT_CHANNEL);
+			const consumerEvent = insertButtonClickedEvent.clone() ?? undefined;
+			insertButtonClickedEvent.fire(EVENT_CHANNEL);
 
-      const firstIssueUrl = retrieveUrlForSmartCardRender();
+			const firstIssueUrl = retrieveUrlForSmartCardRender();
 
-      if (currentViewMode === 'inline') {
-        macroInsertedEvent?.fire(EVENT_CHANNEL);
-        const url = responseItems.length === 1 ? firstIssueUrl : upToDateJqlUrl;
-        onInsert(
-          {
-            type: 'inlineCard',
-            attrs: {
-              url,
-            },
-          } as InlineCardAdf,
-          consumerEvent,
-        );
-      } else {
-        onInsert(
-          buildDatasourceAdf<JiraIssueDatasourceParameters>(
-            {
-              id: datasourceId,
-              parameters: {
-                cloudId,
-                jql: upToDateJql, // TODO support non JQL type
-              },
-              views: [
-                {
-                  type: 'table',
-                  properties: {
-                    columns: (visibleColumnKeys || []).map(key => {
-                      const width = columnCustomSizes?.[key];
-                      const isWrapped = wrappedColumnKeys?.includes(key);
-                      return {
-                        key,
-                        ...(width ? { width } : {}),
-                        ...(isWrapped ? { isWrapped } : {}),
-                      };
-                    }),
-                  },
-                },
-              ],
-            },
-            upToDateJqlUrl,
-          ),
-          consumerEvent,
-        );
-      }
-    },
-    [
-      isParametersSet,
-      jql,
-      selectedJiraSite,
-      searchBarJql,
-      analyticsPayload,
-      totalCount,
-      currentViewMode,
-      retrieveUrlForSmartCardRender,
-      responseItems.length,
-      onInsert,
-      datasourceId,
-      cloudId,
-      visibleColumnKeys,
-      columnCustomSizes,
-      wrappedColumnKeys,
-      userInteractions,
-    ],
-  );
+			if (currentViewMode === 'inline') {
+				macroInsertedEvent?.fire(EVENT_CHANNEL);
+				const url = responseItems.length === 1 ? firstIssueUrl : upToDateJqlUrl;
+				onInsert(
+					{
+						type: 'inlineCard',
+						attrs: {
+							url,
+						},
+					} as InlineCardAdf,
+					consumerEvent,
+				);
+			} else {
+				onInsert(
+					buildDatasourceAdf<JiraIssueDatasourceParameters>(
+						{
+							id: datasourceId,
+							parameters: {
+								cloudId,
+								jql: upToDateJql, // TODO support non JQL type
+							},
+							views: [
+								{
+									type: 'table',
+									properties: {
+										columns: (visibleColumnKeys || []).map((key) => {
+											const width = columnCustomSizes?.[key];
+											const isWrapped = wrappedColumnKeys?.includes(key);
+											return {
+												key,
+												...(width ? { width } : {}),
+												...(isWrapped ? { isWrapped } : {}),
+											};
+										}),
+									},
+								},
+							],
+						},
+						upToDateJqlUrl,
+					),
+					consumerEvent,
+				);
+			}
+		},
+		[
+			isParametersSet,
+			jql,
+			selectedJiraSite,
+			searchBarJql,
+			analyticsPayload,
+			totalCount,
+			currentViewMode,
+			retrieveUrlForSmartCardRender,
+			responseItems.length,
+			onInsert,
+			datasourceId,
+			cloudId,
+			visibleColumnKeys,
+			columnCustomSizes,
+			wrappedColumnKeys,
+			userInteractions,
+		],
+	);
 
-  const handleViewModeChange = (selectedMode: DisplayViewModes) => {
-    userInteractions.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
-    setCurrentViewMode(selectedMode);
-  };
+	const handleViewModeChange = (selectedMode: DisplayViewModes) => {
+		userInteractions.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
+		setCurrentViewMode(selectedMode);
+	};
 
-  const handleOnNextPage = useCallback(
-    (onNextPageProps: onNextPageProps = {}) => {
-      userInteractions.add(DatasourceAction.NEXT_PAGE_SCROLLED);
-      onNextPage(onNextPageProps);
-    },
-    [onNextPage, userInteractions],
-  );
+	const handleOnNextPage = useCallback(
+		(onNextPageProps: onNextPageProps = {}) => {
+			userInteractions.add(DatasourceAction.NEXT_PAGE_SCROLLED);
+			onNextPage(onNextPageProps);
+		},
+		[onNextPage, userInteractions],
+	);
 
-  const handleVisibleColumnKeysChange = useCallback(
-    (newVisibleColumnKeys: string[] = []) => {
-      const columnAction = getColumnAction(
-        visibleColumnKeys || [],
-        newVisibleColumnKeys,
-      );
-      userInteractions.add(columnAction);
-      visibleColumnCount.current = newVisibleColumnKeys.length;
+	const handleVisibleColumnKeysChange = useCallback(
+		(newVisibleColumnKeys: string[] = []) => {
+			const columnAction = getColumnAction(visibleColumnKeys || [], newVisibleColumnKeys);
+			userInteractions.add(columnAction);
+			visibleColumnCount.current = newVisibleColumnKeys.length;
 
-      setVisibleColumnKeys(newVisibleColumnKeys);
-    },
-    [visibleColumnKeys, userInteractions],
-  );
+			setVisibleColumnKeys(newVisibleColumnKeys);
+		},
+		[visibleColumnKeys, userInteractions],
+	);
 
-  const issueLikeDataTableView = useMemo(
-    () => (
-      <ContentContainer withTableBorder>
-        <IssueLikeDataTableView
-          testId="jira-datasource-table"
-          status={status}
-          columns={columns}
-          items={responseItems}
-          hasNextPage={hasNextPage}
-          visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-          onNextPage={handleOnNextPage}
-          onLoadDatasourceDetails={loadDatasourceDetails}
-          onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
-          extensionKey={extensionKey}
-          columnCustomSizes={columnCustomSizes}
-          onColumnResize={onColumnResize}
-          wrappedColumnKeys={wrappedColumnKeys}
-          onWrappedColumnChange={
-            getBooleanFF('platform.linking-platform.datasource-word_wrap')
-              ? onWrappedColumnChange
-              : undefined
-          }
-        />
-      </ContentContainer>
-    ),
-    [
-      status,
-      columns,
-      responseItems,
-      hasNextPage,
-      visibleColumnKeys,
-      defaultVisibleColumnKeys,
-      handleOnNextPage,
-      loadDatasourceDetails,
-      handleVisibleColumnKeysChange,
-      extensionKey,
-      columnCustomSizes,
-      onColumnResize,
-      wrappedColumnKeys,
-      onWrappedColumnChange,
-    ],
-  );
+	const issueLikeDataTableView = useMemo(
+		() => (
+			<ContentContainer withTableBorder>
+				<IssueLikeDataTableView
+					testId="jira-datasource-table"
+					status={status}
+					columns={columns}
+					items={responseItems}
+					hasNextPage={hasNextPage}
+					visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
+					onNextPage={handleOnNextPage}
+					onLoadDatasourceDetails={loadDatasourceDetails}
+					onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
+					extensionKey={extensionKey}
+					columnCustomSizes={columnCustomSizes}
+					onColumnResize={onColumnResize}
+					wrappedColumnKeys={wrappedColumnKeys}
+					onWrappedColumnChange={
+						getBooleanFF('platform.linking-platform.datasource-word_wrap')
+							? onWrappedColumnChange
+							: undefined
+					}
+				/>
+			</ContentContainer>
+		),
+		[
+			status,
+			columns,
+			responseItems,
+			hasNextPage,
+			visibleColumnKeys,
+			defaultVisibleColumnKeys,
+			handleOnNextPage,
+			loadDatasourceDetails,
+			handleVisibleColumnKeysChange,
+			extensionKey,
+			columnCustomSizes,
+			onColumnResize,
+			wrappedColumnKeys,
+			onWrappedColumnChange,
+		],
+	);
 
-  const renderCountModeContent = useCallback(() => {
-    const selectedJiraSiteUrl = selectedJiraSite?.url;
-    if (status === 'unauthorized') {
-      return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
-    } else if (status === 'empty' || !jql || !selectedJiraSiteUrl) {
-      return (
-        <SmartCardPlaceholder
-          placeholderText={modalMessages.issuesCountSmartCardPlaceholderText}
-        />
-      );
-    } else {
-      let url;
-      if (responseItems.length === 1 && retrieveUrlForSmartCardRender()) {
-        url = retrieveUrlForSmartCardRender();
-      } else {
-        url = `${selectedJiraSiteUrl}/issues/?jql=${encodeURIComponent(jql)}`;
-      }
-      return <SmartLink url={url} />;
-    }
-  }, [
-    jql,
-    selectedJiraSite?.url,
-    status,
-    urlBeingEdited,
-    responseItems,
-    retrieveUrlForSmartCardRender,
-  ]);
+	const renderCountModeContent = useCallback(() => {
+		const selectedJiraSiteUrl = selectedJiraSite?.url;
+		if (status === 'unauthorized') {
+			return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
+		} else if (status === 'empty' || !jql || !selectedJiraSiteUrl) {
+			return (
+				<SmartCardPlaceholder placeholderText={modalMessages.issuesCountSmartCardPlaceholderText} />
+			);
+		} else {
+			let url;
+			if (responseItems.length === 1 && retrieveUrlForSmartCardRender()) {
+				url = retrieveUrlForSmartCardRender();
+			} else {
+				url = `${selectedJiraSiteUrl}/issues/?jql=${encodeURIComponent(jql)}`;
+			}
+			return <SmartLink url={url} />;
+		}
+	}, [
+		jql,
+		selectedJiraSite?.url,
+		status,
+		urlBeingEdited,
+		responseItems,
+		retrieveUrlForSmartCardRender,
+	]);
 
-  const renderIssuesModeContent = useCallback(() => {
-    const selectedJiraSiteUrl = selectedJiraSite?.url;
-    if (status === 'rejected' && jqlUrl) {
-      return (
-        <ModalLoadingError
-          errorMessage={
-            jqlUrl ? (
-              <FormattedMessage
-                {...modalMessages.checkConnectionWithSource}
-                values={{
-                  a: (urlText: React.ReactNode[]) => (
-                    <a href={jqlUrl}>{urlText}</a>
-                  ),
-                }}
-              />
-            ) : undefined
-          }
-        />
-      );
-    } else if (status === 'unauthorized') {
-      return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
-    } else if (resolvedWithNoResults || status === 'forbidden') {
-      return <NoResults />;
-    } else if (status === 'empty' || !columns.length) {
-      // persist the empty state when making the initial /data request which contains the columns
-      return (
-        <ContentContainer withTableBorder={!!jql}>
-          {!!jql ? (
-            <EmptyState testId={`jira-datasource-modal--empty-state`} />
-          ) : (
-            <InitialStateView
-              showBeta={
-                !getBooleanFF(
-                  'platform.linking-platform.datasource.show-jlol-basic-filters',
-                )
-              }
-              icon={<JiraInitialStateSVG />}
-              title={modalMessages.searchJiraTitle}
-              description={
-                currentSearchMethod === 'jql'
-                  ? initialStateViewMessages.searchDescriptionForJQLSearch
-                  : initialStateViewMessages.searchDescriptionForBasicSearch
-              }
-              learnMoreLink={
-                currentSearchMethod === 'jql'
-                  ? {
-                      href: jqlSupportDocumentLink,
-                      text: initialStateViewMessages.learnMoreLink,
-                    }
-                  : undefined
-              }
-            />
-          )}
-        </ContentContainer>
-      );
-    }
+	const renderIssuesModeContent = useCallback(() => {
+		const selectedJiraSiteUrl = selectedJiraSite?.url;
+		if (status === 'rejected' && jqlUrl) {
+			return (
+				<ModalLoadingError
+					errorMessage={
+						jqlUrl ? (
+							<FormattedMessage
+								{...modalMessages.checkConnectionWithSource}
+								values={{
+									a: (urlText: React.ReactNode[]) => <a href={jqlUrl}>{urlText}</a>,
+								}}
+							/>
+						) : undefined
+					}
+				/>
+			);
+		} else if (status === 'unauthorized') {
+			return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
+		} else if (resolvedWithNoResults || status === 'forbidden') {
+			return <NoResults />;
+		} else if (status === 'empty' || !columns.length) {
+			// persist the empty state when making the initial /data request which contains the columns
+			return (
+				<ContentContainer withTableBorder={!!jql}>
+					{!!jql ? (
+						<EmptyState testId={`jira-datasource-modal--empty-state`} />
+					) : (
+						<InitialStateView
+							showBeta={
+								!getBooleanFF('platform.linking-platform.datasource.show-jlol-basic-filters')
+							}
+							icon={<JiraInitialStateSVG />}
+							title={modalMessages.searchJiraTitle}
+							description={
+								currentSearchMethod === 'jql'
+									? initialStateViewMessages.searchDescriptionForJQLSearch
+									: initialStateViewMessages.searchDescriptionForBasicSearch
+							}
+							learnMoreLink={
+								currentSearchMethod === 'jql'
+									? {
+											href: jqlSupportDocumentLink,
+											text: initialStateViewMessages.learnMoreLink,
+										}
+									: undefined
+							}
+						/>
+					)}
+				</ContentContainer>
+			);
+		}
 
-    return issueLikeDataTableView;
-  }, [
-    columns.length,
-    currentSearchMethod,
-    issueLikeDataTableView,
-    jql,
-    jqlUrl,
-    resolvedWithNoResults,
-    selectedJiraSite?.url,
-    status,
-    urlBeingEdited,
-  ]);
+		return issueLikeDataTableView;
+	}, [
+		columns.length,
+		currentSearchMethod,
+		issueLikeDataTableView,
+		jql,
+		jqlUrl,
+		resolvedWithNoResults,
+		selectedJiraSite?.url,
+		status,
+		urlBeingEdited,
+	]);
 
-  const siteSelectorLabel =
-    availableSites && availableSites.length > 1
-      ? modalMessages.insertIssuesTitleManySites
-      : modalMessages.insertIssuesTitle;
+	const siteSelectorLabel =
+		availableSites && availableSites.length > 1
+			? modalMessages.insertIssuesTitleManySites
+			: modalMessages.insertIssuesTitle;
 
-  const getCancelButtonAnalyticsPayload = useCallback(() => {
-    return {
-      ...analyticsPayload,
-      searchCount: searchCount.current,
-      actions: userInteractions.get(),
-    };
-  }, [analyticsPayload, userInteractions]);
+	const getCancelButtonAnalyticsPayload = useCallback(() => {
+		return {
+			...analyticsPayload,
+			searchCount: searchCount.current,
+			actions: userInteractions.get(),
+		};
+	}, [analyticsPayload, userInteractions]);
 
-  return (
-    <IntlMessagesProvider
-      defaultMessages={i18nEN}
-      loaderFn={fetchMessagesForLocale}
-    >
-      <ModalTransition>
-        <DatasourceModal testId="jira-datasource-modal" onClose={onCancel}>
-          <ModalHeader>
-            <ModalTitle>
-              <SiteSelector
-                availableSites={availableSites}
-                onSiteSelection={onSiteSelection}
-                selectedSite={selectedJiraSite}
-                testId="jira-datasource-modal--site-selector"
-                label={siteSelectorLabel}
-              />
-            </ModalTitle>
-            {!hasNoJiraSites && (
-              <DisplayViewDropDown
-                onViewModeChange={handleViewModeChange}
-                viewMode={currentViewMode}
-              />
-            )}
-          </ModalHeader>
-          <ModalBody>
-            {!hasNoJiraSites ? (
-              <Fragment>
-                <JiraSearchContainer
-                  setSearchBarJql={setSearchBarJql}
-                  searchBarJql={searchBarJql}
-                  isSearching={status === 'loading'}
-                  parameters={parameters}
-                  onSearch={onSearch}
-                  initialSearchMethod={initialSearchMethod}
-                  onSearchMethodChange={setCurrentSearchMethod}
-                  site={selectedJiraSite}
-                />
-                {currentViewMode === 'inline'
-                  ? renderCountModeContent()
-                  : renderIssuesModeContent()}
-              </Fragment>
-            ) : (
-              <NoInstancesView
-                title={loadingErrorMessages.noAccessToJiraSitesTitle}
-                description={
-                  loadingErrorMessages.noAccessToJiraSitesDescription
-                }
-                testId={`no-jira-instances-content`}
-              />
-            )}
-          </ModalBody>
-          <ModalFooter>
-            {shouldShowIssueCount && (
-              <div
-                data-testid="jira-datasource-modal-total-issues-count"
-                css={issueCountStyles}
-              >
-                <LinkUrl
-                  href={jqlUrl}
-                  target="_blank"
-                  testId="item-count-url"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-                  style={{ color: token('color.text.accent.gray', N800) }}
-                >
-                  <FormattedNumber value={totalCount} />{' '}
-                  <FormattedMessage
-                    {...modalMessages.issueText}
-                    values={{ totalCount }}
-                  />
-                </LinkUrl>
-              </div>
-            )}
-            <CancelButton
-              onCancel={onCancel}
-              getAnalyticsPayload={getCancelButtonAnalyticsPayload}
-              testId="jira-datasource-modal--cancel-button"
-            />
-            {!hasNoJiraSites && (
-              <Button
-                appearance="primary"
-                onClick={onInsertPressed}
-                isDisabled={isInsertDisabled}
-                testId="jira-datasource-modal--insert-button"
-              >
-                <FormattedMessage {...modalMessages.insertIssuesButtonText} />
-              </Button>
-            )}
-          </ModalFooter>
-        </DatasourceModal>
-      </ModalTransition>
-    </IntlMessagesProvider>
-  );
+	return (
+		<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
+			<ModalTransition>
+				<DatasourceModal testId="jira-datasource-modal" onClose={onCancel}>
+					<ModalHeader>
+						<ModalTitle>
+							<SiteSelector
+								availableSites={availableSites}
+								onSiteSelection={onSiteSelection}
+								selectedSite={selectedJiraSite}
+								testId="jira-datasource-modal--site-selector"
+								label={siteSelectorLabel}
+							/>
+						</ModalTitle>
+						{!hasNoJiraSites && (
+							<DisplayViewDropDown
+								onViewModeChange={handleViewModeChange}
+								viewMode={currentViewMode}
+							/>
+						)}
+					</ModalHeader>
+					<ModalBody>
+						{!hasNoJiraSites ? (
+							<Fragment>
+								<JiraSearchContainer
+									setSearchBarJql={setSearchBarJql}
+									searchBarJql={searchBarJql}
+									isSearching={status === 'loading'}
+									parameters={parameters}
+									onSearch={onSearch}
+									initialSearchMethod={initialSearchMethod}
+									onSearchMethodChange={setCurrentSearchMethod}
+									site={selectedJiraSite}
+								/>
+								{currentViewMode === 'inline'
+									? renderCountModeContent()
+									: renderIssuesModeContent()}
+							</Fragment>
+						) : (
+							<NoInstancesView
+								title={loadingErrorMessages.noAccessToJiraSitesTitle}
+								description={loadingErrorMessages.noAccessToJiraSitesDescription}
+								testId={`no-jira-instances-content`}
+							/>
+						)}
+					</ModalBody>
+					<ModalFooter>
+						{shouldShowIssueCount && (
+							<div data-testid="jira-datasource-modal-total-issues-count" css={issueCountStyles}>
+								<LinkUrl
+									href={jqlUrl}
+									target="_blank"
+									testId="item-count-url"
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									style={{ color: token('color.text.accent.gray', N800) }}
+								>
+									<FormattedNumber value={totalCount} />{' '}
+									<FormattedMessage {...modalMessages.issueText} values={{ totalCount }} />
+								</LinkUrl>
+							</div>
+						)}
+						<CancelButton
+							onCancel={onCancel}
+							getAnalyticsPayload={getCancelButtonAnalyticsPayload}
+							testId="jira-datasource-modal--cancel-button"
+						/>
+						{!hasNoJiraSites && (
+							<Button
+								appearance="primary"
+								onClick={onInsertPressed}
+								isDisabled={isInsertDisabled}
+								testId="jira-datasource-modal--insert-button"
+							>
+								<FormattedMessage {...modalMessages.insertIssuesButtonText} />
+							</Button>
+						)}
+					</ModalFooter>
+				</DatasourceModal>
+			</ModalTransition>
+		</IntlMessagesProvider>
+	);
 };
 
 const analyticsContextAttributes: AnalyticsContextAttributesType = {
-  dataProvider: 'jira-issues',
+	dataProvider: 'jira-issues',
 };
 
 const analyticsContextData: AnalyticsContextType & ComponentMetaDataType = {
-  ...componentMetadata.configModal,
-  source: 'datasourceConfigModal',
+	...componentMetadata.configModal,
+	source: 'datasourceConfigModal',
 };
 
 const contextData = {
-  ...analyticsContextData,
-  attributes: {
-    ...analyticsContextAttributes,
-  },
+	...analyticsContextData,
+	attributes: {
+		...analyticsContextAttributes,
+	},
 };
 
 export const JiraIssuesConfigModal = withAnalyticsContext(contextData)(
-  (props: JiraConfigModalProps) => (
-    <DatasourceExperienceIdProvider>
-      <UserInteractionsProvider>
-        <PlainJiraIssuesConfigModal {...props} />
-      </UserInteractionsProvider>
-    </DatasourceExperienceIdProvider>
-  ),
+	(props: JiraConfigModalProps) => (
+		<DatasourceExperienceIdProvider>
+			<UserInteractionsProvider>
+				<PlainJiraIssuesConfigModal {...props} />
+			</UserInteractionsProvider>
+		</DatasourceExperienceIdProvider>
+	),
 );

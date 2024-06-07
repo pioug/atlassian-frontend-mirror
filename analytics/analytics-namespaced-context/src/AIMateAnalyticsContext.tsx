@@ -3,5 +3,7 @@ import createNamespaceContext, { type Props } from './helper/createNamespaceCont
 
 export const AI_MATE_CONTEXT = 'aiMateCtx';
 
-export const AIMateAnalyticsContext: FunctionComponent<Props> =
-  createNamespaceContext(AI_MATE_CONTEXT, 'AIMateAnalyticsContext');
+export const AIMateAnalyticsContext: FunctionComponent<Props> = createNamespaceContext(
+	AI_MATE_CONTEXT,
+	'AIMateAnalyticsContext',
+);

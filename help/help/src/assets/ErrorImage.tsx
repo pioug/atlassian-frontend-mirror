@@ -26,5 +26,5 @@ export const svg = `<?xml version="1.0" encoding="UTF-8"?>
 `;
 
 export default function ErrorImage() {
-  return <span dangerouslySetInnerHTML={{ __html: svg }} />;
+	return <span dangerouslySetInnerHTML={{ __html: svg }} />;
 }

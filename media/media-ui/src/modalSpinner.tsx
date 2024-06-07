@@ -8,47 +8,41 @@ const overlayZindex = layers.modal() + 10;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Blanket = styled.div({
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  bottom: 0,
-  right: 0,
-  zIndex: overlayZindex,
+	position: 'fixed',
+	top: 0,
+	left: 0,
+	bottom: 0,
+	right: 0,
+	zIndex: overlayZindex,
 });
 Blanket.displayName = 'Blanket';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SpinnerWrapper = styled.div({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
 });
 SpinnerWrapper.displayName = 'SpinnerWrapper';
 
 interface Props {
-  blankedColor?: string;
-  invertSpinnerColor?: boolean;
+	blankedColor?: string;
+	invertSpinnerColor?: boolean;
 }
 
 const defaultProps: Props = {
-  blankedColor: 'none',
-  invertSpinnerColor: false,
+	blankedColor: 'none',
+	invertSpinnerColor: false,
 };
 
 export default ({ blankedColor, invertSpinnerColor }: Props) => (
-  <Blanket
-    style={{ backgroundColor: blankedColor || defaultProps.blankedColor }}
-  >
-    <SpinnerWrapper>
-      <Spinner
-        size="large"
-        appearance={
-          invertSpinnerColor || defaultProps.invertSpinnerColor
-            ? 'invert'
-            : 'inherit'
-        }
-      />
-    </SpinnerWrapper>
-  </Blanket>
+	<Blanket style={{ backgroundColor: blankedColor || defaultProps.blankedColor }}>
+		<SpinnerWrapper>
+			<Spinner
+				size="large"
+				appearance={invertSpinnerColor || defaultProps.invertSpinnerColor ? 'invert' : 'inherit'}
+			/>
+		</SpinnerWrapper>
+	</Blanket>
 );

@@ -1,14 +1,11 @@
 import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
-import {
-  createRxjsNotice,
-  createMediaUseOnlyNotice,
-} from '@atlaskit/media-common/docs';
+import { createRxjsNotice, createMediaUseOnlyNotice } from '@atlaskit/media-common/docs';
 
 export default md`
   ${createMediaUseOnlyNotice('Media Client', [
-    { name: 'Media Picker', link: '/packages/media/media-picker' },
-  ])}
+		{ name: 'Media Picker', link: '/packages/media/media-picker' },
+	])}
 
   ${(<AtlassianInternalWarning />)}
 
@@ -23,12 +20,12 @@ const mediaClient = new MediaClient({ authProvider });
   `}
 
   ${(
-    <Example
-      Component={require('../examples/2-upload-file').default}
-      title="Media Client"
-      source={require('!!raw-loader!../examples/2-upload-file')}
-    />
-  )}
+		<Example
+			Component={require('../examples/2-upload-file').default}
+			title="Media Client"
+			source={require('!!raw-loader!../examples/2-upload-file')}
+		/>
+	)}
 
   ### Using Stargate Integration
 

@@ -221,6 +221,36 @@ describe('Migrate to loading buttons', () => {
 	});
 
 	check({
+		it: `should rename the custom theme button import specifier,
+	  and replace the loading button with default button`,
+		original: `
+	  import Button from '@atlaskit/button/custom-theme-button';
+	  import LoadingButton from '@atlaskit/button/loading-button';
+	  const App = () => (
+	    <>
+	      <Button>Custom theme button</Button>
+	      <LoadingButton isLoading={isLoading}>loading button</LoadingButton>
+	    </>
+	  );
+    render(Button);
+    render(LoadingButton);
+	`,
+		expected: `
+	  import LegacyButton from '@atlaskit/button/custom-theme-button';
+	  import Button from '@atlaskit/button/new';
+	  const App = () => (
+	    <>
+	      /* TODO: (from codemod) ${customThemeButtonComment} */
+	      <LegacyButton>Custom theme button</LegacyButton>
+	      <Button isLoading={isLoading}>loading button</Button>
+	    </>
+	  );
+    render(LegacyButton);
+    render(Button);
+	`,
+	});
+
+	check({
 		it: 'should migrate from loading button to icon button',
 		original: `
       import LoadingButton from '@atlaskit/button/loading-button';
@@ -1122,7 +1152,7 @@ describe('Add comment for custom theme buttons', () => {
 		expected: `
       import CustomThemeButton from '@atlaskit/button/custom-theme-button';
       const App = () => (
-        // TODO: (from codemod) ${customThemeButtonComment}
+        /* TODO: (from codemod) ${customThemeButtonComment} */
         <CustomThemeButton />
       );
     `,

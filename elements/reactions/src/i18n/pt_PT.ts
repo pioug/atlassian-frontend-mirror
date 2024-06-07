@@ -6,6 +6,6 @@
  */
 //Portuguese (Portugal)
 export default {
-  'fabric.reactions.error.unexpected': 'Ocorreu um erro',
-  'fabric.reactions.loading': 'A carregar...',
+	'fabric.reactions.error.unexpected': 'Ocorreu um erro',
+	'fabric.reactions.loading': 'A carregar...',
 };

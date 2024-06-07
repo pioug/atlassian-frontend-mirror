@@ -23,11 +23,11 @@ The TitleBlock will also render differently given the state of the smart link.
 This can be found in the corresponding Resolving, Resolved and Errored views.
 
 ${(
-  <ContentTabs
-    tabs={[
-      { name: TabName.Examples, content: examples },
-      { name: TabName.Reference, content: reference },
-    ]}
-  />
+	<ContentTabs
+		tabs={[
+			{ name: TabName.Examples, content: examples },
+			{ name: TabName.Reference, content: reference },
+		]}
+	/>
 )}
 `;

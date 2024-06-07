@@ -8,15 +8,12 @@ import { errorMessages } from '../messages';
 /**
  * Show the appropriate error message when parsing JQL fails and a function argument rule was expected.
  */
-export const handleFunctionArgumentRuleError = (
-  currentToken: Token,
-  intl: IntlShape,
-): string => {
-  const isEOF = currentToken.type === JQLLexer.EOF;
+export const handleFunctionArgumentRuleError = (currentToken: Token, intl: IntlShape): string => {
+	const isEOF = currentToken.type === JQLLexer.EOF;
 
-  return isEOF
-    ? intl.formatMessage(errorMessages.expectingFunctionArgBeforeEOF)
-    : intl.formatMessage(errorMessages.expectingFunctionArgButReceived, {
-        received: currentToken.text,
-      });
+	return isEOF
+		? intl.formatMessage(errorMessages.expectingFunctionArgBeforeEOF)
+		: intl.formatMessage(errorMessages.expectingFunctionArgButReceived, {
+				received: currentToken.text,
+			});
 };

@@ -15,7 +15,7 @@ export const JIRA_CUSTOM_TASK_TYPE = 'JiraCustomTaskType';
 
 //List of provider keys that support theme modes for the embedded content.
 export const PROVIDER_KEYS_WITH_THEMING = [
-  'jira-object-provider',
-  'confluence-object-provider',
-  'watermelon-object-provider',
+	'jira-object-provider',
+	'confluence-object-provider',
+	'watermelon-object-provider',
 ];

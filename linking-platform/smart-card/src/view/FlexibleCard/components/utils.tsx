@@ -13,145 +13,140 @@ import { type EmbedModalProps } from '../../EmbedModal/types';
 import Loadable from 'react-loadable';
 
 export const sizeToButtonSpacing: Record<SmartLinkSize, Spacing> = {
-  [SmartLinkSize.Small]: 'none',
-  [SmartLinkSize.Medium]: 'compact',
-  [SmartLinkSize.Large]: 'compact',
-  [SmartLinkSize.XLarge]: 'default',
+	[SmartLinkSize.Small]: 'none',
+	[SmartLinkSize.Medium]: 'compact',
+	[SmartLinkSize.Large]: 'compact',
+	[SmartLinkSize.XLarge]: 'default',
 };
 
 export const getFormattedMessage = (message?: MessageProps) => {
-  if (message) {
-    const { descriptor, values } = message;
-    return <FormattedMessage {...descriptor} values={values} />;
-  }
+	if (message) {
+		const { descriptor, values } = message;
+		return <FormattedMessage {...descriptor} values={values} />;
+	}
 };
 
 export const getFormattedMessageAsString = (
-  intl: IntlShape,
-  message: MessageDescriptor,
-  context?: string,
+	intl: IntlShape,
+	message: MessageDescriptor,
+	context?: string,
 ) => {
-  const { formatMessage } = intl;
-  return message ? formatMessage(message, { context }) : '';
+	const { formatMessage } = intl;
+	return message ? formatMessage(message, { context }) : '';
 };
 
 const getIconDimensionStyles = (value: string): SerializedStyles =>
-  css({
-    height: value,
-    minHeight: value,
-    maxHeight: value,
-    width: value,
-    minWidth: value,
-    maxWidth: value,
-  });
+	css({
+		height: value,
+		minHeight: value,
+		maxHeight: value,
+		width: value,
+		minWidth: value,
+		maxWidth: value,
+	});
 
 export const getIconSizeStyles = (width: string): SerializedStyles => {
-  const sizeStyles = getIconDimensionStyles(width);
-  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-  return css`
-    flex: 0 0 auto;
-    ${sizeStyles}
-    span,
+	const sizeStyles = getIconDimensionStyles(width);
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+	return css`
+		flex: 0 0 auto;
+		${sizeStyles}
+		span,
     svg,
     img {
-      ${sizeStyles}
-    }
-    svg {
-      padding: 0;
-    }
-  `;
+			${sizeStyles}
+		}
+		svg {
+			padding: 0;
+		}
+	`;
 };
 
 export const getIconWidth = (size?: SmartLinkSize): string => {
-  switch (size) {
-    case SmartLinkSize.XLarge:
-      return '2rem';
-    case SmartLinkSize.Large:
-      return '1.5rem';
-    case SmartLinkSize.Medium:
-      return '1rem';
-    case SmartLinkSize.Small:
-    default:
-      return '.75rem';
-  }
+	switch (size) {
+		case SmartLinkSize.XLarge:
+			return '2rem';
+		case SmartLinkSize.Large:
+			return '1.5rem';
+		case SmartLinkSize.Medium:
+			return '1rem';
+		case SmartLinkSize.Small:
+		default:
+			return '.75rem';
+	}
 };
 
 export const importIcon = (importFn: () => Promise<any>): any => {
-  return Loadable({
-    loader: () => importFn().then((module) => module.default),
-    loading: () => null,
-  }) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
+	return Loadable({
+		loader: () => importFn().then((module) => module.default),
+		loading: () => null,
+	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
 
 export const getLinkLineHeight = (size: SmartLinkSize): string => {
-  switch (size) {
-    case SmartLinkSize.XLarge:
-      return '1.5rem';
-    case SmartLinkSize.Large:
-    case SmartLinkSize.Medium:
-    case SmartLinkSize.Small:
-    default:
-      return '1rem';
-  }
+	switch (size) {
+		case SmartLinkSize.XLarge:
+			return '1.5rem';
+		case SmartLinkSize.Large:
+		case SmartLinkSize.Medium:
+		case SmartLinkSize.Small:
+		default:
+			return '1rem';
+	}
 };
 
 export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
-  switch (size) {
-    case SmartLinkSize.XLarge:
-      return css({
-        fontSize: '1.25rem',
-        fontWeight: 400,
-        letterSpacing: '-0.008em',
-        lineHeight: getLinkLineHeight(size),
-      });
-    case SmartLinkSize.Large:
-    case SmartLinkSize.Medium:
-      return css({
-        fontSize: '0.875rem',
-        fontWeight: 400,
-        letterSpacing: '-0.003em',
-        lineHeight: getLinkLineHeight(size),
-      });
-    case SmartLinkSize.Small:
-    default:
-      return css({
-        fontSize: '0.75rem',
-        fontWeight: 400,
-        letterSpacing: '0em',
-        lineHeight: getLinkLineHeight(size),
-      });
-  }
+	switch (size) {
+		case SmartLinkSize.XLarge:
+			return css({
+				fontSize: '1.25rem',
+				fontWeight: 400,
+				letterSpacing: '-0.008em',
+				lineHeight: getLinkLineHeight(size),
+			});
+		case SmartLinkSize.Large:
+		case SmartLinkSize.Medium:
+			return css({
+				fontSize: '0.875rem',
+				fontWeight: 400,
+				letterSpacing: '-0.003em',
+				lineHeight: getLinkLineHeight(size),
+			});
+		case SmartLinkSize.Small:
+		default:
+			return css({
+				fontSize: '0.75rem',
+				fontWeight: 400,
+				letterSpacing: '0em',
+				lineHeight: getLinkLineHeight(size),
+			});
+	}
 };
 
 export const getMaxLineHeight = (size: SmartLinkSize) => {
-  // The maximum line height based on all elements in specific size.
-  // These heights belongs to AvatarGroup.
-  switch (size) {
-    case SmartLinkSize.XLarge:
-    case SmartLinkSize.Large:
-      return 1.75;
-    case SmartLinkSize.Medium:
-    case SmartLinkSize.Small:
-    default:
-      return 1.5;
-  }
+	// The maximum line height based on all elements in specific size.
+	// These heights belongs to AvatarGroup.
+	switch (size) {
+		case SmartLinkSize.XLarge:
+		case SmartLinkSize.Large:
+			return 1.75;
+		case SmartLinkSize.Medium:
+		case SmartLinkSize.Small:
+		default:
+			return 1.5;
+	}
 };
 
-export const getMaxLines = (
-  value: number,
-  defaultValue: number,
-  max: number,
-  min: number,
-) => {
-  if (value > max) {
-    return defaultValue;
-  }
+export const getMaxLines = (value: number, defaultValue: number, max: number, min: number) => {
+	if (value > max) {
+		return defaultValue;
+	}
 
-  if (value < min) {
-    return min;
-  }
+	if (value < min) {
+		return min;
+	}
 
-  return value;
+	return value;
 };
 
 /**
@@ -159,17 +154,17 @@ export const getMaxLines = (
  * To replace blocks/utils.tsz getGapSize() with space token for primitives
  */
 export const getPrimitivesInlineSpaceBySize = (size: SmartLinkSize): Space => {
-  switch (size) {
-    case SmartLinkSize.XLarge:
-      return 'space.250';
-    case SmartLinkSize.Large:
-      return 'space.200';
-    case SmartLinkSize.Medium:
-      return 'space.100';
-    case SmartLinkSize.Small:
-    default:
-      return 'space.050';
-  }
+	switch (size) {
+		case SmartLinkSize.XLarge:
+			return 'space.250';
+		case SmartLinkSize.Large:
+			return 'space.200';
+		case SmartLinkSize.Medium:
+			return 'space.100';
+		case SmartLinkSize.Small:
+		default:
+			return 'space.050';
+	}
 };
 
 /**
@@ -177,54 +172,54 @@ export const getPrimitivesInlineSpaceBySize = (size: SmartLinkSize): Space => {
  * To replace container/index.tsx getPadding() with space token for primitives
  */
 export const getPrimitivesPaddingSpaceBySize = (size: SmartLinkSize): Space => {
-  switch (size) {
-    case SmartLinkSize.XLarge:
-      return 'space.300';
-    case SmartLinkSize.Large:
-      return 'space.250';
-    case SmartLinkSize.Medium:
-      return 'space.200';
-    case SmartLinkSize.Small:
-    default:
-      return 'space.100';
-  }
+	switch (size) {
+		case SmartLinkSize.XLarge:
+			return 'space.300';
+		case SmartLinkSize.Large:
+			return 'space.250';
+		case SmartLinkSize.Medium:
+			return 'space.200';
+		case SmartLinkSize.Small:
+		default:
+			return 'space.100';
+	}
 };
 
 export const getTruncateStyles = (
-  maxLines: number,
-  lineHeight: string = '1rem',
-  wordBreak: 'break-word' | 'break-all' = 'break-word',
+	maxLines: number,
+	lineHeight: string = '1rem',
+	wordBreak: 'break-word' | 'break-all' = 'break-word',
 ): SerializedStyles =>
-  css({
-    display: '-webkit-box',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    wordBreak: wordBreak,
-    WebkitLineClamp: maxLines,
-    WebkitBoxOrient: 'vertical',
-    '@supports not (-webkit-line-clamp: 1)': {
-      maxHeight: `calc(${maxLines} * ${lineHeight})`,
-    },
-  });
+	css({
+		display: '-webkit-box',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		wordBreak: wordBreak,
+		WebkitLineClamp: maxLines,
+		WebkitBoxOrient: 'vertical',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(${maxLines} * ${lineHeight})`,
+		},
+	});
 
 export const hasWhiteSpace = (str: string): boolean => {
-  return str.search(/\s/) >= 0;
+	return str.search(/\s/) >= 0;
 };
 
 export const openEmbedModalWithFlexibleUiIcon = ({
-  linkIcon,
-  ...props
+	linkIcon,
+	...props
 }: Partial<EmbedModalProps> & Pick<PreviewActionData, 'linkIcon'>) => {
-  const icon = {
-    icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
-    isFlexibleUi: true,
-  };
-  return openEmbedModal({
-    ...props,
-    icon,
-    // Flex should not send origin as block card. It should be able to support
-    // its internal parent components like hover card, block card and
-    // itself as a standalone. To be investigated and fix in EDM-7520.
-    origin: 'smartLinkCard',
-  });
+	const icon = {
+		icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
+		isFlexibleUi: true,
+	};
+	return openEmbedModal({
+		...props,
+		icon,
+		// Flex should not send origin as block card. It should be able to support
+		// its internal parent components like hover card, block card and
+		// itself as a standalone. To be investigated and fix in EDM-7520.
+		origin: 'smartLinkCard',
+	});
 };

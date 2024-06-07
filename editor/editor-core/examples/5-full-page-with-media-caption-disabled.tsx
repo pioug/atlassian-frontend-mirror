@@ -2,7 +2,6 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-
 import { getTranslations } from '@af/editor-examples-helpers/utils';
 import { LanguagePicker } from '@af/editor-examples-helpers/utils';
 import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
@@ -28,7 +27,7 @@ export default class ExampleEditor extends React.Component<Props, State> {
 		return (
 			<IntlProvider locale={this.getProperLanguageKey(locale)} messages={messages}>
 				<FullPageExample
-          disableIntlProviderInExample={true}
+					disableIntlProviderInExample={true}
 					editorProps={{
 						defaultValue: adf,
 						allowHelpDialog: true,

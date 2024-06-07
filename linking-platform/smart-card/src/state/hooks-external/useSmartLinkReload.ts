@@ -7,19 +7,19 @@ import { useSmartCardActions as useLinkActions } from '../actions';
 import { useSmartLinkAnalytics as useLinkAnalytics } from '../analytics';
 
 export interface UseSmartLinkReloadOpts {
-  /**
-   * Smart Link URL for which the reload will be invoked.
-   * @example https://start.atlassian.com
-   */
-  url: string;
-  /**
-   * Callback for sending analytics events.
-   * @description Accepts an analytics payload and fires it to a system.
-   *
-   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
-   * Overriding the analytics dispatch method is deprecated. Please omit this property.
-   */
-  analyticsHandler?: AnalyticsHandler;
+	/**
+	 * Smart Link URL for which the reload will be invoked.
+	 * @example https://start.atlassian.com
+	 */
+	url: string;
+	/**
+	 * Callback for sending analytics events.
+	 * @description Accepts an analytics payload and fires it to a system.
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}
+	 * Overriding the analytics dispatch method is deprecated. Please omit this property.
+	 */
+	analyticsHandler?: AnalyticsHandler;
 }
 
 /**
@@ -27,14 +27,11 @@ export interface UseSmartLinkReloadOpts {
  * @param
  * @returns
  */
-export function useSmartLinkReload({
-  url,
-  analyticsHandler,
-}: UseSmartLinkReloadOpts) {
-  const id = useMemo(() => uuid(), []);
+export function useSmartLinkReload({ url, analyticsHandler }: UseSmartLinkReloadOpts) {
+	const id = useMemo(() => uuid(), []);
 
-  const linkAnalytics = useLinkAnalytics(url, analyticsHandler, id);
-  const linkActions = useLinkActions(id, url, linkAnalytics);
+	const linkAnalytics = useLinkAnalytics(url, analyticsHandler, id);
+	const linkActions = useLinkActions(id, url, linkAnalytics);
 
-  return linkActions.reload;
+	return linkActions.reload;
 }

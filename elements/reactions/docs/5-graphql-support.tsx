@@ -120,34 +120,32 @@ export default md`
   };`}
 
 ${(
-  <>
-    <br />
-    <SectionMessage
-      appearance="information"
-      title="There should be only one instance of EmojiResource in your application"
-    >
-      <p>
-        Above examples show the best practice to integrate Graphql APIs. By
-        extending from our `ReactionsClient` interface, you are free to use any
-        GrapqhQL client, any queries or mutations, as long as they return the
-        same type as defined in the interface.
-      </p>
-    </SectionMessage>
-    <br />
-    <SectionMessage appearance="warning">
-      Use base UI Components `Reactions` from `@atlaskit/reactions` directly
-      with your own implementation around to support GraphQL or custom behavior
-      is at your own risk. Without using ReactionsStore, we can't track the
-      operations of reactions, please add your own tracking to measure. The
-      custom implementation will lead to limited support from us.
-    </SectionMessage>
-  </>
+	<>
+		<br />
+		<SectionMessage
+			appearance="information"
+			title="There should be only one instance of EmojiResource in your application"
+		>
+			<p>
+				Above examples show the best practice to integrate Graphql APIs. By extending from our
+				`ReactionsClient` interface, you are free to use any GrapqhQL client, any queries or
+				mutations, as long as they return the same type as defined in the interface.
+			</p>
+		</SectionMessage>
+		<br />
+		<SectionMessage appearance="warning">
+			Use base UI Components `Reactions` from `@atlaskit/reactions` directly with your own
+			implementation around to support GraphQL or custom behavior is at your own risk. Without using
+			ReactionsStore, we can't track the operations of reactions, please add your own tracking to
+			measure. The custom implementation will lead to limited support from us.
+		</SectionMessage>
+	</>
 )}
 
 ${(
-  <Props
-    heading="ReactionClient type"
-    props={require('!!extract-react-types-loader!../extract-react-type/reactionClient')}
-  />
+	<Props
+		heading="ReactionClient type"
+		props={require('!!extract-react-types-loader!../extract-react-type/reactionClient')}
+	/>
 )}
 `;

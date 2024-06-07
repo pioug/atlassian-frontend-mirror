@@ -5,22 +5,22 @@
  * @param time Debounce interval
  * @returns Function that returns debounced promise
  */
-export function promiseDebounce<
-  Args extends unknown[],
-  ResolveType extends unknown,
->(cb: (...args: Args) => Promise<ResolveType>, time: number) {
-  let timeoutId: ReturnType<typeof setTimeout>;
+export function promiseDebounce<Args extends unknown[], ResolveType extends unknown>(
+	cb: (...args: Args) => Promise<ResolveType>,
+	time: number,
+) {
+	let timeoutId: ReturnType<typeof setTimeout>;
 
-  // Returns a promise that fires the debounce fn and pushes a resolver
-  // to have the debounced result resolved
-  return (...args: Args) => {
-    timeoutId && clearTimeout(timeoutId);
-    return new Promise<ResolveType>((resolve, reject) => {
-      timeoutId = setTimeout(() => {
-        cb(...args)
-          .then(resolve)
-          .catch(reject);
-      }, time);
-    });
-  };
+	// Returns a promise that fires the debounce fn and pushes a resolver
+	// to have the debounced result resolved
+	return (...args: Args) => {
+		timeoutId && clearTimeout(timeoutId);
+		return new Promise<ResolveType>((resolve, reject) => {
+			timeoutId = setTimeout(() => {
+				cb(...args)
+					.then(resolve)
+					.catch(reject);
+			}, time);
+		});
+	};
 }

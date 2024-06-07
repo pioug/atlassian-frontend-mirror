@@ -1,38 +1,38 @@
 import { type BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import type { AdfDoc } from '@atlaskit/help-article';
 export interface Article extends ArticleItem {
-  body: string | AdfDoc;
-  bodyFormat?: BODY_FORMAT_TYPES;
-  relatedArticles?: ArticleItem[];
+	body: string | AdfDoc;
+	bodyFormat?: BODY_FORMAT_TYPES;
+	relatedArticles?: ArticleItem[];
 }
 
 // TODO - Check if we need to delete this
 export enum ARTICLE_ITEM_TYPES {
-  topicInProduct = 'topicInProduct',
+	topicInProduct = 'topicInProduct',
 }
 export interface ArticleItem {
-  description?: string;
-  id: string;
-  lastPublished: string;
-  title: string;
-  type: ARTICLE_ITEM_TYPES;
-  routes?: {
-    routeName: string;
-    routeGroup: string;
-  }[];
-  topicId?: string;
-  productName?: string;
-  href?: string;
-  trustFactors?: {
-    numViews?: number;
-    helpfulCount?: number;
-  };
-  source?: string;
+	description?: string;
+	id: string;
+	lastPublished: string;
+	title: string;
+	type: ARTICLE_ITEM_TYPES;
+	routes?: {
+		routeName: string;
+		routeGroup: string;
+	}[];
+	topicId?: string;
+	productName?: string;
+	href?: string;
+	trustFactors?: {
+		numViews?: number;
+		helpfulCount?: number;
+	};
+	source?: string;
 }
 
 export interface ArticleFeedback {
-  wasHelpful: boolean;
-  feedbackReason: string;
-  feedbackReasonText: string;
-  contactMe: boolean;
+	wasHelpful: boolean;
+	feedbackReason: string;
+	feedbackReasonText: string;
+	contactMe: boolean;
 }

@@ -2,94 +2,94 @@ import { tester } from '../../../../__tests__/utils/_tester';
 import rule from '../../index';
 
 describe('Feature Flag can only be passed into ffTest as Literal', () => {
-  tester.run('ensure-test-runner-arguments', rule, {
-    valid: [
-      {
-        code: `ffTest('sample.feature.flag', () => {
+	tester.run('ensure-test-runner-arguments', rule, {
+		valid: [
+			{
+				code: `ffTest('sample.feature.flag', () => {
           const { getByText } = render(<SampleComponent />);
           expect(getByText('SampleComponent')).toBeDefined();
         });`,
-      },
-    ],
-    invalid: [
-      {
-        code: `ffTest(myFeatureFlag, () => {
+			},
+		],
+		invalid: [
+			{
+				code: `ffTest(myFeatureFlag, () => {
           const { getByText } = render(<SampleComponent />);
           expect(getByText('SampleComponent')).toBeDefined();
         });`,
-        errors: [
-          {
-            messageId: 'onlyInlineFeatureFlag',
-            data: { identifierName: 'myFeatureFlag' },
-          },
-        ],
-      },
-    ],
-  });
+				errors: [
+					{
+						messageId: 'onlyInlineFeatureFlag',
+						data: { identifierName: 'myFeatureFlag' },
+					},
+				],
+			},
+		],
+	});
 });
 
 describe('Test functions can only be passed in directly, instead of as variables', () => {
-  tester.run('ensure-test-runner-arguments', rule, {
-    valid: [
-      {
-        code: `ffTest('sample.feature.flag', () => {
+	tester.run('ensure-test-runner-arguments', rule, {
+		valid: [
+			{
+				code: `ffTest('sample.feature.flag', () => {
           const { getByText } = render(<SampleComponent />);
           expect(getByText('SampleComponent')).toBeDefined();
         });`,
-      },
-      {
-        code: `ffTest('sample.feature.flag', () => {
+			},
+			{
+				code: `ffTest('sample.feature.flag', () => {
           const { getByText } = render(<SampleComponent />);
           expect(getByText('SampleComponent')).toBeDefined();
         }, () => {
           const { getByText } = render(<SampleComponent />);
           expect(getByText('AnotherSampleComponent')).toBeDefined();
         });`,
-      },
-    ],
-    invalid: [
-      {
-        code: `ffTest('sample.feature.flag', fnToPassIn);`,
-        errors: [
-          {
-            messageId: 'onlyInlineTestFunction',
-            data: { identifierName: 'fnToPassIn' },
-          },
-        ],
-      },
-      {
-        code: `ffTest('sample.feature.flag', () => {
+			},
+		],
+		invalid: [
+			{
+				code: `ffTest('sample.feature.flag', fnToPassIn);`,
+				errors: [
+					{
+						messageId: 'onlyInlineTestFunction',
+						data: { identifierName: 'fnToPassIn' },
+					},
+				],
+			},
+			{
+				code: `ffTest('sample.feature.flag', () => {
           const { getByText } = render(<SampleComponent />);
           expect(getByText('SampleComponent')).toBeDefined();
         }, fnToPassInWhenFlagIsDisabled);`,
-        errors: [
-          {
-            messageId: 'onlyInlineTestFunction',
-            data: { identifierName: 'fnToPassInWhenFlagIsDisabled' },
-          },
-        ],
-      },
-      {
-        code: `ffTest('sample.feature.flag', fnToPassInWhenFlagIsEnabled, () => {
+				errors: [
+					{
+						messageId: 'onlyInlineTestFunction',
+						data: { identifierName: 'fnToPassInWhenFlagIsDisabled' },
+					},
+				],
+			},
+			{
+				code: `ffTest('sample.feature.flag', fnToPassInWhenFlagIsEnabled, () => {
           const { getByText } = render(<SampleComponent />);
           expect(getByText('SampleComponent')).toBeDefined();
         },);`,
-        errors: [
-          {
-            messageId: 'onlyInlineTestFunction',
-            data: { identifierName: 'fnToPassInWhenFlagIsEnabled' },
-          },
-        ],
-      },
-    ],
-  });
+				errors: [
+					{
+						messageId: 'onlyInlineTestFunction',
+						data: { identifierName: 'fnToPassInWhenFlagIsEnabled' },
+					},
+				],
+			},
+		],
+	});
 });
 
 describe('Verify existing ff overrides are passed down if test runner is nested', () => {
-  tester.run('ensure-test-runner-arguments', rule, {
-    valid: [
-      {
-        code: `ffTest(
+	tester.run('ensure-test-runner-arguments', rule, {
+		valid: [
+			{
+				code: `ffTest(
           'uip.sample.color',
           ff =>
             ffTest(
@@ -115,11 +115,11 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
             ),
         );
         `,
-      },
-    ],
-    invalid: [
-      {
-        code: `ffTest(
+			},
+		],
+		invalid: [
+			{
+				code: `ffTest(
           'uip.sample.color',
           () =>
             ffTest(
@@ -145,7 +145,7 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
             ),
         );
         `,
-        output: `ffTest(
+				output: `ffTest(
           'uip.sample.color',
           ff =>
             ffTest(
@@ -171,14 +171,14 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
             ),
         );
         `,
-        errors: [
-          {
-            messageId: 'passDownExistingFeatureFlagParam',
-          },
-        ],
-      },
-      {
-        code: `ffTest(
+				errors: [
+					{
+						messageId: 'passDownExistingFeatureFlagParam',
+					},
+				],
+			},
+			{
+				code: `ffTest(
           'uip.sample.color',
           ff =>
             ffTest(
@@ -203,7 +203,7 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
             ),
         );
         `,
-        output: `ffTest(
+				output: `ffTest(
           'uip.sample.color',
           ff =>
             ffTest(
@@ -228,14 +228,14 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
             ),
         );
         `,
-        errors: [
-          {
-            messageId: 'passDownExistingFeatureFlagArgument',
-          },
-        ],
-      },
-      {
-        code: `ffTest(
+				errors: [
+					{
+						messageId: 'passDownExistingFeatureFlagArgument',
+					},
+				],
+			},
+			{
+				code: `ffTest(
           'uip.sample.color',
           ff =>
             ffTest(
@@ -261,7 +261,7 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
             ),
         );
         `,
-        output: `ffTest(
+				output: `ffTest(
           'uip.sample.color',
           ff =>
             ffTest(
@@ -287,12 +287,12 @@ describe('Verify existing ff overrides are passed down if test runner is nested'
             ),
         );
         `,
-        errors: [
-          {
-            messageId: 'passDownExistingFeatureFlagNamesMatch',
-          },
-        ],
-      },
-    ],
-  });
+				errors: [
+					{
+						messageId: 'passDownExistingFeatureFlagNamesMatch',
+					},
+				],
+			},
+		],
+	});
 });

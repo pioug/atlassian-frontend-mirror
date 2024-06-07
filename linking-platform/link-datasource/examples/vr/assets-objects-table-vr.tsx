@@ -4,7 +4,7 @@ import { ExampleAssetsIssuesTableView } from '../../examples-helpers/buildAssets
 import { HoverableContainer } from '../../examples-helpers/hoverableContainer';
 
 export default () => (
-  <HoverableContainer>
-    <ExampleAssetsIssuesTableView />
-  </HoverableContainer>
+	<HoverableContainer>
+		<ExampleAssetsIssuesTableView />
+	</HoverableContainer>
 );

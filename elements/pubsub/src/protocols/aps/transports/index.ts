@@ -3,14 +3,14 @@ import { type APSTransportType } from '../../../apiTypes';
 import { type APSAnalyticsClient } from '../APSAnalyticsClient';
 
 export interface APSTransportParams {
-  url: URL;
-  eventEmitter: EventEmitter2;
-  analyticsClient: APSAnalyticsClient;
-  isFallback: boolean;
+	url: URL;
+	eventEmitter: EventEmitter2;
+	analyticsClient: APSAnalyticsClient;
+	isFallback: boolean;
 }
 
 export interface APSTransport {
-  subscribe: (channels: Set<string>) => Promise<void>;
-  close: () => void;
-  transportType: () => APSTransportType;
+	subscribe: (channels: Set<string>) => Promise<void>;
+	close: () => void;
+	transportType: () => APSTransportType;
 }

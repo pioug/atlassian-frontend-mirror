@@ -6,20 +6,17 @@ import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { emojiPickerFooter, emojiPickerFooterWithTopShadow } from './styles';
 
 export interface Props {
-  selectedEmoji?: EmojiDescription;
+	selectedEmoji?: EmojiDescription;
 }
 
-const previewFooterClassnames = [
-  emojiPickerFooter,
-  emojiPickerFooterWithTopShadow,
-];
+const previewFooterClassnames = [emojiPickerFooter, emojiPickerFooterWithTopShadow];
 
 export const emojiPickerFooterTestId = 'emoji-picker-footer';
 
 const EmojiPickerFooter = ({ selectedEmoji }: Props) => (
-  <div css={previewFooterClassnames} data-testid={emojiPickerFooterTestId}>
-    {selectedEmoji && <EmojiPreviewComponent emoji={selectedEmoji} />}
-  </div>
+	<div css={previewFooterClassnames} data-testid={emojiPickerFooterTestId}>
+		{selectedEmoji && <EmojiPreviewComponent emoji={selectedEmoji} />}
+	</div>
 );
 
 export default memo(EmojiPickerFooter);

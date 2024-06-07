@@ -6,122 +6,114 @@ import { EmojiContext } from '../../../../context/EmojiContext';
 import EmojiResource from '../../../../api/EmojiResource';
 jest.mock('../../../../api/EmojiResource');
 class ClassContextChild extends PureComponent {
-  static contextType = EmojiContext;
-  context!: ContextType<typeof EmojiContext>;
+	static contextType = EmojiContext;
+	context!: ContextType<typeof EmojiContext>;
 
-  render() {
-    return (
-      <span>{this.context?.emoji.emojiProvider.findByShortName('foo')}</span>
-    );
-  }
+	render() {
+		return <span>{this.context?.emoji.emojiProvider.findByShortName('foo')}</span>;
+	}
 }
 
 const FunctionContextChild = () => {
-  const emojiContext = useContext(EmojiContext);
-  return (
-    <span>{emojiContext?.emoji.emojiProvider.findByShortName('foo')}</span>
-  );
+	const emojiContext = useContext(EmojiContext);
+	return <span>{emojiContext?.emoji.emojiProvider.findByShortName('foo')}</span>;
 };
 
 describe('the emoji context provider', () => {
-  let emojiProviderStub: sinon.SinonStubbedInstance<EmojiResource>;
-  beforeEach(() => {
-    emojiProviderStub = sinon.createStubInstance(EmojiResource);
-  });
+	let emojiProviderStub: sinon.SinonStubbedInstance<EmojiResource>;
+	beforeEach(() => {
+		emojiProviderStub = sinon.createStubInstance(EmojiResource);
+	});
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  it('passes down the emoji context into functional components', async () => {
-    emojiProviderStub.findByShortName.returns('foo-stubbed');
-    const emojiContextValue = {
-      emoji: {
-        emojiProvider: emojiProviderStub,
-      },
-    };
+	it('passes down the emoji context into functional components', async () => {
+		emojiProviderStub.findByShortName.returns('foo-stubbed');
+		const emojiContextValue = {
+			emoji: {
+				emojiProvider: emojiProviderStub,
+			},
+		};
 
-    const result = await render(
-      <EmojiContextProvider emojiContextValue={emojiContextValue}>
-        <FunctionContextChild />
-      </EmojiContextProvider>,
-    );
+		const result = await render(
+			<EmojiContextProvider emojiContextValue={emojiContextValue}>
+				<FunctionContextChild />
+			</EmojiContextProvider>,
+		);
 
-    expect(result.findByDisplayValue('foo-stubbed')).not.toBeNull();
-  });
+		expect(result.findByDisplayValue('foo-stubbed')).not.toBeNull();
+	});
 
-  it('passed down the emoji context into class based components', async () => {
-    emojiProviderStub.findByShortName.returns('foo-stubbed');
-    const emojiContextValue = {
-      emoji: {
-        emojiProvider: emojiProviderStub,
-      },
-    };
+	it('passed down the emoji context into class based components', async () => {
+		emojiProviderStub.findByShortName.returns('foo-stubbed');
+		const emojiContextValue = {
+			emoji: {
+				emojiProvider: emojiProviderStub,
+			},
+		};
 
-    const result = await render(
-      <EmojiContextProvider emojiContextValue={emojiContextValue}>
-        <ClassContextChild />
-      </EmojiContextProvider>,
-    );
+		const result = await render(
+			<EmojiContextProvider emojiContextValue={emojiContextValue}>
+				<ClassContextChild />
+			</EmojiContextProvider>,
+		);
 
-    expect(result.findByDisplayValue('foo-stubbed')).not.toBeNull();
-  });
+		expect(result.findByDisplayValue('foo-stubbed')).not.toBeNull();
+	});
 
-  it('does not fetch providers if fetching on demand only', async () => {
-    const onlyFetchOnDemand = true;
-    const newEmojiResource = new EmojiResource({
-      providers: [
-        {
-          url: 'test-url',
-        },
-      ],
-      options: {
-        onlyFetchOnDemand,
-      },
-    });
-    newEmojiResource.onlyFetchOnDemand = jest.fn(() => onlyFetchOnDemand);
+	it('does not fetch providers if fetching on demand only', async () => {
+		const onlyFetchOnDemand = true;
+		const newEmojiResource = new EmojiResource({
+			providers: [
+				{
+					url: 'test-url',
+				},
+			],
+			options: {
+				onlyFetchOnDemand,
+			},
+		});
+		newEmojiResource.onlyFetchOnDemand = jest.fn(() => onlyFetchOnDemand);
 
-    const emojiContextValue = {
-      emoji: {
-        emojiProvider: newEmojiResource,
-      },
-    };
+		const emojiContextValue = {
+			emoji: {
+				emojiProvider: newEmojiResource,
+			},
+		};
 
-    await render(
-      <EmojiContextProvider
-        emojiContextValue={emojiContextValue}
-      ></EmojiContextProvider>,
-    );
+		await render(
+			<EmojiContextProvider emojiContextValue={emojiContextValue}></EmojiContextProvider>,
+		);
 
-    expect(newEmojiResource.fetchEmojiProvider).not.toHaveBeenCalled();
-  });
+		expect(newEmojiResource.fetchEmojiProvider).not.toHaveBeenCalled();
+	});
 
-  it('does fetch providers if not fetching on demand only', async () => {
-    const onlyFetchOnDemand = false;
-    const newEmojiResource = new EmojiResource({
-      providers: [
-        {
-          url: 'test-url',
-        },
-      ],
-      options: {
-        onlyFetchOnDemand,
-      },
-    });
-    newEmojiResource.onlyFetchOnDemand = jest.fn(() => onlyFetchOnDemand);
+	it('does fetch providers if not fetching on demand only', async () => {
+		const onlyFetchOnDemand = false;
+		const newEmojiResource = new EmojiResource({
+			providers: [
+				{
+					url: 'test-url',
+				},
+			],
+			options: {
+				onlyFetchOnDemand,
+			},
+		});
+		newEmojiResource.onlyFetchOnDemand = jest.fn(() => onlyFetchOnDemand);
 
-    const emojiContextValue = {
-      emoji: {
-        emojiProvider: newEmojiResource,
-      },
-    };
+		const emojiContextValue = {
+			emoji: {
+				emojiProvider: newEmojiResource,
+			},
+		};
 
-    await render(
-      <EmojiContextProvider
-        emojiContextValue={emojiContextValue}
-      ></EmojiContextProvider>,
-    );
+		await render(
+			<EmojiContextProvider emojiContextValue={emojiContextValue}></EmojiContextProvider>,
+		);
 
-    expect(newEmojiResource.fetchEmojiProvider).toHaveBeenCalled();
-  });
+		expect(newEmojiResource.fetchEmojiProvider).toHaveBeenCalled();
+	});
 });

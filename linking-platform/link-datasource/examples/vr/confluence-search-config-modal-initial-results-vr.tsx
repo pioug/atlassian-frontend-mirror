@@ -4,8 +4,8 @@ import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
-  defaultInitialVisibleConfluenceColumnKeys,
-  mockDatasourceFetchRequests,
+	defaultInitialVisibleConfluenceColumnKeys,
+	mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
@@ -13,28 +13,28 @@ import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../../src/ui/confluence-search-
 import { ConfluenceSearchConfigModal } from '../../src/ui/confluence-search-modal/modal';
 
 mockDatasourceFetchRequests({
-  type: 'confluence',
-  delayedResponse: false,
-  shouldMockORSBatch: true,
+	type: 'confluence',
+	delayedResponse: false,
+	shouldMockORSBatch: true,
 });
 
 const parameters = {
-  cloudId: '67899',
-  searchString: 'Searched something',
+	cloudId: '67899',
+	searchString: 'Searched something',
 };
 
 export default () => {
-  return (
-    <IntlProvider locale="en">
-      <SmartCardProvider client={new SmartLinkClient()}>
-        <ConfluenceSearchConfigModal
-          datasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}
-          visibleColumnKeys={defaultInitialVisibleConfluenceColumnKeys}
-          parameters={parameters}
-          onCancel={() => {}}
-          onInsert={() => {}}
-        />
-      </SmartCardProvider>
-    </IntlProvider>
-  );
+	return (
+		<IntlProvider locale="en">
+			<SmartCardProvider client={new SmartLinkClient()}>
+				<ConfluenceSearchConfigModal
+					datasourceId={CONFLUENCE_SEARCH_DATASOURCE_ID}
+					visibleColumnKeys={defaultInitialVisibleConfluenceColumnKeys}
+					parameters={parameters}
+					onCancel={() => {}}
+					onInsert={() => {}}
+				/>
+			</SmartCardProvider>
+		</IntlProvider>
+	);
 };

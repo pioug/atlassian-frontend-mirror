@@ -3,20 +3,20 @@ import { type RuleList } from 'antlr4-c3/lib/src/CodeCompletionCore';
 import { type Position } from '../common/types';
 
 export type RuleSuggestion<RuleContext> = {
-  context: RuleContext | null;
-  matchedText: string;
-  replacePosition: Position;
+	context: RuleContext | null;
+	matchedText: string;
+	replacePosition: Position;
 };
 
 export type RuleSuggestionsWithRuleList<RuleContext> = Map<
-  number,
-  [RuleSuggestion<RuleContext>, RuleList]
+	number,
+	[RuleSuggestion<RuleContext>, RuleList]
 >;
 
 export type TokenSuggestions = {
-  values: string[];
-  matchedText: string;
-  replacePosition: Position;
+	values: string[];
+	matchedText: string;
+	replacePosition: Position;
 };
 
 /**
@@ -28,6 +28,6 @@ export type TokenSuggestions = {
  * grammer changes need to be introduced, as hardcoded names remain unchanged.
  */
 export type Suggestions<RuleContext> = {
-  tokens: TokenSuggestions;
-  rules: RuleSuggestionsWithRuleList<RuleContext>;
+	tokens: TokenSuggestions;
+	rules: RuleSuggestionsWithRuleList<RuleContext>;
 };

@@ -2,36 +2,36 @@ import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 tester.run('use-popup-label', rule, {
-  valid: [
-    `
+	valid: [
+		`
     import Popup from '@atlaskit/popup';
 
     <Popup>
       Children
     </Popup>
   `,
-    `
+		`
   import AkPopup from '@atlaskit/popup';
 
   <AkPopup>
     Children
   </AkPopup>
   `,
-    `
+		`
   import AkPopup from '@atlaskit/popup';
 
   <AkPopup role="dialog" label="AkPopup accessible name">
     Children
   </AkPopup>
   `,
-    `
+		`
   import Popup from '@atlaskit/popup';
 
   <Popup role="dialog" label="Popup accessible name">
     Children
   </Popup>
   `,
-    `
+		`
   import Popup from '@atlaskit/popup';
 
   const label = "Popup accessible label";
@@ -40,14 +40,14 @@ tester.run('use-popup-label', rule, {
     Children
   </Popup>
   `,
-    `
+		`
   import Popup from '@atlaskit/popup';
 
   <Popup role="dialog" titleId="testId">
     Children
   </Popup>
   `,
-    `
+		`
   import Popup from '@atlaskit/popup';
 
   const titleId = "popup-label-test-id";
@@ -56,119 +56,119 @@ tester.run('use-popup-label', rule, {
     Children
   </Popup>
 `,
-  ],
-  invalid: [
-    {
-      code: `
+	],
+	invalid: [
+		{
+			code: `
       import Popup from '@atlaskit/popup';
 
       <Popup role="dialog">
         Children
       </Popup>
       `,
-      errors: [
-        {
-          messageId: 'missingLabelProp',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'missingLabelProp',
+				},
+			],
+		},
+		{
+			code: `
       import Popup from '@atlaskit/popup';
 
       <Popup role="dialog" label="">
         Children
       </Popup>
       `,
-      errors: [
-        {
-          messageId: 'labelPropShouldHaveContents',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'labelPropShouldHaveContents',
+				},
+			],
+		},
+		{
+			code: `
       import Popup from '@atlaskit/popup';
 
       <Popup role="dialog" titleId="">
         Children
       </Popup>
       `,
-      errors: [
-        {
-          messageId: 'titleIdShouldHaveValue',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'titleIdShouldHaveValue',
+				},
+			],
+		},
+		{
+			code: `
       import Popup from '@atlaskit/popup';
 
       <Popup role="dialog" titleId="testId" label="Popup accessible name">
         Children
       </Popup>
       `,
-      errors: [
-        {
-          messageId: 'noBothPropsUsage',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'noBothPropsUsage',
+				},
+			],
+		},
+		{
+			code: `
       import AkPopup from '@atlaskit/popup';
 
       <AkPopup role="dialog">
         Children
       </AkPopup>
       `,
-      errors: [
-        {
-          messageId: 'missingLabelProp',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'missingLabelProp',
+				},
+			],
+		},
+		{
+			code: `
       import AkPopup from '@atlaskit/popup';
 
       <AkPopup role="dialog" label="">
         Children
       </AkPopup>
       `,
-      errors: [
-        {
-          messageId: 'labelPropShouldHaveContents',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'labelPropShouldHaveContents',
+				},
+			],
+		},
+		{
+			code: `
       import AkPopup from '@atlaskit/popup';
 
       <AkPopup role="dialog" titleId="">
         Children
       </AkPopup>
       `,
-      errors: [
-        {
-          messageId: 'titleIdShouldHaveValue',
-        },
-      ],
-    },
-    {
-      code: `
+			errors: [
+				{
+					messageId: 'titleIdShouldHaveValue',
+				},
+			],
+		},
+		{
+			code: `
       import AkPopup from '@atlaskit/popup';
 
       <AkPopup role="dialog" titleId="testId" label="AkPopup accessible name">
         Children
       </AkPopup>
       `,
-      errors: [
-        {
-          messageId: 'noBothPropsUsage',
-        },
-      ],
-    },
-  ],
+			errors: [
+				{
+					messageId: 'noBothPropsUsage',
+				},
+			],
+		},
+	],
 });

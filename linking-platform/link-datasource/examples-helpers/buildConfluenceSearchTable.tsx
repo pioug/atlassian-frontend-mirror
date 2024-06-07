@@ -13,65 +13,63 @@ import SmartLinkClient from './smartLinkCustomClient';
 import { useCommonTableProps } from './useCommonTableProps';
 
 interface ConfluenceSearchTableViewProps {
-  parameters?: DatasourceParameters;
-  mockDatasourceFetchRequest?: boolean;
+	parameters?: DatasourceParameters;
+	mockDatasourceFetchRequest?: boolean;
 }
 
-const ConfluenceSearchTableView = ({
-  parameters,
-}: ConfluenceSearchTableViewProps) => {
-  const cloudId = parameters?.cloudId || 'some-cloud-id';
+const ConfluenceSearchTableView = ({ parameters }: ConfluenceSearchTableViewProps) => {
+	const cloudId = parameters?.cloudId || 'some-cloud-id';
 
-  const datasourceParameters = useMemo<ConfluenceSearchDatasourceParameters>(
-    () => ({
-      cloudId,
-      searchString: 'some-query',
-    }),
-    [cloudId],
-  );
+	const datasourceParameters = useMemo<ConfluenceSearchDatasourceParameters>(
+		() => ({
+			cloudId,
+			searchString: 'some-query',
+		}),
+		[cloudId],
+	);
 
-  const {
-    visibleColumnKeys,
-    onVisibleColumnKeysChange,
-    columnCustomSizes,
-    onColumnResize,
-    wrappedColumnKeys,
-    onWrappedColumnChange,
-  } = useCommonTableProps({
-    defaultColumnCustomSizes: {
-      people: 100,
-    },
-  });
+	const {
+		visibleColumnKeys,
+		onVisibleColumnKeysChange,
+		columnCustomSizes,
+		onColumnResize,
+		wrappedColumnKeys,
+		onWrappedColumnChange,
+	} = useCommonTableProps({
+		defaultColumnCustomSizes: {
+			people: 100,
+		},
+	});
 
-  return (
-    <DatasourceTableView
-      datasourceId={'some-datasource-id'}
-      parameters={datasourceParameters}
-      visibleColumnKeys={visibleColumnKeys}
-      onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-      columnCustomSizes={columnCustomSizes}
-      onColumnResize={onColumnResize}
-      onWrappedColumnChange={onWrappedColumnChange}
-      wrappedColumnKeys={wrappedColumnKeys}
-    />
-  );
+	return (
+		<DatasourceTableView
+			datasourceId={'some-datasource-id'}
+			parameters={datasourceParameters}
+			visibleColumnKeys={visibleColumnKeys}
+			onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+			columnCustomSizes={columnCustomSizes}
+			onColumnResize={onColumnResize}
+			onWrappedColumnChange={onWrappedColumnChange}
+			wrappedColumnKeys={wrappedColumnKeys}
+		/>
+	);
 };
 
 export const ExampleConfluenceSearchTableView = ({
-  parameters,
-  mockDatasourceFetchRequest = true,
+	parameters,
+	mockDatasourceFetchRequest = true,
 }: ConfluenceSearchTableViewProps) => {
-  useEffect(() => {
-    if (mockDatasourceFetchRequest) {
-      mockDatasourceFetchRequests();
-    }
-  }, [mockDatasourceFetchRequest]);
+	useEffect(() => {
+		if (mockDatasourceFetchRequest) {
+			mockDatasourceFetchRequests();
+		}
+	}, [mockDatasourceFetchRequest]);
 
-  return (
-    <IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
-      <SmartCardProvider client={new SmartLinkClient()}>
-        <ConfluenceSearchTableView parameters={parameters} />
-      </SmartCardProvider>
-    </IntlMessagesProvider>
-  );
+	return (
+		<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
+			<SmartCardProvider client={new SmartLinkClient()}>
+				<ConfluenceSearchTableView parameters={parameters} />
+			</SmartCardProvider>
+		</IntlMessagesProvider>
+	);
 };

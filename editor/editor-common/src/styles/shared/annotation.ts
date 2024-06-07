@@ -18,7 +18,7 @@ export const BlockAnnotationSharedClassNames = {
 	draft: `${blockAnnotationPrefix}-draft`,
 };
 
-const Y75a = 'rgba(255, 240, 179, 0.5)';
+const Yellow100 = 'rgb(255, 247, 214)';
 const Y200a = 'rgba(255, 196, 0, 0.82)';
 
 export const AnnotationSharedCSSByState = () =>
@@ -38,7 +38,7 @@ export const AnnotationSharedCSSByState = () =>
 					},
 				}),
 				blur: css({
-					background: token('color.background.accent.yellow.subtlest', Y75a),
+					background: token('color.background.accent.yellow.subtlest', Yellow100),
 					borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
 					cursor: 'pointer',
 					'&:has(.card)': {
@@ -61,7 +61,7 @@ export const AnnotationSharedCSSByState = () =>
 					cursor: 'pointer',
 				}),
 				blur: css({
-					background: token('color.background.accent.yellow.subtlest', Y75a),
+					background: token('color.background.accent.yellow.subtlest', Yellow100),
 					borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
 					cursor: 'pointer',
 				}),

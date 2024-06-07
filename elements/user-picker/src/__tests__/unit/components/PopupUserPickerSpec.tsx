@@ -1,5 +1,5 @@
 jest.mock('../../../components/styles', () => ({
-  getPopupStyles: jest.fn(),
+	getPopupStyles: jest.fn(),
 }));
 
 import React from 'react';
@@ -16,211 +16,200 @@ import { PopupControl } from '../../../components/PopupControl';
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };
 jest.mock('react-intl-next', () => {
-  return {
-    ...(jest.requireActual('react-intl-next') as any),
-    FormattedMessage: (descriptor: any) => (
-      <span>{descriptor.defaultMessage}</span>
-    ),
-    injectIntl: (Node: any) => (props: any) =>
-      <Node {...props} intl={mockIntl} />,
-  };
+	return {
+		...(jest.requireActual('react-intl-next') as any),
+		FormattedMessage: (descriptor: any) => <span>{descriptor.defaultMessage}</span>,
+		injectIntl: (Node: any) => (props: any) => <Node {...props} intl={mockIntl} />,
+	};
 });
 
 const defaultProps: Partial<PopupUserPickerProps> = {
-  boundariesElement: 'viewport',
-  width: 300,
-  isMulti: false,
-  offset: [0, 0],
-  placement: 'auto',
-  rootBoundary: 'viewport',
-  shouldFlip: true,
+	boundariesElement: 'viewport',
+	width: 300,
+	isMulti: false,
+	offset: [0, 0],
+	placement: 'auto',
+	rootBoundary: 'viewport',
+	shouldFlip: true,
 };
 
 describe('PopupUserPicker', () => {
-  const shallowPopupUserPicker = (props: Partial<PopupUserPickerProps> = {}) =>
-    shallow(
-      <PopupUserPickerWithoutAnalytics
-        fieldId="test"
-        target={jest.fn()}
-        {...props}
-      />,
-    );
+	const shallowPopupUserPicker = (props: Partial<PopupUserPickerProps> = {}) =>
+		shallow(<PopupUserPickerWithoutAnalytics fieldId="test" target={jest.fn()} {...props} />);
 
-  describe('PopupUserPicker', () => {
-    it('should use PopupSelect', () => {
-      const component = shallowPopupUserPicker().dive();
-      const select = component.find(PopupSelect);
-      expect(select).toHaveLength(1);
-      expect(getPopupStyles).toHaveBeenCalledWith(300, false, undefined);
-    });
+	describe('PopupUserPicker', () => {
+		it('should use PopupSelect', () => {
+			const component = shallowPopupUserPicker().dive();
+			const select = component.find(PopupSelect);
+			expect(select).toHaveLength(1);
+			expect(getPopupStyles).toHaveBeenCalledWith(300, false, undefined);
+		});
 
-    it('should set width', () => {
-      shallowPopupUserPicker({ width: 500 });
-      expect(getPopupStyles).toHaveBeenCalledWith(500, false, undefined);
-    });
+		it('should set width', () => {
+			shallowPopupUserPicker({ width: 500 });
+			expect(getPopupStyles).toHaveBeenCalledWith(500, false, undefined);
+		});
 
-    it('should override styles', () => {
-      const mockStyles = {
-        control: (style: CSSObject) => ({
-          ...style,
-          borderRadius: 8,
-        }),
-      };
-      const component = shallowPopupUserPicker({ styles: mockStyles }).dive();
-      const select = component.find(PopupSelect);
-      expect(select).toHaveLength(1);
-      expect(getPopupStyles).toHaveBeenCalledWith(300, false, mockStyles);
-    });
+		it('should override styles', () => {
+			const mockStyles = {
+				control: (style: CSSObject) => ({
+					...style,
+					borderRadius: 8,
+				}),
+			};
+			const component = shallowPopupUserPicker({ styles: mockStyles }).dive();
+			const select = component.find(PopupSelect);
+			expect(select).toHaveLength(1);
+			expect(getPopupStyles).toHaveBeenCalledWith(300, false, mockStyles);
+		});
 
-    it('should add custom Control if popupTitle is passed in', () => {
-      const component = shallowPopupUserPicker({ popupTitle: 'title' });
-      expect(component.prop('components')).toEqual(
-        expect.objectContaining({
-          Control: PopupControl,
-        }),
-      );
-    });
+		it('should add custom Control if popupTitle is passed in', () => {
+			const component = shallowPopupUserPicker({ popupTitle: 'title' });
+			expect(component.prop('components')).toEqual(
+				expect.objectContaining({
+					Control: PopupControl,
+				}),
+			);
+		});
 
-    it('should not add custom Control if no popupTitle passed in', () => {
-      const component = shallowPopupUserPicker();
-      expect(component.prop('components')).toBeDefined();
-      expect(component.prop('components')).not.toEqual(
-        expect.objectContaining({
-          Control: expect.any(Function),
-        }),
-      );
-    });
+		it('should not add custom Control if no popupTitle passed in', () => {
+			const component = shallowPopupUserPicker();
+			expect(component.prop('components')).toBeDefined();
+			expect(component.prop('components')).not.toEqual(
+				expect.objectContaining({
+					Control: expect.any(Function),
+				}),
+			);
+		});
 
-    describe('popup pickerProps', () => {
-      it('should pass popup props as pickerProps', () => {
-        const target = jest.fn();
-        const component = shallowPopupUserPicker({ ...defaultProps, target });
-        expect(component.prop('pickerProps')).toBeDefined();
-        expect(JSON.stringify(component.prop('pickerProps'))).toEqual(
-          JSON.stringify(
-            getPopupProps(
-              300,
-              target,
-              expect.any(Function),
-              defaultProps.boundariesElement,
-              defaultProps.offset,
-              defaultProps.placement,
-              defaultProps.rootBoundary,
-              defaultProps.shouldFlip,
-            ),
-          ),
-        );
-      });
+		describe('popup pickerProps', () => {
+			it('should pass popup props as pickerProps', () => {
+				const target = jest.fn();
+				const component = shallowPopupUserPicker({ ...defaultProps, target });
+				expect(component.prop('pickerProps')).toBeDefined();
+				expect(JSON.stringify(component.prop('pickerProps'))).toEqual(
+					JSON.stringify(
+						getPopupProps(
+							300,
+							target,
+							expect.any(Function),
+							defaultProps.boundariesElement,
+							defaultProps.offset,
+							defaultProps.placement,
+							defaultProps.rootBoundary,
+							defaultProps.shouldFlip,
+						),
+					),
+				);
+			});
 
-      it('should set the boundariesElement to viewport by default', () => {
-        const target = jest.fn();
-        const component = shallowPopupUserPicker({ ...defaultProps, target });
-        expect(component.prop('pickerProps')).toBeDefined();
-        expect(
-          find(component.prop('pickerProps').popperProps.modifiers, {
-            name: 'preventOverflow',
-          }),
-        ).toHaveProperty('options', {
-          boundary: 'viewport',
-          rootBoundary: 'viewport',
-        });
-      });
+			it('should set the boundariesElement to viewport by default', () => {
+				const target = jest.fn();
+				const component = shallowPopupUserPicker({ ...defaultProps, target });
+				expect(component.prop('pickerProps')).toBeDefined();
+				expect(
+					find(component.prop('pickerProps').popperProps.modifiers, {
+						name: 'preventOverflow',
+					}),
+				).toHaveProperty('options', {
+					boundary: 'viewport',
+					rootBoundary: 'viewport',
+				});
+			});
 
-      it('should set custom boundariesElement and rootBoundary if passed in', () => {
-        const target = jest.fn();
-        const boundariesElement = jest.fn() as any;
-        const rootBoundary = jest.fn() as any;
-        const component = shallowPopupUserPicker({
-          ...defaultProps,
-          target,
-          boundariesElement,
-          rootBoundary,
-        });
-        expect(component.prop('pickerProps')).toBeDefined();
-        expect(
-          find(component.prop('pickerProps').popperProps.modifiers, {
-            name: 'preventOverflow',
-          }),
-        ).toHaveProperty('options', {
-          boundary: boundariesElement,
-          rootBoundary: rootBoundary,
-        });
-      });
+			it('should set custom boundariesElement and rootBoundary if passed in', () => {
+				const target = jest.fn();
+				const boundariesElement = jest.fn() as any;
+				const rootBoundary = jest.fn() as any;
+				const component = shallowPopupUserPicker({
+					...defaultProps,
+					target,
+					boundariesElement,
+					rootBoundary,
+				});
+				expect(component.prop('pickerProps')).toBeDefined();
+				expect(
+					find(component.prop('pickerProps').popperProps.modifiers, {
+						name: 'preventOverflow',
+					}),
+				).toHaveProperty('options', {
+					boundary: boundariesElement,
+					rootBoundary: rootBoundary,
+				});
+			});
 
-      it('should set offset to [0,0] by default', () => {
-        const component = shallowPopupUserPicker({
-          ...defaultProps,
-        });
-        expect(component.prop('pickerProps')).toBeDefined();
-        expect(
-          find(component.prop('pickerProps').popperProps.modifiers, {
-            name: 'offset',
-          }),
-        ).toHaveProperty('options', {
-          offset: [0, 0],
-        });
-      });
+			it('should set offset to [0,0] by default', () => {
+				const component = shallowPopupUserPicker({
+					...defaultProps,
+				});
+				expect(component.prop('pickerProps')).toBeDefined();
+				expect(
+					find(component.prop('pickerProps').popperProps.modifiers, {
+						name: 'offset',
+					}),
+				).toHaveProperty('options', {
+					offset: [0, 0],
+				});
+			});
 
-      it('should set offset to custom if passed in', () => {
-        const offset: [number, number] = [1, 1];
-        const component = shallowPopupUserPicker({
-          ...defaultProps,
-          offset,
-        });
-        expect(component.prop('pickerProps')).toBeDefined();
-        expect(
-          find(component.prop('pickerProps').popperProps.modifiers, {
-            name: 'offset',
-          }),
-        ).toHaveProperty('options', {
-          offset,
-        });
-      });
+			it('should set offset to custom if passed in', () => {
+				const offset: [number, number] = [1, 1];
+				const component = shallowPopupUserPicker({
+					...defaultProps,
+					offset,
+				});
+				expect(component.prop('pickerProps')).toBeDefined();
+				expect(
+					find(component.prop('pickerProps').popperProps.modifiers, {
+						name: 'offset',
+					}),
+				).toHaveProperty('options', {
+					offset,
+				});
+			});
 
-      it('should set shouldFlip to true by default', () => {
-        const component = shallowPopupUserPicker({
-          ...defaultProps,
-        });
-        expect(component.prop('pickerProps')).toBeDefined();
-        expect(
-          find(component.prop('pickerProps').popperProps.modifiers, {
-            name: 'flip',
-          }),
-        ).toEqual({
-          name: 'flip',
-          enabled: true,
-        });
-      });
+			it('should set shouldFlip to true by default', () => {
+				const component = shallowPopupUserPicker({
+					...defaultProps,
+				});
+				expect(component.prop('pickerProps')).toBeDefined();
+				expect(
+					find(component.prop('pickerProps').popperProps.modifiers, {
+						name: 'flip',
+					}),
+				).toEqual({
+					name: 'flip',
+					enabled: true,
+				});
+			});
 
-      it('should set shouldFlip to false if set', () => {
-        const component = shallowPopupUserPicker({
-          ...defaultProps,
-          shouldFlip: false,
-        });
-        expect(component.prop('pickerProps')).toBeDefined();
-        expect(
-          find(component.prop('pickerProps').popperProps.modifiers, {
-            name: 'flip',
-          }),
-        ).toEqual({
-          name: 'flip',
-          enabled: false,
-        });
-      });
+			it('should set shouldFlip to false if set', () => {
+				const component = shallowPopupUserPicker({
+					...defaultProps,
+					shouldFlip: false,
+				});
+				expect(component.prop('pickerProps')).toBeDefined();
+				expect(
+					find(component.prop('pickerProps').popperProps.modifiers, {
+						name: 'flip',
+					}),
+				).toEqual({
+					name: 'flip',
+					enabled: false,
+				});
+			});
 
-      it('should set popupTitle if passed in', () => {
-        const target = jest.fn();
-        const popupTitle = 'Test';
-        const component = shallowPopupUserPicker({
-          ...defaultProps,
-          target,
-          popupTitle,
-        });
-        expect(component.prop('pickerProps')).toBeDefined();
-        expect(component.prop('pickerProps')).toEqual(
-          expect.objectContaining({ popupTitle }),
-        );
-      });
-    });
-  });
+			it('should set popupTitle if passed in', () => {
+				const target = jest.fn();
+				const popupTitle = 'Test';
+				const component = shallowPopupUserPicker({
+					...defaultProps,
+					target,
+					popupTitle,
+				});
+				expect(component.prop('pickerProps')).toBeDefined();
+				expect(component.prop('pickerProps')).toEqual(expect.objectContaining({ popupTitle }));
+			});
+		});
+	});
 });

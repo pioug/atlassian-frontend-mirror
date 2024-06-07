@@ -18,24 +18,21 @@ import * as ast from '../../../../ast-nodes';
  * ```
  */
 export const convertJsxCallSite = (
-  jsxElement: JSXElement,
-  newStylesVariableName: string,
-  fixer: Rule.RuleFixer,
+	jsxElement: JSXElement,
+	newStylesVariableName: string,
+	fixer: Rule.RuleFixer,
 ): Rule.Fix[] => {
-  const fixes = [];
+	const fixes = [];
 
-  // renames the JSX call site
-  if (isNodeOfType(jsxElement, 'JSXElement')) {
-    fixes.push(...ast.JSXElement.updateName(jsxElement, 'Box', fixer));
-  }
+	// renames the JSX call site
+	if (isNodeOfType(jsxElement, 'JSXElement')) {
+		fixes.push(...ast.JSXElement.updateName(jsxElement, 'Box', fixer));
+	}
 
-  // adds xcss prop
-  fixes.push(
-    fixer.insertTextAfter(
-      jsxElement.openingElement.name,
-      ` xcss={${newStylesVariableName}}`,
-    ),
-  );
+	// adds xcss prop
+	fixes.push(
+		fixer.insertTextAfter(jsxElement.openingElement.name, ` xcss={${newStylesVariableName}}`),
+	);
 
-  return fixes;
+	return fixes;
 };

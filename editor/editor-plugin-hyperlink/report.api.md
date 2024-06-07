@@ -70,7 +70,7 @@ export const hyperlinkPlugin: HyperlinkPlugin;
 
 // @public (undocumented)
 type HyperlinkToolbarItemsState = {
-  items: GetToolbarItems;
+	items: GetToolbarItems;
 };
 
 // @public (undocumented)

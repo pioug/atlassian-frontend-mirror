@@ -9,29 +9,29 @@ import EditAction from '../index';
 import { type EditActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
-  ...jest.requireActual('../../../../../../state/flexible-ui-context'),
-  useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
+	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+	useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
 }));
 
 describe('EditAction', () => {
-  const testId = 'smart-action-edit-action';
+	const testId = 'smart-action-edit-action';
 
-  const setup = (props: EditActionProps) => {
-    const onEvent = jest.fn();
+	const setup = (props: EditActionProps) => {
+		const onEvent = jest.fn();
 
-    return render(
-      <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-        <IntlProvider locale="en">
-          <EditAction {...props} />
-        </IntlProvider>
-      </AnalyticsListener>,
-    );
-  };
+		return render(
+			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+				<IntlProvider locale="en">
+					<EditAction {...props} />
+				</IntlProvider>
+			</AnalyticsListener>,
+		);
+	};
 
-  it('renders action', async () => {
-    const { findByTestId } = setup({ onClick: () => '' });
-    const element = await findByTestId(testId);
-    expect(element).toBeInTheDocument();
-    expect(element.textContent).toBe('Edit');
-  });
+	it('renders action', async () => {
+		const { findByTestId } = setup({ onClick: () => '' });
+		const element = await findByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element.textContent).toBe('Edit');
+	});
 });

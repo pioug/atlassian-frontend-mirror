@@ -6,5 +6,5 @@ import EmbedModalWithFlexibleUiIcon from '../../../examples/vr-embed-modal-with-
 snapshot(EmbedModal, { description: 'renders embed modal' });
 
 snapshot(EmbedModalWithFlexibleUiIcon, {
-  description: 'renders embed modal with flexible ui icon',
+	description: 'renders embed modal with flexible ui icon',
 });

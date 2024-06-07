@@ -8,78 +8,74 @@ jest.mock('../../getImageDimensionsFromBlob');
 jest.mock('../../getVideoDimensionsFromBlob');
 
 describe('getDimensionsFromBlob()', () => {
-  const defaultMockImplementation =
-    (opts: { dimensions?: Dimensions; err?: any } = {}) =>
-    async () => {
-      const { dimensions, err } = opts;
+	const defaultMockImplementation =
+		(opts: { dimensions?: Dimensions; err?: any } = {}) =>
+		async () => {
+			const { dimensions, err } = opts;
 
-      if (err) {
-        throw err;
-      }
+			if (err) {
+				throw err;
+			}
 
-      return dimensions || { width: 1, height: 1 };
-    };
+			return dimensions || { width: 1, height: 1 };
+		};
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  const setup = (opts: { dimensions?: Dimensions; err?: any } = {}) => {
-    asMockFunction(getImageDimensionsFromBlob).mockImplementation(
-      defaultMockImplementation(opts),
-    );
+	const setup = (opts: { dimensions?: Dimensions; err?: any } = {}) => {
+		asMockFunction(getImageDimensionsFromBlob).mockImplementation(defaultMockImplementation(opts));
 
-    asMockFunction(getVideoDimensionsFromBlob).mockImplementation(
-      defaultMockImplementation(opts),
-    );
+		asMockFunction(getVideoDimensionsFromBlob).mockImplementation(defaultMockImplementation(opts));
 
-    return {
-      createObjectURLSpy: jest.spyOn(URL, 'createObjectURL'),
-      revokeObjectURLSpy: jest.spyOn(URL, 'revokeObjectURL'),
-    };
-  };
+		return {
+			createObjectURLSpy: jest.spyOn(URL, 'createObjectURL'),
+			revokeObjectURLSpy: jest.spyOn(URL, 'revokeObjectURL'),
+		};
+	};
 
-  describe('Image:', () => {
-    it('should create an object URL, call getImageDimensions() and revoke it', async () => {
-      const { createObjectURLSpy, revokeObjectURLSpy } = setup({
-        dimensions: { width: 100, height: 100 },
-      });
+	describe('Image:', () => {
+		it('should create an object URL, call getImageDimensions() and revoke it', async () => {
+			const { createObjectURLSpy, revokeObjectURLSpy } = setup({
+				dimensions: { width: 100, height: 100 },
+			});
 
-      const dimensions = await getDimensionsFromBlob('image', new Blob());
-      expect(dimensions).toEqual({ width: 100, height: 100 });
+			const dimensions = await getDimensionsFromBlob('image', new Blob());
+			expect(dimensions).toEqual({ width: 100, height: 100 });
 
-      expect(getImageDimensionsFromBlob).toHaveBeenCalledTimes(1);
-      expect(createObjectURLSpy).toHaveBeenCalledTimes(1);
-      expect(revokeObjectURLSpy).toHaveBeenCalledTimes(1);
-    });
+			expect(getImageDimensionsFromBlob).toHaveBeenCalledTimes(1);
+			expect(createObjectURLSpy).toHaveBeenCalledTimes(1);
+			expect(revokeObjectURLSpy).toHaveBeenCalledTimes(1);
+		});
 
-    it('with an error, should create and revoke object URL', async () => {
-      const err = new Error('unknown error');
-      const { createObjectURLSpy, revokeObjectURLSpy } = setup({ err });
+		it('with an error, should create and revoke object URL', async () => {
+			const err = new Error('unknown error');
+			const { createObjectURLSpy, revokeObjectURLSpy } = setup({ err });
 
-      expect.assertions(5);
-      try {
-        await getDimensionsFromBlob('image', new Blob());
-      } catch (e) {
-        expect(e).toBeInstanceOf(Error);
-        expect((e as Error).message).toEqual('unknown error');
-        expect(getImageDimensionsFromBlob).toHaveBeenCalledTimes(1);
-        expect(createObjectURLSpy).toHaveBeenCalledTimes(1);
-        expect(revokeObjectURLSpy).toHaveBeenCalledTimes(1);
-      }
-    });
-  });
+			expect.assertions(5);
+			try {
+				await getDimensionsFromBlob('image', new Blob());
+			} catch (e) {
+				expect(e).toBeInstanceOf(Error);
+				expect((e as Error).message).toEqual('unknown error');
+				expect(getImageDimensionsFromBlob).toHaveBeenCalledTimes(1);
+				expect(createObjectURLSpy).toHaveBeenCalledTimes(1);
+				expect(revokeObjectURLSpy).toHaveBeenCalledTimes(1);
+			}
+		});
+	});
 
-  describe('Video:', () => {
-    it('should call getVideoDimensions()', async () => {
-      setup({
-        dimensions: { width: 100, height: 100 },
-      });
+	describe('Video:', () => {
+		it('should call getVideoDimensions()', async () => {
+			setup({
+				dimensions: { width: 100, height: 100 },
+			});
 
-      const dimensions = await getDimensionsFromBlob('video', new Blob());
-      expect(dimensions).toEqual({ width: 100, height: 100 });
+			const dimensions = await getDimensionsFromBlob('video', new Blob());
+			expect(dimensions).toEqual({ width: 100, height: 100 });
 
-      expect(getVideoDimensionsFromBlob).toHaveBeenCalledTimes(1);
-    });
-  });
+			expect(getVideoDimensionsFromBlob).toHaveBeenCalledTimes(1);
+		});
+	});
 });

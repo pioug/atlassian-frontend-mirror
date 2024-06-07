@@ -14,91 +14,89 @@ import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 const dimensions = { width: '100%', height: '100%' };
 
 const styledContainerStyles = css({
-  maxWidth: '800px',
-  margin: `${token('space.250', '20px')} auto`,
-  h3: {
-    textAlign: 'center',
-  },
+	maxWidth: '800px',
+	margin: `${token('space.250', '20px')} auto`,
+	h3: {
+		textAlign: 'center',
+	},
 });
 
 const mimeTypes: { mime: string; name: string }[] = [
-  { mime: 'application/pdf', name: '.pdf' },
-  {
-    mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    name: '.excel',
-  },
-  { mime: 'image/gif', name: '.gif' },
-  { mime: 'application/vnd.ms-powerpoint', name: '.powerpoint' },
-  { mime: 'application/msword', name: '.wordDoc' },
-  { mime: 'binary/octet-stream', name: '.sketch' },
-  { mime: 'application/octet-stream', name: '.fig' },
-  { mime: 'binary/octet-stream', name: '.exe' },
-  { mime: 'application/vnd.google-apps.document', name: '.google-docs' },
-  {
-    mime: 'application/vnd.google-apps.presentation',
-    name: '.google-slides',
-  },
-  {
-    mime: 'application/vnd.google-apps.spreadsheet',
-    name: '.google-sheets',
-  },
-  { mime: 'application/vnd.google-apps.form', name: '.google-form' },
-  { mime: 'text/csv', name: '.csv' },
-  { mime: 'application/x-iwork-keynote-sffkey', name: '.presentation' },
-  { mime: 'text/plain', name: '.source-code.c' },
+	{ mime: 'application/pdf', name: '.pdf' },
+	{
+		mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+		name: '.excel',
+	},
+	{ mime: 'image/gif', name: '.gif' },
+	{ mime: 'application/vnd.ms-powerpoint', name: '.powerpoint' },
+	{ mime: 'application/msword', name: '.wordDoc' },
+	{ mime: 'binary/octet-stream', name: '.sketch' },
+	{ mime: 'application/octet-stream', name: '.fig' },
+	{ mime: 'binary/octet-stream', name: '.exe' },
+	{ mime: 'application/vnd.google-apps.document', name: '.google-docs' },
+	{
+		mime: 'application/vnd.google-apps.presentation',
+		name: '.google-slides',
+	},
+	{
+		mime: 'application/vnd.google-apps.spreadsheet',
+		name: '.google-sheets',
+	},
+	{ mime: 'application/vnd.google-apps.form', name: '.google-form' },
+	{ mime: 'text/csv', name: '.csv' },
+	{ mime: 'application/x-iwork-keynote-sffkey', name: '.presentation' },
+	{ mime: 'text/plain', name: '.source-code.c' },
 ];
 
 const IconsTable = () => {
-  return (
-    <div css={styledContainerStyles}>
-      <h3>MimeTypes</h3>
-      {/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
-      <IntlProvider locale={'en'}>
-        <React.Fragment>
-          {mimeTypes.map((item, i) =>
-            renderCardImageView('complete', 'audio', item.mime, item.name, i),
-          )}
-        </React.Fragment>
-      </IntlProvider>
-    </div>
-  );
+	return (
+		<div css={styledContainerStyles}>
+			<h3>MimeTypes</h3>
+			{/* TODO: remove this IntlProvider https://product-fabric.atlassian.net/browse/BMPT-139 */}
+			<IntlProvider locale={'en'}>
+				<React.Fragment>
+					{mimeTypes.map((item, i) =>
+						renderCardImageView('complete', 'audio', item.mime, item.name, i),
+					)}
+				</React.Fragment>
+			</IntlProvider>
+		</div>
+	);
 };
 
-const LoadedCardView = getBooleanFF(
-  'platform.media-experience.card-views-refactor_b91lr',
-)
-  ? CardViews
-  : CardView;
+const LoadedCardView = getBooleanFF('platform.media-experience.card-views-refactor_b91lr')
+	? CardViews
+	: CardView;
 
 function renderCardImageView(
-  status: CardStatus,
-  mediaType: MediaType = 'image',
-  mimeType: any,
-  name: string,
-  key: number,
+	status: CardStatus,
+	mediaType: MediaType = 'image',
+	mimeType: any,
+	name: string,
+	key: number,
 ) {
-  const metadata: FileDetails = {
-    id: 'some-file-id',
-    name,
-    mediaType,
-    mimeType,
-    size: 4200,
-    createdAt: 1589481162745,
-  };
+	const metadata: FileDetails = {
+		id: 'some-file-id',
+		name,
+		mediaType,
+		mimeType,
+		size: 4200,
+		createdAt: 1589481162745,
+	};
 
-  return (
-    <MainWrapper key={key}>
-      <CardViewWrapper small={true} displayInline={true}>
-        <LoadedCardView
-          status={status}
-          mediaItemType="file"
-          metadata={metadata}
-          resizeMode="crop"
-          progress={0.5}
-          dimensions={dimensions}
-        />
-      </CardViewWrapper>
-    </MainWrapper>
-  );
+	return (
+		<MainWrapper key={key}>
+			<CardViewWrapper small={true} displayInline={true}>
+				<LoadedCardView
+					status={status}
+					mediaItemType="file"
+					metadata={metadata}
+					resizeMode="crop"
+					progress={0.5}
+					dimensions={dimensions}
+				/>
+			</CardViewWrapper>
+		</MainWrapper>
+	);
 }
 export default () => <IconsTable />;

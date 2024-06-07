@@ -4,9 +4,9 @@ import { type FlexibleCardProps } from './types';
 import { SmartLinkStatus } from '../../constants';
 import Container from './components/container';
 import {
-  FlexibleUiAnalyticsContext,
-  FlexibleUiContext,
-  FlexibleUiOptionContext,
+	FlexibleUiAnalyticsContext,
+	FlexibleUiContext,
+	FlexibleUiOptionContext,
 } from '../../state/flexible-ui-context';
 import { getContextByStatus, getRetryOptions } from './utils';
 import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
@@ -18,95 +18,95 @@ import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
  * @see Container
  */
 const FlexibleCard: React.FC<FlexibleCardProps> = ({
-  analytics,
-  appearance = 'flexible',
-  cardState,
-  children,
-  id,
-  onAuthorize,
-  onClick,
-  onError,
-  onResolve,
-  renderers,
-  showAuthTooltip,
-  showHoverPreview,
-  actionOptions,
-  testId,
-  ui,
-  url,
+	analytics,
+	appearance = 'flexible',
+	cardState,
+	children,
+	id,
+	onAuthorize,
+	onClick,
+	onError,
+	onResolve,
+	renderers,
+	showAuthTooltip,
+	showHoverPreview,
+	actionOptions,
+	testId,
+	ui,
+	url,
 }: React.PropsWithChildren<FlexibleCardProps>) => {
-  const aiSummaryConfig = useAISummaryConfig();
+	const aiSummaryConfig = useAISummaryConfig();
 
-  const { status: cardType, details } = cardState;
-  const status = cardType as SmartLinkStatus;
+	const { status: cardType, details } = cardState;
+	const status = cardType as SmartLinkStatus;
 
-  const context = useMemo(
-    () =>
-      getContextByStatus({
-        aiSummaryConfig,
-        response: details,
-        id,
-        renderers,
-        actionOptions,
-        status,
-        url,
-      }),
-    [aiSummaryConfig, details, id, renderers, actionOptions, status, url],
-  );
-  const retry = getRetryOptions(url, status, details, onAuthorize);
-  const { title } = context || {};
+	const context = useMemo(
+		() =>
+			getContextByStatus({
+				aiSummaryConfig,
+				response: details,
+				id,
+				renderers,
+				actionOptions,
+				status,
+				url,
+			}),
+		[aiSummaryConfig, details, id, renderers, actionOptions, status, url],
+	);
+	const retry = getRetryOptions(url, status, details, onAuthorize);
+	const { title } = context || {};
 
-  const analyticsContext = useMemo(
-    () =>
-      analytics
-        ? {
-            ...analytics,
-            display: appearance,
-            extensionKey: details?.meta?.key,
-          }
-        : undefined,
-    [analytics, appearance, details?.meta?.key],
-  );
+	const analyticsContext = useMemo(
+		() =>
+			analytics
+				? {
+						...analytics,
+						display: appearance,
+						extensionKey: details?.meta?.key,
+					}
+				: undefined,
+		[analytics, appearance, details?.meta?.key],
+	);
 
-  useEffect(() => {
-    switch (status) {
-      case SmartLinkStatus.Resolved:
-        if (onResolve) {
-          onResolve({ title, url });
-        }
-        break;
-      case SmartLinkStatus.Errored:
-      case SmartLinkStatus.Fallback:
-      case SmartLinkStatus.Forbidden:
-      case SmartLinkStatus.NotFound:
-      case SmartLinkStatus.Unauthorized:
-        if (onError) {
-          onError({ status, url });
-        }
-        break;
-    }
-  }, [onError, onResolve, status, title, url]);
+	useEffect(() => {
+		switch (status) {
+			case SmartLinkStatus.Resolved:
+				if (onResolve) {
+					onResolve({ title, url });
+				}
+				break;
+			case SmartLinkStatus.Errored:
+			case SmartLinkStatus.Fallback:
+			case SmartLinkStatus.Forbidden:
+			case SmartLinkStatus.NotFound:
+			case SmartLinkStatus.Unauthorized:
+				if (onError) {
+					onError({ status, url });
+				}
+				break;
+		}
+	}, [onError, onResolve, status, title, url]);
 
-  return (
-    <FlexibleUiAnalyticsContext.Provider value={analyticsContext}>
-      <FlexibleUiOptionContext.Provider value={ui}>
-        <FlexibleUiContext.Provider value={context}>
-          <Container
-            testId={testId}
-            {...ui}
-            onClick={onClick}
-            retry={retry}
-            showHoverPreview={showHoverPreview}
-            actionOptions={actionOptions}
-            showAuthTooltip={showAuthTooltip}
-            status={status}
-          >
-            {children}
-          </Container>
-        </FlexibleUiContext.Provider>
-      </FlexibleUiOptionContext.Provider>
-    </FlexibleUiAnalyticsContext.Provider>
-  );
+	return (
+		<FlexibleUiAnalyticsContext.Provider value={analyticsContext}>
+			<FlexibleUiOptionContext.Provider value={ui}>
+				<FlexibleUiContext.Provider value={context}>
+					<Container
+						testId={testId}
+						{...ui}
+						onClick={onClick}
+						retry={retry}
+						showHoverPreview={showHoverPreview}
+						actionOptions={actionOptions}
+						showAuthTooltip={showAuthTooltip}
+						status={status}
+					>
+						{children}
+					</Container>
+				</FlexibleUiContext.Provider>
+			</FlexibleUiOptionContext.Provider>
+		</FlexibleUiAnalyticsContext.Provider>
+	);
 };
 
 export default FlexibleCard;

@@ -12,29 +12,26 @@ import { type LinkDetails } from '../types';
  * derived from a JSON.LD response
  */
 export const getResolvedAttributes = (
-  linkDetails: LinkDetails,
-  details?: JsonLd.Response,
-  linkStatus?: CardType,
+	linkDetails: LinkDetails,
+	details?: JsonLd.Response,
+	linkStatus?: CardType,
 ): ResolvedAttributesType => {
-  const status = linkStatus ?? (details && getStatus(details));
-  const displayCategory =
-    linkDetails.displayCategory === 'link'
-      ? 'link'
-      : getDisplayCategory(status);
+	const status = linkStatus ?? (details && getStatus(details));
+	const displayCategory =
+		linkDetails.displayCategory === 'link' ? 'link' : getDisplayCategory(status);
 
-  return {
-    status: status ?? null,
-    statusDetails: details?.meta?.requestAccess?.accessType ?? null,
-    displayCategory,
-    extensionKey: details?.meta?.key ?? null,
-    destinationTenantId: details?.meta?.tenantId ?? null,
-    destinationContainerId: details?.meta?.containerId ?? null,
-    destinationCategory: details?.meta?.category ?? null,
-    destinationProduct: details?.meta?.product ?? null,
-    destinationSubproduct: details?.meta?.subproduct ?? null,
-    destinationObjectId: details?.meta?.objectId ?? null,
-    destinationObjectType: details?.meta?.resourceType ?? null,
-    canBeDatasource:
-      ((details as JsonLdDatasourceResponse)?.datasources || []).length > 0,
-  };
+	return {
+		status: status ?? null,
+		statusDetails: details?.meta?.requestAccess?.accessType ?? null,
+		displayCategory,
+		extensionKey: details?.meta?.key ?? null,
+		destinationTenantId: details?.meta?.tenantId ?? null,
+		destinationContainerId: details?.meta?.containerId ?? null,
+		destinationCategory: details?.meta?.category ?? null,
+		destinationProduct: details?.meta?.product ?? null,
+		destinationSubproduct: details?.meta?.subproduct ?? null,
+		destinationObjectId: details?.meta?.objectId ?? null,
+		destinationObjectType: details?.meta?.resourceType ?? null,
+		canBeDatasource: ((details as JsonLdDatasourceResponse)?.datasources || []).length > 0,
+	};
 };

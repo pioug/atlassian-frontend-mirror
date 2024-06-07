@@ -13,9 +13,9 @@ import { messages } from '../../../messages';
 import { gs } from '../../common/utils';
 
 export interface ResolvingProps {
-  isSelected?: boolean;
-  testId?: string;
-  inheritDimensions?: boolean;
+	isSelected?: boolean;
+	testId?: string;
+	inheritDimensions?: boolean;
 }
 
 /**
@@ -27,32 +27,32 @@ export interface ResolvingProps {
 export const blockCardResolvingViewClassName = 'block-card-resolving-view';
 
 export const ResolvingView = ({
-  isSelected = false,
-  testId = 'block-card-resolving-view',
-  inheritDimensions,
+	isSelected = false,
+	testId = 'block-card-resolving-view',
+	inheritDimensions,
 }: ResolvingProps) => (
-  <Frame
-    inheritDimensions={inheritDimensions}
-    compact={true}
-    isSelected={isSelected}
-    testId={testId}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-    className={blockCardResolvingViewClassName}
-  >
-    <DocumentFilledIcon
-      size="small"
-      primaryColor={token('color.icon.subtle', N50)}
-      label="document-icon"
-    />
-    <span
-      css={{
-        fontSize: `${fontSize()}px`,
-        color: token('color.text.subtlest', N90),
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-        marginLeft: gs(0.5),
-      }}
-    >
-      <FormattedMessage {...messages.loading} />
-    </span>
-  </Frame>
+	<Frame
+		inheritDimensions={inheritDimensions}
+		compact={true}
+		isSelected={isSelected}
+		testId={testId}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		className={blockCardResolvingViewClassName}
+	>
+		<DocumentFilledIcon
+			size="small"
+			primaryColor={token('color.icon.subtle', N50)}
+			label="document-icon"
+		/>
+		<span
+			css={{
+				fontSize: `${fontSize()}px`,
+				color: token('color.text.subtlest', N90),
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+				marginLeft: gs(0.5),
+			}}
+		>
+			<FormattedMessage {...messages.loading} />
+		</span>
+	</Frame>
 );

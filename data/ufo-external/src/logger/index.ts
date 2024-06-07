@@ -1,31 +1,31 @@
 class UFOLogger {
-  enabled = false;
-  static UFOprefix = '[ufo🛸]';
+	enabled = false;
+	static UFOprefix = '[ufo🛸]';
 
-  log(...args: Array<any>) {
-    // eslint-disable-next-line no-console
-    this.enabled && console.log(UFOLogger.UFOprefix, ...args);
-  }
-  warn(...args: Array<any>) {
-    // eslint-disable-next-line no-console
-    this.enabled && console.warn(UFOLogger.UFOprefix, ...args);
-  }
+	log(...args: Array<any>) {
+		// eslint-disable-next-line no-console
+		this.enabled && console.log(UFOLogger.UFOprefix, ...args);
+	}
+	warn(...args: Array<any>) {
+		// eslint-disable-next-line no-console
+		this.enabled && console.warn(UFOLogger.UFOprefix, ...args);
+	}
 
-  enable() {
-    this.enabled = true;
-  }
+	enable() {
+		this.enabled = true;
+	}
 
-  disable() {
-    this.enabled = false;
-  }
+	disable() {
+		this.enabled = false;
+	}
 }
 
 export const ufologger = new UFOLogger();
 
 export const ufolog = (...args: Array<any>) => {
-  ufologger.log(...args);
+	ufologger.log(...args);
 };
 
 export const ufowarn = (...args: Array<any>) => {
-  ufologger.warn(...args);
+	ufologger.warn(...args);
 };

@@ -8,27 +8,22 @@ import { useTrackedRef } from '../../hooks/useTrackedRef';
 import { type AnalyticsContextFunction } from './types';
 
 const AnalyticsContext: AnalyticsContextFunction = ({ data, children }) => {
-  const dataRef = useTrackedRef(data);
-  const analyticsContext = useAnalyticsContext();
+	const dataRef = useTrackedRef(data);
+	const analyticsContext = useAnalyticsContext();
 
-  const getAtlaskitAnalyticsContext = useCallback(() => {
-    return [...analyticsContext.getAtlaskitAnalyticsContext(), dataRef.current];
-  }, [analyticsContext, dataRef]);
+	const getAtlaskitAnalyticsContext = useCallback(() => {
+		return [...analyticsContext.getAtlaskitAnalyticsContext(), dataRef.current];
+	}, [analyticsContext, dataRef]);
 
-  const value = useMemo(
-    () => ({
-      getAtlaskitAnalyticsContext,
-      getAtlaskitAnalyticsEventHandlers:
-        analyticsContext.getAtlaskitAnalyticsEventHandlers,
-    }),
-    [analyticsContext, getAtlaskitAnalyticsContext],
-  );
+	const value = useMemo(
+		() => ({
+			getAtlaskitAnalyticsContext,
+			getAtlaskitAnalyticsEventHandlers: analyticsContext.getAtlaskitAnalyticsEventHandlers,
+		}),
+		[analyticsContext, getAtlaskitAnalyticsContext],
+	);
 
-  return (
-    <AnalyticsReactContext.Provider value={value}>
-      {children}
-    </AnalyticsReactContext.Provider>
-  );
+	return <AnalyticsReactContext.Provider value={value}>{children}</AnalyticsReactContext.Provider>;
 };
 
 export default AnalyticsContext;

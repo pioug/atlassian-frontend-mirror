@@ -5,9 +5,9 @@ import noop from 'lodash/noop';
 import { type PortalActions } from './types';
 
 export const PortalActionsContext = createContext<PortalActions>({
-  onCreatePortal: noop,
-  onDestroyPortal: noop,
-  onRegisterPluginContainer: noop,
+	onCreatePortal: noop,
+	onDestroyPortal: noop,
+	onRegisterPluginContainer: noop,
 });
 
 export const usePortalActionsContext = () => useContext(PortalActionsContext);

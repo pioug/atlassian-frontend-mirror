@@ -13,9 +13,9 @@ const cache = createIntlCache();
  * Removes the need for an `IntlProvodier` to be present in the DOM Tree
  */
 export const useSafeIntl = () => {
-  const context = useContext(IntlContext);
-  if (!context) {
-    return createIntl(DEFAULT_LOCALE_STATE, cache);
-  }
-  return context;
+	const context = useContext(IntlContext);
+	if (!context) {
+		return createIntl(DEFAULT_LOCALE_STATE, cache);
+	}
+	return context;
 };

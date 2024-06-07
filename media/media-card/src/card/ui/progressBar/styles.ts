@@ -14,29 +14,27 @@ const smallSizeSettings = { marginBottom: 4 };
 const largeSizeSettings = { marginBottom: 12 };
 
 export function generateResponsiveStyles(
-  breakpoint: Breakpoint,
-  positionBottom: boolean,
-  showOnTop: boolean,
-  multiplier: number = 1,
+	breakpoint: Breakpoint,
+	positionBottom: boolean,
+	showOnTop: boolean,
+	multiplier: number = 1,
 ) {
-  const setting =
-    breakpoint === Breakpoint.SMALL ? smallSizeSettings : largeSizeSettings;
-  const marginPositionBottom =
-    responsiveSettings[breakpoint].titleBox.verticalPadding;
-  const marginBottom =
-    setting.marginBottom * multiplier +
-    (positionBottom ? marginPositionBottom : getTitleBoxHeight(breakpoint));
-  return `
+	const setting = breakpoint === Breakpoint.SMALL ? smallSizeSettings : largeSizeSettings;
+	const marginPositionBottom = responsiveSettings[breakpoint].titleBox.verticalPadding;
+	const marginBottom =
+		setting.marginBottom * multiplier +
+		(positionBottom ? marginPositionBottom : getTitleBoxHeight(breakpoint));
+	return `
     ${showOnTop ? 'top' : 'bottom'}: ${marginBottom}px
   `;
 }
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const getStyledBarStylesBasedOnProps = ({
-  progress,
-  breakpoint,
-  positionBottom,
-  showOnTop,
+	progress,
+	breakpoint,
+	positionBottom,
+	showOnTop,
 }: StyledBarProps) => `
 ${borderRadius}
 overflow: hidden;
@@ -61,7 +59,7 @@ ${generateResponsiveStyles(breakpoint, positionBottom, showOnTop)}
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 export const styledBarStyles = (props: StyledBarProps) => {
-  return css(getStyledBarStylesBasedOnProps(props));
+	return css(getStyledBarStylesBasedOnProps(props));
 };
 
 styledBarStyles.displayName = 'StyledProgressBar';

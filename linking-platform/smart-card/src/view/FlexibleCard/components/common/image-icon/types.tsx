@@ -1,7 +1,7 @@
 export type ImageIconProps = {
-  defaultIcon?: React.ReactNode;
-  testId?: string;
-  url: string;
-  onError?: () => void;
-  onLoad?: () => void;
+	defaultIcon?: React.ReactNode;
+	testId?: string;
+	url: string;
+	onError?: () => void;
+	onLoad?: () => void;
 };

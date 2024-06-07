@@ -4,42 +4,39 @@ import { EmojiPicker } from '../../picker';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {
-  currentUser,
-  getEmojiProvider,
-} from '@atlaskit/util-data-test/get-emoji-provider';
+import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 
 import type { EmojiProvider } from '../../resource';
 import { IntlProvider } from 'react-intl-next';
 
 const useProvider = (uploadSupported: boolean) => {
-  return useMemo<Promise<EmojiProvider>>(() => {
-    return getEmojiProvider(
-      {
-        currentUser,
-        uploadSupported,
-      },
-      getMockEmojis,
-    );
-  }, [uploadSupported]);
+	return useMemo<Promise<EmojiProvider>>(() => {
+		return getEmojiProvider(
+			{
+				currentUser,
+				uploadSupported,
+			},
+			getMockEmojis,
+		);
+	}, [uploadSupported]);
 };
 
 export const EmojiPickerWithUpload = () => {
-  const emojiProvider = useProvider(true);
+	const emojiProvider = useProvider(true);
 
-  return (
-    <IntlProvider locale="en">
-      <EmojiPicker emojiProvider={emojiProvider} />
-    </IntlProvider>
-  );
+	return (
+		<IntlProvider locale="en">
+			<EmojiPicker emojiProvider={emojiProvider} />
+		</IntlProvider>
+	);
 };
 
 export const EmojiPickerWithoutUpload = () => {
-  const emojiProvider = useProvider(false);
+	const emojiProvider = useProvider(false);
 
-  return (
-    <IntlProvider locale="en">
-      <EmojiPicker emojiProvider={emojiProvider} />
-    </IntlProvider>
-  );
+	return (
+		<IntlProvider locale="en">
+			<EmojiPicker emojiProvider={emojiProvider} />
+		</IntlProvider>
+	);
 };

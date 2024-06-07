@@ -8,10 +8,10 @@ These are the different variants of \`ActionItem\`.
 To create a custom action, see [CustomAction](#custom-action).
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/action-variants').default}
-    sourceVisible={false}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/action-variants').default}
+		sourceVisible={false}
+	/>
 )}
 
 ### Default
@@ -24,11 +24,11 @@ As it happens, an action has two defaults.
 On both block, a default action shows icon on the left, follows by action text.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/action-default').default}
-    highlight="9"
-    source={require('!!raw-loader!../../../examples/content/action-default')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/action-default').default}
+		highlight="9"
+		source={require('!!raw-loader!../../../examples/content/action-default')}
+	/>
 )}
 
 ### Size
@@ -36,11 +36,11 @@ ${(
 Use \`size\` to override block sizing on individual action.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/action-size').default}
-    highlight="9"
-    source={require('!!raw-loader!../../../examples/content/action-size')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/action-size').default}
+		highlight="9"
+		source={require('!!raw-loader!../../../examples/content/action-size')}
+	/>
 )}
 
 ### Hide content
@@ -50,11 +50,11 @@ Use \`hideContent\` to hide the action button label.
 Note: When hiding content, the text will still appear in a tooltip when hovering over the icon.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/action-hide-content').default}
-    highlight="9"
-    source={require('!!raw-loader!../../../examples/content/action-hide-content')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/action-hide-content').default}
+		highlight="9"
+		source={require('!!raw-loader!../../../examples/content/action-hide-content')}
+	/>
 )}
 
 ### Hide icon
@@ -62,11 +62,11 @@ ${(
 Use \`hideContent\` to hide the action button icon.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/action-hide-icon').default}
-    highlight="9"
-    source={require('!!raw-loader!../../../examples/content/action-hide-icon')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/action-hide-icon').default}
+		highlight="9"
+		source={require('!!raw-loader!../../../examples/content/action-hide-icon')}
+	/>
 )}
 
 ### Override CSS
@@ -75,11 +75,11 @@ Use \`overrideCss\` to override the styles of the block.
 Although let us know what we’re missing in the spirit of improving platform components for everyone!
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/action-override-css').default}
-    highlight="9"
-    source={require('!!raw-loader!../../../examples/content/action-override-css')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/action-override-css').default}
+		highlight="9"
+		source={require('!!raw-loader!../../../examples/content/action-override-css')}
+	/>
 )}
 
 <a name="custom-action"></a>
@@ -98,10 +98,10 @@ There are also a few constraints.
 Note: When hiding content, the text will still appear in a tooltip when hovering over the icon.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/action-custom').default}
-    highlight="9"
-    source={require('!!raw-loader!../../../examples/content/action-custom')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/action-custom').default}
+		highlight="9"
+		source={require('!!raw-loader!../../../examples/content/action-custom')}
+	/>
 )}
 `;

@@ -15,16 +15,14 @@ const errorMessage = `(start) 1. Image size is 3264px * 2448px.
 8. The maximum allowed image size is 2000px * 2000px. (end)`;
 
 export default () => (
-  <AvatarPickerDialog
-    avatars={avatars}
-    imageSource={tallImage}
-    onImagePicked={(selectedImage, crop) => {
-      console.log('onImagePicked', selectedImage, crop);
-    }}
-    onAvatarPicked={(selectedAvatar) =>
-      console.log('onAvatarPicked', selectedAvatar)
-    }
-    onCancel={() => console.log('onCancel')}
-    errorMessage={errorMessage}
-  />
+	<AvatarPickerDialog
+		avatars={avatars}
+		imageSource={tallImage}
+		onImagePicked={(selectedImage, crop) => {
+			console.log('onImagePicked', selectedImage, crop);
+		}}
+		onAvatarPicked={(selectedAvatar) => console.log('onAvatarPicked', selectedAvatar)}
+		onCancel={() => console.log('onCancel')}
+		errorMessage={errorMessage}
+	/>
 );

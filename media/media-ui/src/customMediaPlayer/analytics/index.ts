@@ -8,18 +8,15 @@ export { createFirstPlayedTrackEvent } from './events/track/playCount';
 export { createPlayedTrackEvent } from './events/track/played';
 
 export type {
-  CustomMediaPlayerUIEvent,
-  CustomMediaPlayerUIEventPayload,
-  CustomMediaPlayerAnalyticsEventPayload,
+	CustomMediaPlayerUIEvent,
+	CustomMediaPlayerUIEventPayload,
+	CustomMediaPlayerAnalyticsEventPayload,
 } from './utils/analytics';
-export {
-  createAndFireMediaCustomMediaPlayerEvent,
-  fireAnalyticsEvent,
-} from './utils/analytics';
+export { createAndFireMediaCustomMediaPlayerEvent, fireAnalyticsEvent } from './utils/analytics';
 
 export type {
-  PlaybackAttributes,
-  PlaybackState,
-  WithPlaybackProps,
-  WithMediaPlayerState,
+	PlaybackAttributes,
+	PlaybackState,
+	WithPlaybackProps,
+	WithMediaPlayerState,
 } from './utils/playbackAttributes';

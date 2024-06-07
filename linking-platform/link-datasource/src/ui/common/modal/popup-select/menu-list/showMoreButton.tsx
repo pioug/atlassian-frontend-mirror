@@ -9,32 +9,28 @@ import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { asyncPopupSelectMessages } from './messages';
 
 type ShowMoreButtonProps = {
-  onShowMore: () => void;
-  filterName: string;
+	onShowMore: () => void;
+	filterName: string;
 };
 
 const ShowMoreButton = ({ onShowMore, filterName }: ShowMoreButtonProps) => {
-  const { formatMessage } = useIntl();
-  const { fireEvent } = useDatasourceAnalyticsEvents();
+	const { formatMessage } = useIntl();
+	const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  const handleShowMore = useCallback(() => {
-    fireEvent('ui.button.clicked.basicSearchDropdown', {
-      filterName,
-      type: 'showMore',
-    });
+	const handleShowMore = useCallback(() => {
+		fireEvent('ui.button.clicked.basicSearchDropdown', {
+			filterName,
+			type: 'showMore',
+		});
 
-    onShowMore();
-  }, [filterName, fireEvent, onShowMore]);
+		onShowMore();
+	}, [filterName, fireEvent, onShowMore]);
 
-  return (
-    <Button
-      onClick={handleShowMore}
-      appearance="link"
-      testId={`${filterName}--show-more-button`}
-    >
-      {formatMessage(asyncPopupSelectMessages.showMoreMessage)}
-    </Button>
-  );
+	return (
+		<Button onClick={handleShowMore} appearance="link" testId={`${filterName}--show-more-button`}>
+			{formatMessage(asyncPopupSelectMessages.showMoreMessage)}
+		</Button>
+	);
 };
 
 export default ShowMoreButton;

@@ -6,12 +6,9 @@ import { type OrderByDirection, type OrderByField } from '../types';
  *
  * @param orderDirection Direction to set for the order by clause
  */
-export function setOrderDirection(
-  this: OrderByField,
-  orderDirection: OrderByDirection,
-): void {
-  this.direction = orderDirection;
-  assignParent(this);
+export function setOrderDirection(this: OrderByField, orderDirection: OrderByDirection): void {
+	this.direction = orderDirection;
+	assignParent(this);
 }
 
 /**
@@ -19,13 +16,10 @@ export function setOrderDirection(
  *
  * @param orderByField field to set as the new value
  */
-export function replace(
-  this: OrderByField,
-  orderByField: OrderByField,
-): void {
-  if (this.parent) {
-    this.parent.replaceOrderField(this, orderByField)
-  }
+export function replace(this: OrderByField, orderByField: OrderByField): void {
+	if (this.parent) {
+		this.parent.replaceOrderField(this, orderByField);
+	}
 }
 
 /**
@@ -34,10 +28,8 @@ export function replace(
  * references to the child node.
  *
  */
-export function remove(
-  this: OrderByField,
-): void {
-  if (this.parent) {
-    this.parent.removeOrderField(this)
-  }
+export function remove(this: OrderByField): void {
+	if (this.parent) {
+		this.parent.removeOrderField(this);
+	}
 }

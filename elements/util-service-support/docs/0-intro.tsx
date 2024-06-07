@@ -1,21 +1,22 @@
 import { md } from '@atlaskit/docs';
 
 export default md`
-  # Util Service Support
+	# Util Service Support
 
-  A library of support classes for integrating React components with REST HTTP services, including support for authentication.
+	A library of support classes for integrating React components with REST HTTP services, including
+	support for authentication.
 
-  ## Installation
+	## Installation
 
-  ~~~js
-  npm install @atlaskit/mention
-  # or
-  yarn add  @atlaskit/mention
-  ~~~
+	~~~js
+	npm install @atlaskit/mention
+	# or
+	yarn add  @atlaskit/mention
+	~~~
 
-  ## Using the component
+	## Using the component
 
-  Use the component in your React app as follows:
+	Use the component in your React app as follows:
 
-  import { AbstractResource } from '@atlaskit/util-service-support';
+	import { AbstractResource } from '@atlaskit/util-service-support';
 `;

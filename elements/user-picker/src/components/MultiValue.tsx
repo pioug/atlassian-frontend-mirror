@@ -13,123 +13,118 @@ import PeopleIcon from '@atlaskit/icon/glyph/people';
 import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-export const scrollToValue = (
-  valueContainer: HTMLDivElement,
-  control: HTMLElement,
-) => {
-  const { top, height } = valueContainer.getBoundingClientRect();
-  const { height: controlHeight } = control.getBoundingClientRect();
+export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement) => {
+	const { top, height } = valueContainer.getBoundingClientRect();
+	const { height: controlHeight } = control.getBoundingClientRect();
 
-  if (top - height < 0) {
-    valueContainer.scrollIntoView();
-  }
+	if (top - height < 0) {
+		valueContainer.scrollIntoView();
+	}
 
-  if (top + height > controlHeight) {
-    valueContainer.scrollIntoView(false);
-  }
+	if (top + height > controlHeight) {
+		valueContainer.scrollIntoView(false);
+	}
 };
 
 const groupTagContainer = xcss({
-  paddingLeft: 'space.025',
+	paddingLeft: 'space.025',
 });
 
 const nameWrapper = css({
-  paddingLeft: `${token('space.050', '4px')}`,
+	paddingLeft: `${token('space.050', '4px')}`,
 });
 
 type Props = MultiValueProps<OptionType> & {
-  isFocused?: boolean;
-  data: Option;
-  innerProps: any;
-  removeProps: { onClick: Function };
-  selectProps: UserPickerProps;
-  ref?: React.RefObject<HTMLDivElement>;
+	isFocused?: boolean;
+	data: Option;
+	innerProps: any;
+	removeProps: { onClick: Function };
+	selectProps: UserPickerProps;
+	ref?: React.RefObject<HTMLDivElement>;
 };
 
 export class MultiValue extends React.Component<Props> {
-  private containerRef: React.RefObject<HTMLDivElement>;
-  constructor(props: Props) {
-    super(props);
-    this.containerRef = React.createRef<HTMLDivElement>();
-  }
+	private containerRef: React.RefObject<HTMLDivElement>;
+	constructor(props: Props) {
+		super(props);
+		this.containerRef = React.createRef<HTMLDivElement>();
+	}
 
-  componentDidUpdate() {
-    const { isFocused } = this.props;
-    if (
-      isFocused &&
-      this.containerRef.current &&
-      this.containerRef.current.parentElement &&
-      this.containerRef.current.parentElement.parentElement
-    ) {
-      scrollToValue(
-        this.containerRef.current,
-        this.containerRef.current.parentElement.parentElement,
-      );
-    }
-  }
+	componentDidUpdate() {
+		const { isFocused } = this.props;
+		if (
+			isFocused &&
+			this.containerRef.current &&
+			this.containerRef.current.parentElement &&
+			this.containerRef.current.parentElement.parentElement
+		) {
+			scrollToValue(
+				this.containerRef.current,
+				this.containerRef.current.parentElement.parentElement,
+			);
+		}
+	}
 
-  shouldComponentUpdate(nextProps: Props) {
-    const {
-      data: { label, data },
-      innerProps,
-      isFocused,
-    } = this.props;
+	shouldComponentUpdate(nextProps: Props) {
+		const {
+			data: { label, data },
+			innerProps,
+			isFocused,
+		} = this.props;
 
-    const {
-      data: { label: nextLabel, data: nextData },
-      innerProps: nextInnerProps,
-      isFocused: nextIsFocused,
-    } = nextProps;
+		const {
+			data: { label: nextLabel, data: nextData },
+			innerProps: nextInnerProps,
+			isFocused: nextIsFocused,
+		} = nextProps;
 
-    // We can ignore onRemove here because it is an anonymous function
-    // that will be recreated every time but with the same implementation.
-    return (
-      data !== nextData ||
-      label !== nextLabel ||
-      innerProps !== nextInnerProps ||
-      isFocused !== nextIsFocused
-    );
-  }
+		// We can ignore onRemove here because it is an anonymous function
+		// that will be recreated every time but with the same implementation.
+		return (
+			data !== nextData ||
+			label !== nextLabel ||
+			innerProps !== nextInnerProps ||
+			isFocused !== nextIsFocused
+		);
+	}
 
-  getElemBefore = () => {
-    const {
-      data: { data },
-      selectProps,
-    } = this.props;
-    if (isEmail(data)) {
-      return selectProps.emailLabel ? (
-        <AddOptionAvatar isLozenge label={selectProps.emailLabel} />
-      ) : (
-        <FormattedMessage {...messages.addEmail}>
-          {(label) => (
-            <AddOptionAvatar isLozenge label={label as unknown as string} />
-          )}
-        </FormattedMessage>
-      );
-    }
+	getElemBefore = () => {
+		const {
+			data: { data },
+			selectProps,
+		} = this.props;
+		if (isEmail(data)) {
+			return selectProps.emailLabel ? (
+				<AddOptionAvatar isLozenge label={selectProps.emailLabel} />
+			) : (
+				<FormattedMessage {...messages.addEmail}>
+					{(label) => <AddOptionAvatar isLozenge label={label as unknown as string} />}
+				</FormattedMessage>
+			);
+		}
 
-    if (isGroup(data)) {
-      return (
-        <Box xcss={groupTagContainer}>
-          <PeopleIcon label="group-icon" size="small" />
-        </Box>
-      );
-    }
+		if (isGroup(data)) {
+			return (
+				<Box xcss={groupTagContainer}>
+					<PeopleIcon label="group-icon" size="small" />
+				</Box>
+			);
+		}
 
-    return <SizeableAvatar appearance="multi" src={getAvatarUrl(data)} />;
-  };
+		return <SizeableAvatar appearance="multi" src={getAvatarUrl(data)} />;
+	};
 
-  render() {
-    const { children, innerProps, ...rest } = this.props;
+	render() {
+		const { children, innerProps, ...rest } = this.props;
 
-    return (
-      <components.MultiValue
-        {...rest}
-        innerProps={{ ref: this.containerRef }}
-        cropWithEllipsis={false}
-      >
-        {this.getElemBefore()} <div css={nameWrapper}>{children}</div>
-      </components.MultiValue>
-    );
-  }
+		return (
+			<components.MultiValue
+				{...rest}
+				innerProps={{ ref: this.containerRef }}
+				cropWithEllipsis={false}
+			>
+				{this.getElemBefore()} <div css={nameWrapper}>{children}</div>
+			</components.MultiValue>
+		);
+	}
 }

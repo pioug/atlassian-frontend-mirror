@@ -13,17 +13,17 @@ import { ANALYTICS_CHANNEL } from '../../utils/analytics';
  * In future, potentially use this hook to feature flag the channel we are dispatching to
  */
 export const useDispatchAnalytics = (handler?: AnalyticsHandler) => {
-  const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  return {
-    dispatchAnalytics: useMemo(() => {
-      if (handler) {
-        return handler;
-      }
+	return {
+		dispatchAnalytics: useMemo(() => {
+			if (handler) {
+				return handler;
+			}
 
-      return (payload: AnalyticsPayload) => {
-        createAnalyticsEvent(payload).fire(ANALYTICS_CHANNEL);
-      };
-    }, [handler, createAnalyticsEvent]),
-  };
+			return (payload: AnalyticsPayload) => {
+				createAnalyticsEvent(payload).fire(ANALYTICS_CHANNEL);
+			};
+		}, [handler, createAnalyticsEvent]),
+	};
 };

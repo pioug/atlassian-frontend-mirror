@@ -3,32 +3,29 @@ import React from 'react';
 
 import { uid } from 'react-uid';
 
-import { defaultLogoParams } from '../constants';
-import { type LogoProps } from '../types';
+import { useThemeObserver } from '@atlaskit/tokens';
+
+import { defaultLogoParams, legacyDefaultLogoParams } from '../constants';
+import type { LogoProps } from '../types';
 import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = ({
-  appearance,
-  iconGradientStart,
-  iconGradientStop,
-  iconColor,
-}: LogoProps) => {
-  let colors = {
-    iconGradientStart,
-    iconGradientStop,
-    iconColor,
-  };
-  // Will be fixed upon removal of deprecated iconGradientStart and
-  // iconGradientStop props, or with React 18's useId() hook when we update.
-  // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-  let id = uid({ iconGradientStart: iconGradientStop });
+const svg = ({ appearance, iconColor }: LogoProps, colorMode: string | undefined) => {
+	let colors: Partial<ReturnType<typeof getColorsFromAppearanceOldLogos>> = {
+		iconGradientStart: legacyDefaultLogoParams.iconGradientStart,
+		iconGradientStop: legacyDefaultLogoParams.iconGradientStart,
+		iconColor,
+	};
+	// Will be fixed upon removal of deprecated iconGradientStart and
+	// iconGradientStop props, or with React 18's useId() hook when we update.
+	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
+	let id = uid({ iconGradientStart: colors.iconGradientStop });
 
-  if (appearance) {
-    colors = getColorsFromAppearanceOldLogos(appearance);
-  }
+	if (appearance) {
+		colors = getColorsFromAppearanceOldLogos(appearance, colorMode);
+	}
 
-  return `
+	return `
     <svg
       fill="none"
       height="32"
@@ -44,8 +41,8 @@ const svg = ({
         y2="11.8277"
       >
         <stop offset="0" stop-color="${colors.iconGradientStart}" ${
-    colors.iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
-  } />
+					colors.iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
+				} />
         <stop offset="100%" stop-color="${colors.iconGradientStop}" />
       </linearGradient>
       <path
@@ -59,6 +56,7 @@ const svg = ({
     </svg>`;
 };
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**
  * __Jira Work Management icon__
  *
@@ -67,33 +65,33 @@ const svg = ({
  * - [Examples](https://atlassian.design/components/logo/examples)
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
+ *
+ * @deprecated JiraWorkManagementIcon is deprecated and will be removed from atlaskit/logo in the next major release. Please use JiraIcon.
  */
 export const JiraWorkManagementIcon = ({
-  appearance,
-  label = 'Jira Work Management',
-  size = defaultLogoParams.size,
-  testId,
-  iconColor = defaultLogoParams.iconColor,
-  iconGradientStart = defaultLogoParams.iconGradientStart,
-  iconGradientStop = defaultLogoParams.iconGradientStop,
-  textColor = defaultLogoParams.textColor,
+	appearance,
+	label = 'Jira Work Management',
+	size = defaultLogoParams.size,
+	testId,
+	iconColor = defaultLogoParams.iconColor,
+	textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  return (
-    <Wrapper
-      appearance={appearance}
-      label={label}
-      svg={svg({
-        appearance,
-        iconGradientStart,
-        iconGradientStop,
-        iconColor,
-      })}
-      iconColor={iconColor}
-      iconGradientStart={iconGradientStart}
-      iconGradientStop={iconGradientStop}
-      size={size}
-      testId={testId}
-      textColor={textColor}
-    />
-  );
+	const { colorMode } = useThemeObserver();
+	return (
+		<Wrapper
+			appearance={appearance}
+			label={label}
+			svg={svg(
+				{
+					appearance,
+					iconColor,
+				},
+				colorMode,
+			)}
+			iconColor={iconColor}
+			size={size}
+			testId={testId}
+			textColor={textColor}
+		/>
+	);
 };

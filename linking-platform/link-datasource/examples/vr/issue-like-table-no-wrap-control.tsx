@@ -3,5 +3,5 @@ import React from 'react';
 import { ExampleIssueLikeTable } from '../../examples-helpers/buildIssueLikeTable';
 
 export default () => {
-  return <ExampleIssueLikeTable canControlWrapping={false} />;
+	return <ExampleIssueLikeTable canControlWrapping={false} />;
 };

@@ -9,37 +9,37 @@ import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const integrationButtonCopyWrapperStyle = css`
-  display: flex;
-  justify-content: left;
+	display: flex;
+	justify-content: left;
 `;
 
 const integrationIconWrapperStyle = css`
-  margin: ${token('space.025', '2px')} ${token('space.100', '8px')}
-    ${token('space.0', '0px')} ${token('space.0', '0px')};
+	margin: ${token('space.025', '2px')} ${token('space.100', '8px')} ${token('space.0', '0px')}
+		${token('space.0', '0px')};
 `;
 
 type Props = CustomThemeButtonProps & {
-  text: React.ReactNode;
-  IntegrationIcon: React.ComponentType;
-  textColor?: string;
+	text: React.ReactNode;
+	IntegrationIcon: React.ComponentType;
+	textColor?: string;
 };
 
 const IntegrationButton: React.FC<Props> = (props) => {
-  const { text, textColor, IntegrationIcon, ...restProps } = props;
-  return (
-    // TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles.
-    <Button {...restProps}>
-      <span
-        css={integrationButtonCopyWrapperStyle}
-        style={{ color: textColor || token('color.text', N500) }}
-      >
-        <span css={integrationIconWrapperStyle}>
-          <IntegrationIcon />
-        </span>
-        <span>{text}</span>
-      </span>
-    </Button>
-  );
+	const { text, textColor, IntegrationIcon, ...restProps } = props;
+	return (
+		// TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles.
+		<Button {...restProps}>
+			<span
+				css={integrationButtonCopyWrapperStyle}
+				style={{ color: textColor || token('color.text', N500) }}
+			>
+				<span css={integrationIconWrapperStyle}>
+					<IntegrationIcon />
+				</span>
+				<span>{text}</span>
+			</span>
+		</Button>
+	);
 };
 
 IntegrationButton.displayName = 'IntegrationButton';

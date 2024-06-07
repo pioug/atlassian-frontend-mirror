@@ -1,8 +1,8 @@
 import { type FilePreview } from '@atlaskit/media-state';
 import { type MediaType } from '../models/media';
 import {
-  isMimeTypeSupportedByBrowser,
-  isMimeTypeSupportedByServer,
+	isMimeTypeSupportedByBrowser,
+	isMimeTypeSupportedByServer,
 } from '@atlaskit/media-common/mediaTypeUtils';
 import { getVideoDimensionsFromBlob } from './getVideoDimensionsFromBlob';
 
@@ -18,35 +18,33 @@ import { getVideoDimensionsFromBlob } from './getVideoDimensionsFromBlob';
  *
  */
 export async function shouldFetchRemoteFileStates(
-  mediaType: MediaType,
-  mimeType: string,
-  preview?: FilePreview | Promise<FilePreview>,
+	mediaType: MediaType,
+	mimeType: string,
+	preview?: FilePreview | Promise<FilePreview>,
 ): Promise<boolean> {
-  if (
-    (mediaType === 'doc' ||
-      !isMimeTypeSupportedByBrowser(mimeType) ||
-      !preview) &&
-    isMimeTypeSupportedByServer(mimeType)
-  ) {
-    return true;
-  }
+	if (
+		(mediaType === 'doc' || !isMimeTypeSupportedByBrowser(mimeType) || !preview) &&
+		isMimeTypeSupportedByServer(mimeType)
+	) {
+		return true;
+	}
 
-  if (mediaType === 'video' && !!preview) {
-    const content = (await preview).value;
+	if (mediaType === 'video' && !!preview) {
+		const content = (await preview).value;
 
-    if (!(content instanceof Blob)) {
-      return false;
-    }
+		if (!(content instanceof Blob)) {
+			return false;
+		}
 
-    try {
-      const { width, height } = await getVideoDimensionsFromBlob(content);
-      return !width && !height;
-    } catch (e) {
-      // any exception from getVideoDimensionsFromBlob() may imply that local video isn't playable
-      // hence we'll need remote fileStates to grab a "processed" video
-      return true;
-    }
-  }
+		try {
+			const { width, height } = await getVideoDimensionsFromBlob(content);
+			return !width && !height;
+		} catch (e) {
+			// any exception from getVideoDimensionsFromBlob() may imply that local video isn't playable
+			// hence we'll need remote fileStates to grab a "processed" video
+			return true;
+		}
+	}
 
-  return false;
+	return false;
 }

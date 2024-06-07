@@ -7,10 +7,10 @@ import Button from '@atlaskit/button/new';
 import {
   BitbucketIcon,
   ConfluenceIcon,
+  JiraIcon,
   JiraServiceManagementIcon,
-  JiraSoftwareIcon,
-  OpsgenieIcon,
   StatuspageIcon,
+  TrelloIcon,
 } from '@atlaskit/logo';
 import { FadeIn, StaggeredEntrance } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
@@ -54,8 +54,8 @@ const logos = [
   [<BitbucketIcon size="small" />, 'Bitbucket'],
   [<ConfluenceIcon size="small" />, 'Confluence'],
   [<JiraServiceManagementIcon size="small" />, 'Jira Service Management'],
-  [<JiraSoftwareIcon size="small" />, 'Jira Software'],
-  [<OpsgenieIcon size="small" />, 'Opsgenie'],
+  [<JiraIcon size="small" />, 'Jira'],
+  [<TrelloIcon size="small" />, 'Trello'],
   [<StatuspageIcon size="small" />, 'Statuspage'],
 ];
 

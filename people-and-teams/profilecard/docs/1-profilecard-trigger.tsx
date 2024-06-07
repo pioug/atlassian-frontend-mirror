@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  AtlassianInternalWarning,
-  code,
-  Example,
-  md,
-  Props,
-} from '@atlaskit/docs';
+import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -42,19 +36,19 @@ const profileClient = new ProfileClient({
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/profilecard"
-      Component={require('../examples/05-profilecard-trigger').default}
-      title="Profilecard"
-      source={require('!!raw-loader!../examples/05-profilecard-trigger')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/profilecard"
+			Component={require('../examples/05-profilecard-trigger').default}
+			title="Profilecard"
+			source={require('!!raw-loader!../examples/05-profilecard-trigger')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="ProfileCardTrigger Props"
-      props={require('!!extract-react-types-loader!../src/components/User/ProfileCardTrigger')}
-    />
-  )}
+		<Props
+			heading="ProfileCardTrigger Props"
+			props={require('!!extract-react-types-loader!../src/components/User/ProfileCardTrigger')}
+		/>
+	)}
 
 `;

@@ -56,6 +56,8 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Запросити до Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Поділитися сторінкою',
   'fabric.elements.share.main.tab.text.jira': 'Поділитися завданням',
+  'fabric.elements.share.menu.email.label': 'Електронна пошта',
+  'fabric.elements.share.menu.slack.label': 'Slack',
   'fabric.elements.share.popup.label': 'Поділитися',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Надано доступ до допису в блозі}board {Надано доступ до дошки}calendar {Надано доступ до календаря}draft {Надано доступ до чернетки}filter {Надано доступ до фільтра}issue {Надано доступ до завдання}summary {Надано доступ до підсумку}list {Надано доступ до списку}timeline {Надано доступ до шкали}form {Надано доступ до форми}media {Надано доступ до медіафайлу}page {Надано доступ до сторінки}project {Надано доступ до проєкту}pullrequest {Надано доступ до запиту на внесення змін}question {Надано доступ до запитання}report {Надано доступ до звіту}repository {Надано доступ до репозиторію}request {Надано доступ до запиту}roadmap {Надано доступ до часової шкали}site {Надано доступ до сайту}space {Надано доступ до розділу}other {Надано доступ до посилання}}',

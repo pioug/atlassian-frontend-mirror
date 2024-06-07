@@ -1,9 +1,9 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
 import {
-  type ApiClientResponse,
-  type ProfileCardClientData,
-  type ProfileClientOptions,
+	type ApiClientResponse,
+	type ProfileCardClientData,
+	type ProfileClientOptions,
 } from '../types';
 import { userRequestAnalytics } from '../util/analytics';
 import { getPageTime } from '../util/performance';
@@ -20,37 +20,32 @@ import { directoryGraphqlQuery } from './graphqlUtils';
  * @param  {object} response
  * @return {object}
  */
-export const modifyResponse = (
-  response: ApiClientResponse,
-): ProfileCardClientData => {
-  const data = {
-    ...response.User,
-  };
+export const modifyResponse = (response: ApiClientResponse): ProfileCardClientData => {
+	const data = {
+		...response.User,
+	};
 
-  const localWeekdayIndex = new Date().getDay().toString();
+	const localWeekdayIndex = new Date().getDay().toString();
 
-  if (
-    data.remoteWeekdayIndex &&
-    data.remoteWeekdayIndex !== localWeekdayIndex
-  ) {
-    data.remoteTimeString = `${data.remoteWeekdayString} ${data.remoteTimeString}`;
-  }
+	if (data.remoteWeekdayIndex && data.remoteWeekdayIndex !== localWeekdayIndex) {
+		data.remoteTimeString = `${data.remoteWeekdayString} ${data.remoteTimeString}`;
+	}
 
-  return {
-    isBot: data.isBot,
-    isCurrentUser: data.isCurrentUser,
-    status: data.status,
-    statusModifiedDate: data.statusModifiedDate || undefined,
-    avatarUrl: data.avatarUrl || undefined,
-    email: data.email || undefined,
-    fullName: data.fullName || undefined,
-    location: data.location || undefined,
-    meta: data.meta || undefined,
-    nickname: data.nickname || undefined,
-    companyName: data.companyName || undefined,
-    timestring: data.remoteTimeString || undefined,
-    accountType: data.accountType || undefined,
-  };
+	return {
+		isBot: data.isBot,
+		isCurrentUser: data.isCurrentUser,
+		status: data.status,
+		statusModifiedDate: data.statusModifiedDate || undefined,
+		avatarUrl: data.avatarUrl || undefined,
+		email: data.email || undefined,
+		fullName: data.fullName || undefined,
+		location: data.location || undefined,
+		meta: data.meta || undefined,
+		nickname: data.nickname || undefined,
+		companyName: data.companyName || undefined,
+		timestring: data.remoteTimeString || undefined,
+		accountType: data.accountType || undefined,
+	};
 };
 
 /**
@@ -59,7 +54,7 @@ export const modifyResponse = (
  * @return {string} GraphQL Query String
  */
 export const buildUserQuery = (cloudId: string, userId: string) => ({
-  query: `query User($userId: String!, $cloudId: String!) {
+	query: `query User($userId: String!, $cloudId: String!) {
     User: CloudUser(userId: $userId, cloudId: $cloudId) {
       id
       isCurrentUser
@@ -79,83 +74,80 @@ export const buildUserQuery = (cloudId: string, userId: string) => ({
       remoteTimeString: localTime(format: "h:mma")
     }
   }`,
-  variables: {
-    cloudId,
-    userId,
-  },
+	variables: {
+		cloudId,
+		userId,
+	},
 });
 
 export default class UserProfileCardClient extends CachingClient<any> {
-  options: ProfileClientOptions;
+	options: ProfileClientOptions;
 
-  constructor(options: ProfileClientOptions) {
-    super(options);
-    this.options = options;
-  }
+	constructor(options: ProfileClientOptions) {
+		super(options);
+		this.options = options;
+	}
 
-  async makeRequest(cloudId: string, userId: string) {
-    if (!this.options.url) {
-      throw new Error('options.url is a required parameter');
-    }
+	async makeRequest(cloudId: string, userId: string) {
+		if (!this.options.url) {
+			throw new Error('options.url is a required parameter');
+		}
 
-    const query = buildUserQuery(cloudId, userId);
+		const query = buildUserQuery(cloudId, userId);
 
-    const response = await directoryGraphqlQuery<ApiClientResponse>(
-      this.options.url,
-      query,
-    );
+		const response = await directoryGraphqlQuery<ApiClientResponse>(this.options.url, query);
 
-    return modifyResponse(response);
-  }
+		return modifyResponse(response);
+	}
 
-  getProfile(
-    cloudId: string,
-    userId: string,
-    analytics?: (event: AnalyticsEventPayload) => void,
-  ): Promise<any> {
-    if (!userId) {
-      return Promise.reject(new Error('userId missing'));
-    }
+	getProfile(
+		cloudId: string,
+		userId: string,
+		analytics?: (event: AnalyticsEventPayload) => void,
+	): Promise<any> {
+		if (!userId) {
+			return Promise.reject(new Error('userId missing'));
+		}
 
-    const cacheIdentifier = `${cloudId}/${userId}`;
-    const cache = this.getCachedProfile(cacheIdentifier);
+		const cacheIdentifier = `${cloudId}/${userId}`;
+		const cache = this.getCachedProfile(cacheIdentifier);
 
-    if (cache) {
-      return Promise.resolve(cache);
-    }
+		if (cache) {
+			return Promise.resolve(cache);
+		}
 
-    return new Promise((resolve, reject) => {
-      const startTime = getPageTime();
+		return new Promise((resolve, reject) => {
+			const startTime = getPageTime();
 
-      if (analytics) {
-        analytics(userRequestAnalytics('triggered'));
-      }
+			if (analytics) {
+				analytics(userRequestAnalytics('triggered'));
+			}
 
-      this.makeRequest(cloudId, userId)
-        .then((data: any) => {
-          if (this.cache) {
-            this.setCachedProfile(cacheIdentifier, data);
-          }
-          if (analytics) {
-            analytics(
-              userRequestAnalytics('succeeded', {
-                duration: getPageTime() - startTime,
-              }),
-            );
-          }
-          resolve(data);
-        })
-        .catch((error: any) => {
-          if (analytics) {
-            analytics(
-              userRequestAnalytics('failed', {
-                duration: getPageTime() - startTime,
-                ...getErrorAttributes(error),
-              }),
-            );
-          }
-          reject(error);
-        });
-    });
-  }
+			this.makeRequest(cloudId, userId)
+				.then((data: any) => {
+					if (this.cache) {
+						this.setCachedProfile(cacheIdentifier, data);
+					}
+					if (analytics) {
+						analytics(
+							userRequestAnalytics('succeeded', {
+								duration: getPageTime() - startTime,
+							}),
+						);
+					}
+					resolve(data);
+				})
+				.catch((error: any) => {
+					if (analytics) {
+						analytics(
+							userRequestAnalytics('failed', {
+								duration: getPageTime() - startTime,
+								...getErrorAttributes(error),
+							}),
+						);
+					}
+					reject(error);
+				});
+		});
+	}
 }

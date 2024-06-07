@@ -2,53 +2,46 @@ import React from 'react';
 import InlineDialog, { type Placement } from '@atlaskit/inline-dialog';
 
 interface Props {
-  children: React.ReactNode;
-  content: React.ReactNode;
-  placement?: Placement;
+	children: React.ReactNode;
+	content: React.ReactNode;
+	placement?: Placement;
 }
 
 interface State {
-  isOpen: boolean;
+	isOpen: boolean;
 }
 
 export class StatefulInlineDialog extends React.Component<Props, State> {
-  state = {
-    isOpen: false,
-  };
+	state = {
+		isOpen: false,
+	};
 
-  openDialog = () => {
-    this.setState({ isOpen: true });
-  };
+	openDialog = () => {
+		this.setState({ isOpen: true });
+	};
 
-  closeDialog = () => {
-    this.setState({ isOpen: false });
-  };
+	closeDialog = () => {
+		this.setState({ isOpen: false });
+	};
 
-  handleMouseOver = () => {
-    this.openDialog();
-  };
+	handleMouseOver = () => {
+		this.openDialog();
+	};
 
-  handleMouseOut = () => {
-    this.closeDialog();
-  };
+	handleMouseOut = () => {
+		this.closeDialog();
+	};
 
-  render() {
-    const { children, content, placement } = this.props;
-    return (
-      <InlineDialog
-        content={content}
-        placement={placement}
-        isOpen={this.state.isOpen}
-      >
-        <span
-          onMouseOver={this.handleMouseOver}
-          onMouseOut={this.handleMouseOut}
-        >
-          {children}
-        </span>
-      </InlineDialog>
-    );
-  }
+	render() {
+		const { children, content, placement } = this.props;
+		return (
+			<InlineDialog content={content} placement={placement} isOpen={this.state.isOpen}>
+				<span onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+					{children}
+				</span>
+			</InlineDialog>
+		);
+	}
 }
 
 export default StatefulInlineDialog;

@@ -3,7 +3,7 @@ import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
 import { getSiteEmojiData } from './get-site-emoji-data';
 
 export const getSiteEmojis = memoizeOne(() => {
-  return denormaliseEmojiServiceResponse({
-    emojis: getSiteEmojiData().emojis,
-  }).emojis;
+	return denormaliseEmojiServiceResponse({
+		emojis: getSiteEmojiData().emojis,
+	}).emojis;
 });

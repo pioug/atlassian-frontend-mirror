@@ -3,5 +3,7 @@ import createNamespaceContext, { type Props } from './helper/createNamespaceCont
 
 export const NAVIGATION_CONTEXT = 'navigationCtx';
 
-export const NavigationAnalyticsContext: FunctionComponent<Props> =
-  createNamespaceContext(NAVIGATION_CONTEXT, 'NavigationAnalyticsContext');
+export const NavigationAnalyticsContext: FunctionComponent<Props> = createNamespaceContext(
+	NAVIGATION_CONTEXT,
+	'NavigationAnalyticsContext',
+);

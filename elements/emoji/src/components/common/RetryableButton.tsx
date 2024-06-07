@@ -8,81 +8,80 @@ import { messages } from '../i18n';
 import { buttonSpinner } from './styles';
 
 export interface Props {
-  label: string;
-  appearance: string;
-  error: boolean;
-  onSubmit: () => void;
-  loading: boolean;
-  ariaDescribedBy?: string;
-  ariaLabelledBy?: string;
+	label: string;
+	appearance: string;
+	error: boolean;
+	onSubmit: () => void;
+	loading: boolean;
+	ariaDescribedBy?: string;
+	ariaLabelledBy?: string;
 }
 
 export const retryUploadButtonTestId = 'retry-upload-button';
 export const uploadEmojiButtonTestId = 'upload-emoji-button';
 
 const LoadingSpinner = () => {
-  return (
-    <span css={buttonSpinner}>
-      <Spinner />
-    </span>
-  );
+	return (
+		<span css={buttonSpinner}>
+			<Spinner />
+		</span>
+	);
 };
 
 const RetryButton = (props: Props) => {
-  const { onSubmit, ariaLabelledBy, ariaDescribedBy } = props;
+	const { onSubmit, ariaLabelledBy, ariaDescribedBy } = props;
 
-  return (
-    <FormattedMessage {...messages.retryLabel}>
-      {(retryLabel) => (
-        <Box paddingInlineEnd="space.050">
-          <AkButton
-            appearance="warning"
-            onClick={onSubmit}
-            testId={retryUploadButtonTestId}
-            aria-describedby={ariaDescribedBy}
-            aria-labelledby={ariaLabelledBy}
-            autoFocus
-          >
-            {retryLabel}
-          </AkButton>
-        </Box>
-      )}
-    </FormattedMessage>
-  );
+	return (
+		<FormattedMessage {...messages.retryLabel}>
+			{(retryLabel) => (
+				<Box paddingInlineEnd="space.050">
+					<AkButton
+						appearance="warning"
+						onClick={onSubmit}
+						testId={retryUploadButtonTestId}
+						aria-describedby={ariaDescribedBy}
+						aria-labelledby={ariaLabelledBy}
+						autoFocus
+					>
+						{retryLabel}
+					</AkButton>
+				</Box>
+			)}
+		</FormattedMessage>
+	);
 };
 
 const UploadButton = (props: Props) => {
-  const { appearance, onSubmit, label, ariaLabelledBy, ariaDescribedBy } =
-    props;
+	const { appearance, onSubmit, label, ariaLabelledBy, ariaDescribedBy } = props;
 
-  return (
-    <Box paddingInlineEnd="space.050">
-      <AkButton
-        appearance={appearance as any}
-        onClick={onSubmit}
-        testId={uploadEmojiButtonTestId}
-        aria-describedby={ariaDescribedBy}
-        aria-labelledby={ariaLabelledBy}
-        autoFocus
-      >
-        {label}
-      </AkButton>
-    </Box>
-  );
+	return (
+		<Box paddingInlineEnd="space.050">
+			<AkButton
+				appearance={appearance as any}
+				onClick={onSubmit}
+				testId={uploadEmojiButtonTestId}
+				aria-describedby={ariaDescribedBy}
+				aria-labelledby={ariaLabelledBy}
+				autoFocus
+			>
+				{label}
+			</AkButton>
+		</Box>
+	);
 };
 
 const RetryableButton = (props: Props) => {
-  const { loading, error } = props;
+	const { loading, error } = props;
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+	if (loading) {
+		return <LoadingSpinner />;
+	}
 
-  if (error) {
-    return <RetryButton {...props} />;
-  }
+	if (error) {
+		return <RetryButton {...props} />;
+	}
 
-  return <UploadButton {...props} />;
+	return <UploadButton {...props} />;
 };
 
 export default RetryableButton;

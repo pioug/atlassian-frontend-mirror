@@ -21,37 +21,27 @@ export const AssignedTo = createElement<TextProps>(ElementName.AssignedTo);
  * An AvatarGroup element using the data from AssignedToGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
-export const AssignedToGroup = createElement<AvatarGroupProps>(
-  ElementName.AssignedToGroup,
-);
+export const AssignedToGroup = createElement<AvatarGroupProps>(ElementName.AssignedToGroup);
 /**
  * Creates a AttachmentCount Badge element using the data from AttachmentCount in the Flexible UI Context.
  * @see Badge
  */
-export const AttachmentCount = createElement<BadgeProps>(
-  ElementName.AttachmentCount,
-);
+export const AttachmentCount = createElement<BadgeProps>(ElementName.AttachmentCount);
 /**
  * An AvatarGroup element using the data from AuthorGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
-export const AuthorGroup = createElement<AvatarGroupProps>(
-  ElementName.AuthorGroup,
-);
+export const AuthorGroup = createElement<AvatarGroupProps>(ElementName.AuthorGroup);
 /**
  * Creates a Checklist Badge element using the data from ChecklistProgress in the Flexible UI Context.
  * @see Badge
  */
-export const ChecklistProgress = createElement<BadgeProps>(
-  ElementName.ChecklistProgress,
-);
+export const ChecklistProgress = createElement<BadgeProps>(ElementName.ChecklistProgress);
 /**
  * An AvatarGroup element using the data from CollaboratorGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
-export const CollaboratorGroup = createElement<AvatarGroupProps>(
-  ElementName.CollaboratorGroup,
-);
+export const CollaboratorGroup = createElement<AvatarGroupProps>(ElementName.CollaboratorGroup);
 /**
  * Creates a CommentCount Badge element using the data from CommentCount in the Flexible UI Context.
  * @see Badge
@@ -106,9 +96,7 @@ export const OwnedBy = createElement<TextProps>(ElementName.OwnedBy);
  * An AvatarGroup element using the data from OwnedByGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
-export const OwnedByGroup = createElement<AvatarGroupProps>(
-  ElementName.OwnedByGroup,
-);
+export const OwnedByGroup = createElement<AvatarGroupProps>(ElementName.OwnedByGroup);
 /**
  * Creates a Preview element using the data from Preview in the Flexible UI Context.
  * @see Preview
@@ -123,9 +111,7 @@ export const Priority = createElement<BadgeProps>(ElementName.Priority);
  * Creates a ProgrammingLanguage Badge element using the data from ProgrammingLanguage in the Flexible UI Context.
  * @see Badge
  */
-export const ProgrammingLanguage = createElement<BadgeProps>(
-  ElementName.ProgrammingLanguage,
-);
+export const ProgrammingLanguage = createElement<BadgeProps>(ElementName.ProgrammingLanguage);
 /**
  * Creates a Provider Badge element using the data from Provider in the Flexible UI Context.
  * @see Badge
@@ -164,23 +150,17 @@ export const State = createElement<LozengeProps>(ElementName.State);
  * Creates a SubscriberCount Badge element using the data from SubscriberCount in the Flexible UI Context.
  * @see Badge
  */
-export const SubscriberCount = createElement<BadgeProps>(
-  ElementName.SubscriberCount,
-);
+export const SubscriberCount = createElement<BadgeProps>(ElementName.SubscriberCount);
 /**
  * Create a SubTasks Badge element using the data from subTasks in the Flexible UI Context.
  * @see Badge
  */
-export const SubTasksProgress = createElement<BadgeProps>(
-  ElementName.SubTasksProgress,
-);
+export const SubTasksProgress = createElement<BadgeProps>(ElementName.SubTasksProgress);
 /**
  * Create a StoryPoints Badge element using the data from storyPoints in the Flexible UI Context.
  * @see AtlaskitBadge
  */
-export const StoryPoints = createElement<AtlaskitBadgeProps>(
-  ElementName.StoryPoints,
-);
+export const StoryPoints = createElement<AtlaskitBadgeProps>(ElementName.StoryPoints);
 /**
  * Creates a TargetBranch Text element using the data from targetBranch in the Flexible UI Context.
  * @see Text

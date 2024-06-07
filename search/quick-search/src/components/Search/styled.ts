@@ -6,89 +6,88 @@ const inputRightPadding = token('space.200', '16px');
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SearchBox = styled.div({
-  position: 'sticky',
-  top: 0,
-  backgroundColor: N0,
-  color: N500,
-  display: 'flex',
-  height: '36px',
-  zIndex: 10 /* required to keep the search box on top of icons in results when sticky */,
+	position: 'sticky',
+	top: 0,
+	backgroundColor: N0,
+	color: N500,
+	display: 'flex',
+	height: '36px',
+	zIndex: 10 /* required to keep the search box on top of icons in results when sticky */,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SearchFieldBaseOuter = styled.div({
-  display: 'flex',
-  flex: 1,
-  marginRight: 'auto',
-  paddingBottom: token('space.025', '2px'),
-  borderBottom: `2px solid ${B200}`,
+	display: 'flex',
+	flex: 1,
+	marginRight: 'auto',
+	paddingBottom: token('space.025', '2px'),
+	borderBottom: `2px solid ${B200}`,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SearchFieldBaseInner = styled.div({
-  position: 'relative',
-  alignItems: 'center',
-  paddingRight:
-    inputRightPadding /* pad search text from FieldBase's isLoading spinner */,
-  display: 'flex',
-  flexGrow: 1,
+	position: 'relative',
+	alignItems: 'center',
+	paddingRight: inputRightPadding /* pad search text from FieldBase's isLoading spinner */,
+	display: 'flex',
+	flexGrow: 1,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SearchInner = styled.div({
-  paddingRight: token('space.300', '24px'),
+	paddingRight: token('space.300', '24px'),
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const getPlaceholderStyle = (style: any) => css`
-  &::-webkit-input-placeholder {
-    ${style};
-  }
-  &::-moz-placeholder {
-    /* Mozilla Firefox 19+ */
-    ${style} opacity: 1;
-  }
-  &::-ms-input-placeholder {
-    /* Microsoft Edge */
-    ${style};
-  }
-  &:-moz-placeholder {
-    /* Mozilla Firefox 4 to 18 */
-    ${style} opacity: 1;
-  }
-  &:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    ${style};
-  }
+	&::-webkit-input-placeholder {
+		${style};
+	}
+	&::-moz-placeholder {
+		/* Mozilla Firefox 19+ */
+		${style} opacity: 1;
+	}
+	&::-ms-input-placeholder {
+		/* Microsoft Edge */
+		${style};
+	}
+	&:-moz-placeholder {
+		/* Mozilla Firefox 4 to 18 */
+		${style} opacity: 1;
+	}
+	&:-ms-input-placeholder {
+		/* Internet Explorer 10-11 */
+		${style};
+	}
 `;
 
 export const getPlaceholderColor = css({
-  color: token('color.text.subtlest', N200),
+	color: token('color.text.subtlest', N200),
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SearchInput = styled.input`
-  background-color: transparent;
-  border: 0;
-  color: ${N500};
-  flex-grow: 1;
-  font-size: 1.4em;
-  outline: 0;
-  // Safari adds 2px margin-left
-  margin-left: 0;
-  ${getPlaceholderStyle(getPlaceholderColor)};
+	background-color: transparent;
+	border: 0;
+	color: ${N500};
+	flex-grow: 1;
+	font-size: 1.4em;
+	outline: 0;
+	// Safari adds 2px margin-left
+	margin-left: 0;
+	${getPlaceholderStyle(getPlaceholderColor)};
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SearchInputTypeAhead = styled(SearchInput)({
-  color: N50,
-  position: 'absolute',
-  width: `calc(100% - ${inputRightPadding})`,
-  zIndex: -1,
+	color: N50,
+	position: 'absolute',
+	width: `calc(100% - ${inputRightPadding})`,
+	zIndex: -1,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SearchInputControlsContainer = styled.span({
-  paddingLeft: token('space.300', '24px'),
+	paddingLeft: token('space.300', '24px'),
 });
 SearchInputControlsContainer.displayName = 'SearchInputControlsContainer'; // required for testing

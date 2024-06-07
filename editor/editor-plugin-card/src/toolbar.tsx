@@ -374,7 +374,8 @@ const generateToolbarItems =
 		} else {
 			const { inlineCard } = state.schema.nodes;
 
-			const isEditDropdownEnabled = getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
+			const isEditDropdownEnabled =
+				getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
 				platform !== 'mobile' &&
 				cardOptions.allowDatasource;
 

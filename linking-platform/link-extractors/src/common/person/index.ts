@@ -6,7 +6,4 @@ export { extractPersonUpdatedBy } from './extractPersonUpdatedBy';
 export { extractPersonFromJsonLd } from './extractPerson';
 
 export type { LinkPerson } from './types';
-export type {
-  LinkPersonUpdatedBy,
-  LinkTypeUpdatedBy,
-} from './extractPersonUpdatedBy';
+export type { LinkPersonUpdatedBy, LinkTypeUpdatedBy } from './extractPersonUpdatedBy';

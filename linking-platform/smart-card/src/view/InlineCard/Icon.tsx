@@ -11,15 +11,15 @@ import React from 'react';
 // to position it with appropriate whitespace from the top.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Icon = styled.img({
-  height: '14px',
-  width: '14px',
-  marginRight: token('space.050', '4px'),
-  borderRadius: '2px',
-  userSelect: 'none',
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+	height: '14px',
+	width: '14px',
+	marginRight: token('space.050', '4px'),
+	borderRadius: '2px',
+	userSelect: 'none',
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
 });
 
 // Used for 'untrue' icons which claim to be 16x16 but
@@ -27,28 +27,28 @@ export const Icon = styled.img({
 // TODO: Replace this override with proper AtlasKit solution.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AKIconWrapper = styled.span({
-  marginRight: token('space.negative.025', '-2px'),
+	marginRight: token('space.negative.025', '-2px'),
 });
 
 export const Shimmer = ({ testId }: { testId: string }) => {
-  const skeletonCustomStyles: React.CSSProperties = {
-    position: 'absolute',
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-    top: '50%',
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    marginRight: token('space.050', '4px'),
-  };
+	const skeletonCustomStyles: React.CSSProperties = {
+		position: 'absolute',
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+		top: '50%',
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		marginRight: token('space.050', '4px'),
+	};
 
-  return (
-    <Skeleton
-      width={14}
-      height={14}
-      borderRadius={2}
-      testId={testId}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      style={skeletonCustomStyles}
-    />
-  );
+	return (
+		<Skeleton
+			width={14}
+			height={14}
+			borderRadius={2}
+			testId={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={skeletonCustomStyles}
+		/>
+	);
 };

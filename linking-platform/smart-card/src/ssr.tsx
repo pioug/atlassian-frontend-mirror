@@ -16,19 +16,17 @@ export type CardSSRProps = CardProps & { url: string };
 // simplifies the logic around rendering and loading placeholders and
 // only contains whats necessary to render the card on SSR mode
 export const CardSSR: FC<CardSSRProps> = (props) => {
-  const [id] = useState(() => props.id ?? uuid());
-  const cardProps = {
-    ...props,
-    id,
-  };
+	const [id] = useState(() => props.id ?? uuid());
+	const cardProps = {
+		...props,
+		id,
+	};
 
-  return (
-    <AnalyticsContext data={context}>
-      <ErrorBoundary
-        FallbackComponent={() => <LoadingCardLink {...cardProps} />}
-      >
-        <CardWithUrlContent {...cardProps} />
-      </ErrorBoundary>
-    </AnalyticsContext>
-  );
+	return (
+		<AnalyticsContext data={context}>
+			<ErrorBoundary FallbackComponent={() => <LoadingCardLink {...cardProps} />}>
+				<CardWithUrlContent {...cardProps} />
+			</ErrorBoundary>
+		</AnalyticsContext>
+	);
 };

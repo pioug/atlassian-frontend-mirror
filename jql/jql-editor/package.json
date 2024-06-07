@@ -82,7 +82,7 @@
     "@atlaskit/visual-regression": "*",
     "@storybook/addon-actions": "^5.2.5",
     "@storybook/addon-knobs": "^5.3.18",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "typescript": "~5.4.2",

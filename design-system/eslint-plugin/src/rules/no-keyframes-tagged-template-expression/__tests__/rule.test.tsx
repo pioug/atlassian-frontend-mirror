@@ -6,46 +6,46 @@ import rule from '../index';
 type InvalidTestCase = Omit<RuleTester.InvalidTestCase, 'errors'>;
 
 const createInvalidTestCases = (tests: InvalidTestCase[]) =>
-  tests.map((t) => ({
-    ...t,
-    errors: [{ messageId: 'unexpectedTaggedTemplate' }],
-  }));
+	tests.map((t) => ({
+		...t,
+		errors: [{ messageId: 'unexpectedTaggedTemplate' }],
+	}));
 
 tester.run('no-keyframes-tagged-template-expression', rule, {
-  valid: [
-    `
+	valid: [
+		`
       import { keyframes } from 'keyframes';
 
       keyframes\`from { opacity: 1 } to { opacity: 0 }\`;
     `,
-    `
+		`
       import { keyframes } from '@compiled/react-clone';
 
       keyframes\`from { opacity: 1 } to { opacity: 0 }\`;
     `,
-  ],
-  invalid: createInvalidTestCases([
-    {
-      filename: 'single-line-empty.ts',
-      code: `
+	],
+	invalid: createInvalidTestCases([
+		{
+			filename: 'single-line-empty.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       keyframes\`\`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       keyframes({});
     `,
-    },
-    {
-      filename: 'single-line-static-rule.ts',
-      code: `
+		},
+		{
+			filename: 'single-line-static-rule.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       keyframes\`from, 25% { opacity: 1 } to { opacity: 0 }\`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       keyframes({
@@ -57,24 +57,24 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'multiline-empty.ts',
-      code: `
+		},
+		{
+			filename: 'multiline-empty.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       keyframes\`
       \`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       keyframes({});
     `,
-    },
-    {
-      filename: 'multiline-static-rules.ts',
-      code: `
+		},
+		{
+			filename: 'multiline-static-rules.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       keyframes\`
@@ -96,7 +96,7 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       \`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       keyframes({
@@ -118,10 +118,10 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'no-trailing-semicolon-multiline-static-rules.ts',
-      code: `
+		},
+		{
+			filename: 'no-trailing-semicolon-multiline-static-rules.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       keyframes\`
@@ -143,7 +143,7 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       \`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       keyframes({
@@ -165,10 +165,10 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'multiline-static-rules-comments.ts',
-      code: `
+		},
+		{
+			filename: 'multiline-static-rules-comments.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       keyframes\`
@@ -214,7 +214,7 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         /* after selector 4 */
       \`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       keyframes({
@@ -236,10 +236,10 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'interpolated-declaration-values.ts',
-      code: `
+		},
+		{
+			filename: 'interpolated-declaration-values.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       const from = {
@@ -261,7 +261,7 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       \`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       const from = {
@@ -283,10 +283,10 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'interpolated-declaration-values-comments.ts',
-      code: `
+		},
+		{
+			filename: 'interpolated-declaration-values-comments.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       const from = {
@@ -315,7 +315,7 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       \`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       const from = {
@@ -337,10 +337,10 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'affixed-rules.ts',
-      code: `
+		},
+		{
+			filename: 'affixed-rules.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       const size = 8;
@@ -356,7 +356,7 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       \`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       const size = 8;
@@ -372,15 +372,15 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'export-default-declaration.ts',
-      code: `
+		},
+		{
+			filename: 'export-default-declaration.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       export default keyframes\`from, 25% { opacity: 1 } to { opacity: 0 }\`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       export default keyframes({
@@ -392,15 +392,15 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'export-named-declaration.ts',
-      code: `
+		},
+		{
+			filename: 'export-named-declaration.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       export const fadeOut = keyframes\`from, 25% { opacity: 1 } to { opacity: 0 }\`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       export const fadeOut = keyframes({
@@ -412,15 +412,15 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'named-declaration.ts',
-      code: `
+		},
+		{
+			filename: 'named-declaration.ts',
+			code: `
       import { keyframes } from '@compiled/react';
 
       const fadeOut = keyframes\`from, 25% { opacity: 1 } to { opacity: 0 }\`;
     `,
-      output: `
+			output: `
       import { keyframes } from '@compiled/react';
 
       const fadeOut = keyframes({
@@ -432,15 +432,15 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-    {
-      filename: 'aliased.ts',
-      code: `
+		},
+		{
+			filename: 'aliased.ts',
+			code: `
       import { keyframes as keyframes2 } from '@compiled/react';
 
       const fadeOut = keyframes2\`from, 25% { opacity: 1 } to { opacity: 0 }\`;
     `,
-      output: `
+			output: `
       import { keyframes as keyframes2 } from '@compiled/react';
 
       const fadeOut = keyframes2({
@@ -452,6 +452,6 @@ tester.run('no-keyframes-tagged-template-expression', rule, {
         }
       });
     `,
-    },
-  ]),
+		},
+	]),
 });

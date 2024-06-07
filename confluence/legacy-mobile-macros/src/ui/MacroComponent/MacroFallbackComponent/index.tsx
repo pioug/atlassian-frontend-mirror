@@ -26,35 +26,34 @@ import { type ActionProps, type CreateMacro, type MacroFallbackComponentProps } 
 const noop = () => {};
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Action = styled.span<ActionProps>`
-	color: ${(props) =>
-		props.callToAction
-			? token('color.link', colors.B300)
-			: token('color.text.subtlest', colors.N90)};
-	align-self: center;
-	text-align: right;
-	white-space: nowrap;
-	padding-left: ${token('space.200', '16px')};
-	min-width: 50px;
-`;
+const Action = styled.span<ActionProps>((props) => ({
+	color: props.callToAction
+		? token('color.link', colors.B300)
+		: token('color.text.subtlest', colors.N90),
+	alignSelf: 'center',
+	textAlign: 'right',
+	whiteSpace: 'nowrap',
+	paddingLeft: token('space.200', '16px'),
+	minWidth: '50px',
+}));
 
 const cardStyles = (componentType: ComponentType<any>) => {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-	return styled(componentType)`
-		&& {
-			background-color: ${token('elevation.surface', colors.N0)};
-			border: solid 2px ${token('color.border', colors.N30)};
-			color: ${token('color.text', colors.N800)} !important;
-			display: flex;
-			height: unset;
-			min-height: 44px;
-			white-space: normal;
-			text-align: left;
-			min-width: 150px;
-			align-items: center;
-			line-height: 22px;
-		}
-	`;
+	return styled(componentType)({
+		'&&': {
+			backgroundColor: token('elevation.surface', colors.N0),
+			border: `solid 2px ${token('color.border', colors.N30)}`,
+			color: `${token('color.text', colors.N800)} !important`,
+			display: 'flex',
+			height: 'unset',
+			minHeight: '44px',
+			whiteSpace: 'normal',
+			textAlign: 'left',
+			minWidth: '150px',
+			alignItems: 'center',
+			lineHeight: '22px',
+		},
+	});
 };
 
 // create standard translated error messages here????

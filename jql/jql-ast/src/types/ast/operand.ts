@@ -1,10 +1,10 @@
 import {
-  NODE_TYPE_OPERAND,
-  type OPERAND_EMPTY,
-  type OPERAND_TYPE_FUNCTION,
-  type OPERAND_TYPE_KEYWORD,
-  type OPERAND_TYPE_LIST,
-  type OPERAND_TYPE_VALUE,
+	NODE_TYPE_OPERAND,
+	type OPERAND_EMPTY,
+	type OPERAND_TYPE_FUNCTION,
+	type OPERAND_TYPE_KEYWORD,
+	type OPERAND_TYPE_LIST,
+	type OPERAND_TYPE_VALUE,
 } from '../../constants';
 
 import { type Argument } from './argument';
@@ -16,16 +16,16 @@ export type KeywordOperandValue = typeof OPERAND_EMPTY;
  * An operand that is a user-provided value.
  */
 export interface ValueOperand extends AstNode {
-  type: typeof NODE_TYPE_OPERAND;
-  operandType: typeof OPERAND_TYPE_VALUE;
-  /**
-   * Literal operand value (with quotes and escaping preserved).
-   */
-  text: string;
-  /**
-   * Semantic operand value (without quotes or escaping derived from those quotes).
-   */
-  value: string;
+	type: typeof NODE_TYPE_OPERAND;
+	operandType: typeof OPERAND_TYPE_VALUE;
+	/**
+	 * Literal operand value (with quotes and escaping preserved).
+	 */
+	text: string;
+	/**
+	 * Semantic operand value (without quotes or escaping derived from those quotes).
+	 */
+	value: string;
 }
 
 /**
@@ -34,12 +34,12 @@ export interface ValueOperand extends AstNode {
  * for more information about operand keywords.
  */
 export interface KeywordOperand extends AstNode {
-  type: typeof NODE_TYPE_OPERAND;
-  operandType: typeof OPERAND_TYPE_KEYWORD;
-  /**
-   * The keyword that is the operand value.
-   */
-  value: KeywordOperandValue;
+	type: typeof NODE_TYPE_OPERAND;
+	operandType: typeof OPERAND_TYPE_KEYWORD;
+	/**
+	 * The keyword that is the operand value.
+	 */
+	value: KeywordOperandValue;
 }
 
 /**
@@ -48,47 +48,47 @@ export interface KeywordOperand extends AstNode {
  * information about JQL functions.
  */
 export interface FunctionOperand extends AstNode {
-  type: typeof NODE_TYPE_OPERAND;
-  operandType: typeof OPERAND_TYPE_FUNCTION;
-  /**
-   * The name of the function.
-   */
-  function: FunctionString;
-  /**
-   * The list of function arguments.
-   */
-  arguments: Argument[];
+	type: typeof NODE_TYPE_OPERAND;
+	operandType: typeof OPERAND_TYPE_FUNCTION;
+	/**
+	 * The name of the function.
+	 */
+	function: FunctionString;
+	/**
+	 * The list of function arguments.
+	 */
+	arguments: Argument[];
 }
 
 /**
  * A function name used in an operand.
  */
 export interface FunctionString extends AstNode {
-  /**
-   * Literal name of the function (with quotes and escaping preserved).
-   */
-  text: string;
-  /**
-   * Semantic name of the function (without quotes or escaping derived from those quotes).
-   */
-  value: string;
+	/**
+	 * Literal name of the function (with quotes and escaping preserved).
+	 */
+	text: string;
+	/**
+	 * Semantic name of the function (without quotes or escaping derived from those quotes).
+	 */
+	value: string;
 }
 
 /**
  * An operand that is a list of values.
  */
 export interface ListOperand extends AstNode {
-  type: typeof NODE_TYPE_OPERAND;
-  operandType: typeof OPERAND_TYPE_LIST;
-  /**
-   * The list of operand values.
-   */
-  values: Operand[];
+	type: typeof NODE_TYPE_OPERAND;
+	operandType: typeof OPERAND_TYPE_LIST;
+	/**
+	 * The list of operand values.
+	 */
+	values: Operand[];
 
-  /**
-   * Function to append operand to existing list of operand
-   */
-  appendOperand: (this: ListOperand, operand: Operand) => void;
+	/**
+	 * Function to append operand to existing list of operand
+	 */
+	appendOperand: (this: ListOperand, operand: Operand) => void;
 }
 
 //
@@ -96,21 +96,15 @@ export interface ListOperand extends AstNode {
 //
 
 export type OperandType =
-  | typeof OPERAND_TYPE_VALUE
-  | typeof OPERAND_TYPE_FUNCTION
-  | typeof OPERAND_TYPE_KEYWORD
-  | typeof OPERAND_TYPE_LIST;
+	| typeof OPERAND_TYPE_VALUE
+	| typeof OPERAND_TYPE_FUNCTION
+	| typeof OPERAND_TYPE_KEYWORD
+	| typeof OPERAND_TYPE_LIST;
 
 /**
  * Represents the right hand side value of a clause.
  */
-export type Operand =
-  | ListOperand
-  | ValueOperand
-  | KeywordOperand
-  | FunctionOperand;
+export type Operand = ListOperand | ValueOperand | KeywordOperand | FunctionOperand;
 
-export const isOperandNode = (
-  maybeOperandNode: AstNode,
-): maybeOperandNode is Operand =>
-  (maybeOperandNode as Operand).type === NODE_TYPE_OPERAND;
+export const isOperandNode = (maybeOperandNode: AstNode): maybeOperandNode is Operand =>
+	(maybeOperandNode as Operand).type === NODE_TYPE_OPERAND;

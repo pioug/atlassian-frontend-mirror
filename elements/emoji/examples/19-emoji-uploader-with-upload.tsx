@@ -12,22 +12,22 @@ import type { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
 export default function EmojiUploaderWithUpload() {
-  const emojiProvider: Promise<EmojiProvider> = getEmojiResource({
-    uploadSupported: true,
-    currentUser: { id: loggedUser },
-  });
+	const emojiProvider: Promise<EmojiProvider> = getEmojiResource({
+		uploadSupported: true,
+		currentUser: { id: loggedUser },
+	});
 
-  return (
-    <IntlProvider locale="en">
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ padding: '10px' }}>
-        <EmojiUploader emojiProvider={emojiProvider} />
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <p style={{ width: '400px' }}>
-          {lorem}
-          {lorem}
-        </p>
-      </div>
-    </IntlProvider>
-  );
+	return (
+		<IntlProvider locale="en">
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ padding: '10px' }}>
+				<EmojiUploader emojiProvider={emojiProvider} />
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<p style={{ width: '400px' }}>
+					{lorem}
+					{lorem}
+				</p>
+			</div>
+		</IntlProvider>
+	);
 }

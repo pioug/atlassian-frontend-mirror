@@ -11,58 +11,57 @@ import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
 
 const extractFollowAction = (
-  response?: JsonLd.Response,
-  actionOptions?: CardActionOptions,
-  id?: string,
+	response?: JsonLd.Response,
+	actionOptions?: CardActionOptions,
+	id?: string,
 ): ServerActionProp<boolean> | undefined => {
-  if (!canShowAction(CardAction.FollowAction, actionOptions)) {
-    return;
-  }
+	if (!canShowAction(CardAction.FollowAction, actionOptions)) {
+		return;
+	}
 
-  const extensionKey = getExtensionKey(response);
-  const data = response?.data as JsonLd.Data.BaseData;
-  const actions = extractServerAction(data);
+	const extensionKey = getExtensionKey(response);
+	const data = response?.data as JsonLd.Data.BaseData;
+	const actions = extractServerAction(data);
 
-  const type = extractType(data);
-  const isProject = type?.includes('atlassian:Project');
+	const type = extractType(data);
+	const isProject = type?.includes('atlassian:Project');
 
-  if (!extensionKey || actions.length === 0) {
-    return;
-  }
+	if (!extensionKey || actions.length === 0) {
+		return;
+	}
 
-  const action = actions.find((item) => {
-    if (item?.name === 'UpdateAction') {
-      const actionName = (item as JsonLd.Primitives.UpdateAction)
-        ?.dataUpdateAction?.name;
-      return (
-        actionName === SmartLinkActionType.FollowEntityAction ||
-        actionName === SmartLinkActionType.UnfollowEntityAction
-      );
-    }
-    return false;
-  }) as JsonLd.Primitives.UpdateAction;
+	const action = actions.find((item) => {
+		if (item?.name === 'UpdateAction') {
+			const actionName = (item as JsonLd.Primitives.UpdateAction)?.dataUpdateAction?.name;
+			return (
+				actionName === SmartLinkActionType.FollowEntityAction ||
+				actionName === SmartLinkActionType.UnfollowEntityAction
+			);
+		}
+		return false;
+	}) as JsonLd.Primitives.UpdateAction;
 
-  if (!action || !action.resourceIdentifiers) {
-    return;
-  }
+	if (!action || !action.resourceIdentifiers) {
+		return;
+	}
 
-  const url = extractLink(data);
-  const reload = url ? { id, url } : undefined;
+	const url = extractLink(data);
+	const reload = url ? { id, url } : undefined;
 
-  const actionType = action.dataUpdateAction?.name as SmartLinkActionType;
+	const actionType = action.dataUpdateAction?.name as SmartLinkActionType;
 
-  return {
-    action: {
-      action: {
-        actionType,
-        resourceIdentifiers: action.resourceIdentifiers,
-      },
-      providerKey: extensionKey,
-      reload,
-    },
-    value: actionType === SmartLinkActionType.FollowEntityAction,
-    isProject,
-  };
+	return {
+		action: {
+			action: {
+				actionType,
+				resourceIdentifiers: action.resourceIdentifiers,
+			},
+			providerKey: extensionKey,
+			reload,
+		},
+		value: actionType === SmartLinkActionType.FollowEntityAction,
+		isProject,
+	};
 };
 
 export default extractFollowAction;

@@ -10,60 +10,50 @@ import { ExpandToggleContainer } from './styled';
 
 // Atlaskit doesn't provide a circle variation of the expand/collapse icons so we have to implement our own
 const ExpandCircleIcon = ({ isDisabled }: { isDisabled?: boolean }) => (
-  <MediaServicesActualSizeIcon
-    label={''}
-    size={'small'}
-    primaryColor={
-      isDisabled ? token('color.icon.disabled', N50) : token('color.icon', N500)
-    }
-  />
+	<MediaServicesActualSizeIcon
+		label={''}
+		size={'small'}
+		primaryColor={isDisabled ? token('color.icon.disabled', N50) : token('color.icon', N500)}
+	/>
 );
 
 const CollapseCircleIcon = ({ isDisabled }: { isDisabled?: boolean }) => (
-  <MediaServicesFitToPageIcon
-    label={''}
-    size={'small'}
-    primaryColor={
-      isDisabled ? token('color.icon.disabled', N50) : token('color.icon', N500)
-    }
-  />
+	<MediaServicesFitToPageIcon
+		label={''}
+		size={'small'}
+		primaryColor={isDisabled ? token('color.icon.disabled', N50) : token('color.icon', N500)}
+	/>
 );
 
 type Props = {
-  expanded: boolean;
-  editorId: string;
-  isDisabled?: boolean;
-  label: string;
-  onClick: () => void;
+	expanded: boolean;
+	editorId: string;
+	isDisabled?: boolean;
+	label: string;
+	onClick: () => void;
 };
 
-export const BaseExpandToggle = ({
-  expanded,
-  editorId,
-  isDisabled,
-  label,
-  onClick,
-}: Props) => {
-  let Icon;
+export const BaseExpandToggle = ({ expanded, editorId, isDisabled, label, onClick }: Props) => {
+	let Icon;
 
-  if (expanded) {
-    Icon = CollapseCircleIcon;
-  } else {
-    Icon = ExpandCircleIcon;
-  }
+	if (expanded) {
+		Icon = CollapseCircleIcon;
+	} else {
+		Icon = ExpandCircleIcon;
+	}
 
-  return (
-    <ExpandToggleContainer>
-      <Button
-        appearance={'subtle'}
-        aria-expanded={expanded}
-        aria-controls={editorId}
-        aria-label={label}
-        isDisabled={isDisabled}
-        spacing={'none'}
-        onClick={onClick}
-        iconBefore={<Icon isDisabled={isDisabled} />}
-      />
-    </ExpandToggleContainer>
-  );
+	return (
+		<ExpandToggleContainer>
+			<Button
+				appearance={'subtle'}
+				aria-expanded={expanded}
+				aria-controls={editorId}
+				aria-label={label}
+				isDisabled={isDisabled}
+				spacing={'none'}
+				onClick={onClick}
+				iconBefore={<Icon isDisabled={isDisabled} />}
+			/>
+		</ExpandToggleContainer>
+	);
 };

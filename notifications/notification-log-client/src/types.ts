@@ -1,10 +1,8 @@
 import { type RequestServiceOptions } from '@atlaskit/util-service-support';
 
 export interface NotificationCountResponse {
-  count: number;
+	count: number;
 }
 export interface NotificationLogProvider {
-  countUnseenNotifications(
-    options?: RequestServiceOptions,
-  ): Promise<NotificationCountResponse>;
+	countUnseenNotifications(options?: RequestServiceOptions): Promise<NotificationCountResponse>;
 }

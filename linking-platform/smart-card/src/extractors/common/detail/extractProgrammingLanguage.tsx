@@ -7,26 +7,20 @@ import { type LinkDetail } from './types';
 import { token } from '@atlaskit/tokens';
 
 export type LinkProgrammingLanguageType =
-  | JsonLd.Data.SourceCodeDocument
-  | JsonLd.Data.SourceCodeCommit
-  | JsonLd.Data.SourceCodePullRequest
-  | JsonLd.Data.SourceCodeReference
-  | JsonLd.Data.SourceCodeRepository;
+	| JsonLd.Data.SourceCodeDocument
+	| JsonLd.Data.SourceCodeCommit
+	| JsonLd.Data.SourceCodePullRequest
+	| JsonLd.Data.SourceCodeReference
+	| JsonLd.Data.SourceCodeRepository;
 
 export const extractProgrammingLanguage = (
-  jsonLd: LinkProgrammingLanguageType,
+	jsonLd: LinkProgrammingLanguageType,
 ): LinkDetail | undefined => {
-  const programmingLanguage = jsonLd['schema:programmingLanguage'];
-  if (programmingLanguage) {
-    return {
-      text: programmingLanguage,
-      icon: (
-        <CodeIcon
-          size="small"
-          label="code"
-          primaryColor={token('color.icon.subtle', N600)}
-        />
-      ),
-    };
-  }
+	const programmingLanguage = jsonLd['schema:programmingLanguage'];
+	if (programmingLanguage) {
+		return {
+			text: programmingLanguage,
+			icon: <CodeIcon size="small" label="code" primaryColor={token('color.icon.subtle', N600)} />,
+		};
+	}
 };

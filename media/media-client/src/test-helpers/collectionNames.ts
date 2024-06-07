@@ -4,11 +4,11 @@ export const fileCollectionName = `${defaultCollectionName}Files`;
 export const defaultMediaPickerCollectionName = 'mediapicker-test';
 
 export const collectionNames = [
-  defaultCollectionName,
-  'MediaServicesSampleAtlaskit',
-  'MediaServicesSampleHulk',
-  'MediaServicesSampleFabric',
-  fileCollectionName,
-  onlyAnimatedGifsCollectionName,
-  defaultMediaPickerCollectionName,
+	defaultCollectionName,
+	'MediaServicesSampleAtlaskit',
+	'MediaServicesSampleHulk',
+	'MediaServicesSampleFabric',
+	fileCollectionName,
+	onlyAnimatedGifsCollectionName,
+	defaultMediaPickerCollectionName,
 ];

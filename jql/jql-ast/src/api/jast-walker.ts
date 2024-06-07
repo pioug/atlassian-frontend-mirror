@@ -7,13 +7,13 @@ import { type AstNode, type Jast, type JastListener } from '../types';
  * @param jast JQL AST to walk
  */
 export const walkAST = (listener: JastListener, jast: Jast): void => {
-  jast.query && walkNode(listener, jast.query);
+	jast.query && walkNode(listener, jast.query);
 };
 
 const walkNode = (listener: JastListener, node: AstNode): void => {
-  listener.enterEveryNode && listener.enterEveryNode(node);
-  node.enterNode(listener);
-  node.getChildren().forEach(child => walkNode(listener, child));
-  node.exitNode(listener);
-  listener.exitEveryNode && listener.exitEveryNode(node);
+	listener.enterEveryNode && listener.enterEveryNode(node);
+	node.enterNode(listener);
+	node.getChildren().forEach((child) => walkNode(listener, child));
+	node.exitNode(listener);
+	listener.exitEveryNode && listener.exitEveryNode(node);
 };

@@ -4,21 +4,16 @@ import { normaliseJqlString, sanitiseJqlString } from '../utils';
 
 import { noChildren } from './common';
 
-function acceptValueOperand<Result>(
-  this: ValueOperand,
-  visitor: JastVisitor<Result>,
-) {
-  return visitor.visitValueOperand
-    ? visitor.visitValueOperand(this)
-    : visitor.visitChildren(this);
+function acceptValueOperand<Result>(this: ValueOperand, visitor: JastVisitor<Result>) {
+	return visitor.visitValueOperand ? visitor.visitValueOperand(this) : visitor.visitChildren(this);
 }
 
 function enterNode(this: ValueOperand, listener: JastListener): void {
-  listener.enterValueOperand && listener.enterValueOperand(this);
+	listener.enterValueOperand && listener.enterValueOperand(this);
 }
 
 function exitNode(this: ValueOperand, listener: JastListener): void {
-  listener.exitValueOperand && listener.exitValueOperand(this);
+	listener.exitValueOperand && listener.exitValueOperand(this);
 }
 
 /**
@@ -34,7 +29,7 @@ function exitNode(this: ValueOperand, listener: JastListener): void {
  * which may require quoting/escaping to produce a valid JQL string.
  */
 export const valueOperand = (value: string): ValueOperand =>
-  valueOperandInternal(value, sanitiseJqlString(value));
+	valueOperandInternal(value, sanitiseJqlString(value));
 
 /**
  * Creates a ValueOperand AST node from a value that has been pre-treated to produce a valid JQL string.
@@ -46,21 +41,21 @@ export const valueOperand = (value: string): ValueOperand =>
  * when building the AST node.
  */
 export const valueOperandByText = (text: string): ValueOperand =>
-  valueOperandInternal(normaliseJqlString(text), text);
+	valueOperandInternal(normaliseJqlString(text), text);
 
 export const valueOperandInternal = (
-  value: string,
-  text: string,
-  position: Position | null = null,
+	value: string,
+	text: string,
+	position: Position | null = null,
 ): ValueOperand => ({
-  type: NODE_TYPE_OPERAND,
-  operandType: OPERAND_TYPE_VALUE,
-  text,
-  value,
-  position,
-  accept: acceptValueOperand,
-  enterNode,
-  exitNode,
-  getChildren: noChildren,
-  parent: null,
+	type: NODE_TYPE_OPERAND,
+	operandType: OPERAND_TYPE_VALUE,
+	text,
+	value,
+	position,
+	accept: acceptValueOperand,
+	enterNode,
+	exitNode,
+	getChildren: noChildren,
+	parent: null,
 });

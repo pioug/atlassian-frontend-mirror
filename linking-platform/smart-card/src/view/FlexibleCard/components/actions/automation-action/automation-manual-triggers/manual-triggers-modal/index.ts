@@ -1,3 +1,3 @@
-import { AutomationModal } from './main'
+import { AutomationModal } from './main';
 export { type AutomationModalProps, AutomationModal } from './main';
-export default AutomationModal
+export default AutomationModal;

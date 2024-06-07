@@ -4,9 +4,9 @@ import { matchers } from '@emotion/jest';
 import { type EmojiProvider, type OnEmojiEvent } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
-  mockReactDomWarningGlobal,
-  renderWithIntl,
-  useFakeTimers,
+	mockReactDomWarningGlobal,
+	renderWithIntl,
+	useFakeTimers,
 } from '../../__tests__/_testing-library';
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
 import { DefaultReactions } from '../../shared/constants';
@@ -16,73 +16,70 @@ import { RENDER_SELECTOR_TESTID, Selector } from './Selector';
 expect.extend(matchers);
 
 const renderSelector = (
-  onSelection: OnEmojiEvent = () => {},
-  showMore = false,
-  onMoreClick = () => {},
+	onSelection: OnEmojiEvent = () => {},
+	showMore = false,
+	onMoreClick = () => {},
 ) => {
-  return (
-    <Selector
-      emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
-      onSelection={onSelection}
-      showMore={showMore}
-      onMoreClick={onMoreClick}
-    />
-  );
+	return (
+		<Selector
+			emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+			onSelection={onSelection}
+			showMore={showMore}
+			onMoreClick={onMoreClick}
+		/>
+	);
 };
 
 describe('@atlaskit/reactions/components/selector', () => {
-  mockReactDomWarningGlobal();
-  useFakeTimers();
+	mockReactDomWarningGlobal();
+	useFakeTimers();
 
-  it('should render default reactions', async () => {
-    renderWithIntl(renderSelector());
+	it('should render default reactions', async () => {
+		renderWithIntl(renderSelector());
 
-    const emojiWrappers = screen.getAllByRole('presentation');
-    expect(emojiWrappers.length).toEqual(DefaultReactions.length);
+		const emojiWrappers = screen.getAllByRole('presentation');
+		expect(emojiWrappers.length).toEqual(DefaultReactions.length);
 
-    DefaultReactions.forEach(({ id, shortName }) => {
-      const elem = screen.getByLabelText(shortName, { exact: false });
-      expect(elem).toBeInTheDocument();
-    });
-  });
+		DefaultReactions.forEach(({ id, shortName }) => {
+			const elem = screen.getByLabelText(shortName, { exact: false });
+			expect(elem).toBeInTheDocument();
+		});
+	});
 
-  it('should call "onSelection" on selection', async () => {
-    const onSelection = jest.fn();
-    renderWithIntl(renderSelector(onSelection));
+	it('should call "onSelection" on selection', async () => {
+		const onSelection = jest.fn();
+		renderWithIntl(renderSelector(onSelection));
 
-    const firstButton = await screen.findByLabelText(
-      messages.reactWithEmoji.defaultMessage.replace(
-        '{emoji}',
-        DefaultReactions[0].shortName,
-      ),
-    );
+		const firstButton = await screen.findByLabelText(
+			messages.reactWithEmoji.defaultMessage.replace('{emoji}', DefaultReactions[0].shortName),
+		);
 
-    expect(firstButton).toBeInTheDocument();
-    fireEvent.click(firstButton);
+		expect(firstButton).toBeInTheDocument();
+		fireEvent.click(firstButton);
 
-    jest.runTimersToTime(500); // Skip the animation
+		jest.runTimersToTime(500); // Skip the animation
 
-    expect(onSelection).toHaveBeenCalled();
-  });
+		expect(onSelection).toHaveBeenCalled();
+	});
 
-  it('should call "onMoreClick" when more button is clicked', async () => {
-    const onSelection = jest.fn();
-    const onMoreClick = jest.fn();
+	it('should call "onMoreClick" when more button is clicked', async () => {
+		const onSelection = jest.fn();
+		const onMoreClick = jest.fn();
 
-    renderWithIntl(renderSelector(onSelection, true, onMoreClick));
-    const button = await screen.findByTestId(RENDER_SHOWMORE_TESTID);
-    expect(button).toBeInTheDocument();
-    fireEvent.click(button);
+		renderWithIntl(renderSelector(onSelection, true, onMoreClick));
+		const button = await screen.findByTestId(RENDER_SHOWMORE_TESTID);
+		expect(button).toBeInTheDocument();
+		fireEvent.click(button);
 
-    expect(onMoreClick.mock.calls).toHaveLength(1);
-  });
+		expect(onMoreClick.mock.calls).toHaveLength(1);
+	});
 
-  it('should calculate animation delay based on reaction index', async () => {
-    renderWithIntl(renderSelector());
-    const buttons = await screen.findAllByTestId(RENDER_SELECTOR_TESTID);
-    expect(buttons.length).toBeGreaterThan(0);
+	it('should calculate animation delay based on reaction index', async () => {
+		renderWithIntl(renderSelector());
+		const buttons = await screen.findAllByTestId(RENDER_SELECTOR_TESTID);
+		expect(buttons.length).toBeGreaterThan(0);
 
-    const btn = buttons[2];
-    expect(btn).toHaveStyle('animation-delay: 100ms');
-  });
+		const btn = buttons[2];
+		expect(btn).toHaveStyle('animation-delay: 100ms');
+	});
 });

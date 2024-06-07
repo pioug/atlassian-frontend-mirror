@@ -1,23 +1,15 @@
 import React, { type ReactElement } from 'react';
-import {
-  render,
-  type RenderOptions,
-  type RenderResult,
-} from '@testing-library/react';
+import { render, type RenderOptions, type RenderResult } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-const IntlWrapper = ({
-  children,
-  locale = 'en',
-}: React.PropsWithChildren<{ locale?: string }>) => {
-  return <IntlProvider locale={locale}>{children}</IntlProvider>;
+const IntlWrapper = ({ children, locale = 'en' }: React.PropsWithChildren<{ locale?: string }>) => {
+	return <IntlProvider locale={locale}>{children}</IntlProvider>;
 };
 
 export const renderWithIntl: (
-  ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>,
-) => RenderResult = (ui, options = {}) =>
-  render(ui, { wrapper: IntlWrapper, ...options });
+	ui: ReactElement,
+	options?: Omit<RenderOptions, 'wrapper'>,
+) => RenderResult = (ui, options = {}) => render(ui, { wrapper: IntlWrapper, ...options });
 
 /**
  * Helper utility to suppress the react-dom "act" warning when using React 16.8.0
@@ -26,27 +18,27 @@ export const renderWithIntl: (
  * @param onAfterAllCallback Optional callback when jest event for afterAll has executed
  */
 export function mockReactDomWarningGlobal(
-  onBeforeAllCallback = () => {},
-  onAfterAllCallback = () => {},
+	onBeforeAllCallback = () => {},
+	onAfterAllCallback = () => {},
 ): void {
-  const originalError = global.console.error;
-  beforeAll(() => {
-    global.console.error = jest.fn((...args) => {
-      if (
-        typeof args[0] === 'string' &&
-        args[0].includes('Please upgrade to at least react-dom@16.9.0')
-      ) {
-        return;
-      }
-      return originalError.call(console, args);
-    });
-    onBeforeAllCallback();
-  });
+	const originalError = global.console.error;
+	beforeAll(() => {
+		global.console.error = jest.fn((...args) => {
+			if (
+				typeof args[0] === 'string' &&
+				args[0].includes('Please upgrade to at least react-dom@16.9.0')
+			) {
+				return;
+			}
+			return originalError.call(console, args);
+		});
+		onBeforeAllCallback();
+	});
 
-  afterAll(() => {
-    (global.console.error as jest.Mock).mockRestore();
-    onAfterAllCallback();
-  });
+	afterAll(() => {
+		(global.console.error as jest.Mock).mockRestore();
+		onAfterAllCallback();
+	});
 }
 
 /**
@@ -56,19 +48,19 @@ export function mockReactDomWarningGlobal(
  * @param onAfterEachCallback Optional callback when jest event for afterEach has executed
  */
 export function useFakeTimers(
-  onBeforeEachCallback = () => {},
-  onAfterEachCallback = () => {},
+	onBeforeEachCallback = () => {},
+	onAfterEachCallback = () => {},
 ): void {
-  beforeEach(() => {
-    jest.useFakeTimers();
-    onBeforeEachCallback();
-  });
+	beforeEach(() => {
+		jest.useFakeTimers();
+		onBeforeEachCallback();
+	});
 
-  // Running all pending timers and switching to real timers using Jest
+	// Running all pending timers and switching to real timers using Jest
 
-  afterEach(() => {
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    onAfterEachCallback();
-  });
+	afterEach(() => {
+		jest.runOnlyPendingTimers();
+		jest.useRealTimers();
+		onAfterEachCallback();
+	});
 }

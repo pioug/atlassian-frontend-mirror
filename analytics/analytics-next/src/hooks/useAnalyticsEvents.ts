@@ -7,24 +7,24 @@ import { type CreateUIAnalyticsEvent } from '../types';
 import { useAnalyticsContext } from './useAnalyticsContext';
 
 export type UseAnalyticsEventsHook = {
-  createAnalyticsEvent: CreateUIAnalyticsEvent;
+	createAnalyticsEvent: CreateUIAnalyticsEvent;
 };
 
 export function useAnalyticsEvents(): UseAnalyticsEventsHook {
-  const analyticsContext = useAnalyticsContext();
+	const analyticsContext = useAnalyticsContext();
 
-  const createAnalyticsEvent = useCallbackOne(
-    (payload: AnalyticsEventPayload): UIAnalyticsEvent => {
-      return new UIAnalyticsEvent({
-        context: analyticsContext.getAtlaskitAnalyticsContext(),
-        handlers: analyticsContext.getAtlaskitAnalyticsEventHandlers(),
-        payload,
-      });
-    },
-    [analyticsContext],
-  );
+	const createAnalyticsEvent = useCallbackOne(
+		(payload: AnalyticsEventPayload): UIAnalyticsEvent => {
+			return new UIAnalyticsEvent({
+				context: analyticsContext.getAtlaskitAnalyticsContext(),
+				handlers: analyticsContext.getAtlaskitAnalyticsEventHandlers(),
+				payload,
+			});
+		},
+		[analyticsContext],
+	);
 
-  return {
-    createAnalyticsEvent,
-  };
+	return {
+		createAnalyticsEvent,
+	};
 }

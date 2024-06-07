@@ -11,21 +11,21 @@ import { IntlProvider } from 'react-intl-next';
 const toneEmoji = filters.toneEmoji(getEmojis());
 
 const selectorWrapper = {
-  margin: '3px',
+	margin: '3px',
 };
 
 export default function Example() {
-  return (
-    <IntlProvider locale="en">
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={selectorWrapper}>
-        <ToneSelector
-          emoji={toneEmoji}
-          onToneSelected={onToneSelected}
-          selectedTone={DEFAULT_TONE}
-          isVisible
-        />
-      </div>
-    </IntlProvider>
-  );
+	return (
+		<IntlProvider locale="en">
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={selectorWrapper}>
+				<ToneSelector
+					emoji={toneEmoji}
+					onToneSelected={onToneSelected}
+					selectedTone={DEFAULT_TONE}
+					isVisible
+				/>
+			</div>
+		</IntlProvider>
+	);
 }

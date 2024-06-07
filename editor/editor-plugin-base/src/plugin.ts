@@ -131,14 +131,14 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 				plugin: () => disableSpellcheckingPlugin(featureFlags),
 			});
 
-      return plugins;
-    },
-    nodes() {
-		return [
-			{ name: 'doc', node: doc },
-			{ name: 'paragraph', node: paragraph },
-			{ name: 'text', node: text },
-		];
+			return plugins;
+		},
+		nodes() {
+			return [
+				{ name: 'doc', node: doc },
+				{ name: 'paragraph', node: paragraph },
+				{ name: 'text', node: text },
+			];
 		},
 	};
 };

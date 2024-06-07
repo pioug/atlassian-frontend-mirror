@@ -7,11 +7,14 @@ export type { LogoProps };
  */
 export const defaultLogoParams: Partial<LogoProps> = {
   iconColor: 'inherit',
-  iconGradientStart: 'inherit',
-  iconGradientStop: 'inherit',
   label: '',
   size: 'medium',
   textColor: 'currentColor',
+};
+
+export const legacyDefaultLogoParams = {
+  iconGradientStart: 'inherit',
+  iconGradientStop: 'inherit',
 };
 
 /**

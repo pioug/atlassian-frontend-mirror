@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  md,
-  Example,
-  Props,
-  code,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
+import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 
 import ReactionsExample from '../examples/01-connected-reactions-view';
@@ -117,30 +111,30 @@ export default md`
   };`}
 
   ${(
-    <>
-      <br />
-      <SectionMessage
-        appearance="warning"
-        title="There should be only one instance of EmojiResource in your application"
-      >
-        <p>
-          Make sure EmojiResource is initialised only once to avoid performance
-          issues using useMemo.
-        </p>
-      </SectionMessage>
-      <br />
-      <SectionMessage appearance="information">
-        <p>EmojiResource object implements the EmojiProvider interface.</p>
-        <a
-          href="https://atlaskit.atlassian.com/packages/elements/emoji/docs/emoji-provider"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          See here for information on EmojiProvider.
-        </a>
-      </SectionMessage>
-    </>
-  )}
+		<>
+			<br />
+			<SectionMessage
+				appearance="warning"
+				title="There should be only one instance of EmojiResource in your application"
+			>
+				<p>
+					Make sure EmojiResource is initialised only once to avoid performance issues using
+					useMemo.
+				</p>
+			</SectionMessage>
+			<br />
+			<SectionMessage appearance="information">
+				<p>EmojiResource object implements the EmojiProvider interface.</p>
+				<a
+					href="https://atlaskit.atlassian.com/packages/elements/emoji/docs/emoji-provider"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					See here for information on EmojiProvider.
+				</a>
+			</SectionMessage>
+		</>
+	)}
 
   ### Note:
 
@@ -150,25 +144,25 @@ export default md`
   ### Example:
 
   ${(
-    <Example
-      packageName="@atlaskit/reactions"
-      Component={ReactionsExample}
-      title="Picker and Reactions"
-      source={require('!!raw-loader!../examples/01-connected-reactions-view')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/reactions"
+			Component={ReactionsExample}
+			title="Picker and Reactions"
+			source={require('!!raw-loader!../examples/01-connected-reactions-view')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Reactions Props"
-      props={require('!!extract-react-types-loader!../extract-react-type/Reactions')}
-    />
-  )}
+		<Props
+			heading="Reactions Props"
+			props={require('!!extract-react-types-loader!../extract-react-type/Reactions')}
+		/>
+	)}
 
 
   ${(
-    <Props
-      heading="Reaction Props"
-      props={require('!!extract-react-types-loader!../extract-react-type/Reaction')}
-    />
-  )}`;
+		<Props
+			heading="Reaction Props"
+			props={require('!!extract-react-types-loader!../extract-react-type/Reaction')}
+		/>
+	)}`;

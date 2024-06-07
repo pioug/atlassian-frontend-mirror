@@ -7,60 +7,52 @@ import { type NotificationsProps } from './types';
 import { getNotificationsSrc } from './utils';
 
 export const Notifications = (props: NotificationsProps) => {
-  const {
-    _url,
-    locale,
-    product,
-    subproduct,
-    testId,
-    isNewExperience,
-    ...iframeProps
-  } = props;
-  const ref = useRef<HTMLIFrameElement>(null);
-  const [loading, setLoading] = useState(true);
+	const { _url, locale, product, subproduct, testId, isNewExperience, ...iframeProps } = props;
+	const ref = useRef<HTMLIFrameElement>(null);
+	const [loading, setLoading] = useState(true);
 
-  const onMessage = (event: MessageEvent) => {
-    if (!ref.current || !event.source) {
-      return;
-    }
+	const onMessage = (event: MessageEvent) => {
+		if (!ref.current || !event.source) {
+			return;
+		}
 
-    if (
-      (event.source as WindowProxy).window === ref.current.contentWindow &&
-      event.data === 'readyForUser'
-    ) {
-      setLoading(false);
-    }
-  };
+		if (
+			(event.source as WindowProxy).window === ref.current.contentWindow &&
+			event.data === 'readyForUser'
+		) {
+			setLoading(false);
+		}
+	};
 
-  useEffect(() => {
-    window.addEventListener('message', onMessage);
+	useEffect(() => {
+		window.addEventListener('message', onMessage);
 
-    return () => {
-      window.removeEventListener('message', onMessage);
-    };
-  }, []);
+		return () => {
+			window.removeEventListener('message', onMessage);
+		};
+	}, []);
 
-  const onLoad = (...args: [SyntheticEvent<HTMLIFrameElement>]) => {
-    setLoading(false);
-    if (iframeProps.onLoad) {
-      iframeProps.onLoad(...args);
-    }
-  };
+	const onLoad = (...args: [SyntheticEvent<HTMLIFrameElement>]) => {
+		setLoading(false);
+		if (iframeProps.onLoad) {
+			iframeProps.onLoad(...args);
+		}
+	};
 
-  return (
-    <iframe
-      {...iframeProps}
-      css={iframeCSS({ loading })}
-      data-testid={testId}
-      onLoad={onLoad}
-      ref={ref}
-      src={getNotificationsSrc({
-        _url,
-        locale,
-        product,
-        subproduct,
-        isNewExperience,
-      })}
-    />
-  );
+	return (
+		<iframe
+			{...iframeProps}
+			css={iframeCSS({ loading })}
+			data-testid={testId}
+			onLoad={onLoad}
+			ref={ref}
+			src={getNotificationsSrc({
+				_url,
+				locale,
+				product,
+				subproduct,
+				isNewExperience,
+			})}
+		/>
+	);
 };

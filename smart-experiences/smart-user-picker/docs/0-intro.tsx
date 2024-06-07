@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  code,
-  md,
-  Props,
-  Example,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
+import { code, md, Props, Example, AtlassianInternalWarning } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -29,24 +23,24 @@ export default md`
   ${code`import SmartUserPicker from '@atlaskit/smart-user-picker';`}
 
   ${(
-    <Example
-      packageName="@atlaskit/smart-user-picker"
-      Component={require('../examples/00-smart-user-picker').default}
-      title="Single User Picker"
-      source={require('!!raw-loader!../examples/00-smart-user-picker')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/smart-user-picker"
+			Component={require('../examples/00-smart-user-picker').default}
+			title="Single User Picker"
+			source={require('!!raw-loader!../examples/00-smart-user-picker')}
+		/>
+	)}
 
   ${(<Props src="../src/components" />)}
 
   ${(
-    <Props
-      heading="Smart User Picker Props"
-      props={require('!!extract-react-types-loader!../src/components/SmartUserPicker')}
-      overrides={{
-        createAnalyticsEvent: () => null,
-      }}
-    />
-  )}
+		<Props
+			heading="Smart User Picker Props"
+			props={require('!!extract-react-types-loader!../src/components/SmartUserPicker')}
+			overrides={{
+				createAnalyticsEvent: () => null,
+			}}
+		/>
+	)}
 
 `;

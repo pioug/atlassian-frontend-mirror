@@ -8,153 +8,131 @@ import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ss
 import HoverCardPositioning from '../../../examples/vr-hover-card/vr-hover-card-can-open-positioning';
 
 snapshot(HoverCard, {
-  drawsOutsideBounds: true,
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
-  states: [
-    {
-      state: 'hovered',
-      selector: { byTestId: 'hover-card-trigger-wrapper' },
-    },
-  ],
-  variants: [
-    {
-      name: 'light mode',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'dark mode',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'dark mode',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });
 
 snapshot(HoverCardActions, {
-  drawsOutsideBounds: true,
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-ai-summaries': [
-      true,
-      false,
-    ],
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
-  states: [
-    {
-      state: 'hovered',
-      selector: { byTestId: 'hover-card-trigger-wrapper' },
-    },
-  ],
-  variants: [
-    { name: 'light mode', environment: { colorScheme: 'light' } },
-    { name: 'dark mode', environment: { colorScheme: 'dark' } },
-  ],
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-ai-summaries': [true, false],
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
+	variants: [
+		{ name: 'light mode', environment: { colorScheme: 'light' } },
+		{ name: 'dark mode', environment: { colorScheme: 'dark' } },
+	],
 });
 
 snapshot(HoverCardActions, {
-  description:'Hover card actions with related urls',
-  drawsOutsideBounds: true,
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-    ],
-    'platform.linking-platform.smart-card.enable-view-related-urls-action': [
-      true,
-    ],
-  },
-  states: [
-    {
-      state: 'hovered',
-      selector: { byTestId: 'hover-card-trigger-wrapper' },
-    },
-  ],
+	description: 'Hover card actions with related urls',
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true],
+		'platform.linking-platform.smart-card.enable-view-related-urls-action': [true],
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
 });
 
 snapshot(HoverCardUnauthorised, {
-  drawsOutsideBounds: true,
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
-  states: [
-    {
-      state: 'hovered',
-      selector: { byTestId: 'hover-card-trigger-wrapper' },
-    },
-  ],
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
 });
 
 snapshot(HoverCardSSRLoading, {
-  drawsOutsideBounds: true,
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
-  states: [
-    {
-      state: 'hovered',
-      selector: { byTestId: 'hover-card-trigger-wrapper' },
-    },
-  ],
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
 });
 
 snapshot(HoverCardSSRError, {
-  drawsOutsideBounds: true,
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-action-redesign': [
-      true,
-      false,
-    ],
-  },
-  states: [
-    {
-      state: 'hovered',
-      selector: { byTestId: 'hover-card-trigger-wrapper' },
-    },
-  ],
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-action-redesign': [true, false],
+	},
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
 });
 
 snapshot(HoverCardPositioning, {
-  description: 'hover-card: can open in left position',
-  drawsOutsideBounds: true,
-  states: [
-    {
-      state: 'hovered',
-      selector: { byTestId: 'hover-test-can-open-left' },
-    },
-  ],
+	description: 'hover-card: can open in left position',
+	drawsOutsideBounds: true,
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-test-can-open-left' },
+		},
+	],
 });
 snapshot(HoverCardPositioning, {
-  description: 'hover-card: can not open when disabled',
-  drawsOutsideBounds: true,
-  states: [
-    {
-      state: 'hovered',
-      selector: { byTestId: 'hover-test-cannot-open' },
-    },
-  ],
+	description: 'hover-card: can not open when disabled',
+	drawsOutsideBounds: true,
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-test-cannot-open' },
+		},
+	],
 });
 snapshot(HoverCardPositioning, {
-  description: 'hover-card: can open in right position',
-  drawsOutsideBounds: true,
-  states: [
-    {
-      state: 'hovered',
-      selector: { byTestId: 'hover-test-can-open-right' },
-    },
-  ],
+	description: 'hover-card: can open in right position',
+	drawsOutsideBounds: true,
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-test-can-open-right' },
+		},
+	],
 });

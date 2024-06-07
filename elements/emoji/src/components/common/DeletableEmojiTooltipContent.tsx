@@ -7,26 +7,26 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 import type { EmojiDescription } from '../../types';
 
 export const DeletableEmojiTooltipContent = () => {
-  const { formatMessage } = useIntl();
-  return (
-    <ToolTipContentWithKeymap
-      description={formatMessage(messages.deleteEmojiTooltip)}
-      keymap={backspace}
-    />
-  );
+	const { formatMessage } = useIntl();
+	return (
+		<ToolTipContentWithKeymap
+			description={formatMessage(messages.deleteEmojiTooltip)}
+			keymap={backspace}
+		/>
+	);
 };
 
 export const DeletableEmojiTooltipContentForScreenReader = ({
-  emoji,
+	emoji,
 }: {
-  emoji: EmojiDescription;
+	emoji: EmojiDescription;
 }) => {
-  return (
-    <VisuallyHidden id={`screenreader-emoji-${emoji.id!}`}>
-      <FormattedMessage
-        {...messages.deleteEmojiTooltipForScreenreader}
-        values={{ shortName: emoji.shortName }}
-      />
-    </VisuallyHidden>
-  );
+	return (
+		<VisuallyHidden id={`screenreader-emoji-${emoji.id!}`}>
+			<FormattedMessage
+				{...messages.deleteEmojiTooltipForScreenreader}
+				values={{ shortName: emoji.shortName }}
+			/>
+		</VisuallyHidden>
+	);
 };

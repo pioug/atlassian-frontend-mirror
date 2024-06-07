@@ -1,13 +1,10 @@
 import React from 'react';
 import { md, code, Example, AtlassianInternalWarning } from '@atlaskit/docs';
-import {
-  createRxjsNotice,
-  createMediaUseOnlyNotice,
-} from '@atlaskit/media-common/docs';
+import { createRxjsNotice, createMediaUseOnlyNotice } from '@atlaskit/media-common/docs';
 
 export default md`
 ${createMediaUseOnlyNotice('Chunkinator', [
-  { name: 'Media Picker', link: '/packages/media/media-picker' },
+	{ name: 'Media Picker', link: '/packages/media/media-picker' },
 ])}
 
   ${(<AtlassianInternalWarning />)}
@@ -46,10 +43,10 @@ ${createMediaUseOnlyNotice('Chunkinator', [
   `}
 
   ${(
-    <Example
-      Component={require('../examples/1-integrator').default}
-      title="Chunkinator"
-      source={require('!!raw-loader!../examples/1-integrator')}
-    />
-  )}
+		<Example
+			Component={require('../examples/1-integrator').default}
+			title="Chunkinator"
+			source={require('!!raw-loader!../examples/1-integrator')}
+		/>
+	)}
 `;

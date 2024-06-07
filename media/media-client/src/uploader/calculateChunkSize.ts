@@ -14,21 +14,21 @@ export const fileSizeError = 'fileSizeExceedsLimit';
  */
 
 export const calculateChunkSize = (fileSize: number): number => {
-  if (fileSize > MAX_UPLOAD_FILE_SIZE) {
-    throw new Error(fileSizeError);
-  }
+	if (fileSize > MAX_UPLOAD_FILE_SIZE) {
+		throw new Error(fileSizeError);
+	}
 
-  if (fileSize <= 5 * DATA_UNIT.GB) {
-    return 5 * DATA_UNIT.MB;
-  }
+	if (fileSize <= 5 * DATA_UNIT.GB) {
+		return 5 * DATA_UNIT.MB;
+	}
 
-  if (fileSize > 5 * DATA_UNIT.GB && fileSize <= 50 * DATA_UNIT.GB) {
-    return 50 * DATA_UNIT.MB;
-  }
+	if (fileSize > 5 * DATA_UNIT.GB && fileSize <= 50 * DATA_UNIT.GB) {
+		return 50 * DATA_UNIT.MB;
+	}
 
-  if (fileSize > 50 * DATA_UNIT.GB && fileSize <= 0.95 * DATA_UNIT.TB) {
-    return 100 * DATA_UNIT.MB;
-  }
+	if (fileSize > 50 * DATA_UNIT.GB && fileSize <= 0.95 * DATA_UNIT.TB) {
+		return 100 * DATA_UNIT.MB;
+	}
 
-  return 210 * DATA_UNIT.MB;
+	return 210 * DATA_UNIT.MB;
 };

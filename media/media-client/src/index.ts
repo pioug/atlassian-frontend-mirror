@@ -1,167 +1,159 @@
 export {
-  MediaStore,
-  MediaStoreError,
-  isMediaStoreError,
-  getMediaEnvironment,
-  getMediaRegion,
+	MediaStore,
+	MediaStoreError,
+	isMediaStoreError,
+	getMediaEnvironment,
+	getMediaRegion,
 } from './client/media-store';
 export type {
-  ResponseFileItem,
-  ItemsPayload,
-  ImageMetadataArtifact,
-  ImageMetadata,
-  MediaStoreResponse,
-  MediaStoreRequestOptions,
-  MediaStoreCreateFileFromUploadParams,
-  MediaStoreCreateFileParams,
-  MediaStoreTouchFileParams,
-  TouchFileDescriptor,
-  MediaStoreTouchFileBody,
-  MediaStoreCreateFileFromBinaryParams,
-  MediaStoreCreateFileFromUploadConditions,
-  MediaStoreCreateFileFromUploadBody,
-  MediaStoreGetFileParams,
-  MediaStoreGetFileImageParams,
-  SourceFile,
-  MediaStoreCopyFileWithTokenBody,
-  MediaStoreCopyFileWithTokenParams,
-  AppendChunksToUploadRequestBody,
-  CreatedTouchedFile,
-  TouchedFiles,
-  EmptyFile,
-  MediaStoreErrorReason,
-  MediaStoreErrorAttributes,
-  MediaApi,
+	ResponseFileItem,
+	ItemsPayload,
+	ImageMetadataArtifact,
+	ImageMetadata,
+	MediaStoreResponse,
+	MediaStoreRequestOptions,
+	MediaStoreCreateFileFromUploadParams,
+	MediaStoreCreateFileParams,
+	MediaStoreTouchFileParams,
+	TouchFileDescriptor,
+	MediaStoreTouchFileBody,
+	MediaStoreCreateFileFromBinaryParams,
+	MediaStoreCreateFileFromUploadConditions,
+	MediaStoreCreateFileFromUploadBody,
+	MediaStoreGetFileParams,
+	MediaStoreGetFileImageParams,
+	SourceFile,
+	MediaStoreCopyFileWithTokenBody,
+	MediaStoreCopyFileWithTokenParams,
+	AppendChunksToUploadRequestBody,
+	CreatedTouchedFile,
+	TouchedFiles,
+	EmptyFile,
+	MediaStoreErrorReason,
+	MediaStoreErrorAttributes,
+	MediaApi,
 } from './client/media-store';
 
 export { UploadController } from './upload-controller';
 export type { AbortFunction } from './upload-controller';
 
 export type {
-  MediaItemType,
-  FileItem,
-  FileProcessingStatus,
-  MediaArtifact,
-  Artifacts,
-  FileDetails,
+	MediaItemType,
+	FileItem,
+	FileProcessingStatus,
+	MediaArtifact,
+	Artifacts,
+	FileDetails,
 } from './models/item';
 
 export { isPreviewableType } from './models/media';
 export type {
-  MediaFileProcessingStatus,
-  MediaType,
-  MediaFile,
-  MediaRepresentations,
-  MediaItemDetails,
-  MediaUpload,
+	MediaFileProcessingStatus,
+	MediaType,
+	MediaFile,
+	MediaRepresentations,
+	MediaItemDetails,
+	MediaUpload,
 } from './models/media';
 
 export { getArtifactUrl } from './models/artifacts';
 
 export { isMediaClientError, getMediaClientErrorReason } from './models/errors';
 export type {
-  MediaClientError,
-  MediaClientErrorReason,
-  MediaClientErrorAttributes,
+	MediaClientError,
+	MediaClientErrorReason,
+	MediaClientErrorAttributes,
 } from './models/errors';
 
 export {
-  isUploadingFileState,
-  isProcessingFileState,
-  isProcessedFileState,
-  isErrorFileState,
-  isPreviewableFileState,
-  isFinalFileState,
-  isImageRepresentationReady,
-  mapMediaFileToFileState,
-  mapMediaItemToFileState,
+	isUploadingFileState,
+	isProcessingFileState,
+	isProcessedFileState,
+	isErrorFileState,
+	isPreviewableFileState,
+	isFinalFileState,
+	isImageRepresentationReady,
+	mapMediaFileToFileState,
+	mapMediaItemToFileState,
 } from './models/file-state';
 export type {
-  FileStatus,
-  PreviewOptions,
-  GetFileOptions,
-  NonErrorFileState,
-  PreviewableFileState,
+	FileStatus,
+	PreviewOptions,
+	GetFileOptions,
+	NonErrorFileState,
+	PreviewableFileState,
 } from './models/file-state';
 
 export type {
-  FileState,
-  FilePreview,
-  ErrorFileState,
-  UploadingFileState,
-  ProcessingFileState,
-  ProcessedFileState,
-  ProcessingFailedState,
-  MediaFileArtifact,
-  MediaFileArtifacts,
+	FileState,
+	FilePreview,
+	ErrorFileState,
+	UploadingFileState,
+	ProcessingFileState,
+	ProcessedFileState,
+	ProcessingFailedState,
+	MediaFileArtifact,
+	MediaFileArtifacts,
 } from '@atlaskit/media-state';
 
 export type {
-  MobileUpload,
-  MobileUploadStartEvent,
-  MobileUploadProgressEvent,
-  MobileUploadEndEvent,
-  MobileUploadErrorEvent,
+	MobileUpload,
+	MobileUploadStartEvent,
+	MobileUploadProgressEvent,
+	MobileUploadEndEvent,
+	MobileUploadErrorEvent,
 } from './models/mobile-upload';
 
 export { uploadFile } from './uploader';
 export type {
-  UploadableFile,
-  UploadableFileUpfrontIds,
-  UploadFileCallbacks,
-  UploadFileResult,
+	UploadableFile,
+	UploadableFileUpfrontIds,
+	UploadFileCallbacks,
+	UploadFileResult,
 } from './uploader';
 
 export {
-  request,
-  RequestError,
-  isRequestError,
-  isRateLimitedError,
-  createRequestErrorReason,
+	request,
+	RequestError,
+	isRequestError,
+	isRateLimitedError,
+	createRequestErrorReason,
 } from './utils/request';
 
 export type {
-  RequestErrorReason,
-  RequestErrorMetadata,
-  RequestErrorAttributes,
+	RequestErrorReason,
+	RequestErrorMetadata,
+	RequestErrorAttributes,
 } from './utils/request';
 
 export { isAbortedRequestError, createUrl } from './utils/request/helpers';
 
 export { PollingFunction } from './utils/polling';
 export { isPollingError, PollingError } from './utils/polling/errors';
-export type {
-  Executor,
-  PollingErrorAttributes,
-  PollingErrorReason,
-} from './utils/polling/types';
+export type { Executor, PollingErrorAttributes, PollingErrorReason } from './utils/polling/types';
 
 export type {
-  RequestMethod,
-  RequestParams,
-  RequestHeaders,
-  RetryOptions,
-  ClientOptions,
-  RequestMetadata,
-  RequestOptions,
-  CreateUrlOptions,
+	RequestMethod,
+	RequestParams,
+	RequestHeaders,
+	RetryOptions,
+	ClientOptions,
+	RequestMetadata,
+	RequestOptions,
+	CreateUrlOptions,
 } from './utils/request/types';
 
 export type { ImageResizeMode } from './utils/imageResizeModeToFileImageMode';
 export { imageResizeModeToFileImageMode } from './utils/imageResizeModeToFileImageMode';
 
-export {
-  FileFetcherImpl,
-  FileFetcherError,
-  isFileFetcherError,
-} from './client/file-fetcher';
+export { FileFetcherImpl, FileFetcherError, isFileFetcherError } from './client/file-fetcher';
 export type {
-  CopySourceFile,
-  CopyDestination,
-  CopyFileOptions,
-  FileFetcher,
-  FileFetcherErrorAttributes,
-  FileFetcherErrorReason,
+	CopySourceFile,
+	CopyDestination,
+	CopyFileOptions,
+	FileFetcher,
+	FileFetcherErrorAttributes,
+	FileFetcherErrorReason,
 } from './client/file-fetcher';
 
 export { MediaClient } from './client/media-client';
@@ -175,21 +167,13 @@ export type { Dimensions } from './utils/getDimensionsFromBlob';
 
 export { createMediaSubject } from './utils/createMediaSubject';
 
-export {
-  isFileIdentifier,
-  isExternalImageIdentifier,
-  isDifferentIdentifier,
-} from './identifier';
-export type {
-  Identifier,
-  FileIdentifier,
-  ExternalImageIdentifier,
-} from './identifier';
+export { isFileIdentifier, isExternalImageIdentifier, isDifferentIdentifier } from './identifier';
+export type { Identifier, FileIdentifier, ExternalImageIdentifier } from './identifier';
 
 export type {
-  EventPayloadListener,
-  UploadEventPayloadMap,
-  MediaViewedEventPayload,
+	EventPayloadListener,
+	UploadEventPayloadMap,
+	MediaViewedEventPayload,
 } from './client/events';
 
 export type { MediaClientConfig } from '@atlaskit/media-core';
@@ -197,22 +181,19 @@ export type { MediaClientConfig } from '@atlaskit/media-core';
 export { globalMediaEventEmitter } from './globalMediaEventEmitter';
 
 export {
-  isMediaBlobUrl,
-  getAttrsFromUrl,
-  addFileAttrsToUrl,
-  objectToQueryString,
+	isMediaBlobUrl,
+	getAttrsFromUrl,
+	addFileAttrsToUrl,
+	objectToQueryString,
 } from './utils/url';
 export type { MediaBlobUrlAttrs } from './utils/url';
 
-export {
-  createMediaSubscribable,
-  fromObservable,
-} from './utils/mediaSubscribable';
+export { createMediaSubscribable, fromObservable } from './utils/mediaSubscribable';
 
 export type {
-  MediaSubscribable,
-  MediaSubscription,
-  MediaObserver,
+	MediaSubscribable,
+	MediaSubscription,
+	MediaObserver,
 } from './utils/mediaSubscribable';
 
 export { RECENTS_COLLECTION, MAX_RESOLUTION } from './constants';

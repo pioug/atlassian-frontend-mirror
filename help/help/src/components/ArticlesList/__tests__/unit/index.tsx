@@ -13,21 +13,21 @@ const mockOnToggleArticlesList = jest.fn();
 let ArticlesListProps: Partial<ArticlesListInterface>;
 
 describe('ArticleContent', () => {
-  beforeEach(() => {
-    ArticlesListProps = {
-      articles: getMockArticleItemList(10),
-      onArticlesListItemClick: mockOnArticlesListItemClick,
-      onToggleArticlesList: mockOnToggleArticlesList,
-    };
-  });
+	beforeEach(() => {
+		ArticlesListProps = {
+			articles: getMockArticleItemList(10),
+			onArticlesListItemClick: mockOnArticlesListItemClick,
+			onToggleArticlesList: mockOnToggleArticlesList,
+		};
+	});
 
-  it('Should match snapshot', () => {
-    const { container } = render(
-      <IntlProvider locale="en">
-        <ArticlesList {...ArticlesListProps} />
-      </IntlProvider>,
-    );
+	it('Should match snapshot', () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<ArticlesList {...ArticlesListProps} />
+			</IntlProvider>,
+		);
 
-    expect(container.firstChild).toMatchSnapshot();
-  });
+		expect(container.firstChild).toMatchSnapshot();
+	});
 });

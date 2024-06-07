@@ -31,11 +31,11 @@ aql?: string;
   ## Example
 
   ${(
-    <Example
-      packageName="@atlaskit/link-datasource"
-      Component={require('./examples/basic-assets-config-modal').default}
-      title="JSM Assets Configuration Modal"
-      source={require('!!raw-loader!./examples/basic-assets-config-modal')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-datasource"
+			Component={require('./examples/basic-assets-config-modal').default}
+			title="JSM Assets Configuration Modal"
+			source={require('!!raw-loader!./examples/basic-assets-config-modal')}
+		/>
+	)}
 `;

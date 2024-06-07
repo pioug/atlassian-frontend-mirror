@@ -11,29 +11,26 @@ import { useIntl } from 'react-intl-next';
 import { avatarPickerErrorStyles } from './styles';
 
 export const SubmitErrorDialog = () => {
-  const intl = useIntl();
-  const flagContainerRef: React.RefObject<HTMLDivElement> = useRef(null);
+	const intl = useIntl();
+	const flagContainerRef: React.RefObject<HTMLDivElement> = useRef(null);
 
-  useEffect(() => {
-    if (flagContainerRef.current) {
-      (flagContainerRef.current.children[0] as HTMLDivElement).focus();
-    }
-  }, []);
+	useEffect(() => {
+		if (flagContainerRef.current) {
+			(flagContainerRef.current.children[0] as HTMLDivElement).focus();
+		}
+	}, []);
 
-  return (
-    <div css={avatarPickerErrorStyles} ref={flagContainerRef}>
-      <Flag
-        appearance="error"
-        icon={
-          <ErrorIcon
-            label="Error"
-            secondaryColor={token('color.background.danger.bold', R400)}
-          />
-        }
-        id="avatar-picker-error"
-        key="error"
-        title={intl.formatMessage(messages.or_select_default_avatars)}
-      />
-    </div>
-  );
+	return (
+		<div css={avatarPickerErrorStyles} ref={flagContainerRef}>
+			<Flag
+				appearance="error"
+				icon={
+					<ErrorIcon label="Error" secondaryColor={token('color.background.danger.bold', R400)} />
+				}
+				id="avatar-picker-error"
+				key="error"
+				title={intl.formatMessage(messages.or_select_default_avatars)}
+			/>
+		</div>
+	);
 };

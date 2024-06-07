@@ -9,36 +9,23 @@ import type { AISummaryActionProps } from './types';
 import { CopySummaryAction } from './copy-summary-action';
 import { AISummariseAction } from './ai-summarise-action';
 
-export const AISummaryActionComponent = (
-  props: AISummaryActionProps & AISummaryActionData,
-) => {
-  di(useAISummary);
+export const AISummaryActionComponent = (props: AISummaryActionProps & AISummaryActionData) => {
+	di(useAISummary);
 
-  const {
-    url,
-    ari,
-    product,
-    onLoadingChange,
-    testId = 'smart-action-ai-summary-action',
-  } = props;
+	const { url, ari, product, onLoadingChange, testId = 'smart-action-ai-summary-action' } = props;
 
-  const {
-    state: { status, content },
-    summariseUrl,
-  } = useAISummary({ url, ari, product });
+	const {
+		state: { status, content },
+		summariseUrl,
+	} = useAISummary({ url, ari, product });
 
-  useEffect(() => {
-    onLoadingChange?.(status === 'loading');
-  }, [onLoadingChange, status]);
+	useEffect(() => {
+		onLoadingChange?.(status === 'loading');
+	}, [onLoadingChange, status]);
 
-  return status === 'done' ? (
-    <CopySummaryAction {...props} testId={testId} content={content} />
-  ) : (
-    <AISummariseAction
-      {...props}
-      testId={testId}
-      summariseUrl={summariseUrl}
-      status={status}
-    />
-  );
+	return status === 'done' ? (
+		<CopySummaryAction {...props} testId={testId} content={content} />
+	) : (
+		<AISummariseAction {...props} testId={testId} summariseUrl={summariseUrl} status={status} />
+	);
 };

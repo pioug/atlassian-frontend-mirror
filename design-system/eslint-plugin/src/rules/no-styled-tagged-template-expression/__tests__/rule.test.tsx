@@ -6,87 +6,87 @@ import rule from '../index';
 type InvalidTestCase = Omit<RuleTester.InvalidTestCase, 'errors'>;
 
 const createInvalidTestCases = (tests: InvalidTestCase[]) =>
-  tests.map((t) => ({
-    ...t,
-    errors: [{ messageId: 'unexpectedTaggedTemplate' }],
-  }));
+	tests.map((t) => ({
+		...t,
+		errors: [{ messageId: 'unexpectedTaggedTemplate' }],
+	}));
 
 typescriptEslintTester.run(
-  'no-styled-tagged-template-expression',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [
-      `
+	'no-styled-tagged-template-expression',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [
+			`
       import { styled } from 'styled';
       styled.div\`color: blue\`;
     `,
-      `
+			`
       import { styled } from '@compiled/react-clone';
       styled.div\`color: blue\`;
     `,
-    ],
-    invalid: createInvalidTestCases([
-      {
-        filename: 'single-line-empty.ts',
-        code: `
+		],
+		invalid: createInvalidTestCases([
+			{
+				filename: 'single-line-empty.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`\`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({});
       `,
-      },
-      {
-        filename: 'single-line-static-rule.ts',
-        code: `
+			},
+			{
+				filename: 'single-line-static-rule.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`color: blue\`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
           color: "blue"
         });
       `,
-      },
-      {
-        filename: 'single-line-static-rule-comments.ts',
-        code: `
+			},
+			{
+				filename: 'single-line-static-rule-comments.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`/* before */ color: /* inline */ blue /* after */\`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
           color: "blue"
         });
       `,
-      },
-      {
-        filename: 'multiline-empty.ts',
-        code: `
+			},
+			{
+				filename: 'multiline-empty.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({});
       `,
-      },
-      {
-        filename: 'multiline-static-rules.ts',
-        code: `
+			},
+			{
+				filename: 'multiline-static-rules.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -102,7 +102,7 @@ typescriptEslintTester.run(
           display: block;
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -123,10 +123,10 @@ typescriptEslintTester.run(
           display: "block"
         });
       `,
-      },
-      {
-        filename: 'no-trailing-semicolon-multiline-static-rules.ts',
-        code: `
+			},
+			{
+				filename: 'no-trailing-semicolon-multiline-static-rules.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -142,7 +142,7 @@ typescriptEslintTester.run(
           display: block
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -163,10 +163,10 @@ typescriptEslintTester.run(
           display: "block"
         });
       `,
-      },
-      {
-        filename: 'multiline-static-rules-comments.ts',
-        code: `
+			},
+			{
+				filename: 'multiline-static-rules-comments.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -206,7 +206,7 @@ typescriptEslintTester.run(
           /* after declaration 6 */
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -227,10 +227,10 @@ typescriptEslintTester.run(
           display: "block"
         });
       `,
-      },
-      {
-        filename: 'nested-selectors.ts',
-        code: `
+			},
+			{
+				filename: 'nested-selectors.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -253,7 +253,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -276,10 +276,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'nested-selectors-comments.ts',
-        code: `
+			},
+			{
+				filename: 'nested-selectors-comments.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -314,7 +314,7 @@ typescriptEslintTester.run(
           /* after media query */
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -337,10 +337,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'interpolated-declaration-values.ts',
-        code: `
+			},
+			{
+				filename: 'interpolated-declaration-values.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         const color = 'blue';
@@ -351,7 +351,7 @@ typescriptEslintTester.run(
           opacity: \${opacity};
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         const color = 'blue';
@@ -362,10 +362,10 @@ typescriptEslintTester.run(
           opacity: opacity
         });
       `,
-      },
-      {
-        filename: 'interpolated-declaration-values-comments.ts',
-        code: `
+			},
+			{
+				filename: 'interpolated-declaration-values-comments.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         const color = 'blue';
@@ -383,7 +383,7 @@ typescriptEslintTester.run(
             */
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         const color = 'blue';
@@ -394,10 +394,10 @@ typescriptEslintTester.run(
           opacity: opacity
         });
       `,
-      },
-      {
-        filename: 'affixed-declaration-values.ts',
-        code: `
+			},
+			{
+				filename: 'affixed-declaration-values.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         const spacing = 8;
@@ -407,7 +407,7 @@ typescriptEslintTester.run(
           padding: calc(\${spacing} * 2);
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         const spacing = 8;
@@ -417,10 +417,10 @@ typescriptEslintTester.run(
           padding: \`calc(\${spacing} * 2)\`
         });
       `,
-      },
-      {
-        filename: 'mixins.ts',
-        code: `
+			},
+			{
+				filename: 'mixins.ts',
+				code: `
         import { css, styled } from '@compiled/react';
 
         const primary = css({ color: 'blue' });
@@ -434,7 +434,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { css, styled } from '@compiled/react';
 
         const primary = css({ color: 'blue' });
@@ -448,10 +448,10 @@ typescriptEslintTester.run(
           }
         );
       `,
-      },
-      {
-        filename: 'no-trailing-semicolon-mixins.ts',
-        code: `
+			},
+			{
+				filename: 'no-trailing-semicolon-mixins.ts',
+				code: `
         import { css, styled } from '@compiled/react';
 
         const primary = css({ color: 'blue' });
@@ -465,7 +465,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { css, styled } from '@compiled/react';
 
         const primary = css({ color: 'blue' });
@@ -479,10 +479,10 @@ typescriptEslintTester.run(
           }
         );
       `,
-      },
-      {
-        filename: 'mixins-comments.ts',
-        code: `
+			},
+			{
+				filename: 'mixins-comments.ts',
+				code: `
         import { css, styled } from '@compiled/react';
 
         const primary = css({ color: 'blue' });
@@ -501,7 +501,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { css, styled } from '@compiled/react';
 
         const primary = css({ color: 'blue' });
@@ -515,10 +515,10 @@ typescriptEslintTester.run(
           }
         );
       `,
-      },
-      {
-        filename: 'dynamic-values.ts',
-        code: `
+			},
+			{
+				filename: 'dynamic-values.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -528,7 +528,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -538,10 +538,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'no-trailing-semicolon-dynamic-values.ts',
-        code: `
+			},
+			{
+				filename: 'no-trailing-semicolon-dynamic-values.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -551,7 +551,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -561,10 +561,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'dynamic-values-comments.ts',
-        code: `
+			},
+			{
+				filename: 'dynamic-values-comments.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -581,7 +581,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -591,10 +591,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'conditional-rules.ts',
-        code: `
+			},
+			{
+				filename: 'conditional-rules.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -605,7 +605,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div(
@@ -616,10 +616,10 @@ typescriptEslintTester.run(
           }
         );
       `,
-      },
-      {
-        filename: 'no-trailing-semicolon-conditional-rules.ts',
-        code: `
+			},
+			{
+				filename: 'no-trailing-semicolon-conditional-rules.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -630,7 +630,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div(
@@ -641,10 +641,10 @@ typescriptEslintTester.run(
           }
         );
       `,
-      },
-      {
-        filename: 'conditional-rules-comments.ts',
-        code: `
+			},
+			{
+				filename: 'conditional-rules-comments.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -667,7 +667,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div(
@@ -678,10 +678,10 @@ typescriptEslintTester.run(
           }
         );
       `,
-      },
-      {
-        filename: 'conditional-rules-before-dynamic-values.ts',
-        code: `
+			},
+			{
+				filename: 'conditional-rules-before-dynamic-values.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -690,7 +690,7 @@ typescriptEslintTester.run(
           color: \${(props) => props.color};
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div(
@@ -701,11 +701,10 @@ typescriptEslintTester.run(
           }
         );
       `,
-      },
-      {
-        filename:
-          'no-trailing-semicolon-conditional-rules-before-dynamic-values.ts',
-        code: `
+			},
+			{
+				filename: 'no-trailing-semicolon-conditional-rules-before-dynamic-values.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -714,7 +713,7 @@ typescriptEslintTester.run(
           color: \${(props) => props.color};
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div(
@@ -725,10 +724,10 @@ typescriptEslintTester.run(
           }
         );
       `,
-      },
-      {
-        filename: 'conditional-rules-after-dynamic-values.ts',
-        code: `
+			},
+			{
+				filename: 'conditional-rules-after-dynamic-values.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -737,7 +736,7 @@ typescriptEslintTester.run(
           \${(props) => props.hidden && 'visibility: hidden'};
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div(
@@ -748,11 +747,10 @@ typescriptEslintTester.run(
           (props) => props.hidden && 'visibility: hidden'
         );
       `,
-      },
-      {
-        filename:
-          'no-trailing-semicolon-conditional-rules-after-dynamic-values.ts',
-        code: `
+			},
+			{
+				filename: 'no-trailing-semicolon-conditional-rules-after-dynamic-values.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -761,7 +759,7 @@ typescriptEslintTester.run(
           \${(props) => props.hidden && 'visibility: hidden'};
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div(
@@ -772,10 +770,10 @@ typescriptEslintTester.run(
           (props) => props.hidden && 'visibility: hidden'
         );
       `,
-      },
-      {
-        filename: 'multiple-selectors-across-lines.ts',
-        code: `
+			},
+			{
+				filename: 'multiple-selectors-across-lines.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -791,7 +789,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -804,10 +802,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'multiple-selectors-on-same-line.ts',
-        code: `
+			},
+			{
+				filename: 'multiple-selectors-on-same-line.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -821,7 +819,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -834,10 +832,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'nested-selectors-across-multiple-lines.ts',
-        code: `
+			},
+			{
+				filename: 'nested-selectors-across-multiple-lines.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -858,7 +856,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -874,10 +872,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'nested-selectors-on-same-line.ts',
-        code: `
+			},
+			{
+				filename: 'nested-selectors-on-same-line.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -890,7 +888,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
@@ -903,180 +901,180 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'do-not-handle-invalid-css.ts',
-        code: `
+			},
+			{
+				filename: 'do-not-handle-invalid-css.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
           color blue;
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div\`
           color blue;
         \`;
       `,
-      },
-      {
-        filename: 'space-wrapped-by-double-quotes-as-value',
-        code: `
+			},
+			{
+				filename: 'space-wrapped-by-double-quotes-as-value',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
           content: " ";
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
           content: '" "'
         });
       `,
-      },
-      {
-        filename: 'space-wrapped-by-single-quotes-as-value',
-        code: `
+			},
+			{
+				filename: 'space-wrapped-by-single-quotes-as-value',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
           content: ' ';
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
           content: "' '"
         });
       `,
-      },
-      {
-        filename: 'single-quote-strings',
-        code: `
+			},
+			{
+				filename: 'single-quote-strings',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
           grid-template-areas: 'vote' 'comment';
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
           gridTemplateAreas: "'vote' 'comment'"
         });
       `,
-      },
-      {
-        filename: 'aliased-default-import.ts',
-        code: `
+			},
+			{
+				filename: 'aliased-default-import.ts',
+				code: `
         import emotionStyled from '@emotion/styled';
 
         emotionStyled.div\`
           color: red;
         \`;
         `,
-        output: `
+				output: `
         import emotionStyled from '@emotion/styled';
 
         emotionStyled.div({
           color: "red"
         });
         `,
-      },
-      {
-        filename: 'emotion-styled.ts',
-        code: `
+			},
+			{
+				filename: 'emotion-styled.ts',
+				code: `
         import styled from '@emotion/styled';
 
         styled.div\`
           color: red;
         \`;
         `,
-        output: `
+				output: `
         import styled from '@emotion/styled';
 
         styled.div({
           color: "red"
         });
         `,
-      },
-      {
-        filename: 'styled-components.ts',
-        code: `
+			},
+			{
+				filename: 'styled-components.ts',
+				code: `
         import styled from 'styled-components';
 
         styled.div\`
           color: red;
         \`;
         `,
-        output: `
+				output: `
         import styled from 'styled-components';
 
         styled.div({
           color: "red"
         });
         `,
-      },
-      {
-        filename: 'export-default-declaration.ts',
-        code: `
+			},
+			{
+				filename: 'export-default-declaration.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         export default styled.div\`
           color: red;
         \`;
         `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         export default styled.div({
           color: "red"
         });
         `,
-      },
-      {
-        filename: 'export-named-declaration.ts',
-        code: `
+			},
+			{
+				filename: 'export-named-declaration.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         export const Component = styled.div\`
           color: red;
         \`;
         `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         export const Component = styled.div({
           color: "red"
         });
         `,
-      },
-      {
-        filename: 'named-declaration.ts',
-        code: `
+			},
+			{
+				filename: 'named-declaration.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         const Component = styled.div\`
           color: red;
         \`;
         `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         const Component = styled.div({
           color: "red"
         });
         `,
-      },
-      {
-        filename: 'composed.ts',
-        code: `
+			},
+			{
+				filename: 'composed.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled(BaseComponent)\`
@@ -1089,7 +1087,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled(BaseComponent)({
@@ -1102,10 +1100,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'aliased.ts',
-        code: `
+			},
+			{
+				filename: 'aliased.ts',
+				code: `
         import { styled as styled2 } from '@compiled/react';
 
         styled2.div\`
@@ -1118,7 +1116,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled as styled2 } from '@compiled/react';
 
         styled2.div({
@@ -1131,10 +1129,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'aliased-composed.ts',
-        code: `
+			},
+			{
+				filename: 'aliased-composed.ts',
+				code: `
         import { styled as styled2 } from '@compiled/react';
 
         styled2(BaseComponent)\`
@@ -1147,7 +1145,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled as styled2 } from '@compiled/react';
 
         styled2(BaseComponent)({
@@ -1160,10 +1158,10 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'typed.ts',
-        code: `
+			},
+			{
+				filename: 'typed.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div<{color: string}>\`
@@ -1176,7 +1174,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div<{color: string}>({
@@ -1189,27 +1187,27 @@ typescriptEslintTester.run(
           }
         });
       `,
-      },
-      {
-        filename: 'multiple-token-interpolations.ts',
-        code: `
+			},
+			{
+				filename: 'multiple-token-interpolations.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
           padding: \${token('space.100')} \${token('space.100')};
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
           padding: \`\${token('space.100')} \${token('space.100')}\`
         });
       `,
-      },
-      {
-        filename: 'single-line-comment-before-property.ts',
-        code: `
+			},
+			{
+				filename: 'single-line-comment-before-property.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -1217,17 +1215,17 @@ typescriptEslintTester.run(
           color: red;
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
           color: "red"
         });
       `,
-      },
-      {
-        filename: 'multi-line-comment-before-property.ts',
-        code: `
+			},
+			{
+				filename: 'multi-line-comment-before-property.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -1237,23 +1235,23 @@ typescriptEslintTester.run(
           color: red;
         \`;
       `,
-        output: `
+				output: `
         import { styled } from '@compiled/react';
 
         styled.div({
           color: "red"
         });
       `,
-      },
+			},
 
-      // For the below examples:
-      //
-      // We skip handling interpolations in selectors due to the possibility of
-      // them being CSS blocks.
+			// For the below examples:
+			//
+			// We skip handling interpolations in selectors due to the possibility of
+			// them being CSS blocks.
 
-      {
-        filename: 'single-variable-as-selector.ts',
-        code: `
+			{
+				filename: 'single-variable-as-selector.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -1262,10 +1260,10 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-      },
-      {
-        filename: 'multiple-variables-as-selector.ts',
-        code: `
+			},
+			{
+				filename: 'multiple-variables-as-selector.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -1274,10 +1272,10 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-      },
-      {
-        filename: 'selector-with-parentheses.ts',
-        code: `
+			},
+			{
+				filename: 'selector-with-parentheses.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -1286,10 +1284,10 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-      },
-      {
-        filename: 'variables-as-selector-have-surrounding-text.ts',
-        code: `
+			},
+			{
+				filename: 'variables-as-selector-have-surrounding-text.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -1298,10 +1296,10 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-      },
-      {
-        filename: 'props-in-selector.ts',
-        code: `
+			},
+			{
+				filename: 'props-in-selector.ts',
+				code: `
           import { styled } from '@compiled/react';
 
           styled.div\`
@@ -1310,10 +1308,10 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-      },
-      {
-        filename: 'function-call-in-selector.ts',
-        code: `
+			},
+			{
+				filename: 'function-call-in-selector.ts',
+				code: `
           import { styled } from '@compiled/react';
 
           styled.div\`
@@ -1322,10 +1320,10 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-      },
-      {
-        filename: 'single-variable-as-selector-sc.ts',
-        code: `
+			},
+			{
+				filename: 'single-variable-as-selector-sc.ts',
+				code: `
           import styled from 'styled-components';
 
           styled.div\`
@@ -1334,10 +1332,10 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-      },
-      {
-        filename: 'multiple-variables-as-selector-sc.ts',
-        code: `
+			},
+			{
+				filename: 'multiple-variables-as-selector-sc.ts',
+				code: `
           import styled from 'styled-components';
 
           styled.div\`
@@ -1346,10 +1344,10 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-      },
-      {
-        filename: 'variables-as-selector-have-surrounding-text-sc.ts',
-        code: `
+			},
+			{
+				filename: 'variables-as-selector-have-surrounding-text-sc.ts',
+				code: `
           import styled from 'styled-components';
 
           styled.div\`
@@ -1358,10 +1356,10 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-      },
-      {
-        filename: 'functions-as-selector.ts',
-        code: `
+			},
+			{
+				filename: 'functions-as-selector.ts',
+				code: `
           import styled from '@emotion/styled';
 
           styled.div\`
@@ -1370,10 +1368,10 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-      },
-      {
-        filename: 'non-expression-function-interpolation.ts',
-        code: `
+			},
+			{
+				filename: 'non-expression-function-interpolation.ts',
+				code: `
           import styled from 'styled-components';
           styled.div\`
             color: \${props => {
@@ -1389,14 +1387,14 @@ typescriptEslintTester.run(
             }}
           \`;
         `,
-      },
-      /**
-       * styled components does not support an array for a style object value,
-       * so we cannot autofix this usage
-       */
-      {
-        filename: 'nested-mixin-sc.ts',
-        code: `
+			},
+			/**
+			 * styled components does not support an array for a style object value,
+			 * so we cannot autofix this usage
+			 */
+			{
+				filename: 'nested-mixin-sc.ts',
+				code: `
           import styled from 'styled-components';
           styled.div\`
             a {
@@ -1405,10 +1403,10 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-      },
-      {
-        filename: 'nested-mixin-only-sc.ts',
-        code: `
+			},
+			{
+				filename: 'nested-mixin-only-sc.ts',
+				code: `
           import styled from 'styled-components';
           styled.div\`
             a {
@@ -1416,16 +1414,16 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
           styled.div({
             a: mixin
           });
         `,
-      },
-      {
-        filename: 'deep-nested-mixin-sc.ts',
-        code: `
+			},
+			{
+				filename: 'deep-nested-mixin-sc.ts',
+				code: `
           import styled from 'styled-components';
           styled.div\`
             a {
@@ -1437,10 +1435,10 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-      },
-      {
-        filename: 'deep-nested-mixin-only-sc.ts',
-        code: `
+			},
+			{
+				filename: 'deep-nested-mixin-only-sc.ts',
+				code: `
           import styled from 'styled-components';
           styled.div\`
             a {
@@ -1451,7 +1449,7 @@ typescriptEslintTester.run(
             }
           \`;
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
           styled.div({
             a: {
@@ -1460,10 +1458,10 @@ typescriptEslintTester.run(
             }
           });
         `,
-      },
-      {
-        filename: 'mixins-nested-with-multiple-arguments.ts',
-        code: `
+			},
+			{
+				filename: 'mixins-nested-with-multiple-arguments.ts',
+				code: `
         import { styled } from '@compiled/react';
 
         styled.div\`
@@ -1476,7 +1474,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-      },
-    ]),
-  },
+			},
+		]),
+	},
 );

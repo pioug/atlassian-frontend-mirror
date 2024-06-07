@@ -8,169 +8,146 @@ import type { AnalyticsFacade } from '../../../analytics';
 import * as ufo from '../../../analytics/ufoExperiences';
 
 jest.mock('uuid', () => ({
-  ...jest.requireActual('uuid'),
-  __esModule: true,
-  default: jest.fn().mockReturnValue('some-uuid-1'),
+	...jest.requireActual('uuid'),
+	__esModule: true,
+	default: jest.fn().mockReturnValue('some-uuid-1'),
 }));
 
 describe('useInvokeClientAction', () => {
-  const actionType = 'PreviewAction';
-  const display = 'block';
-  const extensionKey = 'spaghetti-key';
+	const actionType = 'PreviewAction';
+	const display = 'block';
+	const extensionKey = 'spaghetti-key';
 
-  const setup = async (
-    analytics: AnalyticsFacade,
-    actionFn = async () => {},
-  ) => {
-    const { result } = renderHook(() => useInvokeClientAction({ analytics }));
+	const setup = async (analytics: AnalyticsFacade, actionFn = async () => {}) => {
+		const { result } = renderHook(() => useInvokeClientAction({ analytics }));
 
-    await result.current({
-      actionType,
-      actionFn,
-      extensionKey,
-      display,
-    });
-  };
+		await result.current({
+			actionType,
+			actionFn,
+			extensionKey,
+			display,
+		});
+	};
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  it('invokes action', async () => {
-    const actionFn = jest.fn().mockResolvedValue(undefined);
+	it('invokes action', async () => {
+		const actionFn = jest.fn().mockResolvedValue(undefined);
 
-    await setup(mockAnalytics, actionFn);
+		await setup(mockAnalytics, actionFn);
 
-    expect(actionFn).toHaveBeenCalledTimes(1);
-  });
+		expect(actionFn).toHaveBeenCalledTimes(1);
+	});
 
-  it('send action click event', async () => {
-    const analyticsSpy = jest.spyOn(mockAnalytics.ui, 'actionClickedEvent');
+	it('send action click event', async () => {
+		const analyticsSpy = jest.spyOn(mockAnalytics.ui, 'actionClickedEvent');
 
-    await setup(mockAnalytics);
+		await setup(mockAnalytics);
 
-    expect(analyticsSpy).toHaveBeenCalledWith({
-      actionType,
-      display,
-    });
-  });
+		expect(analyticsSpy).toHaveBeenCalledWith({
+			actionType,
+			display,
+		});
+	});
 
-  it('sends invoke succeeded event', async () => {
-    const analyticsSpy = jest.spyOn(
-      mockAnalytics.operational,
-      'invokeSucceededEvent',
-    );
+	it('sends invoke succeeded event', async () => {
+		const analyticsSpy = jest.spyOn(mockAnalytics.operational, 'invokeSucceededEvent');
 
-    await setup(mockAnalytics);
+		await setup(mockAnalytics);
 
-    expect(analyticsSpy).toHaveBeenCalledWith({
-      actionType,
-      display,
-    });
-  });
+		expect(analyticsSpy).toHaveBeenCalledWith({
+			actionType,
+			display,
+		});
+	});
 
-  it('sends invoke failed event', async () => {
-    const reason = 'Something went wrong.';
-    const actionFn = jest.fn().mockRejectedValue(new Error(reason));
+	it('sends invoke failed event', async () => {
+		const reason = 'Something went wrong.';
+		const actionFn = jest.fn().mockRejectedValue(new Error(reason));
 
-    const analyticsSpy = jest.spyOn(
-      mockAnalytics.operational,
-      'invokeFailedEvent',
-    );
+		const analyticsSpy = jest.spyOn(mockAnalytics.operational, 'invokeFailedEvent');
 
-    await setup(mockAnalytics, actionFn);
+		await setup(mockAnalytics, actionFn);
 
-    expect(analyticsSpy).toHaveBeenCalledWith({
-      actionType,
-      display,
-      reason,
-    });
-  });
+		expect(analyticsSpy).toHaveBeenCalledWith({
+			actionType,
+			display,
+			reason,
+		});
+	});
 
-  it('sends ufo succeeded experience events', async () => {
-    uuid.mockReturnValueOnce('ufo-experience-id');
-    const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-    const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
-    const actionFn = jest.fn().mockResolvedValue(undefined);
+	it('sends ufo succeeded experience events', async () => {
+		uuid.mockReturnValueOnce('ufo-experience-id');
+		const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
+		const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+		const actionFn = jest.fn().mockResolvedValue(undefined);
 
-    await setup(mockAnalytics, actionFn);
+		await setup(mockAnalytics, actionFn);
 
-    expect(ufoStartSpy).toBeCalledTimes(1);
-    expect(ufoStartSpy).toBeCalledWith(
-      'smart-link-action-invocation',
-      'ufo-experience-id',
-      {
-        actionType,
-        display,
-        extensionKey: 'spaghetti-key',
-        invokeType: 'client',
-      },
-    );
-    expect(ufoSucceedSpy).toBeCalledTimes(1);
-    expect(ufoSucceedSpy).toBeCalledWith(
-      'smart-link-action-invocation',
-      'ufo-experience-id',
-    );
-  });
+		expect(ufoStartSpy).toBeCalledTimes(1);
+		expect(ufoStartSpy).toBeCalledWith('smart-link-action-invocation', 'ufo-experience-id', {
+			actionType,
+			display,
+			extensionKey: 'spaghetti-key',
+			invokeType: 'client',
+		});
+		expect(ufoSucceedSpy).toBeCalledTimes(1);
+		expect(ufoSucceedSpy).toBeCalledWith('smart-link-action-invocation', 'ufo-experience-id');
+	});
 
-  it('sends ufo failed experience events', async () => {
-    uuid.mockReturnValueOnce('ufo-experience-id');
-    const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-    const ufoFailSpy = jest.spyOn(ufo, 'failUfoExperience');
-    const actionFn = jest.fn().mockRejectedValue(new Error());
+	it('sends ufo failed experience events', async () => {
+		uuid.mockReturnValueOnce('ufo-experience-id');
+		const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
+		const ufoFailSpy = jest.spyOn(ufo, 'failUfoExperience');
+		const actionFn = jest.fn().mockRejectedValue(new Error());
 
-    await setup(mockAnalytics, actionFn);
+		await setup(mockAnalytics, actionFn);
 
-    expect(ufoStartSpy).toBeCalledTimes(1);
-    expect(ufoStartSpy).toBeCalledWith(
-      'smart-link-action-invocation',
-      'ufo-experience-id',
-      {
-        actionType,
-        display,
-        extensionKey: 'spaghetti-key',
-        invokeType: 'client',
-      },
-    );
-    expect(ufoFailSpy).toBeCalledTimes(1);
-    expect(ufoFailSpy).toBeCalledWith(
-      'smart-link-action-invocation',
-      'ufo-experience-id',
-    );
-  });
+		expect(ufoStartSpy).toBeCalledTimes(1);
+		expect(ufoStartSpy).toBeCalledWith('smart-link-action-invocation', 'ufo-experience-id', {
+			actionType,
+			display,
+			extensionKey: 'spaghetti-key',
+			invokeType: 'client',
+		});
+		expect(ufoFailSpy).toBeCalledTimes(1);
+		expect(ufoFailSpy).toBeCalledWith('smart-link-action-invocation', 'ufo-experience-id');
+	});
 
-  it('mark measure resolved performance', async () => {
-    const measureSpy = jest.spyOn(measure, 'mark');
+	it('mark measure resolved performance', async () => {
+		const measureSpy = jest.spyOn(measure, 'mark');
 
-    await setup(mockAnalytics);
+		await setup(mockAnalytics);
 
-    expect(measureSpy).toHaveBeenNthCalledWith(
-      1,
-      expect.stringMatching(/PreviewAction$/),
-      'pending',
-    );
-    expect(measureSpy).toHaveBeenNthCalledWith(
-      2,
-      expect.stringMatching(/PreviewAction$/),
-      'resolved',
-    );
-  });
+		expect(measureSpy).toHaveBeenNthCalledWith(
+			1,
+			expect.stringMatching(/PreviewAction$/),
+			'pending',
+		);
+		expect(measureSpy).toHaveBeenNthCalledWith(
+			2,
+			expect.stringMatching(/PreviewAction$/),
+			'resolved',
+		);
+	});
 
-  it('mark measure errored performance', async () => {
-    const actionFn = jest.fn().mockRejectedValue(new Error());
-    const measureSpy = jest.spyOn(measure, 'mark');
+	it('mark measure errored performance', async () => {
+		const actionFn = jest.fn().mockRejectedValue(new Error());
+		const measureSpy = jest.spyOn(measure, 'mark');
 
-    await setup(mockAnalytics, actionFn);
+		await setup(mockAnalytics, actionFn);
 
-    expect(measureSpy).toHaveBeenNthCalledWith(
-      1,
-      expect.stringMatching(/PreviewAction$/),
-      'pending',
-    );
-    expect(measureSpy).toHaveBeenNthCalledWith(
-      2,
-      expect.stringMatching(/PreviewAction$/),
-      'errored',
-    );
-  });
+		expect(measureSpy).toHaveBeenNthCalledWith(
+			1,
+			expect.stringMatching(/PreviewAction$/),
+			'pending',
+		);
+		expect(measureSpy).toHaveBeenNthCalledWith(
+			2,
+			expect.stringMatching(/PreviewAction$/),
+			'errored',
+		);
+	});
 });

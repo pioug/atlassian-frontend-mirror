@@ -1,11 +1,8 @@
-import {
-  type GasPurePayload,
-  type GasPureScreenEventPayload,
-} from '@atlaskit/analytics-gas-types';
+import { type GasPurePayload, type GasPureScreenEventPayload } from '@atlaskit/analytics-gas-types';
 
 export type AnalyticsWebClient = {
-  sendUIEvent: (event: GasPurePayload) => void;
-  sendOperationalEvent: (event: GasPurePayload) => void;
-  sendTrackEvent: (event: GasPurePayload) => void;
-  sendScreenEvent: (event: GasPureScreenEventPayload) => void;
+	sendUIEvent: (event: GasPurePayload) => void;
+	sendOperationalEvent: (event: GasPurePayload) => void;
+	sendTrackEvent: (event: GasPurePayload) => void;
+	sendScreenEvent: (event: GasPureScreenEventPayload) => void;
 };

@@ -12,72 +12,70 @@ import HelpContentButton from '../../HelpContentButton';
 import { ARTICLE_TYPE } from '../../../model/Help';
 
 const ANALYTICS_CONTEXT_DATA = {
-  componentName: 'WhatsNewButton',
-  packageName: process.env._PACKAGE_NAME_,
-  packageVersion: process.env._PACKAGE_VERSION_,
+	componentName: 'WhatsNewButton',
+	packageName: process.env._PACKAGE_NAME_,
+	packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 interface WhatsNewButtonProps {
-  productName?: string;
+	productName?: string;
 }
 
-export const WhatsNewButton: React.FC<
-  WrappedComponentProps & WhatsNewButtonProps
-> = ({ productName, intl: { formatMessage } }) => {
-  const { onWhatsNewButtonClick, whatsNewGetNotificationProvider } =
-    useWhatsNewArticleContext();
-  const { openArticle } = useNavigationContext();
+export const WhatsNewButton: React.FC<WrappedComponentProps & WhatsNewButtonProps> = ({
+	productName,
+	intl: { formatMessage },
+}) => {
+	const { onWhatsNewButtonClick, whatsNewGetNotificationProvider } = useWhatsNewArticleContext();
+	const { openArticle } = useNavigationContext();
 
-  const handleOnButtonClick = useCallback(
-    (
-      id: string,
-      analytics: UIAnalyticsEvent,
-      event: React.MouseEvent<HTMLElement, MouseEvent>,
-    ): void => {
-      if (onWhatsNewButtonClick) {
-        onWhatsNewButtonClick(event, analytics);
-      }
+	const handleOnButtonClick = useCallback(
+		(
+			id: string,
+			analytics: UIAnalyticsEvent,
+			event: React.MouseEvent<HTMLElement, MouseEvent>,
+		): void => {
+			if (onWhatsNewButtonClick) {
+				onWhatsNewButtonClick(event, analytics);
+			}
 
-      openArticle({ id: '', type: ARTICLE_TYPE.WHATS_NEW });
-    },
-    [onWhatsNewButtonClick, openArticle],
-  );
+			openArticle({ id: '', type: ARTICLE_TYPE.WHATS_NEW });
+		},
+		[onWhatsNewButtonClick, openArticle],
+	);
 
-  return (
-    <HelpContentButton
-      id="whats-new"
-      key="whats-new"
-      tooltipText={formatMessage(messages.help_whats_new_button_tooltip)}
-      notificationLogProvider={whatsNewGetNotificationProvider}
-      onClick={handleOnButtonClick}
-      text={
-        productName
-          ? formatMessage(messages.help_whats_new_button_label, {
-              productName,
-            })
-          : formatMessage(
-              messages.help_whats_new_button_label_without_product_name,
-            )
-      }
-      icon={
-        <LightbulbIcon
-          primaryColor={token('color.icon.subtle', colors.N600)}
-          size="medium"
-          label=""
-        />
-      }
-    />
-  );
+	return (
+		<HelpContentButton
+			id="whats-new"
+			key="whats-new"
+			tooltipText={formatMessage(messages.help_whats_new_button_tooltip)}
+			notificationLogProvider={whatsNewGetNotificationProvider}
+			onClick={handleOnButtonClick}
+			text={
+				productName
+					? formatMessage(messages.help_whats_new_button_label, {
+							productName,
+						})
+					: formatMessage(messages.help_whats_new_button_label_without_product_name)
+			}
+			icon={
+				<LightbulbIcon
+					primaryColor={token('color.icon.subtle', colors.N600)}
+					size="medium"
+					label=""
+				/>
+			}
+		/>
+	);
 };
 
-const WhatsNewButtonWithContext: React.FC<
-  WrappedComponentProps & WhatsNewButtonProps
-> = (props) => {
-  return (
-    <AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
-      <WhatsNewButton {...props} />
-    </AnalyticsContext>
-  );
+const WhatsNewButtonWithContext: React.FC<WrappedComponentProps & WhatsNewButtonProps> = (
+	props,
+) => {
+	return (
+		<AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
+			<WhatsNewButton {...props} />
+		</AnalyticsContext>
+	);
 };
 
 export default injectIntl(WhatsNewButtonWithContext);

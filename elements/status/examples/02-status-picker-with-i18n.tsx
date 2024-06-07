@@ -1,4 +1,4 @@
 export default (): void => {
-  // TODO: Clean up
-  return;
+	// TODO: Clean up
+	return;
 };

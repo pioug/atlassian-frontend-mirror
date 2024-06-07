@@ -8,9 +8,9 @@ import { token } from '@atlaskit/tokens';
 import { MacroFallbackCard } from '../src/ui';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const MacroWrapper = styled.div`
-	padding: ${token('space.200', '16px')} ${token('space.400', '32px')};
-`;
+const MacroWrapper = styled.div({
+	padding: `${token('space.200', '16px')} ${token('space.400', '32px')}`,
+});
 
 export default function MacroFallbackCardIconsExample() {
 	return (

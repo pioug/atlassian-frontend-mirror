@@ -1,37 +1,37 @@
 export type MediaClientErrorReason =
-  // RequestErrorReason ----------------------------
-  | 'clientOffline'
-  | 'clientAbortedRequest'
-  | 'clientTimeoutRequest'
-  | 'serverInvalidBody'
-  | 'serverBadRequest'
-  | 'serverUnauthorized'
-  | 'serverForbidden'
-  | 'serverNotFound'
-  | 'serverRateLimited'
-  | 'serverInternalError'
-  | 'serverBadGateway'
-  | 'serverUnexpectedError'
-  // MediaStoreErrorReason ----------------------------
-  | 'failedAuthProvider'
-  | 'tokenExpired'
-  | 'missingInitialAuth'
-  | 'emptyAuth'
-  | 'authProviderTimedOut'
-  // FileFetcherErrorReason ----------------------------
-  | 'invalidFileId'
-  | 'emptyItems'
-  | 'zeroVersionFile'
-  | 'emptyFileName'
-  // PollingErrorReason ----------------------------
-  | 'pollingMaxAttemptsExceeded'
-  //UploaderErrorReason ----------------------------
-  | 'fileSizeExceedsLimit'
-  // DeprecatedErrorReason ----------------------------
-  | 'deprecatedEndpoint';
+	// RequestErrorReason ----------------------------
+	| 'clientOffline'
+	| 'clientAbortedRequest'
+	| 'clientTimeoutRequest'
+	| 'serverInvalidBody'
+	| 'serverBadRequest'
+	| 'serverUnauthorized'
+	| 'serverForbidden'
+	| 'serverNotFound'
+	| 'serverRateLimited'
+	| 'serverInternalError'
+	| 'serverBadGateway'
+	| 'serverUnexpectedError'
+	// MediaStoreErrorReason ----------------------------
+	| 'failedAuthProvider'
+	| 'tokenExpired'
+	| 'missingInitialAuth'
+	| 'emptyAuth'
+	| 'authProviderTimedOut'
+	// FileFetcherErrorReason ----------------------------
+	| 'invalidFileId'
+	| 'emptyItems'
+	| 'zeroVersionFile'
+	| 'emptyFileName'
+	// PollingErrorReason ----------------------------
+	| 'pollingMaxAttemptsExceeded'
+	//UploaderErrorReason ----------------------------
+	| 'fileSizeExceedsLimit'
+	// DeprecatedErrorReason ----------------------------
+	| 'deprecatedEndpoint';
 
 export interface MediaClientErrorAttributes {
-  reason: MediaClientErrorReason;
+	reason: MediaClientErrorReason;
 }
 
 /**
@@ -42,7 +42,6 @@ export interface MediaClientErrorAttributes {
  * Any new error has to define its own Error Reasons locally, and also declare them
  * here to comply with the interface restrictions
  */
-export interface MediaClientError<Attributes extends MediaClientErrorAttributes>
-  extends Error {
-  readonly attributes: Attributes;
+export interface MediaClientError<Attributes extends MediaClientErrorAttributes> extends Error {
+	readonly attributes: Attributes;
 }

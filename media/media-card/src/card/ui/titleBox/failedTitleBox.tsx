@@ -9,21 +9,21 @@ import { ErrorMessageWrapper, TitleBoxWrapper } from './titleBoxComponents';
 import { type FailedTitleBoxProps } from './types';
 
 export const FailedTitleBox: React.FC<FailedTitleBoxProps> = ({
-  breakpoint,
-  customMessage = messages.failed_to_load,
+	breakpoint,
+	customMessage = messages.failed_to_load,
 }) => {
-  return (
-    <TitleBoxWrapper breakpoint={breakpoint}>
-      <ErrorMessageWrapper>
-        <EditorWarningIcon
-          label={'Warning'}
-          size={'small'}
-          primaryColor={token('color.text.danger', R300)}
-        />
-        <span>
-          <FormattedMessage {...customMessage} />
-        </span>
-      </ErrorMessageWrapper>
-    </TitleBoxWrapper>
-  );
+	return (
+		<TitleBoxWrapper breakpoint={breakpoint}>
+			<ErrorMessageWrapper>
+				<EditorWarningIcon
+					label={'Warning'}
+					size={'small'}
+					primaryColor={token('color.text.danger', R300)}
+				/>
+				<span>
+					<FormattedMessage {...customMessage} />
+				</span>
+			</ErrorMessageWrapper>
+		</TitleBoxWrapper>
+	);
 };

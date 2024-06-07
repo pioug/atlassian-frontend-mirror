@@ -6,12 +6,9 @@ import { type OrderBy, type OrderByDirection, type OrderByField } from '../types
  *
  * @param orderField Field to add to the beginning of the order by node
  */
-export function prependOrderField(
-  this: OrderBy,
-  orderField: OrderByField,
-): void {
-  this.fields.unshift(orderField);
-  assignParent(this);
+export function prependOrderField(this: OrderBy, orderField: OrderByField): void {
+	this.fields.unshift(orderField);
+	assignParent(this);
 }
 
 /**
@@ -20,13 +17,10 @@ export function prependOrderField(
  *
  * @param orderDirection Direction to set for the order by clause
  */
-export function setOrderDirection(
-  this: OrderBy,
-  orderDirection: OrderByDirection,
-): void {
-  if (this.fields.length > 0) {
-    this.fields[0].setOrderDirection(orderDirection);
-  }
+export function setOrderDirection(this: OrderBy, orderDirection: OrderByDirection): void {
+	if (this.fields.length > 0) {
+		this.fields[0].setOrderDirection(orderDirection);
+	}
 }
 
 /**
@@ -36,9 +30,9 @@ export function setOrderDirection(
  * @param nextOrderBy orderBy node to set as a new node
  */
 export function replace(this: OrderBy, nextOrderBy: OrderBy): void {
-  if (this.parent) {
-    this.parent.replaceOrderBy(nextOrderBy);
-  }
+	if (this.parent) {
+		this.parent.replaceOrderBy(nextOrderBy);
+	}
 }
 
 /**
@@ -49,14 +43,14 @@ export function replace(this: OrderBy, nextOrderBy: OrderBy): void {
  * @param nextOrderByField orderByField to set as the new value
  */
 export function replaceOrderField(
-  this: OrderBy,
-  orderByField: OrderByField,
-  nextOrderByField: OrderByField,
+	this: OrderBy,
+	orderByField: OrderByField,
+	nextOrderByField: OrderByField,
 ): void {
-  this.fields = this.fields.map(child => {
-    return child === orderByField ? nextOrderByField : child;
-  });
-  assignParent(this);
+	this.fields = this.fields.map((child) => {
+		return child === orderByField ? nextOrderByField : child;
+	});
+	assignParent(this);
 }
 
 /**
@@ -64,9 +58,9 @@ export function replaceOrderField(
  * references to the child node.
  */
 export function remove(this: OrderBy): void {
-  if (this.parent) {
-    this.parent.removeOrderBy();
-  }
+	if (this.parent) {
+		this.parent.removeOrderBy();
+	}
 }
 /**
  * Remove the provided orderByField from the node. If the field to remove is not found as a child of the current node then
@@ -77,9 +71,8 @@ export function remove(this: OrderBy): void {
  * @param orderByField OrderByField to remove
  */
 export function removeOrderField(this: OrderBy, orderByField: OrderByField): void {
-
-  this.fields = this.fields.filter(field => field !== orderByField);
-  if (this.fields.length === 0) {
-    this.remove();
-  }
+	this.fields = this.fields.filter((field) => field !== orderByField);
+	if (this.fields.length === 0) {
+		this.remove();
+	}
 }

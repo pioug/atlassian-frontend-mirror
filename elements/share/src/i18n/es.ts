@@ -57,6 +57,8 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Invitar a Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Compartir página',
   'fabric.elements.share.main.tab.text.jira': 'Compartir incidencia',
+  'fabric.elements.share.menu.email.label': 'Correo electrónico',
+  'fabric.elements.share.menu.slack.label': 'Slack',
   'fabric.elements.share.popup.label': 'Compartir',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Entrada de blog compartida}board {Tablero compartido}calendar {Calendario compartido}draft {Borrador compartido}filter {Filtro compartido}issue {Incidencia compartida}summary {Resumen compartido}list {Lista compartida}timeline {Cronograma compartido}form {Formulario compartido}media {Recursos multimedia compartidos}page {Página compartida}project {Proyecto compartido}pullrequest {Solicitud de incorporación de cambios compartida}question {Pregunta compartida}report {Informe compartido}repository {Repositorio compartido}request {Solicitud compartida}roadmap {Cronograma compartido}site {Sitio compartido}space {Espacio compartido}other {Enlace compartido}}',

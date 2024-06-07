@@ -9,13 +9,13 @@ import { landscape7 } from './landscape7';
 import { landscape8 } from './landscape8';
 
 export default {
-  landscape0,
-  landscape1,
-  landscape2,
-  landscape3,
-  landscape4,
-  landscape5,
-  landscape6,
-  landscape7,
-  landscape8,
+	landscape0,
+	landscape1,
+	landscape2,
+	landscape3,
+	landscape4,
+	landscape5,
+	landscape6,
+	landscape7,
+	landscape8,
 };

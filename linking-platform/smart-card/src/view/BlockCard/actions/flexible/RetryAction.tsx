@@ -12,9 +12,9 @@ import { messages } from '../../../../messages';
  * @param onRetry a function that will be called on the click of the "Retry" button
  */
 export const RetryAction = (onRetry: () => void): CustomActionItem =>
-  ({
-    name: ActionName.CustomAction,
-    onClick: onRetry,
-    content: <FormattedMessage {...messages.try_again} />,
-    testId: 'smart-action-try-again',
-  } as CustomActionItem);
+	({
+		name: ActionName.CustomAction,
+		onClick: onRetry,
+		content: <FormattedMessage {...messages.try_again} />,
+		testId: 'smart-action-try-again',
+	}) as CustomActionItem;

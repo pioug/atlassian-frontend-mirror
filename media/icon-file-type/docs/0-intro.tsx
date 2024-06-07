@@ -9,11 +9,11 @@ export default md`
 This package provides the collections of icons for the different types of content used across Atlassian products.
 
   ${(
-    <DocsContentTabs
-      tabs={[
-        { name: 'Usage', content: UsageTab },
-        { name: 'Props Definition', content: PropsDefinitionTab },
-      ]}
-    />
-  )}
+		<DocsContentTabs
+			tabs={[
+				{ name: 'Usage', content: UsageTab },
+				{ name: 'Props Definition', content: PropsDefinitionTab },
+			]}
+		/>
+	)}
 `;

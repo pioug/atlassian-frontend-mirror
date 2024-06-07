@@ -1,104 +1,88 @@
 import React, { type PropsWithChildren } from 'react';
-import {
-  type MediaFeatureFlags,
-  withMediaAnalyticsContext,
-} from '@atlaskit/media-common';
+import { type MediaFeatureFlags, withMediaAnalyticsContext } from '@atlaskit/media-common';
 import { type CardDimensions, type CardOnClickCallback } from '../types';
 import { UnhandledErrorCard } from './ui/unhandledErrorCard';
+import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
-  withAnalyticsEvents,
-  type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
-import {
-  type AnalyticsErrorBoundaryCardPayload,
-  fireMediaCardEvent,
-  type ErrorBoundaryErrorInfo,
+	type AnalyticsErrorBoundaryCardPayload,
+	fireMediaCardEvent,
+	type ErrorBoundaryErrorInfo,
 } from '../utils/analytics';
 
 export type MediaCardAnalyticsErrorBoundaryProps = PropsWithChildren<
-  {
-    dimensions?: CardDimensions;
-    data?: { [k: string]: any };
-    onClick?: CardOnClickCallback; // it is required for inner component to trigger event from editor
-    featureFlags?: MediaFeatureFlags;
-  } & WithAnalyticsEventsProps
+	{
+		dimensions?: CardDimensions;
+		data?: { [k: string]: any };
+		onClick?: CardOnClickCallback; // it is required for inner component to trigger event from editor
+		featureFlags?: MediaFeatureFlags;
+	} & WithAnalyticsEventsProps
 >;
 
 type MediaCardAnalyticsErrorBoundaryState = {
-  hasError: boolean;
+	hasError: boolean;
 };
 
 class WrappedMediaCardAnalyticsErrorBoundary extends React.Component<
-  MediaCardAnalyticsErrorBoundaryProps,
-  MediaCardAnalyticsErrorBoundaryState
+	MediaCardAnalyticsErrorBoundaryProps,
+	MediaCardAnalyticsErrorBoundaryState
 > {
-  constructor(props: MediaCardAnalyticsErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
-  }
+	constructor(props: MediaCardAnalyticsErrorBoundaryProps) {
+		super(props);
+		this.state = { hasError: false };
+	}
 
-  static displayName = 'MediaCardAnalyticsErrorBoundary';
-  private fireOperationalEvent = (
-    error: Error | string,
-    info?: ErrorBoundaryErrorInfo,
-  ) => {
-    const { data = {}, createAnalyticsEvent } = this.props;
-    const payload: AnalyticsErrorBoundaryCardPayload = {
-      eventType: 'operational',
-      action: 'failed',
-      actionSubject: 'mediaCardRender',
-      attributes: {
-        browserInfo: window?.navigator?.userAgent
-          ? window.navigator.userAgent
-          : 'unknown',
-        error,
-        info,
-        failReason: 'unexpected-error',
-        ...data,
-      },
-    };
-    fireMediaCardEvent(payload, createAnalyticsEvent);
-  };
+	static displayName = 'MediaCardAnalyticsErrorBoundary';
+	private fireOperationalEvent = (error: Error | string, info?: ErrorBoundaryErrorInfo) => {
+		const { data = {}, createAnalyticsEvent } = this.props;
+		const payload: AnalyticsErrorBoundaryCardPayload = {
+			eventType: 'operational',
+			action: 'failed',
+			actionSubject: 'mediaCardRender',
+			attributes: {
+				browserInfo: window?.navigator?.userAgent ? window.navigator.userAgent : 'unknown',
+				error,
+				info,
+				failReason: 'unexpected-error',
+				...data,
+			},
+		};
+		fireMediaCardEvent(payload, createAnalyticsEvent);
+	};
 
-  componentDidCatch(error: Error, info?: ErrorBoundaryErrorInfo): void {
-    try {
-      this.fireOperationalEvent(error, info);
-    } catch (e) {}
-    this.setState({ hasError: true });
-  }
-  handleOnClick = (event: React.MouseEvent<HTMLElement>) => {
-    try {
-      this.props.onClick?.({ event });
-    } catch (e) {}
-  };
+	componentDidCatch(error: Error, info?: ErrorBoundaryErrorInfo): void {
+		try {
+			this.fireOperationalEvent(error, info);
+		} catch (e) {}
+		this.setState({ hasError: true });
+	}
+	handleOnClick = (event: React.MouseEvent<HTMLElement>) => {
+		try {
+			this.props.onClick?.({ event });
+		} catch (e) {}
+	};
 
-  render() {
-    const { hasError } = this.state;
-    const { dimensions, children } = this.props;
+	render() {
+		const { hasError } = this.state;
+		const { dimensions, children } = this.props;
 
-    if (hasError) {
-      return (
-        <UnhandledErrorCard
-          dimensions={dimensions}
-          onClick={this.handleOnClick}
-        />
-      );
-    }
+		if (hasError) {
+			return <UnhandledErrorCard dimensions={dimensions} onClick={this.handleOnClick} />;
+		}
 
-    return children;
-  }
+		return children;
+	}
 }
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const MediaCardAnalyticsErrorBoundary: React.ComponentType<
-  MediaCardAnalyticsErrorBoundaryProps & WithAnalyticsEventsProps
+	MediaCardAnalyticsErrorBoundaryProps & WithAnalyticsEventsProps
 > = withMediaAnalyticsContext({
-  packageVersion,
-  packageName,
-  componentName: 'mediaCard',
-  component: 'mediaCard',
+	packageVersion,
+	packageName,
+	componentName: 'mediaCard',
+	component: 'mediaCard',
 })(withAnalyticsEvents()(WrappedMediaCardAnalyticsErrorBoundary));
 
 export default MediaCardAnalyticsErrorBoundary;

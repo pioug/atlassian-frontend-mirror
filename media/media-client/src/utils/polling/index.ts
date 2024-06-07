@@ -2,18 +2,18 @@ import { PollingError } from './errors';
 import { type Executor } from './types';
 
 export interface PollingOptions {
-  poll_intervalMs: number;
-  poll_maxAttempts: number;
-  poll_backoffFactor: number;
-  poll_maxIntervalMs: number;
+	poll_intervalMs: number;
+	poll_maxAttempts: number;
+	poll_backoffFactor: number;
+	poll_maxIntervalMs: number;
 }
 
 // default polling options without using feature flags
 export const defaultPollingOptions: PollingOptions = {
-  poll_intervalMs: 3000,
-  poll_maxAttempts: 30,
-  poll_backoffFactor: 1.25,
-  poll_maxIntervalMs: 200000,
+	poll_intervalMs: 3000,
+	poll_maxAttempts: 30,
+	poll_backoffFactor: 1.25,
+	poll_maxIntervalMs: 200000,
 };
 
 /**
@@ -28,84 +28,74 @@ export const defaultPollingOptions: PollingOptions = {
  * IMPORTANT! the executor function must explicitly call ".next()" for the next iteration to run
  */
 export class PollingFunction {
-  options: PollingOptions;
-  poll_intervalMs: number = 0;
-  attempt: number = 1;
-  shouldIterate: boolean = true;
-  onError?: (error: Error) => void;
-  timeoutId: number = 0;
+	options: PollingOptions;
+	poll_intervalMs: number = 0;
+	attempt: number = 1;
+	shouldIterate: boolean = true;
+	onError?: (error: Error) => void;
+	timeoutId: number = 0;
 
-  constructor(options?: Partial<PollingOptions>) {
-    this.options = {
-      ...defaultPollingOptions,
-      ...options,
-    };
-    this.poll_intervalMs = this.options.poll_intervalMs;
-  }
+	constructor(options?: Partial<PollingOptions>) {
+		this.options = {
+			...defaultPollingOptions,
+			...options,
+		};
+		this.poll_intervalMs = this.options.poll_intervalMs;
+	}
 
-  async execute(executor: Executor): Promise<void> {
-    const { poll_maxAttempts } = this.options;
+	async execute(executor: Executor): Promise<void> {
+		const { poll_maxAttempts } = this.options;
 
-    if (poll_maxAttempts === 0) {
-      // hard kill, polling disabled
-      return this.fail(
-        new PollingError('pollingMaxAttemptsExceeded', this.attempt),
-      );
-    }
+		if (poll_maxAttempts === 0) {
+			// hard kill, polling disabled
+			return this.fail(new PollingError('pollingMaxAttemptsExceeded', this.attempt));
+		}
 
-    try {
-      // executor must explicitly call this.next() for triggering next iteration (pull)
-      this.shouldIterate = false;
-      await executor();
+		try {
+			// executor must explicitly call this.next() for triggering next iteration (pull)
+			this.shouldIterate = false;
+			await executor();
 
-      if (!this.shouldIterate) {
-        return;
-      }
+			if (!this.shouldIterate) {
+				return;
+			}
 
-      if (this.attempt >= poll_maxAttempts) {
-        // max iterations exceeded, let the consumer know
-        return this.fail(
-          new PollingError('pollingMaxAttemptsExceeded', this.attempt),
-        );
-      }
+			if (this.attempt >= poll_maxAttempts) {
+				// max iterations exceeded, let the consumer know
+				return this.fail(new PollingError('pollingMaxAttemptsExceeded', this.attempt));
+			}
 
-      this.poll_intervalMs = this.getIntervalMsForIteration(this.attempt);
-      this.attempt++;
-      this.timeoutId = window.setTimeout(
-        () => this.execute(executor),
-        this.poll_intervalMs,
-      );
-    } catch (error) {
-      this.fail(error as Error);
-    }
-  }
+			this.poll_intervalMs = this.getIntervalMsForIteration(this.attempt);
+			this.attempt++;
+			this.timeoutId = window.setTimeout(() => this.execute(executor), this.poll_intervalMs);
+		} catch (error) {
+			this.fail(error as Error);
+		}
+	}
 
-  private fail(error: Error) {
-    const { onError } = this;
-    this.cancel();
-    onError && onError(error);
-  }
+	private fail(error: Error) {
+		const { onError } = this;
+		this.cancel();
+		onError && onError(error);
+	}
 
-  getIntervalMsForIteration(iteration: number) {
-    let poll_intervalMs = this.options.poll_intervalMs;
-    if (iteration === 1) {
-      return poll_intervalMs;
-    }
-    for (let i = 2; i <= iteration; i++) {
-      poll_intervalMs = poll_intervalMs * this.options.poll_backoffFactor;
-    }
-    return Math.min(
-      Math.round(poll_intervalMs),
-      this.options.poll_maxIntervalMs,
-    );
-  }
+	getIntervalMsForIteration(iteration: number) {
+		let poll_intervalMs = this.options.poll_intervalMs;
+		if (iteration === 1) {
+			return poll_intervalMs;
+		}
+		for (let i = 2; i <= iteration; i++) {
+			poll_intervalMs = poll_intervalMs * this.options.poll_backoffFactor;
+		}
+		return Math.min(Math.round(poll_intervalMs), this.options.poll_maxIntervalMs);
+	}
 
-  next() {
-    this.shouldIterate = true;
-  }
+	next() {
+		this.shouldIterate = true;
+	}
 
-  cancel() {
-    window.clearTimeout(this.timeoutId);
-    this.timeoutId = 0;
-  }
+	cancel() {
+		window.clearTimeout(this.timeoutId);
+		this.timeoutId = 0;
+	}
 }

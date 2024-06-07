@@ -13,32 +13,32 @@ import { type IssueType } from './types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconWrapper = styled.div({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'left',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'left',
 });
 
 export default ({ type }: { type: IssueType }) => {
-  const TypeIcon = () => {
-    switch (type) {
-      case 'issue':
-        return <Issue16Icon label={'issue'} />;
-      case 'commit':
-        return <Commit16Icon label={'commit'} />;
-      case 'story':
-        return <Story16Icon label={'story'} />;
-      case 'epic':
-        return <Epic16Icon label={'epic'} />;
-      case 'bug':
-        return <Bug16Icon label={'bug'} />;
-      case 'task':
-        return <Task16Icon label={'task'} />;
-    }
-  };
+	const TypeIcon = () => {
+		switch (type) {
+			case 'issue':
+				return <Issue16Icon label={'issue'} />;
+			case 'commit':
+				return <Commit16Icon label={'commit'} />;
+			case 'story':
+				return <Story16Icon label={'story'} />;
+			case 'epic':
+				return <Epic16Icon label={'epic'} />;
+			case 'bug':
+				return <Bug16Icon label={'bug'} />;
+			case 'task':
+				return <Task16Icon label={'task'} />;
+		}
+	};
 
-  return (
-    <IconWrapper>
-      <TypeIcon />
-    </IconWrapper>
-  );
+	return (
+		<IconWrapper>
+			<TypeIcon />
+		</IconWrapper>
+	);
 };

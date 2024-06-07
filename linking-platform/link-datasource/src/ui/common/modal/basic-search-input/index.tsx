@@ -13,83 +13,78 @@ import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 import { basicSearchInputMessages } from './messages';
 
 export interface BasicSearchInputProps {
-  isDisabled?: boolean;
-  isSearching?: boolean;
-  onChange: React.FormEventHandler<HTMLInputElement>;
-  onSearch: (searchTerm: string) => void;
-  searchTerm: string;
-  fullWidth?: boolean;
-  testId: string;
-  placeholder: MessageDescriptor;
+	isDisabled?: boolean;
+	isSearching?: boolean;
+	onChange: React.FormEventHandler<HTMLInputElement>;
+	onSearch: (searchTerm: string) => void;
+	searchTerm: string;
+	fullWidth?: boolean;
+	testId: string;
+	placeholder: MessageDescriptor;
 }
 
 const searchButtonStyles = css({
-  marginRight: token('space.075', '6px'),
+	marginRight: token('space.075', '6px'),
 });
 
 const formStyles = css({
-  flex: 1,
+	flex: 1,
 });
 
 const formWithMaxWidthStyles = css({
-  flex: 1,
-  maxWidth: 250,
+	flex: 1,
+	maxWidth: 250,
 });
 
 export const BasicSearchInput = ({
-  isDisabled,
-  isSearching,
-  onChange,
-  onSearch,
-  searchTerm,
-  fullWidth,
-  testId,
-  placeholder,
+	isDisabled,
+	isSearching,
+	onChange,
+	onSearch,
+	searchTerm,
+	fullWidth,
+	testId,
+	placeholder,
 }: BasicSearchInputProps) => {
-  const { formatMessage } = useIntl();
-  const { fireEvent } = useDatasourceAnalyticsEvents();
+	const { formatMessage } = useIntl();
+	const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  const handleSearchWithAnalytics = () => {
-    fireEvent('ui.form.submitted.basicSearch', {});
-    onSearch(searchTerm);
-  };
+	const handleSearchWithAnalytics = () => {
+		fireEvent('ui.form.submitted.basicSearch', {});
+		onSearch(searchTerm);
+	};
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSearchWithAnalytics();
-  };
+	const handleFormSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		handleSearchWithAnalytics();
+	};
 
-  return (
-    <form
-      css={fullWidth ? formStyles : formWithMaxWidthStyles}
-      onSubmit={handleFormSubmit}
-    >
-      <Textfield
-        elemAfterInput={
-          <LoadingButton
-            appearance="primary"
-            css={searchButtonStyles}
-            iconBefore={
-              <SearchIcon
-                label={formatMessage(
-                  basicSearchInputMessages.basicTextSearchLabel,
-                )}
-                size="medium"
-              />
-            }
-            isDisabled={isDisabled}
-            isLoading={isSearching}
-            onClick={handleSearchWithAnalytics}
-            spacing="none"
-            testId={`${testId}--basic-search-button`}
-          />
-        }
-        autoFocus
-        onChange={onChange}
-        placeholder={formatMessage(placeholder)}
-        testId={`${testId}--basic-search-input`}
-        value={searchTerm}
-      />
-    </form>
-  );
+	return (
+		<form css={fullWidth ? formStyles : formWithMaxWidthStyles} onSubmit={handleFormSubmit}>
+			<Textfield
+				elemAfterInput={
+					<LoadingButton
+						appearance="primary"
+						css={searchButtonStyles}
+						iconBefore={
+							<SearchIcon
+								label={formatMessage(basicSearchInputMessages.basicTextSearchLabel)}
+								size="medium"
+							/>
+						}
+						isDisabled={isDisabled}
+						isLoading={isSearching}
+						onClick={handleSearchWithAnalytics}
+						spacing="none"
+						testId={`${testId}--basic-search-button`}
+					/>
+				}
+				autoFocus
+				onChange={onChange}
+				placeholder={formatMessage(placeholder)}
+				testId={`${testId}--basic-search-input`}
+				value={searchTerm}
+			/>
+		</form>
+	);
 };

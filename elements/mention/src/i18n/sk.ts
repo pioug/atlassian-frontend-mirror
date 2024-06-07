@@ -6,19 +6,16 @@
  */
 //Slovak
 export default {
-  'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip':
-    'Zrušiť',
-  'fabric.elements.mentions.team.mention.highlight.description':
-    'Informujte každého jedným kliknutím. Nemáte tím?',
-  'fabric.elements.mentions.team.mention.highlight.description.link':
-    'Vytvoriť.',
-  'fabric.elements.mentions.team.mention.highlight.title': 'Spomenúť tím',
-  'fabric.mention.error.defaultAction': 'Skúste to znova o chvíľu',
-  'fabric.mention.error.defaultHeadline': 'Vyskytol sa problém',
-  'fabric.mention.error.differentText': 'Skúste zadať iný text',
-  'fabric.mention.error.loginAgain': 'Skúste sa odhlásiť a následne prihlásiť',
-  'fabric.mention.noAccess.label': 'Žiadny prístup',
-  'fabric.mention.noAccess.warning':
-    'Používateľ {name} sa neupozorní. pretože nemá prístup',
-  'fabric.mention.unknow.user.error': 'Neznámy používateľ {userId}',
+	'fabric.elements.mentions.team.meantion.highlight.close.button.tooltip': 'Zrušiť',
+	'fabric.elements.mentions.team.mention.highlight.description':
+		'Informujte každého jedným kliknutím. Nemáte tím?',
+	'fabric.elements.mentions.team.mention.highlight.description.link': 'Vytvoriť.',
+	'fabric.elements.mentions.team.mention.highlight.title': 'Spomenúť tím',
+	'fabric.mention.error.defaultAction': 'Skúste to znova o chvíľu',
+	'fabric.mention.error.defaultHeadline': 'Vyskytol sa problém',
+	'fabric.mention.error.differentText': 'Skúste zadať iný text',
+	'fabric.mention.error.loginAgain': 'Skúste sa odhlásiť a následne prihlásiť',
+	'fabric.mention.noAccess.label': 'Žiadny prístup',
+	'fabric.mention.noAccess.warning': 'Používateľ {name} sa neupozorní. pretože nemá prístup',
+	'fabric.mention.unknow.user.error': 'Neznámy používateľ {userId}',
 };

@@ -54,6 +54,8 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Uitnodigen voor Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Pagina delen',
   'fabric.elements.share.main.tab.text.jira': 'Issue delen',
+  'fabric.elements.share.menu.email.label': 'E-mail',
+  'fabric.elements.share.menu.slack.label': 'Slack',
   'fabric.elements.share.popup.label': 'Delen',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Blogpost gedeeld}board {Bord gedeeld}calendar {Agenda gedeeld}draft {Concept gedeeld}filter {Filter gedeeld}issue {Issue gedeeld}summary {Samenvatting gedeeld}list {Lijst gedeeld}timeline {Tijdlijn gedeeld}form {Formulier gedeeld}media {Media gedeeld}page {Pagina gedeeld}project {Project gedeeld}pullrequest {Pull-request gedeeld}question {Vraag gedeeld}report {Rapport gedeeld}repository {Repository gedeeld}request {Aanvraag gedeeld}roadmap {Tijdlijn gedeeld}site {Site gedeeld}space {Space gedeeld}other {Link gedeeld}}',

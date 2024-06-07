@@ -4,39 +4,39 @@ export type ARI = string;
 export type AVI = string;
 
 export interface SubscribeServiceResponse {
-  protocol: ProtocolConfig | undefined;
-  errors: {
-    statusCode: number;
-  }[];
+	protocol: ProtocolConfig | undefined;
+	errors: {
+		statusCode: number;
+	}[];
 }
 
 export interface ProtocolConfig {
-  type: string;
+	type: string;
 }
 
 export interface Protocol {
-  getType(): string;
+	getType(): string;
 
-  subscribe(config: ProtocolConfig): void;
+	subscribe(config: ProtocolConfig): void;
 
-  unsubscribeAll(): void;
+	unsubscribeAll(): void;
 
-  getCapabilities(): string[];
+	getCapabilities(): string[];
 
-  on(event: EventType, handler: OnEvent): void;
+	on(event: EventType, handler: OnEvent): void;
 
-  off(event: EventType, handler: OnEvent): void;
+	off(event: EventType, handler: OnEvent): void;
 
-  networkUp(): void;
+	networkUp(): void;
 
-  networkDown(): void;
+	networkDown(): void;
 }
 
 export enum EventType {
-  MESSAGE = 'MESSAGE',
-  CONNECTED = 'CONNECTED',
-  ACCESS_DENIED = 'ACCESS_DENIED',
-  NETWORK_DOWN = 'NETWORK_DOWN',
-  NETWORK_UP = 'NETWORK_UP',
-  RECONNECT = 'RECONNECT',
+	MESSAGE = 'MESSAGE',
+	CONNECTED = 'CONNECTED',
+	ACCESS_DENIED = 'ACCESS_DENIED',
+	NETWORK_DOWN = 'NETWORK_DOWN',
+	NETWORK_UP = 'NETWORK_UP',
+	RECONNECT = 'RECONNECT',
 }

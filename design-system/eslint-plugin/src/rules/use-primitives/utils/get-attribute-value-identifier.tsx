@@ -12,28 +12,26 @@ import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
  * - `css='what even is this'`
  * - etc
  */
-export const getAttributeValueIdentifier = (
-  attr: JSXAttribute | undefined,
-): string | undefined => {
-  if (!attr) {
-    return undefined;
-  }
+export const getAttributeValueIdentifier = (attr: JSXAttribute | undefined): string | undefined => {
+	if (!attr) {
+		return undefined;
+	}
 
-  if (!isNodeOfType(attr, 'JSXAttribute')) {
-    return undefined;
-  }
+	if (!isNodeOfType(attr, 'JSXAttribute')) {
+		return undefined;
+	}
 
-  if (!attr.value) {
-    return undefined;
-  }
+	if (!attr.value) {
+		return undefined;
+	}
 
-  if (!isNodeOfType(attr.value, 'JSXExpressionContainer')) {
-    return undefined;
-  }
+	if (!isNodeOfType(attr.value, 'JSXExpressionContainer')) {
+		return undefined;
+	}
 
-  if (!isNodeOfType(attr.value.expression, 'Identifier')) {
-    return undefined;
-  }
+	if (!isNodeOfType(attr.value.expression, 'Identifier')) {
+		return undefined;
+	}
 
-  return attr.value.expression.name;
+	return attr.value.expression.name;
 };

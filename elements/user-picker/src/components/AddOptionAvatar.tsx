@@ -6,35 +6,33 @@ import { css, jsx } from '@emotion/react';
 import React from 'react';
 
 const getEmailAvatarWrapperStyle = (isLozenge?: boolean) => {
-  const padding = isLozenge
-    ? `${token('space.0', '0px')}`
-    : `${token('space.050', '4px')}`;
+	const padding = isLozenge ? `${token('space.0', '0px')}` : `${token('space.050', '4px')}`;
 
-  return css({
-    padding: padding,
-    backgroundColor: token('color.background.neutral', N40),
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-  });
+	return css({
+		padding: padding,
+		backgroundColor: token('color.background.neutral', N40),
+		borderRadius: '50%',
+		display: 'flex',
+		alignItems: 'center',
+	});
 };
 
 export type AddOptionAvatarProps = {
-  label: string;
-  isLozenge?: boolean;
+	label: string;
+	isLozenge?: boolean;
 };
 
 export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
-  isLozenge,
-  label,
+	isLozenge,
+	label,
 }) => {
-  return (
-    <div css={getEmailAvatarWrapperStyle(isLozenge)}>
-      <EmailIcon
-        label={label}
-        size={isLozenge ? 'small' : 'medium'}
-        primaryColor={token('color.text.subtle', N500)}
-      />
-    </div>
-  );
+	return (
+		<div css={getEmailAvatarWrapperStyle(isLozenge)}>
+			<EmailIcon
+				label={label}
+				size={isLozenge ? 'small' : 'medium'}
+				primaryColor={token('color.text.subtle', N500)}
+			/>
+		</div>
+	);
 };

@@ -2,8 +2,8 @@ import { IconType } from '../../../../constants';
 import extractFileFormatIcon from '../extract-file-formatIcon';
 
 describe('extractFileFormatIcon', () => {
-  // prettier-ignore
-  it.each([
+	// prettier-ignore
+	it.each([
     ['folder', 'folder', IconType.Folder, 'Folder'],
     ['document', 'text/plain', IconType.Document, 'Document'],
     ['document', 'application/vnd.oasis.opendocument.text', IconType.Document, 'Document'],
@@ -61,9 +61,9 @@ describe('extractFileFormatIcon', () => {
     expect(label).toEqual(expectedLabel);
   });
 
-  it('returns undefined if document type does not match', () => {
-    const iconDescriptor = extractFileFormatIcon('random');
+	it('returns undefined if document type does not match', () => {
+		const iconDescriptor = extractFileFormatIcon('random');
 
-    expect(iconDescriptor).toBeUndefined();
-  });
+		expect(iconDescriptor).toBeUndefined();
+	});
 });

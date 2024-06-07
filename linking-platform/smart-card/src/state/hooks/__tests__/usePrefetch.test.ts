@@ -3,152 +3,152 @@ import { mocks } from '../../../utils/mocks';
 
 let mockUseSmartLinkContext = jest.fn();
 jest.mock('@atlaskit/link-provider', () => ({
-  useSmartLinkContext: () => mockUseSmartLinkContext(),
+	useSmartLinkContext: () => mockUseSmartLinkContext(),
 }));
 
 jest.mock('react', () => ({
-  ...jest.requireActual<Object>('react'),
-  useCallback: jest.fn().mockImplementation((fn) => fn),
+	...jest.requireActual<Object>('react'),
+	useCallback: jest.fn().mockImplementation((fn) => fn),
 }));
 
 interface MockStore {
-  getState: jest.Mock;
-  dispatch: jest.Mock;
+	getState: jest.Mock;
+	dispatch: jest.Mock;
 }
 interface MockPrefetchStore extends Record<string, string> {}
 interface MockConnections {
-  client: {
-    prefetchData: jest.Mock;
-  };
+	client: {
+		prefetchData: jest.Mock;
+	};
 }
 
 describe('usePrefetch', () => {
-  let mockUrl: string;
-  let mockStore: MockStore;
-  let mockGetState: jest.Mock;
-  let mockPrefetchStore: MockPrefetchStore;
-  let mockConnections: MockConnections;
-  let mockPrefetchData: jest.Mock;
+	let mockUrl: string;
+	let mockStore: MockStore;
+	let mockGetState: jest.Mock;
+	let mockPrefetchStore: MockPrefetchStore;
+	let mockConnections: MockConnections;
+	let mockPrefetchData: jest.Mock;
 
-  beforeEach(() => {
-    mockUrl = 'https://my.mock.com/url/path';
-    mockGetState = jest.fn().mockImplementation(() => ({}));
-    mockStore = {
-      getState: jest.fn().mockImplementation(() => mockGetState()),
-      dispatch: jest.fn(),
-    };
-    mockPrefetchStore = {};
-    mockPrefetchData = jest.fn().mockImplementation(async (url: string) => {
-      expect(url).toBe(mockUrl);
-      return mocks.success;
-    });
-    mockConnections = {
-      client: {
-        prefetchData: mockPrefetchData,
-      },
-    };
+	beforeEach(() => {
+		mockUrl = 'https://my.mock.com/url/path';
+		mockGetState = jest.fn().mockImplementation(() => ({}));
+		mockStore = {
+			getState: jest.fn().mockImplementation(() => mockGetState()),
+			dispatch: jest.fn(),
+		};
+		mockPrefetchStore = {};
+		mockPrefetchData = jest.fn().mockImplementation(async (url: string) => {
+			expect(url).toBe(mockUrl);
+			return mocks.success;
+		});
+		mockConnections = {
+			client: {
+				prefetchData: mockPrefetchData,
+			},
+		};
 
-    mockUseSmartLinkContext.mockImplementation(() => ({
-      store: mockStore,
-      prefetchStore: mockPrefetchStore,
-      connections: mockConnections,
-    }));
-  });
+		mockUseSmartLinkContext.mockImplementation(() => ({
+			store: mockStore,
+			prefetchStore: mockPrefetchStore,
+			connections: mockConnections,
+		}));
+	});
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 
-  it('triggers client.prefetchData() when new prefetch request is made', async () => {
-    const prefetcher = usePrefetch(mockUrl);
-    await prefetcher();
+	it('triggers client.prefetchData() when new prefetch request is made', async () => {
+		const prefetcher = usePrefetch(mockUrl);
+		await prefetcher();
 
-    expect(mockPrefetchStore[mockUrl]).toBe(true);
+		expect(mockPrefetchStore[mockUrl]).toBe(true);
 
-    expect(mockConnections.client.prefetchData).toBeCalled();
-    expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
-    expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
+		expect(mockConnections.client.prefetchData).toBeCalled();
+		expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
+		expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
 
-    expect(mockStore.dispatch).toBeCalled();
-    expect(mockStore.dispatch).toBeCalledTimes(2);
-    expect(mockStore.dispatch).toBeCalledWith({
-      url: mockUrl,
-      type: 'resolved',
-      payload: mocks.success,
-    });
-    expect(mockStore.dispatch).toBeCalledWith({
-      url: mockUrl,
-      type: 'metadata',
-      metadataStatus: 'resolved',
-    });
-  });
+		expect(mockStore.dispatch).toBeCalled();
+		expect(mockStore.dispatch).toBeCalledTimes(2);
+		expect(mockStore.dispatch).toBeCalledWith({
+			url: mockUrl,
+			type: 'resolved',
+			payload: mocks.success,
+		});
+		expect(mockStore.dispatch).toBeCalledWith({
+			url: mockUrl,
+			type: 'metadata',
+			metadataStatus: 'resolved',
+		});
+	});
 
-  it('does not trigger client.prefetchData() when duplicate prefetch requests are made', async () => {
-    const prefetcher = usePrefetch(mockUrl);
-    await prefetcher();
-    await prefetcher();
+	it('does not trigger client.prefetchData() when duplicate prefetch requests are made', async () => {
+		const prefetcher = usePrefetch(mockUrl);
+		await prefetcher();
+		await prefetcher();
 
-    expect(mockPrefetchStore[mockUrl]).toBe(true);
+		expect(mockPrefetchStore[mockUrl]).toBe(true);
 
-    expect(mockConnections.client.prefetchData).toBeCalled();
-    expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
-    expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
+		expect(mockConnections.client.prefetchData).toBeCalled();
+		expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
+		expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
 
-    expect(mockStore.dispatch).toBeCalled();
-    expect(mockStore.dispatch).toBeCalledTimes(2);
-    expect(mockStore.dispatch).toBeCalledWith({
-      url: mockUrl,
-      type: 'resolved',
-      payload: mocks.success,
-    });
-    expect(mockStore.dispatch).toBeCalledWith({
-      url: mockUrl,
-      type: 'metadata',
-      metadataStatus: 'resolved',
-    });
-  });
+		expect(mockStore.dispatch).toBeCalled();
+		expect(mockStore.dispatch).toBeCalledTimes(2);
+		expect(mockStore.dispatch).toBeCalledWith({
+			url: mockUrl,
+			type: 'resolved',
+			payload: mocks.success,
+		});
+		expect(mockStore.dispatch).toBeCalledWith({
+			url: mockUrl,
+			type: 'metadata',
+			metadataStatus: 'resolved',
+		});
+	});
 
-  it('does not trigger client.prefetchData() when already registered in store', async () => {
-    mockStore.getState.mockImplementationOnce(() => ({
-      [mockUrl]: {
-        status: 'pending',
-        details: mocks.success,
-      },
-    }));
+	it('does not trigger client.prefetchData() when already registered in store', async () => {
+		mockStore.getState.mockImplementationOnce(() => ({
+			[mockUrl]: {
+				status: 'pending',
+				details: mocks.success,
+			},
+		}));
 
-    const prefetcher = usePrefetch(mockUrl);
-    await prefetcher();
+		const prefetcher = usePrefetch(mockUrl);
+		await prefetcher();
 
-    expect(mockPrefetchStore[mockUrl]).toBeUndefined();
+		expect(mockPrefetchStore[mockUrl]).toBeUndefined();
 
-    expect(mockConnections.client.prefetchData).not.toBeCalled();
-    expect(mockStore.dispatch).not.toBeCalled();
-  });
+		expect(mockConnections.client.prefetchData).not.toBeCalled();
+		expect(mockStore.dispatch).not.toBeCalled();
+	});
 
-  it('does not fall over when client.prefetchData() throws an error (prefetch failures should not be visible)', async () => {
-    mockPrefetchData.mockImplementationOnce(async () => {
-      throw new Error();
-    });
+	it('does not fall over when client.prefetchData() throws an error (prefetch failures should not be visible)', async () => {
+		mockPrefetchData.mockImplementationOnce(async () => {
+			throw new Error();
+		});
 
-    const prefetcher = usePrefetch(mockUrl);
-    await prefetcher();
+		const prefetcher = usePrefetch(mockUrl);
+		await prefetcher();
 
-    expect(mockConnections.client.prefetchData).toBeCalled();
-    expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
-    expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
-  });
+		expect(mockConnections.client.prefetchData).toBeCalled();
+		expect(mockConnections.client.prefetchData).toBeCalledTimes(1);
+		expect(mockConnections.client.prefetchData).toBeCalledWith(mockUrl);
+	});
 
-  it('does not throw errors when CardContext props are undefined', async () => {
-    mockUseSmartLinkContext.mockImplementation(() => ({
-      store: undefined,
-      prefetchStore: undefined,
-      connections: undefined,
-    }));
+	it('does not throw errors when CardContext props are undefined', async () => {
+		mockUseSmartLinkContext.mockImplementation(() => ({
+			store: undefined,
+			prefetchStore: undefined,
+			connections: undefined,
+		}));
 
-    const prefetcher = usePrefetch(mockUrl);
-    await prefetcher();
+		const prefetcher = usePrefetch(mockUrl);
+		await prefetcher();
 
-    expect(mockConnections.client.prefetchData).not.toBeCalled();
-    expect(mockStore.dispatch).not.toBeCalled();
-  });
+		expect(mockConnections.client.prefetchData).not.toBeCalled();
+		expect(mockStore.dispatch).not.toBeCalled();
+	});
 });

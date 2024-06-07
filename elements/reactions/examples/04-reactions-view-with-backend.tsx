@@ -1,11 +1,7 @@
 import React from 'react';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-import {
-  ConnectedReactionsView,
-  ReactionServiceClient,
-  type StorePropInput,
-} from '../src';
+import { ConnectedReactionsView, ReactionServiceClient, type StorePropInput } from '../src';
 import { ExampleWrapper, getReactionsConfig } from './utils';
 
 /**
@@ -17,69 +13,66 @@ const DemoContainerAriPrefix = `ari:cloud:jira:${DemoCloudId}:issue/`;
 
 const reactionsConfig = getReactionsConfig();
 
-const client = new ReactionServiceClient(
-  reactionsConfig.baseUrl,
-  reactionsConfig.authHeader,
-);
+const client = new ReactionServiceClient(reactionsConfig.baseUrl, reactionsConfig.authHeader);
 
 const emojiProvider = getEmojiResource({
-  uploadSupported: true,
+	uploadSupported: true,
 }) as Promise<EmojiProvider>;
 
 export default () => (
-  <ExampleWrapper client={client}>
-    {(store: StorePropInput) => (
-      <React.Fragment>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={{ marginLeft: '10px' }}>
-          <p>First Comment</p>
-          <ConnectedReactionsView
-            store={store}
-            containerAri={`${DemoContainerAriPrefix}10001`}
-            ari={`${DemoAriPrefix}10002`}
-            emojiProvider={emojiProvider}
-            allowAllEmojis
-          />
-          <hr />
-          <p>Second Comment</p>
-          <ConnectedReactionsView
-            store={store}
-            containerAri={`${DemoContainerAriPrefix}10001`}
-            ari={`${DemoAriPrefix}10003`}
-            emojiProvider={emojiProvider}
-            allowAllEmojis
-          />
-          <hr />
-          <p>One more Comment</p>
-          <ConnectedReactionsView
-            store={store}
-            containerAri={`${DemoContainerAriPrefix}10001`}
-            ari={`${DemoAriPrefix}10004`}
-            emojiProvider={emojiProvider}
-            allowAllEmojis
-          />
-          <hr />
-          <p>Last comment</p>
-          <ConnectedReactionsView
-            store={store}
-            containerAri={`${DemoContainerAriPrefix}10001`}
-            ari={`${DemoAriPrefix}10005`}
-            emojiProvider={emojiProvider}
-            allowAllEmojis
-          />
-          <hr />
-          <div>
-            Within a different Container.
-            <ConnectedReactionsView
-              store={store}
-              containerAri={`${DemoContainerAriPrefix}10000`}
-              ari={`${DemoAriPrefix}10001`}
-              emojiProvider={emojiProvider}
-              allowAllEmojis
-            />
-          </div>
-        </div>
-      </React.Fragment>
-    )}
-  </ExampleWrapper>
+	<ExampleWrapper client={client}>
+		{(store: StorePropInput) => (
+			<React.Fragment>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={{ marginLeft: '10px' }}>
+					<p>First Comment</p>
+					<ConnectedReactionsView
+						store={store}
+						containerAri={`${DemoContainerAriPrefix}10001`}
+						ari={`${DemoAriPrefix}10002`}
+						emojiProvider={emojiProvider}
+						allowAllEmojis
+					/>
+					<hr />
+					<p>Second Comment</p>
+					<ConnectedReactionsView
+						store={store}
+						containerAri={`${DemoContainerAriPrefix}10001`}
+						ari={`${DemoAriPrefix}10003`}
+						emojiProvider={emojiProvider}
+						allowAllEmojis
+					/>
+					<hr />
+					<p>One more Comment</p>
+					<ConnectedReactionsView
+						store={store}
+						containerAri={`${DemoContainerAriPrefix}10001`}
+						ari={`${DemoAriPrefix}10004`}
+						emojiProvider={emojiProvider}
+						allowAllEmojis
+					/>
+					<hr />
+					<p>Last comment</p>
+					<ConnectedReactionsView
+						store={store}
+						containerAri={`${DemoContainerAriPrefix}10001`}
+						ari={`${DemoAriPrefix}10005`}
+						emojiProvider={emojiProvider}
+						allowAllEmojis
+					/>
+					<hr />
+					<div>
+						Within a different Container.
+						<ConnectedReactionsView
+							store={store}
+							containerAri={`${DemoContainerAriPrefix}10000`}
+							ari={`${DemoAriPrefix}10001`}
+							emojiProvider={emojiProvider}
+							allowAllEmojis
+						/>
+					</div>
+				</div>
+			</React.Fragment>
+		)}
+	</ExampleWrapper>
 );

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import {
-  AtlassianInternalWarning,
-  code,
-  DevPreviewWarning,
-  Example,
-  md,
-  Props,
+	AtlassianInternalWarning,
+	code,
+	DevPreviewWarning,
+	Example,
+	md,
+	Props,
 } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
 
@@ -14,17 +14,17 @@ const BasicExample = require('../examples/00-usage').default;
 
 export default md`
   ${(
-    <>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ marginBottom: token('space.100', '0.5rem') }}>
-        <AtlassianInternalWarning />
-      </div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ marginTop: token('space.100', '0.5rem') }}>
-        <DevPreviewWarning />
-      </div>
-    </>
-  )}
+		<>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ marginBottom: token('space.100', '0.5rem') }}>
+				<AtlassianInternalWarning />
+			</div>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ marginTop: token('space.100', '0.5rem') }}>
+				<DevPreviewWarning />
+			</div>
+		</>
+	)}
 
   This component is used to ask for feedback from the user, without affecting their usage of the page. It is styled similar to a \`flag\`.
 
@@ -94,25 +94,25 @@ export default md`
   ${code`import { ContextualSurvey, SurveyMarshal } from '@atlaskit/avatar';`}
 
   ${(
-    <Example
-      packageName="@atlaskit/contextual-survey"
-      Component={() => <BasicExample height="500px" />}
-      title="Basic example"
-      source={require('!!raw-loader!../examples/00-usage')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/contextual-survey"
+			Component={() => <BasicExample height="500px" />}
+			title="Basic example"
+			source={require('!!raw-loader!../examples/00-usage')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Contextual Survey Props"
-      props={require('!!extract-react-types-loader!../src/components/ContextualSurvey')}
-    />
-  )}
+		<Props
+			heading="Contextual Survey Props"
+			props={require('!!extract-react-types-loader!../src/components/ContextualSurvey')}
+		/>
+	)}
 
 ${(
-  <Props
-    heading="Survey Marshal Props"
-    props={require('!!extract-react-types-loader!../src/components/SurveyMarshal')}
-  />
+	<Props
+		heading="Survey Marshal Props"
+		props={require('!!extract-react-types-loader!../src/components/SurveyMarshal')}
+	/>
 )}
 `;

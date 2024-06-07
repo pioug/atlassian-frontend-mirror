@@ -8,13 +8,10 @@ A metadata block is an empty block that can host metadata elements on the left
 side of the block, on the right side of the block, or both.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/metadata-block-primary-secondary')
-        .default
-    }
-    source={require('!!raw-loader!../../../examples/content/metadata-block-primary-secondary')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/metadata-block-primary-secondary').default}
+		source={require('!!raw-loader!../../../examples/content/metadata-block-primary-secondary')}
+	/>
 )}
 
 ### Default
@@ -28,12 +25,10 @@ Use \`primary\` to display metadata elements on the left of the block.
 See [ElementItem](./element-item) for available elements.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/metadata-block-primary').default
-    }
-    source={require('!!raw-loader!../../../examples/content/metadata-block-primary')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/metadata-block-primary').default}
+		source={require('!!raw-loader!../../../examples/content/metadata-block-primary')}
+	/>
 )}
 
 ### Secondary metadata
@@ -42,12 +37,10 @@ Use \`secondary\` to display metadata elements on the left of the block.
 See [ElementItem](./element-item) for available elements.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/metadata-block-secondary').default
-    }
-    source={require('!!raw-loader!../../../examples/content/metadata-block-secondary')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/metadata-block-secondary').default}
+		source={require('!!raw-loader!../../../examples/content/metadata-block-secondary')}
+	/>
 )}
 
 ### Max lines
@@ -56,24 +49,20 @@ Use \`maxLines\` to configure the maximum number of lines to show at one time,
 wrapping if necessary. The maximum and default number is 2.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/metadata-block-max-lines').default
-    }
-    source={require('!!raw-loader!../../../examples/content/metadata-block-max-lines')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/metadata-block-max-lines').default}
+		source={require('!!raw-loader!../../../examples/content/metadata-block-max-lines')}
+	/>
 )}
 
 The example below shows maximum number of lines limit to 1, while having the
 same number of metadata elements specified as above example.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/metadata-block-single-line').default
-    }
-    source={require('!!raw-loader!../../../examples/content/metadata-block-single-line')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/metadata-block-single-line').default}
+		source={require('!!raw-loader!../../../examples/content/metadata-block-single-line')}
+	/>
 )}
 
 ### Sizing
@@ -87,10 +76,10 @@ Override the size on block level will set the new default size for its children.
 See element item for element sizing and how to override block sizing.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/metadata-block-size').default}
-    source={require('!!raw-loader!../../../examples/content/metadata-block-size')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/metadata-block-size').default}
+		source={require('!!raw-loader!../../../examples/content/metadata-block-size')}
+	/>
 )}
 
 ### Override CSS
@@ -100,11 +89,9 @@ Although let us know what we’re missing in the spirit of improving platform
 components for everyone!
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/metadata-block-override-css').default
-    }
-    source={require('!!raw-loader!../../../examples/content/metadata-block-override-css')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/metadata-block-override-css').default}
+		source={require('!!raw-loader!../../../examples/content/metadata-block-override-css')}
+	/>
 )}
 `;

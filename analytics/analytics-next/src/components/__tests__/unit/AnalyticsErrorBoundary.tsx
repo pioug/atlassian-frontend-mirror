@@ -6,86 +6,80 @@ import { mount } from 'enzyme';
 import AnalyticsErrorBoundary from '../../AnalyticsErrorBoundary';
 
 const props = {
-  channel: 'atlaskit',
-  data: {
-    componentName: 'button',
-    packageName: '@atlaskit/button',
-    componentVersion: '999.9.9',
-  },
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-  children: <div className="child-component" />,
+	channel: 'atlaskit',
+	data: {
+		componentName: 'button',
+		packageName: '@atlaskit/button',
+		componentVersion: '999.9.9',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+	children: <div className="child-component" />,
 };
 
 describe('AnalyticsErrorBoundary', () => {
-  beforeEach(() => {
-    jest.spyOn(global.console, 'error').mockImplementation(() => {});
-  });
+	beforeEach(() => {
+		jest.spyOn(global.console, 'error').mockImplementation(() => {});
+	});
 
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
 
-  it('should render the child component', () => {
-    const onError = jest.fn();
-    const wrapper = mount(
-      <AnalyticsErrorBoundary {...props} onError={onError} />,
-    );
+	it('should render the child component', () => {
+		const onError = jest.fn();
+		const wrapper = mount(<AnalyticsErrorBoundary {...props} onError={onError} />);
 
-    expect(onError).not.toHaveBeenCalled();
-    expect(wrapper.find('.child-component')).toHaveLength(1);
-  });
+		expect(onError).not.toHaveBeenCalled();
+		expect(wrapper.find('.child-component')).toHaveLength(1);
+	});
 
-  it('should render error component when error occurs', async () => {
-    const onError = jest.fn();
+	it('should render error component when error occurs', async () => {
+		const onError = jest.fn();
 
-    const error = new Error('Error');
-    const Something = (p: { error: boolean }) => {
-      if (p.error) {
-        throw error;
-      }
-      // this is just a placeholder
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      return <div className="child-component" />;
-    };
+		const error = new Error('Error');
+		const Something = (p: { error: boolean }) => {
+			if (p.error) {
+				throw error;
+			}
+			// this is just a placeholder
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			return <div className="child-component" />;
+		};
 
-    const ErrorScreen = () => {
-      return <div>Error occurred</div>;
-    };
+		const ErrorScreen = () => {
+			return <div>Error occurred</div>;
+		};
 
-    const { findByText } = render(
-      <AnalyticsErrorBoundary
-        {...props}
-        ErrorComponent={ErrorScreen}
-        onError={onError}
-      >
-        <Something error />
-      </AnalyticsErrorBoundary>,
-    );
+		const { findByText } = render(
+			<AnalyticsErrorBoundary {...props} ErrorComponent={ErrorScreen} onError={onError}>
+				<Something error />
+			</AnalyticsErrorBoundary>,
+		);
 
-    expect(onError).toHaveBeenCalledTimes(1);
-    expect(await findByText('Error occurred')).toBeInTheDocument();
-  });
+		expect(onError).toHaveBeenCalledTimes(1);
+		expect(await findByText('Error occurred')).toBeInTheDocument();
+	});
 
-  it('should render empty DOM when error occurs and no ErrorComponent', async () => {
-    const onError = jest.fn();
+	it('should render empty DOM when error occurs and no ErrorComponent', async () => {
+		const onError = jest.fn();
 
-    const error = new Error('Error');
-    const Something = (p: { error: boolean }) => {
-      if (p.error) {
-        throw error;
-      }
-      // this is just a placeholder
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      return <div className="child-component" />;
-    };
+		const error = new Error('Error');
+		const Something = (p: { error: boolean }) => {
+			if (p.error) {
+				throw error;
+			}
+			// this is just a placeholder
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			return <div className="child-component" />;
+		};
 
-    const { container } = render(
-      <AnalyticsErrorBoundary {...props} onError={onError}>
-        <Something error />
-      </AnalyticsErrorBoundary>,
-    );
+		const { container } = render(
+			<AnalyticsErrorBoundary {...props} onError={onError}>
+				<Something error />
+			</AnalyticsErrorBoundary>,
+		);
 
-    expect(onError).toHaveBeenCalledTimes(1);
-    expect(container).toBeEmptyDOMElement();
-  });
+		expect(onError).toHaveBeenCalledTimes(1);
+		expect(container).toBeEmptyDOMElement();
+	});
 });

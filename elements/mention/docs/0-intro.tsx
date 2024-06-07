@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  md,
-  Props,
-  Example,
-  code,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
+import { md, Props, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
 import SimpleMentionExample from '../examples/00-simple-mention-item';
 const SimpleMentionSource = require('!!raw-loader!../examples/00-simple-mention-item');
@@ -77,13 +71,13 @@ export default md`
   (e.g. enter and tab).
 
   ${(
-    <Example
-      packageName="@atlaskit/mention"
-      Component={SimpleMentionExample}
-      title="Simple Mention"
-      source={SimpleMentionSource}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/mention"
+			Component={SimpleMentionExample}
+			title="Simple Mention"
+			source={SimpleMentionSource}
+		/>
+	)}
 
   ${(<Props props={MentionProps} />)}
 

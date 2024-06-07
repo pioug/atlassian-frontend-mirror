@@ -11,43 +11,39 @@ type callbackType = 'CLICK_OUTSIDE' | 'ESCAPE';
  * @param enabled (Optional) enable/disable the outside click or escape key press handler. @default true
  */
 export function useCloseManager(
-  ref: React.RefObject<HTMLElement>,
-  callback: (type: callbackType) => void,
-  useCapture: boolean = false,
-  enabled: boolean = true,
+	ref: React.RefObject<HTMLElement>,
+	callback: (type: callbackType) => void,
+	useCapture: boolean = false,
+	enabled: boolean = true,
 ) {
-  useEffect(() => {
-    if (!enabled) {
-      return;
-    }
+	useEffect(() => {
+		if (!enabled) {
+			return;
+		}
 
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event: any) {
-      if (
-        ref.current &&
-        event.target instanceof Node &&
-        !ref.current.contains(event.target)
-      ) {
-        callback('CLICK_OUTSIDE');
-      }
-    }
+		/**
+		 * Alert if clicked on outside of element
+		 */
+		function handleClickOutside(event: any) {
+			if (ref.current && event.target instanceof Node && !ref.current.contains(event.target)) {
+				callback('CLICK_OUTSIDE');
+			}
+		}
 
-    function handleKeydown(event: KeyboardEvent | React.KeyboardEvent) {
-      const { key } = event;
-      if (key === 'Escape' || key === 'Esc') {
-        callback('ESCAPE');
-      }
-    }
+		function handleKeydown(event: KeyboardEvent | React.KeyboardEvent) {
+			const { key } = event;
+			if (key === 'Escape' || key === 'Esc') {
+				callback('ESCAPE');
+			}
+		}
 
-    // Bind the event listener
-    document.addEventListener('click', handleClickOutside, useCapture);
-    document.addEventListener('keydown', handleKeydown);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener('click', handleClickOutside, useCapture);
-      document.removeEventListener('keydown', handleKeydown);
-    };
-  }, [ref, callback, useCapture, enabled]);
+		// Bind the event listener
+		document.addEventListener('click', handleClickOutside, useCapture);
+		document.addEventListener('keydown', handleKeydown);
+		return () => {
+			// Unbind the event listener on clean up
+			document.removeEventListener('click', handleClickOutside, useCapture);
+			document.removeEventListener('keydown', handleKeydown);
+		};
+	}, [ref, callback, useCapture, enabled]);
 }

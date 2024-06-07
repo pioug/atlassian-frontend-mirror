@@ -2,18 +2,18 @@ import { tester } from '../../../../__tests__/utils/_tester';
 import rule from '../../index';
 
 describe('Warning about too many nested test runners', () => {
-  tester.run('ensure-test-runner-nested-count', rule, {
-    valid: [
-      {
-        code: `describe('1 FF', () => {
+	tester.run('ensure-test-runner-nested-count', rule, {
+		valid: [
+			{
+				code: `describe('1 FF', () => {
           ffTest('uip.sample.color', () => {
             const { getByText } = render(<SampleComponent />);
             expect(getByText('SampleComponent')).toBeDefined();
           });
         });`,
-      },
-      {
-        code: `describe('2 FFs', () => {
+			},
+			{
+				code: `describe('2 FFs', () => {
           ffTest(
             'uip.sample.color',
             ff =>
@@ -40,9 +40,9 @@ describe('Warning about too many nested test runners', () => {
               ),
           );
         });`,
-      },
-      {
-        code: `ffTest(
+			},
+			{
+				code: `ffTest(
           'uip.sample.color',
           (ff) =>
             ffTest(
@@ -59,9 +59,9 @@ describe('Warning about too many nested test runners', () => {
               ff,
             ),
         );`,
-      },
-      {
-        code: `ffTest(
+			},
+			{
+				code: `ffTest(
           'uip.sample.color',
           (ff) =>
             ffTest(
@@ -96,9 +96,9 @@ describe('Warning about too many nested test runners', () => {
               ff,
             ),
         );`,
-      },
-      {
-        code: `
+			},
+			{
+				code: `
         ffTest(
           'uip.sample.color',
           (ff) =>
@@ -152,11 +152,11 @@ describe('Warning about too many nested test runners', () => {
               ff,
             ),
         );`,
-      },
-    ],
-    invalid: [
-      {
-        code: `
+			},
+		],
+		invalid: [
+			{
+				code: `
         describe('5 FFs', () => {
           ffTest(
             'uip.sample.color',
@@ -218,17 +218,17 @@ describe('Warning about too many nested test runners', () => {
               ),
           );
         });`,
-        errors: [
-          {
-            messageId: 'tooManyNestedTestRunner',
-            data: {
-              nestedTestRunner: 5,
-            },
-          },
-        ],
-      },
-      {
-        code: `
+				errors: [
+					{
+						messageId: 'tooManyNestedTestRunner',
+						data: {
+							nestedTestRunner: 5,
+						},
+					},
+				],
+			},
+			{
+				code: `
         ffTest(
           'uip.sample.color',
           (ff) =>
@@ -294,15 +294,15 @@ describe('Warning about too many nested test runners', () => {
               ff,
             ),
         );`,
-        errors: [
-          {
-            messageId: 'tooManyNestedTestRunner',
-            data: {
-              nestedTestRunner: 6,
-            },
-          },
-        ],
-      },
-    ],
-  });
+				errors: [
+					{
+						messageId: 'tooManyNestedTestRunner',
+						data: {
+							nestedTestRunner: 6,
+						},
+					},
+				],
+			},
+		],
+	});
 });

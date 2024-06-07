@@ -19,58 +19,44 @@ import {
   AtlassianMarketplaceIcon,
   AtlassianMarketplaceLogo,
   AtlassianStartLogo,
-  AtlassianWordmark,
   BitbucketIcon,
   BitbucketLogo,
-  BitbucketWordmark,
   CompassIcon,
   CompassLogo,
-  CompassWordmark,
   ConfluenceIcon,
   ConfluenceLogo,
-  ConfluenceWordmark,
   GuardIcon,
   GuardLogo,
   HalpIcon,
   HalpLogo,
-  HalpWordmark,
   JiraAlignIcon,
   JiraAlignLogo,
-  JiraAlignWordmark,
   JiraIcon,
   JiraLogo,
   JiraProductDiscoveryIcon,
   JiraProductDiscoveryLogo,
   JiraServiceManagementIcon,
   JiraServiceManagementLogo,
-  JiraServiceManagementWordmark,
   JiraSoftwareIcon,
   JiraSoftwareLogo,
-  JiraSoftwareWordmark,
-  JiraWordmark,
   JiraWorkManagementIcon,
   JiraWorkManagementLogo,
-  JiraWorkManagementWordmark,
   LoomIcon,
   LoomLogo,
   OpsgenieIcon,
   OpsgenieLogo,
-  OpsgenieWordmark,
   RovoIcon,
   RovoLogo,
   StatuspageIcon,
   StatuspageLogo,
-  StatuspageWordmark,
   TrelloIcon,
   TrelloLogo,
-  TrelloWordmark,
 } from '../src';
 
 const appearances = ['brand', 'neutral', 'inverse'];
 
 const buildRows = (
   Logo?: any,
-  Wordmark?: any,
   Icon?: any,
   inheritSupported: boolean = true,
 ) => {
@@ -85,7 +71,6 @@ const buildRows = (
           </span>
         </td>
         <td>{inheritSupported && Logo && <Logo />}</td>
-        <td>{inheritSupported && Wordmark && <Wordmark />}</td>
         <td>{inheritSupported && Icon && <Icon />}</td>
       </tr>
       {appearances.map((appearance) => {
@@ -100,7 +85,6 @@ const buildRows = (
               </span>
             </td>
             <td>{Logo && <Logo appearance={appearance} />}</td>
-            <td>{Wordmark && <Wordmark appearance={appearance} />}</td>
             <td>{Icon && <Icon appearance={appearance} />}</td>
           </tr>
         );
@@ -116,47 +100,37 @@ export default () => (
         <tr>
           <th>Appearance</th>
           <th>Logo</th>
-          <th>Wordmark</th>
           <th>Icon</th>
         </tr>
       </thead>
       <tbody>
-        {buildRows(AtlassianLogo, AtlassianWordmark, AtlassianIcon)}
+        {buildRows(AtlassianLogo, AtlassianIcon)}
         {buildRows(AtlassianStartLogo)}
-        {buildRows(AtlassianAnalyticsLogo, null, AtlassianAnalyticsIcon, false)}
-        {buildRows(BitbucketLogo, BitbucketWordmark, BitbucketIcon)}
-        {buildRows(CompassLogo, CompassWordmark, CompassIcon)}
-        {buildRows(ConfluenceLogo, ConfluenceWordmark, ConfluenceIcon)}
-        {buildRows(HalpLogo, HalpWordmark, HalpIcon)}
-        {buildRows(JiraAlignLogo, JiraAlignWordmark, JiraAlignIcon)}
-        {buildRows(JiraLogo, JiraWordmark, JiraIcon)}
-        {buildRows(JiraProductDiscoveryLogo, null, JiraProductDiscoveryIcon)}
-        {buildRows(
-          JiraServiceManagementLogo,
-          JiraServiceManagementWordmark,
-          JiraServiceManagementIcon,
-        )}
-        {buildRows(JiraSoftwareLogo, JiraSoftwareWordmark, JiraSoftwareIcon)}
-        {buildRows(
-          JiraWorkManagementLogo,
-          JiraWorkManagementWordmark,
-          JiraWorkManagementIcon,
-        )}
-        {buildRows(LoomLogo, null, LoomIcon)}
-        {buildRows(OpsgenieLogo, OpsgenieWordmark, OpsgenieIcon)}
-        {buildRows(StatuspageLogo, StatuspageWordmark, StatuspageIcon)}
-        {buildRows(TrelloLogo, TrelloWordmark, TrelloIcon)}
-        {buildRows(AtlasLogo, null, AtlasIcon, false)}
-        {buildRows(AtlassianMarketplaceLogo, null, AtlassianMarketplaceIcon)}
-        {buildRows(GuardLogo, null, GuardIcon)}
-        {buildRows(RovoLogo, null, RovoIcon)}
-        {buildRows(AtlassianAdminLogo, null, AtlassianAdminIcon)}
+        {buildRows(AtlassianAnalyticsLogo, AtlassianAnalyticsIcon, false)}
+        {buildRows(BitbucketLogo, BitbucketIcon)}
+        {buildRows(CompassLogo, CompassIcon)}
+        {buildRows(ConfluenceLogo, ConfluenceIcon)}
+        {buildRows(HalpLogo, HalpIcon)}
+        {buildRows(JiraAlignLogo, JiraAlignIcon)}
+        {buildRows(JiraLogo, JiraIcon)}
+        {buildRows(JiraProductDiscoveryLogo, JiraProductDiscoveryIcon)}
+        {buildRows(JiraServiceManagementLogo, JiraServiceManagementIcon)}
+        {buildRows(JiraSoftwareLogo, JiraSoftwareIcon)}
+        {buildRows(JiraWorkManagementLogo, JiraWorkManagementIcon)}
+        {buildRows(LoomLogo, LoomIcon)}
+        {buildRows(OpsgenieLogo, OpsgenieIcon)}
+        {buildRows(StatuspageLogo, StatuspageIcon)}
+        {buildRows(TrelloLogo, TrelloIcon)}
+        {buildRows(AtlasLogo, AtlasIcon, false)}
+        {buildRows(AtlassianMarketplaceLogo, AtlassianMarketplaceIcon)}
+        {buildRows(GuardLogo, GuardIcon)}
+        {buildRows(RovoLogo, RovoIcon)}
+        {buildRows(AtlassianAdminLogo, AtlassianAdminIcon)}
         {buildRows(
           AtlassianAdministrationLogo,
-          null,
           AtlassianAdministrationIcon,
         )}
-        {buildRows(AtlassianAccessLogo, null, AtlassianAccessIcon)}
+        {buildRows(AtlassianAccessLogo, AtlassianAccessIcon)}
       </tbody>
     </table>
   </div>

@@ -3,11 +3,9 @@ import { type JsonLd } from 'json-ld-types';
 /**
  * Return link summary
  */
-export const extractSummary = (
-  jsonLd: JsonLd.Data.BaseData,
-): string | undefined => {
-  if (typeof jsonLd?.summary === 'string') {
-    const summary = jsonLd.summary.trim();
-    return Boolean(summary) ? summary : undefined;
-  }
+export const extractSummary = (jsonLd: JsonLd.Data.BaseData): string | undefined => {
+	if (typeof jsonLd?.summary === 'string') {
+		const summary = jsonLd.summary.trim();
+		return Boolean(summary) ? summary : undefined;
+	}
 };

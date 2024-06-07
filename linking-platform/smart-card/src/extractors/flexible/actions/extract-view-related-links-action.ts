@@ -4,18 +4,18 @@ import { type ViewRelatedLinksActionData } from '../../../state/flexible-ui-cont
 import { extractLink } from '@atlaskit/link-extractors';
 
 export const extractViewRelatedLinksAction = (
-  response: JsonLd.Response,
+	response: JsonLd.Response,
 ): ViewRelatedLinksActionData | undefined => {
-  if (!response?.meta?.supportedFeature?.includes('RelatedLinks')) {
-    return;
-  }
-  const url = extractLink(response.data as JsonLd.Data.BaseData);
+	if (!response?.meta?.supportedFeature?.includes('RelatedLinks')) {
+		return;
+	}
+	const url = extractLink(response.data as JsonLd.Data.BaseData);
 
-  if (!url) {
-    return;
-  }
+	if (!url) {
+		return;
+	}
 
-  return {
-    url,
-  };
+	return {
+		url,
+	};
 };

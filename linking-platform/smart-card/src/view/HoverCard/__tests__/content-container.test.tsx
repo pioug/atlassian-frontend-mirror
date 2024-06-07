@@ -9,127 +9,122 @@ import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import type { ProductType } from '@atlaskit/linking-common';
 
 jest.mock('../../../state/hooks/use-ai-summary', () => ({
-  useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
+	useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
 }));
 
 describe('ContentContainer', () => {
-  const content = 'test content';
-  const testId = 'test-id';
-  const url = 'https://some.url';
+	const content = 'test content';
+	const testId = 'test-id';
+	const url = 'https://some.url';
 
-  const setup = (
-    props: Partial<
-      ContentContainerProps & {
-        product: ProductType | undefined;
-      }
-    > = {},
-  ) =>
-    render(
-      <SmartCardProvider
-        storeOptions={{
-          initialState: {
-            [url]: {
-              status: 'resolved',
-              details: {
-                data: { url: url },
-              } as any,
-            },
-          },
-        }}
-        product={props.product}
-      >
-        <ContentContainer testId={testId} url={url} {...props}>
-          {content}
-        </ContentContainer>
-      </SmartCardProvider>,
-    );
+	const setup = (
+		props: Partial<
+			ContentContainerProps & {
+				product: ProductType | undefined;
+			}
+		> = {},
+	) =>
+		render(
+			<SmartCardProvider
+				storeOptions={{
+					initialState: {
+						[url]: {
+							status: 'resolved',
+							details: {
+								data: { url: url },
+							} as any,
+						},
+					},
+				}}
+				product={props.product}
+			>
+				<ContentContainer testId={testId} url={url} {...props}>
+					{content}
+				</ContentContainer>
+			</SmartCardProvider>,
+		);
 
-  describe('returns hover card content container', () => {
-    ffTest(
-      'platform.linking-platform.smart-card.hover-card-ai-summaries',
-      async () => {
-        const { findByTestId } = setup();
+	describe('returns hover card content container', () => {
+		ffTest('platform.linking-platform.smart-card.hover-card-ai-summaries', async () => {
+			const { findByTestId } = setup();
 
-        const contentContainer = await findByTestId(testId);
+			const contentContainer = await findByTestId(testId);
 
-        expect(contentContainer).toBeInTheDocument();
-        expect(contentContainer.textContent).toBe(content);
-        expect(contentContainer.classList.contains(hoverCardClassName)).toBe(
-          true,
-        );
-      },
-    );
-  });
+			expect(contentContainer).toBeInTheDocument();
+			expect(contentContainer.textContent).toBe(content);
+			expect(contentContainer.classList.contains(hoverCardClassName)).toBe(true);
+		});
+	});
 
-  describe('when AI summary is enabled', () => {
-    describe('wraps container in AI prism', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.hover-card-ai-summaries',
-        async () => {
-          const { findByTestId } = setup({ isAIEnabled: true });
-          const prism = await findByTestId(`${testId}-prism`);
-          const svg = prism.querySelector('svg');
+	describe('when AI summary is enabled', () => {
+		describe('wraps container in AI prism', () => {
+			ffTest(
+				'platform.linking-platform.smart-card.hover-card-ai-summaries',
+				async () => {
+					const { findByTestId } = setup({ isAIEnabled: true });
+					const prism = await findByTestId(`${testId}-prism`);
+					const svg = prism.querySelector('svg');
 
-          expect(prism).toBeInTheDocument();
-          expect(svg).toHaveStyleDeclaration('opacity', '0');
-        },
-        async () => {
-          const { queryByTestId } = setup({ isAIEnabled: true });
-          const prism = await queryByTestId(`${testId}-prism`);
-          expect(prism).not.toBeInTheDocument();
-        },
-      );
-    });
+					expect(prism).toBeInTheDocument();
+					expect(svg).toHaveStyleDeclaration('opacity', '0');
+				},
+				async () => {
+					const { queryByTestId } = setup({ isAIEnabled: true });
+					const prism = await queryByTestId(`${testId}-prism`);
+					expect(prism).not.toBeInTheDocument();
+				},
+			);
+		});
 
-    describe('shows AI prism', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.hover-card-ai-summaries',
-        async () => {
-          (useAISummary as jest.Mock).mockReturnValue({
-            state: { status: 'loading', content: '' },
-            summariseUrl: jest.fn(),
-          });
+		describe('shows AI prism', () => {
+			ffTest(
+				'platform.linking-platform.smart-card.hover-card-ai-summaries',
+				async () => {
+					(useAISummary as jest.Mock).mockReturnValue({
+						state: { status: 'loading', content: '' },
+						summariseUrl: jest.fn(),
+					});
 
-          const { findByTestId } = setup({
-            isAIEnabled: true,
-          });
+					const { findByTestId } = setup({
+						isAIEnabled: true,
+					});
 
-          const prism = await findByTestId(`${testId}-prism`);
-          const svg = prism.querySelector('svg');
-          expect(svg).toHaveStyleDeclaration('opacity', '1');
-        },
-        async () => {
-          const { queryByTestId } = setup({ isAIEnabled: true });
-          const prism = await queryByTestId(`${testId}-prism`);
-          expect(prism).not.toBeInTheDocument();
-        },
-      );
-    });
+					const prism = await findByTestId(`${testId}-prism`);
+					const svg = prism.querySelector('svg');
+					expect(svg).toHaveStyleDeclaration('opacity', '1');
+				},
+				async () => {
+					const { queryByTestId } = setup({ isAIEnabled: true });
+					const prism = await queryByTestId(`${testId}-prism`);
+					expect(prism).not.toBeInTheDocument();
+				},
+			);
+		});
 
-    describe('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.hover-card-ai-summaries',
-        async () => {
-          const productName: ProductType = 'ATLAS';
-          await setup({
-            isAIEnabled: true,
-            product: productName,
-          });
+		describe('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', () => {
+			ffTest(
+				'platform.linking-platform.smart-card.hover-card-ai-summaries',
+				async () => {
+					const productName: ProductType = 'ATLAS';
+					await setup({
+						isAIEnabled: true,
+						product: productName,
+					});
 
-          expect(useAISummary).toHaveBeenCalledWith(
-            expect.objectContaining({
-              product: productName,
-            }),
-          );
-          (useAISummary as jest.Mock).mockClear();
-        },
-        async () => {
-          await setup({
-            isAIEnabled: false,
-          });
-          expect(useAISummary).toHaveBeenCalledTimes(0);
-        },
-      );
-    });
-  });
+					expect(useAISummary).toHaveBeenCalledWith(
+						expect.objectContaining({
+							product: productName,
+						}),
+					);
+					(useAISummary as jest.Mock).mockClear();
+				},
+				async () => {
+					await setup({
+						isAIEnabled: false,
+					});
+					expect(useAISummary).toHaveBeenCalledTimes(0);
+				},
+			);
+		});
+	});
 });

@@ -54,6 +54,8 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Pozvat do Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Sdílet stránku',
   'fabric.elements.share.main.tab.text.jira': 'Sdílet požadavek',
+  'fabric.elements.share.menu.email.label': 'E-mail',
+  'fabric.elements.share.menu.slack.label': 'Slack',
   'fabric.elements.share.popup.label': 'Sdílet',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Příspěvek na blogu byl sdílen}board {Board byl sdílen}calendar {Kalendář byl sdílen}draft {Koncept byl sdílen}filter {Filtr byl sdílen}issue {Požadavek byl sdílen}summary {Souhrn byl sdílen}list {Seznam byl sdílen}timeline {Časová osa byla sdílena}form {Formulář byl sdílen}media {Multimédia byla sdílena}page {Stránka byla sdílena}project {Projekt byl sdílen}pullrequest {Pull request byl sdílen}question {Otázka byla sdílena}report {Sestava byla sdílena}repository {Repozitář byl sdílen}request {Žádost byla sdílena}roadmap {Časová osa byla sdílena}site {Web byl sdílen}space {Prostor byl sdílen}other {Odkaz byl sdílen}}',

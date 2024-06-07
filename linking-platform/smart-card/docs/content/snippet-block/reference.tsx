@@ -6,10 +6,10 @@ export default md`
 ### Props
 
 ${(
-  <Props
-    heading=""
-    props={require('!!extract-react-types-loader!../../../src/view/FlexibleCard/components/blocks/snippet-block')}
-  />
+	<Props
+		heading=""
+		props={require('!!extract-react-types-loader!../../../src/view/FlexibleCard/components/blocks/snippet-block')}
+	/>
 )}
 
 `;

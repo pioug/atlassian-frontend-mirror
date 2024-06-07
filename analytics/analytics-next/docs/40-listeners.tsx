@@ -8,9 +8,9 @@ export default md`
   An \`AnalyticsListener\` wraps your app and listens to any events which are fired within it.
 
   ${(
-    <Props
-      heading="AnalyticsListener Props"
-      props={require('!!extract-react-types-loader!../src/components/AnalyticsListener/LegacyAnalyticsListener')}
-    />
-  )}
+		<Props
+			heading="AnalyticsListener Props"
+			props={require('!!extract-react-types-loader!../src/components/AnalyticsListener/LegacyAnalyticsListener')}
+		/>
+	)}
 `;

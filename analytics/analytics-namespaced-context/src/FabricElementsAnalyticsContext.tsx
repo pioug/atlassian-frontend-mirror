@@ -3,5 +3,7 @@ import createNamespaceContext, { type Props } from './helper/createNamespaceCont
 
 export const ELEMENTS_CONTEXT = 'fabricElementsCtx';
 
-export const FabricElementsAnalyticsContext: FunctionComponent<Props> =
-  createNamespaceContext(ELEMENTS_CONTEXT, 'FabricElementsAnalyticsContext');
+export const FabricElementsAnalyticsContext: FunctionComponent<Props> = createNamespaceContext(
+	ELEMENTS_CONTEXT,
+	'FabricElementsAnalyticsContext',
+);

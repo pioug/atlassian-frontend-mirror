@@ -13,43 +13,35 @@ import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import type { AISummaryActionData } from '../../../../../../state/flexible-ui-context/types';
 
 export const AIFooterMetadata = ({
-  testId,
-  url,
-  ari,
-  product,
+	testId,
+	url,
+	ari,
+	product,
 }: AISummaryActionData & { testId?: string }) => {
-  di(useAISummary);
+	di(useAISummary);
 
-  const {
-    state: { status },
-  } = useAISummary({ url, ari, product });
+	const {
+		state: { status },
+	} = useAISummary({ url, ari, product });
 
-  if (status !== 'done') {
-    return null;
-  }
+	if (status !== 'done') {
+		return null;
+	}
 
-  return (
-    <Inline space="space.100" testId={testId} alignInline="end" grow="fill">
-      <Tooltip
-        content={<FormattedMessage {...messages.ai_summarized_info_short} />}
-        position="bottom"
-      >
-        {(tooltipProps) => (
-          <Box {...tooltipProps}>
-            <InfoIcon
-              label="Information"
-              size="small"
-              primaryColor={token('color.icon.subtle')}
-            />
-          </Box>
-        )}
-      </Tooltip>
+	return (
+		<Inline space="space.100" testId={testId} alignInline="end" grow="fill">
+			<Tooltip
+				content={<FormattedMessage {...messages.ai_summarized_info_short} />}
+				position="bottom"
+			>
+				{(tooltipProps) => (
+					<Box {...tooltipProps}>
+						<InfoIcon label="Information" size="small" primaryColor={token('color.icon.subtle')} />
+					</Box>
+				)}
+			</Tooltip>
 
-      <AIIcon
-        label="AI"
-        size="small"
-        primaryColor={token('color.icon.subtle')}
-      />
-    </Inline>
-  );
+			<AIIcon label="AI" size="small" primaryColor={token('color.icon.subtle')} />
+		</Inline>
+	);
 };

@@ -11,123 +11,118 @@ import Lozenge from '@atlaskit/lozenge';
 
 // Helper to make <React.Suspense> and React.lazy() work with Enzyme
 jest.mock('react', () => {
-  const React = jest.requireActual('react');
-  return {
-    ...React,
-    Suspense: ({ children }: { children: ReactChildren }) => children,
-    lazy: jest.fn().mockImplementation((fn) => {
-      const Component = (props: any) => {
-        const [C, setC] = React.useState();
-        React.useEffect(() => {
-          fn().then((v: any) => {
-            setC(v);
-          });
-        }, []);
-        return C ? <C.default {...props} /> : null;
-      };
-      return Component;
-    }),
-  };
+	const React = jest.requireActual('react');
+	return {
+		...React,
+		Suspense: ({ children }: { children: ReactChildren }) => children,
+		lazy: jest.fn().mockImplementation((fn) => {
+			const Component = (props: any) => {
+				const [C, setC] = React.useState();
+				React.useEffect(() => {
+					fn().then((v: any) => {
+						setC(v);
+					});
+				}, []);
+				return C ? <C.default {...props} /> : null;
+			};
+			return Component;
+		}),
+	};
 });
 
 const mentionWithNickname = {
-  id: '0',
-  name: 'Raina Halper',
-  mentionName: 'Caprice',
-  nickname: 'Carolyn',
-  avatarUrl: '',
+	id: '0',
+	name: 'Raina Halper',
+	mentionName: 'Caprice',
+	nickname: 'Carolyn',
+	avatarUrl: '',
 };
 
 const mentionWithoutNickname = {
-  id: '1',
-  name: 'Kaitlyn Prouty',
-  mentionName: 'Fidela',
-  avatarUrl: '',
+	id: '1',
+	name: 'Kaitlyn Prouty',
+	mentionName: 'Fidela',
+	avatarUrl: '',
 };
 
 const lozengeExamples: LozengeProps[] = [
-  {
-    text: 'GUEST',
-    appearance: 'new',
-  },
-  {
-    text: <div>GUEST</div>,
-    appearance: 'new',
-  },
+	{
+		text: 'GUEST',
+		appearance: 'new',
+	},
+	{
+		text: <div>GUEST</div>,
+		appearance: 'new',
+	},
 ];
 
-function setupMentionItem(
-  mention: MentionDescription,
-  props?: Props,
-): ReactWrapper<Props, State> {
-  return mountWithIntl(
-    <MentionItem mention={mention} onSelection={props && props.onSelection} />,
-  );
+function setupMentionItem(mention: MentionDescription, props?: Props): ReactWrapper<Props, State> {
+	return mountWithIntl(<MentionItem mention={mention} onSelection={props && props.onSelection} />);
 }
 
 describe('MentionItem', () => {
-  it('should display @-nickname if nickname is present', () => {
-    const component = setupMentionItem(mentionWithNickname);
-    expect(component.html()).toContain(`@${mentionWithNickname.nickname}`);
-  });
+	it('should display @-nickname if nickname is present', () => {
+		const component = setupMentionItem(mentionWithNickname);
+		expect(component.html()).toContain(`@${mentionWithNickname.nickname}`);
+	});
 
-  it('should not display @-name if nickname is not present', () => {
-    const component = setupMentionItem(mentionWithoutNickname);
-    expect(component.html()).not.toContain('@');
-  });
+	it('should not display @-name if nickname is not present', () => {
+		const component = setupMentionItem(mentionWithoutNickname);
+		expect(component.html()).not.toContain('@');
+	});
 
-  it('should display access restriction if accessLevel is NONE', async () => {
-    const component = setupMentionItem({
-      id: '1',
-      name: 'Kaitlyn Prouty',
-      mentionName: 'Fidela',
-      avatarUrl: '',
-      accessLevel: 'NONE',
-    });
+	it('should display access restriction if accessLevel is NONE', async () => {
+		const component = setupMentionItem({
+			id: '1',
+			name: 'Kaitlyn Prouty',
+			mentionName: 'Fidela',
+			avatarUrl: '',
+			accessLevel: 'NONE',
+		});
 
-    // await for LockCircle async import
-    await new Promise(setImmediate);
-    component.update();
+		// await for LockCircle async import
+		await new Promise(setImmediate);
+		component.update();
 
-    var icon = component.find(LockCircleIcon);
-    expect(icon).toHaveLength(1);
+		var icon = component.find(LockCircleIcon);
+		expect(icon).toHaveLength(1);
 
-    expect(component.find(LockCircleIcon)).toHaveLength(1);
-  });
+		expect(component.find(LockCircleIcon)).toHaveLength(1);
+	});
 
-  it('should not display access restriction if accessLevel is CONTAINER', () => {
-    const component = setupMentionItem({
-      id: '1',
-      name: 'Kaitlyn Prouty',
-      mentionName: 'Fidela',
-      avatarUrl: '',
-      accessLevel: 'CONTAINER',
-    });
-    expect(component.find(LockCircleIcon)).toHaveLength(0);
-  });
+	it('should not display access restriction if accessLevel is CONTAINER', () => {
+		const component = setupMentionItem({
+			id: '1',
+			name: 'Kaitlyn Prouty',
+			mentionName: 'Fidela',
+			avatarUrl: '',
+			accessLevel: 'CONTAINER',
+		});
+		expect(component.find(LockCircleIcon)).toHaveLength(0);
+	});
 
-  it('should not display access restriction if no accessLevel data', () => {
-    const component = setupMentionItem({
-      id: '1',
-      name: 'Kaitlyn Prouty',
-      mentionName: 'Fidela',
-      avatarUrl: '',
-    });
-    expect(component.find(LockCircleIcon)).toHaveLength(0);
-  });
+	it('should not display access restriction if no accessLevel data', () => {
+		const component = setupMentionItem({
+			id: '1',
+			name: 'Kaitlyn Prouty',
+			mentionName: 'Fidela',
+			avatarUrl: '',
+		});
+		expect(component.find(LockCircleIcon)).toHaveLength(0);
+	});
 
-  lozengeExamples.forEach((example) => {
-    it(`should render lozenge when passing in text of type ${typeof example} within LozengeProps`, () => {
-      const component = setupMentionItem({
-        id: '1',
-        name: 'Pranay Marella',
-        mentionName: 'Pmarella',
-        avatarUrl: '',
-        lozenge: example,
-      });
+	lozengeExamples.forEach((example) => {
+		it(`should render lozenge when passing in text of type ${typeof example} within LozengeProps`, () => {
+			const component = setupMentionItem({
+				id: '1',
+				name: 'Pranay Marella',
+				mentionName: 'Pmarella',
+				avatarUrl: '',
+				lozenge: example,
+			});
 
-      expect(component.find(Lozenge).text()).toContain('GUEST');
-      expect(component.find(Lozenge).prop('appearance')).toEqual('new');
-    });
-  });
+			expect(component.find(Lozenge).text()).toContain('GUEST');
+			expect(component.find(Lozenge).prop('appearance')).toEqual('new');
+		});
+	});
 });

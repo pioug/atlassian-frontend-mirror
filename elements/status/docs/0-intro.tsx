@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  md,
-  Example,
-  Props,
-  code,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
+import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
 import StatusExample from '../examples/00-simple-status';
 const StatusSource = require('!!raw-loader!../examples/00-simple-status');
@@ -24,13 +18,13 @@ This component is the implementation of the Status element in React.
   ${code`import { Status, Color } from '@atlaskit/status';`}
 
   ${(
-    <Example
-      packageName="@atlaskit/status"
-      Component={StatusExample}
-      title="Status"
-      source={StatusSource}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/status"
+			Component={StatusExample}
+			title="Status"
+			source={StatusSource}
+		/>
+	)}
 
   ### Status Picker
 
@@ -39,13 +33,13 @@ This component is the implementation of the Status element in React.
 
 
   ${(
-    <Example
-      packageName="@atlaskit/status"
-      Component={StatusPickerExample}
-      title="Status Picker"
-      source={StatusPickerSource}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/status"
+			Component={StatusPickerExample}
+			title="Status Picker"
+			source={StatusPickerSource}
+		/>
+	)}
 
   ${(<Props heading="StatusPicker Props" props={StatusPickerProps} />)}
 `;

@@ -4,11 +4,11 @@ import processEvent from './process-event';
 import GenericAnalyticsListener from '../GenericAnalyticsListener';
 
 export default function AtlaskitListener(props: ListenerProps) {
-  return (
-    <GenericAnalyticsListener
-      {...props}
-      channel={FabricChannel.atlaskit}
-      processEvent={processEvent}
-    />
-  );
+	return (
+		<GenericAnalyticsListener
+			{...props}
+			channel={FabricChannel.atlaskit}
+			processEvent={processEvent}
+		/>
+	);
 }

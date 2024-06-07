@@ -114,9 +114,7 @@ Object {
   "backgroundColor": "var(--ds-text-brand, #0052CC)",
   "borderRight": "1px solid var(--ds-border, rgba(107, 119, 140, 0.3))",
   "color": "var(--ds-text, #253858)",
-  "iconColor": "#2684FF",
-  "iconGradientStart": "#0052CC",
-  "iconGradientStop": "#2684FF",
+  "iconColor": "#357DE8",
 }
 `;
 

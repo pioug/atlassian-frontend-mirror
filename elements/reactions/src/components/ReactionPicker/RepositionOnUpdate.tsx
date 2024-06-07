@@ -5,31 +5,31 @@ import React, { Fragment, useLayoutEffect, useRef } from 'react';
 import { type PopperChildrenProps } from '@atlaskit/popper';
 
 export type RepositionOnUpdateProps = {
-  update: PopperChildrenProps['update'];
-  settings: {
-    isOpen: boolean;
-    showFullPicker: boolean;
-  };
+	update: PopperChildrenProps['update'];
+	settings: {
+		isOpen: boolean;
+		showFullPicker: boolean;
+	};
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const RepositionOnUpdate = ({
-  children,
-  update,
-  settings,
+	children,
+	update,
+	settings,
 }: React.PropsWithChildren<RepositionOnUpdateProps>) => {
-  // Ref used here to skip update on first render (when refs haven't been set)
-  const isFirstRenderRef = useRef<boolean>(true);
+	// Ref used here to skip update on first render (when refs haven't been set)
+	const isFirstRenderRef = useRef<boolean>(true);
 
-  useLayoutEffect(() => {
-    if (isFirstRenderRef.current) {
-      isFirstRenderRef.current = false;
-      return;
-    }
-    // callback function from popper that repositions pop-up on content Update
-    update();
-  }, [update, settings]);
+	useLayoutEffect(() => {
+		if (isFirstRenderRef.current) {
+			isFirstRenderRef.current = false;
+			return;
+		}
+		// callback function from popper that repositions pop-up on content Update
+		update();
+	}, [update, settings]);
 
-  // wrapping in fragment to make TS happy (known issue with FC returning children)
-  return <Fragment>{children}</Fragment>;
+	// wrapping in fragment to make TS happy (known issue with FC returning children)
+	return <Fragment>{children}</Fragment>;
 };

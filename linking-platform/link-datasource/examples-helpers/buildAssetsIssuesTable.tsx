@@ -14,58 +14,58 @@ import SmartLinkClient from './smartLinkCustomClient';
 import { useAssetsTableProps } from './useAssetsTableProps';
 
 interface AssetsTableViewProps {
-  parameters?: DatasourceParameters;
-  mockDatasourceFetchRequest?: boolean;
+	parameters?: DatasourceParameters;
+	mockDatasourceFetchRequest?: boolean;
 }
 
 const AssetsTableView = () => {
-  const datasourceParameters: AssetsDatasourceParameters = {
-    workspaceId: 'workspaceId',
-    aql: 'name like a',
-    schemaId: '2',
-  };
+	const datasourceParameters: AssetsDatasourceParameters = {
+		workspaceId: 'workspaceId',
+		aql: 'name like a',
+		schemaId: '2',
+	};
 
-  const {
-    visibleColumnKeys,
-    onVisibleColumnKeysChange,
-    columnCustomSizes,
-    onColumnResize,
-    wrappedColumnKeys,
-    onWrappedColumnChange,
-  } = useAssetsTableProps({
-    defaultColumnCustomSizes: {
-      people: 100,
-    },
-  });
+	const {
+		visibleColumnKeys,
+		onVisibleColumnKeysChange,
+		columnCustomSizes,
+		onColumnResize,
+		wrappedColumnKeys,
+		onWrappedColumnChange,
+	} = useAssetsTableProps({
+		defaultColumnCustomSizes: {
+			people: 100,
+		},
+	});
 
-  return (
-    <DatasourceTableView
-      datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
-      parameters={datasourceParameters}
-      visibleColumnKeys={visibleColumnKeys}
-      onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-      columnCustomSizes={columnCustomSizes}
-      onColumnResize={onColumnResize}
-      onWrappedColumnChange={onWrappedColumnChange}
-      wrappedColumnKeys={wrappedColumnKeys}
-    />
-  );
+	return (
+		<DatasourceTableView
+			datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
+			parameters={datasourceParameters}
+			visibleColumnKeys={visibleColumnKeys}
+			onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+			columnCustomSizes={columnCustomSizes}
+			onColumnResize={onColumnResize}
+			onWrappedColumnChange={onWrappedColumnChange}
+			wrappedColumnKeys={wrappedColumnKeys}
+		/>
+	);
 };
 
 export const ExampleAssetsIssuesTableView = ({
-  mockDatasourceFetchRequest = true,
+	mockDatasourceFetchRequest = true,
 }: AssetsTableViewProps) => {
-  useEffect(() => {
-    if (mockDatasourceFetchRequest) {
-      mockAssetsClientFetchRequests();
-    }
-  }, [mockDatasourceFetchRequest]);
+	useEffect(() => {
+		if (mockDatasourceFetchRequest) {
+			mockAssetsClientFetchRequests();
+		}
+	}, [mockDatasourceFetchRequest]);
 
-  return (
-    <IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
-      <SmartCardProvider client={new SmartLinkClient()}>
-        <AssetsTableView />
-      </SmartCardProvider>
-    </IntlMessagesProvider>
-  );
+	return (
+		<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
+			<SmartCardProvider client={new SmartLinkClient()}>
+				<AssetsTableView />
+			</SmartCardProvider>
+		</IntlMessagesProvider>
+	);
 };

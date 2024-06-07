@@ -5,73 +5,65 @@ import { type AnalyticsEventCreator, type CreateEventMap } from '../types';
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 
 export type PatchedPropsHook = {
-  patchedEventProps: CreateEventMap;
+	patchedEventProps: CreateEventMap;
 };
 
 type CacheEntry = {
-  eventCreator: any;
-  propValue: any;
-  wrappedCallback: any;
+	eventCreator: any;
+	propValue: any;
+	wrappedCallback: any;
 };
 
 export function usePatchedProps<Props extends Record<string, any>>(
-  createEventMap: CreateEventMap = {},
-  wrappedComponentProps: Props,
+	createEventMap: CreateEventMap = {},
+	wrappedComponentProps: Props,
 ): PatchedPropsHook {
-  const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const handlerCache = useRef<Record<string, CacheEntry>>({});
+	const handlerCache = useRef<Record<string, CacheEntry>>({});
 
-  const patchedProps = useMemo(() => {
-    const cache = handlerCache.current;
+	const patchedProps = useMemo(() => {
+		const cache = handlerCache.current;
 
-    // Clean up no longer used handlers in cache
-    Object.keys(cache)
-      .filter((key) => !(key in createEventMap))
-      .forEach((key) => delete cache[key]);
+		// Clean up no longer used handlers in cache
+		Object.keys(cache)
+			.filter((key) => !(key in createEventMap))
+			.forEach((key) => delete cache[key]);
 
-    return Object.keys(createEventMap).reduce<Props>((p, k) => {
-      const eventCreator = createEventMap[k];
-      if (!['object', 'function'].includes(typeof eventCreator)) {
-        return p;
-      }
+		return Object.keys(createEventMap).reduce<Props>((p, k) => {
+			const eventCreator = createEventMap[k];
+			if (!['object', 'function'].includes(typeof eventCreator)) {
+				return p;
+			}
 
-      const propValue = wrappedComponentProps[k];
+			const propValue = wrappedComponentProps[k];
 
-      if (
-        k in cache &&
-        cache[k].eventCreator === eventCreator &&
-        cache[k].propValue === propValue
-      ) {
-        return { ...p, [k]: cache[k].wrappedCallback };
-      }
+			if (
+				k in cache &&
+				cache[k].eventCreator === eventCreator &&
+				cache[k].propValue === propValue
+			) {
+				return { ...p, [k]: cache[k].wrappedCallback };
+			}
 
-      const wrappedCallback = (...args: any[]) => {
-        const analyticsEvent =
-          typeof eventCreator === 'function'
-            ? (eventCreator as AnalyticsEventCreator)(
-                createAnalyticsEvent,
-                wrappedComponentProps,
-              )
-            : createAnalyticsEvent(eventCreator);
+			const wrappedCallback = (...args: any[]) => {
+				const analyticsEvent =
+					typeof eventCreator === 'function'
+						? (eventCreator as AnalyticsEventCreator)(createAnalyticsEvent, wrappedComponentProps)
+						: createAnalyticsEvent(eventCreator);
 
-        if (propValue && typeof propValue === 'function') {
-          propValue(...args, analyticsEvent);
-        }
-      };
+				if (propValue && typeof propValue === 'function') {
+					propValue(...args, analyticsEvent);
+				}
+			};
 
-      cache[k] = { eventCreator, wrappedCallback, propValue };
+			cache[k] = { eventCreator, wrappedCallback, propValue };
 
-      return { ...p, [k]: wrappedCallback };
-    }, {} as Props);
-  }, [
-    createEventMap,
-    wrappedComponentProps,
-    createAnalyticsEvent,
-    handlerCache,
-  ]);
+			return { ...p, [k]: wrappedCallback };
+		}, {} as Props);
+	}, [createEventMap, wrappedComponentProps, createAnalyticsEvent, handlerCache]);
 
-  return {
-    patchedEventProps: patchedProps,
-  };
+	return {
+		patchedEventProps: patchedProps,
+	};
 }

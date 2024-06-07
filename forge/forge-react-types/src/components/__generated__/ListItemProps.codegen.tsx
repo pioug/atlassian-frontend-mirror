@@ -3,12 +3,12 @@
  *
  * Extract component prop types from UIKit 2 components - ListItemProps
  *
- * @codegen <<SignedSource::f8b0481037b4b94448b5c0efe56d3c59>>
+ * @codegen <<SignedSource::261df5a503c9bfb32074e9bee15f6050>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/list/listitem.tsx <<SignedSource::3ba118d6120d4962f681835e3deb7269>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/list/listitem.tsx <<SignedSource::7353d54ee8643fc5069490017c1da01f>>
  */
 import React from 'react';
 
 export interface ListItemProps {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }

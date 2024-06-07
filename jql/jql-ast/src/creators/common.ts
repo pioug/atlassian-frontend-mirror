@@ -9,7 +9,7 @@ export const noChildren = () => [];
  * Assign the provided node as the parent of all child nodes.
  */
 export const assignParent = (node: AstNode): void => {
-  node.getChildren().forEach(child => {
-    child.parent = node;
-  });
+	node.getChildren().forEach((child) => {
+		child.parent = node;
+	});
 };

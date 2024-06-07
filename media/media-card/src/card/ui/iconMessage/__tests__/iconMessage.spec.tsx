@@ -5,11 +5,9 @@ import { IconMessageWrapper } from '../iconMessageWrapper';
 import { messages } from '@atlaskit/media-ui';
 
 describe('iconMessage', () => {
-  it('should be rendered properly', () => {
-    const message = shallow(
-      <IconMessage messageDescriptor={messages.creating_preview} />,
-    );
-    const wrapper = message.find(IconMessageWrapper);
-    expect(wrapper).toHaveLength(1);
-  });
+	it('should be rendered properly', () => {
+		const message = shallow(<IconMessage messageDescriptor={messages.creating_preview} />);
+		const wrapper = message.find(IconMessageWrapper);
+		expect(wrapper).toHaveLength(1);
+	});
 });

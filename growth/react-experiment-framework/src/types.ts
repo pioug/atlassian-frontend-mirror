@@ -1,52 +1,50 @@
 export type ExperimentKey = string;
 
 export type EnrollmentDetails = {
-  cohort: string;
-  isEligible: boolean;
-  ineligibilityReasons?: string[];
+	cohort: string;
+	isEligible: boolean;
+	ineligibilityReasons?: string[];
 };
 
 export type ExperimentEnrollmentResolver = (
-  options?: ExperimentEnrollmentOptions,
+	options?: ExperimentEnrollmentOptions,
 ) => EnrollmentDetails | Promise<EnrollmentDetails>;
 
 export type ExperimentDetails =
-  | {
-      isEnrollmentDecided: false;
-      enrollmentResolver: ExperimentEnrollmentResolver;
-    }
-  | {
-      isEnrollmentDecided: true;
-      enrollmentDetails?: EnrollmentDetails;
-    };
+	| {
+			isEnrollmentDecided: false;
+			enrollmentResolver: ExperimentEnrollmentResolver;
+	  }
+	| {
+			isEnrollmentDecided: true;
+			enrollmentDetails?: EnrollmentDetails;
+	  };
 
 export type Experiments = {
-  [experimentKey: string]: ExperimentDetails;
+	[experimentKey: string]: ExperimentDetails;
 };
 
 export type ExperimentEnrollmentConfig = {
-  [experimentKey: string]: ExperimentEnrollmentResolver;
+	[experimentKey: string]: ExperimentEnrollmentResolver;
 };
 
 export type EnrollmentOptions = {
-  [experimentKey: string]: any;
+	[experimentKey: string]: any;
 };
 
-export type OptionsResolver = (
-  experimentKey: ExperimentKey,
-) => EnrollmentOptions;
+export type OptionsResolver = (experimentKey: ExperimentKey) => EnrollmentOptions;
 
 export type ExperimentEnrollmentOptions = EnrollmentOptions | OptionsResolver;
 
 export type ExperimentContext = {
-  experiments: Experiments;
-  options?: ExperimentEnrollmentOptions;
+	experiments: Experiments;
+	options?: ExperimentEnrollmentOptions;
 };
 
 export type ExposureDetails = EnrollmentDetails & {
-  experimentKey: ExperimentKey;
+	experimentKey: ExperimentKey;
 };
 
 export type ResolverPromises = {
-  [experimentKey: string]: Promise<EnrollmentDetails>;
+	[experimentKey: string]: Promise<EnrollmentDetails>;
 };

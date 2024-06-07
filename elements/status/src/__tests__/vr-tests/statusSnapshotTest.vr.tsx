@@ -1,12 +1,12 @@
 import { snapshot } from '@af/visual-regression';
 import SimpleStatus from '../../../examples/00-simple-status';
 import {
-  NeutralStatus,
-  PurpleStatus,
-  BlueStatus,
-  RedStatus,
-  YellowStatus,
-  GreenStatus,
+	NeutralStatus,
+	PurpleStatus,
+	BlueStatus,
+	RedStatus,
+	YellowStatus,
+	GreenStatus,
 } from '../../../examples/01-status-picker';
 
 snapshot(SimpleStatus);

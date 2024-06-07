@@ -1,3 +1,3 @@
 export default {
-  baseUrl: 'http://localhost:9000/reactions',
+	baseUrl: 'http://localhost:9000/reactions',
 };

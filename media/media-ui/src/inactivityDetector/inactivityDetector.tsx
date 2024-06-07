@@ -5,11 +5,11 @@ import { findParentByClassname } from '../util';
 import { InactivityDetectorWrapper } from './styled';
 
 export interface InactivityDetectorProps {
-  children: (triggerActivityCallback: () => void) => ReactElement;
+	children: (triggerActivityCallback: () => void) => ReactElement;
 }
 
 export interface InactivityDetectorState {
-  controlsAreVisible: boolean;
+	controlsAreVisible: boolean;
 }
 
 const mouseMovementDelay = 2000;
@@ -21,77 +21,77 @@ const mouseMovementDelay = 2000;
  *
  */
 export class InactivityDetector extends Component<
-  InactivityDetectorProps,
-  InactivityDetectorState
+	InactivityDetectorProps,
+	InactivityDetectorState
 > {
-  private checkActivityTimeout?: number;
-  private contentWrapperElement = React.createRef<HTMLDivElement>();
+	private checkActivityTimeout?: number;
+	private contentWrapperElement = React.createRef<HTMLDivElement>();
 
-  state: InactivityDetectorState = {
-    controlsAreVisible: true,
-  };
+	state: InactivityDetectorState = {
+		controlsAreVisible: true,
+	};
 
-  private clearTimeout = () => {
-    if (this.checkActivityTimeout) {
-      window.clearTimeout(this.checkActivityTimeout);
-    }
-  };
+	private clearTimeout = () => {
+		if (this.checkActivityTimeout) {
+			window.clearTimeout(this.checkActivityTimeout);
+		}
+	};
 
-  private hideControls = (element?: HTMLElement) => () => {
-    if (element) {
-      const isOverHideableElement = findParentByClassname(
-        element,
-        hideControlsClassName,
-        this.contentWrapperElement.current || undefined,
-      );
-      if (!isOverHideableElement) {
-        this.setState({ controlsAreVisible: false });
-      }
-    } else {
-      this.setState({ controlsAreVisible: false });
-    }
-  };
+	private hideControls = (element?: HTMLElement) => () => {
+		if (element) {
+			const isOverHideableElement = findParentByClassname(
+				element,
+				hideControlsClassName,
+				this.contentWrapperElement.current || undefined,
+			);
+			if (!isOverHideableElement) {
+				this.setState({ controlsAreVisible: false });
+			}
+		} else {
+			this.setState({ controlsAreVisible: false });
+		}
+	};
 
-  private checkMouseMovement = (e?: SyntheticEvent<HTMLElement>) => {
-    const { controlsAreVisible } = this.state;
-    this.clearTimeout();
-    // This check is needed to not trigger a render call on every movement.
-    // Even if nothing will be re-renderer since the value is the same, it
-    // will go into any children render method for nothing.
-    if (!controlsAreVisible) {
-      this.setState({ controlsAreVisible: true });
-    }
-    this.checkActivityTimeout = window.setTimeout(
-      this.hideControls(e && (e.target as HTMLElement)),
-      mouseMovementDelay,
-    );
-  };
+	private checkMouseMovement = (e?: SyntheticEvent<HTMLElement>) => {
+		const { controlsAreVisible } = this.state;
+		this.clearTimeout();
+		// This check is needed to not trigger a render call on every movement.
+		// Even if nothing will be re-renderer since the value is the same, it
+		// will go into any children render method for nothing.
+		if (!controlsAreVisible) {
+			this.setState({ controlsAreVisible: true });
+		}
+		this.checkActivityTimeout = window.setTimeout(
+			this.hideControls(e && (e.target as HTMLElement)),
+			mouseMovementDelay,
+		);
+	};
 
-  componentDidMount() {
-    this.checkMouseMovement();
-  }
+	componentDidMount() {
+		this.checkMouseMovement();
+	}
 
-  componentWillUnmount() {
-    this.clearTimeout();
-  }
+	componentWillUnmount() {
+		this.clearTimeout();
+	}
 
-  render() {
-    const { controlsAreVisible } = this.state;
-    const { children } = this.props;
+	render() {
+		const { controlsAreVisible } = this.state;
+		const { children } = this.props;
 
-    return (
-      <InactivityDetectorWrapper
-        ref={this.contentWrapperElement}
-        controlsAreVisible={controlsAreVisible}
-        onMouseMove={this.checkMouseMovement}
-        onMouseOut={() =>
-          // Do not pass element, hence forcing elements to be hidden.
-          this.checkMouseMovement()
-        }
-        onClick={this.checkMouseMovement}
-      >
-        {children(this.checkMouseMovement)}
-      </InactivityDetectorWrapper>
-    );
-  }
+		return (
+			<InactivityDetectorWrapper
+				ref={this.contentWrapperElement}
+				controlsAreVisible={controlsAreVisible}
+				onMouseMove={this.checkMouseMovement}
+				onMouseOut={() =>
+					// Do not pass element, hence forcing elements to be hidden.
+					this.checkMouseMovement()
+				}
+				onClick={this.checkMouseMovement}
+			>
+				{children(this.checkMouseMovement)}
+			</InactivityDetectorWrapper>
+		);
+	}
 }

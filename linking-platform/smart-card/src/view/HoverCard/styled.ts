@@ -10,11 +10,11 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 export const HOVER_CARD_Z_INDEX = layers.modal();
 
 export const flexibleUiOptions: FlexibleUiOptions = {
-  hideBackground: true,
-  hideElevation: true,
-  size: SmartLinkSize.Medium,
-  hideHoverCardPreviewButton: false,
-  zIndex: HOVER_CARD_Z_INDEX + 1,
+	hideBackground: true,
+	hideElevation: true,
+	size: SmartLinkSize.Medium,
+	hideHoverCardPreviewButton: false,
+	zIndex: HOVER_CARD_Z_INDEX + 1,
 };
 
 export const CARD_WIDTH_REM = 24;
@@ -26,69 +26,67 @@ const blockGap = '0.5rem';
 const elementGap = '0.5rem';
 
 export const separatorCss = css({
-  '[data-separator] + [data-separator]:before': {
-    marginRight: elementGap,
-  },
+	'[data-separator] + [data-separator]:before': {
+		marginRight: elementGap,
+	},
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const HoverCardContainer = css`
-  background: none;
-  border-width: 0;
-  box-sizing: border-box;
-  width: ${getBooleanFF(
-    'platform.linking-platform.smart-card.hover-card-ai-summaries',
-  )
-    ? NEW_CARD_WIDTH_REM
-    : CARD_WIDTH_REM}rem;
+	background: none;
+	border-width: 0;
+	box-sizing: border-box;
+	width: ${getBooleanFF('platform.linking-platform.smart-card.hover-card-ai-summaries')
+		? NEW_CARD_WIDTH_REM
+		: CARD_WIDTH_REM}rem;
 
-  .${loadingPlaceholderClassName} {
-    display: none;
-  }
+	.${loadingPlaceholderClassName} {
+		display: none;
+	}
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const titleBlockCss = css`
-  gap: ${blockGap};
+	gap: ${blockGap};
 
-  ${separatorCss}
+	${separatorCss}
 
-  // title and subtitle element group
+	// title and subtitle element group
   [data-smart-element-group] {
-    // gap between title and subtitle
-    gap: 0.06rem;
-    display: flex;
-    /* subtitle element group */
-    > [data-smart-element-group] {
-      > span {
-        margin-right: ${elementGap};
-      }
-    }
-  }
+		// gap between title and subtitle
+		gap: 0.06rem;
+		display: flex;
+		/* subtitle element group */
+		> [data-smart-element-group] {
+			> span {
+				margin-right: ${elementGap};
+			}
+		}
+	}
 
-  [data-smart-element='Title'] {
-    font-weight: 600;
-  }
+	[data-smart-element='Title'] {
+		font-weight: 600;
+	}
 `;
 
 export const getTransitionStyles = (snippetHeight: number) =>
-  css({
-    transition: 'height 300ms ease-in-out',
-    height: `${snippetHeight}px`,
-  });
+	css({
+		transition: 'height 300ms ease-in-out',
+		height: `${snippetHeight}px`,
+	});
 
 export const popupContainerStyles = css({
-  borderRadius: token('border.radius.200', '8px'),
-  backgroundColor: token('elevation.surface.overlay', 'white'),
-  boxShadow: token(
-    'elevation.shadow.overlay',
-    '0px 8px 12px rgba(9, 30, 66, 0.15),0px 0px 1px rgba(9, 30, 66, 0.31)',
-  ),
+	borderRadius: token('border.radius.200', '8px'),
+	backgroundColor: token('elevation.surface.overlay', 'white'),
+	boxShadow: token(
+		'elevation.shadow.overlay',
+		'0px 8px 12px rgba(9, 30, 66, 0.15),0px 0px 1px rgba(9, 30, 66, 0.31)',
+	),
 });
 
 export const getPreviewBlockStyles = (previewHeight?: number) =>
-  css(previewHeight ? `height: ${previewHeight}px;` : '', {
-    borderTopLeftRadius: token('border.radius.200', '8px'),
-    borderTopRightRadius: token('border.radius.200', '8px'),
-    marginBottom: blockGap,
-  });
+	css(previewHeight ? `height: ${previewHeight}px;` : '', {
+		borderTopLeftRadius: token('border.radius.200', '8px'),
+		borderTopRightRadius: token('border.radius.200', '8px'),
+		marginBottom: blockGap,
+	});

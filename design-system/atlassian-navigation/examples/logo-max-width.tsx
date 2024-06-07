@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { JiraWorkManagementIcon, JiraWorkManagementLogo } from '@atlaskit/logo';
+import {
+  JiraServiceManagementIcon,
+  JiraServiceManagementLogo,
+} from '@atlaskit/logo';
 
 import { AtlassianNavigation, CustomProductHome, ProductHome } from '../src';
 
@@ -10,8 +13,8 @@ import customLogo from './shared/assets/custom-logo-wide.png';
 const Home = () => (
   <ProductHome
     href="#"
-    icon={JiraWorkManagementIcon}
-    logo={JiraWorkManagementLogo}
+    icon={JiraServiceManagementIcon}
+    logo={JiraServiceManagementLogo}
     logoMaxWidth={200}
   />
 );

@@ -16,72 +16,69 @@ import { AccessRequiredSVG } from './access-required-svg';
 import { loadingErrorMessages } from './messages';
 
 const urlStyles = css({
-  color: token('color.text.subtlest', N400),
-  font: token('font.body', fontFallback.body.medium),
+	color: token('color.text.subtlest', N400),
+	font: token('font.body', fontFallback.body.medium),
 });
 
 const descriptionMessageStyles = css({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: token('space.200', '16px'),
+	display: 'flex',
+	flexDirection: 'column',
+	gap: token('space.200', '16px'),
 });
 
 const iconContainerStyles = xcss({
-  marginBottom: 'space.200',
+	marginBottom: 'space.200',
 });
 
 const Description = ({ message, url }: { message: string; url: string }) => {
-  return (
-    <div css={descriptionMessageStyles}>
-      <span css={urlStyles}>{url}</span>
-      <span>{message}</span>
-    </div>
-  );
+	return (
+		<div css={descriptionMessageStyles}>
+			<span css={urlStyles}>{url}</span>
+			<span>{message}</span>
+		</div>
+	);
 };
 
 const IconContainer = () => (
-  <Box xcss={iconContainerStyles}>
-    <AccessRequiredSVG />
-  </Box>
+	<Box xcss={iconContainerStyles}>
+		<AccessRequiredSVG />
+	</Box>
 );
 
 interface AccessRequiredProps {
-  /** The url to be displayed to the user when they are unauthorized to query */
-  url?: string;
+	/** The url to be displayed to the user when they are unauthorized to query */
+	url?: string;
 }
 
 export const AccessRequired = ({ url }: AccessRequiredProps) => {
-  const { formatMessage } = useIntl();
-  const { fireEvent } = useDatasourceAnalyticsEvents();
+	const { formatMessage } = useIntl();
+	const { fireEvent } = useDatasourceAnalyticsEvents();
 
-  useEffect(() => {
-    fireEvent('ui.error.shown', {
-      reason: 'access',
-    });
-  }, [fireEvent]);
+	useEffect(() => {
+		fireEvent('ui.error.shown', {
+			reason: 'access',
+		});
+	}, [fireEvent]);
 
-  if (url) {
-    return (
-      <EmptyState
-        testId="datasource--access-required-with-url"
-        header={formatMessage(loadingErrorMessages.accessRequiredWithSite)}
-        description={
-          <Description
-            message={formatMessage(loadingErrorMessages.accessInstructions)}
-            url={url}
-          />
-        }
-        renderImage={IconContainer}
-      />
-    );
-  }
+	if (url) {
+		return (
+			<EmptyState
+				testId="datasource--access-required-with-url"
+				header={formatMessage(loadingErrorMessages.accessRequiredWithSite)}
+				description={
+					<Description message={formatMessage(loadingErrorMessages.accessInstructions)} url={url} />
+				}
+				renderImage={IconContainer}
+			/>
+		);
+	}
 
-  return (
-    <EmptyState
-      testId="datasource--access-required"
-      header={formatMessage(loadingErrorMessages.accessRequired)}
-      description={formatMessage(loadingErrorMessages.accessInstructions)}
-      renderImage={IconContainer}
-    />
-  );
+	return (
+		<EmptyState
+			testId="datasource--access-required"
+			header={formatMessage(loadingErrorMessages.accessRequired)}
+			description={formatMessage(loadingErrorMessages.accessInstructions)}
+			renderImage={IconContainer}
+		/>
+	);
 };

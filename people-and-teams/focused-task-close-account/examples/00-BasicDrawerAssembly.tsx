@@ -7,45 +7,45 @@ import { catherineHirons } from '../src/mocks/users';
 import { IntlProvider } from 'react-intl-next';
 
 import {
-  FocusedTaskCloseAccount,
-  DeleteUserOverviewScreen,
-  DeleteUserContentPreviewScreen,
+	FocusedTaskCloseAccount,
+	DeleteUserOverviewScreen,
+	DeleteUserContentPreviewScreen,
 } from '../src';
 
 const submitButton = (
-  <Button appearance="primary" onClick={() => null}>
-    Delete account
-  </Button>
+	<Button appearance="primary" onClick={() => null}>
+		Delete account
+	</Button>
 );
 
 const preferenceSelection = () => {
-  // do nothing
+	// do nothing
 };
 
 export default function Example() {
-  return (
-    <React.Fragment>
-      <h1>See code</h1>
-      <IntlProvider locale="en">
-        <FocusedTaskCloseAccount
-          onClose={() => {}}
-          isOpen={false}
-          screens={[
-            <DeleteUserOverviewScreen
-              accessibleSites={accessibleSites}
-              isCurrentUser
-              user={catherineHirons}
-            />,
-            <DeleteUserContentPreviewScreen
-              user={catherineHirons}
-              isCurrentUser
-              preferenceSelection={preferenceSelection}
-            />,
-          ]}
-          submitButton={submitButton}
-          learnMoreLink={''}
-        />
-      </IntlProvider>
-    </React.Fragment>
-  );
+	return (
+		<React.Fragment>
+			<h1>See code</h1>
+			<IntlProvider locale="en">
+				<FocusedTaskCloseAccount
+					onClose={() => {}}
+					isOpen={false}
+					screens={[
+						<DeleteUserOverviewScreen
+							accessibleSites={accessibleSites}
+							isCurrentUser
+							user={catherineHirons}
+						/>,
+						<DeleteUserContentPreviewScreen
+							user={catherineHirons}
+							isCurrentUser
+							preferenceSelection={preferenceSelection}
+						/>,
+					]}
+					submitButton={submitButton}
+					learnMoreLink={''}
+				/>
+			</IntlProvider>
+		</React.Fragment>
+	);
 }

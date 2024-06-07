@@ -26,16 +26,16 @@ ${code`
   });`}
 
   ${(
-    <>
-      <br />
-      <SectionMessage
-        appearance="warning"
-        title="There should be only one instance of EmojiResource in your application"
-      >
-        <p>Make sure EmojiResource is initialised only once.</p>
-      </SectionMessage>
-    </>
-  )}
+		<>
+			<br />
+			<SectionMessage
+				appearance="warning"
+				title="There should be only one instance of EmojiResource in your application"
+			>
+				<p>Make sure EmojiResource is initialised only once.</p>
+			</SectionMessage>
+		</>
+	)}
 
 The emoji provider plays a vital role to glue with our backend emoji service. Emoji metadata is fetched based on the url defined in providers array.
 After a successful fetch the emoji resource holds emoji data for rendering emoji in picker, single emoji or the typeahead component.

@@ -6,200 +6,188 @@ import { localStoragePrefix } from '../src/util/constants';
 import type { EmojiDescription } from '../src/types';
 
 export interface EmojiUsageProps {
-  emojiProvider: EmojiProvider;
-  emojiList: Array<EmojiDescription>;
-  emojiQueue: Array<string>;
+	emojiProvider: EmojiProvider;
+	emojiList: Array<EmojiDescription>;
+	emojiQueue: Array<string>;
 }
 
 const EmojiUsageList = (props: React.PropsWithChildren<EmojiUsageProps>) => {
-  const { emojiList, emojiQueue, emojiProvider } = props;
+	const { emojiList, emojiQueue, emojiProvider } = props;
 
-  let emojiUsageList;
+	let emojiUsageList;
 
-  if (emojiList.length === 0) {
-    emojiUsageList = <span>None</span>;
-  } else {
-    emojiUsageList = (
-      <span>
-        {emojiList.map((emoji) => {
-          return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            <span key={emoji.id} style={{ marginRight: '15px' }}>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-              <span style={{ marginRight: '3px' }}>
-                ({emojiQueue.filter((emojiId) => emojiId === emoji.id).length})
-              </span>
-              <ResourcedEmoji
-                emojiId={emoji}
-                emojiProvider={Promise.resolve(emojiProvider)}
-                showTooltip={true}
-              />
-            </span>
-          );
-        })}
-      </span>
-    );
-  }
+	if (emojiList.length === 0) {
+		emojiUsageList = <span>None</span>;
+	} else {
+		emojiUsageList = (
+			<span>
+				{emojiList.map((emoji) => {
+					return (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						<span key={emoji.id} style={{ marginRight: '15px' }}>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+							<span style={{ marginRight: '3px' }}>
+								({emojiQueue.filter((emojiId) => emojiId === emoji.id).length})
+							</span>
+							<ResourcedEmoji
+								emojiId={emoji}
+								emojiProvider={Promise.resolve(emojiProvider)}
+								showTooltip={true}
+							/>
+						</span>
+					);
+				})}
+			</span>
+		);
+	}
 
-  return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-      <h4>Emojis ordered by usage</h4>
-      {emojiUsageList}
-    </div>
-  );
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+			<h4>Emojis ordered by usage</h4>
+			{emojiUsageList}
+		</div>
+	);
 };
 
 export interface LocalStorageViewProps {
-  emojiProvider: EmojiProvider;
-  emojiQueue: Array<string>;
+	emojiProvider: EmojiProvider;
+	emojiQueue: Array<string>;
 }
 
-export class LocalStorageView extends PureComponent<
-  LocalStorageViewProps,
-  any
-> {
-  constructor(props: LocalStorageViewProps) {
-    super(props);
-  }
+export class LocalStorageView extends PureComponent<LocalStorageViewProps, any> {
+	constructor(props: LocalStorageViewProps) {
+		super(props);
+	}
 
-  render() {
-    let renderedQueue;
-    if (this.props.emojiQueue.length === 0) {
-      renderedQueue = <span>None</span>;
-    } else {
-      renderedQueue = (
-        <span>
-          {this.props.emojiQueue.map((id, index) => {
-            return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-              <span key={index} style={{ marginRight: '3px' }}>
-                <ResourcedEmoji
-                  emojiId={{ id: id, shortName: 'unknown' }}
-                  emojiProvider={Promise.resolve(this.props.emojiProvider)}
-                  showTooltip={false}
-                />
-                <span>({id})</span>
-              </span>
-            );
-          })}
-        </span>
-      );
-    }
+	render() {
+		let renderedQueue;
+		if (this.props.emojiQueue.length === 0) {
+			renderedQueue = <span>None</span>;
+		} else {
+			renderedQueue = (
+				<span>
+					{this.props.emojiQueue.map((id, index) => {
+						return (
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							<span key={index} style={{ marginRight: '3px' }}>
+								<ResourcedEmoji
+									emojiId={{ id: id, shortName: 'unknown' }}
+									emojiProvider={Promise.resolve(this.props.emojiProvider)}
+									showTooltip={false}
+								/>
+								<span>({id})</span>
+							</span>
+						);
+					})}
+				</span>
+			);
+		}
 
-    return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-        <h4>Emoji Queue (from localStorage)</h4>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-          {renderedQueue}
-        </pre>
-      </div>
-    );
-  }
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			<div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+				<h4>Emoji Queue (from localStorage)</h4>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{renderedQueue}</pre>
+			</div>
+		);
+	}
 }
 
 export interface UsagingShowingProps {
-  emojiResource: any;
+	emojiResource: any;
 }
 
 export interface UsageShowingState {
-  emojiList: Array<EmojiDescription>;
-  emojiQueue: Array<string>;
+	emojiList: Array<EmojiDescription>;
+	emojiQueue: Array<string>;
 }
 
 /**
  * Extend this class if you want to wrap an emoji component such that emoji usage is displayed after it.
  */
 export abstract class UsageShowAndClearComponent extends PureComponent<
-  UsagingShowingProps,
-  UsageShowingState
+	UsagingShowingProps,
+	UsageShowingState
 > {
-  constructor(props: UsagingShowingProps) {
-    super(props);
-    this.state = {
-      emojiList: [],
-      emojiQueue: this.getEmojiQueue(),
-    };
-  }
+	constructor(props: UsagingShowingProps) {
+		super(props);
+		this.state = {
+			emojiList: [],
+			emojiQueue: this.getEmojiQueue(),
+		};
+	}
 
-  componentDidMount() {
-    this.refreshFrequentlyUsedList();
-  }
+	componentDidMount() {
+		this.refreshFrequentlyUsedList();
+	}
 
-  onSelection = (): void => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    // give the tracker a chance to write to the queue and local storage before updating state
-    window.setTimeout(() => {
-      this.refreshFrequentlyUsedList();
-    });
-  };
+	onSelection = (): void => {
+		if (typeof window === 'undefined') {
+			return;
+		}
+		// give the tracker a chance to write to the queue and local storage before updating state
+		window.setTimeout(() => {
+			this.refreshFrequentlyUsedList();
+		});
+	};
 
-  clearUsageData = (): void => {
-    const { emojiResource } = this.props;
-    emojiResource.clearFrequentlyUsed();
-    this.refreshFrequentlyUsedList();
-  };
+	clearUsageData = (): void => {
+		const { emojiResource } = this.props;
+		emojiResource.clearFrequentlyUsed();
+		this.refreshFrequentlyUsedList();
+	};
 
-  protected refreshFrequentlyUsedList() {
-    this.props.emojiResource
-      .getFrequentlyUsed()
-      .then(this.onRefreshedFrequentlyUsedList);
-  }
+	protected refreshFrequentlyUsedList() {
+		this.props.emojiResource.getFrequentlyUsed().then(this.onRefreshedFrequentlyUsedList);
+	}
 
-  protected onRefreshedFrequentlyUsedList = (
-    emojiList: EmojiDescription[],
-  ): void => {
-    this.setState({
-      emojiList,
-      emojiQueue: this.getEmojiQueue(),
-    });
-  };
+	protected onRefreshedFrequentlyUsedList = (emojiList: EmojiDescription[]): void => {
+		this.setState({
+			emojiList,
+			emojiQueue: this.getEmojiQueue(),
+		});
+	};
 
-  protected abstract getWrappedComponent(): JSX.Element;
+	protected abstract getWrappedComponent(): JSX.Element;
 
-  getEmojiQueue(): Array<string> {
-    if (typeof window === 'undefined') {
-      return [];
-    }
-    const json = window.localStorage.getItem(`${localStoragePrefix}.lastUsed`);
-    if (json) {
-      try {
-        return JSON.parse(json);
-      } catch (e) {
-        // swallow any parse exception
-      }
-    }
+	getEmojiQueue(): Array<string> {
+		if (typeof window === 'undefined') {
+			return [];
+		}
+		const json = window.localStorage.getItem(`${localStoragePrefix}.lastUsed`);
+		if (json) {
+			try {
+				return JSON.parse(json);
+			} catch (e) {
+				// swallow any parse exception
+			}
+		}
 
-    return new Array<string>();
-  }
+		return new Array<string>();
+	}
 
-  render() {
-    const { emojiResource } = this.props;
-    const { emojiList, emojiQueue } = this.state;
+	render() {
+		const { emojiResource } = this.props;
+		const { emojiList, emojiQueue } = this.state;
 
-    const wrappedComponent = this.getWrappedComponent();
+		const wrappedComponent = this.getWrappedComponent();
 
-    return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      <div style={{ padding: '10px' }}>
-        {wrappedComponent}
-        <div>
-          <button onClick={this.clearUsageData}>Clear All Usage</button>
-        </div>
-        <EmojiUsageList
-          emojiProvider={emojiResource as EmojiProvider}
-          emojiList={emojiList}
-          emojiQueue={emojiQueue}
-        />
-        <LocalStorageView
-          emojiProvider={emojiResource as EmojiProvider}
-          emojiQueue={emojiQueue}
-        />
-      </div>
-    );
-  }
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			<div style={{ padding: '10px' }}>
+				{wrappedComponent}
+				<div>
+					<button onClick={this.clearUsageData}>Clear All Usage</button>
+				</div>
+				<EmojiUsageList
+					emojiProvider={emojiResource as EmojiProvider}
+					emojiList={emojiList}
+					emojiQueue={emojiQueue}
+				/>
+				<LocalStorageView emojiProvider={emojiResource as EmojiProvider} emojiQueue={emojiQueue} />
+			</div>
+		);
+	}
 }

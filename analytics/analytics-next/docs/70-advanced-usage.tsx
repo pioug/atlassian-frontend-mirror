@@ -52,13 +52,13 @@ const SaveButton = ({ onClick }) => (
   Below is a fleshed out example demonstrating how to add extra information to the event's payload.
 
   ${(
-    <Example
-      packageName="@atlaskit/analytics-next"
-      Component={require('../examples/40-updating-an-event').default}
-      title="Updating an event's payload"
-      source={require('!!raw-loader!../examples/40-updating-an-event')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/analytics-next"
+			Component={require('../examples/40-updating-an-event').default}
+			title="Updating an event's payload"
+			source={require('!!raw-loader!../examples/40-updating-an-event')}
+		/>
+	)}
 
   <a name="using-a-channel"></a>
   ## Using a channel
@@ -162,13 +162,13 @@ const ButtonWithAnalytics = withAnalyticsEvents({
 `}
 
   ${(
-    <Example
-      packageName="@atlaskit/analytics-next"
-      Component={require('../examples/30-passing-events-to-a-callback').default}
-      title="Passing events through callbacks"
-      source={require('!!raw-loader!../examples/30-passing-events-to-a-callback')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/analytics-next"
+			Component={require('../examples/30-passing-events-to-a-callback').default}
+			title="Passing events through callbacks"
+			source={require('!!raw-loader!../examples/30-passing-events-to-a-callback')}
+		/>
+	)}
 
   <a name="cloning-an-event"></a>
   ## Cloning an event
@@ -220,13 +220,13 @@ const FormWithAnalytics = withAnalyticsEvents({
   and return a clone of the event.
 
   ${(
-    <Example
-      packageName="@atlaskit/analytics-next"
-      Component={require('../examples/50-cloning-an-event').default}
-      title="Cloning an event"
-      source={require('!!raw-loader!../examples/50-cloning-an-event')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/analytics-next"
+			Component={require('../examples/50-cloning-an-event').default}
+			title="Cloning an event"
+			source={require('!!raw-loader!../examples/50-cloning-an-event')}
+		/>
+	)}
 
   <a name="tracking-events-outside-the-ui"></a>
   ## Tracking events outside the UI

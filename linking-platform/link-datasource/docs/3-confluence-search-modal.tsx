@@ -84,13 +84,11 @@ overrideParameters?: Pick<
   ## Example
 
   ${(
-    <Example
-      packageName="@atlaskit/link-datasource"
-      Component={
-        require('./examples/basic-confluence-search-config-modal').default
-      }
-      title="Confluence Search Configuration Modal"
-      source={require('!!raw-loader!./examples/basic-confluence-search-config-modal')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/link-datasource"
+			Component={require('./examples/basic-confluence-search-config-modal').default}
+			title="Confluence Search Configuration Modal"
+			source={require('!!raw-loader!./examples/basic-confluence-search-config-modal')}
+		/>
+	)}
 `;

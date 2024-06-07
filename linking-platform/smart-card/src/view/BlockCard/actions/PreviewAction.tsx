@@ -14,33 +14,33 @@ Most of these are optional as we are being fault-tolerant
 However src, details, icon, title, and providerName are STRONGLY encouraged
 */
 type PreviewInfo = {
-  src?: string;
-  testId?: string;
-  details?: Array<MetadataProps>;
-  icon?: IconProps;
-  url?: string;
-  title?: string;
-  providerName?: string;
-  download?: string;
-  byline?: React.ReactNode;
-  onViewActionClick?: () => void;
-  onDownloadActionClick?: () => void;
-  onOpen?: () => void;
-  onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
-  analytics: AnalyticsFacade;
-  origin?: AnalyticsOrigin;
-  isSupportTheming?: boolean;
-  extensionKey?: string;
+	src?: string;
+	testId?: string;
+	details?: Array<MetadataProps>;
+	icon?: IconProps;
+	url?: string;
+	title?: string;
+	providerName?: string;
+	download?: string;
+	byline?: React.ReactNode;
+	onViewActionClick?: () => void;
+	onDownloadActionClick?: () => void;
+	onOpen?: () => void;
+	onOpenFailed?: (error: Error, errorInfo: ErrorInfo) => void;
+	analytics: AnalyticsFacade;
+	origin?: AnalyticsOrigin;
+	isSupportTheming?: boolean;
+	extensionKey?: string;
 };
 
 export default ({ details, ...rest }: PreviewInfo): ActionProps => ({
-  id: 'preview-content',
-  text: <FormattedMessage {...messages.preview_improved} />,
-  promise: () =>
-    openEmbedModal({
-      providerName: 'Preview',
-      showModal: true,
-      onClose: () => {},
-      ...rest,
-    }),
+	id: 'preview-content',
+	text: <FormattedMessage {...messages.preview_improved} />,
+	promise: () =>
+		openEmbedModal({
+			providerName: 'Preview',
+			showModal: true,
+			onClose: () => {},
+			...rest,
+		}),
 });

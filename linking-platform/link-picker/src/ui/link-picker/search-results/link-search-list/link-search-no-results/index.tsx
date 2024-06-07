@@ -11,46 +11,42 @@ import { NoResultsSVG } from './no-results-svg';
 import { emptyStateWrapperStyles } from './styled';
 
 export const messages = defineMessages({
-  noResults: {
-    id: 'fabric.linkPicker.search.noResults.heading',
-    defaultMessage: 'We couldn’t find anything matching your search.',
-    description: 'Heading message shown when a search has no results',
-  },
-  noResultsDescription: {
-    id: 'fabric.linkPicker.search.noResults.description',
-    defaultMessage: 'Try again with a different term.',
-    description: 'Describes possible action when a search returns no results',
-  },
+	noResults: {
+		id: 'fabric.linkPicker.search.noResults.heading',
+		defaultMessage: 'We couldn’t find anything matching your search.',
+		description: 'Heading message shown when a search has no results',
+	},
+	noResultsDescription: {
+		id: 'fabric.linkPicker.search.noResults.description',
+		defaultMessage: 'Try again with a different term.',
+		description: 'Describes possible action when a search returns no results',
+	},
 });
 
 export const testIds = {
-  emptyResultPage: 'link-search-no-results',
+	emptyResultPage: 'link-search-no-results',
 };
 
 export const NoResults = () => {
-  const intl = useIntl();
+	const intl = useIntl();
 
-  const Component = getBooleanFF(
-    'platform.linking-platform.link-picker.remove-dst-empty-state',
-  )
-    ? EmptyStateInternal
-    : EmptyState;
+	const Component = getBooleanFF('platform.linking-platform.link-picker.remove-dst-empty-state')
+		? EmptyStateInternal
+		: EmptyState;
 
-  return (
-    <div css={emptyStateWrapperStyles}>
-      <Component
-        testId={testIds.emptyResultPage}
-        header={intl.formatMessage(messages.noResults)}
-        headingLevel={
-          getBooleanFF(
-            'platform.linking-platform.link-picker.remove-dst-empty-state',
-          )
-            ? undefined
-            : 3
-        }
-        description={intl.formatMessage(messages.noResultsDescription)}
-        renderImage={() => <NoResultsSVG />}
-      />
-    </div>
-  );
+	return (
+		<div css={emptyStateWrapperStyles}>
+			<Component
+				testId={testIds.emptyResultPage}
+				header={intl.formatMessage(messages.noResults)}
+				headingLevel={
+					getBooleanFF('platform.linking-platform.link-picker.remove-dst-empty-state')
+						? undefined
+						: 3
+				}
+				description={intl.formatMessage(messages.noResultsDescription)}
+				renderImage={() => <NoResultsSVG />}
+			/>
+		</div>
+	);
 };

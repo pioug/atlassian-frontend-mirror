@@ -3,10 +3,10 @@ import outdent from 'outdent';
 import { type Tests } from '../../__tests__/utils/_types';
 
 const error =
-  'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.';
+	'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.';
 
 const valid: string[] = [
-  outdent`
+	outdent`
     // ignores styles that don't contain fixable properties
     import { cssMap } from '@compiled/react';
 
@@ -17,7 +17,7 @@ const valid: string[] = [
       } 
     });
   `,
-  outdent`
+	outdent`
     // ignores multi-values
     import { cssMap } from '@compiled/react';
 
@@ -27,7 +27,7 @@ const valid: string[] = [
       } 
     });
   `,
-  outdent`
+	outdent`
     // ignores 0 (to match ensure-design-token-usage)
     import { cssMap } from '@compiled/react';
 
@@ -40,7 +40,7 @@ const valid: string[] = [
       } 
     });
   `,
-  outdent`
+	outdent`
     // ignores already tokenised values
     import { cssMap } from '@compiled/react';
     import { token } from '@atlaskit/tokens';
@@ -51,7 +51,7 @@ const valid: string[] = [
       } 
     });
   `,
-  outdent`
+	outdent`
     // ignores CSS global values
     import { cssMap } from '@compiled/react';
     import { token } from '@atlaskit/tokens';
@@ -63,7 +63,7 @@ const valid: string[] = [
       } 
     });
   `,
-  outdent`
+	outdent`
     // ignores CSS vars
     import { cssMap } from '@compiled/react';
     import { token } from '@atlaskit/tokens';
@@ -74,7 +74,7 @@ const valid: string[] = [
       } 
     });
   `,
-  outdent`
+	outdent`
     // ignores complicated values
     import { cssMap } from '@compiled/react';
 
@@ -92,8 +92,8 @@ const valid: string[] = [
 ];
 
 const invalid = [
-  {
-    code: outdent`
+	{
+		code: outdent`
       // it suggests token for tokenisable entry
       import { cssMap } from '@compiled/react';
 
@@ -103,8 +103,8 @@ const invalid = [
         }
       });
     `,
-    errors: [error],
-    output: outdent`
+		errors: [error],
+		output: outdent`
       // it suggests token for tokenisable entry
       import { token } from '@atlaskit/tokens';
       import { cssMap } from '@compiled/react';
@@ -115,10 +115,10 @@ const invalid = [
         }
       });
     `,
-  },
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // raises a violation with no fixes for non-tokenisable values
       import { cssMap } from '@compiled/react';
       const containerStyles = cssMap({
@@ -127,11 +127,11 @@ const invalid = [
         }
       });
     `,
-    errors: [error],
-  },
+		errors: [error],
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // reports on css array syntax
       import { cssMap } from '@compiled/react';
       const paddingStyles = cssMap([
@@ -140,8 +140,8 @@ const invalid = [
         },
       ]);
     `,
-    errors: [error],
-    output: outdent`
+		errors: [error],
+		output: outdent`
       // reports on css array syntax
       import { token } from '@atlaskit/tokens';
       import { cssMap } from '@compiled/react';
@@ -151,10 +151,10 @@ const invalid = [
         },
       ]);
     `,
-  },
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // it suggests token for css call with numbers
       import { cssMap } from '@compiled/react';
       const paddingStyles = cssMap({
@@ -163,8 +163,8 @@ const invalid = [
         }
       });
     `,
-    errors: [error],
-    output: outdent`
+		errors: [error],
+		output: outdent`
       // it suggests token for css call with numbers
       import { token } from '@atlaskit/tokens';
       import { cssMap } from '@compiled/react';
@@ -174,10 +174,10 @@ const invalid = [
         }
       });
     `,
-  },
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // it suggests token valid negative values
       import { cssMap } from '@compiled/react';
       const containerStyles = cssMap({
@@ -186,8 +186,8 @@ const invalid = [
         }
       });
     `,
-    errors: [error],
-    output: outdent`
+		errors: [error],
+		output: outdent`
       // it suggests token valid negative values
       import { token } from '@atlaskit/tokens';
       import { cssMap } from '@compiled/react';
@@ -197,10 +197,10 @@ const invalid = [
         }
       });
     `,
-  },
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // handles nested styles
       import { cssMap } from '@compiled/react';
       const containerStyles = cssMap({
@@ -211,8 +211,8 @@ const invalid = [
         }
       });
     `,
-    errors: [error],
-    output: outdent`
+		errors: [error],
+		output: outdent`
       // handles nested styles
       import { token } from '@atlaskit/tokens';
       import { cssMap } from '@compiled/react';
@@ -224,10 +224,10 @@ const invalid = [
         }
       });
     `,
-  },
+	},
 
-  {
-    code: outdent`
+	{
+		code: outdent`
       // handles deeply nested styles
       import { cssMap } from '@compiled/react';
       const containerStyles = cssMap({
@@ -242,8 +242,8 @@ const invalid = [
         },
       });
     `,
-    errors: [error],
-    output: outdent`
+		errors: [error],
+		output: outdent`
       // handles deeply nested styles
       import { token } from '@atlaskit/tokens';
       import { cssMap } from '@compiled/react';
@@ -259,10 +259,10 @@ const invalid = [
         },
       });
     `,
-  },
+	},
 ];
 
 export const tests: Tests = {
-  valid,
-  invalid,
+	valid,
+	invalid,
 };

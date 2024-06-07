@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  md,
-  code,
-  Example,
-  Props,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
+import { md, code, Example, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -22,17 +16,17 @@ export default md`
   ${code`import { NotificationIndicator } from '@atlaskit/notification-indicator';`}
 
   ${(
-    <Example
-      Component={require('../examples/00-basic').default}
-      title="Basic"
-      source={require('!!raw-loader!../examples/00-basic')}
-    />
-  )}
+		<Example
+			Component={require('../examples/00-basic').default}
+			title="Basic"
+			source={require('!!raw-loader!../examples/00-basic')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/NotificationIndicator')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/NotificationIndicator')}
+		/>
+	)}
 `;

@@ -4,763 +4,757 @@ import { type AnalyticsPayload } from '../types';
 import { type CardInnerAppearance } from '../../view/Card/types';
 import { getMeasure } from '../performance';
 import {
-  type CommonEventProps,
-  type ConnectFailedEventProps,
-  type ConnectSucceededEventProps,
-  type InvokeFailedEventProps,
-  type InvokeSucceededEventProps,
-  type ResolvedEventProps,
-  type ScreenAuthPopupEventProps,
-  type TrackAppAccountConnectedProps,
-  type UiActionClickedEventProps,
-  type UiAuthAlternateAccountEventProps,
-  type UiAuthEventProps,
-  type UiCardClickedEventProps,
-  type UiClosedAuthEventProps,
-  type UiHoverCardDismissedEventProps,
-  type UiHoverCardOpenLinkClickedEventProps,
-  type UiHoverCardViewedEventProps,
-  type UiIframeDwelledEventProps,
-  type UiIframeFocusedEventProps,
-  type UiRenderFailedEventProps,
-  type UiRenderSuccessEventProps,
-  type UiServerActionClickedEventProps,
-  type UnresolvedEventProps,
+	type CommonEventProps,
+	type ConnectFailedEventProps,
+	type ConnectSucceededEventProps,
+	type InvokeFailedEventProps,
+	type InvokeSucceededEventProps,
+	type ResolvedEventProps,
+	type ScreenAuthPopupEventProps,
+	type TrackAppAccountConnectedProps,
+	type UiActionClickedEventProps,
+	type UiAuthAlternateAccountEventProps,
+	type UiAuthEventProps,
+	type UiCardClickedEventProps,
+	type UiClosedAuthEventProps,
+	type UiHoverCardDismissedEventProps,
+	type UiHoverCardOpenLinkClickedEventProps,
+	type UiHoverCardViewedEventProps,
+	type UiIframeDwelledEventProps,
+	type UiIframeFocusedEventProps,
+	type UiRenderFailedEventProps,
+	type UiRenderSuccessEventProps,
+	type UiServerActionClickedEventProps,
+	type UnresolvedEventProps,
 } from './types';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 export const ANALYTICS_CHANNEL = 'media';
 
 export const context = {
-  componentName: 'smart-cards',
-  packageName: process.env._PACKAGE_NAME_,
-  packageVersion: process.env._PACKAGE_VERSION_,
+	componentName: 'smart-cards',
+	packageName: process.env._PACKAGE_NAME_,
+	packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 export enum TrackQuickActionType {
-  StatusUpdate = 'StatusUpdate',
+	StatusUpdate = 'StatusUpdate',
 }
 
 export enum TrackQuickActionFailureReason {
-  PermissionError = 'PermissionError',
-  ValidationError = 'ValidationError',
-  UnknownError = 'UnknownError',
+	PermissionError = 'PermissionError',
+	ValidationError = 'ValidationError',
+	UnknownError = 'UnknownError',
 }
 
 export const SmartLinkActionTypeTrackingEventMapper: Record<string, string> = {
-  [SmartLinkActionType.FollowEntityAction]: 'Follow',
-  [SmartLinkActionType.StatusUpdateAction]: 'StatusUpdate',
-  [SmartLinkActionType.UnfollowEntityAction]: 'Unfollow',
+	[SmartLinkActionType.FollowEntityAction]: 'Follow',
+	[SmartLinkActionType.StatusUpdateAction]: 'StatusUpdate',
+	[SmartLinkActionType.UnfollowEntityAction]: 'Unfollow',
 };
 
 export const SmartLinkActionTypeUiEventMapper: Record<string, string> = {
-  [SmartLinkActionType.FollowEntityAction]: 'smartLinkFollowButton',
-  [SmartLinkActionType.UnfollowEntityAction]: 'smartLinkFollowButton',
+	[SmartLinkActionType.FollowEntityAction]: 'smartLinkFollowButton',
+	[SmartLinkActionType.UnfollowEntityAction]: 'smartLinkFollowButton',
 };
 
 const uiActionSubjectIds: Record<string, string> = {
-  DownloadAction: 'downloadDocument',
-  PreviewAction: 'invokePreviewScreen',
-  ViewAction: 'shortcutGoToLink',
-  StatusAction: 'issueStatusUpdate',
+	DownloadAction: 'downloadDocument',
+	PreviewAction: 'invokePreviewScreen',
+	ViewAction: 'shortcutGoToLink',
+	StatusAction: 'issueStatusUpdate',
 };
 
 export class SmartLinkEvents {
-  public insertSmartLink(
-    url: string,
-    type: CardInnerAppearance,
-    createAnalyticsEvent?: CreateUIAnalyticsEvent,
-  ) {
-    fireSmartLinkEvent(
-      {
-        action: 'inserted',
-        actionSubject: 'smartLink',
-        eventType: 'track',
-        attributes: {
-          type,
-        },
-        nonPrivacySafeAttributes: {
-          domainName: url,
-        },
-      },
-      createAnalyticsEvent,
-    );
-  }
+	public insertSmartLink(
+		url: string,
+		type: CardInnerAppearance,
+		createAnalyticsEvent?: CreateUIAnalyticsEvent,
+	) {
+		fireSmartLinkEvent(
+			{
+				action: 'inserted',
+				actionSubject: 'smartLink',
+				eventType: 'track',
+				attributes: {
+					type,
+				},
+				nonPrivacySafeAttributes: {
+					domainName: url,
+				},
+			},
+			createAnalyticsEvent,
+		);
+	}
 }
 
 export const fireSmartLinkEvent = (
-  payload: AnalyticsPayload,
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
+	payload: AnalyticsPayload,
+	createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) => {
-  if (createAnalyticsEvent) {
-    createAnalyticsEvent(payload).fire(ANALYTICS_CHANNEL);
-  }
+	if (createAnalyticsEvent) {
+		createAnalyticsEvent(payload).fire(ANALYTICS_CHANNEL);
+	}
 };
 
 export const resolvedEvent = (props: ResolvedEventProps): AnalyticsPayload => ({
-  action: 'resolved',
-  actionSubject: 'smartLink',
-  eventType: 'operational',
-  attributes: {
-    ...props,
-    ...context,
-  },
+	action: 'resolved',
+	actionSubject: 'smartLink',
+	eventType: 'operational',
+	attributes: {
+		...props,
+		...context,
+	},
 });
 
 export const unresolvedEvent = ({
-  id,
-  definitionId,
-  extensionKey,
-  resourceType,
-  destinationSubproduct,
-  destinationProduct,
-  error,
-  status,
-  location,
+	id,
+	definitionId,
+	extensionKey,
+	resourceType,
+	destinationSubproduct,
+	destinationProduct,
+	error,
+	status,
+	location,
 }: UnresolvedEventProps): AnalyticsPayload => ({
-  action: 'unresolved',
-  actionSubject: 'smartLink',
-  eventType: 'operational',
-  attributes: {
-    id,
-    ...context,
-    ...(definitionId ? { definitionId } : {}),
-    ...(extensionKey ? { extensionKey } : {}),
-    ...(resourceType ? { resourceType } : {}),
-    ...(destinationSubproduct ? { destinationSubproduct } : {}),
-    ...(destinationProduct ? { destinationProduct } : {}),
-    ...(location ? { location } : {}),
-    reason: status,
-    error: error
-      ? {
-          message: error?.message,
-          kind: error?.kind,
-          type: error?.type,
-        }
-      : undefined,
-  },
+	action: 'unresolved',
+	actionSubject: 'smartLink',
+	eventType: 'operational',
+	attributes: {
+		id,
+		...context,
+		...(definitionId ? { definitionId } : {}),
+		...(extensionKey ? { extensionKey } : {}),
+		...(resourceType ? { resourceType } : {}),
+		...(destinationSubproduct ? { destinationSubproduct } : {}),
+		...(destinationProduct ? { destinationProduct } : {}),
+		...(location ? { location } : {}),
+		reason: status,
+		error: error
+			? {
+					message: error?.message,
+					kind: error?.kind,
+					type: error?.type,
+				}
+			: undefined,
+	},
 });
 
 export const invokeSucceededEvent = ({
-  id,
-  actionType,
-  display,
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
+	id,
+	actionType,
+	display,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
 }: InvokeSucceededEventProps): AnalyticsPayload => {
-  const measure = id ? getMeasure(id, 'resolved') : undefined;
-  return {
-    action: 'resolved',
-    actionSubject: 'smartLinkAction',
-    eventType: 'operational',
-    attributes: {
-      ...context,
-      id,
-      actionType,
-      display,
-      definitionId,
-      destinationProduct,
-      destinationSubproduct,
-      location,
-      extensionKey,
-      duration: measure?.duration,
-    },
-  };
+	const measure = id ? getMeasure(id, 'resolved') : undefined;
+	return {
+		action: 'resolved',
+		actionSubject: 'smartLinkAction',
+		eventType: 'operational',
+		attributes: {
+			...context,
+			id,
+			actionType,
+			display,
+			definitionId,
+			destinationProduct,
+			destinationSubproduct,
+			location,
+			extensionKey,
+			duration: measure?.duration,
+		},
+	};
 };
 
 export const invokeFailedEvent = ({
-  id,
-  actionType,
-  display,
-  reason,
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
+	id,
+	actionType,
+	display,
+	reason,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
 }: InvokeFailedEventProps): AnalyticsPayload => {
-  const measure = id ? getMeasure(id, 'errored') : undefined;
-  return {
-    action: 'unresolved',
-    actionSubject: 'smartLinkAction',
-    eventType: 'operational',
-    attributes: {
-      ...context,
-      id,
-      actionType,
-      display,
-      extensionKey,
-      definitionId,
-      destinationProduct,
-      destinationSubproduct,
-      location,
-      duration: measure?.duration,
-      reason,
-    },
-  };
+	const measure = id ? getMeasure(id, 'errored') : undefined;
+	return {
+		action: 'unresolved',
+		actionSubject: 'smartLinkAction',
+		eventType: 'operational',
+		attributes: {
+			...context,
+			id,
+			actionType,
+			display,
+			extensionKey,
+			definitionId,
+			destinationProduct,
+			destinationSubproduct,
+			location,
+			duration: measure?.duration,
+			reason,
+		},
+	};
 };
 
 export const connectSucceededEvent = ({
-  definitionId,
-  extensionKey,
-  destinationProduct,
-  destinationSubproduct,
-  location,
+	definitionId,
+	extensionKey,
+	destinationProduct,
+	destinationSubproduct,
+	location,
 }: ConnectSucceededEventProps): AnalyticsPayload => ({
-  action: 'connectSucceeded',
-  actionSubject: 'smartLink',
-  eventType: 'operational',
-  attributes: {
-    ...context,
-    definitionId,
-    extensionKey,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-  },
+	action: 'connectSucceeded',
+	actionSubject: 'smartLink',
+	eventType: 'operational',
+	attributes: {
+		...context,
+		definitionId,
+		extensionKey,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+	},
 });
 
 export const connectFailedEvent = ({
-  definitionId,
-  extensionKey,
-  destinationProduct,
-  destinationSubproduct,
-  location,
-  reason,
+	definitionId,
+	extensionKey,
+	destinationProduct,
+	destinationSubproduct,
+	location,
+	reason,
 }: ConnectFailedEventProps): AnalyticsPayload => ({
-  action: 'connectFailed',
-  actionSubject: 'smartLink',
-  actionSubjectId: reason,
-  eventType: 'operational',
-  attributes: {
-    ...context,
-    reason,
-    extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-  },
+	action: 'connectFailed',
+	actionSubject: 'smartLink',
+	actionSubjectId: reason,
+	eventType: 'operational',
+	attributes: {
+		...context,
+		reason,
+		extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+	},
 });
 
 export const trackAppAccountConnected = ({
-  definitionId,
-  extensionKey,
-  destinationProduct,
-  destinationSubproduct,
-  location,
+	definitionId,
+	extensionKey,
+	destinationProduct,
+	destinationSubproduct,
+	location,
 }: TrackAppAccountConnectedProps): AnalyticsPayload => ({
-  action: 'connected',
-  actionSubject: 'applicationAccount',
-  eventType: 'track',
-  attributes: {
-    ...context,
-    definitionId,
-    extensionKey,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-  },
+	action: 'connected',
+	actionSubject: 'applicationAccount',
+	eventType: 'track',
+	attributes: {
+		...context,
+		definitionId,
+		extensionKey,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+	},
 });
 
 export const trackAppAccountAuthStarted = ({
-  extensionKey,
-  location,
+	extensionKey,
+	location,
 }: TrackAppAccountConnectedProps): AnalyticsPayload => ({
-  action: 'authStarted',
-  actionSubject: 'applicationAccount',
-  eventType: 'track',
-  attributes: {
-    ...context,
-    extensionKey,
-    location,
-  },
+	action: 'authStarted',
+	actionSubject: 'applicationAccount',
+	eventType: 'track',
+	attributes: {
+		...context,
+		extensionKey,
+		location,
+	},
 });
 
 export const trackSmartLinkQuickActionStarted = ({
-  smartLinkActionType,
-  ...attributes
+	smartLinkActionType,
+	...attributes
 }: CommonEventProps & {
-  smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
+	smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
 }): AnalyticsPayload => ({
-  action: 'started',
-  actionSubject: 'smartLinkQuickAction',
-  eventType: 'track',
-  attributes: {
-    ...context,
-    ...attributes,
-    smartLinkActionType:
-      SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ??
-      smartLinkActionType,
-  },
+	action: 'started',
+	actionSubject: 'smartLinkQuickAction',
+	eventType: 'track',
+	attributes: {
+		...context,
+		...attributes,
+		smartLinkActionType:
+			SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ?? smartLinkActionType,
+	},
 });
 
 export const trackSmartLinkQuickActionSuccess = ({
-  smartLinkActionType,
-  ...attributes
+	smartLinkActionType,
+	...attributes
 }: CommonEventProps & {
-  smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
+	smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
 }): AnalyticsPayload => ({
-  action: 'success',
-  actionSubject: 'smartLinkQuickAction',
-  eventType: 'track',
-  attributes: {
-    ...context,
-    ...attributes,
-    smartLinkActionType:
-      SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ??
-      smartLinkActionType,
-  },
+	action: 'success',
+	actionSubject: 'smartLinkQuickAction',
+	eventType: 'track',
+	attributes: {
+		...context,
+		...attributes,
+		smartLinkActionType:
+			SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ?? smartLinkActionType,
+	},
 });
 
 export const trackSmartLinkQuickActionFailed = ({
-  smartLinkActionType,
-  ...attributes
+	smartLinkActionType,
+	...attributes
 }: CommonEventProps & {
-  smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
+	smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
 }): AnalyticsPayload => ({
-  action: 'failed',
-  actionSubject: 'smartLinkQuickAction',
-  eventType: 'track',
-  attributes: {
-    ...context,
-    ...attributes,
-    smartLinkActionType:
-      SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ??
-      smartLinkActionType,
-  },
+	action: 'failed',
+	actionSubject: 'smartLinkQuickAction',
+	eventType: 'track',
+	attributes: {
+		...context,
+		...attributes,
+		smartLinkActionType:
+			SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ?? smartLinkActionType,
+	},
 });
 
 export const trackHoverCardResolutionStarted = ({
-  display,
-  ...attributes
+	display,
+	...attributes
 }: UiAuthEventProps): AnalyticsPayload => ({
-  action: 'resolved',
-  actionSubject: 'hoverCard',
-  eventType: 'track',
-  attributes: {
-    ...context,
-    ...attributes,
-    display,
-  },
+	action: 'resolved',
+	actionSubject: 'hoverCard',
+	eventType: 'track',
+	attributes: {
+		...context,
+		...attributes,
+		display,
+	},
 });
 
 export const uiAuthEvent = ({
-  definitionId,
-  extensionKey,
-  destinationProduct,
-  destinationSubproduct,
-  location,
-  display,
+	definitionId,
+	extensionKey,
+	destinationProduct,
+	destinationSubproduct,
+	location,
+	display,
 }: UiAuthEventProps): AnalyticsPayload => ({
-  action: 'clicked',
-  actionSubject: 'button',
-  actionSubjectId: 'connectAccount',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    definitionId,
-    extensionKey,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-    display,
-  },
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'connectAccount',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		definitionId,
+		extensionKey,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+		display,
+	},
 });
 
 export const uiAuthAlternateAccountEvent = ({
-  definitionId,
-  extensionKey,
-  destinationProduct,
-  destinationSubproduct,
-  location,
-  display,
+	definitionId,
+	extensionKey,
+	destinationProduct,
+	destinationSubproduct,
+	location,
+	display,
 }: UiAuthAlternateAccountEventProps): AnalyticsPayload => ({
-  action: 'clicked',
-  actionSubject: 'smartLink',
-  actionSubjectId: 'tryAnotherAccount',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    definitionId,
-    extensionKey,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-    display,
-  },
+	action: 'clicked',
+	actionSubject: 'smartLink',
+	actionSubjectId: 'tryAnotherAccount',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		definitionId,
+		extensionKey,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+		display,
+	},
 });
 
 export const uiCardClickedEvent = ({
-  id,
-  display,
-  status,
-  definitionId,
-  extensionKey,
-  isModifierKeyPressed,
-  location,
-  destinationProduct,
-  destinationSubproduct,
-  actionSubjectId,
+	id,
+	display,
+	status,
+	definitionId,
+	extensionKey,
+	isModifierKeyPressed,
+	location,
+	destinationProduct,
+	destinationSubproduct,
+	actionSubjectId,
 }: UiCardClickedEventProps): AnalyticsPayload => ({
-  action: 'clicked',
-  actionSubject: 'smartLink',
-  actionSubjectId,
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    id,
-    status,
-    definitionId,
-    extensionKey,
-    display,
-    isModifierKeyPressed,
-    location,
-    destinationProduct,
-    destinationSubproduct,
-  },
+	action: 'clicked',
+	actionSubject: 'smartLink',
+	actionSubjectId,
+	eventType: 'ui',
+	attributes: {
+		...context,
+		id,
+		status,
+		definitionId,
+		extensionKey,
+		display,
+		isModifierKeyPressed,
+		location,
+		destinationProduct,
+		destinationSubproduct,
+	},
 });
 
 export const uiIframeDwelledEvent = ({
-  id,
-  display,
-  status,
-  definitionId,
-  extensionKey,
-  location,
-  destinationProduct,
-  destinationSubproduct,
-  dwellTime,
-  dwellPercentVisible,
+	id,
+	display,
+	status,
+	definitionId,
+	extensionKey,
+	location,
+	destinationProduct,
+	destinationSubproduct,
+	dwellTime,
+	dwellPercentVisible,
 }: UiIframeDwelledEventProps): AnalyticsPayload => ({
-  action: 'dwelled',
-  actionSubject: 'smartLinkIframe',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    id,
-    status,
-    definitionId,
-    extensionKey,
-    display,
-    location,
-    destinationProduct,
-    destinationSubproduct,
-    dwellTime,
-    dwellPercentVisible,
-  },
+	action: 'dwelled',
+	actionSubject: 'smartLinkIframe',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		id,
+		status,
+		definitionId,
+		extensionKey,
+		display,
+		location,
+		destinationProduct,
+		destinationSubproduct,
+		dwellTime,
+		dwellPercentVisible,
+	},
 });
 
 export const uiIframeFocusedEvent = ({
-  id,
-  display,
-  status,
-  definitionId,
-  extensionKey,
-  location,
-  destinationProduct,
-  destinationSubproduct,
+	id,
+	display,
+	status,
+	definitionId,
+	extensionKey,
+	location,
+	destinationProduct,
+	destinationSubproduct,
 }: UiIframeFocusedEventProps): AnalyticsPayload => ({
-  action: 'focused',
-  actionSubject: 'smartLinkIframe',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    id,
-    status,
-    definitionId,
-    extensionKey,
-    display,
-    location,
-    destinationProduct,
-    destinationSubproduct,
-  },
+	action: 'focused',
+	actionSubject: 'smartLinkIframe',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		id,
+		status,
+		definitionId,
+		extensionKey,
+		display,
+		location,
+		destinationProduct,
+		destinationSubproduct,
+	},
 });
 
 export const uiActionClickedEvent = ({
-  id,
-  actionType,
-  extensionKey,
-  display,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
+	id,
+	actionType,
+	extensionKey,
+	display,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
 }: UiActionClickedEventProps): AnalyticsPayload => ({
-  action: 'clicked',
-  actionSubject: 'button',
-  actionSubjectId: uiActionSubjectIds[actionType],
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    id,
-    display,
-    actionType: actionType,
-    extensionKey: extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-  },
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: uiActionSubjectIds[actionType],
+	eventType: 'ui',
+	attributes: {
+		...context,
+		id,
+		display,
+		actionType: actionType,
+		extensionKey: extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+	},
 });
 
 export const uiClosedAuthEvent = ({
-  display,
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
+	display,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
 }: UiClosedAuthEventProps): AnalyticsPayload => ({
-  action: 'closed',
-  actionSubject: 'consentModal',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-    display,
-  },
+	action: 'closed',
+	actionSubject: 'consentModal',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+		display,
+	},
 });
 
 export const screenAuthPopupEvent = ({
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
 }: ScreenAuthPopupEventProps): AnalyticsPayload => ({
-  actionSubject: 'consentModal',
-  eventType: 'screen',
-  attributes: {
-    ...context,
-    extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-  },
+	actionSubject: 'consentModal',
+	eventType: 'screen',
+	attributes: {
+		...context,
+		extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+	},
 });
 
 export const uiRenderSuccessEvent = ({
-  display,
-  status,
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
-  canBeDatasource,
+	display,
+	status,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
+	canBeDatasource,
 }: UiRenderSuccessEventProps): AnalyticsPayload => ({
-  action: 'renderSuccess',
-  actionSubject: 'smartLink',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    status,
-    extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-    display,
-    canBeDatasource,
-  },
+	action: 'renderSuccess',
+	actionSubject: 'smartLink',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		status,
+		extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+		display,
+		canBeDatasource,
+	},
 });
 
 export const uiRenderFailedEvent = ({
-  display,
-  error,
-  errorInfo,
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
+	display,
+	error,
+	errorInfo,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
 }: UiRenderFailedEventProps): AnalyticsPayload => ({
-  actionSubject: 'smartLink',
-  action: 'renderFailed',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    error,
-    errorInfo,
-    display,
-    extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-  },
+	actionSubject: 'smartLink',
+	action: 'renderFailed',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		error,
+		errorInfo,
+		display,
+		extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+	},
 });
 
 export const uiHoverCardViewedEvent = ({
-  id,
-  previewDisplay,
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
-  previewInvokeMethod,
-  status,
+	id,
+	previewDisplay,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
+	previewInvokeMethod,
+	status,
 }: UiHoverCardViewedEventProps): AnalyticsPayload => ({
-  action: 'viewed',
-  actionSubject: 'hoverCard',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    id,
-    previewDisplay,
-    extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-    previewInvokeMethod,
-    status,
-  },
+	action: 'viewed',
+	actionSubject: 'hoverCard',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		id,
+		previewDisplay,
+		extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+		previewInvokeMethod,
+		status,
+	},
 });
 
 export const uiHoverCardDismissedEvent = ({
-  id,
-  previewDisplay,
-  hoverTime,
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
-  previewInvokeMethod,
-  status,
+	id,
+	previewDisplay,
+	hoverTime,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
+	previewInvokeMethod,
+	status,
 }: UiHoverCardDismissedEventProps): AnalyticsPayload => ({
-  action: 'dismissed',
-  actionSubject: 'hoverCard',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    id,
-    previewDisplay,
-    hoverTime,
-    extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-    previewInvokeMethod,
-    status,
-  },
+	action: 'dismissed',
+	actionSubject: 'hoverCard',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		id,
+		previewDisplay,
+		hoverTime,
+		extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+		previewInvokeMethod,
+		status,
+	},
 });
 
 export const uiHoverCardOpenLinkClickedEvent = ({
-  id,
-  previewDisplay,
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
-  previewInvokeMethod,
+	id,
+	previewDisplay,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
+	previewInvokeMethod,
 }: UiHoverCardOpenLinkClickedEventProps): AnalyticsPayload => ({
-  action: 'clicked',
-  actionSubject: 'button',
-  actionSubjectId: 'shortcutGoToLink',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-    id,
-    previewDisplay,
-    extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-    previewInvokeMethod,
-  },
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'shortcutGoToLink',
+	eventType: 'ui',
+	attributes: {
+		...context,
+		id,
+		previewDisplay,
+		extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+		previewInvokeMethod,
+	},
 });
 
 export const uiLearnMoreLinkClickedEvent = (): AnalyticsPayload => ({
-  action: 'clicked',
-  actionSubject: 'button',
-  actionSubjectId: 'learnMore',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-  },
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'learnMore',
+	eventType: 'ui',
+	attributes: {
+		...context,
+	},
 });
 
 export const chunkloadFailedEvent = ({
-  display,
-  error,
-  errorInfo,
-  extensionKey,
-  definitionId,
-  destinationProduct,
-  destinationSubproduct,
-  location,
+	display,
+	error,
+	errorInfo,
+	extensionKey,
+	definitionId,
+	destinationProduct,
+	destinationSubproduct,
+	location,
 }: UiRenderFailedEventProps): AnalyticsPayload => ({
-  action: 'chunkLoadFailed',
-  actionSubject: 'smartLink',
-  eventType: 'operational',
-  attributes: {
-    ...context,
-    error,
-    errorInfo,
-    display,
-    extensionKey,
-    definitionId,
-    destinationProduct,
-    destinationSubproduct,
-    location,
-  },
+	action: 'chunkLoadFailed',
+	actionSubject: 'smartLink',
+	eventType: 'operational',
+	attributes: {
+		...context,
+		error,
+		errorInfo,
+		display,
+		extensionKey,
+		definitionId,
+		destinationProduct,
+		destinationSubproduct,
+		location,
+	},
 });
 
 export const uiSmartLinkStatusLozengeButtonClicked = (): AnalyticsPayload => ({
-  action: 'clicked',
-  actionSubject: 'button',
-  actionSubjectId: 'smartLinkStatusLozenge',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-  },
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'smartLinkStatusLozenge',
+	eventType: 'ui',
+	attributes: {
+		...context,
+	},
 });
 
 export const uiSmartLinkStatusListItemButtonClicked = (): AnalyticsPayload => ({
-  action: 'clicked',
-  actionSubject: 'button',
-  actionSubjectId: 'smartLinkStatusListItem',
-  eventType: 'ui',
-  attributes: {
-    ...context,
-  },
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'smartLinkStatusListItem',
+	eventType: 'ui',
+	attributes: {
+		...context,
+	},
 });
 
-export const uiSmartLinkStatusOpenPreviewButtonClicked =
-  (): AnalyticsPayload => ({
-    action: 'clicked',
-    actionSubject: 'button',
-    actionSubjectId: 'smartLinkStatusOpenPreview',
-    eventType: 'ui',
-    attributes: {
-      ...context,
-    },
-  });
+export const uiSmartLinkStatusOpenPreviewButtonClicked = (): AnalyticsPayload => ({
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: 'smartLinkStatusOpenPreview',
+	eventType: 'ui',
+	attributes: {
+		...context,
+	},
+});
 
 export const uiServerActionClicked = ({
-  smartLinkActionType,
+	smartLinkActionType,
 }: UiServerActionClickedEventProps): AnalyticsPayload => ({
-  action: 'clicked',
-  actionSubject: 'button',
-  actionSubjectId:
-    SmartLinkActionTypeUiEventMapper[smartLinkActionType] ??
-    smartLinkActionType,
-  eventType: 'ui',
-  attributes: {
-    ...context,
-  },
+	action: 'clicked',
+	actionSubject: 'button',
+	actionSubjectId: SmartLinkActionTypeUiEventMapper[smartLinkActionType] ?? smartLinkActionType,
+	eventType: 'ui',
+	attributes: {
+		...context,
+	},
 });

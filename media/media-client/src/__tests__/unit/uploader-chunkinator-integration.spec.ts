@@ -2,127 +2,127 @@ import { type AuthProvider, type MediaApiConfig } from '@atlaskit/media-core';
 import { uploadFile, type UploadableFileUpfrontIds, type MediaStore } from '../..';
 
 jest.mock('../../constants', () => ({
-  __esModule: true,
-  CHUNK_SIZE: 4,
-  PROCESSING_BATCH_SIZE: 1,
+	__esModule: true,
+	CHUNK_SIZE: 4,
+	PROCESSING_BATCH_SIZE: 1,
 }));
 
 describe('Uploader', () => {
-  afterEach(() => {
-    jest.resetModules();
-  });
+	afterEach(() => {
+		jest.resetModules();
+	});
 
-  const uploadableFileUpfrontIds: UploadableFileUpfrontIds = {
-    id: 'some-file-id',
-    occurrenceKey: 'some-occurrence-key',
-    deferredUploadId: Promise.resolve('some-upload-id'),
-  };
+	const uploadableFileUpfrontIds: UploadableFileUpfrontIds = {
+		id: 'some-file-id',
+		occurrenceKey: 'some-occurrence-key',
+		deferredUploadId: Promise.resolve('some-upload-id'),
+	};
 
-  const authProvider: AuthProvider = () =>
-    Promise.resolve({
-      clientId: '',
-      token: '',
-      baseUrl: '',
-    });
+	const authProvider: AuthProvider = () =>
+		Promise.resolve({
+			clientId: '',
+			token: '',
+			baseUrl: '',
+		});
 
-  const setup = () => {
-    const config: MediaApiConfig = {
-      authProvider,
-    };
+	const setup = () => {
+		const config: MediaApiConfig = {
+			authProvider,
+		};
 
-    const createFileFromUpload = jest
-      .fn()
-      .mockReturnValue(Promise.resolve({ data: { id: '123' } }));
+		const createFileFromUpload = jest
+			.fn()
+			.mockReturnValue(Promise.resolve({ data: { id: '123' } }));
 
-    const uploadChunk = jest.fn().mockReturnValue(Promise.resolve());
+		const uploadChunk = jest.fn().mockReturnValue(Promise.resolve());
 
-    const appendChunksToUpload = jest.fn().mockReturnValue(Promise.resolve(1));
-    const mediaStore: Partial<MediaStore> = {
-      createFileFromUpload,
-      appendChunksToUpload,
-      uploadChunk,
-    };
-    const cancel = jest.fn();
+		const appendChunksToUpload = jest.fn().mockReturnValue(Promise.resolve(1));
+		const mediaStore: Partial<MediaStore> = {
+			createFileFromUpload,
+			appendChunksToUpload,
+			uploadChunk,
+		};
+		const cancel = jest.fn();
 
-    return {
-      mediaStore,
-      config,
-      cancel,
-      createFileFromUpload,
-      appendChunksToUpload,
-    };
-  };
+		return {
+			mediaStore,
+			config,
+			cancel,
+			createFileFromUpload,
+			appendChunksToUpload,
+		};
+	};
 
-  it('should upload file only once when processing batch is 1', (done) => {
-    const { mediaStore, createFileFromUpload } = setup();
+	it('should upload file only once when processing batch is 1', (done) => {
+		const { mediaStore, createFileFromUpload } = setup();
 
-    uploadFile(
-      {
-        content: new Blob(['123']),
-        name: 'file-name',
-        collection: 'some-collection',
-        mimeType: 'some-mime-type',
-      },
-      mediaStore as MediaStore,
-      uploadableFileUpfrontIds,
-      {
-        onProgress: jest.fn(),
-        onUploadFinish: () => {
-          expect(createFileFromUpload).toHaveBeenCalledTimes(1);
-          expect(createFileFromUpload).toBeCalledWith(
-            {
-              uploadId: 'some-upload-id',
-              name: 'file-name',
-              mimeType: 'some-mime-type',
-            },
-            {
-              occurrenceKey: 'some-occurrence-key',
-              collection: 'some-collection',
-              replaceFileId: 'some-file-id',
-            },
-            undefined,
-          );
-          done();
-        },
-      },
-    );
+		uploadFile(
+			{
+				content: new Blob(['123']),
+				name: 'file-name',
+				collection: 'some-collection',
+				mimeType: 'some-mime-type',
+			},
+			mediaStore as MediaStore,
+			uploadableFileUpfrontIds,
+			{
+				onProgress: jest.fn(),
+				onUploadFinish: () => {
+					expect(createFileFromUpload).toHaveBeenCalledTimes(1);
+					expect(createFileFromUpload).toBeCalledWith(
+						{
+							uploadId: 'some-upload-id',
+							name: 'file-name',
+							mimeType: 'some-mime-type',
+						},
+						{
+							occurrenceKey: 'some-occurrence-key',
+							collection: 'some-collection',
+							replaceFileId: 'some-file-id',
+						},
+						undefined,
+					);
+					done();
+				},
+			},
+		);
 
-    expect.assertions(2);
-  });
+		expect.assertions(2);
+	});
 
-  it('should upload file only once when processing batches are 2', (done) => {
-    const { mediaStore, createFileFromUpload } = setup();
-    uploadFile(
-      {
-        content: new Blob(['12345']),
-        name: 'file-name',
-        collection: 'some-collection',
-        mimeType: 'some-mime-type',
-      },
-      mediaStore as MediaStore,
-      uploadableFileUpfrontIds,
-      {
-        onProgress: jest.fn(),
-        onUploadFinish: () => {
-          expect(createFileFromUpload).toHaveBeenCalledTimes(1);
-          expect(createFileFromUpload).toBeCalledWith(
-            {
-              uploadId: 'some-upload-id',
-              name: 'file-name',
-              mimeType: 'some-mime-type',
-            },
-            {
-              occurrenceKey: 'some-occurrence-key',
-              collection: 'some-collection',
-              replaceFileId: 'some-file-id',
-            },
-            undefined,
-          );
-          done();
-        },
-      },
-    );
+	it('should upload file only once when processing batches are 2', (done) => {
+		const { mediaStore, createFileFromUpload } = setup();
+		uploadFile(
+			{
+				content: new Blob(['12345']),
+				name: 'file-name',
+				collection: 'some-collection',
+				mimeType: 'some-mime-type',
+			},
+			mediaStore as MediaStore,
+			uploadableFileUpfrontIds,
+			{
+				onProgress: jest.fn(),
+				onUploadFinish: () => {
+					expect(createFileFromUpload).toHaveBeenCalledTimes(1);
+					expect(createFileFromUpload).toBeCalledWith(
+						{
+							uploadId: 'some-upload-id',
+							name: 'file-name',
+							mimeType: 'some-mime-type',
+						},
+						{
+							occurrenceKey: 'some-occurrence-key',
+							collection: 'some-collection',
+							replaceFileId: 'some-file-id',
+						},
+						undefined,
+					);
+					done();
+				},
+			},
+		);
 
-    expect.assertions(2);
-  });
+		expect.assertions(2);
+	});
 });

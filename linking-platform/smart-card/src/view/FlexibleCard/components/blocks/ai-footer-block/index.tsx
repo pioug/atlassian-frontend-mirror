@@ -10,15 +10,15 @@ import type { AIFooterBlockProps } from './types';
  * @see Block
  */
 const AIFooterBlock = ({
-  status,
-  testId = 'smart-ai-footer-block',
-  ...props
+	status,
+	testId = 'smart-ai-footer-block',
+	...props
 }: AIFooterBlockProps) => {
-  if (status !== SmartLinkStatus.Resolved) {
-    return null;
-  }
+	if (status !== SmartLinkStatus.Resolved) {
+		return null;
+	}
 
-  return <AIFooterBlockResolvedView {...props} testId={testId} />;
+	return <AIFooterBlockResolvedView {...props} testId={testId} />;
 };
 
 export default AIFooterBlock;

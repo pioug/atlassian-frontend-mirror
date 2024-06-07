@@ -7,59 +7,57 @@ import { token } from '@atlaskit/tokens';
 
 import { type Flag } from '../src/types';
 
-type RenderChildren = (
-  showFlags: (flags: Array<Flag>) => void,
-) => React.ReactNode;
+type RenderChildren = (showFlags: (flags: Array<Flag>) => void) => React.ReactNode;
 
 type Props = {
-  children: RenderChildren;
+	children: RenderChildren;
 };
 
 type State = {
-  flags: Array<Flag>;
+	flags: Array<Flag>;
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class AppWithFlag extends React.PureComponent<Props, State> {
-  state = {
-    flags: [],
-  };
+	state = {
+		flags: [],
+	};
 
-  handleDismiss = () => {
-    this.setState((prevState: State) => ({
-      flags: prevState.flags.slice(1),
-    }));
-  };
+	handleDismiss = () => {
+		this.setState((prevState: State) => ({
+			flags: prevState.flags.slice(1),
+		}));
+	};
 
-  addFlag = (flags: Array<Flag>) => {
-    this.setState({ flags: [...this.state.flags, ...flags] });
-  };
+	addFlag = (flags: Array<Flag>) => {
+		this.setState({ flags: [...this.state.flags, ...flags] });
+	};
 
-  render() {
-    return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      <div style={{ padding: token('space.200', '16px') }}>
-        {this.props.children(this.addFlag)}
-        <FlagGroup onDismissed={this.handleDismiss}>
-          {this.state.flags.map((flag: Flag, index) => {
-            return (
-              <AutoDismissFlag
-                appearance="normal"
-                id={index}
-                icon={
-                  <SuccessIcon
-                    label="Success"
-                    size="medium"
-                    primaryColor={token('color.icon.success', G300)}
-                  />
-                }
-                key={index}
-                title={flag.title.defaultMessage}
-              />
-            );
-          })}
-        </FlagGroup>
-      </div>
-    );
-  }
+	render() {
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			<div style={{ padding: token('space.200', '16px') }}>
+				{this.props.children(this.addFlag)}
+				<FlagGroup onDismissed={this.handleDismiss}>
+					{this.state.flags.map((flag: Flag, index) => {
+						return (
+							<AutoDismissFlag
+								appearance="normal"
+								id={index}
+								icon={
+									<SuccessIcon
+										label="Success"
+										size="medium"
+										primaryColor={token('color.icon.success', G300)}
+									/>
+								}
+								key={index}
+								title={flag.title.defaultMessage}
+							/>
+						);
+					})}
+				</FlagGroup>
+			</div>
+		);
+	}
 }

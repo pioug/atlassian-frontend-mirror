@@ -284,7 +284,8 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 		}
 
 		if (
-			width < Math.min(containerWidth - akEditorGutterPaddingDynamic() * 2, akEditorFullWidthLayoutWidth)
+			width <
+			Math.min(containerWidth - akEditorGutterPaddingDynamic() * 2, akEditorFullWidthLayoutWidth)
 		) {
 			return 'wide';
 		}

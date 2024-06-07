@@ -9,40 +9,40 @@ import { DEFAULT_LOCALE_STATE } from '../../common/constants';
 import { useSafeIntl } from './index';
 
 describe('useSafeIntl()', () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-  });
+	beforeEach(() => {
+		jest.restoreAllMocks();
+	});
 
-  const translated = { foo: 'Translated string' };
+	const translated = { foo: 'Translated string' };
 
-  it('should return deafult Intl shape when no Intl Context', () => {
-    const { result } = renderHook(() => {
-      return useSafeIntl();
-    });
+	it('should return deafult Intl shape when no Intl Context', () => {
+		const { result } = renderHook(() => {
+			return useSafeIntl();
+		});
 
-    waitFor(() => {
-      expect(result.current).toEqual(DEFAULT_LOCALE_STATE);
-    });
-  });
+		waitFor(() => {
+			expect(result.current).toEqual(DEFAULT_LOCALE_STATE);
+		});
+	});
 
-  it('should return Intl context when a provider is present', () => {
-    const testWrapper = ({ children }: { children?: React.ReactNode }) => (
-      <IntlProvider locale="es-ES" messages={translated}>
-        {children}
-      </IntlProvider>
-    );
+	it('should return Intl context when a provider is present', () => {
+		const testWrapper = ({ children }: { children?: React.ReactNode }) => (
+			<IntlProvider locale="es-ES" messages={translated}>
+				{children}
+			</IntlProvider>
+		);
 
-    const wrapper = (props: {}) => testWrapper(props);
+		const wrapper = (props: {}) => testWrapper(props);
 
-    const { result } = renderHook(
-      () => {
-        return useSafeIntl();
-      },
-      { wrapper },
-    );
+		const { result } = renderHook(
+			() => {
+				return useSafeIntl();
+			},
+			{ wrapper },
+		);
 
-    waitFor(() => {
-      expect(result.current.messages).toEqual(translated);
-    });
-  });
+		waitFor(() => {
+			expect(result.current.messages).toEqual(translated);
+		});
+	});
 });

@@ -75,7 +75,7 @@
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.8.0",
+    "@atlaskit/link-provider": "^1.10.0",
     "@atlaskit/media-core": "^34.2.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
@@ -94,7 +94,7 @@
     "@atlaskit/editor-plugin-list": "^3.3.0",
     "@atlaskit/editor-plugin-paste": "^1.2.0",
     "@atlaskit/editor-test-helpers": "*",
-    "@atlaskit/link-provider": "^1.9.0",
+    "@atlaskit/link-provider": "^1.10.0",
     "@atlaskit/logo": "^13.17.0",
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",

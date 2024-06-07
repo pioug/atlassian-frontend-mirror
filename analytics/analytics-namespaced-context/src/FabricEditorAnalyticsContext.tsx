@@ -4,25 +4,25 @@ import createNamespaceContext, { type Props } from './helper/createNamespaceCont
 export const EDITOR_CONTEXT = 'fabricEditorCtx';
 
 export enum EDITOR_APPEARANCE_CONTEXT {
-  FIXED_WIDTH = 'fixedWidth',
-  FULL_WIDTH = 'fullWidth',
-  COMMENT = 'comment',
-  CHROMELESS = 'chromeless',
-  MOBILE = 'mobile',
+	FIXED_WIDTH = 'fixedWidth',
+	FULL_WIDTH = 'fullWidth',
+	COMMENT = 'comment',
+	CHROMELESS = 'chromeless',
+	MOBILE = 'mobile',
 }
 
 type FabricEditorAnalyticsContextProps = Props & {
-  data: {
-    appearance: EDITOR_APPEARANCE_CONTEXT | undefined;
-    packageName: string;
-    packageVersion: string;
-    componentName: 'renderer' | 'editorCore';
-    editorSessionId: string;
-  };
+	data: {
+		appearance: EDITOR_APPEARANCE_CONTEXT | undefined;
+		packageName: string;
+		packageVersion: string;
+		componentName: 'renderer' | 'editorCore';
+		editorSessionId: string;
+	};
 };
 
 export const FabricEditorAnalyticsContext: FunctionComponent<FabricEditorAnalyticsContextProps> =
-  createNamespaceContext<FabricEditorAnalyticsContextProps>(
-    EDITOR_CONTEXT,
-    'FabricEditorAnalyticsContext',
-  );
+	createNamespaceContext<FabricEditorAnalyticsContextProps>(
+		EDITOR_CONTEXT,
+		'FabricEditorAnalyticsContext',
+	);

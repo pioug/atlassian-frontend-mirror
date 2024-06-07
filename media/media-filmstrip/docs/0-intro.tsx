@@ -9,11 +9,11 @@ ${(<AtlassianInternalWarning />)}
   This component displays multiple media cards horizontally. Allows to navigate through the stored cards.
 
   ${(
-    <DocsContentTabs
-      tabs={[
-        { name: 'Usage', content: filmStripExamples },
-        { name: 'Props', content: filmStripProps },
-      ]}
-    />
-  )}
+		<DocsContentTabs
+			tabs={[
+				{ name: 'Usage', content: filmStripExamples },
+				{ name: 'Props', content: filmStripProps },
+			]}
+		/>
+	)}
 `;

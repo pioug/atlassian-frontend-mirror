@@ -4,8 +4,8 @@ import { css, jsx } from '@emotion/react';
 import customMd from './custom-md';
 
 const styles = css({
-  marginTop: '1rem',
-  textAlign: 'center',
+	marginTop: '1rem',
+	textAlign: 'center',
 });
 
 const links = customMd`
@@ -20,8 +20,6 @@ const links = customMd`
 • [ActionItem](./action-item)
 `;
 
-const FlexibleUiQuickLinks: React.FC = () => (
-  <section css={styles}>{links}</section>
-);
+const FlexibleUiQuickLinks: React.FC = () => <section css={styles}>{links}</section>;
 
 export default FlexibleUiQuickLinks;

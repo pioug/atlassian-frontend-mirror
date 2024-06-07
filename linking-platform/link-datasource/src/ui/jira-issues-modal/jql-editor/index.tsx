@@ -8,45 +8,45 @@ import { makeGetJqlAutocompleteData } from '../../../services/makeGetJqlAutocomp
 import { makeGetJqlSuggestionsData } from '../../../services/makeGetJqlSuggestionsData';
 
 export interface JiraJQLEditorProps {
-  cloudId: string;
-  isSearching?: boolean;
-  onChange?: (query: string) => void;
-  onSearch: () => void;
-  query: string;
+	cloudId: string;
+	isSearching?: boolean;
+	onChange?: (query: string) => void;
+	onSearch: () => void;
+	query: string;
 }
 
-export const JiraJQLEditor: React.FC<JiraJQLEditorProps> = props => {
-  const { cloudId, isSearching, onChange, onSearch, query } = props;
+export const JiraJQLEditor: React.FC<JiraJQLEditorProps> = (props) => {
+	const { cloudId, isSearching, onChange, onSearch, query } = props;
 
-  const autocompleteProvider = useAutocompleteProvider(
-    'link-datasource',
-    makeGetJqlAutocompleteData(cloudId),
-    makeGetJqlSuggestionsData(cloudId),
-  );
+	const autocompleteProvider = useAutocompleteProvider(
+		'link-datasource',
+		makeGetJqlAutocompleteData(cloudId),
+		makeGetJqlSuggestionsData(cloudId),
+	);
 
-  // This is an expected (pretty strange imo) way of making sure text field is in focus when rendered
-  const inputRef = useRef({ focus: () => {} });
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      inputRef.current?.focus();
-    });
-  }, []);
+	// This is an expected (pretty strange imo) way of making sure text field is in focus when rendered
+	const inputRef = useRef({ focus: () => {} });
+	useEffect(() => {
+		requestAnimationFrame(() => {
+			inputRef.current?.focus();
+		});
+	}, []);
 
-  const searchIfValidJql = (_: string, jast: Jast) => {
-    if (jast.errors.length === 0) {
-      onSearch();
-    }
-  };
+	const searchIfValidJql = (_: string, jast: Jast) => {
+		if (jast.errors.length === 0) {
+			onSearch();
+		}
+	};
 
-  return (
-    <JQLEditor
-      analyticsSource="link-datasource"
-      autocompleteProvider={autocompleteProvider}
-      onSearch={searchIfValidJql}
-      onUpdate={onChange}
-      isSearching={isSearching}
-      inputRef={inputRef}
-      query={query}
-    />
-  );
+	return (
+		<JQLEditor
+			analyticsSource="link-datasource"
+			autocompleteProvider={autocompleteProvider}
+			onSearch={searchIfValidJql}
+			onUpdate={onChange}
+			isSearching={isSearching}
+			inputRef={inputRef}
+			query={query}
+		/>
+	);
 };

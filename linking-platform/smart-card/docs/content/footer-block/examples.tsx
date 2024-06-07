@@ -9,12 +9,10 @@ export default customMd`
 A default footer block contains \`Provider\` element, which is the source of the link.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/footer-block-default').default
-    }
-    source={require('!!raw-loader!../../../examples/content/footer-block-default')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/footer-block-default').default}
+		source={require('!!raw-loader!../../../examples/content/footer-block-default')}
+	/>
 )}
 
 ### Actions
@@ -23,23 +21,19 @@ Use an \`actions\` to display action buttons on the right of the block.
 See [ActionItem](./action-item) for actions configurations.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/footer-block-actions').default
-    }
-    source={require('!!raw-loader!../../../examples/content/footer-block-actions')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/footer-block-actions').default}
+		source={require('!!raw-loader!../../../examples/content/footer-block-actions')}
+	/>
 )}
 
 Adding three actions or more will result in the actions being hidden inside of a dropdown.
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/footer-block-actions-more').default
-    }
-    source={require('!!raw-loader!../../../examples/content/footer-block-actions-more')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/footer-block-actions-more').default}
+		source={require('!!raw-loader!../../../examples/content/footer-block-actions-more')}
+	/>
 )}
 
 ### Sizing
@@ -56,10 +50,10 @@ It, however, can affect actions inside the block.
 See action item for action sizing and how to override block sizing.
 
 ${(
-  <CustomExample
-    Component={require('../../../examples/content/footer-block-size').default}
-    source={require('!!raw-loader!../../../examples/content/footer-block-size')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/footer-block-size').default}
+		source={require('!!raw-loader!../../../examples/content/footer-block-size')}
+	/>
 )}
 
 ### Override CSS
@@ -69,12 +63,10 @@ Although let us know what we’re missing in the spirit of improving platform
 components for everyone!
 
 ${(
-  <CustomExample
-    Component={
-      require('../../../examples/content/footer-block-override-css').default
-    }
-    source={require('!!raw-loader!../../../examples/content/footer-block-override-css')}
-  />
+	<CustomExample
+		Component={require('../../../examples/content/footer-block-override-css').default}
+		source={require('!!raw-loader!../../../examples/content/footer-block-override-css')}
+	/>
 )}
 
 `;

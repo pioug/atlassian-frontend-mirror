@@ -1,23 +1,22 @@
 export const CONTENT_URL_SECURITY_AND_PERMISSIONS =
-  'https://support.atlassian.com/confluence-cloud/docs/insert-links-and-anchors/#Smart-links';
+	'https://support.atlassian.com/confluence-cloud/docs/insert-links-and-anchors/#Smart-links';
 
 export const CONTENT_URL_3P_ACCOUNT_AUTH =
-  'https://support.atlassian.com/confluence-cloud/docs/what-data-is-sent-and-received-when-pasting-a-smart-link/';
+	'https://support.atlassian.com/confluence-cloud/docs/what-data-is-sent-and-received-when-pasting-a-smart-link/';
 
-export const CONTENT_URL_AI =
-  'https://www.atlassian.com/trust/atlassian-intelligence';
+export const CONTENT_URL_AI = 'https://www.atlassian.com/trust/atlassian-intelligence';
 
 export const CONTENT_URL_AI_TROUBLESHOOTING = 'https://status.atlassian.com/';
 
 export const CONTENT_URL_ACCEPTABLE_USE_POLICY =
-  'https://www.atlassian.com/legal/acceptable-use-policy';
+	'https://www.atlassian.com/legal/acceptable-use-policy';
 
 /**
  * The alignment of Flexible UI component.
  */
 export enum SmartLinkAlignment {
-  Left = 'left',
-  Right = 'right',
+	Left = 'left',
+	Right = 'right',
 }
 
 /**
@@ -26,8 +25,8 @@ export enum SmartLinkAlignment {
  * Similar to flex's flex-direction concept.
  */
 export enum SmartLinkDirection {
-  Horizontal = 'horizontal',
-  Vertical = 'vertical',
+	Horizontal = 'horizontal',
+	Vertical = 'vertical',
 }
 
 /**
@@ -35,8 +34,8 @@ export enum SmartLinkDirection {
  * Similar to flex's align-items or align-self concept.
  */
 export enum SmartLinkPosition {
-  Top = 'top',
-  Center = 'center',
+	Top = 'top',
+	Center = 'center',
 }
 
 /**
@@ -45,26 +44,26 @@ export enum SmartLinkPosition {
  * as per component.
  */
 export enum SmartLinkSize {
-  XLarge = 'xlarge',
-  Large = 'large',
-  Medium = 'medium',
-  Small = 'small',
+	XLarge = 'xlarge',
+	Large = 'large',
+	Medium = 'medium',
+	Small = 'small',
 }
 
 /**
  * Smart Links link request status
  */
 export enum SmartLinkStatus {
-  Pending = 'pending',
-  Resolving = 'resolving',
-  Resolved = 'resolved',
+	Pending = 'pending',
+	Resolving = 'resolving',
+	Resolved = 'resolved',
 
-  Forbidden = 'forbidden',
-  Errored = 'errored',
-  NotFound = 'not_found',
-  Unauthorized = 'unauthorized',
+	Forbidden = 'forbidden',
+	Errored = 'errored',
+	NotFound = 'not_found',
+	Unauthorized = 'unauthorized',
 
-  Fallback = 'fallback',
+	Fallback = 'fallback',
 }
 
 /**
@@ -72,14 +71,14 @@ export enum SmartLinkStatus {
  * This determine the styling of the link.
  */
 export enum SmartLinkTheme {
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  Black = 'black',
-  Link = 'link',
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	Black = 'black',
+	Link = 'link',
 }
 
 export enum SmartLinkInternalTheme {
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  Grey = 'grey',
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	Grey = 'grey',
 }
 
 /**
@@ -88,8 +87,8 @@ export enum SmartLinkInternalTheme {
  * Similar to flex's flex-grow concept.
  */
 export enum SmartLinkWidth {
-  FitToContent = 'fit-to-content',
-  Flexible = 'flexible',
+	FitToContent = 'fit-to-content',
+	Flexible = 'flexible',
 }
 
 /**
@@ -109,166 +108,164 @@ export enum SmartLinkWidth {
  *    (src/view/FlexibleCard/components/blocks/utils.tsx)
  */
 export enum ElementName {
-  AssignedTo = 'AssignedTo',
-  AssignedToGroup = 'AssignedToGroup',
-  AttachmentCount = 'AttachmentCount',
-  AuthorGroup = 'AuthorGroup',
-  ChecklistProgress = 'ChecklistProgress',
-  CollaboratorGroup = 'CollaboratorGroup',
-  CommentCount = 'CommentCount',
-  CreatedBy = 'CreatedBy',
-  CreatedOn = 'CreatedOn',
-  DueOn = 'DueOn',
-  LatestCommit = 'LatestCommit',
-  LinkIcon = 'LinkIcon',
-  Location = 'Location',
-  ModifiedBy = 'ModifiedBy',
-  ModifiedOn = 'ModifiedOn',
-  OwnedBy = 'OwnedBy',
-  OwnedByGroup = 'OwnedByGroup',
-  Preview = 'Preview',
-  Priority = 'Priority',
-  ProgrammingLanguage = 'ProgrammingLanguage',
-  Provider = 'Provider',
-  ReactCount = 'ReactCount',
-  ReadTime = 'ReadTime',
-  Snippet = 'Snippet',
-  SourceBranch = 'SourceBranch',
-  State = 'State',
-  SubscriberCount = 'SubscriberCount',
-  SubTasksProgress = 'SubTasksProgress',
-  StoryPoints = 'StoryPoints',
-  TargetBranch = 'TargetBranch',
-  Title = 'Title',
-  ViewCount = 'ViewCount',
-  VoteCount = 'VoteCount',
-  SentOn = 'SentOn',
+	AssignedTo = 'AssignedTo',
+	AssignedToGroup = 'AssignedToGroup',
+	AttachmentCount = 'AttachmentCount',
+	AuthorGroup = 'AuthorGroup',
+	ChecklistProgress = 'ChecklistProgress',
+	CollaboratorGroup = 'CollaboratorGroup',
+	CommentCount = 'CommentCount',
+	CreatedBy = 'CreatedBy',
+	CreatedOn = 'CreatedOn',
+	DueOn = 'DueOn',
+	LatestCommit = 'LatestCommit',
+	LinkIcon = 'LinkIcon',
+	Location = 'Location',
+	ModifiedBy = 'ModifiedBy',
+	ModifiedOn = 'ModifiedOn',
+	OwnedBy = 'OwnedBy',
+	OwnedByGroup = 'OwnedByGroup',
+	Preview = 'Preview',
+	Priority = 'Priority',
+	ProgrammingLanguage = 'ProgrammingLanguage',
+	Provider = 'Provider',
+	ReactCount = 'ReactCount',
+	ReadTime = 'ReadTime',
+	Snippet = 'Snippet',
+	SourceBranch = 'SourceBranch',
+	State = 'State',
+	SubscriberCount = 'SubscriberCount',
+	SubTasksProgress = 'SubTasksProgress',
+	StoryPoints = 'StoryPoints',
+	TargetBranch = 'TargetBranch',
+	Title = 'Title',
+	ViewCount = 'ViewCount',
+	VoteCount = 'VoteCount',
+	SentOn = 'SentOn',
 }
 
 /**
  * Flexible UI action (button)
  */
 export enum ActionName {
-  CopyLinkAction = 'CopyLinkAction',
-  DeleteAction = 'DeleteAction',
-  EditAction = 'EditAction',
-  FollowAction = 'FollowAction',
-  PreviewAction = 'PreviewAction',
-  AutomationAction = 'AutomationAction',
-  /**
-   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-8954 Internal documentation for deprecation (no external access)}
-   */
-  ViewAction = 'ViewAction',
-  DownloadAction = 'DownloadAction',
-  CustomAction = 'CustomAction',
+	CopyLinkAction = 'CopyLinkAction',
+	DeleteAction = 'DeleteAction',
+	EditAction = 'EditAction',
+	FollowAction = 'FollowAction',
+	PreviewAction = 'PreviewAction',
+	AutomationAction = 'AutomationAction',
+	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-8954 Internal documentation for deprecation (no external access)}
+	 */
+	ViewAction = 'ViewAction',
+	DownloadAction = 'DownloadAction',
+	CustomAction = 'CustomAction',
 }
 
 export enum InternalActionName {
-  AISummaryAction = 'AISummaryAction',
-  ViewRelatedLinksAction = 'ViewRelatedLinksAction',
+	AISummaryAction = 'AISummaryAction',
+	ViewRelatedLinksAction = 'ViewRelatedLinksAction',
 }
 
-export type FlexibleUiActionName =
-  | keyof typeof ActionName
-  | keyof typeof InternalActionName;
+export type FlexibleUiActionName = keyof typeof ActionName | keyof typeof InternalActionName;
 
 /**
  * Flexible UI icons - each mapped to AK icons.
  */
 
 export enum IconType {
-  Archive = 'FileType:Archive',
-  Audio = 'FileType:Audio',
-  Blog = 'FileType:Blog',
-  Code = 'FileType:Code',
-  Document = 'FileType:Document',
-  Executable = 'FileType:Executable',
-  File = 'FileType:File',
-  Folder = 'FileType:Folder',
-  Generic = 'FileType:Generic',
-  GIF = 'FileType:GIF',
-  GoogleDocs = 'FileType:GoogleDocs',
-  GoogleForms = 'FileType:GoogleForms',
-  GoogleSheets = 'FileType:GoogleSheets',
-  GoogleSlides = 'FileType:GoogleSlides',
-  Image = 'FileType.Image',
-  MSExcel = 'FileType:Excel',
-  MSPowerpoint = 'FileType:Powerpoint',
-  MSWord = 'FileType:WordDocument',
-  PDF = 'FileType:PDF',
-  Presentation = 'FileType:Presentation',
-  Sketch = 'FileType:Sketch',
-  Spreadsheet = 'FileType:Spreadsheet',
-  Template = 'FileType:Template',
-  Video = 'FileType:Video',
+	Archive = 'FileType:Archive',
+	Audio = 'FileType:Audio',
+	Blog = 'FileType:Blog',
+	Code = 'FileType:Code',
+	Document = 'FileType:Document',
+	Executable = 'FileType:Executable',
+	File = 'FileType:File',
+	Folder = 'FileType:Folder',
+	Generic = 'FileType:Generic',
+	GIF = 'FileType:GIF',
+	GoogleDocs = 'FileType:GoogleDocs',
+	GoogleForms = 'FileType:GoogleForms',
+	GoogleSheets = 'FileType:GoogleSheets',
+	GoogleSlides = 'FileType:GoogleSlides',
+	Image = 'FileType.Image',
+	MSExcel = 'FileType:Excel',
+	MSPowerpoint = 'FileType:Powerpoint',
+	MSWord = 'FileType:WordDocument',
+	PDF = 'FileType:PDF',
+	Presentation = 'FileType:Presentation',
+	Sketch = 'FileType:Sketch',
+	Spreadsheet = 'FileType:Spreadsheet',
+	Template = 'FileType:Template',
+	Video = 'FileType:Video',
 
-  // BitBucket?
-  Branch = 'BitBucket:Branch',
-  Commit = 'BitBucket:Commit',
-  Project = 'BitBucket:Project',
-  PullRequest = 'BitBucket:PullRequest',
-  Repo = 'BitBucket:Repo',
+	// BitBucket?
+	Branch = 'BitBucket:Branch',
+	Commit = 'BitBucket:Commit',
+	Project = 'BitBucket:Project',
+	PullRequest = 'BitBucket:PullRequest',
+	Repo = 'BitBucket:Repo',
 
-  // Jira?
-  Bug = 'Jira:Bug',
-  Change = 'Jira:Change',
-  Epic = 'Jira:Epic',
-  Incident = 'Jira:Incident',
-  Problem = 'Jira:Problem',
-  ServiceRequest = 'Jira:ServiceRequest',
-  Story = 'Jira:Story',
-  SubTask = 'Jira:SubTask',
-  Task = 'Jira:Task',
+	// Jira?
+	Bug = 'Jira:Bug',
+	Change = 'Jira:Change',
+	Epic = 'Jira:Epic',
+	Incident = 'Jira:Incident',
+	Problem = 'Jira:Problem',
+	ServiceRequest = 'Jira:ServiceRequest',
+	Story = 'Jira:Story',
+	SubTask = 'Jira:SubTask',
+	Task = 'Jira:Task',
 
-  // Provider
-  Confluence = 'Provider:Confluence',
-  Jira = 'Provider:Jira',
+	// Provider
+	Confluence = 'Provider:Confluence',
+	Jira = 'Provider:Jira',
 
-  // Fallback
-  Default = 'Default',
-  Error = 'Default:Error',
-  Forbidden = 'Default:Forbidden',
+	// Fallback
+	Default = 'Default',
+	Error = 'Default:Error',
+	Forbidden = 'Default:Forbidden',
 
-  // Badge
-  Attachment = 'Badge:Attachment',
-  CheckItem = 'Badge:Task',
-  Comment = 'Badge:Comment',
-  View = 'Badge:View',
-  React = 'Badge:React',
-  Vote = 'Badge:Vote',
-  PriorityBlocker = 'Badge:PriorityBlocker',
-  PriorityCritical = 'Badge:PriorityCritical',
-  PriorityHigh = 'Badge:PriorityHigh',
-  PriorityHighest = 'Badge:PriorityHighest',
-  PriorityLow = 'Badge:PriorityLow',
-  PriorityLowest = 'Badge:PriorityLowest',
-  PriorityMajor = 'Badge:PriorityMajor',
-  PriorityMedium = 'Badge:PriorityMedium',
-  PriorityMinor = 'Badge:PriorityMinor',
-  PriorityTrivial = 'Badge:PriorityTrivial',
-  PriorityUndefined = 'Badge:PriorityUndefined',
-  ProgrammingLanguage = 'Badge:ProgrammingLanguage',
-  Subscriber = 'Badge:Subscriber',
-  SubTasksProgress = 'Badge:SubTask',
+	// Badge
+	Attachment = 'Badge:Attachment',
+	CheckItem = 'Badge:Task',
+	Comment = 'Badge:Comment',
+	View = 'Badge:View',
+	React = 'Badge:React',
+	Vote = 'Badge:Vote',
+	PriorityBlocker = 'Badge:PriorityBlocker',
+	PriorityCritical = 'Badge:PriorityCritical',
+	PriorityHigh = 'Badge:PriorityHigh',
+	PriorityHighest = 'Badge:PriorityHighest',
+	PriorityLow = 'Badge:PriorityLow',
+	PriorityLowest = 'Badge:PriorityLowest',
+	PriorityMajor = 'Badge:PriorityMajor',
+	PriorityMedium = 'Badge:PriorityMedium',
+	PriorityMinor = 'Badge:PriorityMinor',
+	PriorityTrivial = 'Badge:PriorityTrivial',
+	PriorityUndefined = 'Badge:PriorityUndefined',
+	ProgrammingLanguage = 'Badge:ProgrammingLanguage',
+	Subscriber = 'Badge:Subscriber',
+	SubTasksProgress = 'Badge:SubTask',
 }
 
 /**
  * Type for Flexible UI's Media element
  */
 export enum MediaType {
-  Image = 'image',
+	Image = 'image',
 }
 
 export enum MediaPlacement {
-  Left = 'left',
-  Right = 'right',
+	Left = 'left',
+	Right = 'right',
 }
 
 export enum CardDisplay {
-  Inline = 'inline',
-  Block = 'block',
-  Embed = 'embed',
-  EmbedPreview = 'embedPreview',
-  Flexible = 'flexible',
-  HoverCardPreview = 'hoverCardPreview',
+	Inline = 'inline',
+	Block = 'block',
+	Embed = 'embed',
+	EmbedPreview = 'embedPreview',
+	Flexible = 'flexible',
+	HoverCardPreview = 'hoverCardPreview',
 }

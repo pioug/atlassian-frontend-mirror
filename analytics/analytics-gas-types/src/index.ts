@@ -10,32 +10,32 @@ export const DEFAULT_SOURCE = 'unknown';
 export type EventType = 'ui' | 'track' | 'screen' | 'operational';
 
 export type GasPureScreenEventPayload = {
-  name: string;
-  attributes?: {
-    [key: string]: any;
-  };
-  tags?: Array<string>;
+	name: string;
+	attributes?: {
+		[key: string]: any;
+	};
+	tags?: Array<string>;
 };
 
 export type GasPurePayload = {
-  actionSubject: string;
-  actionSubjectId?: string;
-  attributes?: {
-    packageName?: string;
-    packageVersion?: string;
-    componentName?: string;
-    [key: string]: any;
-  };
-  nonPrivacySafeAttributes?: {
-    [key: string]: any;
-  };
-  tags?: Array<string>;
-  source?: string;
-  action?: string;
+	actionSubject: string;
+	actionSubjectId?: string;
+	attributes?: {
+		packageName?: string;
+		packageVersion?: string;
+		componentName?: string;
+		[key: string]: any;
+	};
+	nonPrivacySafeAttributes?: {
+		[key: string]: any;
+	};
+	tags?: Array<string>;
+	source?: string;
+	action?: string;
 };
 
 export type WithEventType = {
-  eventType: EventType;
+	eventType: EventType;
 };
 export type GasCorePayload = GasPurePayload & WithEventType;
 export type GasScreenEventPayload = GasPureScreenEventPayload & WithEventType;

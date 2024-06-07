@@ -20,50 +20,44 @@ import type { CardActionOptions } from '../../Card/types';
 const textBylineProps = { ...messages.connect_link_account_card_description };
 
 export interface UnauthorizedViewProps {
-  actions: ActionProps[];
-  context?: { icon?: React.ReactNode; text: string };
-  isSelected?: boolean;
-  testId?: string;
-  actionOptions?: CardActionOptions;
-  icon: IconProps;
-  link?: string;
-  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	actions: ActionProps[];
+	context?: { icon?: React.ReactNode; text: string };
+	isSelected?: boolean;
+	testId?: string;
+	actionOptions?: CardActionOptions;
+	icon: IconProps;
+	link?: string;
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 }
 
 export const UnauthorizedView = ({
-  context = { text: '' },
-  isSelected = false,
-  actions = [],
-  testId = 'block-card-unauthorized-view',
-  actionOptions,
-  link = '',
-  onClick = () => {},
+	context = { text: '' },
+	isSelected = false,
+	actions = [],
+	testId = 'block-card-unauthorized-view',
+	actionOptions,
+	link = '',
+	onClick = () => {},
 }: UnauthorizedViewProps) => {
-  const handleClick = (event: MouseEvent<HTMLElement>) =>
-    handleClickCommon(event, onClick);
+	const handleClick = (event: MouseEvent<HTMLElement>) => handleClickCommon(event, onClick);
 
-  return (
-    <Frame isSelected={isSelected} testId={testId} isFluidHeight>
-      <Content isCompact>
-        <div>
-          <ContentHeader onClick={handleClick} link={link}>
-            <Link url={link} testId={testId} />
-          </ContentHeader>
-          <Byline
-            testId={testId ? `${testId}-byline` : undefined}
-            text={
-              <FormattedMessage
-                {...textBylineProps}
-                values={{ context: context.text }}
-              />
-            }
-          />
-        </div>
-        <ContentFooter>
-          <Provider name={context.text} icon={context.icon} />
-          {!actionOptions?.hide && <ActionList items={actions} />}
-        </ContentFooter>
-      </Content>
-    </Frame>
-  );
+	return (
+		<Frame isSelected={isSelected} testId={testId} isFluidHeight>
+			<Content isCompact>
+				<div>
+					<ContentHeader onClick={handleClick} link={link}>
+						<Link url={link} testId={testId} />
+					</ContentHeader>
+					<Byline
+						testId={testId ? `${testId}-byline` : undefined}
+						text={<FormattedMessage {...textBylineProps} values={{ context: context.text }} />}
+					/>
+				</div>
+				<ContentFooter>
+					<Provider name={context.text} icon={context.icon} />
+					{!actionOptions?.hide && <ActionList items={actions} />}
+				</ContentFooter>
+			</Content>
+		</Frame>
+	);
 };

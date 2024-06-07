@@ -10,11 +10,11 @@ import { HelpLayout } from '../../HelpLayout';
 // Messages
 const cache = createIntlCache();
 const intl = createIntl(
-  {
-    locale: 'en',
-    messages: {},
-  },
-  cache,
+	{
+		locale: 'en',
+		messages: {},
+	},
+	cache,
 );
 const messageClose = intl.formatMessage(messages.help_panel_header_close);
 const messageBack = intl.formatMessage(messages.help_panel_header_back);
@@ -27,135 +27,135 @@ const mockOnBackButtonClick = jest.fn();
 const defaultContentText = <div id="mock-content">Mock Content</div>;
 
 describe('BackButton', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 
-  it('Should display the close button if the props mockOnCloseButtonClick is defined', () => {
-    const { queryByLabelText } = render(
-      <IntlProvider locale="en">
-        <HelpLayout
-          isBackbuttonVisible={false}
-          isLoading={false}
-          onCloseButtonClick={mockOnCloseButtonClick}
-          onBackButtonClick={mockOnBackButtonClick}
-          footer={<div id="mock-footer">Footer</div>}
-        >
-          <div>{defaultContentText}</div>
-        </HelpLayout>
-      </IntlProvider>,
-    );
+	it('Should display the close button if the props mockOnCloseButtonClick is defined', () => {
+		const { queryByLabelText } = render(
+			<IntlProvider locale="en">
+				<HelpLayout
+					isBackbuttonVisible={false}
+					isLoading={false}
+					onCloseButtonClick={mockOnCloseButtonClick}
+					onBackButtonClick={mockOnBackButtonClick}
+					footer={<div id="mock-footer">Footer</div>}
+				>
+					<div>{defaultContentText}</div>
+				</HelpLayout>
+			</IntlProvider>,
+		);
 
-    const closeButton = queryByLabelText(messageClose);
+		const closeButton = queryByLabelText(messageClose);
 
-    expect(closeButton).not.toBeNull();
-  });
+		expect(closeButton).not.toBeNull();
+	});
 
-  it('Should NOT display the close button if the props mockOnCloseButtonClick is undefined or null', () => {
-    const { queryByLabelText } = render(
-      <IntlProvider locale="en">
-        <HelpLayout
-          isBackbuttonVisible={false}
-          isLoading={false}
-          onBackButtonClick={mockOnBackButtonClick}
-          footer={<div id="mock-footer">Footer</div>}
-        >
-          <div>{defaultContentText}</div>
-        </HelpLayout>
-      </IntlProvider>,
-    );
+	it('Should NOT display the close button if the props mockOnCloseButtonClick is undefined or null', () => {
+		const { queryByLabelText } = render(
+			<IntlProvider locale="en">
+				<HelpLayout
+					isBackbuttonVisible={false}
+					isLoading={false}
+					onBackButtonClick={mockOnBackButtonClick}
+					footer={<div id="mock-footer">Footer</div>}
+				>
+					<div>{defaultContentText}</div>
+				</HelpLayout>
+			</IntlProvider>,
+		);
 
-    const closeButton = queryByLabelText(messageClose);
+		const closeButton = queryByLabelText(messageClose);
 
-    expect(closeButton).toBeNull();
-  });
+		expect(closeButton).toBeNull();
+	});
 
-  it('Should display the back button if the props isBackbuttonVisible is true', () => {
-    const { queryAllByText } = render(
-      <IntlProvider locale="en">
-        <HelpLayout
-          isBackbuttonVisible={true}
-          isLoading={false}
-          onCloseButtonClick={mockOnCloseButtonClick}
-          onBackButtonClick={mockOnBackButtonClick}
-          footer={<div id="mock-footer">Footer</div>}
-        >
-          <div>{defaultContentText}</div>
-        </HelpLayout>
-      </IntlProvider>,
-    );
+	it('Should display the back button if the props isBackbuttonVisible is true', () => {
+		const { queryAllByText } = render(
+			<IntlProvider locale="en">
+				<HelpLayout
+					isBackbuttonVisible={true}
+					isLoading={false}
+					onCloseButtonClick={mockOnCloseButtonClick}
+					onBackButtonClick={mockOnBackButtonClick}
+					footer={<div id="mock-footer">Footer</div>}
+				>
+					<div>{defaultContentText}</div>
+				</HelpLayout>
+			</IntlProvider>,
+		);
 
-    const backButton = queryAllByText(messageBack);
+		const backButton = queryAllByText(messageBack);
 
-    expect(backButton).not.toBeNull();
-  });
+		expect(backButton).not.toBeNull();
+	});
 
-  it('Should call onCloseButtonClick when the user clicks the Close button', () => {
-    const { queryByLabelText } = render(
-      <IntlProvider locale="en">
-        <HelpLayout
-          isBackbuttonVisible={true}
-          isLoading={false}
-          onCloseButtonClick={mockOnCloseButtonClick}
-          onBackButtonClick={mockOnBackButtonClick}
-          footer={<div id="mock-footer">Footer</div>}
-        >
-          <div>{defaultContentText}</div>
-        </HelpLayout>
-      </IntlProvider>,
-    );
+	it('Should call onCloseButtonClick when the user clicks the Close button', () => {
+		const { queryByLabelText } = render(
+			<IntlProvider locale="en">
+				<HelpLayout
+					isBackbuttonVisible={true}
+					isLoading={false}
+					onCloseButtonClick={mockOnCloseButtonClick}
+					onBackButtonClick={mockOnBackButtonClick}
+					footer={<div id="mock-footer">Footer</div>}
+				>
+					<div>{defaultContentText}</div>
+				</HelpLayout>
+			</IntlProvider>,
+		);
 
-    const closeButton = queryByLabelText(messageClose)!.closest('button');
-    expect(closeButton).not.toBeNull();
+		const closeButton = queryByLabelText(messageClose)!.closest('button');
+		expect(closeButton).not.toBeNull();
 
-    if (closeButton) {
-      fireEvent.click(closeButton);
+		if (closeButton) {
+			fireEvent.click(closeButton);
 
-      expect(mockOnCloseButtonClick).toHaveBeenCalledTimes(1);
-    }
-  });
+			expect(mockOnCloseButtonClick).toHaveBeenCalledTimes(1);
+		}
+	});
 
-  it('Should call onBackButtonClick when the user clicks the Back button', () => {
-    const { queryByText } = render(
-      <IntlProvider locale="en">
-        <HelpLayout
-          isBackbuttonVisible={true}
-          isLoading={false}
-          onCloseButtonClick={mockOnCloseButtonClick}
-          onBackButtonClick={mockOnBackButtonClick}
-          footer={<div id="mock-footer">Footer</div>}
-        >
-          <div>{defaultContentText}</div>
-        </HelpLayout>
-      </IntlProvider>,
-    );
+	it('Should call onBackButtonClick when the user clicks the Back button', () => {
+		const { queryByText } = render(
+			<IntlProvider locale="en">
+				<HelpLayout
+					isBackbuttonVisible={true}
+					isLoading={false}
+					onCloseButtonClick={mockOnCloseButtonClick}
+					onBackButtonClick={mockOnBackButtonClick}
+					footer={<div id="mock-footer">Footer</div>}
+				>
+					<div>{defaultContentText}</div>
+				</HelpLayout>
+			</IntlProvider>,
+		);
 
-    const backButton = queryByText(messageBack);
-    expect(backButton).not.toBeNull();
+		const backButton = queryByText(messageBack);
+		expect(backButton).not.toBeNull();
 
-    if (backButton) {
-      fireEvent.click(backButton);
+		if (backButton) {
+			fireEvent.click(backButton);
 
-      expect(mockOnBackButtonClick).toHaveBeenCalledTimes(1);
-    }
-  });
+			expect(mockOnBackButtonClick).toHaveBeenCalledTimes(1);
+		}
+	});
 
-  it('Should show the loading state when isLoading = true', () => {
-    const { queryByLabelText } = render(
-      <IntlProvider locale="en">
-        <HelpLayout
-          isBackbuttonVisible={true}
-          isLoading={true}
-          onCloseButtonClick={mockOnCloseButtonClick}
-          onBackButtonClick={mockOnBackButtonClick}
-          footer={<div id="mock-footer">Footer</div>}
-        >
-          <div>{defaultContentText}</div>
-        </HelpLayout>
-      </IntlProvider>,
-    );
+	it('Should show the loading state when isLoading = true', () => {
+		const { queryByLabelText } = render(
+			<IntlProvider locale="en">
+				<HelpLayout
+					isBackbuttonVisible={true}
+					isLoading={true}
+					onCloseButtonClick={mockOnCloseButtonClick}
+					onBackButtonClick={mockOnBackButtonClick}
+					footer={<div id="mock-footer">Footer</div>}
+				>
+					<div>{defaultContentText}</div>
+				</HelpLayout>
+			</IntlProvider>,
+		);
 
-    const loadingImg = queryByLabelText(messageLoading);
-    expect(loadingImg).not.toBeNull();
-  });
+		const loadingImg = queryByLabelText(messageLoading);
+		expect(loadingImg).not.toBeNull();
+	});
 });

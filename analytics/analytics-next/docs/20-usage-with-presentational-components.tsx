@@ -28,45 +28,44 @@ our suggested approach.
 ### Recommended Usage
 
 ${(
-  <table>
-    <tr>
-      <th>Component Type</th>
-      <th>Recommendation</th>
-    </tr>
-    <tr>
-      <td>Class components</td>
-      <td>
-        You have only the <a href="#with-analytics-events">HOC option</a>{' '}
-        available.
-      </td>
-    </tr>
-    <tr>
-      <td>Atlaskit function components</td>
-      <td>
-        Use{' '}
-        <a href="#use-platform-leaf-event-handler">
-          <code>usePlatformLeafEventHandler</code>
-        </a>
-        .
-      </td>
-    </tr>
-    <tr>
-      <td>Other function components</td>
-      <td>
-        Use{' '}
-        <a href="#use-callback-with-analytics">
-          <code>useCallbackWithAnalytics</code>
-        </a>{' '}
-        if you want something basic.
-        <br />
-        Use{' '}
-        <a href="#use-analytics-events">
-          <code>useAnalyticsEvents</code>
-        </a>{' '}
-        if you want more control.
-      </td>
-    </tr>
-  </table>
+	<table>
+		<tr>
+			<th>Component Type</th>
+			<th>Recommendation</th>
+		</tr>
+		<tr>
+			<td>Class components</td>
+			<td>
+				You have only the <a href="#with-analytics-events">HOC option</a> available.
+			</td>
+		</tr>
+		<tr>
+			<td>Atlaskit function components</td>
+			<td>
+				Use{' '}
+				<a href="#use-platform-leaf-event-handler">
+					<code>usePlatformLeafEventHandler</code>
+				</a>
+				.
+			</td>
+		</tr>
+		<tr>
+			<td>Other function components</td>
+			<td>
+				Use{' '}
+				<a href="#use-callback-with-analytics">
+					<code>useCallbackWithAnalytics</code>
+				</a>{' '}
+				if you want something basic.
+				<br />
+				Use{' '}
+				<a href="#use-analytics-events">
+					<code>useAnalyticsEvents</code>
+				</a>{' '}
+				if you want more control.
+			</td>
+		</tr>
+	</table>
 )}
 
 ### Examples

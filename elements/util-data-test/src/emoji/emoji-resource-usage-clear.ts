@@ -1,18 +1,18 @@
 import { type EmojiDescription } from '@atlaskit/emoji/types';
 import {
-  EmojiRepositoryUsageClear,
-  isUsageClearEmojiRepository,
+	EmojiRepositoryUsageClear,
+	isUsageClearEmojiRepository,
 } from './emoji-repository-usage-clear';
 import { MockNonUploadingEmojiResource } from './mock-non-uploading-emoji-resource';
 
 export class EmojiResourceUsageClear extends MockNonUploadingEmojiResource {
-  constructor(emojis: EmojiDescription[]) {
-    super(new EmojiRepositoryUsageClear(emojis));
-  }
+	constructor(emojis: EmojiDescription[]) {
+		super(new EmojiRepositoryUsageClear(emojis));
+	}
 
-  clearFrequentlyUsed() {
-    if (isUsageClearEmojiRepository(this.emojiRepository)) {
-      this.emojiRepository.clear();
-    }
-  }
+	clearFrequentlyUsed() {
+		if (isUsageClearEmojiRepository(this.emojiRepository)) {
+			this.emojiRepository.clear();
+		}
+	}
 }

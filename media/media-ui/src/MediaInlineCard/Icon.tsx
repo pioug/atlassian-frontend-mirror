@@ -8,15 +8,15 @@ import { token } from '@atlaskit/tokens';
 // to position it with appropriate whitespace from the top.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Icon = styled.img({
-  height: '14px',
-  width: '14px',
-  marginRight: token('space.050', '4px'),
-  borderRadius: '2px',
-  userSelect: 'none',
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+	height: '14px',
+	width: '14px',
+	marginRight: token('space.050', '4px'),
+	borderRadius: '2px',
+	userSelect: 'none',
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
 });
 
 // Used for 'untrue' icons which claim to be 16x16 but
@@ -24,5 +24,5 @@ export const Icon = styled.img({
 // TODO: Replace this override with proper AtlasKit solution.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AKIconWrapper = styled.span({
-  marginRight: token('space.negative.025', '-2px'),
+	marginRight: token('space.negative.025', '-2px'),
 });

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  code,
-  md,
-  Example,
-  Props,
-  AtlassianInternalWarning,
-} from '@atlaskit/docs';
+import { code, md, Example, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -42,18 +36,18 @@ export default md`
   You must be logged in at [https://pug.jira-dev.com](https://pug.jira-dev.com) to load the examples.
 
   ${(
-    <Example
-      Component={require('../examples/3-basic-example').default}
-      title="An editable example"
-      source={require('!!raw-loader!../examples/3-basic-example')}
-    />
-  )}
+		<Example
+			Component={require('../examples/3-basic-example').default}
+			title="An editable example"
+			source={require('!!raw-loader!../examples/3-basic-example')}
+		/>
+	)}
 
 ${(
-  <Props
-    heading="Smart Link Props"
-    props={require('!!extract-react-types-loader!../src/view/CardWithUrl/loader')}
-  />
+	<Props
+		heading="Smart Link Props"
+		props={require('!!extract-react-types-loader!../src/view/CardWithUrl/loader')}
+	/>
 )}
 
 `;

@@ -3,5 +3,7 @@ import createNamespaceContext, { type Props } from './helper/createNamespaceCont
 
 export const ATLAS_CONTEXT = 'atlasCtx';
 
-export const AtlasAnalyticsContext: FunctionComponent<Props> =
-  createNamespaceContext(ATLAS_CONTEXT, 'AtlasAnalyticsContext');
+export const AtlasAnalyticsContext: FunctionComponent<Props> = createNamespaceContext(
+	ATLAS_CONTEXT,
+	'AtlasAnalyticsContext',
+);

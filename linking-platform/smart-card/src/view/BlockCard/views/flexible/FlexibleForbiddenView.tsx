@@ -26,92 +26,86 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
  * @see FlexibleCardProps
  */
 const FlexibleForbiddenView = ({
-  testId = 'smart-block-forbidden-view',
-  ...props
+	testId = 'smart-block-forbidden-view',
+	...props
 }: FlexibleBlockCardProps) => {
-  const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const intl = useIntl();
+	const intl = useIntl();
 
-  const { cardState, onAuthorize, url } = props;
-  const details = cardState?.details;
-  const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
-  const provider = extractProvider(details?.data as JsonLd.Data.BaseData);
-  const providerName = provider?.text || '';
+	const { cardState, onAuthorize, url } = props;
+	const details = cardState?.details;
+	const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
+	const provider = extractProvider(details?.data as JsonLd.Data.BaseData);
+	const providerName = provider?.text || '';
 
-  const messageContext = useMemo(() => {
-    const hostname = <b>{extractHostname(url)}</b>;
+	const messageContext = useMemo(() => {
+		const hostname = <b>{extractHostname(url)}</b>;
 
-    return { product: providerName, hostname };
-  }, [providerName, url]);
+		return { product: providerName, hostname };
+	}, [providerName, url]);
 
-  const requestAccessContext = useMemo(() => {
-    return extractRequestAccessContextImproved({
-      jsonLd: cardMetadata,
-      url,
-      product: providerName,
-      createAnalyticsEvent,
-    });
-  }, [cardMetadata, providerName, url, createAnalyticsEvent]);
+	const requestAccessContext = useMemo(() => {
+		return extractRequestAccessContextImproved({
+			jsonLd: cardMetadata,
+			url,
+			product: providerName,
+			createAnalyticsEvent,
+		});
+	}, [cardMetadata, providerName, url, createAnalyticsEvent]);
 
-  const title = useMemo(() => {
-    const descriptor = toMessage(
-      messages.invalid_permissions,
-      requestAccessContext?.titleMessageKey,
-    );
-    return intl.formatMessage(descriptor, { product: providerName });
-  }, [intl, providerName, requestAccessContext?.titleMessageKey]);
+	const title = useMemo(() => {
+		const descriptor = toMessage(
+			messages.invalid_permissions,
+			requestAccessContext?.titleMessageKey,
+		);
+		return intl.formatMessage(descriptor, { product: providerName });
+	}, [intl, providerName, requestAccessContext?.titleMessageKey]);
 
-  const actions = useMemo<ActionItem[]>(() => {
-    let actionFromAccessContext: ActionItem[] = [];
-    const tryAnotherAccountAction = onAuthorize
-      ? [ForbiddenAction(onAuthorize, 'try_another_account')]
-      : [];
+	const actions = useMemo<ActionItem[]>(() => {
+		let actionFromAccessContext: ActionItem[] = [];
+		const tryAnotherAccountAction = onAuthorize
+			? [ForbiddenAction(onAuthorize, 'try_another_account')]
+			: [];
 
-    if (requestAccessContext) {
-      const { action, callToActionMessageKey } = requestAccessContext;
+		if (requestAccessContext) {
+			const { action, callToActionMessageKey } = requestAccessContext;
 
-      actionFromAccessContext =
-        action && callToActionMessageKey
-          ? [
-              ForbiddenAction(
-                action.promise,
-                callToActionMessageKey,
-                messageContext,
-                requestAccessContext?.buttonDisabled,
-              ),
-            ]
-          : [];
-    }
+			actionFromAccessContext =
+				action && callToActionMessageKey
+					? [
+							ForbiddenAction(
+								action.promise,
+								callToActionMessageKey,
+								messageContext,
+								requestAccessContext?.buttonDisabled,
+							),
+						]
+					: [];
+		}
 
-    return [...tryAnotherAccountAction, ...actionFromAccessContext];
-  }, [onAuthorize, requestAccessContext, messageContext]);
+		return [...tryAnotherAccountAction, ...actionFromAccessContext];
+	}, [onAuthorize, requestAccessContext, messageContext]);
 
-  return (
-    <UnresolvedView
-      {...props}
-      actions={actions}
-      showPreview={true}
-      testId={testId}
-      title={title}
-    >
-      <LockIcon
-        label="forbidden-lock-icon"
-        size="small"
-        primaryColor={token('color.icon.danger', R300)}
-        testId={`${testId}-lock-icon`}
-      />
-      <Text
-        maxLines={3}
-        message={{
-          descriptor: toMessage(
-            messages.invalid_permissions_description,
-            requestAccessContext?.descriptiveMessageKey,
-          ),
-          values: messageContext,
-        }}
-      />
-    </UnresolvedView>
-  );
+	return (
+		<UnresolvedView {...props} actions={actions} showPreview={true} testId={testId} title={title}>
+			<LockIcon
+				label="forbidden-lock-icon"
+				size="small"
+				primaryColor={token('color.icon.danger', R300)}
+				testId={`${testId}-lock-icon`}
+			/>
+			<Text
+				maxLines={3}
+				message={{
+					descriptor: toMessage(
+						messages.invalid_permissions_description,
+						requestAccessContext?.descriptiveMessageKey,
+					),
+					values: messageContext,
+				}}
+			/>
+		</UnresolvedView>
+	);
 };
 export default withFlexibleUIBlockCardStyle(FlexibleForbiddenView);

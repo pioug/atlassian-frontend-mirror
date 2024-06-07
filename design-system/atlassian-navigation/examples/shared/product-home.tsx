@@ -11,10 +11,6 @@ import {
   JiraLogo,
   JiraServiceManagementIcon,
   JiraServiceManagementLogo,
-  JiraSoftwareIcon,
-  JiraSoftwareLogo,
-  OpsgenieIcon,
-  OpsgenieLogo,
 } from '@atlaskit/logo';
 
 import { CustomProductHome, ProductHome } from '../../src';
@@ -60,26 +56,6 @@ export const JiraServiceManagementProductHome = () => (
     logo={JiraServiceManagementLogo}
     href="#"
     testId="jsm-product-home"
-  />
-);
-
-export const JiraSoftwareProductHome = () => (
-  <ProductHome
-    siteTitle="Extranet"
-    icon={JiraSoftwareIcon}
-    logo={JiraSoftwareLogo}
-    href="#"
-    testId="jsw-product-home"
-  />
-);
-
-export const OpsGenieProductHome = () => (
-  <ProductHome
-    siteTitle="Extranet"
-    onClick={console.log}
-    icon={OpsgenieIcon}
-    logo={OpsgenieLogo}
-    testId="opsgenie-product-home"
   />
 );
 

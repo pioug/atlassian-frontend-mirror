@@ -14,13 +14,13 @@ class MacroPlaceholderImageError {
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const PlaceholderImage = styled.img`
-	max-width: ${(props) => `${props.width}px`};
-	background-color: ${token('elevation.surface', N0)};
-	padding: ${token('space.100', '8px')};
-	width: 100%;
-	box-sizing: border-box;
-`;
+const PlaceholderImage = styled.img((props) => ({
+	maxWidth: `${props.width}px`,
+	backgroundColor: token('elevation.surface', N0),
+	padding: token('space.100', '8px'),
+	width: '100%',
+	boxSizing: 'border-box',
+}));
 
 export const PlaceholderComponent = (props: PlaceholderComponentProps) => {
 	const { createPromise, extension, renderFallback } = props;

@@ -5,13 +5,13 @@ export const APS_STARGATE_PATH = '/gateway/wss/fps';
  * to reduce the chances of reconnect storms as much as possible.
  */
 export const reconnectBackoffOptions = () => {
-  return {
-    delayFirstAttempt: true,
-    startingDelay: 500 + Math.random() * 3 * 60 * 1000,
-    timeMultiple: 2,
-    numOfAttempts: 5,
-    maxDelay: 60 * 5 * 1000,
-  };
+	return {
+		delayFirstAttempt: true,
+		startingDelay: 500 + Math.random() * 3 * 60 * 1000,
+		timeMultiple: 2,
+		numOfAttempts: 5,
+		maxDelay: 60 * 5 * 1000,
+	};
 };
 
 /**
@@ -20,18 +20,18 @@ export const reconnectBackoffOptions = () => {
  * protocol quickly.
  */
 export const firstConnectBackoffOptions = (isFallback: boolean) => {
-  return {
-    delayFirstAttempt: false,
-    startingDelay: 200,
-    timeMultiple: 2,
-    numOfAttempts: isFallback ? 5 : 3,
-    maxDelay: 60 * 10 * 1000,
-  };
+	return {
+		delayFirstAttempt: false,
+		startingDelay: 200,
+		timeMultiple: 2,
+		numOfAttempts: isFallback ? 5 : 3,
+		maxDelay: 60 * 10 * 1000,
+	};
 };
 
 // "sequenceNumber" is usually obtained from consumed messages. Here, we're getting its value based on the
 // timestamp when the connection is established to cover the scenario where zero messages are received as part
 // of the connection.
 export const getTimestampBasedSequenceNumber = () => {
-  return Math.floor(new Date().getTime() / 1000); // timestamp in seconds
+	return Math.floor(new Date().getTime() / 1000); // timestamp in seconds
 };

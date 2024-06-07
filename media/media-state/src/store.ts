@@ -5,26 +5,24 @@ import { createStore } from 'zustand/vanilla';
 import { type FileState } from './file-state';
 
 export interface Store {
-  files: Record<string, FileState>;
+	files: Record<string, FileState>;
 }
 
 const mediaStoreWithoutDevtools = createStore<Store>()(
-  subscribeWithSelector(immer(() => ({ files: {} }))),
+	subscribeWithSelector(immer(() => ({ files: {} }))),
 );
 
 const mediaStoreWithDevtools = createStore<Store>()(
-  devtools(subscribeWithSelector(immer(() => ({ files: {} })))),
+	devtools(subscribeWithSelector(immer(() => ({ files: {} })))),
 );
 
 export type MediaStore = typeof mediaStoreWithoutDevtools;
 
 export const mediaStore =
-  process.env.NODE_ENV === 'development' && !process.env.CI
-    ? (mediaStoreWithDevtools as MediaStore)
-    : mediaStoreWithoutDevtools;
+	process.env.NODE_ENV === 'development' && !process.env.CI
+		? (mediaStoreWithDevtools as MediaStore)
+		: mediaStoreWithoutDevtools;
 
 export const createMediaStore = (initialStore?: Store) => {
-  return createStore<Store>()(
-    subscribeWithSelector(immer(() => ({ files: {}, ...initialStore }))),
-  );
+	return createStore<Store>()(subscribeWithSelector(immer(() => ({ files: {}, ...initialStore }))));
 };

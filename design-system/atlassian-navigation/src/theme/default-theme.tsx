@@ -1,4 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B200,
   B400,
@@ -98,17 +97,8 @@ const defaultTheme: { mode: Mode } = {
       backgroundColor: token('color.text.brand', B400),
       color: token('color.text', N700),
       borderRight: `1px solid ${token('color.border', hexToRGBA(N200, 0.3))}`,
-      // TODO: (DSP-1256) These colors should be moved into the Logo package
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      iconGradientStart: B400,
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      iconGradientStop: B200,
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      iconColor: getBooleanFF(
-        'platform.design-system-team.brand-refresh-update-product-logos_q7coo',
-      )
-        ? '#357DE8'
-        : B200,
+      iconColor: '#357DE8', // TODO: replace with token after brand refresh
     },
     primaryButton: {
       active: {

@@ -4,7 +4,7 @@ import { ExampleConfluenceSearchTableView } from '../../examples-helpers/buildCo
 import { HoverableContainer } from '../../examples-helpers/hoverableContainer';
 
 export default () => (
-  <HoverableContainer>
-    <ExampleConfluenceSearchTableView />
-  </HoverableContainer>
+	<HoverableContainer>
+		<ExampleConfluenceSearchTableView />
+	</HoverableContainer>
 );

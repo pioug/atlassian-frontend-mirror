@@ -2,23 +2,20 @@ import { Component } from 'react';
 import { type ExposureDetails, type ExperimentEnrollmentOptions } from './types';
 
 interface Props {
-  exposureDetails: ExposureDetails;
-  onExposure: (
-    exposureDetails: ExposureDetails,
-    options?: ExperimentEnrollmentOptions,
-  ) => void;
-  options?: ExperimentEnrollmentOptions;
+	exposureDetails: ExposureDetails;
+	onExposure: (exposureDetails: ExposureDetails, options?: ExperimentEnrollmentOptions) => void;
+	options?: ExperimentEnrollmentOptions;
 }
 
 export default class CohortTracker extends Component<Props> {
-  static displayName = 'CohortTracker';
+	static displayName = 'CohortTracker';
 
-  componentDidMount() {
-    const { exposureDetails, options, onExposure } = this.props;
-    onExposure(exposureDetails, options);
-  }
+	componentDidMount() {
+		const { exposureDetails, options, onExposure } = this.props;
+		onExposure(exposureDetails, options);
+	}
 
-  render() {
-    return null;
-  }
+	render() {
+		return null;
+	}
 }

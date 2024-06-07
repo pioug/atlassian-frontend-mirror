@@ -8,47 +8,47 @@ export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 export type { MediaType } from '@atlaskit/media-common';
 
 export const isPreviewableType = (type: MediaType): boolean => {
-  const defaultPreviewableTypes = ['audio', 'video', 'image', 'doc'];
-  return defaultPreviewableTypes.indexOf(type) > -1;
+	const defaultPreviewableTypes = ['audio', 'video', 'image', 'doc'];
+	return defaultPreviewableTypes.indexOf(type) > -1;
 };
 
 export type MediaFile = {
-  readonly id: string;
-  readonly mediaType: MediaType;
-  readonly mimeType: string;
-  readonly name: string;
-  readonly processingStatus?: MediaFileProcessingStatus;
-  readonly size: number;
-  readonly artifacts: MediaFileArtifacts;
-  readonly representations: MediaRepresentations;
-  readonly createdAt?: number;
-  readonly metadataTraceContext?: MediaTraceContext;
+	readonly id: string;
+	readonly mediaType: MediaType;
+	readonly mimeType: string;
+	readonly name: string;
+	readonly processingStatus?: MediaFileProcessingStatus;
+	readonly size: number;
+	readonly artifacts: MediaFileArtifacts;
+	readonly representations: MediaRepresentations;
+	readonly createdAt?: number;
+	readonly metadataTraceContext?: MediaTraceContext;
 };
 
 export type MediaItemDetails = {
-  readonly mediaType: MediaType;
-  readonly mimeType: string;
-  readonly name: string;
-  readonly processingStatus: MediaFileProcessingStatus;
-  readonly size: number;
-  readonly artifacts: MediaFileArtifacts;
-  readonly representations: MediaRepresentations;
-  readonly createdAt?: number;
-  readonly metadataTraceContext?: MediaTraceContext;
+	readonly mediaType: MediaType;
+	readonly mimeType: string;
+	readonly name: string;
+	readonly processingStatus: MediaFileProcessingStatus;
+	readonly size: number;
+	readonly artifacts: MediaFileArtifacts;
+	readonly representations: MediaRepresentations;
+	readonly createdAt?: number;
+	readonly metadataTraceContext?: MediaTraceContext;
 };
 
 export type MediaRepresentations = {
-  image?: Object;
+	image?: Object;
 };
 
 export type MediaUpload = {
-  readonly id: string;
-  readonly created: number;
-  readonly expires: number;
+	readonly id: string;
+	readonly created: number;
+	readonly expires: number;
 };
 
 export enum DATA_UNIT {
-  MB = 1024 * 1024,
-  GB = 1024 * MB,
-  TB = 1024 * GB,
+	MB = 1024 * 1024,
+	GB = 1024 * MB,
+	TB = 1024 * GB,
 }

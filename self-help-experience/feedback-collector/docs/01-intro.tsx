@@ -12,19 +12,19 @@ For more information about the Feedback Collector, check out this [page](https:/
 ${code`import FeedbackCollector, { FeedbackFlag, FeedbackForm } from '@atlaskit/feedback-collector';`}
 
 ${(
-  <Example
-    packageName="@atlaskit/feedback-collector"
-    Component={require('../examples/02-feedback-collector').default}
-    title="As a button"
-    source={require('!!raw-loader!../examples/02-feedback-collector')}
-  />
+	<Example
+		packageName="@atlaskit/feedback-collector"
+		Component={require('../examples/02-feedback-collector').default}
+		title="As a button"
+		source={require('!!raw-loader!../examples/02-feedback-collector')}
+	/>
 )}
 
 ${(
-  <Props
-    heading="Feedback Collector Props"
-    props={require('!!extract-react-types-loader!../src/components/FeedbackCollector')}
-  />
+	<Props
+		heading="Feedback Collector Props"
+		props={require('!!extract-react-types-loader!../src/components/FeedbackCollector')}
+	/>
 )}
 
 ## Feedback form
@@ -33,19 +33,19 @@ Feedback form is a basic component that provides your the  appearance and functi
 It is not tied to any particular feedback collector.
 
 ${(
-  <Example
-    packageName="@atlaskit/feedback-collector"
-    Component={require('../examples/01-feedback-form').default}
-    title="As a button"
-    source={require('!!raw-loader!../examples/01-feedback-form')}
-  />
+	<Example
+		packageName="@atlaskit/feedback-collector"
+		Component={require('../examples/01-feedback-form').default}
+		title="As a button"
+		source={require('!!raw-loader!../examples/01-feedback-form')}
+	/>
 )}
 
 ${(
-  <Props
-    heading="Feedback Form Props"
-    props={require('!!extract-react-types-loader!../src/components/FeedbackForm')}
-  />
+	<Props
+		heading="Feedback Form Props"
+		props={require('!!extract-react-types-loader!../src/components/FeedbackForm')}
+	/>
 )}
 
 `;

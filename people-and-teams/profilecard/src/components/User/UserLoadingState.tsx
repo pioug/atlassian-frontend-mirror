@@ -7,19 +7,19 @@ import { SpinnerContainer } from '../../styled/Card';
 import { profileCardRendered } from '../../util/analytics';
 
 interface AnalyticsProps {
-  fireAnalytics: (payload: AnalyticsEventPayload) => void;
+	fireAnalytics: (payload: AnalyticsEventPayload) => void;
 }
 
 const UserLoadingState = ({ fireAnalytics }: AnalyticsProps) => {
-  useEffect(() => {
-    fireAnalytics(profileCardRendered('user', 'spinner'));
-  }, [fireAnalytics]);
+	useEffect(() => {
+		fireAnalytics(profileCardRendered('user', 'spinner'));
+	}, [fireAnalytics]);
 
-  return (
-    <SpinnerContainer>
-      <AkSpinner />
-    </SpinnerContainer>
-  );
+	return (
+		<SpinnerContainer>
+			<AkSpinner />
+		</SpinnerContainer>
+	);
 };
 
 export default UserLoadingState;

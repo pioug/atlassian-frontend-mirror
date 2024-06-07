@@ -13,28 +13,28 @@ import { emojiDeleteButton, deleteButton } from './styles';
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
 const DeleteButton = (props: ButtonProps) => (
-  <span
-    css={deleteButton}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-    className={emojiDeleteButton}
-    data-testid={RENDER_EMOJI_DELETE_BUTTON_TESTID}
-  >
-    <Button
-      iconBefore={
-        <CrossCircleIcon
-          label={deleteEmojiLabel}
-          primaryColor={token('color.text.subtle', N500)}
-          size="small"
-        />
-      }
-      onClick={props.onClick}
-      // TODO: (from codemod) "link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.
-      appearance="subtle-link"
-      spacing="none"
-      testId="emoji-delete-button"
-      tabIndex={-1}
-    />
-  </span>
+	<span
+		css={deleteButton}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		className={emojiDeleteButton}
+		data-testid={RENDER_EMOJI_DELETE_BUTTON_TESTID}
+	>
+		<Button
+			iconBefore={
+				<CrossCircleIcon
+					label={deleteEmojiLabel}
+					primaryColor={token('color.text.subtle', N500)}
+					size="small"
+				/>
+			}
+			onClick={props.onClick}
+			// TODO: (from codemod) "link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.
+			appearance="subtle-link"
+			spacing="none"
+			testId="emoji-delete-button"
+			tabIndex={-1}
+		/>
+	</span>
 );
 
 export default DeleteButton;

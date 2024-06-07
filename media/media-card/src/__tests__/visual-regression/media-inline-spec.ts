@@ -1,33 +1,24 @@
-import {
-  getExampleUrl,
-  pageSelector,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, pageSelector } from '@atlaskit/visual-regression/helper';
 
 async function setup() {
-  const url = getExampleUrl(
-    'media',
-    'media-card',
-    'Test-VR-media-inline',
-    global.__BASEURL__,
-  );
+	const url = getExampleUrl('media', 'media-card', 'Test-VR-media-inline', global.__BASEURL__);
 
-  const { page } = global;
-  await page.goto(url);
-  await page.waitForSelector(pageSelector);
+	const { page } = global;
+	await page.goto(url);
+	await page.waitForSelector(pageSelector);
 
-  return { page };
+	return { page };
 }
 
 describe('Media Inline', () => {
-  const mediaInlineLoadedViewSelector =
-    '[data-testid="media-inline-card-loaded-view"]';
+	const mediaInlineLoadedViewSelector = '[data-testid="media-inline-card-loaded-view"]';
 
-  it('should render different UI states', async () => {
-    const { page } = await setup();
-    await page.waitForSelector(mediaInlineLoadedViewSelector, {
-      visible: true,
-    });
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+	it('should render different UI states', async () => {
+		const { page } = await setup();
+		await page.waitForSelector(mediaInlineLoadedViewSelector, {
+			visible: true,
+		});
+		const image = await page.screenshot();
+		expect(image).toMatchProdImageSnapshot();
+	});
 });

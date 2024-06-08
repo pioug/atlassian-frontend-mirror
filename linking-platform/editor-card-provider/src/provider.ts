@@ -208,7 +208,16 @@ export class EditorCardProvider implements CardProvider {
 		return this.providersData?.patterns.find((pattern) => url.match(pattern.source));
 	}
 
-	private getHardCodedAppearance(url: string): CardAppearance | undefined {
+	/**
+	 *
+	 * Decides whether the url passed in should be embedded by default
+	 *
+	 * protected so that subclasses can override this in order to custom handle links embedded by default
+	 *
+	 * @param url
+	 * @returns 'embed' for the card appearance to embed by default
+	 */
+	protected getHardCodedAppearance(url: string): CardAppearance | undefined {
 		if (
 			isJiraRoadmapOrTimeline(url) ||
 			isPolarisView(url) ||

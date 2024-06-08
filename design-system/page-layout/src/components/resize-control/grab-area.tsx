@@ -41,10 +41,10 @@ const grabAreaStyles = css({
 	'&::-moz-focus-inner': {
 		border: 0,
 	},
-	':focus': {
+	'&:focus': {
 		outline: 0,
 	},
-	':enabled:hover, :enabled:focus, :enabled:active': {
+	'&:enabled:hover, &:enabled:focus, &:enabled:active': {
 		[varLineColor]: token('color.border.selected', B200),
 	},
 });
@@ -99,9 +99,6 @@ const GrabArea = ({
 		// range input would be more semantically accurate, it does not affect
 		// usability.
 		role="slider"
-		// @ts-ignore - This was added when `@atlaskit/page-layout` was enrolled into JFE local consumption
-		// There seems to be an incompatibility in the `css` prop between jira and platform
-		// The error goes away when we remove the spread ...props
 		css={[
 			grabAreaStyles,
 			isLeftSidebarCollapsed && grabAreaCollapsedStyles,

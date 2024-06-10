@@ -128,8 +128,6 @@ const InnerTextArea = forwardRef((props: TextAreaProps, ref) => {
 			rows={minimumRows}
 			// TODO refactor to follow emotion styling rules
 			// see: https://product-fabric.atlassian.net/browse/DSP-6060
-			// @ts-ignore - This was added when `@atlaskit/textarea` was enrolled into JFE local consumption
-			// There seems to be an incompatibility in the `css` prop between jira and platform
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			css={textAreaStyles}
 			{...rest}
@@ -151,8 +149,6 @@ const TextArea = memo(
 		props: TextAreaProps,
 		ref: React.Ref<HTMLTextAreaElement>,
 	) {
-		// @ts-ignore - This was added when `@atlaskit/textarea` was enrolled into JFE local consumption
-		// There seems to be an incompatibility in the `css` prop between jira and platform
 		return <InnerTextArea ref={ref} {...props} />;
 	}),
 );

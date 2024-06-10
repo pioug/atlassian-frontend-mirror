@@ -26,9 +26,6 @@ const chevronIconStylesWithSpacingFixStyles = xcss({
 export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButtonProps>(
 	(props: PrimaryDropdownButtonProps, ref: Ref<HTMLElement>) => {
 		return (
-			// @ts-ignore - This was added when `@atlaskit/page-layout` was enrolled into JFE local consumption
-			// There seems to be an incompatibility in the `css` prop between jira and platform
-			// The error goes away when we remove the spread ...props
 			<PrimaryButton
 				iconAfter={
 					<Bleed xcss={chevronIconStylesWithSpacingFixStyles} inline="space.100">

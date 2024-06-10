@@ -16,6 +16,16 @@ export const TableRenderer = generateRendererComponent({
 	appearance: 'full-width',
 });
 
+export const WideTableRendererFullWidth = generateRendererComponent({
+	document: overflowTableWide,
+	appearance: 'full-width',
+});
+
+export const FullWidthTableRendererFullWidth = generateRendererComponent({
+	document: overflowTableFullWidth,
+	appearance: 'full-width',
+});
+
 export const TableRendererWideOverflow = generateRendererComponent({
 	document: overflowTableWide,
 	appearance: 'full-page',
@@ -24,11 +34,6 @@ export const TableRendererWideOverflow = generateRendererComponent({
 export const TableRendererFullWidthOverflow = generateRendererComponent({
 	document: overflowTableFullWidth,
 	appearance: 'full-page',
-});
-
-export const TableRendererMobile = generateRendererComponent({
-	document: tableAdf,
-	appearance: 'mobile',
 });
 
 export const TableRendererWrappedNodes = generateRendererComponent({
@@ -44,4 +49,19 @@ export const TableRendererComplexNodes = generateRendererComponent({
 export const TableRendererBackgroundColor = generateRendererComponent({
 	document: tableColorAdf,
 	appearance: 'full-page',
+});
+
+export const TableRendererFullWidthComment = generateRendererComponent({
+	document: overflowTableFullWidth,
+	appearance: 'comment',
+});
+
+export const TableRendererWideComment = generateRendererComponent({
+	document: overflowTableWide,
+	appearance: 'comment',
+});
+
+export const TableRendererComment = generateRendererComponent({
+	document: tableAdf,
+	appearance: 'comment',
 });

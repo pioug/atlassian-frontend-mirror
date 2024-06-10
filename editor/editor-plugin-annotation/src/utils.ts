@@ -422,7 +422,18 @@ export function hasInvalidWhitespaceNode(selection: TextSelection | AllSelection
 
 	const content = selection.content().content;
 
+	let hasCommentableInlineNodeDescendants = false;
+	let hasCommentableTextNodeDescendants = false;
 	content.descendants((node) => {
+		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			const isAllowedInlineNode = ['emoji', 'status', 'date', 'mention', 'inlineCard'].includes(
+				node.type.name,
+			);
+			if (isAllowedInlineNode) {
+				hasCommentableInlineNodeDescendants = true;
+				return false;
+			}
+		}
 		if (
 			getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes') &&
 			node.type === schema.nodes.inlineCard
@@ -430,28 +441,42 @@ export function hasInvalidWhitespaceNode(selection: TextSelection | AllSelection
 			return false;
 		}
 		if (isText(node, schema)) {
+			if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+				if (node.textContent.trim() !== '') {
+					hasCommentableTextNodeDescendants = true;
+				}
+			}
 			return false;
 		}
 
-		if (node.textContent.trim() === '') {
-			// Trailing new lines do not result in the annotation spanning into
-			// the trailing new line so can be ignored when looking for invalid
-			// whitespace nodes.
-			const nodeIsTrailingNewLine =
-				// it is the final node
-				node.eq(content.lastChild!) &&
-				// and there are multiple nodes
-				!node.eq(content.firstChild!) &&
-				// and it is a paragraph node
-				isParagraph(node, schema);
+		if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			if (node.textContent.trim() === '') {
+				// Trailing new lines do not result in the annotation spanning into
+				// the trailing new line so can be ignored when looking for invalid
+				// whitespace nodes.
+				const nodeIsTrailingNewLine =
+					// it is the final node
+					node.eq(content.lastChild!) &&
+					// and there are multiple nodes
+					!node.eq(content.firstChild!) &&
+					// and it is a paragraph node
+					isParagraph(node, schema);
 
-			if (!nodeIsTrailingNewLine) {
-				foundInvalidWhitespace = true;
+				if (!nodeIsTrailingNewLine) {
+					foundInvalidWhitespace = true;
+				}
 			}
 		}
 
 		return !foundInvalidWhitespace;
 	});
+	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (hasCommentableInlineNodeDescendants) {
+			return false;
+		}
+		return !hasCommentableTextNodeDescendants;
+	}
+
 	return foundInvalidWhitespace;
 }
 

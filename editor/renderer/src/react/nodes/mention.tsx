@@ -1,11 +1,15 @@
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { memo } from 'react';
 
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { Mention } from '@atlaskit/editor-common/mention';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import {
+	useInlineAnnotationProps,
+	type MarkDataAttributes,
+} from '../../ui/annotations/element/useInlineAnnotationProps';
 
-export interface Props {
+export interface Props extends MarkDataAttributes {
 	id: string;
 	providers?: ProviderFactory;
 	eventHandlers?: EventHandlers;
@@ -14,19 +18,33 @@ export interface Props {
 	localId?: string;
 }
 
-export default class MentionItem extends PureComponent<Props, {}> {
-	render() {
-		const { eventHandlers, id, providers, text, accessLevel, localId } = this.props;
+export default memo(function MentionItem(props: Props) {
+	const { eventHandlers, id, providers, text, accessLevel, localId } = props;
+	const inlineAnnotationProps = useInlineAnnotationProps(props, { isInlineCard: false });
 
+	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
 		return (
-			<Mention
-				id={id}
-				text={text}
-				accessLevel={accessLevel}
-				providers={providers}
-				localId={localId}
-				eventHandlers={eventHandlers && eventHandlers.mention}
-			/>
+			<span {...inlineAnnotationProps}>
+				<Mention
+					id={id}
+					text={text}
+					accessLevel={accessLevel}
+					providers={providers}
+					localId={localId}
+					eventHandlers={eventHandlers && eventHandlers.mention}
+				/>
+			</span>
 		);
 	}
-}
+
+	return (
+		<Mention
+			id={id}
+			text={text}
+			accessLevel={accessLevel}
+			providers={providers}
+			localId={localId}
+			eventHandlers={eventHandlers && eventHandlers.mention}
+		/>
+	);
+});

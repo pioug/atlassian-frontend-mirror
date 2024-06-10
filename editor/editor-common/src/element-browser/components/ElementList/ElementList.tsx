@@ -2,8 +2,10 @@
 import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import { Grid } from 'react-virtualized';
 import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
+import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import { Collection } from 'react-virtualized/dist/commonjs/Collection';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
@@ -21,7 +23,12 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../..
 import type { QuickInsertItem } from '../../../provider-factory';
 import { IconFallback } from '../../../quick-insert';
 import type { EmptyStateHandler } from '../../../types';
-import { ELEMENT_LIST_PADDING, SCROLLBAR_WIDTH } from '../../constants';
+import {
+	ELEMENT_ITEM_HEIGHT,
+	ELEMENT_ITEM_PADDING,
+	ELEMENT_LIST_PADDING,
+	SCROLLBAR_WIDTH,
+} from '../../constants';
 import useContainerWidth from '../../hooks/use-container-width';
 import useFocus from '../../hooks/use-focus';
 import type { SelectedItemProps } from '../../types';
@@ -54,6 +61,7 @@ export interface Props {
 	items: QuickInsertItem[];
 	mode: keyof typeof Modes;
 	onInsertItem: (item: QuickInsertItem) => void;
+	columnCount: number;
 	setColumnCount: (columnCount: number) => void;
 	setFocusedItemIndex: (index: number) => void;
 	setFocusedCategoryIndex?: (index: number) => void; // undefined for the case of mobile browser or when no categories
@@ -68,6 +76,7 @@ function ElementList({
 	mode,
 	selectedItemIndex,
 	focusedItemIndex,
+	columnCount,
 	setColumnCount,
 	createAnalyticsEvent,
 	emptyStateHandler,
@@ -107,6 +116,20 @@ function ElementList({
 			},
 		});
 	}, [createAnalyticsEvent]);
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const cache = new CellMeasurerCache({
+		fixedWidth: true,
+		defaultHeight: ELEMENT_ITEM_HEIGHT,
+		minHeight: ELEMENT_ITEM_HEIGHT,
+	});
+
+	const columnWidth = (containerWidth - ELEMENT_ITEM_PADDING * 2) / columnCount;
+	const rowCount = Math.ceil(items.length / columnCount);
+	const rowHeight = ({ index }: { index: number }) =>
+		cache.rowHeight({ index }) <= ELEMENT_ITEM_HEIGHT
+			? ELEMENT_ITEM_HEIGHT
+			: cache.rowHeight({ index }) + ELEMENT_ITEM_PADDING * 2;
 
 	const cellRenderer = useMemo(
 		() =>
@@ -173,6 +196,94 @@ function ElementList({
 		],
 	);
 
+	const gridCellRenderer = useMemo(
+		() =>
+			({
+				columnIndex,
+				key,
+				parent,
+				rowIndex,
+				style,
+			}: {
+				columnIndex: number;
+				rowIndex: number;
+				key: string | number;
+				parent: object;
+				style: object;
+			}) => {
+				const index = rowIndex * columnCount + columnIndex;
+				if (items[index] == null) {
+					return;
+				}
+
+				return index > items.length - 1 ? null : (
+					<CellMeasurer
+						cache={cache}
+						key={key}
+						rowIndex={rowIndex}
+						columnIndex={columnIndex}
+						parent={parent}
+					>
+						<div
+							style={style}
+							key={key}
+							className="element-item-wrapper"
+							css={elementItemWrapper}
+							onKeyDown={
+								getBooleanFF(
+									'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+								)
+									? (e) => {
+											if (e.key === 'Tab') {
+												if (e.shiftKey && index === 0) {
+													if (setFocusedCategoryIndex) {
+														if (!!selectedCategoryIndex) {
+															setFocusedCategoryIndex(selectedCategoryIndex);
+														} else {
+															setFocusedCategoryIndex(0);
+														}
+														e.preventDefault();
+													}
+												}
+												// before focus jumps from elements list we need to rerender react-virtualized collection.
+												// Otherwise on the next render 'scrollToCell' will have same cached value
+												// and collection will not be scrolled to top.
+												// So Tab press on category will not work anymore due to invisible 1-t element.
+												else if (index === items.length - 2) {
+													setFocusedItemIndex(items.length - 1);
+												}
+											}
+										}
+									: undefined
+							}
+						>
+							<MemoizedElementItem
+								inlineMode={!fullMode}
+								index={index}
+								item={items[index]}
+								selected={selectedItemIndex === index}
+								focus={focusedItemIndex === index}
+								setFocusedItemIndex={setFocusedItemIndex}
+								{...props}
+							/>
+						</div>
+					</CellMeasurer>
+				);
+			}, // eslint-disable-next-line react-hooks/exhaustive-deps
+		[
+			cache,
+			items,
+			fullMode,
+			selectedItemIndex,
+			columnCount,
+			focusedItemIndex,
+			selectedCategoryIndex,
+			setFocusedCategoryIndex,
+			setFocusedItemIndex,
+			props,
+		],
+	);
+
 	return (
 		<Fragment>
 			<ContainerWidthMonitor />
@@ -202,26 +313,52 @@ function ElementList({
 					<Fragment>
 						{containerWidth > 0 && (
 							<AutoSizer disableWidth>
-								{({ height }: Size) => (
-									<Collection
-										cellCount={items.length}
-										cellRenderer={cellRenderer}
-										cellSizeAndPositionGetter={cellSizeAndPositionGetter(
-											containerWidth - ELEMENT_LIST_PADDING * 2,
-											scrollbarWidth,
-										)}
-										height={height}
-										width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
-										/**
-										 * Refresh Collection on WidthObserver value change.
-										 * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
-										 * scroll position after updating the data. If new data has different number of cells, a re-render
-										 * is forced to prevent the scroll position render bug.
-										 */
-										key={containerWidth + items.length}
-										scrollToCell={selectedItemIndex}
-									/>
-								)}
+								{({ height }: Size) =>
+									getBooleanFF('platform.editor.a11y-element-browser') ? (
+										<Grid
+											cellRenderer={gridCellRenderer}
+											height={height}
+											width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
+											/**
+											 * Refresh Grid on WidthObserver value change.
+											 * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
+											 * scroll position after updating the data. If new data has different number of cells, a re-render
+											 * is forced to prevent the scroll position render bug.
+											 */
+											key={containerWidth + items.length}
+											rowHeight={rowHeight}
+											rowCount={rowCount}
+											columnCount={columnCount}
+											columnWidth={columnWidth}
+											deferredMeasurementCache={cache}
+											{...(selectedItemIndex && {
+												scrollToCell: {
+													rowIndex: selectedItemIndex / columnCount,
+													columnIndex: selectedItemIndex % columnCount,
+												},
+											})}
+										/>
+									) : (
+										<Collection
+											cellCount={items.length}
+											cellRenderer={cellRenderer}
+											cellSizeAndPositionGetter={cellSizeAndPositionGetter(
+												containerWidth - ELEMENT_LIST_PADDING * 2,
+												scrollbarWidth,
+											)}
+											height={height}
+											width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
+											/**
+											 * Refresh Collection on WidthObserver value change.
+											 * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
+											 * scroll position after updating the data. If new data has different number of cells, a re-render
+											 * is forced to prevent the scroll position render bug.
+											 */
+											key={containerWidth + items.length}
+											scrollToCell={selectedItemIndex}
+										/>
+									)
+								}
 							</AutoSizer>
 						)}
 					</Fragment>
@@ -343,24 +480,25 @@ const elementItemsWrapper = css({
 	justifyContent: 'flex-start',
 	overflow: 'hidden',
 	padding: token('space.025', '2px'),
-	'.ReactVirtualized__Collection': {
+	'.ReactVirtualized__Collection, .ReactVirtualized__Grid': {
 		borderRadius: '3px',
 		outline: 'none',
-		':focus': {
+		'&:focus': {
 			boxShadow: `0 0 0 ${ELEMENT_LIST_PADDING}px ${token('color.border.focused', B100)}`,
 		},
 	},
-	'.ReactVirtualized__Collection__innerScrollContainer': {
-		"div[class='element-item-wrapper']:last-child": {
-			paddingBottom: token('space.050', '4px'),
+	'.ReactVirtualized__Collection__innerScrollContainer, .ReactVirtualized__Grid__innerScrollContainer':
+		{
+			"div[class='element-item-wrapper']:last-child": {
+				paddingBottom: token('space.050', '4px'),
+			},
 		},
-	},
 });
 
 const elementItemWrapper = css({
 	div: {
 		button: {
-			height: '75px',
+			minHeight: '75px',
 			alignItems: 'flex-start',
 			padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
 		},

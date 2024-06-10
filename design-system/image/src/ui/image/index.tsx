@@ -72,8 +72,6 @@ export default function Image({ src, srcDark, alt, testId, ...props }: ImageProp
 					'--img-source-dark': `url(${srcDark || src})`,
 				} as React.CSSProperties
 			}
-			// @ts-ignore - This was added when `@atlaskit/image` was enrolled into JFE local consumption
-			// There seems to be an incompatibility in the `css` prop between jira and platform
 			css={[baseImageStyles, themedImageStyles]}
 			ref={imgRef}
 			// The spread operator is necessary since the component can accept all the props of an `img` element.

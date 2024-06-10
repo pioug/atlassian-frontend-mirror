@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/editor/no-as-casting */
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import React from 'react';
@@ -12,8 +13,7 @@ import {
 	docWithImage,
 	docWithImageInTable,
 } from './__fixtures__/documents';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import * as ffPackage from '@atlaskit/platform-feature-flags';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaClientProvider } from '@atlaskit/media-client-react';
@@ -162,61 +162,99 @@ describe('steps', () => {
 				});
 			});
 
-			describe.each([[{ smartLinksSsr: false }], [{ smartLinksSsr: true }]])(
-				`smartLinksSsr: %o`,
-				(setupOptions) => {
-					describe('should calc the position of a range with an inline card with a mark', () => {
-						ffTest('platform.editor.allow-inline-comments-for-inline-nodes', async () => {
-							if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
-								expect(true).toBe(true);
-								return;
+			describe.each([[true], [false]])(`ssr enabled: %o`, (ssrEnabled) => {
+				const getBooleanFF = jest.spyOn(ffPackage, 'getBooleanFF');
+				const ffDeps = ['platform.editor.allow-inline-comments-for-inline-nodes'];
+				(getBooleanFF as jest.Mock).mockImplementation((ff: string) => ffDeps.includes(ff));
+
+				// helper util to get the text node from a nested element -- this could break if the
+				// structure of inlineCards change
+				function getFirstTextNode(element: ChildNode): HTMLElement | undefined {
+					for (const child of element.childNodes) {
+						if (child.nodeType === Node.TEXT_NODE) {
+							return child as HTMLElement;
+						} else {
+							const textNode = getFirstTextNode(child as ChildNode);
+							if (textNode) {
+								return textNode;
 							}
-							await setup(setupOptions);
+						}
+					}
+				}
 
-							const prefix = 'range-with-inline-card-with-mark';
-							const inlineCardWithMarkParagraph = [...document.querySelectorAll('p')].filter(
-								(paragraph) => paragraph.textContent!.includes(prefix),
-							)![0];
-
-							const myRange = new Range();
-							// This is a fragile, but sets a start position inside the paragraph
-							// see the test document for full structure
-							myRange.setStart(inlineCardWithMarkParagraph.childNodes[0], prefix.length);
-							myRange.setEnd(
-								// The third item in the document for this paragraph is a text node with a comment on it
-								// which means the html will be a span (for the comment), and then a text node
-								// so we reach in twice to get the text node
-								inlineCardWithMarkParagraph.childNodes[3].childNodes[0] as HTMLElement,
-								5,
-							);
-
-							const posFromRange = getPosFromRange(myRange);
-
-							expect(posFromRange).toEqual({
-								from: 1843,
-								to: 1873,
-							});
-
-							// coerce the range to a string
-							const rangeContents = myRange + '';
-							expect(rangeContents).toEqual(
+				const prefix = 'range-with-inline-card-with-mark';
+				test.each([
+					[
+						'across an inline card',
+						{
+							setRange: (myRange: Range, inlineCardWithMarkParagraph: HTMLParagraphElement) => {
+								myRange.setStart(inlineCardWithMarkParagraph.childNodes[0], prefix.length);
+								myRange.setEnd(
+									// The third item in the document for this paragraph is a text node with a comment on it
+									// which means the html will be a span (for the comment), and then a text node
+									// so we reach in twice to get the text node
+									inlineCardWithMarkParagraph.childNodes[3].childNodes[0] as HTMLElement,
+									5,
+								);
+							},
+							expectedPositions: { from: 1843, to: 1873 },
+							expectedRangeContents:
 								' This is an inline card https://trello.com/c/gfrst89H/4-much-muffins with',
-							);
-							const expectedLength =
-								rangeContents.length -
-								// text content of inline card
-								'https://trello.com/c/gfrst89H/4-much-muffins'.length +
-								// the prosemirror position will be at the end of the range
-								1;
-							// @ts-ignore
-							expect(posFromRange.to).toEqual(
-								// @ts-ignore
-								posFromRange.from + expectedLength,
-							);
-						});
-					});
-				},
-			);
+						},
+					],
+					[
+						'ending in an inline card',
+						{
+							setRange: (myRange: Range, inlineCardWithMarkParagraph: HTMLParagraphElement) => {
+								myRange.setStart(inlineCardWithMarkParagraph.childNodes[0], prefix.length);
+								myRange.setEnd(getFirstTextNode(inlineCardWithMarkParagraph.childNodes[2])!, 5);
+							},
+							expectedPositions: { from: 1843, to: 1868 },
+							expectedRangeContents: ' This is an inline card https',
+						},
+					],
+					[
+						'starting in an inline card',
+						{
+							setRange: (myRange: Range, inlineCardWithMarkParagraph: HTMLParagraphElement) => {
+								myRange.setStart(getFirstTextNode(inlineCardWithMarkParagraph.childNodes[2])!, 5);
+								myRange.setEnd(inlineCardWithMarkParagraph.childNodes[3].childNodes[0], 5);
+							},
+							expectedPositions: { from: 1867, to: 1873 },
+							expectedRangeContents: '://trello.com/c/gfrst89H/4-much-muffins with',
+						},
+					],
+					[
+						'entirely in an inline card',
+						{
+							setRange: (myRange: Range, inlineCardWithMarkParagraph: HTMLParagraphElement) => {
+								myRange.setStart(getFirstTextNode(inlineCardWithMarkParagraph.childNodes[2])!, 5);
+								myRange.setEnd(getFirstTextNode(inlineCardWithMarkParagraph.childNodes[2])!, 10);
+							},
+							expectedPositions: { from: 1867, to: 1868 },
+							expectedRangeContents: '://tr',
+						},
+					],
+				])(`%s`, async (_, testItem) => {
+					await setup({ smartLinksSsr: ssrEnabled });
+
+					const inlineCardWithMarkParagraph = [...document.querySelectorAll('p')].filter(
+						(paragraph) => paragraph.textContent!.includes(prefix),
+					)![0];
+					const myRange = new Range();
+					// This is a fragile, but sets a start position inside the paragraph
+					// see the test document for full structure
+
+					testItem.setRange(myRange, inlineCardWithMarkParagraph);
+
+					const posFromRange = getPosFromRange(myRange);
+
+					// coerce the range to a string
+					const rangeContents = myRange + '';
+					expect(rangeContents).toEqual(testItem.expectedRangeContents);
+					expect(posFromRange).toEqual(testItem.expectedPositions);
+				});
+			});
 		});
 
 		describe('when an image is hovered', () => {

@@ -88,7 +88,7 @@ function isNodeInlineTextMark(node: ChildNode | Node | HTMLElement | null) {
 	 * inline text mark.
 	 **/
 
-	if (hasInlineCardDescendant(node)) {
+	if (hasInlineNodeDescendant(node)) {
 		return false;
 	}
 
@@ -99,13 +99,19 @@ function isNodeInlineTextMark(node: ChildNode | Node | HTMLElement | null) {
  * This checks all the descendents of a node and returns true if it reaches
  * a descendant with the data-inline-card attribute set to 'true'.
  */
-function hasInlineCardDescendant(node: Node): boolean {
+function hasInlineNodeDescendant(node: Node): boolean {
 	if (isElementNode(node)) {
-		if (node.dataset.inlineCard === 'true') {
-			return true;
+		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			if (node.dataset.annotationInlineNode === 'true') {
+				return true;
+			}
+		} else {
+			if (node.dataset.inlineCard === 'true') {
+				return true;
+			}
 		}
 
-		return Array.from(node.childNodes).some(hasInlineCardDescendant);
+		return Array.from(node.childNodes).some(hasInlineNodeDescendant);
 	}
 
 	return false;
@@ -143,10 +149,26 @@ function isRoot(element: HTMLElement | null) {
 	return !!element && element.classList.contains('ak-renderer-document');
 }
 
-export function resolvePos(node: Node | null, offset: number) {
+export function resolvePos(node: Node | null, offset: number, findEnd = false) {
 	// If the passed node doesn't exist, we should abort
 	if (!node) {
 		return false;
+	}
+
+	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+		const startPosAncestor = node.parentElement?.closest('[data-renderer-start-pos');
+		const potentialParent = getBooleanFF(
+			'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
+		)
+			? 'data-annotation-mark'
+			: 'data-inline-card';
+		if (startPosAncestor?.hasAttribute(potentialParent)) {
+			if (findEnd) {
+				return parseInt(startPosAncestor?.getAttribute('data-renderer-start-pos') || '-1', 10) + 1;
+			} else {
+				return parseInt(startPosAncestor?.getAttribute('data-renderer-start-pos') || '-1', 10);
+			}
+		}
 	}
 
 	if (node instanceof HTMLElement && isPositionPointer(node)) {
@@ -253,7 +275,8 @@ export function getPosFromRange(
 	}
 
 	const from = resolvePos(startContainer, startOffset);
-	const to = resolvePos(endContainer, endOffset);
+	const findEnd = true;
+	const to = resolvePos(endContainer, endOffset, findEnd);
 
 	if (from === false || to === false) {
 		return false;

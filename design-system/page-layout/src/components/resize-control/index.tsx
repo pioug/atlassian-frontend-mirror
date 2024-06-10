@@ -389,8 +389,6 @@ const ResizeControl = ({
 
 	const resizeButton = {
 		render: (Component: ElementType<ResizeButtonProps>, props: ResizeButtonProps) => (
-			// @ts-ignore - This was added when `@atlaskit/page-layout` was enrolled into JFE local consumption
-			// There seems to be an incompatibility in the `css` prop between jira and platform
 			<Component {...props} />
 		),
 		...(overrides && overrides.ResizeButton),

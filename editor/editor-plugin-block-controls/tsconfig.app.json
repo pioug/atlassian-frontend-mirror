@@ -39,6 +39,9 @@
 			"path": "../editor-plugin-width/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-tables/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{

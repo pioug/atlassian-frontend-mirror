@@ -22,8 +22,6 @@ const OverflowContainer: FC<OverflowContainerProps & HTMLAttributes<HTMLSpanElem
 	...props
 }) => (
 	<span
-		// @ts-ignore - This was added when `@atlaskit/table-tree` was enrolled into JFE local consumption
-		// There seems to be an incompatibility in the `css` prop between jira and platform
 		css={isSingleLine && overflowContainerStyles}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}

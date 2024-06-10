@@ -166,7 +166,16 @@ export const applyMarkOnRange = (
 	}
 
 	tr.doc.nodesBetween(tr.mapping.map(from), tr.mapping.map(to), (node, pos) => {
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			if (!node.isText) {
+				const isAllowedInlineNode = ['emoji', 'status', 'date', 'mention', 'inlineCard'].includes(
+					node.type.name,
+				);
+				if (!isAllowedInlineNode) {
+					return true;
+				}
+			}
+		} else if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
 			if (!node.isText && node.type !== inlineCard) {
 				return true;
 			}

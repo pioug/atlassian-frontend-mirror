@@ -78,6 +78,7 @@ import {
 import type { TablePluginOptions } from './plugin';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
+import { getStaticTableScalingPercent } from './pm-plugins/table-resizing/utils/misc';
 import { getNewResizeStateFromSelectedColumns } from './pm-plugins/table-resizing/utils/resize-state';
 import { pluginKey as tableWidthPluginKey } from './pm-plugins/table-width';
 import { canMergeCells } from './transforms';
@@ -464,6 +465,23 @@ export const getToolbarConfig =
 			const isTableScalingWithFixedColumnWidthsOptionShown =
 				isTableScalingWithFixedColumnWidthsOptionEnabled && !isNested;
 			const areTableColumWidthsFixed = tableObject.node.attrs.displayMode === 'fixed';
+			const editorView = getEditorView();
+
+			const getDomRef = (editorView: EditorView) => {
+				let element: HTMLElement | undefined;
+				const domAtPos = editorView.domAtPos.bind(editorView);
+				const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
+				if (parent) {
+					const tableRef =
+						(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
+					if (tableRef) {
+						element =
+							closestElement(tableRef, `.${TableCssClassName.TABLE_NODE_WRAPPER}`) || undefined;
+					}
+				}
+
+				return element;
+			};
 
 			const menu = getToolbarMenuConfig(
 				config,
@@ -474,18 +492,23 @@ export const getToolbarConfig =
 				areTableColumWidthsFixed,
 			);
 
-			let alignmentMenu: Array<FloatingToolbarItem<Command>>;
-			alignmentMenu =
+			const alignmentMenu =
 				options?.isTableAlignmentEnabled && !isNested
-					? getAlignmentOptionsConfig(state, intl, editorAnalyticsAPI, getEditorContainerWidth)
+					? getAlignmentOptionsConfig(
+							state,
+							intl,
+							editorAnalyticsAPI,
+							getEditorContainerWidth,
+							getDomRef,
+							editorView,
+						)
 					: [];
 
-			let cellItems: Array<FloatingToolbarItem<Command>>;
-			cellItems = pluginState.isDragAndDropEnabled
+			const cellItems = pluginState.isDragAndDropEnabled
 				? []
 				: getCellItems(
 						state,
-						getEditorView(),
+						editorView,
 						intl,
 						getEditorContainerWidth,
 						editorAnalyticsAPI,
@@ -493,11 +516,10 @@ export const getToolbarConfig =
 						shouldUseIncreasedScalingPercent,
 					);
 
-			let columnSettingsItems;
-			columnSettingsItems = pluginState.isDragAndDropEnabled
+			const columnSettingsItems = pluginState.isDragAndDropEnabled
 				? getColumnSettingItems(
 						state,
-						getEditorView(),
+						editorView,
 						intl,
 						getEditorContainerWidth,
 						editorAnalyticsAPI,
@@ -525,22 +547,6 @@ export const getToolbarConfig =
 					onConfirm: (isChecked = false) => clickWithCheckboxHandler(isChecked, tableObject.node),
 				});
 			}
-
-			const getDomRef = (editorView: EditorView) => {
-				let element: HTMLElement | undefined;
-				const domAtPos = editorView.domAtPos.bind(editorView);
-				const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
-				if (parent) {
-					const tableRef =
-						(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
-					if (tableRef) {
-						element =
-							closestElement(tableRef, `.${TableCssClassName.TABLE_NODE_WRAPPER}`) || undefined;
-					}
-				}
-
-				return element;
-			};
 
 			const { stickyScrollbar } = getEditorFeatureFlags();
 
@@ -808,6 +814,8 @@ export const getAlignmentOptionsConfig = (
 	{ formatMessage }: ToolbarMenuContext,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	getEditorContainerWidth: GetEditorContainerWidth,
+	getDomRef: (editorView: EditorView) => HTMLElement | undefined,
+	editorView: EditorView | null,
 ): Array<FloatingToolbarDropdown<Command>> => {
 	const tableObject = findTable(editorState.selection);
 
@@ -850,7 +858,12 @@ export const getAlignmentOptionsConfig = (
 				INPUT_METHOD.FLOATING_TB,
 				CHANGE_ALIGNMENT_REASON.TOOLBAR_OPTION_CHANGED,
 			),
-			...(isLayoutOptionDisabled(tableObject.node, getEditorContainerWidth) && {
+			...(isLayoutOptionDisabled(
+				tableObject.node,
+				getEditorContainerWidth,
+				getDomRef,
+				editorView,
+			) && {
 				disabled: value !== 'center',
 			}),
 		};
@@ -889,11 +902,21 @@ export const getSelectedAlignmentIcon = (alignmentIcons: AlignmentIcon[], select
 export const isLayoutOptionDisabled = (
 	selectedNode: PMNode,
 	getEditorContainerWidth: GetEditorContainerWidth,
+	getDomRef: (editorView: EditorView) => HTMLElement | undefined,
+	editorView: EditorView | null,
 ) => {
-	const lineLength = getEditorContainerWidth().lineLength;
-	const tableWidth = getTableContainerWidth(selectedNode);
+	const { lineLength } = getEditorContainerWidth();
+	let tableContainerWidth = getTableContainerWidth(selectedNode);
 
-	if (selectedNode && lineLength && tableWidth > lineLength) {
+	// table may be scaled, use the scale percent to calculate the table width
+	if (editorView) {
+		const tableWrapper = getDomRef(editorView);
+		const tableWrapperWidth = tableWrapper?.clientWidth || tableContainerWidth;
+		const scalePercent = getStaticTableScalingPercent(selectedNode, tableWrapperWidth);
+		tableContainerWidth = tableContainerWidth * scalePercent;
+	}
+
+	if (selectedNode && lineLength && tableContainerWidth > lineLength) {
 		return true;
 	}
 

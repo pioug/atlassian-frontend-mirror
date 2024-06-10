@@ -120,7 +120,7 @@ const mobileCategoryListWrapper = css({
 	padding: `${token('space.200', '8px')} 0 ${token('space.200', '16px')} 0`,
 	minHeight: `${GRID_SIZE * 4}px`,
 	overflow: '-moz-scrollbars-none',
-	'::-webkit-scrollbar': {
+	'&::-webkit-scrollbar': {
 		display: 'none',
 	},
 	scrollbarWidth: 'none',
@@ -273,6 +273,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					focusedCategoryIndex={focusedCategoryIndex}
 					setFocusedCategoryIndex={setFocusedCategoryIndex}
 					focusOnSearch={focusOnSearch}
+					columnCount={columnCount}
 					setColumnCount={setColumnCount}
 					setFocusOnSearch={setFocusOnSearch}
 					onKeyPress={onItemsEnterTabKeyPress}
@@ -288,6 +289,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					setFocusedItemIndex={setFocusedItemIndex}
 					focusOnSearch={focusOnSearch}
 					setColumnCount={setColumnCount}
+					columnCount={columnCount}
 					setFocusOnSearch={setFocusOnSearch}
 					onKeyPress={onItemsEnterTabKeyPress}
 					onKeyDown={onKeyDown}
@@ -322,6 +324,7 @@ function MobileBrowser({
 	setFocusedCategoryIndex,
 	focusOnSearch,
 	focusOnViewMore,
+	columnCount,
 	setColumnCount,
 	setFocusOnSearch,
 	onKeyPress,
@@ -339,6 +342,7 @@ function MobileBrowser({
 		onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 		setFocusedItemIndex: (index: number) => void;
 		setColumnCount: (columnCount: number) => void;
+		columnCount: number;
 		focusedCategoryIndex?: number;
 		setFocusedCategoryIndex: (index: number) => void;
 	}) {
@@ -383,6 +387,7 @@ function MobileBrowser({
 					selectedItemIndex={selectedItemIndex}
 					focusedItemIndex={focusedItemIndex}
 					setFocusedItemIndex={setFocusedItemIndex}
+					columnCount={columnCount}
 					setColumnCount={setColumnCount}
 					createAnalyticsEvent={createAnalyticsEvent}
 					emptyStateHandler={emptyStateHandler}
@@ -412,6 +417,7 @@ function DesktopBrowser({
 	setFocusedCategoryIndex,
 	selectedCategoryIndex,
 	focusOnSearch,
+	columnCount,
 	setColumnCount,
 	setFocusOnSearch,
 	onKeyPress,
@@ -430,6 +436,7 @@ function DesktopBrowser({
 		setFocusedCategoryIndex: (index: number) => void;
 		selectedCategoryIndex?: number;
 		setColumnCount: (columnCount: number) => void;
+		columnCount: number;
 	}) {
 	return (
 		<div css={elementBrowserContainer} data-testid="desktop__element-browser">
@@ -481,6 +488,7 @@ function DesktopBrowser({
 					selectedItemIndex={selectedItemIndex}
 					focusedItemIndex={focusedItemIndex}
 					setFocusedItemIndex={setFocusedItemIndex}
+					columnCount={columnCount}
 					setColumnCount={setColumnCount}
 					createAnalyticsEvent={createAnalyticsEvent}
 					emptyStateHandler={emptyStateHandler}

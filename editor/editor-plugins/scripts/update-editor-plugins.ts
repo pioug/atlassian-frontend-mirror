@@ -430,7 +430,7 @@ async function run() {
 				dependencies: sortObjectKeys(updatedDeps),
 				'platform-feature-flags': featureFlags,
 			};
-			const updatedPackageJsonString = JSON.stringify(updatedPackageJson, null, 2) + '\n';
+			const updatedPackageJsonString = JSON.stringify(updatedPackageJson, null, '\t') + '\n';
 
 			fs.writeFileSync(editorPluginsPackageJsonPath, updatedPackageJsonString);
 

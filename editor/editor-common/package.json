@@ -1,321 +1,327 @@
 {
-  "name": "@atlaskit/editor-common",
-  "version": "82.0.1",
-  "description": "A package that contains common classes and components for editor and renderer",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor",
-    "inPublicMirror": true,
-    "singleton": true,
-    "releaseModel": "continuous",
-    "runReact18": true
-  },
-  "af:exports": {
-    "./event-dispatcher": "./src/event-dispatcher/index.ts",
-    "./extensions": "./src/extensions.ts",
-    "./extensibility": "./src/extensibility/index.ts",
-    "./normalize-feature-flags": "./src/normalize-feature-flags.ts",
-    "./messages": "./src/messages/index.ts",
-    "./provider-factory": "./src/provider-factory.ts",
-    "./styles": "./src/styles/index.ts",
-    "./validator": "./src/validator.ts",
-    "./type-ahead": "./src/type-ahead/index.ts",
-    "./ufo": "./src/ufo/index.ts",
-    "./insert": "./src/insert/index.ts",
-    "./types": "./src/types/index.ts",
-    "./ui": "./src/ui/index.tsx",
-    "./utils": "./src/utils/index.ts",
-    "./card": "./src/card/index.ts",
-    "./collab": "./src/collab/index.ts",
-    "./emoji": "./src/emoji.ts",
-    "./mention": "./src/mention.ts",
-    "./portal": "./src/portal/index.ts",
-    "./provider-helpers": "./src/provider-helpers/index.ts",
-    "./icons": "./src/icons/index.ts",
-    "./safe-plugin": "./src/safe-plugin/index.ts",
-    "./panel": "./src/panel.ts",
-    "./analytics": "./src/analytics/index.ts",
-    "./error-boundary": "./src/ui/ErrorBoundary/index.tsx",
-    "./portal-provider": "./src/ui/PortalProvider/index.tsx",
-    "./react-node-view": "./src/react-node-view/index.tsx",
-    "./with-plugin-state": "./src/with-plugin-state/index.tsx",
-    "./node-width": "./src/node-width/index.ts",
-    "./keymaps": "./src/keymaps/index.tsx",
-    "./ui-menu": "./src/ui-menu/index.tsx",
-    "./ui-react": "./src/ui-react/index.ts",
-    "./ui-color": "./src/ui-color/index.ts",
-    "./transforms": "./src/transforms/index.ts",
-    "./core-utils": "./src/core-utils/index.ts",
-    "./selection": "./src/selection/index.ts",
-    "./preset": "./src/preset/index.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./media-inline": "./src/media-inline/index.ts",
-    "./media-single": "./src/media-single/index.ts",
-    "./media": "./src/media/index.ts",
-    "./monitoring": "./src/monitoring/index.ts",
-    "./paste": "./src/paste/index.ts",
-    "./resizer": "./src/resizer/index.ts",
-    "./editor-analytics": "./src/editor-analytics/index.ts",
-    "./selection-based-node-view": "./src/selection-based-node-view/index.ts",
-    "./guideline": "./src/guideline/index.ts",
-    "./quick-insert": "./src/quick-insert/index.ts",
-    "./link": "./src/link/index.ts",
-    "./mark": "./src/mark/index.ts",
-    "./commands": "./src/commands/index.ts",
-    "./clipboard": "./src/clipboard/index.ts",
-    "./lists": "./src/lists/index.ts",
-    "./element-browser": "./src/element-browser/index.ts",
-    "./floating-toolbar": "./src/floating-toolbar/index.ts",
-    "./copy-button": "./src/copy-button/index.ts",
-    "./legacy-rank-plugins": "./src/rank.ts",
-    "./indentation": "./src/indentation/index.ts",
-    "./annotation": "./src/annotation/index.ts",
-    "./constants": "./src/link/constants.ts",
-    "./doc-utils": "./src/doc-utils/index.ts",
-    "./expand": "./src/expand/index.ts",
-    "./table": "./src/table/index.ts"
-  },
-  "exports": {
-    "./event-dispatcher": "./src/event-dispatcher/index.ts",
-    "./extensions": "./src/extensions.ts",
-    "./extensibility": "./src/extensibility/index.ts",
-    "./normalize-feature-flags": "./src/normalize-feature-flags.ts",
-    "./messages": "./src/messages/index.ts",
-    "./provider-factory": "./src/provider-factory.ts",
-    "./styles": "./src/styles/index.ts",
-    "./validator": "./src/validator.ts",
-    "./type-ahead": "./src/type-ahead/index.ts",
-    "./ufo": "./src/ufo/index.ts",
-    "./insert": "./src/insert/index.ts",
-    "./types": "./src/types/index.ts",
-    "./ui": "./src/ui/index.tsx",
-    "./utils": "./src/utils/index.ts",
-    "./card": "./src/card/index.ts",
-    "./collab": "./src/collab/index.ts",
-    "./emoji": "./src/emoji.ts",
-    "./mention": "./src/mention.ts",
-    "./provider-helpers": "./src/provider-helpers/index.ts",
-    "./icons": "./src/icons/index.ts",
-    "./safe-plugin": "./src/safe-plugin/index.ts",
-    "./panel": "./src/panel.ts",
-    "./portal": "./src/portal/index.ts",
-    "./analytics": "./src/analytics/index.ts",
-    "./error-boundary": "./src/ui/ErrorBoundary/index.tsx",
-    "./portal-provider": "./src/ui/PortalProvider/index.tsx",
-    "./react-node-view": "./src/react-node-view/index.tsx",
-    "./with-plugin-state": "./src/with-plugin-state/index.tsx",
-    "./node-width": "./src/node-width/index.ts",
-    "./keymaps": "./src/keymaps/index.tsx",
-    "./ui-menu": "./src/ui-menu/index.tsx",
-    "./ui-react": "./src/ui-react/index.ts",
-    "./ui-color": "./src/ui-color/index.ts",
-    "./transforms": "./src/transforms/index.ts",
-    "./core-utils": "./src/core-utils/index.ts",
-    "./selection": "./src/selection/index.ts",
-    "./preset": "./src/preset/index.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./media-inline": "./src/media-inline/index.ts",
-    "./media-single": "./src/media-single/index.ts",
-    "./media": "./src/media/index.ts",
-    "./monitoring": "./src/monitoring/index.ts",
-    "./paste": "./src/paste/index.ts",
-    "./resizer": "./src/resizer/index.ts",
-    "./editor-analytics": "./src/editor-analytics/index.ts",
-    "./selection-based-node-view": "./src/selection-based-node-view/index.ts",
-    "./guideline": "./src/guideline/index.ts",
-    "./quick-insert": "./src/quick-insert/index.ts",
-    "./link": "./src/link/index.ts",
-    "./mark": "./src/mark/index.ts",
-    "./commands": "./src/commands/index.ts",
-    "./clipboard": "./src/clipboard/index.ts",
-    "./lists": "./src/lists/index.ts",
-    "./element-browser": "./src/element-browser/index.ts",
-    "./floating-toolbar": "./src/floating-toolbar/index.ts",
-    "./copy-button": "./src/copy-button/index.ts",
-    "./legacy-rank-plugins": "./src/rank.ts",
-    "./indentation": "./src/indentation/index.ts",
-    "./annotation": "./src/annotation/index.ts",
-    "./constants": "./src/link/constants.ts",
-    "./doc-utils": "./src/doc-utils/index.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    "./expand": "./src/expand/index.ts",
-    "./table": "./src/table/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/activity-provider": "^2.4.0",
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/adf-utils": "^19.2.0",
-    "@atlaskit/analytics-listeners": "^8.9.0",
-    "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/code": "^15.2.0",
-    "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/custom-steps": "^0.2.0",
-    "@atlaskit/editor-json-transformer": "^8.13.0",
-    "@atlaskit/editor-palette": "1.6.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.12.0",
-    "@atlaskit/editor-tables": "^2.7.0",
-    "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/icon-object": "^6.4.0",
-    "@atlaskit/link-datasource": "^2.3.0",
-    "@atlaskit/link-picker": "^1.37.0",
-    "@atlaskit/media-card": "^77.12.0",
-    "@atlaskit/media-client": "^27.2.0",
-    "@atlaskit/media-client-react": "^2.0.0",
-    "@atlaskit/media-common": "^11.2.0",
-    "@atlaskit/media-file-preview": "^0.5.0",
-    "@atlaskit/media-picker": "^66.4.0",
-    "@atlaskit/media-ui": "^25.10.0",
-    "@atlaskit/media-viewer": "48.6.0",
-    "@atlaskit/mention": "^23.1.0",
-    "@atlaskit/menu": "^2.4.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^6.5.0",
-    "@atlaskit/profilecard": "^19.14.0",
-    "@atlaskit/section-message": "^6.5.0",
-    "@atlaskit/smart-card": "^27.5.0",
-    "@atlaskit/smart-user-picker": "^6.9.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/task-decision": "^17.10.0",
-    "@atlaskit/textfield": "^6.3.0",
-    "@atlaskit/theme": "^12.8.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/width-detector": "^4.2.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "@sentry/browser": "^6.18.2",
-    "@sentry/integrations": "^6.18.2",
-    "@sentry/types": "^6.18.2",
-    "chromatism": "^2.6.0",
-    "classnames": "^2.2.5",
-    "clipboard-polyfill": "4.0.1",
-    "date-fns": "^2.17.0",
-    "focus-trap": "^2.4.5",
-    "fuse.js": "^6.6.2",
-    "linkify-it": "^3.0.3",
-    "lodash": "^4.17.21",
-    "markdown-it": "^13.0.2",
-    "memoize-one": "^6.0.0",
-    "popper.js": "^1.14.1",
-    "prop-types": "^15.5.10",
-    "raf-schd": "^4.0.3",
-    "re-resizable": "6.0.0",
-    "react-loadable": "^5.1.0",
-    "react-virtualized": "^9.8.0",
-    "rusha": "^0.8.13",
-    "uuid": "^3.1.0",
-    "w3c-keyname": "^2.1.8"
-  },
-  "peerDependencies": {
-    "@atlaskit/media-core": "^34.2.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@af/visual-regression": "*",
-    "@atlaskit/media-core": "^34.2.0",
-    "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/util-data-test": "^17.9.0",
-    "@atlaskit/visual-regression": "*",
-    "@atlassian/feature-flags-test-utils": "*",
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/linkify-it": "^3.0.2",
-    "@types/markdown-it": "^13.0.7",
-    "@types/raf-schd": "^4.0.1",
-    "@types/react-virtualized": "^9.18.12",
-    "enzyme": "^3.10.0",
-    "raf-stub": "^2.0.1",
-    "react": "^16.8.0",
-    "react-test-renderer": "^16.8.0",
-    "sinon": "^2.2.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "circular-dependencies": [
-        "file-level"
-      ],
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "deprecation": "no-deprecated-imports",
-      "design-tokens": [
-        "color"
-      ],
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.editor.media.extended-resize-experience": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.prevent-suspicious-linkification": {
-      "type": "boolean"
-    },
-    "platform.editor.media.inline-image.base-support": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.datasource-assets_objects": {
-      "type": "boolean"
-    },
-    "platform.editor.ordered-list-auto-join-improvements_mrlv5": {
-      "type": "boolean"
-    },
-    "platform.editor.resizer.prevent-contenteditable": {
-      "type": "boolean"
-    },
-    "platform.editor.a11y-floating-toolbar-markup_vexmo": {
-      "type": "boolean"
-    },
-    "platform.editor.inline_extension.extended_lcqdn": {
-      "type": "boolean"
-    },
-    "platform.editor.allow-inline-comments-for-inline-nodes": {
-      "type": "boolean"
-    },
-    "platform.editor.mbe-update-params-change": {
-      "type": "boolean"
-    },
-    "platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1": {
-      "type": "boolean"
-    },
-    "platform.editor.explicit-html-element-check": {
-      "type": "boolean"
-    },
-    "platform.editor.simplify-inline-cards-in-code-blocks_jw6t1": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/editor-common",
+	"version": "82.0.1",
+	"description": "A package that contains common classes and components for editor and renderer",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor",
+		"inPublicMirror": true,
+		"singleton": true,
+		"releaseModel": "continuous",
+		"runReact18": true
+	},
+	"af:exports": {
+		"./event-dispatcher": "./src/event-dispatcher/index.ts",
+		"./extensions": "./src/extensions.ts",
+		"./extensibility": "./src/extensibility/index.ts",
+		"./normalize-feature-flags": "./src/normalize-feature-flags.ts",
+		"./messages": "./src/messages/index.ts",
+		"./provider-factory": "./src/provider-factory.ts",
+		"./styles": "./src/styles/index.ts",
+		"./validator": "./src/validator.ts",
+		"./type-ahead": "./src/type-ahead/index.ts",
+		"./ufo": "./src/ufo/index.ts",
+		"./insert": "./src/insert/index.ts",
+		"./types": "./src/types/index.ts",
+		"./ui": "./src/ui/index.tsx",
+		"./utils": "./src/utils/index.ts",
+		"./card": "./src/card/index.ts",
+		"./collab": "./src/collab/index.ts",
+		"./emoji": "./src/emoji.ts",
+		"./mention": "./src/mention.ts",
+		"./portal": "./src/portal/index.ts",
+		"./provider-helpers": "./src/provider-helpers/index.ts",
+		"./icons": "./src/icons/index.ts",
+		"./safe-plugin": "./src/safe-plugin/index.ts",
+		"./panel": "./src/panel.ts",
+		"./analytics": "./src/analytics/index.ts",
+		"./error-boundary": "./src/ui/ErrorBoundary/index.tsx",
+		"./portal-provider": "./src/ui/PortalProvider/index.tsx",
+		"./react-node-view": "./src/react-node-view/index.tsx",
+		"./with-plugin-state": "./src/with-plugin-state/index.tsx",
+		"./node-width": "./src/node-width/index.ts",
+		"./keymaps": "./src/keymaps/index.tsx",
+		"./ui-menu": "./src/ui-menu/index.tsx",
+		"./ui-react": "./src/ui-react/index.ts",
+		"./ui-color": "./src/ui-color/index.ts",
+		"./transforms": "./src/transforms/index.ts",
+		"./core-utils": "./src/core-utils/index.ts",
+		"./selection": "./src/selection/index.ts",
+		"./preset": "./src/preset/index.ts",
+		"./hooks": "./src/hooks/index.ts",
+		"./media-inline": "./src/media-inline/index.ts",
+		"./media-single": "./src/media-single/index.ts",
+		"./media": "./src/media/index.ts",
+		"./monitoring": "./src/monitoring/index.ts",
+		"./paste": "./src/paste/index.ts",
+		"./resizer": "./src/resizer/index.ts",
+		"./editor-analytics": "./src/editor-analytics/index.ts",
+		"./selection-based-node-view": "./src/selection-based-node-view/index.ts",
+		"./guideline": "./src/guideline/index.ts",
+		"./quick-insert": "./src/quick-insert/index.ts",
+		"./link": "./src/link/index.ts",
+		"./mark": "./src/mark/index.ts",
+		"./commands": "./src/commands/index.ts",
+		"./clipboard": "./src/clipboard/index.ts",
+		"./lists": "./src/lists/index.ts",
+		"./element-browser": "./src/element-browser/index.ts",
+		"./floating-toolbar": "./src/floating-toolbar/index.ts",
+		"./copy-button": "./src/copy-button/index.ts",
+		"./legacy-rank-plugins": "./src/rank.ts",
+		"./indentation": "./src/indentation/index.ts",
+		"./annotation": "./src/annotation/index.ts",
+		"./constants": "./src/link/constants.ts",
+		"./doc-utils": "./src/doc-utils/index.ts",
+		"./expand": "./src/expand/index.ts",
+		"./table": "./src/table/index.ts"
+	},
+	"exports": {
+		"./event-dispatcher": "./src/event-dispatcher/index.ts",
+		"./extensions": "./src/extensions.ts",
+		"./extensibility": "./src/extensibility/index.ts",
+		"./normalize-feature-flags": "./src/normalize-feature-flags.ts",
+		"./messages": "./src/messages/index.ts",
+		"./provider-factory": "./src/provider-factory.ts",
+		"./styles": "./src/styles/index.ts",
+		"./validator": "./src/validator.ts",
+		"./type-ahead": "./src/type-ahead/index.ts",
+		"./ufo": "./src/ufo/index.ts",
+		"./insert": "./src/insert/index.ts",
+		"./types": "./src/types/index.ts",
+		"./ui": "./src/ui/index.tsx",
+		"./utils": "./src/utils/index.ts",
+		"./card": "./src/card/index.ts",
+		"./collab": "./src/collab/index.ts",
+		"./emoji": "./src/emoji.ts",
+		"./mention": "./src/mention.ts",
+		"./provider-helpers": "./src/provider-helpers/index.ts",
+		"./icons": "./src/icons/index.ts",
+		"./safe-plugin": "./src/safe-plugin/index.ts",
+		"./panel": "./src/panel.ts",
+		"./portal": "./src/portal/index.ts",
+		"./analytics": "./src/analytics/index.ts",
+		"./error-boundary": "./src/ui/ErrorBoundary/index.tsx",
+		"./portal-provider": "./src/ui/PortalProvider/index.tsx",
+		"./react-node-view": "./src/react-node-view/index.tsx",
+		"./with-plugin-state": "./src/with-plugin-state/index.tsx",
+		"./node-width": "./src/node-width/index.ts",
+		"./keymaps": "./src/keymaps/index.tsx",
+		"./ui-menu": "./src/ui-menu/index.tsx",
+		"./ui-react": "./src/ui-react/index.ts",
+		"./ui-color": "./src/ui-color/index.ts",
+		"./transforms": "./src/transforms/index.ts",
+		"./core-utils": "./src/core-utils/index.ts",
+		"./selection": "./src/selection/index.ts",
+		"./preset": "./src/preset/index.ts",
+		"./hooks": "./src/hooks/index.ts",
+		"./media-inline": "./src/media-inline/index.ts",
+		"./media-single": "./src/media-single/index.ts",
+		"./media": "./src/media/index.ts",
+		"./monitoring": "./src/monitoring/index.ts",
+		"./paste": "./src/paste/index.ts",
+		"./resizer": "./src/resizer/index.ts",
+		"./editor-analytics": "./src/editor-analytics/index.ts",
+		"./selection-based-node-view": "./src/selection-based-node-view/index.ts",
+		"./guideline": "./src/guideline/index.ts",
+		"./quick-insert": "./src/quick-insert/index.ts",
+		"./link": "./src/link/index.ts",
+		"./mark": "./src/mark/index.ts",
+		"./commands": "./src/commands/index.ts",
+		"./clipboard": "./src/clipboard/index.ts",
+		"./lists": "./src/lists/index.ts",
+		"./element-browser": "./src/element-browser/index.ts",
+		"./floating-toolbar": "./src/floating-toolbar/index.ts",
+		"./copy-button": "./src/copy-button/index.ts",
+		"./legacy-rank-plugins": "./src/rank.ts",
+		"./indentation": "./src/indentation/index.ts",
+		"./annotation": "./src/annotation/index.ts",
+		"./constants": "./src/link/constants.ts",
+		"./doc-utils": "./src/doc-utils/index.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		"./expand": "./src/expand/index.ts",
+		"./table": "./src/table/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/activity-provider": "^2.4.0",
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-utils": "^19.2.0",
+		"@atlaskit/analytics-listeners": "^8.9.0",
+		"@atlaskit/analytics-namespaced-context": "^6.9.0",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/code": "^15.2.0",
+		"@atlaskit/codemod-utils": "^4.2.0",
+		"@atlaskit/custom-steps": "^0.2.0",
+		"@atlaskit/editor-json-transformer": "^8.13.0",
+		"@atlaskit/editor-palette": "1.6.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-shared-styles": "^2.12.0",
+		"@atlaskit/editor-tables": "^2.7.0",
+		"@atlaskit/emoji": "^67.6.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/icon-object": "^6.4.0",
+		"@atlaskit/link-datasource": "^2.3.0",
+		"@atlaskit/link-picker": "^1.37.0",
+		"@atlaskit/media-card": "^77.12.0",
+		"@atlaskit/media-client": "^27.2.0",
+		"@atlaskit/media-client-react": "^2.0.0",
+		"@atlaskit/media-common": "^11.2.0",
+		"@atlaskit/media-file-preview": "^0.5.0",
+		"@atlaskit/media-picker": "^66.4.0",
+		"@atlaskit/media-ui": "^25.10.0",
+		"@atlaskit/media-viewer": "48.6.0",
+		"@atlaskit/mention": "^23.1.0",
+		"@atlaskit/menu": "^2.4.0",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/primitives": "^6.5.0",
+		"@atlaskit/profilecard": "^19.14.0",
+		"@atlaskit/section-message": "^6.5.0",
+		"@atlaskit/smart-card": "^27.5.0",
+		"@atlaskit/smart-user-picker": "^6.9.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/task-decision": "^17.10.0",
+		"@atlaskit/textfield": "^6.3.0",
+		"@atlaskit/theme": "^12.8.0",
+		"@atlaskit/tokens": "^1.49.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/ufo": "^0.2.0",
+		"@atlaskit/width-detector": "^4.2.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"@sentry/browser": "^6.18.2",
+		"@sentry/integrations": "^6.18.2",
+		"@sentry/types": "^6.18.2",
+		"chromatism": "^2.6.0",
+		"classnames": "^2.2.5",
+		"clipboard-polyfill": "4.0.1",
+		"date-fns": "^2.17.0",
+		"focus-trap": "^2.4.5",
+		"fuse.js": "^6.6.2",
+		"linkify-it": "^3.0.3",
+		"lodash": "^4.17.21",
+		"markdown-it": "^13.0.2",
+		"memoize-one": "^6.0.0",
+		"popper.js": "^1.14.1",
+		"prop-types": "^15.5.10",
+		"raf-schd": "^4.0.3",
+		"re-resizable": "6.0.0",
+		"react-loadable": "^5.1.0",
+		"react-virtualized": "^9.8.0",
+		"rusha": "^0.8.13",
+		"uuid": "^3.1.0",
+		"w3c-keyname": "^2.1.8"
+	},
+	"peerDependencies": {
+		"@atlaskit/media-core": "^34.2.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@af/visual-regression": "*",
+		"@atlaskit/media-core": "^34.2.0",
+		"@atlaskit/media-test-helpers": "^33.0.0",
+		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlaskit/visual-regression": "*",
+		"@atlassian/feature-flags-test-utils": "*",
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/jest-dom": "^6.4.5",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@testing-library/user-event": "^14.4.3",
+		"@types/linkify-it": "^3.0.2",
+		"@types/markdown-it": "^13.0.7",
+		"@types/raf-schd": "^4.0.1",
+		"@types/react-virtualized": "^9.18.12",
+		"enzyme": "^3.10.0",
+		"raf-stub": "^2.0.1",
+		"react": "^16.8.0",
+		"react-test-renderer": "^16.8.0",
+		"sinon": "^2.2.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"circular-dependencies": [
+				"file-level"
+			],
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"deprecation": "no-deprecated-imports",
+			"design-tokens": [
+				"color"
+			],
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.editor.media.extended-resize-experience": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.prevent-suspicious-linkification": {
+			"type": "boolean"
+		},
+		"platform.editor.media.inline-image.base-support": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.datasource-assets_objects": {
+			"type": "boolean"
+		},
+		"platform.editor.ordered-list-auto-join-improvements_mrlv5": {
+			"type": "boolean"
+		},
+		"platform.editor.resizer.prevent-contenteditable": {
+			"type": "boolean"
+		},
+		"platform.editor.a11y-floating-toolbar-markup_vexmo": {
+			"type": "boolean"
+		},
+		"platform.editor.inline_extension.extended_lcqdn": {
+			"type": "boolean"
+		},
+		"platform.editor.allow-inline-comments-for-inline-nodes": {
+			"type": "boolean"
+		},
+		"platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz": {
+			"type": "boolean"
+		},
+		"platform.editor.mbe-update-params-change": {
+			"type": "boolean"
+		},
+		"platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1": {
+			"type": "boolean"
+		},
+		"platform.editor.explicit-html-element-check": {
+			"type": "boolean"
+		},
+		"platform.editor.simplify-inline-cards-in-code-blocks_jw6t1": {
+			"type": "boolean"
+		},
+		"platform.editor.a11y-element-browser": {
+			"type": "boolean"
+		}
+	}
 }

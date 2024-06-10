@@ -20,44 +20,44 @@ import VisualBasic from '../../../examples/visual-basic';
 import VrPythonTestIdAndWrapping from '../../../examples/vr-python-test-id-and-wrapping';
 
 snapshot(InlineCodeBasic, {
-  variants: [
-    {
-      name: 'Default',
-      environment: {},
-    },
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'Dark',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Default',
+			environment: {},
+		},
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'Dark',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });
 snapshot(CodeBlockBasic, {
-  variants: [
-    {
-      name: 'Default',
-      environment: {},
-    },
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'Dark',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Default',
+			environment: {},
+		},
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'Dark',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });
 
 // Flaky Test https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2942609/steps/%7Bac78f1de-835e-489a-b103-ecfa94d2d44e%7D

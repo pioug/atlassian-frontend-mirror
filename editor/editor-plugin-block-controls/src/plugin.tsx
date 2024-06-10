@@ -6,7 +6,7 @@ import { createPlugin, key } from './pm-plugins/main';
 import type { BlockControlsPlugin } from './types';
 import { DragHandleMenu } from './ui/drag-handle-menu';
 import { GlobalStylesWrapper } from './ui/global-styles';
-import { getSelection } from './utils/getSelection';
+import { selectNode } from './utils';
 
 export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 	name: 'blockControls',
@@ -25,13 +25,16 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			(start: number, to: number) =>
 			({ tr }: { tr: Transaction }) => {
 				const node = tr.doc.nodeAt(start);
+				if (!node) {
+					return tr;
+				}
 				const size = node?.nodeSize ?? 1;
 				const end = start + size;
 				let nodeCopy = tr.doc.content.cut(start, end); // cut the content
 				tr.delete(start, end); // delete the content from the original position
 				const mappedTo = tr.mapping.map(to);
 				tr.insert(mappedTo, nodeCopy); // insert the content at the new position
-				tr.setSelection(getSelection(tr, mappedTo));
+				tr = selectNode(tr, mappedTo, node.type.name);
 				tr.setMeta(key, { nodeMoved: true });
 				api?.core.actions.focus();
 
@@ -44,16 +47,17 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				return tr;
 			},
 		setNodeDragged:
-			(pos: number, anchorName: string) =>
+			(pos: number, anchorName: string, nodeType: string) =>
 			({ tr }: { tr: Transaction }) => {
-				const newTr = tr;
 				if (pos === undefined) {
 					return tr;
 				}
-				newTr.setSelection(getSelection(newTr, pos));
+
+				let newTr = tr;
+				newTr = selectNode(newTr, pos, nodeType);
 				newTr.setMeta(key, {
 					isDragging: true,
-					activeNode: { pos, anchorName },
+					activeNode: { pos, anchorName, nodeType },
 				});
 				return newTr;
 			},

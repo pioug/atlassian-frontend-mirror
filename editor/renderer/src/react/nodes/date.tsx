@@ -1,5 +1,4 @@
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { memo } from 'react';
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import {
 	isPastDate,
@@ -8,36 +7,40 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext';
+import {
+	type MarkDataAttributes,
+	useInlineAnnotationProps,
+} from '../../ui/annotations/element/useInlineAnnotationProps';
 
-export interface Props {
+export interface Props extends MarkDataAttributes {
 	timestamp: string;
 	parentIsIncompleteTask?: boolean;
 }
 
-class Date extends PureComponent<Props & WrappedComponentProps, {}> {
-	render() {
-		const { timestamp, parentIsIncompleteTask, intl } = this.props;
-		const className =
-			!!parentIsIncompleteTask && isPastDate(timestamp)
-				? 'date-node date-node-highlighted'
-				: 'date-node';
-		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<span className={DateSharedCssClassName.DATE_WRAPPER}>
-				<span
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={className}
-					data-node-type="date"
-					data-timestamp={timestamp}
-				>
-					{parentIsIncompleteTask
-						? timestampToTaskContext(timestamp, intl)
-						: timestampToString(timestamp, intl)}
-				</span>
+const Date = memo(function Date(props: Props & WrappedComponentProps) {
+	const inlineAnnotationProps = useInlineAnnotationProps(props, { isInlineCard: false });
+	const { timestamp, parentIsIncompleteTask, intl } = props;
+	const className =
+		!!parentIsIncompleteTask && isPastDate(timestamp)
+			? 'date-node date-node-highlighted'
+			: 'date-node';
+
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		<span className={DateSharedCssClassName.DATE_WRAPPER} {...inlineAnnotationProps}>
+			<span
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={className}
+				data-node-type="date"
+				data-timestamp={timestamp}
+			>
+				{parentIsIncompleteTask
+					? timestampToTaskContext(timestamp, intl)
+					: timestampToString(timestamp, intl)}
 			</span>
-		);
-	}
-}
+		</span>
+	);
+});
 
 export const DateComponent = injectIntl(Date);
 

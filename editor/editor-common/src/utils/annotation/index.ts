@@ -29,13 +29,28 @@ export const canApplyAnnotationOnRange = (
 		// or if we're leaf and not text
 
 		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
-			if (
-				(node.isInline && !node.isText && node.type !== inlineCard) ||
-				(node.isLeaf && !node.isText && node.type !== inlineCard) ||
-				(node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
-			) {
-				foundInvalid = true;
-				return false;
+			if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+				const isAllowedInlineNode = ['emoji', 'status', 'date', 'mention', 'inlineCard'].includes(
+					node.type.name,
+				);
+
+				if (
+					(node.isInline && !node.isText && !isAllowedInlineNode) ||
+					(node.isLeaf && !node.isText && !isAllowedInlineNode) ||
+					(node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
+				) {
+					foundInvalid = true;
+					return false;
+				}
+			} else {
+				if (
+					(node.isInline && !node.isText && node.type !== inlineCard) ||
+					(node.isLeaf && !node.isText && node.type !== inlineCard) ||
+					(node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
+				) {
+					foundInvalid = true;
+					return false;
+				}
 			}
 		} else {
 			if (

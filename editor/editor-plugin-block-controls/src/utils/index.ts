@@ -1,1 +1,1 @@
-export { getSelection } from './getSelection';
+export { getSelection, selectNode } from './getSelection';

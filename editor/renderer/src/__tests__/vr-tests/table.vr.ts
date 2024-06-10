@@ -4,11 +4,15 @@ import {
 	TableRendererOverflow,
 	TableRendererWideOverflow,
 	TableRendererFullWidthOverflow,
-	TableRendererMobile,
 	TableRendererWithInlineComments,
 	TableRendererWrappedNodes,
 	TableRendererComplexNodes,
 	TableRendererBackgroundColor,
+	TableRendererFullWidthComment,
+	TableRendererWideComment,
+	TableRendererComment,
+	WideTableRendererFullWidth,
+	FullWidthTableRendererFullWidth,
 } from './table.fixture';
 
 snapshot(TableRenderer, {
@@ -17,7 +21,7 @@ snapshot(TableRenderer, {
 snapshot(TableRendererOverflow);
 snapshot(TableRendererWideOverflow);
 snapshot(TableRendererFullWidthOverflow);
-snapshot(TableRendererMobile);
+
 snapshot(TableRendererWithInlineComments, {
 	description: 'Table renderer should render inline comment over right overflow shadow',
 });
@@ -30,4 +34,20 @@ snapshot(TableRendererComplexNodes, {
 
 snapshot(TableRendererBackgroundColor, {
 	description: 'Table renderer should render all table cell background colors correctly',
+});
+
+snapshot(TableRendererFullWidthComment, {
+	description: 'Table Comment renderer should render full-with table',
+});
+snapshot(TableRendererWideComment, {
+	description: 'Table Comment renderer should render wide table',
+});
+snapshot(TableRendererComment, {
+	description: 'Table Comment renderer should render default table',
+});
+snapshot(WideTableRendererFullWidth, {
+	description: 'Table Full-width renderer should render wide table',
+});
+snapshot(FullWidthTableRendererFullWidth, {
+	description: 'Table Full-width renderer should render full-with table',
 });

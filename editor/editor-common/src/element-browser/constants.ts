@@ -30,3 +30,5 @@ export const SCROLLBAR_WIDTH = 15;
 export const ELEMENT_LIST_PADDING = 2;
 
 export const ELEMENT_ITEM_HEIGHT = 75;
+
+export const ELEMENT_ITEM_PADDING = 10;

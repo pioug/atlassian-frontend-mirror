@@ -220,7 +220,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
 		switch (node.type.name) {
 			case 'date':
-				return this.getDateProps(node, parentInfo);
+				return this.getDateProps(node, parentInfo, path);
 			case 'hardBreak':
 				return this.getHardBreakProps(node, path);
 			case 'heading':
@@ -479,10 +479,19 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		};
 	}
 
-	private getDateProps(node: Node, parentInfo: { parentIsIncompleteTask: boolean } | undefined) {
+	private getDateProps(
+		node: Node,
+		parentInfo: { parentIsIncompleteTask: boolean } | undefined,
+		path: Array<Node> = [],
+	) {
 		return {
 			timestamp: node.attrs && node.attrs.timestamp,
 			parentIsIncompleteTask: parentInfo && parentInfo.parentIsIncompleteTask,
+			dataAttributes: {
+				// We need to account for depth (path.length gives up depth) here
+				// but depth doesnt increment the pos, only accounted for.
+				'data-renderer-start-pos': this.startPos + path.length,
+			},
 		};
 	}
 

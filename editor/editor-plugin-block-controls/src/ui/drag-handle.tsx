@@ -12,8 +12,8 @@ import { token } from '@atlaskit/tokens';
 
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin } from '../types';
+import { selectNode } from '../utils';
 import { getLeftPosition, getTopPosition } from '../utils/drag-handle-positions';
-import { getSelection } from '../utils/getSelection';
 
 import {
 	DRAG_HANDLE_BORDER_RADIUS,
@@ -77,13 +77,14 @@ export const DragHandle = ({
 			if (start === undefined) {
 				return tr;
 			}
-			tr.setSelection(getSelection(tr, start));
+
+			tr = selectNode(tr, start, nodeType);
 			tr.setMeta(key, { pos: start });
 			return tr;
 		});
 
 		api?.core?.actions.focus();
-	}, [start, api, dragHandleSelected, setDragHandleSelected]);
+	}, [start, api, dragHandleSelected, setDragHandleSelected, nodeType]);
 
 	useEffect(() => {
 		const element = buttonRef.current;
@@ -111,7 +112,9 @@ export const DragHandle = ({
 				if (start === undefined) {
 					return;
 				}
-				api?.core?.actions.execute(api?.blockControls?.commands.setNodeDragged(start, anchorName));
+				api?.core?.actions.execute(
+					api?.blockControls?.commands.setNodeDragged(start, anchorName, nodeType),
+				);
 				api?.core?.actions.focus();
 			},
 			onDrop() {
@@ -120,7 +123,7 @@ export const DragHandle = ({
 				});
 			},
 		});
-	}, [api, start, view, anchorName]);
+	}, [api, start, view, anchorName, nodeType]);
 
 	const positionStyles = useMemo(() => {
 		const supportsAnchor =

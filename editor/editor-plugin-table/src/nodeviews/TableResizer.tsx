@@ -22,7 +22,7 @@ import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
+import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -162,7 +162,7 @@ const getVisibleGuidelines = (
 
 		guidelineVisibleAdjustment = isFullWidthModeEnabled
 			? preserve_table_widths_adjustment // guidelineVisibleAdjustment = -2, if lineLength = 1180, 1181 < 1180 + 2 is true.
-			: -2 * akEditorGutterPadding + preserve_table_widths_adjustment; // guidelineVisibleAdjustment = -62, if containerWidth is 1244, 1181 < 1244 - 62 = 1182 is true.
+			: -2 * akEditorGutterPaddingDynamic() + preserve_table_widths_adjustment; // guidelineVisibleAdjustment = -62, if containerWidth is 1244, 1181 < 1244 - 62 = 1182 is true.
 	}
 	const width = isTableScalingEnabled && isFullWidthModeEnabled ? lineLength : containerWidth;
 
@@ -236,7 +236,9 @@ export const TableResizer = ({
 					isTableScalingEnabled
 						? defaultGuidelinesForPreserveTable(
 								PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
-								isFullWidthModeEnabled ? lineLength + 2 * akEditorGutterPadding : containerWidth,
+								isFullWidthModeEnabled
+									? lineLength + 2 * akEditorGutterPaddingDynamic()
+									: containerWidth,
 								excludeGuidelineConfig,
 							)
 						: defaultGuidelines,
@@ -265,7 +267,9 @@ export const TableResizer = ({
 						x: isTableScalingEnabled
 							? defaultTablePreserveSnappingWidths(
 									PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET, // was hardcoded to 0, using PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET instead.
-									isFullWidthModeEnabled ? lineLength + 2 * akEditorGutterPadding : containerWidth,
+									isFullWidthModeEnabled
+										? lineLength + 2 * akEditorGutterPaddingDynamic()
+										: containerWidth,
 									excludeGuidelineConfig,
 								)
 							: defaultSnappingWidths,
@@ -354,7 +358,9 @@ export const TableResizer = ({
 			isTableScalingEnabled
 				? defaultGuidelinesForPreserveTable(
 						PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
-						isFullWidthModeEnabled ? lineLength + 2 * akEditorGutterPadding : containerWidth,
+						isFullWidthModeEnabled
+							? lineLength + 2 * akEditorGutterPaddingDynamic()
+							: containerWidth,
 						excludeGuidelineConfig,
 					)
 				: defaultGuidelines,
@@ -410,7 +416,7 @@ export const TableResizer = ({
 			);
 
 			const editorContainerWidth = isFullWidthModeEnabled
-				? lineLength + 2 * akEditorGutterPadding
+				? lineLength + 2 * akEditorGutterPaddingDynamic()
 				: containerWidth;
 
 			const closestSnap = findClosestSnap(

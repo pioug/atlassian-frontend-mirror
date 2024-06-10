@@ -21,52 +21,76 @@ export const BlockAnnotationSharedClassNames = {
 const Yellow100 = 'rgb(255, 247, 214)';
 const Y200a = 'rgba(255, 196, 0, 0.82)';
 
-export const AnnotationSharedCSSByState = () =>
-	getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
-		? {
-				focus: css({
-					background: token('color.background.accent.yellow.subtler', Y75),
-					borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
-					boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
-					cursor: 'pointer',
-					'&:has(.card)': {
-						fontSize: '1.5rem',
-						lineHeight: '1.2rem',
-						'& > *': {
-							fontSize: '16px',
-						},
+export const AnnotationSharedCSSByState = () => {
+	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		return {
+			focus: css({
+				background: token('color.background.accent.yellow.subtler', Y75),
+				borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
+				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+				cursor: 'pointer',
+				padding: '1.5px 0',
+				'&:has(.card)': {
+					padding: '4.5px 0 3px 0',
+				},
+			}),
+			blur: css({
+				background: token('color.background.accent.yellow.subtlest', Yellow100),
+				borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
+				cursor: 'pointer',
+				padding: '1.5px 0',
+				'&:has(.card)': {
+					padding: '4.5px 0 3px 0',
+				},
+			}),
+		};
+	} else if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+		return {
+			focus: css({
+				background: token('color.background.accent.yellow.subtler', Y75),
+				borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
+				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+				cursor: 'pointer',
+				'&:has(.card)': {
+					fontSize: '1.5rem',
+					lineHeight: '1.2rem',
+					'& > *': {
+						fontSize: '16px',
 					},
-				}),
-				blur: css({
-					background: token('color.background.accent.yellow.subtlest', Yellow100),
-					borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
-					cursor: 'pointer',
-					'&:has(.card)': {
-						fontSize: '1.5rem',
-						lineHeight: '1.2rem',
-						'& > *': {
-							fontSize: '16px',
-						},
+				},
+			}),
+			blur: css({
+				background: token('color.background.accent.yellow.subtlest', Yellow100),
+				borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
+				cursor: 'pointer',
+				'&:has(.card)': {
+					fontSize: '1.5rem',
+					lineHeight: '1.2rem',
+					'& > *': {
+						fontSize: '16px',
 					},
-				}),
-			}
-		: {
-				focus: css({
-					// Background is not coming through in confluence, suspecting to be caused by some specific combination of
-					// emotion and token look up
-					background: token('color.background.accent.yellow.subtler', Y75),
-					borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
-					// TODO: https://product-fabric.atlassian.net/browse/DSP-4147
-					boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
-					cursor: 'pointer',
-				}),
-				blur: css({
-					background: token('color.background.accent.yellow.subtlest', Yellow100),
-					borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
-					cursor: 'pointer',
-				}),
-			};
-
+				},
+			}),
+		};
+	} else {
+		return {
+			focus: css({
+				// Background is not coming through in confluence, suspecting to be caused by some specific combination of
+				// emotion and token look up
+				background: token('color.background.accent.yellow.subtler', Y75),
+				borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
+				// TODO: https://product-fabric.atlassian.net/browse/DSP-4147
+				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+				cursor: 'pointer',
+			}),
+			blur: css({
+				background: token('color.background.accent.yellow.subtlest', Yellow100),
+				borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
+				cursor: 'pointer',
+			}),
+		};
+	}
+};
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState()` is not safe in object syntax
 export const annotationSharedStyles = () => css`
 	.ProseMirror {

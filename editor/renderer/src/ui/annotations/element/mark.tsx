@@ -64,7 +64,9 @@ export const MarkComponent = ({
 			// prevents from opening link URL inside webView in Safari
 			event.preventDefault();
 			if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
-				event.stopPropagation();
+				if (event.target instanceof HTMLElement && event.target.closest('[data-inline-card]')) {
+					event.stopPropagation();
+				}
 			}
 
 			onClick({ eventTarget: event.target as HTMLElement, annotationIds });
@@ -95,7 +97,7 @@ export const MarkComponent = ({
 				: 'onClick']: onMarkClick,
 			...accessibility,
 			...overriddenData,
-			...(!useBlockLevel && { css: markStyles }),
+			...(!useBlockLevel && { css: [markStyles] }),
 		},
 		children,
 	);

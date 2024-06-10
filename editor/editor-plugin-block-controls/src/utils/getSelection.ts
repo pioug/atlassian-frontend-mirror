@@ -1,4 +1,5 @@
 import { NodeSelection, TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 
 export const getSelection = (tr: Transaction, start: number) => {
 	const node = tr.doc.nodeAt(start);
@@ -31,4 +32,14 @@ export const getSelection = (tr: Transaction, start: number) => {
 			tr.doc.resolve(start + nodeSize - textNodeDepth),
 		);
 	}
+};
+
+export const selectNode = (tr: Transaction, start: number, nodeType: string): Transaction => {
+	// For table, we need to do cell selection instead of node selection
+	if (nodeType === 'table') {
+		tr = selectTableClosestToPos(tr, tr.doc.resolve(start + 1));
+	} else {
+		tr.setSelection(getSelection(tr, start));
+	}
+	return tr;
 };

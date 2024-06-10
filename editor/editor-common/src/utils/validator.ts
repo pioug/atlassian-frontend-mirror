@@ -294,6 +294,9 @@ export const getValidNode = (
 					return {
 						type,
 						attrs,
+						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
+							? { marks }
+							: {}),
 					};
 				}
 				break;
@@ -303,6 +306,9 @@ export const getValidNode = (
 					return {
 						type,
 						attrs,
+						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
+							? { marks }
+							: {}),
 					};
 				}
 				break;
@@ -312,6 +318,9 @@ export const getValidNode = (
 					return {
 						type,
 						attrs,
+						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
+							? { marks }
+							: {}),
 					};
 				}
 				break;
@@ -327,35 +336,21 @@ export const getValidNode = (
 				break;
 			}
 			case 'inlineCard': {
-				if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
-					let inlineCardNode: ADNode = { type };
-					if (
-						attrs &&
-						((attrs.datasource && !attrs.url) ||
-							(attrs.url && isSafeUrl(attrs.url)) ||
-							(attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
-					) {
-						inlineCardNode.attrs = { ...attrs };
-					}
-
-					if (marks) {
-						inlineCardNode.marks = [...marks];
-					}
-					return inlineCardNode;
-				} else {
-					if (
-						attrs &&
-						((attrs.datasource && !attrs.url) ||
-							(attrs.url && isSafeUrl(attrs.url)) ||
-							(attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
-					) {
-						return {
-							type,
-							attrs,
-						};
-					}
-					break;
+				if (
+					attrs &&
+					((attrs.datasource && !attrs.url) ||
+						(attrs.url && isSafeUrl(attrs.url)) ||
+						(attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
+				) {
+					return {
+						type,
+						attrs,
+						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+							? { marks }
+							: {}),
+					};
 				}
+				break;
 			}
 			case 'blockCard': {
 				if (
@@ -569,6 +564,9 @@ export const getValidNode = (
 							text: mentionText,
 							accessLevel: '',
 						},
+						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
+							? { marks }
+							: {}),
 					};
 					if (mentionAccess) {
 						mentionNode.attrs.accessLevel = mentionAccess;

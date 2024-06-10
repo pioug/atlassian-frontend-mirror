@@ -2,8 +2,10 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import type { Theme } from '@emotion/react';
 import { css } from '@emotion/react';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { fontFamily, fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 
 import { getGlobalTheme, token } from '@atlaskit/tokens';
@@ -62,6 +64,7 @@ export const FullPagePadding = 32;
 const tableShadowWidth = 32;
 
 export type RendererWrapperProps = {
+	allowAnnotations?: boolean;
 	appearance?: RendererAppearance;
 	allowNestedHeaderLinks: boolean;
 	allowColumnSorting: boolean;
@@ -450,6 +453,24 @@ const getShadowOverrides = () => {
 	`;
 };
 
+function getAnnotationStyles({ allowAnnotations }: RendererWrapperProps) {
+	if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+		return '';
+	}
+
+	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
+			{
+				background: token('color.background.accent.yellow.subtler', Y75),
+				borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
+				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+				cursor: 'pointer',
+				padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
+			},
+	});
+}
+
 export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: Theme) => {
 	const { colorMode } = getGlobalTheme();
 	// This is required to be compatible with styled-components prop structure.
@@ -542,6 +563,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: Th
 		${backgroundColorStyles};
 		${tasksAndDecisionsStyles};
 		${smartCardSharedStyles}
+		${getAnnotationStyles(wrapperProps)}
 
 		& .UnknownBlock {
 			font-family: ${fontFamily()};

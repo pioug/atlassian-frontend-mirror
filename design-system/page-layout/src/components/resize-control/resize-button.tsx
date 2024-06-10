@@ -86,8 +86,6 @@ const ResizeButton = ({ isLeftSidebarCollapsed, label, testId, ...props }: Resiz
 		aria-expanded={!isLeftSidebarCollapsed}
 		aria-label={label}
 		type="button"
-		// @ts-ignore - This was added when `@atlaskit/page-layout` was enrolled into JFE local consumption
-		// There seems to be an incompatibility in the `css` prop between jira and platform
 		// The error goes away when we remove the spread ...props
 		css={[
 			resizeIconButtonStyles,

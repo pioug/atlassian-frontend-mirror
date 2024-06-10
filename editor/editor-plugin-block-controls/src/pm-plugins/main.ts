@@ -120,7 +120,11 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				// Map active node position when the document changes
 				const mappedActiveNodePos =
 					tr.docChanged && activeNode
-						? { pos: tr.mapping.map(activeNode.pos), anchorName: activeNode.anchorName }
+						? {
+								pos: tr.mapping.map(activeNode.pos),
+								anchorName: activeNode.anchorName,
+								nodeType: activeNode.nodeType,
+							}
 						: activeNode;
 
 				return {

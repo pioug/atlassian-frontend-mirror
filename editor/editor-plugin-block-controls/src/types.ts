@@ -36,7 +36,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 		commands: {
 			moveNode: (start: number, to: number) => EditorCommand;
 			showDragHandleAt: (pos: number, anchorName: string, nodeType: string) => EditorCommand;
-			setNodeDragged: (posNumber: number, anchorName: string) => EditorCommand;
+			setNodeDragged: (posNumber: number, anchorName: string, nodeType: string) => EditorCommand;
 		};
 	}
 >;

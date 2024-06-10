@@ -69,22 +69,17 @@ export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
 				css={[buttonBaseStyles, isHighlighted && buttonHighlightedStyles]}
 				role="listitem"
 			>
-				{
-					// @ts-ignore - This was added when `@atlaskit/page-layout` was enrolled into JFE local consumption
-					// There seems to be an incompatibility in the `css` prop between jira and platform
-					// The error goes away when we remove the spread ...buttonProps
-					<Button
-						appearance="primary"
-						testId={testId}
-						ref={ref}
-						isSelected={isSelected}
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-						theme={getPrimaryButtonTheme(theme)}
-						{...buttonProps}
-					>
-						{children}
-					</Button>
-				}
+				<Button
+					appearance="primary"
+					testId={testId}
+					ref={ref}
+					isSelected={isSelected}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					theme={getPrimaryButtonTheme(theme)}
+					{...buttonProps}
+				>
+					{children}
+				</Button>
 			</div>
 		);
 

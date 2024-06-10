@@ -361,6 +361,7 @@ export class Renderer extends PureComponent<RendererProps> {
 			onComplete,
 			onError,
 			appearance,
+			allowAnnotations,
 			adfStage,
 			truncated,
 			maxHeight,
@@ -463,6 +464,7 @@ export class Renderer extends PureComponent<RendererProps> {
 							<SmartCardStorageProvider>
 								<ProviderFactoryProvider value={this.providerFactory}>
 									<RendererWrapper
+										allowAnnotations={allowAnnotations}
 										appearance={appearance}
 										allowNestedHeaderLinks={allowNestedHeaderLinks}
 										allowColumnSorting={allowColumnSorting}
@@ -529,6 +531,7 @@ export class Renderer extends PureComponent<RendererProps> {
 			}
 			return (
 				<RendererWrapper
+					allowAnnotations={allowAnnotations}
 					appearance={appearance}
 					allowCopyToClipboard={allowCopyToClipboard}
 					allowWrapCodeBlock={allowWrapCodeBlock}
@@ -591,6 +594,7 @@ export const RendererWithAnalytics = React.memo((props: RendererProps) => (
 ));
 
 type RendererWrapperProps = {
+	allowAnnotations?: boolean;
 	appearance: RendererAppearance;
 	innerRef?: React.RefObject<HTMLDivElement>;
 	allowColumnSorting?: boolean;
@@ -700,11 +704,13 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 						ref={innerRef}
 						onClick={onClick}
 						onMouseDown={onMouseDown}
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 						css={rendererStyles({
 							appearance,
 							allowNestedHeaderLinks,
 							allowColumnSorting: !!allowColumnSorting,
 							useBlockRenderForCodeBlock,
+							allowAnnotations: props.allowAnnotations,
 						})}
 					>
 						{children}

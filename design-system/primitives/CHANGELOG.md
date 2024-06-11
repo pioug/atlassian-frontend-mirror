@@ -1,5 +1,23 @@
 # @atlaskit/primitives
 
+## 7.0.0
+
+### Major Changes
+
+- [#108387](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108387)
+  [`0f3b7b4c63c6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f3b7b4c63c6d) -
+  `xcss`: Restrict valid chained pseudo-selectors a limited subset:
+
+  - `:visited:active`
+  - `:active:visited`
+  - `:hover::before`
+  - `:hover::after`
+  - `:focus-visible::before`
+  - `:focus-visible::after`
+
+  Previously, any combination of two pseudo-selectors was allowed. This decision was made to improve
+  performance for TypeScript compilation and IDE type hinting.
+
 ## 6.5.0
 
 ### Minor Changes
@@ -80,7 +98,7 @@
 
 - [#93706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/93706)
   [`2e4fdfa436da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e4fdfa436da) -
-  Add support for React 18.
+  Add support for React 18 in non-strict mode.
 
 ## 5.6.1
 

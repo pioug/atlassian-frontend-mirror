@@ -3,6 +3,7 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
@@ -24,7 +25,7 @@ export type ReleaseHiddenDecoration = () => boolean | undefined;
 export type BlockControlsPlugin = NextEditorPlugin<
 	'blockControls',
 	{
-		dependencies: [OptionalPlugin<WidthPlugin>];
+		dependencies: [OptionalPlugin<WidthPlugin>, OptionalPlugin<FeatureFlagsPlugin>];
 		sharedState:
 			| {
 					isMenuOpen: boolean;

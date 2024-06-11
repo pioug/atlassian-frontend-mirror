@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.24.4
+
+### Patch Changes
+
+- [#108929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108929)
+  [`a25122bc3dc8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a25122bc3dc8f) -
+  Fixed the duplicated "Button" imports after migrating loading buttons to default buttons.
+
 ## 0.24.3
 
 ### Patch Changes

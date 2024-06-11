@@ -22,6 +22,9 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-width/afm-cc/tsconfig.json"
         },
         {

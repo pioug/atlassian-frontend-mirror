@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 27.5.4
+
+### Patch Changes
+
+- [#108244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108244)
+  [`400b3c1c97aab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/400b3c1c97aab) -
+  Add loading view for related links modal
+- Updated dependencies
+
+## 27.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.5.2
 
 ### Patch Changes

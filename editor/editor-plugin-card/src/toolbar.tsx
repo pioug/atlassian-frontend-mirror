@@ -379,9 +379,9 @@ const generateToolbarItems =
 				platform !== 'mobile' &&
 				cardOptions.allowDatasource;
 
-			const toolbarItems: Array<FloatingToolbarItem<Command>> = [
-				isEditDropdownEnabled
-					? {
+			const editItems: Array<FloatingToolbarItem<Command>> = isEditDropdownEnabled
+				? [
+						{
 							type: 'custom',
 							fallback: [],
 							render: (editorView) => (
@@ -394,8 +394,10 @@ const generateToolbarItems =
 									onLinkEditClick={editLink(editorAnalyticsApi)}
 								/>
 							),
-						}
-					: {
+						},
+					]
+				: [
+						{
 							id: 'editor.link.edit',
 							type: 'button',
 							selected: false,
@@ -405,7 +407,11 @@ const generateToolbarItems =
 							testId: 'link-toolbar-edit-link-button',
 							onClick: editLink(editorAnalyticsApi),
 						},
-				{ type: 'separator' },
+						{ type: 'separator' },
+					];
+
+			const toolbarItems: Array<FloatingToolbarItem<Command>> = [
+				...editItems,
 				{
 					id: 'editor.link.openLink',
 					type: 'button',
@@ -640,25 +646,7 @@ const getDatasourceButtonGroup = (
 		);
 	}
 
-	const editDropdownWithSeparator: Array<FloatingToolbarItem<Command>> = [
-		{
-			type: 'custom',
-			fallback: [],
-			render: (editorView) => (
-				<EditToolbarButton
-					key="edit-toolbar-item"
-					url={metadata.url}
-					intl={intl}
-					editorAnalyticsApi={editorAnalyticsApi}
-					editorView={editorView}
-					onLinkEditClick={editLink(editorAnalyticsApi)}
-				/>
-			),
-		},
-		{ type: 'separator' },
-	];
-
-	const canShowMainToolbar = () => {
+	const canShowAppearanceSwitch = () => {
 		// we do not show smart-link or the datasource icons when the node does not have a url to resolve
 		if (!metadata.url) {
 			return false;
@@ -679,7 +667,7 @@ const getDatasourceButtonGroup = (
 			: !isDatasourceConfigEditable(datasourceId);
 	};
 
-	if (canShowMainToolbar()) {
+	if (canShowAppearanceSwitch()) {
 		const { allowBlockCards, allowEmbeds, showUpgradeDiscoverability } = cardOptions;
 
 		const { url } = metadata;
@@ -723,10 +711,25 @@ const getDatasourceButtonGroup = (
 				),
 			} satisfies FloatingToolbarItem<never>,
 			{ type: 'separator' },
-			...(getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')
-				? [...editDropdownWithSeparator]
-				: []),
 		);
+	}
+
+	if (getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')) {
+		toolbarItems.push({
+			type: 'custom',
+			fallback: [],
+			render: (editorView) => (
+				<EditToolbarButton
+					datasourceId={datasourceId}
+					key="edit-toolbar-item"
+					url={metadata.url}
+					intl={intl}
+					editorAnalyticsApi={editorAnalyticsApi}
+					editorView={editorView}
+					onLinkEditClick={editLink(editorAnalyticsApi)}
+				/>
+			),
+		});
 	}
 
 	if (node?.attrs?.url) {

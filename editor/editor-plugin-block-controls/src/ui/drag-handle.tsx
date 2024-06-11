@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
@@ -71,6 +72,8 @@ export const DragHandle = ({
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
+	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
+
 	const handleClick = useCallback(() => {
 		setDragHandleSelected(!dragHandleSelected);
 		api?.core?.actions.execute(({ tr }) => {
@@ -125,6 +128,7 @@ export const DragHandle = ({
 		});
 	}, [api, start, view, anchorName, nodeType]);
 
+	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
 	const positionStyles = useMemo(() => {
 		const supportsAnchor =
 			CSS.supports('top', `anchor(${anchorName} start)`) &&
@@ -132,27 +136,35 @@ export const DragHandle = ({
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[data-drag-handler-anchor-name="${anchorName}"]`,
 		);
+
+		if (!dom) {
+			return;
+		}
+		const hasResizer = anchorName.includes('table') || anchorName.includes('mediaSingle');
+		const isExtension = anchorName.includes('extension') || anchorName.includes('bodiedExtension');
+
+		const innerContainer: HTMLElement | null = hasResizer
+			? dom.querySelector('.resizer-item')
+			: isExtension
+				? dom.querySelector('.extension-container[data-layout]')
+				: null;
+
 		if (supportsAnchor) {
-			const hasResizer =
-				(anchorName.includes('table') || anchorName.includes('mediaSingle')) && dom;
 			return {
-				left: hasResizer
-					? getLeftPosition(dom, nodeType)
-					: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
+				left:
+					hasResizer || isExtension
+						? getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)
+						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
 				top: anchorName.includes('table')
 					? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
 					: `anchor(${anchorName} start)`,
 			};
 		}
-		if (!dom) {
-			return;
-		}
-
 		return {
-			left: getLeftPosition(dom, nodeType),
+			left: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
 			top: getTopPosition(dom),
 		};
-	}, [anchorName, view, nodeType]);
+	}, [anchorName, view, nodeType, macroInteractionUpdates]);
 
 	return (
 		<button

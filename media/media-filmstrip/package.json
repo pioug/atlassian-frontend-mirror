@@ -43,7 +43,7 @@
     "@atlaskit/media-card": "^77.12.0",
     "@atlaskit/media-client": "^27.2.0",
     "@atlaskit/media-common": "^11.2.0",
-    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/theme": "^12.9.0",
     "@atlaskit/tokens": "^1.49.0",
     "@babel/runtime": "^7.0.0",
     "debounce": "^1.0.0"

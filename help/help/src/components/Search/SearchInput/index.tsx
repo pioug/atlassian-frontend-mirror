@@ -12,7 +12,7 @@ import { gridSize } from '@atlaskit/theme/constants';
 import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { REQUEST_STATE } from '../../../model/Requests';
@@ -31,6 +31,11 @@ const ANALYTICS_CONTEXT_DATA = {
 	packageName: process.env._PACKAGE_NAME_,
 	packageVersion: process.env._PACKAGE_VERSION_,
 };
+
+const buttonStyles = css({
+	width: `${gridSize() * 3}px`,
+	height: `${gridSize() * 3}px`,
+});
 
 export const SearchInput: React.FC<WrappedComponentProps> = ({ intl: { formatMessage } }) => {
 	const { searchValue, searchState, onSearch, onSearchInputChanged, onSearchInputCleared } =
@@ -103,10 +108,7 @@ export const SearchInput: React.FC<WrappedComponentProps> = ({ intl: { formatMes
 						{searchState === REQUEST_STATE.loading && <Spinner size="small" />}
 						{searchValue !== '' && (
 							<Button
-								css={{
-									width: `${gridSize() * 3}px`,
-									height: `${gridSize() * 3}px`,
-								}}
+								css={buttonStyles}
 								appearance="subtle"
 								onClick={handleOnClearButtonClick}
 								spacing="none"

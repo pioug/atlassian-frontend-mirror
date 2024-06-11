@@ -30,7 +30,7 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^36.10.7",
     "@atlaskit/adf-utils": "^19.2.0",
-    "@atlaskit/editor-common": "^82.0.0",
+    "@atlaskit/editor-common": "^82.2.0",
     "@atlaskit/icon": "^22.3.0",
     "@babel/runtime": "^7.0.0",
     "@types/gapi": "0.0.44"

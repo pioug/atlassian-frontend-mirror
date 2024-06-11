@@ -136,6 +136,7 @@ export const buildTypeAheadInsertedPayload = (
 	sessionId: string,
 	insertType: SelectItemMode,
 	mention: MentionDescription,
+	mentionLocalId: string,
 	mentionList?: MentionDescription[],
 	query?: string,
 	contextIdentifierProvider?: ContextIdentifierProvider,
@@ -167,6 +168,7 @@ export const buildTypeAheadInsertedPayload = (
 				isTeamType(mention.userType) && mention.context ? mention.context.includesYou : null,
 			taskListId,
 			taskItemId,
+			localId: mentionLocalId,
 		},
 	);
 

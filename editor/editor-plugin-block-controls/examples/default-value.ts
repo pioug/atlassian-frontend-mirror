@@ -437,8 +437,43 @@ export const defaultValue = {
 			],
 		},
 		{
-			type: 'paragraph',
-			content: [],
+			type: 'extension',
+			attrs: {
+				extensionType: 'com.atlassian.forge',
+				extensionKey: 'awesome:list',
+				parameters: {
+					items: ['a', 'b', 'c', 'd'],
+				},
+				layout: 'wide',
+			},
+		},
+		{
+			type: 'bodiedExtension',
+			attrs: {
+				extensionType: 'com.atlassian.confluence.macro.core',
+				extensionKey: 'bodied-eh',
+				parameters: {
+					macroParams: {},
+					macroMetadata: {
+						placeholder: [
+							{
+								data: {
+									url: '',
+								},
+								type: 'icon',
+							},
+						],
+					},
+				},
+				layout: 'full-width',
+				localId: 'testId',
+			},
+			content: [
+				{
+					type: 'paragraph',
+					content: [],
+				},
+			],
 		},
 		{
 			type: 'mediaSingle',

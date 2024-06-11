@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 
 export interface ContentHeaderProps {
@@ -16,6 +16,14 @@ export interface ContentHeaderProps {
  */
 export const blockCardContentHeaderClassName = 'block-card-content-header';
 
+const styles = css({
+	display: 'flex',
+	alignItems: 'flex-start',
+	// EDM-713: fixes copy-paste from renderer to editor for Firefox
+	// due to HTML its unwrapping behaviour on paste.
+	MozUserSelect: 'none',
+});
+
 export const ContentHeader = ({ onClick, link, children }: ContentHeaderProps) => {
 	const onMouseDown = useMouseDownEvent();
 
@@ -25,13 +33,7 @@ export const ContentHeader = ({ onClick, link, children }: ContentHeaderProps) =
 			onMouseDown={onMouseDown}
 			href={link}
 			target="_blank"
-			css={{
-				display: 'flex',
-				alignItems: 'flex-start',
-				// EDM-713: fixes copy-paste from renderer to editor for Firefox
-				// due to HTML its unwrapping behaviour on paste.
-				MozUserSelect: 'none',
-			}}
+			css={styles}
 			data-trello-do-not-use-override="block-card-content-header"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={blockCardContentHeaderClassName}

@@ -1,5 +1,11 @@
 # @atlaskit/section-message
 
+## 6.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.2
 
 ### Patch Changes
@@ -20,7 +26,7 @@
 
 - [#94378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94378)
   [`1a8f0d378a8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a8f0d378a8e) -
-  Add support for React 18.
+  Add support for React 18 in non-strict mode.
 
 ## 6.4.26
 

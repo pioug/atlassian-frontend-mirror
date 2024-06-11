@@ -27,6 +27,7 @@ import {
 } from './types/responses';
 import { type InvokeRequest } from './types/requests';
 import { LRUMap } from 'lru_map';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const MAX_BATCH_SIZE = 50;
 const MIN_TIME_BETWEEN_BATCHES = 250;
@@ -67,14 +68,26 @@ export default class CardClient implements CardClientInterface {
 		const deDuplicatedUrls = [...new Set(urls)];
 		let resolvedUrls: BatchResponse = [];
 
+		const headers = {
+			/**
+			 * This header exist to enable the backend to process relative time, eg: "today", with respect to the user timezone.
+			 * eg: used in "confluence-object-provider" to resolve confluence SLLV links that may involve relative time calculation.
+			 */
+			...(getBooleanFF('platform.linking-platform.datasource.add-timezone-header')
+				? { 'origin-timezone': Intl?.DateTimeFormat().resolvedOptions().timeZone }
+				: {}),
+
+			// send product source as header X-Product if defined
+			...(this.product ? { 'X-Product': this.product } : {}),
+		};
+
 		try {
 			// Ask the backend to resolve the URLs for us.
 			resolvedUrls = await request<BatchResponse>(
 				'post',
 				`${this.resolverUrl}/resolve/batch`,
 				deDuplicatedUrls.map((resourceUrl) => ({ resourceUrl })),
-				// send product source as header X-Product if defined
-				this.product ? { 'X-Product': this.product } : {},
+				headers,
 			);
 		} catch (error) {
 			// we make sure we return a valid dataloader response by creating an error

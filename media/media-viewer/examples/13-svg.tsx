@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { type FileIdentifier, type MediaClientConfig } from '@atlaskit/media-client';
 import { MediaViewer } from '../src';
 import { usePrepareMediaState } from '../src/__tests__/unit/newgen/utils/mockedMediaClientProvider/_usePrepareMediaState';
@@ -9,42 +9,29 @@ import {
 import Select from '@atlaskit/select';
 import Button from '@atlaskit/button';
 import { CenteredForm } from '../example-helpers/centeredForm';
+import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { svgFileIds } from '@atlaskit/media-client/test-helpers';
+import { MediaClientProvider } from '@atlaskit/media-client-react';
+import { ToggleBox, useSelectOptions, delayApiResponses } from '../example-helpers/svg';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
-const { svgCar, svgOpenWeb, svgAjDigitalCamera, svgAtom } = generateItemWithBinaries.svg;
-const generatorsWithKeys: Array<[string, ItemWithBinariesGenerator]> = [
-	['car', svgCar],
-	['OpenWeb', svgOpenWeb],
-	['AjDigitalCamera', svgAjDigitalCamera],
-	['Atom', svgAtom],
-];
-
-const useSelectOptions = (identifiers: FileIdentifier[]) => {
-	const defaultOption = useMemo(
-		() => ({ label: generatorsWithKeys[0][0], value: identifiers[0] }),
-		[identifiers],
+const Example = ({
+	identifiers,
+	fileKeys,
+}: {
+	identifiers: FileIdentifier[];
+	fileKeys: string[];
+}) => {
+	const [isOpen, setIsOpen] = useState(false);
+	const { options, defaultOption, identifier, setIdentifier } = useSelectOptions(
+		identifiers,
+		fileKeys,
 	);
-
-	const options = useMemo(
-		() =>
-			identifiers.map((identifier, index) => ({
-				label: generatorsWithKeys[index][0],
-				value: identifier,
-			})),
-		[identifiers],
-	);
-	const [identifier, setIdentifier] = useState<FileIdentifier>(defaultOption.value);
-
-	return { options, defaultOption, identifier, setIdentifier };
-};
-
-const Example = ({ identifiers }: { identifiers: FileIdentifier[] }) => {
-	const { options, defaultOption, identifier, setIdentifier } = useSelectOptions(identifiers);
-	const [isOpen, setIsOpen] = useState(true);
 
 	return (
-		<CenteredForm>
+		<>
 			<Select
 				inputId="single-select-example"
 				classNamePrefix="react-select"
@@ -68,22 +55,71 @@ const Example = ({ identifiers }: { identifiers: FileIdentifier[] }) => {
 					onClose={() => setIsOpen(false)}
 				/>
 			)}
-		</CenteredForm>
+		</>
 	);
 };
 
-const generators = generatorsWithKeys.map(([, generator]) => generator);
-
-export default function () {
-	const [{ MockedMediaClientProvider }, identifiers] = usePrepareMediaState(generators);
+const MockedProvider = () => {
+	const { svgCar, svgOpenWeb, svgAjDigitalCamera, svgAtom } = generateItemWithBinaries.svg;
+	const fileKeys = ['AjDigitalCamera', 'car', 'Atom', 'OpenWeb'];
+	const generators: Array<ItemWithBinariesGenerator> = [
+		svgAjDigitalCamera,
+		svgCar,
+		svgAtom,
+		svgOpenWeb,
+	];
+	const [{ MockedMediaClientProvider, mediaApi }, identifiers] = usePrepareMediaState(generators);
 
 	if (identifiers.length === 0) {
 		return <div>Preparing Media State</div>;
 	}
 
+	delayApiResponses(mediaApi, { getItems: 2000, getFileBinary: 2000 });
+
 	return (
 		<MockedMediaClientProvider>
-			<Example identifiers={identifiers} />
+			<Example identifiers={identifiers} fileKeys={fileKeys} />
 		</MockedMediaClientProvider>
+	);
+};
+
+const BackendProvider = () => {
+	const mediaClientConfig = createStorybookMediaClientConfig();
+	const identifiers = Object.values(svgFileIds);
+	const fileKeys = Object.keys(svgFileIds);
+
+	return (
+		<MediaClientProvider clientConfig={mediaClientConfig}>
+			<Example identifiers={identifiers} fileKeys={fileKeys} />
+		</MediaClientProvider>
+	);
+};
+
+export default function () {
+	const [reloadKey, setReloadkey] = useState(0);
+	const [useMockedAPI, setUseMockedAPI] = useState(false);
+
+	return (
+		<CenteredForm>
+			<ToggleBox
+				label="Use mocked api"
+				isChecked={useMockedAPI}
+				onChange={(v) => {
+					setReloadkey(reloadKey + 1);
+					setUseMockedAPI(v);
+				}}
+				centered
+			/>
+			<br />
+			{useMockedAPI ? (
+				!getBooleanFF('platform.media-experience.media-viewer-v2_hgsii') ? (
+					<p>SVG integration with Media Viewer v1 is not compatible with the Mocked Media API</p>
+				) : (
+					<MockedProvider key={`${reloadKey}`} />
+				)
+			) : (
+				<BackendProvider key={`${reloadKey}`} />
+			)}
+		</CenteredForm>
 	);
 }

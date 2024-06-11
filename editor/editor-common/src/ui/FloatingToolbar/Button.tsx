@@ -77,7 +77,8 @@ export default ({
 
 	return (
 		<Tooltip
-			content={tooltipContent || title}
+			// Only fallback to title for tooltip if title is not shown
+			content={tooltipContent || (iconOnly ? title : undefined)}
 			hideTooltipOnClick={hideTooltipOnClick}
 			position="top"
 		>

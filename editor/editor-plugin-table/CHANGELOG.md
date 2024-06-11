@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.18
+
+### Patch Changes
+
+- [#109178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109178)
+  [`c01aae3d5755d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c01aae3d5755d) -
+  Change akEditorPadding in table resizing node to use dynamic version to support editor drag and
+  drop
+- [#109165](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109165)
+  [`0fd6be97334bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fd6be97334bc) -
+  Use scaled table width to calculate if left alignment should be disabled
+- Updated dependencies
+
 ## 7.16.17
 
 ### Patch Changes

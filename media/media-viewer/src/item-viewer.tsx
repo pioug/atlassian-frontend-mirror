@@ -43,6 +43,9 @@ import {
 	succeedMediaFileUfoExperience,
 } from './analytics/ufoExperiences';
 import { type FileStateFlags } from './components/types';
+import { MediaClientProvider } from '@atlaskit/media-client-react';
+import { type SvgViewerProps } from './viewers/svg';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const ImageViewer = Loadable({
 	loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
@@ -67,6 +70,14 @@ const DocViewer = Loadable({
 const CodeViewer = Loadable({
 	loader: (): Promise<React.ComponentType<CodeViewerProps>> =>
 		import('./viewers/codeViewer').then((mod) => mod.CodeViewer),
+	loading: () => <Spinner />,
+});
+
+const SvgViewer = Loadable({
+	loader: (): Promise<React.ComponentType<SvgViewerProps>> =>
+		import(/* webpackChunkName: "@atlaskit-internal_svgViewer" */ './viewers/svg').then(
+			(mod) => mod.SvgViewer,
+		),
 	loading: () => <Spinner />,
 });
 
@@ -210,6 +221,24 @@ export class ItemViewerBase extends React.Component<Props, State> {
 			}
 
 			return <CodeViewer onSuccess={this.onSuccess} onError={this.onLoadFail} {...viewerProps} />;
+		}
+
+		if (
+			getBooleanFF('platform.media-svg-rendering') &&
+			isFileIdentifier(identifier) &&
+			fileState.mimeType === `image/svg+xml`
+		) {
+			return (
+				<MediaClientProvider clientConfig={mediaClient.config}>
+					<SvgViewer
+						identifier={identifier}
+						onLoad={this.onSuccess}
+						onError={this.onLoadFail}
+						onClose={onClose}
+						traceContext={this.traceContext}
+					/>
+				</MediaClientProvider>
+			);
 		}
 
 		switch (fileState.mediaType) {

@@ -6,7 +6,7 @@
 
 -   [#96186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96186)
     [`225179567a4c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/225179567a4c) -
-    Add support for React 18.
+    Add support for React 18 in non-strict mode.
 
 ## 5.3.0
 

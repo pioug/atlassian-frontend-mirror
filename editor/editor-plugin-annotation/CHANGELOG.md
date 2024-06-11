@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.10.0
+
+### Minor Changes
+
+- [#108623](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108623)
+  [`c01339668ebde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c01339668ebde) -
+  [ux] ED-23617 Add support in editor for comments on status, emoji, date and mention nodes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.5
 
 ### Patch Changes

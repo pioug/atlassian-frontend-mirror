@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 2.3.7
+
+### Patch Changes
+
+- [#108865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108865)
+  [`db1d41998242d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db1d41998242d) -
+  [ux] Rename mock data priority column to "Priority" and change default with for it from 40 to 64px
+  to allow for whole word without line break
+
+## 2.3.6
+
+### Patch Changes
+
+- [#107913](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107913)
+  [`d3405be767646`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3405be767646) -
+  Introduce version param to the Assets Config Modal
+- Updated dependencies
+
 ## 2.3.5
 
 ### Patch Changes

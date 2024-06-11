@@ -13,6 +13,7 @@ import {
 } from '../types/responses';
 import { APIError, type ErrorType, NetworkError } from '@atlaskit/linking-common';
 import { flushPromises } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 // Mock response quick-references:
 const errorResponse = {
@@ -363,6 +364,84 @@ describe('Smart Card: Client', () => {
 			context: '',
 		});
 	});
+
+	ffTest.on(
+		'platform.linking-platform.datasource.add-timezone-header',
+		'timezone header in the request',
+		() => {
+			it('should set the timezone header correctly in the request call', async () => {
+				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+				const client = new SmartCardClient('stg');
+				const resourceUrl = 'https://i.love.cheese';
+				const response = await client.fetchData(resourceUrl);
+				expect(mockRequest).toBeCalled();
+				expect(mockRequest).toBeCalledWith(
+					'post',
+					expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
+					[
+						{
+							resourceUrl,
+						},
+					],
+					{ 'origin-timezone': 'UTC' },
+				);
+				expect(response).toBe(mocks.success);
+			});
+
+			it('should set the timezone header correctly in the request call when timezone is not UTC', async () => {
+				const originalDateResolvedOptions = new Intl.DateTimeFormat().resolvedOptions();
+				const mockedTimeZone = jest
+					.spyOn(Intl.DateTimeFormat.prototype, 'resolvedOptions')
+					.mockReturnValue({
+						...originalDateResolvedOptions,
+						timeZone: 'Australia/Sydney',
+					});
+
+				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+				const client = new SmartCardClient('stg');
+				const resourceUrl = 'https://i.love.cheese';
+				const response = await client.fetchData(resourceUrl);
+				expect(mockRequest).toBeCalled();
+				expect(mockRequest).toBeCalledWith(
+					'post',
+					expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
+					[
+						{
+							resourceUrl,
+						},
+					],
+					{ 'origin-timezone': 'Australia/Sydney' },
+				);
+				expect(response).toBe(mocks.success);
+				mockedTimeZone.mockRestore();
+			});
+		},
+	);
+
+	ffTest.off(
+		'platform.linking-platform.datasource.add-timezone-header',
+		'no timezone header in the request',
+		() => {
+			it('should not set the header', async () => {
+				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+				const client = new SmartCardClient('stg');
+				const resourceUrl = 'https://i.love.cheese';
+				const response = await client.fetchData(resourceUrl);
+				expect(mockRequest).toBeCalled();
+				expect(mockRequest).toBeCalledWith(
+					'post',
+					expect.stringMatching(/.*?pug\.jira-dev.*?\/resolve\/batch/),
+					[
+						{
+							resourceUrl,
+						},
+					],
+					{},
+				);
+				expect(response).toBe(mocks.success);
+			});
+		},
+	);
 
 	describe('search()', () => {
 		it('makes request with given parameters', async () => {

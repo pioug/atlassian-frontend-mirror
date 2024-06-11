@@ -380,7 +380,7 @@ const EditorNext = (props: EditorAppearanceComponentProps & WrappedComponentProp
 	} = props;
 	const maxContentSizeReached = Boolean(maxContentSizeState?.maxContentSizeReached);
 	const showSecondaryToolbar = !!onSave || !!onCancel || !!customSecondaryToolbarComponents;
-	let containerElement: HTMLElement | null = null;
+	const containerElement = React.useRef<HTMLDivElement>(null);
 
 	// Wrapper container for toolbar and content area
 	const wrapperElementRef = useMemo(
@@ -471,7 +471,7 @@ const EditorNext = (props: EditorAppearanceComponentProps & WrappedComponentProp
 							popupsScrollableElement={popupsScrollableElement}
 							disabled={!!disabled}
 							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-							containerElement={containerElement}
+							containerElement={containerElement.current}
 							twoLineEditorToolbar={isTwoLineToolbarEnabled}
 						/>
 						<div css={mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)}>
@@ -484,7 +484,7 @@ const EditorNext = (props: EditorAppearanceComponentProps & WrappedComponentProp
 						{({ width }) => {
 							return (
 								<ContentArea
-									ref={(ref) => (containerElement = ref)}
+									ref={containerElement}
 									css={
 										maxHeight
 											? css({
@@ -512,7 +512,7 @@ const EditorNext = (props: EditorAppearanceComponentProps & WrappedComponentProp
 										popupsMountPoint={popupsMountPoint}
 										popupsBoundariesElement={popupsBoundariesElement}
 										popupsScrollableElement={popupsScrollableElement}
-										containerElement={containerElement}
+										containerElement={containerElement.current}
 										disabled={!!disabled}
 										wrapperElement={wrapperElementRef.current}
 										pluginHooks={pluginHooks}

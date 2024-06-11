@@ -18,7 +18,7 @@ import { RelatedArticlesTitle } from './styled';
 import useCancellablePromise from '../../util/hooks/cancellablePromise';
 import { usePrevious } from '../../util/hooks/previous';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -45,6 +45,11 @@ export interface Props {
 		isCollapsed: boolean,
 	) => void;
 }
+
+const buttonStyles = css({
+	padding: '0',
+	'& span': { margin: '0' },
+});
 
 export const RelatedArticles: React.FC<Props & WrappedComponentProps> = ({
 	style = 'primary',
@@ -112,7 +117,7 @@ export const RelatedArticles: React.FC<Props & WrappedComponentProps> = ({
 					<Button
 						appearance="link"
 						spacing="compact"
-						css={{ padding: '0', '& span': { margin: '0' } }}
+						css={buttonStyles}
 						onClick={updateRelatedArticles}
 					>
 						{formatMessage(messages.help_related_article_endpoint_error_button_label)}

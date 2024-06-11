@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.7.3
+
+### Patch Changes
+
+- [#108804](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108804)
+  [`3d5378c261364`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d5378c261364) -
+  [ED-23517] Changed initial state of highlight plugin to avoid inactive toolbar button in examples
+- Updated dependencies
+
+## 1.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 1.11.0
+
+### Minor Changes
+
+- [#109647](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109647)
+  [`17d330a232539`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17d330a232539) -
+  The changes here adds a "origin-timezone" header to the smart-link resolve request.
+
 ## 1.10.0
 
 ### Minor Changes

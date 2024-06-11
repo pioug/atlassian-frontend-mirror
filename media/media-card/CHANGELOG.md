@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 77.12.1
+
+### Patch Changes
+
+- [#109692](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109692)
+  [`e947830ffb91c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e947830ffb91c) -
+  Updated feature flag key for SVG rendering
+
 ## 77.12.0
 
 ### Minor Changes

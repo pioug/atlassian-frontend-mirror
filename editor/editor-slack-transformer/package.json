@@ -40,10 +40,10 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/editor-core": "^193.24.0",
+    "@atlaskit/editor-core": "^193.25.0",
     "@atlaskit/editor-test-helpers": "^18.23.0",
     "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/theme": "^12.9.0",
     "@atlaskit/tokens": "^1.49.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@emotion/react": "^11.7.1",

@@ -2,7 +2,7 @@
 
 import { type PropsWithChildren } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -52,6 +52,10 @@ export const InlineDialogFormWrapper = ({
 	);
 };
 
+const inlineDialogContentWrapperStyles = css({
+	padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
+});
+
 /**
  * Apply the same styling, as previous @atlaskit/inline-dialog had,
  * compared to the @atlaskit/popup we are now using.
@@ -63,12 +67,7 @@ export const InlineDialogContentWrapper = ({
 	label,
 }: PropsWithChildren<{ label?: string }>) => {
 	return (
-		<div
-			css={{
-				padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
-			}}
-			aria-label={label}
-		>
+		<div css={inlineDialogContentWrapperStyles} aria-label={label}>
 			{children}
 		</div>
 	);

@@ -61,12 +61,21 @@ export const MarkComponent = ({
 				return;
 			}
 
-			// prevents from opening link URL inside webView in Safari
-			event.preventDefault();
 			if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
-				if (event.target instanceof HTMLElement && event.target.closest('[data-inline-card]')) {
-					event.stopPropagation();
+				// We only want to interfere with click events if the click is on some ui inside the renderer document
+				// This is to prevent the click events from portaled content (such as link previews and mention profiles)
+				if (event.target instanceof HTMLElement && event.target.closest('.ak-renderer-document')) {
+					if (event.target.closest('[data-mention-id]')) {
+						// don't prevent default for mentions
+					} else {
+						// prevents from opening link URL inside webView in Safari
+						event.preventDefault();
+						event.stopPropagation();
+					}
 				}
+			} else {
+				// prevents from opening link URL inside webView in Safari
+				event.preventDefault();
 			}
 
 			onClick({ eventTarget: event.target as HTMLElement, annotationIds });

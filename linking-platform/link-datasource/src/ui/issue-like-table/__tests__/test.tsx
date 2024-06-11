@@ -345,7 +345,7 @@ describe('IssueLikeDataTableView', () => {
 		},
 		{
 			key: 'priority',
-			title: 'P',
+			title: 'Priority',
 			type: 'icon',
 		},
 		{
@@ -391,7 +391,7 @@ describe('IssueLikeDataTableView', () => {
 				title: 'Date of Creation for each issue',
 				type: 'date',
 			},
-			{ key: 'priority', title: 'P', type: 'icon' },
+			{ key: 'priority', title: 'Priority', type: 'icon' },
 			{ key: 'key', title: 'Key', type: 'link' },
 			{ key: 'assignee', title: 'Assignee', type: 'user' },
 			{ key: 'description', title: 'Description', type: 'richtext' },
@@ -1445,6 +1445,11 @@ describe('IssueLikeDataTableView', () => {
 				title: 'Status',
 				type: 'status',
 			},
+			priority: {
+				key: 'priority',
+				title: 'Priority',
+				type: 'icon',
+			},
 		});
 
 		it('should render the header and cells with width from the configured fields', () => {
@@ -1476,8 +1481,8 @@ describe('IssueLikeDataTableView', () => {
 
 			const { queryByTestId } = setup({
 				items,
-				columns: [columns.name, columns.dob],
-				visibleColumnKeys: ['name', 'dob'],
+				columns: [columns.name, columns.dob, columns.priority],
+				visibleColumnKeys: ['name', 'dob', 'priority'],
 				hasNextPage: false,
 				onColumnResize: undefined,
 				onVisibleColumnKeysChange: undefined,
@@ -1486,6 +1491,8 @@ describe('IssueLikeDataTableView', () => {
 			expect(queryByTestId('name-column-heading')).toHaveStyle('max-width: 176px');
 
 			expect(queryByTestId('dob-column-heading')).toHaveStyle('max-width: 128px');
+
+			expect(queryByTestId('priority-column-heading')).toHaveStyle('max-width: 64px');
 		});
 
 		it('should render the header and cells with given column width in draggable mode', () => {

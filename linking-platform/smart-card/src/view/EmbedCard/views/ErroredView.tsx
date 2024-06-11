@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -19,6 +19,21 @@ export interface ErroredViewProps {
 	inheritDimensions?: boolean;
 }
 
+const messageStyles = css({
+	fontSize: `${fontSize()}px`,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+	marginLeft: gs(0.5),
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+	marginRight: gs(0.5),
+	display: '-webkit-box',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	WebkitLineClamp: 1,
+	WebkitBoxOrient: 'vertical',
+	// Fallback options.
+	maxHeight: gs(3),
+});
+
 export const EmbedCardErroredView = ({
 	onRetry,
 	isSelected = false,
@@ -32,22 +47,7 @@ export const EmbedCardErroredView = ({
 		testId={testId}
 	>
 		<ErrorIcon size="small" primaryColor={token('color.icon.danger', R300)} label="error-icon" />
-		<span
-			css={{
-				fontSize: `${fontSize()}px`,
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-				marginLeft: gs(0.5),
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-				marginRight: gs(0.5),
-				display: '-webkit-box',
-				overflow: 'hidden',
-				textOverflow: 'ellipsis',
-				WebkitLineClamp: 1,
-				WebkitBoxOrient: 'vertical',
-				// Fallback options.
-				maxHeight: gs(3),
-			}}
-		>
+		<span css={messageStyles}>
 			<FormattedMessage {...messages.could_not_load_link} />
 		</span>
 		<Button testId="err-view-retry" appearance="link" spacing="none" onClick={onRetry}>

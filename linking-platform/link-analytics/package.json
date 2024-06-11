@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/link-client-extension": "^1.8.0",
+    "@atlaskit/link-client-extension": "^1.9.0",
     "@atlaskit/linking-common": "^5.7.0",
     "@atlaskit/linking-types": "^8.9.0",
     "@babel/runtime": "^7.0.0",
@@ -47,7 +47,7 @@
     "rusha": "^0.8.13"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.10.0",
+    "@atlaskit/link-provider": "^1.11.0",
     "react": "^16.8.0"
   },
   "devDependencies": {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.11
+
+### Patch Changes
+
+- [#108763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108763)
+  [`f97149e66b556`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f97149e66b556) -
+  Fix table scroll when table selected by drag handle
+- Updated dependencies
+
 ## 1.4.10
 
 ### Patch Changes

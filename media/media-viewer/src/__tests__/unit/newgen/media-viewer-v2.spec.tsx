@@ -1,13 +1,21 @@
-import React from 'react';
-import { getFileStreamsCache } from '@atlaskit/media-client';
+jest.mock('@atlaskit/media-client-react', () => {
+	const actualModule = jest.requireActual('@atlaskit/media-client-react');
+	return { __esModule: true, ...actualModule };
+});
+import React, { useState } from 'react';
+import { type MediaClient, getFileStreamsCache } from '@atlaskit/media-client';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { createMockedMediaClientProvider } from './utils/mockedMediaClientProvider/_MockedMediaClientProvider';
+import { useMediaClient } from '@atlaskit/media-client-react';
 import { MediaViewerV2 } from '../../../v2/media-viewer-v2';
+import { MediaViewer as MediaViewerV1 } from '../../../media-viewer';
 import { type MediaViewerExtensions } from '../../../components/types';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import * as MediaClientProviderModule from '@atlaskit/media-client-react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -290,7 +298,7 @@ describe('<MediaViewer />', () => {
 	});
 
 	describe('SVG', () => {
-		describe('should render SVG natively', () => {
+		describe('Media Viewer v2 should render SVG natively', () => {
 			ffTest(
 				'platform.media-svg-rendering',
 				async () => {
@@ -322,6 +330,166 @@ describe('<MediaViewer />', () => {
 					expect(elem[0].nodeName.toLowerCase()).toBe('img');
 				},
 			);
+		});
+
+		describe('Media Viewer v1 should render SVG natively', () => {
+			describe('With a global MediaClientProvider', () => {
+				ffTest(
+					'platform.media-svg-rendering',
+					async () => {
+						const [fileItem, identifier] = generateSampleFileItem.svg();
+						const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+							initialItems: fileItem,
+						});
+
+						jest
+							.spyOn(MediaClientProviderModule, 'MediaClientProvider')
+							.mockImplementation(
+								MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
+							);
+
+						const ViewerV1Renderer = () => {
+							const mediaClient = useMediaClient();
+							return (
+								<MediaViewerV1
+									selectedItem={identifier}
+									items={[identifier]}
+									mediaClient={mediaClient}
+								/>
+							);
+						};
+
+						const { findAllByTestId } = render(
+							<MockedMediaClientProvider>
+								<ViewerV1Renderer />
+							</MockedMediaClientProvider>,
+						);
+
+						const elem = await findAllByTestId('media-viewer-svg');
+						expect(elem).toBeDefined();
+						expect(elem[0].nodeName.toLowerCase()).toBe('img');
+					},
+					async () => {
+						const [fileItem, identifier] = generateSampleFileItem.svg();
+						const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+							initialItems: fileItem,
+						});
+
+						const ViewerV1Renderer = () => {
+							const mediaClient = useMediaClient();
+							return (
+								<MediaViewerV1
+									selectedItem={identifier}
+									items={[identifier]}
+									mediaClient={mediaClient}
+								/>
+							);
+						};
+
+						const { findAllByTestId } = render(
+							<MockedMediaClientProvider>
+								<ViewerV1Renderer />
+							</MockedMediaClientProvider>,
+						);
+
+						const elem = await findAllByTestId('media-viewer-image');
+						expect(elem).toBeDefined();
+						expect(elem[0].nodeName.toLowerCase()).toBe('img');
+					},
+				);
+			});
+
+			describe('Without a global MediaClientProvider', () => {
+				ffTest(
+					'platform.media-svg-rendering',
+					async () => {
+						const [fileItem, identifier] = generateSampleFileItem.svg();
+						const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+							initialItems: fileItem,
+						});
+
+						jest
+							.spyOn(MediaClientProviderModule, 'MediaClientProvider')
+							.mockImplementation(
+								MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
+							);
+
+						const ViewerV1Renderer = () => {
+							const [mediaClient, setMediaClient] = useState<MediaClient>();
+							return (
+								<>
+									<MockedMediaClientProvider>
+										<MediaClientInjector onMediaClient={setMediaClient} />
+									</MockedMediaClientProvider>
+									{mediaClient && (
+										<MediaViewerV1
+											selectedItem={identifier}
+											items={[identifier]}
+											mediaClient={mediaClient}
+										/>
+									)}
+								</>
+							);
+						};
+
+						const MediaClientInjector = ({
+							onMediaClient,
+						}: {
+							onMediaClient: (mediaClient: MediaClient) => void;
+						}) => {
+							const mediaClient = useMediaClient();
+							onMediaClient(mediaClient);
+							return null;
+						};
+
+						const { findAllByTestId } = render(<ViewerV1Renderer />);
+
+						const elem = await findAllByTestId('media-viewer-svg');
+						expect(elem).toBeDefined();
+						expect(elem[0].nodeName.toLowerCase()).toBe('img');
+					},
+					async () => {
+						const [fileItem, identifier] = generateSampleFileItem.svg();
+						const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+							initialItems: fileItem,
+						});
+
+						const ViewerV1Renderer = () => {
+							const [mediaClient, setMediaClient] = useState<MediaClient>();
+							return (
+								<>
+									<MockedMediaClientProvider>
+										<MediaClientInjector onMediaClient={setMediaClient} />
+									</MockedMediaClientProvider>
+									{mediaClient && (
+										<MediaViewerV1
+											selectedItem={identifier}
+											items={[identifier]}
+											mediaClient={mediaClient}
+										/>
+									)}
+								</>
+							);
+						};
+
+						const MediaClientInjector = ({
+							onMediaClient,
+						}: {
+							onMediaClient: (mediaClient: MediaClient) => void;
+						}) => {
+							const mediaClient = useMediaClient();
+							onMediaClient(mediaClient);
+							return null;
+						};
+
+						const { findAllByTestId } = render(<ViewerV1Renderer />);
+
+						const elem = await findAllByTestId('media-viewer-image');
+						expect(elem).toBeDefined();
+						expect(elem[0].nodeName.toLowerCase()).toBe('img');
+					},
+				);
+			});
 		});
 	});
 });

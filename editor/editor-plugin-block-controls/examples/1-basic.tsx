@@ -17,6 +17,7 @@ import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
 import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';
 import { expandPlugin } from '@atlaskit/editor-plugins/expand';
+import { extensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
 import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
@@ -102,7 +103,8 @@ export default function Editor() {
 				{
 					inlineComment: {},
 				} as AnnotationProviders,
-			]),
+			])
+			.add(extensionPlugin),
 	);
 
 	return (

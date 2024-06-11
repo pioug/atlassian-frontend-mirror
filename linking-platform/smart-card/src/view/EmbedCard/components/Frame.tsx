@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import React, {
 	useEffect,
 	useState,
@@ -37,6 +37,17 @@ function mergeRefs(refs: Refs[]) {
 		});
 	};
 }
+
+const iframeStyles = css({
+	border: 0,
+	top: 0,
+	left: 0,
+	width: '100%',
+	height: '100%',
+	position: 'relative',
+	overflow: 'hidden',
+	borderRadius: '3px',
+});
 
 export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 	({ url, isTrusted = false, testId, onIframeDwell, onIframeFocus }, iframeRef) => {
@@ -115,16 +126,7 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 					src={url}
 					data-testid={`${testId}-frame`}
 					data-iframe-loaded={isIframeLoaded}
-					css={{
-						border: 0,
-						top: 0,
-						left: 0,
-						width: '100%',
-						height: '100%',
-						position: 'relative',
-						overflow: 'hidden',
-						borderRadius: '3px',
-					}}
+					css={iframeStyles}
 					onMouseEnter={() => setMouseOver(true)}
 					onMouseLeave={() => setMouseOver(false)}
 					allowFullScreen

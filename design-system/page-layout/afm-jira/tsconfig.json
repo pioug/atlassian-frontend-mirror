@@ -42,9 +42,6 @@
     },
     {
       "path": "../../tokens/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../visually-hidden/afm-jira/tsconfig.json"
     }
   ]
 }

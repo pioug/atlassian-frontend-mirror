@@ -9,17 +9,24 @@ export const getTopPosition = (dom: HTMLElement) => {
 	}
 };
 
-export const getLeftPosition = (dom: HTMLElement, type: string) => {
-	const resizer: HTMLElement | null = ['table', 'mediaSingle'].includes(type)
-		? dom.querySelector('.resizer-item')
-		: null;
-	let left = `${dom.offsetLeft - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`;
-	if (resizer) {
-		left =
-			getComputedStyle(resizer).transform === 'none'
-				? `${resizer.offsetLeft - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`
-				: `${resizer.offsetLeft - resizer.offsetWidth / 2 - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`;
+export const getLeftPosition = (
+	dom: HTMLElement,
+	type: string,
+	innerContainer?: HTMLElement | null,
+	macroInteractionUpdates?: boolean,
+) => {
+	if (!innerContainer) {
+		return `${dom.offsetLeft - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`;
 	}
 
-	return left;
+	// There is a showMacroInteractionDesignUpdates prop in extension node wrapper that can add a relative span under the top level div
+	// We need to adjust the left offset position of the drag handle to account for the relative span
+	const relativeSpan: HTMLElement | null = macroInteractionUpdates
+		? dom.querySelector('span.relative')
+		: null;
+	const leftAdjustment = relativeSpan ? relativeSpan.offsetLeft : 0;
+
+	return getComputedStyle(innerContainer).transform === 'none'
+		? `${innerContainer.offsetLeft + leftAdjustment - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`
+		: `${innerContainer.offsetLeft + leftAdjustment - innerContainer.offsetWidth / 2 - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`;
 };

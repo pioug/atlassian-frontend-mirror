@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes
@@ -37,7 +43,7 @@
 
 - [#94389](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94389)
   [`5ca1173e141e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ca1173e141e) -
-  Add support for React 18.
+  Add support for React 18 in non-strict mode.
 
 ## 3.0.10
 

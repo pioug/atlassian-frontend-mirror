@@ -1,5 +1,17 @@
 # @atlaskit/link-create
 
+## 2.4.0
+
+### Minor Changes
+
+- [#108443](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108443)
+  [`457df84a02af1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/457df84a02af1) -
+  [ux] ErrorBoundary outside InlineCreate displays error inline
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

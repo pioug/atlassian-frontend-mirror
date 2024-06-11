@@ -4,24 +4,21 @@ import { render, screen } from '@testing-library/react';
 import { RelatedLinksErroredView } from '../views/errored';
 import RelatedLinksBaseModal from '../components/RelatedLinksBaseModal';
 import RelatedLinksResolvedView from '../views/resolved';
-import { type CardClient } from '@atlaskit/link-provider';
-import { fakeFactory, mocks } from '../../../utils/mocks';
-import { Provider } from '@atlaskit/smart-card';
+import { Provider } from '../../..';
 import { RelatedLinksUnavailableView } from '../views/unavailable';
+import RelatedLinksResolvingView from '../views/resolving';
 
-const renderRelatedLinksModal = (view: React.ReactNode = undefined) => {
-	return render(
-		<IntlProvider locale={'en'}>
-			<RelatedLinksBaseModal onClose={() => {}} showModal={true}>
-				{view}
-			</RelatedLinksBaseModal>
-		</IntlProvider>,
-	);
-};
+const RelatedLinksBaseModalWithI18N = ({ children }: { children?: React.ReactNode }) => (
+	<IntlProvider locale={'en'}>
+		<RelatedLinksBaseModal onClose={() => {}} showModal={true}>
+			{children}
+		</RelatedLinksBaseModal>
+	</IntlProvider>
+);
 
 describe('RelatedLinksModal', () => {
 	it('renders related links modal', async () => {
-		renderRelatedLinksModal();
+		render(<RelatedLinksBaseModalWithI18N />);
 
 		// a modal component has role dialog
 		const modal = await screen.findByRole('dialog');
@@ -34,35 +31,18 @@ describe('RelatedLinksModal', () => {
 	});
 
 	describe('ResolvedView', () => {
-		const mockUrl = 'https://some.url';
-		let mockClient: CardClient;
-		let mockFetch: jest.Mock;
-
-		beforeEach(() => {
-			mockFetch = jest.fn(() => Promise.resolve(mocks.success));
-			mockClient = new (fakeFactory(mockFetch))();
-		});
-
-		afterEach(() => {
-			jest.clearAllMocks();
-		});
-
 		const renderRelatedLinksResolvedView = (incomingLinks: string[], outgoingLinks: string[]) => {
 			return render(
-				<IntlProvider locale={'en'}>
-					<Provider client={mockClient}>
-						<RelatedLinksBaseModal onClose={() => {}} showModal={true}>
-							<RelatedLinksResolvedView
-								incomingLinks={incomingLinks}
-								outgoingLinks={outgoingLinks}
-							/>
-						</RelatedLinksBaseModal>
-					</Provider>
-				</IntlProvider>,
+				<Provider>
+					<RelatedLinksBaseModalWithI18N>
+						<RelatedLinksResolvedView incomingLinks={incomingLinks} outgoingLinks={outgoingLinks} />
+					</RelatedLinksBaseModalWithI18N>
+				</Provider>,
 			);
 		};
 
 		it('renders related links modal with resolved view', async () => {
+			const mockUrl = 'http://some-url.atlassian.com';
 			renderRelatedLinksResolvedView([mockUrl, mockUrl], [mockUrl]);
 
 			const modal = await screen.findByRole('dialog');
@@ -114,27 +94,11 @@ describe('RelatedLinksModal', () => {
 	});
 
 	describe('ErroredView', () => {
-		let mockClient: CardClient;
-		let mockFetch: jest.Mock;
-
-		beforeEach(() => {
-			mockFetch = jest.fn(() => Promise.reject(new Error('Mocked error')));
-			mockClient = new (fakeFactory(mockFetch))();
-		});
-
-		afterEach(() => {
-			jest.clearAllMocks();
-		});
-
 		const renderRelatedLinksErroredView = () => {
 			return render(
-				<IntlProvider locale={'en'}>
-					<Provider client={mockClient}>
-						<RelatedLinksBaseModal onClose={() => {}} showModal={true}>
-							<RelatedLinksErroredView />
-						</RelatedLinksBaseModal>
-					</Provider>
-				</IntlProvider>,
+				<RelatedLinksBaseModalWithI18N>
+					<RelatedLinksErroredView />
+				</RelatedLinksBaseModalWithI18N>,
 			);
 		};
 
@@ -156,27 +120,11 @@ describe('RelatedLinksModal', () => {
 	});
 
 	describe('UnavailableView', () => {
-		let mockClient: CardClient;
-		let mockFetch: jest.Mock;
-
-		beforeEach(() => {
-			mockFetch = jest.fn(() => Promise.resolve({}));
-			mockClient = new (fakeFactory(mockFetch))();
-		});
-
-		afterEach(() => {
-			jest.clearAllMocks();
-		});
-
 		const renderRelatedLinksUnavailableView = () => {
 			return render(
-				<IntlProvider locale={'en'}>
-					<Provider client={mockClient}>
-						<RelatedLinksBaseModal onClose={() => {}} showModal={true}>
-							<RelatedLinksUnavailableView />
-						</RelatedLinksBaseModal>
-					</Provider>
-				</IntlProvider>,
+				<RelatedLinksBaseModalWithI18N>
+					<RelatedLinksUnavailableView />
+				</RelatedLinksBaseModalWithI18N>,
 			);
 		};
 
@@ -194,6 +142,21 @@ describe('RelatedLinksModal', () => {
 				"We didn't find any links to show here. We continuously review and add recent links for updated pages or other content types.",
 			);
 			expect(unavailableDescription).toBeInTheDocument();
+		});
+	});
+
+	describe('ResolvingView', () => {
+		it('renders related links modal with resolving view', async () => {
+			render(
+				<RelatedLinksBaseModalWithI18N>
+					<RelatedLinksResolvingView />
+				</RelatedLinksBaseModalWithI18N>,
+			);
+			const resolvingView = await screen.findByTestId('related-links-resolving-view');
+			expect(resolvingView).toBeInTheDocument();
+
+			const spinner = await screen.findByTestId('related-links-resolving-view-spinner');
+			expect(spinner).toBeInTheDocument();
 		});
 	});
 });

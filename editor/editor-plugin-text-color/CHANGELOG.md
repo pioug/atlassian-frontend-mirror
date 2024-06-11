@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.5.0
+
+### Minor Changes
+
+- [#108745](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108745)
+  [`ef4a6d8a3ef73`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef4a6d8a3ef73) -
+  [ux] [ED-23513] Allow text color mark to replace backgroundColor
+
 ## 1.4.1
 
 ### Patch Changes

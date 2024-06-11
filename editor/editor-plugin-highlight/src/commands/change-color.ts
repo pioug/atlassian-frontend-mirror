@@ -25,16 +25,16 @@ export const changeColor =
 
 		editorAnalyticsAPI?.attachAnalyticsEvent(createAnalyticsEvent(color, tr))(tr);
 
-		tr.setMeta(highlightPluginKey, {
-			type: HighlightPluginAction.CHANGE_COLOR,
-			color,
-		});
-
 		tr.scrollIntoView();
 
 		if (color === REMOVE_HIGHLIGHT_COLOR) {
 			removeMark(backgroundColor)({ tr });
 		} else {
+			tr.setMeta(highlightPluginKey, {
+				type: HighlightPluginAction.CHANGE_COLOR,
+				color,
+			});
+
 			toggleMark(backgroundColor, { color })({ tr });
 		}
 

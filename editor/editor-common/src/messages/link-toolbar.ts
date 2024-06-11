@@ -16,6 +16,17 @@ export const linkToolbarMessages = defineMessages({
 		defaultMessage: 'Unlink',
 		description: 'Removes the hyperlink but keeps your text.',
 	},
+	editDatasourceStandalone: {
+		id: 'fabric.editor.editDatasourceStandalone',
+		defaultMessage: 'Edit',
+		description: 'A standalone edit button to edit the datasource via a config modal',
+	},
+	editDatasourceStandaloneTooltip: {
+		id: 'fabric.editor.editDatasourceStandaloneTooltip',
+		defaultMessage: 'Edit search query',
+		description:
+			'A standalone edit button tooltip to hint at editing the datasource via a config modal',
+	},
 	editLink: {
 		id: 'fabric.editor.editLink',
 		defaultMessage: 'Edit link',

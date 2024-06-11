@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import DocumentFilledIcon from '@atlaskit/icon/glyph/document-filled';
 import { N50, N90 } from '@atlaskit/theme/colors';
@@ -26,6 +26,13 @@ export interface ResolvingProps {
  */
 export const blockCardResolvingViewClassName = 'block-card-resolving-view';
 
+const messageStyles = css({
+	fontSize: `${fontSize()}px`,
+	color: token('color.text.subtlest', N90),
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+	marginLeft: gs(0.5),
+});
+
 export const ResolvingView = ({
 	isSelected = false,
 	testId = 'block-card-resolving-view',
@@ -44,14 +51,7 @@ export const ResolvingView = ({
 			primaryColor={token('color.icon.subtle', N50)}
 			label="document-icon"
 		/>
-		<span
-			css={{
-				fontSize: `${fontSize()}px`,
-				color: token('color.text.subtlest', N90),
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-				marginLeft: gs(0.5),
-			}}
-		>
+		<span css={messageStyles}>
 			<FormattedMessage {...messages.loading} />
 		</span>
 	</Frame>

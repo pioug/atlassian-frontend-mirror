@@ -1,5 +1,33 @@
 # @atlaskit/renderer
 
+## 109.32.1
+
+### Patch Changes
+
+- [#109301](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109301)
+  [`a94f80cafee03`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a94f80cafee03) -
+  [ux] [ED-23638] allow clicks on commented links and mentions to work.
+- Updated dependencies
+
+## 109.32.0
+
+### Minor Changes
+
+- [#108459](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108459)
+  [`dff16b735e876`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dff16b735e876) -
+  [ED-23613] Avoid blending background color when inline comments overlap with highlights
+- [#108623](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108623)
+  [`5af1dca5d4168`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5af1dca5d4168) -
+  [ux] ED-23616 Introduces support in renderer for commenting on status, emoji, date and mention
+  nodes.
+
+### Patch Changes
+
+- [#108623](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108623)
+  [`2d2feeab0d09c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d2feeab0d09c) -
+  [ux] ED-23420 Fix various issues with commenting on inline cards in renderer.
+- Updated dependencies
+
 ## 109.31.3
 
 ### Patch Changes

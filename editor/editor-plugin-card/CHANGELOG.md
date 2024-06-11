@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-card
 
+## 2.0.4
+
+### Patch Changes
+
+- [#108600](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108600)
+  [`ab0ef9cd9d368`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab0ef9cd9d368) -
+  [ux] Fixed the toolbar edit button in the new dropdown button for assets.
+- Updated dependencies
+
+## 2.0.3
+
+### Patch Changes
+
+- [#108480](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108480)
+  [`8552b1dc7f80d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8552b1dc7f80d) -
+  Creating new dropdown component for configuring links
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

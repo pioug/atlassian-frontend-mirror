@@ -28,7 +28,7 @@
     "runReact18": true
   },
   "dependencies": {
-    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/theme": "^12.9.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

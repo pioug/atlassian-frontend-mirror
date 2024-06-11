@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Navigation, { AkNavigationItem } from '@atlaskit/navigation';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Tree, {
 	mutateTree,
 	moveItemOnTree,
@@ -47,11 +47,11 @@ export default class DragDropWithNestingTree extends Component<void, State> {
 	) {
 		if (item.children && item.children.length > 0) {
 			return item.isExpanded ? (
-				<Button spacing="none" appearance="subtle-link" onClick={() => onCollapse(item.id)}>
+				<Button spacing="none" appearance="subtle" onClick={() => onCollapse(item.id)}>
 					<ChevronDownIcon label="" size="medium" />
 				</Button>
 			) : (
-				<Button spacing="none" appearance="subtle-link" onClick={() => onExpand(item.id)}>
+				<Button spacing="none" appearance="subtle" onClick={() => onExpand(item.id)}>
 					<ChevronRightIcon label="" size="medium" />
 				</Button>
 			);

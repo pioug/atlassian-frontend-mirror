@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.6.1
+
+### Patch Changes
+
+- [#107720](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107720)
+  [`b900316d320c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b900316d320c7) -
+  `use-latest-xcss-syntax`: Fix bug that caused an error to be thrown when accessing undefined
+  sourceCode variable.
+- [#93481](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/93481)
+  [`84dab79bd0c08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84dab79bd0c08) -
+  Remove deprecation rules for `iconGradientStart` and `iconGradientStop` in @atlaskit/logo
+
 ## 10.6.0
 
 ### Minor Changes
@@ -176,7 +188,7 @@
 
 - [#91506](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91506)
   [`2724a3783955`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2724a3783955) -
-  Add support for React 18.
+  Add support for React 18 in non-strict mode.
 
 ## 9.4.1
 

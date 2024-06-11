@@ -10,6 +10,7 @@ import type {
 	DatasourceDetailsRequest,
 	DatasourceDetailsResponse,
 } from '@atlaskit/linking-types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mockDatasourceDataResponse, mockDatasourceDetailsResponse } from './mocks';
 
@@ -26,7 +27,7 @@ const allErrorCodes = [
 
 const datasourceId: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
 
-const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
+const wrapper: RenderHookOptions<{ children: React.ReactNode }>['wrapper'] = ({ children }) => (
 	<SmartCardProvider client={new CardClient()}>{children}</SmartCardProvider>
 );
 
@@ -63,6 +64,14 @@ describe('useDatasourceClientExtension', () => {
 			datasourceDetailsParams,
 			datasourceDataParams,
 		};
+	};
+
+	const mockTimeZone = () => {
+		const originalDateResolvedOptions = new Intl.DateTimeFormat().resolvedOptions();
+		return jest.spyOn(Intl.DateTimeFormat.prototype, 'resolvedOptions').mockReturnValue({
+			...originalDateResolvedOptions,
+			timeZone: 'Australia/Sydney',
+		});
 	};
 
 	beforeEach(() => {
@@ -284,6 +293,101 @@ describe('useDatasourceClientExtension', () => {
 				).toEqual({ ...mockDatasourceDetailsResponse });
 			});
 		});
+
+		ffTest.on(
+			'platform.linking-platform.datasource.add-timezone-header',
+			'timezone header in the request',
+			() => {
+				it('should set the timezone header correctly in the request call', async () => {
+					const { getDatasourceDetails, datasourceDetailsParams } = setup();
+
+					mockFetch.mockResolvedValueOnce({
+						json: async () => undefined,
+						ok: true,
+						text: async () => undefined,
+					});
+
+					await getDatasourceDetails(datasourceId, datasourceDetailsParams);
+
+					expect(mockFetch).toHaveBeenCalledWith(
+						expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
+						{
+							body: JSON.stringify(datasourceDetailsParams),
+							credentials: 'include',
+							headers: {
+								Accept: 'application/json',
+								'Cache-Control': 'no-cache',
+								'Content-Type': 'application/json',
+								'origin-timezone': 'UTC',
+							},
+							method: 'post',
+						},
+					);
+				});
+
+				it('should set the timezone header correctly in the request call when timezone is not UTC', async () => {
+					const { getDatasourceDetails, datasourceDetailsParams } = setup();
+					const mockedTimeZone = mockTimeZone();
+
+					mockFetch.mockResolvedValueOnce({
+						json: async () => undefined,
+						ok: true,
+						text: async () => undefined,
+					});
+
+					await getDatasourceDetails(datasourceId, datasourceDetailsParams);
+
+					expect(mockFetch).toHaveBeenCalledWith(
+						expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
+						{
+							body: JSON.stringify(datasourceDetailsParams),
+							credentials: 'include',
+							headers: {
+								Accept: 'application/json',
+								'Cache-Control': 'no-cache',
+								'Content-Type': 'application/json',
+								'origin-timezone': 'Australia/Sydney',
+							},
+							method: 'post',
+						},
+					);
+
+					mockedTimeZone.mockRestore();
+				});
+			},
+		);
+
+		ffTest.off(
+			'platform.linking-platform.datasource.add-timezone-header',
+			'timezone header should not be included in the request',
+			() => {
+				it('should not set the timezone header when FF is OFF', async () => {
+					const { getDatasourceDetails, datasourceDetailsParams } = setup();
+
+					mockFetch.mockResolvedValueOnce({
+						json: async () => undefined,
+						ok: true,
+						text: async () => undefined,
+					});
+
+					await getDatasourceDetails(datasourceId, datasourceDetailsParams);
+
+					expect(mockFetch).toHaveBeenCalledWith(
+						expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
+						{
+							body: JSON.stringify(datasourceDetailsParams),
+							credentials: 'include',
+							headers: {
+								Accept: 'application/json',
+								'Cache-Control': 'no-cache',
+								'Content-Type': 'application/json',
+							},
+							method: 'post',
+						},
+					);
+				});
+			},
+		);
 	});
 
 	describe('#getDatasourceData', () => {
@@ -481,5 +585,67 @@ describe('useDatasourceClientExtension', () => {
 				});
 			});
 		});
+
+		ffTest.on(
+			'platform.linking-platform.datasource.add-timezone-header',
+			'timezone header in the request',
+			() => {
+				it('should set the timezone header correctly in the request call', async () => {
+					const { getDatasourceData, datasourceDataParams } = setup();
+
+					mockFetch.mockResolvedValueOnce({
+						json: async () => undefined,
+						ok: true,
+						text: async () => undefined,
+					});
+
+					await getDatasourceData(datasourceId, datasourceDataParams);
+
+					expect(mockFetch).toHaveBeenCalledWith(
+						expect.stringContaining(`/datasource/${datasourceId}/fetch/data`),
+						{
+							body: JSON.stringify(datasourceDataParams),
+							credentials: 'include',
+							headers: {
+								Accept: 'application/json',
+								'Cache-Control': 'no-cache',
+								'Content-Type': 'application/json',
+								'origin-timezone': 'UTC',
+							},
+							method: 'post',
+						},
+					);
+				});
+
+				it('should set the timezone header correctly in the request call when timezone is not UTC', async () => {
+					const { getDatasourceDetails, datasourceDetailsParams } = setup();
+					const mockedTimeZone = mockTimeZone();
+
+					mockFetch.mockResolvedValueOnce({
+						json: async () => undefined,
+						ok: true,
+						text: async () => undefined,
+					});
+
+					await getDatasourceDetails(datasourceId, datasourceDetailsParams);
+
+					expect(mockFetch).toHaveBeenCalledWith(
+						expect.stringContaining(`/datasource/${datasourceId}/fetch/details`),
+						{
+							body: JSON.stringify(datasourceDetailsParams),
+							credentials: 'include',
+							headers: {
+								Accept: 'application/json',
+								'Cache-Control': 'no-cache',
+								'Content-Type': 'application/json',
+								'origin-timezone': 'Australia/Sydney',
+							},
+							method: 'post',
+						},
+					);
+					mockedTimeZone.mockRestore();
+				});
+			},
+		);
 	});
 });

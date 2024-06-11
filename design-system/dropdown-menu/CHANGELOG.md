@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 12.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.11.0
 
 ### Minor Changes
@@ -70,7 +76,7 @@
 
 - [#91117](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91117)
   [`06ed35f020fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06ed35f020fb) -
-  Add support for React 18.
+  Add support for React 18 in non-strict mode.
 
 ### Patch Changes
 

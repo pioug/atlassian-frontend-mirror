@@ -7,7 +7,10 @@ import { FormattedMessage, type IntlShape } from 'react-intl-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { linkToolbarMessages, cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Command } from '@atlaskit/editor-common/types';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import {
+	FloatingToolbarButton as Button,
+	FloatingToolbarSeparator as Separator,
+} from '@atlaskit/editor-common/ui';
 import {
 	ArrowKeyNavigationType,
 	DropdownContainer as UiDropdown,
@@ -25,7 +28,8 @@ import { isDatasourceConfigEditable } from '../utils';
 import { CardContextProvider } from './CardContextProvider';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
-export interface EditToolbarButtonProps {
+export interface EditDatasourceToolbarButtonProps {
+	datasourceId?: string;
 	intl: IntlShape;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
 	url?: string;
@@ -38,19 +42,17 @@ const dropdownExpandContainer = css({
 	margin: `0px ${token('space.negative.050', '-4px')}`,
 });
 
-const EditButtonWithCardContext = ({
-	cardContext,
-	intl,
-	editorAnalyticsApi,
-	url,
-	editorView,
-	onLinkEditClick,
-}: EditToolbarButtonProps) => {
-	const { datasourceId } = useFetchDatasourceInfo({
+type EditVariant = 'none' | 'edit-link' | 'edit-datasource' | 'edit-dropdown';
+
+const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProps) => {
+	const { url, cardContext, intl, editorAnalyticsApi, editorView, onLinkEditClick } = props;
+	const response = useFetchDatasourceInfo({
 		isRegularCardNode: true,
 		url,
 		cardContext,
 	});
+	const datasourceId = response.datasourceId ?? props.datasourceId;
+
 	const [isOpen, setIsOpen] = useState(false);
 	const containerRef = useRef();
 	const toggleOpen = () => setIsOpen((open) => !open);
@@ -74,17 +76,23 @@ const EditButtonWithCardContext = ({
 		dispatchCommand(onLinkEditClick);
 	}, [dispatchCommand, onLinkEditClick]);
 
-	const shouldFallbackToEditButton = useMemo(() => {
+	const editVariant = useMemo<EditVariant>(() => {
+		const hasUrl = url !== null && url !== undefined;
 		if (!datasourceId || !isDatasourceConfigEditable(datasourceId)) {
-			return true;
+			if (hasUrl) {
+				return 'edit-link';
+			}
+			return 'none';
 		}
-		if (url) {
+		if (hasUrl) {
 			const urlState = cardContext?.store?.getState()[url];
 			if (urlState?.error?.kind === 'fatal') {
-				return true;
+				return 'edit-link';
 			}
+			return 'edit-dropdown';
+		} else {
+			return 'edit-datasource';
 		}
-		return false;
 	}, [cardContext?.store, datasourceId, url]);
 
 	const onEditDatasource = useCallback(() => {
@@ -93,70 +101,92 @@ const EditButtonWithCardContext = ({
 		}
 	}, [dispatchCommand, datasourceId, editorAnalyticsApi]);
 
-	if (shouldFallbackToEditButton) {
-		return (
-			<Button testId="edit-link" onClick={onEditLink}>
-				<FormattedMessage {...linkToolbarMessages.editLink} />
-			</Button>
-		);
+	switch (editVariant) {
+		case 'edit-link': {
+			return (
+				<Flex gap="space.050">
+					<Button testId="edit-link" onClick={onEditLink}>
+						<FormattedMessage {...linkToolbarMessages.editLink} />
+					</Button>
+					<Separator />
+				</Flex>
+			);
+		}
+		case 'edit-datasource': {
+			return (
+				<Flex gap="space.050">
+					<Button
+						testId="edit-datasource"
+						tooltipContent={intl.formatMessage(linkToolbarMessages.editDatasourceStandaloneTooltip)}
+						onClick={onEditDatasource}
+					>
+						<FormattedMessage {...linkToolbarMessages.editDatasourceStandalone} />
+					</Button>
+					<Separator />
+				</Flex>
+			);
+		}
+		case 'edit-dropdown': {
+			const trigger = (
+				<Flex gap="space.050">
+					<Button
+						testId="edit-dropdown-trigger"
+						iconAfter={
+							<span css={dropdownExpandContainer}>
+								<ExpandIcon label={intl.formatMessage(messages.editDropdownTriggerTitle)} />
+							</span>
+						}
+						onClick={toggleOpen}
+						selected={isOpen}
+						disabled={false}
+						ariaHasPopup
+					>
+						<FormattedMessage {...messages.editDropdownTriggerTitle} />
+					</Button>
+					<Separator />
+				</Flex>
+			);
+
+			return (
+				<Flex ref={containerRef}>
+					<UiDropdown
+						mountTo={containerRef.current}
+						isOpen={isOpen}
+						handleClickOutside={onClose}
+						handleEscapeKeydown={onClose}
+						trigger={trigger}
+						scrollableElement={containerRef.current}
+						arrowKeyNavigationProviderOptions={{
+							type: ArrowKeyNavigationType.MENU,
+						}}
+					>
+						<ButtonItem key="edit.link" onClick={onEditLink} testId="edit-dropdown-edit-link-item">
+							<FormattedMessage {...messages.editDropdownEditLinkTitle} />
+						</ButtonItem>
+						<ButtonItem
+							key="edit.datasource"
+							onClick={onEditDatasource}
+							testId="edit-dropdown-edit-datasource-item"
+						>
+							<FormattedMessage {...messages.editDropdownEditDatasourceTitle} />
+						</ButtonItem>
+					</UiDropdown>
+				</Flex>
+			);
+		}
+		case 'none':
+		default:
+			return null;
 	}
-
-	const trigger = (
-		<Button
-			testId="edit-dropdown-trigger"
-			iconAfter={
-				<span css={dropdownExpandContainer}>
-					<ExpandIcon label={intl.formatMessage(messages.editDropdownTriggerTitle)} />
-				</span>
-			}
-			onClick={toggleOpen}
-			selected={isOpen}
-			disabled={false}
-			ariaHasPopup
-		>
-			<FormattedMessage {...messages.editDropdownTriggerTitle} />
-		</Button>
-	);
-
-	return (
-		<Flex ref={containerRef}>
-			<UiDropdown
-				mountTo={containerRef.current}
-				isOpen={isOpen}
-				handleClickOutside={onClose}
-				handleEscapeKeydown={onClose}
-				trigger={trigger}
-				scrollableElement={containerRef.current}
-				arrowKeyNavigationProviderOptions={{
-					type: ArrowKeyNavigationType.MENU,
-				}}
-			>
-				<ButtonItem key="edit.link" onClick={onEditLink} testId="edit-dropdown-edit-link-item">
-					<FormattedMessage {...messages.editDropdownEditLinkTitle} />
-				</ButtonItem>
-				<ButtonItem
-					key="edit.datasource"
-					onClick={onEditDatasource}
-					testId="edit-dropdown-edit-datasource-item"
-				>
-					<FormattedMessage {...messages.editDropdownEditDatasourceTitle} />
-				</ButtonItem>
-			</UiDropdown>
-		</Flex>
-	);
 };
 
-export const EditToolbarButton = ({
-	intl,
-	editorAnalyticsApi,
-	url,
-	editorView,
-	onLinkEditClick,
-}: EditToolbarButtonProps) => {
+export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps) => {
+	const { datasourceId, intl, editorAnalyticsApi, url, editorView, onLinkEditClick } = props;
 	return (
 		<CardContextProvider>
 			{({ cardContext }) => (
-				<EditButtonWithCardContext
+				<EditToolbarButtonWithCardContext
+					datasourceId={datasourceId}
 					url={url}
 					intl={intl}
 					editorAnalyticsApi={editorAnalyticsApi}

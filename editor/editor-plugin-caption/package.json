@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/editor-common": "^82.0.0",
+    "@atlaskit/editor-common": "^82.2.0",
     "@atlaskit/editor-plugin-analytics": "^1.2.0",
     "@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
@@ -53,7 +53,7 @@
     "@atlaskit/editor-plugin-guideline": "^1.1.0",
     "@atlaskit/editor-plugin-selection": "^1.2.0",
     "@atlaskit/editor-plugin-width": "^1.1.0",
-    "@atlaskit/renderer": "^109.31.0"
+    "@atlaskit/renderer": "^109.32.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"

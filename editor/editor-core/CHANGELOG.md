@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 193.25.3
+
+### Patch Changes
+
+- [#109694](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109694)
+  [`7c6d607dd808c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c6d607dd808c) -
+  Fix HOT-109709 fix null ref in comment editor
+
+## 193.25.0
+
+### Minor Changes
+
+- [#108459](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108459)
+  [`dff16b735e876`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dff16b735e876) -
+  [ED-23613] Avoid blending background color when inline comments overlap with highlights
+- [#108623](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108623)
+  [`c01339668ebde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c01339668ebde) -
+  [ux] ED-23617 Add support in editor for comments on status, emoji, date and mention nodes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 193.24.20
 
 ### Patch Changes

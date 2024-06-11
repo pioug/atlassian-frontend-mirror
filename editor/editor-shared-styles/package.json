@@ -1,80 +1,80 @@
 {
-	"name": "@atlaskit/editor-shared-styles",
-	"version": "2.12.0",
-	"description": "Style values used in the editor/renderer",
-	"publishConfig": {
-		"registry": "https://registry.npmjs.org/"
-	},
-	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-	"author": "Atlassian Pty Ltd",
-	"license": "Apache-2.0",
-	"main": "dist/cjs/index.js",
-	"module": "dist/esm/index.js",
-	"module:es2019": "dist/es2019/index.js",
-	"types": "dist/types/index.d.ts",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
-	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
-	"atlassian": {
-		"team": "Editor: Lego",
-		"inPublicMirror": true,
-		"releaseModel": "continuous"
-	},
-	"platform-feature-flags": {
-		"platform.confluence.frontend.narrow-full-page-editor-toolbar": {
-			"type": "boolean"
-		},
-		"platform.editor.core.increase-full-page-guttering": {
-			"type": "boolean"
-		}
-	},
-	"af:exports": {
-		"./consts": "./src/consts/index.ts",
-		"./selection": "./src/selection/index.ts",
-		"./shortcut": "./src/shortcut/index.ts",
-		"./scrollbar": "./src/scrollbar-styles.ts",
-		".": "./src/index.ts"
-	},
-	"exports": {
-		"./consts": "./src/consts/index.ts",
-		"./selection": "./src/selection/index.ts",
-		"./shortcut": "./src/shortcut/index.ts",
-		"./scrollbar": "./src/scrollbar-styles.ts",
-		".": "./src/index.ts"
-	},
-	"dependencies": {
-		"@atlaskit/platform-feature-flags": "^0.2.0",
-		"@atlaskit/theme": "^12.8.0",
-		"@atlaskit/tokens": "^1.49.0",
-		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1"
-	},
-	"peerDependencies": {},
-	"devDependencies": {
-		"typescript": "~5.4.2"
-	},
-	"techstack": {
-		"@atlassian/frontend": {
-			"circular-dependencies": [
-				"file-level"
-			],
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"deprecation": "no-deprecated-imports",
-			"design-tokens": [
-				"color"
-			],
-			"styling": [
-				"emotion"
-			]
-		}
-	}
+  "name": "@atlaskit/editor-shared-styles",
+  "version": "2.12.0",
+  "description": "Style values used in the editor/renderer",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Editor: Lego",
+    "inPublicMirror": true,
+    "releaseModel": "continuous"
+  },
+  "platform-feature-flags": {
+    "platform.confluence.frontend.narrow-full-page-editor-toolbar": {
+      "type": "boolean"
+    },
+    "platform.editor.core.increase-full-page-guttering": {
+      "type": "boolean"
+    }
+  },
+  "af:exports": {
+    "./consts": "./src/consts/index.ts",
+    "./selection": "./src/selection/index.ts",
+    "./shortcut": "./src/shortcut/index.ts",
+    "./scrollbar": "./src/scrollbar-styles.ts",
+    ".": "./src/index.ts"
+  },
+  "exports": {
+    "./consts": "./src/consts/index.ts",
+    "./selection": "./src/selection/index.ts",
+    "./shortcut": "./src/shortcut/index.ts",
+    "./scrollbar": "./src/scrollbar-styles.ts",
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@atlaskit/platform-feature-flags": "^0.2.0",
+    "@atlaskit/theme": "^12.9.0",
+    "@atlaskit/tokens": "^1.49.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/react": "^11.7.1"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "typescript": "~5.4.2"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "circular-dependencies": [
+        "file-level"
+      ],
+      "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "deprecation": "no-deprecated-imports",
+      "design-tokens": [
+        "color"
+      ],
+      "styling": [
+        "emotion"
+      ]
+    }
+  }
 }

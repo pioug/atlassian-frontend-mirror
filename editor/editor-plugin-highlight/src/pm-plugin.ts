@@ -1,6 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -27,9 +26,9 @@ export const createPlugin = ({
 	return new SafePlugin({
 		key: highlightPluginKey,
 		state: {
-			init: (): HighlightPluginState => ({
-				activeColor: REMOVE_HIGHLIGHT_COLOR,
-				disabled: true,
+			init: (_: unknown, editorState: EditorState): HighlightPluginState => ({
+				activeColor: null,
+				disabled: getDisabledState(editorState),
 			}),
 			apply: (
 				tr: ReadonlyTransaction,

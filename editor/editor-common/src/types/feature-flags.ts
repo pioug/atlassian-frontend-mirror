@@ -256,6 +256,15 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
+	 * Enables moving the table sorting options in the column context menu to the top of the menu
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-23600
+	 * @default false
+	 */
+	tableSortColumnDiscoverability?: boolean;
+
+	/**
+	 * @description
 	 * Enables commenting on media
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-22102

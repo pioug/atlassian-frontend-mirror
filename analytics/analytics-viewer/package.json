@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/analytics-viewer",
-  "version": "0.5.6",
+  "version": "0.6.0",
   "description": "Analytics viewer for the examples",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -5,10 +5,11 @@ import { DEFAULT_BORDER_COLOR, textColorPalette } from '@atlaskit/editor-common/
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import { DEFAULT_COLOR, getActiveColor } from '../utils/color';
+import { getActiveColor } from '../utils/color';
+import { DEFAULT_COLOR } from '../utils/constants';
 import { getDisabledState } from '../utils/disabled';
 
-export { DEFAULT_COLOR } from '../utils/color';
+export { DEFAULT_COLOR } from '../utils/constants';
 
 export type TextColorPluginState = {
 	palette: Array<PaletteColor>;

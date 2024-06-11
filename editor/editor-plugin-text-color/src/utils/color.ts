@@ -1,13 +1,7 @@
 import type { Mark, MarkType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { N800 } from '@atlaskit/theme/colors';
 
-export const DEFAULT_COLOR = {
-	// TODO: https://product-fabric.atlassian.net/browse/DSP-4137
-	/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
-	color: N800.toLowerCase(),
-	label: 'Dark gray',
-};
+import { DEFAULT_COLOR } from './constants';
 
 export const getActiveColor = (state: EditorState): string | null => {
 	const { $from, $to, $cursor } = state.selection as TextSelection;

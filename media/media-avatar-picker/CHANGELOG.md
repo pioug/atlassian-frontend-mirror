@@ -1,861 +1,864 @@
 # @atlaskit/media-avatar-picker
 
+## 24.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.6.4
 
 ### Patch Changes
 
--   [#99695](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99695)
-    [`8b3a1570b50d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b3a1570b50d) -
-    Sets avatar list images alt attribute to empty string and adds aria-label attribute to input
-    options to make list accessible when navigationg between avatars
+- [#99695](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99695)
+  [`8b3a1570b50d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b3a1570b50d) -
+  Sets avatar list images alt attribute to empty string and adds aria-label attribute to input
+  options to make list accessible when navigationg between avatars
 
 ## 24.6.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.6.2
 
 ### Patch Changes
 
--   [#98265](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98265)
-    [`e979069904be`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e979069904be) -
-    Sets media avatar picker drop zone image alt to empty string, for text content below the image
-    to be accessible
--   Updated dependencies
+- [#98265](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98265)
+  [`e979069904be`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e979069904be) -
+  Sets media avatar picker drop zone image alt to empty string, for text content below the image to
+  be accessible
+- Updated dependencies
 
 ## 24.6.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.6.0
 
 ### Minor Changes
 
--   [#96679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96679)
-    [`81020c4ccb1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81020c4ccb1a) -
-    [ux] allow custom aria labels for select avatar and avatars show more button
+- [#96679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96679)
+  [`81020c4ccb1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81020c4ccb1a) -
+  [ux] allow custom aria labels for select avatar and avatars show more button
 
 ## 24.5.1
 
 ### Patch Changes
 
--   [#92007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/92007)
-    [`85525725cb0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85525725cb0d) -
-    Migrated to the new button component
--   Updated dependencies
+- [#92007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/92007)
+  [`85525725cb0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85525725cb0d) -
+  Migrated to the new button component
+- Updated dependencies
 
 ## 24.5.0
 
 ### Minor Changes
 
--   [#90463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90463)
-    [`17ecf8ca6f92`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17ecf8ca6f92) -
-    Small fixes to internal functionality and docs update
+- [#90463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90463)
+  [`17ecf8ca6f92`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17ecf8ca6f92) -
+  Small fixes to internal functionality and docs update
 
 ## 24.4.0
 
 ### Minor Changes
 
--   [#86221](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86221)
-    [`3d897cbc0397`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d897cbc0397) -
-    [ux] Adds a mechanism for user to enter alt text in avatar picker
+- [#86221](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86221)
+  [`3d897cbc0397`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d897cbc0397) -
+  [ux] Adds a mechanism for user to enter alt text in avatar picker
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.3.27
 
 ### Patch Changes
 
--   [#84563](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84563)
-    [`8f8efba47b22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f8efba47b22) -
-    a11y fix - updated heading markup
+- [#84563](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84563)
+  [`8f8efba47b22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f8efba47b22) -
+  a11y fix - updated heading markup
 
 ## 24.3.26
 
 ### Patch Changes
 
--   [#83297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83297)
-    [`6b1707c169e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b1707c169e0) -
-    The internal composition of this component has changed. There is no expected change in
-    behaviour.
+- [#83297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83297)
+  [`6b1707c169e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b1707c169e0) -
+  The internal composition of this component has changed. There is no expected change in behaviour.
 
 ## 24.3.25
 
 ### Patch Changes
 
--   [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
-    [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
-    Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 24.3.24
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.3.23
 
 ### Patch Changes
 
--   [#78361](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78361)
-    [`195d62082a3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/195d62082a3a) -
-    CXP-3050 Enforced design tokens and primitives
+- [#78361](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78361)
+  [`195d62082a3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/195d62082a3a) -
+  CXP-3050 Enforced design tokens and primitives
 
 ## 24.3.22
 
 ### Patch Changes
 
--   [#71706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71706)
-    [`9f5b710e6a66`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f5b710e6a66) -
-    [ux] fix dialog header style
+- [#71706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71706)
+  [`9f5b710e6a66`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f5b710e6a66) -
+  [ux] fix dialog header style
 
 ## 24.3.21
 
 ### Patch Changes
 
--   [#68062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68062)
-    [`16de4d766f9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16de4d766f9c) -
-    [ux] fix dialog heading typography
--   Updated dependencies
+- [#68062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68062)
+  [`16de4d766f9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16de4d766f9c) -
+  [ux] fix dialog heading typography
+- Updated dependencies
 
 ## 24.3.20
 
 ### Patch Changes
 
--   [#67778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67778)
-    [`70c7f71eb643`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70c7f71eb643) -
-    [ux] fix missing modal heading
+- [#67778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/67778)
+  [`70c7f71eb643`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70c7f71eb643) -
+  [ux] fix missing modal heading
 
 ## 24.3.19
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.3.18
 
 ### Patch Changes
 
--   [#57473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57473)
-    [`100f90575744`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/100f90575744) -
-    Remove legacy theming logic from @atlaskit/media-avatar-picker, @atlaskit/media-card,
-    @atlaskit/media-ui and @atlaskit/media-viewer.
+- [#57473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57473)
+  [`100f90575744`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/100f90575744) -
+  Remove legacy theming logic from @atlaskit/media-avatar-picker, @atlaskit/media-card,
+  @atlaskit/media-ui and @atlaskit/media-viewer.
 
 ## 24.3.17
 
 ### Patch Changes
 
--   [#43370](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43370)
-    [`27164a3be23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27164a3be23) - Fix
-    imports for atlaskit buttons
+- [#43370](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/43370)
+  [`27164a3be23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27164a3be23) - Fix
+  imports for atlaskit buttons
 
 ## 24.3.16
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.3.15
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.3.14
 
 ### Patch Changes
 
--   [#40009](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40009)
-    [`dcef48fcb56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcef48fcb56) -
-    Dependency for @types/enzyme set as static as the following patch version contains a breaking
-    change
+- [#40009](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/40009)
+  [`dcef48fcb56`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcef48fcb56) -
+  Dependency for @types/enzyme set as static as the following patch version contains a breaking
+  change
 
 ## 24.3.13
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.3.12
 
 ### Patch Changes
 
--   [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787)
-    [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) -
-    Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787)
+  [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal
+  changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 24.3.11
 
 ### Patch Changes
 
--   [#39754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39754)
-    [`f64b71e6a69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f64b71e6a69) - [ux]
-    [MEX-2586] Bug fix: prevent the entire page from scrolling when opening the list of predefined
-    avatars from media avatar picker
--   Updated dependencies
+- [#39754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39754)
+  [`f64b71e6a69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f64b71e6a69) - [ux]
+  [MEX-2586] Bug fix: prevent the entire page from scrolling when opening the list of predefined
+  avatars from media avatar picker
+- Updated dependencies
 
 ## 24.3.10
 
 ### Patch Changes
 
--   [#39372](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39372)
-    [`3322bd8d915`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3322bd8d915) - fix
-    the atlaskit:src path
+- [#39372](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39372)
+  [`3322bd8d915`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3322bd8d915) - fix the
+  atlaskit:src path
 
 ## 24.3.9
 
 ### Patch Changes
 
--   [#39307](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39307)
-    [`c64e32714b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c64e32714b0) - [ux]
-    Bug fix: Prevent Media Avatar Picker form from incorrectly causing a GET request on submit.
-    Instead, the form should trigger the appropriate callbacks provided in the props (i.e.
-    onImagePicked, onImagePickedDataURI, onAvatarPicked) on submit.
+- [#39307](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39307)
+  [`c64e32714b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c64e32714b0) - [ux] Bug
+  fix: Prevent Media Avatar Picker form from incorrectly causing a GET request on submit. Instead,
+  the form should trigger the appropriate callbacks provided in the props (i.e. onImagePicked,
+  onImagePickedDataURI, onAvatarPicked) on submit.
 
-    Additionally, if there are no selected inputs on submit, the form will render an error prompting
-    the user to do so.
+  Additionally, if there are no selected inputs on submit, the form will render an error prompting
+  the user to do so.
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.3.8
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.3.7
 
 ### Patch Changes
 
--   [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162)
-    [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete
-    version.json
--   Updated dependencies
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162)
+  [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete
+  version.json
+- Updated dependencies
 
 ## 24.3.6
 
 ### Patch Changes
 
--   [#36363](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36363)
-    [`9435778d504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9435778d504) - [ux]
-    MEX-2482 Improve accessibility of avatar picker by converting it into a form; enforcing
-    appropriate announcements to screen readers; and preventing the submit button from being
-    disabled.
--   Updated dependencies
+- [#36363](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36363)
+  [`9435778d504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9435778d504) - [ux]
+  MEX-2482 Improve accessibility of avatar picker by converting it into a form; enforcing
+  appropriate announcements to screen readers; and preventing the submit button from being disabled.
+- Updated dependencies
 
 ## 24.3.5
 
 ### Patch Changes
 
--   [#35725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35725)
-    [`a67386c9448`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a67386c9448) - add
-    missing label for media avatar picker back button
--   Updated dependencies
+- [#35725](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35725)
+  [`a67386c9448`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a67386c9448) - add
+  missing label for media avatar picker back button
+- Updated dependencies
 
 ## 24.3.4
 
 ### Patch Changes
 
--   [#33728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33728)
-    [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) -
-    Internal change to enforce token usage for spacing properties. There is no expected visual or
-    behaviour change.
+- [#33728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33728)
+  [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal
+  change to enforce token usage for spacing properties. There is no expected visual or behaviour
+  change.
 
 ## 24.3.3
 
 ### Patch Changes
 
--   [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
-    [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
-    legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 24.3.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.3.1
 
 ### Patch Changes
 
--   [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
-    [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) -
-    Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 24.3.0
 
 ### Minor Changes
 
--   [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
-    [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
-    minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.2.5
 
 ### Patch Changes
 
--   [#32171](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32171)
-    [`daefffa7e1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daefffa7e1a) -
-    Migrated use of `gridSize` to space tokens where possible. There is no expected visual or
-    behaviour change.
+- [#32171](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32171)
+  [`daefffa7e1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daefffa7e1a) - Migrated
+  use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 24.2.4
 
 ### Patch Changes
 
--   [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248)
-    [`d820dfd611c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d820dfd611c) - Fixed
-    show more button flicker on mouse hover
--   Updated dependencies
+- [#30248](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/30248)
+  [`d820dfd611c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d820dfd611c) - Fixed
+  show more button flicker on mouse hover
+- Updated dependencies
 
 ## 24.2.3
 
 ### Patch Changes
 
--   [#29671](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29671)
-    [`785ebcec1b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/785ebcec1b3) - Fixed
-    image button border on focus
+- [#29671](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/29671)
+  [`785ebcec1b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/785ebcec1b3) - Fixed
+  image button border on focus
 
 ## 24.2.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.2.1
 
 ### Patch Changes
 
--   [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932)
-    [`564b251839c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/564b251839c) - [ux]
-    Fixed avatar picker not showing correct orientation for images with exif data
--   Updated dependencies
+- [#28932](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28932)
+  [`564b251839c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/564b251839c) - [ux]
+  Fixed avatar picker not showing correct orientation for images with exif data
+- Updated dependencies
 
 ## 24.2.0
 
 ### Minor Changes
 
--   [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090)
-    [`ba83d964c58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba83d964c58) - [ux]
-    Add keyboard navigation support to select an image on the media-avatar-picker package
+- [#28090](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28090)
+  [`ba83d964c58`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba83d964c58) - [ux] Add
+  keyboard navigation support to select an image on the media-avatar-picker package
 
 ## 24.1.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.1.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.1.0
 
 ### Minor Changes
 
--   [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712)
-    [`1f299384778`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f299384778) - [ux]
-    Instrumented `@atlaskit/media-avatar-picker` with the new theming package, `@atlaskit/tokens`.
+- [#26712](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26712)
+  [`1f299384778`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1f299384778) - [ux]
+  Instrumented `@atlaskit/media-avatar-picker` with the new theming package, `@atlaskit/tokens`.
 
-    New tokens will be visible only in applications configured to use the new Tokens API (currently
-    in alpha). These changes are intended to be interoperable with the legacy theme implementation.
-    Legacy dark mode users should expect no visual or breaking changes.
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in
+  alpha). These changes are intended to be interoperable with the legacy theme implementation.
+  Legacy dark mode users should expect no visual or breaking changes.
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.0.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 24.0.2
 
 ### Patch Changes
 
--   [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
-    [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) -
-    Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
+  [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade
+  Typescript from `4.3.5` to `4.5.5`
 
 ## 24.0.1
 
 ### Patch Changes
 
--   [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
-    [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) -
-    Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
+  [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade
+  Typescript from `4.2.4` to `4.3.5`.
 
 ## 24.0.0
 
 ### Major Changes
 
--   [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642)
-    [`c251c5d890c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c251c5d890c) -
-    [MEX-1026] Migrated from styled-components library to @emotion/react in
-    @atlaskit/media-avatar-picker
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642)
+  [`c251c5d890c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c251c5d890c) -
+  [MEX-1026] Migrated from styled-components library to @emotion/react in
+  @atlaskit/media-avatar-picker
 
 ## 23.2.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 23.2.1
 
 ### Patch Changes
 
--   [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
-    [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) -
-    Upgrade to TypeScript 4.2.4
--   Updated dependencies
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
+  [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade
+  to TypeScript 4.2.4
+- Updated dependencies
 
 ## 23.2.0
 
 ### Minor Changes
 
--   [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033)
-    [`306b52fd9ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/306b52fd9ca) - [ux]
-    MEX-1467 - The optional paramater maxImageSize for the media-avatar-picker can be used to modify
-    the max file size of the image
+- [#20033](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20033)
+  [`306b52fd9ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/306b52fd9ca) - [ux]
+  MEX-1467 - The optional paramater maxImageSize for the media-avatar-picker can be used to modify
+  the max file size of the image
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 23.1.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 23.1.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 23.1.0
 
 ### Minor Changes
 
--   [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752)
-    [`6c6bd435635`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c6bd435635) -
-    TC-2422: add the ability for avatars to have different output sizes
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752)
+  [`6c6bd435635`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c6bd435635) - TC-2422:
+  add the ability for avatars to have different output sizes
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 23.0.0
 
 ### Major Changes
 
--   [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810)
-    [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) -
-    ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1
-    including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810)
+  [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) -
+  ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including
+  breaking API changes, types and tests in atlassian-frontend packages
 
-    What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages
-    now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch
-    with actual installed react-intl APIs. Why change was made: As part of a coordinated upgrade
-    effort across AF packages, as react-intl v2 is quite dated. How consumer should update their
-    code: Ensure react-intl ^5.18.1 is installed in consuming applications.
+  What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages
+  now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with
+  actual installed react-intl APIs. Why change was made: As part of a coordinated upgrade effort
+  across AF packages, as react-intl v2 is quite dated. How consumer should update their code: Ensure
+  react-intl ^5.18.1 is installed in consuming applications.
 
-    Upgrade guide: To consume atlassian-frontend packages that use react-intl5 setup a second
-    provider for the new version, using an npm alias
+  Upgrade guide: To consume atlassian-frontend packages that use react-intl5 setup a second provider
+  for the new version, using an npm alias
 
-    ```js
-    "react-intl": "^2.6.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    ```
+  ```js
+  "react-intl": "^2.6.0",
+  "react-intl-next": "npm:react-intl@^5.18.1",
+  ```
 
-    ```js
-    import { IntlProvider } from 'react-intl';
-    import { IntlProvider as IntlNextProvider } from 'react-intl-next';
+  ```js
+  import { IntlProvider } from 'react-intl';
+  import { IntlProvider as IntlNextProvider } from 'react-intl-next';
 
-    return (
-        <IntlProvider
-            key={locale}
-            data-test-language={locale}
-            locale={locale}
-            defaultLocale={DEFAULT_LOCALE}
-            messages={messages}
-        >
-            <IntlNextProvider
-                key={locale}
-                data-test-language={locale}
-                locale={locale}
-                defaultLocale={DEFAULT_LOCALE}
-                messages={messages}
-            >
-                {children}
-            </IntlNextProvider>
-        </IntlProvider>
-    );
-    ```
+  return (
+  	<IntlProvider
+  		key={locale}
+  		data-test-language={locale}
+  		locale={locale}
+  		defaultLocale={DEFAULT_LOCALE}
+  		messages={messages}
+  	>
+  		<IntlNextProvider
+  			key={locale}
+  			data-test-language={locale}
+  			locale={locale}
+  			defaultLocale={DEFAULT_LOCALE}
+  			messages={messages}
+  		>
+  			{children}
+  		</IntlNextProvider>
+  	</IntlProvider>
+  );
+  ```
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.3.0
 
 ### Minor Changes
 
--   [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777)
-    [`e01dd6e92ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e01dd6e92ec) - Made
-    component ImageNavigator publicly available
+- [#14777](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14777)
+  [`e01dd6e92ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e01dd6e92ec) - Made
+  component ImageNavigator publicly available
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.2.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.2.0
 
 ### Minor Changes
 
--   [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864)
-    [`5e6fa1c70a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e6fa1c70a5) - fix
-    unit tests for modal dialog
--   [`9c0241362a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c0241362a6) - [ux]
-    Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the
-    primary button in the footer of the modal to be on the right instead of the left.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864)
+  [`5e6fa1c70a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e6fa1c70a5) - fix unit
+  tests for modal dialog
+- [`9c0241362a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c0241362a6) - [ux]
+  Upgrade to the latest version of @atlaskit/modal-dialog. This change includes shifting the primary
+  button in the footer of the modal to be on the right instead of the left.
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.1.8
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.1.7
 
 ### Patch Changes
 
--   [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569)
-    [`d61fa7df04b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d61fa7df04b) - [ux]
-    Removes unnecessary scroll in media's avatar picker dialog.
--   Updated dependencies
+- [#10569](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10569)
+  [`d61fa7df04b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d61fa7df04b) - [ux]
+  Removes unnecessary scroll in media's avatar picker dialog.
+- Updated dependencies
 
 ## 22.1.6
 
 ### Patch Changes
 
--   [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230)
-    [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed
-    media bundle names following atlassian-frontend linting rules
--   Updated dependencies
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230)
+  [`277ed9667b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/277ed9667b2) - Fixed
+  media bundle names following atlassian-frontend linting rules
+- Updated dependencies
 
 ## 22.1.5
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.1.4
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.1.3
 
 ### Patch Changes
 
--   [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
-    [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) -
-    Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
+  [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile
+  packages using babel rather than tsc
 
 ## 22.1.2
 
 ### Patch Changes
 
--   [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497)
-    [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export
-    types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules
-    compiler option. This requires version 3.8 of Typescript, read more about how we handle
-    Typescript versions here: https://atlaskit.atlassian.com/get-started Also add `typescript` to
-    `devDependencies` to denote version that the package was built with.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497)
+  [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export
+  types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules
+  compiler option. This requires version 3.8 of Typescript, read more about how we handle Typescript
+  versions here: https://atlaskit.atlassian.com/get-started Also add `typescript` to
+  `devDependencies` to denote version that the package was built with.
 
 ## 22.1.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.1.0
 
 ### Minor Changes
 
--   [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749)
-    [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated
-    to declarative entry points
+- [#4749](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4749)
+  [`7d831363d9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7d831363d9) - Migrated
+  to declarative entry points
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.0.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 22.0.2
 
 ### Patch Changes
 
--   [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885)
-    [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded
-    to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885)
+  [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded
+  to TypeScript 3.9.6 and tslib to 2.0.0
 
-    Since tslib is a dependency for all our packages we recommend that products also follow this
-    tslib upgrade to prevent duplicates of tslib being bundled.
+  Since tslib is a dependency for all our packages we recommend that products also follow this tslib
+  upgrade to prevent duplicates of tslib being bundled.
 
 ## 22.0.1
 
 ### Patch Changes
 
--   [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823)
-    [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing
-    unused code to be published
--   [`861d585ba8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/861d585ba8) - Changed
-    mediaSingle to now render it's child adf nodes using nodeviews rather than directly with react
--   Updated dependencies
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823)
+  [`fa6fb5dfbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa6fb5dfbb) - Removing
+  unused code to be published
+- [`861d585ba8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/861d585ba8) - Changed
+  mediaSingle to now render it's child adf nodes using nodeviews rather than directly with react
+- Updated dependencies
 
 ## 22.0.0
 
 ### Major Changes
 
--   [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335)
-    [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) -
-    Officially dropping IE11 support, from this version onwards there are no warranties of the
-    package working in IE11. For more information see:
-    https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335)
+  [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially
+  dropping IE11 support, from this version onwards there are no warranties of the package working in
+  IE11. For more information see:
+  https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 21.2.9
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 21.2.8
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 21.2.7
 
 ### Patch Changes
 
--   [patch][d7ed7b1513](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7ed7b1513):
+- [patch][d7ed7b1513](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7ed7b1513):
 
-    Remove export \* from media components- Updated dependencies
-    [66dcced7a0](https://bitbucket.org/atlassian/atlassian-frontend/commits/66dcced7a0):
+  Remove export \* from media components- Updated dependencies
+  [66dcced7a0](https://bitbucket.org/atlassian/atlassian-frontend/commits/66dcced7a0):
 
--   Updated dependencies
-    [dda84ee26d](https://bitbucket.org/atlassian/atlassian-frontend/commits/dda84ee26d):
--   Updated dependencies
-    [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
--   Updated dependencies
-    [196500df34](https://bitbucket.org/atlassian/atlassian-frontend/commits/196500df34):
--   Updated dependencies
-    [77474b6821](https://bitbucket.org/atlassian/atlassian-frontend/commits/77474b6821):
--   Updated dependencies
-    [d7ed7b1513](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7ed7b1513):
--   Updated dependencies
-    [41a2496393](https://bitbucket.org/atlassian/atlassian-frontend/commits/41a2496393):
--   Updated dependencies
-    [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
--   Updated dependencies
-    [bbf5eb8824](https://bitbucket.org/atlassian/atlassian-frontend/commits/bbf5eb8824):
--   Updated dependencies
-    [eea5e9bd8c](https://bitbucket.org/atlassian/atlassian-frontend/commits/eea5e9bd8c):
--   Updated dependencies
-    [6b06a7baa9](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b06a7baa9):
--   Updated dependencies
-    [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
--   Updated dependencies
-    [8b34c7371d](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b34c7371d):
-    -   @atlaskit/docs@8.4.0
-    -   @atlaskit/media-ui@12.0.0
-    -   @atlaskit/icon@20.1.0
-    -   @atlaskit/media-test-helpers@27.0.0
-    -   @atlaskit/media-core@31.0.5
-    -   @atlaskit/button@13.3.9
-    -   @atlaskit/modal-dialog@10.5.4
-    -   @atlaskit/spinner@12.1.6
+- Updated dependencies
+  [dda84ee26d](https://bitbucket.org/atlassian/atlassian-frontend/commits/dda84ee26d):
+- Updated dependencies
+  [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
+- Updated dependencies
+  [196500df34](https://bitbucket.org/atlassian/atlassian-frontend/commits/196500df34):
+- Updated dependencies
+  [77474b6821](https://bitbucket.org/atlassian/atlassian-frontend/commits/77474b6821):
+- Updated dependencies
+  [d7ed7b1513](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7ed7b1513):
+- Updated dependencies
+  [41a2496393](https://bitbucket.org/atlassian/atlassian-frontend/commits/41a2496393):
+- Updated dependencies
+  [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
+- Updated dependencies
+  [bbf5eb8824](https://bitbucket.org/atlassian/atlassian-frontend/commits/bbf5eb8824):
+- Updated dependencies
+  [eea5e9bd8c](https://bitbucket.org/atlassian/atlassian-frontend/commits/eea5e9bd8c):
+- Updated dependencies
+  [6b06a7baa9](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b06a7baa9):
+- Updated dependencies
+  [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
+- Updated dependencies
+  [8b34c7371d](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b34c7371d):
+  - @atlaskit/docs@8.4.0
+  - @atlaskit/media-ui@12.0.0
+  - @atlaskit/icon@20.1.0
+  - @atlaskit/media-test-helpers@27.0.0
+  - @atlaskit/media-core@31.0.5
+  - @atlaskit/button@13.3.9
+  - @atlaskit/modal-dialog@10.5.4
+  - @atlaskit/spinner@12.1.6
 
 ## 21.2.6
 
 ### Patch Changes
 
--   [patch][6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+- [patch][6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
-    Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
-    [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
+  [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
-    -   @atlaskit/docs@8.3.2
-    -   @atlaskit/button@13.3.7
-    -   @atlaskit/icon@20.0.1
-    -   @atlaskit/modal-dialog@10.5.2
-    -   @atlaskit/page@11.0.12
-    -   @atlaskit/range@3.0.12
-    -   @atlaskit/spinner@12.1.4
-    -   @atlaskit/theme@9.5.1
-    -   @atlaskit/media-core@31.0.4
-    -   @atlaskit/media-test-helpers@26.1.1
-    -   @atlaskit/media-ui@11.8.3
+  - @atlaskit/docs@8.3.2
+  - @atlaskit/button@13.3.7
+  - @atlaskit/icon@20.0.1
+  - @atlaskit/modal-dialog@10.5.2
+  - @atlaskit/page@11.0.12
+  - @atlaskit/range@3.0.12
+  - @atlaskit/spinner@12.1.4
+  - @atlaskit/theme@9.5.1
+  - @atlaskit/media-core@31.0.4
+  - @atlaskit/media-test-helpers@26.1.1
+  - @atlaskit/media-ui@11.8.3
 
 ## 21.2.5
 
 ### Patch Changes
 
--   Updated dependencies
-    [fe4eaf06fc](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe4eaf06fc):
--   Updated dependencies
-    [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
--   Updated dependencies
-    [555818c33a](https://bitbucket.org/atlassian/atlassian-frontend/commits/555818c33a):
-    -   @atlaskit/media-test-helpers@26.1.0
-    -   @atlaskit/icon@20.0.0
-    -   @atlaskit/media-ui@11.8.2
-    -   @atlaskit/modal-dialog@10.5.1
-    -   @atlaskit/docs@8.3.1
-    -   @atlaskit/button@13.3.6
-    -   @atlaskit/page@11.0.11
+- Updated dependencies
+  [fe4eaf06fc](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe4eaf06fc):
+- Updated dependencies
+  [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
+- Updated dependencies
+  [555818c33a](https://bitbucket.org/atlassian/atlassian-frontend/commits/555818c33a):
+  - @atlaskit/media-test-helpers@26.1.0
+  - @atlaskit/icon@20.0.0
+  - @atlaskit/media-ui@11.8.2
+  - @atlaskit/modal-dialog@10.5.1
+  - @atlaskit/docs@8.3.1
+  - @atlaskit/button@13.3.6
+  - @atlaskit/page@11.0.11
 
 ## 21.2.4
 
 ### Patch Changes
 
--   Updated dependencies
-    [966622bd45](https://bitbucket.org/atlassian/atlassian-frontend/commits/966622bd45):
--   Updated dependencies
-    [d2b8166208](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2b8166208):
--   Updated dependencies
-    [6ee177aeb4](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ee177aeb4):
-    -   @atlaskit/media-test-helpers@26.0.0
-    -   @atlaskit/docs@8.3.0
-    -   @atlaskit/media-core@31.0.3
-    -   @atlaskit/media-ui@11.8.1
+- Updated dependencies
+  [966622bd45](https://bitbucket.org/atlassian/atlassian-frontend/commits/966622bd45):
+- Updated dependencies
+  [d2b8166208](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2b8166208):
+- Updated dependencies
+  [6ee177aeb4](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ee177aeb4):
+  - @atlaskit/media-test-helpers@26.0.0
+  - @atlaskit/docs@8.3.0
+  - @atlaskit/media-core@31.0.3
+  - @atlaskit/media-ui@11.8.1
 
 ## 21.2.3
 
--   Updated dependencies
-    [24b8ea2667](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24b8ea2667):
-    -   @atlaskit/media-test-helpers@25.2.2
-    -   @atlaskit/media-core@31.0.0
+- Updated dependencies
+  [24b8ea2667](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24b8ea2667):
+  - @atlaskit/media-test-helpers@25.2.2
+  - @atlaskit/media-core@31.0.0
 
 ## 21.2.2
 
 ### Patch Changes
 
--   [patch][35d2229b2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/35d2229b2a):
+- [patch][35d2229b2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/35d2229b2a):
 
-    Adding missing license to packages and update to Copyright 2019 Atlassian Pty Ltd.
+  Adding missing license to packages and update to Copyright 2019 Atlassian Pty Ltd.
 
 ## 21.2.1
 
 ### Patch Changes
 
--   [patch][fc79969f86](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fc79969f86):
+- [patch][fc79969f86](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fc79969f86):
 
-    Update all the theme imports in media to use multi entry points
+  Update all the theme imports in media to use multi entry points
 
 ## 21.2.0
 
 ### Minor Changes
 
--   [minor][c6efb2f5b6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c6efb2f5b6):
+- [minor][c6efb2f5b6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c6efb2f5b6):
 
-    Prefix the legacy lifecycle methods with UNSAFE\_\* to avoid warning in React 16.9+
+  Prefix the legacy lifecycle methods with UNSAFE\_\* to avoid warning in React 16.9+
 
-    More information about the deprecation of lifecycles methods can be found here:
-    https://reactjs.org/blog/2018/03/29/react-v-16-3.html#component-lifecycle-changes
+  More information about the deprecation of lifecycles methods can be found here:
+  https://reactjs.org/blog/2018/03/29/react-v-16-3.html#component-lifecycle-changes
 
 ## 21.1.5
 
 ### Patch Changes
 
--   [patch][097b696613](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/097b696613):
+- [patch][097b696613](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/097b696613):
 
-    Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving
-    non-relative imports as relative imports
+  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving
+  non-relative imports as relative imports
 
 ## 21.1.4
 
 ### Patch Changes
 
--   [patch][ecca4d1dbb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ecca4d1dbb):
+- [patch][ecca4d1dbb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ecca4d1dbb):
 
-    Upgraded Typescript to 3.3.x
+  Upgraded Typescript to 3.3.x
 
 ## 21.1.3
 
--   Updated dependencies
-    [69586b5353](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/69586b5353):
-    -   @atlaskit/media-core@30.0.10
-    -   @atlaskit/media-ui@11.5.2
-    -   @atlaskit/media-test-helpers@25.0.0
+- Updated dependencies
+  [69586b5353](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/69586b5353):
+  - @atlaskit/media-core@30.0.10
+  - @atlaskit/media-ui@11.5.2
+  - @atlaskit/media-test-helpers@25.0.0
 
 ## 21.1.2
 
 ### Patch Changes
 
--   [patch][6ad542fe85](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ad542fe85):
+- [patch][6ad542fe85](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6ad542fe85):
 
-    Adding try/catch in async imports for @atlaskit/media-avatar-picker, @atlaskit/media-card,
-    @atlaskit/media-editor, @atlaskit/media-viewer
+  Adding try/catch in async imports for @atlaskit/media-avatar-picker, @atlaskit/media-card,
+  @atlaskit/media-editor, @atlaskit/media-viewer
 
 ## 21.1.1
 
 ### Patch Changes
 
--   [patch][688f2957ca](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/688f2957ca):
+- [patch][688f2957ca](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/688f2957ca):
 
-    Fixes various TypeScript errors which were previously failing silently
+  Fixes various TypeScript errors which were previously failing silently
 
 ## 21.1.0
 
 ### Minor Changes
 
--   [minor][ad020848a9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ad020848a9):
+- [minor][ad020848a9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ad020848a9):
 
-    Allow to pass placeholder to MediaAvatarPicker to render a custom component while it loads
+  Allow to pass placeholder to MediaAvatarPicker to render a custom component while it loads
 
-    ```
-    import {AvatarPickerDialog} from '@atlaskit/media-avatar-loader'
-    ```
+  ```
+  import {AvatarPickerDialog} from '@atlaskit/media-avatar-loader'
+  ```
 
 <AvatarPickerDialog placeholder={<div>Avatar picker is loading...</div>} />
 

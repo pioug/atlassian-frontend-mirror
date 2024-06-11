@@ -1,8 +1,8 @@
-import { toggleMark } from '@atlaskit/editor-common/mark';
-import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import { removeMark, toggleMark } from '@atlaskit/editor-common/mark';
 import type { Command } from '@atlaskit/editor-common/types';
 
 import { ACTIONS, pluginKey } from '../pm-plugins/main';
+import { overrideMarks } from '../utils/constants';
 import { getDisabledState } from '../utils/disabled';
 
 export const toggleColor =
@@ -21,9 +21,15 @@ export const toggleColor =
 		}
 
 		if (dispatch) {
-			state.tr.setMeta(pluginKey, { action: ACTIONS.SET_COLOR, color });
-			state.tr.scrollIntoView();
-			editorCommandToPMCommand(toggleMark(textColor, { color }))(state, dispatch);
+			overrideMarks.forEach((mark) => {
+				const { marks } = tr.doc.type.schema;
+				if (marks[mark]) {
+					removeMark(marks[mark])({ tr });
+				}
+			});
+
+			toggleMark(textColor, { color })({ tr });
+			dispatch(tr);
 		}
 		return true;
 	};

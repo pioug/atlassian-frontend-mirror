@@ -54,7 +54,7 @@ const columns: DatasourceResponseSchemaProperty[] = [
 	},
 	{
 		key: 'priority',
-		title: 'P',
+		title: 'Priority',
 		type: 'icon',
 	},
 	{

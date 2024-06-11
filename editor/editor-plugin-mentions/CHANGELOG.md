@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 1.6.0
+
+### Minor Changes
+
+- [#108100](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108100)
+  [`c854f5415176c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c854f5415176c) -
+  Add localId to mentionTypeahead click event attributes
+
 ## 1.5.1
 
 ### Patch Changes

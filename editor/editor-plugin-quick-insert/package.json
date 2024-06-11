@@ -37,12 +37,12 @@
   },
   "dependencies": {
     "@atlaskit/button": "^17.17.0",
-    "@atlaskit/editor-common": "^82.0.0",
+    "@atlaskit/editor-common": "^82.2.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.2.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/theme": "^12.9.0",
     "@atlaskit/tokens": "^1.49.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"

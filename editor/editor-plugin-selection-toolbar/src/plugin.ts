@@ -85,9 +85,19 @@ export const selectionToolbarPlugin: NextEditorPlugin<
 									},
 								});
 
+								const unbindEditorViewFocus = bind(view.dom, {
+									type: 'focus',
+									listener: () => {
+										view.dispatch(
+											view.state.tr.setMeta(selectionToolbarPluginKey, { selectionStable: true }),
+										);
+									},
+								});
+
 								return {
 									destroy() {
 										unbind();
+										unbindEditorViewFocus();
 									},
 								};
 							},

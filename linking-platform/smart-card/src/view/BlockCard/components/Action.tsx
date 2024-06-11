@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { useState } from 'react';
 
 import { type Appearance } from '@atlaskit/button/types';
@@ -20,6 +20,11 @@ export interface ActionProps {
 export type ActionState = 'init' | 'loading' | 'success' | 'failure';
 
 export const spinnerDelay = 1000;
+
+const baseTextStyles = css({
+	transition: 'opacity 0.3s',
+});
+
 export const Action = ({ promise, text, buttonAppearance = 'default', id }: ActionProps) => {
 	const [state, setState] = useState<ActionState>('init');
 
@@ -47,14 +52,7 @@ export const Action = ({ promise, text, buttonAppearance = 'default', id }: Acti
 				}
 			}}
 		>
-			<div
-				css={{
-					transition: 'opacity 0.3s',
-					opacity: state !== 'init' ? 0 : 1,
-				}}
-			>
-				{text}
-			</div>
+			<div css={[baseTextStyles, { opacity: state !== 'init' ? 0 : 1 }]}>{text}</div>
 			<ActionIcon state={state} />
 		</Button>
 	);

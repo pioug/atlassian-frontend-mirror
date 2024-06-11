@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
@@ -9,6 +9,8 @@ import MoreIcon from '@atlaskit/icon/glyph/more';
 import { type ActionProps, Action } from './Action';
 import { gs, mq } from '../../common/utils';
 import { di } from 'react-magnetic-di';
+
+const buttonStyles = css({ height: 'auto' });
 
 export interface ActionListProps {
 	/* An array of action props, which will generate action buttons with the first passed appearing on the left (in LTR reading) */
@@ -43,7 +45,7 @@ export const ActionList = ({ items }: ActionListProps) => {
 								{...props}
 								iconBefore={<MoreIcon label="more" />}
 								ref={triggerRef}
-								css={{ height: 'auto' }}
+								css={buttonStyles}
 								testId="dropdown-trigger"
 							/>
 						)}

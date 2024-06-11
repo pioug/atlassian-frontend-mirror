@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 3.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.2
+
+### Patch Changes
+
+- [#108371](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108371)
+  [`330fc4264d946`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/330fc4264d946) -
+  changed update-editor-plugins script to use tabs instead of spaces
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

@@ -3998,7 +3998,7 @@ describe('Card V2', () => {
 	describe('SVG', () => {
 		describe('should render SVG natively when the overlay is disbled', () => {
 			ffTest(
-				'platform.media-svg-rendering',
+				'platform.media-card-svg-rendering_6tdbv',
 				async () => {
 					const [fileItem, identifier] = generateSampleFileItem.svg();
 					const { mediaApi } = createMockedMediaApi(fileItem);

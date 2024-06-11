@@ -20,7 +20,7 @@ import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { messages } from '../../../../messages';
 import { type ArticleFeedback } from '../../../../model/Article';
@@ -58,6 +58,11 @@ interface Props {
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
 }
+
+const buttonStyles = css({
+	padding: '0',
+	'& span': { margin: '0' },
+});
 
 export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 	onWasHelpfulSubmit,
@@ -300,7 +305,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 								<Button
 									appearance="link"
 									spacing="compact"
-									css={{ padding: '0', '& span': { margin: '0' } }}
+									css={buttonStyles}
 									onClick={handleTryAgainOnClick}
 								>
 									{formatMessage(messages.help_article_rating_form_failed_try_again)}

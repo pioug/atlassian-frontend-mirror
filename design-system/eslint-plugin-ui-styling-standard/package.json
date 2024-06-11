@@ -42,7 +42,7 @@
     ".": "./index.js"
   },
   "dependencies": {
-    "@atlaskit/eslint-utils": "^1.5.0",
+    "@atlaskit/eslint-utils": "^1.6.0",
     "@babel/runtime": "^7.0.0",
     "@typescript-eslint/utils": "^5.48.1",
     "ajv": "^6.12.6",

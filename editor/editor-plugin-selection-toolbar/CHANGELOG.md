@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 1.1.9
+
+### Patch Changes
+
+- [#108898](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108898)
+  [`eeaaf0ea11d9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeaaf0ea11d9a) -
+  [ED-23455] Fix the issue where selection floating toolbar does not appear when clicking drag
+  handle
+
 ## 1.1.8
 
 ### Patch Changes

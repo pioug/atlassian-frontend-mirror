@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "7.16.17",
+  "version": "7.16.18",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
     "@atlaskit/adf-schema": "^36.10.7",
     "@atlaskit/button": "^17.17.0",
     "@atlaskit/custom-steps": "^0.2.0",
-    "@atlaskit/editor-common": "^82.0.0",
+    "@atlaskit/editor-common": "^82.2.0",
     "@atlaskit/editor-palette": "1.6.0",
     "@atlaskit/editor-plugin-accessibility-utils": "^1.1.0",
     "@atlaskit/editor-plugin-analytics": "^1.2.0",
@@ -49,8 +49,8 @@
     "@atlaskit/pragmatic-drag-and-drop": "^1.1.0",
     "@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.3.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-    "@atlaskit/primitives": "^6.5.0",
-    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/primitives": "^7.0.0",
+    "@atlaskit/theme": "^12.9.0",
     "@atlaskit/toggle": "^13.1.0",
     "@atlaskit/tokens": "^1.49.0",
     "@atlaskit/tooltip": "^18.4.0",

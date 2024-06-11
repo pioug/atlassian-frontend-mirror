@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "2.3.5",
+  "version": "2.3.7",
   "description": "UI Components to support linking platform dataset feature",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -54,10 +54,10 @@
     "@atlaskit/jql-ast": "^3.3.0",
     "@atlaskit/jql-editor": "^4.3.0",
     "@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
-    "@atlaskit/link-client-extension": "^1.8.0",
+    "@atlaskit/link-client-extension": "^1.9.0",
     "@atlaskit/linking-common": "^5.7.0",
     "@atlaskit/linking-types": "^8.9.0",
-    "@atlaskit/logo": "^13.17.0",
+    "@atlaskit/logo": "^14.0.0",
     "@atlaskit/lozenge": "^11.7.0",
     "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/outbound-auth-flow-client": "^3.4.5",
@@ -67,14 +67,14 @@
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.1.0",
     "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
-    "@atlaskit/primitives": "^6.5.0",
+    "@atlaskit/primitives": "^7.0.0",
     "@atlaskit/select": "^17.10.0",
     "@atlaskit/smart-card": "^27.5.0",
     "@atlaskit/smart-user-picker": "6.9.3",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/tag": "^12.2.0",
     "@atlaskit/textfield": "6.3.1",
-    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/theme": "^12.9.0",
     "@atlaskit/tokens": "^1.49.0",
     "@atlaskit/tooltip": "^18.4.0",
     "@atlaskit/ufo": "^0.2.4",
@@ -96,7 +96,7 @@
   "devDependencies": {
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/link-provider": "^1.10.0",
+    "@atlaskit/link-provider": "^1.11.0",
     "@atlaskit/link-test-helpers": "^7.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -156,6 +156,10 @@
     "./i18n/*": "./src/i18n/*.ts"
   },
   "platform-feature-flags": {
+    "platform.linking-platform.datasource.add-timezone-header": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
     "platform.linking-platform.datasource-assets_add_version_parameter": {
       "type": "boolean"
     },

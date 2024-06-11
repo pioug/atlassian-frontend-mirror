@@ -597,7 +597,7 @@ export const FileCard = ({
 
 	useEffect(() => {
 		if (
-			getBooleanFF('platform.media-svg-rendering') &&
+			getBooleanFF('platform.media-card-svg-rendering_6tdbv') &&
 			/**
 			 * We need to check that the card is visible before switching to SVG
 			 * in order to avoid race conditions of the ViewportDector being unmounted before

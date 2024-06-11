@@ -2,7 +2,7 @@
 /** @jsxFrag */
 import React from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -72,6 +72,17 @@ export type LazyShareFormProps = Pick<
 		setIsLoading: (isLoading: boolean) => void;
 	};
 
+const footerBottomMessageStyles = css({
+	width: `${gridSize() * 44}px`,
+});
+
+const footerCustomStyles = css({
+	margin: `0 ${token('space.negative.300', '-24px')} ${token(
+		'space.negative.200',
+		'-16px',
+	)} ${token('space.negative.300', '-24px')}`,
+});
+
 /**
  * A Share form content which is lazy-loaded.
  * Make sure this component is not exported inside main entry points `src/index.ts`
@@ -122,18 +133,9 @@ function LazyShareForm(props: LazyShareFormProps) {
 
 	const footer = (
 		<div>
-			{bottomMessage ? <div css={{ width: `${gridSize() * 44}px` }}>{bottomMessage}</div> : null}
+			{bottomMessage ? <div css={footerBottomMessageStyles}>{bottomMessage}</div> : null}
 			{customFooter && selectedIntegration === null && (
-				<div
-					css={{
-						margin: `0 ${token('space.negative.300', '-24px')} ${token(
-							'space.negative.200',
-							'-16px',
-						)} ${token('space.negative.300', '-24px')}`,
-					}}
-				>
-					{customFooter}
-				</div>
+				<div css={footerCustomStyles}>{customFooter}</div>
 			)}
 		</div>
 	);

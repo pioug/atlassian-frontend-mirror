@@ -77,7 +77,7 @@
     "@atlaskit/platform-feature-flags": "^0.2.4",
     "@atlaskit/popup": "^1.17.0",
     "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/theme": "^12.9.0",
     "@atlaskit/tokens": "^1.49.0",
     "@atlaskit/tooltip": "^18.4.0",
     "@babel/runtime": "^7.0.0",

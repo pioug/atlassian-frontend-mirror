@@ -371,6 +371,8 @@ export const createTypeAheadConfig = ({
 				}
 			}
 
+			const mentionLocalId = uuid();
+
 			fireEvent(
 				buildTypeAheadInsertedPayload(
 					pickerElapsedTime,
@@ -379,6 +381,7 @@ export const createTypeAheadConfig = ({
 					sessionId,
 					mode,
 					item.mention,
+					mentionLocalId,
 					sourceListItem.map((x) => x.mention),
 					query,
 					contextIdentifierProvider,
@@ -408,7 +411,7 @@ export const createTypeAheadConfig = ({
 				id,
 				accessLevel,
 				userType: userType === 'DEFAULT' ? null : userType,
-				localId: uuid(),
+				localId: mentionLocalId,
 			});
 			const space = schema.text(' ');
 

@@ -1,5 +1,35 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.0
+
+### Minor Changes
+
+- [#104824](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104824)
+  [`10443be28cedb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10443be28cedb) -
+  converting tagged template syntax to object syntax for remanining styles from DSP-17626
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.23
 
 ### Patch Changes

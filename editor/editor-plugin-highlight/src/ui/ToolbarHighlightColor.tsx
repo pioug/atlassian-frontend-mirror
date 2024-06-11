@@ -20,7 +20,6 @@ import {
 	ColorPalette,
 	getSelectedRowAndColumnFromPalette,
 	highlightColorPalette,
-	REMOVE_HIGHLIGHT_COLOR,
 } from '@atlaskit/editor-common/ui-color';
 import {
 	ArrowKeyNavigationType,
@@ -126,7 +125,7 @@ const ToolbarHighlightColor = ({
 	// Get the design token for the  active color (if it exists) to modify the toolbar
 	// icon, but show the nice rainbow if none is selected
 	const activeColorToken =
-		highlightState.activeColor === REMOVE_HIGHLIGHT_COLOR || highlightState.activeColor === null
+		highlightState.activeColor === null
 			? null
 			: hexToEditorTextBackgroundPaletteColor(highlightState.activeColor);
 

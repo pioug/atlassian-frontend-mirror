@@ -1,5 +1,64 @@
 # @atlaskit/editor-common
 
+## 82.2.1
+
+### Patch Changes
+
+- [#108446](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108446)
+  [`c2094d9cb4266`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c2094d9cb4266) -
+  [ux] EDF-844: Don't show tooltips in floating toolbar buttons if it is the same as the label that
+  is displayed - see content guidelines for best practices
+  (https://atlassian.design/components/tooltip/usage#content-guidelines)
+- Updated dependencies
+
+## 82.2.0
+
+### Minor Changes
+
+- [#108600](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108600)
+  [`74d240f6ce35b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74d240f6ce35b) -
+  Added new i18n fields for the linking toolbar.
+
+### Patch Changes
+
+- [#109596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109596)
+  [`a229428301e3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a229428301e3e) -
+  ED-23600: Added tableSortColumnDiscoverability FF in editor
+
+## 82.1.1
+
+### Patch Changes
+
+- [#108480](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108480)
+  [`8552b1dc7f80d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8552b1dc7f80d) -
+  Creating new dropdown component for configuring links
+
+## 82.1.0
+
+### Minor Changes
+
+- [#102065](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102065)
+  [`3550442d1b3d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3550442d1b3d2) -
+  [ux] [ECA11Y-185] Element Browser Modal: Replaced Collection component with Grid in order to
+  layout remains readable when WCAG values are applied
+- [#108459](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108459)
+  [`dff16b735e876`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dff16b735e876) -
+  [ED-23613] Avoid blending background color when inline comments overlap with highlights
+- [#108623](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108623)
+  [`c01339668ebde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c01339668ebde) -
+  [ux] ED-23617 Add support in editor for comments on status, emoji, date and mention nodes
+- [#108623](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108623)
+  [`5af1dca5d4168`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5af1dca5d4168) -
+  [ux] ED-23616 Introduces support in renderer for commenting on status, emoji, date and mention
+  nodes.
+
+### Patch Changes
+
+- [#108217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108217)
+  [`97daaf15d02fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/97daaf15d02fb) -
+  [ED-23052] disable Sentry logging in FedRamp instances
+- Updated dependencies
+
 ## 82.0.1
 
 ### Patch Changes

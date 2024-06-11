@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { gs, mq } from '../../common/utils';
 
 export interface ImageProps {
@@ -35,6 +35,11 @@ export const ThumbnailDefault = ({ src, testId }: ImageProps) => {
 	);
 };
 
+const thumbnailImgStyles = css({
+	height: '90px',
+	width: '90px',
+});
+
 export const ThumbnailWithBackground = ({ src, color, testId }: ImageProps) => {
 	return (
 		<div
@@ -48,7 +53,7 @@ export const ThumbnailWithBackground = ({ src, color, testId }: ImageProps) => {
 			data-testid={testId}
 			data-trello-do-not-use-override={testId}
 		>
-			<img src={src} css={{ height: '90px', width: '90px' }} />
+			<img src={src} css={thumbnailImgStyles} />
 		</div>
 	);
 };

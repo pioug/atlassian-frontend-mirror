@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 
 import { N300 } from '@atlaskit/theme/colors';
@@ -14,40 +14,35 @@ export interface MetadataProps {
 	tooltip?: string;
 }
 
+const wrapperStyles = css({
+	display: 'flex',
+	alignItems: 'center',
+	marginRight: token('space.050', '4px'),
+});
+
+const imgStyles = css({
+	width: token('space.100', '8px'),
+	height: token('space.100', '8px'),
+});
+
+const textStyles = css({
+	fontSize: token('space.150', '12px'),
+	color: `${token('color.text.subtlest', N300)}`,
+	marginRight: token('space.050', '4px'),
+	marginLeft: token('space.025', '2px'),
+});
+
 export const Metadata = ({ text, icon, iconUrl, tooltip }: MetadataProps) => {
 	let metadataIcon = icon || null;
 
 	if (!metadataIcon && iconUrl) {
-		metadataIcon = (
-			<img
-				src={iconUrl}
-				css={{
-					width: token('space.100', '8px'),
-					height: token('space.100', '8px'),
-				}}
-			/>
-		);
+		metadataIcon = <img src={iconUrl} css={imgStyles} />;
 	}
 
 	const metadata = (
-		<div
-			css={{
-				display: 'flex',
-				alignItems: 'center',
-				marginRight: token('space.050', '4px'),
-			}}
-		>
+		<div css={wrapperStyles}>
 			{metadataIcon}
-			<span
-				css={{
-					fontSize: token('space.150', '12px'),
-					color: `${token('color.text.subtlest', N300)}`,
-					marginRight: token('space.050', '4px'),
-					marginLeft: token('space.025', '2px'),
-				}}
-			>
-				{text}
-			</span>
+			<span css={textStyles}>{text}</span>
 		</div>
 	);
 	if (tooltip) {

@@ -22,7 +22,7 @@ import {
 	N40,
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 export type Color = 'grey' | 'red' | 'blue' | 'green' | 'purple' | 'yellow';
 
@@ -80,6 +80,15 @@ export const resolveColors = (color?: Color): ColoursTuple => {
 	}
 };
 
+const baseStyles = css({
+	borderRadius: token('border.radius', '3px'),
+	padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
+	margin: '0 1px',
+	position: 'relative',
+	transition: 'background 0.3s',
+	whiteSpace: 'nowrap',
+});
+
 export const DateLozenge = (props: Props) => {
 	let colors = resolveColors(props.color);
 	if ((colors as unknown as string) === '') {
@@ -89,20 +98,17 @@ export const DateLozenge = (props: Props) => {
 
 	return (
 		<span
-			css={{
-				borderRadius: token('border.radius', '3px'),
-				padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
-				margin: '0 1px',
-				position: 'relative',
-				transition: 'background 0.3s',
-				whiteSpace: 'nowrap',
-				cursor: props.onClick ? 'pointer' : 'unset',
-				background: background,
-				color: color,
-				'&:hover': {
-					background: hoverBackground,
+			css={[
+				baseStyles,
+				{
+					cursor: props.onClick ? 'pointer' : 'unset',
+					background: background,
+					color: color,
+					'&:hover': {
+						background: hoverBackground,
+					},
 				},
-			}}
+			]}
 		>
 			{props.children}
 		</span>

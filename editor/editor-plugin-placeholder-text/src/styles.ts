@@ -8,7 +8,7 @@ import {
 import { B75, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const placeholderTextStyles = css`
 	.ProseMirror span[data-placeholder] {
 		color: ${token('color.text.subtlest', N200)};

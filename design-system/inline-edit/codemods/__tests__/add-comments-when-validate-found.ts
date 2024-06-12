@@ -7,10 +7,10 @@ const transformer = createTransformer([addCommentsWhenValidateFound]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('wrapEditViewWithInlineDialog prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -28,7 +28,7 @@ describe('wrapEditViewWithInlineDialog prop', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -46,13 +46,13 @@ describe('wrapEditViewWithInlineDialog prop', () => {
       />
     );
     `,
-    'should not do anything particular',
-  );
+		'should not do anything particular',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -71,7 +71,7 @@ describe('wrapEditViewWithInlineDialog prop', () => {
       />
     );
     `,
-    `
+		`
     /* TODO: (from codemod) We could not automatically convert this code to the new API.
 
     This file uses \`inline-edit\`’s \`validate\` prop which previously would use \`react-loadable\` and the \`inline-dialog\` packages. Version 12.0.0 of \`inline-edit\` now no longer includes these dependencies out of the box and instead allows you to compose your own experience.
@@ -113,6 +113,6 @@ describe('wrapEditViewWithInlineDialog prop', () => {
       />
     );
     `,
-    'add comment when validate function is defined',
-  );
+		'add comment when validate function is defined',
+	);
 });

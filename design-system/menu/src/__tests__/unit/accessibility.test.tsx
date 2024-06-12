@@ -13,36 +13,36 @@ import LoadingSkeletonMenuExample from '../../../examples/loading-skeleton';
 import ScrollableSectionMenuExample from '../../../examples/scrollable-sections';
 
 it('button item pattern should not fail an aXe audit', async () => {
-  const { container } = render(<ButtonItemExample />);
-  await axe(container);
+	const { container } = render(<ButtonItemExample />);
+	await axe(container);
 });
 
 it('link item should not fail an aXe audit', async () => {
-  const { container } = render(<LinkItemExample />);
-  await axe(container);
+	const { container } = render(<LinkItemExample />);
+	await axe(container);
 });
 
 it('heading item should not fail an aXe audit', async () => {
-  const { container } = render(<HeadingItemExample />);
-  await axe(container);
+	const { container } = render(<HeadingItemExample />);
+	await axe(container);
 });
 
 it('custom item should not fail an aXe audit', async () => {
-  const { container } = render(<CustomItemExample />);
-  await axe(container);
+	const { container } = render(<CustomItemExample />);
+	await axe(container);
 });
 
 it('Complex menu should not fail an aXe audit', async () => {
-  const { container } = render(<ScrollableSectionMenuExample />);
-  await axe(container);
+	const { container } = render(<ScrollableSectionMenuExample />);
+	await axe(container);
 });
 
 it('Loading Skeleton should not fail an aXe audit', async () => {
-  const { container } = render(<LoadingSkeletonMenuExample />);
-  await axe(container);
+	const { container } = render(<LoadingSkeletonMenuExample />);
+	await axe(container);
 });
 
 it('Composed Menu Group examples should not fail an aXe audit', async () => {
-  const { container } = render(<ComposedMenuGroupExample />);
-  await axe(container);
+	const { container } = render(<ComposedMenuGroupExample />);
+	await axe(container);
 });

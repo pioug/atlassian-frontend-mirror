@@ -20,10 +20,12 @@ const fadeOutStyles = (maxHeight: number, top: number, backgroundColor: string) 
 	css({
 		position: 'relative',
 		overflowY: 'hidden',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		maxHeight: `${maxHeight}px`,
 		'&::after': {
 			content: "''",
 			position: 'absolute',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			top: `${top}px`,
 			bottom: 0,
 			left: 0,
@@ -31,6 +33,7 @@ const fadeOutStyles = (maxHeight: number, top: number, backgroundColor: string) 
 			backgroundImage: `linear-gradient( ${token(
 				'color.background.neutral.subtle',
 				'rgba(255, 255, 255, 0)',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			)}, ${backgroundColor} )`,
 		},
 	});

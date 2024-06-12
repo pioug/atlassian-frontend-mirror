@@ -339,5 +339,6 @@ export const panelSharedStylesWithoutPrefix = () => css`
 
 export const panelSharedStyles = () =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		[`.${PanelSharedCssClassName.prefix}`]: panelSharedStylesWithoutPrefix(),
 	});

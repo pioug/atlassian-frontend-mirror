@@ -8,6 +8,7 @@ import { setGlobalTheme } from '@atlaskit/tokens';
 describe('Renderer - React/Marks/BackgroundColor', () => {
 	it('should render a background color mark', () => {
 		render(
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<div css={textColorStyles}>
 				<BackgroundColor dataAttributes={{ 'data-renderer-mark': true }} color="#fedec8">
 					Highlight this!

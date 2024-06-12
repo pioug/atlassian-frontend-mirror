@@ -3,8 +3,8 @@ import { renameToggleStatelessToToggle } from './migrates/rename-togglestateless
 import { createTransformer } from './utils';
 
 const transformer = createTransformer('@atlaskit/toggle', [
-  elevateStatelessToDefault,
-  renameToggleStatelessToToggle,
+	elevateStatelessToDefault,
+	renameToggleStatelessToToggle,
 ]);
 
 export default transformer;

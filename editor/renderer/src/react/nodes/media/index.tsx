@@ -71,6 +71,7 @@ type Providers = {
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 export const linkStyle = css`
 	position: absolute;
 	background: transparent;
@@ -83,6 +84,7 @@ export const linkStyle = css`
 	height: 100% !important;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 export const borderStyle = (color: string, width: number) => css`
 	position: absolute;
 	width: 100% !important;
@@ -111,6 +113,7 @@ const MediaBorder = ({
 			data-mark-type="border"
 			data-color={borderColor}
 			data-size={borderWidth}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={borderStyle(paletteColorValue, borderWidth)}
 		>
 			<MediaBorderGapFiller borderColor={borderColor} />

@@ -10,4 +10,5 @@ yarn add @atlaskit/dynamic-table
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlassian.design/components/dynamic-table/usage).
+Detailed docs and example usage can be found
+[here](https://atlassian.design/components/dynamic-table/usage).

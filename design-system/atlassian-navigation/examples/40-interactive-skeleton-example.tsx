@@ -20,93 +20,93 @@ import { DefaultSettings } from './shared/settings';
 import { SwitcherPopup } from './shared/switcher-popup';
 
 const controlsStyles = css({
-  display: 'flex',
-  margin: token('space.200', '1rem'),
-  alignItems: 'center',
+	display: 'flex',
+	margin: token('space.200', '1rem'),
+	alignItems: 'center',
 });
 
 const labelStyles = css({
-  margin: token('space.200', '1rem'),
+	margin: token('space.200', '1rem'),
 });
 
 const inputStyles = css({
-  width: '3rem',
+	width: '3rem',
 });
 
 const InteractiveSkeletonExample = () => {
-  const [isSkeleton, setIsSkeleton] = useState(true);
-  const [itemCounts, setItemCounts] = useState({ primary: 4, secondary: 4 });
-  const { primary, secondary } = itemCounts;
-  const [shouldShowSearch, setShouldShowSearch] = useState(true);
+	const [isSkeleton, setIsSkeleton] = useState(true);
+	const [itemCounts, setItemCounts] = useState({ primary: 4, secondary: 4 });
+	const { primary, secondary } = itemCounts;
+	const [shouldShowSearch, setShouldShowSearch] = useState(true);
 
-  const setCounts =
-    (key: string) =>
-    ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
-      setItemCounts({
-        ...itemCounts,
-        [key]: parseInt(value),
-      });
+	const setCounts =
+		(key: string) =>
+		({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
+			setItemCounts({
+				...itemCounts,
+				[key]: parseInt(value),
+			});
 
-  return (
-    <Fragment>
-      {isSkeleton ? (
-        <NavigationSkeleton
-          primaryItemsCount={primary}
-          secondaryItemsCount={secondary}
-          shouldShowSearch={shouldShowSearch}
-        />
-      ) : (
-        <AtlassianNavigation
-          label="site"
-          primaryItems={defaultPrimaryItems}
-          renderAppSwitcher={SwitcherPopup}
-          renderCreate={DefaultCreate}
-          renderHelp={HelpPopup}
-          renderNotifications={NotificationsPopup}
-          renderProductHome={DefaultProductHome}
-          renderProfile={ProfilePopup}
-          renderSearch={DefaultSearch}
-          renderSettings={DefaultSettings}
-        />
-      )}
-      <div css={controlsStyles}>
-        <Button onClick={() => setIsSkeleton(!isSkeleton)}>
-          Show {isSkeleton ? 'Navigation' : 'Skeleton'}
-        </Button>
-        <label css={labelStyles} htmlFor="primary">
-          Primary Items
-        </label>
-        <input
-          css={inputStyles}
-          id="primary"
-          max="4"
-          min="0"
-          onChange={setCounts('primary')}
-          type="number"
-          value={primary}
-        />
-        <label css={labelStyles} htmlFor="secondary">
-          Secondary Items
-        </label>
-        <input
-          css={inputStyles}
-          id="secondary"
-          max="4"
-          min="0"
-          onChange={setCounts('secondary')}
-          type="number"
-          value={secondary}
-        />
-        <label htmlFor="toggle-search">Toggle search</label>
-        <input
-          type="checkbox"
-          checked={shouldShowSearch}
-          onChange={() => setShouldShowSearch(!shouldShowSearch)}
-          id="toggle-search"
-        />
-      </div>
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			{isSkeleton ? (
+				<NavigationSkeleton
+					primaryItemsCount={primary}
+					secondaryItemsCount={secondary}
+					shouldShowSearch={shouldShowSearch}
+				/>
+			) : (
+				<AtlassianNavigation
+					label="site"
+					primaryItems={defaultPrimaryItems}
+					renderAppSwitcher={SwitcherPopup}
+					renderCreate={DefaultCreate}
+					renderHelp={HelpPopup}
+					renderNotifications={NotificationsPopup}
+					renderProductHome={DefaultProductHome}
+					renderProfile={ProfilePopup}
+					renderSearch={DefaultSearch}
+					renderSettings={DefaultSettings}
+				/>
+			)}
+			<div css={controlsStyles}>
+				<Button onClick={() => setIsSkeleton(!isSkeleton)}>
+					Show {isSkeleton ? 'Navigation' : 'Skeleton'}
+				</Button>
+				<label css={labelStyles} htmlFor="primary">
+					Primary Items
+				</label>
+				<input
+					css={inputStyles}
+					id="primary"
+					max="4"
+					min="0"
+					onChange={setCounts('primary')}
+					type="number"
+					value={primary}
+				/>
+				<label css={labelStyles} htmlFor="secondary">
+					Secondary Items
+				</label>
+				<input
+					css={inputStyles}
+					id="secondary"
+					max="4"
+					min="0"
+					onChange={setCounts('secondary')}
+					type="number"
+					value={secondary}
+				/>
+				<label htmlFor="toggle-search">Toggle search</label>
+				<input
+					type="checkbox"
+					checked={shouldShowSearch}
+					onChange={() => setShouldShowSearch(!shouldShowSearch)}
+					id="toggle-search"
+				/>
+			</div>
+		</Fragment>
+	);
 };
 
 export default InteractiveSkeletonExample;

@@ -17,19 +17,19 @@ import { AtlassianLogo, AtlassianIcon } from '@atlaskit/logo';
 `}
 
   ${(
-    <Example
-      title="Product home"
-      Component={require('../examples/product-home').default}
-      source={require('!!raw-loader!../examples/product-home')}
-    />
-  )}
+		<Example
+			title="Product home"
+			Component={require('../examples/product-home').default}
+			source={require('!!raw-loader!../examples/product-home')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/ProductHome/product-home')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/components/ProductHome/product-home')}
+		/>
+	)}
 
   ## Custom product home
 
@@ -55,19 +55,19 @@ export default () => (
 `}
 
   ${(
-    <Example
-      title="Custom product home"
-      Component={require('../examples/custom-product-home').default}
-      source={require('!!raw-loader!../examples/custom-product-home')}
-    />
-  )}
+		<Example
+			title="Custom product home"
+			Component={require('../examples/custom-product-home').default}
+			source={require('!!raw-loader!../examples/custom-product-home')}
+		/>
+	)}
 
   ### Props
 
   ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/components/ProductHome/custom-product-home')}
-    />
-  )}
+		<Props
+			heading=""
+			props={require('!!extract-react-types-loader!../src/components/ProductHome/custom-product-home')}
+		/>
+	)}
 `;

@@ -36,21 +36,25 @@ export default function Example() {
 	return (
 		<IntlProvider locale="en">
 			<h3>Default Size - medium </h3>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={emojiPicker(false)}>
 				<EmojiPickerList {...(props as Props)} />
 			</div>
 
 			<h3>Small Size</h3>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={emojiPicker(false, 'small')}>
 				<EmojiPickerList {...(props as Props)} size="small" />
 			</div>
 
 			<h3>Medium Size</h3>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={emojiPicker(false, 'medium')}>
 				<EmojiPickerList {...(props as Props)} size="medium" />
 			</div>
 
 			<h3>Large Size</h3>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={emojiPicker(false, 'large')}>
 				<EmojiPickerList {...(props as Props)} size="large" />
 			</div>

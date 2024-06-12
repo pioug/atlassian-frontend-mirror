@@ -7,21 +7,21 @@ export const numericSortKey = 'numeric';
 
 // Numeric data
 export const headNumeric = {
-  cells: [
-    { key: sortKey, content: 'first name', isSortable: true },
-    { key: numericSortKey, content: 'Arbitrary numeric', isSortable: true },
-  ],
+	cells: [
+		{ key: sortKey, content: 'first name', isSortable: true },
+		{ key: numericSortKey, content: 'Arbitrary numeric', isSortable: true },
+	],
 };
 
 export const rowsNumeric = testDataNumeric;
 
 export const rowsNumericWithKeys: Array<RowType> = rowsNumeric.map(
-  (tRow: RowType, rowIndex: number) => {
-    return {
-      key: `${rowIndex}`,
-      ...tRow,
-    };
-  },
+	(tRow: RowType, rowIndex: number) => {
+		return {
+			key: `${rowIndex}`,
+			...tRow,
+		};
+	},
 );
 
 export const rowNumericWithKey = rowsNumericWithKeys[0];

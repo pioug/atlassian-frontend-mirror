@@ -17,15 +17,19 @@ interface Props {
 export default ({ children, onDismiss }: Props) => {
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={css({
 				backgroundColor: token('elevation.surface.overlay', N0),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				borderRadius: `${borderRadius()}px`,
 				padding: token('space.300', '24px'),
 				boxShadow: token('elevation.shadow.overlay', `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				width: `${surveyInnerWidth}px`,
 			})}
 		>
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={css({
 					position: 'absolute',
 					top: token('space.200', '16px'),

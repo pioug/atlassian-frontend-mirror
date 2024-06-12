@@ -10,6 +10,7 @@ import { token } from '@atlaskit/tokens';
 import SuccessContainer from './SuccessContainer';
 
 const styles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.heading.xsmall', fontFallback.heading.xsmall),
 	margin: 0,
 });
@@ -44,10 +45,12 @@ export default ({ onAnswer }: Props) => {
 			</p>
 
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={css({
 					marginTop: token('space.400', '32px'),
 					display: 'flex',
 					justifyContent: 'flex-end',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 					'& > * + *': {
 						marginLeft: token('space.100', '8px'),
 					},

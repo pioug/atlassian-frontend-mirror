@@ -323,13 +323,14 @@ class FloatingDeleteButton extends Component<Props, State> {
 							position: 'fixed',
 							// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 							top: pos.top,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							zIndex: stickyRowZIndex,
 							// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 							left:
 								rect.left +
 								(pos.left || 0) -
 								(this.state.selectionType === 'column' ? this.state.scrollLeft : 0) -
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								(this.props.isNumberColumnEnabled ? akEditorTableNumberColumnWidth : 0),
 						}}
 					>

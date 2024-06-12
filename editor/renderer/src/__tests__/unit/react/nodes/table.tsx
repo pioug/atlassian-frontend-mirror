@@ -1296,46 +1296,43 @@ describe('Renderer - React/Nodes/Table', () => {
 			wrap.unmount();
 		});
 
-		// TODO: test should depend on isTableScalingEnabled too
-		ffTest(
-			'platform.editor.table.preserve-widths-with-lock-button',
-			() => {
-				const tableNode = createDefaultTable('fixed');
-				const rendererWidth = 700;
+		it('table column does not scales down when table is fixed and tableWithFixedColumnWidthsOption is enabled', () => {
+			const tableNode = createDefaultTable('fixed');
+			const rendererWidth = 700;
 
-				const wrap = mountTableWidthFF(
-					{ tablePreserveWidth: true },
-					tableNode,
-					rendererWidth,
-					[420, 220, 620],
-				);
+			const wrap = mountTableWidthFF(
+				{ tablePreserveWidth: true, tableWithFixedColumnWidthsOption: true },
+				tableNode,
+				rendererWidth,
+				[420, 220, 620],
+			);
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-				checkColWidths(tableContainer, [419, 219, 619]);
+			checkColWidths(tableContainer, [419, 219, 619]);
 
-				wrap.unmount();
-			},
-			() => {
-				const scale = 0.7;
-				const tableNode = createDefaultTable();
-				const rendererWidth = 700;
-				const colWidths = [420, 220, 620];
-				const expectedScaleWidths = colWidths.map((w) => w * scale);
+			wrap.unmount();
+		});
 
-				const wrap = mountTableWidthFF(
-					{ tablePreserveWidth: true },
-					tableNode,
-					rendererWidth,
-					[420, 220, 620],
-				);
+		it('table scales down when table when tableWithFixedColumnWidthsOption is disabled', () => {
+			const scale = 0.7;
+			const tableNode = createDefaultTable('fixed');
+			const rendererWidth = 700;
+			const colWidths = [420, 220, 620];
+			const expectedScaleWidths = colWidths.map((w) => w * scale);
 
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+			const wrap = mountTableWidthFF(
+				{ tablePreserveWidth: true, tableWithFixedColumnWidthsOption: false },
+				tableNode,
+				rendererWidth,
+				[420, 220, 620],
+			);
 
-				checkColWidths(tableContainer, expectedScaleWidths);
-				wrap.unmount();
-			},
-		);
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+			checkColWidths(tableContainer, expectedScaleWidths);
+			wrap.unmount();
+		});
 
 		ffTest(
 			'platform.editor.table.allow-table-alignment',

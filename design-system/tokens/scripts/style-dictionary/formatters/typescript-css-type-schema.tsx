@@ -6,99 +6,96 @@ import { createSignedArtifact } from '@atlassian/codegen';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 
 function mapToCssVar(tokens: TransformedToken[]) {
-  return tokens
-    .map((token) => `'var(${getCSSCustomProperty(token.path)})'`)
-    .join(' | ');
+	return tokens.map((token) => `'var(${getCSSCustomProperty(token.path)})'`).join(' | ');
 }
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
-  const tokens = dictionary.allTokens.filter((token) => {
-    const attributes = token.attributes || {};
-    const isToken = attributes.group !== 'palette';
-    const isPublicToken =
-      attributes.state !== 'experimental' && attributes.state !== 'deleted';
+	const tokens = dictionary.allTokens.filter((token) => {
+		const attributes = token.attributes || {};
+		const isToken = attributes.group !== 'palette';
+		const isPublicToken = attributes.state !== 'experimental' && attributes.state !== 'deleted';
 
-    return isToken && isPublicToken;
-  });
+		return isToken && isPublicToken;
+	});
 
-  const backgroundColor: TransformedToken[] = [];
-  const backgroundColorHovered: TransformedToken[] = [];
-  const backgroundColorPressed: TransformedToken[] = [];
-  const borderColor: TransformedToken[] = [];
-  const borderWidth: TransformedToken[] = [];
-  const borderRadius: TransformedToken[] = [];
-  const space: TransformedToken[] = [];
-  const shadow: TransformedToken[] = [];
-  const textColor: TransformedToken[] = [];
-  const textColorPressed: TransformedToken[] = [];
-  const iconColor: TransformedToken[] = [];
-  const opacity: TransformedToken[] = [];
+	const backgroundColor: TransformedToken[] = [];
+	const backgroundColorHovered: TransformedToken[] = [];
+	const backgroundColorPressed: TransformedToken[] = [];
+	const borderColor: TransformedToken[] = [];
+	const borderWidth: TransformedToken[] = [];
+	const borderRadius: TransformedToken[] = [];
+	const space: TransformedToken[] = [];
+	const shadow: TransformedToken[] = [];
+	const textColor: TransformedToken[] = [];
+	const textColorPressed: TransformedToken[] = [];
+	const iconColor: TransformedToken[] = [];
+	const opacity: TransformedToken[] = [];
 
-  for (let i = 0; i < tokens.length; i++) {
-    const token = tokens[i];
+	for (let i = 0; i < tokens.length; i++) {
+		const token = tokens[i];
 
-    if (
-      token.attributes?.group === 'palette' ||
-      token.attributes?.state === 'experimental' ||
-      token.attributes?.state === 'deleted'
-    ) {
-      // Skip palette / experiemental / deleted tokens.
-      continue;
-    }
+		if (
+			token.attributes?.group === 'palette' ||
+			token.attributes?.state === 'experimental' ||
+			token.attributes?.state === 'deleted'
+		) {
+			// Skip palette / experiemental / deleted tokens.
+			continue;
+		}
 
-    if (
-      token.path.includes('background') ||
-      token.path.includes('surface') ||
-      token.path.includes('skeleton')
-    ) {
-      if (token.path.includes('hovered')) {
-        backgroundColorHovered.push(token);
-      } else if (token.path.includes('pressed')) {
-        backgroundColorPressed.push(token);
-      } else {
-        backgroundColor.push(token);
-      }
-    }
+		if (
+			token.path.includes('background') ||
+			token.path.includes('surface') ||
+			token.path.includes('skeleton')
+		) {
+			if (token.path.includes('hovered')) {
+				backgroundColorHovered.push(token);
+			} else if (token.path.includes('pressed')) {
+				backgroundColorPressed.push(token);
+			} else {
+				backgroundColor.push(token);
+			}
+		}
 
-    if (token.path.includes('color') && token.path.includes('icon')) {
-      iconColor.push(token);
-    }
+		if (token.path.includes('color') && token.path.includes('icon')) {
+			iconColor.push(token);
+		}
 
-    if (token.path.includes('color') && token.path.includes('border')) {
-      borderColor.push(token);
-    }
+		if (token.path.includes('color') && token.path.includes('border')) {
+			borderColor.push(token);
+		}
 
-    if (token.path.includes('border') && token.path.includes('width')) {
-      borderWidth.push(token);
-    }
+		if (token.path.includes('border') && token.path.includes('width')) {
+			borderWidth.push(token);
+		}
 
-    if (token.path.includes('border') && token.path.includes('radius')) {
-      borderRadius.push(token);
-    }
+		if (token.path.includes('border') && token.path.includes('radius')) {
+			borderRadius.push(token);
+		}
 
-    if (token.path.includes('space')) {
-      space.push(token);
-    }
+		if (token.path.includes('space')) {
+			space.push(token);
+		}
 
-    if (token.path.includes('shadow')) {
-      shadow.push(token);
-    }
+		if (token.path.includes('shadow')) {
+			shadow.push(token);
+		}
 
-    if (token.path.includes('text') || token.path.includes('link')) {
-      if (token.path.includes('pressed')) {
-        textColorPressed.push(token);
-      } else {
-        textColor.push(token);
-      }
-    }
+		if (token.path.includes('text') || token.path.includes('link')) {
+			if (token.path.includes('pressed')) {
+				textColorPressed.push(token);
+			} else {
+				textColor.push(token);
+			}
+		}
 
-    if (token.path.includes('opacity')) {
-      opacity.push(token);
-    }
-  }
+		if (token.path.includes('opacity')) {
+			opacity.push(token);
+		}
+	}
 
-  const source = format(
-    `export type BackgroundColor = ${mapToCssVar(backgroundColor)};
+	const source = format(
+		`export type BackgroundColor = ${mapToCssVar(backgroundColor)};
 
 export type BackgroundColorHovered = ${mapToCssVar(backgroundColorHovered)};
 
@@ -244,14 +241,14 @@ export interface DesignTokenStyles {
   width: SizeIntrinsic;
   zIndex: 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;
 }\n`,
-  'typescript'
-  );
+		'typescript',
+	);
 
-  return createSignedArtifact(
-    source,
-    `yarn build tokens`,
-    `Strict design token based typedef representing a subset of safe CSS properties.`,
-  );
+	return createSignedArtifact(
+		source,
+		`yarn build tokens`,
+		`Strict design token based typedef representing a subset of safe CSS properties.`,
+	);
 };
 
 export default formatter;

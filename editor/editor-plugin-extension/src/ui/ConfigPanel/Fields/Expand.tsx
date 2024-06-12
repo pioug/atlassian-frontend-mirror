@@ -28,7 +28,7 @@ const chevronContainerStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button': {
 		width: token('space.300', '24px'),
 		height: token('space.300', '24px'),

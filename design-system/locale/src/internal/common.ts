@@ -1,2 +1,1 @@
-export const normalizeLocale = (locale: string): string =>
-  locale.replace(/_/g, '-');
+export const normalizeLocale = (locale: string): string => locale.replace(/_/g, '-');

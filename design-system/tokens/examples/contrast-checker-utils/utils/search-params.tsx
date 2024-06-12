@@ -6,69 +6,65 @@ import type { BaseTokens, ColorMode, Theme, TokenName } from './types';
 const url = new URL(window.location.href);
 const params = new URLSearchParams(window.location.search);
 
-export const isHex = (value: string) =>
-  value.match(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/);
+export const isHex = (value: string) => value.match(/^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})$/);
 
 // Get search params
 export const getSearchParams = (): {
-  theme: Theme;
-  baseTokens: BaseTokens;
-  colorMode: ColorMode;
+	theme: Theme;
+	baseTokens: BaseTokens;
+	colorMode: ColorMode;
 } => {
-  const urlSearchParams = params;
-  const paramEntries = Object.fromEntries(urlSearchParams.entries());
-  var objectTheme = {};
-  try {
-    objectTheme = JSON.parse(paramEntries.customTheme || '""');
-  } catch (error) {
-    console.error(error);
-  }
+	const urlSearchParams = params;
+	const paramEntries = Object.fromEntries(urlSearchParams.entries());
+	var objectTheme = {};
+	try {
+		objectTheme = JSON.parse(paramEntries.customTheme || '""');
+	} catch (error) {
+		console.error(error);
+	}
 
-  const filteredTheme = Object.entries(objectTheme)
-    .map(([key, value]) => {
-      if (Object.keys(tokenNames).includes(key)) {
-        return {
-          name: key as TokenName,
-          value: value,
-        };
-      }
-    })
-    .filter((value) => value !== undefined) as Theme;
+	const filteredTheme = Object.entries(objectTheme)
+		.map(([key, value]) => {
+			if (Object.keys(tokenNames).includes(key)) {
+				return {
+					name: key as TokenName,
+					value: value,
+				};
+			}
+		})
+		.filter((value) => value !== undefined) as Theme;
 
-  const objectBaseTokens: Record<string, string> =
-    JSON.parse(paramEntries.baseTokens || '""') || {};
-  const filteredBaseTokens = Object.fromEntries(
-    Object.entries(objectBaseTokens).filter(
-      ([key, value]) =>
-        baseTokenNames.includes(key) &&
-        typeof value === 'string' &&
-        isHex(value),
-    ),
-  );
+	const objectBaseTokens: Record<string, string> =
+		JSON.parse(paramEntries.baseTokens || '""') || {};
+	const filteredBaseTokens = Object.fromEntries(
+		Object.entries(objectBaseTokens).filter(
+			([key, value]) => baseTokenNames.includes(key) && typeof value === 'string' && isHex(value),
+		),
+	);
 
-  return {
-    colorMode: ['light', 'dark'].includes(paramEntries.colorMode || '')
-      ? (paramEntries.colorMode as ColorMode)
-      : 'light',
-    baseTokens: filteredBaseTokens,
-    theme: filteredTheme,
-  };
+	return {
+		colorMode: ['light', 'dark'].includes(paramEntries.colorMode || '')
+			? (paramEntries.colorMode as ColorMode)
+			: 'light',
+		baseTokens: filteredBaseTokens,
+		theme: filteredTheme,
+	};
 };
 
 // Set search params
 export const setSearchParams = (
-  theme: { name: string; value: string }[],
-  baseTokens: BaseTokens,
-  colorMode: ColorMode,
+	theme: { name: string; value: string }[],
+	baseTokens: BaseTokens,
+	colorMode: ColorMode,
 ) => {
-  let objectTheme: { [index: string]: string } = {};
-  theme.forEach((value: { name: string; value: string }) => {
-    objectTheme[value.name] = value.value;
-  });
-  url.searchParams.set('colorMode', colorMode);
-  url.searchParams.set('customTheme', JSON.stringify(objectTheme));
-  url.searchParams.set('baseTokens', JSON.stringify(baseTokens));
+	let objectTheme: { [index: string]: string } = {};
+	theme.forEach((value: { name: string; value: string }) => {
+		objectTheme[value.name] = value.value;
+	});
+	url.searchParams.set('colorMode', colorMode);
+	url.searchParams.set('customTheme', JSON.stringify(objectTheme));
+	url.searchParams.set('baseTokens', JSON.stringify(baseTokens));
 
-  // set window query params to the newly generated URL
-  window.history.replaceState({}, '', url.toString());
+	// set window query params to the newly generated URL
+	window.history.replaceState({}, '', url.toString());
 };

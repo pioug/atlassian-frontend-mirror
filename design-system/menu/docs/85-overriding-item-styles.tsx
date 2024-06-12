@@ -66,11 +66,11 @@ import { LinkItem } from '@atlaskit/menu';
   `}
 
   ${(
-    <Example
-      title="Link item"
-      Component={require('../examples/overriding-styles').default}
-      source={require('!!raw-loader!../examples/overriding-styles')}
-    />
-  )}
+		<Example
+			title="Link item"
+			Component={require('../examples/overriding-styles').default}
+			source={require('!!raw-loader!../examples/overriding-styles')}
+		/>
+	)}
 
 `;

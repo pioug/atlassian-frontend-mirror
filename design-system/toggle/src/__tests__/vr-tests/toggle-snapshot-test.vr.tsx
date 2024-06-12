@@ -7,10 +7,10 @@ import Disabled from '../../../examples/2-disabled';
 snapshot(Stateful);
 snapshot(Disabled);
 snapshot(StatefulWithToggleEnabled, {
-  states: [
-    {
-      state: 'focused',
-      selector: { byTestId: 'toggle-button' },
-    },
-  ],
+	states: [
+		{
+			state: 'focused',
+			selector: { byTestId: 'toggle-button' },
+		},
+	],
 });

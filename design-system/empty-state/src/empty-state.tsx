@@ -4,12 +4,12 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Spinner from '@atlaskit/spinner';
 
 import {
-  ActionsContainer,
-  Container,
-  Description,
-  Header,
-  Image as HeaderImage,
-  SpinnerContainer,
+	ActionsContainer,
+	Container,
+	Description,
+	Header,
+	Image as HeaderImage,
+	SpinnerContainer,
 } from './styled';
 import type { EmptyStateProps } from './types';
 
@@ -36,60 +36,57 @@ import type { EmptyStateProps } from './types';
  * ```
  */
 const EmptyState = ({
-  buttonGroupLabel,
-  description,
-  header,
-  headingLevel = 4,
-  imageHeight,
-  imageUrl,
-  imageWidth,
-  isLoading,
-  maxImageHeight = 160,
-  maxImageWidth = 160,
-  primaryAction,
-  renderImage,
-  secondaryAction,
-  width,
-  size,
-  tertiaryAction,
-  testId,
+	buttonGroupLabel,
+	description,
+	header,
+	headingLevel = 4,
+	imageHeight,
+	imageUrl,
+	imageWidth,
+	isLoading,
+	maxImageHeight = 160,
+	maxImageWidth = 160,
+	primaryAction,
+	renderImage,
+	secondaryAction,
+	width,
+	size,
+	tertiaryAction,
+	testId,
 }: EmptyStateProps) => {
-  const actionsContainer =
-    primaryAction || secondaryAction || isLoading ? (
-      <ActionsContainer>
-        <ButtonGroup
-          label={buttonGroupLabel || 'Button group'}
-          testId={testId && `${testId}-button-group`}
-        >
-          {secondaryAction}
-          {primaryAction}
-        </ButtonGroup>
-        <SpinnerContainer>
-          {isLoading && <Spinner testId="empty-state-spinner" />}
-        </SpinnerContainer>
-      </ActionsContainer>
-    ) : null;
+	const actionsContainer =
+		primaryAction || secondaryAction || isLoading ? (
+			<ActionsContainer>
+				<ButtonGroup
+					label={buttonGroupLabel || 'Button group'}
+					testId={testId && `${testId}-button-group`}
+				>
+					{secondaryAction}
+					{primaryAction}
+				</ButtonGroup>
+				<SpinnerContainer>{isLoading && <Spinner testId="empty-state-spinner" />}</SpinnerContainer>
+			</ActionsContainer>
+		) : null;
 
-  return (
-    <Container testId={testId} width={width || size || 'wide'}>
-      {imageUrl ? (
-        <HeaderImage
-          src={imageUrl}
-          maxWidth={maxImageWidth}
-          maxHeight={maxImageHeight}
-          width={imageWidth}
-          height={imageHeight}
-        />
-      ) : (
-        renderImage &&
-        renderImage({ maxImageWidth, maxImageHeight, imageWidth, imageHeight })
-      )}
-      <Header level={headingLevel}>{header}</Header>
-      {description && <Description>{description}</Description>}
-      {actionsContainer}
-      {tertiaryAction}
-    </Container>
-  );
+	return (
+		<Container testId={testId} width={width || size || 'wide'}>
+			{imageUrl ? (
+				<HeaderImage
+					src={imageUrl}
+					maxWidth={maxImageWidth}
+					maxHeight={maxImageHeight}
+					width={imageWidth}
+					height={imageHeight}
+				/>
+			) : (
+				renderImage && renderImage({ maxImageWidth, maxImageHeight, imageWidth, imageHeight })
+			)}
+			<Header level={headingLevel}>{header}</Header>
+			{description && <Description>{description}</Description>}
+			{actionsContainer}
+			{tertiaryAction}
+		</Container>
+	);
 };
 
 export default EmptyState;

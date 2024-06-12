@@ -7,31 +7,31 @@ import { Hide } from '../../hide';
 import { Show } from '../../show';
 
 const showHideStyles = xcss({
-  textTransform: 'uppercase',
+	textTransform: 'uppercase',
 });
 
 describe('should apply styles with `xcss`', () => {
-  const text = 'text';
+	const text = 'text';
 
-  it('Show', () => {
-    render(
-      <Show above="xs" xcss={showHideStyles}>
-        {text}
-      </Show>,
-    );
+	it('Show', () => {
+		render(
+			<Show above="xs" xcss={showHideStyles}>
+				{text}
+			</Show>,
+		);
 
-    const styles = getComputedStyle(screen.getByText(text));
-    expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
-  });
+		const styles = getComputedStyle(screen.getByText(text));
+		expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
+	});
 
-  it('Hide', () => {
-    render(
-      <Hide below="xl" xcss={showHideStyles}>
-        {text}
-      </Hide>,
-    );
+	it('Hide', () => {
+		render(
+			<Hide below="xl" xcss={showHideStyles}>
+				{text}
+			</Hide>,
+		);
 
-    const styles = getComputedStyle(screen.getByText(text));
-    expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
-  });
+		const styles = getComputedStyle(screen.getByText(text));
+		expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
+	});
 });

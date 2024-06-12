@@ -13,4 +13,5 @@ yarn add @atlaskit/calendar
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/calendar).
+Detailed docs and example usage can be found
+[here](https://atlaskit.atlassian.com/packages/core/calendar).

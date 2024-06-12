@@ -1,4 +1,5 @@
-This rule prevents the usage of the nested selectors in style declarations. Avoid setting styles for any child elements or elements that require context from other elements.
+This rule prevents the usage of the nested selectors in style declarations. Avoid setting styles for
+any child elements or elements that require context from other elements.
 
 ## Examples
 
@@ -7,27 +8,27 @@ This rule prevents the usage of the nested selectors in style declarations. Avoi
 ```js
 import { css } from '@compiled/react';
 const styles = css({
-  h2: {
-    fontSize: '1.5rem',
-  },
+	h2: {
+		fontSize: '1.5rem',
+	},
 });
 ```
 
 ```js
 import { styled } from '@compiled/react';
 const Component = styled.div({
-  '*': {
-    padding: 0,
-  },
+	'*': {
+		padding: 0,
+	},
 });
 ```
 
 ```js
 import { styled } from '@compiled/react';
 const Component = styled.div({
-  '.myclass': {
-    padding: 0,
-  },
+	'.myclass': {
+		padding: 0,
+	},
 });
 ```
 
@@ -36,8 +37,8 @@ const Component = styled.div({
 ```js
 import { css } from '@compiled/react';
 const styles = css({
-  display: 'flex',
-  flexDirection: 'column',
+	display: 'flex',
+	flexDirection: 'column',
 });
 ```
 
@@ -55,4 +56,5 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an
+array of package names (strings).

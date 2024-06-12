@@ -116,7 +116,9 @@ const createArray = (maxCols: number, maxRows: number) => {
 const gridWrapperStyles = ({ maxCols, maxRows }: { maxCols: number; maxRows: number }) =>
 	css({
 		display: 'grid',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		gridTemplateColumns: `repeat(${maxCols}, 1fr)`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		gridTemplateRows: `repeat(${maxRows}, 1fr)`,
 		gap: `${token('space.025', `${TABLE_SELECTOR_BUTTON_GAP}px`)}`,
 	});

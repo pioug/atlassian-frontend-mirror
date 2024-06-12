@@ -10,10 +10,10 @@ const transformer = createTransformer([convertTriggerType]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('update position value', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -22,7 +22,7 @@ describe('update position value', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -31,13 +31,13 @@ describe('update position value', () => {
       </DropdownMenu>
     );
     `,
-    'should not convert when triggerType prop is not provided',
-  );
+		'should not convert when triggerType prop is not provided',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -46,7 +46,7 @@ describe('update position value', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -55,13 +55,13 @@ describe('update position value', () => {
       </DropdownMenu>
     );
     `,
-    'should delete triggerType prop when trigger is a string - type is button',
-  );
+		'should delete triggerType prop when trigger is a string - type is button',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -76,7 +76,7 @@ describe('update position value', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -96,13 +96,13 @@ describe('update position value', () => {
       </DropdownMenu>
     );
     `,
-    'should only add comments triggerType prop when trigger is an object',
-  );
+		'should only add comments triggerType prop when trigger is an object',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -116,7 +116,7 @@ describe('update position value', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -135,13 +135,13 @@ describe('update position value', () => {
       </DropdownMenu>
     );
     `,
-    'should only add comments triggerType prop when trigger is an object',
-  );
+		'should only add comments triggerType prop when trigger is an object',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -157,7 +157,7 @@ describe('update position value', () => {
       </DropdownMenuWrapper>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -178,6 +178,6 @@ describe('update position value', () => {
       </DropdownMenuWrapper>
     );
     `,
-    'should only add comments that do not appear on the DOM',
-  );
+		'should only add comments that do not appear on the DOM',
+	);
 });

@@ -129,7 +129,7 @@ const getIcon = ({
 			<ToolTipContent description={content} keymap={tooltipKeymap} />
 		) : undefined,
 		elemAfter: tooltipKeymap ? (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={shortcutStyle}>{tooltip(tooltipKeymap)}</div>
 		) : undefined,
 		value: {

@@ -240,6 +240,7 @@ export const changeColumnWidthByStepWithAnalytics =
 		stepSize: number,
 		getEditorContainerWidth: GetEditorContainerWidth,
 		isTableScalingEnabled: boolean,
+		isTableFixedColumnWidthsOptionEnabled: boolean,
 		inputMethod: INPUT_METHOD.SHORTCUT,
 		ariaNotify?: (message: string) => void,
 		getIntl?: () => IntlShape,
@@ -268,7 +269,8 @@ export const changeColumnWidthByStepWithAnalytics =
 			changeColumnWidthByStep({
 				stepSize: stepSize,
 				getEditorContainerWidth: getEditorContainerWidth,
-				isTableScalingEnabled: isTableScalingEnabled,
+				isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
 				ariaNotify: ariaNotify,
 				getIntl: getIntl,
 			}),
@@ -279,6 +281,7 @@ export const insertColumnWithAnalytics =
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 		isTableScalingEnabled = false,
 		isCellbackgroundDuplicated = false,
+		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 	) =>
 	(
@@ -308,6 +311,7 @@ export const insertColumnWithAnalytics =
 			insertColumn(
 				isTableScalingEnabled,
 				isCellbackgroundDuplicated,
+				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
 			)(position),
 		);
@@ -351,6 +355,7 @@ export const deleteColumnsWithAnalytics =
 	(
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 		isTableScalingEnabled = false,
+		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 	) =>
 	(
@@ -379,13 +384,19 @@ export const deleteColumnsWithAnalytics =
 				eventType: EVENT_TYPE.TRACK,
 			};
 		})(editorAnalyticsAPI)(
-			deleteColumnsCommand(rect, isTableScalingEnabled, shouldUseIncreasedScalingPercent),
+			deleteColumnsCommand(
+				rect,
+				isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
+				shouldUseIncreasedScalingPercent,
+			),
 		);
 
 export const deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut =
 	(
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 		isTableScalingEnabled?: boolean,
+		isTableFixedColumnWidthsOptionEnabled?: boolean,
 		shouldUseIncreasedScalingPercent?: boolean,
 	): Command =>
 	(state, dispatch) => {
@@ -414,6 +425,7 @@ export const deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut =
 			return deleteColumnsWithAnalytics(
 				editorAnalyticsAPI,
 				isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
 			)(INPUT_METHOD.SHORTCUT, rect)(state, dispatch);
 		} else {

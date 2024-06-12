@@ -13,29 +13,26 @@ import memoizeOne from 'memoize-one';
  *  - `renderProps.ref`
  */
 export const useGetMemoizedMergedTriggerRef = () => {
-  const [getMemoizedMergedTriggerRef] = useState(() =>
-    memoizeOne(
-      (
-        ref:
-          | React.RefCallback<HTMLElement>
-          | React.MutableRefObject<HTMLElement>
-          | null,
-        setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>,
-        isOpen: boolean,
-      ) => {
-        return (node: HTMLElement | null) => {
-          if (node && isOpen) {
-            if (typeof ref === 'function') {
-              ref(node);
-            } else if (ref) {
-              ref.current = node;
-            }
-            setTriggerRef(node);
-          }
-        };
-      },
-    ),
-  );
+	const [getMemoizedMergedTriggerRef] = useState(() =>
+		memoizeOne(
+			(
+				ref: React.RefCallback<HTMLElement> | React.MutableRefObject<HTMLElement> | null,
+				setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>,
+				isOpen: boolean,
+			) => {
+				return (node: HTMLElement | null) => {
+					if (node && isOpen) {
+						if (typeof ref === 'function') {
+							ref(node);
+						} else if (ref) {
+							ref.current = node;
+						}
+						setTriggerRef(node);
+					}
+				};
+			},
+		),
+	);
 
-  return getMemoizedMergedTriggerRef;
+	return getMemoizedMergedTriggerRef;
 };

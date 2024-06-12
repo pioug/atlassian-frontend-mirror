@@ -361,6 +361,7 @@ export const Reactions = React.memo(
 		}, [quickReactionEmojis, reactions]);
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
 				{memorizedReactions.map((reaction) => (
 					<Reaction
@@ -377,6 +378,7 @@ export const Reactions = React.memo(
 					/>
 				))}
 				<ReactionPicker
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={reactionPickerStyle}
 					emojiProvider={emojiProvider}
 					allowAllEmojis={allowAllEmojis}
@@ -401,6 +403,7 @@ export const Reactions = React.memo(
 							appearance="subtle-link"
 							onClick={handleOpenAllReactionsDialog}
 							// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							css={seeWhoReactedStyle}
 							testId={RENDER_VIEWALL_REACTED_USERS_DIALOG}
 						>

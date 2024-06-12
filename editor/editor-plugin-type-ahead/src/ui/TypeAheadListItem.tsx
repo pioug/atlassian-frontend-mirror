@@ -16,6 +16,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { TypeAheadItem, TypeAheadItemRenderProps } from '../types';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const itemIcon = css({
 	width: token('space.500', '40px'),
 	height: token('space.500', '40px'),
@@ -28,12 +29,14 @@ export const itemIcon = css({
 	justifyContent: 'center',
 	alignItems: 'center',
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	div: {
 		width: token('space.500', '40px'),
 		height: token('space.500', '40px'),
 	},
 });
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const itemBody = css`
 	display: flex;
 	flex-direction: row;
@@ -41,6 +44,7 @@ const itemBody = css`
 	justify-content: space-between;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const itemText = css`
 	white-space: initial;
 	color: ${token('color.text', N800)};
@@ -54,10 +58,12 @@ const itemText = css`
 	}
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const itemAfter = css`
 	flex: 0 0 auto;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const customRenderItemDivStyle = css`
 	overflow: hidden;
 	&:focus {
@@ -87,6 +93,7 @@ const selectionFrame = {
 	},
 };
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const selectedStyle = css`
 	background-color: ${token('color.background.neutral.subtle.hovered', N30)};
 	box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
@@ -143,6 +150,7 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 			aria-setsize={itemsLength}
 			aria-posinset={itemIndex}
 			tabIndex={0}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={listItemClasses}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`ak-typeahead-item ${isSelected ? 'typeahead-selected-item' : ''}`}
@@ -225,6 +233,7 @@ export const TypeAheadListItem = React.memo(
 		}
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<span css={listItemClasses}>
 				<ButtonItem
 					onClick={insertSelectedItem}
@@ -246,6 +255,7 @@ export const TypeAheadListItem = React.memo(
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 								<div className="item-title">{item.title}</div>
 								<div css={itemAfter}>
+									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 									{item.keyshortcut && <div css={shortcutStyle}>{item.keyshortcut}</div>}
 								</div>
 							</div>

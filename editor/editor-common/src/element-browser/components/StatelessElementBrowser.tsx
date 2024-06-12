@@ -56,10 +56,12 @@ const baseBrowserContainerStyles = css({
 	minHeight: '-webkit-fill-available',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const mobileElementBrowserContainer = css(baseBrowserContainerStyles, {
 	flexDirection: 'column',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const elementBrowserContainer = css(baseBrowserContainerStyles, {
 	flexDirection: 'row',
 });
@@ -71,7 +73,9 @@ const baseSidebarStyles = css({
 	overflowY: 'hidden',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const mobileSideBar = css(baseSidebarStyles, {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	flex: `0 0 ${INLINE_SIDEBAR_HEIGHT}`,
 	padding: `${token('space.150', '12px')} ${token(
 		'space.150',
@@ -82,14 +86,18 @@ const mobileSideBar = css(baseSidebarStyles, {
 const mobileSideBarShowCategories = css({
 	flex: '0 0 auto',
 });
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const sideBar = css(baseSidebarStyles, {
 	flex: "0 0 'auto'",
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const sideBarShowCategories = css(baseSidebarStyles, {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	flex: `0 0 ${SIDEBAR_WIDTH}`,
 });
 const sidebarHeading = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	flex: `0 0 ${SIDEBAR_HEADING_WRAPPER_HEIGHT}`,
 	display: 'inline-flex',
 	alignItems: 'center',
@@ -105,6 +113,7 @@ const mobileMainContent = css({
 	height: '100%',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const mainContent = css(mobileMainContent, {
 	marginLeft: token('space.200', '16px'),
 	height: 'auto',
@@ -118,8 +127,10 @@ const mobileCategoryListWrapper = css({
 	display: 'flex',
 	overflowX: 'auto',
 	padding: `${token('space.200', '8px')} 0 ${token('space.200', '16px')} 0`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minHeight: `${GRID_SIZE * 4}px`,
 	overflow: '-moz-scrollbars-none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&::-webkit-scrollbar': {
 		display: 'none',
 	},
@@ -127,6 +138,7 @@ const mobileCategoryListWrapper = css({
 	MsOverflowStyle: 'none',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const categoryListWrapper = css(mobileCategoryListWrapper, {
 	padding: 0,
 	marginTop: token('space.200', '24px'),

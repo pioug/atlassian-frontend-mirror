@@ -5,15 +5,15 @@ import { Inline, Stack } from '@atlaskit/primitives';
 import ExampleBox from '../shared/example-box';
 
 export default function Example() {
-  return (
-    <Inline space="space.500">
-      {(['space.100', 'space.200'] as const).map(space => (
-        <Stack key={space} space={space}>
-          <ExampleBox />
-          <ExampleBox />
-          <ExampleBox />
-        </Stack>
-      ))}
-    </Inline>
-  );
+	return (
+		<Inline space="space.500">
+			{(['space.100', 'space.200'] as const).map((space) => (
+				<Stack key={space} space={space}>
+					<ExampleBox />
+					<ExampleBox />
+					<ExampleBox />
+				</Stack>
+			))}
+		</Inline>
+	);
 }

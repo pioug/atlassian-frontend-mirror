@@ -1,56 +1,49 @@
 import React, { createContext } from 'react';
 
-export type RouterLinkComponent<
-  RouterLinkConfig extends Record<string, any> = never,
-> = React.ForwardRefExoticComponent<
-  RouterLinkComponentProps<RouterLinkConfig> &
-    React.RefAttributes<HTMLAnchorElement>
->;
+export type RouterLinkComponent<RouterLinkConfig extends Record<string, any> = never> =
+	React.ForwardRefExoticComponent<
+		RouterLinkComponentProps<RouterLinkConfig> & React.RefAttributes<HTMLAnchorElement>
+	>;
 
-export type RouterLinkComponentProps<
-  RouterLinkConfig extends Record<string, any> = never,
-> = {
-  /**
-   * Standard links can be provided as a string, which should be mapped to the
-   * underlying router link component.
-   *
-   * Alternatively, you can provide an object for advanced link configurations
-   * by supplying the expected object type to the generic.
-   *
-   * @example
-   * ```
-   * const MyRouterLink = forwardRef(
-   * (
-   *   {
-   *     href,
-   *     children,
-   *     ...rest
-   *   }: RouterLinkComponentProps<{
-   *     href: string;
-   *     replace: boolean;
-   *   }>,
-   *   ref: Ref<HTMLAnchorElement>,
-   * ) => { ...
-   * ```
-   */
-  href: string | RouterLinkConfig;
-  children: React.ReactNode;
+export type RouterLinkComponentProps<RouterLinkConfig extends Record<string, any> = never> = {
+	/**
+	 * Standard links can be provided as a string, which should be mapped to the
+	 * underlying router link component.
+	 *
+	 * Alternatively, you can provide an object for advanced link configurations
+	 * by supplying the expected object type to the generic.
+	 *
+	 * @example
+	 * ```
+	 * const MyRouterLink = forwardRef(
+	 * (
+	 *   {
+	 *     href,
+	 *     children,
+	 *     ...rest
+	 *   }: RouterLinkComponentProps<{
+	 *     href: string;
+	 *     replace: boolean;
+	 *   }>,
+	 *   ref: Ref<HTMLAnchorElement>,
+	 * ) => { ...
+	 * ```
+	 */
+	href: string | RouterLinkConfig;
+	children: React.ReactNode;
 };
 
-export type RouterLinkProviderContextProps<
-  RouterLinkConfig extends Record<string, any> = never,
-> = {
-  routerLinkComponent?: RouterLinkComponent<RouterLinkConfig>;
+export type RouterLinkProviderContextProps<RouterLinkConfig extends Record<string, any> = never> = {
+	routerLinkComponent?: RouterLinkComponent<RouterLinkConfig>;
 };
 
-export const RouterLinkProviderContext =
-  createContext<RouterLinkProviderContextProps>({});
+export const RouterLinkProviderContext = createContext<RouterLinkProviderContextProps>({});
 
 export type RouterLinkProviderProps = {
-  /**
-   * The rendering mechanism of router links within Design System components.
-   */
-  routerLinkComponent?: RouterLinkComponent<any>;
+	/**
+	 * The rendering mechanism of router links within Design System components.
+	 */
+	routerLinkComponent?: RouterLinkComponent<any>;
 };
 
 /**
@@ -60,18 +53,18 @@ export type RouterLinkProviderProps = {
  * within Design System components.
  */
 const RouterLinkProvider = ({
-  routerLinkComponent,
-  children,
+	routerLinkComponent,
+	children,
 }: RouterLinkProviderProps & { children: React.ReactNode }) => {
-  return (
-    <RouterLinkProviderContext.Provider
-      value={{
-        routerLinkComponent,
-      }}
-    >
-      {children}
-    </RouterLinkProviderContext.Provider>
-  );
+	return (
+		<RouterLinkProviderContext.Provider
+			value={{
+				routerLinkComponent,
+			}}
+		>
+			{children}
+		</RouterLinkProviderContext.Provider>
+	);
 };
 
 export default RouterLinkProvider;

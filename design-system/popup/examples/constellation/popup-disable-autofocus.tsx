@@ -10,48 +10,48 @@ import Textfield from '@atlaskit/textfield';
 import Popup from '../../src';
 
 const wrapperStyles = xcss({
-  display: 'grid',
-  alignItems: 'center',
-  gap: 'space.200',
-  gridTemplateColumns: '1fr auto',
+	display: 'grid',
+	alignItems: 'center',
+	gap: 'space.200',
+	gridTemplateColumns: '1fr auto',
 });
 
 const contentStyles = xcss({
-  maxWidth: '200px',
-  padding: 'space.200',
+	maxWidth: '200px',
+	padding: 'space.200',
 });
 
 const PopupDisableAutofocusExample = () => {
-  const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <Box xcss={wrapperStyles}>
-      <Textfield placeholder="This should stay focused when the popup opens" />
-      <Popup
-        autoFocus={false}
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        content={() => (
-          <Box xcss={contentStyles}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam
-            massa ac risus scelerisque, in iaculis magna semper. Phasellus
-            sagittis congue elit, non suscipit nulla rhoncus vitae.
-          </Box>
-        )}
-        trigger={(triggerProps) => (
-          <Button
-            {...triggerProps}
-            appearance="primary"
-            isSelected={isOpen}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? 'Close' : 'Open'} popup
-          </Button>
-        )}
-        placement="bottom"
-      />
-    </Box>
-  );
+	return (
+		<Box xcss={wrapperStyles}>
+			<Textfield placeholder="This should stay focused when the popup opens" />
+			<Popup
+				autoFocus={false}
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+				content={() => (
+					<Box xcss={contentStyles}>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam massa ac risus
+						scelerisque, in iaculis magna semper. Phasellus sagittis congue elit, non suscipit nulla
+						rhoncus vitae.
+					</Box>
+				)}
+				trigger={(triggerProps) => (
+					<Button
+						{...triggerProps}
+						appearance="primary"
+						isSelected={isOpen}
+						onClick={() => setIsOpen(!isOpen)}
+					>
+						{isOpen ? 'Close' : 'Open'} popup
+					</Button>
+				)}
+				placement="bottom"
+			/>
+		</Box>
+	);
 };
 
 export default PopupDisableAutofocusExample;

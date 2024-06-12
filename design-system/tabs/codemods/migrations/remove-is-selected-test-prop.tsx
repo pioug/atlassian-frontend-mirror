@@ -11,7 +11,7 @@ This is documented at https:atlassian.design/components/tabs/examples#controlled
 `;
 
 export const removeIsSelectedTestProp = createRemoveFuncWithDefaultSpecifierFor(
-  '@atlaskit/tabs',
-  'isSelectedTest',
-  comment,
+	'@atlaskit/tabs',
+	'isSelectedTest',
+	comment,
 );

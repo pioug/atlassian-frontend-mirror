@@ -7,12 +7,12 @@ const transformer = createTransformer([mapFooterFromProps]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('map footer from props', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -34,7 +34,7 @@ describe('map footer from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -55,13 +55,13 @@ describe('map footer from props', () => {
       );
     }
     `,
-        'should invoke Footer declared as shorthand',
-      );
+				'should invoke Footer declared as shorthand',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -83,7 +83,7 @@ describe('map footer from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -104,13 +104,13 @@ describe('map footer from props', () => {
       );
     }
     `,
-        'should invoke Footer declared as assigned variable',
-      );
+				'should invoke Footer declared as assigned variable',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -135,7 +135,7 @@ describe('map footer from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -157,13 +157,13 @@ describe('map footer from props', () => {
       );
     }
     `,
-        'should invoke Footer declared as arrow function',
-      );
+				'should invoke Footer declared as arrow function',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -180,7 +180,7 @@ describe('map footer from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -197,13 +197,13 @@ describe('map footer from props', () => {
       );
     }
     `,
-        'should do nothing if components definition is not an inline object expression',
-      );
+				'should do nothing if components definition is not an inline object expression',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -228,7 +228,7 @@ describe('map footer from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -252,13 +252,13 @@ describe('map footer from props', () => {
       }
     }
     `,
-        'should invoke Footer of a modal dialog declared as class component',
-      );
+				'should invoke Footer of a modal dialog declared as class component',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -275,7 +275,7 @@ describe('map footer from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -293,13 +293,13 @@ describe('map footer from props', () => {
       }
     }
     `,
-        'should invoke Footer passed to the footer prop',
-      );
+				'should invoke Footer passed to the footer prop',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -329,7 +329,7 @@ describe('map footer from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -358,13 +358,13 @@ describe('map footer from props', () => {
       }
     }
     `,
-        'should take Footer passed from components prop if both declarations exist',
-      );
+				'should take Footer passed from components prop if both declarations exist',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -390,7 +390,7 @@ describe('map footer from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -417,13 +417,13 @@ describe('map footer from props', () => {
       }
     }
     `,
-        'should pass appearance set as string literal from parent ModalDialog to custom footer as argument',
-      );
+				'should pass appearance set as string literal from parent ModalDialog to custom footer as argument',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -449,7 +449,7 @@ describe('map footer from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -476,13 +476,13 @@ describe('map footer from props', () => {
       }
     }
     `,
-        'should pass appearance set as expression from parent ModalDialog to custom footer as argument',
-      );
+				'should pass appearance set as expression from parent ModalDialog to custom footer as argument',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -509,7 +509,7 @@ describe('map footer from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -537,8 +537,8 @@ describe('map footer from props', () => {
       );
     }
     `,
-        'should pass appearance attribute ONLY from parent ModalDialog',
-      );
-    });
-  });
+				'should pass appearance attribute ONLY from parent ModalDialog',
+			);
+		});
+	});
 });

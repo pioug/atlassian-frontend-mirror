@@ -24,10 +24,15 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 	return (
 		<>
 			<ModalHeader onClose={onClose} />
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={contentWrapper}>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={line} />
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={content}>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={column}>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<h2 css={title}>
 							<FormattedMessage {...messages.keyboardShortcuts} />
 						</h2>
@@ -38,6 +43,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 									return keymap && keymap[browser.mac ? 'mac' : 'windows'];
 								})
 								.map((form) => (
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									<li css={row} key={`textFormatting-${form.name}`}>
 										<span>{form.name}</span>
 										{getComponentFromKeymap(form.keymap!())}
@@ -48,6 +54,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 								.filter((form) => shortcutNamesWithoutKeymap.indexOf(form.type) !== -1)
 								.filter((form) => form.autoFormatting)
 								.map((form) => (
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									<li css={row} key={`autoFormatting-${form.name}`}>
 										<span>{form.name}</span>
 										{form.autoFormatting!()}
@@ -55,8 +62,11 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 								))}
 						</ul>
 					</div>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={line} />
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={column}>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<h2 css={title}>
 							<FormattedMessage {...messages.markdown} />
 						</h2>
@@ -66,6 +76,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 								.map(
 									(form) =>
 										form.autoFormatting && (
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 											<li key={`autoFormatting-${form.name}`} css={row}>
 												<span>{form.name}</span>
 												{form.autoFormatting()}

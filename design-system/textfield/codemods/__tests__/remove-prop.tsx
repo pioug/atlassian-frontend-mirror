@@ -14,10 +14,10 @@ const themeToDoComment = `
     The appearance of TextField will have likely changed. */`;
 
 describe('Remove prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
     import customeTheme from './theme';
@@ -30,7 +30,7 @@ describe('Remove prop', () => {
       );
     }
   `,
-    `
+		`
     ${themeToDoComment}
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
@@ -40,13 +40,13 @@ describe('Remove prop', () => {
       return <Textfield />;
     }
   `,
-    'should remove theme from Textfield and leave a comment',
-  );
+		'should remove theme from Textfield and leave a comment',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import TextField from '@atlaskit/textfield';
     import customeTheme from './theme';
@@ -59,7 +59,7 @@ describe('Remove prop', () => {
       );
     }
   `,
-    `
+		`
     ${themeToDoComment}
     import React from 'react';
     import TextField from '@atlaskit/textfield';
@@ -69,13 +69,13 @@ describe('Remove prop', () => {
       return <TextField />;
     }
   `,
-    'should remove theme from TextField and leave a comment',
-  );
+		'should remove theme from TextField and leave a comment',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
     import customeTheme from './theme';
@@ -93,7 +93,7 @@ describe('Remove prop', () => {
       );
     }
   `,
-    `
+		`
     ${themeToDoComment}
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
@@ -108,13 +108,13 @@ describe('Remove prop', () => {
       );
     }
   `,
-    'should remove 2 usages of theme and add 1 comment',
-  );
+		'should remove 2 usages of theme and add 1 comment',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Foo from '@atlaskit/textfield';
     import customeTheme from './theme';
@@ -127,7 +127,7 @@ describe('Remove prop', () => {
       );
     }
   `,
-    `
+		`
     ${themeToDoComment}
     import React from 'react';
     import Foo from '@atlaskit/textfield';
@@ -137,6 +137,6 @@ describe('Remove prop', () => {
       return <Foo />;
     }
   `,
-    'should remove theme prop when using an aliased name',
-  );
+		'should remove theme prop when using an aliased name',
+	);
 });

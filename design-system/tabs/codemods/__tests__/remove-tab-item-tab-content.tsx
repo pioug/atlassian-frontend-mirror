@@ -8,10 +8,10 @@ const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 // I'm not adding a comment here as the components codemod will add one
 describe('remove TabItem and TabContent import', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Tabs, { TabItem, TabContent } from '@atlaskit/tabs';
 
@@ -46,7 +46,7 @@ describe('remove TabItem and TabContent import', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Tabs from '@atlaskit/tabs';
 
@@ -81,6 +81,6 @@ describe('remove TabItem and TabContent import', () => {
       );
     }
     `,
-    'should remove TabItem and TabContent',
-  );
+		'should remove TabItem and TabContent',
+	);
 });

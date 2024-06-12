@@ -15,20 +15,20 @@ import { DefaultSettings } from './shared/settings';
 import { SwitcherPopup } from './shared/switcher-popup';
 
 const AuthenticatedExample = () => (
-  <Box lang="ja">
-    <AtlassianNavigation
-      label="Japanese"
-      primaryItems={jiraPrimaryItemsJapanese}
-      renderAppSwitcher={SwitcherPopup}
-      renderCreate={JapaneseCreate}
-      renderHelp={HelpPopup}
-      renderNotifications={NotificationsPopup}
-      renderProductHome={DefaultProductHome}
-      renderProfile={ProfilePopup}
-      renderSearch={DefaultSearch}
-      renderSettings={DefaultSettings}
-    />
-  </Box>
+	<Box lang="ja">
+		<AtlassianNavigation
+			label="Japanese"
+			primaryItems={jiraPrimaryItemsJapanese}
+			renderAppSwitcher={SwitcherPopup}
+			renderCreate={JapaneseCreate}
+			renderHelp={HelpPopup}
+			renderNotifications={NotificationsPopup}
+			renderProductHome={DefaultProductHome}
+			renderProfile={ProfilePopup}
+			renderSearch={DefaultSearch}
+			renderSettings={DefaultSettings}
+		/>
+	</Box>
 );
 
 export default AuthenticatedExample;

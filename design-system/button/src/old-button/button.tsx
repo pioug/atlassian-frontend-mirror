@@ -11,8 +11,7 @@ import getIsOnlySingleIcon from './shared/get-is-only-single-icon';
 import { type BaseProps } from './types';
 
 const isFirefox: boolean =
-  typeof navigator !== 'undefined' &&
-  navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+	typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 export interface ButtonProps extends BaseProps {}
 
@@ -28,91 +27,84 @@ export interface ButtonProps extends BaseProps {}
  * - [Usage](https://atlassian.design/components/button/button-legacy/usage)
  */
 const Button = React.memo(
-  React.forwardRef(function Button(
-    {
-      appearance = 'default',
-      children,
-      iconBefore,
-      iconAfter,
-      isSelected = false,
-      onMouseDown: providedOnMouseDown = noop,
-      onMouseUp: providedOnMouseUp = noop,
-      shouldFitContainer = false,
-      spacing = 'default',
-      ...rest
-    }: ButtonProps,
-    ref: React.Ref<HTMLElement>,
-  ) {
-    const { mode } = useGlobalTheme();
-    const isOnlySingleIcon: boolean = getIsOnlySingleIcon({
-      children,
-      iconBefore,
-      iconAfter,
-    });
+	React.forwardRef(function Button(
+		{
+			appearance = 'default',
+			children,
+			iconBefore,
+			iconAfter,
+			isSelected = false,
+			onMouseDown: providedOnMouseDown = noop,
+			onMouseUp: providedOnMouseUp = noop,
+			shouldFitContainer = false,
+			spacing = 'default',
+			...rest
+		}: ButtonProps,
+		ref: React.Ref<HTMLElement>,
+	) {
+		const { mode } = useGlobalTheme();
+		const isOnlySingleIcon: boolean = getIsOnlySingleIcon({
+			children,
+			iconBefore,
+			iconAfter,
+		});
 
-    const [isActive, setIsActive] = useState<boolean>(false);
+		const [isActive, setIsActive] = useState<boolean>(false);
 
-    // Wrap onMouseDown / onMouseUp to manually trigger active state
-    //  in Firefox
-    const onMouseDown = useCallback(
-      (event: React.MouseEvent<HTMLElement>) => {
-        providedOnMouseDown(event);
-        if (isFirefox) {
-          setIsActive(true);
-        }
-      },
-      [providedOnMouseDown, setIsActive],
-    );
+		// Wrap onMouseDown / onMouseUp to manually trigger active state
+		//  in Firefox
+		const onMouseDown = useCallback(
+			(event: React.MouseEvent<HTMLElement>) => {
+				providedOnMouseDown(event);
+				if (isFirefox) {
+					setIsActive(true);
+				}
+			},
+			[providedOnMouseDown, setIsActive],
+		);
 
-    const onMouseUp = useCallback(
-      (event: React.MouseEvent<HTMLElement>) => {
-        providedOnMouseUp(event);
-        if (isFirefox) {
-          setIsActive(false);
-        }
-      },
-      [providedOnMouseUp, setIsActive],
-    );
+		const onMouseUp = useCallback(
+			(event: React.MouseEvent<HTMLElement>) => {
+				providedOnMouseUp(event);
+				if (isFirefox) {
+					setIsActive(false);
+				}
+			},
+			[providedOnMouseUp, setIsActive],
+		);
 
-    const buttonCss: CSSObject = useMemo(
-      () =>
-        getCss({
-          appearance,
-          spacing,
-          mode,
-          isSelected,
-          shouldFitContainer,
-          isOnlySingleIcon,
-        }),
-      [
-        appearance,
-        spacing,
-        mode,
-        isSelected,
-        shouldFitContainer,
-        isOnlySingleIcon,
-      ],
-    );
+		const buttonCss: CSSObject = useMemo(
+			() =>
+				getCss({
+					appearance,
+					spacing,
+					mode,
+					isSelected,
+					shouldFitContainer,
+					isOnlySingleIcon,
+				}),
+			[appearance, spacing, mode, isSelected, shouldFitContainer, isOnlySingleIcon],
+		);
 
-    return (
-      <ButtonBase
-        {...rest}
-        ref={ref}
-        appearance={appearance}
-        buttonCss={buttonCss}
-        children={children}
-        // Due to how click events are set, we need to set active styles
-        //  manually in Firefox and wrap onMouseDown/onMouseUp
-        data-firefox-is-active={isActive ? true : undefined}
-        iconAfter={iconAfter}
-        iconBefore={iconBefore}
-        isSelected={isSelected}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        spacing={spacing}
-      />
-    );
-  }),
+		return (
+			<ButtonBase
+				{...rest}
+				ref={ref}
+				appearance={appearance}
+				buttonCss={buttonCss}
+				children={children}
+				// Due to how click events are set, we need to set active styles
+				//  manually in Firefox and wrap onMouseDown/onMouseUp
+				data-firefox-is-active={isActive ? true : undefined}
+				iconAfter={iconAfter}
+				iconBefore={iconBefore}
+				isSelected={isSelected}
+				onMouseDown={onMouseDown}
+				onMouseUp={onMouseUp}
+				spacing={spacing}
+			/>
+		);
+	}),
 );
 
 // Tools including enzyme rely on components having a display name

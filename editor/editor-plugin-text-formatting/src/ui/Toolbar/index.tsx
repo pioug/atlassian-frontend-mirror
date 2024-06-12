@@ -160,7 +160,7 @@ const ToolbarFormatting = ({
 	}, [screenReaderMessage]);
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={buttonGroupStyle}>
 			<div
 				role="group"
@@ -176,7 +176,7 @@ const ToolbarFormatting = ({
 					editorView={editorView}
 					isReducedSpacing={isReducedSpacing}
 				/>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={wrapperStyle}>
 					{isToolbarDisabled ? (
 						<div>
@@ -205,6 +205,7 @@ const ToolbarFormatting = ({
 			</div>
 			{!api?.primaryToolbar && (
 				/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={separatorStyles} />
 			)}
 		</span>

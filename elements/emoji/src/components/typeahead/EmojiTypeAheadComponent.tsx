@@ -331,6 +331,7 @@ export default class EmojiTypeAheadComponent extends PureComponent<Props, State>
 					style={style}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={'ak-emoji-typeahead'}
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={emojiTypeAhead}
 				>
 					<EmojiList

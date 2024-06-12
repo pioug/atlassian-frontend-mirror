@@ -7,12 +7,12 @@ const transformer = createTransformer([removeComponentOverrideProps]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('remove component override props', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -28,7 +28,7 @@ describe('remove component override props', () => {
       );
     }
     `,
-        `/* TODO: (from codemod)\u0020
+				`/* TODO: (from codemod)\u0020
     We have converted this file as best we could but you might still need
     to manually complete migrating this usage of ModalDialog.
 
@@ -59,13 +59,13 @@ describe('remove component override props', () => {
       );
     }
     `,
-        'should remove components prop and add explanation in comment',
-      );
+				'should remove components prop and add explanation in comment',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -83,7 +83,7 @@ describe('remove component override props', () => {
       );
     }
     `,
-        `/* TODO: (from codemod)\u0020
+				`/* TODO: (from codemod)\u0020
     We have converted this file as best we could but you might still need
     to manually complete migrating this usage of ModalDialog.
 
@@ -114,13 +114,13 @@ describe('remove component override props', () => {
       );
     }
     `,
-        'should remove header/footer/body props and add explanation in comment',
-      );
+				'should remove header/footer/body props and add explanation in comment',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -133,7 +133,7 @@ describe('remove component override props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -146,8 +146,8 @@ describe('remove component override props', () => {
       );
     }
     `,
-        'should not add comment if there are no component props to be removed',
-      );
-    });
-  });
+				'should not add comment if there are no component props to be removed',
+			);
+		});
+	});
 });

@@ -4,21 +4,21 @@ import { type FC, type ReactNode } from 'react';
 import { jsx } from '@emotion/react';
 
 type TableProps = {
-  /**
-   * A `testId` prop is a unique string that appears as a data attribute `data-testid`
-   * in the rendered code, serving as a hook for automated tests.
-   */
-  testId?: string;
-  /**
-   * Accessible description of the table data.
-   *
-   * @see 'https://www.w3.org/WAI/EO/Drafts/tutorials/tables/summary/'
-   */
-  summary?: string;
-  /**
-   * Table content.
-   */
-  children: ReactNode;
+	/**
+	 * A `testId` prop is a unique string that appears as a data attribute `data-testid`
+	 * in the rendered code, serving as a hook for automated tests.
+	 */
+	testId?: string;
+	/**
+	 * Accessible description of the table data.
+	 *
+	 * @see 'https://www.w3.org/WAI/EO/Drafts/tutorials/tables/summary/'
+	 */
+	summary?: string;
+	/**
+	 * Table content.
+	 */
+	children: ReactNode;
 };
 
 /**
@@ -32,10 +32,10 @@ type TableProps = {
  * @see https://hello.atlassian.net/wiki/spaces/DST/pages/1947062524/Dynamic+table+2.0+implementation+spec
  */
 export const Table: FC<TableProps> = ({ children, testId, summary }) => {
-  return (
-    <table data-testid={testId}>
-      {summary && <caption>{summary}</caption>}
-      {children}
-    </table>
-  );
+	return (
+		<table data-testid={testId}>
+			{summary && <caption>{summary}</caption>}
+			{children}
+		</table>
+	);
 };

@@ -11,12 +11,12 @@ import ProfileCardTrigger from '../src/components/User';
 import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient } from './helper/util';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Wrap = styled.div({
 	marginBottom: token('space.250', '20px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MainStage = styled.div({
 	margin: token('space.200', '16px'),
 });

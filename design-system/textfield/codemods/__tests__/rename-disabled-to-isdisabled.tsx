@@ -9,10 +9,10 @@ const transformer = createTransformer([renameDisabledToIsDisabled]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Rename `disabled` prop to `isDisabled`', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
 
@@ -20,7 +20,7 @@ describe('Rename `disabled` prop to `isDisabled`', () => {
       return <Textfield disabled />;
     }
   `,
-    `
+		`
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
 
@@ -28,13 +28,13 @@ describe('Rename `disabled` prop to `isDisabled`', () => {
       return <Textfield isDisabled />;
     }
   `,
-    'should rename single line disabled to isDisabled',
-  );
+		'should rename single line disabled to isDisabled',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
 
@@ -48,7 +48,7 @@ describe('Rename `disabled` prop to `isDisabled`', () => {
       );
     }
   `,
-    `
+		`
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
 
@@ -62,13 +62,13 @@ describe('Rename `disabled` prop to `isDisabled`', () => {
       );
     }
   `,
-    'should rename multiline disabled to isDisabled',
-  );
+		'should rename multiline disabled to isDisabled',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
 
@@ -84,7 +84,7 @@ describe('Rename `disabled` prop to `isDisabled`', () => {
       );
     }
   `,
-    `
+		`
     import React from 'react';
     import Textfield from '@atlaskit/textfield';
 
@@ -100,13 +100,13 @@ describe('Rename `disabled` prop to `isDisabled`', () => {
       );
     }
   `,
-    'should rename disabled to isDisabled with indirection',
-  );
+		'should rename disabled to isDisabled with indirection',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import AkTextfield from '@atlaskit/textfield';
 
@@ -122,7 +122,7 @@ describe('Rename `disabled` prop to `isDisabled`', () => {
       );
     }
   `,
-    `
+		`
     import React from 'react';
     import AkTextfield from '@atlaskit/textfield';
 
@@ -138,6 +138,6 @@ describe('Rename `disabled` prop to `isDisabled`', () => {
       );
     }
   `,
-    'should rename disabled to isDisabled with indirection and different default import',
-  );
+		'should rename disabled to isDisabled with indirection and different default import',
+	);
 });

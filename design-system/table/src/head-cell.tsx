@@ -8,7 +8,6 @@ import { Text } from '@atlaskit/primitives';
 
 import { TH, type THProps } from './ui/th';
 
-
 /**
  * __HeadCell__
  *

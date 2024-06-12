@@ -1,13 +1,21 @@
 Enforces the use of design tokens for typography properties.
 
-Using design tokens results in a harmonious experience for end users whilst providing theming and consistency.
-Typography tokens are strongly recommended to further align our experiences and make future changes easier.
+Using design tokens results in a harmonious experience for end users whilst providing theming and
+consistency. Typography tokens are strongly recommended to further align our experiences and make
+future changes easier.
 
-Note: This rule is fairly defensive when it comes to replacing values with tokens. It will only run over style blocks that contain a fontSize property. It will then attempt to match that font size to a token. If multiple matching tokens are found it then tries to match on font weight. If a token can be found to match the font size but not font weight, the token is applied and then a font weight token override is applied to ensure the tokenised styles match the original. One main exception is line height - **this rule will match against tokens that have a different line height**. Letter spacing values are also ignored.
+Note: This rule is fairly defensive when it comes to replacing values with tokens. It will only run
+over style blocks that contain a fontSize property. It will then attempt to match that font size to
+a token. If multiple matching tokens are found it then tries to match on font weight. If a token can
+be found to match the font size but not font weight, the token is applied and then a font weight
+token override is applied to ensure the tokenised styles match the original. One main exception is
+line height - **this rule will match against tokens that have a different line height**. Letter
+spacing values are also ignored.
 
 ## Examples
 
-Using anything other than design tokens such as hardcoded values or legacy theme constants will be considered violations.
+Using anything other than design tokens such as hardcoded values or legacy theme constants will be
+considered violations.
 
 ### Incorrect
 
@@ -41,4 +49,5 @@ css({ font: token('font.body') });
 
 ## Options
 
-`shouldEnforceFallbacks`: Set to `false` to ensure token fallback values are not added. Defaults to `true`.
+`shouldEnforceFallbacks`: Set to `false` to ensure token fallback values are not added. Defaults to
+`true`.

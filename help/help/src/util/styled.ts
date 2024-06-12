@@ -7,8 +7,9 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DividerLine = styled.div({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.border', colors.N30A),
 	height: '2px',
 	width: '100%',
@@ -36,13 +37,16 @@ const shimmer = keyframes({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const LoadingRectangle = styled.div<LoadingRectangleProps>((props) => ({
 	display: 'inline-block',
 	verticalAlign: 'middle',
 	position: 'relative',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: props.contentHeight ? props.contentHeight : '1rem',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	marginTop: props.marginTop ? props.marginTop : gridSize() + 'px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: props.contentWidth ? props.contentWidth : '100%',
 	borderRadius: '2px',
 	animationDuration: '1.2s',
@@ -50,12 +54,16 @@ export const LoadingRectangle = styled.div<LoadingRectangleProps>((props) => ({
 	animationIterationCount: 'infinite',
 	animationName: shimmer,
 	animationTimingFunction: 'linear',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.neutral', colors.N30),
 	backgroundImage: `linear-gradient( to right, ${token(
 		'color.background.neutral.subtle',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		colors.N30,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	)} 10%, ${token('color.background.neutral', colors.N40)} 20%, ${token(
 		'color.background.neutral.subtle',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		colors.N30,
 	)} 30% )`,
 	backgroundRepeat: 'no-repeat',
@@ -69,13 +77,16 @@ type LoadingCircleProps = {
 	marginTop?: string;
 };
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const LoadingCircle = styled.div<LoadingCircleProps>((props) => ({
 	display: 'inline-block',
 	verticalAlign: 'middle',
 	position: 'relative',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	height: props.radius ? props.radius : `${gridSize() * 4}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginTop: props.marginTop ? props.marginTop : '',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	width: props.radius ? props.radius : `${gridSize() * 4}px`,
 	borderRadius: '50%',
 	animationDuration: '1.2s',
@@ -83,12 +94,16 @@ export const LoadingCircle = styled.div<LoadingCircleProps>((props) => ({
 	animationIterationCount: 'infinite',
 	animationName: shimmer,
 	animationTimingFunction: 'linear',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.neutral', colors.N30),
 	backgroundImage: `linear-gradient( to right, ${token(
 		'color.background.neutral.subtle',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		colors.N30,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	)} 10%, ${token('color.background.neutral', colors.N40)} 20%, ${token(
 		'color.background.neutral.subtle',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		colors.N30,
 	)} 30% )`,
 	backgroundRepeat: 'no-repeat',
@@ -101,7 +116,7 @@ type WhatsNewTypeIconProps = {
 	type?: WHATS_NEW_ITEM_TYPES;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const WhatsNewTypeIcon = styled.div<WhatsNewTypeIconProps>`
 	display: inline-block;
 	vertical-align: middle;

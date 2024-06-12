@@ -27,6 +27,7 @@ export type { MenuItem } from './types';
 
 const wrapper = css({
 	/* tooltip in ToolbarButton is display:block */
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > div > div': {
 		display: 'flex',
 	},

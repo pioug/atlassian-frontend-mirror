@@ -8,49 +8,45 @@ import { type Width } from '../../types';
 const sizes: Width[] = ['narrow', 'wide'];
 
 const widths = {
-  narrow: '304px',
-  wide: '464px',
+	narrow: '304px',
+	wide: '464px',
 };
 
 describe('<EmptyState size/width />', () => {
-  afterEach(cleanup);
+	afterEach(cleanup);
 
-  it('should default to wide', () => {
-    const { getByTestId } = render(<EmptyState header="hello" testId="test" />);
-    const element = getByTestId('test');
-    expect(element).toHaveStyleDeclaration('max-width', widths.wide);
-  });
+	it('should default to wide', () => {
+		const { getByTestId } = render(<EmptyState header="hello" testId="test" />);
+		const element = getByTestId('test');
+		expect(element).toHaveStyleDeclaration('max-width', widths.wide);
+	});
 
-  sizes.forEach((size) => {
-    describe(`with ${size} setting`, () => {
-      it('should prefer width over size', () => {
-        const { getByTestId } = render(
-          <EmptyState
-            width={size}
-            size={size === 'wide' ? 'narrow' : 'wide'}
-            header="hello"
-            testId="test"
-          />,
-        );
-        const element = getByTestId('test');
-        expect(element).toHaveStyleDeclaration('max-width', widths[size]);
-      });
+	sizes.forEach((size) => {
+		describe(`with ${size} setting`, () => {
+			it('should prefer width over size', () => {
+				const { getByTestId } = render(
+					<EmptyState
+						width={size}
+						size={size === 'wide' ? 'narrow' : 'wide'}
+						header="hello"
+						testId="test"
+					/>,
+				);
+				const element = getByTestId('test');
+				expect(element).toHaveStyleDeclaration('max-width', widths[size]);
+			});
 
-      it('should support size', () => {
-        const { getByTestId } = render(
-          <EmptyState size={size} header="hello" testId="test" />,
-        );
-        const element = getByTestId('test');
-        expect(element).toHaveStyleDeclaration('max-width', widths[size]);
-      });
+			it('should support size', () => {
+				const { getByTestId } = render(<EmptyState size={size} header="hello" testId="test" />);
+				const element = getByTestId('test');
+				expect(element).toHaveStyleDeclaration('max-width', widths[size]);
+			});
 
-      it('should support width', () => {
-        const { getByTestId } = render(
-          <EmptyState width={size} header="hello" testId="test" />,
-        );
-        const element = getByTestId('test');
-        expect(element).toHaveStyleDeclaration('max-width', widths[size]);
-      });
-    });
-  });
+			it('should support width', () => {
+				const { getByTestId } = render(<EmptyState width={size} header="hello" testId="test" />);
+				const element = getByTestId('test');
+				expect(element).toHaveStyleDeclaration('max-width', widths[size]);
+			});
+		});
+	});
 });

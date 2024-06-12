@@ -2,19 +2,17 @@ import { createTransformer } from '@atlaskit/codemod-utils';
 
 import { renameScrollBehaviorToShouldScrollInViewport } from '../migrations/rename-scroll-behavior-to-should-scroll-in-viewport';
 
-const transformer = createTransformer([
-  renameScrollBehaviorToShouldScrollInViewport,
-]);
+const transformer = createTransformer([renameScrollBehaviorToShouldScrollInViewport]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('rename scrollBehavior prop', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -34,7 +32,7 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -54,13 +52,13 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        'should change scrollBehavior="outside" to shouldScrollInViewport',
-      );
+				'should change scrollBehavior="outside" to shouldScrollInViewport',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -80,7 +78,7 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -96,13 +94,13 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        'should remove scrollBehavior="inside" as it is default behaviour',
-      );
+				'should remove scrollBehavior="inside" as it is default behaviour',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -122,7 +120,7 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -138,13 +136,13 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        'should remove scrollBehavior="inside-wide" as it is now default behaviour',
-      );
+				'should remove scrollBehavior="inside-wide" as it is now default behaviour',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -164,7 +162,7 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -184,13 +182,13 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        'should assert scrollBehavior variable to convert to shouldScrollInViewport',
-      );
+				'should assert scrollBehavior variable to convert to shouldScrollInViewport',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -210,7 +208,7 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -230,8 +228,8 @@ describe('rename scrollBehavior prop', () => {
       );
     }
     `,
-        'should change scrollBehavior value passed in an expression container to shouldScrollInViewport',
-      );
-    });
-  });
+				'should change scrollBehavior value passed in an expression container to shouldScrollInViewport',
+			);
+		});
+	});
 });

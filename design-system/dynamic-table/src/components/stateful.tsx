@@ -9,10 +9,10 @@ import { type RankEnd, type RowType, type SortOrderType, type StatefulProps } fr
 import DynamicTableStateless from './stateless';
 
 interface State {
-  page?: number;
-  sortKey?: string;
-  sortOrder?: SortOrderType;
-  rows?: RowType[];
+	page?: number;
+	sortKey?: string;
+	sortOrder?: SortOrderType;
+	rows?: RowType[];
 }
 
 /**
@@ -41,130 +41,124 @@ interface State {
  * }
  * ```
  */
-export default class DynamicTable extends React.Component<
-  StatefulProps,
-  State
-> {
-  static defaultProps = {
-    defaultPage: 1,
-    isLoading: false,
-    isFixedSize: false,
-    isRankable: false,
-    onSetPage: noop,
-    onSort: noop,
-    rowsPerPage: Infinity,
-  };
+export default class DynamicTable extends React.Component<StatefulProps, State> {
+	static defaultProps = {
+		defaultPage: 1,
+		isLoading: false,
+		isFixedSize: false,
+		isRankable: false,
+		onSetPage: noop,
+		onSort: noop,
+		rowsPerPage: Infinity,
+	};
 
-  state = {
-    page: this.props.defaultPage,
-    sortKey: this.props.defaultSortKey,
-    sortOrder: this.props.defaultSortOrder,
-    rows: this.props.rows,
-  };
+	state = {
+		page: this.props.defaultPage,
+		sortKey: this.props.defaultSortKey,
+		sortOrder: this.props.defaultSortOrder,
+		rows: this.props.rows,
+	};
 
-  UNSAFE_componentWillReceiveProps(newProps: StatefulProps) {
-    const sortKey = newProps.sortKey || this.state.sortKey;
-    const sortOrder = newProps.sortOrder || this.state.sortOrder;
-    const page = newProps.page || this.state.page;
-    this.setState({
-      page,
-      sortKey,
-      sortOrder,
-      rows: newProps.rows,
-    });
-  }
+	UNSAFE_componentWillReceiveProps(newProps: StatefulProps) {
+		const sortKey = newProps.sortKey || this.state.sortKey;
+		const sortOrder = newProps.sortOrder || this.state.sortOrder;
+		const page = newProps.page || this.state.page;
+		this.setState({
+			page,
+			sortKey,
+			sortOrder,
+			rows: newProps.rows,
+		});
+	}
 
-  onSetPageHandler = (page: number, analyticsEvent?: UIAnalyticsEvent) => {
-    const { onSetPage } = this.props;
-    if (onSetPage) {
-      onSetPage(page, analyticsEvent);
-      this.setState({ page });
-    }
-  };
+	onSetPageHandler = (page: number, analyticsEvent?: UIAnalyticsEvent) => {
+		const { onSetPage } = this.props;
+		if (onSetPage) {
+			onSetPage(page, analyticsEvent);
+			this.setState({ page });
+		}
+	};
 
-  onSortHandler = (
-    { key, item, sortOrder }: any,
-    analyticsEvent?: UIAnalyticsEvent,
-  ) => {
-    const { onSort } = this.props;
-    if (onSort) {
-      onSort({ key, item, sortOrder }, analyticsEvent);
-      this.setState({ sortKey: key, sortOrder });
-    }
-  };
+	onSortHandler = ({ key, item, sortOrder }: any, analyticsEvent?: UIAnalyticsEvent) => {
+		const { onSort } = this.props;
+		if (onSort) {
+			onSort({ key, item, sortOrder }, analyticsEvent);
+			this.setState({ sortKey: key, sortOrder });
+		}
+	};
 
-  onRankEndIfExistsHandler = (params: RankEnd) => {
-    if (this.props.onRankEnd) {
-      this.props.onRankEnd(params);
-    }
-  };
+	onRankEndIfExistsHandler = (params: RankEnd) => {
+		if (this.props.onRankEnd) {
+			this.props.onRankEnd(params);
+		}
+	};
 
-  onRankEndHandler = (params: RankEnd) => {
-    const { destination } = params;
-    const { rows, page } = this.state;
-    const { rowsPerPage } = this.props;
+	onRankEndHandler = (params: RankEnd) => {
+		const { destination } = params;
+		const { rows, page } = this.state;
+		const { rowsPerPage } = this.props;
 
-    if (!destination || !rows) {
-      this.onRankEndIfExistsHandler(params);
-      return;
-    }
+		if (!destination || !rows) {
+			this.onRankEndIfExistsHandler(params);
+			return;
+		}
 
-    const reordered = reorderRows(params, rows, page, rowsPerPage);
+		const reordered = reorderRows(params, rows, page, rowsPerPage);
 
-    this.setState({
-      rows: reordered,
-    });
+		this.setState({
+			rows: reordered,
+		});
 
-    this.onRankEndIfExistsHandler(params);
-  };
+		this.onRankEndIfExistsHandler(params);
+	};
 
-  render() {
-    const { page, sortKey, sortOrder, rows } = this.state;
-    const {
-      caption,
-      emptyView,
-      head,
-      highlightedRowIndex,
-      loadingSpinnerSize,
-      isLoading,
-      loadingLabel,
-      isFixedSize,
-      isRankable,
-      isRankingDisabled,
-      rowsPerPage,
-      paginationi18n,
-      onRankStart,
-      onPageRowsUpdate,
-      testId,
-      label,
-    } = this.props;
+	render() {
+		const { page, sortKey, sortOrder, rows } = this.state;
+		const {
+			caption,
+			emptyView,
+			head,
+			highlightedRowIndex,
+			loadingSpinnerSize,
+			isLoading,
+			loadingLabel,
+			isFixedSize,
+			isRankable,
+			isRankingDisabled,
+			rowsPerPage,
+			paginationi18n,
+			onRankStart,
+			onPageRowsUpdate,
+			testId,
+			label,
+		} = this.props;
 
-    return (
-      <DynamicTableStateless
-        paginationi18n={paginationi18n}
-        caption={caption}
-        emptyView={emptyView}
-        head={head}
-        highlightedRowIndex={highlightedRowIndex}
-        loadingSpinnerSize={loadingSpinnerSize}
-        isLoading={isLoading}
-        loadingLabel={loadingLabel}
-        isFixedSize={isFixedSize}
-        onSetPage={this.onSetPageHandler}
-        onSort={this.onSortHandler}
-        page={page}
-        rows={rows}
-        rowsPerPage={rowsPerPage}
-        sortKey={sortKey}
-        sortOrder={sortOrder}
-        isRankable={isRankable}
-        isRankingDisabled={isRankingDisabled}
-        onRankEnd={this.onRankEndHandler}
-        onRankStart={onRankStart}
-        onPageRowsUpdate={onPageRowsUpdate}
-        testId={testId}
-        label={label}
-      />
-    );
-  }
+		return (
+			<DynamicTableStateless
+				paginationi18n={paginationi18n}
+				caption={caption}
+				emptyView={emptyView}
+				head={head}
+				highlightedRowIndex={highlightedRowIndex}
+				loadingSpinnerSize={loadingSpinnerSize}
+				isLoading={isLoading}
+				loadingLabel={loadingLabel}
+				isFixedSize={isFixedSize}
+				onSetPage={this.onSetPageHandler}
+				onSort={this.onSortHandler}
+				page={page}
+				rows={rows}
+				rowsPerPage={rowsPerPage}
+				sortKey={sortKey}
+				sortOrder={sortOrder}
+				isRankable={isRankable}
+				isRankingDisabled={isRankingDisabled}
+				onRankEnd={this.onRankEndHandler}
+				onRankStart={onRankStart}
+				onPageRowsUpdate={onPageRowsUpdate}
+				testId={testId}
+				label={label}
+			/>
+		);
+	}
 }

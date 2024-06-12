@@ -10,14 +10,14 @@ const writeFile = promisify(fs.writeFile);
 const SRC = path.join(__dirname, '..', 'src');
 
 async function buildCSSReset() {
-  try {
-    makeDir.sync(SRC);
-    await writeFile(path.join(SRC, 'bundle.css'), styleSheet);
-  } catch (err) {
-    console.error(`Failed to build css-reset due to ${err}`);
-  }
+	try {
+		makeDir.sync(SRC);
+		await writeFile(path.join(SRC, 'bundle.css'), styleSheet);
+	} catch (err) {
+		console.error(`Failed to build css-reset due to ${err}`);
+	}
 }
 
 buildCSSReset().then(() => {
-  console.log('successfully build css-reset');
+	console.log('successfully build css-reset');
 });

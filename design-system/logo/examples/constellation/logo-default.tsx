@@ -3,7 +3,7 @@ import React from 'react';
 import { AtlassianLogo } from '../../src';
 
 const AtlassianLogoDefault = () => {
-  return <AtlassianLogo />;
+	return <AtlassianLogo />;
 };
 
 export default AtlassianLogoDefault;

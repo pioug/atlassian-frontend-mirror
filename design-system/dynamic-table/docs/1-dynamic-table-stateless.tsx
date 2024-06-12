@@ -11,18 +11,18 @@ export default md`
   ${code`import { DynamicTableStateless } from '@atlaskit/dynamic-table';`}
 
   ${(
-    <Example
-      packageName="@atlaskit/dynamic-table"
-      Component={require('../examples/1-stateless').default}
-      title=""
-      source={require('!!raw-loader!../examples/1-stateless')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/dynamic-table"
+			Component={require('../examples/1-stateless').default}
+			title=""
+			source={require('!!raw-loader!../examples/1-stateless')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/stateless')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/components/stateless')}
+		/>
+	)}
 `;

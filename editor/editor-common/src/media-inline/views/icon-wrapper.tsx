@@ -7,6 +7,7 @@ type Props = {
 
 const wrapperStyle = css({
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'span > svg': { verticalAlign: 'top' },
 });
 

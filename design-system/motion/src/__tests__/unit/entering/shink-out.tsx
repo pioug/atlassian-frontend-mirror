@@ -13,216 +13,214 @@ jest.mock('../../../utils/accessibility');
 raf.replace();
 
 describe('<ShrinkOut />', () => {
-  beforeEach(() => {
-    jest.useRealTimers();
-  });
+	beforeEach(() => {
+		jest.useRealTimers();
+	});
 
-  it('should do nothing on initial mount', () => {
-    const { getByTestId } = render(
-      <ExitingPersistence>
-        <ShrinkOut>
-          {(props) => (
-            <ComponentStub
-              testId="target"
-              box={{ offsetHeight: 25, offsetWidth: 100 }}
-              {...props}
-            />
-          )}
-        </ShrinkOut>
-      </ExitingPersistence>,
-    );
+	it('should do nothing on initial mount', () => {
+		const { getByTestId } = render(
+			<ExitingPersistence>
+				<ShrinkOut>
+					{(props) => (
+						<ComponentStub
+							testId="target"
+							box={{ offsetHeight: 25, offsetWidth: 100 }}
+							{...props}
+						/>
+					)}
+				</ShrinkOut>
+			</ExitingPersistence>,
+		);
 
-    expect(getByTestId('target')).not.toHaveAttribute('style');
-  });
+		expect(getByTestId('target')).not.toHaveAttribute('style');
+	});
 
-  it('should fix exiting elements size ready for the next frame', () => {
-    const { rerender, getByTestId } = render(
-      <ExitingPersistence>
-        <ShrinkOut>
-          {(props) => (
-            <ComponentStub
-              testId="target"
-              box={{ offsetHeight: 25, offsetWidth: 100 }}
-              {...props}
-            />
-          )}
-        </ShrinkOut>
-      </ExitingPersistence>,
-    );
+	it('should fix exiting elements size ready for the next frame', () => {
+		const { rerender, getByTestId } = render(
+			<ExitingPersistence>
+				<ShrinkOut>
+					{(props) => (
+						<ComponentStub
+							testId="target"
+							box={{ offsetHeight: 25, offsetWidth: 100 }}
+							{...props}
+						/>
+					)}
+				</ShrinkOut>
+			</ExitingPersistence>,
+		);
 
-    rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    expect(getByTestId('target')).toHaveStyle({ height: '25px' });
-    expect(getByTestId('target')).toHaveStyle({ width: '100px' });
-  });
+		expect(getByTestId('target')).toHaveStyle({ height: '25px' });
+		expect(getByTestId('target')).toHaveStyle({ width: '100px' });
+	});
 
-  it('should apply border box when exiting to prevent sizing changing', () => {
-    const { rerender, getByTestId } = render(
-      <ExitingPersistence>
-        <ShrinkOut>
-          {(props) => (
-            <ComponentStub
-              testId="target"
-              box={{ offsetHeight: 25, offsetWidth: 100 }}
-              {...props}
-            />
-          )}
-        </ShrinkOut>
-      </ExitingPersistence>,
-    );
+	it('should apply border box when exiting to prevent sizing changing', () => {
+		const { rerender, getByTestId } = render(
+			<ExitingPersistence>
+				<ShrinkOut>
+					{(props) => (
+						<ComponentStub
+							testId="target"
+							box={{ offsetHeight: 25, offsetWidth: 100 }}
+							{...props}
+						/>
+					)}
+				</ShrinkOut>
+			</ExitingPersistence>,
+		);
 
-    rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    expect(getByTestId('target')).toHaveStyle({ boxSizing: 'border-box' });
-  });
+		expect(getByTestId('target')).toHaveStyle({ boxSizing: 'border-box' });
+	});
 
-  it('should mark width and margin as styles that will change when exiting', () => {
-    const { rerender, getByTestId } = render(
-      <ExitingPersistence>
-        <ShrinkOut>
-          {(props) => (
-            <ComponentStub
-              testId="target"
-              box={{ offsetHeight: 25, offsetWidth: 100 }}
-              {...props}
-            />
-          )}
-        </ShrinkOut>
-      </ExitingPersistence>,
-    );
+	it('should mark width and margin as styles that will change when exiting', () => {
+		const { rerender, getByTestId } = render(
+			<ExitingPersistence>
+				<ShrinkOut>
+					{(props) => (
+						<ComponentStub
+							testId="target"
+							box={{ offsetHeight: 25, offsetWidth: 100 }}
+							{...props}
+						/>
+					)}
+				</ShrinkOut>
+			</ExitingPersistence>,
+		);
 
-    rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    expect(getByTestId('target')).toHaveStyle({ willChange: 'width,margin' });
-  });
+		expect(getByTestId('target')).toHaveStyle({ willChange: 'width,margin' });
+	});
 
-  it('should transition down to take no horizontal space after two frames', () => {
-    const { rerender, getByTestId } = render(
-      <ExitingPersistence>
-        <ShrinkOut>
-          {(props) => (
-            <ComponentStub
-              testId="target"
-              box={{ offsetHeight: 25, offsetWidth: 100 }}
-              {...props}
-            />
-          )}
-        </ShrinkOut>
-      </ExitingPersistence>,
-    );
-    rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+	it('should transition down to take no horizontal space after two frames', () => {
+		const { rerender, getByTestId } = render(
+			<ExitingPersistence>
+				<ShrinkOut>
+					{(props) => (
+						<ComponentStub
+							testId="target"
+							box={{ offsetHeight: 25, offsetWidth: 100 }}
+							{...props}
+						/>
+					)}
+				</ShrinkOut>
+			</ExitingPersistence>,
+		);
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    raf.step();
-    raf.step();
+		raf.step();
+		raf.step();
 
-    expect(getByTestId('target')).toHaveStyle({
-      transitionProperty: 'width,margin',
-    });
-    expect(getByTestId('target')).toHaveStyle({ width: '0px' });
-    expect(getByTestId('target')).toHaveStyle({ margin: '0px' });
-  });
+		expect(getByTestId('target')).toHaveStyle({
+			transitionProperty: 'width,margin',
+		});
+		expect(getByTestId('target')).toHaveStyle({ width: '0px' });
+		expect(getByTestId('target')).toHaveStyle({ margin: '0px' });
+	});
 
-  it('should take small duration to complete exiting', () => {
-    const { rerender, getByTestId } = render(
-      <ExitingPersistence>
-        <ShrinkOut>
-          {(props) => (
-            <ComponentStub
-              testId="target"
-              box={{ offsetHeight: 25, offsetWidth: 100 }}
-              {...props}
-            />
-          )}
-        </ShrinkOut>
-      </ExitingPersistence>,
-    );
-    rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+	it('should take small duration to complete exiting', () => {
+		const { rerender, getByTestId } = render(
+			<ExitingPersistence>
+				<ShrinkOut>
+					{(props) => (
+						<ComponentStub
+							testId="target"
+							box={{ offsetHeight: 25, offsetWidth: 100 }}
+							{...props}
+						/>
+					)}
+				</ShrinkOut>
+			</ExitingPersistence>,
+		);
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    raf.step();
-    raf.step();
+		raf.step();
+		raf.step();
 
-    expect(getByTestId('target')).toHaveStyle({
-      transitionDuration: `${smallDurationMs}ms`,
-    });
-  });
+		expect(getByTestId('target')).toHaveStyle({
+			transitionDuration: `${smallDurationMs}ms`,
+		});
+	});
 
-  it('should ease in to exiting', () => {
-    const { rerender, getByTestId } = render(
-      <ExitingPersistence>
-        <ShrinkOut>
-          {(props) => (
-            <ComponentStub
-              testId="target"
-              box={{ offsetHeight: 25, offsetWidth: 100 }}
-              {...props}
-            />
-          )}
-        </ShrinkOut>
-      </ExitingPersistence>,
-    );
-    rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+	it('should ease in to exiting', () => {
+		const { rerender, getByTestId } = render(
+			<ExitingPersistence>
+				<ShrinkOut>
+					{(props) => (
+						<ComponentStub
+							testId="target"
+							box={{ offsetHeight: 25, offsetWidth: 100 }}
+							{...props}
+						/>
+					)}
+				</ShrinkOut>
+			</ExitingPersistence>,
+		);
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    raf.step();
-    raf.step();
+		raf.step();
+		raf.step();
 
-    expect(getByTestId('target').style.transitionTimingFunction).toEqual(
-      easeIn,
-    );
-  });
+		expect(getByTestId('target').style.transitionTimingFunction).toEqual(easeIn);
+	});
 
-  it('should callback when finished exiting', () => {
-    jest.useFakeTimers();
-    const callback = jest.fn();
-    const { rerender } = render(
-      <ExitingPersistence>
-        <ShrinkOut onFinish={callback}>
-          {(props) => (
-            <ComponentStub
-              testId="target"
-              box={{ offsetHeight: 25, offsetWidth: 100 }}
-              {...props}
-            />
-          )}
-        </ShrinkOut>
-      </ExitingPersistence>,
-    );
-    rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+	it('should callback when finished exiting', () => {
+		jest.useFakeTimers();
+		const callback = jest.fn();
+		const { rerender } = render(
+			<ExitingPersistence>
+				<ShrinkOut onFinish={callback}>
+					{(props) => (
+						<ComponentStub
+							testId="target"
+							box={{ offsetHeight: 25, offsetWidth: 100 }}
+							{...props}
+						/>
+					)}
+				</ShrinkOut>
+			</ExitingPersistence>,
+		);
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    raf.step();
-    raf.step();
-    act(() => {
-      jest.advanceTimersByTime(smallDurationMs);
-    });
+		raf.step();
+		raf.step();
+		act(() => {
+			jest.advanceTimersByTime(smallDurationMs);
+		});
 
-    expect(callback).toHaveBeenCalledWith('exiting');
-    jest.useRealTimers();
-  });
+		expect(callback).toHaveBeenCalledWith('exiting');
+		jest.useRealTimers();
+	});
 
-  it('should be removed from the DOM when finished exiting', () => {
-    jest.useFakeTimers();
-    const callback = jest.fn();
-    const { rerender, baseElement } = render(
-      <ExitingPersistence>
-        <ShrinkOut onFinish={callback}>
-          {(props) => (
-            <ComponentStub
-              testId="target"
-              box={{ offsetHeight: 25, offsetWidth: 100 }}
-              {...props}
-            />
-          )}
-        </ShrinkOut>
-      </ExitingPersistence>,
-    );
-    rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+	it('should be removed from the DOM when finished exiting', () => {
+		jest.useFakeTimers();
+		const callback = jest.fn();
+		const { rerender, baseElement } = render(
+			<ExitingPersistence>
+				<ShrinkOut onFinish={callback}>
+					{(props) => (
+						<ComponentStub
+							testId="target"
+							box={{ offsetHeight: 25, offsetWidth: 100 }}
+							{...props}
+						/>
+					)}
+				</ShrinkOut>
+			</ExitingPersistence>,
+		);
+		rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-    raf.step();
-    raf.step();
-    act(() => {
-      jest.advanceTimersByTime(smallDurationMs);
-    });
+		raf.step();
+		raf.step();
+		act(() => {
+			jest.advanceTimersByTime(smallDurationMs);
+		});
 
-    expect(baseElement.querySelector('[data-testid="target"]')).toEqual(null);
-    jest.useRealTimers();
-  });
+		expect(baseElement.querySelector('[data-testid="target"]')).toEqual(null);
+		jest.useRealTimers();
+	});
 });

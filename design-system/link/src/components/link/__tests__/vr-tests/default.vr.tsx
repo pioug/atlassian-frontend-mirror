@@ -5,5 +5,5 @@ import DefaultExample from '../../../../../examples/01-default';
 import { themeVariants } from './utils';
 
 snapshot(DefaultExample, {
-  variants: themeVariants,
+	variants: themeVariants,
 });

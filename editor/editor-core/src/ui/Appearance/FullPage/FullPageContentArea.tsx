@@ -93,8 +93,11 @@ const Content = React.forwardRef<
 					{({ positionedOverEditor }) => (
 						<div
 							css={[
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								contentArea,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								props.isEditorToolbarHidden && contentAreaHeightNoToolbar,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								positionedOverEditor && positionedOverEditorStyle,
 							]}
 							data-testid={CONTENT_AREA_TEST_ID}
@@ -107,6 +110,7 @@ const Content = React.forwardRef<
 							>
 								<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 									<div
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 										css={editorContentAreaStyle({
 											fullWidthMode,
 											layoutMaxWidth: theme.layoutMaxWidth,
@@ -117,6 +121,7 @@ const Content = React.forwardRef<
 										ref={contentAreaRef}
 									>
 										<div
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 											css={editorContentGutterStyle}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 											className={[
@@ -153,6 +158,7 @@ const Content = React.forwardRef<
 									</div>
 								</ClickAreaBlock>
 							</ScrollContainer>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 							<div css={sidebarArea}>{props.contextPanel || <ContextPanel visible={false} />}</div>
 						</div>
 					)}

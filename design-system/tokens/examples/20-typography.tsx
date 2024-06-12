@@ -8,35 +8,30 @@ import Stack from '@atlaskit/primitives/stack';
 import { token } from '../src';
 
 const fonts = [
-  'font.heading.xxlarge',
-  'font.heading.xlarge',
-  'font.heading.large',
-  'font.heading.medium',
-  'font.heading.small',
-  'font.heading.xsmall',
-  'font.heading.xxsmall',
+	'font.heading.xxlarge',
+	'font.heading.xlarge',
+	'font.heading.large',
+	'font.heading.medium',
+	'font.heading.small',
+	'font.heading.xsmall',
+	'font.heading.xxsmall',
 ] as const;
 
-const body = [
-  'font.body.large',
-  'font.body',
-  'font.body.small',
-  'font.code',
-] as const;
+const body = ['font.body.large', 'font.body', 'font.body.small', 'font.code'] as const;
 
 export default () => {
-  return (
-    <Stack space="space.100" testId="typography">
-      {fonts.map((f) => (
-        <span key={f} style={{ font: token(f) }}>
-          {f}
-        </span>
-      ))}
-      {body.map((f) => (
-        <span key={f} style={{ font: token(f) }}>
-          {f}
-        </span>
-      ))}
-    </Stack>
-  );
+	return (
+		<Stack space="space.100" testId="typography">
+			{fonts.map((f) => (
+				<span key={f} style={{ font: token(f) }}>
+					{f}
+				</span>
+			))}
+			{body.map((f) => (
+				<span key={f} style={{ font: token(f) }}>
+					{f}
+				</span>
+			))}
+		</Stack>
+	);
 };

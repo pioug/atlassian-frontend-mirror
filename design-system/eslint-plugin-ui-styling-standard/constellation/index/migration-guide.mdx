@@ -1,0 +1,309 @@
+---
+order: 3
+---
+
+import SectionMessage from '@atlaskit/section-message';
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+
+## Patterns
+
+All styles should be written using [Compiled](https://compiledcssinjs.com/) or
+[Primitives](/components/primitives) and conform to the following patterns.
+
+### Static styles
+
+For styles that are not affected by props or state, use the `css()` or `xcss()` API.
+
+#### Compiled
+
+When using Compiled, write static styles with `css()` and apply them with the `css` prop.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const cardStyles = css({
+	backgroundColor: token('elevation.surface.raised'),
+	boxShadow: token('elevation.shadow.raised'),
+	padding: token('space.100'),
+});
+
+const Card = () => <div css={cardStyles} />;
+```
+
+#### Primitives
+
+When using Primitives, write static styles with `xcss()` and apply them with the `xcss` prop.
+
+```tsx
+import { Box, xcss } from '@atlaskit/primitives';
+
+const cardStyles = xcss({
+	backgroundColor: 'elevation.surface.raised',
+	boxShadow: 'elevation.shadow.raised',
+	padding: 'space.100',
+});
+
+const Card = () => <Box xcss={cardStyles} />;
+```
+
+### Toggled styles
+
+For styles that are toggled on and off, write them as [static styles](#static-styles) and then
+conditionally apply them.
+
+#### Compiled
+
+When using Compiled, conditionally apply styles with the `css` prop.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const baseStyles = css({
+	backgroundColor: token('color.background.neutral'),
+	border: `1px solid ${token('color.border')}`,
+});
+
+const selectedStyles = css({
+	backgroundColor: token('color.background.selected'),
+	borderColor: token('color.border.selected'),
+});
+
+const Selectable = ({ isSelected = false }: { isSelected?: boolean }) => (
+	// The `selectedStyles` are conditionally applied
+	<div css={[baseStyles, isSelected && selectedStyles]} />
+);
+```
+
+#### Primitives
+
+When using Primitives, conditionally apply styles with the `xcss` prop.
+
+```tsx
+import { Box, xcss } from '@atlaskit/primitives';
+
+const baseStyles = xcss({
+	backgroundColor: 'color.background.neutral',
+	borderWidth: '1px',
+	borderStyle: 'solid',
+	borderColor: 'color.border',
+});
+
+const selectedStyles = xcss({
+	backgroundColor: 'color.background.selected',
+	borderColor: 'color.border.selected',
+});
+
+const Selectable = ({ isSelected = false }: { isSelected?: boolean }) => (
+	// The `selectedStyles` are conditionally applied
+	<Box xcss={[baseStyles, isSelected && selectedStyles]} />
+);
+```
+
+### Variant styles
+
+For styles that compose a set of known variants, use `cssMap` or an object of `xcss()` styles and
+then dynamically access them.
+
+#### Compiled
+
+When using Compiled, write variants with `cssMap` and apply them with the `css` prop.
+
+```tsx
+import { css, cssMap } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+type Status = 'success' | 'warning' | 'danger';
+
+const baseStyles = css({
+	font: token('font.body.large'),
+	padding: token('space.100'),
+});
+
+const statusStyles = cssMap({
+	success: {
+		color: token('color.text.success'),
+		backgroundColor: token('color.background.success'),
+	},
+	warning: {
+		color: token('color.text.warning'),
+		backgroundColor: token('color.background.warning'),
+	},
+	danger: {
+		color: token('color.text.danger'),
+		backgroundColor: token('color.background.danger'),
+	},
+});
+
+const StatusMessage = ({ message, status }: { message: string; status: Status }) => (
+	// The `statusStyles` are dynamically accessed
+	<div css={[baseStyles, statusStyles[status]]} />
+);
+```
+
+#### Primitives
+
+When using Primitives, write variants using an object with `xcss()` values and apply them with the
+`xcss` prop.
+
+```tsx
+import { Box, xcss } from '@atlaskit/primitives';
+
+type Status = 'success' | 'warning' | 'danger';
+
+const baseStyles = xcss({
+	font: 'font.body.large',
+	padding: 'space.100',
+});
+
+const statusStyles = {
+	success: xcss({
+		color: 'color.text.success',
+		backgroundColor: 'color.background.success',
+	}),
+	warning: xcss({
+		color: 'color.text.warning',
+		backgroundColor: 'color.background.warning',
+	}),
+	danger: xcss({
+		color: 'color.text.danger',
+		backgroundColor: 'color.background.danger',
+	}),
+};
+
+const StatusMessage = ({ message, status }: { message: string; status: Status }) => (
+	// The `statusStyles` are dynamically accessed
+	<Box xcss={[baseStyles, statusStyles[status]]} />
+);
+```
+
+### Dynamic styles
+
+<SectionMessage appearance="warning" title="Use with caution">
+	Only a tiny percentage (~1%) of styles need to be written this way. If you are using it
+	frequently, you are likely doing something wrong!
+</SectionMessage>
+
+For styles that cannot be expressed statically, use the `style` prop.
+
+This might be needed when:
+
+- Styles are derived from user input
+- Integrating with a 3rd party library that provides a `style` object
+
+#### Compiled
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const baseStyles = css({
+	height: '100%',
+	minWidth: '200px',
+	backgroundColor: token('color.background.neutral'),
+});
+
+const Resizable = ({ width }: { width: string }) => <div css={baseStyles} style={{ width }} />;
+```
+
+#### Primitives
+
+```tsx
+import { Box, xcss } from '@atlaskit/primitives';
+
+const baseStyles = xcss({
+	height: '100%',
+	minWidth: '200px',
+	backgroundColor: 'color.background.neutral',
+});
+
+const Resizable = ({ width }: { width: string }) => <Box css={baseStyles} style={{ width }} />;
+```
+
+## More examples
+
+### Migrating from `styled`
+
+#### Before
+
+```tsx
+import { styled } from '@compiled/react';
+
+type Status = 'success' | 'warning' | 'danger';
+
+type Props = {
+	width: string;
+	status: Status;
+	isSelected: boolean;
+};
+
+const textColors: Record<Status, string> = {
+	success: token('color.text.success'),
+	warning: token('color.text.warning'),
+	danger: token('color.text.danger'),
+};
+
+const Component = styled.div<Props>(
+	{
+		padding: token('space.100'),
+		width: (props) => props.width,
+	},
+	({ status }: { status: Status }) => ({
+		color: textColors[status],
+	}),
+	({ isSelected }) => (isSelected ? { border: `1px solid ${token('color.border.selected')}` } : {}),
+);
+```
+
+#### After
+
+We apply a combination of the patterns above:
+
+- The padding is a [static style](#static-styles) so uses `css()` that is always applied.
+- The selected border is a [toggled style](#toggled-styles) so uses `css()` that is conditionally
+  applied.
+- The status color is a [variant style](#variant-styles) so is written using `cssMap()` that is
+  dynamically accessed.
+- The width is a [completely dynamic style](#dynamic-styles) so uses the `style` prop.
+
+```tsx
+import type { ReactNode } from 'react';
+import { css, cssMap } from '@compiled/react';
+
+type Status = 'success' | 'warning' | 'danger';
+
+type Props = {
+	width: string;
+	status: Status;
+	isSelected: boolean;
+	// Props that were implicitly added now need to be made explicit
+	children: ReactNode;
+};
+
+const baseStyles = css({
+	padding: token('space.100'),
+});
+
+const selectedStyles = css({
+	border: `1px solid ${token('color.border.selected')}`,
+});
+
+const statusStyles = cssMap({
+	success: {
+		color: token('color.text.success'),
+	},
+	warning: {
+		color: token('color.text.warning'),
+	},
+	danger: {
+		color: token('color.text.danger'),
+	},
+});
+
+const Component = ({ width, status, isSelected, children }: Props) => (
+	<div css={[baseStyles, isSelected && selectedStyles, statusStyles[status]]} style={{ width }}>
+		{children}
+	</div>
+);
+```

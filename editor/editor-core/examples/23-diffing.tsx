@@ -17,6 +17,7 @@ const container = css({
 	flexDirection: 'column',
 	margin: token('space.100', '8px'),
 	height: 'calc(100% - 30px)',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		margin: `${token('space.100', '8px')} 0`,
 	},

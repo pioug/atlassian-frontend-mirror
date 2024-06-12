@@ -89,8 +89,10 @@ const ImageBorder = ({
 			elemAfter: (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				<div className={DropdownMenuSharedCssClassName.SUBMENU}>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={contextualMenuColorIcon(color && hexToEditorBorderPaletteColor(color))} />
 					{isColorSubmenuOpen && (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						<div css={contextualSubMenu(0)} ref={handleSubMenuRef}>
 							<ColorPalette
 								onClick={(color: string) => {
@@ -115,14 +117,18 @@ const ImageBorder = ({
 			elemAfter: (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				<div className={DropdownMenuSharedCssClassName.SUBMENU}>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={contextualMenuArrow} />
 					{isSizeSubmenuOpen && (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						<div css={contextualSubMenu(1)} ref={handleSubMenuRef}>
 							{borderSizeOptions.map(({ name, value }, idx) => (
 								<Tooltip key={idx} content={name}>
+									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 									<span css={buttonWrapperStyle}>
 										<button
 											type="button"
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 											css={buttonStyle(value === size)}
 											aria-label={name}
 											role="radio"
@@ -135,6 +141,7 @@ const ImageBorder = ({
 												e.preventDefault();
 											}}
 										>
+											{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 											<div css={line(value, value === size)} role="presentation" />
 										</button>
 									</span>
@@ -158,6 +165,7 @@ const ImageBorder = ({
 	return (
 		<div>
 			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={toolbarButtonWrapper({
 					enabled,
 					isOpen,

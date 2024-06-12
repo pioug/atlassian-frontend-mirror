@@ -8,19 +8,16 @@ import type { LogoProps } from '../types';
 import { getColorsFromAppearance } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = (
-  { appearance, iconColor, textColor }: LogoProps,
-  colorMode: string | undefined,
-) => {
-  let colors = {
-    iconColor,
-    textColor,
-  };
+const svg = ({ appearance, iconColor, textColor }: LogoProps, colorMode: string | undefined) => {
+	let colors = {
+		iconColor,
+		textColor,
+	};
 
-  if (appearance) {
-    colors = getColorsFromAppearance(appearance, colorMode);
-  }
-  return `<svg fill="none" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 377 32" focusable="false" aria-hidden="true">
+	if (appearance) {
+		colors = getColorsFromAppearance(appearance, colorMode);
+	}
+	return `<svg fill="none" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 377 32" focusable="false" aria-hidden="true">
       <path
         d="M369.828 12.524c-2.79 0-4.201 1.81-4.477 4.478h8.556c-.153-2.852-1.441-4.478-4.079-4.478m5.888 12.635c-1.257.675-3.189.92-4.753.92-5.735 0-8.249-3.312-8.249-8.004 0-4.63 2.576-7.943 7.237-7.943 4.723 0 6.624 3.282 6.624 7.943v1.196h-11.193c.368 2.607 2.054 4.293 5.673 4.293 1.779 0 3.281-.337 4.661-.828zm-15.093-2.147v2.362c-.92.49-2.331.705-3.741.705-5.459 0-8.004-3.312-8.004-8.004 0-4.63 2.545-7.943 8.004-7.943 1.38 0 2.453.184 3.649.736v2.454c-.981-.46-2.024-.736-3.465-.736-3.987 0-5.612 2.514-5.612 5.489s1.656 5.49 5.673 5.49c1.564 0 2.545-.215 3.496-.553m-26.118-4.906c0 3.68 1.472 5.52 4.201 5.52 2.361 0 4.477-1.503 4.477-4.907v-1.227c0-3.404-1.932-4.906-4.17-4.906-2.975 0-4.508 1.962-4.508 5.52m8.678 7.666v-2.76c-.981 2.024-2.821 3.067-5.182 3.067-4.079 0-6.134-3.465-6.134-7.973 0-4.324 2.147-7.974 6.44-7.974 2.239 0 3.956 1.012 4.876 3.006v-2.699h2.638v15.333zm-12.783-.031c-.215.062-.675.123-1.35.123-2.514 0-4.109-1.196-4.109-4.017V4.03h2.637v17.51c0 1.38.92 1.87 2.055 1.87.276 0 .46 0 .767-.03zm-11.153-7.635c0-3.68-1.472-5.52-4.202-5.52-2.361 0-4.477 1.502-4.477 4.906v1.227c0 3.404 1.932 4.907 4.171 4.907 2.974 0 4.508-1.963 4.508-5.52m-3.803 7.973c-2.239 0-3.956-1.012-4.876-3.005v8.678h-2.637V10.44h2.637v2.76c.981-2.024 2.821-3.067 5.183-3.067 4.078 0 6.133 3.466 6.133 7.974 0 4.324-2.147 7.973-6.44 7.973zm-14.975-5.06c0 1.35.798 2.27 2.423 2.27.613 0 1.196-.123 1.656-.215v2.545a6.3 6.3 0 0 1-1.779.245c-3.281 0-4.876-1.932-4.876-4.784v-8.188h-2.484V10.44h2.484V7.19h2.576v3.25h4.079v2.453h-4.079zm-13.537-8.495c-2.79 0-4.201 1.81-4.477 4.478h8.556c-.153-2.852-1.441-4.478-4.079-4.478m5.888 12.635c-1.257.675-3.189.92-4.753.92-5.735 0-8.249-3.312-8.249-8.004 0-4.63 2.576-7.943 7.237-7.943 4.723 0 6.624 3.282 6.624 7.943v1.196h-11.193c.368 2.607 2.054 4.293 5.673 4.293 1.779 0 3.281-.337 4.661-.828zm-23.82.613h-2.637V4.03H269v13.585l6.593-7.176h3.435l-7.207 7.544 7.514 7.79h-3.588L269 18.595zm-10.333-9.046v9.046h-2.576V10.44h2.576v2.699c.889-1.81 2.422-3.098 5.428-2.914V12.8c-3.374-.337-5.428.675-5.428 3.926m-17.869 1.38c0 3.68 1.472 5.52 4.201 5.52 2.361 0 4.477-1.503 4.477-4.907v-1.227c0-3.404-1.932-4.906-4.17-4.906-2.975 0-4.508 1.962-4.508 5.52m8.678 7.666v-2.76c-.981 2.024-2.821 3.067-5.182 3.067-4.079 0-6.134-3.465-6.134-7.973 0-4.324 2.147-7.974 6.44-7.974 2.239 0 3.956 1.012 4.876 3.006v-2.699h2.638v15.333zm-31.445-11.009-2.76-7.483v18.492h-2.76V5.624h4.784l4.569 11.562 1.871 5.55 1.871-5.55 4.6-11.562h4.446v20.148h-2.76V7.495l-2.361 7.268-4.447 11.01h-2.668z"
         fill="${colors.textColor}"
@@ -42,30 +39,30 @@ const svg = (
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const AtlassianMarketplaceLogo = ({
-  appearance,
-  label = 'Atlassian Marketplace',
-  size = defaultLogoParams.size,
-  testId,
-  textColor = defaultLogoParams.textColor,
-  iconColor = defaultLogoParams.iconColor,
+	appearance,
+	label = 'Atlassian Marketplace',
+	size = defaultLogoParams.size,
+	testId,
+	textColor = defaultLogoParams.textColor,
+	iconColor = defaultLogoParams.iconColor,
 }: LogoProps) => {
-  const { colorMode } = useThemeObserver();
-  return (
-    <Wrapper
-      appearance={appearance}
-      iconColor={iconColor}
-      label={label}
-      size={size}
-      svg={svg(
-        {
-          appearance,
-          iconColor,
-          textColor,
-        },
-        colorMode,
-      )}
-      testId={testId}
-      textColor={textColor}
-    />
-  );
+	const { colorMode } = useThemeObserver();
+	return (
+		<Wrapper
+			appearance={appearance}
+			iconColor={iconColor}
+			label={label}
+			size={size}
+			svg={svg(
+				{
+					appearance,
+					iconColor,
+					textColor,
+				},
+				colorMode,
+			)}
+			testId={testId}
+			textColor={textColor}
+		/>
+	);
 };

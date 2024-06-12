@@ -5,5 +5,5 @@ import DisabledExample from '../../../examples/25-disabled';
 import { themeVariants } from './utils';
 
 snapshot(DisabledExample, {
-  variants: themeVariants,
+	variants: themeVariants,
 });

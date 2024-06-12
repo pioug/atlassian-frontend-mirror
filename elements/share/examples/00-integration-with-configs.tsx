@@ -60,6 +60,7 @@ type UserData = {
 ufologger.enable();
 
 const WrapperWithMarginTop = ({ children }: PropsWithChildren<{}>) => (
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={{ marginTop: 10 }}>{children}</div>
 );
 
@@ -213,6 +214,7 @@ const renderCustomTriggerButton: RenderCustomTriggerButton = ({ onClick }, { ...
 
 const FooterWrapper = ({ children }: PropsWithChildren<{}>) => (
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			marginTop: 8,
 			'& > *': {
@@ -226,6 +228,7 @@ const FooterWrapper = ({ children }: PropsWithChildren<{}>) => (
 
 const FieldsFooterWrapper = ({ children }: PropsWithChildren<{}>) => (
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			marginTop: 8,
 			marginBottom: 8,

@@ -17,10 +17,11 @@ const Row = styled.div({
 	overflow: 'hidden',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 const Cell = styled.div<{ width?: number }>((props) => ({
 	maxWidth: '100%',
 	flex: '0 0 auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${props.width}px` || 'auto',
 }));
 

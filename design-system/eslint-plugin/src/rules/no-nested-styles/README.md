@@ -1,25 +1,25 @@
-Disallows using nested styles. Nested styles can change unexpectedly when child markup changes and result in duplicates when extracting to CSS.
+Disallows using nested styles. Nested styles can change unexpectedly when child markup changes and
+result in duplicates when extracting to CSS.
 
 ## Examples
 
-This rule checks for nested styles inside `css` objects.
-This rule has no options.
+This rule checks for nested styles inside `css` objects. This rule has no options.
 
 ### Incorrect
 
 ```js
 css({
-  div: {
-    color: 'red',
-  },
+	div: {
+		color: 'red',
+	},
 });
 ```
 
 ```js
 css({
-  '@media (min-width: 480px)': {
-    color: 'red',
-  },
+	'@media (min-width: 480px)': {
+		color: 'red',
+	},
 });
 ```
 
@@ -27,10 +27,10 @@ css({
 
 ```js
 css({
-  color: 'red',
-  ':hover': {
-    color: 'black',
-  },
+	color: 'red',
+	':hover': {
+		color: 'black',
+	},
 });
 ```
 
@@ -38,8 +38,8 @@ css({
 import { media } from '@atlaskit/primitives';
 
 css({
-  [media.above.xs]: {
-    color: 'red',
-  },
+	[media.above.xs]: {
+		color: 'red',
+	},
 });
 ```

@@ -9,13 +9,13 @@ import { token } from '@atlaskit/tokens';
 import { type Appearance, LoadingButton as Button } from '../src';
 
 const appearances: Appearance[] = [
-  'default',
-  'primary',
-  'link',
-  'subtle',
-  'subtle-link',
-  'warning',
-  'danger',
+	'default',
+	'primary',
+	'link',
+	'subtle',
+	'subtle-link',
+	'warning',
+	'danger',
 ];
 
 /**
@@ -24,53 +24,51 @@ const appearances: Appearance[] = [
  * freeze the spinner, avoiding potential for VR test flakiness.
  */
 const animationStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  'svg, span': {
-    animationDuration: '0s',
-    animationTimingFunction: 'step-end',
-  },
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'svg, span': {
+		animationDuration: '0s',
+		animationTimingFunction: 'step-end',
+	},
 });
 
 const Table = (props: React.HTMLProps<HTMLDivElement>) => (
-  <div css={{ display: 'table' }}>{props.children}</div>
+	<div css={{ display: 'table' }}>{props.children}</div>
 );
 const Row = (props: React.HTMLProps<HTMLDivElement>) => (
-  <div css={{ display: 'flex', flexWrap: 'wrap' }}>{props.children}</div>
+	<div css={{ display: 'flex', flexWrap: 'wrap' }}>{props.children}</div>
 );
 const Cell = (props: React.HTMLProps<HTMLDivElement>) => (
-  <div css={{ width: '100px', padding: `${token('space.050', '4px')} 0` }}>
-    {props.children}
-  </div>
+	<div css={{ width: '100px', padding: `${token('space.050', '4px')} 0` }}>{props.children}</div>
 );
 
 function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+	return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 export default function Example() {
-  return (
-    <div css={animationStyles}>
-      <Table>
-        {appearances.map((a) => (
-          <Row key={a}>
-            <Cell>
-              <Button isLoading={true} appearance={a}>
-                {capitalize(a)}
-              </Button>
-            </Cell>
-            <Cell>
-              <Button isLoading={true} appearance={a} isDisabled={true}>
-                Disabled
-              </Button>
-            </Cell>
-            <Cell>
-              <Button isLoading={true} appearance={a} isSelected={true}>
-                Selected
-              </Button>
-            </Cell>
-          </Row>
-        ))}
-      </Table>
-    </div>
-  );
+	return (
+		<div css={animationStyles}>
+			<Table>
+				{appearances.map((a) => (
+					<Row key={a}>
+						<Cell>
+							<Button isLoading={true} appearance={a}>
+								{capitalize(a)}
+							</Button>
+						</Cell>
+						<Cell>
+							<Button isLoading={true} appearance={a} isDisabled={true}>
+								Disabled
+							</Button>
+						</Cell>
+						<Cell>
+							<Button isLoading={true} appearance={a} isSelected={true}>
+								Selected
+							</Button>
+						</Cell>
+					</Row>
+				))}
+			</Table>
+		</div>
+	);
 }

@@ -16,39 +16,39 @@ const height = (gridSize() * 3) / fontSize();
 const noop = __noop;
 
 const itemWrapperStyles = css({
-  display: 'flex',
-  boxSizing: 'border-box',
-  maxWidth: '100%',
-  height: `${height}em`,
-  margin: token('space.0', '0px'),
-  padding: token('space.0', '0px'),
-  flexDirection: 'row',
-  lineHeight: `${height}em`,
-  '&:not(:last-child)::after': {
-    width: token('space.100', '8px'),
-    padding: `${token('space.0', '0px')} ${token('space.100', '8px')}`,
-    flexShrink: 0,
-    content: '"/"',
-    textAlign: 'center',
-  },
+	display: 'flex',
+	boxSizing: 'border-box',
+	maxWidth: '100%',
+	height: `${height}em`,
+	margin: token('space.0', '0px'),
+	padding: token('space.0', '0px'),
+	flexDirection: 'row',
+	lineHeight: `${height}em`,
+	'&:not(:last-child)::after': {
+		width: token('space.100', '8px'),
+		padding: `${token('space.0', '0px')} ${token('space.100', '8px')}`,
+		flexShrink: 0,
+		content: '"/"',
+		textAlign: 'center',
+	},
 });
 
 const EllipsisItem = memo((props: EllipsisItemProps) => {
-  const { onClick = noop, testId, label } = props;
+	const { onClick = noop, testId, label } = props;
 
-  return (
-    <li css={itemWrapperStyles}>
-      <Button
-        appearance="subtle-link"
-        spacing="none"
-        testId={testId}
-        onClick={onClick}
-        aria-label={label}
-      >
-        &hellip;
-      </Button>
-    </li>
-  );
+	return (
+		<li css={itemWrapperStyles}>
+			<Button
+				appearance="subtle-link"
+				spacing="none"
+				testId={testId}
+				onClick={onClick}
+				aria-label={label}
+			>
+				&hellip;
+			</Button>
+		</li>
+	);
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

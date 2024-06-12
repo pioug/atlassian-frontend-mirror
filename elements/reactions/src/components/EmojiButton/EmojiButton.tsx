@@ -50,6 +50,7 @@ export const EmojiButton = ({ emojiId, onClick, emojiProvider }: EmojiButtonProp
 				emoji: emojiId.shortName,
 			})}
 			type="button"
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={emojiButtonStyle}
 		>
 			<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} />

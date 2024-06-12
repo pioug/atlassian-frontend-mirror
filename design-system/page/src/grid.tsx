@@ -4,37 +4,37 @@ import { useContext } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import {
-  defaultGridColumnWidth,
-  defaultLayout,
-  spacingMapping,
-  varColumnsNum,
-  varGridSpacing,
+	defaultGridColumnWidth,
+	defaultLayout,
+	spacingMapping,
+	varColumnsNum,
+	varGridSpacing,
 } from './constants';
 import { GridContext } from './grid-context';
 import type { GridProps } from './types';
 
 const gridStyles = css({
-  display: 'flex',
-  margin: '0 auto',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  padding: `0 calc(var(${varGridSpacing}) / 2)`,
-  position: 'relative',
-  alignItems: 'flex-start',
-  flexWrap: 'wrap',
+	display: 'flex',
+	margin: '0 auto',
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	padding: `0 calc(var(${varGridSpacing}) / 2)`,
+	position: 'relative',
+	alignItems: 'flex-start',
+	flexWrap: 'wrap',
 });
 
 const gridLayoutStyles = {
-  fixed: css({
-    maxWidth: `calc(var(${varColumnsNum}) * ${defaultGridColumnWidth}px)`,
-  }),
-  fluid: css({
-    maxWidth: '100%',
-  }),
+	fixed: css({
+		maxWidth: `calc(var(${varColumnsNum}) * ${defaultGridColumnWidth}px)`,
+	}),
+	fluid: css({
+		maxWidth: '100%',
+	}),
 };
 
 const nestedGridStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  margin: `0 calc(-1 * var(${varGridSpacing}))`,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	margin: `0 calc(-1 * var(${varGridSpacing}))`,
 });
 
 /**
@@ -47,26 +47,22 @@ const nestedGridStyles = css({
  *
  * @internal
  */
-export const Grid = ({
-  layout = defaultLayout,
-  testId,
-  children,
-}: GridProps) => {
-  const { isNested, columns, spacing } = useContext(GridContext);
+export const Grid = ({ layout = defaultLayout, testId, children }: GridProps) => {
+	const { isNested, columns, spacing } = useContext(GridContext);
 
-  return (
-    <div
-      css={[gridStyles, gridLayoutStyles[layout], isNested && nestedGridStyles]}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      style={
-        {
-          [varColumnsNum]: columns,
-          [varGridSpacing]: `${spacingMapping[spacing]}px`,
-        } as React.CSSProperties
-      }
-      data-testid={testId}
-    >
-      {children}
-    </div>
-  );
+	return (
+		<div
+			css={[gridStyles, gridLayoutStyles[layout], isNested && nestedGridStyles]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={
+				{
+					[varColumnsNum]: columns,
+					[varGridSpacing]: `${spacingMapping[spacing]}px`,
+				} as React.CSSProperties
+			}
+			data-testid={testId}
+		>
+			{children}
+		</div>
+	);
 };

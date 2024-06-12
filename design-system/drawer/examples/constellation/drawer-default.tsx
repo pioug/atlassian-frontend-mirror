@@ -7,22 +7,18 @@ import Button from '@atlaskit/button/new';
 import Drawer from '../../src';
 
 const DrawerDefaultExample = () => {
-  const [open, setOpen] = useState<boolean>(false);
+	const [open, setOpen] = useState<boolean>(false);
 
-  return (
-    <>
-      <Drawer
-        label="Default drawer"
-        onClose={() => setOpen(false)}
-        isOpen={open}
-      >
-        <Lorem count={10} />
-      </Drawer>
-      <Button appearance="primary" onClick={() => setOpen(true)}>
-        Open drawer
-      </Button>
-    </>
-  );
+	return (
+		<>
+			<Drawer label="Default drawer" onClose={() => setOpen(false)} isOpen={open}>
+				<Lorem count={10} />
+			</Drawer>
+			<Button appearance="primary" onClick={() => setOpen(true)}>
+				Open drawer
+			</Button>
+		</>
+	);
 };
 
 export default DrawerDefaultExample;

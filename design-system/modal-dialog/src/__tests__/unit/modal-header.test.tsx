@@ -12,82 +12,82 @@ jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');
 
 describe('<ModalHeader />', () => {
-  afterEach(cleanup);
+	afterEach(cleanup);
 
-  it('should render default header', () => {
-    const { queryByTestId } = render(
-      <ModalDialog onClose={noop} testId="modal">
-        <ModalHeader>My header</ModalHeader>
-      </ModalDialog>,
-    );
+	it('should render default header', () => {
+		const { queryByTestId } = render(
+			<ModalDialog onClose={noop} testId="modal">
+				<ModalHeader>My header</ModalHeader>
+			</ModalDialog>,
+		);
 
-    expect(queryByTestId('modal--header')).toBeInTheDocument();
-  });
+		expect(queryByTestId('modal--header')).toBeInTheDocument();
+	});
 
-  it('should be accessible using a user-defined test id', () => {
-    const { queryByTestId } = render(
-      <ModalDialog onClose={noop} testId="modal">
-        <ModalHeader testId="my-header">My header</ModalHeader>
-      </ModalDialog>,
-    );
+	it('should be accessible using a user-defined test id', () => {
+		const { queryByTestId } = render(
+			<ModalDialog onClose={noop} testId="modal">
+				<ModalHeader testId="my-header">My header</ModalHeader>
+			</ModalDialog>,
+		);
 
-    expect(queryByTestId('modal--header')).not.toBeInTheDocument();
-    expect(queryByTestId('my-header')).toBeInTheDocument();
-  });
+		expect(queryByTestId('modal--header')).not.toBeInTheDocument();
+		expect(queryByTestId('my-header')).toBeInTheDocument();
+	});
 
-  it('should render custom header', () => {
-    const { queryByTestId } = render(
-      <ModalDialog onClose={noop}>
-        <span data-testid="custom-header">My header</span>
-      </ModalDialog>,
-    );
+	it('should render custom header', () => {
+		const { queryByTestId } = render(
+			<ModalDialog onClose={noop}>
+				<span data-testid="custom-header">My header</span>
+			</ModalDialog>,
+		);
 
-    expect(queryByTestId('custom-header')).toBeInTheDocument();
-  });
+		expect(queryByTestId('custom-header')).toBeInTheDocument();
+	});
 
-  it('should invoke onClose callback on custom header', () => {
-    const callback = jest.fn();
-    const CustomHeader = () => {
-      const { onClose } = useModal();
-      return (
-        <ModalHeader>
-          <button
-            data-testid="custom-close"
-            onClick={onClose as MouseEventHandler<HTMLButtonElement>}
-            type="button"
-          >
-            Custom close
-          </button>
-        </ModalHeader>
-      );
-    };
+	it('should invoke onClose callback on custom header', () => {
+		const callback = jest.fn();
+		const CustomHeader = () => {
+			const { onClose } = useModal();
+			return (
+				<ModalHeader>
+					<button
+						data-testid="custom-close"
+						onClick={onClose as MouseEventHandler<HTMLButtonElement>}
+						type="button"
+					>
+						Custom close
+					</button>
+				</ModalHeader>
+			);
+		};
 
-    const { getByTestId } = render(
-      <ModalDialog onClose={callback}>
-        <CustomHeader />
-      </ModalDialog>,
-    );
+		const { getByTestId } = render(
+			<ModalDialog onClose={callback}>
+				<CustomHeader />
+			</ModalDialog>,
+		);
 
-    fireEvent.click(getByTestId('custom-close'));
-    expect(callback).toHaveBeenCalledTimes(1);
-  });
+		fireEvent.click(getByTestId('custom-close'));
+		expect(callback).toHaveBeenCalledTimes(1);
+	});
 
-  it('should throw an error if modal context not available', () => {
-    /* eslint-disable no-console */
-    const err = console.error;
-    console.error = jest.fn();
-    /* eslint-enable no-console */
+	it('should throw an error if modal context not available', () => {
+		/* eslint-disable no-console */
+		const err = console.error;
+		console.error = jest.fn();
+		/* eslint-enable no-console */
 
-    try {
-      render(<ModalHeader>Lone header</ModalHeader>);
-    } catch (e) {
-      expect((e as Error).message).toBe(
-        '@atlaskit/modal-dialog: Modal context unavailable – this component needs to be a child of ModalDialog.',
-      );
-    }
+		try {
+			render(<ModalHeader>Lone header</ModalHeader>);
+		} catch (e) {
+			expect((e as Error).message).toBe(
+				'@atlaskit/modal-dialog: Modal context unavailable – this component needs to be a child of ModalDialog.',
+			);
+		}
 
-    // Restore writing to stderr.
-    /* eslint-disable-next-line no-console */
-    console.error = err;
-  });
+		// Restore writing to stderr.
+		/* eslint-disable-next-line no-console */
+		console.error = err;
+	});
 });

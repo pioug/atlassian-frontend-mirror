@@ -84,10 +84,12 @@ export const handleMouseDown = (
 	});
 
 	let shouldScale = tableDepth === 0 && isTableScalingEnabled;
+	const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
-	const isTableScalingEnabledWithLockButton =
-		isTableScalingEnabled && getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
-	if (isTableScalingEnabledWithLockButton) {
+	const isTableScalingWithFixedColumnWidthsOptionEnabled =
+		isTableScalingEnabled && tableWithFixedColumnWidthsOption;
+
+	if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 		shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 	}
 
@@ -100,7 +102,7 @@ export const handleMouseDown = (
 		domAtPos,
 		isTableScalingEnabled: shouldScale,
 		shouldUseIncreasedScalingPercent:
-			isTableScalingEnabledWithLockButton &&
+			isTableScalingWithFixedColumnWidthsOptionEnabled &&
 			getBooleanFF('platform.editor.table.use-increased-scaling-percent'),
 	});
 
@@ -183,10 +185,8 @@ export const handleMouseDown = (
 					selectedColumns.indexOf(colIndex) > -1 || selectedColumns.indexOf(colIndex + 1) > -1;
 
 				let shouldScale = tableDepth === 0 && isTableScalingEnabled;
-				const isTableScalingEnabledWithLockButton =
-					isTableScalingEnabled &&
-					getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
-				if (isTableScalingEnabledWithLockButton) {
+
+				if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 					shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 				}
 
@@ -213,7 +213,7 @@ export const handleMouseDown = (
 						originalTable,
 						resizingSelectedColumns ? selectedColumns : undefined,
 						shouldScale,
-						isTableScalingEnabledWithLockButton &&
+						isTableScalingWithFixedColumnWidthsOptionEnabled &&
 							getBooleanFF('platform.editor.table.use-increased-scaling-percent'),
 					);
 					tr = updateColumnWidths(newResizeState, table, start)(tr);
@@ -289,13 +289,11 @@ export const handleMouseDown = (
 		const colIndex = map.colCount($cell.pos - $cell.start(-1)) + $cell.nodeAfter!.attrs.colspan - 1;
 
 		let shouldScale = tableDepth === 0 && isTableScalingEnabled;
-		const isTableScalingEnabledWithLockButton =
-			isTableScalingEnabled &&
-			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+
 		const shouldUseIncreasedScalingPercent =
-			isTableScalingEnabledWithLockButton &&
+			isTableScalingWithFixedColumnWidthsOptionEnabled &&
 			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
-		if (isTableScalingEnabledWithLockButton) {
+		if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 			shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 		}
 

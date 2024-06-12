@@ -14,38 +14,36 @@ import { type CodeBidiWarningProps } from './types';
  * See https://hello.atlassian.net/wiki/spaces/PRODSEC/pages/1347434677/PSHELP-2943+Investigate+Trojan+Source+Attack+Vulnerability#1)-Providing-visual-cues-for-our-Customers-in-our-affected-products
  */
 export default function BidiWarning({
-  testId,
-  bidiCharacter,
-  skipChildren,
-  tooltipEnabled,
-  label = 'Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.',
+	testId,
+	bidiCharacter,
+	skipChildren,
+	tooltipEnabled,
+	label = 'Bidirectional characters change the order that text is rendered. This could be used to obscure malicious code.',
 }: CodeBidiWarningProps) {
-  if (tooltipEnabled) {
-    return (
-      // Following patches, this should be updated to use the render props signature which will provide aria attributes.
-      // Note: this should be tested, as initial testing did not see attributes work with current tooltip implementation.
-      <Tooltip content={label} tag={CustomizedTagWithRef}>
-        <Decorator testId={testId} bidiCharacter={bidiCharacter}>
-          {skipChildren ? null : bidiCharacter}
-        </Decorator>
-      </Tooltip>
-    );
-  }
+	if (tooltipEnabled) {
+		return (
+			// Following patches, this should be updated to use the render props signature which will provide aria attributes.
+			// Note: this should be tested, as initial testing did not see attributes work with current tooltip implementation.
+			<Tooltip content={label} tag={CustomizedTagWithRef}>
+				<Decorator testId={testId} bidiCharacter={bidiCharacter}>
+					{skipChildren ? null : bidiCharacter}
+				</Decorator>
+			</Tooltip>
+		);
+	}
 
-  return (
-    <Decorator testId={testId} bidiCharacter={bidiCharacter}>
-      {skipChildren ? null : bidiCharacter}
-    </Decorator>
-  );
+	return (
+		<Decorator testId={testId} bidiCharacter={bidiCharacter}>
+			{skipChildren ? null : bidiCharacter}
+		</Decorator>
+	);
 }
 
-const CustomizedTagWithRef = React.forwardRef<any, React.PropsWithChildren<{}>>(
-  (props, ref) => {
-    const { children, ...rest } = props;
-    return (
-      <span {...rest} ref={ref}>
-        {children}
-      </span>
-    );
-  },
-);
+const CustomizedTagWithRef = React.forwardRef<any, React.PropsWithChildren<{}>>((props, ref) => {
+	const { children, ...rest } = props;
+	return (
+		<span {...rest} ref={ref}>
+			{children}
+		</span>
+	);
+});

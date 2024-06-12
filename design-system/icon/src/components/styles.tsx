@@ -3,16 +3,16 @@ import { dimensions } from '../constants';
 import { css, type CSSObject } from '@emotion/react';
 
 export const commonSVGStyles = {
-  overflow: 'hidden',
-  pointerEvents: 'none',
-  /**
-   * Stop-color doesn't properly apply in chrome when the inherited/current color changes.
-   * We have to initially set stop-color to inherit (either via DOM attribute or an initial CSS
-   * rule) and then override it with currentColor for the color changes to be picked up.
-   */
-  stop: {
-    stopColor: 'currentColor',
-  },
+	overflow: 'hidden',
+	pointerEvents: 'none',
+	/**
+	 * Stop-color doesn't properly apply in chrome when the inherited/current color changes.
+	 * We have to initially set stop-color to inherit (either via DOM attribute or an initial CSS
+	 * rule) and then override it with currentColor for the color changes to be picked up.
+	 */
+	stop: {
+		stopColor: 'currentColor',
+	},
 } as CSSObject;
 
 const smallStyles = css(dimensions.small);
@@ -22,10 +22,10 @@ const xlargeStyles = css(dimensions.xlarge);
 
 // pre-built css style-size map
 export const sizeStyleMap = {
-  small: smallStyles,
-  medium: mediumStyles,
-  large: largeStyles,
-  xlarge: xlargeStyles,
+	small: smallStyles,
+	medium: mediumStyles,
+	large: largeStyles,
+	xlarge: xlargeStyles,
 };
 
 /**
@@ -37,21 +37,21 @@ export const sizeStyleMap = {
  * It's only really being kept to maintain backward compatability.
  */
 export const getIconSize = ({
-  width,
-  height,
-  size,
+	width,
+	height,
+	size,
 }: {
-  size?: Size;
-  width?: number;
-  height?: number;
+	size?: Size;
+	width?: number;
+	height?: number;
 }) => {
-  if (width && height) {
-    return { width, height };
-  }
+	if (width && height) {
+		return { width, height };
+	}
 
-  if (size) {
-    return dimensions[size];
-  }
+	if (size) {
+		return dimensions[size];
+	}
 
-  return undefined;
+	return undefined;
 };

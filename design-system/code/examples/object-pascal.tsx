@@ -7,10 +7,10 @@ interface
 uses { these units are part of the Visual Component Library (VCL) }`;
 
 export default function Component() {
-  return (
-    <div>
-      <h2>Object Pascal</h2>
-      <CodeBlock language="objectpascal" text={exampleCodeBlock} />
-    </div>
-  );
+	return (
+		<div>
+			<h2>Object Pascal</h2>
+			<CodeBlock language="objectpascal" text={exampleCodeBlock} />
+		</div>
+	);
 }

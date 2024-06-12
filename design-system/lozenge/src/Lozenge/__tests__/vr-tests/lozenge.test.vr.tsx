@@ -7,24 +7,24 @@ import WidthHandling from '../../../../examples/5-width-handling';
 import LozengeContainers from '../../../../examples/6-containers';
 
 snapshot(Basic, {
-  variants: [
-    {
-      name: 'default',
-      environment: {},
-    },
-    {
-      name: 'light mode',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'dark mode',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'default',
+			environment: {},
+		},
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'dark mode',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });
 
 snapshot(BaselineAlignment);

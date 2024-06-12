@@ -2,14 +2,14 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'convert-props-syntax',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [
-      {
-        name: 'ignores type annotation in props argument',
-        code: `
+	'convert-props-syntax',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [
+			{
+				name: 'ignores type annotation in props argument',
+				code: `
         import styled from 'styled-components';
 
         type Props = {
@@ -22,12 +22,12 @@ typescriptEslintTester.run(
           backgroundColor: props.myBackground,
         }))
       `,
-      },
-    ],
-    invalid: [
-      {
-        name: 'converts styled usages with type annotation on the outside',
-        code: `
+			},
+		],
+		invalid: [
+			{
+				name: 'converts styled usages with type annotation on the outside',
+				code: `
           import styled from 'styled-components';
 
           styled.div<{ color: string; backgroundColor: string; }>({
@@ -35,7 +35,7 @@ typescriptEslintTester.run(
             backgroundColor: ({ backgroundColor }) => backgroundColor,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div<{ color: string; backgroundColor: string; }>((props) => ({
@@ -43,11 +43,11 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts styled usages with type annotation on the outside (as a variable)',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts styled usages with type annotation on the outside (as a variable)',
+				code: `
           import styled from 'styled-components';
 
           type Props = {
@@ -59,7 +59,7 @@ typescriptEslintTester.run(
             backgroundColor: ({ backgroundColor }) => backgroundColor,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           type Props = {
@@ -71,11 +71,11 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'disables autofixer when type annotation is inside props argument',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'disables autofixer when type annotation is inside props argument',
+				code: `
           import styled from 'styled-components';
 
           type Props = {
@@ -88,15 +88,15 @@ typescriptEslintTester.run(
             backgroundColor: (props: Props) => props.backgroundColor,
           });
         `,
-        errors: [
-          {
-            messageId: 'unsupported-prop-syntax-no-autofixer',
-          },
-        ],
-      },
-      {
-        name: 'disables autofixer when type annotation is given for destructured props',
-        code: `
+				errors: [
+					{
+						messageId: 'unsupported-prop-syntax-no-autofixer',
+					},
+				],
+			},
+			{
+				name: 'disables autofixer when type annotation is given for destructured props',
+				code: `
           import styled from 'styled-components';
 
           type Props = {
@@ -109,15 +109,15 @@ typescriptEslintTester.run(
             backgroundColor: ({ backgroundColor }: Props) => backgroundColor,
           });
         `,
-        errors: [
-          {
-            messageId: 'unsupported-prop-syntax-no-autofixer',
-          },
-        ],
-      },
-      {
-        name: 'disables autofixer when type annotation is inside props within template literal',
-        code: `
+				errors: [
+					{
+						messageId: 'unsupported-prop-syntax-no-autofixer',
+					},
+				],
+			},
+			{
+				name: 'disables autofixer when type annotation is inside props within template literal',
+				code: `
           import styled from 'styled-components';
 
           interface ThumbnailProps {
@@ -129,12 +129,12 @@ typescriptEslintTester.run(
             backgroundSize: 'cover',
           });
         `,
-        errors: [
-          {
-            messageId: 'unsupported-prop-syntax-no-autofixer',
-          },
-        ],
-      },
-    ],
-  },
+				errors: [
+					{
+						messageId: 'unsupported-prop-syntax-no-autofixer',
+					},
+				],
+			},
+		],
+	},
 );

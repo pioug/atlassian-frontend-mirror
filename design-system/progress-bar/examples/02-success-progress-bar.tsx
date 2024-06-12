@@ -5,8 +5,8 @@ import { SuccessProgressBar } from '../src';
 import { containerStyle } from './00-basic';
 
 export default () => (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-  <div style={containerStyle}>
-    <SuccessProgressBar value={1} ariaLabel="Done: 10 of 10 issues" />
-  </div>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+	<div style={containerStyle}>
+		<SuccessProgressBar value={1} ariaLabel="Done: 10 of 10 issues" />
+	</div>
 );

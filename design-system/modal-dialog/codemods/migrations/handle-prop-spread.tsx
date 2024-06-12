@@ -1,14 +1,14 @@
 import {
-  type ASTPath,
-  type Collection,
-  type default as core,
-  type JSXElement,
+	type ASTPath,
+	type Collection,
+	type default as core,
+	type JSXElement,
 } from 'jscodeshift/src/core';
 
 import {
-  addCommentToStartOfFile,
-  getDefaultSpecifier,
-  getDynamicImportName,
+	addCommentToStartOfFile,
+	getDefaultSpecifier,
+	getDynamicImportName,
 } from '@atlaskit/codemod-utils';
 
 import { PACKAGE_NAME } from '../internal/constants';
@@ -29,28 +29,20 @@ Refer to the docs for the new API at https://atlassian.design/components/modal-d
 to complete the migration and use the new composable components.
 `;
 
-export const handlePropSpread = (
-  j: core.JSCodeshift,
-  source: Collection<Node>,
-) => {
-  const defaultSpecifierName = getDefaultSpecifier(j, source, PACKAGE_NAME);
-  const dynamicImportName = getDynamicImportName(j, source, PACKAGE_NAME);
-  const modalDialogComponentName = defaultSpecifierName || dynamicImportName;
+export const handlePropSpread = (j: core.JSCodeshift, source: Collection<Node>) => {
+	const defaultSpecifierName = getDefaultSpecifier(j, source, PACKAGE_NAME);
+	const dynamicImportName = getDynamicImportName(j, source, PACKAGE_NAME);
+	const modalDialogComponentName = defaultSpecifierName || dynamicImportName;
 
-  if (!modalDialogComponentName) {
-    return;
-  }
+	if (!modalDialogComponentName) {
+		return;
+	}
 
-  if (
-    source
-      .findJSXElements(modalDialogComponentName)
-      .filter((element: ASTPath<JSXElement>) => {
-        return (
-          j(element).find(j.JSXOpeningElement).at(0).find(j.JSXSpreadAttribute)
-            .length > 0
-        );
-      }).length
-  ) {
-    addCommentToStartOfFile({ j, base: source, message: comment });
-  }
+	if (
+		source.findJSXElements(modalDialogComponentName).filter((element: ASTPath<JSXElement>) => {
+			return j(element).find(j.JSXOpeningElement).at(0).find(j.JSXSpreadAttribute).length > 0;
+		}).length
+	) {
+		addCommentToStartOfFile({ j, base: source, message: comment });
+	}
 };

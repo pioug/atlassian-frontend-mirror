@@ -9,11 +9,11 @@ import { TRANSITION_DURATION } from '../../../common/constants';
 import { useIsSidebarCollapsing } from '../../../common/hooks';
 
 type ResizableChildrenWrapperProps = {
-  children: ReactNode;
-  isFlyoutOpen?: boolean;
-  isLeftSidebarCollapsed?: boolean;
-  hasCollapsedState?: boolean;
-  testId?: string;
+	children: ReactNode;
+	isFlyoutOpen?: boolean;
+	isLeftSidebarCollapsed?: boolean;
+	hasCollapsedState?: boolean;
+	testId?: string;
 };
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -26,49 +26,49 @@ const prefersReducedMotionStyles = css(prefersReducedMotion());
  * opacity and visibility so that it syncs collapsing sidebar.
  */
 const hideLeftSidebarContentsStyles = css({
-  opacity: 0,
-  transition: `opacity 0ms linear, visibility 0ms linear`,
-  transitionDelay: `${TRANSITION_DURATION - 100}ms`,
-  visibility: 'hidden',
+	opacity: 0,
+	transition: `opacity 0ms linear, visibility 0ms linear`,
+	transitionDelay: `${TRANSITION_DURATION - 100}ms`,
+	visibility: 'hidden',
 });
 
 const resizableChildrenWrapperStyles = css({
-  height: '100%',
-  opacity: 1,
-  overflow: 'hidden auto',
-  transition: 'none',
-  visibility: 'visible',
+	height: '100%',
+	opacity: 1,
+	overflow: 'hidden auto',
+	transition: 'none',
+	visibility: 'visible',
 });
 
 const fixedChildrenWrapperStyles = css({
-  minWidth: 240,
-  height: '100%',
+	minWidth: 240,
+	height: '100%',
 });
 
 const ResizableChildrenWrapper = ({
-  children,
-  isLeftSidebarCollapsed = false,
-  hasCollapsedState = false,
-  isFlyoutOpen = false,
-  testId,
+	children,
+	isLeftSidebarCollapsed = false,
+	hasCollapsedState = false,
+	isFlyoutOpen = false,
+	testId,
 }: ResizableChildrenWrapperProps) => {
-  const isCollapsing = useIsSidebarCollapsing();
-  const isCollapsed = isLeftSidebarCollapsed || hasCollapsedState;
-  const isHidden = isCollapsing || (isCollapsed && !isFlyoutOpen);
+	const isCollapsing = useIsSidebarCollapsing();
+	const isCollapsed = isLeftSidebarCollapsed || hasCollapsedState;
+	const isHidden = isCollapsing || (isCollapsed && !isFlyoutOpen);
 
-  return (
-    <div
-      css={[
-        resizableChildrenWrapperStyles,
-        isHidden && hideLeftSidebarContentsStyles,
-        prefersReducedMotionStyles,
-      ]}
-      aria-hidden={isHidden}
-      data-testid={testId}
-    >
-      <div css={fixedChildrenWrapperStyles}>{children}</div>
-    </div>
-  );
+	return (
+		<div
+			css={[
+				resizableChildrenWrapperStyles,
+				isHidden && hideLeftSidebarContentsStyles,
+				prefersReducedMotionStyles,
+			]}
+			aria-hidden={isHidden}
+			data-testid={testId}
+		>
+			<div css={fixedChildrenWrapperStyles}>{children}</div>
+		</div>
+	);
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

@@ -1,18 +1,14 @@
 import { type JSCodeshift } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
-import {
-  createTransformer,
-  hasImportDeclaration,
-} from '@atlaskit/codemod-utils';
+import { createTransformer, hasImportDeclaration } from '@atlaskit/codemod-utils';
 
 import removeLanguage from './migrations/14.0.0-lite-mode/remove-language';
 import textToChild from './migrations/14.0.0-lite-mode/text-to-child';
 
 const transformer = createTransformer(
-  [removeLanguage, textToChild],
-  (j: JSCodeshift, source: Collection<Node>) =>
-    hasImportDeclaration(j, source, '@atlaskit/code'),
+	[removeLanguage, textToChild],
+	(j: JSCodeshift, source: Collection<Node>) => hasImportDeclaration(j, source, '@atlaskit/code'),
 );
 
 export default transformer;

@@ -15,66 +15,66 @@ import { h700 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 const truncateStyles = css({
-  overflowX: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
+	overflowX: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
 });
 
 const outerStyles = css({
-  margin: `${token('space.300', '24px')} 0 ${token('space.200', '16px')} 0`,
+	margin: `${token('space.300', '24px')} 0 ${token('space.200', '16px')} 0`,
 });
 
 const titleStyles = css({
-  color: token('color.text'),
-  font: token('font.heading.large'),
-  letterSpacing: 'normal',
-  marginBlockStart: 0,
-  outline: 'none',
+	color: token('color.text'),
+	font: token('font.heading.large'),
+	letterSpacing: 'normal',
+	marginBlockStart: 0,
+	outline: 'none',
 });
 
 const styledTitleStyles = css({
-  lineHeight: token('font.lineHeight.500', '32px'),
-  marginBlockStart: 0,
-  outline: 'none',
+	lineHeight: token('font.lineHeight.500', '32px'),
+	marginBlockStart: 0,
+	outline: 'none',
 });
 
 const titleWrapperStyles = css({
-  display: 'flex',
-  alignItems: 'flex-start',
-  flexWrap: 'wrap',
+	display: 'flex',
+	alignItems: 'flex-start',
+	flexWrap: 'wrap',
 });
 
 const titleWrapperTruncateStyles = css({
-  flexWrap: 'nowrap',
+	flexWrap: 'nowrap',
 });
 
 const titleContainerStyles = css({
-  minWidth: 0,
-  maxWidth: '100%',
-  flex: '1 0 auto',
-  flexShrink: undefined,
-  marginBlockEnd: token('space.100', '8px'),
+	minWidth: 0,
+	maxWidth: '100%',
+	flex: '1 0 auto',
+	flexShrink: undefined,
+	marginBlockEnd: token('space.100', '8px'),
 });
 
 const actionStyles = css({
-  maxWidth: '100%',
-  flex: '0 0 auto',
-  marginBlockEnd: token('space.100', '8px'),
-  marginInlineStart: 'auto',
-  paddingInlineStart: token('space.400', '32px'),
-  whiteSpace: 'nowrap',
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '>': {
-    textAlign: 'right',
-  },
+	maxWidth: '100%',
+	flex: '0 0 auto',
+	marginBlockEnd: token('space.100', '8px'),
+	marginInlineStart: 'auto',
+	paddingInlineStart: token('space.400', '32px'),
+	whiteSpace: 'nowrap',
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'>': {
+		textAlign: 'right',
+	},
 });
 
 const titleContainerTruncateStyles = css({
-  flexShrink: 1,
+	flexShrink: 1,
 });
 
 const bottomBarStyles = xcss({
-  marginBlockStart: 'space.200',
+	marginBlockStart: 'space.200',
 });
 
 /**
@@ -85,16 +85,16 @@ const bottomBarStyles = xcss({
  *
  */
 export const OuterWrapper = ({ children }: { children: ReactNode }) => {
-  return <div css={outerStyles}>{children}</div>;
+	return <div css={outerStyles}>{children}</div>;
 };
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const h700Styles = css(h700());
 
 interface StyledTitleWrapperProps {
-  children?: React.ReactNode;
-  id?: string;
-  truncateTitle?: boolean;
+	children?: React.ReactNode;
+	id?: string;
+	truncateTitle?: boolean;
 }
 
 /**
@@ -103,32 +103,31 @@ interface StyledTitleWrapperProps {
  * A styled title wrapper is a wrapper around the title that controls its the styles exclusively.
  *
  */
-export const StyledTitleWrapper = React.forwardRef<
-  HTMLHeadingElement,
-  StyledTitleWrapperProps
->(({ children, id, truncateTitle }, ref) => {
-  return (
-    <h1
-      css={[
-        ...(getBooleanFF(
-          'platform.design-system-team.page-header-tokenised-typography-styles_lj1ix',
-        )
-          ? [titleStyles]
-          : [h700Styles, styledTitleStyles]),
-        truncateTitle && truncateStyles,
-      ]}
-      ref={ref}
-      tabIndex={-1}
-      id={id}
-    >
-      {children}
-    </h1>
-  );
-});
+export const StyledTitleWrapper = React.forwardRef<HTMLHeadingElement, StyledTitleWrapperProps>(
+	({ children, id, truncateTitle }, ref) => {
+		return (
+			<h1
+				css={[
+					...(getBooleanFF(
+						'platform.design-system-team.page-header-tokenised-typography-styles_lj1ix',
+					)
+						? [titleStyles]
+						: [h700Styles, styledTitleStyles]),
+					truncateTitle && truncateStyles,
+				]}
+				ref={ref}
+				tabIndex={-1}
+				id={id}
+			>
+				{children}
+			</h1>
+		);
+	},
+);
 
 interface TitleProps {
-  truncateTitle?: boolean;
-  children?: ReactNode;
+	truncateTitle?: boolean;
+	children?: ReactNode;
 }
 
 /**
@@ -138,13 +137,9 @@ interface TitleProps {
  *
  */
 export const TitleWrapper = ({ children, truncateTitle }: TitleProps) => {
-  return (
-    <div
-      css={[titleWrapperStyles, truncateTitle && titleWrapperTruncateStyles]}
-    >
-      {children}
-    </div>
-  );
+	return (
+		<div css={[titleWrapperStyles, truncateTitle && titleWrapperTruncateStyles]}>{children}</div>
+	);
 };
 
 /**
@@ -154,16 +149,11 @@ export const TitleWrapper = ({ children, truncateTitle }: TitleProps) => {
  *
  */
 export const TitleContainer = ({ children, truncateTitle }: TitleProps) => {
-  return (
-    <div
-      css={[
-        titleContainerStyles,
-        truncateTitle && titleContainerTruncateStyles,
-      ]}
-    >
-      {children}
-    </div>
-  );
+	return (
+		<div css={[titleContainerStyles, truncateTitle && titleContainerTruncateStyles]}>
+			{children}
+		</div>
+	);
 };
 
 /**
@@ -173,7 +163,7 @@ export const TitleContainer = ({ children, truncateTitle }: TitleProps) => {
  *
  */
 export const ActionsWrapper = ({ children }: { children: ReactNode }) => {
-  return <div css={actionStyles}>{children}</div>;
+	return <div css={actionStyles}>{children}</div>;
 };
 
 /**
@@ -183,5 +173,5 @@ export const ActionsWrapper = ({ children }: { children: ReactNode }) => {
  *
  */
 export const BottomBarWrapper = ({ children }: { children: ReactNode }) => {
-  return <Box xcss={bottomBarStyles}>{children}</Box>;
+	return <Box xcss={bottomBarStyles}>{children}</Box>;
 };

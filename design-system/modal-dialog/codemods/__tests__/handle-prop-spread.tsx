@@ -7,12 +7,12 @@ const transformer = createTransformer([handlePropSpread]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Modal props spread handling codemod', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
     const props = {}
@@ -20,7 +20,7 @@ describe('Modal props spread handling codemod', () => {
       return <Modal {...props} />;
     }
     `,
-        `
+				`
     /* TODO: (from codemod)\u0020
     This file is spreading props on the ModalDialog component, so we could not
     automatically convert this usage to the new API.
@@ -42,12 +42,12 @@ describe('Modal props spread handling codemod', () => {
       return <Modal {...props} />;
     }
     `,
-        `should add a comment when props are being spread`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should add a comment when props are being spread`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     const AKModalDialog = lazy(() => import('@atlaskit/modal-dialog'));
     const props = {}
@@ -55,7 +55,7 @@ describe('Modal props spread handling codemod', () => {
       return <AKModalDialog {...props} />;
     }
     `,
-        `
+				`
     /* TODO: (from codemod)\u0020
     This file is spreading props on the ModalDialog component, so we could not
     automatically convert this usage to the new API.
@@ -77,12 +77,12 @@ describe('Modal props spread handling codemod', () => {
       return <AKModalDialog {...props} />;
     }
     `,
-        `should add a comment when props are being spread on a dynamically imported modal`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should add a comment when props are being spread on a dynamically imported modal`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
     const props = {}
@@ -96,7 +96,7 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `
+				`
     /* TODO: (from codemod)\u0020
     This file is spreading props on the ModalDialog component, so we could not
     automatically convert this usage to the new API.
@@ -124,12 +124,12 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `should add a comment when props are being spread on atleast one modal`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should add a comment when props are being spread on atleast one modal`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     const AKModalDialog = lazy(() => import('@atlaskit/modal-dialog'));
     const props = {}
@@ -143,7 +143,7 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `
+				`
     /* TODO: (from codemod)\u0020
     This file is spreading props on the ModalDialog component, so we could not
     automatically convert this usage to the new API.
@@ -171,12 +171,12 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `should add a comment when props are being spread on atleast one modal when modals are dynamically imported`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should add a comment when props are being spread on atleast one modal when modals are dynamically imported`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
     const props = {}
@@ -189,7 +189,7 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
     const props = {}
@@ -202,12 +202,12 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `should not add a comment when props are not being spread in any of modal`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should not add a comment when props are not being spread in any of modal`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     const AKModalDialog = lazy(() => import('@atlaskit/modal-dialog'));
     const props = {}
@@ -220,7 +220,7 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `
+				`
     import React from 'react';
     const AKModalDialog = lazy(() => import('@atlaskit/modal-dialog'));
     const props = {}
@@ -233,13 +233,13 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `should not add a comment when props are not being spread in any of modal when modals are dynamically imported`,
-      );
+				`should not add a comment when props are not being spread in any of modal when modals are dynamically imported`,
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -254,7 +254,7 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -269,8 +269,8 @@ describe('Modal props spread handling codemod', () => {
         );
     }
     `,
-        `should not add a comment if prop spread is NOT on ModalDialog`,
-      );
-    });
-  });
+				`should not add a comment if prop spread is NOT on ModalDialog`,
+			);
+		});
+	});
 });

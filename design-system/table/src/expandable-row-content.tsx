@@ -3,7 +3,7 @@ import React from 'react';
 import { ExpandContentContextProvider } from './hooks/use-expand-content';
 
 type ExpandableRowContentProps = {
-  children?: React.ReactNode;
+	children?: React.ReactNode;
 };
 
 /**
@@ -13,9 +13,7 @@ type ExpandableRowContentProps = {
  * to identify if they are expandable content.
  */
 const ExpandableRowContent = ({ children }: ExpandableRowContentProps) => {
-  return (
-    <ExpandContentContextProvider>{children}</ExpandContentContextProvider>
-  );
+	return <ExpandContentContextProvider>{children}</ExpandContentContextProvider>;
 };
 
 export default ExpandableRowContent;

@@ -13,72 +13,51 @@ const testSrcDark = 'test-dark.jpg';
 const altText = 'Test image';
 
 describe('Image', () => {
-  it('should be found by its testid', async () => {
-    render(<Image alt={altText} testId={testId} />);
+	it('should be found by its testid', async () => {
+		render(<Image alt={altText} testId={testId} />);
 
-    expect(screen.getByTestId(testId)).toBeTruthy();
-  });
+		expect(screen.getByTestId(testId)).toBeTruthy();
+	});
 
-  it('should be an img element', async () => {
-    render(<Image alt={altText} testId={testId} />);
+	it('should be an img element', async () => {
+		render(<Image alt={altText} testId={testId} />);
 
-    expect(screen.getByTestId(testId)).toBeInstanceOf(HTMLImageElement);
-  });
+		expect(screen.getByTestId(testId)).toBeInstanceOf(HTMLImageElement);
+	});
 
-  it('should use the provided src', () => {
-    render(<Image alt={altText} testId={testId} src={testSrc} />);
+	it('should use the provided src', () => {
+		render(<Image alt={altText} testId={testId} src={testSrc} />);
 
-    expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrc);
-  });
+		expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrc);
+	});
 
-  it('should use src even when srcDark is provided if no theme is selected', () => {
-    render(
-      <Image
-        testId={testId}
-        alt={altText}
-        src={testSrc}
-        srcDark={testSrcDark}
-      />,
-    );
+	it('should use src even when srcDark is provided if no theme is selected', () => {
+		render(<Image testId={testId} alt={altText} src={testSrc} srcDark={testSrcDark} />);
 
-    expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrc);
-  });
+		expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrc);
+	});
 
-  it('should use src even when srcDark is provided if theme is set to light', async () => {
-    await setGlobalTheme({ colorMode: 'light' });
+	it('should use src even when srcDark is provided if theme is set to light', async () => {
+		await setGlobalTheme({ colorMode: 'light' });
 
-    render(
-      <Image
-        testId={testId}
-        alt={altText}
-        src={testSrc}
-        srcDark={testSrcDark}
-      />,
-    );
+		render(<Image testId={testId} alt={altText} src={testSrc} srcDark={testSrcDark} />);
 
-    expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrc);
-  });
+		expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrc);
+	});
 
-  it('should use srcDark when theme is set to dark', async () => {
-    await setGlobalTheme({ colorMode: 'dark' });
+	it('should use srcDark when theme is set to dark', async () => {
+		await setGlobalTheme({ colorMode: 'dark' });
 
-    render(
-      <Image
-        alt={altText}
-        testId={testId}
-        src={testSrc}
-        srcDark={testSrcDark}
-      />,
-    );
+		render(<Image alt={altText} testId={testId} src={testSrc} srcDark={testSrcDark} />);
 
-    expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrcDark);
-  });
+		expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrcDark);
+	});
 
-  it('should use src when theme is set to dark but srcDark is not provided', async () => {
-    await setGlobalTheme({ colorMode: 'dark' });
+	it('should use src when theme is set to dark but srcDark is not provided', async () => {
+		await setGlobalTheme({ colorMode: 'dark' });
 
-    render(<Image testId={testId} alt={altText} src={testSrc} />);
+		render(<Image testId={testId} alt={altText} src={testSrc} />);
 
-    expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrc);
-  });
+		expect(screen.getByTestId(testId)).toHaveAttribute('src', testSrc);
+	});
 });

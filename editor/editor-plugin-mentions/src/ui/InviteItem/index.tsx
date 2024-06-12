@@ -77,24 +77,29 @@ const InviteItem = ({
 
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[mentionItemStyle, selected && mentionItemSelectedStyle]}
 			onMouseDown={onSelected}
 			onMouseEnter={onItemMouseEnter}
 			data-id={INVITE_ITEM_DESCRIPTION.id}
 		>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={rowStyle}>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={avatarStyle}>
 					<AddIcon
 						label={intl.formatMessage(messages.mentionsAddLabel)}
 						primaryColor={token('color.icon.subtle', N300)}
 					/>
 				</span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={nameSectionStyle} data-testid="name-section">
 					<FormattedMessage
 						{...messages.inviteItemTitle}
 						values={{
 							userRole: userRole || 'basic',
 							productName: (
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								<span css={capitalizedStyle} data-testid="capitalized-message">
 									{productName}
 								</span>

@@ -68,21 +68,19 @@ const ColorCard = (props: Props) => {
 	);
 
 	useEffect(() => {
-		if (getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy')) {
-			const refCurrent = ref.current;
-			const handleKeyDown = (e: KeyboardEvent) => {
-				if (e.key === 'Tab') {
-					e.stopPropagation();
-					e.preventDefault();
-				}
-			};
+		const refCurrent = ref.current;
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === 'Tab') {
+				e.stopPropagation();
+				e.preventDefault();
+			}
+		};
 
-			refCurrent?.addEventListener('keydown', handleKeyDown);
+		refCurrent?.addEventListener('keydown', handleKeyDown);
 
-			return () => {
-				refCurrent?.removeEventListener('keydown', handleKeyDown);
-			};
-		}
+		return () => {
+			refCurrent?.removeEventListener('keydown', handleKeyDown);
+		};
 	}, []);
 
 	return (
@@ -104,9 +102,7 @@ const ColorCard = (props: Props) => {
 					'aria-label': label,
 				})}
 				tabIndex={0}
-				{...(getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy') && {
-					ref: ref,
-				})}
+				ref={ref}
 			>
 				<div css={colorCardWrapperStyles}>
 					<div

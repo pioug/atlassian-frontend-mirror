@@ -147,6 +147,7 @@ class ToolbarFeedbackInternal extends PureComponent<ToolbarFeedbackInternalProps
 
 		// JIRA issue collector script is using jQuery internally
 		return this.hasJquery() ? (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<div css={wrapper}>
 				<ToolbarButton
 					ref={this.handleRef}
@@ -155,6 +156,7 @@ class ToolbarFeedbackInternal extends PureComponent<ToolbarFeedbackInternalProps
 					selected={false}
 					spacing="compact"
 				>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={buttonContent}>Feedback</span>
 				</ToolbarButton>
 				{this.state.showOptOutOption && (
@@ -168,10 +170,14 @@ class ToolbarFeedbackInternal extends PureComponent<ToolbarFeedbackInternalProps
 						handleClickOutside={this.toggleShowOptOutOption}
 						handleEscapeKeydown={this.toggleShowOptOutOption}
 					>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<div css={confirmationPopup}>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 							<div css={confirmationHeader}>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<img css={confirmationImg} src={EDITOR_IMAGE_URL} />
 							</div>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 							<div css={confirmationText}>
 								<div>
 									We are rolling out a new editing experience across Atlassian products. Help us

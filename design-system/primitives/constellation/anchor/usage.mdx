@@ -6,55 +6,72 @@ order: 2
 
 ## Usage
 
-Use an anchor to make elements that work like hyperlinks. Anchors can navigate to any linkable location such as a web page, a location on a page, a file download, or a `mailto` email address.
+Use an anchor to make elements that work like hyperlinks. Anchors can navigate to any linkable
+location such as a web page, a location on a page, a file download, or a `mailto` email address.
 
+Anchor is based on the HTML `<a>` tag, but with Atlassian focus styles and analytics events built
+in. You can customize the anchor's appearance further using our styling APIs.
 
-Anchor is based on the HTML `<a>` tag, but with Atlassian focus styles and analytics events built in. You can customize the anchor's appearance further using our styling APIs.
-
-For example, an anchor could be used to make [a link card](/components/primitives/anchor/examples#advanced-styling) with a larger clickable area than a typical [link](/components/link/examples).
-
+For example, an anchor could be used to make
+[a link card](/components/primitives/anchor/examples#advanced-styling) with a larger clickable area
+than a typical [link](/components/link/examples).
 
 ### Use links, link buttons, or other existing components where possible
 
-Anchor is meant for custom elements and styles that aren't possible using other components. For standard links or buttons that navigate users to a new location, use [link](/components/link/examples) or [link button](/components/button/link-button/examples).
+Anchor is meant for custom elements and styles that aren't possible using other components. For
+standard links or buttons that navigate users to a new location, use
+[link](/components/link/examples) or [link button](/components/button/link-button/examples).
 
-Using [existing components](/components) wherever possible makes Atlassian's UI more visually consistent, and these components are faster to use for most basic use cases.
+Using [existing components](/components) wherever possible makes Atlassian's UI more visually
+consistent, and these components are faster to use for most basic use cases.
 
 ## Accessibility
 
 ### Show what's clickable using underlines or other affordances
 
-Anchors have an underline by default. This helps differentiate links from regular text, which is an accessibility requirement. Using color alone to differentiate links isn't accessible, especially if links are surrounded by other text.
+Anchors have an underline by default. This helps differentiate links from regular text, which is an
+accessibility requirement. Using color alone to differentiate links isn't accessible, especially if
+links are surrounded by other text.
 
-Only remove underlines if the context surrounding the link makes it clear that it's interactive, such as in navigation or a card layout.
+Only remove underlines if the context surrounding the link makes it clear that it's interactive,
+such as in navigation or a card layout.
 
-Also, don't underline text that isn't a link. This makes the text look clickable because it looks a link.
+Also, don't underline text that isn't a link. This makes the text look clickable because it looks a
+link.
 
 <!-- TODO: Add do/dont images once designed (if necessary?) -->
 
 <DoDont type="do">
-  Use underlined links in body copy. Only omit an underline if the context makes
-  it clear the link is selectable.
+	Use underlined links in body copy. Only omit an underline if the context makes it clear the link
+	is selectable.
 </DoDont>
 
 <DoDont type="dont">Use underlined links in navigation.</DoDont>
 
-For more information see ['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) and ['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
+For more information see
+['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
+and
+['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
 
 ### Use anchor for links and navigation, not on-page actions
 
-Anchors are for navigation and URL changes, while buttons are for on-page actions such as form submissions or opening modals. These elements are treated differently by assistive technologies, so avoid using one in place of the other.
+Anchors are for navigation and URL changes, while buttons are for on-page actions such as form
+submissions or opening modals. These elements are treated differently by assistive technologies, so
+avoid using one in place of the other.
 
-Don't use anchor to make custom actions rather than navigation elements. To build a custom action or button, use the [pressable primitive](/components/primitives/pressable/examples) instead.
+Don't use anchor to make custom actions rather than navigation elements. To build a custom action or
+button, use the [pressable primitive](/components/primitives/pressable/examples) instead.
 
-More on [when to use links vs buttons](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
-
+More on
+[when to use links vs buttons](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
 
 ### Use descriptive link text that clarifies the purpose of the link
 
-Don't link vague words or phrases like “here” or “learn more.” Make sure the linked text clearly describes the purpose of the link for assistive technologies.
+Don't link vague words or phrases like “here” or “learn more.” Make sure the linked text clearly
+describes the purpose of the link for assistive technologies.
 
-See [link content guidelines](/components/primitives/anchor/usage#content-guidelines) for details and examples.
+See [link content guidelines](/components/primitives/anchor/usage#content-guidelines) for details
+and examples.
 
 <!-- TODO: Crosslink updated link content guidance. Should be info in language and grammar and link component. (snippet time?) -->
 <!-- TODO: Add some Do/Don't images as examples -->
@@ -72,22 +89,27 @@ It might make sense for a link to open in a new window if:
 - There's a risk of someone losing their current place or task
 - The link takes the person out of the current product or to an external website
 
-For more information see ['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
+For more information see
+['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
 
 ### Keep links large enough to interact with
 
-Make link text size at least 12px. Smaller text is harder to read and interact with. If anchor is not used for text-based links, ensure the clickable area is at least 24 by 24 pixels for accessibility unless exempt from [Target Size (Minimum) (Level AA)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
-
+Make link text size at least 12px. Smaller text is harder to read and interact with. If anchor is
+not used for text-based links, ensure the clickable area is at least 24 by 24 pixels for
+accessibility unless exempt from
+[Target Size (Minimum) (Level AA)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
 
 ## Content guidelines
 
 ### Use clear and unique link text
 
-Try not to repeat the same link text over and over on a page. Make sure link text is clear about where the link will go.
+Try not to repeat the same link text over and over on a page. Make sure link text is clear about
+where the link will go.
 
 ### Specify download links, including file type and size
 
-Always specify if a link triggers a download, and make the linked text clear about what exactly will be downloaded. Include file type and size as well.
+Always specify if a link triggers a download, and make the linked text clear about what exactly will
+be downloaded. Include file type and size as well.
 
 <!-- TODO: add example of this -->
 
@@ -95,17 +117,23 @@ Always specify if a link triggers a download, and make the linked text clear abo
 
 Using too many links can overwhelm other, more important information on a page.
 
-Anchors take people to a new page or location. Be mindful of whether or not the linked resource is helpful or distracting to the current task.
+Anchors take people to a new page or location. Be mindful of whether or not the linked resource is
+helpful or distracting to the current task.
 
 ### Links in sentences or body copy
 
-Only link the words that are necessary to clarify where the link goes. Don't link the entire sentence. (Linking smaller phrases can be better for internationalization when sentence structures change across languages.)
+Only link the words that are necessary to clarify where the link goes. Don't link the entire
+sentence. (Linking smaller phrases can be better for internationalization when sentence structures
+change across languages.)
 
-Only include the verb in the linked text if it better describes the purpose the link or differentiates it from other links and actions on the page.
+Only include the verb in the linked text if it better describes the purpose the link or
+differentiates it from other links and actions on the page.
 
 For example:
 
-> Update [Jira settings](/components/button/usage#use-buttons-for-actions-and-links-for-navigation) to turn off notifications. To upgrade, [sign up for Jira](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
+> Update [Jira settings](/components/button/usage#use-buttons-for-actions-and-links-for-navigation)
+> to turn off notifications. To upgrade,
+> [sign up for Jira](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
 
 If only Jira was linked, it wouldn't be clear that this was a sign up page.
 
@@ -113,10 +141,12 @@ If only Jira was linked, it wouldn't be clear that this was a sign up page.
 
 For standalone links, link the whole phrase. Don't add punctuation.
 
-These type of links typically follow general button or other label content rules (sentence case capitalization, no punctuation, etc.)
+These type of links typically follow general button or other label content rules (sentence case
+capitalization, no punctuation, etc.)
 
 ## Related
 
-- Use existing components such as [link](/components/link/examples) or [link button](/components/button/link-button/examples) wherever possible.
+- Use existing components such as [link](/components/link/examples) or
+  [link button](/components/button/link-button/examples) wherever possible.
 - Use [pressable primitive for custom buttons](/components/primitives/button/usage).
 - Anchor is built on the same API as [box](/components/primitives/box/usage).

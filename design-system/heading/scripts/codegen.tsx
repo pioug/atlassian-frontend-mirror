@@ -9,47 +9,47 @@ import { createPartialSignedArtifact } from '@atlassian/codegen';
 import { typographyAdg3 as tokens } from '@atlaskit/tokens/tokens-raw';
 
 const constructTokenFunctionCall = (tokenName: string) => {
-  return `token('${tokenName}')`;
+	return `token('${tokenName}')`;
 };
 
 const headingTokens = tokens
-  .filter(t => t.attributes.group === 'typography')
-  .filter(t => t.cleanName.includes('heading'));
+	.filter((t) => t.attributes.group === 'typography')
+	.filter((t) => t.cleanName.includes('heading'));
 
 const removeVerbosity = (name: string): string => {
-  return name.replace('font.heading.', '');
+	return name.replace('font.heading.', '');
 };
 
 export const createTypographyStylesFromTemplate = () => {
-  return (
-    format(
-      `
+	return (
+		format(
+			`
 const headingSizeStylesMap = {
   ${headingTokens
-    .map(token => {
-      return `
+		.map((token) => {
+			return `
         '${removeVerbosity(
-          token.name,
-        )}': css({ font: ${constructTokenFunctionCall(token.cleanName)} })
+					token.name,
+				)}': css({ font: ${constructTokenFunctionCall(token.cleanName)} })
       `.trim();
-    })
-    .join(',\n\t')}
+		})
+		.join(',\n\t')}
 };`,
-      'typescript',
-    ) + `\nexport type HeadingSize = keyof typeof headingSizeStylesMap;\n`
-  );
+			'typescript',
+		) + `\nexport type HeadingSize = keyof typeof headingSizeStylesMap;\n`
+	);
 };
 
 const targetPath = join(__dirname, '../', 'src', 'heading.partial.tsx');
 
 writeFileSync(
-  join(__dirname, '../src/heading.partial.tsx'),
-  createPartialSignedArtifact(
-    createTypographyStylesFromTemplate(),
-    'yarn workspace @atlaskit/heading codegen',
-    {
-      id: 'typography',
-      absoluteFilePath: targetPath,
-    },
-  ),
+	join(__dirname, '../src/heading.partial.tsx'),
+	createPartialSignedArtifact(
+		createTypographyStylesFromTemplate(),
+		'yarn workspace @atlaskit/heading codegen',
+		{
+			id: 'typography',
+			absoluteFilePath: targetPath,
+		},
+	),
 );

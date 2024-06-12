@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import CodeBlockButtonContainer from './codeBlockButtonContainer';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const codeBlockStyleOverrides = css`
 	tab-size: 4;
 	background-color: ${token('elevation.surface.raised', N20)};

@@ -30,12 +30,14 @@ import { isBreakoutMarkAllowed } from '../utils/is-breakout-mark-allowed';
 import { isSupportedNodeForBreakout } from '../utils/is-supported-node';
 
 const toolbarButtonWrapperStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&& button': {
 		background: token('color.background.neutral', N20A),
 		color: token('color.icon', N300),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		':hover': {
 			background: token('color.background.neutral.hovered', B300),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 			color: `${token('color.icon', 'white')} !important`,
 		},
 	},

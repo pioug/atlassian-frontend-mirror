@@ -1,10 +1,10 @@
 import React, {
-  createContext,
-  type FC,
-  type ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
+	createContext,
+	type FC,
+	type ReactNode,
+	useCallback,
+	useEffect,
+	useRef,
 } from 'react';
 
 import { bind, type UnbindFn } from 'bind-event-listener';
@@ -23,51 +23,49 @@ import handleFocus from '../utiles/handle-focus';
  *
  */
 export const FocusManagerContext = createContext<{
-  menuItemRefs: FocusableElement[];
-  registerRef: (ref: FocusableElement) => void;
+	menuItemRefs: FocusableElement[];
+	registerRef: (ref: FocusableElement) => void;
 }>({
-  menuItemRefs: [],
-  registerRef: __noop,
+	menuItemRefs: [],
+	registerRef: __noop,
 });
 
 /**
  * Focus manager logic
  */
 const FocusManager: FC<{ children: ReactNode }> = ({ children }) => {
-  const menuItemRefs = useRef<FocusableElement[]>([]);
-  const registerRef = useCallback((ref: FocusableElement) => {
-    if (ref && !menuItemRefs.current.includes(ref)) {
-      menuItemRefs.current.push(ref);
-    }
-  }, []);
+	const menuItemRefs = useRef<FocusableElement[]>([]);
+	const registerRef = useCallback((ref: FocusableElement) => {
+		if (ref && !menuItemRefs.current.includes(ref)) {
+			menuItemRefs.current.push(ref);
+		}
+	}, []);
 
-  // set focus and intentionally rebinding listener and clean up listener on each render
-  useEffect(() => {
-    bind(window, {
-      type: 'keydown',
-      listener: handleFocus(menuItemRefs.current),
-    });
+	// set focus and intentionally rebinding listener and clean up listener on each render
+	useEffect(() => {
+		bind(window, {
+			type: 'keydown',
+			listener: handleFocus(menuItemRefs.current),
+		});
 
-    const unbind: UnbindFn = () => {
-      bind(window, {
-        type: 'keydown',
-        listener: handleFocus(menuItemRefs.current),
-      });
-    };
+		const unbind: UnbindFn = () => {
+			bind(window, {
+				type: 'keydown',
+				listener: handleFocus(menuItemRefs.current),
+			});
+		};
 
-    return unbind;
-  }, []);
+		return unbind;
+	}, []);
 
-  const contextValue = {
-    menuItemRefs: menuItemRefs.current,
-    registerRef,
-  };
+	const contextValue = {
+		menuItemRefs: menuItemRefs.current,
+		registerRef,
+	};
 
-  return (
-    <FocusManagerContext.Provider value={contextValue}>
-      {children}
-    </FocusManagerContext.Provider>
-  );
+	return (
+		<FocusManagerContext.Provider value={contextValue}>{children}</FocusManagerContext.Provider>
+	);
 };
 
 export default FocusManager;

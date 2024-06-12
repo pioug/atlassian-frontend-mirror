@@ -28,6 +28,7 @@ export type AnnotationDraftAEPAttributes = {
 	inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT;
 	// overlap is how many other annotations are within or overlapping with the new selection
 	overlap: number;
+	inlineNodeNames?: string[];
 };
 
 export type AnnotationResolvedAEPAttributes = {

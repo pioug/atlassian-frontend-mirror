@@ -23,6 +23,7 @@ const guidelineStyles = css({
 	left: 0,
 	right: 0,
 	transform: `scale(1)`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: `${akEditorGridLineZIndex};`,
 	display: 'flex',
 	justifyContent: 'center',

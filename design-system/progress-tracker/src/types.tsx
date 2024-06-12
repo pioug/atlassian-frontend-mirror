@@ -11,21 +11,21 @@ export type Status = 'unvisited' | 'visited' | 'current' | 'disabled';
 // eslint-disable-next-line
 export type StatusType = Status;
 export interface Stage {
-  id: string;
-  label: string;
-  percentageComplete: number;
-  status: Status;
-  noLink?: boolean;
-  href?: string;
-  onClick?: () => void;
+	id: string;
+	label: string;
+	percentageComplete: number;
+	status: Status;
+	noLink?: boolean;
+	href?: string;
+	onClick?: () => void;
 }
 
 export type Stages = Stage[];
 
 export interface LinkComponentProps {
-  item: Stage;
+	item: Stage;
 }
 
 export interface ProgressTrackerStageRenderProp {
-  link: (props: LinkComponentProps) => JSX.Element;
+	link: (props: LinkComponentProps) => JSX.Element;
 }

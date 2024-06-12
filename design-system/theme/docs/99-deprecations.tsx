@@ -4,12 +4,12 @@ import { Example, md, Props } from '@atlaskit/docs';
 import Lozenge from '@atlaskit/lozenge';
 
 const Deprecated: FC<{ children: string }> = ({ children }) => (
-  <h2>
-    {children}{' '}
-    <Lozenge appearance="removed" isBold>
-      deprecated
-    </Lozenge>
-  </h2>
+	<h2>
+		{children}{' '}
+		<Lozenge appearance="removed" isBold>
+			deprecated
+		</Lozenge>
+	</h2>
 );
 
 export default md`
@@ -24,21 +24,21 @@ Native Atlaskit components are set up to have both a 'light' mode and a 'dark' m
 The AtlaskitThemeProvider should wrap your entire app, to ensure all components are set to the same theme. Mixing dark and light moded components will severely impact accessibility.
 
 ${(
-  <Example
-    packageName="@atlaskit/theme"
-    Component={require('../examples/atlaskit-theme-provider').default}
-    source={require('!!raw-loader!../examples/atlaskit-theme-provider')}
-    title="DEPRECATED AtlaskitThemeProvider"
-  />
+	<Example
+		packageName="@atlaskit/theme"
+		Component={require('../examples/atlaskit-theme-provider').default}
+		source={require('!!raw-loader!../examples/atlaskit-theme-provider')}
+		title="DEPRECATED AtlaskitThemeProvider"
+	/>
 )}
 
 ### AtlaskitThemeProvider Props
 
 ${(
-  <Props
-    heading=""
-    props={require('!!extract-react-types-loader!../src/components/atlaskit-theme-provider')}
-  />
+	<Props
+		heading=""
+		props={require('!!extract-react-types-loader!../src/components/atlaskit-theme-provider')}
+	/>
 )}
 
 ${(<Deprecated>getTheme()</Deprecated>)}

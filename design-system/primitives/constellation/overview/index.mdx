@@ -14,21 +14,23 @@ import stackUsageExample from './images/stack-usage-example.png';
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 <CodeDocsHeader
-  name="@atlaskit/primitives"
-  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
-  directoryName="primitives"
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
 />
 
-Primitives are a new type of component for layouts, styling, and the placement of elements.
-They act as building blocks to compose different parts of the user experience,
-from the smallest design decisions (for example, the spacing around an icon) to larger layout decisions (for example, how a page is structured).
+Primitives are a new type of component for layouts, styling, and the placement of elements. They act
+as building blocks to compose different parts of the user experience, from the smallest design
+decisions (for example, the spacing around an icon) to larger layout decisions (for example, how a
+page is structured).
 
-Primitives are powered by design tokens and make it easier to apply design decisions. This reduces cognitive overhead, improves productivity and prevents accidents or mistakes.
+Primitives are powered by design tokens and make it easier to apply design decisions. This reduces
+cognitive overhead, improves productivity and prevents accidents or mistakes.
 
 ## Available primitives
 
-Primitives are used together to compose complex designs not otherwise implemented directly in the Design System.
-Currently, three layout primitive components are available:
+Primitives are used together to compose complex designs not otherwise implemented directly in the
+Design System. Currently, three layout primitive components are available:
 
 - in a container (see [box](/components/primitives/box))
 - horizontally (see [inline](/components/primitives/inline))
@@ -50,36 +52,36 @@ $ yarn add @atlaskit/primitives
 
 ## Using primitives
 
-Use primitives for composing layouts.
-Primitives are not currently available in Figma, so the first step in implementing primitive components is identifying where they might fit in a given design.
-This involves breaking down a design into its core layout components to as granular level as is useful.
+Use primitives for composing layouts. Primitives are not currently available in Figma, so the first
+step in implementing primitive components is identifying where they might fit in a given design.
+This involves breaking down a design into its core layout components to as granular level as is
+useful.
 
-You might like to think first about breaking down a page into `Box` containers,
-identifying larger pieces of a design that function in a similar manner or fulfill a singular purpose
-in a layout and grouping them together under a `Box`.
+You might like to think first about breaking down a page into `Box` containers, identifying larger
+pieces of a design that function in a similar manner or fulfill a singular purpose in a layout and
+grouping them together under a `Box`.
 
 <Image
-  src={boxUsageExample}
-  alt="Screenshot of a typical Jira board with swimlanes. Various areas are highlighted as examples of how Box containers are used for layout"
+	src={boxUsageExample}
+	alt="Screenshot of a typical Jira board with swimlanes. Various areas are highlighted as examples of how Box containers are used for layout"
 />
 
-The behavior within and around these boxes can then be broken down into their horizontal `Inline` and vertical `Stack` components.
+The behavior within and around these boxes can then be broken down into their horizontal `Inline`
+and vertical `Stack` components.
 
 <SectionMessage>
-  The ESLint rule{' '}
-  <a href="/components/eslint-plugin-design-system/use-primitives">
-    use-primitives
-  </a>{' '}
-  offers suggestions for possible primitives to apply in a layout.
+	The ESLint rule{' '}
+	<a href="/components/eslint-plugin-design-system/use-primitives">use-primitives</a> offers
+	suggestions for possible primitives to apply in a layout.
 </SectionMessage>
 
 <Image
-  src={inlineUsageExample}
-  alt="Screenshot of a typical Jira board with swimlanes. Various areas are highlighted as examples of how Inline containers are used for layout"
+	src={inlineUsageExample}
+	alt="Screenshot of a typical Jira board with swimlanes. Various areas are highlighted as examples of how Inline containers are used for layout"
 />
 <Image
-  src={stackUsageExample}
-  alt="Screenshot of a typical Jira board with swimlanes. Various areas are highlighted as examples of how Stack containers are used for layout"
+	src={stackUsageExample}
+	alt="Screenshot of a typical Jira board with swimlanes. Various areas are highlighted as examples of how Stack containers are used for layout"
 />
 
 ## Related

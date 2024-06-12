@@ -28,10 +28,10 @@ main > .side-menu li::before {
 }`;
 
 export default function Component() {
-  return (
-    <div>
-      <h2>CSS</h2>
-      <CodeBlock language="css" text={exampleCodeBlock} />
-    </div>
-  );
+	return (
+		<div>
+			<h2>CSS</h2>
+			<CodeBlock language="css" text={exampleCodeBlock} />
+		</div>
+	);
 }

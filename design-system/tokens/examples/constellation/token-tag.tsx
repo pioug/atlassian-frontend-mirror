@@ -17,12 +17,12 @@ background: token('color.background.accent.purple.subtler', P75),
 `;
 
 export const TokenTag = () => {
-  return (
-    <>
-      <Tag text="purple Tag" color="purple" />
-      <Tag text="purpleLight Tag" color="purpleLight" />
-    </>
-  );
+	return (
+		<>
+			<Tag text="purple Tag" color="purple" />
+			<Tag text="purpleLight Tag" color="purpleLight" />
+		</>
+	);
 };
 
 export default { example: TokenTag, code: TokenTagCodeBlock };

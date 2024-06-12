@@ -12,30 +12,31 @@ import FlexWrap from '../../examples/constellation/flex/wrap';
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 <CodeDocsHeader
-  name="@atlaskit/primitives"
-  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
-  directoryName="primitives"
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
 />
 
 ## Basic
 
-The `Flex` component is a basic mapping to the CSS Flexbox API. It can be used as a less richly-configured `Inline` or `Stack`. Like Stack and Inline, `Flex` exclusively supports token-backed `gap` properties to ensure layouts using `Flex` match the Atlassian Design System spacing scale.
+The `Flex` component is a basic mapping to the CSS Flexbox API. It can be used as a less
+richly-configured `Inline` or `Stack`. Like Stack and Inline, `Flex` exclusively supports
+token-backed `gap` properties to ensure layouts using `Flex` match the Atlassian Design System
+spacing scale.
 
-<Example
-  Component={FlexJustifyContent}
-  packageName="@atlaskit/primitives/flex"
-/>
+<Example Component={FlexJustifyContent} packageName="@atlaskit/primitives/flex" />
 
 ## Align items and justify content
 
-`Flex` applies the `alignItems` and `justifyContent` properties to align content along its cross and main axes respectively.
+`Flex` applies the `alignItems` and `justifyContent` properties to align content along its cross and
+main axes respectively.
 
 <Example Component={FlexAlignItems} packageName="@atlaskit/primitives/flex" />
 
 ## Wrap
 
-Flex-prefixed properties in CSS do not have this prefix in the component API.
-For example, `flex-wrap` is instead applied as the `wrap` property.
+Flex-prefixed properties in CSS do not have this prefix in the component API. For example,
+`flex-wrap` is instead applied as the `wrap` property.
 
 <Example Component={FlexWrap} packageName="@atlaskit/primitives/flex" />
 

@@ -6,17 +6,17 @@ import * as transformer from '../19.0.0-render-props';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Update Avatar to use render props', () => {
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
         import Avatar from '@atlaskit/avatar';
 
         const App = () => {
           return <Avatar name="MCB" component={CustomAvatar} />;
         }
       `,
-    `
+		`
         import Avatar from '@atlaskit/avatar';
 
         const App = () => {
@@ -30,20 +30,20 @@ describe('Update Avatar to use render props', () => {
           );
         }
       `,
-    'should wrap custom component in render prop',
-  );
+		'should wrap custom component in render prop',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
         import Foo from '@atlaskit/avatar';
 
         const App = () => {
           return <Foo component={CustomAvatarItem} />;
         }
       `,
-    `
+		`
         import Foo from '@atlaskit/avatar';
 
         const App = () => {
@@ -57,22 +57,22 @@ describe('Update Avatar to use render props', () => {
           );
         }
       `,
-    'should convert aliased Avatar component prop to render prop',
-  );
+		'should convert aliased Avatar component prop to render prop',
+	);
 });
 
 describe('Update AvatarItem to use render props', () => {
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
         import { AvatarItem } from '@atlaskit/avatar';
 
         const App = () => {
           return <AvatarItem component={CustomAvatarItem} />;
         }
       `,
-    `
+		`
         import { AvatarItem } from '@atlaskit/avatar';
 
         const App = () => {
@@ -86,20 +86,20 @@ describe('Update AvatarItem to use render props', () => {
           );
         }
       `,
-    'should wrap custom component in render prop',
-  );
+		'should wrap custom component in render prop',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
         import { AvatarItem as Foo } from '@atlaskit/avatar';
 
         const App = () => {
           return <Foo component={CustomAvatarItem} />;
         }
       `,
-    `
+		`
         import { AvatarItem as Foo } from '@atlaskit/avatar';
 
         const App = () => {
@@ -113,6 +113,6 @@ describe('Update AvatarItem to use render props', () => {
           );
         }
       `,
-    'should convert aliased AvatarItem component prop to render prop',
-  );
+		'should convert aliased AvatarItem component prop to render prop',
+	);
 });

@@ -110,6 +110,9 @@
   "platform-feature-flags": {
     "platform.editor.allow-list-in-blockquote": {
       "type": "boolean"
+    },
+    "platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g": {
+      "type": "boolean"
     }
   }
 }

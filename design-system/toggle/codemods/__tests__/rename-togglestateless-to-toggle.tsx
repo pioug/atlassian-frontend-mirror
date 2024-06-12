@@ -3,17 +3,15 @@ jest.autoMockOff();
 import { renameToggleStatelessToToggle } from '../migrates/rename-togglestateless-to-toggle';
 import { createTransformer } from '../utils';
 
-const transformer = createTransformer('@atlaskit/toggle', [
-  renameToggleStatelessToToggle,
-]);
+const transformer = createTransformer('@atlaskit/toggle', [renameToggleStatelessToToggle]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Change ToggleStateless to Toggle', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import ToggleStateless from '@atlaskit/toggle';
 
@@ -21,7 +19,7 @@ describe('Change ToggleStateless to Toggle', () => {
       <ToggleStateless size="large" isChecked />
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -29,13 +27,13 @@ describe('Change ToggleStateless to Toggle', () => {
       <Toggle size="large" isChecked />
     );
     `,
-    'change ToggleStateless to Toggle',
-  );
+		'change ToggleStateless to Toggle',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Toggle from '@material-ui/toggle';
     import ToggleStateless from '@atlaskit/toggle';
@@ -44,7 +42,7 @@ describe('Change ToggleStateless to Toggle', () => {
       <ToggleStateless size="large" isChecked />
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@material-ui/toggle';
     import DSToggle from '@atlaskit/toggle';
@@ -53,13 +51,13 @@ describe('Change ToggleStateless to Toggle', () => {
       <DSToggle size="large" isChecked />
     );
     `,
-    'change ToggleStateless to DSToggle when name get conflict',
-  );
+		'change ToggleStateless to DSToggle when name get conflict',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import ToggleStateless from '@atlaskit/toggle';
 
@@ -74,7 +72,7 @@ describe('Change ToggleStateless to Toggle', () => {
       </>
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -89,6 +87,6 @@ describe('Change ToggleStateless to Toggle', () => {
       </>
     );
     `,
-    'change ToggleStateless to Toggle',
-  );
+		'change ToggleStateless to Toggle',
+	);
 });

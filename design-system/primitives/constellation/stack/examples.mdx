@@ -16,16 +16,17 @@ import StackAs from '../../examples/constellation/stack/as';
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 <CodeDocsHeader
-  name="@atlaskit/primitives"
-  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
-  directoryName="primitives"
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
 />
 
 ## Basic
 
 Use a stack component to efficiently lay-out a group of elements vertically.
 
-Use the given props to configure display behavior using designs tokens, as shown in the more complex examples below.
+Use the given props to configure display behavior using designs tokens, as shown in the more complex
+examples below.
 
 <Example Component={StackBasic} packageName="@atlaskit/primitives/stack" />
 
@@ -37,17 +38,25 @@ Control spacing between items with the `space` prop.
 
 ## Reverse content
 
-`flex-direction: `column-reverse` is a pattern that has [accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction#accessibility_concerns) so stack doesn't support it.
+`flex-direction: `column-reverse` is a pattern that has
+[accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction#accessibility_concerns)
+so stack doesn't support it.
 
-If reversing content is required, we generally recommend to use JavaScript to reverse the JSX content thereby preserving the tabbing order.
+If reversing content is required, we generally recommend to use JavaScript to reverse the JSX
+content thereby preserving the tabbing order.
 
-In situations where tabbing order changes based on different breakpoints, then we have [show](/components/primitives/responsive/show/examples) and [hide](/components/primitives/responsive/hide/examples) components that enable switching between different orderings of content.
+In situations where tabbing order changes based on different breakpoints, then we have
+[show](/components/primitives/responsive/show/examples) and
+[hide](/components/primitives/responsive/hide/examples) components that enable switching between
+different orderings of content.
 
-For non-tabbable content that needs to be reversed, `flex-direction: column-reverse` is supported in XCSS. However, please be aware that we may lint against this in the future.
+For non-tabbable content that needs to be reversed, `flex-direction: column-reverse` is supported in
+XCSS. However, please be aware that we may lint against this in the future.
 
 ## Alignment
 
-Control the alignment of items using the `alignBlock` and `alignInline` props which control alignment in the vertical and horizontal axis respectively.
+Control the alignment of items using the `alignBlock` and `alignInline` props which control
+alignment in the vertical and horizontal axis respectively.
 
 ### Block alignment
 
@@ -55,20 +64,19 @@ Control the alignment of items using the `alignBlock` and `alignInline` props wh
 
 ### Inline alignment
 
-<Example
-  Component={StackAlignInline}
-  packageName="@atlaskit/primitives/stack"
-/>
+<Example Component={StackAlignInline} packageName="@atlaskit/primitives/stack" />
 
 ## Spread
 
-Use the `spread` prop to set elements to stay together, spaced at the given value (default behavior) or spread equally in the space available.
+Use the `spread` prop to set elements to stay together, spaced at the given value (default behavior)
+or spread equally in the space available.
 
 <Example Component={StackSpread} packageName="@atlaskit/primitives/stack" />
 
 ## Width control
 
-By default a `Stack` will have its width influenced by the context where it appears. To control the width use the `grow` prop with the values:
+By default a `Stack` will have its width influenced by the context where it appears. To control the
+width use the `grow` prop with the values:
 
 - `hug` (default) to use space only as required by its children, or
 - `fill` to take all space provided by the parent element.
@@ -83,9 +91,7 @@ It's possible to control the rendered HTML element with the `as` prop.
 
 ## Practical use case
 
-An example of how a stack component might be used in product, using Atlassian Design System components.
+An example of how a stack component might be used in product, using Atlassian Design System
+components.
 
-<Example
-  Component={StackPracticalUseCase}
-  packageName="@atlaskit/primitives/stack"
-/>
+<Example Component={StackPracticalUseCase} packageName="@atlaskit/primitives/stack" />

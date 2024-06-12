@@ -7,10 +7,10 @@ const transformer = createTransformer([liftInlineEditableTextField]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('lift InlineEditableTextField to its own entry point', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import {InlineEditableTextfield} from "@atlaskit/inline-edit";
 
@@ -18,7 +18,7 @@ describe('lift InlineEditableTextField to its own entry point', () => {
       <InlineEditableTextfield />
     );
     `,
-    `
+		`
     import React from "react";
     import InlineEditableTextfield from "@atlaskit/inline-edit/inline-editable-textfield";
 
@@ -26,13 +26,13 @@ describe('lift InlineEditableTextField to its own entry point', () => {
       <InlineEditableTextfield />
     );
     `,
-    'should switch InlineEditableTextfield to a new entrypoint',
-  );
+		'should switch InlineEditableTextfield to a new entrypoint',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import { InlineEditStateless } from "@atlaskit/inline-edit";
 
@@ -40,7 +40,7 @@ describe('lift InlineEditableTextField to its own entry point', () => {
       <InlineEditableTextfield />
     );
     `,
-    `
+		`
     import React from "react";
     import { InlineEditStateless } from "@atlaskit/inline-edit";
 
@@ -48,13 +48,13 @@ describe('lift InlineEditableTextField to its own entry point', () => {
       <InlineEditableTextfield />
     );
     `,
-    'should not do it to other things',
-  );
+		'should not do it to other things',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import InlineEdit, {InlineEditableTextfield} from "@atlaskit/inline-edit";
 
@@ -65,7 +65,7 @@ describe('lift InlineEditableTextField to its own entry point', () => {
       </Container>
     );
     `,
-    `
+		`
     import React from "react";
     import InlineEditableTextfield from "@atlaskit/inline-edit/inline-editable-textfield";
     import InlineEdit from "@atlaskit/inline-edit";
@@ -77,6 +77,6 @@ describe('lift InlineEditableTextField to its own entry point', () => {
       </Container>
     );
     `,
-    'should switch InlineEditableTextfield to a new entrypoint with default import',
-  );
+		'should switch InlineEditableTextfield to a new entrypoint with default import',
+	);
 });

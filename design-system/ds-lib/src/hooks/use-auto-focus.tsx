@@ -19,19 +19,19 @@ import { type MutableRefObject, type RefObject, useEffect, useRef } from 'react'
  * @param autoFocus
  */
 export default function useAutoFocus(
-  ref:
-    | RefObject<HTMLElement | null | undefined>
-    | MutableRefObject<HTMLElement | null | undefined>
-    | undefined,
-  autoFocus: boolean,
+	ref:
+		| RefObject<HTMLElement | null | undefined>
+		| MutableRefObject<HTMLElement | null | undefined>
+		| undefined,
+	autoFocus: boolean,
 ) {
-  const initialMount = useRef(true);
+	const initialMount = useRef(true);
 
-  useEffect(() => {
-    if (ref && initialMount.current && autoFocus && ref.current) {
-      ref.current.focus();
-    }
+	useEffect(() => {
+		if (ref && initialMount.current && autoFocus && ref.current) {
+			ref.current.focus();
+		}
 
-    initialMount.current = false;
-  }, [autoFocus, ref]);
+		initialMount.current = false;
+	}, [autoFocus, ref]);
 }

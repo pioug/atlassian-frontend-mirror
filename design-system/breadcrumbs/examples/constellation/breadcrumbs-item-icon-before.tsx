@@ -7,11 +7,11 @@ import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 const TestIcon = <AtlassianIcon label="Test icon" size="small" />;
 
 const BreadcrumbsItemIconBeforeExample = () => {
-  return (
-    <Breadcrumbs>
-      <BreadcrumbsItem iconBefore={TestIcon} text="Atlassian" />
-    </Breadcrumbs>
-  );
+	return (
+		<Breadcrumbs>
+			<BreadcrumbsItem iconBefore={TestIcon} text="Atlassian" />
+		</Breadcrumbs>
+	);
 };
 
 export default BreadcrumbsItemIconBeforeExample;

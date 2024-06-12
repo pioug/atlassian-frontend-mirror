@@ -20,6 +20,7 @@ const disabledBlanket = css({
 	width: '100%',
 	height: '100%',
 	background: 'rgba(0, 0, 0, 0.03)',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		marginTop: '50vh',
 		marginLeft: '50vw',

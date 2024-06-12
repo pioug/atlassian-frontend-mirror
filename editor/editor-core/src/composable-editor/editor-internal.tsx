@@ -120,6 +120,7 @@ export const EditorInternal = memo(
 					contextIdentifierProvider={props.contextIdentifierProvider}
 					featureFlags={featureFlags}
 				>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<WidthProvider css={css({ height: '100%' })}>
 						<EditorContext editorActions={editorActions}>
 							<ContextAdapter>

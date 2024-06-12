@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const HelpContentButtonContainer = styled.a`
 	display: block;
 	cursor: pointer;
@@ -36,7 +36,7 @@ export const HelpContentButtonContainer = styled.a`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const HelpContentButtonIcon = styled.div`
 	display: inline-block;
 	vertical-align: middle;
@@ -53,7 +53,7 @@ export const HelpContentButtonIcon = styled.div`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const HelpContentButtonText = styled.div`
 	width: calc(100% - 20px);
 	display: inline-block;
@@ -62,14 +62,14 @@ export const HelpContentButtonText = styled.div`
 	box-sizing: border-box;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const HelpContentButtonExternalLinkIcon = styled.div`
 	display: inline-block;
 	vertical-align: middle;
 	padding-left: ${token('space.050', '4px')};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const HelpContentButtonExternalNotificationIcon = styled.div`
 	display: inline-block;
 	vertical-align: middle;

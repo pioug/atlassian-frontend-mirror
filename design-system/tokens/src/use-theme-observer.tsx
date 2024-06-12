@@ -18,15 +18,15 @@ import ThemeMutationObserver from './theme-mutation-observer';
  * ```
  */
 const useThemeObserver: () => Partial<ActiveThemeState> = () => {
-  const [theme, setTheme] = useState(getGlobalTheme());
+	const [theme, setTheme] = useState(getGlobalTheme());
 
-  useEffect(() => {
-    const observer = new ThemeMutationObserver((theme) => setTheme(theme));
-    observer.observe();
-    return () => observer.disconnect();
-  }, []);
+	useEffect(() => {
+		const observer = new ThemeMutationObserver((theme) => setTheme(theme));
+		observer.observe();
+		return () => observer.disconnect();
+	}, []);
 
-  return theme;
+	return theme;
 };
 
 export default useThemeObserver;

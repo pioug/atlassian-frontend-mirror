@@ -30,12 +30,13 @@ const itemIconStyles = css({
 	height: iconWidth,
 	overflow: 'hidden',
 	border: `1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `${borderRadius()}px`,
 	boxSizing: 'border-box',
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	div: {
 		width: iconWidth,
 		height: iconWidth,
@@ -50,6 +51,7 @@ const itemBodyStyles = css({
 	lineHeight: 1.4,
 	margin: `0 ${token('space.200', '16px')}`,
 	flexGrow: 3,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: `calc(100% - ${gapSizeForEllipsis}px)`,
 });
 
@@ -62,8 +64,9 @@ const centeredItemTitleStyles = css({
 const itemTextStyles = css({
 	maxWidth: '100%',
 	whiteSpace: 'initial',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	itemSummary: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(11.67),
 		color: token('color.text.subtlest', N200),
 		marginTop: token('space.050', '4px'),

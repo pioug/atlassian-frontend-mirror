@@ -8,8 +8,8 @@ import { CommentLayout } from '../src';
 import avatarImg from './images/avatar_400x400.jpg';
 
 export default () => (
-  <CommentLayout
-    avatar={<Avatar src={avatarImg} size="medium" />}
-    content={<Editor appearance="comment" />}
-  />
+	<CommentLayout
+		avatar={<Avatar src={avatarImg} size="medium" />}
+		content={<Editor appearance="comment" />}
+	/>
 );

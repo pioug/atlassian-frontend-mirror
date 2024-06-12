@@ -1,8 +1,13 @@
-Disallows any `keyframes` tagged template expressions that originate from a CSS-in-JS library, including `@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
+Disallows any `keyframes` tagged template expressions that originate from a CSS-in-JS library,
+including `@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
 
-Tagged template expressions are difficult to parse correctly (which can lead to more frequent build failures or invalid CSS generation), have limited type safety, and lack syntax highlighting. These problems can be avoided by using the preferred call expression syntax instead.
+Tagged template expressions are difficult to parse correctly (which can lead to more frequent build
+failures or invalid CSS generation), have limited type safety, and lack syntax highlighting. These
+problems can be avoided by using the preferred call expression syntax instead.
 
-Thank you to the [Compiled team for their rule](https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-keyframes-tagged-template-expression) from which this was ported.
+Thank you to the
+[Compiled team for their rule](https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-keyframes-tagged-template-expression)
+from which this was ported.
 
 The `--fix` option on the command line automatically fixes problems reported by this rule.
 
@@ -33,12 +38,12 @@ import { keyframes } from '@compiled/react';
 keyframes({ to: { opacity: 0 } });
 
 const fadeOut = keyframes({
-  from: {
-    opacity: 1,
-  },
-  to: {
-    opacity: 0,
-  },
+	from: {
+		opacity: 1,
+	},
+	to: {
+		opacity: 0,
+	},
 });
 ```
 
@@ -56,7 +61,8 @@ By default, this rule will check `keyframes` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an
+array of package names (strings).
 
 ```tsx
 // [{ importSources: ['other-lib'] }]

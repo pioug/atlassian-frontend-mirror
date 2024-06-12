@@ -45,6 +45,7 @@ function ButtonHack(props: ButtonProps) {
 	return <Button {...props} />;
 }
 const paddedButton = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		margin: `${token('space.150', '12px')} 0px ${token('space.150', '12px')} auto`,
 	},
@@ -57,6 +58,7 @@ const editorWrapper = css({
 	backgroundColor: 'white',
 	border: `1px solid ${token('color.border', N40)}`,
 	borderRadius: '4px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror': {
 		minHeight: '125px',
 	},

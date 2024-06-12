@@ -12,21 +12,21 @@ const sizes: Size[] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
  * freeze the spinner, avoiding potential for VR test flakiness.
  */
 const animationStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  'svg, span': {
-    animationDuration: '0s',
-    animationTimingFunction: 'step-end',
-  },
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'svg, span': {
+		animationDuration: '0s',
+		animationTimingFunction: 'step-end',
+	},
 });
 
 export default function Example() {
-  return (
-    <div data-testid="spinner-sizes-container">
-      {sizes.map((size: Size) => (
-        <div css={animationStyles}>
-          <Spinner size={size} />
-        </div>
-      ))}
-    </div>
-  );
+	return (
+		<div data-testid="spinner-sizes-container">
+			{sizes.map((size: Size) => (
+				<div css={animationStyles}>
+					<Spinner size={size} />
+				</div>
+			))}
+		</div>
+	);
 }

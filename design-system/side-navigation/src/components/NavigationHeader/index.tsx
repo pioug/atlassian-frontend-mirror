@@ -4,13 +4,13 @@ import { jsx } from '@emotion/react';
 import { Box, xcss } from '@atlaskit/primitives';
 
 const navigationFooterStyles = xcss({
-  display: 'block',
-  padding: 'space.100',
-  paddingBlockStart: 'space.300',
+	display: 'block',
+	padding: 'space.100',
+	paddingBlockStart: 'space.300',
 });
 
 export interface NavigationHeaderProps {
-  children: JSX.Element | JSX.Element[];
+	children: JSX.Element | JSX.Element[];
 }
 
 /**
@@ -22,12 +22,12 @@ export interface NavigationHeaderProps {
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
 const NavigationHeader = (props: NavigationHeaderProps) => {
-  const { children } = props;
-  return (
-    <Box xcss={navigationFooterStyles} data-navheader>
-      {children}
-    </Box>
-  );
+	const { children } = props;
+	return (
+		<Box xcss={navigationFooterStyles} data-navheader>
+			{children}
+		</Box>
+	);
 };
 
 export default NavigationHeader;

@@ -17,17 +17,17 @@ import { MenuGroup } from '@atlaskit/menu';
   `}
 
   ${(
-    <Example
-      title="Menu with max height"
-      Component={require('../examples/scrollable-menu').default}
-      source={require('!!raw-loader!../examples/scrollable-menu')}
-    />
-  )}
+		<Example
+			title="Menu with max height"
+			Component={require('../examples/scrollable-menu').default}
+			source={require('!!raw-loader!../examples/scrollable-menu')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/menu-section/menu-group')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/menu-section/menu-group')}
+		/>
+	)}
 `;

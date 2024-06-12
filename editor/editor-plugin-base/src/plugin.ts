@@ -1,4 +1,4 @@
-import { doc, paragraph, text } from '@atlaskit/adf-schema';
+import { doc, paragraph, paragraphStage0, text } from '@atlaskit/adf-schema';
 import { keymap } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
@@ -12,6 +12,7 @@ import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-id
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history } from '@atlaskit/editor-prosemirror/history';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { setKeyboardHeight } from './commands';
 import disableSpellcheckingPlugin from './pm-plugins/disable-spell-checking';
@@ -134,9 +135,14 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 			return plugins;
 		},
 		nodes() {
+			const paragraphNode = getBooleanFF(
+				'platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g',
+			)
+				? paragraphStage0
+				: paragraph;
 			return [
 				{ name: 'doc', node: doc },
-				{ name: 'paragraph', node: paragraph },
+				{ name: 'paragraph', node: paragraphNode },
 				{ name: 'text', node: text },
 			];
 		},

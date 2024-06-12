@@ -8,12 +8,9 @@ import { css } from '@atlaskit/css';
 const stylesStyles = css({ color: 'var(--ds-link)' });
 
 describe('strict compiled tests', () => {
-  it('should assert colors exist', () => {
-    render(<div css={stylesStyles}>Foo</div>);
+	it('should assert colors exist', () => {
+		render(<div css={stylesStyles}>Foo</div>);
 
-    expect(screen.getByText('Foo')).toHaveCompiledCss(
-      'color',
-      'var(--ds-link)',
-    );
-  });
+		expect(screen.getByText('Foo')).toHaveCompiledCss('color', 'var(--ds-link)');
+	});
 });

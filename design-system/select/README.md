@@ -1,6 +1,7 @@
 # Select
 
-Select gives users the ability to make a single selection, or multiple selections from a number of options.
+Select gives users the ability to make a single selection, or multiple selections from a number of
+options.
 
 ## Installation
 

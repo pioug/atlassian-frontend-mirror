@@ -199,11 +199,13 @@ const DragHandleComponent = ({
 				data-testid="table-drag-handle-clickable-zone-button"
 				style={{
 					height: isRow
-						? `calc(100% - ${dragTableInsertColumnButtonSize}px)`
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							`calc(100% - ${dragTableInsertColumnButtonSize}px)`
 						: `${token('space.200', '16px')}`, // 16px here because it's the size of drag handle button's large side
 					width: isRow
 						? `${token('space.200', '16px')}` // 16px here because it's the size of drag handle button's large side
-						: `calc(100% - ${dragTableInsertColumnButtonSize}px)`,
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							`calc(100% - ${dragTableInsertColumnButtonSize}px)`,
 					left: isRow ? `${token('space.050', '4px')}` : undefined,
 					bottom: isColumn ? `${token('space.0', '0px')}` : undefined,
 					alignSelf: isColumn ? 'none' : 'center',

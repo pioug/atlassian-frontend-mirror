@@ -13,20 +13,20 @@ import ProgressBar from './progress-bar';
  * - [Code](https://atlassian.design/components/progress-bar/success-progress-bar/code)
  */
 const SuccessProgressBar = ({
-  ariaLabel,
-  isIndeterminate = false,
-  testId,
-  value = 0,
+	ariaLabel,
+	isIndeterminate = false,
+	testId,
+	value = 0,
 }: CustomProgressBarProps) => {
-  return (
-    <ProgressBar
-      appearance={value < 1 || isIndeterminate ? 'default' : 'success'}
-      value={value}
-      isIndeterminate={isIndeterminate}
-      ariaLabel={ariaLabel}
-      testId={testId}
-    />
-  );
+	return (
+		<ProgressBar
+			appearance={value < 1 || isIndeterminate ? 'default' : 'success'}
+			value={value}
+			isIndeterminate={isIndeterminate}
+			ariaLabel={ariaLabel}
+			testId={testId}
+		/>
+	);
 };
 
 export default SuccessProgressBar;

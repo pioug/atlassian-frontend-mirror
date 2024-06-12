@@ -8,11 +8,11 @@ import TagGroupAlignStart from '../../../../examples/constellation/tag-group-ali
 import TagGroup from '../../../../examples/constellation/tag-group-default';
 
 it('TagGroup should pass axe audit', async () => {
-  const { container } = render(<TagGroup />);
-  await axe(container);
+	const { container } = render(<TagGroup />);
+	await axe(container);
 });
 
 it('TagGroupAlignStart should pass axe audit', async () => {
-  const { container } = render(<TagGroupAlignStart />);
-  await axe(container);
+	const { container } = render(<TagGroupAlignStart />);
+	await axe(container);
 });

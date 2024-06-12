@@ -41,6 +41,7 @@ export const MAX_ALT_TEXT_LENGTH = 510; // double tweet length
 
 const supportTextStyles = css({
 	color: token('color.text.subtlest', N200),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(12),
 	padding: `${token('space.150', '12px')} ${token('space.500', '40px')}`,
 	lineHeight: '20px',
@@ -49,6 +50,7 @@ const supportTextStyles = css({
 });
 
 const containerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${CONTAINER_WIDTH_IN_PX}px`,
 	display: 'flex',
 	flexDirection: 'column',

@@ -8,10 +8,10 @@ const transformer = createTransformer('@atlaskit/calendar', [removeInnerProps]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Remove innerProps', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
 
@@ -28,7 +28,7 @@ describe('Remove innerProps', () => {
       );
     }
   `,
-    `
+		`
     /* TODO: (from codemod) This file uses the @atlaskit/calendar \`innerProps\` which
     has now been removed due to its poor performance characteristics. Codemod
     has auto flattened 'className' & 'style' properties inside it if present as a standalone props to calendar.
@@ -41,13 +41,13 @@ describe('Remove innerProps', () => {
       return <Calendar />;
     }
   `,
-    'should remove innerProps from Calendar and leave a TODO comment',
-  );
+		'should remove innerProps from Calendar and leave a TODO comment',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import AkCalendar from '@atlaskit/calendar';
 
@@ -64,7 +64,7 @@ describe('Remove innerProps', () => {
       );
     }
   `,
-    `
+		`
     /* TODO: (from codemod) This file uses the @atlaskit/calendar \`innerProps\` which
     has now been removed due to its poor performance characteristics. Codemod
     has auto flattened 'className' & 'style' properties inside it if present as a standalone props to calendar.
@@ -77,13 +77,13 @@ describe('Remove innerProps', () => {
       return <AkCalendar />;
     }
   `,
-    'should also remove innerProps from some random default import name of Calendar (eg: AkCalendar) and leave a TODO comment',
-  );
+		'should also remove innerProps from some random default import name of Calendar (eg: AkCalendar) and leave a TODO comment',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
 
@@ -103,7 +103,7 @@ describe('Remove innerProps', () => {
       );
     }
   `,
-    `
+		`
     /* TODO: (from codemod) This file uses the @atlaskit/calendar \`innerProps\` which
     has now been removed due to its poor performance characteristics. Codemod
     has auto flattened 'className' & 'style' properties inside it if present as a standalone props to calendar.
@@ -121,13 +121,13 @@ describe('Remove innerProps', () => {
       );
     }
   `,
-    'should remove innerProps from Calendar, leave a TODO comment & just keep other props intact',
-  );
+		'should remove innerProps from Calendar, leave a TODO comment & just keep other props intact',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
 
@@ -141,7 +141,7 @@ describe('Remove innerProps', () => {
       );
     }
   `,
-    `
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
 
@@ -155,6 +155,6 @@ describe('Remove innerProps', () => {
       );
     }
   `,
-    'should not remove & leave a TODO comment when innerProps is itself not present',
-  );
+		'should not remove & leave a TODO comment when innerProps is itself not present',
+	);
 });

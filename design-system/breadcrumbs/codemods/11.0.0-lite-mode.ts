@@ -5,9 +5,9 @@ import { renameBreadcrumbsStatelessToBreadcrumbs } from './migrates/rename-bread
 import { createTransformer } from './utils';
 
 const transformer = createTransformer('@atlaskit/breadcrumbs', [
-  removeHasSeparator,
-  elevateStatelessToDefault,
-  renameBreadcrumbsStatelessToBreadcrumbs,
+	removeHasSeparator,
+	elevateStatelessToDefault,
+	renameBreadcrumbsStatelessToBreadcrumbs,
 ]);
 
 export default transformer;

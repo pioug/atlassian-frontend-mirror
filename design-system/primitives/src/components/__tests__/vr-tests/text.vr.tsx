@@ -6,26 +6,26 @@ import Color from '../../../../examples/71-text-color';
 import Truncation from '../../../../examples/72-text-truncation';
 
 snapshot(Basic, {
-  variants: [
-    {
-      name: 'text default',
-      environment: {},
-    },
-  ],
+	variants: [
+		{
+			name: 'text default',
+			environment: {},
+		},
+	],
 });
 snapshot(Color, {
-  variants: [
-    {
-      name: 'text color',
-      environment: {},
-    },
-  ],
+	variants: [
+		{
+			name: 'text color',
+			environment: {},
+		},
+	],
 });
 snapshot(Truncation, {
-  variants: [
-    {
-      name: 'text truncation',
-      environment: {},
-    },
-  ],
+	variants: [
+		{
+			name: 'text truncation',
+			environment: {},
+		},
+	],
 });

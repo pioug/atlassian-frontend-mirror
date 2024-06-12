@@ -77,7 +77,9 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 	const button = (
 		<div
 			css={[
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				tableFloatingCellButtonStyles(),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				isContextualMenuOpen && tableFloatingCellButtonSelectedStyles(),
 			]}
 		>

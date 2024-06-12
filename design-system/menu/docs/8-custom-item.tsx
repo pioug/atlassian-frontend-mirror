@@ -5,11 +5,11 @@ import SectionMessage from '@atlaskit/section-message';
 
 export default md`
   ${(
-    <SectionMessage title="Important usage instructions">
-      The <a href="section">section component</a> is required to be used to
-      ensure spacing around blocks of items exists! Make sure to use it.
-    </SectionMessage>
-  )}
+		<SectionMessage title="Important usage instructions">
+			The <a href="section">section component</a> is required to be used to ensure spacing around
+			blocks of items exists! Make sure to use it.
+		</SectionMessage>
+	)}
 
   Useful when wanting to create a item using a your own component that inherits the look and feel of a menu item.
   Use cases could include using your own router link component for example.
@@ -28,17 +28,17 @@ const Container = (props: CustomItemComponentProps) => {
   `}
 
 ${(
-  <Example
-    title="Custom item"
-    Component={require('../examples/custom-item').default}
-    source={require('!!raw-loader!../examples/custom-item')}
-  />
+	<Example
+		title="Custom item"
+		Component={require('../examples/custom-item').default}
+		source={require('!!raw-loader!../examples/custom-item')}
+	/>
 )}
 
 ${(
-  <Props
-    heading="Props"
-    props={require('!!extract-react-types-loader!../extract-react-types/custom-item-hack-for-ert')}
-  />
+	<Props
+		heading="Props"
+		props={require('!!extract-react-types-loader!../extract-react-types/custom-item-hack-for-ert')}
+	/>
 )}
 `;

@@ -6,5 +6,4 @@ export const DEFAULT_THEME = 'light';
 export const CSS_PREFIX = 'ds';
 export const CSS_VAR_FULL = ['opacity', 'font', 'space', 'border'];
 export const TOKEN_NOT_FOUND_CSS_VAR = `--${CSS_PREFIX}-token-not-found`;
-export const CURRENT_SURFACE_CSS_VAR =
-  `--${CSS_PREFIX}-elevation-surface-current` as const;
+export const CURRENT_SURFACE_CSS_VAR = `--${CSS_PREFIX}-elevation-surface-current` as const;

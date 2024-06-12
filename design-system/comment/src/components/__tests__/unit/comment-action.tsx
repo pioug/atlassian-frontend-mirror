@@ -4,98 +4,98 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import CommentActionWithAnalytics, {
-  CommentActionWithoutAnalytics as CommentAction,
-  type CommentActionItemProps,
+	CommentActionWithoutAnalytics as CommentAction,
+	type CommentActionItemProps,
 } from '../../action-item';
 
 describe('@atlaskit comments', () => {
-  describe('CommentAction', () => {
-    describe('exports', () => {
-      it('the CommentAction component', () => {
-        expect(CommentAction).not.toBe(undefined);
-      });
-    });
+	describe('CommentAction', () => {
+		describe('exports', () => {
+			it('the CommentAction component', () => {
+				expect(CommentAction).not.toBe(undefined);
+			});
+		});
 
-    describe('construction', () => {
-      const user = userEvent.setup();
+		describe('construction', () => {
+			const user = userEvent.setup();
 
-      afterEach(() => {
-        jest.resetAllMocks();
-      });
+			afterEach(() => {
+				jest.resetAllMocks();
+			});
 
-      it('should be able to create a component', async () => {
-        render(<CommentAction>Reply</CommentAction>);
+			it('should be able to create a component', async () => {
+				render(<CommentAction>Reply</CommentAction>);
 
-        const buttons = await screen.findAllByRole('button');
+				const buttons = await screen.findAllByRole('button');
 
-        expect(buttons).toHaveLength(1);
-      });
+				expect(buttons).toHaveLength(1);
+			});
 
-      it('should render a Button containing the children', () => {
-        const children = <span>children</span>;
-        render(<CommentAction>{children}</CommentAction>);
-        const button = screen.getByRole('button', { name: 'children' });
+			it('should render a Button containing the children', () => {
+				const children = <span>children</span>;
+				render(<CommentAction>{children}</CommentAction>);
+				const button = screen.getByRole('button', { name: 'children' });
 
-        expect(button).toBeInTheDocument();
-      });
+				expect(button).toBeInTheDocument();
+			});
 
-      it('should pass onClick, onFocus, and onMouseOver functions to button via props', async () => {
-        const onClickMock = jest.fn();
-        const onHoverMock = jest.fn();
-        const onFocusMock = jest.fn();
+			it('should pass onClick, onFocus, and onMouseOver functions to button via props', async () => {
+				const onClickMock = jest.fn();
+				const onHoverMock = jest.fn();
+				const onFocusMock = jest.fn();
 
-        const props: CommentActionItemProps = {
-          onClick: onClickMock,
-          onFocus: onFocusMock,
-          onMouseOver: onHoverMock,
-        };
-        render(<CommentAction {...props}>Reply</CommentAction>);
+				const props: CommentActionItemProps = {
+					onClick: onClickMock,
+					onFocus: onFocusMock,
+					onMouseOver: onHoverMock,
+				};
+				render(<CommentAction {...props}>Reply</CommentAction>);
 
-        const button = screen.getByRole('button');
+				const button = screen.getByRole('button');
 
-        await user.click(button);
-        expect(onClickMock).toHaveBeenCalledTimes(1);
-        expect(onHoverMock).toHaveBeenCalledTimes(1);
+				await user.click(button);
+				expect(onClickMock).toHaveBeenCalledTimes(1);
+				expect(onHoverMock).toHaveBeenCalledTimes(1);
 
-        fireEvent.focus(button);
-        expect(onFocusMock).toHaveBeenCalledTimes(1);
-      });
+				fireEvent.focus(button);
+				expect(onFocusMock).toHaveBeenCalledTimes(1);
+			});
 
-      it('should disable button if isDisabled prop set to true', async () => {
-        const onClickMock = jest.fn();
-        render(
-          <CommentAction isDisabled={true} onClick={onClickMock}>
-            Reply
-          </CommentAction>,
-        );
+			it('should disable button if isDisabled prop set to true', async () => {
+				const onClickMock = jest.fn();
+				render(
+					<CommentAction isDisabled={true} onClick={onClickMock}>
+						Reply
+					</CommentAction>,
+				);
 
-        const button = screen.getByRole('button');
+				const button = screen.getByRole('button');
 
-        await user.click(button);
-        expect(onClickMock).not.toHaveBeenCalled();
-        expect(button).toBeDisabled();
-      });
-    });
-  });
+				await user.click(button);
+				expect(onClickMock).not.toHaveBeenCalled();
+				expect(button).toBeDisabled();
+			});
+		});
+	});
 });
 
 describe('CommentActionWithAnalytics', () => {
-  beforeEach(() => {
-    jest.spyOn(global.console, 'warn');
-    jest.spyOn(global.console, 'error');
-  });
-  afterEach(() => {
-    // @ts-ignore - Property 'mockRestore' does not exist
-    global.console.warn.mockRestore();
-    // @ts-ignore - Property 'mockRestore' does not exist
-    global.console.error.mockRestore();
-  });
+	beforeEach(() => {
+		jest.spyOn(global.console, 'warn');
+		jest.spyOn(global.console, 'error');
+	});
+	afterEach(() => {
+		// @ts-ignore - Property 'mockRestore' does not exist
+		global.console.warn.mockRestore();
+		// @ts-ignore - Property 'mockRestore' does not exist
+		global.console.error.mockRestore();
+	});
 
-  it('should mount without errors', () => {
-    render(<CommentActionWithAnalytics>Reply</CommentActionWithAnalytics>);
-    /* eslint-disable no-console */
-    expect(console.warn).not.toHaveBeenCalled();
-    expect(console.error).not.toHaveBeenCalled();
-    /* eslint-enable no-console */
-  });
+	it('should mount without errors', () => {
+		render(<CommentActionWithAnalytics>Reply</CommentActionWithAnalytics>);
+		/* eslint-disable no-console */
+		expect(console.warn).not.toHaveBeenCalled();
+		expect(console.error).not.toHaveBeenCalled();
+		/* eslint-enable no-console */
+	});
 });

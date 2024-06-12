@@ -43,7 +43,7 @@ export const useClearIcon = ({
 			command: clearFormattingToolbar,
 			content: clearFormattingLabel,
 			elemAfter: (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={shortcutStyle}>{tooltip(clearFormattingKeymap)}</div>
 			),
 			value: {

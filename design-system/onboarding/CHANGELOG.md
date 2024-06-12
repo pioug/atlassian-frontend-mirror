@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 11.6.0
+
+### Minor Changes
+
+- [#109747](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109747)
+  [`abd5924f09fbd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/abd5924f09fbd) -
+  Internal change to manually set Heading colour to avoid potential context issues. This should
+  resolve issues where the Heading colour may have been incorrectly set.
+
 ## 11.5.8
 
 ### Patch Changes

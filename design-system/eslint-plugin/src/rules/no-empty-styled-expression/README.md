@@ -1,6 +1,10 @@
-Disallows/discourages passing empty arguments to any `styled` expression when using a CSS-in-JS library, including `@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
+Disallows/discourages passing empty arguments to any `styled` expression when using a CSS-in-JS
+library, including `@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
 
-If Compiled is used in the file, passing an empty object or no object at all causes Compiled to build extra `div/span` elements, as opposed to simply using a `div`. This leads to reduced performance and is greatly discouraged. If a wrapper is necessary, opt to use a `div` or wrap it in the empty React fragment `<> <YourComponentHere></YourComponentHere> </>`.
+If Compiled is used in the file, passing an empty object or no object at all causes Compiled to
+build extra `div/span` elements, as opposed to simply using a `div`. This leads to reduced
+performance and is greatly discouraged. If a wrapper is necessary, opt to use a `div` or wrap it in
+the empty React fragment `<> <YourComponentHere></YourComponentHere> </>`.
 
 ## Examples
 
@@ -18,10 +22,10 @@ const EmptyStyledExpressionArgument = styled.div([]);
 
 ```tsx
 const Wrapper = styled.div({
-  backgroundColor: 'red',
-  MyComponent: {
-    backgroundColor: 'green',
-  },
+	backgroundColor: 'red',
+	MyComponent: {
+		backgroundColor: 'green',
+	},
 });
 ```
 
@@ -63,7 +67,8 @@ By default, this rule will check `styled` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an
+array of package names (strings).
 
 ```tsx
 // [{ importSources: ['other-lib'] }]

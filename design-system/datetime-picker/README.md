@@ -10,4 +10,5 @@ yarn add @atlaskit/datetime-picker
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/datetime-picker).
+Detailed docs and example usage can be found
+[here](https://atlaskit.atlassian.com/packages/core/datetime-picker).

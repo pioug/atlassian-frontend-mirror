@@ -2,45 +2,38 @@ import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 
-import Modal, {
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-  ModalTransition,
-} from '../../src';
+import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
 
 export default function Example() {
-  const [isOpen, setIsOpen] = useState(false);
-  const openModal = useCallback(() => setIsOpen(true), []);
-  const closeModal = useCallback(() => setIsOpen(false), []);
+	const [isOpen, setIsOpen] = useState(false);
+	const openModal = useCallback(() => setIsOpen(true), []);
+	const closeModal = useCallback(() => setIsOpen(false), []);
 
-  return (
-    <>
-      <Button appearance="primary" onClick={openModal}>
-        Open modal
-      </Button>
+	return (
+		<>
+			<Button appearance="primary" onClick={openModal}>
+				Open modal
+			</Button>
 
-      <ModalTransition>
-        {isOpen && (
-          <Modal onClose={closeModal}>
-            <ModalHeader>
-              <ModalTitle appearance="warning">
-                Move your page to the Design team space
-              </ModalTitle>
-            </ModalHeader>
-            <ModalBody>
-              If you move this page to the Design system space, your access permissions will change to view only. You'll need to ask the space admin for edit access.
-            </ModalBody>
-            <ModalFooter>
-              <Button appearance="subtle">Cancel</Button>
-              <Button appearance="warning" onClick={closeModal}>
-                Move page
-              </Button>
-            </ModalFooter>
-          </Modal>
-        )}
-      </ModalTransition>
-    </>
-  );
+			<ModalTransition>
+				{isOpen && (
+					<Modal onClose={closeModal}>
+						<ModalHeader>
+							<ModalTitle appearance="warning">Move your page to the Design team space</ModalTitle>
+						</ModalHeader>
+						<ModalBody>
+							If you move this page to the Design system space, your access permissions will change
+							to view only. You'll need to ask the space admin for edit access.
+						</ModalBody>
+						<ModalFooter>
+							<Button appearance="subtle">Cancel</Button>
+							<Button appearance="warning" onClick={closeModal}>
+								Move page
+							</Button>
+						</ModalFooter>
+					</Modal>
+				)}
+			</ModalTransition>
+		</>
+	);
 }

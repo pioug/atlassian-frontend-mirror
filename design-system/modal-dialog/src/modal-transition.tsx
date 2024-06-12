@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ExitingPersistence, {
-  type ExitingPersistenceProps,
+	type ExitingPersistenceProps,
 } from '@atlaskit/motion/exiting-persistence';
 
 /**
@@ -14,7 +14,7 @@ import ExitingPersistence, {
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
 const ModalTransition = (props: Pick<ExitingPersistenceProps, 'children'>) => {
-  return <ExitingPersistence appear>{props.children}</ExitingPersistence>;
+	return <ExitingPersistence appear>{props.children}</ExitingPersistence>;
 };
 
 export default ModalTransition;

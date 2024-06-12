@@ -8,10 +8,10 @@ const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 // Only testing for tsx here because it's modifying types
 describe('inline WidthNames declaration', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -36,7 +36,7 @@ describe('inline WidthNames declaration', () => {
       )
     }
     `,
-    `
+		`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -60,13 +60,13 @@ describe('inline WidthNames declaration', () => {
       )
     }
     `,
-    'should inline values of WidthNames in a type declaration and remove shared-variables import',
-  );
+		'should inline values of WidthNames in a type declaration and remove shared-variables import',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -91,7 +91,7 @@ describe('inline WidthNames declaration', () => {
       )
     }
     `,
-    `
+		`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -115,13 +115,13 @@ describe('inline WidthNames declaration', () => {
       )
     }
     `,
-    'should inline values of WidthNames imported with an alias and remove shared-variables import',
-  );
+		'should inline values of WidthNames imported with an alias and remove shared-variables import',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import ModalDialog, { ModalDialogProps } from '@atlaskit/modal-dialog';
@@ -146,7 +146,7 @@ describe('inline WidthNames declaration', () => {
       )
     }
     `,
-    `
+		`
     import React from 'react';
 
     import ModalDialog, { ModalDialogProps } from '@atlaskit/modal-dialog';
@@ -170,13 +170,13 @@ describe('inline WidthNames declaration', () => {
       )
     }
     `,
-    'should inline values of WidthNames in an interface declaration and remove shared-variables import',
-  );
+		'should inline values of WidthNames in an interface declaration and remove shared-variables import',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -216,7 +216,7 @@ describe('inline WidthNames declaration', () => {
       )
     }
     `,
-    `
+		`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -255,6 +255,6 @@ describe('inline WidthNames declaration', () => {
       )
     }
     `,
-    'should inline values of WidthNames in both type and interface declarations and remove shared-variables import',
-  );
+		'should inline values of WidthNames in both type and interface declarations and remove shared-variables import',
+	);
 });

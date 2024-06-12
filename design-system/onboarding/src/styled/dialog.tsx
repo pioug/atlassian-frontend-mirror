@@ -6,20 +6,20 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 const imageStyles = css({
-  maxWidth: '100%',
-  height: 'auto',
+	maxWidth: '100%',
+	height: 'auto',
 });
 
 const actionItemContainerStyles = css({
-  display: 'flex',
-  margin: `${token('space.0', '0px')} -4px`,
-  /* When there is more than one action, place primary action visually on the
+	display: 'flex',
+	margin: `${token('space.0', '0px')} -4px`,
+	/* When there is more than one action, place primary action visually on the
   right, but keep it's position as the first focusable element in the DOM */
-  flexDirection: 'row-reverse',
+	flexDirection: 'row-reverse',
 });
 
 const actionItemStyles = css({
-  margin: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
+	margin: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
 });
 
 type DialogImageProps = ImgHTMLAttributes<HTMLImageElement>;
@@ -32,8 +32,8 @@ type DialogImageProps = ImgHTMLAttributes<HTMLImageElement>;
  * @internal
  */
 export const DialogImage = ({ alt, ...props }: DialogImageProps) => (
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  <img css={imageStyles} alt={alt} {...props} />
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+	<img css={imageStyles} alt={alt} {...props} />
 );
 
 /**
@@ -43,11 +43,9 @@ export const DialogImage = ({ alt, ...props }: DialogImageProps) => (
  *
  * @internal
  */
-export const DialogActionItemContainer = ({
-  children,
-}: {
-  children: ReactNode;
-}) => <div css={actionItemContainerStyles}>{children}</div>;
+export const DialogActionItemContainer = ({ children }: { children: ReactNode }) => (
+	<div css={actionItemContainerStyles}>{children}</div>
+);
 
 /**
  * __Dialog action item__
@@ -57,5 +55,5 @@ export const DialogActionItemContainer = ({
  * @internal
  */
 export const DialogActionItem = ({ children }: { children: ReactNode }) => (
-  <div css={actionItemStyles}>{children}</div>
+	<div css={actionItemStyles}>{children}</div>
 );

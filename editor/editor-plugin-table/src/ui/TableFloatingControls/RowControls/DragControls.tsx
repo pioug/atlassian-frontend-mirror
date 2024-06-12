@@ -283,11 +283,13 @@ const DragControlsComponent = ({
 			style={{
 				gridTemplateRows: heights,
 				gridTemplateColumns: isDragging
-					? `${dropTargetExtendedWidth}px 14px ${tableWidth}px`
+					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						`${dropTargetExtendedWidth}px 14px ${tableWidth}px`
 					: '0px 14px 0px',
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 				left: isDragging
-					? `-${dropTargetExtendedWidth + 2}px`
+					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						`-${dropTargetExtendedWidth + 2}px`
 					: token('space.negative.025', '-2px'),
 			}}
 			onMouseMove={handleMouseMove}

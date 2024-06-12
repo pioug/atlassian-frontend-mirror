@@ -7,10 +7,10 @@ const transformer = createTransformer([migrateOnSelectType]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('change onSelect to onChange', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { useState } from 'react';
     import Tabs from '@atlaskit/tabs';
     import { TabData } from '@atlaskit/tabs/types';
@@ -34,7 +34,7 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     This file uses onSelect and this prop has been changed names to onChange.
 
@@ -78,13 +78,13 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    'should change inline usage of onSelect to IIFE onChange and find the relevant tab data',
-  );
+		'should change inline usage of onSelect to IIFE onChange and find the relevant tab data',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { useState } from 'react';
     import Tabs from '@atlaskit/tabs';
 
@@ -105,7 +105,7 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     This file uses onSelect and this prop has been changed names to onChange.
 
@@ -152,13 +152,13 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    'should change inline usage of onSelect to IIFE onChange and find the relevant tab data if tabs is defined inline',
-  );
+		'should change inline usage of onSelect to IIFE onChange and find the relevant tab data if tabs is defined inline',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { useState } from 'react';
 
     import Tabs from '@atlaskit/tabs';
@@ -185,7 +185,7 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     This file uses onSelect and this prop has been changed names to onChange.
 
@@ -232,13 +232,13 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    'should change usage of onSelect to onChange with the relevant tab data',
-  );
+		'should change usage of onSelect to onChange with the relevant tab data',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { useState } from 'react';
 
     import Tabs from '@atlaskit/tabs';
@@ -262,7 +262,7 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     This file uses onSelect and this prop has been changed names to onChange.
 
@@ -312,12 +312,12 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    'should change usage of onSelect to onChange with the relevant tab data if tabs is defined inline',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should change usage of onSelect to onChange with the relevant tab data if tabs is defined inline',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { useState } from 'react';
 
     import Tabs from '@atlaskit/tabs';
@@ -345,7 +345,7 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     This file uses onSelect and this prop has been changed names to onChange.
 
@@ -393,12 +393,12 @@ describe('change onSelect to onChange', () => {
       );
     }
   `,
-    'should change usage of onSelect to onChange with the relevant tab data if tabs is a function',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should change usage of onSelect to onChange with the relevant tab data if tabs is a function',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { useState } from 'react';
 
     import Tabs from '@atlaskit/tabs';
@@ -417,7 +417,7 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     This file uses onSelect and this prop has been changed names to onChange.
 
@@ -456,13 +456,13 @@ describe('change onSelect to onChange', () => {
       );
     }
   `,
-    'should change usage of onSelect to onChange if the tabs prop is spread',
-  );
+		'should change usage of onSelect to onChange if the tabs prop is spread',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { useState } from 'react';
 
     import Tabs from '@atlaskit/tabs';
@@ -486,7 +486,7 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     This file uses onSelect and this prop has been changed names to onChange.
 
@@ -536,6 +536,6 @@ describe('change onSelect to onChange', () => {
       );
     }
     `,
-    'should change usage of onSelect to onChange with the relevant tab data if onChange is defined in tabs children',
-  );
+		'should change usage of onSelect to onChange with the relevant tab data if onChange is defined in tabs children',
+	);
 });

@@ -2,17 +2,15 @@ import { createTransformer } from '@atlaskit/codemod-utils';
 
 import { renameIsContentPersistedToShouldUnmountTabPanelOnChange } from '../migrations/rename-is-content-persisted-to-should-unmount-tab-panel-on-change';
 
-const transformer = createTransformer([
-  renameIsContentPersistedToShouldUnmountTabPanelOnChange,
-]);
+const transformer = createTransformer([renameIsContentPersistedToShouldUnmountTabPanelOnChange]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('remove isSelectedTest prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -39,7 +37,7 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -66,13 +64,13 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    'should change isContentPersisted=false to shouldUnmountTabPanelOnChange',
-  );
+		'should change isContentPersisted=false to shouldUnmountTabPanelOnChange',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -99,7 +97,7 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -124,13 +122,13 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    'should remove isContentPersisted if set to true as that is now default behaviour',
-  );
+		'should remove isContentPersisted if set to true as that is now default behaviour',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -157,7 +155,7 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -182,13 +180,13 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    'should remove isContentPersisted if its a simple boolean prop "true" as that is now default behaviour',
-  );
+		'should remove isContentPersisted if its a simple boolean prop "true" as that is now default behaviour',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -218,7 +216,7 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -248,13 +246,13 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    'should use the negation of isContentPersisted for shouldUnmountTabPanelOnChange',
-  );
+		'should use the negation of isContentPersisted for shouldUnmountTabPanelOnChange',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -281,7 +279,7 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -308,6 +306,6 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    'should add shouldUnmountTabPanelOnChange if not defined',
-  );
+		'should add shouldUnmountTabPanelOnChange if not defined',
+	);
 });

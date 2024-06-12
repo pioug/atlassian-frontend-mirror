@@ -90,34 +90,42 @@ const exampleWrapper = css({
 const latencyPanelContainer = css({
 	maxWidth: '250px',
 	padding: token('space.200', '16px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"input[type='number']": {
 		width: '230px',
 		padding: token('space.050', '4px'),
 		margin: token('space.050', '4px'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:first-child': {
 			marginLeft: 0,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:last-child': {
 			marginRight: 0,
 		},
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'div.range': {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		"input[type='number']": {
 			width: '75px',
 		},
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'div.preset-buttons': {
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'space-between',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> button': {
 			width: '33%',
 			fontSize: '0.9em',
 		},
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'div.action-buttons': {
 		display: 'flex',
 		flexDirection: 'column',

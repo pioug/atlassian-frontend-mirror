@@ -5,24 +5,24 @@ import transformer from '../13.0.0-remove-unnecessary-code-props';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 const removePropsMapping = {
-  lineNumberContainerStyle: 'lineNumberContainerStyle',
-  showLineNumbers: 'lineNumberContainerStyle',
-  highlight: 'highlight',
+	lineNumberContainerStyle: 'lineNumberContainerStyle',
+	showLineNumbers: 'lineNumberContainerStyle',
+	highlight: 'highlight',
 };
 
 describe('Remove props', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import React from 'react';`,
-    `import React from 'react';`,
-    'should not transform if imports are not present',
-  );
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`import React from 'react';`,
+		`import React from 'react';`,
+		'should not transform if imports are not present',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Code } from '@atlaskit/code';
 
@@ -34,7 +34,7 @@ describe('Remove props', () => {
 
     const element = <Code prop="abc" />;
     `,
-    `
+		`
     import React from 'react';
     import { Code } from '@atlaskit/code';
 
@@ -46,14 +46,14 @@ describe('Remove props', () => {
 
     const element = <Code prop="abc" />;
     `,
-    'should not transform if removable props are not preset',
-  );
+		'should not transform if removable props are not preset',
+	);
 
-  describe('when only one prop present', () => {
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+	describe('when only one prop present', () => {
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from 'react';
       import { Code } from '@atlaskit/code';
 
@@ -65,7 +65,7 @@ describe('Remove props', () => {
 
       const element = <Code prop="abc" ${removePropsMapping.lineNumberContainerStyle}={{ fontSize: '14px' }} />;
       `,
-      `
+			`
       import React from 'react';
       import { Code } from '@atlaskit/code';
 
@@ -77,13 +77,13 @@ describe('Remove props', () => {
 
       const element = <Code prop="abc" />;
       `,
-      `removes "${removePropsMapping.lineNumberContainerStyle}" "JSXAttribute" prop`,
-    );
+			`removes "${removePropsMapping.lineNumberContainerStyle}" "JSXAttribute" prop`,
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from 'react';
       import { Code } from '@atlaskit/code';
 
@@ -102,7 +102,7 @@ describe('Remove props', () => {
 
       const Component3 = () => <Code prop="abc" {...foo} { ...{ ${removePropsMapping.lineNumberContainerStyle}: { fontSize: '24px' }, key: 'hello' } } {...bar} />;
       `,
-      `
+			`
       import React from 'react';
       import { Code } from '@atlaskit/code';
 
@@ -120,14 +120,14 @@ describe('Remove props', () => {
         key: 'hello'
       } } {...bar} />;
       `,
-      `removes "${removePropsMapping.lineNumberContainerStyle}" "JSXSpreadAttribute" prop`,
-    );
-  });
+			`removes "${removePropsMapping.lineNumberContainerStyle}" "JSXSpreadAttribute" prop`,
+		);
+	});
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { Code } from '@atlaskit/code';
 
@@ -165,7 +165,7 @@ describe('Remove props', () => {
 
     const element = <Code prop="abc" ${removePropsMapping.lineNumberContainerStyle}={{ fontSize: '14px' }} ${removePropsMapping.highlight}="2-4" />;
     `,
-    `
+		`
     import React from 'react';
     import { Code } from '@atlaskit/code';
 
@@ -196,6 +196,6 @@ describe('Remove props', () => {
 
     const element = <Code prop="abc" />;
     `,
-    'removes mixture of removable props',
-  );
+		'removes mixture of removable props',
+	);
 });

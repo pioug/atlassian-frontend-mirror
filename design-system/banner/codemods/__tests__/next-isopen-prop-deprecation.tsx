@@ -5,9 +5,9 @@ import transformer from '../12.0.0-isopen-prop-deprecation';
 import { check } from './_framework';
 
 check({
-  transformer,
-  it: 'should remove boolean isOpen prop only from Banner',
-  original: `
+	transformer,
+	it: 'should remove boolean isOpen prop only from Banner',
+	original: `
     import Banner from '@atlaskit/banner';
 
     function App() {
@@ -17,7 +17,7 @@ check({
       </>;
     }
   `,
-  expected: `
+	expected: `
     import Banner from '@atlaskit/banner';
 
     function App() {
@@ -30,9 +30,9 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should extract variable from isOpen prop and create inline expression',
-  original: `
+	transformer,
+	it: 'should extract variable from isOpen prop and create inline expression',
+	original: `
     import Banner from '@atlaskit/banner';
 
     function App() {
@@ -42,7 +42,7 @@ check({
       </>;
     }
   `,
-  expected: `
+	expected: `
     import Banner from '@atlaskit/banner';
 
     function App() {
@@ -55,9 +55,9 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should do nothing if isOpen prop is not present',
-  original: `
+	transformer,
+	it: 'should do nothing if isOpen prop is not present',
+	original: `
     import Banner from '@atlaskit/banner';
 
     function App() {
@@ -66,7 +66,7 @@ check({
       </>;
     }
   `,
-  expected: `
+	expected: `
     import Banner from '@atlaskit/banner';
 
     function App() {

@@ -7,28 +7,21 @@ import Toggle from '@atlaskit/toggle';
 import { IconButton } from '../../../../src/new';
 
 const IconButtonLoadingExample = () => {
-  const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
 
-  const toggleLoading = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setIsLoading(event.currentTarget.checked);
-    },
-    [],
-  );
+	const toggleLoading = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+		setIsLoading(event.currentTarget.checked);
+	}, []);
 
-  return (
-    <Stack space="space.200" alignInline="start">
-      <Inline alignBlock="center">
-        <Toggle
-          isChecked={isLoading}
-          id="enable-loading"
-          onChange={toggleLoading}
-        />
-        <label htmlFor="show-overlay">Enable loading state</label>
-      </Inline>
-      <IconButton isLoading={isLoading} icon={EditIcon} label="Edit" />
-    </Stack>
-  );
+	return (
+		<Stack space="space.200" alignInline="start">
+			<Inline alignBlock="center">
+				<Toggle isChecked={isLoading} id="enable-loading" onChange={toggleLoading} />
+				<label htmlFor="show-overlay">Enable loading state</label>
+			</Inline>
+			<IconButton isLoading={isLoading} icon={EditIcon} label="Edit" />
+		</Stack>
+	);
 };
 
 export default IconButtonLoadingExample;

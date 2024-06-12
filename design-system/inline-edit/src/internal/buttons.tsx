@@ -11,87 +11,81 @@ import { token } from '@atlaskit/tokens';
 import { fontSize } from './constants';
 
 const buttonsContainerStyles = css({
-  display: 'flex',
-  marginBlockStart: token('space.075', '6px'),
-  position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  insetBlockStart: '100%',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  insetInlineEnd: 0,
-  flexShrink: 0,
+	display: 'flex',
+	marginBlockStart: token('space.075', '6px'),
+	position: 'absolute',
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	insetBlockStart: '100%',
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	insetInlineEnd: 0,
+	flexShrink: 0,
 });
 
 const buttonWrapperBaseStyles = css({
-  boxSizing: 'border-box',
-  width: token('space.400', '32px'),
-  zIndex: 200,
-  backgroundColor: token('elevation.surface.overlay', N0),
-  borderRadius: token('border.radius', '3px'),
-  fontSize: fontSize,
-  '&:last-child': {
-    marginInlineStart: token('space.050', '4px'),
-  },
-  boxShadow: token(
-    'elevation.shadow.overlay',
-    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
-  ),
-  // These buttons are floating, so they need an override to overlay interaction states
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '& > button': {
-    backgroundColor: token('elevation.surface.overlay', N20A),
-  },
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '& > button:hover': {
-    backgroundColor: token('elevation.surface.overlay.hovered', N30A),
-  },
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '& > button:active': {
-    backgroundColor: token(
-      'elevation.surface.overlay.pressed',
-      'rgba(179, 212, 255, 0.6)',
-    ),
-    color: token('color.text', B400),
-  },
+	boxSizing: 'border-box',
+	width: token('space.400', '32px'),
+	zIndex: 200,
+	backgroundColor: token('elevation.surface.overlay', N0),
+	borderRadius: token('border.radius', '3px'),
+	fontSize: fontSize,
+	'&:last-child': {
+		marginInlineStart: token('space.050', '4px'),
+	},
+	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+	// These buttons are floating, so they need an override to overlay interaction states
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'& > button': {
+		backgroundColor: token('elevation.surface.overlay', N20A),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'& > button:hover': {
+		backgroundColor: token('elevation.surface.overlay.hovered', N30A),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'& > button:active': {
+		backgroundColor: token('elevation.surface.overlay.pressed', 'rgba(179, 212, 255, 0.6)'),
+		color: token('color.text', B400),
+	},
 });
 
 interface ButtonsProp {
-  confirmButtonLabel: string;
-  cancelButtonLabel: string;
-  onMouseDown: () => void;
-  onCancelClick: (event: React.MouseEvent<HTMLElement>) => void;
-  testId?: string;
+	confirmButtonLabel: string;
+	cancelButtonLabel: string;
+	onMouseDown: () => void;
+	onCancelClick: (event: React.MouseEvent<HTMLElement>) => void;
+	testId?: string;
 }
 const Buttons = ({
-  confirmButtonLabel,
-  cancelButtonLabel,
-  onMouseDown,
-  onCancelClick,
-  testId,
+	confirmButtonLabel,
+	cancelButtonLabel,
+	onMouseDown,
+	onCancelClick,
+	testId,
 }: ButtonsProp) => {
-  return (
-    <div css={buttonsContainerStyles}>
-      <div css={buttonWrapperBaseStyles}>
-        <IconButton
-          type="submit"
-          icon={ConfirmIcon}
-          UNSAFE_size="small"
-          onMouseDown={onMouseDown}
-          label={confirmButtonLabel}
-          testId={testId && `${testId}--confirm`}
-        />
-      </div>
-      <div css={buttonWrapperBaseStyles}>
-        <IconButton
-          icon={CancelIcon}
-          UNSAFE_size="small"
-          label={cancelButtonLabel}
-          onClick={onCancelClick}
-          onMouseDown={onMouseDown}
-          testId={testId && `${testId}--cancel`}
-        />
-      </div>
-    </div>
-  );
+	return (
+		<div css={buttonsContainerStyles}>
+			<div css={buttonWrapperBaseStyles}>
+				<IconButton
+					type="submit"
+					icon={ConfirmIcon}
+					UNSAFE_size="small"
+					onMouseDown={onMouseDown}
+					label={confirmButtonLabel}
+					testId={testId && `${testId}--confirm`}
+				/>
+			</div>
+			<div css={buttonWrapperBaseStyles}>
+				<IconButton
+					icon={CancelIcon}
+					UNSAFE_size="small"
+					label={cancelButtonLabel}
+					onClick={onCancelClick}
+					onMouseDown={onMouseDown}
+					testId={testId && `${testId}--cancel`}
+				/>
+			</div>
+		</div>
+	);
 };
 
 export default Buttons;

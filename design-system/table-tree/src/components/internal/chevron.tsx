@@ -9,51 +9,43 @@ import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 import { ChevronContainer } from './styled';
 
 interface ChevronProps {
-  expandLabel: string;
-  collapseLabel: string;
-  isExpanded?: boolean;
-  ariaControls?: string;
-  onExpandToggle?: Function;
-  rowId: string;
-  extendedLabel?: string;
+	expandLabel: string;
+	collapseLabel: string;
+	isExpanded?: boolean;
+	ariaControls?: string;
+	onExpandToggle?: Function;
+	rowId: string;
+	extendedLabel?: string;
 }
 
 export default class Chevron extends Component<ChevronProps> {
-  static defaultProps = {
-    expandLabel: 'Expand',
-    collapseLabel: 'Collapse',
-  };
+	static defaultProps = {
+		expandLabel: 'Expand',
+		collapseLabel: 'Collapse',
+	};
 
-  handleClick = () => {
-    if (this.props.onExpandToggle) {
-      this.props.onExpandToggle();
-    }
-  };
+	handleClick = () => {
+		if (this.props.onExpandToggle) {
+			this.props.onExpandToggle();
+		}
+	};
 
-  render() {
-    const {
-      isExpanded,
-      ariaControls,
-      collapseLabel,
-      expandLabel,
-      rowId,
-      extendedLabel,
-    } = this.props;
-    const getLabel = (defaultLabel: string) =>
-      extendedLabel
-        ? `${defaultLabel} ${extendedLabel} row`
-        : `${defaultLabel} row ${rowId}`;
-    return (
-      <ChevronContainer>
-        <IconButton
-          appearance="subtle"
-          onClick={this.handleClick}
-          spacing="compact"
-          icon={isExpanded ? ChevronDownIcon : ChevronRightIcon}
-          aria-controls={ariaControls}
-          label={isExpanded ? getLabel(collapseLabel) : getLabel(expandLabel)}
-        />
-      </ChevronContainer>
-    );
-  }
+	render() {
+		const { isExpanded, ariaControls, collapseLabel, expandLabel, rowId, extendedLabel } =
+			this.props;
+		const getLabel = (defaultLabel: string) =>
+			extendedLabel ? `${defaultLabel} ${extendedLabel} row` : `${defaultLabel} row ${rowId}`;
+		return (
+			<ChevronContainer>
+				<IconButton
+					appearance="subtle"
+					onClick={this.handleClick}
+					spacing="compact"
+					icon={isExpanded ? ChevronDownIcon : ChevronRightIcon}
+					aria-controls={ariaControls}
+					label={isExpanded ? getLabel(collapseLabel) : getLabel(expandLabel)}
+				/>
+			</ChevronContainer>
+		);
+	}
 }

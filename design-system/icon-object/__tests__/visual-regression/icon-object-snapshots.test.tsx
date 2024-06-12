@@ -1,20 +1,15 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
 describe('icon priority snapshots', () => {
-  it('should match light mode icons', async () => {
-    const { __BASEURL__, page } = global as any;
+	it('should match light mode icons', async () => {
+		const { __BASEURL__, page } = global as any;
 
-    const url = getExampleUrl(
-      'design-system',
-      'icon-object',
-      'icon-examples',
-      __BASEURL__,
-    );
+		const url = getExampleUrl('design-system', 'icon-object', 'icon-examples', __BASEURL__);
 
-    await loadPage(page, url);
+		await loadPage(page, url);
 
-    const element = await page.$('[data-testid="light-root"]');
+		const element = await page.$('[data-testid="light-root"]');
 
-    expect(await element?.screenshot()).toMatchProdImageSnapshot();
-  });
+		expect(await element?.screenshot()).toMatchProdImageSnapshot();
+	});
 });

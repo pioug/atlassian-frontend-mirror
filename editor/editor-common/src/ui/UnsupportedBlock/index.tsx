@@ -22,10 +22,12 @@ import { getUnsupportedContent } from '../unsupported-content-helper';
 const blockNodeStyle = css({
 	background: token('color.background.disabled', N30),
 	border: `1px dashed ${token('color.border.disabled', N50)}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `${borderRadius()}px`,
 	boxSizing: 'border-box',
 	cursor: 'default',
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(fontSize()),
 	margin: `${token('space.100', '8px')} 0`,
 	minHeight: '24px',

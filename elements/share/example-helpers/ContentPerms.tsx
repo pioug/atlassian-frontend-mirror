@@ -10,6 +10,7 @@ const message = 'Anyone can view';
 
 export default () => (
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			maxWidth: '100%',
 			lineHeight: `${token('space.500', '40px')}`,
@@ -17,6 +18,7 @@ export default () => (
 		}}
 	>
 		<span
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={{
 				position: 'relative',
 				bottom: `${token('space.050', '4px')}`,

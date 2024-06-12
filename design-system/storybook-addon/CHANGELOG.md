@@ -4,223 +4,223 @@
 
 ### Minor Changes
 
--   [#94453](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94453)
-    [`8b0ba81b30b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b0ba81b30b3) -
-    Add support for React 18 in non-strict mode.
+- [#94453](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94453)
+  [`8b0ba81b30b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b0ba81b30b3) -
+  Add support for React 18 in non-strict mode.
 
 ## 0.7.1
 
 ### Patch Changes
 
--   [#93943](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/93943)
-    [`611f5e98470c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/611f5e98470c) -
-    Removes fallback colors from styles
+- [#93943](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/93943)
+  [`611f5e98470c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/611f5e98470c) -
+  Removes fallback colors from styles
 
 ## 0.7.0
 
 ### Minor Changes
 
--   [#94436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94436)
-    [`c652e1c27a4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c652e1c27a4d) -
-    Updates the default theme to 'auto' to ensure tokens are always applied. "Unthemed" or "No
-    theme" is now considered an unsafe appearance.
+- [#94436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94436)
+  [`c652e1c27a4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c652e1c27a4d) -
+  Updates the default theme to 'auto' to ensure tokens are always applied. "Unthemed" or "No theme"
+  is now considered an unsafe appearance.
 
-    If you prefer to use a different theme, you can still override the default theme by setting the
-    `adeTheme.defaultValue: 'none'` as mentioned in
-    [the documentation](https://staging.atlassian.design/components/storybook-addon-design-system/code#storybook-v7-and-above).
+  If you prefer to use a different theme, you can still override the default theme by setting the
+  `adeTheme.defaultValue: 'none'` as mentioned in
+  [the documentation](https://staging.atlassian.design/components/storybook-addon-design-system/code#storybook-v7-and-above).
 
 ## 0.6.0
 
 ### Minor Changes
 
--   [#77691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77691)
-    [`14d18ea34852`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14d18ea34852) - -
-    Enables new `typography` and `shape` themes
-    -   Sets the color theme to `auto` by default
+- [#77691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77691)
+  [`14d18ea34852`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14d18ea34852) - -
+  Enables new `typography` and `shape` themes
+  - Sets the color theme to `auto` by default
 
 ## 0.5.2
 
 ### Patch Changes
 
--   [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935)
-    [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) -
-    Internal change to enforce token usage for spacing properties. There is no expected visual or
-    behaviour change.
+- [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935)
+  [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal
+  change to enforce token usage for spacing properties. There is no expected visual or behaviour
+  change.
 
 ## 0.5.1
 
 ### Patch Changes
 
--   [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
-    [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
-    legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 0.5.0
 
 ### Minor Changes
 
--   [#33632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33632)
-    [`389ab86b2a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/389ab86b2a3) - Adding
-    spacing tokens to storybook addon so that users spacing tokens appear in storybook
+- [#33632](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33632)
+  [`389ab86b2a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/389ab86b2a3) - Adding
+  spacing tokens to storybook addon so that users spacing tokens appear in storybook
 
 ### Patch Changes
 
--   [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
-    [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) -
-    Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 0.4.0
 
 ### Minor Changes
 
--   [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
-    [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
-    minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.3.9
 
 ### Patch Changes
 
--   [#27634](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27634)
-    [`718d5ad3044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/718d5ad3044) -
-    Updates to support the new `@atlaskit/tokens` theming API.
--   Updated dependencies
+- [#27634](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27634)
+  [`718d5ad3044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/718d5ad3044) - Updates
+  to support the new `@atlaskit/tokens` theming API.
+- Updated dependencies
 
 ## 0.3.8
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.3.7
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.3.6
 
 ### Patch Changes
 
--   [#27629](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27629)
-    [`f824dcfff6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f824dcfff6e) -
-    Internal changes to satisfy various lint warnings & errors
+- [#27629](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27629)
+  [`f824dcfff6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f824dcfff6e) - Internal
+  changes to satisfy various lint warnings & errors
 
 ## 0.3.5
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.3.4
 
 ### Patch Changes
 
--   [#26467](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26467)
-    [`43464a5fb17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43464a5fb17) - Update
-    split and stack theme settings to use tilde selectors
+- [#26467](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26467)
+  [`43464a5fb17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43464a5fb17) - Update
+  split and stack theme settings to use tilde selectors
 
 ## 0.3.3
 
 ### Patch Changes
 
--   [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303)
-    [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op
-    change to introduce spacing tokens to design system components.
+- [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303)
+  [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op
+  change to introduce spacing tokens to design system components.
 
 ## 0.3.2
 
 ### Patch Changes
 
--   [#24660](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24660)
-    [`d4be43fdc44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4be43fdc44) - Set
-    the innerText in our hack correctly - oops!
+- [#24660](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24660)
+  [`d4be43fdc44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4be43fdc44) - Set the
+  innerText in our hack correctly - oops!
 
 ## 0.3.1
 
 ### Patch Changes
 
--   [#24626](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24626)
-    [`6dd7050ad7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dd7050ad7a) -
-    Reimplement the style tag hack required for enabling split & stack view in the Storybook addon
+- [#24626](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24626)
+  [`6dd7050ad7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6dd7050ad7a) -
+  Reimplement the style tag hack required for enabling split & stack view in the Storybook addon
 
 ## 0.3.0
 
 ### Minor Changes
 
--   [#21484](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21484)
-    [`6c65a3147c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c65a3147c1) -
-    Removes root selector hack from lightmode, this is no longer necessary since the default theme
-    no longer enables tokens by default
+- [#21484](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21484)
+  [`6c65a3147c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c65a3147c1) - Removes
+  root selector hack from lightmode, this is no longer necessary since the default theme no longer
+  enables tokens by default
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.2.6
 
 ### Patch Changes
 
--   [#21487](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21487)
-    [`4942487a9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4942487a9f6) - Fixes
-    internal representation of CSS entrypoints for themes. This is an internal change only and does
-    not effect public APIs.
+- [#21487](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21487)
+  [`4942487a9f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4942487a9f6) - Fixes
+  internal representation of CSS entrypoints for themes. This is an internal change only and does
+  not effect public APIs.
 
 ## 0.2.5
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.2.4
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.2.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.2.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.2.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 0.2.0
 
 ### Minor Changes
 
--   [#18080](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18080)
-    [`068c9a0b770`](https://bitbucket.org/atlassian/atlassian-frontend/commits/068c9a0b770) -
-    Refactors the storybook addon into a "tool addon"
+- [#18080](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18080)
+  [`068c9a0b770`](https://bitbucket.org/atlassian/atlassian-frontend/commits/068c9a0b770) -
+  Refactors the storybook addon into a "tool addon"
 
 ## 0.1.1
 
 ### Patch Changes
 
--   [#18020](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18020)
-    [`32f8832d6c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32f8832d6c5) -
-    Temporarily disable css imports to side-step recent changes to the monorepo which trigged a bug
+- [#18020](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18020)
+  [`32f8832d6c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32f8832d6c5) -
+  Temporarily disable css imports to side-step recent changes to the monorepo which trigged a bug
 
 ## 0.1.0
 
 ### Minor Changes
 
--   [#17460](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17460)
-    [`ddbec37a16c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddbec37a16c) -
-    Initial release of the design system storybook addon package. Intended to be a generic package
-    for all storybook releated DS tooling
+- [#17460](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/17460)
+  [`ddbec37a16c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddbec37a16c) - Initial
+  release of the design system storybook addon package. Intended to be a generic package for all
+  storybook releated DS tooling

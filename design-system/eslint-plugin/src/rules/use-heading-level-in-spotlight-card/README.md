@@ -1,4 +1,5 @@
-The `SpotlightCard` component in `@atlaskit/onboarding` will be requiring the `headingLevel` prop in future releases.
+The `SpotlightCard` component in `@atlaskit/onboarding` will be requiring the `headingLevel` prop in
+future releases.
 
 ## Examples
 
@@ -13,6 +14,6 @@ The `SpotlightCard` component in `@atlaskit/onboarding` will be requiring the `h
 
 ```tsx
 <SpotlightCard heading="Heading" headingLevel={2}>
-  Spotlight card contents
+	Spotlight card contents
 </SpotlightCard>
 ```

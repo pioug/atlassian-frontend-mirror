@@ -96,6 +96,7 @@ function ElementSearch({
 		: undefined;
 
 	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={[wrapper, mode === Modes.inline && wrapperInline]}>
 			<Textfield
 				ref={ref}
@@ -143,18 +144,24 @@ function ElementSearch({
 	);
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const styledShortcut = css(shortcutStyle, {
 	padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
 	width: token('space.600', '48px'),
 });
 
 const wrapper = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-ds--text-field--container]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${GRID_SIZE * 6}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius: `${GRID_SIZE}px`,
 		flex: '1 1 100%',
 		overflow: 'visible',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > [data-ds--text-field--input]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			fontSize: relativeFontSizeToBase16(14),
 			padding: `${token('space.100', '8px')} ${token(
 				'space.075',
@@ -165,7 +172,9 @@ const wrapper = css({
 });
 
 const wrapperInline = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-ds--text-field--container]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${GRID_SIZE * 5}px`,
 		flex: 'none',
 		overflow: 'revert',
@@ -175,6 +184,7 @@ const wrapperInline = css({
 const elementBeforeInput = css({
 	margin: `1px ${token('space.075', '6px')} 0 ${token('space.100', '8px')}`,
 	color: token('color.icon', N200),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'span, svg': {
 		height: '20px',
 		width: '20px',
@@ -183,6 +193,7 @@ const elementBeforeInput = css({
 
 const elementAfterInput = css({
 	margin: `0 ${token('space.100', '8px')}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: SEARCH_ITEM_HEIGHT_WIDTH,
 	textAlign: 'center',
 });

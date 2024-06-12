@@ -2,15 +2,15 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'no-unsafe-values',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [],
-    invalid: [
-      {
-        name: 'object spread',
-        code: `
+	'no-unsafe-values',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [],
+		invalid: [
+			{
+				name: 'object spread',
+				code: `
           import { css } from '@compiled/react';
 
           const buttonStyles = {
@@ -20,11 +20,11 @@ typescriptEslintTester.run(
             ...buttonStyles,
           });
         `,
-        errors: [{ messageId: 'no-spread-elements' }],
-      },
-      {
-        name: 'nested object spread',
-        code: `
+				errors: [{ messageId: 'no-spread-elements' }],
+			},
+			{
+				name: 'nested object spread',
+				code: `
           import { css } from '@compiled/react';
 
           const buttonStyles = {
@@ -41,8 +41,8 @@ typescriptEslintTester.run(
             },
           });
         `,
-        errors: [{ messageId: 'no-spread-elements' }],
-      },
-    ],
-  },
+				errors: [{ messageId: 'no-spread-elements' }],
+			},
+		],
+	},
 );

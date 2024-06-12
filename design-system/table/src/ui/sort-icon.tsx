@@ -15,16 +15,16 @@ import { useTable } from '../hooks/use-table';
  * SortIcon is used to display the sort state in our SortableColumn.
  */
 export const SortIcon: FC<{ name: string }> = memo(({ name }) => {
-  const { sortKey, sortDirection } = useTable();
+	const { sortKey, sortDirection } = useTable();
 
-  if (sortKey === name) {
-    switch (sortDirection) {
-      case 'ascending':
-        return <ArrowUpIcon size="small" label="" primaryColor="inherit" />;
-      case 'descending':
-        return <ArrowDownIcon size="small" label="" primaryColor="inherit" />;
-    }
-  }
+	if (sortKey === name) {
+		switch (sortDirection) {
+			case 'ascending':
+				return <ArrowUpIcon size="small" label="" primaryColor="inherit" />;
+			case 'descending':
+				return <ArrowDownIcon size="small" label="" primaryColor="inherit" />;
+		}
+	}
 
-  return null;
+	return null;
 });

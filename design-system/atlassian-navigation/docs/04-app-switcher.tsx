@@ -13,17 +13,17 @@ import { AppSwitcher } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="App switcher"
-      Component={require('../examples/app-switcher').default}
-      source={require('!!raw-loader!../examples/app-switcher')}
-    />
-  )}
+		<Example
+			title="App switcher"
+			Component={require('../examples/app-switcher').default}
+			source={require('!!raw-loader!../examples/app-switcher')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/AppSwitcher')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/components/AppSwitcher')}
+		/>
+	)}
 `;

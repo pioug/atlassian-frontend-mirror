@@ -2,15 +2,15 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'no-unsafe-values',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [],
-    invalid: [
-      {
-        name: 'object mapping',
-        code: `
+	'no-unsafe-values',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [],
+		invalid: [
+			{
+				name: 'object mapping',
+				code: `
           import { css } from '@compiled/react';
 
           const buttonStyles = {
@@ -20,11 +20,11 @@ typescriptEslintTester.run(
             button: buttonStyles,
           })
         `,
-        errors: [{ messageId: 'no-object-references' }],
-      },
-      {
-        name: 'dynamic value in object mapping',
-        code: `
+				errors: [{ messageId: 'no-object-references' }],
+			},
+			{
+				name: 'dynamic value in object mapping',
+				code: `
           import { css } from '@compiled/react';
 
           function myFunction() {
@@ -37,8 +37,8 @@ typescriptEslintTester.run(
             button: buttonStyles,
           })
         `,
-        errors: [{ messageId: 'no-object-references' }],
-      },
-    ],
-  },
+				errors: [{ messageId: 'no-object-references' }],
+			},
+		],
+	},
 );

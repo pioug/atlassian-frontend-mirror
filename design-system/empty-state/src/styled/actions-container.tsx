@@ -6,11 +6,11 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 const actionsStyles = css({
-  display: 'flex',
-  marginBottom: token('space.100', '8px'),
-  paddingLeft: token('space.500', '40px'),
-  alignItems: 'center',
-  justifyContent: 'center',
+	display: 'flex',
+	marginBottom: token('space.100', '8px'),
+	paddingLeft: token('space.500', '40px'),
+	alignItems: 'center',
+	justifyContent: 'center',
 });
 
 /**
@@ -21,7 +21,7 @@ const actionsStyles = css({
  * @internal
  */
 const ActionsContainer: FC<{ children: ReactNode }> = ({ children }) => (
-  <div css={actionsStyles}>{children}</div>
+	<div css={actionsStyles}>{children}</div>
 );
 
 export default ActionsContainer;

@@ -247,6 +247,15 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
+	 * Enables table to scale in the same way as renderer
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-23471
+	 * @default false
+	 */
+	tableWithFixedColumnWidthsOption?: boolean;
+
+	/**
+	 * @description
 	 * Enables new table columns and rows added to duplicate neighbouring cell colouring
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-22849
@@ -307,6 +316,15 @@ export type FeatureFlags = {
 	 * @default false
 	 */
 	commentsOnMediaAnalytics?: boolean;
+
+	/**
+	 * @description
+	 * Enables block elements drag and drop
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-22939
+	 * @default false
+	 */
+	elementDragAndDrop?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

@@ -5,38 +5,32 @@ import transformer from '../13.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 type TestArgs = {
-  name: string;
-  original: string;
-  expected: string;
+	name: string;
+	original: string;
+	expected: string;
 };
 function check({ name, original, expected }: TestArgs) {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    original,
-    expected,
-    name,
-  );
+	defineInlineTest({ default: transformer, parser: 'tsx' }, {}, original, expected, name);
 }
 
 describe('Change `type SpinnerSizes` to `type Size`', () => {
-  check({
-    name: 'it should rename SpinnerSizes type to Size',
-    original: `
+	check({
+		name: 'it should rename SpinnerSizes type to Size',
+		original: `
       import Spinner, { SpinnerSizes } from '@atlaskit/spinner';
 
       const value: SpinnerSizes = 'large';
     `,
-    expected: `
+		expected: `
       import Spinner, { Size } from '@atlaskit/spinner';
 
       const value: Size = 'large';
     `,
-  });
+	});
 
-  check({
-    name: 'it should rename SpinnerSizes type to Size and not impact alias values',
-    original: `
+	check({
+		name: 'it should rename SpinnerSizes type to Size and not impact alias values',
+		original: `
       import Spinner, { SpinnerSizes as MySize } from '@atlaskit/spinner'
       import { Size, SpinnerSizes } from './some-other-file';
 
@@ -44,8 +38,8 @@ describe('Change `type SpinnerSizes` to `type Size`', () => {
       const value1: Size = 1;
       const value2: SpinnerSizes = 1;
     `,
-    // the file is mostly untouched except for the spinner import
-    expected: `
+		// the file is mostly untouched except for the spinner import
+		expected: `
       import Spinner, { Size as MySize } from '@atlaskit/spinner'
       import { Size, SpinnerSizes } from './some-other-file';
 
@@ -53,13 +47,13 @@ describe('Change `type SpinnerSizes` to `type Size`', () => {
       const value1: Size = 1;
       const value2: SpinnerSizes = 1;
     `,
-  });
+	});
 });
 
 describe('Changing <Spinner/> usage', () => {
-  check({
-    name: 'it should remove onComplete and isCompleting props',
-    original: `
+	check({
+		name: 'it should remove onComplete and isCompleting props',
+		original: `
     import React, {useState} from 'react';
     import Spinner from '@atlaskit/spinner';
 
@@ -78,7 +72,7 @@ describe('Changing <Spinner/> usage', () => {
       );
     }
   `,
-    expected: `
+		expected: `
     import React, {useState} from 'react';
     import Spinner from '@atlaskit/spinner';
 
@@ -88,43 +82,43 @@ describe('Changing <Spinner/> usage', () => {
       return <Spinner delay={1000} />;
     }
   `,
-  });
+	});
 
-  check({
-    name: 'it should respect custom component names',
-    original: `
+	check({
+		name: 'it should respect custom component names',
+		original: `
     import React from 'react';
     import CustomName from '@atlaskit/spinner';
 
     return <CustomName delay={10} />;
   `,
-    expected: `
+		expected: `
     import React from 'react';
     import CustomName from '@atlaskit/spinner';
 
     return <CustomName />;
   `,
-  });
+	});
 
-  check({
-    name: 'it should not touch unrelated packages with the same component name',
-    original: `
+	check({
+		name: 'it should not touch unrelated packages with the same component name',
+		original: `
     import React from 'react';
     import Spinner from '../my-cool-spinner';
 
     return <Spinner delay={100} />;
   `,
-    expected: `
+		expected: `
     import React from 'react';
     import Spinner from '../my-cool-spinner';
 
     return <Spinner delay={100} />;
   `,
-  });
+	});
 
-  check({
-    name: 'it should remove small delays',
-    original: `
+	check({
+		name: 'it should remove small delays',
+		original: `
     import React from 'react';
     import Spinner from '@atlaskit/spinner';
     import myValue from './my-value'
@@ -139,7 +133,7 @@ describe('Changing <Spinner/> usage', () => {
       </>
     );
   `,
-    expected: `
+		expected: `
     import React from 'react';
     import Spinner from '@atlaskit/spinner';
     import myValue from './my-value'
@@ -152,11 +146,11 @@ describe('Changing <Spinner/> usage', () => {
       <Spinner delay={myValue} />
     </>;
   `,
-  });
+	});
 
-  check({
-    name: 'it should shift the invertColor prop',
-    original: `
+	check({
+		name: 'it should shift the invertColor prop',
+		original: `
     import React from 'react';
     import Spinner from '@atlaskit/spinner';
     import value from './value';
@@ -172,7 +166,7 @@ describe('Changing <Spinner/> usage', () => {
       </>
     );
   `,
-    expected: `
+		expected: `
     import React from 'react';
     import Spinner from '@atlaskit/spinner';
     import value from './value';
@@ -186,5 +180,5 @@ describe('Changing <Spinner/> usage', () => {
       <Spinner appearance={value ? "invert" : "inherit"} />
     </>;
   `,
-  });
+	});
 });

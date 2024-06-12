@@ -23,6 +23,7 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { getIndexMatch } from './matches-utils';
+import { getRendererRangeInlineNodeNames } from './get-renderer-range-inline-node-names';
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 type Position = { from: number; to: number };
@@ -161,6 +162,15 @@ export default class RendererActions
 				actionSubject: ACTION_SUBJECT.ANNOTATION,
 				actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 				eventType: EVENT_TYPE.TRACK,
+				attributes: {
+					inlineNodeNames:
+						step instanceof RemoveMarkStep
+							? getRendererRangeInlineNodeNames({
+									pos: { from: from!, to: to! },
+									actions: this,
+								})
+							: undefined,
+				},
 			};
 
 			this.onAnalyticsEvent(payload);
@@ -219,6 +229,9 @@ export default class RendererActions
 		return this._privateValidatePositionsForAnnotation(pos.from, pos.to);
 	}
 
+	/**
+	 * Note: False indicates that the selection not able to be calculated.
+	 */
 	getPositionFromRange(
 		range: Range | null,
 		isCommentsOnMediaBugFixEnabled?: boolean,

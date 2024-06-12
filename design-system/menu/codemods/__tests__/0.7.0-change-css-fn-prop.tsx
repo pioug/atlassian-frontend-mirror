@@ -5,30 +5,30 @@ import * as transformer from '../0.7.0-change-css-fn-prop';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Updates and removes current inline styles', () => {
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { ButtonItem } from '@atlaskit/something';
 
       const App = () => {
         return <ButtonItem />;
       }
     `,
-    `
+		`
       import { ButtonItem } from '@atlaskit/something';
 
       const App = () => {
         return <ButtonItem />;
       }
   `,
-    'leaves unrelated code untouched',
-  );
+		'leaves unrelated code untouched',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -37,7 +37,7 @@ describe('Updates and removes current inline styles', () => {
         })} />;
       }
     `,
-    `
+		`
       import { ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -48,13 +48,13 @@ describe('Updates and removes current inline styles', () => {
         );
       }
   `,
-    'should remove current styles from inline function',
-  );
+		'should remove current styles from inline function',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -72,7 +72,7 @@ describe('Updates and removes current inline styles', () => {
       };
 
       `,
-    `
+		`
       import { ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -87,13 +87,13 @@ describe('Updates and removes current inline styles', () => {
         );
       };
   `,
-    'should remove current styles from scope',
-  );
+		'should remove current styles from scope',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -103,7 +103,7 @@ describe('Updates and removes current inline styles', () => {
       })} />;
     }
       `,
-    `
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -114,13 +114,13 @@ describe('Updates and removes current inline styles', () => {
       );
     }
     `,
-    'correctly removes spread styles',
-  );
+		'correctly removes spread styles',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -134,7 +134,7 @@ describe('Updates and removes current inline styles', () => {
       })} />;
     }
       `,
-    `
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -149,13 +149,13 @@ describe('Updates and removes current inline styles', () => {
       );
     }
     `,
-    'correctly removes spread styles with pseudo-selector access',
-  );
+		'correctly removes spread styles with pseudo-selector access',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -167,7 +167,7 @@ describe('Updates and removes current inline styles', () => {
       );
     }
       `,
-    `
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -185,13 +185,13 @@ describe('Updates and removes current inline styles', () => {
       );
     }
       `,
-    'fail smoothly if the current styles are being used in a non-trivial way',
-  );
+		'fail smoothly if the current styles are being used in a non-trivial way',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -200,7 +200,7 @@ describe('Updates and removes current inline styles', () => {
       })} />;
     }
       `,
-    `
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -209,13 +209,13 @@ describe('Updates and removes current inline styles', () => {
       })} />;
     }
     `,
-    'not change anything if user is not using the current state or styles',
-  );
+		'not change anything if user is not using the current state or styles',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -230,7 +230,7 @@ describe('Updates and removes current inline styles', () => {
       </ButtonItem>;
     }
       `,
-    `
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
@@ -245,35 +245,35 @@ describe('Updates and removes current inline styles', () => {
       );
     }
     `,
-    'should remove styles in nested children',
-  );
+		'should remove styles in nested children',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
       return <ButtonItem />;
     }
       `,
-    `
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const App = () => {
       return <ButtonItem />;
     }
     `,
-    'should leave affected items with no use of cssFn untouched',
-  );
+		'should leave affected items with no use of cssFn untouched',
+	);
 });
 
 describe('Updates and removes current styles', () => {
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const cssFn = (styles, state) => ({
@@ -285,7 +285,7 @@ describe('Updates and removes current styles', () => {
       return <ButtonItem cssFn={cssFn} />;
     }
       `,
-    `
+		`
     import { ButtonItem } from '@atlaskit/menu';
 
     const cssFn = (styles, state) => ({
@@ -305,13 +305,13 @@ describe('Updates and removes current styles', () => {
       );
     }
     `,
-    'should add prompt for non-inline function',
-  );
+		'should add prompt for non-inline function',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
     import { ButtonItem, LinkItem } from '@atlaskit/menu';
 
     const cssFunction = (styles, state) => ({
@@ -327,7 +327,7 @@ describe('Updates and removes current styles', () => {
       );
     };
       `,
-    `
+		`
     import { ButtonItem, LinkItem } from '@atlaskit/menu';
 
     const cssFunction = (styles, state) => ({
@@ -355,6 +355,6 @@ describe('Updates and removes current styles', () => {
       );
     };
     `,
-    'should add prompt for non-inline function to multiple instances',
-  );
+		'should add prompt for non-inline function to multiple instances',
+	);
 });

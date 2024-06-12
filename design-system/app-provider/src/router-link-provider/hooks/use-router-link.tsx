@@ -18,13 +18,13 @@ import { type RouterLinkComponent, RouterLinkProviderContext } from '../index';
  * ```
  */
 const useRouterLink = <RouterLinkConfig extends Record<string, any> = never>():
-  | RouterLinkComponent<RouterLinkConfig>
-  | undefined => {
-  const { routerLinkComponent } = useContext(RouterLinkProviderContext);
+	| RouterLinkComponent<RouterLinkConfig>
+	| undefined => {
+	const { routerLinkComponent } = useContext(RouterLinkProviderContext);
 
-  if (routerLinkComponent) {
-    return routerLinkComponent as RouterLinkComponent<RouterLinkConfig>;
-  }
+	if (routerLinkComponent) {
+		return routerLinkComponent as RouterLinkComponent<RouterLinkConfig>;
+	}
 };
 
 export default useRouterLink;

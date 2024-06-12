@@ -7,10 +7,10 @@ const exampleCodeBlock = `Function AddNumbers(ByVal X As Integer, ByVal Y As Int
 End Function`;
 
 export default function Component() {
-  return (
-    <div>
-      <h2>Visual Basic</h2>
-      <CodeBlock language="visualbasic" text={exampleCodeBlock} />
-    </div>
-  );
+	return (
+		<div>
+			<h2>Visual Basic</h2>
+			<CodeBlock language="visualbasic" text={exampleCodeBlock} />
+		</div>
+	);
 }

@@ -27,14 +27,18 @@ const tooltipMessage = [
 export default ({ onChange, value }: Props) => (
 	<div>
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={css({
 				display: 'flex',
 				justifyContent: 'space-between',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'& > * + *': {
 					marginLeft: token('space.100', '8px'),
 				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'& > *': {
 					flex: 1,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 					'& > button': {
 						justifyContent: 'center',
 					},
@@ -62,6 +66,7 @@ export default ({ onChange, value }: Props) => (
 			})}
 		</div>
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={css({
 				fontSize: '12px',
 				fontWeight: 600,
@@ -69,6 +74,7 @@ export default ({ onChange, value }: Props) => (
 				display: 'flex',
 				marginTop: token('space.100', '8px'),
 				marginBottom: token('space.300', '24px'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'& > span': {
 					width: token('space.1000', '80px'),
 				},
@@ -77,6 +83,7 @@ export default ({ onChange, value }: Props) => (
 		>
 			<span>Strongly disagree</span>
 			<span
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={css({
 					textAlign: 'center',
 					margin: '0 auto',

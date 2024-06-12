@@ -7,10 +7,10 @@ const transformer = createTransformer([removeIsSelectedTestProp]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('remove isSelectedTest prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -39,7 +39,7 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     We could not automatically convert this code to the new API.
 
@@ -74,13 +74,13 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    'should remove isSelectedTest if it is defined inline',
-  );
+		'should remove isSelectedTest if it is defined inline',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -108,7 +108,7 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     We could not automatically convert this code to the new API.
 
@@ -142,6 +142,6 @@ describe('remove isSelectedTest prop', () => {
       );
     }
     `,
-    'should remove isSelectedTest if it is imported',
-  );
+		'should remove isSelectedTest if it is imported',
+	);
 });

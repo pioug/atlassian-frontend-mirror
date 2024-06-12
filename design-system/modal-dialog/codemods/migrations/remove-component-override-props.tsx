@@ -2,18 +2,18 @@ import type { ASTPath, default as core, JSXElement } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
-  addCommentToStartOfFile,
-  getDefaultSpecifier,
-  getJSXAttributesByName,
-  hasJSXAttributesByName,
+	addCommentToStartOfFile,
+	getDefaultSpecifier,
+	getJSXAttributesByName,
+	hasJSXAttributesByName,
 } from '@atlaskit/codemod-utils';
 
 import {
-  BODY_PROP_NAME,
-  COMPONENTS_PROP_NAME,
-  FOOTER_PROP_NAME,
-  HEADER_PROP_NAME,
-  PACKAGE_NAME,
+	BODY_PROP_NAME,
+	COMPONENTS_PROP_NAME,
+	FOOTER_PROP_NAME,
+	HEADER_PROP_NAME,
+	PACKAGE_NAME,
 } from '../internal/constants';
 
 // TODO: Double-check the link to the customization docs after DSP-536 is completed.
@@ -38,47 +38,35 @@ For a complete guide on customization using the new compositional API, refer to 
 https://atlassian.design/components/modal-dialog/examples.
 `;
 
-export const removeComponentOverrideProps = (
-  j: core.JSCodeshift,
-  source: Collection<Node>,
-) => {
-  const defaultSpecifier = getDefaultSpecifier(j, source, PACKAGE_NAME);
+export const removeComponentOverrideProps = (j: core.JSCodeshift, source: Collection<Node>) => {
+	const defaultSpecifier = getDefaultSpecifier(j, source, PACKAGE_NAME);
 
-  if (!defaultSpecifier) {
-    return;
-  }
+	if (!defaultSpecifier) {
+		return;
+	}
 
-  let hasAttributesToRemove;
-  const attributeNames = [
-    BODY_PROP_NAME,
-    COMPONENTS_PROP_NAME,
-    FOOTER_PROP_NAME,
-    HEADER_PROP_NAME,
-  ];
+	let hasAttributesToRemove;
+	const attributeNames = [BODY_PROP_NAME, COMPONENTS_PROP_NAME, FOOTER_PROP_NAME, HEADER_PROP_NAME];
 
-  source.findJSXElements(defaultSpecifier).forEach((element) => {
-    hasAttributesToRemove = attributeNames.find((attributeName) =>
-      hasJSXAttributesByName(j, element, attributeName),
-    );
+	source.findJSXElements(defaultSpecifier).forEach((element) => {
+		hasAttributesToRemove = attributeNames.find((attributeName) =>
+			hasJSXAttributesByName(j, element, attributeName),
+		);
 
-    attributeNames.forEach((attributeName) =>
-      removeAttribute(j, element, attributeName),
-    );
-  });
+		attributeNames.forEach((attributeName) => removeAttribute(j, element, attributeName));
+	});
 
-  if (hasAttributesToRemove) {
-    addCommentToStartOfFile({ j, base: source, message: comment });
-  }
+	if (hasAttributesToRemove) {
+		addCommentToStartOfFile({ j, base: source, message: comment });
+	}
 };
 
 const removeAttribute = (
-  j: core.JSCodeshift,
-  element: ASTPath<JSXElement>,
-  attributeName: string,
+	j: core.JSCodeshift,
+	element: ASTPath<JSXElement>,
+	attributeName: string,
 ) => {
-  getJSXAttributesByName(j, element, attributeName).forEach(
-    (attribute: any) => {
-      j(attribute).remove();
-    },
-  );
+	getJSXAttributesByName(j, element, attributeName).forEach((attribute: any) => {
+		j(attribute).remove();
+	});
 };

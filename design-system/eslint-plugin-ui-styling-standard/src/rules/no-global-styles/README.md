@@ -1,6 +1,7 @@
 This rule prevents global styles through CSS-in-JS or CSS module imports.
 
-Requiring local definition of styles helps to ensure that style dependencies are statically resolvable.
+Requiring local definition of styles helps to ensure that style dependencies are statically
+resolvable.
 
 ## Examples
 
@@ -10,12 +11,12 @@ Requiring local definition of styles helps to ensure that style dependencies are
 import { Global } from '@emotion/react';
 
 <Global
-  styles={{
-    '.some-class': {
-      fontSize: 50,
-      textAlign: 'center',
-    },
-  }}
+	styles={{
+		'.some-class': {
+			fontSize: 50,
+			textAlign: 'center',
+		},
+	}}
 />;
 ```
 
@@ -23,9 +24,9 @@ import { Global } from '@emotion/react';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle({
-  body: {
-    margin: 0,
-  },
+	body: {
+		margin: 0,
+	},
 });
 ```
 
@@ -33,15 +34,15 @@ const GlobalStyle = createGlobalStyle({
 import { injectGlobal } from 'styled-components';
 
 injectGlobal({
-  body: {
-    margin: 0,
-  },
+	body: {
+		margin: 0,
+	},
 });
 ```
 
 ```tsx
 <style>
-  {`
+	{`
     .some-class {
       color: red;
     }

@@ -31,6 +31,7 @@ const horizontalStyles = css({
 
 const activeGuidelineStyles = css({
 	borderColor: token('color.border.focused', B200),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before, &:after': {
 		backgroundColor: token('color.border.focused', B200),
 	},
@@ -45,6 +46,7 @@ const dashedGuidelineStyles = css({
 });
 
 const verticalCapStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before, &:after': {
 		backgroundColor: token('color.border.disabled', N30A),
 		content: '""',
@@ -53,12 +55,14 @@ const verticalCapStyles = css({
 		width: '1px',
 		transform: 'translateY(-50%)',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:after': {
 		right: 0,
 	},
 });
 
 const horizontalCapStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before, &:after': {
 		backgroundColor: `${token('color.border.disabled', N30A)}`,
 		content: '""',
@@ -67,6 +71,7 @@ const horizontalCapStyles = css({
 		width: '5px',
 		transform: 'translateX(-50%)',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:after': {
 		bottom: 0,
 	},
@@ -91,7 +96,7 @@ export const Guideline = (props: Omit<GuidelineConfig, 'key'>) => {
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				...(color && { borderColor: `${color}` }),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				...getPositionStyles(position),
 			}}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

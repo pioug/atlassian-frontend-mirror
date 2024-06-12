@@ -19,29 +19,29 @@ import { type TabPanelAttributesType, type TabPanelProps } from '../types';
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
 const TabPanel = ({ children, testId }: TabPanelProps) => {
-  const {
-    role,
-    id,
-    hidden,
-    'aria-labelledby': ariaLabelledBy,
-    tabIndex,
-  }: TabPanelAttributesType = useTabPanel();
-  return (
-    <FocusRing isInset>
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-      <div
-        data-testid={testId}
-        role={role}
-        id={id}
-        hidden={hidden}
-        aria-labelledby={ariaLabelledBy}
-        tabIndex={tabIndex}
-      >
-        {/* Fragment is a workaround as Box types don't allow ReactNode children */}
-        <Fragment>{children}</Fragment>
-      </div>
-    </FocusRing>
-  );
+	const {
+		role,
+		id,
+		hidden,
+		'aria-labelledby': ariaLabelledBy,
+		tabIndex,
+	}: TabPanelAttributesType = useTabPanel();
+	return (
+		<FocusRing isInset>
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+			<div
+				data-testid={testId}
+				role={role}
+				id={id}
+				hidden={hidden}
+				aria-labelledby={ariaLabelledBy}
+				tabIndex={tabIndex}
+			>
+				{/* Fragment is a workaround as Box types don't allow ReactNode children */}
+				<Fragment>{children}</Fragment>
+			</div>
+		</FocusRing>
+	);
 };
 
 export default TabPanel;

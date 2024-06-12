@@ -7,12 +7,12 @@ import Truncation from '../../../../examples/99-testing-truncation';
 snapshot(Basic);
 snapshot(Truncation);
 snapshot(Removable, {
-  states: [
-    {
-      selector: {
-        byTestId: 'close-button-removableTag',
-      },
-      state: 'focused',
-    },
-  ],
+	states: [
+		{
+			selector: {
+				byTestId: 'close-button-removableTag',
+			},
+			state: 'focused',
+		},
+	],
 });

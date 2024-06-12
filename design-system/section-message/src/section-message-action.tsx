@@ -14,29 +14,29 @@ import type { SectionMessageActionProps } from './types';
  * - [Examples](https://atlassian.design/components/section-message/examples#actions)
  */
 const SectionMessageAction = memo(function SectionMessageAction({
-  children,
-  onClick,
-  href,
-  testId,
-  linkComponent,
+	children,
+	onClick,
+	href,
+	testId,
+	linkComponent,
 }: SectionMessageActionProps) {
-  // FIXME: This path doesn't make sense
-  // If the intent of the design for this component is to use an action, not providing `href` or `onClick`
-  // makes the use case invalid. This should be addressed.
-  return onClick || href ? (
-    <Button
-      testId={testId}
-      appearance="link"
-      spacing="none"
-      onClick={onClick}
-      href={href}
-      component={href ? linkComponent : undefined}
-    >
-      {children}
-    </Button>
-  ) : (
-    <>{children}</>
-  );
+	// FIXME: This path doesn't make sense
+	// If the intent of the design for this component is to use an action, not providing `href` or `onClick`
+	// makes the use case invalid. This should be addressed.
+	return onClick || href ? (
+		<Button
+			testId={testId}
+			appearance="link"
+			spacing="none"
+			onClick={onClick}
+			href={href}
+			component={href ? linkComponent : undefined}
+		>
+			{children}
+		</Button>
+	) : (
+		<>{children}</>
+	);
 });
 
 SectionMessageAction.displayName = 'SectionMessageAction';

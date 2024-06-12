@@ -13,7 +13,9 @@ const outerWrapper = (isDisabled?: boolean) =>
 		outline: 'none',
 		margin: 0,
 		width: '100%',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		cursor: isDisabled ? 'not-allowed' : 'pointer',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		opacity: isDisabled ? token('opacity.disabled', '0.4') : undefined,
 	});
 
@@ -44,8 +46,10 @@ const getTextStyle = (isSecondary?: boolean) => {
 		maxWidth: '100%',
 		margin: 0,
 		color: token('color.text.selected', B400),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...{ secondaryCssArgs },
 		whiteSpace: 'nowrap',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			maxWidth: 'inherit',
 		},
@@ -67,15 +71,18 @@ export const ExternalAvatarItemOption = ({
 	secondaryText,
 	sourcesInfoTooltip,
 }: ExternalAvatarItemOptionProps) => (
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={outerWrapper(isDisabled)}>
 		{avatar}
 		<div css={detailsWrapper}>
 			<div css={textSection}>
 				<div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={getTextStyle()}>{primaryText}</div>
 				</div>
 				{secondaryText && (
 					<div>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<div css={getTextStyle(true)}>{secondaryText}</div>
 					</div>
 				)}

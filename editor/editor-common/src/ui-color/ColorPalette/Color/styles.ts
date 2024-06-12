@@ -5,6 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 /** this is not new usage - old code extracted from editor-core */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const buttonStyle = css({
 	height: '26px',
 	width: '26px',
@@ -19,6 +20,7 @@ export const buttonStyle = css({
 
 /** this is not new usage - old code extracted from editor-core */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const buttonWrapperStyle = css({
 	border: '1px solid transparent',
 	fontSize: 0,
@@ -27,6 +29,7 @@ export const buttonWrapperStyle = css({
 	padding: token('space.025', '2px'),
 	borderRadius: '6px',
 	'&:focus-within, &:focus, &:hover': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		borderColor: `${token('color.border', N50)} !important`,
 	},
 });

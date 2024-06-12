@@ -97,6 +97,7 @@ export const Selector = ({
 				key={emoji.id ?? emoji.shortName}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={emoji === selection ? 'selected' : undefined}
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={[emojiStyle, revealStyle]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={emojiStyleAnimation(index)}
@@ -110,6 +111,7 @@ export const Selector = ({
 	};
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={selectorStyle}>
 			{pickerQuickReactionEmojiIds ? pickerQuickReactionEmojiIds.map(renderEmoji) : null}
 			{/* CSS inline styles should not be used, move styles to an external CSS file */}
@@ -118,6 +120,7 @@ export const Selector = ({
 					key="more"
 					buttonStyle={revealStyle}
 					style={{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						button: emojiStyleAnimation(DefaultReactions.length),
 					}}
 					onClick={onMoreClick}

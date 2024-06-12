@@ -4,10 +4,10 @@ import transformer from '../../optimistic-15.0.0-lite-mode';
 import { check } from '../_framework';
 
 describe('Change `type ButtonAppearances` to `type Appearance`', () => {
-  check({
-    transformer,
-    it: 'should separate types into a different export from the components',
-    original: `
+	check({
+		transformer,
+		it: 'should separate types into a different export from the components',
+		original: `
       import Button, { ButtonAppearances } from '@atlaskit/button';
 
       export type Mine = ButtonAppearances & 'purple';
@@ -18,7 +18,7 @@ describe('Change `type ButtonAppearances` to `type Appearance`', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import { Appearance } from '@atlaskit/button/types';
       import Button from '@atlaskit/button/standard-button';
 
@@ -28,14 +28,14 @@ describe('Change `type ButtonAppearances` to `type Appearance`', () => {
         return <Button onClick={() => console.log('hi')}>standard button</Button>;
       }
     `,
-  });
+	});
 });
 
 describe('Changing <Button /> usage', () => {
-  check({
-    transformer,
-    it: 'should move to standard button',
-    original: `
+	check({
+		transformer,
+		it: 'should move to standard button',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
 
@@ -45,7 +45,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import Button from '@atlaskit/button/standard-button';
 
@@ -53,12 +53,12 @@ describe('Changing <Button /> usage', () => {
         return <Button onClick={() => console.log('hi')}>standard button</Button>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move to standard button (self closing button)',
-    original: `
+	check({
+		transformer,
+		it: 'should move to standard button (self closing button)',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
 
@@ -66,7 +66,7 @@ describe('Changing <Button /> usage', () => {
         return <Button onClick={() => console.log('hi')} />;
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import Button from '@atlaskit/button/standard-button';
 
@@ -74,12 +74,12 @@ describe('Changing <Button /> usage', () => {
         return <Button onClick={() => console.log('hi')} />;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move to standard button (when fallback is needed)',
-    original: `
+	check({
+		transformer,
+		it: 'should move to standard button (when fallback is needed)',
+		original: `
       import React from 'react';
       import Button from './our-button';
       import AkButton from '@atlaskit/button';
@@ -93,7 +93,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import Button from './our-button';
       import DSButton from '@atlaskit/button/standard-button';
@@ -105,12 +105,12 @@ describe('Changing <Button /> usage', () => {
         </>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move to loading button',
-    original: `
+	check({
+		transformer,
+		it: 'should move to loading button',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
       import { getIsLoading } from './get-is-loading';
@@ -124,7 +124,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import LoadingButton from '@atlaskit/button/loading-button';
       import { getIsLoading } from './get-is-loading';
@@ -136,12 +136,12 @@ describe('Changing <Button /> usage', () => {
         </>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move to loading button (when fallback is needed)',
-    original: `
+	check({
+		transformer,
+		it: 'should move to loading button (when fallback is needed)',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
       import LoadingButton from './our-buttons';
@@ -154,7 +154,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import DSLoadingButton from '@atlaskit/button/loading-button';
       import LoadingButton from './our-buttons';
@@ -165,12 +165,12 @@ describe('Changing <Button /> usage', () => {
         </>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move to custom theme button',
-    original: `
+	check({
+		transformer,
+		it: 'should move to custom theme button',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
       import { customTheme } from './theme';
@@ -184,7 +184,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import CustomThemeButton from '@atlaskit/button/custom-theme-button';
       import { customTheme } from './theme';
@@ -196,12 +196,12 @@ describe('Changing <Button /> usage', () => {
         </>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move to custom theme button (when fallback is needed)',
-    original: `
+	check({
+		transformer,
+		it: 'should move to custom theme button (when fallback is needed)',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
       import { customTheme } from './theme';
@@ -217,7 +217,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import DSCustomThemeButton from '@atlaskit/button/custom-theme-button';
       import { customTheme } from './theme';
@@ -231,12 +231,12 @@ describe('Changing <Button /> usage', () => {
         </>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should use CustomThemeButton in a file that uses Theme',
-    original: `
+	check({
+		transformer,
+		it: 'should use CustomThemeButton in a file that uses Theme',
+		original: `
       import React from 'react';
       import Button, { Theme } from '@atlaskit/button';
       import { customTheme } from './custom-theme';
@@ -250,7 +250,7 @@ describe('Changing <Button /> usage', () => {
         </>
       }
     `,
-    expected: `
+		expected: `
       /* TODO: (from codemod) Using "import { Theme } from '@atlaskit/button/custom-theme-button" in a file
       will cause all buttons in that file to be safely converted to a <CustomThemeButton/> */
       import React from 'react';
@@ -266,12 +266,12 @@ describe('Changing <Button /> usage', () => {
         </>;
       }
     `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move to the correct button for prop usages',
-    original: `
+	check({
+		transformer,
+		it: 'should move to the correct button for prop usages',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
       import { getIsLoading, customTheme } from './util';
@@ -287,7 +287,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
         `,
-    expected: `
+		expected: `
       import React from 'react';
       import Button from '@atlaskit/button/standard-button';
       import LoadingButton from '@atlaskit/button/loading-button';
@@ -303,12 +303,12 @@ describe('Changing <Button /> usage', () => {
         </>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move to the correct button for prop usages (with fallbacks)',
-    original: `
+	check({
+		transformer,
+		it: 'should move to the correct button for prop usages (with fallbacks)',
+		original: `
       import React from 'react';
       import AkButton from '@atlaskit/button';
       import { getIsLoading, customTheme } from './util';
@@ -325,7 +325,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
         `,
-    expected: `
+		expected: `
       import React from 'react';
       import DSButton from '@atlaskit/button/standard-button';
       import DSLoadingButton from '@atlaskit/button/loading-button';
@@ -342,19 +342,19 @@ describe('Changing <Button /> usage', () => {
         </>;
       }
   `,
-  });
+	});
 });
 
 describe('Non exclusive JSX usage of <Button />', () => {
-  check({
-    transformer,
-    it: 'should use standard button if Button is not used in JSX',
-    original: `
+	check({
+		transformer,
+		it: 'should use standard button if Button is not used in JSX',
+		original: `
       import AkButton from '@atlaskit/button';
 
       export default { button: AkButton };
     `,
-    expected: `
+		expected: `
       /* TODO: (from codemod) This file does not exclusively use Button in JSX.
       The codemod is unable to know which button variant, so it is using
       the standard button: "@atlaskit/button/standard-button".
@@ -365,12 +365,12 @@ describe('Non exclusive JSX usage of <Button />', () => {
 
       export default { button: AkButton };
     `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should use standard button if Button is used in JSX and also not in JSX',
-    original: `
+	check({
+		transformer,
+		it: 'should use standard button if Button is used in JSX and also not in JSX',
+		original: `
       import React from 'react';
       import Button from './our-button';
       import AkButton from '@atlaskit/button';
@@ -388,7 +388,7 @@ describe('Non exclusive JSX usage of <Button />', () => {
       // Not used in JSX
       expect(AkButton).toBe(true);
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import Button from './our-button';
       /* TODO: (from codemod) This file does not exclusively use Button in JSX.
@@ -412,14 +412,14 @@ describe('Non exclusive JSX usage of <Button />', () => {
       // Not used in JSX
       expect(AkButton).toBe(true);
   `,
-  });
+	});
 });
 
 describe('Spreading props', () => {
-  check({
-    transformer,
-    it: 'should try to choose the right button if there are locally spread values (seperate object)',
-    original: `
+	check({
+		transformer,
+		it: 'should try to choose the right button if there are locally spread values (seperate object)',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
 
@@ -433,7 +433,7 @@ describe('Spreading props', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import LoadingButton from '@atlaskit/button/loading-button';
 
@@ -445,12 +445,12 @@ describe('Spreading props', () => {
         return <LoadingButton {...props}>click me</LoadingButton>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should try to choose the right button if there are locally spread values (inline object)',
-    original: `
+	check({
+		transformer,
+		it: 'should try to choose the right button if there are locally spread values (inline object)',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
 
@@ -460,7 +460,7 @@ describe('Spreading props', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import LoadingButton from '@atlaskit/button/loading-button';
 
@@ -468,12 +468,12 @@ describe('Spreading props', () => {
         return <LoadingButton {...({ isLoading: true })}>click me</LoadingButton>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should try to choose the right button if there are multiple local spread values',
-    original: `
+	check({
+		transformer,
+		it: 'should try to choose the right button if there are multiple local spread values',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
 
@@ -490,7 +490,7 @@ describe('Spreading props', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import LoadingButton from '@atlaskit/button/loading-button';
 
@@ -505,12 +505,12 @@ describe('Spreading props', () => {
         return <LoadingButton {...first} {...second}>click me</LoadingButton>;
       }
     `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should try to choose the right button if there are locally spread values (custom theme button)',
-    original: `
+	check({
+		transformer,
+		it: 'should try to choose the right button if there are locally spread values (custom theme button)',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
       import { customTheme } from './our-theme';
@@ -526,7 +526,7 @@ describe('Spreading props', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import CustomThemeButton from '@atlaskit/button/custom-theme-button';
       import { customTheme } from './our-theme';
@@ -540,12 +540,12 @@ describe('Spreading props', () => {
         return <CustomThemeButton {...props}>click me</CustomThemeButton>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should try to choose the right button if there is a spread value being mixed with a local values',
-    original: `
+	check({
+		transformer,
+		it: 'should try to choose the right button if there is a spread value being mixed with a local values',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
       import { customTheme } from './our-theme';
@@ -559,7 +559,7 @@ describe('Spreading props', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import CustomThemeButton from '@atlaskit/button/custom-theme-button';
       import { customTheme } from './our-theme';
@@ -571,13 +571,13 @@ describe('Spreading props', () => {
         return <CustomThemeButton isLoading {...props}>click me</CustomThemeButton>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should fallback to CustomThemeButton if there is an unknown spread',
-    // ...itShouldLogWarning({ times: 2 }),
-    original: `
+	check({
+		transformer,
+		it: 'should fallback to CustomThemeButton if there is an unknown spread',
+		// ...itShouldLogWarning({ times: 2 }),
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
       import { getProps } from './get-props';
@@ -590,7 +590,7 @@ describe('Spreading props', () => {
         return <Button {...getProps()}>click me</Button>;
       }
     `,
-    expected: `
+		expected: `
       /* TODO: (from codemod) Detected spreading props (<Button {...props} />) that was too complex for our codemod to understand
       Our codemod will only look at inline objects, or objects defined in the same file (ObjectExpression's)
       We have opted for our safest upgrade component in this file: '<CustomThemeButton />' */
@@ -606,14 +606,14 @@ describe('Spreading props', () => {
         return <CustomThemeButton {...getProps()}>click me</CustomThemeButton>;
       }
   `,
-  });
+	});
 });
 
 describe('`type ButtonProps`', () => {
-  check({
-    transformer,
-    it: 'should move to the new standard button props',
-    original: `
+	check({
+		transformer,
+		it: 'should move to the new standard button props',
+		original: `
       import React from 'react';
       import Button, { ButtonProps } from '@atlaskit/button';
 
@@ -621,7 +621,7 @@ describe('`type ButtonProps`', () => {
         return <Button>click me</Button>;
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
 
       /* TODO: (from codemod) Verify ButtonProps is the right prop type
@@ -634,5 +634,5 @@ describe('`type ButtonProps`', () => {
         return <Button>click me</Button>;
       }
   `,
-  });
+	});
 });

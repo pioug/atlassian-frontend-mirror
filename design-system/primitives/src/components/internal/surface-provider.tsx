@@ -7,8 +7,7 @@ import type { BackgroundColor } from '../../xcss/style-maps.partial';
  *
  * A surface context provides context information on the current background (if set).
  */
-export const SurfaceContext =
-  createContext<BackgroundColor>('elevation.surface');
+export const SurfaceContext = createContext<BackgroundColor>('elevation.surface');
 
 /**
  * __useSurface__
@@ -18,7 +17,7 @@ export const SurfaceContext =
  * @see SurfaceContext
  */
 export const useSurface = () => {
-  return useContext(SurfaceContext);
+	return useContext(SurfaceContext);
 };
 
 SurfaceContext.displayName = 'SurfaceProvider';

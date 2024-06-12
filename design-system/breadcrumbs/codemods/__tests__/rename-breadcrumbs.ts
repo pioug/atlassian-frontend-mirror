@@ -5,16 +5,16 @@ import { renameBreadcrumbsStatelessToBreadcrumbs } from '../migrates/rename-brea
 import { createTransformer } from '../utils';
 
 const transformer = createTransformer('@atlaskit/breadcrumbs', [
-  renameBreadcrumbsStatelessToBreadcrumbs,
+	renameBreadcrumbsStatelessToBreadcrumbs,
 ]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Rename BreadcrumbsStateless to Breadcrumbs', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import BreadcrumbsStateless, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
@@ -22,7 +22,7 @@ describe('Rename BreadcrumbsStateless to Breadcrumbs', () => {
       <BreadcrumbsStateless size="large" isExpanded />
     );
     `,
-    `
+		`
     import React from 'react';
     import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
@@ -30,13 +30,13 @@ describe('Rename BreadcrumbsStateless to Breadcrumbs', () => {
       <Breadcrumbs size="large" isExpanded />
     );
     `,
-    'rename BreadcrumbsStateless to Breadcrumbs and do not change named Imports',
-  );
+		'rename BreadcrumbsStateless to Breadcrumbs and do not change named Imports',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Breadcrumbs from '@material-ui/Breadcrumbs';
     import BreadcrumbsStateless from '@atlaskit/breadcrumbs';
@@ -45,7 +45,7 @@ describe('Rename BreadcrumbsStateless to Breadcrumbs', () => {
       <BreadcrumbsStateless size="large" isExpanded />
     );
     `,
-    `
+		`
     import React from 'react';
     import Breadcrumbs from '@material-ui/Breadcrumbs';
     import DSBreadcrumbs from '@atlaskit/breadcrumbs';
@@ -54,13 +54,13 @@ describe('Rename BreadcrumbsStateless to Breadcrumbs', () => {
       <DSBreadcrumbs size="large" isExpanded />
     );
     `,
-    'change BreadcrumbsStateless to DSBreadcrumbs when name get conflict',
-  );
+		'change BreadcrumbsStateless to DSBreadcrumbs when name get conflict',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import BreadcrumbsStateless from '@atlaskit/breadcrumbs';
 
@@ -75,7 +75,7 @@ describe('Rename BreadcrumbsStateless to Breadcrumbs', () => {
       </>
     );
     `,
-    `
+		`
     import React from 'react';
     import Breadcrumbs from '@atlaskit/breadcrumbs';
 
@@ -90,6 +90,6 @@ describe('Rename BreadcrumbsStateless to Breadcrumbs', () => {
       </>
     );
     `,
-    'change BreadcrumbsStateless to Breadcrumbs imports and usages',
-  );
+		'change BreadcrumbsStateless to Breadcrumbs imports and usages',
+	);
 });

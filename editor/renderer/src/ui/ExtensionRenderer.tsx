@@ -45,6 +45,7 @@ const inlineExtensionStyle = css({
 	verticalAlign: 'middle',
 	// es-lint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	margin: `1px 1px ${token('space.050', '4px')}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .rich-media-item': {
 		maxWidth: '100%',
 	},

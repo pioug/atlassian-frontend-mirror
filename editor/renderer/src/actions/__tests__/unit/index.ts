@@ -89,6 +89,7 @@ describe('RendererActions', () => {
 				actionSubject: ACTION_SUBJECT.ANNOTATION,
 				actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 				eventType: EVENT_TYPE.TRACK,
+				attributes: { inlineNodes: undefined },
 			});
 		});
 

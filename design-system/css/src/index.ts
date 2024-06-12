@@ -1,39 +1,34 @@
 import {
-  createStrictAPI,
-  type CSSPseudos,
-  type StrictCSSProperties,
-  type XCSSAllProperties,
-  type XCSSAllPseudos,
+	createStrictAPI,
+	type CSSPseudos,
+	type StrictCSSProperties,
+	type XCSSAllProperties,
+	type XCSSAllPseudos,
 } from '@compiled/react';
 
 import { type DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
 type MediaQuery =
-  | '(min-width: 30rem)'
-  | '(min-width: 48rem)'
-  | '(min-width: 64rem)'
-  | '(min-width: 90rem)'
-  | '(min-width: 110rem)';
+	| '(min-width: 30rem)'
+	| '(min-width: 48rem)'
+	| '(min-width: 64rem)'
+	| '(min-width: 90rem)'
+	| '(min-width: 110rem)';
 
-const { XCSSProp, css, cssMap, cx } = createStrictAPI<
-  DesignTokenStyles,
-  { media: MediaQuery }
->();
+const { XCSSProp, css, cssMap, cx } = createStrictAPI<DesignTokenStyles, { media: MediaQuery }>();
 
 export { css, cssMap, cx, type XCSSAllProperties, type XCSSAllPseudos };
 
 // This is to mitigate local TS error TS2315: Type 'StrictXCSSProp' is not generic.
 // Currently for some reason tsc is generating malformed .d.ts in local dev environment, below change fixes it
 type LocalXCSSProp<
-  TAllowedProperties extends keyof StrictCSSProperties,
-  TAllowedPseudos extends CSSPseudos,
-  TRequiredProperties extends {
-    requiredProperties: TAllowedProperties;
-    requiredPseudos: TAllowedPseudos;
-  } = never,
-> = ReturnType<
-  typeof XCSSProp<TAllowedProperties, TAllowedPseudos, TRequiredProperties>
->;
+	TAllowedProperties extends keyof StrictCSSProperties,
+	TAllowedPseudos extends CSSPseudos,
+	TRequiredProperties extends {
+		requiredProperties: TAllowedProperties;
+		requiredPseudos: TAllowedPseudos;
+	} = never,
+> = ReturnType<typeof XCSSProp<TAllowedProperties, TAllowedPseudos, TRequiredProperties>>;
 
 /**
  * ## StrictXCSSProp
@@ -95,10 +90,10 @@ type LocalXCSSProp<
  * To concatenate and conditonally apply styles use the {@link cssMap} and {@link cx} functions.
  */
 export type StrictXCSSProp<
-  TAllowedProperties extends keyof StrictCSSProperties,
-  TAllowedPseudos extends CSSPseudos,
-  TRequiredProperties extends {
-    requiredProperties: TAllowedProperties;
-    requiredPseudos: TAllowedPseudos;
-  } = never,
+	TAllowedProperties extends keyof StrictCSSProperties,
+	TAllowedPseudos extends CSSPseudos,
+	TRequiredProperties extends {
+		requiredProperties: TAllowedProperties;
+		requiredPseudos: TAllowedPseudos;
+	} = never,
 > = LocalXCSSProp<TAllowedProperties, TAllowedPseudos, TRequiredProperties>;

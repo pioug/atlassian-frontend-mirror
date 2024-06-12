@@ -1,31 +1,18 @@
-import {
-  getExampleUrl,
-  loadPage,
-  takeElementScreenShot,
-} from '@atlaskit/visual-regression/helper';
+import { getExampleUrl, loadPage, takeElementScreenShot } from '@atlaskit/visual-regression/helper';
 
-const overflowMenuTriggerSelector =
-  '[data-testid="overrides--overflow-menu--trigger"]';
+const overflowMenuTriggerSelector = '[data-testid="overrides--overflow-menu--trigger"]';
 const overflowMenuContentSelector = '[data-testid="overrides--overflow-menu"]';
 
 describe('avatar group override snapshots', () => {
-  it('should match the snapshot of the customized overflow menu', async () => {
-    const { __BASEURL__, page } = global;
-    const url = getExampleUrl(
-      'design-system',
-      'avatar-group',
-      'overrides',
-      __BASEURL__,
-    );
+	it('should match the snapshot of the customized overflow menu', async () => {
+		const { __BASEURL__, page } = global;
+		const url = getExampleUrl('design-system', 'avatar-group', 'overrides', __BASEURL__);
 
-    await loadPage(page, url);
-    await page.waitForSelector(overflowMenuTriggerSelector);
-    await page.click(overflowMenuTriggerSelector);
+		await loadPage(page, url);
+		await page.waitForSelector(overflowMenuTriggerSelector);
+		await page.click(overflowMenuTriggerSelector);
 
-    const image = await takeElementScreenShot(
-      page,
-      overflowMenuContentSelector,
-    );
-    expect(image).toMatchProdImageSnapshot();
-  });
+		const image = await takeElementScreenShot(page, overflowMenuContentSelector);
+		expect(image).toMatchProdImageSnapshot();
+	});
 });

@@ -52,7 +52,7 @@ export const EmojiPickerListSearch = (props: Props) => {
 	}, []);
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={[pickerSearch, !isVisible && hidden]} style={style}>
 			<VisuallyHidden id="emoji-search-results-status" role="status">
 				{dirty && query === '' && formatMessage(messages.searchResultsStatusSeeAll)}
@@ -64,6 +64,7 @@ export const EmojiPickerListSearch = (props: Props) => {
 			<TextField
 				role="searchbox"
 				aria-label={formatMessage(messages.searchLabel)}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={input}
 				autoComplete="off"
 				name="search"
@@ -71,6 +72,7 @@ export const EmojiPickerListSearch = (props: Props) => {
 				defaultValue={query || ''}
 				onChange={handleOnChange}
 				elemBeforeInput={
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span css={searchIcon}>
 						<SearchIcon label="" />
 					</span>

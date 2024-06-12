@@ -9,22 +9,17 @@ import { token } from '@atlaskit/tokens';
 import { type Stage } from '../types';
 
 const linkStyles = css({
-  color: token('color.text', N800),
-  cursor: 'pointer',
+	color: token('color.text', N800),
+	cursor: 'pointer',
 });
 
 /**
  * __Progress tracker link__
  */
-const Link: FC<Stage & { testId?: string }> = ({
-  href,
-  onClick,
-  label,
-  testId,
-}) => (
-  <a css={linkStyles} href={href} onClick={onClick} data-testid={testId}>
-    {label}
-  </a>
+const Link: FC<Stage & { testId?: string }> = ({ href, onClick, label, testId }) => (
+	<a css={linkStyles} href={href} onClick={onClick} data-testid={testId}>
+		{label}
+	</a>
 );
 
 export default Link;

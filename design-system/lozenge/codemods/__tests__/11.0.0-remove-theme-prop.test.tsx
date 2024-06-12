@@ -3,10 +3,10 @@ import transformer from '../11.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('remove theme prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
     import { useTheme } from '../../theme';
@@ -24,7 +24,7 @@ describe('remove theme prop', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     We could not automatically convert this code to the new API.
 
@@ -49,13 +49,13 @@ describe('remove theme prop', () => {
       );
     }
     `,
-    `should remove theme if it is defined inline`,
-  );
+		`should remove theme if it is defined inline`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
     import { lozengeTheme } from '../../theme';
@@ -68,7 +68,7 @@ describe('remove theme prop', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     We could not automatically convert this code to the new API.
 
@@ -88,6 +88,6 @@ describe('remove theme prop', () => {
       );
     }
     `,
-    `should remove theme if it is imported`,
-  );
+		`should remove theme if it is imported`,
+	);
 });

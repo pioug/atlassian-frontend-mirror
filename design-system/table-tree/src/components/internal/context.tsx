@@ -8,9 +8,9 @@ export type ColumnWidth = string | number;
  * Enables composed table-tree implementations to e.g. set width on header cells only
  */
 export const TableTreeContext = createContext<{
-  setColumnWidth: (columnIndex: number, width: ColumnWidth) => void;
-  getColumnWidth: (columnIndex: number) => ColumnWidth | null;
+	setColumnWidth: (columnIndex: number, width: ColumnWidth) => void;
+	getColumnWidth: (columnIndex: number) => ColumnWidth | null;
 }>({
-  setColumnWidth: () => {},
-  getColumnWidth: () => null,
+	setColumnWidth: () => {},
+	getColumnWidth: () => null,
 });

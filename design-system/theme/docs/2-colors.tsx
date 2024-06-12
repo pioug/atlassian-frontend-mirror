@@ -7,13 +7,13 @@ export default md`
   Refer to the [design documentation](https://atlassian.design/guidelines/product/foundations/color) for more information.
 
   ${(
-    <Example
-      packageName="@atlaskit/theme"
-      Component={require('../examples/colors').default}
-      source={require('!!raw-loader!../examples/colors')}
-      title="Colors"
-    />
-  )}
+		<Example
+			packageName="@atlaskit/theme"
+			Component={require('../examples/colors').default}
+			source={require('!!raw-loader!../examples/colors')}
+			title="Colors"
+		/>
+	)}
 
   There are also color palletes available with pre-chosen colors for you to use,
   coming in 8,
@@ -22,12 +22,12 @@ export default md`
   Refer to the [design documentation](https://atlassian.design/guidelines/product/patterns/color-palette) for more information.
 
   ${(
-    <Example
-      highlight="3,9,19,29,11-12,21-22,31-32"
-      packageName="@atlaskit/theme"
-      Component={require('../examples/color-palettes').default}
-      source={require('!!raw-loader!../examples/color-palettes')}
-      title="Color palettes"
-    />
-  )}
+		<Example
+			highlight="3,9,19,29,11-12,21-22,31-32"
+			packageName="@atlaskit/theme"
+			Component={require('../examples/color-palettes').default}
+			source={require('!!raw-loader!../examples/color-palettes')}
+			title="Color palettes"
+		/>
+	)}
 `;

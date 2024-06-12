@@ -5,10 +5,10 @@ import transformer from '../5.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('TextField code-mods', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import Textfield, { ThemeProps, ThemeAppearance , themeTokens as ColorTokens, ThemeTokens } from '@atlaskit/textfield';
       import customeTheme from './theme';
       import React from 'react';
@@ -21,7 +21,7 @@ describe('TextField code-mods', () => {
         );
       }
     `,
-    `
+		`
       /* TODO: (from codemod) This file uses the @atlaskit/textfield \`theme\` prop which
       has now been removed due to its poor performance characteristics. We have not replaced
       theme with an equivalent API due to minimal usage of the \`theme\` prop.
@@ -36,12 +36,12 @@ describe('TextField code-mods', () => {
         return <Textfield />;
       }
     `,
-    'should remove theme & its imports from Textfield and leave a comment',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should remove theme & its imports from Textfield and leave a comment',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import Textfield, { ThemeProps, ThemeTokens } from '@atlaskit/textfield';
       import React from 'react';
 
@@ -68,7 +68,7 @@ describe('TextField code-mods', () => {
         );
       }
     `,
-    `
+		`
       /* TODO: (from codemod) This file uses the @atlaskit/textfield \`theme\` prop which
       has now been removed due to its poor performance characteristics. We have not replaced
       theme with an equivalent API due to minimal usage of the \`theme\` prop.
@@ -82,6 +82,6 @@ describe('TextField code-mods', () => {
         return <Textfield />;
       }
     `,
-    'should remove theme prop & its imports from Textfield and leave a comment',
-  );
+		'should remove theme prop & its imports from Textfield and leave a comment',
+	);
 });

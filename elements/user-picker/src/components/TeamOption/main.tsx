@@ -24,6 +24,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 		return [
 			<span
 				key="name"
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
 					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
 				)}
@@ -83,6 +84,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 
 	private getBylineComponent = (isSelected: boolean, message: JSX.Element) => (
 		<span
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={textWrapper(
 				isSelected ? token('color.text.selected', B400) : token('color.text.subtlest', N200),
 			)}
@@ -113,6 +115,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 
 		return (
 			<span
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
 					this.props.isSelected
 						? token('color.text.selected', B400)

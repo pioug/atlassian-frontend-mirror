@@ -4,495 +4,492 @@
 
 ### Minor Changes
 
--   [#96186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96186)
-    [`225179567a4c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/225179567a4c) -
-    Add support for React 18 in non-strict mode.
+- [#96186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96186)
+  [`225179567a4c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/225179567a4c) -
+  Add support for React 18 in non-strict mode.
 
 ## 5.3.0
 
 ### Minor Changes
 
--   [#94675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94675)
-    [`5d9e1dccacca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d9e1dccacca) -
-    [ux] Update input border color token to meet 3:1 color contrast ratioLight theme:
-    color.border.input: #091E4224 → #8590A2Dark mode: color.border.input: #A6C5E229 → #738496
+- [#94675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94675)
+  [`5d9e1dccacca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d9e1dccacca) -
+  [ux] Update input border color token to meet 3:1 color contrast ratioLight theme:
+  color.border.input: #091E4224 → #8590A2Dark mode: color.border.input: #A6C5E229 → #738496
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 5.2.0
 
 ### Minor Changes
 
--   [#82028](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82028)
-    [`065756e95a09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/065756e95a09) -
-    [ux] This change includes a fix for the TextArea's text color when there is a placeholder and
-    isDisabled is true.
+- [#82028](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82028)
+  [`065756e95a09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/065756e95a09) -
+  [ux] This change includes a fix for the TextArea's text color when there is a placeholder and
+  isDisabled is true.
 
 ## 5.1.2
 
 ### Patch Changes
 
--   [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
-    [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
-    Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 5.1.1
 
 ### Patch Changes
 
--   [#81644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81644)
-    [`8ab7a816dca7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ab7a816dca7) -
-    Revert input border change from the previous version
+- [#81644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81644)
+  [`8ab7a816dca7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ab7a816dca7) -
+  Revert input border change from the previous version
 
 ## 5.1.0
 
 ### Minor Changes
 
--   [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805)
-    [`427c2dd9e0d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/427c2dd9e0d6) -
-    [ux] Update input border width from 2px to 1px with darker color to meet 3:1 color contrast
+- [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805)
+  [`427c2dd9e0d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/427c2dd9e0d6) -
+  [ux] Update input border width from 2px to 1px with darker color to meet 3:1 color contrast
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 5.0.1
 
 ### Patch Changes
 
--   [#74756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74756)
-    [`8e66f751df96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e66f751df96) -
-    Use feature flag to roll out border width update from 2px to 1px
+- [#74756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74756)
+  [`8e66f751df96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e66f751df96) -
+  Use feature flag to roll out border width update from 2px to 1px
 
 ## 5.0.0
 
 ### Major Changes
 
--   [#41866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41866)
-    [`ed8b6957789`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed8b6957789) -
-    Removes any usage of deprecated legacy theming APIs. These have been superseeded by design
-    tokens.
+- [#41866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41866)
+  [`ed8b6957789`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed8b6957789) - Removes
+  any usage of deprecated legacy theming APIs. These have been superseeded by design tokens.
 
 ## 4.7.7
 
 ### Patch Changes
 
--   [#37613](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37613)
-    [`29941aaea33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29941aaea33) - update
-    focused fallback color to meet contrast requirement
+- [#37613](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37613)
+  [`29941aaea33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/29941aaea33) - update
+  focused fallback color to meet contrast requirement
 
 ## 4.7.6
 
 ### Patch Changes
 
--   [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731)
-    [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete
-    version.json
+- [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731)
+  [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete
+  version.json
 
 ## 4.7.5
 
 ### Patch Changes
 
--   [#38201](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38201)
-    [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This
-    package is now onboarded onto the product push model.
+- [#38201](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38201)
+  [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This
+  package is now onboarded onto the product push model.
 
 ## 4.7.4
 
 ### Patch Changes
 
--   [#36662](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36662)
-    [`964e8db6c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/964e8db6c94) - update
-    border width to use border spacing token
+- [#36662](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36662)
+  [`964e8db6c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/964e8db6c94) - update
+  border width to use border spacing token
 
 ## 4.7.3
 
 ### Patch Changes
 
--   [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441)
-    [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) -
-    Internal change to use shape tokens. There is no expected visual change.
+- [#35441](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35441)
+  [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal
+  change to use shape tokens. There is no expected visual change.
 
 ## 4.7.2
 
 ### Patch Changes
 
--   [#35111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35111)
-    [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend
-    border contrast feature flag to support confluence
+- [#35111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35111)
+  [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend
+  border contrast feature flag to support confluence
 
 ## 4.7.1
 
 ### Patch Changes
 
--   [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935)
-    [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) -
-    Internal change to enforce token usage for spacing properties. There is no expected visual or
-    behaviour change.
+- [#32935](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32935)
+  [`b1bdec7cce2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1bdec7cce2) - Internal
+  change to enforce token usage for spacing properties. There is no expected visual or behaviour
+  change.
 
 ## 4.7.0
 
 ### Minor Changes
 
--   [#33171](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33171)
-    [`5f37caad726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f37caad726) - [ux]
-    reduce border width to 1px and update fallback color of border
+- [#33171](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33171)
+  [`5f37caad726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f37caad726) - [ux]
+  reduce border width to 1px and update fallback color of border
 
 ## 4.6.3
 
 ### Patch Changes
 
--   [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051)
-    [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) -
-    Migrated use of `gridSize` to space tokens where possible. There is no expected visual or
-    behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051)
+  [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated
+  use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 4.6.2
 
 ### Patch Changes
 
--   [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
-    [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
-    legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 4.6.1
 
 ### Patch Changes
 
--   [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
-    [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) -
-    Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 4.6.0
 
 ### Minor Changes
 
--   [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
-    [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
-    minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.5.7
 
 ### Patch Changes
 
--   [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004)
-    [`e028bee17df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e028bee17df) - [ux]
-    fix(style): update fallback color of placeholder to meet contrast requirement
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004)
+  [`e028bee17df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e028bee17df) - [ux]
+  fix(style): update fallback color of placeholder to meet contrast requirement
 
 ## 4.5.6
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.5.5
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.5.4
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.5.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.5.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.5.1
 
 ### Patch Changes
 
--   [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303)
-    [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op
-    change to introduce spacing tokens to design system components.
+- [#26303](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/26303)
+  [`9827dcb82b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9827dcb82b8) - No-op
+  change to introduce spacing tokens to design system components.
 
 ## 4.5.0
 
 ### Minor Changes
 
--   [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710)
-    [`6612a236510`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6612a236510) -
-    Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710)
+  [`6612a236510`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6612a236510) - Updates
+  `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
--   [`32d761cfc1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32d761cfc1d) - [ux]
-    Fix bug that prevented consumers from rendering a single line textarea
+- [`32d761cfc1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32d761cfc1d) - [ux] Fix
+  bug that prevented consumers from rendering a single line textarea
 
 ## 4.4.0
 
 ### Minor Changes
 
--   [#24968](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24968)
-    [`b8841384da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8841384da6) -
-    Disabled background and border styles should not be applied to components that have either no
-    background or transparent background to begin with. Textfield and textarea variants that do not
-    have backgrounds (sublte or none) have no backgrounds or borders applied when disabled. As such,
-    any comopnents that consume these will also be affected.
+- [#24968](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24968)
+  [`b8841384da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8841384da6) - Disabled
+  background and border styles should not be applied to components that have either no background or
+  transparent background to begin with. Textfield and textarea variants that do not have backgrounds
+  (sublte or none) have no backgrounds or borders applied when disabled. As such, any comopnents
+  that consume these will also be affected.
 
 ## 4.3.11
 
 ### Patch Changes
 
--   [#25314](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25314)
-    [`bedbdec0e82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bedbdec0e82) - Update
-    hover state appearance of subtle Textarea, Textfield and Select components to match the hover
-    states of their default counterparts.
+- [#25314](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/25314)
+  [`bedbdec0e82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bedbdec0e82) - Update
+  hover state appearance of subtle Textarea, Textfield and Select components to match the hover
+  states of their default counterparts.
 
 ## 4.3.10
 
 ### Patch Changes
 
--   [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
-    [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) -
-    Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
+  [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade
+  Typescript from `4.3.5` to `4.5.5`
 
 ## 4.3.9
 
 ### Patch Changes
 
--   [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
-    [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) -
-    Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
+  [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade
+  Typescript from `4.2.4` to `4.3.5`.
 
 ## 4.3.8
 
 ### Patch Changes
 
--   [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381)
-    [`e4abd2c2888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abd2c2888) - Update
-    token used for background color of subtle text area on hover
--   [`926f9b57c59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/926f9b57c59) -
-    Internal code change turning on new linting rules.
--   [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) -
-    Updated styles to use new input design tokens
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381)
+  [`e4abd2c2888`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4abd2c2888) - Update
+  token used for background color of subtle text area on hover
+- [`926f9b57c59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/926f9b57c59) - Internal
+  code change turning on new linting rules.
+- [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) - Updated
+  styles to use new input design tokens
 
 ## 4.3.7
 
 ### Patch Changes
 
--   [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642)
-    [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved
-    to using declarative entrypoints internally. Public API is unchanged.
+- [#22642](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22642)
+  [`45ebe7af434`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ebe7af434) - Moved to
+  using declarative entrypoints internally. Public API is unchanged.
 
 ## 4.3.6
 
 ### Patch Changes
 
--   [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570)
-    [`f63824e8227`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f63824e8227) - [ux]
-    Updated input tokens within `@atlaskit/textarea`.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570)
+  [`f63824e8227`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f63824e8227) - [ux]
+  Updated input tokens within `@atlaskit/textarea`.
 
 ## 4.3.5
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.3.4
 
 ### Patch Changes
 
--   [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
-    [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) -
-    Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
+  [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade
+  to TypeScript 4.2.4
 
 ## 4.3.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.3.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.3.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.3.0
 
 ### Minor Changes
 
--   [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526)
-    [`2e56ff8ea50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e56ff8ea50) - [ux]
-    Fixed a bug where smart resize did not work when the value prop was changed
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526)
+  [`2e56ff8ea50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e56ff8ea50) - [ux]
+  Fixed a bug where smart resize did not work when the value prop was changed
 
 ## 4.2.6
 
 ### Patch Changes
 
--   [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752)
-    [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The
-    no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when
-    auto-fixing by correctly formatting token ids.
--   Updated dependencies
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752)
+  [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - The
+  no-unsafe-design-token-usage eslint rule now respects the new token naming conventions when
+  auto-fixing by correctly formatting token ids.
+- Updated dependencies
 
 ## 4.2.5
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.2.4
 
 ### Patch Changes
 
--   [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998)
-    [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds
-    for this package now pass through a tokens babel plugin, removing runtime invocations of the
-    tokens() function and improving bundle size.
--   [`af7c289395b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af7c289395b) - Fix
-    TypeScript issue where text area HTML attributes were not exposed in component prop types.
--   Updated dependencies
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998)
+  [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds
+  for this package now pass through a tokens babel plugin, removing runtime invocations of the
+  tokens() function and improving bundle size.
+- [`af7c289395b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af7c289395b) - Fix
+  TypeScript issue where text area HTML attributes were not exposed in component prop types.
+- Updated dependencies
 
 ## 4.2.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.2.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.2.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 4.2.0
 
 ### Minor Changes
 
--   [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302)
-    [`ae281b57bcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae281b57bcd) -
-    Instrumented Radio with the new theming package, `@atlaskit/tokens`.
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302)
+  [`ae281b57bcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae281b57bcd) -
+  Instrumented Radio with the new theming package, `@atlaskit/tokens`.
 
-    New tokens will be visible only in applications configured to use the new Tokens API (currently
-    in alpha). These changes are intended to be interoperable with the legacy theme implementation.
-    Legacy dark mode users should expect no visual or breaking changes
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in
+  alpha). These changes are intended to be interoperable with the legacy theme implementation.
+  Legacy dark mode users should expect no visual or breaking changes
 
 ### Patch Changes
 
--   [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) -
-    Updates token usage to match the latest token set
--   Updated dependencies
+- [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) - Updates
+  token usage to match the latest token set
+- Updated dependencies
 
 ## 4.1.3
 
 ### Patch Changes
 
--   [#13728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13728)
-    [`c5785203506`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5785203506) -
-    Updated homepage in package.json
+- [#13728](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13728)
+  [`c5785203506`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5785203506) - Updated
+  homepage in package.json
 
 ## 4.1.2
 
 ### Patch Changes
 
--   [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880)
-    [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump
-    `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880)
+  [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump
+  `@atlaskit/theme` to version `^11.3.0`.
 
 ## 4.1.1
 
 ### Patch Changes
 
--   [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167)
-    [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) -
-    Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167)
+  [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates
+  to development dependency `storybook-addon-performance`
 
 ## 4.1.0
 
 ### Minor Changes
 
--   [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113)
-    [`7af2427f3a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7af2427f3a8) - [ux]
-    Update form field examples for validation and add a new prop to RadioGroup component
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113)
+  [`7af2427f3a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7af2427f3a8) - [ux]
+  Update form field examples for validation and add a new prop to RadioGroup component
 
 ## 4.0.2
 
 ### Patch Changes
 
--   [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644)
-    [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use
-    injected package name and version for analytics instead of version.json.
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644)
+  [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use
+  injected package name and version for analytics instead of version.json.
 
 ## 4.0.1
 
 ### Patch Changes
 
--   [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
-    [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) -
-    Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
+  [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile
+  packages using babel rather than tsc
 
 ## 4.0.0
 
 ### Major Changes
 
--   [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860)
-    [`782b6e5182`](https://bitbucket.org/atlassian/atlassian-frontend/commits/782b6e5182) - ###
-    Brief
+- [#5860](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5860)
+  [`782b6e5182`](https://bitbucket.org/atlassian/atlassian-frontend/commits/782b6e5182) - ### Brief
 
-    The goal of this major for textarea is to improve the component's performance, by both
+  The goal of this major for textarea is to improve the component's performance, by both
 
-    reducing static structure and avoiding unnecessary function calls.
+  reducing static structure and avoiding unnecessary function calls.
 
-    We have made internal refactors and optimizations to improve textarea performance. Some changes
-    made are as follows:
+  We have made internal refactors and optimizations to improve textarea performance. Some changes
+  made are as follows:
 
-    -   Moving TextArea to a single element (removed an internal wrapping element)
+  - Moving TextArea to a single element (removed an internal wrapping element)
 
-    -   Replace `styled-components` to `emotion` as styling library
+  - Replace `styled-components` to `emotion` as styling library
 
-    -   Moving internal component analytics to a more efficient usePlatformLeafEventHandler hook
+  - Moving internal component analytics to a more efficient usePlatformLeafEventHandler hook
 
-    -   Refactoring styles to recalculate only when theme & certain props change
+  - Refactoring styles to recalculate only when theme & certain props change
 
-    -   Controlling CSS change via attributes instead of props
+  - Controlling CSS change via attributes instead of props
 
-    #### TextArea now has single DOM element
+  #### TextArea now has single DOM element
 
-    DOM element 2 -> 1 Removed div surrounding (wrapper) native textarea element and moved all
-    behaviors and CSS to that single element.
+  DOM element 2 -> 1 Removed div surrounding (wrapper) native textarea element and moved all
+  behaviors and CSS to that single element.
 
-    Measuring the height of the textarea element will now get different raw values because the text
-    area is now rendering it’s own padding and border, but computed height is still the same.
+  Measuring the height of the textarea element will now get different raw values because the text
+  area is now rendering it’s own padding and border, but computed height is still the same.
 
-    #### Upgrading with codemod
+  #### Upgrading with codemod
 
-    ```
+  ```
 
-    # You first need to have the latest textarea installed before you can run the codemod
+  # You first need to have the latest textarea installed before you can run the codemod
 
-    yarn upgrade @atlaskit/textarea@^4.0.0
-    ```
+  yarn upgrade @atlaskit/textarea@^4.0.0
+  ```
 
 # Run the codemod cli
 
@@ -767,166 +764,163 @@ withAnalyticsEvents<Props>()(Button);
 
 ### Patch Changes
 
--   [patch][29a1f158c1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/29a1f158c1):
+- [patch][29a1f158c1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/29a1f158c1):
 
-    Use default react import in typescript files.
+  Use default react import in typescript files.
 
 ## 2.1.0
 
 ### Minor Changes
 
--   [minor][2b26a6f408](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2b26a6f408):
+- [minor][2b26a6f408](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2b26a6f408):
 
-    Added placeholder prop for textareas
+  Added placeholder prop for textareas
 
 ## 2.0.0
 
--   [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
+- [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
 
-    -   Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
-        this package, please ensure you use at least this version of react and react-dom.
+  - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
+    this package, please ensure you use at least this version of react and react-dom.
 
 ## 1.0.0
 
--   [major][dd95622388](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dd95622388):
+- [major][dd95622388](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dd95622388):
 
-    -   This major release indicates that this package is no longer under dev preview but is ready
-        for use
+  - This major release indicates that this package is no longer under dev preview but is ready for
+    use
 
 ## 0.4.6
 
--   [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
+- [patch][0a4ccaafae](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0a4ccaafae):
 
-    -   Bump tslib
+  - Bump tslib
 
 ## 0.4.5
 
--   [patch][cd67ae87f8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cd67ae87f8):
+- [patch][cd67ae87f8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cd67ae87f8):
 
-    -   Stop defaultValue from being omitted from props that are spread onto textarea
-    -   Constraint type of value and defaultValue to string
+  - Stop defaultValue from being omitted from props that are spread onto textarea
+  - Constraint type of value and defaultValue to string
 
 ## 0.4.4
 
--   Updated dependencies
-    [9c0b4744be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0b4744be):
-    -   @atlaskit/docs@7.0.3
-    -   @atlaskit/button@12.0.3
-    -   @atlaskit/theme@8.1.7
+- Updated dependencies
+  [9c0b4744be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0b4744be):
+  - @atlaskit/docs@7.0.3
+  - @atlaskit/button@12.0.3
+  - @atlaskit/theme@8.1.7
 
 ## 0.4.3
 
--   [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
+- [patch][3f28e6443c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f28e6443c):
 
-    -   @atlaskit/analytics-next-types is deprecated. Now you can use types for
-        @atlaskit/analytics-next supplied from itself.
+  - @atlaskit/analytics-next-types is deprecated. Now you can use types for @atlaskit/analytics-next
+    supplied from itself.
 
 ## 0.4.2
 
--   [patch][cf018d7630](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cf018d7630):
+- [patch][cf018d7630](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cf018d7630):
 
-    -   Allow RefObject to be passed in as ref (i.e. using React.createRef()) and set inner padding
-        to 0
+  - Allow RefObject to be passed in as ref (i.e. using React.createRef()) and set inner padding to 0
 
 ## 0.4.1
 
--   Updated dependencies
-    [1e826b2966](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e826b2966):
-    -   @atlaskit/docs@7.0.2
-    -   @atlaskit/analytics-next@4.0.3
-    -   @atlaskit/theme@8.1.6
-    -   @atlaskit/button@12.0.0
+- Updated dependencies
+  [1e826b2966](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e826b2966):
+  - @atlaskit/docs@7.0.2
+  - @atlaskit/analytics-next@4.0.3
+  - @atlaskit/theme@8.1.6
+  - @atlaskit/button@12.0.0
 
 ## 0.4.0
 
--   [minor][f504850fe2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f504850fe2):
+- [minor][f504850fe2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f504850fe2):
 
-    -   Fix bug: previous size was size for isCompact, and isCompact did not do anything. Now normal
-        textarea is slightly larger and isCompact makes it the previous size
+  - Fix bug: previous size was size for isCompact, and isCompact did not do anything. Now normal
+    textarea is slightly larger and isCompact makes it the previous size
 
 ## 0.3.2
 
--   [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
+- [patch][1bcaa1b991](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1bcaa1b991):
 
-    -   Add npmignore for index.ts to prevent some jest tests from resolving that instead of
-        index.js
+  - Add npmignore for index.ts to prevent some jest tests from resolving that instead of index.js
 
 ## 0.3.1
 
--   [patch][90a14be594](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/90a14be594):
+- [patch][90a14be594](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/90a14be594):
 
-    -   Fix broken type-helpers
+  - Fix broken type-helpers
 
 ## 0.3.0
 
--   [minor][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
+- [minor][9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
 
-    -   Dropped ES5 distributables from the typescript packages
+  - Dropped ES5 distributables from the typescript packages
 
 ## 0.2.6
 
--   [patch][1b952c437d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1b952c437d):
+- [patch][1b952c437d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1b952c437d):
 
-    -   Change order of props spread to fix textarea focus glow, and smart resizing when onChange
-        passed in
+  - Change order of props spread to fix textarea focus glow, and smart resizing when onChange passed
+    in
 
 ## 0.2.5
 
--   Updated dependencies
-    [76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
-    -   @atlaskit/button@10.1.3
-    -   @atlaskit/docs@7.0.0
-    -   @atlaskit/analytics-next@4.0.0
-    -   @atlaskit/theme@8.0.0
+- Updated dependencies
+  [76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
+  - @atlaskit/button@10.1.3
+  - @atlaskit/docs@7.0.0
+  - @atlaskit/analytics-next@4.0.0
+  - @atlaskit/theme@8.0.0
 
 ## 0.2.4
 
--   [patch][aab267bb3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aab267bb3a):
+- [patch][aab267bb3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aab267bb3a):
 
-    -   Added test to make sure the props are passed down to hidden input
+  - Added test to make sure the props are passed down to hidden input
 
 ## 0.2.3
 
--   Updated dependencies [58b84fa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58b84fa):
-    -   @atlaskit/analytics-next@3.1.2
-    -   @atlaskit/button@10.1.1
-    -   @atlaskit/theme@7.0.1
-    -   @atlaskit/docs@6.0.0
+- Updated dependencies [58b84fa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58b84fa):
+  - @atlaskit/analytics-next@3.1.2
+  - @atlaskit/button@10.1.1
+  - @atlaskit/theme@7.0.1
+  - @atlaskit/docs@6.0.0
 
 ## 0.2.2
 
--   [patch][9e6b592](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9e6b592):
+- [patch][9e6b592](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9e6b592):
 
-    -   Added tslib import for textarea
+  - Added tslib import for textarea
 
 ## 0.2.1
 
--   [patch][d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
+- [patch][d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
 
-    -   Change API to experimental theming API to namespace component themes into separate contexts
-        and make theming simpler. Update all dependant components.
+  - Change API to experimental theming API to namespace component themes into separate contexts and
+    make theming simpler. Update all dependant components.
 
 ## 0.2.0
 
--   [minor][76a8f1c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76a8f1c):
+- [minor][76a8f1c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76a8f1c):
 
-    -   Convert @atlaskit/textarea to Typescript
-        -   Dist paths have changed, if you are importing by exact file path you will need to update
-            your imports `import '@atlaskit/button/dist/es5/components/ButtonGroup'`
-        -   Flow types are not present any more, Typescript definitions are shipped instead
+  - Convert @atlaskit/textarea to Typescript
+    - Dist paths have changed, if you are importing by exact file path you will need to update your
+      imports `import '@atlaskit/button/dist/es5/components/ButtonGroup'`
+    - Flow types are not present any more, Typescript definitions are shipped instead
 
 ## 0.1.1
 
--   Updated dependencies [6998f11](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6998f11):
-    -   @atlaskit/docs@5.2.1
-    -   @atlaskit/analytics-next@3.1.1
-    -   @atlaskit/theme@6.2.1
-    -   @atlaskit/button@10.0.0
+- Updated dependencies [6998f11](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6998f11):
+  - @atlaskit/docs@5.2.1
+  - @atlaskit/analytics-next@3.1.1
+  - @atlaskit/theme@6.2.1
+  - @atlaskit/button@10.0.0
 
 ## 0.1.0
 
--   [minor][9d77c4e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d77c4e):
+- [minor][9d77c4e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d77c4e):
 
-    -   New textarea package, meant to be a replacement for field-text-area, normalised component
-        architecture, removed dependency on @atlaskit/field-base, updated to use new @atlaskit/theme
-        api
+  - New textarea package, meant to be a replacement for field-text-area, normalised component
+    architecture, removed dependency on @atlaskit/field-base, updated to use new @atlaskit/theme api

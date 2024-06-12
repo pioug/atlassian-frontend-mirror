@@ -14,7 +14,7 @@ This ensures that style declarations:
 import { styled } from '@compiled/react';
 
 const Component = styled.div<{ width: number }>((props) => ({
-  width: props.width,
+	width: props.width,
 }));
 ```
 
@@ -22,7 +22,7 @@ const Component = styled.div<{ width: number }>((props) => ({
 import styled from 'styled-components';
 
 const Component = styled.div<{ width: number }>({
-  width: (props) => props.width,
+	width: (props) => props.width,
 });
 ```
 
@@ -30,8 +30,7 @@ const Component = styled.div<{ width: number }>({
 import styled from 'styled-components';
 
 const Container = styled.div<hasPadding>({
-  padding: ({ hasPadding }) =>
-    hasPadding ? token('space.100', '8px') : token('space.0', '0px'),
+	padding: ({ hasPadding }) => (hasPadding ? token('space.100', '8px') : token('space.0', '0px')),
 });
 ```
 
@@ -39,8 +38,8 @@ const Container = styled.div<hasPadding>({
 
 **Flags**
 
-If you have a style that is on/off depending on a prop,
-use the `css` prop to conditionally apply it.
+If you have a style that is on/off depending on a prop, use the `css` prop to conditionally apply
+it.
 
 ```tsx
 import { css } from '@compiled/react';
@@ -49,14 +48,14 @@ const baseStyles = css({ padding: token('space.0') });
 const hasPaddingStyles = css({ padding: token('space.100') });
 
 const Container = ({ hasPadding = false }: { hasPadding?: boolean }) => {
-  return <div css={[baseStyles, hasPadding && hasPaddingStyles]} />;
+	return <div css={[baseStyles, hasPadding && hasPaddingStyles]} />;
 };
 ```
 
 **Variants**
 
-If you have variants which are known ahead of time,
-use `cssMap` to define them and the `css` prop to conditionally apply it.
+If you have variants which are known ahead of time, use `cssMap` to define them and the `css` prop
+to conditionally apply it.
 
 ```tsx
 import { css } from '@compiled/react';
@@ -80,8 +79,7 @@ const Wrapper = ({ appearance = 'primary' }: { appearance?: 'primary' | 'error' 
 
 **Dynamic values**
 
-If you have styles which are truly dynamic,
-use the `style` prop.
+If you have styles which are truly dynamic, use the `style` prop.
 
 This approach should be used as a last resort.
 
@@ -89,7 +87,7 @@ This approach should be used as a last resort.
 import { css } from '@compiled/react';
 
 const Component = ({ width }: { width: number }) => {
-  return <div style={{ width }} />;
+	return <div style={{ width }} />;
 };
 ```
 
@@ -97,15 +95,13 @@ const Component = ({ width }: { width: number }) => {
 import { css } from '@compiled/react';
 
 const containerStyles = css({
-  '::before': {
-    width: 'var(--ak-example-width)',
-  },
+	'::before': {
+		width: 'var(--ak-example-width)',
+	},
 });
 
 function Example({ width }: { width: number }) {
-  return (
-    <div css={containerStyles} style={{ '--ak-example-width': `${width}px` }} />
-  );
+	return <div css={containerStyles} style={{ '--ak-example-width': `${width}px` }} />;
 }
 ```
 
@@ -123,4 +119,5 @@ By default, this rule will check usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an
+array of package names (strings).

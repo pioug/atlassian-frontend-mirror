@@ -8,59 +8,57 @@ import { default as NestingItem } from '../../../NestingItem';
 import { HeadingItem, Section } from '../../index';
 
 describe('Section', () => {
-  const callbacks = {
-    currentStackId: ROOT_ID,
-    onNest: jest.fn(),
-    onUnNest: jest.fn(),
-    stack: [],
-    parentId: ROOT_ID,
-    forceShowTopScrollIndicator: false,
-    childIds: jest
-      .spyOn(React, 'useRef')
-      .mockReturnValue({ current: new Set<string>() }) as any,
-  };
+	const callbacks = {
+		currentStackId: ROOT_ID,
+		onNest: jest.fn(),
+		onUnNest: jest.fn(),
+		stack: [],
+		parentId: ROOT_ID,
+		forceShowTopScrollIndicator: false,
+		childIds: jest.spyOn(React, 'useRef').mockReturnValue({ current: new Set<string>() }) as any,
+	};
 
-  it('should render a Section when contained in an active nested view', () => {
-    const { queryByText, rerender } = render(
-      <NestedContext.Provider value={{ ...callbacks }}>
-        <NestingItem id="1" title="Nest">
-          <Section>Hello world</Section>
-        </NestingItem>
-      </NestedContext.Provider>,
-    );
+	it('should render a Section when contained in an active nested view', () => {
+		const { queryByText, rerender } = render(
+			<NestedContext.Provider value={{ ...callbacks }}>
+				<NestingItem id="1" title="Nest">
+					<Section>Hello world</Section>
+				</NestingItem>
+			</NestedContext.Provider>,
+		);
 
-    expect(queryByText('Hello world')).toBeFalsy();
+		expect(queryByText('Hello world')).toBeFalsy();
 
-    rerender(
-      <NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
-        <NestingItem id="1" title="Nest">
-          <Section>Hello world</Section>
-        </NestingItem>
-      </NestedContext.Provider>,
-    );
+		rerender(
+			<NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
+				<NestingItem id="1" title="Nest">
+					<Section>Hello world</Section>
+				</NestingItem>
+			</NestedContext.Provider>,
+		);
 
-    expect(queryByText('Hello world')).toBeTruthy();
-  });
+		expect(queryByText('Hello world')).toBeTruthy();
+	});
 
-  it('should render a HeadingItem when contained in an active nested view', () => {
-    const { queryByText, rerender } = render(
-      <NestedContext.Provider value={{ ...callbacks }}>
-        <NestingItem id="1" title="Nest">
-          <HeadingItem>Hello world</HeadingItem>
-        </NestingItem>
-      </NestedContext.Provider>,
-    );
+	it('should render a HeadingItem when contained in an active nested view', () => {
+		const { queryByText, rerender } = render(
+			<NestedContext.Provider value={{ ...callbacks }}>
+				<NestingItem id="1" title="Nest">
+					<HeadingItem>Hello world</HeadingItem>
+				</NestingItem>
+			</NestedContext.Provider>,
+		);
 
-    expect(queryByText('Hello world')).toBeFalsy();
+		expect(queryByText('Hello world')).toBeFalsy();
 
-    rerender(
-      <NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
-        <NestingItem id="1" title="Nest">
-          <HeadingItem>Hello world</HeadingItem>
-        </NestingItem>
-      </NestedContext.Provider>,
-    );
+		rerender(
+			<NestedContext.Provider value={{ ...callbacks, currentStackId: '1' }}>
+				<NestingItem id="1" title="Nest">
+					<HeadingItem>Hello world</HeadingItem>
+				</NestingItem>
+			</NestedContext.Provider>,
+		);
 
-    expect(queryByText('Hello world')).toBeTruthy();
-  });
+		expect(queryByText('Hello world')).toBeTruthy();
+	});
 });

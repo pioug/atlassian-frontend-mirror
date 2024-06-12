@@ -130,14 +130,19 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	const emojiChooseFileTitle = formatMessage(messages.emojiChooseFileTitle);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={emojiUpload} data-testid={uploadEmojiComponentTestId}>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={emojiUploadTop}>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<h2 css={[uploadChooseFileMessage, headingH5]}>
 					<FormattedMessage {...messages.addCustomEmojiLabel} />
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<span aria-hidden="true" css={requiredSymbol}>
 						*
 					</span>
 				</h2>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={closeEmojiUploadButton}>
 					<AkButton
 						onClick={onUploadCancelled}
@@ -151,7 +156,9 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					</AkButton>
 				</div>
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={uploadChooseFileRow}>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<span css={uploadChooseFileEmojiName}>
 					<TextField
 						placeholder={emojiPlaceholder}
@@ -168,6 +175,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						aria-required={true}
 					/>
 				</span>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<span css={uploadChooseFileBrowse}>
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
@@ -183,6 +191,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					</FormattedMessage>
 				</span>
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={emojiUploadBottom} id={fileChooserButtonDescriptionId}>
 				{!errorMessage ? (
 					<p>

@@ -5,11 +5,11 @@ import { Grid } from '@atlaskit/primitives';
 import ExampleBox from '../shared/example-box';
 
 export default function Basic() {
-  return (
-    <Grid autoFlow="column" gap="space.200">
-      <ExampleBox />
-      <ExampleBox />
-      <ExampleBox />
-    </Grid>
-  );
+	return (
+		<Grid autoFlow="column" gap="space.200">
+			<ExampleBox />
+			<ExampleBox />
+			<ExampleBox />
+		</Grid>
+	);
 }

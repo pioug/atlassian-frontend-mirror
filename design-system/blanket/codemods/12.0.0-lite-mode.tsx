@@ -1,18 +1,15 @@
 import { type JSCodeshift } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
-import {
-  createTransformer,
-  hasImportDeclaration,
-} from '@atlaskit/codemod-utils';
+import { createTransformer, hasImportDeclaration } from '@atlaskit/codemod-utils';
 
 import { BLANKET_PACKAGE_NAME } from './internal/constants';
 import { renameCanClickThrough } from './migrations/rename-canclickthrough-to-shouldallowclickthrough';
 
 const transformer = createTransformer(
-  [renameCanClickThrough],
-  (j: JSCodeshift, source: Collection<Node>) =>
-    hasImportDeclaration(j, source, BLANKET_PACKAGE_NAME),
+	[renameCanClickThrough],
+	(j: JSCodeshift, source: Collection<Node>) =>
+		hasImportDeclaration(j, source, BLANKET_PACKAGE_NAME),
 );
 
 export default transformer;

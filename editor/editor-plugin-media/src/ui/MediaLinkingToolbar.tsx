@@ -151,7 +151,9 @@ export class LinkAddToolbar extends React.PureComponent<Props & WrappedComponent
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			<div className="recent-list">
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={[container, !!activityProvider && containerWithProvider]}>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={inputWrapper}>
 						<span css={buttonWrapper}>
 							<Button

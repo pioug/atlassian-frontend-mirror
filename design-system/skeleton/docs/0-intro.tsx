@@ -9,18 +9,13 @@ export default md`
   ## Usage
 
   ${(
-    <Example
-      packageName="@atlaskit/skeleton"
-      Component={require('../examples/constellation/skeleton-basic').default}
-      title="Basic example"
-      source={require('!!raw-loader!../examples/all')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/skeleton"
+			Component={require('../examples/constellation/skeleton-basic').default}
+			title="Basic example"
+			source={require('!!raw-loader!../examples/all')}
+		/>
+	)}
 
-  ${(
-    <Props
-      heading="Skeleton Props"
-      props={require('!!extract-react-types-loader!../src')}
-    />
-  )}
+  ${(<Props heading="Skeleton Props" props={require('!!extract-react-types-loader!../src')} />)}
 `;

@@ -84,7 +84,9 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 		!!props.customPrimaryToolbarComponents && !!props.featureFlags?.twoLineEditorToolbar;
 
 	const nonCustomToolbar = (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={nonCustomToolbarWrapperStyle}>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			{props.beforeIcon && <div css={mainToolbarIconBeforeStyle}>{props.beforeIcon}</div>}
 			<Toolbar
 				editorView={props.editorView}
@@ -106,6 +108,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 	);
 
 	const customToolbar = (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={customToolbarWrapperStyle}>
 			{twoLineEditorToolbar &&
 			!!props.customPrimaryToolbarComponents &&
@@ -180,10 +183,12 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 					intl={props.intl}
 				>
 					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						css={mainToolbarStyle(props.showKeyline || contextPanelWidth > 0, twoLineEditorToolbar)}
 						data-testid="ak-editor-main-toolbar"
 					>
 						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={mainToolbarFirstChildStyle(twoLineEditorToolbar)}
 							role="toolbar"
 							aria-label={props.intl.formatMessage(messages.toolbarLabel)}
@@ -191,6 +196,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 							{shouldSplitToolbar ? customToolbar : nonCustomToolbar}
 						</div>
 						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={mainToolbarSecondChildStyle(twoLineEditorToolbar)}
 							data-testid={'avatar-group-outside-plugin'}
 							role="region"

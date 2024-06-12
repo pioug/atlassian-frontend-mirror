@@ -5,9 +5,9 @@ import transformer from '../1.6.0-level-to-size';
 import { check } from './_framework';
 
 check({
-  transformer,
-  it: 'should replace level with size only on Heading component',
-  original: `
+	transformer,
+	it: 'should replace level with size only on Heading component',
+	original: `
     import Heading from '@atlaskit/heading';
 
     function App() {
@@ -17,7 +17,7 @@ check({
       </>;
     }
   `,
-  expected: `
+	expected: `
     import Heading from '@atlaskit/heading';
 
     function App() {
@@ -30,9 +30,9 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should do nothing if level is h200 or h100',
-  original: `
+	transformer,
+	it: 'should do nothing if level is h200 or h100',
+	original: `
     import Heading from '@atlaskit/heading';
 
     function App() {
@@ -43,7 +43,7 @@ check({
       </>;
     }
   `,
-  expected: `
+	expected: `
     import Heading from '@atlaskit/heading';
 
     function App() {
@@ -57,9 +57,9 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should do nothing if size already exists',
-  original: `
+	transformer,
+	it: 'should do nothing if size already exists',
+	original: `
     import Heading from '@atlaskit/heading';
 
     function App() {
@@ -68,7 +68,7 @@ check({
       </>;
     }
   `,
-  expected: `
+	expected: `
     import Heading from '@atlaskit/heading';
 
     function App() {

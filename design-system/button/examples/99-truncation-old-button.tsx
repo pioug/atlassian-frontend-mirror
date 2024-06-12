@@ -7,33 +7,33 @@ import Question from '@atlaskit/icon/glyph/question';
 import Button from '../src';
 
 const narrowWrapperStyles = css({
-  width: '190px',
-  margin: '10px',
-  padding: '10px',
-  border: '1px solid red',
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '& > *': {
-    marginBlockEnd: '10px',
-    '&:last-child': {
-      marginBlockEnd: 0,
-    },
-  },
+	width: '190px',
+	margin: '10px',
+	padding: '10px',
+	border: '1px solid red',
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'& > *': {
+		marginBlockEnd: '10px',
+		'&:last-child': {
+			marginBlockEnd: 0,
+		},
+	},
 });
 
 export default () => (
-  <div css={narrowWrapperStyles}>
-    <div>
-      <Button appearance="primary">I am wider than my parent</Button>
-    </div>
-    <div>
-      <Button appearance="primary" iconBefore={<Question label="" />}>
-        I am wider than my parent
-      </Button>
-    </div>
-    <div>
-      <Button appearance="primary" iconAfter={<Expand label="" />}>
-        I am wider than my parent
-      </Button>
-    </div>
-  </div>
+	<div css={narrowWrapperStyles}>
+		<div>
+			<Button appearance="primary">I am wider than my parent</Button>
+		</div>
+		<div>
+			<Button appearance="primary" iconBefore={<Question label="" />}>
+				I am wider than my parent
+			</Button>
+		</div>
+		<div>
+			<Button appearance="primary" iconAfter={<Expand label="" />}>
+				I am wider than my parent
+			</Button>
+		</div>
+	</div>
 );

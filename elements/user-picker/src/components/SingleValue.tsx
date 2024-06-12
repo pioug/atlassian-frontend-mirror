@@ -8,11 +8,14 @@ import { getAvatarUrl } from './utils';
 import { token } from '@atlaskit/tokens';
 
 const avatarItemComponent = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	border: 'none !important',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	padding: `${token('space.0', '0px')} !important`,
 	width: 'auto',
 	overflow: 'hidden',
 	minWidth: '100px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
 		boxSizing: 'border-box',
 	},

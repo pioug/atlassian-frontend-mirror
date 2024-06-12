@@ -10,27 +10,23 @@ import ShowHideExample from '../../../examples/constellation/responsive/show-hid
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 <CodeDocsHeader
-  name="@atlaskit/primitives"
-  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
-  directoryName="primitives"
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
 />
 
 ### Show
 
-Using `Show` allows you to show the children using CSS `display: …` when the viewport size is above a specified breakpoint. By default, unless the breakpoint is met, contents are hidden.
+Using `Show` allows you to show the children using CSS `display: …` when the viewport size is above
+a specified breakpoint. By default, unless the breakpoint is met, contents are hidden.
 
-Children that are not shown are still rendered into the DOM, so there so there is typically little performance savings — primarily that they are not painted.
+Children that are not shown are still rendered into the DOM, so there so there is typically little
+performance savings — primarily that they are not painted.
 
-<Example
-  Component={ShowExample}
-  packageName="@atlaskit/primitives/responsive"
-/>
+<Example Component={ShowExample} packageName="@atlaskit/primitives/responsive" />
 
 ### Mixing Show and Hide
 
 Prefer using consistent `above` or `below` for readability and consistency.
 
-<Example
-  Component={ShowHideExample}
-  packageName="@atlaskit/primitives/responsive"
-/>
+<Example Component={ShowHideExample} packageName="@atlaskit/primitives/responsive" />

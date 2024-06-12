@@ -10,10 +10,10 @@ const transformer = createTransformer([replacePositionToPlacement]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('replace position to placement', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -22,7 +22,7 @@ describe('replace position to placement', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -31,13 +31,13 @@ describe('replace position to placement', () => {
       </DropdownMenu>
     );
     `,
-    'should not change anything when position is not used',
-  );
+		'should not change anything when position is not used',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@material/dropdown-menu";
 
@@ -46,7 +46,7 @@ describe('replace position to placement', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@material/dropdown-menu";
 
@@ -55,13 +55,13 @@ describe('replace position to placement', () => {
       </DropdownMenu>
     );
     `,
-    'should not change position if the package is not from atlassian design system',
-  );
+		'should not change position if the package is not from atlassian design system',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -70,7 +70,7 @@ describe('replace position to placement', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -79,6 +79,6 @@ describe('replace position to placement', () => {
       </DropdownMenu>
     );
     `,
-    'should change position to placement and its value to align with enums defined in popper',
-  );
+		'should change position to placement and its value to align with enums defined in popper',
+	);
 });

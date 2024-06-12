@@ -2,18 +2,18 @@ import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 tester.run('local-cx-xcss', rule, {
-  valid: [
-    `
+	valid: [
+		`
       import { cx } from '@compiled/react';
 
       <Component xcss={cx({})} />
     `,
-    `
+		`
       import { cx } from '@compiled/react';
 
       <Component innerXcss={cx({})} />
     `,
-    `
+		`
       import { cx, cssMap } from '@compiled/react';
 
       const styles = cssMap({
@@ -23,7 +23,7 @@ tester.run('local-cx-xcss', rule, {
 
       <Button innerXcss={cx(styles.text, styles.bg)} />;
     `,
-    `
+		`
       // Ignore cx usage not from compiled
       const styles = cssMap({
         text: { color: 'red' },
@@ -34,13 +34,13 @@ tester.run('local-cx-xcss', rule, {
 
       <Button xcss={joinedStyles} />;
     `,
-    `
+		`
       // Ignore cx usage not from compiled
       const styles = cx({});
 
       <Component xcss={styles} />
     `,
-    `
+		`
       // Ignore cx usage where
       // the library is not specified in additionalCompiledLibraries
       import { cx } from 'custom-package';
@@ -48,19 +48,19 @@ tester.run('local-cx-xcss', rule, {
 
       <Component xcss={styles} />
     `,
-  ],
-  invalid: [
-    {
-      code: `
+	],
+	invalid: [
+		{
+			code: `
       import { cx } from '@compiled/react';
       const styles = cx({});
 
       <Component xcss={styles} />
     `,
-      errors: [{ messageId: 'local-cx-xcss' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'local-cx-xcss' }],
+		},
+		{
+			code: `
       import { cx, cssMap } from '@compiled/react';
 
       const styles = cssMap({
@@ -72,19 +72,19 @@ tester.run('local-cx-xcss', rule, {
 
       <Button xcss={joinedStyles} />;
     `,
-      errors: [{ messageId: 'local-cx-xcss' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'local-cx-xcss' }],
+		},
+		{
+			code: `
       import { cx } from '@compiled/react';
       const styles = cx({});
 
       <Component innerXcss={styles} />
     `,
-      errors: [{ messageId: 'local-cx-xcss' }],
-    },
-    {
-      code: `
+			errors: [{ messageId: 'local-cx-xcss' }],
+		},
+		{
+			code: `
       import { cx, cssMap } from '@compiled/react';
 
       const styles = cssMap({
@@ -96,7 +96,7 @@ tester.run('local-cx-xcss', rule, {
 
       <Button innerXcss={joinedStyles} />;
     `,
-      errors: [{ messageId: 'local-cx-xcss' }],
-    },
-  ],
+			errors: [{ messageId: 'local-cx-xcss' }],
+		},
+	],
 });

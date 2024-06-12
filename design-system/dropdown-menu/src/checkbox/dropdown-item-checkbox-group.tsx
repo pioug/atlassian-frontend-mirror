@@ -9,10 +9,10 @@ import GroupTitle from '../internal/components/group-title';
 import { CheckboxGroupContext } from '../internal/context/checkbox-group-context';
 
 interface DropdownItemCheckboxGroupProps extends SectionProps {
-  /**
-   * Unique identifier for the checkbox group.
-   */
-  id: string;
+	/**
+	 * Unique identifier for the checkbox group.
+	 */
+	id: string;
 }
 
 /**
@@ -22,41 +22,39 @@ interface DropdownItemCheckboxGroupProps extends SectionProps {
  *
  */
 const DropdownItemCheckboxGroup = ({
-  children,
-  hasSeparator,
-  id,
-  isList,
-  isScrollable,
-  overrides,
-  testId,
-  title,
-  // DSP-13312 TODO: remove spread props in future major release
-  ...rest
+	children,
+	hasSeparator,
+	id,
+	isList,
+	isScrollable,
+	overrides,
+	testId,
+	title,
+	// DSP-13312 TODO: remove spread props in future major release
+	...rest
 }: DropdownItemCheckboxGroupProps) => {
-  const uid = useUID();
-  const titleId = `dropdown-menu-item-checkbox-group-title-${uid}`;
+	const uid = useUID();
+	const titleId = `dropdown-menu-item-checkbox-group-title-${uid}`;
 
-  return (
-    <CheckboxGroupContext.Provider value={id}>
-      <Section
-        hasSeparator={hasSeparator}
-        id={id}
-        isList={isList}
-        isScrollable={isScrollable}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-        overrides={overrides}
-        testId={testId}
-        titleId={title ? titleId : undefined}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-        {...rest}
-      >
-        {title && (
-          <GroupTitle id={titleId} title={title} />
-        )}
-        {children}
-      </Section>
-    </CheckboxGroupContext.Provider>
-  );
+	return (
+		<CheckboxGroupContext.Provider value={id}>
+			<Section
+				hasSeparator={hasSeparator}
+				id={id}
+				isList={isList}
+				isScrollable={isScrollable}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+				overrides={overrides}
+				testId={testId}
+				titleId={title ? titleId : undefined}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
+			>
+				{title && <GroupTitle id={titleId} title={title} />}
+				{children}
+			</Section>
+		</CheckboxGroupContext.Provider>
+	);
 };
 
 export default DropdownItemCheckboxGroup;

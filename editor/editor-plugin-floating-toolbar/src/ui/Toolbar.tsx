@@ -402,28 +402,37 @@ const toolbarContainer = (
 			display: 'flex',
 			lineHeight: 1,
 			boxSizing: 'border-box',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'& > div > div': {
 				alignItems: 'center',
 			},
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		scrollable
-			? css(
+			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				css(
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					hasSelect
-						? css({
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							css({
 								height: '40px',
 							})
-						: css({
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							css({
 								height: '32px',
 							}),
 					{
 						overflow: 'hidden',
 					},
 				)
-			: css(
+			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				css(
 					{
 						padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
 					},
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					firstElementIsSelect &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css({
 							paddingLeft: token('space.050', '4px'),
 						}),
@@ -437,34 +446,45 @@ const toolbarOverflow = (
 	firstElementIsSelect?: boolean,
 ) =>
 	css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		scrollable
-			? css(
+			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				css(
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					scrollDisabled
-						? css({
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							css({
 								overflow: 'hidden',
 							})
-						: css({
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							css({
 								overflowX: 'auto',
 								overflowY: 'hidden',
 							}),
 					{
 						WebkitOverflowScrolling: 'touch',
 						padding: `${token('space.050', '4px')} 0 ${token('space.600', '48px')}`,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						'> div': {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							'> div:first-child': firstElementIsSelect
-								? css({
+								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									css({
 										marginLeft: token('space.050', '4px'),
 									})
-								: css({
+								: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									css({
 										marginLeft: token('space.100', '8px'),
 									}),
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 							'> div:last-child': {
 								marginRight: token('space.100', '8px'),
 							},
 						},
 					},
 				)
-			: css({ display: 'flex' }),
+			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				css({ display: 'flex' }),
 	);
 
 export interface State {

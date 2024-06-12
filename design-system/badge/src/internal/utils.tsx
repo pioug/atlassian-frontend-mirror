@@ -1,23 +1,23 @@
 function getSafeValue(value: string | number = 0) {
-  const numericValue = +value;
-  if (numericValue < 0) {
-    return 0;
-  }
+	const numericValue = +value;
+	if (numericValue < 0) {
+		return 0;
+	}
 
-  return value;
+	return value;
 }
 
 export function formatValue(value?: string | number, max?: number) {
-  const safeValue = getSafeValue(value);
-  const safeMax = getSafeValue(max);
+	const safeValue = getSafeValue(value);
+	const safeMax = getSafeValue(max);
 
-  if (safeMax && safeMax < safeValue) {
-    return `${safeMax}+`;
-  }
+	if (safeMax && safeMax < safeValue) {
+		return `${safeMax}+`;
+	}
 
-  if (safeValue === Infinity) {
-    return '∞';
-  }
+	if (safeValue === Infinity) {
+		return '∞';
+	}
 
-  return safeValue.toString();
+	return safeValue.toString();
 }

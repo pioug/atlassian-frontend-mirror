@@ -2,5 +2,5 @@
 import { type BreadcrumbsProps } from '../src/types';
 
 export default function BreadcrumbProps(props: BreadcrumbsProps) {
-  return null;
+	return null;
 }

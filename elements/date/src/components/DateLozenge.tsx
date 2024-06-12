@@ -100,6 +100,7 @@ export const DateLozenge = (props: Props) => {
 		<span
 			css={[
 				baseStyles,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				{
 					cursor: props.onClick ? 'pointer' : 'unset',
 					background: background,

@@ -5,6 +5,6 @@ export type TokenName = keyof typeof tokenNames;
 export type BaseTokens = typeof baseTokens;
 export type ColorMode = 'light' | 'dark';
 export type Theme = {
-  name: TokenName;
-  value: string;
+	name: TokenName;
+	value: string;
 }[];

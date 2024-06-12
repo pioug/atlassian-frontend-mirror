@@ -42,11 +42,15 @@ const getGradientWithColor = (color: string) => {
 const containerStyles = css({
 	position: 'relative',
 	lineHeight: 'normal',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':active': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		[`.${ICON_AND_LABEL_CLASSNAME}`]: {
 			background: SMART_LINK_ACTIVE_COLOR,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		[`.${OVERLAY_GRADIENT_CLASSNAME}`]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			background: getGradientWithColor(SMART_LINK_ACTIVE_COLOR),
 		},
 	},
@@ -78,6 +82,7 @@ const showOverlayStyles = css({
 
 const iconStyles = css({
 	// Position icon in the middle
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	span: {
 		display: 'flex',
 	},
@@ -112,6 +117,7 @@ const overflowingContainerStyles = css({
 const gradientStyles = css({
 	width: '2.5rem',
 	height: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	background: getGradientWithColor(SMART_LINK_BACKGROUND_COLOR),
 });
 

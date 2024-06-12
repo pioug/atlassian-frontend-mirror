@@ -40,10 +40,10 @@ import {
   `}
 
   ${(
-    <Example
-      title="Menu"
-      Component={require('../examples/menu').default}
-      source={require('!!raw-loader!../examples/menu')}
-    />
-  )}
+		<Example
+			title="Menu"
+			Component={require('../examples/menu').default}
+			source={require('!!raw-loader!../examples/menu')}
+		/>
+	)}
 `;

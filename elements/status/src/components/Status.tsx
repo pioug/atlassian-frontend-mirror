@@ -37,7 +37,9 @@ const MAX_WIDTH = 200;
  * See DSP-7701 for additional context.
  */
 const inlineBlockStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		display: 'inline-block !important',
 		lineHeight: '16px',
 		verticalAlign: 'middle',

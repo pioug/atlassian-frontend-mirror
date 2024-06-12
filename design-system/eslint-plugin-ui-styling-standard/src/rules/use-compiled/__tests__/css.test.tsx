@@ -4,28 +4,28 @@ import rule from '../index';
 const importSources = ['@emotion/core', '@emotion/react', 'styled-components'];
 
 tester.run('css API - fixable', rule, {
-  valid: [],
-  invalid: importSources.flatMap((importSource) => [
-    {
-      name: `[${importSource}] styles are a plain object with literal values`,
-      code: `
+	valid: [],
+	invalid: importSources.flatMap((importSource) => [
+		{
+			name: `[${importSource}] styles are a plain object with literal values`,
+			code: `
         import { css } from '${importSource}';
 
         const Component = css({
           color: 'red',
         });
       `,
-      output: `
+			output: `
         import { css } from '@compiled/react';
 
         const Component = css({
           color: 'red',
         });
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-  ]),
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+	]),
 });
 
 /**
@@ -33,35 +33,35 @@ tester.run('css API - fixable', rule, {
  * them unsafe to automatically convert.
  */
 tester.run('css API - not fixable', rule, {
-  valid: [],
-  invalid: importSources.flatMap((importSource) => [
-    {
-      name: `[${importSource}] function as style argument`,
-      code: `
+	valid: [],
+	invalid: importSources.flatMap((importSource) => [
+		{
+			name: `[${importSource}] function as style argument`,
+			code: `
         import { css } from '${importSource}';
 
         const Component = css(() => ({
           color: 'red',
         }));
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: `[${importSource}] function as style object value`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: `[${importSource}] function as style object value`,
+			code: `
         import { css } from '${importSource}';
 
         const Component = css({
           color: () => 'red',
         });
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: `[${importSource}] identifier as style object value`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: `[${importSource}] identifier as style object value`,
+			code: `
         import { css } from '${importSource}';
 
         const textColor = 'red';
@@ -69,16 +69,16 @@ tester.run('css API - not fixable', rule, {
           color: textColor,
         });
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      /**
-       * We could auto-fix this safely but intentionally
-       * keeping this rule very simple for now.
-       */
-      name: `[${importSource}] function call as style object value`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			/**
+			 * We could auto-fix this safely but intentionally
+			 * keeping this rule very simple for now.
+			 */
+			name: `[${importSource}] function call as style object value`,
+			code: `
         import { css } from '${importSource}';
         import { token } from '@atlaskit/tokens';
 
@@ -86,24 +86,24 @@ tester.run('css API - not fixable', rule, {
           color: token('color.text'),
         });
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: `[${importSource}] with unsupported named import`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: `[${importSource}] with unsupported named import`,
+			code: `
         import { css, type CSSObject } from '${importSource}';
 
         const Component = css({
           color: 'red',
         });
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: `[${importSource}] with unsafe usage of other import`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: `[${importSource}] with unsafe usage of other import`,
+			code: `
         import { css, keyframes } from '${importSource}';
 
         const Component = css({
@@ -119,8 +119,8 @@ tester.run('css API - not fixable', rule, {
           }
         })
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-  ]),
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+	]),
 });

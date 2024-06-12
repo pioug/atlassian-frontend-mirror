@@ -22,13 +22,13 @@ ReactDOM.render(
 );`;
 
 export default function Component() {
-  return (
-    <div>
-      <p>
-        Highlighting a short code snippet inline. Use <Code>{`<Code />`}</Code>.
-      </p>
-      <br />
-      <CodeBlock highlight="15" language="jsx" text={exampleCodeBlock} />
-    </div>
-  );
+	return (
+		<div>
+			<p>
+				Highlighting a short code snippet inline. Use <Code>{`<Code />`}</Code>.
+			</p>
+			<br />
+			<CodeBlock highlight="15" language="jsx" text={exampleCodeBlock} />
+		</div>
+	);
 }

@@ -19,24 +19,16 @@ ReactDOM.render(
 );`;
 
 export default function Component() {
-  return (
-    <div>
-      <h2>Showing code without line numbers</h2>
-      <CodeBlock
-        language="jsx"
-        text={exampleCodeBlock}
-        showLineNumbers={false}
-      />
+	return (
+		<div>
+			<h2>Showing code without line numbers</h2>
+			<CodeBlock language="jsx" text={exampleCodeBlock} showLineNumbers={false} />
 
-      <h2>Showing code with line numbers</h2>
-      <CodeBlock language="jsx" text={exampleCodeBlock} />
+			<h2>Showing code with line numbers</h2>
+			<CodeBlock language="jsx" text={exampleCodeBlock} />
 
-      <h2>Highlighting specific lines</h2>
-      <CodeBlock
-        language="jsx"
-        text={exampleCodeBlock}
-        highlight="2,5-7,12-15"
-      />
-    </div>
-  );
+			<h2>Highlighting specific lines</h2>
+			<CodeBlock language="jsx" text={exampleCodeBlock} highlight="2,5-7,12-15" />
+		</div>
+	);
 }

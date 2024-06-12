@@ -10,24 +10,24 @@ import Scroll from '../../../examples/55-scroll';
 import MultiLineTitles from '../../../examples/65-multi-line-titles';
 
 snapshot(DefaultModal, {
-  drawsOutsideBounds: true,
+	drawsOutsideBounds: true,
 });
 snapshot(Scroll, {
-  drawsOutsideBounds: true,
+	drawsOutsideBounds: true,
 });
 snapshot(Form, {
-  drawsOutsideBounds: true,
+	drawsOutsideBounds: true,
 });
 snapshot(FormAsContainer);
 snapshot(Autofocus, {
-  drawsOutsideBounds: true,
+	drawsOutsideBounds: true,
 });
 snapshot(Appearance, {
-  drawsOutsideBounds: true,
+	drawsOutsideBounds: true,
 });
 snapshot(Width, {
-  drawsOutsideBounds: true,
+	drawsOutsideBounds: true,
 });
 snapshot(MultiLineTitles, {
-  drawsOutsideBounds: true,
+	drawsOutsideBounds: true,
 });

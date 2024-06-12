@@ -18,26 +18,26 @@ import { findMissingCustomStyleElements } from './utils/custom-theme-loading-uti
  * ```
  */
 const UNSAFE_loadCustomThemeStyles = ({
-  colorMode = themeStateDefaults['colorMode'],
-  UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
+	colorMode = themeStateDefaults['colorMode'],
+	UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
 }: Partial<ThemeState> = {}): void => {
-  // Load custom theme styles
-  if (UNSAFE_themeOptions && isValidBrandHex(UNSAFE_themeOptions?.brandColor)) {
-    const attrOfMissingCustomStyles = findMissingCustomStyleElements(
-      UNSAFE_themeOptions,
-      colorMode,
-    );
-    if (attrOfMissingCustomStyles.length !== 0) {
-      loadAndAppendCustomThemeCss({
-        colorMode:
-          attrOfMissingCustomStyles.length === 2
-            ? 'auto'
-            : // only load the missing custom theme styles
-              attrOfMissingCustomStyles[0],
-        UNSAFE_themeOptions,
-      });
-    }
-  }
+	// Load custom theme styles
+	if (UNSAFE_themeOptions && isValidBrandHex(UNSAFE_themeOptions?.brandColor)) {
+		const attrOfMissingCustomStyles = findMissingCustomStyleElements(
+			UNSAFE_themeOptions,
+			colorMode,
+		);
+		if (attrOfMissingCustomStyles.length !== 0) {
+			loadAndAppendCustomThemeCss({
+				colorMode:
+					attrOfMissingCustomStyles.length === 2
+						? 'auto'
+						: // only load the missing custom theme styles
+							attrOfMissingCustomStyles[0],
+				UNSAFE_themeOptions,
+			});
+		}
+	}
 };
 
 export default UNSAFE_loadCustomThemeStyles;

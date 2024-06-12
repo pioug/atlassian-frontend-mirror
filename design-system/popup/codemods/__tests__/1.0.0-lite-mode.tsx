@@ -7,41 +7,41 @@ import transformer from '../1.0.0-lite-mode';
 const applyTransform = require('jscodeshift/dist/testUtils').applyTransform;
 
 type TestArgs = {
-  it: string;
-  original: string;
-  expected: string;
-  mode?: 'only' | 'skip';
-  before?: () => void;
-  after?: () => void;
+	it: string;
+	original: string;
+	expected: string;
+	mode?: 'only' | 'skip';
+	before?: () => void;
+	after?: () => void;
 };
 
 function check({
-  it: name,
-  original,
-  expected,
-  before = noop,
-  after = noop,
-  mode = undefined,
+	it: name,
+	original,
+	expected,
+	before = noop,
+	after = noop,
+	mode = undefined,
 }: TestArgs) {
-  const run = mode === 'only' ? it.only : mode === 'skip' ? it.skip : it;
+	const run = mode === 'only' ? it.only : mode === 'skip' ? it.skip : it;
 
-  run(name, () => {
-    before();
-    try {
-      const output: string = applyTransform(
-        { default: transformer, parser: 'tsx' },
-        {},
-        { source: original },
-      );
-      expect(output).toBe(expected.trim());
-    } catch (e) {
-      // a failed assertion will throw
-      after();
-      throw e;
-    }
-    // will only be hit if we don't throw
-    after();
-  });
+	run(name, () => {
+		before();
+		try {
+			const output: string = applyTransform(
+				{ default: transformer, parser: 'tsx' },
+				{},
+				{ source: original },
+			);
+			expect(output).toBe(expected.trim());
+		} catch (e) {
+			// a failed assertion will throw
+			after();
+			throw e;
+		}
+		// will only be hit if we don't throw
+		after();
+	});
 }
 
 /**
@@ -53,9 +53,9 @@ function check({
  */
 
 describe('Convert boundaries props', () => {
-  check({
-    it: 'should turn `boundariesElement="scrollParents"` to `boundary="clippingParents"`',
-    original: `
+	check({
+		it: 'should turn `boundariesElement="scrollParents"` to `boundary="clippingParents"`',
+		original: `
       import Popup from '@atlaskit/popup';
 
       export default () => (
@@ -73,7 +73,7 @@ describe('Convert boundaries props', () => {
         />
       );
     `,
-    expected: `
+		expected: `
       import Popup from '@atlaskit/popup';
 
       export default () => (
@@ -91,11 +91,11 @@ describe('Convert boundaries props', () => {
         />
       );
     `,
-  });
+	});
 
-  check({
-    it: 'should turn `boundariesElement="window"` into `rootBoundary="document"`',
-    original: `
+	check({
+		it: 'should turn `boundariesElement="window"` into `rootBoundary="document"`',
+		original: `
       import Popup from '@atlaskit/popup';
 
       export default () => (
@@ -113,7 +113,7 @@ describe('Convert boundaries props', () => {
         />
       );
     `,
-    expected: `
+		expected: `
       import Popup from '@atlaskit/popup';
 
       export default () => (
@@ -131,11 +131,11 @@ describe('Convert boundaries props', () => {
         />
       );
     `,
-  });
+	});
 
-  check({
-    it: 'should turn `boundariesElement="viewport"` into `rootBoundary="viewport"`',
-    original: `
+	check({
+		it: 'should turn `boundariesElement="viewport"` into `rootBoundary="viewport"`',
+		original: `
       import Popup from '@atlaskit/popup';
 
       export default () => (
@@ -153,7 +153,7 @@ describe('Convert boundaries props', () => {
         />
       );
     `,
-    expected: `
+		expected: `
       import Popup from '@atlaskit/popup';
 
       export default () => (
@@ -171,16 +171,16 @@ describe('Convert boundaries props', () => {
         />
       );
     `,
-  });
+	});
 });
 
 describe('Convert offset props', () => {
-  /**
-   * `offset` prop is no longer a string, but an array of two integers (i.e. '0px 8px' is now [0, 8])
-   */
-  check({
-    it: 'should convert offset from a string to an array of two integers',
-    original: `
+	/**
+	 * `offset` prop is no longer a string, but an array of two integers (i.e. '0px 8px' is now [0, 8])
+	 */
+	check({
+		it: 'should convert offset from a string to an array of two integers',
+		original: `
     import Popup from '@atlaskit/popup';
 
     export default () => (
@@ -245,7 +245,7 @@ describe('Convert offset props', () => {
       );
     }
   `,
-    expected: `
+		expected: `
     import Popup from '@atlaskit/popup';
 
     export default () => (
@@ -310,13 +310,13 @@ describe('Convert offset props', () => {
       );
     }
     `,
-  });
-  /**
-   * If a user is passing in an offset with vh, vw or % in the offset, let them know that's no longer supported
-   */
-  check({
-    it: 'should warn users using vh, vw or % in the offset',
-    original: `
+	});
+	/**
+	 * If a user is passing in an offset with vh, vw or % in the offset, let them know that's no longer supported
+	 */
+	check({
+		it: 'should warn users using vh, vw or % in the offset',
+		original: `
     import Popup from '@atlaskit/popup';
 
     export default () => (
@@ -333,7 +333,7 @@ describe('Convert offset props', () => {
       />
     );
     `,
-    expected: `
+		expected: `
     /* TODO: (from codemod) Popper.js has been upgraded from 1.14.1 to 2.4.2,
     and as a result the offset prop has changed to be an array. e.g '0px 8px' -> [0, 8]
     Along with this change you cannot use vw, vh or % units or addition or multiplication
@@ -355,14 +355,14 @@ describe('Convert offset props', () => {
       />
     );
     `,
-  });
+	});
 
-  /**
-   * If a user is passing in a variable for offset then we should leave a comment to update it themselves
-   */
-  check({
-    it: 'warn users passing in a variable for an offset',
-    original: `
+	/**
+	 * If a user is passing in a variable for offset then we should leave a comment to update it themselves
+	 */
+	check({
+		it: 'warn users passing in a variable for an offset',
+		original: `
     import Popup from '@atlaskit/popup';
 
     function directOffset({offset}) {
@@ -381,7 +381,7 @@ describe('Convert offset props', () => {
       );
     }
     `,
-    expected: `
+		expected: `
     /* TODO: (from codemod) Popper.js has been upgraded from 1.14.1 to 2.4.2, and as a result the offset
     prop has changed to be an array. e.g '0px 8px' -> [0, 8]
     As you are using a variable, you will have change the offset prop manually
@@ -404,11 +404,11 @@ describe('Convert offset props', () => {
       );
     }
     `,
-  });
-  // Works with an aliased import and other imports
-  check({
-    it: 'should work with aliased import and other imports',
-    original: `
+	});
+	// Works with an aliased import and other imports
+	check({
+		it: 'should work with aliased import and other imports',
+		original: `
 
     import AkPopup, { PopupProps as AkPopupProps, TriggerProps as AkTriggerProps } from '@atlaskit/popup';
 
@@ -426,7 +426,7 @@ describe('Convert offset props', () => {
       />
     );
     `,
-    expected: `
+		expected: `
     import AkPopup, { PopupProps as AkPopupProps, TriggerProps as AkTriggerProps } from '@atlaskit/popup';
 
     export default () => (
@@ -443,12 +443,12 @@ describe('Convert offset props', () => {
       />
     );
   `,
-  });
+	});
 
-  // Works when not a default import
-  check({
-    it: 'should work when not accessed using a default import',
-    original: `
+	// Works when not a default import
+	check({
+		it: 'should work when not accessed using a default import',
+		original: `
       import { Popup } from '@atlaskit/popup';
 
       export default () => (
@@ -465,7 +465,7 @@ describe('Convert offset props', () => {
         />
       );
       `,
-    expected: `
+		expected: `
       import { Popup } from '@atlaskit/popup';
 
       export default () => (
@@ -482,7 +482,7 @@ describe('Convert offset props', () => {
         />
       );
     `,
-  });
+	});
 });
 
 /**
@@ -490,9 +490,9 @@ describe('Convert offset props', () => {
  * - `scheduleUpdate`, for async updates, has been renamed to `update`, and now returns a Promise.
  */
 describe('Convert render props', () => {
-  check({
-    it: 'should rename schedulUpdate to `update`',
-    original: `
+	check({
+		it: 'should rename schedulUpdate to `update`',
+		original: `
       import Popup from '@atlaskit/popup';
 
       export default () => (
@@ -509,7 +509,7 @@ describe('Convert render props', () => {
         />
       );
     `,
-    expected: `
+		expected: `
       import Popup from '@atlaskit/popup';
 
       export default () => (
@@ -528,5 +528,5 @@ describe('Convert render props', () => {
         />
       );
     `,
-  });
+	});
 });

@@ -2,15 +2,15 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'no-unsafe-values',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [],
-    invalid: [
-      {
-        name: 'passing an object through a variable',
-        code: `
+	'no-unsafe-values',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [],
+		invalid: [
+			{
+				name: 'passing an object through a variable',
+				code: `
           import { css } from '@compiled/react';
 
           const myStyles = {
@@ -19,11 +19,11 @@ typescriptEslintTester.run(
 
           const styles = css(myStyles);
         `,
-        errors: [{ messageId: 'no-identifier-arguments' }],
-      },
-      {
-        name: 'passing the result of `css` through a variable',
-        code: `
+				errors: [{ messageId: 'no-identifier-arguments' }],
+			},
+			{
+				name: 'passing the result of `css` through a variable',
+				code: `
           import { css } from '@compiled/react';
 
           const myStyles = css({
@@ -32,11 +32,11 @@ typescriptEslintTester.run(
 
           const styles = css(myStyles);
         `,
-        errors: [{ messageId: 'no-identifier-arguments' }],
-      },
-      {
-        name: 'passing the result of `css` through a variable to `styled`',
-        code: `
+				errors: [{ messageId: 'no-identifier-arguments' }],
+			},
+			{
+				name: 'passing the result of `css` through a variable to `styled`',
+				code: `
           import { styled } from '@compiled/react';
 
           const myStyles = css({
@@ -45,8 +45,8 @@ typescriptEslintTester.run(
 
           const Component = styled.div(myStyles)
         `,
-        errors: [{ messageId: 'no-identifier-arguments' }],
-      },
-    ],
-  },
+				errors: [{ messageId: 'no-identifier-arguments' }],
+			},
+		],
+	},
 );

@@ -6,42 +6,40 @@ import variants from '../../../utils/variants';
 import testEventBlocking from '../_util/test-event-blocking';
 
 variants.forEach(({ name, Component, elementType }) => {
-  if (elementType === HTMLButtonElement) {
-    describe(`Loading ${name}`, () => {
-      testEventBlocking(Component, { isDisabled: true });
+	if (elementType === HTMLButtonElement) {
+		describe(`Loading ${name}`, () => {
+			testEventBlocking(Component, { isDisabled: true });
 
-      it('is not focusable', () => {
-        render(
-          <Component testId="button" isLoading>
-            Hello
-          </Component>,
-        );
-        const button = screen.getByTestId('button');
+			it('is not focusable', () => {
+				render(
+					<Component testId="button" isLoading>
+						Hello
+					</Component>,
+				);
+				const button = screen.getByTestId('button');
 
-        button.focus();
+				button.focus();
 
-        expect(button).not.toHaveFocus();
-      });
+				expect(button).not.toHaveFocus();
+			});
 
-      it('disables buttons', async () => {
-        const { rerender } = render(
-          <Component testId="button">Hello</Component>,
-        );
-        const button = screen.getByTestId('button');
+			it('disables buttons', async () => {
+				const { rerender } = render(<Component testId="button">Hello</Component>);
+				const button = screen.getByTestId('button');
 
-        expect(button).toBeEnabled();
+				expect(button).toBeEnabled();
 
-        rerender(
-          <Component testId="button" isLoading>
-            Hello
-          </Component>,
-        );
+				rerender(
+					<Component testId="button" isLoading>
+						Hello
+					</Component>,
+				);
 
-        expect(button).toBeDisabled();
+				expect(button).toBeDisabled();
 
-        // should not add unnecessary `aria-disabled`
-        expect(button).not.toHaveAttribute('aria-disabled');
-      });
-    });
-  }
+				// should not add unnecessary `aria-disabled`
+				expect(button).not.toHaveAttribute('aria-disabled');
+			});
+		});
+	}
 });

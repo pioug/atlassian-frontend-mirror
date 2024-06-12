@@ -4,38 +4,35 @@ import { useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import {
-  BANNER_HEIGHT,
-  DEFAULT_TOP_NAVIGATION_HEIGHT,
-  LEFT_PANEL_WIDTH,
-  RIGHT_PANEL_WIDTH,
-  TOP_NAVIGATION,
-  TOP_NAVIGATION_HEIGHT,
-  VAR_TOP_NAVIGATION_HEIGHT,
+	BANNER_HEIGHT,
+	DEFAULT_TOP_NAVIGATION_HEIGHT,
+	LEFT_PANEL_WIDTH,
+	RIGHT_PANEL_WIDTH,
+	TOP_NAVIGATION,
+	TOP_NAVIGATION_HEIGHT,
+	VAR_TOP_NAVIGATION_HEIGHT,
 } from '../../common/constants';
 import { type SlotHeightProps } from '../../common/types';
-import {
-  getPageLayoutSlotSelector,
-  resolveDimension,
-} from '../../common/utils';
+import { getPageLayoutSlotSelector, resolveDimension } from '../../common/utils';
 import { publishGridState, useSkipLink } from '../../controllers';
 
 import SlotFocusRing from './internal/slot-focus-ring';
 import SlotDimensions from './slot-dimensions';
 
 const topNavigationStyles = css({
-  height: TOP_NAVIGATION_HEIGHT,
-  gridArea: TOP_NAVIGATION,
+	height: TOP_NAVIGATION_HEIGHT,
+	gridArea: TOP_NAVIGATION,
 });
 
 const fixedStyles = css({
-  position: 'fixed',
-  zIndex: 2,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  top: BANNER_HEIGHT,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  right: RIGHT_PANEL_WIDTH,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  left: LEFT_PANEL_WIDTH,
+	position: 'fixed',
+	zIndex: 2,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	top: BANNER_HEIGHT,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	right: RIGHT_PANEL_WIDTH,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	left: LEFT_PANEL_WIDTH,
 });
 
 /**
@@ -47,51 +44,48 @@ const fixedStyles = css({
  * - [Code](https://atlassian.design/components/page-layout/code)
  */
 const TopNavigation = (props: SlotHeightProps) => {
-  const {
-    children,
-    height = DEFAULT_TOP_NAVIGATION_HEIGHT,
-    isFixed = true,
-    shouldPersistHeight,
-    testId,
-    id,
-    skipLinkTitle,
-  } = props;
+	const {
+		children,
+		height = DEFAULT_TOP_NAVIGATION_HEIGHT,
+		isFixed = true,
+		shouldPersistHeight,
+		testId,
+		id,
+		skipLinkTitle,
+	} = props;
 
-  const topNavigationHeight = resolveDimension(
-    VAR_TOP_NAVIGATION_HEIGHT,
-    height,
-    shouldPersistHeight,
-  );
+	const topNavigationHeight = resolveDimension(
+		VAR_TOP_NAVIGATION_HEIGHT,
+		height,
+		shouldPersistHeight,
+	);
 
-  useEffect(() => {
-    publishGridState({ [VAR_TOP_NAVIGATION_HEIGHT]: topNavigationHeight });
-    return () => {
-      publishGridState({ [VAR_TOP_NAVIGATION_HEIGHT]: 0 });
-    };
-  }, [topNavigationHeight]);
+	useEffect(() => {
+		publishGridState({ [VAR_TOP_NAVIGATION_HEIGHT]: topNavigationHeight });
+		return () => {
+			publishGridState({ [VAR_TOP_NAVIGATION_HEIGHT]: 0 });
+		};
+	}, [topNavigationHeight]);
 
-  useSkipLink(id, skipLinkTitle);
+	useSkipLink(id, skipLinkTitle);
 
-  return (
-    <SlotFocusRing>
-      {({ className }) => (
-        <div
-          css={[topNavigationStyles, isFixed && fixedStyles]}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-          className={className}
-          data-testid={testId}
-          id={id}
-          {...getPageLayoutSlotSelector('top-navigation')}
-        >
-          <SlotDimensions
-            variableName={VAR_TOP_NAVIGATION_HEIGHT}
-            value={topNavigationHeight}
-          />
-          {children}
-        </div>
-      )}
-    </SlotFocusRing>
-  );
+	return (
+		<SlotFocusRing>
+			{({ className }) => (
+				<div
+					css={[topNavigationStyles, isFixed && fixedStyles]}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={className}
+					data-testid={testId}
+					id={id}
+					{...getPageLayoutSlotSelector('top-navigation')}
+				>
+					<SlotDimensions variableName={VAR_TOP_NAVIGATION_HEIGHT} value={topNavigationHeight} />
+					{children}
+				</div>
+			)}
+		</SlotFocusRing>
+	);
 };
 
 export default TopNavigation;

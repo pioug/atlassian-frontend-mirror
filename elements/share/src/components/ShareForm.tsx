@@ -43,19 +43,23 @@ const centerAlignedIconWrapperStyles = css({
 	display: 'flex',
 	alignSelf: 'center',
 	padding: `${token('space.0', '0px')} ${token('space.150', '12px')}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		lineHeight: 1,
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const formWrapperStyles = css({
 	marginTop: token('space.100', '8px'),
 	width: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'#ghx-modes-tools #ghx-share & h1:first-child': {
 		marginTop: 0,
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const formFooterStyles = css({
 	display: 'flex',
 	justifyContent: 'flex-start',

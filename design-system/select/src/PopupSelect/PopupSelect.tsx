@@ -1,19 +1,9 @@
 import React, { type KeyboardEventHandler, PureComponent, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
-import Select, {
-  type components as RSComponents,
-  type GroupBase,
-  mergeStyles,
-} from 'react-select';
+import Select, { type components as RSComponents, type GroupBase, mergeStyles } from 'react-select';
 import { uid } from 'react-uid';
-import {
-  Manager,
-  Reference,
-  Popper,
-  type PopperProps,
-  type Modifier,
-} from 'react-popper';
+import { Manager, Reference, Popper, type PopperProps, type Modifier } from 'react-popper';
 import { type Placement } from '@popperjs/core';
 import NodeResolver from 'react-node-resolver';
 import { shallowEqualObjects } from 'shallow-equal';
@@ -26,13 +16,13 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { MenuDialog, DummyControl, defaultComponents } from './components';
 import baseStyles from '../styles';
 import {
-  type OptionType,
-  type ActionMeta,
-  type ReactSelectProps,
-  type StylesConfig,
-  type ValueType,
-  type ValidationState,
-  type AtlaskitSelectRefType,
+	type OptionType,
+	type ActionMeta,
+	type ReactSelectProps,
+	type StylesConfig,
+	type ValueType,
+	type ValidationState,
+	type AtlaskitSelectRefType,
 } from '../types';
 import { bind, type UnbindFn } from 'bind-event-listener';
 
@@ -40,11 +30,7 @@ type SelectComponents = typeof RSComponents;
 
 /** Are we rendering on the client or server? */
 const canUseDOM = () =>
-  Boolean(
-    typeof window !== 'undefined' &&
-      window.document &&
-      window.document.createElement,
-  );
+	Boolean(typeof window !== 'undefined' && window.document && window.document.createElement);
 
 // ==============================
 // Types
@@ -52,73 +38,70 @@ const canUseDOM = () =>
 
 type defaultModifiers = 'offset' | 'preventOverflow';
 
-type PopperPropsNoChildren<Modifiers> = Omit<
-  PopperProps<Modifiers>,
-  'children'
->;
+type PopperPropsNoChildren<Modifiers> = Omit<PopperProps<Modifiers>, 'children'>;
 
 interface PopupSelectTriggerProps {
-  ref: any;
-  onKeyDown: KeyboardEventHandler<HTMLElement>;
-  'aria-haspopup': 'true';
-  'aria-expanded': boolean;
-  'aria-controls'?: string;
+	ref: any;
+	onKeyDown: KeyboardEventHandler<HTMLElement>;
+	'aria-haspopup': 'true';
+	'aria-expanded': boolean;
+	'aria-controls'?: string;
 }
 
 export type ModifierList =
-  | 'offset'
-  | 'computeStyles'
-  | 'preventOverflow'
-  | 'handleFlipStyle'
-  | 'flip'
-  | 'popperOffsets'
-  | 'arrow'
-  | 'hide'
-  | 'eventListeners'
-  | 'applyStyles';
+	| 'offset'
+	| 'computeStyles'
+	| 'preventOverflow'
+	| 'handleFlipStyle'
+	| 'flip'
+	| 'popperOffsets'
+	| 'arrow'
+	| 'hide'
+	| 'eventListeners'
+	| 'applyStyles';
 export interface PopupSelectProps<
-  Option = OptionType,
-  IsMulti extends boolean = false,
-  Modifiers = ModifierList,
+	Option = OptionType,
+	IsMulti extends boolean = false,
+	Modifiers = ModifierList,
 > extends ReactSelectProps<Option, IsMulti> {
-  /**
-   * Defines whether the menu should close when selected. The default is `true`.
-   */
-  closeMenuOnSelect?: boolean;
-  /**
-   * The footer content shown at the bottom of the popup, underneath the select options.
-   */
-  footer?: ReactNode;
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
-  /**
+	/**
+	 * Defines whether the menu should close when selected. The default is `true`.
+	 */
+	closeMenuOnSelect?: boolean;
+	/**
+	 * The footer content shown at the bottom of the popup, underneath the select options.
+	 */
+	footer?: ReactNode;
+	// eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+	/**
     The props passed down to React Popper.
 
     Use these to override the default positioning strategy, behaviour and placement used by this library.
     For more information, see the Popper Props section below, or [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).
 
    */
-  popperProps?: PopperPropsNoChildren<Modifiers>;
-  /**
-   * The maximum number of options the select can contain without rendering the search field. The default is `5`.
-   */
-  searchThreshold?: number;
-  /**
-   * If `false`, renders a select with no search field. If `true`, renders a search field in the select when the
-   * number of options exceeds the `searchThreshold`. The default is `true`.
-   */
-  isSearchable?: boolean;
-  /**
-   * The maximum width for the popup menu. Can be a number, representing the width in pixels,
-   * or a string containing a CSS length datatype.
-   */
-  maxMenuWidth?: number | string;
-  /**
-   * The maximum width for the popup menu. Can be a number, representing the width in pixels,
-   * or a string containing a CSS length datatype.
-   */
-  minMenuWidth?: number | string;
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
-  /**
+	popperProps?: PopperPropsNoChildren<Modifiers>;
+	/**
+	 * The maximum number of options the select can contain without rendering the search field. The default is `5`.
+	 */
+	searchThreshold?: number;
+	/**
+	 * If `false`, renders a select with no search field. If `true`, renders a search field in the select when the
+	 * number of options exceeds the `searchThreshold`. The default is `true`.
+	 */
+	isSearchable?: boolean;
+	/**
+	 * The maximum width for the popup menu. Can be a number, representing the width in pixels,
+	 * or a string containing a CSS length datatype.
+	 */
+	maxMenuWidth?: number | string;
+	/**
+	 * The maximum width for the popup menu. Can be a number, representing the width in pixels,
+	 * or a string containing a CSS length datatype.
+	 */
+	minMenuWidth?: number | string;
+	// eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+	/**
     Render props used to anchor the popup to your content.
 
     Make this an interactive element, such as an @atlaskit/button component.
@@ -131,28 +114,26 @@ export interface PopupSelectProps<
     - `aria-haspopup`, `aria-expanded`, `aria-controls`: Spread these onto a target element to
         ensure your experience is accessible
    */
-  target?: (
-    options: PopupSelectTriggerProps & { isOpen: boolean },
-  ) => ReactNode;
-  isOpen?: boolean;
-  defaultIsOpen?: boolean;
-  /** Use this to set whether the component uses compact or standard spacing. */
-  spacing?: 'default' | 'compact';
-  /** @deprecated Use isInvalid instead. The state of validation if used in a form */
-  validationState?: ValidationState;
-  /** This prop indicates if the component is in an error state. */
-  isInvalid?: boolean;
-  /** This gives an accessible name to the input for people who use assistive technology. */
-  label?: string;
-  /** The `testId` prop appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests. It will be set on the menu element when defined: `{testId}--menu` */
-  testId?: string;
+	target?: (options: PopupSelectTriggerProps & { isOpen: boolean }) => ReactNode;
+	isOpen?: boolean;
+	defaultIsOpen?: boolean;
+	/** Use this to set whether the component uses compact or standard spacing. */
+	spacing?: 'default' | 'compact';
+	/** @deprecated Use isInvalid instead. The state of validation if used in a form */
+	validationState?: ValidationState;
+	/** This prop indicates if the component is in an error state. */
+	isInvalid?: boolean;
+	/** This gives an accessible name to the input for people who use assistive technology. */
+	label?: string;
+	/** The `testId` prop appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests. It will be set on the menu element when defined: `{testId}--menu` */
+	testId?: string;
 }
 
 interface State<Modifiers = string> {
-  focusLockEnabled: boolean;
-  isOpen: boolean;
-  mergedComponents: Object; // This really should be `SelectComponentsConfig<…>`, but generics aren't compatible across all Selects as structured
-  mergedPopperProps: PopperPropsNoChildren<defaultModifiers | Modifiers>;
+	focusLockEnabled: boolean;
+	isOpen: boolean;
+	mergedComponents: Object; // This really should be `SelectComponentsConfig<…>`, but generics aren't compatible across all Selects as structured
+	mergedPopperProps: PopperPropsNoChildren<defaultModifiers | Modifiers>;
 }
 
 // ==============================
@@ -160,478 +141,452 @@ interface State<Modifiers = string> {
 // ==============================
 
 const modifiers: Modifier<'offset' | 'preventOverflow'>[] = [
-  { name: 'offset', options: { offset: [0, 8] } },
-  {
-    name: 'preventOverflow',
-    enabled: true,
-    options: {
-      padding: 5,
-      boundary: 'clippingParents',
-      altAxis: true,
-      altBoundary: true,
-    },
-  },
+	{ name: 'offset', options: { offset: [0, 8] } },
+	{
+		name: 'preventOverflow',
+		enabled: true,
+		options: {
+			padding: 5,
+			boundary: 'clippingParents',
+			altAxis: true,
+			altBoundary: true,
+		},
+	},
 ];
 
 const defaultPopperProps: PopperPropsNoChildren<defaultModifiers> = {
-  modifiers,
-  placement: 'bottom-start' as Placement,
+	modifiers,
+	placement: 'bottom-start' as Placement,
 };
 
 const isEmpty = (obj: Object) => Object.keys(obj).length === 0;
 
 export default class PopupSelect<
-  Option = OptionType,
-  IsMulti extends boolean = false,
-  Modifiers = ModifierList,
+	Option = OptionType,
+	IsMulti extends boolean = false,
+	Modifiers = ModifierList,
 > extends PureComponent<PopupSelectProps<Option, IsMulti, Modifiers>, State> {
-  menuRef: HTMLElement | null = null;
-  // Due to types conflicts between `Select` and `DefaultSelect` components set 'any' type.
-  // After removing the flag feature 'platform.design-system-team.use-default-select-in-popup-select_46rmj' the correct type will be 'AtlaskitSelectRefType',
-  selectRef: any;
-  targetRef: HTMLElement | null = null;
-  unbindWindowClick: UnbindFn | null = null;
-  unbindWindowKeydown: UnbindFn | null = null;
+	menuRef: HTMLElement | null = null;
+	// Due to types conflicts between `Select` and `DefaultSelect` components set 'any' type.
+	// After removing the flag feature 'platform.design-system-team.use-default-select-in-popup-select_46rmj' the correct type will be 'AtlaskitSelectRefType',
+	selectRef: any;
+	targetRef: HTMLElement | null = null;
+	unbindWindowClick: UnbindFn | null = null;
+	unbindWindowKeydown: UnbindFn | null = null;
 
-  defaultStyles: StylesConfig<Option, IsMulti> = mergeStyles(
-    baseStyles(
-      this.props.validationState ||
-        (this.props.isInvalid ? 'error' : 'default'),
-      this.props.spacing === 'compact',
-      'default',
-    ),
-    {
-      groupHeading: (provided) => ({
-        ...provided,
-        color: token('color.text.subtlest', N80),
-      }),
-    },
-  );
+	defaultStyles: StylesConfig<Option, IsMulti> = mergeStyles(
+		baseStyles(
+			this.props.validationState || (this.props.isInvalid ? 'error' : 'default'),
+			this.props.spacing === 'compact',
+			'default',
+		),
+		{
+			groupHeading: (provided) => ({
+				...provided,
+				color: token('color.text.subtlest', N80),
+			}),
+		},
+	);
 
-  isOpenControlled = this.props.isOpen !== undefined;
-  defaultOpenState = this.isOpenControlled
-    ? this.props.isOpen
-    : this.props.defaultIsOpen;
+	isOpenControlled = this.props.isOpen !== undefined;
+	defaultOpenState = this.isOpenControlled ? this.props.isOpen : this.props.defaultIsOpen;
 
-  state = {
-    focusLockEnabled: false,
-    isOpen: this.defaultOpenState ?? false,
-    mergedComponents: defaultComponents,
-    mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<
-      defaultModifiers | string
-    >,
-  };
+	state = {
+		focusLockEnabled: false,
+		isOpen: this.defaultOpenState ?? false,
+		mergedComponents: defaultComponents,
+		mergedPopperProps: defaultPopperProps as PopperPropsNoChildren<defaultModifiers | string>,
+	};
 
-  popperWrapperId = `${uid({ options: this.props.options })}-popup-select`;
+	popperWrapperId = `${uid({ options: this.props.options })}-popup-select`;
 
-  static defaultProps = {
-    closeMenuOnSelect: true,
-    components: {},
-    maxMenuHeight: 300,
-    maxMenuWidth: 440,
-    minMenuWidth: 220,
-    popperProps: {},
-    isSearchable: true,
-    searchThreshold: 5,
-    styles: {},
-    options: [],
-  };
+	static defaultProps = {
+		closeMenuOnSelect: true,
+		components: {},
+		maxMenuHeight: 300,
+		maxMenuWidth: 440,
+		minMenuWidth: 220,
+		popperProps: {},
+		isSearchable: true,
+		searchThreshold: 5,
+		styles: {},
+		options: [],
+	};
 
-  static getDerivedStateFromProps(
-    props: PopupSelectProps<OptionType>,
-    state: State,
-  ) {
-    const newState: Partial<State> = {};
+	static getDerivedStateFromProps(props: PopupSelectProps<OptionType>, state: State) {
+		const newState: Partial<State> = {};
 
-    // Merge consumer and default popper props
-    const mergedPopperProps = { ...defaultPopperProps, ...props.popperProps };
-    if (!shallowEqualObjects(mergedPopperProps, state.mergedPopperProps)) {
-      newState.mergedPopperProps = mergedPopperProps;
-    }
+		// Merge consumer and default popper props
+		const mergedPopperProps = { ...defaultPopperProps, ...props.popperProps };
+		if (!shallowEqualObjects(mergedPopperProps, state.mergedPopperProps)) {
+			newState.mergedPopperProps = mergedPopperProps;
+		}
 
-    // Merge consumer and default components
-    const mergedComponents = { ...defaultComponents, ...props.components };
-    if (!shallowEqualObjects(mergedComponents, state.mergedComponents)) {
-      newState.mergedComponents = mergedComponents;
-    }
+		// Merge consumer and default components
+		const mergedComponents = { ...defaultComponents, ...props.components };
+		if (!shallowEqualObjects(mergedComponents, state.mergedComponents)) {
+			newState.mergedComponents = mergedComponents;
+		}
 
-    if (!isEmpty(newState)) {
-      return newState;
-    }
+		if (!isEmpty(newState)) {
+			return newState;
+		}
 
-    return null;
-  }
+		return null;
+	}
 
-  componentDidMount() {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    this.unbindWindowClick = bind(window, {
-      type: 'click',
-      listener: this.handleClick,
-      options: { capture: true },
-    });
-  }
+	componentDidMount() {
+		if (typeof window === 'undefined') {
+			return;
+		}
+		this.unbindWindowClick = bind(window, {
+			type: 'click',
+			listener: this.handleClick,
+			options: { capture: true },
+		});
+	}
 
-  componentWillUnmount() {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    this.unbindWindowClick?.();
-    this.unbindWindowClick = null;
-    this.unbindWindowKeydown?.();
-    this.unbindWindowKeydown = null;
-  }
+	componentWillUnmount() {
+		if (typeof window === 'undefined') {
+			return;
+		}
+		this.unbindWindowClick?.();
+		this.unbindWindowClick = null;
+		this.unbindWindowKeydown?.();
+		this.unbindWindowKeydown = null;
+	}
 
-  componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti, Modifiers>) {
-    const { isOpen } = this.props;
+	componentDidUpdate(prevProps: PopupSelectProps<Option, IsMulti, Modifiers>) {
+		const { isOpen } = this.props;
 
-    if (prevProps.isOpen !== isOpen) {
-      if (isOpen === true) {
-        this.open({ controlOverride: true });
-      } else if (isOpen === false) {
-        this.close({ controlOverride: true });
-      }
-    }
-  }
+		if (prevProps.isOpen !== isOpen) {
+			if (isOpen === true) {
+				this.open({ controlOverride: true });
+			} else if (isOpen === false) {
+				this.close({ controlOverride: true });
+			}
+		}
+	}
 
-  // Event Handlers
-  // ==============================
+	// Event Handlers
+	// ==============================
 
-  handleTargetKeyDown = (event: React.KeyboardEvent) => {
-    switch (event.key) {
-      case 'ArrowDown':
-        this.open();
-        break;
-      default:
-    }
-  };
+	handleTargetKeyDown = (event: React.KeyboardEvent) => {
+		switch (event.key) {
+			case 'ArrowDown':
+				this.open();
+				break;
+			default:
+		}
+	};
 
-  handleKeyDown = (event: KeyboardEvent) => {
-    switch (event.key) {
-      case 'Escape':
-      case 'Esc':
-        this.close();
-        break;
-      default:
-    }
-    if (this.props.onKeyDown) {
-      /* @ts-ignore - updating type of event React.KeyboardEvent effects the unbindWindowsKeyDown listener. Check if this can be fixed once the component gets refactor to functional */
-      this.props.onKeyDown(event);
-    }
-  };
+	handleKeyDown = (event: KeyboardEvent) => {
+		switch (event.key) {
+			case 'Escape':
+			case 'Esc':
+				this.close();
+				break;
+			default:
+		}
+		if (this.props.onKeyDown) {
+			/* @ts-ignore - updating type of event React.KeyboardEvent effects the unbindWindowsKeyDown listener. Check if this can be fixed once the component gets refactor to functional */
+			this.props.onKeyDown(event);
+		}
+	};
 
-  handleClick = ({ target }: MouseEvent) => {
-    const { isOpen } = this.state;
-    // appease flow
-    if (!(target instanceof Element)) {
-      return;
-    }
+	handleClick = ({ target }: MouseEvent) => {
+		const { isOpen } = this.state;
+		// appease flow
+		if (!(target instanceof Element)) {
+			return;
+		}
 
-    // NOTE: Why not use the <Blanket /> component to close?
-    // We don't want to interupt the user's flow. Taking this approach allows
-    // user to click "through" to other elements and close the popout.
-    if (isOpen && this.menuRef && !this.menuRef.contains(target)) {
-      this.close();
-    }
+		// NOTE: Why not use the <Blanket /> component to close?
+		// We don't want to interupt the user's flow. Taking this approach allows
+		// user to click "through" to other elements and close the popout.
+		if (isOpen && this.menuRef && !this.menuRef.contains(target)) {
+			this.close();
+		}
 
-    // open on target click -- we can't trust consumers to spread the onClick
-    // property to the target
-    if (!isOpen && this.targetRef && this.targetRef.contains(target)) {
-      this.open();
-    }
-  };
+		// open on target click -- we can't trust consumers to spread the onClick
+		// property to the target
+		if (!isOpen && this.targetRef && this.targetRef.contains(target)) {
+			this.open();
+		}
+	};
 
-  handleSelectChange = (
-    value: ValueType<Option, IsMulti>,
-    actionMeta: ActionMeta<Option>,
-  ) => {
-    const { closeMenuOnSelect, onChange } = this.props;
-    if (closeMenuOnSelect && actionMeta.action !== 'clear') {
-      this.close();
-    }
-    if (onChange) {
-      onChange(value, actionMeta);
-    }
-  };
+	handleSelectChange = (value: ValueType<Option, IsMulti>, actionMeta: ActionMeta<Option>) => {
+		const { closeMenuOnSelect, onChange } = this.props;
+		if (closeMenuOnSelect && actionMeta.action !== 'clear') {
+			this.close();
+		}
+		if (onChange) {
+			onChange(value, actionMeta);
+		}
+	};
 
-  handleFirstPopperUpdate = () => {
-    // When the popup opens it's focused into. Since the popup is inside a portal, it's position is
-    // initially set to 0,0 - this causes the window scroll position to jump to the top. To prevent
-    // this we defer enabling the focus-lock until after Popper has positioned the popup the first time.
-    this.setState({ focusLockEnabled: true });
-  };
+	handleFirstPopperUpdate = () => {
+		// When the popup opens it's focused into. Since the popup is inside a portal, it's position is
+		// initially set to 0,0 - this causes the window scroll position to jump to the top. To prevent
+		// this we defer enabling the focus-lock until after Popper has positioned the popup the first time.
+		this.setState({ focusLockEnabled: true });
+	};
 
-  // Internal Lifecycle
-  // ==============================
+	// Internal Lifecycle
+	// ==============================
 
-  /**
-   * Opens the popup
-   *
-   * @param options.controlOverride  - Force the popup to open when it's open state is being controlled
-   */
-  open = (options?: { controlOverride?: boolean }) => {
-    const { onOpen } = this.props;
+	/**
+	 * Opens the popup
+	 *
+	 * @param options.controlOverride  - Force the popup to open when it's open state is being controlled
+	 */
+	open = (options?: { controlOverride?: boolean }) => {
+		const { onOpen } = this.props;
 
-    if (!options?.controlOverride && this.isOpenControlled) {
-      // Prevent popup opening if it's open state is already being controlled
-      return;
-    }
+		if (!options?.controlOverride && this.isOpenControlled) {
+			// Prevent popup opening if it's open state is already being controlled
+			return;
+		}
 
-    if (onOpen) {
-      onOpen();
-    }
+		if (onOpen) {
+			onOpen();
+		}
 
-    this.setState({ isOpen: true });
+		this.setState({ isOpen: true });
 
-    if (this.selectRef) {
-      getBooleanFF(
-        'platform.design-system-team.use-default-select-in-popup-select_46rmj',
-      )
-        ? this.selectRef.select?.openMenu('first')
-        : this.selectRef.openMenu('first');
-    }
+		if (this.selectRef) {
+			getBooleanFF('platform.design-system-team.use-default-select-in-popup-select_46rmj')
+				? this.selectRef.select?.openMenu('first')
+				: this.selectRef.openMenu('first');
+		}
 
-    if (typeof window === 'undefined') {
-      return;
-    }
-    this.unbindWindowKeydown = bind(window, {
-      type: 'keydown',
-      listener: this.handleKeyDown,
-      options: { capture: true },
-    });
-  };
+		if (typeof window === 'undefined') {
+			return;
+		}
+		this.unbindWindowKeydown = bind(window, {
+			type: 'keydown',
+			listener: this.handleKeyDown,
+			options: { capture: true },
+		});
+	};
 
-  /**
-   * Closes the popup
-   *
-   * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
-   */
-  close = (options?: { controlOverride?: boolean }) => {
-    const { onClose } = this.props;
+	/**
+	 * Closes the popup
+	 *
+	 * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
+	 */
+	close = (options?: { controlOverride?: boolean }) => {
+		const { onClose } = this.props;
 
-    if (!options?.controlOverride && this.isOpenControlled) {
-      // Prevent popup closing if it's open state is already being controlled
-      return;
-    }
+		if (!options?.controlOverride && this.isOpenControlled) {
+			// Prevent popup closing if it's open state is already being controlled
+			return;
+		}
 
-    if (onClose) {
-      onClose();
-    }
+		if (onClose) {
+			onClose();
+		}
 
-    this.setState({ isOpen: false });
-    this.setState({ focusLockEnabled: false });
+		this.setState({ isOpen: false });
+		this.setState({ focusLockEnabled: false });
 
-    if (this.targetRef != null) {
-      this.targetRef.focus();
-    }
+		if (this.targetRef != null) {
+			this.targetRef.focus();
+		}
 
-    if (typeof window === 'undefined') {
-      return;
-    }
+		if (typeof window === 'undefined') {
+			return;
+		}
 
-    this.unbindWindowKeydown?.();
-    this.unbindWindowKeydown = null;
-  };
+		this.unbindWindowKeydown?.();
+		this.unbindWindowKeydown = null;
+	};
 
-  // Refs
-  // ==============================
+	// Refs
+	// ==============================
 
-  resolveTargetRef =
-    (popperRef: React.Ref<HTMLElement>) => (ref: HTMLElement) => {
-      // avoid thrashing fn calls
-      if (!this.targetRef && popperRef && ref) {
-        this.targetRef = ref;
+	resolveTargetRef = (popperRef: React.Ref<HTMLElement>) => (ref: HTMLElement) => {
+		// avoid thrashing fn calls
+		if (!this.targetRef && popperRef && ref) {
+			this.targetRef = ref;
 
-        if (typeof popperRef === 'function') {
-          popperRef(ref);
-        } else {
-          (popperRef as React.MutableRefObject<HTMLElement>).current = ref;
-        }
-      }
-    };
+			if (typeof popperRef === 'function') {
+				popperRef(ref);
+			} else {
+				(popperRef as React.MutableRefObject<HTMLElement>).current = ref;
+			}
+		}
+	};
 
-  resolveMenuRef =
-    (popperRef: React.Ref<HTMLElement>) => (ref: HTMLElement) => {
-      this.menuRef = ref;
+	resolveMenuRef = (popperRef: React.Ref<HTMLElement>) => (ref: HTMLElement) => {
+		this.menuRef = ref;
 
-      if (typeof popperRef === 'function') {
-        popperRef(ref);
-      } else {
-        (popperRef as React.MutableRefObject<HTMLElement>).current = ref;
-      }
-    };
+		if (typeof popperRef === 'function') {
+			popperRef(ref);
+		} else {
+			(popperRef as React.MutableRefObject<HTMLElement>).current = ref;
+		}
+	};
 
-  getSelectRef = (ref: AtlaskitSelectRefType) => {
-    this.selectRef = ref;
-  };
+	getSelectRef = (ref: AtlaskitSelectRefType) => {
+		this.selectRef = ref;
+	};
 
-  // Utils
-  // ==============================
+	// Utils
+	// ==============================
 
-  // account for groups when counting options
-  // this may need to be recursive, right now it just counts one level
-  getItemCount = () => {
-    const { options } = this.props;
-    let count = 0;
+	// account for groups when counting options
+	// this may need to be recursive, right now it just counts one level
+	getItemCount = () => {
+		const { options } = this.props;
+		let count = 0;
 
-    options!.forEach((groupOrOption: Option | GroupBase<Option>) => {
-      if ((groupOrOption as GroupBase<Option>).options) {
-        (groupOrOption as GroupBase<Option>).options.forEach(() => count++);
-      } else {
-        count++;
-      }
-    });
+		options!.forEach((groupOrOption: Option | GroupBase<Option>) => {
+			if ((groupOrOption as GroupBase<Option>).options) {
+				(groupOrOption as GroupBase<Option>).options.forEach(() => count++);
+			} else {
+				count++;
+			}
+		});
 
-    return count;
-  };
+		return count;
+	};
 
-  getMaxHeight = () => {
-    const { maxMenuHeight } = this.props;
+	getMaxHeight = () => {
+		const { maxMenuHeight } = this.props;
 
-    if (!this.selectRef) {
-      return maxMenuHeight;
-    }
+		if (!this.selectRef) {
+			return maxMenuHeight;
+		}
 
-    // subtract the control height to maintain consistency
-    const showSearchControl = this.showSearchControl();
-    let controlRef = getBooleanFF(
-      'platform.design-system-team.use-default-select-in-popup-select_46rmj',
-    )
-      ? this.selectRef.select?.controlRef
-      : this.selectRef.controlRef;
+		// subtract the control height to maintain consistency
+		const showSearchControl = this.showSearchControl();
+		let controlRef = getBooleanFF(
+			'platform.design-system-team.use-default-select-in-popup-select_46rmj',
+		)
+			? this.selectRef.select?.controlRef
+			: this.selectRef.controlRef;
 
-    const offsetHeight =
-      showSearchControl && controlRef ? controlRef.offsetHeight : 0;
-    const maxHeight = maxMenuHeight! - offsetHeight;
+		const offsetHeight = showSearchControl && controlRef ? controlRef.offsetHeight : 0;
+		const maxHeight = maxMenuHeight! - offsetHeight;
 
-    return maxHeight;
-  };
+		return maxHeight;
+	};
 
-  // if the threshold is exceeded, AND isSearchable is true, then display the search control
-  showSearchControl = () => {
-    const { searchThreshold, isSearchable } = this.props;
-    return isSearchable && this.getItemCount() > searchThreshold!;
-  };
+	// if the threshold is exceeded, AND isSearchable is true, then display the search control
+	showSearchControl = () => {
+		const { searchThreshold, isSearchable } = this.props;
+		return isSearchable && this.getItemCount() > searchThreshold!;
+	};
 
-  // Renderers
-  // ==============================
+	// Renderers
+	// ==============================
 
-  renderSelect = () => {
-    const {
-      footer,
-      label,
-      maxMenuWidth,
-      minMenuWidth,
-      placeholder,
-      target,
-      testId,
-      ...props
-    } = this.props;
-    const { focusLockEnabled, isOpen, mergedComponents, mergedPopperProps } =
-      this.state;
-    const showSearchControl = this.showSearchControl();
-    const portalDestination = canUseDOM() ? document.body : null;
+	renderSelect = () => {
+		const { footer, label, maxMenuWidth, minMenuWidth, placeholder, target, testId, ...props } =
+			this.props;
+		const { focusLockEnabled, isOpen, mergedComponents, mergedPopperProps } = this.state;
+		const showSearchControl = this.showSearchControl();
+		const portalDestination = canUseDOM() ? document.body : null;
 
-    if (!portalDestination || !isOpen) {
-      return null;
-    }
+		if (!portalDestination || !isOpen) {
+			return null;
+		}
 
-    const selectComponents = {
-      ...mergedComponents,
-      Control: showSearchControl ? mergedComponents.Control : DummyControl,
-    } as Partial<SelectComponents>;
+		const selectComponents = {
+			...mergedComponents,
+			Control: showSearchControl ? mergedComponents.Control : DummyControl,
+		} as Partial<SelectComponents>;
 
-    const getLabel: () => string | undefined = () => {
-      if (label) {
-        return label;
-      } else if (typeof placeholder === 'string') {
-        return placeholder;
-      }
-    };
+		const getLabel: () => string | undefined = () => {
+			if (label) {
+				return label;
+			} else if (typeof placeholder === 'string') {
+				return placeholder;
+			}
+		};
 
-    const InternalSelect: React.ComponentType<any> = getBooleanFF(
-      'platform.design-system-team.use-default-select-in-popup-select_46rmj',
-    )
-      ? DefaultSelect
-      : Select;
+		const InternalSelect: React.ComponentType<any> = getBooleanFF(
+			'platform.design-system-team.use-default-select-in-popup-select_46rmj',
+		)
+			? DefaultSelect
+			: Select;
 
-    const popper = (
-      <Popper
-        {...mergedPopperProps}
-        onFirstUpdate={(state) => {
-          this.handleFirstPopperUpdate();
-          mergedPopperProps.onFirstUpdate?.(state);
-        }}
-      >
-        {({ placement, ref, style }) => (
-          <NodeResolver innerRef={this.resolveMenuRef(ref)}>
-            <MenuDialog
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-              style={style}
-              data-placement={placement}
-              minWidth={minMenuWidth}
-              maxWidth={maxMenuWidth}
-              id={this.popperWrapperId}
-              testId={testId}
-            >
-              <FocusLock disabled={!focusLockEnabled} returnFocus>
-                <InternalSelect
-                  aria-label={getLabel()}
-                  backspaceRemovesValue={false}
-                  controlShouldRenderValue={false}
-                  isClearable={false}
-                  tabSelectsValue={false}
-                  menuIsOpen
-                  placeholder={placeholder}
-                  ref={this.getSelectRef}
-                  {...props}
-                  onMenuClose={() => {
-                    getBooleanFF(
-                      'platform.design-system-team.popup-select-close_8h15h',
-                    ) && this.close();
-                    props.onMenuClose?.();
-                  }}
-                  isSearchable={showSearchControl}
-                  styles={mergeStyles(this.defaultStyles, props.styles || {})}
-                  maxMenuHeight={this.getMaxHeight()}
-                  components={selectComponents}
-                  onChange={this.handleSelectChange}
-                />
-                {footer}
-              </FocusLock>
-            </MenuDialog>
-          </NodeResolver>
-        )}
-      </Popper>
-    );
+		const popper = (
+			<Popper
+				{...mergedPopperProps}
+				onFirstUpdate={(state) => {
+					this.handleFirstPopperUpdate();
+					mergedPopperProps.onFirstUpdate?.(state);
+				}}
+			>
+				{({ placement, ref, style }) => (
+					<NodeResolver innerRef={this.resolveMenuRef(ref)}>
+						<MenuDialog
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							style={style}
+							data-placement={placement}
+							minWidth={minMenuWidth}
+							maxWidth={maxMenuWidth}
+							id={this.popperWrapperId}
+							testId={testId}
+						>
+							<FocusLock disabled={!focusLockEnabled} returnFocus>
+								<InternalSelect
+									aria-label={getLabel()}
+									backspaceRemovesValue={false}
+									controlShouldRenderValue={false}
+									isClearable={false}
+									tabSelectsValue={false}
+									menuIsOpen
+									placeholder={placeholder}
+									ref={this.getSelectRef}
+									{...props}
+									onMenuClose={() => {
+										getBooleanFF('platform.design-system-team.popup-select-close_8h15h') &&
+											this.close();
+										props.onMenuClose?.();
+									}}
+									isSearchable={showSearchControl}
+									styles={mergeStyles(this.defaultStyles, props.styles || {})}
+									maxMenuHeight={this.getMaxHeight()}
+									components={selectComponents}
+									onChange={this.handleSelectChange}
+								/>
+								{footer}
+							</FocusLock>
+						</MenuDialog>
+					</NodeResolver>
+				)}
+			</Popper>
+		);
 
-    return mergedPopperProps.strategy === 'fixed'
-      ? popper
-      : createPortal(popper, portalDestination);
-  };
+		return mergedPopperProps.strategy === 'fixed'
+			? popper
+			: createPortal(popper, portalDestination);
+	};
 
-  render() {
-    const { target } = this.props;
-    const { isOpen } = this.state;
+	render() {
+		const { target } = this.props;
+		const { isOpen } = this.state;
 
-    return (
-      <Manager>
-        <Reference>
-          {({ ref }) =>
-            target &&
-            target({
-              isOpen,
-              onKeyDown: this.handleTargetKeyDown,
-              ref: this.resolveTargetRef(ref),
-              'aria-haspopup': 'true',
-              'aria-expanded': isOpen,
-              'aria-controls': isOpen ? this.popperWrapperId : undefined,
-            })
-          }
-        </Reference>
-        {this.renderSelect()}
-      </Manager>
-    );
-  }
+		return (
+			<Manager>
+				<Reference>
+					{({ ref }) =>
+						target &&
+						target({
+							isOpen,
+							onKeyDown: this.handleTargetKeyDown,
+							ref: this.resolveTargetRef(ref),
+							'aria-haspopup': 'true',
+							'aria-expanded': isOpen,
+							'aria-controls': isOpen ? this.popperWrapperId : undefined,
+						})
+					}
+				</Reference>
+				{this.renderSelect()}
+			</Manager>
+		);
+	}
 }

@@ -9,7 +9,7 @@ exports.default = void 0;
  *
  * Token names mapped to their values, used for contrast checking when generating custom themes
  *
- * @codegen <<SignedSource::3d22a7e3bd86119c52f9c93c78a0f24c>>
+ * @codegen <<SignedSource::023110f136ad929098f2d5a341b7ad7c>>
  * @codegenCommand yarn build tokens
  */
 var tokenValues = {

@@ -56,13 +56,13 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 			aria-expanded={props['aria-expanded']}
 			iconAfter={
 				<span
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={[wrapperStyle, props.isSmall && wrapperSmallStyle]}
 					data-testid="toolbar-block-type-text-styles-icon"
 				>
 					{props.isSmall && <TextStyleIcon label={labelTextStyles} />}
 					<span
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={expandIconWrapperStyle}
 					>
 						<ExpandIcon label="" />
@@ -73,9 +73,9 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 			{!props.isSmall && (
 				<span
 					css={[
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						buttonContentStyle,
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						props.isReducedSpacing && buttonContentReducedSpacingStyle,
 					]}
 				>

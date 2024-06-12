@@ -1,5 +1,1 @@
-export {
-  getCSSCustomProperty,
-  getTokenId,
-  getFullyQualifiedTokenId,
-} from '../utils/token-ids';
+export { getCSSCustomProperty, getTokenId, getFullyQualifiedTokenId } from '../utils/token-ids';

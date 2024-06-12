@@ -7,10 +7,10 @@ const transformer = createTransformer([liftInlineEditStatelessToDefault]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('lift InlineEditStateless to default', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import { InlineEditableTextfield } from "@atlaskit/inline-edit";
 
@@ -18,7 +18,7 @@ describe('lift InlineEditStateless to default', () => {
       <InlineEditableTextfield />
     );
     `,
-    `
+		`
     import React from "react";
     import { InlineEditableTextfield } from "@atlaskit/inline-edit";
 
@@ -26,13 +26,13 @@ describe('lift InlineEditStateless to default', () => {
       <InlineEditableTextfield />
     );
     `,
-    'should not do anything other than stateless',
-  );
+		'should not do anything other than stateless',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import { InlineEditStateless } from "@atlaskit/inline-edit";
 
@@ -40,7 +40,7 @@ describe('lift InlineEditStateless to default', () => {
       <InlineEditStateless />
     );
     `,
-    `
+		`
     import React from "react";
     import InlineEditStateless from "@atlaskit/inline-edit";
 
@@ -48,13 +48,13 @@ describe('lift InlineEditStateless to default', () => {
       <InlineEditStateless />
     );
     `,
-    'should lift the stateless to default',
-  );
+		'should lift the stateless to default',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import { InlineEditStateless as InlineEdit } from "@atlaskit/inline-edit";
 
@@ -62,7 +62,7 @@ describe('lift InlineEditStateless to default', () => {
       <InlineEdit />
     );
     `,
-    `
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -70,13 +70,13 @@ describe('lift InlineEditStateless to default', () => {
       <InlineEdit />
     );
     `,
-    'should lift the stateless to default with alias',
-  );
+		'should lift the stateless to default with alias',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import { InlineEditableTextfield as InlineEdit } from "@atlaskit/inline-edit";
 
@@ -84,7 +84,7 @@ describe('lift InlineEditStateless to default', () => {
       <InlineEdit />
     );
     `,
-    `
+		`
     import React from "react";
     import { InlineEditableTextfield as InlineEdit } from "@atlaskit/inline-edit";
 
@@ -92,13 +92,13 @@ describe('lift InlineEditStateless to default', () => {
       <InlineEdit />
     );
     `,
-    'should not lift the InlineEditableTextfield to default with alias',
-  );
+		'should not lift the InlineEditableTextfield to default with alias',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import InlineEdit, { InlineEditStateless } from "@atlaskit/inline-edit";
 
@@ -109,7 +109,7 @@ describe('lift InlineEditStateless to default', () => {
       </Container>
     );
     `,
-    `
+		`
     /* TODO: (from codemod) We could not automatically convert this code to the new API.
 
     This file uses \`InlineEdit\` and \`InlineEditStateless\` at the same time. We've merged these two types since version 12.0.0, and please use the merged version instead.
@@ -124,6 +124,6 @@ describe('lift InlineEditStateless to default', () => {
       </Container>
     );
     `,
-    'should add comments when cannot convert',
-  );
+		'should add comments when cannot convert',
+	);
 });

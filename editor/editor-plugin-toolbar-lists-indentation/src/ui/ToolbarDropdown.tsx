@@ -84,7 +84,7 @@ export function ToolbarDropdown(props: DropdownProps) {
 	};
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={wrapperStyle}>
 			<DropdownMenu
 				items={items}
@@ -115,10 +115,10 @@ export function ToolbarDropdown(props: DropdownProps) {
 					onKeyDown={handleOnKeyDown}
 					title={labelLists}
 					iconBefore={
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						<span css={wrapperStyle}>
 							<BulletListIcon label={labelLists} />
-							{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 							<span css={expandIconWrapperStyle}>
 								<ExpandIcon label="" />
 							</span>
@@ -126,7 +126,7 @@ export function ToolbarDropdown(props: DropdownProps) {
 					}
 				/>
 			</DropdownMenu>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<span css={separatorStyles} />
 		</span>
 	);
@@ -157,7 +157,7 @@ function useItems(
 			isDisabled: props.bulletListDisabled,
 			isActive: Boolean(props.bulletListActive),
 			elemAfter: (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={shortcutStyle}>{tooltip(toggleBulletListKeymap)}</div>
 			),
 		},
@@ -168,7 +168,7 @@ function useItems(
 			isDisabled: props.orderedListDisabled,
 			isActive: Boolean(props.orderedListActive),
 			elemAfter: (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={shortcutStyle}>{tooltip(toggleOrderedListKeymap)}</div>
 			),
 		},
@@ -184,7 +184,7 @@ function useItems(
 				isDisabled: props.outdentDisabled,
 				isActive: false,
 				elemAfter: (
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={shortcutStyle}>{tooltip(toggleOutdentKeymap)}</div>
 				),
 			},
@@ -194,7 +194,7 @@ function useItems(
 				value: { name: 'indent' },
 				isDisabled: props.indentDisabled,
 				isActive: false,
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				elemAfter: <div css={shortcutStyle}>{tooltip(toggleIndentKeymap)}</div>,
 			},
 		);

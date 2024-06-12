@@ -94,6 +94,7 @@ type DragMenuProps = {
 	isTableScalingEnabled?: boolean;
 	tableDuplicateCellColouring?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
+	isTableFixedColumnWidthsOptionEnabled?: boolean;
 };
 
 type PluralOptionType = 'noOfCols' | 'noOfRows' | 'noOfCells' | null;
@@ -219,12 +220,14 @@ const convertToDropdownItems = (
 			value: { name: item.id },
 			isDisabled: item.disabled,
 			elemBefore: item.icon ? (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={elementBeforeIconStyles}>
 					<item.icon
 						label={formatMessage(MapDragMenuOptionIdToMessage[item.id].message, options)}
 					/>
 				</span>
 			) : undefined,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: item.keymap ? <div css={shortcutStyle}>{item.keymap}</div> : undefined,
 		});
 		item.onClick && (menuCallback[item.id] = item.onClick);
@@ -263,6 +266,7 @@ export const DragMenu = React.memo(
 		isTableScalingEnabled,
 		tableDuplicateCellColouring,
 		shouldUseIncreasedScalingPercent,
+		isTableFixedColumnWidthsOptionEnabled,
 	}: DragMenuProps & WrappedComponentProps) => {
 		const { state, dispatch } = editorView;
 		const { selection } = state;
@@ -303,6 +307,7 @@ export const DragMenu = React.memo(
 			pluginConfig?.isHeaderRowRequired,
 			isTableScalingEnabled,
 			tableDuplicateCellColouring,
+			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 		);
 
@@ -355,6 +360,7 @@ export const DragMenu = React.memo(
 				content: formatMessage(messages.backgroundColor),
 				value: { name: 'background' },
 				elemBefore: (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					<span css={elementBeforeIconStyles}>
 						<EditorBackgroundColorIcon
 							label={formatMessage(messages.backgroundColor)}
@@ -366,9 +372,11 @@ export const DragMenu = React.memo(
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={DropdownMenuSharedCssClassName.SUBMENU}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						css={dragMenuBackgroundColorStyles}
 					>
 						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={cellColourPreviewStyles(background)}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={ClassName.DRAG_SUBMENU_ICON}
@@ -431,6 +439,7 @@ export const DragMenu = React.memo(
 						content: formatMessage(messages.headerColumn),
 						value: { name: 'header_column' },
 						elemAfter: (
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							<div css={toggleStyles}>
 								<Toggle
 									id="toggle-header-column"
@@ -445,6 +454,7 @@ export const DragMenu = React.memo(
 						content: formatMessage(messages.headerRow),
 						value: { name: 'header_row' },
 						elemAfter: (
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							<div css={toggleStyles}>
 								<Toggle
 									id="toggle-header-row"
@@ -462,6 +472,7 @@ export const DragMenu = React.memo(
 				content: formatMessage(messages.rowNumbers),
 				value: { name: 'row_numbers' },
 				elemAfter: (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					<div css={toggleStyles}>
 						<Toggle
 							id="toggle-row-numbers"

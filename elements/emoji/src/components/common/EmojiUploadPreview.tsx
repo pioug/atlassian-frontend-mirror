@@ -65,8 +65,11 @@ class EmojiUploadPreview extends PureComponent<
 			: formatMessage(messages.addEmojiLabel);
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={uploadPreviewFooter}>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={uploadPreview} data-testid={uploadPreviewTestId}>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={uploadPreviewText}>
 						<h5>
 							<FormattedMessage {...messages.emojiPreviewTitle} />
@@ -75,8 +78,10 @@ class EmojiUploadPreview extends PureComponent<
 							<FormattedMessage {...messages.emojiPreview} values={{ emoji: emojiComponent }} />
 						</div>
 					</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={bigEmojiPreview}>{emojiComponent}</div>
 				</div>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={uploadAddRow}>
 					{!uploading && errorMessage ? (
 						<EmojiErrorMessage

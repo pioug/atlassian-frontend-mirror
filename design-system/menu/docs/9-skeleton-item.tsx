@@ -20,17 +20,17 @@ import { SkeletonItem } from '@atlaskit/menu';
 `}
 
 ${(
-  <Example
-    title="Skeleton item"
-    Component={require('../examples/skeleton-item').default}
-    source={require('!!raw-loader!../examples/skeleton-item')}
-  />
+	<Example
+		title="Skeleton item"
+		Component={require('../examples/skeleton-item').default}
+		source={require('!!raw-loader!../examples/skeleton-item')}
+	/>
 )}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/menu-item/skeleton-item')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/menu-item/skeleton-item')}
+		/>
+	)}
 `;

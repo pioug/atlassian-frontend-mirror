@@ -10,12 +10,7 @@ import { WidthDetectorObserver } from './width-detector-observer';
  * because this is an absolute element.
  */
 export const WidthObserver = React.memo((props: WidthObserverProps) => {
-  return (
-    <WidthDetectorObserver
-      setWidth={props.setWidth}
-      offscreen={props.offscreen}
-    />
-  );
+	return <WidthDetectorObserver setWidth={props.setWidth} offscreen={props.offscreen} />;
 });
 
 export default WidthObserver;

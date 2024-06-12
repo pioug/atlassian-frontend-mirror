@@ -78,6 +78,7 @@ interface TableResizerProps {
 	displayGapCursor: (toggle: boolean) => boolean;
 	pluginInjectionApi?: PluginInjectionAPI;
 	isTableScalingEnabled?: boolean;
+	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
 	isWholeTableInDanger?: boolean;
 	isFullWidthModeEnabled?: boolean;
@@ -193,6 +194,7 @@ export const TableResizer = ({
 	attachAnalyticsEvent,
 	displayGapCursor,
 	isTableScalingEnabled,
+	isTableWithFixedColumnWidthsOptionEnabled,
 	isTableAlignmentEnabled,
 	isWholeTableInDanger,
 	shouldUseIncreasedScalingPercent,
@@ -413,6 +415,7 @@ export const TableResizer = ({
 				},
 				editorView.domAtPos.bind(editorView),
 				isTableScalingEnabled,
+				isTableWithFixedColumnWidthsOptionEnabled,
 			);
 
 			const editorContainerWidth = isFullWidthModeEnabled
@@ -470,6 +473,7 @@ export const TableResizer = ({
 		[
 			countFrames,
 			isTableScalingEnabled,
+			isTableWithFixedColumnWidthsOptionEnabled,
 			isFullWidthModeEnabled,
 			excludeGuidelineConfig,
 			tableRef,

@@ -25,8 +25,10 @@ import { getDatasource, isDatasourceTableLayout } from './utils';
 const toolbarButtonWrapperStyles = css({
 	background: `${token('color.background.neutral', N20A)}`,
 	color: `${token('color.icon', N300)}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		background: `${token('color.background.neutral.hovered', B300)}`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		color: `${token('color.icon', 'white')} !important`,
 	},
 });

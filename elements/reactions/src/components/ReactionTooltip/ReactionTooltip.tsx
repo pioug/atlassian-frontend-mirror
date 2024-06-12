@@ -54,8 +54,10 @@ export const ReactionTooltip = ({
 	 */
 	const content =
 		!users || users.length === 0 || !isEnabled ? null : (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={tooltipStyle} tabIndex={0}>
 				<ul>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					{emojiName ? <li css={emojiNameStyle}>{emojiName}</li> : null}
 					{users.slice(0, maxReactions).map((user) => {
 						return <li key={user.id}>{user.displayName}</li>;
@@ -63,6 +65,7 @@ export const ReactionTooltip = ({
 					{/* If count of reactions higher then given threshold then render custom message */}
 
 					<li
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={allowUserDialog ? [footerStyle, underlineStyle] : footerStyle}
 						onClick={() => {
 							if (allowUserDialog && handleUserListClick) {

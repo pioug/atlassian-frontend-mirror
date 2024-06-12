@@ -18,98 +18,81 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 import SectionMessage from '@atlaskit/section-message';
 
 <CodeDocsHeader
-  name="@atlaskit/primitives"
-  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
-  directoryName="primitives"
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
 />
 
-Pressable is a primitive used for building custom buttons with Atlassian Design System styling and built-in event tracking. It renders a `<button>` element.
+Pressable is a primitive used for building custom buttons with Atlassian Design System styling and
+built-in event tracking. It renders a `<button>` element.
 
-Only use Pressable when existing components such as [button](/components/button/examples) are unsuitable and unable to be customized to fit your needs.
+Only use Pressable when existing components such as [button](/components/button/examples) are
+unsuitable and unable to be customized to fit your needs.
 
 ## Default
 
 Pressable is unstyled by default.
 
-<Example
-  Component={PressableDefault}
-  packageName="@atlaskit/primitives/pressable"
-/>
+<Example Component={PressableDefault} packageName="@atlaskit/primitives/pressable" />
 
 ## Basic styling with XCSS
 
-Pressable can be styled using XCSS. Ensure styling indicates the interaction state using `:hover` and `:active` pseudo-classes. Pressable includes consistent Atlassian Design System `:focus` styles, so it's unnecessary to add your own.
+Pressable can be styled using XCSS. Ensure styling indicates the interaction state using `:hover`
+and `:active` pseudo-classes. Pressable includes consistent Atlassian Design System `:focus` styles,
+so it's unnecessary to add your own.
 
 For more information on XCSS, see the [XCSS documentation](/components/primitives/xcss).
 
-<Example
-  Component={PressableBasic}
-  packageName="@atlaskit/primitives/pressable"
-/>
+<Example Component={PressableBasic} packageName="@atlaskit/primitives/pressable" />
 
 ## Advanced styling
 
 Use a combination of XCSS and other primitives for more complex designs.
 
 <Example
-  Component={PressableStyled}
-  packageName="@atlaskit/primitives/pressable"
-  backgroundColor="white"
+	Component={PressableStyled}
+	packageName="@atlaskit/primitives/pressable"
+	backgroundColor="white"
 />
 
 ## Disabled
 
-Pressable can be disabled using the `isDisabled` prop. Disabled styles should be conditionally applied and defined using XCSS.
+Pressable can be disabled using the `isDisabled` prop. Disabled styles should be conditionally
+applied and defined using XCSS.
 
-<Example
-  Component={PressableDisabled}
-  packageName="@atlaskit/primitives/pressable"
-/>
+<Example Component={PressableDisabled} packageName="@atlaskit/primitives/pressable" />
 
 ## Buttons without visible labels
 
-For buttons without visible labels such as icon buttons, ensure an accessible label is still available by using [the visually hidden component](/components/visually-hidden/examples). This will render hidden text inside the button, which is preferable over the `aria-label` attribute because not all screen readers translate this between languages.
+For buttons without visible labels such as icon buttons, ensure an accessible label is still
+available by using [the visually hidden component](/components/visually-hidden/examples). This will
+render hidden text inside the button, which is preferable over the `aria-label` attribute because
+not all screen readers translate this between languages.
 
-Provide a tooltip to help sighted users understand the button's purpose rather than relying on iconography alone.
+Provide a tooltip to help sighted users understand the button's purpose rather than relying on
+iconography alone.
 
 <Example
-  Component={PressableWithoutVisibleLabels}
-  packageName="@atlaskit/primitives/pressable"
-  backgroundColor="white"
+	Component={PressableWithoutVisibleLabels}
+	packageName="@atlaskit/primitives/pressable"
+	backgroundColor="white"
 />
 
 ## HTML attributes
 
-Pressable passes through all valid HTML attributes to the underlying `<button>` element. It will default the `type` attribute to `button` to prevent buttons unintentionally submitting forms.
+Pressable passes through all valid HTML attributes to the underlying `<button>` element. It will
+default the `type` attribute to `button` to prevent buttons unintentionally submitting forms.
 
-<Example
-  Component={PressableHtmlAttributes}
-  packageName="@atlaskit/primitives/pressable"
-/>
+<Example Component={PressableHtmlAttributes} packageName="@atlaskit/primitives/pressable" />
 
-<Snippet
-  name="primitives-event-tracking-header"
-  variables={{ componentName: 'pressable' }}
-/>
+<Snippet name="primitives-event-tracking-header" variables={{ componentName: 'pressable' }} />
 
-<Example
-  Component={PressableAnalytics}
-  packageName="@atlaskit/primitives/pressable"
-/>
+<Example Component={PressableAnalytics} packageName="@atlaskit/primitives/pressable" />
 
 <Snippet name="primitives-event-tracking-gasv3" />
 
-<Example
-  Component={PressableAnalyticsGASv3}
-  packageName="@atlaskit/primitives/pressable"
-/>
+<Example Component={PressableAnalyticsGASv3} packageName="@atlaskit/primitives/pressable" />
 
-<Snippet
-  name="primitives-event-tracking-ufo"
-  variables={{ componentName: 'pressable' }}
-/>
+<Snippet name="primitives-event-tracking-ufo" variables={{ componentName: 'pressable' }} />
 
-<Example
-  Component={PressablePressTracing}
-  packageName="@atlaskit/primitives/pressable"
-/>
+<Example Component={PressablePressTracing} packageName="@atlaskit/primitives/pressable" />

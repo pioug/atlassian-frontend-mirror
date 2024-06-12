@@ -1,6 +1,8 @@
 This rule disallows exports of `css`, `cssMap`, `keyframes`, `styled`, `xcss` styles.
 
-Exporting style declarations from these libraries may result in unexpected errors when imported, because its value will be null at runtime. Additionally, co-locating style definitions with their usage is considered best practice in order to improve code readability and build performance.
+Exporting style declarations from these libraries may result in unexpected errors when imported,
+because its value will be null at runtime. Additionally, co-locating style definitions with their
+usage is considered best practice in order to improve code readability and build performance.
 
 ## Examples
 
@@ -22,12 +24,13 @@ export const animation = keyframes({});
 export default keyframes({});
 ```
 
-Avoid exporting any style-like objects or values for consumption as well as these will violate our `no-imported-style-values` rule which blocks consumption of imported styles.
+Avoid exporting any style-like objects or values for consumption as well as these will violate our
+`no-imported-style-values` rule which blocks consumption of imported styles.
 
 ```js
 export default {
-  color: 'red',
-  margin: '0px',
+	color: 'red',
+	margin: '0px',
 };
 ```
 
@@ -35,15 +38,15 @@ export default {
 import { css } from '@compiled/react';
 
 const color = css({
-  /* */
+	/* */
 });
 
 const styles = {
-  primary: {
-    text: {
-      color,
-    },
-  },
+	primary: {
+		text: {
+			color,
+		},
+	},
 };
 
 export default styles.primary.text.color;
@@ -51,7 +54,8 @@ export default styles.primary.text.color;
 
 ### Correct
 
-Co-locate your styles next to your components to improve code readability, linting, and build performance.
+Co-locate your styles next to your components to improve code readability, linting, and build
+performance.
 
 ```js
 import { css } from '@compiled/react';
@@ -82,4 +86,5 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an
+array of package names (strings).

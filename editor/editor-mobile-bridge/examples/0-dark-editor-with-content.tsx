@@ -8,6 +8,7 @@ import MobileEditorConfiguration from '../src/editor/editor-configuration';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const wrapper: any = css({
 	position: 'absolute',
 	top: 0,

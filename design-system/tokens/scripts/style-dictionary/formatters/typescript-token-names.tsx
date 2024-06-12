@@ -6,32 +6,28 @@ import { createSignedArtifact } from '@atlassian/codegen';
 import { getCSSCustomProperty, getTokenId } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
 
-export const typescriptTokenFormatter: Format['formatter'] = ({
-  dictionary,
-}) => {
-  const tokens: Record<string, string> = {};
+export const typescriptTokenFormatter: Format['formatter'] = ({ dictionary }) => {
+	const tokens: Record<string, string> = {};
 
-  sortTokens(
-    dictionary.allTokens.filter(
-      (token) =>
-        token.attributes?.group !== 'palette' &&
-        token.attributes?.group !== 'scale',
-    ),
-  ).forEach((token) => {
-    const tokenName = getTokenId(token.path);
-    tokens[tokenName] = getCSSCustomProperty(token.path);
-  });
+	sortTokens(
+		dictionary.allTokens.filter(
+			(token) => token.attributes?.group !== 'palette' && token.attributes?.group !== 'scale',
+		),
+	).forEach((token) => {
+		const tokenName = getTokenId(token.path);
+		tokens[tokenName] = getCSSCustomProperty(token.path);
+	});
 
-  const tokensKeyValues = Object.keys(tokens)
-    .map((name) => `  '${name}': '${tokens[name]}',`)
-    .join('\n');
+	const tokensKeyValues = Object.keys(tokens)
+		.map((name) => `  '${name}': '${tokens[name]}',`)
+		.join('\n');
 
-  const tokenReturnKeyValues = Object.keys(tokens)
-    .map((name) => `  '${name}': 'var(${tokens[name]})',`)
-    .join('\n');
+	const tokenReturnKeyValues = Object.keys(tokens)
+		.map((name) => `  '${name}': 'var(${tokens[name]})',`)
+		.join('\n');
 
-  return format(
-    `const tokens = {
+	return format(
+		`const tokens = {
       ${tokensKeyValues}
     } as const;
 
@@ -42,11 +38,11 @@ export const typescriptTokenFormatter: Format['formatter'] = ({
     export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
     export default tokens;\n`,
-    'typescript'
-  );
+		'typescript',
+	);
 };
 
 const fileFormatter: Format['formatter'] = (args) =>
-  createSignedArtifact(typescriptTokenFormatter(args), `yarn build tokens`);
+	createSignedArtifact(typescriptTokenFormatter(args), `yarn build tokens`);
 
 export default fileFormatter;

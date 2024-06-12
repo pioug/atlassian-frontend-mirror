@@ -20,6 +20,7 @@ const commentBadgeWrapper = css({
 	right: '2px',
 	top: '2px',
 	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: akEditorUnitZIndex * 10,
 });
 
@@ -28,6 +29,7 @@ const commentBadgeEditorOverrides = (
 	badgeOffsetRight?: string,
 ) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		right: commentsOnMediaBugFixEnabled ? badgeOffsetRight : '14px',
 		zIndex: layers.card(),
 	});
@@ -103,6 +105,7 @@ export const CommentBadge = ({
 				badgeOffsetRight
 					? [
 							commentBadgeWrapper,
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							commentBadgeEditorOverrides(commentsOnMediaBugFixEnabled, badgeOffsetRight),
 						]
 					: commentBadgeWrapper

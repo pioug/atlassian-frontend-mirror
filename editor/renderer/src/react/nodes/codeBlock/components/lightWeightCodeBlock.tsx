@@ -9,7 +9,7 @@ import { useBidiWarnings } from '../../../hooks/use-bidi-warnings';
 import { RendererCssClassName } from '../../../../consts';
 import type { Props as CodeBlockProps } from '../codeBlock';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const lightWeightCodeBlockStyles = css`
 	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
 		cursor: text;
@@ -57,6 +57,7 @@ const LightWeightCodeBlock = forwardRef(
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}
 				ref={ref}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={[codeBlockSharedStyles(), lightWeightCodeBlockStyles]}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}

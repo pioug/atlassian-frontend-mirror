@@ -1,21 +1,21 @@
 import React, {
-  createContext,
-  type ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
+	createContext,
+	type ReactNode,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
 } from 'react';
 
 import {
-  createForm,
-  type FieldConfig,
-  type FieldSubscriber,
-  type FieldSubscription,
-  type FormApi,
-  type FormState,
-  type Unsubscribe,
+	createForm,
+	type FieldConfig,
+	type FieldSubscriber,
+	type FieldSubscription,
+	type FormApi,
+	type FormState,
+	type Unsubscribe,
 } from 'final-form';
 import createDecorator from 'final-form-focus';
 import set from 'lodash/set';
@@ -25,16 +25,14 @@ import { type OnSubmitHandler } from './types';
 type DefaultValue<FieldValue> = (value?: FieldValue) => FieldValue;
 
 type RegisterField = <FieldValue>(
-  name: string,
-  defaultValue: FieldValue | DefaultValue<FieldValue>,
-  subscriber: FieldSubscriber<FieldValue>,
-  subscription: FieldSubscription,
-  config: FieldConfig<FieldValue>,
+	name: string,
+	defaultValue: FieldValue | DefaultValue<FieldValue>,
+	subscriber: FieldSubscriber<FieldValue>,
+	subscription: FieldSubscription,
+	config: FieldConfig<FieldValue>,
 ) => Unsubscribe;
 
-type GetCurrentValue = <FormValues>(
-  name: string,
-) => FormValues[keyof FormValues] | undefined;
+type GetCurrentValue = <FormValues>(name: string) => FormValues[keyof FormValues] | undefined;
 
 /**
  * __Form context__
@@ -42,17 +40,17 @@ type GetCurrentValue = <FormValues>(
  * A form context creates a context for the field values and allows them to be accessed by the children.
  */
 export const FormContext = createContext<{
-  registerField: RegisterField;
-  getCurrentValue: GetCurrentValue;
-  subscribe: FormApi['subscribe'];
+	registerField: RegisterField;
+	getCurrentValue: GetCurrentValue;
+	subscribe: FormApi['subscribe'];
 }>({
-  registerField: function () {
-    return () => {};
-  },
-  getCurrentValue: () => undefined,
-  subscribe: function () {
-    return () => {};
-  },
+	registerField: function () {
+		return () => {};
+	},
+	getCurrentValue: () => undefined,
+	subscribe: function () {
+		return () => {};
+	},
 });
 
 /**
@@ -63,192 +61,178 @@ export const FormContext = createContext<{
 export const IsDisabledContext = createContext(false);
 
 interface FormChildrenProps {
-  ref: React.RefObject<HTMLFormElement>;
-  onSubmit: (
-    event?:
-      | React.FormEvent<HTMLFormElement>
-      | React.SyntheticEvent<HTMLElement>,
-  ) => void;
-  onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
+	ref: React.RefObject<HTMLFormElement>;
+	onSubmit: (event?: React.FormEvent<HTMLFormElement> | React.SyntheticEvent<HTMLElement>) => void;
+	onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
 
 export interface FormProps<FormValues> {
-  /**
-   *  The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.
-   *  You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).
-   */
-  children: (args: {
-    formProps: FormChildrenProps;
-    // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-    disabled: boolean;
-    // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-    dirty: boolean;
-    // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-    submitting: boolean;
-    getState: () => FormState<FormValues>;
+	/**
+	 *  The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.
+	 *  You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).
+	 */
+	children: (args: {
+		formProps: FormChildrenProps;
+		// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
+		disabled: boolean;
+		// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
+		dirty: boolean;
+		// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
+		submitting: boolean;
+		getState: () => FormState<FormValues>;
 
-    /**
-     * @deprecated
-     */
-    getValues: () => FormValues;
+		/**
+		 * @deprecated
+		 */
+		getValues: () => FormValues;
 
-    setFieldValue: (name: string, value: any) => void;
-    reset: (initialValues?: FormValues) => void;
-  }) => ReactNode;
-  /**
-   *   Event handler called when the form is submitted. Fields must be free of validation errors.
-   */
-  onSubmit: OnSubmitHandler<FormValues>;
-  /**
-   *   Sets the form and its fields as disabled. Users cannot edit or focus on the fields.
-   */
-  isDisabled?: boolean;
+		setFieldValue: (name: string, value: any) => void;
+		reset: (initialValues?: FormValues) => void;
+	}) => ReactNode;
+	/**
+	 *   Event handler called when the form is submitted. Fields must be free of validation errors.
+	 */
+	onSubmit: OnSubmitHandler<FormValues>;
+	/**
+	 *   Sets the form and its fields as disabled. Users cannot edit or focus on the fields.
+	 */
+	isDisabled?: boolean;
 }
 
 export default function Form<FormValues extends Record<string, any> = {}>(
-  props: FormProps<FormValues>,
+	props: FormProps<FormValues>,
 ) {
-  const formRef = useRef<HTMLFormElement | null>(null);
-  const onSubmitRef = useRef(props.onSubmit);
-  onSubmitRef.current = props.onSubmit;
+	const formRef = useRef<HTMLFormElement | null>(null);
+	const onSubmitRef = useRef(props.onSubmit);
+	onSubmitRef.current = props.onSubmit;
 
-  const [form] = useState(() => {
-    // Types here would break the existing API
-    const finalForm = createForm<any>({
-      onSubmit: (...args) => onSubmitRef.current(...args),
-      destroyOnUnregister: true,
-      initialValues: {},
-      mutators: {
-        setDefaultValue: (
-          [name, defaultValue]: [string, {} | DefaultValue<any>],
-          state,
-        ) => {
-          if (state.formState.initialValues) {
-            const initialValues: any = state.formState.initialValues;
-            const values: any = state.formState.values;
-            const value =
-              name && typeof defaultValue === 'function'
-                ? defaultValue(initialValues[name])
-                : defaultValue;
+	const [form] = useState(() => {
+		// Types here would break the existing API
+		const finalForm = createForm<any>({
+			onSubmit: (...args) => onSubmitRef.current(...args),
+			destroyOnUnregister: true,
+			initialValues: {},
+			mutators: {
+				setDefaultValue: ([name, defaultValue]: [string, {} | DefaultValue<any>], state) => {
+					if (state.formState.initialValues) {
+						const initialValues: any = state.formState.initialValues;
+						const values: any = state.formState.values;
+						const value =
+							name && typeof defaultValue === 'function'
+								? defaultValue(initialValues[name])
+								: defaultValue;
 
-            /* eslint-disable no-param-reassign */
-            set(initialValues, name, value);
-            set(values, name, value);
-            /* eslint-enable */
-          }
-        },
-      },
-    });
+						/* eslint-disable no-param-reassign */
+						set(initialValues, name, value);
+						set(values, name, value);
+						/* eslint-enable */
+					}
+				},
+			},
+		});
 
-    createDecorator<FormValues>(() =>
-      formRef.current
-        ? Array.from(formRef.current.querySelectorAll('input'))
-        : [],
-    )(finalForm);
+		createDecorator<FormValues>(() =>
+			formRef.current ? Array.from(formRef.current.querySelectorAll('input')) : [],
+		)(finalForm);
 
-    return finalForm;
-  });
+		return finalForm;
+	});
 
-  const [state, setState] = useState({
-    dirty: false,
-    submitting: false,
-  });
+	const [state, setState] = useState({
+		dirty: false,
+		submitting: false,
+	});
 
-  useEffect(() => {
-    const unsubscribe = form.subscribe(
-      ({ dirty, submitting }) => {
-        setState({ dirty, submitting });
-      },
-      {
-        dirty: true,
-        submitting: true,
-      },
-    );
+	useEffect(() => {
+		const unsubscribe = form.subscribe(
+			({ dirty, submitting }) => {
+				setState({ dirty, submitting });
+			},
+			{
+				dirty: true,
+				submitting: true,
+			},
+		);
 
-    return unsubscribe;
-  }, [form]);
+		return unsubscribe;
+	}, [form]);
 
-  const registerField = useCallback<RegisterField>(
-    (name, defaultValue, subscriber, subscription, config) => {
-      form.pauseValidation();
-      const unsubscribe = form.registerField(
-        name,
-        subscriber,
-        subscription,
-        config,
-      );
+	const registerField = useCallback<RegisterField>(
+		(name, defaultValue, subscriber, subscription, config) => {
+			form.pauseValidation();
+			const unsubscribe = form.registerField(name, subscriber, subscription, config);
 
-      form.mutators.setDefaultValue(name, defaultValue);
-      form.resumeValidation();
+			form.mutators.setDefaultValue(name, defaultValue);
+			form.resumeValidation();
 
-      return unsubscribe;
-    },
-    [form],
-  );
+			return unsubscribe;
+		},
+		[form],
+	);
 
-  const handleSubmit = (
-    e?: React.FormEvent<HTMLFormElement> | React.SyntheticEvent<HTMLElement>,
-  ) => {
-    if (e) {
-      e.preventDefault();
-    }
+	const handleSubmit = (
+		e?: React.FormEvent<HTMLFormElement> | React.SyntheticEvent<HTMLElement>,
+	) => {
+		if (e) {
+			e.preventDefault();
+		}
 
-    form.submit();
-  };
+		form.submit();
+	};
 
-  const handleReset = (initialValues?: FormValues) => {
-    form.reset(initialValues);
-  };
+	const handleReset = (initialValues?: FormValues) => {
+		form.reset(initialValues);
+	};
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && formRef.current) {
-      const submitButton: HTMLElement | null = formRef.current.querySelector(
-        'button:not([type]), button[type="submit"], input[type="submit"]',
-      );
-      if (submitButton) {
-        submitButton.click();
-      }
-      e.preventDefault();
-    }
-  };
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+		if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && formRef.current) {
+			const submitButton: HTMLElement | null = formRef.current.querySelector(
+				'button:not([type]), button[type="submit"], input[type="submit"]',
+			);
+			if (submitButton) {
+				submitButton.click();
+			}
+			e.preventDefault();
+		}
+	};
 
-  const { isDisabled = false, children } = props;
-  const { dirty, submitting } = state;
+	const { isDisabled = false, children } = props;
+	const { dirty, submitting } = state;
 
-  /**
-   * This method is needed in FormContext to use it on the field level
-   * to check the current value of the field in case of the component re-mounting.
-   */
-  const getCurrentValue: GetCurrentValue = useCallback(
-    (name) => {
-      const formState = form.getState();
-      return formState?.values[name] || undefined;
-    },
-    [form],
-  );
+	/**
+	 * This method is needed in FormContext to use it on the field level
+	 * to check the current value of the field in case of the component re-mounting.
+	 */
+	const getCurrentValue: GetCurrentValue = useCallback(
+		(name) => {
+			const formState = form.getState();
+			return formState?.values[name] || undefined;
+		},
+		[form],
+	);
 
-  const FormContextValue = useMemo(() => {
-    return { registerField, getCurrentValue, subscribe: form.subscribe };
-  }, [registerField, getCurrentValue, form.subscribe]);
+	const FormContextValue = useMemo(() => {
+		return { registerField, getCurrentValue, subscribe: form.subscribe };
+	}, [registerField, getCurrentValue, form.subscribe]);
 
-  return (
-    <FormContext.Provider value={FormContextValue}>
-      <IsDisabledContext.Provider value={isDisabled}>
-        {children({
-          formProps: {
-            onSubmit: handleSubmit,
-            ref: formRef,
-            onKeyDown: handleKeyDown,
-          },
-          dirty,
-          reset: handleReset,
-          submitting,
-          disabled: isDisabled,
-          getState: () => form.getState(),
-          getValues: () => form.getState().values, // TODO: deprecate
-          setFieldValue: form.change,
-        })}
-      </IsDisabledContext.Provider>
-    </FormContext.Provider>
-  );
+	return (
+		<FormContext.Provider value={FormContextValue}>
+			<IsDisabledContext.Provider value={isDisabled}>
+				{children({
+					formProps: {
+						onSubmit: handleSubmit,
+						ref: formRef,
+						onKeyDown: handleKeyDown,
+					},
+					dirty,
+					reset: handleReset,
+					submitting,
+					disabled: isDisabled,
+					getState: () => form.getState(),
+					getValues: () => form.getState().values, // TODO: deprecate
+					setFieldValue: form.change,
+				})}
+			</IsDisabledContext.Provider>
+		</FormContext.Provider>
+	);
 }

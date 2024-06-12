@@ -16,6 +16,7 @@ const guidelineContainerStyles = css({
 	display: 'grid',
 	pointerEvents: 'none',
 	border: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: `${akEditorFullWidthLayoutWidth}px`,
 });
 

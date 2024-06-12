@@ -3,13 +3,13 @@ import type React from 'react';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export type Appearance =
-  | 'default'
-  | 'danger'
-  | 'link'
-  | 'primary'
-  | 'subtle'
-  | 'subtle-link'
-  | 'warning';
+	| 'default'
+	| 'danger'
+	| 'link'
+	| 'primary'
+	| 'subtle'
+	| 'subtle-link'
+	| 'warning';
 
 export type Spacing = 'compact' | 'default' | 'none';
 
@@ -22,111 +22,106 @@ export type Spacing = 'compact' | 'default' | 'none';
 type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
 export type BaseOwnProps = {
-  /**
-   * The base styling to apply to the button.
-   */
-  appearance?: Appearance;
-  /**
-   * Set the button to autofocus on mount.
-   */
-  autoFocus?: boolean;
-  /**
-   * Add a classname to the button.
-   */
-  className?: string;
-  /**
-   * Used to 'overlay' something over a button. This is commonly used to display a loading spinner.
-   */
-  overlay?: React.ReactNode;
-  /**
-   * Provides a URL that's used when the button is a link styled as a button.
-   */
-  href?: string;
-  /**
-   * Places an icon within the button, after the button's text.
-   */
-  iconAfter?: React.ReactChild;
-  /**
-   * Places an icon within the button, before the button's text.
-   */
-  iconBefore?: React.ReactChild;
-  /**
-   * Set if the button is disabled.
-   */
-  isDisabled?: boolean;
-  /**
-   * Change the style to indicate the button is selected.
-   */
-  isSelected?: boolean;
-  /**
-   * Handler called on blur.
-   */
-  onBlur?: React.FocusEventHandler<HTMLElement>;
-  /**
-   * Handler called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
-   */
-  onClick?: (
-    e: React.MouseEvent<HTMLElement>,
-    analyticsEvent: UIAnalyticsEvent,
-  ) => void;
-  /**
-   * Handler called on focus.
-   */
-  onFocus?: React.FocusEventHandler<HTMLElement>;
-  /**
-   * Set the amount of padding in the button.
-   */
-  spacing?: Spacing;
-  /**
-   * Pass target down to the button. If a href is provided, this will be a semantic link styled as a button.
-   */
-  target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
-  /**
-   * Pass type down to the button.
-   */
-  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-  /**
-   * Option to fit button width to its parent width.
-   */
-  shouldFitContainer?: boolean;
-  /**
-   * Text content to be rendered in the button.
-   */
-  children?: React.ReactNode;
-  /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
-   */
-  testId?: string;
+	/**
+	 * The base styling to apply to the button.
+	 */
+	appearance?: Appearance;
+	/**
+	 * Set the button to autofocus on mount.
+	 */
+	autoFocus?: boolean;
+	/**
+	 * Add a classname to the button.
+	 */
+	className?: string;
+	/**
+	 * Used to 'overlay' something over a button. This is commonly used to display a loading spinner.
+	 */
+	overlay?: React.ReactNode;
+	/**
+	 * Provides a URL that's used when the button is a link styled as a button.
+	 */
+	href?: string;
+	/**
+	 * Places an icon within the button, after the button's text.
+	 */
+	iconAfter?: React.ReactChild;
+	/**
+	 * Places an icon within the button, before the button's text.
+	 */
+	iconBefore?: React.ReactChild;
+	/**
+	 * Set if the button is disabled.
+	 */
+	isDisabled?: boolean;
+	/**
+	 * Change the style to indicate the button is selected.
+	 */
+	isSelected?: boolean;
+	/**
+	 * Handler called on blur.
+	 */
+	onBlur?: React.FocusEventHandler<HTMLElement>;
+	/**
+	 * Handler called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
+	 */
+	onClick?: (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => void;
+	/**
+	 * Handler called on focus.
+	 */
+	onFocus?: React.FocusEventHandler<HTMLElement>;
+	/**
+	 * Set the amount of padding in the button.
+	 */
+	spacing?: Spacing;
+	/**
+	 * Pass target down to the button. If a href is provided, this will be a semantic link styled as a button.
+	 */
+	target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
+	/**
+	 * Pass type down to the button.
+	 */
+	type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+	/**
+	 * Option to fit button width to its parent width.
+	 */
+	shouldFitContainer?: boolean;
+	/**
+	 * Text content to be rendered in the button.
+	 */
+	children?: React.ReactNode;
+	/**
+	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+	 */
+	testId?: string;
 
-  /* An optional way of changing what button renders
+	/* An optional way of changing what button renders
     - `React.ElementType`: force the button to render whatever html element you want (eg "div")
     - `React.ComponentType<React.AllHTMLAttributes<HTMLElement>>`: pass in a component that can accept any HTMLAttribute as a prop and render whatever you would like to
   */
-  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-  component?:
-    | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>
-    | React.ElementType;
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	component?: React.ComponentType<React.AllHTMLAttributes<HTMLElement>> | React.ElementType;
 
-  /**
-   * An optional name used to identify this component to press listeners. For example, interaction tracing. For more information,
-   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
-   */
-  interactionName?: string;
+	/**
+	 * An optional name used to identify this component to press listeners. For example, interaction tracing. For more information,
+	 * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+	 */
+	interactionName?: string;
 
-  /**
-   * Additional information to be included in the `context` of analytics events that come from button.
-   */
-  analyticsContext?: Record<string, any>;
+	/**
+	 * Additional information to be included in the `context` of analytics events that come from button.
+	 */
+	analyticsContext?: Record<string, any>;
 };
 
 export type BaseProps = Combine<
-  Combine<
-    // Removing `disabled` as a valid prop. We control that through 'isDisabled'
-    Omit<React.AllHTMLAttributes<HTMLElement>, 'disabled'>,
-    // Being super safe and letting consumers know that these two data attributes will not be applied
-    // - data-testid controlled through testId prop
-    // - data-has-overlay used for partial disabling
-    { 'data-testid'?: never; 'data-has-overlay'?: never }
-  >,
-  BaseOwnProps
+	Combine<
+		// Removing `disabled` as a valid prop. We control that through 'isDisabled'
+		Omit<React.AllHTMLAttributes<HTMLElement>, 'disabled'>,
+		// Being super safe and letting consumers know that these two data attributes will not be applied
+		// - data-testid controlled through testId prop
+		// - data-has-overlay used for partial disabling
+		{ 'data-testid'?: never; 'data-has-overlay'?: never }
+	>,
+	BaseOwnProps
 >;

@@ -5,11 +5,11 @@ import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import { SkeletonIconButton } from './components/SkeletonIconButton';
 
 export type SkeletonSwitcherButtonProps = {
-  /**
-   *  Describes the specific role of this navigation component for users viewing the page with a screen
-   *  reader. Use this to differentiate the buttons from other navigation buttons on a page.
-   */
-  label: string;
+	/**
+	 *  Describes the specific role of this navigation component for users viewing the page with a screen
+	 *  reader. Use this to differentiate the buttons from other navigation buttons on a page.
+	 */
+	label: string;
 };
 
 /**
@@ -22,10 +22,8 @@ export type SkeletonSwitcherButtonProps = {
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const SkeletonSwitcherButton = ({
-  label = '',
-}: SkeletonSwitcherButtonProps) => (
-  <SkeletonIconButton>
-    <AppSwitcherIcon label={label} />
-  </SkeletonIconButton>
+export const SkeletonSwitcherButton = ({ label = '' }: SkeletonSwitcherButtonProps) => (
+	<SkeletonIconButton>
+		<AppSwitcherIcon label={label} />
+	</SkeletonIconButton>
 );

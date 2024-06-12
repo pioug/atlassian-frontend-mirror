@@ -104,7 +104,11 @@ export const updateColumnWidths =
  * @returns Updated transaction with rescaled columns for a given table
  */
 export const rescaleColumns =
-	(isTableScalingEnabled = false, shouldUseIncreasedScalingPercent = false) =>
+	(
+		isTableScalingEnabled = false,
+		isTableFixedColumnWidthsOptionEnabled = false,
+		shouldUseIncreasedScalingPercent = false,
+	) =>
 	(table: ContentNodeWithPos, view: EditorView | undefined) =>
 	(tr: Transaction): Transaction => {
 		if (!view) {
@@ -135,7 +139,8 @@ export const rescaleColumns =
 
 		const tableDepth = view.state.doc.resolve(table.pos).depth;
 		let shouldScale = isTableScalingEnabled && tableDepth === 0;
-		if (shouldScale && getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')) {
+
+		if (shouldScale && isTableFixedColumnWidthsOptionEnabled) {
 			shouldScale = newTable.attrs.displayMode !== 'fixed';
 		}
 
@@ -208,7 +213,6 @@ export const rescaleColumns =
 			isTableScalingEnabled: shouldScale,
 			shouldUseIncreasedScalingPercent,
 		});
-
 		// Two scenarios that require scaling:
 		//   1. If the new table width will result in the table going into overflow
 		//      we resize the cells to avoid it (e.g. adding a column)

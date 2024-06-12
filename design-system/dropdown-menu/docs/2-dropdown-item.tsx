@@ -17,18 +17,18 @@ import DropdownMenu, { DropdownItemGroup, DropdownItem } from @atlaskit/dropdown
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/04-dropdown-item').default}
-      title=""
-      source={require('!!raw-loader!../examples/04-dropdown-item')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/dropdown-menu"
+			Component={require('../examples/04-dropdown-item').default}
+			title=""
+			source={require('!!raw-loader!../examples/04-dropdown-item')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/dropdown-menu-item')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/dropdown-menu-item')}
+		/>
+	)}
 `;

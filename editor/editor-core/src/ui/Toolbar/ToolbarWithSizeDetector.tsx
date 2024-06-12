@@ -18,6 +18,7 @@ import { ToolbarSize } from './types';
 const toolbar = css({
 	width: '100%',
 	position: 'relative',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
 		gridColumn: '1 / 2',
 		gridRow: 2,
@@ -47,6 +48,7 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps) => 
 	}, [props.appearance, props.hasMinWidth, props.twoLineEditorToolbar]);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={toolbarStyle}>
 			<WidthObserver setWidth={setWidth} />
 			{props.editorView && toolbarSize ? (

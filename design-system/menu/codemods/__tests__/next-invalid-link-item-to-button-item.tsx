@@ -5,35 +5,35 @@ import * as transformer from '../2.1.0-invalid-link-item-to-button-item';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Converts link items with invalid or missing `href` to button items', () => {
-  /**
-   *
-   * Success cases
-   *
-   */
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	/**
+	 *
+	 * Success cases
+	 *
+	 */
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/something';
 
       const App = () => {
         return <LinkItem />;
       }
     `,
-    `
+		`
       import { LinkItem } from '@atlaskit/something';
 
       const App = () => {
         return <LinkItem />;
       }
   `,
-    'leaves unrelated code untouched',
-  );
+		'leaves unrelated code untouched',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/menu';
       import { variable } from 'somewhere';
 
@@ -41,7 +41,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
         return <LinkItem href={variable}>test</LinkItem>;
       }
     `,
-    `
+		`
       import { LinkItem } from '@atlaskit/menu';
       import { variable } from 'somewhere';
 
@@ -49,177 +49,177 @@ describe('Converts link items with invalid or missing `href` to button items', (
         return <LinkItem href={variable}>test</LinkItem>;
       }
   `,
-    'should not do anything with `href`s that are variables',
-  );
+		'should not do anything with `href`s that are variables',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/menu';
 
       const App = () => {
         return <LinkItem href="http://valid.com">test</LinkItem>;
       }
     `,
-    `
+		`
       import { LinkItem } from '@atlaskit/menu';
 
       const App = () => {
         return <LinkItem href="http://valid.com">test</LinkItem>;
       }
   `,
-    'should not do anything with a valid `href`',
-  );
+		'should not do anything with a valid `href`',
+	);
 
-  /**
-   *
-   * Missing `href`
-   *
-   */
+	/**
+	 *
+	 * Missing `href`
+	 *
+	 */
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/menu';
 
       const App = () => {
         return <LinkItem>test</LinkItem>;
       }
     `,
-    `
+		`
       import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem>test</ButtonItem>;
       }
   `,
-    'Should convert to ButtonItem if no href exists on LinkItem',
-  );
+		'Should convert to ButtonItem if no href exists on LinkItem',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/menu';
 
       const App = () => {
         return <LinkItem id="test">test</LinkItem>;
       }
     `,
-    `
+		`
       import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem id="test">test</ButtonItem>;
       }
   `,
-    'Should convert to ButtonItem but keep existing props if no href exists on LinkItem',
-  );
+		'Should convert to ButtonItem but keep existing props if no href exists on LinkItem',
+	);
 
-  /**
-   *
-   * Invalid `href`
-   *
-   */
+	/**
+	 *
+	 * Invalid `href`
+	 *
+	 */
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/menu';
 
       const App = () => {
         return <LinkItem href="#">test</LinkItem>;
       }
     `,
-    `
+		`
       import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem>test</ButtonItem>;
       }
   `,
-    'Should convert to ButtonItem if invalid `href`',
-  );
+		'Should convert to ButtonItem if invalid `href`',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/menu';
 
       const App = () => {
         return <LinkItem href="#" id="test">test</LinkItem>;
       }
     `,
-    `
+		`
       import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem id="test">test</ButtonItem>;
       }
   `,
-    'Should convert to ButtonItem but keep existing props if invalid `href`',
-  );
+		'Should convert to ButtonItem but keep existing props if invalid `href`',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/menu';
 
       const App = () => {
         return <LinkItem href="">test</LinkItem>;
       }
     `,
-    `
+		`
       import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem>test</ButtonItem>;
       }
   `,
-    'Should convert to ButtonItem if invalid `href`',
-  );
+		'Should convert to ButtonItem if invalid `href`',
+	);
 
-  /**
-   *
-   * Expressions
-   *
-   */
+	/**
+	 *
+	 * Expressions
+	 *
+	 */
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/menu';
 
       const App = () => {
         return <LinkItem href={''}>test</LinkItem>;
       }
     `,
-    `
+		`
       import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
         return <ButtonItem>test</ButtonItem>;
       }
   `,
-    'should handle strings in expression containers',
-  );
+		'should handle strings in expression containers',
+	);
 
-  /**
-   *
-   * Edge cases
-   *
-   */
+	/**
+	 *
+	 * Edge cases
+	 *
+	 */
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -231,7 +231,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
         );
       }
     `,
-    `
+		`
       import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -243,13 +243,13 @@ describe('Converts link items with invalid or missing `href` to button items', (
         );
       }
   `,
-    'Should handle multiple item types',
-  );
+		'Should handle multiple item types',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem, CustomItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -261,7 +261,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
         );
       }
     `,
-    `
+		`
       import { LinkItem, CustomItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -273,13 +273,13 @@ describe('Converts link items with invalid or missing `href` to button items', (
         );
       }
   `,
-    'Should not delete any imports',
-  );
+		'Should not delete any imports',
+	);
 
-  defineInlineTest(
-    { ...transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ ...transformer, parser: 'tsx' },
+		{},
+		`
       import { LinkItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -291,7 +291,7 @@ describe('Converts link items with invalid or missing `href` to button items', (
         );
       }
     `,
-    `
+		`
       import { LinkItem, ButtonItem } from '@atlaskit/menu';
 
       const App = () => {
@@ -303,6 +303,6 @@ describe('Converts link items with invalid or missing `href` to button items', (
         );
       }
   `,
-    'Should allow valid `href` and convert invalid ones',
-  );
+		'Should allow valid `href` and convert invalid ones',
+	);
 });

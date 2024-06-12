@@ -14,12 +14,12 @@ The calendar component displays a simple calendar that can be:
 ${code`import Calendar from '@atlaskit/calendar';`}
 
 ${(
-  <Example
-    packageName="@atlaskit/calendar"
-    Component={require('../examples/0-basic').default}
-    title="Basic"
-    source={require('!!raw-loader!../examples/0-basic')}
-  />
+	<Example
+		packageName="@atlaskit/calendar"
+		Component={require('../examples/0-basic').default}
+		title="Basic"
+		source={require('!!raw-loader!../examples/0-basic')}
+	/>
 )}
 
 ### Disabling dates
@@ -35,39 +35,36 @@ If using the \`disabled\` or \`disabledDateFilter\` props, make sure your filter
 re-renders. This can be done by defining it outside of the render function's scope or using useState/useCallback hooks
 
 ${(
-  <Example
-    packageName="@atlaskit/calendar"
-    Component={require('../examples/4-disabled').default}
-    title="disabled: Disable an array of specific dates"
-    source={require('!!raw-loader!../examples/4-disabled')}
-  />
+	<Example
+		packageName="@atlaskit/calendar"
+		Component={require('../examples/4-disabled').default}
+		title="disabled: Disable an array of specific dates"
+		source={require('!!raw-loader!../examples/4-disabled')}
+	/>
 )}
 
 ${(
-  <Example
-    packageName="@atlaskit/calendar"
-    Component={require('../examples/5-disabled-range').default}
-    title="minDate/maxDate: Disable dates outside a range"
-    source={require('!!raw-loader!../examples/5-disabled-range')}
-  />
+	<Example
+		packageName="@atlaskit/calendar"
+		Component={require('../examples/5-disabled-range').default}
+		title="minDate/maxDate: Disable dates outside a range"
+		source={require('!!raw-loader!../examples/5-disabled-range')}
+	/>
 )}
 
 ${(
-  <Example
-    packageName="@atlaskit/calendar"
-    Component={require('../examples/6-disabled-filter').default}
-    title="disabledDateFilter: Create custom disabling patterns"
-    source={require('!!raw-loader!../examples/6-disabled-filter')}
-  />
+	<Example
+		packageName="@atlaskit/calendar"
+		Component={require('../examples/6-disabled-filter').default}
+		title="disabledDateFilter: Create custom disabling patterns"
+		source={require('!!raw-loader!../examples/6-disabled-filter')}
+	/>
 )}
 
 
 
 ${(
-  <Props
-    heading="Calendar Props"
-    props={require('!!extract-react-types-loader!../src/calendar')}
-  />
+	<Props heading="Calendar Props" props={require('!!extract-react-types-loader!../src/calendar')} />
 )}
 
 ## Typescript

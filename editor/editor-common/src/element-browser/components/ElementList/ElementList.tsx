@@ -41,16 +41,19 @@ import { getColumnCount, getScrollbarWidth } from './utils';
 export const ICON_HEIGHT = 40;
 export const ICON_WIDTH = 40;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const itemIcon = css({
 	width: `${ICON_WIDTH}px`,
 	height: `${ICON_HEIGHT}px`,
 	overflow: 'hidden',
 	border: `1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `${borderRadius()}px`,
 	boxSizing: 'border-box',
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	div: {
 		width: `${ICON_WIDTH}px`,
 		height: `${ICON_HEIGHT}px`,
@@ -225,8 +228,10 @@ function ElementList({
 						parent={parent}
 					>
 						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={style}
 							key={key}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 -- Ignored via go/DSP-18766
 							className="element-item-wrapper"
 							css={elementItemWrapper}
 							onKeyDown={
@@ -466,6 +471,7 @@ const ItemContent = memo(({ title, description, keyshortcut }: Partial<QuickInse
 		<div css={itemText}>
 			<div css={itemTitleWrapper}>
 				<p css={itemTitle}>{title}</p>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={itemAfter}>{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}</div>
 			</div>
 			{description && <p css={itemDescription}>{description}</p>}
@@ -480,15 +486,20 @@ const elementItemsWrapper = css({
 	justifyContent: 'flex-start',
 	overflow: 'hidden',
 	padding: token('space.025', '2px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ReactVirtualized__Collection, .ReactVirtualized__Grid': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		borderRadius: '3px',
 		outline: 'none',
 		'&:focus': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			boxShadow: `0 0 0 ${ELEMENT_LIST_PADDING}px ${token('color.border.focused', B100)}`,
 		},
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ReactVirtualized__Collection__innerScrollContainer, .ReactVirtualized__Grid__innerScrollContainer':
 		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			"div[class='element-item-wrapper']:last-child": {
 				paddingBottom: token('space.050', '4px'),
 			},
@@ -496,7 +507,9 @@ const elementItemsWrapper = css({
 });
 
 const elementItemWrapper = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	div: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		button: {
 			minHeight: '75px',
 			alignItems: 'flex-start',
@@ -525,8 +538,10 @@ const multilineStyle = css({
 	WebkitBoxOrient: 'vertical',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const itemDescription = css(multilineStyle, {
 	overflow: 'hidden',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(11.67),
 	color: token('color.text.subtle', N200),
 	marginTop: token('space.025', '2px'),
@@ -556,6 +571,7 @@ const itemAfter = css({
 });
 
 const itemIconStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {
 		height: '40px',
 		width: '40px',

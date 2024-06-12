@@ -155,9 +155,12 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 			<div
 				ref={this.modalRef}
 				css={
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					getBooleanFF('platform.editor.a11y-find-replace')
-						? [wrapperStyles, wrapperPaddingStyles]
-						: wrapperStyles
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							[wrapperStyles, wrapperPaddingStyles]
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							wrapperStyles
 				}
 			>
 				<Find
@@ -178,6 +181,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 					setFindTyped={this.setFindTyped}
 				/>
 				{!getBooleanFF('platform.editor.a11y-find-replace') && (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<hr css={ruleStyles} id="replace-hr-element" />
 				)}
 				<Replace

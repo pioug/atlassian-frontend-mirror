@@ -15,7 +15,7 @@ const wrapperStyles = css({
 	display: 'flex',
 	flexDirection: 'row',
 
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h3: {
 		margin: `${token('space.100', '8px')} 0`,
 	},

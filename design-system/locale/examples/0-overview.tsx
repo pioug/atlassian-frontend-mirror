@@ -12,38 +12,38 @@ import ShortDaysExample from './4-short-days';
 import LongMonthsExample from './5-long-months';
 
 type State = {
-  l10n: LocalizationProvider;
+	l10n: LocalizationProvider;
 };
 
 export default class Example extends Component<any, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      l10n: createLocalizationProvider('en-AU'),
-    };
-  }
+	constructor(props: any) {
+		super(props);
+		this.state = {
+			l10n: createLocalizationProvider('en-AU'),
+		};
+	}
 
-  onLocaleChange = (locale: Locale) => {
-    this.setState({
-      l10n: createLocalizationProvider(locale.value),
-    });
-  };
+	onLocaleChange = (locale: Locale) => {
+		this.setState({
+			l10n: createLocalizationProvider(locale.value),
+		});
+	};
 
-  render() {
-    const { l10n } = this.state;
+	render() {
+		const { l10n } = this.state;
 
-    return (
-      <Fragment>
-        <h2>Locale</h2>
-        <Label htmlFor="locale-0">Locale</Label>
-        <LocaleSelect id="locale-0" onLocaleChange={this.onLocaleChange} />
+		return (
+			<Fragment>
+				<h2>Locale</h2>
+				<Label htmlFor="locale-0">Locale</Label>
+				<LocaleSelect id="locale-0" onLocaleChange={this.onLocaleChange} />
 
-        <DateParserExample l10n={l10n} />
-        <FormatDateExample l10n={l10n} />
-        <FormatTimeExample l10n={l10n} />
-        <ShortDaysExample l10n={l10n} />
-        <LongMonthsExample l10n={l10n} />
-      </Fragment>
-    );
-  }
+				<DateParserExample l10n={l10n} />
+				<FormatDateExample l10n={l10n} />
+				<FormatTimeExample l10n={l10n} />
+				<ShortDaysExample l10n={l10n} />
+				<LongMonthsExample l10n={l10n} />
+			</Fragment>
+		);
+	}
 }

@@ -58,7 +58,9 @@ function Parent(props: { text?: string; height: number; handleSize?: HandleSize 
 export default function ExampleForResizerStickyScroll() {
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={css(resizerStyles, {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'.resizer-handle-right::after, .resizer-handle-left::after': {
 					background: 'red',
 				},
@@ -72,6 +74,7 @@ export default function ExampleForResizerStickyScroll() {
 			{[200, 500, 2000].map((height, i) => (
 				<div
 					key={i}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={css({
 						display: 'block',
 						gridRow: 1,
@@ -82,6 +85,7 @@ export default function ExampleForResizerStickyScroll() {
 			))}
 
 			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={css({
 					display: 'block',
 					gridColumn: 4,
@@ -94,6 +98,7 @@ export default function ExampleForResizerStickyScroll() {
 			{[200, 500, 2000].map((height, i) => (
 				<div
 					key={i}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={css({
 						display: 'block',
 						gridRow: 2,

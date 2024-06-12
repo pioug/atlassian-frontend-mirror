@@ -10,9 +10,9 @@ See the example on https://atlaskit.atlassian.com/examples/design-system/lozenge
 `;
 
 const removeThemeProp = createRemoveFuncWithDefaultSpecifierFor(
-  '@atlaskit/lozenge',
-  'theme',
-  comment,
+	'@atlaskit/lozenge',
+	'theme',
+	comment,
 );
 
 export default removeThemeProp;

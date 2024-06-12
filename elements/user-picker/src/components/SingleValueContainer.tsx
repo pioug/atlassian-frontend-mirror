@@ -8,6 +8,7 @@ import { BORDER_PADDING } from './styles';
 import ValueContainerWrapper from './ValueContainerWrapper';
 
 const placeholderIconContainer = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	paddingLeft: BORDER_PADDING,
 	lineHeight: 0,
 	gridArea: '1/1/2/2',
@@ -43,6 +44,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 
 	Wrapper = ({ children }: { children: React.ReactElement }) => {
 		return this.onValueContainerClick ? (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={css({ flexGrow: 1 })} onMouseDown={this.onValueContainerClick}>
 				{children}
 			</div>

@@ -6,20 +6,20 @@ import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { Header } from '@atlaskit/side-navigation';
 
 const Container = (props: CustomItemComponentProps) => {
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  return <div {...props} />;
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+	return <div {...props} />;
 };
 
 const ExampleHeader = () => {
-  return (
-    <Header
-      component={Container}
-      description="Next-gen service desk"
-      iconBefore={<Icon label="" size="medium" />}
-    >
-      NXTGen Industries
-    </Header>
-  );
+	return (
+		<Header
+			component={Container}
+			description="Next-gen service desk"
+			iconBefore={<Icon label="" size="medium" />}
+		>
+			NXTGen Industries
+		</Header>
+	);
 };
 
 export default ExampleHeader;

@@ -7,6 +7,7 @@ import { createEditorUseOnlyNotice } from './editor-use-only';
 
 const warnStyles = xcss({ marginTop: 'space.100' });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export default md`
   ${createEditorUseOnlyNotice('Editor Plugin Scroll-into-view', [
 		{ name: 'Editor Core', link: '/packages/editor/editor-core' },

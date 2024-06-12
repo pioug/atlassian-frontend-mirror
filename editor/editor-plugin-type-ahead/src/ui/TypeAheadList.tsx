@@ -332,9 +332,12 @@ const TypeAheadListComponent = React.memo(
 						aria-label={null as unknown as string}
 						containerRole="presentation"
 						role="listbox"
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={css({
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 							button: {
 								padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 								'span:last-child span:last-child': {
 									whiteSpace: 'normal',
 								},

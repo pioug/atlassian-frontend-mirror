@@ -17,24 +17,24 @@ const columnWidth = gridSize * 8;
 const gutter = gridSize * 2;
 
 const containerStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  margin: `${verticalMarginSize} auto`,
-  textAlign: 'center',
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	margin: `${verticalMarginSize} auto`,
+	textAlign: 'center',
 });
 
 /* Use max-width so the component can shrink on smaller viewports. */
 const wideContainerStyles = css({
-  maxWidth: `${columnWidth * 6 + gutter * 5}px`,
+	maxWidth: `${columnWidth * 6 + gutter * 5}px`,
 });
 
 const narrowContainerStyles = css({
-  maxWidth: `${columnWidth * 4 + gutter * 3}px`,
+	maxWidth: `${columnWidth * 4 + gutter * 3}px`,
 });
 
 type ContainerProps = {
-  testId?: string;
-  width: Width;
-  children: ReactNode;
+	testId?: string;
+	width: Width;
+	children: ReactNode;
 };
 
 /**
@@ -45,15 +45,12 @@ type ContainerProps = {
  * @internal
  */
 const Container: FC<ContainerProps> = ({ children, width, testId }) => (
-  <div
-    data-testid={testId}
-    css={[
-      containerStyles,
-      width === 'narrow' ? narrowContainerStyles : wideContainerStyles,
-    ]}
-  >
-    {children}
-  </div>
+	<div
+		data-testid={testId}
+		css={[containerStyles, width === 'narrow' ? narrowContainerStyles : wideContainerStyles]}
+	>
+		{children}
+	</div>
 );
 
 export default Container;

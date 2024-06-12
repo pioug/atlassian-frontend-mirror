@@ -11,95 +11,95 @@ const tabInlineMargin = token('space.negative.100', '-8px');
 const underlineHeight = token('border.width.outline', '2px');
 
 const getTabPanelStyles = (): CSSObject => ({
-  flexGrow: 1,
-  /*
+	flexGrow: 1,
+	/*
     NOTE min-height set to 0% because of Firefox bug
     FF http://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox
   */
-  minHeight: '0%',
-  display: 'flex',
+	minHeight: '0%',
+	display: 'flex',
 });
 
 export const getTabsStyles = (): SerializedStyles =>
-  // eslint-disable-next-line @repo/internal/styles/no-exported-styles
-  css({
-    '& [role="tabpanel"]': getTabPanelStyles(),
-    // The hidden attribute doesn't work on flex elements
-    // Change display to be none
-    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-    '& > [hidden]': {
-      display: 'none',
-    },
-  });
+	// eslint-disable-next-line @repo/internal/styles/no-exported-styles
+	css({
+		'& [role="tabpanel"]': getTabPanelStyles(),
+		// The hidden attribute doesn't work on flex elements
+		// Change display to be none
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		'& > [hidden]': {
+			display: 'none',
+		},
+	});
 
 const tabLineStyles: CSSObject = {
-  content: '""',
-  borderRadius: token('border.radius.050', '2px'),
-  bottom: 0,
-  margin: 0,
-  position: 'absolute',
-  width: 'inherit',
-  insetInlineStart: tabInlinePadding,
-  insetInlineEnd: 0,
+	content: '""',
+	borderRadius: token('border.radius.050', '2px'),
+	bottom: 0,
+	margin: 0,
+	position: 'absolute',
+	width: 'inherit',
+	insetInlineStart: tabInlinePadding,
+	insetInlineEnd: 0,
 };
 
 export const getTabListStyles = (): SerializedStyles =>
-  // eslint-disable-next-line @repo/internal/styles/no-exported-styles
-  css({
-    '& [role="tab"]': getTabStyles(),
-    fontWeight: token('font.weight.medium', '500'),
-    marginInlineStart: tabInlineMargin,
-    '&::before': {
-      ...tabLineStyles,
-      height: underlineHeight,
-      // This line is not a border so the selected line is visible in high contrast mode
-      backgroundColor: tabLineColors.lineColor,
-    },
-  });
+	// eslint-disable-next-line @repo/internal/styles/no-exported-styles
+	css({
+		'& [role="tab"]': getTabStyles(),
+		fontWeight: token('font.weight.medium', '500'),
+		marginInlineStart: tabInlineMargin,
+		'&::before': {
+			...tabLineStyles,
+			height: underlineHeight,
+			// This line is not a border so the selected line is visible in high contrast mode
+			backgroundColor: tabLineColors.lineColor,
+		},
+	});
 
 export const getTabStyles = (): CSSObject => {
-  const colors = tabColors;
-  return {
-    color: colors.labelColor,
-    cursor: 'pointer',
-    margin: 0,
-    padding: `${tabBlockPadding} ${tabInlinePadding}`,
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+	const colors = tabColors;
+	return {
+		color: colors.labelColor,
+		cursor: 'pointer',
+		margin: 0,
+		padding: `${tabBlockPadding} ${tabInlinePadding}`,
+		position: 'relative',
+		whiteSpace: 'nowrap',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
 
-    '&:hover': {
-      // TODO: interaction states will be reviewed in DSP-1438
-      color: colors.hoverLabelColor,
-      '&::after': {
-        ...tabLineStyles,
-        insetInlineEnd: tabInlinePadding,
-        borderBottom: `${underlineHeight} solid ${tabLineColors.hoveredColor}`,
-        height: 0,
-      },
-    },
+		'&:hover': {
+			// TODO: interaction states will be reviewed in DSP-1438
+			color: colors.hoverLabelColor,
+			'&::after': {
+				...tabLineStyles,
+				insetInlineEnd: tabInlinePadding,
+				borderBottom: `${underlineHeight} solid ${tabLineColors.hoveredColor}`,
+				height: 0,
+			},
+		},
 
-    '&:active': {
-      // TODO: interaction states will be reviewed in DSP-1438
-      color: colors.activeLabelColor,
-      '&::after': {
-        ...tabLineStyles,
-        insetInlineEnd: tabInlinePadding,
-        borderBottom: `${underlineHeight} solid ${tabLineColors.activeColor}`,
-        height: 0,
-      },
-    },
+		'&:active': {
+			// TODO: interaction states will be reviewed in DSP-1438
+			color: colors.activeLabelColor,
+			'&::after': {
+				...tabLineStyles,
+				insetInlineEnd: tabInlinePadding,
+				borderBottom: `${underlineHeight} solid ${tabLineColors.activeColor}`,
+				height: 0,
+			},
+		},
 
-    '&[aria-selected="true"]': {
-      color: colors.selectedColor,
-      '&::after': {
-        ...tabLineStyles,
-        insetInlineEnd: tabInlinePadding,
-        // This line is a border so it is visible in high contrast mode
-        borderBottom: `${underlineHeight} solid ${tabLineColors.selectedColor}`,
-        height: 0,
-      },
-    },
-  };
+		'&[aria-selected="true"]': {
+			color: colors.selectedColor,
+			'&::after': {
+				...tabLineStyles,
+				insetInlineEnd: tabInlinePadding,
+				// This line is a border so it is visible in high contrast mode
+				borderBottom: `${underlineHeight} solid ${tabLineColors.selectedColor}`,
+				height: 0,
+			},
+		},
+	};
 };

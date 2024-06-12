@@ -4,10 +4,10 @@ import { defaultGridColumns, defaultSpacing } from './constants';
 import { type GridSpacing } from './types';
 
 export type GridContextProps = {
-  isRoot: boolean;
-  isNested: boolean;
-  spacing: GridSpacing;
-  columns: number;
+	isRoot: boolean;
+	isNested: boolean;
+	spacing: GridSpacing;
+	columns: number;
 };
 
 /**
@@ -19,8 +19,8 @@ export type GridContextProps = {
  * @internal
  */
 export const GridContext = createContext<GridContextProps>({
-  isRoot: true,
-  isNested: false,
-  spacing: defaultSpacing,
-  columns: defaultGridColumns,
+	isRoot: true,
+	isNested: false,
+	spacing: defaultSpacing,
+	columns: defaultGridColumns,
 });

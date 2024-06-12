@@ -24,12 +24,12 @@ const theme = generateTheme({
 `}
 
   ${(
-    <Example
-      title="Themed navigation"
-      Component={require('../examples/themed-navigation').default}
-      source={require('!!raw-loader!../examples/themed-navigation')}
-    />
-  )}
+		<Example
+			title="Themed navigation"
+			Component={require('../examples/themed-navigation').default}
+			source={require('!!raw-loader!../examples/themed-navigation')}
+		/>
+	)}
 
   ## \`generateTheme({})\`
 
@@ -37,9 +37,9 @@ const theme = generateTheme({
   Ensures all colors including text have an accessible contrast.
 
   ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/theme/theme-generator')}
-    />
-  )}
+		<Props
+			heading=""
+			props={require('!!extract-react-types-loader!../src/theme/theme-generator')}
+		/>
+	)}
 `;

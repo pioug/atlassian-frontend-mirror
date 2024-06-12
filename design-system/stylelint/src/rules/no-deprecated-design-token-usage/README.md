@@ -4,8 +4,8 @@ Disallow usage of deprecated design tokens.
 
 ```css
 a {
-  color: var(--ds-background-brand, #e9f2ff);
-  /*         ↑ Deprecated tokens like this */
+	color: var(--ds-background-brand, #e9f2ff);
+	/*         ↑ Deprecated tokens like this */
 }
 ```
 
@@ -21,7 +21,7 @@ The following patterns are considered problems:
 
 ```css
 a {
-  color: var(--ds-background-brand, #e9f2ff);
+	color: var(--ds-background-brand, #e9f2ff);
 }
 ```
 
@@ -29,6 +29,6 @@ The following patterns are _not_ considered problems:
 
 ```css
 a {
-  color: var(--ds-text-selected, #e9f2ff);
+	color: var(--ds-text-selected, #e9f2ff);
 }
 ```

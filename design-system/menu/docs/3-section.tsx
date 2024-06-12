@@ -20,12 +20,12 @@ import { Section } from '@atlaskit/menu';
   `}
 
   ${(
-    <Example
-      title="Section with Heading"
-      Component={require('../examples/section-with-heading').default}
-      source={require('!!raw-loader!../examples/section-with-heading')}
-    />
-  )}
+		<Example
+			title="Section with Heading"
+			Component={require('../examples/section-with-heading').default}
+			source={require('!!raw-loader!../examples/section-with-heading')}
+		/>
+	)}
 
 
   ## Component internals
@@ -58,12 +58,12 @@ import { Section } from '@atlaskit/menu';
   This means scrollable **sections in sections will not work**.
 
   ${(
-    <Example
-      title="Scrollable sections"
-      Component={require('../examples/scrollable-sections').default}
-      source={require('!!raw-loader!../examples/scrollable-sections')}
-    />
-  )}
+		<Example
+			title="Scrollable sections"
+			Component={require('../examples/scrollable-sections').default}
+			source={require('!!raw-loader!../examples/scrollable-sections')}
+		/>
+	)}
 
 
   ## Accessibility
@@ -101,17 +101,17 @@ import { HeadingItem } from '@atlaskit/menu';
   `}
 
   ${(
-    <Props
-      heading="Section Props"
-      props={require('!!extract-react-types-loader!../src/menu-section/section')}
-    />
-  )}
+		<Props
+			heading="Section Props"
+			props={require('!!extract-react-types-loader!../src/menu-section/section')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Heading Props"
-      props={require('!!extract-react-types-loader!../src/menu-item/heading-item')}
-    />
-  )}
+		<Props
+			heading="Heading Props"
+			props={require('!!extract-react-types-loader!../src/menu-item/heading-item')}
+		/>
+	)}
 
 `;

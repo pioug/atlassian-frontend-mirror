@@ -128,6 +128,7 @@ const CategorySelector = (props: Props) => {
 				aria-label={formatMessage(messages.categoriesSelectorLabel)}
 				data-testid={categorySelectorComponentTestId}
 				ref={categoryRef}
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={categorySelectorTablist}
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
@@ -153,6 +154,7 @@ const CategorySelector = (props: Props) => {
 								aria-label={categoryName}
 								aria-controls={currentFocus === index ? RENDER_EMOJI_PICKER_LIST_TESTID : undefined}
 								aria-selected={categoryId === activeCategoryId}
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={categoryClasses}
 								disabled={disableCategories}
 								onClick={handleClick(categoryId, index)}
@@ -169,6 +171,7 @@ const CategorySelector = (props: Props) => {
 			</div>
 		);
 	}
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={categorySelector}>{categoriesSection}</div>;
 };
 

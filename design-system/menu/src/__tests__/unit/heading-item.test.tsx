@@ -8,21 +8,21 @@ const testId = 'heading-item';
 const headingLevel = 3;
 
 describe('HeadingItem', () => {
-  it('Should have role="heading" and level of heading specified', () => {
-    render(
-      <HeadingItem headingLevel={headingLevel} testId={testId}>
-        Heading level 3
-      </HeadingItem>,
-    );
+	it('Should have role="heading" and level of heading specified', () => {
+		render(
+			<HeadingItem headingLevel={headingLevel} testId={testId}>
+				Heading level 3
+			</HeadingItem>,
+		);
 
-    const heading = screen.getByTestId(testId);
-    expect(heading).toHaveAttribute('role', 'heading');
-    expect(heading).toHaveAttribute('aria-level', `${headingLevel}`);
-  });
-  it('Should have default heading of level 2', () => {
-    render(<HeadingItem testId={testId}>Heading level 2</HeadingItem>);
+		const heading = screen.getByTestId(testId);
+		expect(heading).toHaveAttribute('role', 'heading');
+		expect(heading).toHaveAttribute('aria-level', `${headingLevel}`);
+	});
+	it('Should have default heading of level 2', () => {
+		render(<HeadingItem testId={testId}>Heading level 2</HeadingItem>);
 
-    const heading = screen.getByTestId(testId);
-    expect(heading).toHaveAttribute('aria-level', '2');
-  });
+		const heading = screen.getByTestId(testId);
+		expect(heading).toHaveAttribute('aria-level', '2');
+	});
 });

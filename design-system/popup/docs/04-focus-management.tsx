@@ -14,10 +14,10 @@ export default md`
   Note that this will only work once on initial mount - afterwards it will end up nooping.
 
   ${(
-    <Example
-      packageName="@atlaskit/popup"
-      Component={require('../examples/13-setting-focus').default}
-      source={require('!!raw-loader!../examples/13-setting-focus')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/popup"
+			Component={require('../examples/13-setting-focus').default}
+			source={require('!!raw-loader!../examples/13-setting-focus')}
+		/>
+	)}
 `;

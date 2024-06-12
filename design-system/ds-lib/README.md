@@ -1,8 +1,7 @@
 # DSLib
 
-This is an internal package with common functionality used in the Atlassian Design System Team.
-This package comes with no support and semver guarantees,
-your app will break if you use this directly!
+This is an internal package with common functionality used in the Atlassian Design System Team. This
+package comes with no support and semver guarantees, your app will break if you use this directly!
 
 ## Installation
 
@@ -26,12 +25,12 @@ noop();
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
 function Component() {
-  // Print the warning messagein in the Web console only once per session.
-  if (process.env.NODE_ENV !== 'production') {
-    warnOnce('This component has been deprecated.');
-  }
+	// Print the warning messagein in the Web console only once per session.
+	if (process.env.NODE_ENV !== 'production') {
+		warnOnce('This component has been deprecated.');
+	}
 
-  return <div>This component has been deprecated</div>;
+	return <div>This component has been deprecated</div>;
 }
 ```
 
@@ -59,13 +58,13 @@ const Component = forwardRef((props, ref) => {
 import useLazyRef from '@atlaskit/ds-lib/use-lazy-ref';
 
 function Component({ onClick }) {
-  // Initialize the ref
-  const ref = useLazyRef(() => {
-    /* Return initial data */
-  });
+	// Initialize the ref
+	const ref = useLazyRef(() => {
+		/* Return initial data */
+	});
 
-  // Access like a normal ref
-  return <button onClick={() => onClick(ref.current)}>Click me!</button>;
+	// Access like a normal ref
+	return <button onClick={() => onClick(ref.current)}>Click me!</button>;
 }
 ```
 
@@ -75,15 +74,8 @@ function Component({ onClick }) {
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 
 function ControlledComponent({ value, defaultValue = 0 }) {
-  const [uncontrolledState, setUncontrolledState] = useControlled(
-    value,
-    () => defaultValue,
-  );
-  return (
-    <button onClick={() => setUncontrolledState(uncontrolledState + 1)}>
-      Update state
-    </button>
-  );
+	const [uncontrolledState, setUncontrolledState] = useControlled(value, () => defaultValue);
+	return <button onClick={() => setUncontrolledState(uncontrolledState + 1)}>Update state</button>;
 }
 ```
 
@@ -91,13 +83,13 @@ function ControlledComponent({ value, defaultValue = 0 }) {
 
 ```js
 function Component() {
-  const [currentValue] = useState(1);
-  const previousValue = usePreviousValue(currentValue);
+	const [currentValue] = useState(1);
+	const previousValue = usePreviousValue(currentValue);
 
-  previousValue; // undefined
-  currentValue; // 1
+	previousValue; // undefined
+	currentValue; // 1
 
-  return null;
+	return null;
 }
 ```
 
@@ -107,12 +99,12 @@ function Component() {
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
 
 function Component() {
-  // `callback` always has the same reference.
-  const callback = useLazyCallback(() => {
-    // Watch out for its stale closure however!
-  });
+	// `callback` always has the same reference.
+	const callback = useLazyCallback(() => {
+		// Watch out for its stale closure however!
+	});
 
-  return null;
+	return null;
 }
 ```
 
@@ -137,15 +129,15 @@ function Component() {
 import useScrollbarWidth from '@atlaskit/ds-lib/use-scrollbar-width';
 
 function Component() {
-  const scrollbar = useScrollbarWidth();
+	const scrollbar = useScrollbarWidth();
 
-  return (
-    // Use the scrollbar width in your styles/as you wish.
-    // The ref should be attached to the scrollable element.
-    <div id="container" style={{ padding: scrollbar.width }}>
-      <div id="scrollable" ref={scrollbar.ref} />
-    </div>
-  );
+	return (
+		// Use the scrollbar width in your styles/as you wish.
+		// The ref should be attached to the scrollable element.
+		<div id="container" style={{ padding: scrollbar.width }}>
+			<div id="scrollable" ref={scrollbar.ref} />
+		</div>
+	);
 }
 ```
 
@@ -156,8 +148,8 @@ import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 
 // Will callback when escape is pressed
 useCloseOnEscapePress({
-  onClose: () => {},
-  isDisabled: false,
+	onClose: () => {},
+	isDisabled: false,
 });
 ```
 

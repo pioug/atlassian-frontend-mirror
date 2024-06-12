@@ -6,9 +6,9 @@ import { jsx } from '@emotion/react';
 import { Grid } from '@atlaskit/primitives';
 
 interface WeekDayGridProps extends React.HTMLAttributes<HTMLElement> {
-  testId?: string;
-  children: ReactNode;
-  isHidden?: boolean;
+	testId?: string;
+	children: ReactNode;
+	isHidden?: boolean;
 }
 
 /**
@@ -18,17 +18,13 @@ interface WeekDayGridProps extends React.HTMLAttributes<HTMLElement> {
  *
  */
 const WeekDayGrid = ({ testId, children, isHidden }: WeekDayGridProps) => {
-  const row = (
-    <Grid
-      testId={testId}
-      templateColumns="repeat(7, minmax(max-content, 1fr))"
-      role="row"
-    >
-      {children}
-    </Grid>
-  );
+	const row = (
+		<Grid testId={testId} templateColumns="repeat(7, minmax(max-content, 1fr))" role="row">
+			{children}
+		</Grid>
+	);
 
-  return isHidden ? <div aria-hidden="true">{row}</div> : row;
+	return isHidden ? <div aria-hidden="true">{row}</div> : row;
 };
 
 export default WeekDayGrid;

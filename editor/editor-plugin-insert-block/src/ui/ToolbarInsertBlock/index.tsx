@@ -420,7 +420,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		}
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<span css={buttonGroupStyle}>
 				{toolbarButtons.map((btn) => {
 					return (
@@ -494,7 +494,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 						)}
 					</div>
 				)}
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={wrapperStyle}>
 					{this.renderPopup()}
 					{this.renderTableSelectorPopup()}
@@ -524,7 +524,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 						pluginInjectionApi={this.props.pluginInjectionApi}
 					/>
 				</span>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				{this.props.showSeparator && <span css={separatorStyles} />}
 			</span>
 		);

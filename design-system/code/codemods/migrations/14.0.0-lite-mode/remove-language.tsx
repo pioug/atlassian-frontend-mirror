@@ -8,11 +8,6 @@ been removed to make \`Code\` lighter, quicker and more composable. If you need 
 highlighting it is still available in \`CodeBlock\`.
 `;
 
-const removeLanguageProp = createRemoveFuncFor(
-  '@atlaskit/code',
-  'Code',
-  'language',
-  comment,
-);
+const removeLanguageProp = createRemoveFuncFor('@atlaskit/code', 'Code', 'language', comment);
 
 export default removeLanguageProp;

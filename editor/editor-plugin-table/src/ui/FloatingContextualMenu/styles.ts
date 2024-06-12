@@ -10,10 +10,12 @@ import { contextualMenuDropdownWidth, contextualMenuDropdownWidthDnD } from '../
 export const cellColourPreviewStyles = (selectedColor: string) =>
 	css({
 		'&::before': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			background: selectedColor,
 		},
 	});
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const elementBeforeIconStyles = css({
 	marginRight: token('space.negative.075', '-6px'),
 	display: 'flex',

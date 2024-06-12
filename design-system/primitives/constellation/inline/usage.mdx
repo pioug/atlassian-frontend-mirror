@@ -4,23 +4,32 @@ description: An inline manages the horizontal layout of direct children using fl
 order: 2
 ---
 
-Use the inline component in conjunction with other layout components such as [box](/components/primitives/box/usage) and [stack](/components/primitives/stack/usage) to easily create customized layouts, with built-in guidance from the Atlassian Design System.
+Use the inline component in conjunction with other layout components such as
+[box](/components/primitives/box/usage) and [stack](/components/primitives/stack/usage) to easily
+create customized layouts, with built-in guidance from the Atlassian Design System.
 
-Inline components act as container to decide the horizontal layout of its children. They decide the specifics of how the children are displayed, for example, where they are aligned or how much space is between child elements. An inline component should be used purely for visual alignment, and should have no opinions about the functionality of its children.
+Inline components act as container to decide the horizontal layout of its children. They decide the
+specifics of how the children are displayed, for example, where they are aligned or how much space
+is between child elements. An inline component should be used purely for visual alignment, and
+should have no opinions about the functionality of its children.
 
-In its simplest form, an inline component operates like a flexbox row, however adds the built in design token support and guidance.
+In its simplest form, an inline component operates like a flexbox row, however adds the built in
+design token support and guidance.
 
 ```jsx
 <Inline space="space.100" alignInline="center" alignBlock="start">
-  ...
+	...
 </Inline>
 ```
 
-Inline also has a `flex-direction: row;`. This is the default for flexbox, so it is not explicitly applied.
+Inline also has a `flex-direction: row;`. This is the default for flexbox, so it is not explicitly
+applied.
 
 ## Using inline
 
-The purpose of an inline is primarily as a container element controlling how child components are displayed and positioned horizontally. An inline should be used any time you wish to layout elements or components horizontally.
+The purpose of an inline is primarily as a container element controlling how child components are
+displayed and positioned horizontally. An inline should be used any time you wish to layout elements
+or components horizontally.
 
 Use the inline props to customize the spacing and styling on any child elements. These include:
 

@@ -1,10 +1,10 @@
 import React, {
-  createContext,
-  type FC,
-  type ReactNode,
-  useCallback,
-  useEffect,
-  useRef,
+	createContext,
+	type FC,
+	type ReactNode,
+	useCallback,
+	useEffect,
+	useRef,
 } from 'react';
 
 import { bind } from 'bind-event-listener';
@@ -24,46 +24,44 @@ import handleFocus from '../utils/handle-focus';
  *
  */
 export const FocusManagerContext = createContext<{
-  menuItemRefs: FocusableElement[];
-  registerRef: (ref: FocusableElement) => void;
+	menuItemRefs: FocusableElement[];
+	registerRef: (ref: FocusableElement) => void;
 }>({
-  menuItemRefs: [],
-  registerRef: __noop,
+	menuItemRefs: [],
+	registerRef: __noop,
 });
 
 /**
  * Focus manager logic.
  */
 const FocusManager: FC<{
-  children: ReactNode;
-  onClose: (e: KeyboardEvent) => void;
+	children: ReactNode;
+	onClose: (e: KeyboardEvent) => void;
 }> = ({ children, onClose }) => {
-  const menuItemRefs = useRef<FocusableElement[]>([]);
-  const registerRef = useCallback((ref: FocusableElement) => {
-    if (ref && !menuItemRefs.current.includes(ref)) {
-      menuItemRefs.current.push(ref);
-    }
-  }, []);
+	const menuItemRefs = useRef<FocusableElement[]>([]);
+	const registerRef = useCallback((ref: FocusableElement) => {
+		if (ref && !menuItemRefs.current.includes(ref)) {
+			menuItemRefs.current.push(ref);
+		}
+	}, []);
 
-  const { isLayerDisabled } = UNSAFE_useLayering();
-  // Intentionally rebinding on each render
-  useEffect(() => {
-    return bind(window, {
-      type: 'keydown',
-      listener: handleFocus(menuItemRefs.current, isLayerDisabled, onClose),
-    });
-  });
+	const { isLayerDisabled } = UNSAFE_useLayering();
+	// Intentionally rebinding on each render
+	useEffect(() => {
+		return bind(window, {
+			type: 'keydown',
+			listener: handleFocus(menuItemRefs.current, isLayerDisabled, onClose),
+		});
+	});
 
-  const contextValue = {
-    menuItemRefs: menuItemRefs.current,
-    registerRef,
-  };
+	const contextValue = {
+		menuItemRefs: menuItemRefs.current,
+		registerRef,
+	};
 
-  return (
-    <FocusManagerContext.Provider value={contextValue}>
-      {children}
-    </FocusManagerContext.Provider>
-  );
+	return (
+		<FocusManagerContext.Provider value={contextValue}>{children}</FocusManagerContext.Provider>
+	);
 };
 
 export default FocusManager;

@@ -100,13 +100,14 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 		<React.Fragment>
 			{colorsPerRow.map((row) => (
 				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={colorPaletteWrapper}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={className}
 					key={`row-first-color-${row[0].value}`}
 					role="radiogroup"
 				>
-					{row.map(({ value, label, border, message }) => {
+					{row.map(({ value, label, border, message, decorator }) => {
 						if (paletteColorTooltipMessages) {
 							if (tokenTheme === 'dark') {
 								message = getColorMessage(paletteColorTooltipMessages.dark, value.toUpperCase());
@@ -125,6 +126,7 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 								isSelected={value === selectedColor}
 								checkMarkColor={getCheckMarkColor(value, useIconToken)}
 								hexToPaletteColor={hexToPaletteColor}
+								decorator={decorator}
 							/>
 						);
 					})}

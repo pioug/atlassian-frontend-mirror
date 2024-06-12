@@ -256,7 +256,7 @@ export type AnnotationDeleteAEP = AEP<
 	AnnotationActionType,
 	ACTION_SUBJECT.ANNOTATION,
 	ACTION_SUBJECT_ID,
-	undefined,
+	{ inlineNodeNames?: string[] },
 	EVENT_TYPE.TRACK
 >;
 

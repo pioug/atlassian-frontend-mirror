@@ -13,14 +13,12 @@ import { useEffect, useRef } from 'react';
  *
  * @param value
  */
-export default function usePreviousValue<TValue>(
-  value: TValue,
-): TValue | undefined {
-  const ref = useRef<TValue>();
+export default function usePreviousValue<TValue>(value: TValue): TValue | undefined {
+	const ref = useRef<TValue>();
 
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
+	useEffect(() => {
+		ref.current = value;
+	}, [value]);
 
-  return ref.current;
+	return ref.current;
 }

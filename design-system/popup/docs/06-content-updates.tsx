@@ -22,10 +22,10 @@ import Popup from '@atlaskit/popup';
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/popup"
-      Component={require('../examples/content-updates').default}
-      source={require('!!raw-loader!../examples/content-updates')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/popup"
+			Component={require('../examples/content-updates').default}
+			source={require('!!raw-loader!../examples/content-updates')}
+		/>
+	)}
 `;

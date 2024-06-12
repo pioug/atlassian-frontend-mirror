@@ -271,12 +271,15 @@ function CategoryListItem({
 }
 
 const buttonWrapper = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `${GRID_SIZE * 4}px`,
 	margin: `${token('space.050', '4px')} ${token('space.050', '4px')} ${token(
 		'space.050',
 		'4px',
 	)} 0`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${DEVICE_BREAKPOINT_NUMBERS.medium}px)`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		':not(:last-child)': {
 			marginBottom: 0,
 		},

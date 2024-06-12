@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 interface PrintedMapping {
-  [key: string]: boolean;
+	[key: string]: boolean;
 }
 const printed: PrintedMapping = {};
 
@@ -10,13 +10,13 @@ const printed: PrintedMapping = {};
  * @param message: The message to write as a warning
  */
 export default function warnOnce(message: string) {
-  if (printed[message]) {
-    return;
-  }
+	if (printed[message]) {
+		return;
+	}
 
-  printed[message] = true;
+	printed[message] = true;
 
-  if (typeof window !== 'undefined') {
-    console.warn(message);
-  }
+	if (typeof window !== 'undefined') {
+		console.warn(message);
+	}
 }

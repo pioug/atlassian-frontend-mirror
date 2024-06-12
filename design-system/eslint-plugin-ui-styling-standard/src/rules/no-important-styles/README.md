@@ -1,6 +1,8 @@
 This rule prevents the usage of the `!important` flag in style declarations.
 
-Properly composed styles will never need an `!important` flag. It is used to override specificity when working across different scopes, and the UI Styling Standard enforces styles with minimal scope.
+Properly composed styles will never need an `!important` flag. It is used to override specificity
+when working across different scopes, and the UI Styling Standard enforces styles with minimal
+scope.
 
 The use of `!important` is a code smell and greatly impacts readability and determinism.
 
@@ -12,7 +14,7 @@ The use of `!important` is a code smell and greatly impacts readability and dete
 import { css } from '@compiled/react';
 
 const styles = css({
-  color: 'red!important',
+	color: 'red!important',
 });
 ```
 
@@ -22,6 +24,6 @@ const styles = css({
 import { css } from '@compiled/react';
 
 const styles = css({
-  color: 'red',
+	color: 'red',
 });
 ```

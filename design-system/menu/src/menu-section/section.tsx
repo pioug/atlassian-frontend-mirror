@@ -25,74 +25,67 @@ const itemHeadingContentHeight = headingSizes.h100.lineHeight;
 const skeletonHeadingHeight = gridSize;
 const skeletonHeadingMarginOffset = 3;
 const skeletonHeadingTopMargin =
-  itemHeadingTopMargin +
-  (itemHeadingContentHeight - skeletonHeadingHeight) -
-  skeletonHeadingMarginOffset;
+	itemHeadingTopMargin +
+	(itemHeadingContentHeight - skeletonHeadingHeight) -
+	skeletonHeadingMarginOffset;
 // We want to move the entire body up by 3px without affecting the height of the skeleton container.
-const skeletonHeadingBottomMargin =
-  itemHeadingBottomMargin + skeletonHeadingMarginOffset;
+const skeletonHeadingBottomMargin = itemHeadingBottomMargin + skeletonHeadingMarginOffset;
 const sectionPaddingTopBottom = gridSize * 0.75;
 const VAR_SEPARATOR_COLOR = '--ds-menu-seperator-color';
 
 const sectionStyles = css({
-  '&::before, &::after': {
-    display: 'block',
-    height: sectionPaddingTopBottom,
-    content: '""',
-  },
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '& [data-ds--menu--heading-item]': {
-    marginBlockEnd: itemHeadingBottomMargin,
-    marginBlockStart: itemHeadingTopMargin,
-    '&:first-of-type': {
-      marginBlockStart: itemHeadingTopMargin - sectionPaddingTopBottom,
-    },
-  },
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '& [data-ds--menu--skeleton-heading-item]': {
-    marginBlockEnd: skeletonHeadingBottomMargin,
-    marginBlockStart: skeletonHeadingTopMargin,
-    '&:first-of-type': {
-      marginBlockStart: skeletonHeadingTopMargin - sectionPaddingTopBottom,
-    },
-  },
-  '&:focus': {
-    // NOTE: Firefox allows elements that have "overflow: auto" to gain focus (as if it had tab-index="0")
-    // We have made a deliberate choice to leave this behaviour as is.
-    // This makes the outline go inside by 1px so it can actually be displayed
-    // else it gets cut off from the overflow: scroll from the parent menu group.
-    outlineOffset: -1,
-  },
+	'&::before, &::after': {
+		display: 'block',
+		height: sectionPaddingTopBottom,
+		content: '""',
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'& [data-ds--menu--heading-item]': {
+		marginBlockEnd: itemHeadingBottomMargin,
+		marginBlockStart: itemHeadingTopMargin,
+		'&:first-of-type': {
+			marginBlockStart: itemHeadingTopMargin - sectionPaddingTopBottom,
+		},
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'& [data-ds--menu--skeleton-heading-item]': {
+		marginBlockEnd: skeletonHeadingBottomMargin,
+		marginBlockStart: skeletonHeadingTopMargin,
+		'&:first-of-type': {
+			marginBlockStart: skeletonHeadingTopMargin - sectionPaddingTopBottom,
+		},
+	},
+	'&:focus': {
+		// NOTE: Firefox allows elements that have "overflow: auto" to gain focus (as if it had tab-index="0")
+		// We have made a deliberate choice to leave this behaviour as is.
+		// This makes the outline go inside by 1px so it can actually be displayed
+		// else it gets cut off from the overflow: scroll from the parent menu group.
+		outlineOffset: -1,
+	},
 });
 
 const scrollableStyles = css({
-  flexShrink: 1,
-  overflow: 'auto',
+	flexShrink: 1,
+	overflow: 'auto',
 });
 
 const unscrollableStyles = css({
-  flexShrink: 0,
+	flexShrink: 0,
 });
 
 const thickSeparatorStyles = css({
-  borderBlockStart: `2px solid var(${VAR_SEPARATOR_COLOR}, ${token(
-    'color.border',
-    N30A,
-  )})`,
+	borderBlockStart: `2px solid var(${VAR_SEPARATOR_COLOR}, ${token('color.border', N30A)})`,
 });
 const thinSeparatorStyles = css({
-  borderBlockStart: `1px solid var(${VAR_SEPARATOR_COLOR}, ${token(
-    'color.border',
-    N30A,
-  )})`,
+	borderBlockStart: `1px solid var(${VAR_SEPARATOR_COLOR}, ${token('color.border', N30A)})`,
 });
 
 const noSeparatorStyles = css({
-  // this is to ensure that adjacent sections without separators don't get additional margins.
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '[data-section] + &': {
-    marginBlockStart: -6,
-  },
+	// this is to ensure that adjacent sections without separators don't get additional margins.
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'[data-section] + &': {
+		marginBlockStart: -6,
+	},
 });
 
 /**
@@ -104,116 +97,112 @@ const noSeparatorStyles = css({
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
 const Section = forwardRef<HTMLElement, SectionProps>(
-  (
-    {
-      children,
-      overrides,
-      title,
-      titleId,
-      testId,
-      isScrollable,
-      hasSeparator,
-      id,
-      isList = false,
-      // Although this isn't defined on props it is available because we've used
-      // Spread props below and on the jsx element. To forcibly block usage I've
-      // picked it out and supressed the expected type error.
-      // @ts-expect-error
-      className: UNSAFE_className,
-      ...rest
-    }: // Type needed on props to extract types with extract react types.
-    SectionProps,
-    ref,
-  ) => {
-    propDeprecationWarning(
-      process.env._PACKAGE_NAME_ || '',
-      'overrides',
-      overrides !== undefined,
-      '', // TODO: Create DAC post when primitives/xcss are available as alternatives
-    );
+	(
+		{
+			children,
+			overrides,
+			title,
+			titleId,
+			testId,
+			isScrollable,
+			hasSeparator,
+			id,
+			isList = false,
+			// Although this isn't defined on props it is available because we've used
+			// Spread props below and on the jsx element. To forcibly block usage I've
+			// picked it out and supressed the expected type error.
+			// @ts-expect-error
+			className: UNSAFE_className,
+			...rest
+		}: // Type needed on props to extract types with extract react types.
+		SectionProps,
+		ref,
+	) => {
+		propDeprecationWarning(
+			process.env._PACKAGE_NAME_ || '',
+			'overrides',
+			overrides !== undefined,
+			'', // TODO: Create DAC post when primitives/xcss are available as alternatives
+		);
 
-    const UNSAFE_headingOverrides = getBooleanFF(
-      'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
-    )
-      ? undefined
-      : overrides && overrides.HeadingItem && overrides.HeadingItem.cssFn;
+		const UNSAFE_headingOverrides = getBooleanFF(
+			'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
+		)
+			? undefined
+			: overrides && overrides.HeadingItem && overrides.HeadingItem.cssFn;
 
-    const content = isList ? (
-      <ul
-        style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          margin: 0,
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          padding: 0,
-        }}
-      >
-        {Children.map(Children.toArray(children), (child, index) => (
-          <li
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-            style={{ listStyleType: 'none', margin: 0, padding: 0 }}
-            key={index}
-          >
-            {child}
-          </li>
-        ))}
-      </ul>
-    ) : (
-      children
-    );
+		const content = isList ? (
+			<ul
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					margin: 0,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					padding: 0,
+				}}
+			>
+				{Children.map(Children.toArray(children), (child, index) => (
+					<li
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={{ listStyleType: 'none', margin: 0, padding: 0 }}
+						key={index}
+					>
+						{child}
+					</li>
+				))}
+			</ul>
+		) : (
+			children
+		);
 
-    const childrenMarkup =
-      title !== undefined ? (
-        <Fragment>
-          <HeadingItem
-            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-            cssFn={UNSAFE_headingOverrides}
-            testId={testId && `${testId}--heading`}
-            aria-hidden
-          >
-            {title}
-          </HeadingItem>
-          {content}
-        </Fragment>
-      ) : (
-        <Fragment>{content}</Fragment>
-      );
+		const childrenMarkup =
+			title !== undefined ? (
+				<Fragment>
+					<HeadingItem
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+						cssFn={UNSAFE_headingOverrides}
+						testId={testId && `${testId}--heading`}
+						aria-hidden
+					>
+						{title}
+					</HeadingItem>
+					{content}
+				</Fragment>
+			) : (
+				<Fragment>{content}</Fragment>
+			);
 
-    return (
-      <div
-        {...rest}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className={
-          getBooleanFF(
-            'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
-          )
-            ? undefined
-            : UNSAFE_className
-        }
-        id={id}
-        // NOTE: Firefox allows elements that have "overflow: auto" to gain focus (as if it had tab-index="0")
-        // We have made a deliberate choice to leave this behaviour as is.
-        css={[
-          sectionStyles,
-          isScrollable ? scrollableStyles : unscrollableStyles,
-          hasSeparator
-            ? getBooleanFF(
-                'platform.design-system-team.section-1px-seperator-borders',
-              )
-              ? thinSeparatorStyles
-              : thickSeparatorStyles
-            : noSeparatorStyles,
-        ]}
-        aria-label={title}
-        aria-labelledby={titleId}
-        data-testid={testId}
-        role="group"
-        data-section
-        ref={ref as Ref<HTMLDivElement>}
-      >
-        {childrenMarkup}
-      </div>
-    );
-  },
+		return (
+			<div
+				{...rest}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={
+					getBooleanFF('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
+						? undefined
+						: UNSAFE_className
+				}
+				id={id}
+				// NOTE: Firefox allows elements that have "overflow: auto" to gain focus (as if it had tab-index="0")
+				// We have made a deliberate choice to leave this behaviour as is.
+				css={[
+					sectionStyles,
+					isScrollable ? scrollableStyles : unscrollableStyles,
+					hasSeparator
+						? getBooleanFF('platform.design-system-team.section-1px-seperator-borders')
+							? thinSeparatorStyles
+							: thickSeparatorStyles
+						: noSeparatorStyles,
+				]}
+				aria-label={title}
+				aria-labelledby={titleId}
+				data-testid={testId}
+				role="group"
+				data-section
+				ref={ref as Ref<HTMLDivElement>}
+			>
+				{childrenMarkup}
+			</div>
+		);
+	},
 );
 
 export default Section;

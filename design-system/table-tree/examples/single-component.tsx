@@ -9,10 +9,10 @@ const Title = (props: any) => <span>{props.title}</span>;
 const Numbering = (props: any) => <span>{props.numbering}</span>;
 
 export default () => (
-  <TableTree
-    headers={['Title', 'Numbering']}
-    columns={[Title, Numbering]}
-    columnWidths={['200px', '200px']}
-    items={staticData.children}
-  />
+	<TableTree
+		headers={['Title', 'Numbering']}
+		columns={[Title, Numbering]}
+		columnWidths={['200px', '200px']}
+		items={staticData.children}
+	/>
 );

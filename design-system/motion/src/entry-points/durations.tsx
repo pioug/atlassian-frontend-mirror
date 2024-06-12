@@ -1,6 +1,6 @@
 export {
-  durationStep,
-  smallDurationMs,
-  mediumDurationMs,
-  largeDurationMs,
+	durationStep,
+	smallDurationMs,
+	mediumDurationMs,
+	largeDurationMs,
 } from '../utils/durations';

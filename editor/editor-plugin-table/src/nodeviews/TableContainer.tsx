@@ -171,6 +171,7 @@ type ResizableTableContainerProps = {
 	isWholeTableInDanger?: boolean;
 
 	isTableScalingEnabled?: boolean;
+	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
 };
@@ -190,6 +191,7 @@ export const ResizableTableContainer = React.memo(
 		tableWrapperHeight,
 		isWholeTableInDanger,
 		isTableScalingEnabled,
+		isTableWithFixedColumnWidthsOptionEnabled,
 		isTableAlignmentEnabled,
 		shouldUseIncreasedScalingPercent,
 	}: PropsWithChildren<ResizableTableContainerProps>) => {
@@ -319,6 +321,7 @@ export const ResizableTableContainer = React.memo(
 			isTableAlignmentEnabled,
 			isFullWidthModeEnabled,
 			isTableScalingEnabled,
+			isTableWithFixedColumnWidthsOptionEnabled,
 			isWholeTableInDanger,
 			shouldUseIncreasedScalingPercent,
 			pluginInjectionApi,
@@ -385,6 +388,7 @@ type TableContainerProps = {
 
 	isTableResizingEnabled: boolean | undefined;
 	isTableScalingEnabled?: boolean;
+	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
 };
@@ -404,6 +408,7 @@ export const TableContainer = ({
 	isWholeTableInDanger,
 	isTableResizingEnabled,
 	isTableScalingEnabled,
+	isTableWithFixedColumnWidthsOptionEnabled,
 	isTableAlignmentEnabled,
 	shouldUseIncreasedScalingPercent,
 }: PropsWithChildren<TableContainerProps>) => {
@@ -422,6 +427,7 @@ export const TableContainer = ({
 				isResizing={isResizing}
 				pluginInjectionApi={pluginInjectionApi}
 				isTableScalingEnabled={isTableScalingEnabled}
+				isTableWithFixedColumnWidthsOptionEnabled={isTableWithFixedColumnWidthsOptionEnabled}
 				isWholeTableInDanger={isWholeTableInDanger}
 				isTableAlignmentEnabled={isTableAlignmentEnabled}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}

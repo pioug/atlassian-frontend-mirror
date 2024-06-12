@@ -23,10 +23,7 @@ export { IconButton } from './components/IconButton';
 export type { IconButtonProps } from './components/IconButton/types';
 
 export { CustomProductHome, ProductHome } from './components/ProductHome';
-export type {
-  CustomProductHomeProps,
-  ProductHomeProps,
-} from './components/ProductHome/types';
+export type { CustomProductHomeProps, ProductHomeProps } from './components/ProductHome/types';
 
 export { Profile } from './components/Profile';
 export type { ProfileProps } from './components/Profile/types';
@@ -46,14 +43,14 @@ export { HORIZONTAL_GLOBAL_NAV_HEIGHT } from './common/constants';
 
 export { atlassianTheme, generateTheme, ThemeProvider } from './theme';
 export type {
-  Colors,
-  CreateCSS,
-  GenerateThemeArgs,
-  IconButtonCSS,
-  Mode,
-  NavigationCSS,
-  NavigationTheme,
-  PrimaryButtonCSS,
-  SearchCSS,
-  SkeletonCSS,
+	Colors,
+	CreateCSS,
+	GenerateThemeArgs,
+	IconButtonCSS,
+	Mode,
+	NavigationCSS,
+	NavigationTheme,
+	PrimaryButtonCSS,
+	SearchCSS,
+	SkeletonCSS,
 } from './theme';

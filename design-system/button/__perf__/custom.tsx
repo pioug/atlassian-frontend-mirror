@@ -8,12 +8,12 @@ import { interactionTasks } from './utils/interaction-tasks';
 const customThemeButton = () => <Example Component={CustomThemeButton} />;
 
 customThemeButton.story = {
-  name: 'CustomThemeButton',
-  parameters: {
-    performance: {
-      interactions: interactionTasks,
-    },
-  },
+	name: 'CustomThemeButton',
+	parameters: {
+		performance: {
+			interactions: interactionTasks,
+		},
+	},
 };
 
 export default customThemeButton;

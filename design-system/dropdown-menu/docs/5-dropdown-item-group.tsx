@@ -30,32 +30,32 @@ export default md`
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/06-dropdown-item-groups').default}
-      title=""
-      source={require('!!raw-loader!../examples/06-dropdown-item-groups')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/dropdown-menu"
+			Component={require('../examples/06-dropdown-item-groups').default}
+			title=""
+			source={require('!!raw-loader!../examples/06-dropdown-item-groups')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Dropdown item group props"
-      props={require('!!extract-react-types-loader!../src/dropdown-menu-item-group')}
-    />
-  )}
+		<Props
+			heading="Dropdown item group props"
+			props={require('!!extract-react-types-loader!../src/dropdown-menu-item-group')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Dropdown item group checkbox props"
-      props={require('!!extract-react-types-loader!../src/checkbox/dropdown-item-checkbox-group')}
-    />
-  )}
+		<Props
+			heading="Dropdown item group checkbox props"
+			props={require('!!extract-react-types-loader!../src/checkbox/dropdown-item-checkbox-group')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Dropdown item group radio props"
-      props={require('!!extract-react-types-loader!../src/radio/dropdown-item-radio-group')}
-    />
-  )}
+		<Props
+			heading="Dropdown item group radio props"
+			props={require('!!extract-react-types-loader!../src/radio/dropdown-item-radio-group')}
+		/>
+	)}
 `;

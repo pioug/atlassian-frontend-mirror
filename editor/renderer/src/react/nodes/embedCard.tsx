@@ -32,9 +32,11 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 const embedCardWrapperStyles = css({
 	width: '100%',
 	height: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		height: '100%',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.loader-wrapper': {
 		height: '100%',
 	},

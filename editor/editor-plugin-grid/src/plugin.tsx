@@ -101,6 +101,7 @@ const gutterGridLines = (
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					position: 'absolute',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					[side]: `-${(editorWidth - editorMaxWidth - akEditorBreakoutPadding) / 2}px`,
 				}}
 			/>,

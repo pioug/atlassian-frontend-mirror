@@ -15,14 +15,14 @@ import { CSS_PREFIX, CSS_VAR_FULL } from '../constants';
  * getCSSCustomProperty('color.background.bold.[default]')
  */
 export const getCSSCustomProperty = (path: string | string[]): string => {
-  const normalizedPath = typeof path === 'string' ? path.split('.') : path;
+	const normalizedPath = typeof path === 'string' ? path.split('.') : path;
 
-  // Opacity and other 'shallow' groups are more readable when not trimmed
-  const slice = CSS_VAR_FULL.includes(normalizedPath[0]) ? 0 : 1;
+	// Opacity and other 'shallow' groups are more readable when not trimmed
+	const slice = CSS_VAR_FULL.includes(normalizedPath[0]) ? 0 : 1;
 
-  return `--${[CSS_PREFIX, ...normalizedPath.slice(slice)]
-    .filter((el) => el !== '[default]')
-    .join('-')}`;
+	return `--${[CSS_PREFIX, ...normalizedPath.slice(slice)]
+		.filter((el) => el !== '[default]')
+		.join('-')}`;
 };
 
 /**
@@ -40,9 +40,9 @@ export const getCSSCustomProperty = (path: string | string[]): string => {
  * getTokenId('color.background.bold.[default]')
  */
 export const getTokenId = (path: string | string[]): string => {
-  const normalizedPath = typeof path === 'string' ? path.split('.') : path;
+	const normalizedPath = typeof path === 'string' ? path.split('.') : path;
 
-  return normalizedPath.filter((el) => el !== '[default]').join('.');
+	return normalizedPath.filter((el) => el !== '[default]').join('.');
 };
 
 /**
@@ -55,5 +55,4 @@ export const getTokenId = (path: string | string[]): string => {
  * // Returns color.background.bold.[default]
  * getFullyQualifiedTokenId(['color', 'background', 'bold', '[default]'])
  */
-export const getFullyQualifiedTokenId = (path: string[]): string =>
-  path.join('.');
+export const getFullyQualifiedTokenId = (path: string[]): string => path.join('.');

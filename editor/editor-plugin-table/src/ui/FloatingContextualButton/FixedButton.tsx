@@ -160,7 +160,7 @@ export const FixedButton = ({
 					position: 'fixed',
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 					top: stickyHeader.top + stickyHeader.padding + offset * 2,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					zIndex: akEditorTableCellOnStickyHeaderZIndex,
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 					left: calcLeftPos({

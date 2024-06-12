@@ -5,11 +5,11 @@ import NotificationIcon from '@atlaskit/icon/glyph/notification';
 import { SkeletonIconButton } from './components/SkeletonIconButton';
 
 export type SkeletonNotificationButtonProps = {
-  /**
-   *  Describes the specific role of this navigation component for users viewing the page with a screen
-   *  reader. Use this to differentiate the buttons from other navigation buttons on a page.
-   */
-  label: string;
+	/**
+	 *  Describes the specific role of this navigation component for users viewing the page with a screen
+	 *  reader. Use this to differentiate the buttons from other navigation buttons on a page.
+	 */
+	label: string;
 };
 
 /**
@@ -22,10 +22,8 @@ export type SkeletonNotificationButtonProps = {
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#skeleton-button)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const SkeletonNotificationButton = ({
-  label = '',
-}: SkeletonNotificationButtonProps) => (
-  <SkeletonIconButton>
-    <NotificationIcon label={label} />
-  </SkeletonIconButton>
+export const SkeletonNotificationButton = ({ label = '' }: SkeletonNotificationButtonProps) => (
+	<SkeletonIconButton>
+		<NotificationIcon label={label} />
+	</SkeletonIconButton>
 );

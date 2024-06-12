@@ -8,12 +8,12 @@ import { interactionTasks } from './utils/interaction-tasks';
 const button = () => <Example Component={Button} />;
 
 button.story = {
-  name: 'Button',
-  parameters: {
-    performance: {
-      interactions: interactionTasks,
-    },
-  },
+	name: 'Button',
+	parameters: {
+		performance: {
+			interactions: interactionTasks,
+		},
+	},
 };
 
 export default button;

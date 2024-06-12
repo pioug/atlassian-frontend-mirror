@@ -1,14 +1,10 @@
-import {
-  type ASTPath,
-  type default as core,
-  type JSXElement,
-} from 'jscodeshift';
+import { type ASTPath, type default as core, type JSXElement } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
-  addCommentToStartOfFile,
-  getDefaultSpecifier,
-  getJSXAttributesByName,
+	addCommentToStartOfFile,
+	getDefaultSpecifier,
+	getJSXAttributesByName,
 } from '@atlaskit/codemod-utils';
 
 const comment = `
@@ -30,72 +26,66 @@ If you are using the selected prop you will need to ensure that you are passing 
 of the selected tab as it also doesn't accept TabData anymore.
 `;
 
-export const migrateOnSelectType = (
-  j: core.JSCodeshift,
-  source: Collection<Node>,
-) => {
-  const specifier = getDefaultSpecifier(j, source, '@atlaskit/tabs');
+export const migrateOnSelectType = (j: core.JSCodeshift, source: Collection<Node>) => {
+	const specifier = getDefaultSpecifier(j, source, '@atlaskit/tabs');
 
-  if (!specifier) {
-    return;
-  }
+	if (!specifier) {
+		return;
+	}
 
-  source.findJSXElements(specifier).forEach((element: ASTPath<JSXElement>) => {
-    let tabs: any;
-    getJSXAttributesByName(j, element, 'tabs').forEach((attribute: any) => {
-      tabs = attribute.value.value.expression;
-    });
+	source.findJSXElements(specifier).forEach((element: ASTPath<JSXElement>) => {
+		let tabs: any;
+		getJSXAttributesByName(j, element, 'tabs').forEach((attribute: any) => {
+			tabs = attribute.value.value.expression;
+		});
 
-    if (!tabs) {
-      j(element)
-        .find(j.JSXOpeningElement)
-        .find(j.JSXSpreadAttribute)
-        .forEach((spreadAttribute) => {
-          const spreadArgument = spreadAttribute.value.argument;
-          tabs = j.memberExpression(spreadArgument, j.identifier('tabs'));
-        });
-    }
+		if (!tabs) {
+			j(element)
+				.find(j.JSXOpeningElement)
+				.find(j.JSXSpreadAttribute)
+				.forEach((spreadAttribute) => {
+					const spreadArgument = spreadAttribute.value.argument;
+					tabs = j.memberExpression(spreadArgument, j.identifier('tabs'));
+				});
+		}
 
-    if (!tabs) {
-      return;
-    }
+		if (!tabs) {
+			return;
+		}
 
-    getJSXAttributesByName(j, element, 'onSelect').forEach((attribute: any) => {
-      addCommentToStartOfFile({ j, base: source, message: comment });
-      const onChangeValue = attribute.node.value.expression;
+		getJSXAttributesByName(j, element, 'onSelect').forEach((attribute: any) => {
+			addCommentToStartOfFile({ j, base: source, message: comment });
+			const onChangeValue = attribute.node.value.expression;
 
-      let selectedTab = j.variableDeclaration('const', [
-        j.variableDeclarator(
-          j.identifier('selectedTab'),
-          j.memberExpression(tabs, j.identifier('index'), true),
-        ),
-      ]);
+			let selectedTab = j.variableDeclaration('const', [
+				j.variableDeclarator(
+					j.identifier('selectedTab'),
+					j.memberExpression(tabs, j.identifier('index'), true),
+				),
+			]);
 
-      // Wrap arrow functions to create an IIFE
-      let onChangeCall = onChangeValue.name
-        ? onChangeValue
-        : j.parenthesizedExpression(onChangeValue);
+			// Wrap arrow functions to create an IIFE
+			let onChangeCall = onChangeValue.name
+				? onChangeValue
+				: j.parenthesizedExpression(onChangeValue);
 
-      const newVersionOfFn = j.arrowFunctionExpression(
-        [j.identifier('index'), j.identifier('analyticsEvent')],
-        j.blockStatement([
-          selectedTab,
-          j.expressionStatement(
-            j.callExpression(onChangeCall, [
-              j.identifier('selectedTab'),
-              j.identifier('index'),
-              j.identifier('analyticsEvent'),
-            ]),
-          ),
-        ]),
-      );
+			const newVersionOfFn = j.arrowFunctionExpression(
+				[j.identifier('index'), j.identifier('analyticsEvent')],
+				j.blockStatement([
+					selectedTab,
+					j.expressionStatement(
+						j.callExpression(onChangeCall, [
+							j.identifier('selectedTab'),
+							j.identifier('index'),
+							j.identifier('analyticsEvent'),
+						]),
+					),
+				]),
+			);
 
-      j(attribute).replaceWith(
-        j.jsxAttribute(
-          j.jsxIdentifier('onChange'),
-          j.jsxExpressionContainer(newVersionOfFn),
-        ),
-      );
-    });
-  });
+			j(attribute).replaceWith(
+				j.jsxAttribute(j.jsxIdentifier('onChange'), j.jsxExpressionContainer(newVersionOfFn)),
+			);
+		});
+	});
 };

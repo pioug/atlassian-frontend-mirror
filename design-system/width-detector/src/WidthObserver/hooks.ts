@@ -1,86 +1,85 @@
 import React from 'react';
 
 type Response = [
-  (node?: Element | null) => void,
-  boolean,
-  HTMLElement | undefined,
-  IntersectionObserverEntry | undefined,
+	(node?: Element | null) => void,
+	boolean,
+	HTMLElement | undefined,
+	IntersectionObserverEntry | undefined,
 ];
 
 type State = {
-  inView: boolean;
-  target?: HTMLElement;
-  entry?: IntersectionObserverEntry;
+	inView: boolean;
+	target?: HTMLElement;
+	entry?: IntersectionObserverEntry;
 };
 
 export function useInView(options: IntersectionObserverInit = {}): Response {
-  const ref = React.useRef<HTMLElement>();
-  const observerInstance = React.useRef<IntersectionObserver>();
-  const [state, setState] = React.useState<State>({
-    inView: false,
-    entry: undefined,
-    target: undefined,
-  });
-  const { threshold, root, rootMargin } = options;
+	const ref = React.useRef<HTMLElement>();
+	const observerInstance = React.useRef<IntersectionObserver>();
+	const [state, setState] = React.useState<State>({
+		inView: false,
+		entry: undefined,
+		target: undefined,
+	});
+	const { threshold, root, rootMargin } = options;
 
-  const setRef = React.useCallback(
-    (node: any) => {
-      observerInstance.current = new IntersectionObserver(
-        (entries: IntersectionObserverEntry[]) => {
-          if (entries && entries.length) {
-            const intersection = entries[0];
-            const { isIntersecting, intersectionRatio } = intersection;
+	const setRef = React.useCallback(
+		(node: any) => {
+			observerInstance.current = new IntersectionObserver(
+				(entries: IntersectionObserverEntry[]) => {
+					if (entries && entries.length) {
+						const intersection = entries[0];
+						const { isIntersecting, intersectionRatio } = intersection;
 
-            if (intersectionRatio >= 0) {
-              // Note: `0` will be used here when an array of numbers is passed as the threshold, which doesn't feel right
-              const numericThreshold =
-                typeof threshold === 'number' ? threshold : 0;
+						if (intersectionRatio >= 0) {
+							// Note: `0` will be used here when an array of numbers is passed as the threshold, which doesn't feel right
+							const numericThreshold = typeof threshold === 'number' ? threshold : 0;
 
-              let inView = intersectionRatio >= numericThreshold;
+							let inView = intersectionRatio >= numericThreshold;
 
-              if (isIntersecting !== undefined) {
-                inView = inView && isIntersecting;
-              }
+							if (isIntersecting !== undefined) {
+								inView = inView && isIntersecting;
+							}
 
-              setState({
-                inView,
-                entry: intersection,
-                target: node,
-              });
-            }
-          }
-        },
-        {
-          threshold,
-          root,
-          rootMargin,
-        },
-      );
+							setState({
+								inView,
+								entry: intersection,
+								target: node,
+							});
+						}
+					}
+				},
+				{
+					threshold,
+					root,
+					rootMargin,
+				},
+			);
 
-      if (ref.current) {
-        observerInstance.current.unobserve(ref.current);
-      }
+			if (ref.current) {
+				observerInstance.current.unobserve(ref.current);
+			}
 
-      if (node) {
-        observerInstance.current.observe(node);
-      }
+			if (node) {
+				observerInstance.current.observe(node);
+			}
 
-      // Store a reference to the node
-      ref.current = node;
-    },
-    [threshold, root, rootMargin],
-  );
+			// Store a reference to the node
+			ref.current = node;
+		},
+		[threshold, root, rootMargin],
+	);
 
-  /**
-   * Unsubscribe IntersectionObserver before unmounting a component.
-   */
-  React.useEffect(() => {
-    return () => {
-      if (observerInstance.current && ref.current) {
-        observerInstance.current.unobserve(ref.current);
-      }
-    };
-  }, []);
+	/**
+	 * Unsubscribe IntersectionObserver before unmounting a component.
+	 */
+	React.useEffect(() => {
+		return () => {
+			if (observerInstance.current && ref.current) {
+				observerInstance.current.unobserve(ref.current);
+			}
+		};
+	}, []);
 
-  return [setRef, state.inView, state.target, state.entry];
+	return [setRef, state.inView, state.target, state.entry];
 }

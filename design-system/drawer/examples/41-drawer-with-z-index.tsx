@@ -11,54 +11,54 @@ import { layers } from '@atlaskit/theme/constants';
 import Drawer from '../src';
 
 interface State {
-  isDrawerOpen: boolean;
+	isDrawerOpen: boolean;
 }
 
 export default class DrawersExample extends Component<{}, State> {
-  state = {
-    isDrawerOpen: false,
-  };
+	state = {
+		isDrawerOpen: false,
+	};
 
-  openDrawer = () =>
-    this.setState({
-      isDrawerOpen: true,
-    });
+	openDrawer = () =>
+		this.setState({
+			isDrawerOpen: true,
+		});
 
-  onClose = (...args: [SyntheticEvent<HTMLElement>, any]) => {
-    console.log('onClose', args);
-    this.setState({
-      isDrawerOpen: false,
-    });
-  };
+	onClose = (...args: [SyntheticEvent<HTMLElement>, any]) => {
+		console.log('onClose', args);
+		this.setState({
+			isDrawerOpen: false,
+		});
+	};
 
-  onCloseComplete = (args: any) => console.log('onCloseComplete', args);
+	onCloseComplete = (args: any) => console.log('onCloseComplete', args);
 
-  onOpenComplete = (args: any) => console.log('onOpenComplete', args);
+	onOpenComplete = (args: any) => console.log('onOpenComplete', args);
 
-  render() {
-    return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      <div style={{ padding: '2rem' }}>
-        <Modal>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-          <div style={{ padding: '2rem' }}>This is a modal</div>
-          <Drawer
-            onClose={this.onClose}
-            onCloseComplete={this.onCloseComplete}
-            onOpenComplete={this.onOpenComplete}
-            isOpen={this.state.isDrawerOpen}
-            width="wide"
-            zIndex={layers.modal()}
-            label="Drawer layer precedence"
-          >
-            <code>Content</code>
-          </Drawer>
+	render() {
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			<div style={{ padding: '2rem' }}>
+				<Modal>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+					<div style={{ padding: '2rem' }}>This is a modal</div>
+					<Drawer
+						onClose={this.onClose}
+						onCloseComplete={this.onCloseComplete}
+						onOpenComplete={this.onOpenComplete}
+						isOpen={this.state.isDrawerOpen}
+						width="wide"
+						zIndex={layers.modal()}
+						label="Drawer layer precedence"
+					>
+						<code>Content</code>
+					</Drawer>
 
-          <Button id="open-drawer" type="button" onClick={this.openDrawer}>
-            Open drawer
-          </Button>
-        </Modal>
-      </div>
-    );
-  }
+					<Button id="open-drawer" type="button" onClick={this.openDrawer}>
+						Open drawer
+					</Button>
+				</Modal>
+			</div>
+		);
+	}
 }

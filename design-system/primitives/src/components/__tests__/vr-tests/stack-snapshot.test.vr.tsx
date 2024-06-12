@@ -9,62 +9,62 @@ import StackSpread from '../../../../examples/25-stack-spread';
 import StackGrow from '../../../../examples/26-stack-grow';
 
 snapshot(StackBasic, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(StackSpace, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(StackAlignBlock, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(StackAlignInline, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(StackSpread, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(StackGrow, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });

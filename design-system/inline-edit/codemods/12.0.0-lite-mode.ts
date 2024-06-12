@@ -6,10 +6,10 @@ import elevateComponentToDefault from './migrates/lift-InlineEditStateless-to-de
 import spreadErrorMessage from './migrates/spread-errorMessage-out-of-fieldProps';
 
 const transformer = createTransformer([
-  addCommentsWhenValidateFound,
-  liftInlineEditableTextField,
-  elevateComponentToDefault,
-  spreadErrorMessage,
+	addCommentsWhenValidateFound,
+	liftInlineEditableTextField,
+	elevateComponentToDefault,
+	spreadErrorMessage,
 ]);
 
 export default transformer;

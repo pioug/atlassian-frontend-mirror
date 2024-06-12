@@ -1,12 +1,12 @@
 import { type ComponentType, type ReactNode } from 'react';
 
 export type BadgeProps = {
-  id: string;
-  badge: ComponentType<{}>;
-  children: ReactNode;
+	id: string;
+	badge: ComponentType<{}>;
+	children: ReactNode;
 
-  /**
-   * Used to override the accessibility role for the element.
-   */
-  role?: 'presentation' | 'listitem';
+	/**
+	 * Used to override the accessibility role for the element.
+	 */
+	role?: 'presentation' | 'listitem';
 };

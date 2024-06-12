@@ -7,10 +7,10 @@ const exampleCodeBlock = `signature REGEXP = sig
 end`;
 
 export default function Component() {
-  return (
-    <div>
-      <h2>Standard ML</h2>
-      <CodeBlock language="standardml" text={exampleCodeBlock} />
-    </div>
-  );
+	return (
+		<div>
+			<h2>Standard ML</h2>
+			<CodeBlock language="standardml" text={exampleCodeBlock} />
+		</div>
+	);
 }

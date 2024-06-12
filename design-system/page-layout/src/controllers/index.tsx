@@ -1,10 +1,10 @@
 export type { SkipLinkData } from './types';
 export { default as publishGridState } from './use-page-layout-grid';
 export {
-  SidebarResizeContext,
-  usePageLayoutResize,
-  useLeftSidebarFlyoutLock,
-  UNSAFE_useSetLeftSidebarState,
+	SidebarResizeContext,
+	usePageLayoutResize,
+	useLeftSidebarFlyoutLock,
+	UNSAFE_useSetLeftSidebarState,
 } from './sidebar-resize-context';
 export { SidebarResizeController } from './sidebar-resize-controller';
 

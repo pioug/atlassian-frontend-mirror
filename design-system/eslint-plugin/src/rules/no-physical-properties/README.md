@@ -1,7 +1,7 @@
-Disallows using physical properties. Physical properties
-prevent correct support for different reading modes and languages and
-should be avoided. Rule will autofix applicable physical properties
-to instead use [logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values/Basic_concepts_of_logical_properties_and_values).
+Disallows using physical properties. Physical properties prevent correct support for different
+reading modes and languages and should be avoided. Rule will autofix applicable physical properties
+to instead use
+[logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values/Basic_concepts_of_logical_properties_and_values).
 
 ## Examples
 
@@ -11,22 +11,22 @@ This rule checks for physical property usage inside of `css` function calls.
 
 ```js
 css({
-  left: 0,
-  right: 0,
-  top: 0,
-  bottom: 0,
+	left: 0,
+	right: 0,
+	top: 0,
+	bottom: 0,
 });
 ```
 
 ```js
 css({
-  marginLeft: 0,
+	marginLeft: 0,
 });
 ```
 
 ```js
 css({
-  textAlign: 'left',
+	textAlign: 'left',
 });
 ```
 
@@ -34,18 +34,18 @@ css({
 
 ```js
 css({
-  inset: 0,
+	inset: 0,
 });
 ```
 
 ```js
 css({
-  marginInlineStart: 0,
+	marginInlineStart: 0,
 });
 ```
 
 ```js
 css({
-  textAlign: 'start',
+	textAlign: 'start',
 });
 ```

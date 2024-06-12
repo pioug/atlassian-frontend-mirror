@@ -157,6 +157,9 @@ export const getToolbarMenuConfig = (
 		},
 	];
 
+	const tableOptionsDropdownWidth = isTableScalingWithFixedColumnWidthsOptionShown
+		? 192
+		: undefined;
 	if (state.isDragAndDropEnabled) {
 		return {
 			id: 'editor.table.tableOptions',
@@ -166,7 +169,7 @@ export const getToolbarMenuConfig = (
 			title: formatMessage(messages.tableOptions),
 			hidden: options.every((option) => option.hidden),
 			options,
-			dropdownWidth: isTableScalingWithFixedColumnWidthsOptionShown ? 192 : undefined,
+			dropdownWidth: tableOptionsDropdownWidth,
 		};
 	} else {
 		return {
@@ -176,7 +179,7 @@ export const getToolbarMenuConfig = (
 			title: formatMessage(messages.tableOptions),
 			hidden: options.every((option) => option.hidden),
 			options,
-			dropdownWidth: isTableScalingWithFixedColumnWidthsOptionShown ? 192 : undefined,
+			dropdownWidth: tableOptionsDropdownWidth,
 		};
 	}
 };
@@ -192,6 +195,8 @@ export const getToolbarCellOptionsConfig = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
+	isCellBackgroundDuplicated = false,
+	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 ): FloatingToolbarDropdown<Command> => {
 	const { top, bottom, right, left } = initialSelectionRect;
@@ -210,6 +215,8 @@ export const getToolbarCellOptionsConfig = (
 					insertColumnWithAnalytics(
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
+						isCellBackgroundDuplicated,
+						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
 					)(INPUT_METHOD.FLOATING_TB, index)(state, dispatch, view);
 				}
@@ -217,6 +224,7 @@ export const getToolbarCellOptionsConfig = (
 			},
 			selected: false,
 			disabled: false,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(addColumnAfter)}</div>,
 		},
 		{
@@ -235,6 +243,7 @@ export const getToolbarCellOptionsConfig = (
 			},
 			selected: false,
 			disabled: false,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(addRowAfter)}</div>,
 		},
 		{
@@ -248,6 +257,7 @@ export const getToolbarCellOptionsConfig = (
 					deleteColumnsWithAnalytics(
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
+						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
 					)(INPUT_METHOD.FLOATING_TB, selectionRect)(state, dispatch, view);
 				}
@@ -307,6 +317,7 @@ export const getToolbarCellOptionsConfig = (
 					editorView.domAtPos.bind(editorView),
 					getEditorContainerWidth,
 					isTableScalingEnabled,
+					isTableFixedColumnWidthsOptionEnabled,
 				)
 			: undefined;
 		const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
@@ -405,6 +416,7 @@ export const getToolbarCellOptionsConfig = (
 		},
 		selected: false,
 		disabled: false,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		elemAfter: <div css={shortcutStyle}>{tooltip(backspace)}</div>,
 	});
 
@@ -446,7 +458,7 @@ export const getToolbarConfig =
 		getEditorFeatureFlags: GetEditorFeatureFlags,
 		getEditorView: () => EditorView | null,
 		options?: TablePluginOptions,
-		isTableScalingWithFixedColumnWidthsOptionEnabled = false,
+		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 	) =>
 	(config: PluginConfig): FloatingToolbarHandler =>
@@ -455,6 +467,7 @@ export const getToolbarConfig =
 		const pluginState = getPluginState(state);
 		const resizeState = tableResizingPluginKey.getState(state);
 		const tableWidthState = tableWidthPluginKey.getState(state);
+		const isTableScalingEnabled = options?.isTableScalingEnabled || false;
 
 		// We don't want to show floating toolbar while resizing the table
 		const isWidthResizing = tableWidthState?.resizing;
@@ -463,7 +476,7 @@ export const getToolbarConfig =
 			const nodeType = state.schema.nodes.table;
 			const isNested = pluginState.tablePos && isTableNested(state, pluginState.tablePos);
 			const isTableScalingWithFixedColumnWidthsOptionShown =
-				isTableScalingWithFixedColumnWidthsOptionEnabled && !isNested;
+				isTableScalingEnabled && isTableFixedColumnWidthsOptionEnabled && !isNested;
 			const areTableColumWidthsFixed = tableObject.node.attrs.displayMode === 'fixed';
 			const editorView = getEditorView();
 
@@ -501,8 +514,12 @@ export const getToolbarConfig =
 							getEditorContainerWidth,
 							getDomRef,
 							editorView,
+							shouldUseIncreasedScalingPercent,
 						)
 					: [];
+
+			const isCellBackgroundDuplicated =
+				getEditorFeatureFlags().tableDuplicateCellColouring || false;
 
 			const cellItems = pluginState.isDragAndDropEnabled
 				? []
@@ -512,7 +529,9 @@ export const getToolbarConfig =
 						intl,
 						getEditorContainerWidth,
 						editorAnalyticsAPI,
-						options?.isTableScalingEnabled,
+						isTableScalingEnabled,
+						isCellBackgroundDuplicated,
+						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
 					);
 
@@ -523,7 +542,8 @@ export const getToolbarConfig =
 						intl,
 						getEditorContainerWidth,
 						editorAnalyticsAPI,
-						options?.isTableScalingEnabled,
+						isTableScalingEnabled,
+						isTableFixedColumnWidthsOptionEnabled,
 					)
 				: [];
 			const colorPicker = getColorPicker(state, menu, intl, editorAnalyticsAPI, getEditorView);
@@ -621,6 +641,8 @@ const getCellItems = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
+	isCellBackgroundDuplicated = false,
+	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 ): Array<FloatingToolbarItem<Command>> => {
 	const initialSelectionRect = getClosestSelectionRect(state);
@@ -633,6 +655,8 @@ const getCellItems = (
 			getEditorContainerWidth,
 			editorAnalyticsAPI,
 			isTableScalingEnabled,
+			isCellBackgroundDuplicated,
+			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 		);
 		return [cellOptions, separator(cellOptions.hidden!)];
@@ -645,18 +669,21 @@ export const getDistributeConfig =
 		getEditorContainerWidth: GetEditorContainerWidth,
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 		isTableScalingEnabled = false,
+		isTableFixedColumnWidthsOptionEnabled = false,
 	): Command =>
 	(state, dispatch, editorView) => {
 		const selectionOrTableRect = getClosestSelectionOrTableRect(state);
 		if (!editorView || !selectionOrTableRect) {
 			return false;
 		}
+
 		const newResizeStateWithAnalytics = getNewResizeStateFromSelectedColumns(
 			selectionOrTableRect,
 			state,
 			editorView.domAtPos.bind(editorView),
 			getEditorContainerWidth,
 			isTableScalingEnabled,
+			isTableFixedColumnWidthsOptionEnabled,
 		);
 
 		if (newResizeStateWithAnalytics) {
@@ -678,6 +705,7 @@ const getColumnSettingItems = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
+	isTableFixedColumnWidthsOptionEnabled = false,
 ): Array<FloatingToolbarItem<Command>> => {
 	const pluginState = getPluginState(editorState);
 	const selectionOrTableRect = getClosestSelectionOrTableRect(editorState);
@@ -692,6 +720,7 @@ const getColumnSettingItems = (
 		editorView.domAtPos.bind(editorView),
 		getEditorContainerWidth,
 		isTableScalingEnabled,
+		isTableFixedColumnWidthsOptionEnabled,
 	);
 
 	const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
@@ -705,11 +734,12 @@ const getColumnSettingItems = (
 			title: formatMessage(messages.distributeColumns),
 			icon: DistributeColumnIcon,
 			onClick: (state, dispatch, view) =>
-				getDistributeConfig(getEditorContainerWidth, editorAnalyticsAPI, isTableScalingEnabled)(
-					state,
-					dispatch,
-					view,
-				),
+				getDistributeConfig(
+					getEditorContainerWidth,
+					editorAnalyticsAPI,
+					isTableScalingEnabled,
+					isTableFixedColumnWidthsOptionEnabled,
+				)(state, dispatch, view),
 			disabled: !wouldChange,
 		});
 	}
@@ -816,6 +846,7 @@ export const getAlignmentOptionsConfig = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	getDomRef: (editorView: EditorView) => HTMLElement | undefined,
 	editorView: EditorView | null,
+	shouldUseIncreasedScalingPercent: boolean,
 ): Array<FloatingToolbarDropdown<Command>> => {
 	const tableObject = findTable(editorState.selection);
 
@@ -863,6 +894,7 @@ export const getAlignmentOptionsConfig = (
 				getEditorContainerWidth,
 				getDomRef,
 				editorView,
+				shouldUseIncreasedScalingPercent,
 			) && {
 				disabled: value !== 'center',
 			}),
@@ -904,6 +936,7 @@ export const isLayoutOptionDisabled = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	getDomRef: (editorView: EditorView) => HTMLElement | undefined,
 	editorView: EditorView | null,
+	shouldUseIncreasedScalingPercent: boolean,
 ) => {
 	const { lineLength } = getEditorContainerWidth();
 	let tableContainerWidth = getTableContainerWidth(selectedNode);
@@ -912,7 +945,11 @@ export const isLayoutOptionDisabled = (
 	if (editorView) {
 		const tableWrapper = getDomRef(editorView);
 		const tableWrapperWidth = tableWrapper?.clientWidth || tableContainerWidth;
-		const scalePercent = getStaticTableScalingPercent(selectedNode, tableWrapperWidth);
+		const scalePercent = getStaticTableScalingPercent(
+			selectedNode,
+			tableWrapperWidth,
+			shouldUseIncreasedScalingPercent,
+		);
 		tableContainerWidth = tableContainerWidth * scalePercent;
 	}
 

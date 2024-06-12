@@ -44,6 +44,7 @@ const EmojiPickerEmojiRow = ({
 			onFocus && onFocus(emojiId, emoji, event);
 		};
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={emojiPickerRow} role="presentation">
 			{emojis.map((emoji, index) => {
 				const { shortName, id } = emoji;
@@ -52,6 +53,7 @@ const EmojiPickerEmojiRow = ({
 					currentEmojisFocus.rowIndex === rowIndex && currentEmojisFocus.columnIndex === index;
 				return (
 					<span
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={emojiItem}
 						key={key}
 						role="gridcell"

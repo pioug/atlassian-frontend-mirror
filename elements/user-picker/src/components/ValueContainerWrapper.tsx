@@ -16,6 +16,7 @@ const ValueContainerWrapper = ({
 	onMouseDown: () => void;
 }) => {
 	return isEnabled ? (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={css({ flexGrow: 1 })} onMouseDown={onMouseDown}>
 			{children}
 		</div>

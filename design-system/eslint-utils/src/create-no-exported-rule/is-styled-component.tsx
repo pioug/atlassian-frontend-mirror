@@ -18,38 +18,32 @@ type RuleContext = Rule.RuleContext;
  * @returns The callee of the first `styled` function call found.
  */
 const findNode = (nodes: Node[]): MemberExpression | Identifier | undefined => {
-  const node = nodes.find(
-    n => n.type === 'TaggedTemplateExpression' || n.type === 'CallExpression',
-  );
+	const node = nodes.find(
+		(n) => n.type === 'TaggedTemplateExpression' || n.type === 'CallExpression',
+	);
 
-  if (!node) {
-    return;
-  }
+	if (!node) {
+		return;
+	}
 
-  if (node.type === 'CallExpression') {
-    // Eg. const Component = styled.button(style)
-    if (node.callee.type === 'MemberExpression') {
-      return node.callee;
-    }
+	if (node.type === 'CallExpression') {
+		// Eg. const Component = styled.button(style)
+		if (node.callee.type === 'MemberExpression') {
+			return node.callee;
+		}
 
-    // Eg. const Component = styled(button)(style)
-    if (
-      node.callee.type === 'CallExpression' &&
-      node.callee.callee.type === 'Identifier'
-    ) {
-      return node.callee.callee;
-    }
-  }
+		// Eg. const Component = styled(button)(style)
+		if (node.callee.type === 'CallExpression' && node.callee.callee.type === 'Identifier') {
+			return node.callee.callee;
+		}
+	}
 
-  // Eg. const Component = styled.div`${styles}`;
-  if (
-    node.type === 'TaggedTemplateExpression' &&
-    node.tag.type === 'MemberExpression'
-  ) {
-    return node.tag;
-  }
+	// Eg. const Component = styled.div`${styles}`;
+	if (node.type === 'TaggedTemplateExpression' && node.tag.type === 'MemberExpression') {
+		return node.tag;
+	}
 
-  return;
+	return;
 };
 
 /**
@@ -59,15 +53,15 @@ const findNode = (nodes: Node[]): MemberExpression | Identifier | undefined => {
  * @returns The local name used to import the `styled` API.
  */
 const getStyledImportSpecifierName = (
-  context: RuleContext,
-  importSources: ImportSource[],
+	context: RuleContext,
+	importSources: ImportSource[],
 ): string | undefined => {
-  const supportedImport = getFirstSupportedImport(context, importSources);
-  return supportedImport?.specifiers.find(
-    spec =>
-      (spec.type === 'ImportSpecifier' && spec.imported.name === 'styled') ||
-      (spec.type === 'ImportDefaultSpecifier' && spec.local.name === 'styled'),
-  )?.local.name;
+	const supportedImport = getFirstSupportedImport(context, importSources);
+	return supportedImport?.specifiers.find(
+		(spec) =>
+			(spec.type === 'ImportSpecifier' && spec.imported.name === 'styled') ||
+			(spec.type === 'ImportDefaultSpecifier' && spec.local.name === 'styled'),
+	)?.local.name;
 };
 
 /**
@@ -79,31 +73,25 @@ const getStyledImportSpecifierName = (
  * @returns Whether the node is a usage of the `styled` API.
  */
 export const isStyledComponent = (
-  nodes: Node[],
-  context: RuleContext,
-  importSources: ImportSource[],
+	nodes: Node[],
+	context: RuleContext,
+	importSources: ImportSource[],
 ): boolean => {
-  const node = findNode(nodes);
+	const node = findNode(nodes);
 
-  if (!node) {
-    return false;
-  }
+	if (!node) {
+		return false;
+	}
 
-  const styledImportSpecifierName = getStyledImportSpecifierName(
-    context,
-    importSources,
-  );
+	const styledImportSpecifierName = getStyledImportSpecifierName(context, importSources);
 
-  if (styledImportSpecifierName) {
-    if (node.type === 'Identifier') {
-      return node.name === styledImportSpecifierName;
-    } else {
-      return (
-        node.object.type === 'Identifier' &&
-        node.object.name === styledImportSpecifierName
-      );
-    }
-  }
+	if (styledImportSpecifierName) {
+		if (node.type === 'Identifier') {
+			return node.name === styledImportSpecifierName;
+		} else {
+			return node.object.type === 'Identifier' && node.object.name === styledImportSpecifierName;
+		}
+	}
 
-  return false;
+	return false;
 };

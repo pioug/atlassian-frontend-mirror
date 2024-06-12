@@ -15,66 +15,57 @@ const containerTestId = `${testId}-container`;
  * easily with the icon as well.
  */
 const getLogoMaxWidthCSSVar = () =>
-  screen
-    .getByTestId(containerTestId)
-    ?.style.getPropertyValue('--logo-max-width');
+	screen.getByTestId(containerTestId)?.style.getPropertyValue('--logo-max-width');
 
 describe('<ProductHome />', () => {
-  const icon = jest.fn(() => null);
-  const logo = jest.fn(() => null);
+	const icon = jest.fn(() => null);
+	const logo = jest.fn(() => null);
 
-  describe('logoMaxWidth', () => {
-    it('should set CSS variable with the provided value', () => {
-      render(
-        <ProductHome
-          icon={icon}
-          logo={logo}
-          testId={testId}
-          logoMaxWidth={100}
-        />,
-      );
-      expect(getLogoMaxWidthCSSVar()).toBe('100px');
-    });
+	describe('logoMaxWidth', () => {
+		it('should set CSS variable with the provided value', () => {
+			render(<ProductHome icon={icon} logo={logo} testId={testId} logoMaxWidth={100} />);
+			expect(getLogoMaxWidthCSSVar()).toBe('100px');
+		});
 
-    it('should be 260px by default', () => {
-      render(<ProductHome icon={icon} logo={logo} testId={testId} />);
-      expect(getLogoMaxWidthCSSVar()).toBe('260px');
-    });
-  });
+		it('should be 260px by default', () => {
+			render(<ProductHome icon={icon} logo={logo} testId={testId} />);
+			expect(getLogoMaxWidthCSSVar()).toBe('260px');
+		});
+	});
 });
 
 describe('<CustomProductHome />', () => {
-  const iconUrl = 'fake-icon.png';
-  const logoUrl = 'fake-logo.png';
+	const iconUrl = 'fake-icon.png';
+	const logoUrl = 'fake-logo.png';
 
-  describe('logoMaxWidth', () => {
-    it('should set max-width with the provided value', () => {
-      render(
-        <CustomProductHome
-          iconUrl={iconUrl}
-          iconAlt=""
-          logoUrl={logoUrl}
-          logoAlt=""
-          testId={testId}
-          logoMaxWidth={100}
-        />,
-      );
-      const logoElement = screen.getByTestId(logoTestId);
-      expect(logoElement).toHaveStyle({ maxWidth: '100px' });
-    });
+	describe('logoMaxWidth', () => {
+		it('should set max-width with the provided value', () => {
+			render(
+				<CustomProductHome
+					iconUrl={iconUrl}
+					iconAlt=""
+					logoUrl={logoUrl}
+					logoAlt=""
+					testId={testId}
+					logoMaxWidth={100}
+				/>,
+			);
+			const logoElement = screen.getByTestId(logoTestId);
+			expect(logoElement).toHaveStyle({ maxWidth: '100px' });
+		});
 
-    it('should be 260px by default', () => {
-      render(
-        <CustomProductHome
-          iconUrl={iconUrl}
-          iconAlt=""
-          logoUrl={logoUrl}
-          logoAlt=""
-          testId={testId}
-        />,
-      );
-      const logoElement = screen.getByTestId(logoTestId);
-      expect(logoElement).toHaveStyle({ maxWidth: '260px' });
-    });
-  });
+		it('should be 260px by default', () => {
+			render(
+				<CustomProductHome
+					iconUrl={iconUrl}
+					iconAlt=""
+					logoUrl={logoUrl}
+					logoAlt=""
+					testId={testId}
+				/>,
+			);
+			const logoElement = screen.getByTestId(logoTestId);
+			expect(logoElement).toHaveStyle({ maxWidth: '260px' });
+		});
+	});
 });

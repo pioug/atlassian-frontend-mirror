@@ -5,37 +5,37 @@ import { DateTimePicker } from '@atlaskit/datetime-picker';
 import InlineEdit from '../src';
 
 const ReadView = ({ data }: { data: string }) => (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-  <div style={{ padding: 10 }} data-testid="readview">
-    {data || 'Select date'}
-  </div>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+	<div style={{ padding: 10 }} data-testid="readview">
+		{data || 'Select date'}
+	</div>
 );
 
 export default function InlineEditWithDatepicker() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [data, setData] = useState('');
+	const [isEditing, setIsEditing] = useState(false);
+	const [data, setData] = useState('');
 
-  const EditView = () => (
-    <DateTimePicker
-      value={data}
-      onChange={(e: string) => {
-        setData(e);
-        setIsEditing(false);
-      }}
-      testId="datepicker"
-    />
-  );
+	const EditView = () => (
+		<DateTimePicker
+			value={data}
+			onChange={(e: string) => {
+				setData(e);
+				setIsEditing(false);
+			}}
+			testId="datepicker"
+		/>
+	);
 
-  return (
-    <InlineEdit
-      defaultValue={() => <ReadView data={data} />}
-      readView={() => <ReadView data={data} />}
-      editView={EditView}
-      onConfirm={() => setIsEditing(false)}
-      onEdit={() => setIsEditing(true)}
-      isEditing={isEditing}
-      hideActionButtons
-      readViewFitContainerWidth
-    />
-  );
+	return (
+		<InlineEdit
+			defaultValue={() => <ReadView data={data} />}
+			readView={() => <ReadView data={data} />}
+			editView={EditView}
+			onConfirm={() => setIsEditing(false)}
+			onEdit={() => setIsEditing(true)}
+			isEditing={isEditing}
+			hideActionButtons
+			readViewFitContainerWidth
+		/>
+	);
 }

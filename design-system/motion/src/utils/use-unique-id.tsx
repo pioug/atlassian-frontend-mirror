@@ -7,16 +7,16 @@ import { useRef } from 'react';
  * as you will probably not get the same result on the Server vs. Client.
  */
 export function useUniqueId(): string {
-  const identifier = useRef('');
-  if (!identifier.current) {
-    identifier.current =
-      '_' +
-      (
-        Number(String(Math.random()).slice(2)) +
-        Date.now() +
-        Math.round(performance.now())
-      ).toString(36);
-  }
+	const identifier = useRef('');
+	if (!identifier.current) {
+		identifier.current =
+			'_' +
+			(
+				Number(String(Math.random()).slice(2)) +
+				Date.now() +
+				Math.round(performance.now())
+			).toString(36);
+	}
 
-  return identifier.current;
+	return identifier.current;
 }

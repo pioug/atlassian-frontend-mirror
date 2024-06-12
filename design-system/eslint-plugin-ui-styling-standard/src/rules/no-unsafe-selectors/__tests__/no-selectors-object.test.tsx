@@ -2,11 +2,11 @@ import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 tester.run('no-selectors-object', rule, {
-  valid: [],
-  invalid: [
-    {
-      name: 'selectors object is provided',
-      code: `
+	valid: [],
+	invalid: [
+		{
+			name: 'selectors object is provided',
+			code: `
         import { cssMap } from '@compiled/react';
 
         cssMap({
@@ -15,11 +15,11 @@ tester.run('no-selectors-object', rule, {
           }
         });
       `,
-      errors: [
-        {
-          messageId: 'no-selectors-object',
-        },
-      ],
-    },
-  ],
+			errors: [
+				{
+					messageId: 'no-selectors-object',
+				},
+			],
+		},
+	],
 });

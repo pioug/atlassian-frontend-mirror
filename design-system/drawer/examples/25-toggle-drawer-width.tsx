@@ -10,40 +10,34 @@ import Drawer, { type DrawerWidth } from '../src';
 import { widths } from '../src/constants';
 
 interface State {
-  width: DrawerWidth;
+	width: DrawerWidth;
 }
 
 export default class DrawersExample extends Component<{}, State> {
-  state = {
-    width: widths[0] as DrawerWidth,
-  };
+	state = {
+		width: widths[0] as DrawerWidth,
+	};
 
-  onNextClick = () => {
-    const width = widths[
-      (widths.indexOf(this.state.width) + 1) % widths.length
-    ] as DrawerWidth;
-    this.setState({
-      width,
-    });
-  };
+	onNextClick = () => {
+		const width = widths[(widths.indexOf(this.state.width) + 1) % widths.length] as DrawerWidth;
+		this.setState({
+			width,
+		});
+	};
 
-  render() {
-    return (
-      <Drawer
-        isOpen
-        width={this.state.width}
-        label="Drawer with width controls"
-      >
-        <div>
-          <code>{this.state.width} width</code>
-        </div>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-        <div style={{ margin: '1rem 0' }}>
-          <Button type="button" onClick={this.onNextClick}>
-            Next width
-          </Button>
-        </div>
-      </Drawer>
-    );
-  }
+	render() {
+		return (
+			<Drawer isOpen width={this.state.width} label="Drawer with width controls">
+				<div>
+					<code>{this.state.width} width</code>
+				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				<div style={{ margin: '1rem 0' }}>
+					<Button type="button" onClick={this.onNextClick}>
+						Next width
+					</Button>
+				</div>
+			</Drawer>
+		);
+	}
 }

@@ -1,8 +1,4 @@
-import {
-  portalClassName,
-  portalParentClassName,
-  portalParentSelector,
-} from '../constants';
+import { portalClassName, portalParentClassName, portalParentSelector } from '../constants';
 
 /**
  * Creates a new portal container element with provided z-index and class name 'atlaskit-portal',
@@ -11,10 +7,10 @@ import {
  * @return {number} - The newly created container element
  */
 export const createContainer = (zIndex: number | string): HTMLDivElement => {
-  const container = document.createElement('div');
-  container.className = portalClassName;
-  container.style.zIndex = `${zIndex}`;
-  return container;
+	const container = document.createElement('div');
+	container.className = portalClassName;
+	container.style.zIndex = `${zIndex}`;
+	return container;
 };
 
 /**
@@ -22,7 +18,7 @@ export const createContainer = (zIndex: number | string): HTMLDivElement => {
  * @return {number} - The document body element
  */
 const getBody = (): HTMLElement => {
-  return document.body;
+	return document.body;
 };
 
 /**
@@ -30,17 +26,17 @@ const getBody = (): HTMLElement => {
  * @return {Element} - The portal parent container div element
  */
 const getPortalParent = (): Element => {
-  const parentElement = document.querySelector(portalParentSelector);
-  if (!parentElement) {
-    const parent = document.createElement('div');
-    parent.className = portalParentClassName;
-    // we are setting display to flex because we want each portal to create a new stacking context
-    // See https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
-    parent.style.display = 'flex';
-    getBody().appendChild(parent);
-    return parent;
-  }
-  return parentElement;
+	const parentElement = document.querySelector(portalParentSelector);
+	if (!parentElement) {
+		const parent = document.createElement('div');
+		parent.className = portalParentClassName;
+		// we are setting display to flex because we want each portal to create a new stacking context
+		// See https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
+		parent.style.display = 'flex';
+		getBody().appendChild(parent);
+		return parent;
+	}
+	return parentElement;
 };
 
 /**
@@ -48,17 +44,15 @@ const getPortalParent = (): Element => {
  *  @param {HTMLDivElement | undefined} container - portal container to be removed from portal parent container
  */
 export const removePortalContainer = (container: HTMLDivElement): void => {
-  getPortalParent().removeChild(container);
+	getPortalParent().removeChild(container);
 };
 
 /**
  * Appends portal container to portal parent container if it hasn't already been done
  *  @param {HTMLDivElement | undefined} container - portal container to be added to portal parent container
  */
-export const appendPortalContainerIfNotAppended = (
-  container: HTMLDivElement,
-): void => {
-  if (!container.parentElement) {
-    getPortalParent().appendChild(container);
-  }
+export const appendPortalContainerIfNotAppended = (container: HTMLDivElement): void => {
+	if (!container.parentElement) {
+		getPortalParent().appendChild(container);
+	}
 };

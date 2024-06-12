@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 193.25.4
+
+### Patch Changes
+
+- [#109033](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109033)
+  [`046555d9a96ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/046555d9a96ea) -
+  Removes LD flag for Preserve Table Widths part two feature.
+
 ## 193.25.3
 
 ### Patch Changes

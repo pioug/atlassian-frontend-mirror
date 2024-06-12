@@ -1,12 +1,12 @@
 import React, {
-  createContext,
-  type FC,
-  type MutableRefObject,
-  type ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
+	createContext,
+	type FC,
+	type MutableRefObject,
+	type ReactNode,
+	useContext,
+	useEffect,
+	useMemo,
+	useRef,
 } from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
@@ -27,11 +27,11 @@ export const LevelContext = createContext(0);
  *
  */
 export const TopLevelContext = createContext<{
-  topLevelRef: MutableRefObject<number | null>;
-  setTopLevel: (level: number) => void;
+	topLevelRef: MutableRefObject<number | null>;
+	setTopLevel: (level: number) => void;
 }>({
-  topLevelRef: { current: null },
-  setTopLevel: __noop,
+	topLevelRef: { current: null },
+	setTopLevel: __noop,
 });
 
 /**
@@ -42,28 +42,24 @@ export const TopLevelContext = createContext<{
  *
  */
 const LevelProvider: FC<{
-  children: ReactNode;
-  currentLevel: number;
+	children: ReactNode;
+	currentLevel: number;
 }> = ({ children, currentLevel }) => {
-  const { setTopLevel } = useContext(TopLevelContext);
-  setTopLevel(currentLevel);
-  useEffect(() => {
-    // avoid immediate cleanup using setTimeout when component unmount
-    // this will make sure non-top layer components can get the correct top level value
-    // when multiple layers trigger onClose in sequence.
-    // From React 17, the useEffect cleanup functions are delayed till the commit phase is completed. In other words, the useEffect cleanup functions run asynchronously - for example, if the component is unmounting, the cleanup runs after the screen has been updated.
-    // TODO revisit after we migrate to react 18. https://product-fabric.atlassian.net/browse/DSP-13139
-    return () => {
-      setTimeout(() => {
-        setTopLevel(currentLevel - 1);
-      }, 0);
-    };
-  }, [setTopLevel, currentLevel]);
-  return (
-    <LevelContext.Provider value={currentLevel}>
-      {children}
-    </LevelContext.Provider>
-  );
+	const { setTopLevel } = useContext(TopLevelContext);
+	setTopLevel(currentLevel);
+	useEffect(() => {
+		// avoid immediate cleanup using setTimeout when component unmount
+		// this will make sure non-top layer components can get the correct top level value
+		// when multiple layers trigger onClose in sequence.
+		// From React 17, the useEffect cleanup functions are delayed till the commit phase is completed. In other words, the useEffect cleanup functions run asynchronously - for example, if the component is unmounting, the cleanup runs after the screen has been updated.
+		// TODO revisit after we migrate to react 18. https://product-fabric.atlassian.net/browse/DSP-13139
+		return () => {
+			setTimeout(() => {
+				setTopLevel(currentLevel - 1);
+			}, 0);
+		};
+	}, [setTopLevel, currentLevel]);
+	return <LevelContext.Provider value={currentLevel}>{children}</LevelContext.Provider>;
 };
 
 /**
@@ -74,23 +70,19 @@ const LevelProvider: FC<{
  *
  */
 const LayeringProvider: FC<{
-  children: ReactNode;
+	children: ReactNode;
 }> = ({ children }) => {
-  const topLevelRef = useRef(0);
-  const value = useMemo(
-    () => ({
-      topLevelRef,
-      setTopLevel: (level: number) => {
-        topLevelRef.current = level;
-      },
-    }),
-    [topLevelRef],
-  );
-  return (
-    <TopLevelContext.Provider value={value}>
-      {children}
-    </TopLevelContext.Provider>
-  );
+	const topLevelRef = useRef(0);
+	const value = useMemo(
+		() => ({
+			topLevelRef,
+			setTopLevel: (level: number) => {
+				topLevelRef.current = level;
+			},
+		}),
+		[topLevelRef],
+	);
+	return <TopLevelContext.Provider value={value}>{children}</TopLevelContext.Provider>;
 };
 
 /**
@@ -104,18 +96,16 @@ const LayeringProvider: FC<{
  *
  */
 export const UNSAFE_LAYERING: FC<{
-  children: ReactNode;
-  isDisabled?: boolean;
+	children: ReactNode;
+	isDisabled?: boolean;
 }> = ({ children, isDisabled = true }) => {
-  const currentLevel = useContext(LevelContext);
-  if (isDisabled) {
-    return <>{children}</>;
-  }
-  const isNested = currentLevel > 0;
+	const currentLevel = useContext(LevelContext);
+	if (isDisabled) {
+		return <>{children}</>;
+	}
+	const isNested = currentLevel > 0;
 
-  const content = (
-    <LevelProvider currentLevel={currentLevel + 1}>{children}</LevelProvider>
-  );
+	const content = <LevelProvider currentLevel={currentLevel + 1}>{children}</LevelProvider>;
 
-  return isNested ? content : <LayeringProvider>{content}</LayeringProvider>;
+	return isNested ? content : <LayeringProvider>{content}</LayeringProvider>;
 };

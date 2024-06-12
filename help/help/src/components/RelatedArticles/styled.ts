@@ -17,11 +17,13 @@ export const truncate = (width: string = '100%') =>
 		overflowX: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: width,
 	});
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const RelatedArticlesTitle = styled.div(baseHeading(16, 20), {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N800),
 	fontWeight: 600,
 	letterSpacing: '-0.006em',
@@ -31,12 +33,12 @@ export const RelatedArticlesTitle = styled.div(baseHeading(16, 20), {
 /**
  * Loading styled-components
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LoadignRelatedArticleSection = styled.div({
 	marginTop: token('space.100', '8px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LoadignRelatedArticleList = styled.ul({
 	width: '100%',
 	margin: 0,
@@ -44,7 +46,7 @@ export const LoadignRelatedArticleList = styled.ul({
 	boxSizing: 'border-box',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LoadignRelatedArticleListItem = styled.li({
 	display: 'block',
 	width: '100%',

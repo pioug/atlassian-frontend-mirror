@@ -1,330 +1,293 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import RadioGroup from '../../radio-group';
 
 const sampleOptions = [
-  { name: 'test', value: '1', label: 'one' },
-  { name: 'test', value: '2', label: 'two' },
-  { name: 'test', value: '3', label: 'three', isDisabled: true },
+	{ name: 'test', value: '1', label: 'one' },
+	{ name: 'test', value: '2', label: 'two' },
+	{ name: 'test', value: '3', label: 'three', isDisabled: true },
 ];
 
 describe('@atlaskit/radio', () => {
-  describe('RadioGroup', () => {
-    describe('props', () => {
-      describe('options prop', () => {
-        it('renders a Radio with correct props for each option in the array', () => {
-          const { getByLabelText, getByRole } = render(
-            <RadioGroup options={sampleOptions} />,
-          );
-          expect(getByRole('radiogroup').children.length).toBe(
-            sampleOptions.length,
-          );
+	describe('RadioGroup', () => {
+		describe('props', () => {
+			describe('options prop', () => {
+				it('renders a Radio with correct props for each option in the array', () => {
+					render(<RadioGroup options={sampleOptions} />);
+					expect(screen.getAllByRole('radio').length).toBe(sampleOptions.length);
 
-          sampleOptions.forEach((option) => {
-            const radio = getByLabelText(option.label) as HTMLInputElement;
-            expect(radio.name).toBe(option.name);
-            expect(radio.value).toBe(option.value);
-            expect(radio.disabled).toBe(Boolean(option.isDisabled));
-          });
-        });
-      });
-      describe('isDisabled prop', () => {
-        it('is reflected to each Radio option', () => {
-          const isDisabled = true;
-          const { getByLabelText } = render(
-            <RadioGroup isDisabled={isDisabled} options={sampleOptions} />,
-          );
-          sampleOptions.forEach((option) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).disabled,
-            ).toBe(isDisabled);
-          });
-        });
-        it('if set, overrides isDisabled values set on each option', () => {
-          const isDisabled = true;
-          const { getByLabelText } = render(
-            <RadioGroup
-              isDisabled={isDisabled}
-              options={[
-                ...sampleOptions,
-                {
-                  name: 'color',
-                  value: 'red',
-                  label: 'Red',
-                  isDisabled: false,
-                },
-              ]}
-            />,
-          );
-          sampleOptions.forEach((option) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).disabled,
-            ).toBe(isDisabled);
-          });
-        });
-      });
-      describe('isRequired prop', () => {
-        it('is reflected to each Radio option', () => {
-          const isRequired = true;
-          const { getByLabelText } = render(
-            <RadioGroup isRequired={isRequired} options={sampleOptions} />,
-          );
-          sampleOptions.forEach((option) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).required,
-            ).toBe(isRequired);
-          });
-        });
-      });
+					sampleOptions.forEach((option) => {
+						const radio = screen.getByLabelText(option.label) as HTMLInputElement;
+						expect(radio.name).toBe(option.name);
+						expect(radio.value).toBe(option.value);
+						if (Boolean(option.isDisabled)) {
+							expect(radio).toBeDisabled();
+						} else {
+							expect(radio).toBeEnabled();
+						}
+					});
+				});
+			});
+			describe('isDisabled prop', () => {
+				it('is reflected to each Radio option', () => {
+					const isDisabled = true;
+					render(<RadioGroup isDisabled={isDisabled} options={sampleOptions} />);
+					sampleOptions.forEach((option) => {
+						expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeDisabled();
+					});
+				});
+				it('if set, overrides isDisabled values set on each option', () => {
+					const isDisabled = true;
+					render(
+						<RadioGroup
+							isDisabled={isDisabled}
+							options={[
+								...sampleOptions,
+								{
+									name: 'color',
+									value: 'red',
+									label: 'Red',
+									isDisabled: false,
+								},
+							]}
+						/>,
+					);
+					sampleOptions.forEach((option) => {
+						expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeDisabled();
+					});
+				});
+			});
+			describe('isRequired prop', () => {
+				it('is reflected to each Radio option', () => {
+					const isRequired = true;
+					render(<RadioGroup isRequired={isRequired} options={sampleOptions} />);
+					sampleOptions.forEach((option) => {
+						expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeRequired();
+					});
+				});
+			});
 
-      describe('name prop', () => {
-        it('is reflected to each Radio option and takes precedence over the name property in options', () => {
-          const testName = 'test-name';
-          const { getByLabelText } = render(
-            <RadioGroup name={testName} options={sampleOptions} />,
-          );
-          sampleOptions.forEach((option) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).name,
-            ).toBe(testName);
-          });
-        });
+			describe('name prop', () => {
+				it('is reflected to each Radio option and takes precedence over the name property in options', () => {
+					const testName = 'test-name';
+					render(<RadioGroup name={testName} options={sampleOptions} />);
+					sampleOptions.forEach((option) => {
+						expect((screen.getByLabelText(option.label) as HTMLInputElement).name).toBe(testName);
+					});
+				});
 
-        it('name property in options is used if there is no name passed into RadioGroup', () => {
-          const { getByLabelText } = render(
-            <RadioGroup options={sampleOptions} />,
-          );
-          sampleOptions.forEach((option) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).name,
-            ).toBe(option.name);
-          });
-        });
-      });
+				it('name property in options is used if there is no name passed into RadioGroup', () => {
+					render(<RadioGroup options={sampleOptions} />);
+					sampleOptions.forEach((option) => {
+						expect((screen.getByLabelText(option.label) as HTMLInputElement).name).toBe(
+							option.name,
+						);
+					});
+				});
+			});
 
-      describe('value prop', () => {
-        it('sets the corresponding Radio instance isChecked prop to true', () => {
-          const { getByLabelText } = render(
-            <RadioGroup
-              value={sampleOptions[0].value}
-              options={sampleOptions}
-            />,
-          );
-          sampleOptions.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 0);
-          });
-        });
-        it('Ignores internal state values, if a value prop is specified', () => {
-          const { getByLabelText } = render(
-            <RadioGroup
-              value={sampleOptions[0].value}
-              options={sampleOptions}
-            />,
-          );
+			describe('value prop', () => {
+				it('sets the corresponding Radio instance isChecked prop to true', () => {
+					render(<RadioGroup value={sampleOptions[0].value} options={sampleOptions} />);
+					sampleOptions.forEach((option, index) => {
+						if (index === 0) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
+				});
+				it('Ignores internal state values, if a value prop is specified', () => {
+					render(<RadioGroup value={sampleOptions[0].value} options={sampleOptions} />);
 
-          sampleOptions.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 0);
-          });
+					sampleOptions.forEach((option, index) => {
+						if (index === 0) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
 
-          const secondRadio = getByLabelText(sampleOptions[1].label);
-          fireEvent.click(secondRadio);
+					const secondRadio = screen.getByLabelText(sampleOptions[1].label);
+					fireEvent.click(secondRadio);
 
-          sampleOptions.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 0);
-          });
-        });
-        it('If set to undefined, it will revert to the value set in state', () => {
-          const { getByLabelText, rerender } = render(
-            <RadioGroup
-              value={sampleOptions[0].value}
-              options={sampleOptions}
-            />,
-          );
+					sampleOptions.forEach((option, index) => {
+						if (index === 0) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
+				});
+				it('If set to undefined, it will revert to the value set in state', () => {
+					const { rerender } = render(
+						<RadioGroup value={sampleOptions[0].value} options={sampleOptions} />,
+					);
 
-          sampleOptions.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 0);
-          });
+					sampleOptions.forEach((option, index) => {
+						if (index === 0) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
 
-          const secondRadio = getByLabelText(sampleOptions[1].label);
-          fireEvent.click(secondRadio);
+					const secondRadio = screen.getByLabelText(sampleOptions[1].label);
+					fireEvent.click(secondRadio);
 
-          sampleOptions.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 0);
-          });
+					sampleOptions.forEach((option, index) => {
+						if (index === 0) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
 
-          rerender(<RadioGroup options={sampleOptions} />);
+					rerender(<RadioGroup options={sampleOptions} />);
 
-          sampleOptions.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 1);
-          });
-        });
+					sampleOptions.forEach((option, index) => {
+						if (index === 1) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
+				});
 
-        it('does not select an option if not specified', () => {
-          const options = [
-            { name: 'n', value: '0', label: 'zero' },
-            { name: 'n', value: '1', label: 'one' },
-            { name: 'n', value: '2', label: 'two' },
-          ];
-          const { getByLabelText } = render(<RadioGroup options={options} />);
-          options.forEach((option) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(false);
-          });
-        });
+				it('does not select an option if not specified', () => {
+					const options = [
+						{ name: 'n', value: '0', label: 'zero' },
+						{ name: 'n', value: '1', label: 'one' },
+						{ name: 'n', value: '2', label: 'two' },
+					];
+					render(<RadioGroup options={options} />);
+					options.forEach((option) => {
+						expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+					});
+				});
 
-        it('can select a value which is disabled', () => {
-          const options = [
-            { name: 'n', value: '0', label: 'zero' },
-            { name: 'n', value: '1', label: 'one' },
-            { name: 'n', value: '2', label: 'two', isDisabled: true },
-          ];
-          const { getByLabelText } = render(
-            <RadioGroup options={options} value="2" />,
-          );
-          options.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 2);
-          });
-        });
-      });
+				it('can select a value which is disabled', () => {
+					const options = [
+						{ name: 'n', value: '0', label: 'zero' },
+						{ name: 'n', value: '1', label: 'one' },
+						{ name: 'n', value: '2', label: 'two', isDisabled: true },
+					];
+					render(<RadioGroup options={options} value="2" />);
+					options.forEach((option, index) => {
+						if (index === 2) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
+				});
+			});
 
-      describe('defaultValue prop', () => {
-        it('initially sets the corresponding Radio instance isChecked prop to true', () => {
-          const { getByLabelText } = render(
-            <RadioGroup
-              defaultValue={sampleOptions[0].value}
-              options={sampleOptions}
-            />,
-          );
+			describe('defaultValue prop', () => {
+				it('initially sets the corresponding Radio instance isChecked prop to true', () => {
+					render(<RadioGroup defaultValue={sampleOptions[0].value} options={sampleOptions} />);
 
-          sampleOptions.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 0);
-          });
-        });
-        it('overrides the checked Radio instance once a subsequent Radio has been triggered', () => {
-          const { getByLabelText } = render(
-            <RadioGroup
-              defaultValue={sampleOptions[0].value}
-              options={sampleOptions}
-            />,
-          );
+					sampleOptions.forEach((option, index) => {
+						if (index === 0) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
+				});
+				it('overrides the checked Radio instance once a subsequent Radio has been triggered', () => {
+					render(<RadioGroup defaultValue={sampleOptions[0].value} options={sampleOptions} />);
 
-          sampleOptions.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 0);
-          });
+					sampleOptions.forEach((option, index) => {
+						if (index === 0) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
 
-          fireEvent.click(getByLabelText('two'));
+					fireEvent.click(screen.getByLabelText('two'));
 
-          sampleOptions.forEach((option, index) => {
-            expect(
-              (getByLabelText(option.label) as HTMLInputElement).checked,
-            ).toBe(index === 1);
-          });
-        });
-      });
+					sampleOptions.forEach((option, index) => {
+						if (index === 1) {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+						} else {
+							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						}
+					});
+				});
+			});
 
-      describe('onChange prop', () => {
-        it('is called once  a radio option is changed', () => {
-          const spy = jest.fn();
-          const { getByLabelText } = render(
-            <RadioGroup onChange={spy} options={sampleOptions} />,
-          );
-          fireEvent.click(getByLabelText('one'));
-          expect(spy).toHaveBeenCalledTimes(1);
-        });
+			describe('onChange prop', () => {
+				it('is called once  a radio option is changed', () => {
+					const spy = jest.fn();
+					render(<RadioGroup onChange={spy} options={sampleOptions} />);
+					fireEvent.click(screen.getByLabelText('one'));
+					expect(spy).toHaveBeenCalledTimes(1);
+				});
 
-        it('calls onChange with the right value', () => {
-          let value = '';
-          const { getByLabelText } = render(
-            <RadioGroup
-              onChange={(e) => {
-                value = e.currentTarget.value;
-              }}
-              options={sampleOptions}
-            />,
-          );
-          fireEvent.click(getByLabelText('one'));
-          expect(value).toBe('1');
-        });
-      });
+				it('calls onChange with the right value', () => {
+					let value = '';
+					render(
+						<RadioGroup
+							onChange={(e) => {
+								value = e.currentTarget.value;
+							}}
+							options={sampleOptions}
+						/>,
+					);
+					fireEvent.click(screen.getByLabelText('one'));
+					expect(value).toBe('1');
+				});
+			});
 
-      describe('testId prop', () => {
-        it('is set on RadioGroup and Radio options', () => {
-          const { getByTestId, getAllByTestId } = render(
-            <RadioGroup testId="some-test-id" options={sampleOptions} />,
-          );
+			describe('testId prop', () => {
+				it('is set on RadioGroup and Radio options', () => {
+					render(<RadioGroup testId="some-test-id" options={sampleOptions} />);
 
-          const radioGroup = getByTestId('some-test-id');
-          expect(radioGroup).toBeTruthy();
+					const radioGroup = screen.getByTestId('some-test-id');
+					expect(radioGroup).toBeInTheDocument();
 
-          const radioInput = getAllByTestId('some-test-id--radio-input');
-          expect(radioInput).toBeTruthy();
-          expect(radioInput.length).toBe(3);
+					const radioInput = screen.getAllByTestId('some-test-id--radio-input');
+					expect(radioInput).toHaveLength(3);
 
-          const radioLabel = getAllByTestId('some-test-id--radio-label');
-          expect(radioLabel).toBeTruthy();
-          expect(radioLabel.length).toBe(3);
-        });
+					const radioLabel = screen.getAllByTestId('some-test-id--radio-label');
+					expect(radioLabel).toHaveLength(3);
+				});
 
-        it('prefers `testId` set on Radio options over RadioGroup prop', () => {
-          const { getByTestId, getAllByTestId } = render(
-            <RadioGroup
-              testId="should-only-be-set-on-root-element"
-              options={[
-                {
-                  name: 'test',
-                  testId: 'should-be-set-on-children',
-                  value: '1',
-                  label: 'one',
-                },
-                {
-                  name: 'test',
-                  testId: 'should-be-set-on-children',
-                  value: '2',
-                  label: 'two',
-                },
-              ]}
-            />,
-          );
+				it('prefers `testId` set on Radio options over RadioGroup prop', () => {
+					render(
+						<RadioGroup
+							testId="should-only-be-set-on-root-element"
+							options={[
+								{
+									name: 'test',
+									testId: 'should-be-set-on-children',
+									value: '1',
+									label: 'one',
+								},
+								{
+									name: 'test',
+									testId: 'should-be-set-on-children',
+									value: '2',
+									label: 'two',
+								},
+							]}
+						/>,
+					);
 
-          const ignoredTestId = getByTestId(
-            'should-only-be-set-on-root-element',
-          );
-          expect(ignoredTestId).toBeTruthy();
+					const ignoredTestId = screen.getByTestId('should-only-be-set-on-root-element');
+					expect(ignoredTestId).toBeInTheDocument();
 
-          const radioInput = getAllByTestId(
-            'should-be-set-on-children--radio-input',
-          );
-          expect(radioInput).toBeTruthy();
-          expect(radioInput.length).toBe(2);
+					const radioInput = screen.getAllByTestId('should-be-set-on-children--radio-input');
+					expect(radioInput).toHaveLength(2);
 
-          const radioLabel = getAllByTestId(
-            'should-be-set-on-children--radio-label',
-          );
-          expect(radioLabel).toBeTruthy();
-          expect(radioLabel.length).toBe(2);
-        });
-      });
-    });
-  });
+					const radioLabel = screen.getAllByTestId('should-be-set-on-children--radio-label');
+					expect(radioLabel).toHaveLength(2);
+				});
+			});
+		});
+	});
 });

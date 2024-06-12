@@ -5,11 +5,11 @@ import SectionMessage from '@atlaskit/section-message';
 
 export default md`
   ${(
-    <SectionMessage title="Important usage instructions">
-      The <a href="section">section component</a> is required to be used to
-      ensure spacing around blocks of items exists! Make sure to use it.
-    </SectionMessage>
-  )}
+		<SectionMessage title="Important usage instructions">
+			The <a href="section">section component</a> is required to be used to ensure spacing around
+			blocks of items exists! Make sure to use it.
+		</SectionMessage>
+	)}
 
   Will render an item wrapped in an anchor tag \`<a>\` -
   useful when wanting to transition to another page.
@@ -26,17 +26,17 @@ import { LinkItem } from '@atlaskit/menu';
   `}
 
   ${(
-    <Example
-      title="Link item"
-      Component={require('../examples/link-item').default}
-      source={require('!!raw-loader!../examples/link-item')}
-    />
-  )}
+		<Example
+			title="Link item"
+			Component={require('../examples/link-item').default}
+			source={require('!!raw-loader!../examples/link-item')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/menu-item/link-item')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/menu-item/link-item')}
+		/>
+	)}
 `;

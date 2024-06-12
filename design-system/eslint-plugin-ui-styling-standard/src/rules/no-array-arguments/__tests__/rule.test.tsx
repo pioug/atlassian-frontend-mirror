@@ -2,30 +2,30 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'no-nested-selectors',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [],
-    invalid: [
-      {
-        name: 'single array argument',
-        code: `
+	'no-nested-selectors',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [],
+		invalid: [
+			{
+				name: 'single array argument',
+				code: `
           import { css } from '@compiled/react';
           const styles = css([
             { width: 100 },
             { height: 100 }
           ]);
         `,
-        output: `
+				output: `
           import { css } from '@compiled/react';
           const styles = css({ width: 100 }, { height: 100 });
         `,
-        errors: [{ messageId: 'no-array-arguments' }],
-      },
-      {
-        name: 'multiple array arguments',
-        code: `
+				errors: [{ messageId: 'no-array-arguments' }],
+			},
+			{
+				name: 'multiple array arguments',
+				code: `
           import { css } from '@compiled/react';
           const styles = css(
             [
@@ -37,21 +37,18 @@ typescriptEslintTester.run(
             ]
           );
         `,
-        output: `
+				output: `
           import { css } from '@compiled/react';
           const styles = css(
             { width: 100 }, { height: 100 },
             { color: 'red' }
           );
         `,
-        errors: [
-          { messageId: 'no-array-arguments' },
-          { messageId: 'no-array-arguments' },
-        ],
-      },
-      {
-        name: 'interspersed array arguments',
-        code: `
+				errors: [{ messageId: 'no-array-arguments' }, { messageId: 'no-array-arguments' }],
+			},
+			{
+				name: 'interspersed array arguments',
+				code: `
           import { css } from '@compiled/react';
           const styles = css(
             { a: 1 },
@@ -67,7 +64,7 @@ typescriptEslintTester.run(
             { c: 3 }
           );
         `,
-        output: `
+				output: `
           import { css } from '@compiled/react';
           const styles = css(
             { a: 1 },
@@ -77,14 +74,11 @@ typescriptEslintTester.run(
             { c: 3 }
           );
         `,
-        errors: [
-          { messageId: 'no-array-arguments' },
-          { messageId: 'no-array-arguments' },
-        ],
-      },
-      {
-        name: 'empty array argument',
-        code: `
+				errors: [{ messageId: 'no-array-arguments' }, { messageId: 'no-array-arguments' }],
+			},
+			{
+				name: 'empty array argument',
+				code: `
           import { css } from '@compiled/react';
           const styles = css(
             [],
@@ -92,25 +86,22 @@ typescriptEslintTester.run(
             []
           );
         `,
-        errors: [
-          { messageId: 'no-array-arguments' },
-          { messageId: 'no-array-arguments' },
-        ],
-      },
-      {
-        name: 'spread in array',
-        code: `
+				errors: [{ messageId: 'no-array-arguments' }, { messageId: 'no-array-arguments' }],
+			},
+			{
+				name: 'spread in array',
+				code: `
           import { css } from '@compiled/react';
           const styles = css([
             ...items
           ]);
         `,
-        output: `
+				output: `
           import { css } from '@compiled/react';
           const styles = css(...items);
         `,
-        errors: [{ messageId: 'no-array-arguments' }],
-      },
-    ],
-  },
+				errors: [{ messageId: 'no-array-arguments' }],
+			},
+		],
+	},
 );

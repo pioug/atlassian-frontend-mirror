@@ -30,21 +30,21 @@ const getFullNameMargin = (props: FullNameLabelProps) =>
 		? `${token('space.400', '32px')} 0 ${token('space.150', '12px')} 0`
 		: `${token('space.150', '12px')} 0 0 0`;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CardWrapper = styled.div`
 	background-color: ${bgColor};
 	border-radius: ${token('border.radius', '3px')};
 	width: ${gridSize() * 45}px;
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ProfileImage = styled.div`
 	position: absolute;
 	top: ${token('space.300', '24px')};
 	left: ${token('space.300', '24px')};
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ActionsFlexSpacer = styled.div`
 	flex: 1 0 auto;
 `;
@@ -55,7 +55,7 @@ const kudosButtonAnimationTransformation = keyframes`
   100% { transform: translate(90px, -70px); }
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-keyframes -- Ignored via go/DSP-18766
 export const KudosBlobAnimationStyle = styled.div`
 	display: none;
 	height: 150px;
@@ -80,7 +80,7 @@ export const KudosBlobAnimation: React.FC = (props) => (
 	<KudosBlobAnimationStyle className="kudos-blob-animation" {...props} />
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AnimationWrapper = styled.div`
 	clip-path: inset(0px 0px 0px 0px round ${borderRadius()}px);
 	position: absolute;
@@ -90,7 +90,7 @@ export const AnimationWrapper = styled.div`
 	right: 0;
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AnimatedKudosButton = styled.div`
 	margin-left: ${token('space.100', '8px')};
 
@@ -103,7 +103,7 @@ export const AnimatedKudosButton = styled.div`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ActionButtonGroup = styled.div`
 	user-select: none;
 	margin: ${token('space.200', '16px')} 0 0 0;
@@ -137,7 +137,7 @@ export const ActionButtonGroup = styled.div`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const OverflowActionButtonsWrapper = styled.div`
 	display: inline-block;
 	width: ${token('space.400', '32px')};
@@ -154,14 +154,14 @@ export const OverflowActionButtonsWrapper = styled.div`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CardContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	min-height: ${gridSize() * 17}px;
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DetailsGroup = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -169,7 +169,7 @@ export const DetailsGroup = styled.div`
 	width: ${gridSize() * 24.5}px;
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DisabledInfo = styled.div`
 	font-size: ${fontSizeSmall()}px;
 	color: ${labelTextColor};
@@ -177,7 +177,7 @@ export const DisabledInfo = styled.div`
 	line-height: 16px;
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const FullNameLabel = styled.h2`
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -195,14 +195,14 @@ export const FullNameLabel = styled.h2`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LozengeWrapper = styled.div`
 	margin-top: ${token('space.200', '16px')};
 	text-transform: uppercase;
 	display: block;
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CustomLozengeContainer = styled(LozengeWrapper)`
 	display: flex;
 	flex-direction: row;
@@ -217,7 +217,7 @@ export const CustomLozengeContainer = styled(LozengeWrapper)`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const JobTitleLabel = styled.span`
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -229,7 +229,7 @@ export const JobTitleLabel = styled.span`
 	line-height: ${24 / 14}em;
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AppTitleLabel = styled.span`
 	background: ${appLabelBgColor};
 	color: ${appLabelTextColor};
@@ -244,7 +244,7 @@ export const AppTitleLabel = styled.span`
 	line-height: ${24 / 14}em;
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SpinnerContainer = styled.div`
 	align-items: center;
 	display: flex;
@@ -258,7 +258,7 @@ interface CardContainerProps {
 	withoutElevation?: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CardContainer = styled.div`
 	position: relative;
 	-webkit-font-smoothing: antialiased;
@@ -284,7 +284,7 @@ export const CardContainer = styled.div`
 	overflow: hidden;
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DetailsLabel = styled.div`
 	display: flex;
 	align-items: center;
@@ -298,7 +298,7 @@ export const DetailsLabel = styled.div`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DetailsLabelIcon = styled.div`
 	display: flex;
 	flex-shrink: 0;
@@ -314,7 +314,7 @@ export const DetailsLabelIcon = styled.div`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DetailsLabelText = styled.span`
 	overflow: hidden;
 	text-overflow: ellipsis;

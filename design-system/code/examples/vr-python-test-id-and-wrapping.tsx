@@ -23,40 +23,40 @@ else:
     return n * factorial(n-1)`;
 
 const CodeBlockShouldWrapLongLinesExample = () => {
-  return (
-    <Stack testId="testid-and-wrapping-with-python">
-      <h2>Wrapping on, with a testId</h2>
-      <CodeBlock
-        testId="test"
-        language="python"
-        text={exampleCodeBlock}
-        shouldWrapLongLines={true}
-        highlight="3"
-      />
-      <h2>Wrapping on, without a testId</h2>
-      <CodeBlock
-        language="python"
-        text={exampleCodeBlock}
-        shouldWrapLongLines={true}
-        highlight="3"
-      />
-      <h2>Wrapping off, with a testId</h2>
-      <CodeBlock
-        testId="test2"
-        language="python"
-        text={exampleCodeBlock}
-        shouldWrapLongLines={false}
-        highlight="3"
-      />
-      <h2>Wrapping off, without a testId</h2>
-      <CodeBlock
-        language="python"
-        text={exampleCodeBlock}
-        shouldWrapLongLines={false}
-        highlight="3"
-      />
-    </Stack>
-  );
+	return (
+		<Stack testId="testid-and-wrapping-with-python">
+			<h2>Wrapping on, with a testId</h2>
+			<CodeBlock
+				testId="test"
+				language="python"
+				text={exampleCodeBlock}
+				shouldWrapLongLines={true}
+				highlight="3"
+			/>
+			<h2>Wrapping on, without a testId</h2>
+			<CodeBlock
+				language="python"
+				text={exampleCodeBlock}
+				shouldWrapLongLines={true}
+				highlight="3"
+			/>
+			<h2>Wrapping off, with a testId</h2>
+			<CodeBlock
+				testId="test2"
+				language="python"
+				text={exampleCodeBlock}
+				shouldWrapLongLines={false}
+				highlight="3"
+			/>
+			<h2>Wrapping off, without a testId</h2>
+			<CodeBlock
+				language="python"
+				text={exampleCodeBlock}
+				shouldWrapLongLines={false}
+				highlight="3"
+			/>
+		</Stack>
+	);
 };
 
 export default CodeBlockShouldWrapLongLinesExample;

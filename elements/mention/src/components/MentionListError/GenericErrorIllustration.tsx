@@ -12,6 +12,7 @@ export class GenericErrorIllustration extends React.PureComponent<Props, {}> {
 			<GenericErrorVisualStyle>
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163.3 212" aria-labelledby="title">
 					<defs>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 						<style
 							dangerouslySetInnerHTML={{
 								__html:

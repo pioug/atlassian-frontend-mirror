@@ -7,10 +7,10 @@ const transformer = createTransformer([removeTypes]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('remove components prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -51,7 +51,7 @@ describe('remove components prop', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -79,13 +79,13 @@ describe('remove components prop', () => {
       );
     }
     `,
-    'should remove types that no longe exist and remove line',
-  );
+		'should remove types that no longe exist and remove line',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -128,7 +128,7 @@ describe('remove components prop', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -157,6 +157,6 @@ describe('remove components prop', () => {
       );
     }
     `,
-    'should remove types that no longer exist but keep ones that do exist',
-  );
+		'should remove types that no longer exist but keep ones that do exist',
+	);
 });

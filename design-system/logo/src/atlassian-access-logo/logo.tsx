@@ -8,19 +8,16 @@ import type { LogoProps } from '../types';
 import { getColorsFromAppearance } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = (
-  { appearance, iconColor, textColor }: LogoProps,
-  colorMode: string | undefined,
-) => {
-  let colors = {
-    iconColor,
-    textColor,
-  };
+const svg = ({ appearance, iconColor, textColor }: LogoProps, colorMode: string | undefined) => {
+	let colors = {
+		iconColor,
+		textColor,
+	};
 
-  if (appearance) {
-    colors = getColorsFromAppearance(appearance, colorMode);
-  }
-  return `<svg
+	if (appearance) {
+		colors = getColorsFromAppearance(appearance, colorMode);
+	}
+	return `<svg
       fill="none"
       height="32"
       xmlns="http://www.w3.org/2000/svg"
@@ -49,30 +46,30 @@ const svg = (
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const AtlassianAccessLogo = ({
-  appearance,
-  label = 'Atlassian Access',
-  size = defaultLogoParams.size,
-  testId,
-  textColor = defaultLogoParams.textColor,
-  iconColor = defaultLogoParams.iconColor,
+	appearance,
+	label = 'Atlassian Access',
+	size = defaultLogoParams.size,
+	testId,
+	textColor = defaultLogoParams.textColor,
+	iconColor = defaultLogoParams.iconColor,
 }: LogoProps) => {
-  const { colorMode } = useThemeObserver();
-  return (
-    <Wrapper
-      appearance={appearance}
-      iconColor={iconColor}
-      label={label}
-      size={size}
-      svg={svg(
-        {
-          appearance,
-          iconColor,
-          textColor,
-        },
-        colorMode,
-      )}
-      testId={testId}
-      textColor={textColor}
-    />
-  );
+	const { colorMode } = useThemeObserver();
+	return (
+		<Wrapper
+			appearance={appearance}
+			iconColor={iconColor}
+			label={label}
+			size={size}
+			svg={svg(
+				{
+					appearance,
+					iconColor,
+					textColor,
+				},
+				colorMode,
+			)}
+			testId={testId}
+			textColor={textColor}
+		/>
+	);
 };

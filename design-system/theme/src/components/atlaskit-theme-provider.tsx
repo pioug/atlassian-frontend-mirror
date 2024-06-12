@@ -11,8 +11,8 @@ import Theme from './theme';
 type GetMode = () => { mode: ThemeModes };
 
 const themeFnMap: Record<ThemeModes, GetMode> = {
-  dark: () => ({ mode: 'dark' }),
-  light: () => ({ mode: 'light' }),
+	dark: () => ({ mode: 'dark' }),
+	light: () => ({ mode: 'light' }),
 };
 
 /**
@@ -38,27 +38,26 @@ const themeFnMap: Record<ThemeModes, GetMode> = {
  * );
  * ```
  */
-const AtlaskitThemeProvider: FC<AKThemeProviderProps> =
-  memo<AKThemeProviderProps>(
-    ({ mode = DEFAULT_THEME_MODE, background = bg, children }) => {
-      // background color is extracted here is it conditionally applied on the <body>
-      const themeObj = { theme: { mode } };
-      const backgroundColor = background(themeObj);
+const AtlaskitThemeProvider: FC<AKThemeProviderProps> = memo<AKThemeProviderProps>(
+	({ mode = DEFAULT_THEME_MODE, background = bg, children }) => {
+		// background color is extracted here is it conditionally applied on the <body>
+		const themeObj = { theme: { mode } };
+		const backgroundColor = background(themeObj);
 
-      useThemeResetStyles(backgroundColor);
-      return (
-        <Theme.Provider value={themeFnMap[mode]}>
-          <div
-            // eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-            className={`${mode}-${SELECTOR}`}
-            style={{ backgroundColor }}
-            data-testid="theme-provider"
-          >
-            {children}
-          </div>
-        </Theme.Provider>
-      );
-    },
-  );
+		useThemeResetStyles(backgroundColor);
+		return (
+			<Theme.Provider value={themeFnMap[mode]}>
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={`${mode}-${SELECTOR}`}
+					style={{ backgroundColor }}
+					data-testid="theme-provider"
+				>
+					{children}
+				</div>
+			</Theme.Provider>
+		);
+	},
+);
 
 export default AtlaskitThemeProvider;

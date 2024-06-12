@@ -37,10 +37,10 @@ const AtlassianHome = () => (
   `}
 
   ${(
-    <Example
-      title="Atlassian navigation"
-      Component={require('../examples/barebones').default}
-      source={require('!!raw-loader!../examples/barebones')}
-    />
-  )}
+		<Example
+			title="Atlassian navigation"
+			Component={require('../examples/barebones').default}
+			source={require('!!raw-loader!../examples/barebones')}
+		/>
+	)}
 `;

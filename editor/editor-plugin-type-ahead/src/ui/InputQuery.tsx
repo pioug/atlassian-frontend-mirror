@@ -25,6 +25,7 @@ import { AssistiveText } from './AssistiveText';
 const querySpanStyles = css({
 	outline: 'none',
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& input': {
 		width: '5px',
 		border: 'none',
@@ -33,6 +34,7 @@ const querySpanStyles = css({
 		margin: 0,
 		// ED-17022 Fixes firefox caret position
 		fontSize: '1em',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: blockNodesVerticalMargin,
 		caretColor: token('color.text.accent.blue', '#0052CC'),
 	},

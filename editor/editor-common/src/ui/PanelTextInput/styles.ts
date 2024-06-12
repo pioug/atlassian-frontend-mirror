@@ -5,7 +5,9 @@ import { B100, N100, N30, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // Normal .className gets overridden by input[type=text] hence this hack to produce input.className
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const panelTextInput = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'input&': {
 		background: 'transparent',
 		border: `2px solid ${token('color.border', N30)}`,
@@ -13,6 +15,7 @@ export const panelTextInput = css({
 		boxSizing: 'content-box',
 		color: token('color.text.subtle', N400),
 		flexGrow: 1,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(13),
 		lineHeight: '20px',
 		padding: `${token('space.075', '6px')} ${token(
@@ -21,6 +24,7 @@ export const panelTextInput = css({
 		)} ${token('space.075', '6px')} ${token('space.100', '8px')}`,
 		minWidth: '145px',
 		/* Hides IE10+ built-in [x] clear input button */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&::-ms-clear': {
 			display: 'none',
 		},
@@ -36,7 +40,9 @@ export const panelTextInput = css({
 
 export const panelTextInputWithCustomWidth = (width: number) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'input&': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			width: `${width}px`,
 		},
 	});

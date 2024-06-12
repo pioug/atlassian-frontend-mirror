@@ -54,6 +54,9 @@
 			"path": "../icon/tsconfig.app.json"
 		},
 		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
 			"path": "../menu/tsconfig.app.json"
 		},
 		{

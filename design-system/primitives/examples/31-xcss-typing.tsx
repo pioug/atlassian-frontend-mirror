@@ -6,34 +6,32 @@ import { Box, xcss } from '../src';
 // typing decisions to the interface of `xcss` that we expect to maintain
 
 const onlyTokenisedStyles = xcss({
-  backgroundColor: 'color.background.brand.bold',
-  width: 'size.500',
-  height: 'size.500',
-  padding: 'space.100',
-  paddingInlineStart: 'space.100',
-  paddingRight: 'space.100',
-  margin: 'space.100',
-  marginInlineStart: 'space.100',
-  marginLeft: 'space.negative.200',
-  marginRight: 'space.100',
+	backgroundColor: 'color.background.brand.bold',
+	width: 'size.500',
+	height: 'size.500',
+	padding: 'space.100',
+	paddingInlineStart: 'space.100',
+	paddingRight: 'space.100',
+	margin: 'space.100',
+	marginInlineStart: 'space.100',
+	marginLeft: 'space.negative.200',
+	marginRight: 'space.100',
 });
 
 const rawValuesStyles = xcss({
-  // properties we enforce tokens
-  // @ts-expect-error
-  backgroundColor: 'purple',
-  // @ts-expect-error
-  padding: '8px',
-  // @ts-expect-error
-  paddingInlineStart: '8px',
+	// properties we enforce tokens
+	// @ts-expect-error
+	backgroundColor: 'purple',
+	// @ts-expect-error
+	padding: '8px',
+	// @ts-expect-error
+	paddingInlineStart: '8px',
 
-  // things that can also be raw values (any string...)
-  width: '100px',
-  height: '100px',
+	// things that can also be raw values (any string...)
+	width: '100px',
+	height: '100px',
 });
 
 export default function Basic() {
-  return (
-    <Box testId="box-xcss" xcss={[onlyTokenisedStyles, rawValuesStyles]} />
-  );
+	return <Box testId="box-xcss" xcss={[onlyTokenisedStyles, rawValuesStyles]} />;
 }

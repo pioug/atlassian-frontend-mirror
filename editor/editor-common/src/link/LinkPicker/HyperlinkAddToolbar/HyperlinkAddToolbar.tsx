@@ -44,6 +44,7 @@ import { filterUniqueItems, mapContentTypeToIcon, sha1, wordCount } from './util
  * Visible only to screenreaders. Use when there is a need
  * to provide more context to a non-sighted user.
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const visuallyHiddenStyles = css({
 	clip: 'rect(1px, 1px, 1px, 1px)',
 	clipPath: 'inset(50%)',
@@ -579,12 +580,14 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				data-testid="hyperlink-add-toolbar"
 			>
 				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={[container, !!activityProvider && containerWithProvider, containerPadding]}
 					ref={this.wrapperRef}
 				>
 					<label htmlFor={linkSearchInputId} css={inputLabel}>
 						{formatMessage(messages.linkVisibleLabel)}
 					</label>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={[inputWrapper, inputWrapperPosition]}>
 						{screenReaderText && (
 							<Announcer
@@ -627,6 +630,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 					<label htmlFor={displayTextInputId} css={[inputLabel, textLabelMargin]}>
 						{formatMessage(messages.textVisibleLabel)}
 					</label>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={[inputWrapper, inputWrapperPosition]}>
 						<PanelTextInput
 							ref={(ele) => (this.displayTextInputContainer = ele)}

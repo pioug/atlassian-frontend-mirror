@@ -4,7 +4,6 @@ import Tooltip from '@atlaskit/tooltip';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { B100, DN600A, N0 } from '@atlaskit/theme/colors';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { type SwatchSize } from '../types';
 
 export interface Props {
@@ -43,24 +42,13 @@ const ColorCard = ({
 	return (
 		<Tooltip content={label}>
 			<button
-				{...(getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy')
-					? {
-							css: [
-								sharedColorContainerStyles,
-								swatchSize === 'small' ? smallColorContainerSize : defaultColorContainerSize,
-								colorCardButtonStyles,
-								expanded && colorCardButtonFocusedStyles,
-							],
-							disabled: isDisabled,
-						}
-					: {
-							css: [
-								sharedColorContainerStyles,
-								defaultColorContainerSize,
-								colorCardButtonStyles,
-								expanded && colorCardButtonFocusedStyles,
-							],
-						})}
+				css={[
+					sharedColorContainerStyles,
+					swatchSize === 'small' ? smallColorContainerSize : defaultColorContainerSize,
+					colorCardButtonStyles,
+					expanded && colorCardButtonFocusedStyles,
+				]}
+				disabled={isDisabled}
 				onClick={handleClick}
 				onMouseDown={handleMouseDown}
 				aria-label={label}
@@ -70,18 +58,10 @@ const ColorCard = ({
 			>
 				<span css={colorCardWrapperStyles}>
 					<span
-						{...(getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy')
-							? {
-									css: [
-										colorCardContentStyles,
-										swatchSize === 'small'
-											? smallColorCardContentSize
-											: defaultColorCardContentSize,
-									],
-								}
-							: {
-									css: [colorCardContentStyles, defaultColorCardContentSize],
-								})}
+						css={[
+							colorCardContentStyles,
+							swatchSize === 'small' ? smallColorCardContentSize : defaultColorCardContentSize,
+						]}
 						style={{
 							background: value || 'transparent',
 						}}

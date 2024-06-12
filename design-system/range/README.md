@@ -10,4 +10,5 @@ yarn add @atlaskit/range
 
 ## Usage
 
-For more information, see our [detailed range docs and examples](https://atlassian.design/components/range/).
+For more information, see our
+[detailed range docs and examples](https://atlassian.design/components/range/).

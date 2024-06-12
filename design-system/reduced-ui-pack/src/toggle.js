@@ -30,8 +30,8 @@ export default evaluateInner`
     background-clip: content-box;
     background-color: ${colors.N80};
     background-image: ${dataUri(
-      'internal/toggle/check-enabled.svg',
-    )}, ${dataUri('internal/toggle/cross-enabled.svg')};
+			'internal/toggle/check-enabled.svg',
+		)}, ${dataUri('internal/toggle/cross-enabled.svg')};
     background-repeat: no-repeat;
     border: ${borderWidth}px solid transparent;
     color: transparent;
@@ -63,8 +63,8 @@ export default evaluateInner`
   .ak-field-toggle > input:disabled + label {
     background-color: ${toggleBgUncheckedDisabled};
     background-image: ${dataUri(
-      'internal/toggle/check-disabled.svg',
-    )}, ${dataUri('internal/toggle/cross-disabled.svg')};
+			'internal/toggle/check-disabled.svg',
+		)}, ${dataUri('internal/toggle/cross-disabled.svg')};
     cursor: not-allowed;
   }
   .ak-field-toggle > input:disabled + label::before {
@@ -85,13 +85,11 @@ export default evaluateInner`
   }
   .ak-field-toggle__size-large > label {
     background-position: ${togglePadding * 2.5}px ${togglePadding * 2}px, ${
-  toggleWidthLarge - (toggleHeightLarge - togglePadding * 2) - togglePadding / 2
-}px ${togglePadding * 2}px;
+			toggleWidthLarge - (toggleHeightLarge - togglePadding * 2) - togglePadding / 2
+		}px ${togglePadding * 2}px;
     background-size: ${toggleHeightLarge - togglePadding * 2}px ${
-  toggleHeightLarge - togglePadding * 2
-}px, ${toggleHeightLarge - togglePadding * 2}px ${
-  toggleHeightLarge - togglePadding * 2
-}px;
+			toggleHeightLarge - togglePadding * 2
+		}px, ${toggleHeightLarge - togglePadding * 2}px ${toggleHeightLarge - togglePadding * 2}px;
     border-radius: ${toggleHeightLarge}px;
     height: ${toggleHeightLarge}px;
     width: ${toggleWidthLarge}px;
@@ -108,22 +106,16 @@ export default evaluateInner`
   }
   .ak-field-toggle__size-large > input:checked + label::before {
     transform: translate(${
-      toggleWidthLarge -
-      (toggleHeightLarge - togglePadding * 2) -
-      togglePadding * 2
-    }px, 0);
+			toggleWidthLarge - (toggleHeightLarge - togglePadding * 2) - togglePadding * 2
+		}px, 0);
   }
   .ak-field-toggle__size-default > label {
     background-position: ${togglePadding * 2.5}px ${togglePadding * 2}px, ${
-  toggleWidthDefault -
-  (toggleHeightDefault - togglePadding * 2) -
-  togglePadding / 2
-}px ${togglePadding * 2}px;
+			toggleWidthDefault - (toggleHeightDefault - togglePadding * 2) - togglePadding / 2
+		}px ${togglePadding * 2}px;
     background-size: ${toggleHeightDefault - togglePadding * 2}px ${
-  toggleHeightDefault - togglePadding * 2
-}px, ${toggleHeightDefault - togglePadding * 2}px ${
-  toggleHeightDefault - togglePadding * 2
-}px;
+			toggleHeightDefault - togglePadding * 2
+		}px, ${toggleHeightDefault - togglePadding * 2}px ${toggleHeightDefault - togglePadding * 2}px;
     border-radius: ${toggleHeightDefault}px;
     height: ${toggleHeightDefault}px;
     width: ${toggleWidthDefault}px;
@@ -140,9 +132,7 @@ export default evaluateInner`
   }
   .ak-field-toggle__size-default > input:checked + label::before {
     transform: translate(${
-      toggleWidthDefault -
-      (toggleHeightDefault - togglePadding * 2) -
-      togglePadding * 2
-    }px, 0);
+			toggleWidthDefault - (toggleHeightDefault - togglePadding * 2) - togglePadding * 2
+		}px, 0);
   }
 `;

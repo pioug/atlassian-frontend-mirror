@@ -1,7 +1,8 @@
 Ensures usage of `@compiled/react` over other CSS-in-JS libraries like Emotion or styled-components.
 
-**WARNING**
-It may be unsafe to mix usages of `@compiled/react` with other CSS-in-JS libraries on the same component. When converting to `@compiled/react` verify ALL changes. For this reason, the auto-fixer has been disabled by default, but it may be useful to enable to empower a migration.
+**WARNING** It may be unsafe to mix usages of `@compiled/react` with other CSS-in-JS libraries on
+the same component. When converting to `@compiled/react` verify ALL changes. For this reason, the
+auto-fixer has been disabled by default, but it may be useful to enable to empower a migration.
 
 ## Examples
 
@@ -20,21 +21,22 @@ import styled, { css } from 'styled-components';
 
 ### Correct
 
-We expect usage of `xcss` with `@atlaskit/primitives` when working with Primitives, and `css` with `@compiled/react` when working with custom or native code. 
+We expect usage of `xcss` with `@atlaskit/primitives` when working with Primitives, and `css` with
+`@compiled/react` when working with custom or native code.
 
 ```js
 /** @jsx jsx */
 import { jsx, css, styled } from '@compiled/react';
 
 const styles = css({ color: 'var(--ds-color-text)' });
-export default () => <div css={styles}>…</div>
+export default () => <div css={styles}>…</div>;
 ```
 
 ```js
 import { xcss, Box } from '@atlaskit/primitives';
 
 const styles = xcss({ color: 'color.text' });
-export default () => <Box xcss={styles}>…</Box>
+export default () => <Box xcss={styles}>…</Box>;
 ```
 
 ## Options
@@ -43,7 +45,8 @@ export default () => <Box xcss={styles}>…</Box>
 
 Determines whether or not the auto-fixer is enabled.
 
-Defaults to `false` due to safety concerns when mixing Compiled and other CSS-in-JS libraries on the same component.
+Defaults to `false` due to safety concerns when mixing Compiled and other CSS-in-JS libraries on the
+same component.
 
-Even when enabled, the auto-fixer will only convert usages that are deemed safe.
-Currently this is limited to purely static styles where all keys and values are simple literals.
+Even when enabled, the auto-fixer will only convert usages that are deemed safe. Currently this is
+limited to purely static styles where all keys and values are simple literals.

@@ -5,78 +5,56 @@ import { bind } from 'bind-event-listener';
 import { UNSAFE_media } from './media-helper';
 
 type NestedQueryString =
-  | `above.${keyof typeof UNSAFE_media.above}`
-  | `below.${keyof typeof UNSAFE_media.below}`;
+	| `above.${keyof typeof UNSAFE_media.above}`
+	| `below.${keyof typeof UNSAFE_media.below}`;
 
 type Queries = Record<NestedQueryString, MediaQueryList | undefined>;
 
 const queries: Queries = {
-  'above.xxs':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.above.xxs.replace('@media ', '').trim(),
-        ),
-  'above.xs':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.above.xs.replace('@media ', '').trim(),
-        ),
-  'above.sm':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.above.sm.replace('@media ', '').trim(),
-        ),
-  'above.md':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.above.md.replace('@media ', '').trim(),
-        ),
-  'above.lg':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.above.lg.replace('@media ', '').trim(),
-        ),
-  'above.xl':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.above.xl.replace('@media ', '').trim(),
-        ),
-  'below.xs':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.below.xs.replace('@media ', '').trim(),
-        ),
-  'below.sm':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.below.sm.replace('@media ', '').trim(),
-        ),
-  'below.md':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.below.md.replace('@media ', '').trim(),
-        ),
-  'below.lg':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.below.lg.replace('@media ', '').trim(),
-        ),
-  'below.xl':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(
-          UNSAFE_media.below.xl.replace('@media ', '').trim(),
-        ),
+	'above.xxs':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.above.xxs.replace('@media ', '').trim()),
+	'above.xs':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.above.xs.replace('@media ', '').trim()),
+	'above.sm':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.above.sm.replace('@media ', '').trim()),
+	'above.md':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.above.md.replace('@media ', '').trim()),
+	'above.lg':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.above.lg.replace('@media ', '').trim()),
+	'above.xl':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.above.xl.replace('@media ', '').trim()),
+	'below.xs':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.below.xs.replace('@media ', '').trim()),
+	'below.sm':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.below.sm.replace('@media ', '').trim()),
+	'below.md':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.below.md.replace('@media ', '').trim()),
+	'below.lg':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.below.lg.replace('@media ', '').trim()),
+	'below.xl':
+		typeof window === 'undefined'
+			? undefined
+			: window?.matchMedia?.(UNSAFE_media.below.xl.replace('@media ', '').trim()),
 };
 
 /**
@@ -99,44 +77,44 @@ const queries: Queries = {
  *  - `null` when `matchMedia` is unavailable, eg. in SSR.
  */
 export const UNSAFE_useMediaQuery = (
-  queryString: NestedQueryString,
-  listener?: (event: MediaQueryListEvent) => void,
+	queryString: NestedQueryString,
+	listener?: (event: MediaQueryListEvent) => void,
 ) => {
-  const listenerRef = useRef<typeof listener>(listener);
-  useEffect(() => {
-    // Bind the listener if changed so it's called on the next change event; no guarantee on timing.
-    listenerRef.current = listener;
-  }, [listener]);
+	const listenerRef = useRef<typeof listener>(listener);
+	useEffect(() => {
+		// Bind the listener if changed so it's called on the next change event; no guarantee on timing.
+		listenerRef.current = listener;
+	}, [listener]);
 
-  /**
-   * We explicitly only react to boolean changes for binding our listener
-   * Changes to the functional reference are ignored.
-   */
-  const hasListener = !!listener;
+	/**
+	 * We explicitly only react to boolean changes for binding our listener
+	 * Changes to the functional reference are ignored.
+	 */
+	const hasListener = !!listener;
 
-  /**
-   * The `matchMedia(…)` return value for our breakpoint query.
-   */
-  const mq = queries[queryString];
+	/**
+	 * The `matchMedia(…)` return value for our breakpoint query.
+	 */
+	const mq = queries[queryString];
 
-  useLayoutEffect(
-    () => {
-      listenerRef.current = listener; // Bind the listener now in case the `useEffect` hasn't fired above yet
-      if (!mq || !hasListener || !listenerRef.current) {
-        return;
-      }
+	useLayoutEffect(
+		() => {
+			listenerRef.current = listener; // Bind the listener now in case the `useEffect` hasn't fired above yet
+			if (!mq || !hasListener || !listenerRef.current) {
+				return;
+			}
 
-      return bind(mq, {
-        type: 'change',
-        listener: event => {
-          // We explicitly call the current version of the function
-          return listenerRef.current!(event);
-        },
-      });
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- explicitly do not trigger the effect on `listener` reference change, only on a boolean representation of it.
-    [mq, hasListener],
-  );
+			return bind(mq, {
+				type: 'change',
+				listener: (event) => {
+					// We explicitly call the current version of the function
+					return listenerRef.current!(event);
+				},
+			});
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- explicitly do not trigger the effect on `listener` reference change, only on a boolean representation of it.
+		[mq, hasListener],
+	);
 
-  return mq || null;
+	return mq || null;
 };

@@ -8,16 +8,16 @@ import Button from '@atlaskit/button/new';
 import Popup from '../../index';
 
 it('Popup should not fail an aXe audit', async () => {
-  const { container } = render(
-    <Popup
-      isOpen={true}
-      content={() => <div>Content</div>}
-      trigger={(triggerProps) => (
-        <Button {...triggerProps} appearance="primary">
-          Close
-        </Button>
-      )}
-    />,
-  );
-  await axe(container);
+	const { container } = render(
+		<Popup
+			isOpen={true}
+			content={() => <div>Content</div>}
+			trigger={(triggerProps) => (
+				<Button {...triggerProps} appearance="primary">
+					Close
+				</Button>
+			)}
+		/>,
+	);
+	await axe(container);
 });

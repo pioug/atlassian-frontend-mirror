@@ -231,6 +231,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
 			<AnalyticsListener channel="atlaskit" onEvent={(e: any) => console.log(e)}>
 				<AnalyticsListener channel="media" onEvent={(e: any) => console.log(e)}>
 					<AnalyticsListener channel="fabric-elements" onEvent={(e: any) => console.log(e)}>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<div css={content}>
 							<div style={{ padding: `${token('space.150', '4px')} 0` }}>
 								️️️⚠️ Atlassians, for Media integration to work in non-mocked state, make sure
@@ -258,6 +259,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
 							<div className="toolsDrawer">
 								{(Object.keys(providers) as Array<keyof typeof providers>).map((providerKey) => (
 									<div key={providerKey}>
+										{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 										<span css={buttonGroup}>
 											<label>{providerKey}: </label>
 											{Object.keys(providers[providerKey]).map((providerStateName) => (
@@ -280,6 +282,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
 									</div>
 								))}
 								<div>
+									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 									<span css={buttonGroup}>
 										<Button onClick={this.toggleDisabled} spacing="compact">
 											{this.state.editorEnabled ? 'Disable editor' : 'Enable editor'}

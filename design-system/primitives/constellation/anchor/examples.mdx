@@ -17,26 +17,31 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 import SectionMessage from '@atlaskit/section-message';
 
 <CodeDocsHeader
-  name="@atlaskit/primitives"
-  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
-  directoryName="primitives"
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
 />
 
-Anchor is a primitive for building custom links with Atlassian Design System styling, routing support, and built-in event tracking. It renders an anchor `<a>` element.
+Anchor is a primitive for building custom links with Atlassian Design System styling, routing
+support, and built-in event tracking. It renders an anchor `<a>` element.
 
-Only use anchor when existing components such as [link](/components/link/examples) or [link button](/components/button/link-button/examples) can't be customized to fit your needs.
+Only use anchor when existing components such as [link](/components/link/examples) or
+[link button](/components/button/link-button/examples) can't be customized to fit your needs.
 
 ## Default
 
-Anchor is unstyled besides a default underline and consistent Atlassian Design System `:focus` styles.
+Anchor is unstyled besides a default underline and consistent Atlassian Design System `:focus`
+styles.
 
-If you are using the [CSS reset](/components/css-reset/examples), anchor will also inherit some global styles.
+If you are using the [CSS reset](/components/css-reset/examples), anchor will also inherit some
+global styles.
 
 <Example Component={AnchorDefault} packageName="@atlaskit/primitives/anchor" />
 
 ## Basic styling with XCSS
 
-Anchor can be styled further using the design system styling API, [XCSS](/components/primitives/xcss).
+Anchor can be styled further using the design system styling API,
+[XCSS](/components/primitives/xcss).
 
 <Example Component={AnchorBasic} packageName="@atlaskit/primitives/anchor" />
 
@@ -48,20 +53,24 @@ Use a combination of XCSS and other primitives for more complex designs.
 
 ## HTML attributes
 
-Anchor can pass all valid [anchor HTML attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes), such as `rel` or `download`, to the underlying `<a>` element.
+Anchor can pass all valid
+[anchor HTML attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes),
+such as `rel` or `download`, to the underlying `<a>` element.
 
-<Example
-  Component={AnchorHtmlAttributes}
-  packageName="@atlaskit/primitives/anchor"
-/>
+<Example Component={AnchorHtmlAttributes} packageName="@atlaskit/primitives/anchor" />
 
 ## Router links
 
-Routing libraries often supply link components enhanced with routing support. You can configure this in the [AppProvider context](/components/app-provider/examples#router-links), and anchor will automatically use it.
+Routing libraries often supply link components enhanced with routing support. You can configure this
+in the [AppProvider context](/components/app-provider/examples#router-links), and anchor will
+automatically use it.
 
-This example shows a configuration for [React Resource Router](https://github.com/atlassian-labs/react-resource-router), however any routing library can be used.
+This example shows a configuration for
+[React Resource Router](https://github.com/atlassian-labs/react-resource-router), however any
+routing library can be used.
 
-Using this method, anchor accepts `href` as a string for standard usage. For advanced usage, an object can be passed.
+Using this method, anchor accepts `href` as a string for standard usage. For advanced usage, an
+object can be passed.
 
 Anchor will only render a router link if:
 
@@ -70,34 +79,19 @@ Anchor will only render a router link if:
 - it's not a non-HTTP-based link (e.g. emails, phone numbers, hash links etc.).
 
 <Example
-  Component={AnchorRouterLinkConfiguration}
-  packageName="@atlaskit/primitives/anchor"
-  appearance="source-only"
+	Component={AnchorRouterLinkConfiguration}
+	packageName="@atlaskit/primitives/anchor"
+	appearance="source-only"
 />
 
-<Snippet
-  name="primitives-event-tracking-header"
-  variables={{ componentName: 'anchor' }}
-/>
+<Snippet name="primitives-event-tracking-header" variables={{ componentName: 'anchor' }} />
 
-<Example
-  Component={AnchorAnalytics}
-  packageName="@atlaskit/primitives/anchor"
-/>
+<Example Component={AnchorAnalytics} packageName="@atlaskit/primitives/anchor" />
 
 <Snippet name="primitives-event-tracking-gasv3" />
 
-<Example
-  Component={AnchorAnalyticsGASv3}
-  packageName="@atlaskit/primitives/anchor"
-/>
+<Example Component={AnchorAnalyticsGASv3} packageName="@atlaskit/primitives/anchor" />
 
-<Snippet
-  name="primitives-event-tracking-ufo"
-  variables={{ componentName: 'anchor' }}
-/>
+<Snippet name="primitives-event-tracking-ufo" variables={{ componentName: 'anchor' }} />
 
-<Example
-  Component={AnchorPressTracing}
-  packageName="@atlaskit/primitives/anchor"
-/>
+<Example Component={AnchorPressTracing} packageName="@atlaskit/primitives/anchor" />

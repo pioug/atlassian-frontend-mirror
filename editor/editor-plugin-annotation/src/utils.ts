@@ -9,7 +9,7 @@ import {
 import type {
 	AnalyticsEventPayload,
 	AnalyticsEventPayloadCallback,
-	AnnotationAEPAttributes,
+	AnnotationDraftAEPAttributes,
 } from '@atlaskit/editor-common/analytics';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import {
@@ -20,6 +20,7 @@ import {
 	canApplyAnnotationOnRange,
 	containsAnyAnnotations,
 	getAnnotationIdsFromRange,
+	getRangeInlineNodeNames,
 	hasAnnotationMark,
 	isParagraph,
 	isText,
@@ -310,13 +311,21 @@ export const getDraftCommandAnalyticsPayload = (
 	inputMethod: InlineCommentInputMethod,
 ) => {
 	const payload: AnalyticsEventPayloadCallback = (state: EditorState): AnalyticsEventPayload => {
-		let attributes: AnnotationAEPAttributes = {};
+		let attributes: Partial<AnnotationDraftAEPAttributes> = {};
 
 		if (drafting) {
 			attributes = {
 				inputMethod,
 				overlap: getAnnotationsInSelectionCount(state),
-			};
+			} as AnnotationDraftAEPAttributes;
+		}
+
+		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			const { bookmark } = getPluginState(state) || {};
+			attributes.inlineNodeNames = getRangeInlineNodeNames({
+				doc: state.doc,
+				pos: resolveDraftBookmark(state, bookmark),
+			});
 		}
 
 		return {

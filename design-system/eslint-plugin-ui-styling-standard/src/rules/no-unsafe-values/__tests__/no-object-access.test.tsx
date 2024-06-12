@@ -2,15 +2,15 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'no-unsafe-values',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [],
-    invalid: [
-      {
-        name: 'object indexing as value',
-        code: `
+	'no-unsafe-values',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [],
+		invalid: [
+			{
+				name: 'object indexing as value',
+				code: `
           import { css } from '@compiled/react';
 
           const myVariable = {
@@ -21,11 +21,11 @@ typescriptEslintTester.run(
             height: myVariable.customHeight,
           });
         `,
-        errors: [{ messageId: 'no-object-access' }],
-      },
-      {
-        name: 'object indexing as value (variant)',
-        code: `
+				errors: [{ messageId: 'no-object-access' }],
+			},
+			{
+				name: 'object indexing as value (variant)',
+				code: `
           import { css } from '@compiled/react';
 
           const myVariable = {
@@ -36,11 +36,11 @@ typescriptEslintTester.run(
             height: myVariable['customHeight'],
           });
         `,
-        errors: [{ messageId: 'no-object-access' }],
-      },
-      {
-        name: 'object indexing as value (indexing through a variable)',
-        code: `
+				errors: [{ messageId: 'no-object-access' }],
+			},
+			{
+				name: 'object indexing as value (indexing through a variable)',
+				code: `
           import { css } from '@compiled/react';
 
           const myVariable = {
@@ -53,11 +53,11 @@ typescriptEslintTester.run(
             height: myVariable[otherVariable],
           });
         `,
-        errors: [{ messageId: 'no-object-access' }],
-      },
-      {
-        name: 'object indexing as value (indexing through a variable defined as a function)',
-        code: `
+				errors: [{ messageId: 'no-object-access' }],
+			},
+			{
+				name: 'object indexing as value (indexing through a variable defined as a function)',
+				code: `
           import { css } from '@compiled/react';
 
           const myVariable = {
@@ -70,11 +70,11 @@ typescriptEslintTester.run(
             height: myVariable[otherVariable],
           });
         `,
-        errors: [{ messageId: 'no-object-access' }],
-      },
-      {
-        name: 'object indexing as value (indexing through a function directly)',
-        code: `
+				errors: [{ messageId: 'no-object-access' }],
+			},
+			{
+				name: 'object indexing as value (indexing through a function directly)',
+				code: `
           import { css } from '@compiled/react';
 
           const myVariable = {
@@ -89,18 +89,18 @@ typescriptEslintTester.run(
             height: myVariable[myFunction()],
           });
         `,
-        errors: [{ messageId: 'no-object-access' }],
-      },
-      {
-        name: 'accessing prop value',
-        code: `
+				errors: [{ messageId: 'no-object-access' }],
+			},
+			{
+				name: 'accessing prop value',
+				code: `
           import { styled } from '@compiled/react';
           const styles = styled.div(
             (props) => ({ color: props.height }),
           );
         `,
-        errors: [{ messageId: 'no-object-access' }],
-      },
-    ],
-  },
+				errors: [{ messageId: 'no-object-access' }],
+			},
+		],
+	},
 );

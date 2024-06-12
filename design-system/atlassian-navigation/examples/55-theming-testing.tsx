@@ -14,20 +14,20 @@ import { SwitcherPopup } from './shared/switcher-popup';
 import { themes } from './shared/themes';
 
 const ThemingExample = () => (
-  <AtlassianNavigation
-    label="site"
-    primaryItems={defaultPrimaryItems}
-    renderAppSwitcher={SwitcherPopup}
-    renderCreate={DefaultCreate}
-    renderHelp={HelpPopup}
-    renderNotifications={NotificationsPopup}
-    renderProductHome={DefaultProductHome}
-    renderProfile={ProfilePopup}
-    renderSearch={DefaultSearch}
-    renderSettings={DefaultSettings}
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-    theme={themes[0]}
-  />
+	<AtlassianNavigation
+		label="site"
+		primaryItems={defaultPrimaryItems}
+		renderAppSwitcher={SwitcherPopup}
+		renderCreate={DefaultCreate}
+		renderHelp={HelpPopup}
+		renderNotifications={NotificationsPopup}
+		renderProductHome={DefaultProductHome}
+		renderProfile={ProfilePopup}
+		renderSearch={DefaultSearch}
+		renderSettings={DefaultSettings}
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+		theme={themes[0]}
+	/>
 );
 
 export default ThemingExample;

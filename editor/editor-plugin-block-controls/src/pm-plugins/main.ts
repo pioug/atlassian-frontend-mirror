@@ -39,7 +39,6 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				oldState: EditorState,
 				newState: EditorState,
 			) {
-				// return currentState;
 				let { activeNode, decorations, isMenuOpen, decorationState, editorHeight } = currentState;
 				const meta = tr.getMeta(key);
 
@@ -139,6 +138,11 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 		},
 		props: {
 			decorations: (state: EditorState) => {
+				const isDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
+
+				if (isDisabled) {
+					return;
+				}
 				return key.getState(state)?.decorations;
 			},
 		},

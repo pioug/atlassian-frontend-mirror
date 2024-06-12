@@ -6,15 +6,15 @@ import EmptyState from '../../src';
 import LockClosedImage from '../images/LockClosed.png';
 
 const EmptyStateWide = () => {
-  return (
-    <EmptyState
-      header="You don't have access to this issue"
-      description="Make sure the issue exists in this project. If it does, ask a project admin for permission to see the project's issues."
-      primaryAction={<Button appearance="primary">Request access</Button>}
-      imageUrl={LockClosedImage}
-      width="wide"
-    />
-  );
+	return (
+		<EmptyState
+			header="You don't have access to this issue"
+			description="Make sure the issue exists in this project. If it does, ask a project admin for permission to see the project's issues."
+			primaryAction={<Button appearance="primary">Request access</Button>}
+			imageUrl={LockClosedImage}
+			width="wide"
+		/>
+	);
 };
 
 export default EmptyStateWide;

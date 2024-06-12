@@ -1,10 +1,4 @@
-import {
-  type Dispatch,
-  type MutableRefObject,
-  type SetStateAction,
-  useRef,
-  useState,
-} from 'react';
+import { type Dispatch, type MutableRefObject, type SetStateAction, useRef, useState } from 'react';
 
 /**
  * Functions similarly to `useState` however the return value is a ref.
@@ -16,10 +10,10 @@ import {
  * @param initialState
  */
 export default function useStateRef<TValue>(
-  initialState: (() => TValue) | TValue,
+	initialState: (() => TValue) | TValue,
 ): [MutableRefObject<TValue>, Dispatch<SetStateAction<TValue>>] {
-  const [value, setValue] = useState(initialState);
-  const valueRef = useRef(value);
-  valueRef.current = value;
-  return [valueRef, setValue];
+	const [value, setValue] = useState(initialState);
+	const valueRef = useRef(value);
+	valueRef.current = value;
+	return [valueRef, setValue];
 }

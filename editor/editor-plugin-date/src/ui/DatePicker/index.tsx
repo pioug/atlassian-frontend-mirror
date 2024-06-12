@@ -26,6 +26,7 @@ import DatePickerInput from './date-picker-input';
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const popupContentWrapper = css({
 	padding: token('space.025', '2px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `${borderRadius()}px`,
 	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`),
 	backgroundColor: token('elevation.surface.overlay', N0),

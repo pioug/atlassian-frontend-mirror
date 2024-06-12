@@ -132,11 +132,13 @@ export const PixelEntry = ({
 	}
 
 	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={pixelEntryForm}>
 			<Form<PixelEntryFormValues> onSubmit={handleOnSubmit}>
 				{({ formProps }) => {
 					return (
 						<form {...formProps}>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 							<div css={pixelSizingWrapper}>
 								<Field key="inputWidth" name="inputWidth" defaultValue={computedWidth}>
 									{({ fieldProps }) => (
@@ -149,6 +151,7 @@ export const PixelEntry = ({
 										>
 											<Textfield
 												{...fieldProps}
+												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 												css={[pixelSizingWidthInput, pixelSizingInput]}
 												appearance="none"
 												isCompact
@@ -159,6 +162,7 @@ export const PixelEntry = ({
 										</Tooltip>
 									)}
 								</Field>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={pixelSizingLabel}>x</span>
 								<Field key="inputHeight" name="inputHeight" defaultValue={computedHeight}>
 									{({ fieldProps }) => (
@@ -169,6 +173,7 @@ export const PixelEntry = ({
 										>
 											<Textfield
 												{...fieldProps}
+												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 												css={[pixelSizingHeightInput, pixelSizingInput]}
 												appearance="none"
 												isCompact
@@ -179,6 +184,7 @@ export const PixelEntry = ({
 										</Tooltip>
 									)}
 								</Field>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 								<Button css={pixelEntryHiddenSubmit} type="submit">
 									{formatMessage(messages.submitButtonText)}
 								</Button>
@@ -193,6 +199,7 @@ export const PixelEntry = ({
 
 export const FullWidthDisplay = ({ intl: { formatMessage } }: { intl: IntlShape }) => {
 	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={pixelSizingFullWidthLabelStyles}>
 			<span>{formatMessage(messages.fullWidthLabel)}</span>
 		</div>

@@ -11,6 +11,7 @@ import { default as EditorContext } from '../../ui/EditorContext';
 
 // Hiding the enter (⏎) key due to a bug in fonts for gemini on CI, causing tests to fail in CI but pass locally
 const hideEnterKey = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"div[data-testid='element_search__element_after_input']": {
 		visibility: 'hidden',
 	},

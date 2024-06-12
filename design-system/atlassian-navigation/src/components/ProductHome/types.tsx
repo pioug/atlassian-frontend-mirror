@@ -3,46 +3,46 @@ import { type ComponentType, type MouseEvent } from 'react';
 import { type LogoProps } from '@atlaskit/logo';
 
 export interface ProductHomeProps {
-  /**
-   * The product icon.
-   * Expected to be an Icon from the Atlaskit Logo package. Visible on smaller screen sizes.
-   */
-  icon: ComponentType<Partial<LogoProps>>;
+	/**
+	 * The product icon.
+	 * Expected to be an Icon from the Atlaskit Logo package. Visible on smaller screen sizes.
+	 */
+	icon: ComponentType<Partial<LogoProps>>;
 
-  /**
-   * The product logo,
-   * visible on larger screen sizes.
-   */
-  logo: ComponentType<Partial<LogoProps>>;
+	/**
+	 * The product logo,
+	 * visible on larger screen sizes.
+	 */
+	logo: ComponentType<Partial<LogoProps>>;
 
-  /**
-   * Maximum width in pixel, that logo can acquire. Defaults to 260px.
-   */
-  logoMaxWidth?: number;
+	/**
+	 * Maximum width in pixel, that logo can acquire. Defaults to 260px.
+	 */
+	logoMaxWidth?: number;
 
-  /**
-   * Optional onClick handler.
-   */
-  onClick?: (event: MouseEvent<HTMLElement>) => void;
+	/**
+	 * Optional onClick handler.
+	 */
+	onClick?: (event: MouseEvent<HTMLElement>) => void;
 
-  /**
-   * Optional mouseDown handler.
-   */
-  onMouseDown?: (event: MouseEvent<HTMLElement>) => void;
+	/**
+	 * Optional mouseDown handler.
+	 */
+	onMouseDown?: (event: MouseEvent<HTMLElement>) => void;
 
-  /**
-   * Href to be passed to product home.
-   * Will add an interactive look and feel when defined.
-   */
-  href?: string;
+	/**
+	 * Href to be passed to product home.
+	 * Will add an interactive look and feel when defined.
+	 */
+	href?: string;
 
-  /**
-   * Name of the site that appears next to the logo.
-   */
-  siteTitle?: string;
+	/**
+	 * Name of the site that appears next to the logo.
+	 */
+	siteTitle?: string;
 
-  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
-  /**
+	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
     serving as a hook for automated tests.
@@ -54,59 +54,59 @@ export interface ProductHomeProps {
     - Product icon shown at small screen sizes - `{testId}-icon`
     - Site title - `{testId}-site-title`
    */
-  testId?: string;
-  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	testId?: string;
+	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 }
 
 export interface CustomProductHomeProps {
-  /**
-   * Alt text for the icon that is displayed on small viewports.
-   */
-  iconAlt: string;
+	/**
+	 * Alt text for the icon that is displayed on small viewports.
+	 */
+	iconAlt: string;
 
-  /**
-   * Url for the icon that is displayed on small viewports.
-   */
-  iconUrl: string;
+	/**
+	 * Url for the icon that is displayed on small viewports.
+	 */
+	iconUrl: string;
 
-  /**
-   * Alt text for the icon that is displayed on large viewports.
-   */
-  logoAlt: string;
+	/**
+	 * Alt text for the icon that is displayed on large viewports.
+	 */
+	logoAlt: string;
 
-  /**
-   * Url for the icon that is displayed on large viewports.
-   */
-  logoUrl: string;
+	/**
+	 * Url for the icon that is displayed on large viewports.
+	 */
+	logoUrl: string;
 
-  /**
-   * Maximum width of the logo, in pixels. Defaults to 260px.
-   */
-  logoMaxWidth?: number;
+	/**
+	 * Maximum width of the logo, in pixels. Defaults to 260px.
+	 */
+	logoMaxWidth?: number;
 
-  /**
-   * Optional onClick handler.
-   */
-  onClick?: (event: MouseEvent<HTMLElement>) => void;
+	/**
+	 * Optional onClick handler.
+	 */
+	onClick?: (event: MouseEvent<HTMLElement>) => void;
 
-  /**
-   * Optional mouseDown handler.
-   */
-  onMouseDown?: (event: MouseEvent<HTMLElement>) => void;
+	/**
+	 * Optional mouseDown handler.
+	 */
+	onMouseDown?: (event: MouseEvent<HTMLElement>) => void;
 
-  /**
-   * Href to be passed to product home.
-   * Will add an interactive look and feel when defined.
-   */
-  href?: string;
+	/**
+	 * Href to be passed to product home.
+	 * Will add an interactive look and feel when defined.
+	 */
+	href?: string;
 
-  /**
-   * Name of the site that appears next to the logo.
-   */
-  siteTitle?: string;
+	/**
+	 * Name of the site that appears next to the logo.
+	 */
+	siteTitle?: string;
 
-  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
-  /**
+	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
     serving as a hook for automated tests.
@@ -118,6 +118,6 @@ export interface CustomProductHomeProps {
     - Product icon shown at small screen sizes - `{testId}-icon`
     - Site title - `{testId}-site-title`
    */
-  testId?: string;
-  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	testId?: string;
+	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 }

@@ -2,14 +2,14 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'no-unsafe-values',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [
-      {
-        name: 'literal values',
-        code: `
+	'no-unsafe-values',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [
+			{
+				name: 'literal values',
+				code: `
           import { css } from '@compiled/react';
 
           const styles = css({
@@ -17,10 +17,10 @@ typescriptEslintTester.run(
             opacity: 1
           });
         `,
-      },
-      {
-        name: 'variables referencing literal values',
-        code: `
+			},
+			{
+				name: 'variables referencing literal values',
+				code: `
           import { css } from '@compiled/react';
 
           const height = '5px';
@@ -30,10 +30,10 @@ typescriptEslintTester.run(
             opacity
           });
         `,
-      },
-      {
-        name: 'template strings interpolating safe values',
-        code: `
+			},
+			{
+				name: 'template strings interpolating safe values',
+				code: `
           import { css } from '@compiled/react';
 
           const height = 5;
@@ -45,19 +45,19 @@ typescriptEslintTester.run(
             padding: \`\${paddingBlock}px \${paddingInline}px\`
           });
         `,
-      },
-      {
-        name: 'base component',
-        code: `
+			},
+			{
+				name: 'base component',
+				code: `
           import { styled } from '@compiled/react';
           import { BaseComponent } from './base-component';
 
           styled(BaseComponent)({});
         `,
-      },
-      {
-        name: 'binary operations are allowed',
-        code: `
+			},
+			{
+				name: 'binary operations are allowed',
+				code: `
           import { css } from '@compiled/react';
 
           const ITEM_HEIGHT = 40;
@@ -68,8 +68,8 @@ typescriptEslintTester.run(
             marginBottom: ITEM_HEIGHT + 123,
           });
         `,
-      },
-    ],
-    invalid: [],
-  },
+			},
+		],
+		invalid: [],
+	},
 );

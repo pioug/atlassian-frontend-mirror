@@ -6,9 +6,9 @@ import ElementsBeforeAndAfter from '../../../examples/05-elements-before-and-aft
 import Customisation from '../../../examples/08-customisation';
 
 snapshot(Variations, {
-  featureFlags: {
-    'platform.design-system-team.border-checkbox_nyoiu': [true, false],
-  },
+	featureFlags: {
+		'platform.design-system-team.border-checkbox_nyoiu': [true, false],
+	},
 });
 
 snapshot(ElementsBeforeAndAfter);

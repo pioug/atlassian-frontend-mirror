@@ -10,7 +10,7 @@ import utilityIconMetadata from '../icons_raw/metadata-utility';
 const root = pkgDir.sync();
 
 if (!root) {
-  throw new Error('Root directory was not found');
+	throw new Error('Root directory was not found');
 }
 
 /**
@@ -41,59 +41,56 @@ if (!root) {
  * The updated icon build process for the new icons under `@atlaskit/icon/core/*`
  */
 const configCore: IconBuildConfig = {
-  srcDir: path.resolve(root, 'icons_raw/core'),
-  processedDir: path.resolve(root, 'icons_optimised/core'),
-  destDir: path.resolve(root, 'core'),
-  maxWidth: 24,
-  maxHeight: 24,
-  glob: '**/*.svg',
-  baseIconEntryPoint: '@atlaskit/icon/UNSAFE_base-new',
-  isUpdatedIconBuildEnabled: true,
-  iconType: 'core',
-  metadata: coreIconMetadata,
+	srcDir: path.resolve(root, 'icons_raw/core'),
+	processedDir: path.resolve(root, 'icons_optimised/core'),
+	destDir: path.resolve(root, 'core'),
+	maxWidth: 24,
+	maxHeight: 24,
+	glob: '**/*.svg',
+	baseIconEntryPoint: '@atlaskit/icon/UNSAFE_base-new',
+	isUpdatedIconBuildEnabled: true,
+	iconType: 'core',
+	metadata: coreIconMetadata,
 };
 
 buildIcons(configCore).then((icons) => {
-  const iconDocs = createIconDocs(
-    icons,
-    '@atlaskit/icon/core',
-    synonyms,
-    ['icon', 'core'],
-    true,
-    coreIconMetadata,
-  );
+	const iconDocs = createIconDocs(
+		icons,
+		'@atlaskit/icon/core',
+		synonyms,
+		['icon', 'core'],
+		true,
+		coreIconMetadata,
+	);
 
-  return fs.outputFile(path.resolve(root, 'src/metadata-core.tsx'), iconDocs);
+	return fs.outputFile(path.resolve(root, 'src/metadata-core.tsx'), iconDocs);
 });
 
 /**
  * The updated icon build process for the new icons under `@atlaskit/icon/utility/*`
  */
 const configUtility: IconBuildConfig = {
-  srcDir: path.resolve(root, 'icons_raw/utility'),
-  processedDir: path.resolve(root, 'icons_optimised/utility'),
-  destDir: path.resolve(root, 'utility'),
-  maxWidth: 12,
-  maxHeight: 12,
-  glob: '**/*.svg',
-  baseIconEntryPoint: '@atlaskit/icon/UNSAFE_base-new',
-  isUpdatedIconBuildEnabled: true,
-  iconType: 'utility',
-  metadata: utilityIconMetadata,
+	srcDir: path.resolve(root, 'icons_raw/utility'),
+	processedDir: path.resolve(root, 'icons_optimised/utility'),
+	destDir: path.resolve(root, 'utility'),
+	maxWidth: 12,
+	maxHeight: 12,
+	glob: '**/*.svg',
+	baseIconEntryPoint: '@atlaskit/icon/UNSAFE_base-new',
+	isUpdatedIconBuildEnabled: true,
+	iconType: 'utility',
+	metadata: utilityIconMetadata,
 };
 
 buildIcons(configUtility).then((icons) => {
-  const iconDocs = createIconDocs(
-    icons,
-    '@atlaskit/icon/utility',
-    synonyms,
-    ['icon', 'utility'],
-    true,
-    utilityIconMetadata,
-  );
+	const iconDocs = createIconDocs(
+		icons,
+		'@atlaskit/icon/utility',
+		synonyms,
+		['icon', 'utility'],
+		true,
+		utilityIconMetadata,
+	);
 
-  return fs.outputFile(
-    path.resolve(root, 'src/metadata-utility.tsx'),
-    iconDocs,
-  );
+	return fs.outputFile(path.resolve(root, 'src/metadata-utility.tsx'), iconDocs);
 });

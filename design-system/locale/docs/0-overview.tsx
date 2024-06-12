@@ -39,11 +39,11 @@ localizationProvider.getLongMonths();
 `}
 
   ${(
-    <Example
-      packageName="@atlaskit/locale"
-      Component={require('../examples/0-overview').default}
-      title="Overview"
-      source={require('!!raw-loader!../examples/0-overview')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/locale"
+			Component={require('../examples/0-overview').default}
+			title="Overview"
+			source={require('!!raw-loader!../examples/0-overview')}
+		/>
+	)}
 `;

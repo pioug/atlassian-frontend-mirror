@@ -46,11 +46,13 @@ export const ShowMore = ({ onClick, style = {}, className = {}, buttonStyle }: S
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className.container}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={moreEmojiContainerStyle}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style.container}
 			data-testid={RENDER_WRAPPER_TESTID}
 		>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={separatorStyle} />
 			<FormattedMessage {...messages.moreEmoji}>
 				{(message) => (
@@ -59,6 +61,7 @@ export const ShowMore = ({ onClick, style = {}, className = {}, buttonStyle }: S
 						<button
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={className.button}
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							css={[moreButtonStyle, buttonStyle]}
 							aria-label={messages.moreEmoji.defaultMessage}
 							type="button"

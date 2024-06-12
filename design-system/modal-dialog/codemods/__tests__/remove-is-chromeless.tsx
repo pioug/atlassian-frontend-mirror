@@ -7,12 +7,12 @@ const transformer = createTransformer([removeIsChromeless]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Modal isChromeless prop removal codemods', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -25,7 +25,7 @@ describe('Modal isChromeless prop removal codemods', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -33,12 +33,12 @@ describe('Modal isChromeless prop removal codemods', () => {
       return <Modal testId="modal" />;
     }
     `,
-        `should remove the "isChromeless" prop without adding comment when its value is false`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should remove the "isChromeless" prop without adding comment when its value is false`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -52,7 +52,7 @@ describe('Modal isChromeless prop removal codemods', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -66,12 +66,12 @@ describe('Modal isChromeless prop removal codemods', () => {
       );
     }
     `,
-        `should leave other props as it is when "isChromeless" prop is not present`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should leave other props as it is when "isChromeless" prop is not present`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -84,7 +84,7 @@ describe('Modal isChromeless prop removal codemods', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -99,12 +99,12 @@ describe('Modal isChromeless prop removal codemods', () => {
       );
     }
     `,
-        `should remove the "isChromeless" prop and add comment when its value is true`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should remove the "isChromeless" prop and add comment when its value is true`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -120,7 +120,7 @@ describe('Modal isChromeless prop removal codemods', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -139,12 +139,12 @@ describe('Modal isChromeless prop removal codemods', () => {
       );
     }
     `,
-        `should remove the "isChromeless" prop and add comment when its value is implicitly true`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should remove the "isChromeless" prop and add comment when its value is implicitly true`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -159,7 +159,7 @@ describe('Modal isChromeless prop removal codemods', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
     import Modal from '@atlaskit/modal-dialog';
 
@@ -175,8 +175,8 @@ describe('Modal isChromeless prop removal codemods', () => {
       );
     }
     `,
-        `should remove the "isChromeless" prop and add comment when its value is a variable`,
-      );
-    });
-  });
+				`should remove the "isChromeless" prop and add comment when its value is a variable`,
+			);
+		});
+	});
 });

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "3.0.5",
+	"version": "3.0.6",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -226,7 +226,7 @@
 		"@atlaskit/editor-plugin-base": "1.4.0",
 		"@atlaskit/editor-plugin-before-primary-toolbar": "1.0.6",
 		"@atlaskit/editor-plugin-better-type-history": "1.2.3",
-		"@atlaskit/editor-plugin-block-controls": "1.4.11",
+		"@atlaskit/editor-plugin-block-controls": "1.4.12",
 		"@atlaskit/editor-plugin-block-type": "3.5.0",
 		"@atlaskit/editor-plugin-border": "1.1.3",
 		"@atlaskit/editor-plugin-breakout": "1.2.3",
@@ -287,7 +287,7 @@
 		"@atlaskit/editor-plugin-selection-toolbar": "1.1.9",
 		"@atlaskit/editor-plugin-status": "1.2.3",
 		"@atlaskit/editor-plugin-submit-editor": "1.1.5",
-		"@atlaskit/editor-plugin-table": "7.16.18",
+		"@atlaskit/editor-plugin-table": "7.16.19",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "1.3.3",
 		"@atlaskit/editor-plugin-text-color": "1.5.0",
 		"@atlaskit/editor-plugin-text-formatting": "1.7.2",
@@ -541,10 +541,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform.editor.table.preserve-widths-with-lock-button": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform.editor.table.use-shared-state-hook": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -558,6 +554,10 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.table.live-pages-sorting_4malx": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

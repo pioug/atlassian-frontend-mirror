@@ -17,18 +17,18 @@ import DropdownMenu, { DropdownItemGroupCheckbox, DropdownItemCheckbox } from @a
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/05-dropdown-item-checkbox').default}
-      title=""
-      source={require('!!raw-loader!../examples/05-dropdown-item-checkbox')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/dropdown-menu"
+			Component={require('../examples/05-dropdown-item-checkbox').default}
+			title=""
+			source={require('!!raw-loader!../examples/05-dropdown-item-checkbox')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/checkbox/dropdown-item-checkbox')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/checkbox/dropdown-item-checkbox')}
+		/>
+	)}
 `;

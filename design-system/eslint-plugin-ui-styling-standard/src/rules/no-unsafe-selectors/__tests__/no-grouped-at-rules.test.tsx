@@ -2,11 +2,11 @@ import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 tester.run('no-grouped-at-rules', rule, {
-  valid: [],
-  invalid: [
-    {
-      name: '@media grouping',
-      code: `
+	valid: [],
+	invalid: [
+		{
+			name: '@media grouping',
+			code: `
         import { cssMap } from '@compiled/react';
 
         cssMap({
@@ -18,11 +18,11 @@ tester.run('no-grouped-at-rules', rule, {
           }
         });
       `,
-      errors: [{ messageId: 'no-grouped-at-rules' }],
-    },
-    {
-      name: '@keyframes grouping',
-      code: `
+			errors: [{ messageId: 'no-grouped-at-rules' }],
+		},
+		{
+			name: '@keyframes grouping',
+			code: `
         import { cssMap } from '@compiled/react';
 
         cssMap({
@@ -33,14 +33,11 @@ tester.run('no-grouped-at-rules', rule, {
           }
         });
       `,
-      errors: [
-        { messageId: 'no-grouped-at-rules' },
-        { messageId: 'no-keyframes-at-rules' },
-      ],
-    },
-    {
-      name: '@scope grouping',
-      code: `
+			errors: [{ messageId: 'no-grouped-at-rules' }, { messageId: 'no-keyframes-at-rules' }],
+		},
+		{
+			name: '@scope grouping',
+			code: `
         import { cssMap } from '@compiled/react';
 
         cssMap({
@@ -51,10 +48,10 @@ tester.run('no-grouped-at-rules', rule, {
           }
         });
       `,
-      errors: [
-        { messageId: 'no-grouped-at-rules' },
-        { messageId: 'no-restricted-at-rules', data: { atRule: '@scope' } },
-      ],
-    },
-  ],
+			errors: [
+				{ messageId: 'no-grouped-at-rules' },
+				{ messageId: 'no-restricted-at-rules', data: { atRule: '@scope' } },
+			],
+		},
+	],
 });

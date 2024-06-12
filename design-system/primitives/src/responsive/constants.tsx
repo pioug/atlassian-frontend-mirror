@@ -11,49 +11,49 @@ import type { Breakpoint } from './types';
  * @experimental Unsafe for direct consumption outside of the design system itself; please use our `media` export instead for media queries.
  */
 export const UNSAFE_BREAKPOINTS_CONFIG = {
-  // mobile
-  xxs: {
-    gridItemGutter: token('space.200', '16px'),
-    gridMargin: token('space.200', '16px'),
-    min: '0rem' as const,
-    max: '29.99rem' as const,
-  },
-  // phablet
-  xs: {
-    gridItemGutter: token('space.200', '16px'),
-    gridMargin: token('space.200', '16px'),
-    min: '30rem' as const,
-    max: '47.99rem' as const,
-  },
-  // tablet
-  sm: {
-    gridItemGutter: token('space.200', '16px'),
-    gridMargin: token('space.300', '24px'),
-    min: '48rem' as const,
-    max: '63.99rem' as const,
-  },
-  // laptop desktop
-  md: {
-    gridItemGutter: token('space.300', '24px'),
-    gridMargin: token('space.400', '32px'),
-    min: '64rem' as const,
-    max: '89.99rem' as const,
-  },
-  // monitor
-  lg: {
-    gridItemGutter: token('space.400', '32px'),
-    gridMargin: token('space.400', '32px'),
-    min: '90rem' as const,
-    max: '109.99rem' as const,
-  },
-  // large high res
-  xl: {
-    gridItemGutter: token('space.400', '32px'),
-    gridMargin: token('space.500', '40px'),
-    min: '110rem' as const,
-    max: null,
-  },
-  // NOTE: We previously had an `xxl=135rem` breakpoint, but it was removed as it was not used anywhere and felt too large
+	// mobile
+	xxs: {
+		gridItemGutter: token('space.200', '16px'),
+		gridMargin: token('space.200', '16px'),
+		min: '0rem' as const,
+		max: '29.99rem' as const,
+	},
+	// phablet
+	xs: {
+		gridItemGutter: token('space.200', '16px'),
+		gridMargin: token('space.200', '16px'),
+		min: '30rem' as const,
+		max: '47.99rem' as const,
+	},
+	// tablet
+	sm: {
+		gridItemGutter: token('space.200', '16px'),
+		gridMargin: token('space.300', '24px'),
+		min: '48rem' as const,
+		max: '63.99rem' as const,
+	},
+	// laptop desktop
+	md: {
+		gridItemGutter: token('space.300', '24px'),
+		gridMargin: token('space.400', '32px'),
+		min: '64rem' as const,
+		max: '89.99rem' as const,
+	},
+	// monitor
+	lg: {
+		gridItemGutter: token('space.400', '32px'),
+		gridMargin: token('space.400', '32px'),
+		min: '90rem' as const,
+		max: '109.99rem' as const,
+	},
+	// large high res
+	xl: {
+		gridItemGutter: token('space.400', '32px'),
+		gridMargin: token('space.500', '40px'),
+		min: '110rem' as const,
+		max: null,
+	},
+	// NOTE: We previously had an `xxl=135rem` breakpoint, but it was removed as it was not used anywhere and felt too large
 } as const; //TODO: This `as const` should really be `satisfies Record<Breakpoint, BreakpointConfig>`, but that's not possible in our shipped TypeScript version yet.
 
 /**
@@ -64,7 +64,7 @@ export const UNSAFE_BREAKPOINTS_CONFIG = {
  * @experimental Unsafe for consumption outside of the design system itself.
  */
 export const UNSAFE_BREAKPOINTS_ORDERED_LIST = Object.keys(
-  UNSAFE_BREAKPOINTS_CONFIG,
+	UNSAFE_BREAKPOINTS_CONFIG,
 ) as Breakpoint[] as ['xxs', 'xs', 'sm', 'md', 'lg', 'xl'];
 
 /**

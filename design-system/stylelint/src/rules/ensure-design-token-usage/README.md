@@ -4,8 +4,8 @@ Disallow colors which are not sourced from the global theme using design token C
 
 ```css
 a {
-  color: #fff;
-  /*     ↑ Colors like this */
+	color: #fff;
+	/*     ↑ Colors like this */
 }
 ```
 
@@ -17,13 +17,13 @@ The following patterns are considered problems:
 
 ```css
 a {
-  color: #fff;
+	color: #fff;
 }
 ```
 
 ```css
 div {
-  background-color: #ff0000;
+	background-color: #ff0000;
 }
 ```
 
@@ -31,12 +31,12 @@ The following patterns are _not_ considered problems:
 
 ```css
 a {
-  color: var(--ds-text-inverse, #ffff);
+	color: var(--ds-text-inverse, #ffff);
 }
 ```
 
 ```css
 div {
-  background-color: var(--ds-text-accent-red, #ff0000);
+	background-color: var(--ds-text-accent-red, #ff0000);
 }
 ```

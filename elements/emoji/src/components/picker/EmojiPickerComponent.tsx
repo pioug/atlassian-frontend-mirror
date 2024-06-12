@@ -584,6 +584,7 @@ const EmojiPickerComponent = ({
 
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={emojiPicker(showPreview, size)}
 			ref={onPickerRef}
 			data-emoji-picker-container

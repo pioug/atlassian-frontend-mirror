@@ -4,24 +4,22 @@ jest.autoMockOff();
 import { createTransformer } from '@atlaskit/codemod-utils';
 
 import {
-  updateDropdownItemGroupCheckboxCallsite,
-  updateDropdownItemGroupRadioCallsite,
+	updateDropdownItemGroupCheckboxCallsite,
+	updateDropdownItemGroupRadioCallsite,
 } from '../migrates/update-component-callsites';
 
-const transformDropdownItemGroupRadio = createTransformer([
-  updateDropdownItemGroupRadioCallsite,
-]);
+const transformDropdownItemGroupRadio = createTransformer([updateDropdownItemGroupRadioCallsite]);
 const transformDropdownItemGroupCheckbox = createTransformer([
-  updateDropdownItemGroupCheckboxCallsite,
+	updateDropdownItemGroupCheckboxCallsite,
 ]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('DropdownItemGroupRadio', () => {
-  defineInlineTest(
-    { default: transformDropdownItemGroupRadio, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformDropdownItemGroupRadio, parser: 'tsx' },
+		{},
+		`
     <DropdownItemGroupRadio id="actions">
       <DropdownItemRadio id="edit" defaultSelected>
         Edit
@@ -29,7 +27,7 @@ describe('DropdownItemGroupRadio', () => {
       <DropdownItemRadio id="move">Move</DropdownItemRadio>
     </DropdownItemGroupRadio>
     `,
-    `
+		`
     <DropdownItemRadioGroup id="actions">
       <DropdownItemRadio id="edit" defaultSelected>
         Edit
@@ -37,15 +35,15 @@ describe('DropdownItemGroupRadio', () => {
       <DropdownItemRadio id="move">Move</DropdownItemRadio>
     </DropdownItemRadioGroup>
     `,
-    'should transform DropdownItemGroupRadio to DropdownItemRadioGroup',
-  );
+		'should transform DropdownItemGroupRadio to DropdownItemRadioGroup',
+	);
 });
 
 describe('DropdownItemGroupCheckbox', () => {
-  defineInlineTest(
-    { default: transformDropdownItemGroupCheckbox, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformDropdownItemGroupCheckbox, parser: 'tsx' },
+		{},
+		`
     <DropdownItemGroupCheckbox id="actions">
       <DropdownItemCheckbox id="edit" defaultSelected>
         Edit
@@ -53,7 +51,7 @@ describe('DropdownItemGroupCheckbox', () => {
       <DropdownItemCheckbox id="move">Move</DropdownItemCheckbox>
     </DropdownItemGroupCheckbox>
     `,
-    `
+		`
     <DropdownItemCheckboxGroup id="actions">
       <DropdownItemCheckbox id="edit" defaultSelected>
         Edit
@@ -61,6 +59,6 @@ describe('DropdownItemGroupCheckbox', () => {
       <DropdownItemCheckbox id="move">Move</DropdownItemCheckbox>
     </DropdownItemCheckboxGroup>
     `,
-    'should transform DropdownItemGroupCheckbox to DropdownItemCheckboxGroup',
-  );
+		'should transform DropdownItemGroupCheckbox to DropdownItemCheckboxGroup',
+	);
 });

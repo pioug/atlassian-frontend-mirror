@@ -68,21 +68,19 @@ export const AtlassianNaviagtion = () => (
 `}
 
   ${(
-    <Example
-      title="Skeleton create and icon buttons"
-      Component={require('../examples/skeleton-primary-buttons').default}
-      source={require('!!raw-loader!../examples/skeleton-primary-buttons')}
-    />
-  )}
+		<Example
+			title="Skeleton create and icon buttons"
+			Component={require('../examples/skeleton-primary-buttons').default}
+			source={require('!!raw-loader!../examples/skeleton-primary-buttons')}
+		/>
+	)}
 
 
   ${(
-    <Example
-      title="Skeleton primary items buttons"
-      Component={
-        require('../examples/skeleton-create-and-icon-buttons').default
-      }
-      source={require('!!raw-loader!../examples/skeleton-create-and-icon-buttons')}
-    />
-  )}
+		<Example
+			title="Skeleton primary items buttons"
+			Component={require('../examples/skeleton-create-and-icon-buttons').default}
+			source={require('!!raw-loader!../examples/skeleton-create-and-icon-buttons')}
+		/>
+	)}
 `;

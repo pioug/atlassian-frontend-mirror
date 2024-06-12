@@ -8,82 +8,82 @@ const transformer = createTransformer('@atlaskit/tag', [addIsRemovableFlag]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Update isRemovable prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button"/>;
     `,
-    `
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button"/>;
     `,
-    'should not add isRemovable flag when no removeButtonText defined',
-  );
+		'should not add isRemovable flag when no removeButtonText defined',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonText=""/>;
     `,
-    `
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonText=""/>;
     `,
-    'should not adding isRemovable flag when removeButtonText has empty text',
-  );
+		'should not adding isRemovable flag when removeButtonText has empty text',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonText="Remove" />;
     `,
-    `
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" isRemovable removeButtonText="Remove" />;
     `,
-    'should add isRemovable flag when there is a removeButtonText defined',
-  );
+		'should add isRemovable flag when there is a removeButtonText defined',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import RemovableTag from "@atlaskit/tag";
 
       export default () => <RemovableTag text="Removable button" removeButtonText="Remove" />;
     `,
-    `
+		`
       import React from "react";
       import RemovableTag from "@atlaskit/tag";
 
       export default () => <RemovableTag text="Removable button" isRemovable removeButtonText="Remove" />;
     `,
-    'should add isRemovable flag when there is a removeButtonText defined for importing tag with alias',
-  );
+		'should add isRemovable flag when there is a removeButtonText defined for importing tag with alias',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import RemovableTag from "@atlaskit/tag";
 
@@ -91,7 +91,7 @@ describe('Update isRemovable prop', () => {
 
       export default () => <RemovableTag text="Removable button" removeButtonText={removeButtonLabel} />;
     `,
-    `
+		`
       import React from "react";
       import RemovableTag from "@atlaskit/tag";
 
@@ -99,13 +99,13 @@ describe('Update isRemovable prop', () => {
 
       export default () => <RemovableTag text="Removable button" isRemovable removeButtonText={removeButtonLabel} />;
     `,
-    'should add isRemovable flag when there is a removeButtonText defined as a variable',
-  );
+		'should add isRemovable flag when there is a removeButtonText defined as a variable',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
@@ -118,7 +118,7 @@ describe('Update isRemovable prop', () => {
           <Tag text="Removable button" />
         </div>);
     `,
-    `
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
@@ -131,42 +131,42 @@ describe('Update isRemovable prop', () => {
           <Tag text="Removable button" />
         </div>);
     `,
-    'should add isRemovable flag for different cases',
-  );
+		'should add isRemovable flag for different cases',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import { SimpleTag as Tag } from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonText="Remove" />;
     `,
-    `
+		`
       import React from "react";
       import { SimpleTag as Tag } from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonText="Remove" />;
     `,
-    'should not add isRemovable flag when it is SimpleTag',
-  );
+		'should not add isRemovable flag when it is SimpleTag',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Tag from "@facebook/tag";
 
       export default () => <Tag text="Removable button" removeButtonText="Remove" />;
     `,
-    `
+		`
       import React from "react";
       import Tag from "@facebook/tag";
 
       export default () => <Tag text="Removable button" removeButtonText="Remove" />;
     `,
-    'should not add isRemovable flag when it is from other tag lib',
-  );
+		'should not add isRemovable flag when it is from other tag lib',
+	);
 });

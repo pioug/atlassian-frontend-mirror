@@ -32,6 +32,7 @@ import {
 import { ConfluenceTransformer } from '../src';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const content = css({
 	padding: `0 ${token('space.250', '20px')}`,
 	height: '100%',

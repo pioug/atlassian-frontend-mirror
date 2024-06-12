@@ -2,44 +2,44 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'convert-props-syntax',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [
-      {
-        name: 'ignores styled-components usages using supported props syntax',
-        code: `
+	'convert-props-syntax',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [
+			{
+				name: 'ignores styled-components usages using supported props syntax',
+				code: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
             color: props.color,
           }));
         `,
-      },
-      {
-        name: 'ignores @emotion/styled usages using supported props syntax',
-        code: `
+			},
+			{
+				name: 'ignores @emotion/styled usages using supported props syntax',
+				code: `
           import styled from '@emotion/styled';
 
           styled.div((props) => ({
             color: props.color,
           }));
         `,
-      },
-      {
-        name: 'ignores styled-components usages already using supported props syntax (with logical operator)',
-        code: `
+			},
+			{
+				name: 'ignores styled-components usages already using supported props syntax (with logical operator)',
+				code: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
             color: props => props.color || 'red',
           }));
         `,
-      },
-      {
-        name: 'ignores styled-components usages using supported props syntax (with multiple properties)',
-        code: `
+			},
+			{
+				name: 'ignores styled-components usages using supported props syntax (with multiple properties)',
+				code: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -47,10 +47,10 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-      },
-      {
-        name: 'ignores compiled usages (props argument)',
-        code: `
+			},
+			{
+				name: 'ignores compiled usages (props argument)',
+				code: `
           import { styled } from '@compiled/react';
 
           styled.div({
@@ -58,10 +58,10 @@ typescriptEslintTester.run(
             backgroundColor: (props) => props.backgroundColor,
           });
         `,
-      },
-      {
-        name: 'ignores compiled usages (destructured props)',
-        code: `
+			},
+			{
+				name: 'ignores compiled usages (destructured props)',
+				code: `
           import { styled } from '@compiled/react';
 
           styled.div({
@@ -69,10 +69,10 @@ typescriptEslintTester.run(
             backgroundColor: ({ backgroundColor }) => backgroundColor,
           });
         `,
-      },
-      {
-        name: 'ignores compiled usages (styled-components style syntax)',
-        code: `
+			},
+			{
+				name: 'ignores compiled usages (styled-components style syntax)',
+				code: `
           import { styled } from '@compiled/react';
 
           styled.div((props) => ({
@@ -80,20 +80,20 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-      },
-      {
-        name: 'ignores template literals passed to styled-components',
-        code: `
+			},
+			{
+				name: 'ignores template literals passed to styled-components',
+				code: `
           import { styled } from 'styled-components';
 
           const someStyles = \`border-radius: \${token('border.radius', '3px')};\`;
 
           styled.div(someStyles);
         `,
-      },
-      {
-        name: 'ignores token function passed to styled-components',
-        code: `
+			},
+			{
+				name: 'ignores token function passed to styled-components',
+				code: `
           import styled from 'styled-components';
           import { token } from 'some-package';
           import { someFallback } from 'other-package';
@@ -102,10 +102,10 @@ typescriptEslintTester.run(
             color: token('some-token', someFallback),
           });
         `,
-      },
-      {
-        name: 'ignores styled(...).attrs() call',
-        code: `
+			},
+			{
+				name: 'ignores styled(...).attrs() call',
+				code: `
           import { styled } from 'styled-components';
 
           const StyledMinimized = styled(Minimized).attrs({
@@ -114,10 +114,10 @@ typescriptEslintTester.run(
             color: blue;
           \`;
         `,
-      },
-      {
-        name: 'ignores styled.div.attrs<...>() call',
-        code: `
+			},
+			{
+				name: 'ignores styled.div.attrs<...>() call',
+				code: `
           import { styled } from '@compiled/react';
 
           export const ModalAnchorOld = styled.div.attrs<ModalAnchorProps>({
@@ -129,10 +129,10 @@ typescriptEslintTester.run(
             position: fixed;
           \`;
         `,
-      },
-      {
-        name: 'ignores styled.div.attrs() call',
-        code: `
+			},
+			{
+				name: 'ignores styled.div.attrs() call',
+				code: `
           const BlanketControl = styled.div.attrs({
             style: ({ scrollOffset, width }) => ({
                 top: scrollOffset,
@@ -144,20 +144,20 @@ typescriptEslintTester.run(
             justify-content: center;
           \`;
         `,
-      },
-      {
-        name: 'ignores styled.img.attrs() call',
-        code: `
+			},
+			{
+				name: 'ignores styled.img.attrs() call',
+				code: `
           export const FieldsRestoredIllustration = styled.img.attrs({ src: fieldsRestoredImage })\`
             display: block;
             min-height: 190px;
             max-width: 290px;
           \`;
         `,
-      },
-      {
-        name: 'ignores options passed to base components',
-        code: `
+			},
+			{
+				name: 'ignores options passed to base components',
+				code: `
           import styled from '@emotion/styled';
           import { token } from 'some-package';
           import { someFallback } from 'other-package';
@@ -169,10 +169,10 @@ typescriptEslintTester.run(
             color: token('some-token', someFallback),
           });
         `,
-      },
-      {
-        name: 'ignores options passed to base components when using template string',
-        code: `
+			},
+			{
+				name: 'ignores options passed to base components when using template string',
+				code: `
           import styled from '@emotion/styled';
           import { token } from 'some-package';
           import { someFallback } from 'other-package';
@@ -184,22 +184,22 @@ typescriptEslintTester.run(
             cursor: pointer;
           \`;
         `,
-      },
-      {
-        name: 'No error on TSAsExpression node type when using ESTraverse',
-        code: `
+			},
+			{
+				name: 'No error on TSAsExpression node type when using ESTraverse',
+				code: `
           import styled from '@emotion/styled';
 
           const Component = styled.div({
             color: token('color.text') as string,
           });
         `,
-      },
-    ],
-    invalid: [
-      {
-        name: 'converts @emotion/styled props argument',
-        code: `
+			},
+		],
+		invalid: [
+			{
+				name: 'converts @emotion/styled props argument',
+				code: `
           import styled from '@emotion/styled';
 
           styled.div({
@@ -207,7 +207,7 @@ typescriptEslintTester.run(
             backgroundColor: (props) => props.backgroundColor,
           });
         `,
-        output: `
+				output: `
           import styled from '@emotion/styled';
 
           styled.div((props) => ({
@@ -215,11 +215,11 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts styled-components props argument',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts styled-components props argument',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -227,7 +227,7 @@ typescriptEslintTester.run(
             backgroundColor: (props) => props.backgroundColor,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -235,11 +235,11 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts styled-components destructured props',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts styled-components destructured props',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -247,7 +247,7 @@ typescriptEslintTester.run(
             backgroundColor: ({ backgroundColor }) => backgroundColor,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -255,11 +255,11 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts mixture of props argument and destructured props',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts mixture of props argument and destructured props',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -267,7 +267,7 @@ typescriptEslintTester.run(
             backgroundColor: (props) => props.backgroundColor,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -275,11 +275,11 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts mix of valid props syntax and invalid props syntax',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts mix of valid props syntax and invalid props syntax',
+				code: `
           import styled from 'styled-components';
 
           styled.div(
@@ -292,7 +292,7 @@ typescriptEslintTester.run(
             }
           );
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div(
@@ -305,11 +305,11 @@ typescriptEslintTester.run(
             })
           );
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts mix of renamed props argument and destructured props',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts mix of renamed props argument and destructured props',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -318,7 +318,7 @@ typescriptEslintTester.run(
             height: (props) => props.customHeight,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -327,11 +327,11 @@ typescriptEslintTester.run(
             height: props.customHeight,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts props with same name',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts props with same name',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -340,7 +340,7 @@ typescriptEslintTester.run(
             height: (props) => props.customHeight,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -349,11 +349,11 @@ typescriptEslintTester.run(
             height: props.customHeight,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts props with same name (variant two)',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts props with same name (variant two)',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -362,7 +362,7 @@ typescriptEslintTester.run(
             height: (props) => props.customHeight,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -371,11 +371,11 @@ typescriptEslintTester.run(
             height: props.customHeight,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts props with same name (variant three)',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts props with same name (variant three)',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -384,7 +384,7 @@ typescriptEslintTester.run(
             height: (props) => props.customHeight,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -393,11 +393,11 @@ typescriptEslintTester.run(
             height: props.customHeight,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts props inside template literal',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts props inside template literal',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -405,7 +405,7 @@ typescriptEslintTester.run(
             backgroundSize: 'cover',
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -413,11 +413,11 @@ typescriptEslintTester.run(
             backgroundSize: 'cover',
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts props with complicated expressions',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts props with complicated expressions',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -426,7 +426,7 @@ typescriptEslintTester.run(
             padding: ({ width }) => \`\${width}px \${width + 3}px \${width + 2}px\`,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -435,11 +435,11 @@ typescriptEslintTester.run(
             padding: \`\${props.width}px \${props.width + 3}px \${props.width + 2}px\`,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts props with overlapping names',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts props with overlapping names',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -447,7 +447,7 @@ typescriptEslintTester.run(
             width: ({ height, oldHeight }) => height + oldHeight,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -455,11 +455,11 @@ typescriptEslintTester.run(
             width: props.height + props.oldHeight,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts props mixed with token function',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts props mixed with token function',
+				code: `
           import styled from 'styled-components';
           import { someFallback } from 'some-package';
 
@@ -467,7 +467,7 @@ typescriptEslintTester.run(
             padding: ({ myPadding }) => \`\${token('some-token', someFallback)} \${myPadding}\`,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
           import { someFallback } from 'some-package';
 
@@ -475,11 +475,11 @@ typescriptEslintTester.run(
             padding: \`\${token('some-token', someFallback)} \${props.myPadding}\`,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts mix of styled variable arguments and object arguments',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts mix of styled variable arguments and object arguments',
+				code: `
           import styled from 'styled-components';
           import { someFallback } from 'some-package';
 
@@ -497,7 +497,7 @@ typescriptEslintTester.run(
             }
           );
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
           import { someFallback } from 'some-package';
 
@@ -515,11 +515,11 @@ typescriptEslintTester.run(
             })
           );
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts mix of props and non-props',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts mix of props and non-props',
+				code: `
           import styled from 'styled-components';
 
           styled.div({
@@ -528,7 +528,7 @@ typescriptEslintTester.run(
             margin: \`2px \${token('some-token')}\`
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled.div((props) => ({
@@ -537,11 +537,11 @@ typescriptEslintTester.run(
             margin: \`2px \${token('some-token')}\`
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts styled-components props argument when extending existing component',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts styled-components props argument when extending existing component',
+				code: `
           import styled from 'styled-components';
 
           styled(BaseComponent)({
@@ -549,7 +549,7 @@ typescriptEslintTester.run(
             backgroundColor: (props) => props.backgroundColor,
           });
         `,
-        output: `
+				output: `
           import styled from 'styled-components';
 
           styled(BaseComponent)((props) => ({
@@ -557,11 +557,11 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-      {
-        name: 'converts styled-components props argument when using css function',
-        code: `
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+			{
+				name: 'converts styled-components props argument when using css function',
+				code: `
           import { css } from 'styled-components';
 
           css({
@@ -569,7 +569,7 @@ typescriptEslintTester.run(
             backgroundColor: (props) => props.backgroundColor,
           });
         `,
-        output: `
+				output: `
           import { css } from 'styled-components';
 
           css((props) => ({
@@ -577,8 +577,8 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-prop-syntax' }],
-      },
-    ],
-  },
+				errors: [{ messageId: 'unsupported-prop-syntax' }],
+			},
+		],
+	},
 );

@@ -8,18 +8,18 @@ import { token } from '@atlaskit/tokens';
 import { Legend } from './label';
 
 export interface FieldsetProps {
-  /**
-   * Content to render in the fieldset.
-   */
-  children: ReactNode;
-  /**
-   * Label describing the contents of the fieldset.
-   */
-  legend?: ReactNode;
+	/**
+	 * Content to render in the fieldset.
+	 */
+	children: ReactNode;
+	/**
+	 * Label describing the contents of the fieldset.
+	 */
+	legend?: ReactNode;
 }
 
 const fieldSetStyles = css({
-  marginTop: token('space.100', '8px'),
+	marginTop: token('space.100', '8px'),
 });
 
 /**
@@ -33,12 +33,12 @@ const fieldSetStyles = css({
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/fields)
  */
 const Fieldset = ({ children, legend }: FieldsetProps) => {
-  return (
-    <fieldset css={fieldSetStyles}>
-      {legend && <Legend>{legend}</Legend>}
-      {children}
-    </fieldset>
-  );
+	return (
+		<fieldset css={fieldSetStyles}>
+			{legend && <Legend>{legend}</Legend>}
+			{children}
+		</fieldset>
+	);
 };
 
 export default Fieldset;

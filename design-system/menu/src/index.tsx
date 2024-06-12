@@ -3,8 +3,8 @@ export { default as LinkItem } from './menu-item/link-item';
 export { default as CustomItem } from './menu-item/custom-item';
 export { default as SkeletonItem } from './menu-item/skeleton-item';
 export {
-  SpacingContext,
-  SELECTION_STYLE_CONTEXT_DO_NOT_USE,
+	SpacingContext,
+	SELECTION_STYLE_CONTEXT_DO_NOT_USE,
 } from './internal/components/menu-context';
 
 export { default as HeadingItem } from './menu-item/heading-item';
@@ -15,23 +15,23 @@ export { default as MenuGroup } from './menu-section/menu-group';
 export { default as PopupMenuGroup } from './menu-section/popup-menu-group';
 
 export type {
-  ButtonItemProps,
-  CSSFn,
-  StatelessCSSFn,
-  CustomItemComponentProps,
-  CustomItemProps,
-  HeadingItemProps,
-  ItemState,
-  LinkItemProps,
-  MenuGroupProps,
-  SectionProps,
-  SkeletonHeadingItemProps,
-  SkeletonItemProps,
-  Dimension,
-  MenuItemProps as BaseItemProps,
-  Overrides,
-  MenuGroupSizing,
-  RenderFunction,
-  SectionProps as SectionBaseProps,
-  TitleOverrides,
+	ButtonItemProps,
+	CSSFn,
+	StatelessCSSFn,
+	CustomItemComponentProps,
+	CustomItemProps,
+	HeadingItemProps,
+	ItemState,
+	LinkItemProps,
+	MenuGroupProps,
+	SectionProps,
+	SkeletonHeadingItemProps,
+	SkeletonItemProps,
+	Dimension,
+	MenuItemProps as BaseItemProps,
+	Overrides,
+	MenuGroupSizing,
+	RenderFunction,
+	SectionProps as SectionBaseProps,
+	TitleOverrides,
 } from './types';

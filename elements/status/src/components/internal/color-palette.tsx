@@ -50,6 +50,7 @@ const palette: [
 	],
 ];
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const colorPaletteWrapperStyles = css`
 	padding-left: 0px;
 	margin: ${token('space.100', '8px')} ${token('space.100', '8px')} 0 ${token('space.100', '8px')};

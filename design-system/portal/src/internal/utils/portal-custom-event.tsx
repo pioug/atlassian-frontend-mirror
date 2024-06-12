@@ -2,15 +2,15 @@ import type { PortalEvent } from '../../types';
 import type { LayerName, PortalEventDetail, ReversedLayers } from '../types';
 
 const zIndexToName: ReversedLayers = {
-  100: 'card',
-  200: 'navigation',
-  300: 'dialog',
-  400: 'layer',
-  500: 'blanket',
-  510: 'modal',
-  600: 'flag',
-  700: 'spotlight',
-  9999: 'tooltip',
+	100: 'card',
+	200: 'navigation',
+	300: 'dialog',
+	400: 'layer',
+	500: 'blanket',
+	510: 'modal',
+	600: 'flag',
+	700: 'spotlight',
+	9999: 'tooltip',
 };
 
 /**
@@ -19,9 +19,7 @@ const zIndexToName: ReversedLayers = {
  * @returns {LayerName | null} - The layer name for given z-index. If layer name is not found then null is returned
  */
 const getLayerName = (zIndex: number): LayerName | null => {
-  return zIndexToName.hasOwnProperty(zIndex)
-    ? zIndexToName[zIndex as keyof ReversedLayers]
-    : null;
+	return zIndexToName.hasOwnProperty(zIndex) ? zIndexToName[zIndex as keyof ReversedLayers] : null;
 };
 
 /**
@@ -31,14 +29,14 @@ const getLayerName = (zIndex: number): LayerName | null => {
  * @returns {PortalEvent} - The newly created PortalEvent object
  */
 const getEvent = (eventName: string, zIndex: number): PortalEvent => {
-  const detail: PortalEventDetail = {
-    layer: getLayerName(Number(zIndex)),
-    zIndex,
-  };
+	const detail: PortalEventDetail = {
+		layer: getLayerName(Number(zIndex)),
+		zIndex,
+	};
 
-  return new CustomEvent(eventName, {
-    detail,
-  });
+	return new CustomEvent(eventName, {
+		detail,
+	});
 };
 
 /**
@@ -46,10 +44,7 @@ const getEvent = (eventName: string, zIndex: number): PortalEvent => {
  * @param {string} eventName - either of Mount or Unmount event name
  * @param {number} zIndex - z-index value which will be included in the event to be dispatched
  */
-export default function firePortalEvent(
-  eventName: string,
-  zIndex: number,
-): void {
-  const event: PortalEvent = getEvent(eventName, zIndex);
-  window.dispatchEvent(event);
+export default function firePortalEvent(eventName: string, zIndex: number): void {
+	const event: PortalEvent = getEvent(eventName, zIndex);
+	window.dispatchEvent(event);
 }

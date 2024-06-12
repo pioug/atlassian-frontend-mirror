@@ -8,18 +8,18 @@
  * style-dictionary will attempt to locate these in the file-system.
  */
 export type Themes =
-  | 'atlassian-light'
-  | 'atlassian-light-future'
-  | 'atlassian-light-increased-contrast'
-  | 'atlassian-dark'
-  | 'atlassian-dark-future'
-  | 'atlassian-dark-increased-contrast'
-  | 'atlassian-legacy-light'
-  | 'atlassian-legacy-dark'
-  | 'atlassian-shape'
-  | 'atlassian-spacing'
-  | 'atlassian-typography-minor3'
-  | 'atlassian-typography-adg3';
+	| 'atlassian-light'
+	| 'atlassian-light-future'
+	| 'atlassian-light-increased-contrast'
+	| 'atlassian-dark'
+	| 'atlassian-dark-future'
+	| 'atlassian-dark-increased-contrast'
+	| 'atlassian-legacy-light'
+	| 'atlassian-legacy-dark'
+	| 'atlassian-shape'
+	| 'atlassian-spacing'
+	| 'atlassian-typography-minor3'
+	| 'atlassian-typography-adg3';
 export type ThemeFileNames = Themes;
 
 /**
@@ -61,18 +61,18 @@ export type DataContrastModes = 'more' | 'no-preference' | 'auto';
  * These ids must be kebab case
  */
 export const themeIds = [
-  'light-increased-contrast',
-  'light',
-  'light-future',
-  'dark',
-  'dark-future',
-  'dark-increased-contrast',
-  'legacy-light',
-  'legacy-dark',
-  'spacing',
-  'shape',
-  'typography-adg3',
-  'typography-minor3',
+	'light-increased-contrast',
+	'light',
+	'light-future',
+	'dark',
+	'dark-future',
+	'dark-increased-contrast',
+	'legacy-light',
+	'legacy-dark',
+	'spacing',
+	'shape',
+	'typography-adg3',
+	'typography-minor3',
 ] as const;
 
 export type ThemeIds = (typeof themeIds)[number];
@@ -85,10 +85,7 @@ export const themeOverrideIds = [] as const;
 
 export type ThemeOverrideIds = (typeof themeOverrideIds)[number];
 
-export const themeIdsWithOverrides = [
-  ...themeIds,
-  ...themeOverrideIds,
-] as const;
+export const themeIdsWithOverrides = [...themeIds, ...themeOverrideIds] as const;
 
 export type ThemeIdsWithOverrides = (typeof themeIdsWithOverrides)[number];
 
@@ -105,168 +102,168 @@ export type ExtensionThemeId = ThemeIds;
  * previous color set.
  */
 export type Palettes =
-  | 'defaultPalette'
-  | 'legacyPalette'
-  | 'spacingScale'
-  | 'shapePalette'
-  | 'typographyPalette';
+	| 'defaultPalette'
+	| 'legacyPalette'
+	| 'spacingScale'
+	| 'shapePalette'
+	| 'typographyPalette';
 
 /**
  * ThemeConfig: the source of truth for all theme meta-data.
  * This object should be used whenever interfacing with themes.
  */
 interface ThemeConfig {
-  id: ThemeIds | ThemeOverrideIds;
-  displayName: string;
-  palette: Palettes;
-  attributes: (
-    | {
-        type: 'color';
-        // https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
-        mode: DataColorModes;
-      }
-    | {
-        type: Extract<ThemeKinds, 'spacing' | 'typography' | 'shape'>;
-      }
-  ) & {
-    /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
-    /**
-     * @deprecated Use top-level `extends` property instead
-     */
-    extends?: ExtensionThemeId;
-    /* eslint-enable @repo/internal/deprecations/deprecation-ticket-required */
-  };
-  /**
-   * Theme to use a base. This will create the theme as
-   * an extension with all token values marked as optional
-   * to allow tokens to be overridden as required.
-   */
-  extends?: ThemeIds;
-  /**
-   * Theme to override. This will cause the theme to only
-   * output css variables which can be imported to temporarily
-   * override existing themes for testing purposes.
-   */
-  override?: ThemeIds;
-  /**
-   * Use when the theme provides an increased contrast
-   * version of another theme. This will cause the theme to be loaded
-   * under the media query `@media (prefers-contrast: more)`.
-   */
-  increasesContrastFor?: ThemeIds;
+	id: ThemeIds | ThemeOverrideIds;
+	displayName: string;
+	palette: Palettes;
+	attributes: (
+		| {
+				type: 'color';
+				// https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
+				mode: DataColorModes;
+		  }
+		| {
+				type: Extract<ThemeKinds, 'spacing' | 'typography' | 'shape'>;
+		  }
+	) & {
+		/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
+		/**
+		 * @deprecated Use top-level `extends` property instead
+		 */
+		extends?: ExtensionThemeId;
+		/* eslint-enable @repo/internal/deprecations/deprecation-ticket-required */
+	};
+	/**
+	 * Theme to use a base. This will create the theme as
+	 * an extension with all token values marked as optional
+	 * to allow tokens to be overridden as required.
+	 */
+	extends?: ThemeIds;
+	/**
+	 * Theme to override. This will cause the theme to only
+	 * output css variables which can be imported to temporarily
+	 * override existing themes for testing purposes.
+	 */
+	override?: ThemeIds;
+	/**
+	 * Use when the theme provides an increased contrast
+	 * version of another theme. This will cause the theme to be loaded
+	 * under the media query `@media (prefers-contrast: more)`.
+	 */
+	increasesContrastFor?: ThemeIds;
 }
 
 const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
-  'atlassian-light': {
-    id: 'light',
-    displayName: 'Light Theme',
-    palette: 'defaultPalette',
-    attributes: {
-      type: 'color',
-      mode: 'light',
-    },
-  },
-  'atlassian-light-future': {
-    id: 'light-future',
-    displayName: 'Future Light Theme',
-    palette: 'defaultPalette',
-    attributes: {
-      type: 'color',
-      mode: 'light',
-    },
-    override: 'light',
-  },
-  'atlassian-light-increased-contrast': {
-    id: 'light-increased-contrast',
-    displayName: 'Light Theme (increased contrast)',
-    palette: 'defaultPalette',
-    attributes: {
-      type: 'color',
-      mode: 'light',
-    },
-    extends: 'light',
-    increasesContrastFor: 'light',
-  },
-  'atlassian-dark': {
-    id: 'dark',
-    displayName: 'Dark Theme',
-    palette: 'defaultPalette',
-    attributes: {
-      type: 'color',
-      mode: 'dark',
-    },
-  },
-  'atlassian-dark-future': {
-    id: 'dark-future',
-    displayName: 'Future Dark Theme',
-    palette: 'defaultPalette',
-    attributes: {
-      type: 'color',
-      mode: 'dark',
-    },
-    override: 'light',
-  },
-  'atlassian-dark-increased-contrast': {
-    id: 'dark-increased-contrast',
-    displayName: 'Dark Theme (increased contrast)',
-    palette: 'defaultPalette',
-    attributes: {
-      type: 'color',
-      mode: 'dark',
-    },
-    extends: 'dark',
-    increasesContrastFor: 'dark',
-  },
-  'atlassian-legacy-light': {
-    id: 'legacy-light',
-    displayName: 'Light Theme (legacy)',
-    palette: 'legacyPalette',
-    attributes: {
-      type: 'color',
-      mode: 'light',
-    },
-  },
-  'atlassian-legacy-dark': {
-    id: 'legacy-dark',
-    displayName: 'Dark Theme (legacy)',
-    palette: 'legacyPalette',
-    attributes: {
-      type: 'color',
-      mode: 'dark',
-    },
-  },
-  'atlassian-spacing': {
-    id: 'spacing',
-    displayName: 'Atlassian Spacing',
-    palette: 'spacingScale',
-    attributes: {
-      type: 'spacing',
-    },
-  },
-  'atlassian-typography-adg3': {
-    id: 'typography-adg3',
-    displayName: 'ADG3 Typography',
-    palette: 'typographyPalette',
-    attributes: {
-      type: 'typography',
-    },
-  },
-  'atlassian-shape': {
-    id: 'shape',
-    displayName: 'Atlassian Shape',
-    palette: 'shapePalette',
-    attributes: {
-      type: 'shape',
-    },
-  },
-  'atlassian-typography-minor3': {
-    id: 'typography-minor3',
-    displayName: 'Atlassian Typography (Minor Third)',
-    palette: 'typographyPalette',
-    attributes: {
-      type: 'typography',
-    },
-  },
+	'atlassian-light': {
+		id: 'light',
+		displayName: 'Light Theme',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'light',
+		},
+	},
+	'atlassian-light-future': {
+		id: 'light-future',
+		displayName: 'Future Light Theme',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'light',
+		},
+		override: 'light',
+	},
+	'atlassian-light-increased-contrast': {
+		id: 'light-increased-contrast',
+		displayName: 'Light Theme (increased contrast)',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'light',
+		},
+		extends: 'light',
+		increasesContrastFor: 'light',
+	},
+	'atlassian-dark': {
+		id: 'dark',
+		displayName: 'Dark Theme',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'dark',
+		},
+	},
+	'atlassian-dark-future': {
+		id: 'dark-future',
+		displayName: 'Future Dark Theme',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'dark',
+		},
+		override: 'light',
+	},
+	'atlassian-dark-increased-contrast': {
+		id: 'dark-increased-contrast',
+		displayName: 'Dark Theme (increased contrast)',
+		palette: 'defaultPalette',
+		attributes: {
+			type: 'color',
+			mode: 'dark',
+		},
+		extends: 'dark',
+		increasesContrastFor: 'dark',
+	},
+	'atlassian-legacy-light': {
+		id: 'legacy-light',
+		displayName: 'Light Theme (legacy)',
+		palette: 'legacyPalette',
+		attributes: {
+			type: 'color',
+			mode: 'light',
+		},
+	},
+	'atlassian-legacy-dark': {
+		id: 'legacy-dark',
+		displayName: 'Dark Theme (legacy)',
+		palette: 'legacyPalette',
+		attributes: {
+			type: 'color',
+			mode: 'dark',
+		},
+	},
+	'atlassian-spacing': {
+		id: 'spacing',
+		displayName: 'Atlassian Spacing',
+		palette: 'spacingScale',
+		attributes: {
+			type: 'spacing',
+		},
+	},
+	'atlassian-typography-adg3': {
+		id: 'typography-adg3',
+		displayName: 'ADG3 Typography',
+		palette: 'typographyPalette',
+		attributes: {
+			type: 'typography',
+		},
+	},
+	'atlassian-shape': {
+		id: 'shape',
+		displayName: 'Atlassian Shape',
+		palette: 'shapePalette',
+		attributes: {
+			type: 'shape',
+		},
+	},
+	'atlassian-typography-minor3': {
+		id: 'typography-minor3',
+		displayName: 'Atlassian Typography (Minor Third)',
+		palette: 'typographyPalette',
+		attributes: {
+			type: 'typography',
+		},
+	},
 };
 
 type HEX = `#${string}`;
@@ -276,58 +273,55 @@ export type CSSColor = HEX;
  * ThemeOptionsSchema: additional configuration options used to customize Atlassian's themes
  */
 export interface ThemeOptionsSchema {
-  brandColor: CSSColor;
+	brandColor: CSSColor;
 }
 
 /**
  * ThemeState: the standard representation of an app's current theme and preferences
  */
 export interface ThemeState {
-  light: Extract<
-    ThemeIds,
-    | 'light'
-    | 'light-future'
-    | 'dark'
-    | 'dark-future'
-    | 'legacy-dark'
-    | 'legacy-light'
-    | 'light-increased-contrast'
-    | 'dark-increased-contrast'
-  >;
-  dark: Extract<
-    ThemeIds,
-    | 'light'
-    | 'light-future'
-    | 'dark'
-    | 'dark-future'
-    | 'legacy-dark'
-    | 'legacy-light'
-    | 'light-increased-contrast'
-    | 'dark-increased-contrast'
-  >;
-  colorMode: ThemeColorModes;
-  contrastMode: ThemeContrastModes;
-  shape?: Extract<ThemeIds, 'shape'>;
-  spacing: Extract<ThemeIds, 'spacing'>;
-  typography?: Extract<
-    ThemeIds,
-    'typography' | 'typography-adg3' | 'typography-minor3'
-  >;
-  UNSAFE_themeOptions?: ThemeOptionsSchema;
+	light: Extract<
+		ThemeIds,
+		| 'light'
+		| 'light-future'
+		| 'dark'
+		| 'dark-future'
+		| 'legacy-dark'
+		| 'legacy-light'
+		| 'light-increased-contrast'
+		| 'dark-increased-contrast'
+	>;
+	dark: Extract<
+		ThemeIds,
+		| 'light'
+		| 'light-future'
+		| 'dark'
+		| 'dark-future'
+		| 'legacy-dark'
+		| 'legacy-light'
+		| 'light-increased-contrast'
+		| 'dark-increased-contrast'
+	>;
+	colorMode: ThemeColorModes;
+	contrastMode: ThemeContrastModes;
+	shape?: Extract<ThemeIds, 'shape'>;
+	spacing: Extract<ThemeIds, 'spacing'>;
+	typography?: Extract<ThemeIds, 'typography' | 'typography-adg3' | 'typography-minor3'>;
+	UNSAFE_themeOptions?: ThemeOptionsSchema;
 }
 
 /**
  * themeStateDefaults: the default values for ThemeState used by theming utilities
  */
 export const themeStateDefaults: ThemeState = {
-  colorMode: 'auto',
-  contrastMode: 'auto',
-  dark: 'dark',
-  light: 'light',
-  shape: undefined,
-  spacing: 'spacing',
-  typography: undefined,
-  UNSAFE_themeOptions: undefined,
+	colorMode: 'auto',
+	contrastMode: 'auto',
+	dark: 'dark',
+	light: 'light',
+	shape: undefined,
+	spacing: 'spacing',
+	typography: undefined,
+	UNSAFE_themeOptions: undefined,
 };
 
 /**
@@ -335,7 +329,7 @@ export const themeStateDefaults: ThemeState = {
  * (the page doesn't have an "auto" color mode, it's either light or dark)
  */
 export interface ActiveThemeState extends ThemeState {
-  colorMode: DataColorModes;
+	colorMode: DataColorModes;
 }
 
 export default themeConfig;

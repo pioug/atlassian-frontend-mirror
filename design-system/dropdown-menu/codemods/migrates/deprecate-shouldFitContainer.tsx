@@ -2,8 +2,8 @@
 import { createRemoveFuncAddCommentFor } from '@atlaskit/codemod-utils';
 
 const deprecateShouldFitContainer = createRemoveFuncAddCommentFor(
-  '@atlaskit/dropdown-menu',
-  'shouldFitContainer',
+	'@atlaskit/dropdown-menu',
+	'shouldFitContainer',
 );
 
 export default deprecateShouldFitContainer;

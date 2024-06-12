@@ -8,22 +8,27 @@ import { BODIED_EXT_PADDING, EXTENSION_PADDING } from '../../styles';
 
 export { EXTENSION_PADDING as padding, BODIED_EXT_PADDING };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperDefault = css({
 	background: token('color.background.neutral', N20),
 	borderRadius: token('border.radius', '3px'),
 	position: 'relative',
 	verticalAlign: 'middle',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-overlay': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.extension-overlay': {
 			background: token('color.background.neutral.hovered', N20A),
 			color: 'transparent',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&:hover .extension-overlay': {
 			opacity: 1,
 		},
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const overlay = css({
 	borderRadius: token('border.radius', '3px'),
 	position: 'absolute',
@@ -34,9 +39,11 @@ export const overlay = css({
 	transition: 'opacity 0.3s',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const placeholderFallback = css({
 	display: 'inline-flex',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > img': {
 		margin: `0 ${token('space.050', '4px')}`,
 	},
@@ -45,6 +52,7 @@ export const placeholderFallback = css({
 	label: 'placeholder-fallback',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const placeholderFallbackParams = css({
 	display: 'inline-block',
 	maxWidth: '200px',
@@ -55,6 +63,7 @@ export const placeholderFallbackParams = css({
 	overflow: 'hidden',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const styledImage = css({
 	maxHeight: '16px',
 	maxWidth: '16px',

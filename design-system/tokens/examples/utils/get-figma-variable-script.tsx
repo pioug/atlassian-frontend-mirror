@@ -1,11 +1,11 @@
 import { type ThemeOptionsSchema } from '../../src/theme-config';
 
 export default function getFigmaVariableScript(
-  customTheme: ThemeOptionsSchema,
-  lightTokens: { [key: string]: string },
-  darkTokens: { [key: string]: string },
+	customTheme: ThemeOptionsSchema,
+	lightTokens: { [key: string]: string },
+	darkTokens: { [key: string]: string },
 ) {
-  return `
+	return `
   function parseColor(color) {
     color = color.trim();
     const rgbRegex = /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/;
@@ -97,7 +97,7 @@ export default function getFigmaVariableScript(
   setFigmaVariables()
 
   console.warn(\`\\n\\nFigma variables set to a collection named "custom-theme-${
-    customTheme.brandColor
-  }" \\nIf you want to replace an existing theme, type 'setFigmaVariables(\\"my theme\\")' and press Enter in the Figma console\\n\\n\\n\`)
+		customTheme.brandColor
+	}" \\nIf you want to replace an existing theme, type 'setFigmaVariables(\\"my theme\\")' and press Enter in the Figma console\\n\\n\\n\`)
 `;
 }

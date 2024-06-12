@@ -15,7 +15,7 @@ export const SurfaceContext = createContext<any>('elevation.surface');
  * @see SurfaceContext
  */
 export const useSurface = () => {
-  return useContext(SurfaceContext);
+	return useContext(SurfaceContext);
 };
 
 SurfaceContext.displayName = 'SurfaceProvider';

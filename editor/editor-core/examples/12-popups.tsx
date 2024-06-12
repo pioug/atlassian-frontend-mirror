@@ -231,6 +231,7 @@ const emojiProvider = getEmojiProvider();
 export default function Example() {
 	return (
 		<div>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={content}>
 				<h2>Intentionally Broken Example</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -252,6 +253,7 @@ export default function Example() {
 
 			<hr />
 
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={content}>
 				<h2>Basic</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -271,6 +273,7 @@ export default function Example() {
 				</div>
 			</div>
 
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={content}>
 				<h2>Basic with Custom Boundry</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -292,6 +295,7 @@ export default function Example() {
 
 			<hr />
 
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={content}>
 				<h2>Basic Portal</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -311,6 +315,7 @@ export default function Example() {
 				</div>
 			</div>
 
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={content}>
 				<h2>Portal with Custom Boundry</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -329,6 +334,7 @@ export default function Example() {
 				</div>
 			</div>
 
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={content}>
 				<h2>Portal in Scroll Container</h2>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -349,6 +355,7 @@ export default function Example() {
 
 			<hr />
 
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={content}>
 				<h2>Portal with custom scroll container</h2>
 				<JiraSidebarEditor />

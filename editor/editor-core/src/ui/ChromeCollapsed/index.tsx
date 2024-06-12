@@ -44,6 +44,7 @@ class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, {}> {
 		return (
 			<input
 				data-testid="chrome-collapsed"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={inputStyle}
 				ref={this.handleInputRef}
 				onFocus={this.focusHandler}

@@ -2,46 +2,32 @@
 import type { ASTPath, default as core, JSXElement } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
-import {
-  getDefaultSpecifier,
-  getJSXAttributesByName,
-} from '@atlaskit/codemod-utils';
+import { getDefaultSpecifier, getJSXAttributesByName } from '@atlaskit/codemod-utils';
 
-const replaceShouldAllowMultiline = (
-  j: core.JSCodeshift,
-  source: Collection<Node>,
-) => {
-  const defaultSpecifier = getDefaultSpecifier(
-    j,
-    source,
-    '@atlaskit/dropdown-menu',
-  );
+const replaceShouldAllowMultiline = (j: core.JSCodeshift, source: Collection<Node>) => {
+	const defaultSpecifier = getDefaultSpecifier(j, source, '@atlaskit/dropdown-menu');
 
-  if (!defaultSpecifier) {
-    return;
-  }
+	if (!defaultSpecifier) {
+		return;
+	}
 
-  source
-    .findJSXElements(defaultSpecifier)
-    .forEach((element: ASTPath<JSXElement>) => {
-      getJSXAttributesByName(j, element, 'shouldAllowMultiline').forEach(
-        (attribute: any) => {
-          const shouldTitleWrap = j.jsxAttribute(
-            j.jsxIdentifier('shouldTitleWrap'),
-            attribute.node.value,
-          );
-          const shouldDescriptionWrap = j.jsxAttribute(
-            j.jsxIdentifier('shouldDescriptionWrap'),
-            attribute.node.value,
-          );
+	source.findJSXElements(defaultSpecifier).forEach((element: ASTPath<JSXElement>) => {
+		getJSXAttributesByName(j, element, 'shouldAllowMultiline').forEach((attribute: any) => {
+			const shouldTitleWrap = j.jsxAttribute(
+				j.jsxIdentifier('shouldTitleWrap'),
+				attribute.node.value,
+			);
+			const shouldDescriptionWrap = j.jsxAttribute(
+				j.jsxIdentifier('shouldDescriptionWrap'),
+				attribute.node.value,
+			);
 
-          j(attribute).insertBefore(shouldTitleWrap);
-          j(attribute).insertBefore(shouldDescriptionWrap);
+			j(attribute).insertBefore(shouldTitleWrap);
+			j(attribute).insertBefore(shouldDescriptionWrap);
 
-          j(attribute).remove();
-        },
-      );
-    });
+			j(attribute).remove();
+		});
+	});
 };
 
 export default replaceShouldAllowMultiline;

@@ -1,41 +1,39 @@
 import React, { createContext, useContext } from 'react';
 
-import RouterLinkProvider, {
-  type RouterLinkComponent,
-} from './router-link-provider';
+import RouterLinkProvider, { type RouterLinkComponent } from './router-link-provider';
 import ThemeProvider, { type ColorMode, type Theme } from './theme-provider';
 
 const InsideAppProviderContext = createContext(false);
 interface AppProviderProps {
-  /**
-   * Initial color mode.
-   */
-  defaultColorMode?: ColorMode;
+	/**
+	 * Initial color mode.
+	 */
+	defaultColorMode?: ColorMode;
 
-  /**
-   * Theme settings.
-   */
-  defaultTheme?: Partial<Theme>;
+	/**
+	 * Theme settings.
+	 */
+	defaultTheme?: Partial<Theme>;
 
-  /**
-   * A configured router link component.
-   */
-  routerLinkComponent?: RouterLinkComponent<any>;
+	/**
+	 * A configured router link component.
+	 */
+	routerLinkComponent?: RouterLinkComponent<any>;
 
-  /**
-   * Disables theming functionality.
-   * This is intended for use in apps with existing
-   * theming configuration that want to incrementally
-   * adopt AppProvider.
-   *
-   * @warning Use with caution. This prop will be removed in a future release.
-   */
-  UNSAFE_isThemingDisabled?: boolean;
+	/**
+	 * Disables theming functionality.
+	 * This is intended for use in apps with existing
+	 * theming configuration that want to incrementally
+	 * adopt AppProvider.
+	 *
+	 * @warning Use with caution. This prop will be removed in a future release.
+	 */
+	UNSAFE_isThemingDisabled?: boolean;
 
-  /**
-   * App content.
-   */
-  children: React.ReactNode;
+	/**
+	 * App content.
+	 */
+	children: React.ReactNode;
 }
 
 /**
@@ -46,40 +44,33 @@ interface AppProviderProps {
  * Place it at the root of your application.
  */
 export function AppProvider({
-  children,
-  defaultColorMode = 'light',
-  defaultTheme,
-  routerLinkComponent,
-  UNSAFE_isThemingDisabled,
+	children,
+	defaultColorMode = 'light',
+	defaultTheme,
+	routerLinkComponent,
+	UNSAFE_isThemingDisabled,
 }: AppProviderProps) {
-  const isInsideAppProvider = useContext(InsideAppProviderContext);
+	const isInsideAppProvider = useContext(InsideAppProviderContext);
 
-  if (isInsideAppProvider) {
-    throw new Error(
-      'App provider should not be nested within another app provider.',
-    );
-  }
+	if (isInsideAppProvider) {
+		throw new Error('App provider should not be nested within another app provider.');
+	}
 
-  const routerLinkProvider = (
-    <RouterLinkProvider routerLinkComponent={routerLinkComponent}>
-      {children}
-    </RouterLinkProvider>
-  );
+	const routerLinkProvider = (
+		<RouterLinkProvider routerLinkComponent={routerLinkComponent}>{children}</RouterLinkProvider>
+	);
 
-  return (
-    <InsideAppProviderContext.Provider value={true}>
-      {UNSAFE_isThemingDisabled ? (
-        routerLinkProvider
-      ) : (
-        <ThemeProvider
-          defaultColorMode={defaultColorMode}
-          defaultTheme={defaultTheme}
-        >
-          {routerLinkProvider}
-        </ThemeProvider>
-      )}
-    </InsideAppProviderContext.Provider>
-  );
+	return (
+		<InsideAppProviderContext.Provider value={true}>
+			{UNSAFE_isThemingDisabled ? (
+				routerLinkProvider
+			) : (
+				<ThemeProvider defaultColorMode={defaultColorMode} defaultTheme={defaultTheme}>
+					{routerLinkProvider}
+				</ThemeProvider>
+			)}
+		</InsideAppProviderContext.Provider>
+	);
 }
 
 export default AppProvider;

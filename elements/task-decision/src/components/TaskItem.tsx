@@ -76,6 +76,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	const icon = (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={checkboxStyles(isRenderer)} contentEditable={false}>
 			<input
 				id={checkBoxId}

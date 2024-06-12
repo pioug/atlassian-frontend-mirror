@@ -2,20 +2,17 @@ jest.autoMockOff();
 
 import { createTransformer } from '@atlaskit/codemod-utils';
 
-import {
-  renameNextProp,
-  renamePrevProp,
-} from '../migrations/rename-prev-next-label';
+import { renameNextProp, renamePrevProp } from '../migrations/rename-prev-next-label';
 
 const transformer = createTransformer([renameNextProp, renamePrevProp]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Rename previous and next label', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
 
@@ -31,7 +28,7 @@ describe('Rename previous and next label', () => {
       );
     }
   `,
-    `
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
 
@@ -47,6 +44,6 @@ describe('Rename previous and next label', () => {
       );
     }
   `,
-    'should rename previous and next label to prevLabel and nextLabel',
-  );
+		'should rename previous and next label to prevLabel and nextLabel',
+	);
 });

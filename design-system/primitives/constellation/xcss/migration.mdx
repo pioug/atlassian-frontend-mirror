@@ -8,9 +8,8 @@ order: 2
 
 ### Changes for developers
 
-There are two key changes to be mindful of when migrating to XCSS.
-The first is updating callsites to remove any nested styles and
-tokenized values.
+There are two key changes to be mindful of when migrating to XCSS. The first is updating callsites
+to remove any nested styles and tokenized values.
 
 ```diff
 - import { css } from '@emotion/react';
@@ -26,8 +25,9 @@ tokenized values.
 });
 ```
 
-The second change is that for the `xcss` function to be applied correctly it must be applied on a component with an `xcss` JSXAttribute. This won't work with the `css` or `className`
-JSXAttributes, be aware if you're not seeing your styles appear.
+The second change is that for the `xcss` function to be applied correctly it must be applied on a
+component with an `xcss` JSXAttribute. This won't work with the `css` or `className` JSXAttributes,
+be aware if you're not seeing your styles appear.
 
 ```diff
 - <div css={someStyles} />
@@ -36,28 +36,32 @@ JSXAttributes, be aware if you're not seeing your styles appear.
 
 ### Changing the way you express styles
 
-Why are nested selectors a problem? A key philosophy of XCSS is encouraging more deterministic style application. Restricting nested styles eliminates side-effects and encourages component encapsulation. Consider the below example:
+Why are nested selectors a problem? A key philosophy of XCSS is encouraging more deterministic style
+application. Restricting nested styles eliminates side-effects and encourages component
+encapsulation. Consider the below example:
 
 ```tsx
 const myComponentStyles = css({
-  '> *': {
-    color: 'color.text.danger',
-  },
+	'> *': {
+		color: 'color.text.danger',
+	},
 });
 
 const MyComponent = () => (
-  <div css={myComponentStyles}>
-    <p>Text here</p>
-  </div>
+	<div css={myComponentStyles}>
+		<p>Text here</p>
+	</div>
 );
 ```
 
-Here the component is applying styles that are implicitly meant for the text wrapped in the `p` below.
-In this simple example, it may seem okay, desirable even, but cases like these often occur across module or component boundaries.
+Here the component is applying styles that are implicitly meant for the text wrapped in the `p`
+below. In this simple example, it may seem okay, desirable even, but cases like these often occur
+across module or component boundaries.
 
-This makes the visibility of these dependencies harder to capture or reason about.
-Styles that are inherited or indirectly apply make a UI vulnerable to change and harder to maintain.
-Instead, if the same styles are applied directly to the affected element this can minimize and in some cases completely eliminate this problem.
+This makes the visibility of these dependencies harder to capture or reason about. Styles that are
+inherited or indirectly apply make a UI vulnerable to change and harder to maintain. Instead, if the
+same styles are applied directly to the affected element this can minimize and in some cases
+completely eliminate this problem.
 
 ```diff
 const myTextStyles = xcss({
@@ -74,36 +78,39 @@ const MyComponent = () => (
 );
 ```
 
-There will likely be cases where nesting is the only option. While not desirable, nesting can be used minimally, and when the potential impact is considered.
+There will likely be cases where nesting is the only option. While not desirable, nesting can be
+used minimally, and when the potential impact is considered.
 
 ## FAQ
 
-Migration to XCSS is simple for the majority of cases. Here are some common strategies for migrations.
+Migration to XCSS is simple for the majority of cases. Here are some common strategies for
+migrations.
 
 ### Non-tokenized values
 
-Before migrating to tokens, there are two options. Migrate to tokens first and then on a second pass migrate to XCSS or make the jump directly to use both tokens and XCSS.
+Before migrating to tokens, there are two options. Migrate to tokens first and then on a second pass
+migrate to XCSS or make the jump directly to use both tokens and XCSS.
 
 ```tsx
 const someStyles = css({
-  color: 'red',
+	color: 'red',
 });
 
 // ->>> Optional middle step
 const someStyles = css({
-  color: token('color.text.danger'),
+	color: token('color.text.danger'),
 });
 
 // ->>> The final state
 const someStyles = xcss({
-  color: 'color.text.danger',
+	color: 'color.text.danger',
 });
 ```
 
 ### Moving from the `styled` API
 
-If currently using the `styled` API there are a few steps to migrate.
-The safest approach is to use object styles, migrate to tokens (optionally) and then migrate to XCSS.
+If currently using the `styled` API there are a few steps to migrate. The safest approach is to use
+object styles, migrate to tokens (optionally) and then migrate to XCSS.
 
 ```tsx
 const MyComponent = styled.div`

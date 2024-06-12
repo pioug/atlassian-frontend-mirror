@@ -13,25 +13,25 @@ import { Create } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="Create"
-      Component={require('../examples/create').default}
-      source={require('!!raw-loader!../examples/create')}
-    />
-  )}
+		<Example
+			title="Create"
+			Component={require('../examples/create').default}
+			source={require('!!raw-loader!../examples/create')}
+		/>
+	)}
 
   ${(
-    <Example
-      title="Create as a link"
-      Component={require('../examples/create-with-link').default}
-      source={require('!!raw-loader!../examples/create-with-link')}
-    />
-  )}
+		<Example
+			title="Create as a link"
+			Component={require('../examples/create-with-link').default}
+			source={require('!!raw-loader!../examples/create-with-link')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/Create')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/components/Create')}
+		/>
+	)}
 `;

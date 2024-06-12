@@ -151,6 +151,7 @@ export const Reaction = ({
 	};
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={containerStyle}>
 			{showParticleEffect && (
 				<ReactionParticleEffect emojiId={emojiId} emojiProvider={emojiProvider} />
@@ -165,6 +166,7 @@ export const Reaction = ({
 				<button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={className}
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={[reactionStyle, reaction.reacted && reactedStyle]}
 					aria-label={intl.formatMessage(messages.reactWithEmoji, {
 						emoji: emojiName,
@@ -177,7 +179,9 @@ export const Reaction = ({
 					onFocus={handleFocused}
 					data-emoji-button-id={reaction.emojiId}
 				>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<FlashAnimation flash={flash} css={flashStyle}>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={[emojiStyle, reaction.count === 0 && emojiNoReactionStyle]}>
 							<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} fitToHeight={16} />
 						</div>

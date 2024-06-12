@@ -8,19 +8,16 @@ import type { LogoProps } from '../types';
 import { getColorsFromAppearance } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = (
-  { appearance, iconColor, textColor }: LogoProps,
-  colorMode: string | undefined,
-) => {
-  let colors = {
-    iconColor,
-    textColor,
-  };
+const svg = ({ appearance, iconColor, textColor }: LogoProps, colorMode: string | undefined) => {
+	let colors = {
+		iconColor,
+		textColor,
+	};
 
-  if (appearance) {
-    colors = getColorsFromAppearance(appearance, colorMode);
-  }
-  return `<svg fill="none" height="32" viewBox="0 0 100 32" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+	if (appearance) {
+		colors = getColorsFromAppearance(appearance, colorMode);
+	}
+	return `<svg fill="none" height="32" viewBox="0 0 100 32" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12.393 4.246a2.79 2.79 0 0 0-2.735-.026.4.4 0 0 1-.05.033l-.001.001c-.606.35-1.048.91-1.257 1.558q-.129.404-.13.842v3.675l4.603 2.656a3.64 3.64 0 0 1 1.824 3.155v9.487a3.6 3.6 0 0 1-.214 1.23l6.175-3.566A2.77 2.77 0 0 0 22 20.884v-9.487c0-.991-.532-1.912-1.392-2.408z"
         fill="${colors.iconColor}"
@@ -48,30 +45,30 @@ const svg = (
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const RovoLogo = ({
-  appearance,
-  label = 'Rovo',
-  size = defaultLogoParams.size,
-  testId,
-  textColor = defaultLogoParams.textColor,
-  iconColor = defaultLogoParams.iconColor,
+	appearance,
+	label = 'Rovo',
+	size = defaultLogoParams.size,
+	testId,
+	textColor = defaultLogoParams.textColor,
+	iconColor = defaultLogoParams.iconColor,
 }: LogoProps) => {
-  const { colorMode } = useThemeObserver();
-  return (
-    <Wrapper
-      appearance={appearance}
-      iconColor={iconColor}
-      label={label}
-      size={size}
-      svg={svg(
-        {
-          appearance,
-          iconColor,
-          textColor,
-        },
-        colorMode,
-      )}
-      testId={testId}
-      textColor={textColor}
-    />
-  );
+	const { colorMode } = useThemeObserver();
+	return (
+		<Wrapper
+			appearance={appearance}
+			iconColor={iconColor}
+			label={label}
+			size={size}
+			svg={svg(
+				{
+					appearance,
+					iconColor,
+					textColor,
+				},
+				colorMode,
+			)}
+			testId={testId}
+			textColor={textColor}
+		/>
+	);
 };

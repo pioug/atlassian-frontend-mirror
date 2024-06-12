@@ -22,211 +22,205 @@ import useUniqueId from './internal/hooks/use-unique-id';
 import type { CalendarProps } from './types';
 
 const boxStyles = xcss({
-  display: 'inline-block',
-  userSelect: 'none',
+	display: 'inline-block',
+	userSelect: 'none',
 });
 
 const analyticsAttributes = {
-  componentName: 'calendar',
-  packageName: process.env._PACKAGE_NAME_ as string,
-  packageVersion: process.env._PACKAGE_VERSION_ as string,
+	componentName: 'calendar',
+	packageName: process.env._PACKAGE_NAME_ as string,
+	packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(
-  function Calendar(
-    {
-      day,
-      defaultDay = 0,
-      defaultMonth = 0,
-      defaultPreviouslySelected = blankStringArray,
-      defaultSelected = blankStringArray,
-      defaultYear = 0,
-      disabled,
-      disabledDateFilter,
-      minDate,
-      maxDate,
-      month,
-      nextMonthLabel,
-      onBlur = noop,
-      onChange = noop,
-      onFocus = noop,
-      onSelect = noop,
-      previouslySelected,
-      previousMonthLabel,
-      selected,
-      today,
-      locale = 'en-US',
-      year,
-      analyticsContext,
-      weekStartDay = 0,
-      testId,
-      calendarRef,
-      className,
-      style,
-      tabIndex = 0,
-    },
-    ref,
-  ) {
-    const {
-      day: [dayValue, setDayValue],
-      month: [monthValue, setMonthValue],
-      year: [yearValue, setYearValue],
-      today: [todayValue],
-      selected: [selectedValue, setSelectedValue],
-      previous: [previouslySelectedValue, setPreviouslySelectedValue],
-    } = useControlledDateState({
-      day,
-      defaultDay,
-      month,
-      defaultMonth,
-      year,
-      defaultYear,
-      today,
-      selected,
-      defaultSelected,
-      previouslySelected,
-      defaultPreviouslySelected,
-    });
-    const [shouldSetFocus, setShouldSetFocus] = useState(false);
+const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(
+	{
+		day,
+		defaultDay = 0,
+		defaultMonth = 0,
+		defaultPreviouslySelected = blankStringArray,
+		defaultSelected = blankStringArray,
+		defaultYear = 0,
+		disabled,
+		disabledDateFilter,
+		minDate,
+		maxDate,
+		month,
+		nextMonthLabel,
+		onBlur = noop,
+		onChange = noop,
+		onFocus = noop,
+		onSelect = noop,
+		previouslySelected,
+		previousMonthLabel,
+		selected,
+		today,
+		locale = 'en-US',
+		year,
+		analyticsContext,
+		weekStartDay = 0,
+		testId,
+		calendarRef,
+		className,
+		style,
+		tabIndex = 0,
+	},
+	ref,
+) {
+	const {
+		day: [dayValue, setDayValue],
+		month: [monthValue, setMonthValue],
+		year: [yearValue, setYearValue],
+		today: [todayValue],
+		selected: [selectedValue, setSelectedValue],
+		previous: [previouslySelectedValue, setPreviouslySelectedValue],
+	} = useControlledDateState({
+		day,
+		defaultDay,
+		month,
+		defaultMonth,
+		year,
+		defaultYear,
+		today,
+		selected,
+		defaultSelected,
+		previouslySelected,
+		defaultPreviouslySelected,
+	});
+	const [shouldSetFocus, setShouldSetFocus] = useState(false);
 
-    const onChangeWithAnalytics = usePlatformLeafEventHandler({
-      fn: onChange,
-      action: 'changed',
-      analyticsData: analyticsContext,
-      ...analyticsAttributes,
-    });
+	const onChangeWithAnalytics = usePlatformLeafEventHandler({
+		fn: onChange,
+		action: 'changed',
+		analyticsData: analyticsContext,
+		...analyticsAttributes,
+	});
 
-    const { navigate, handleClickNext, handleClickPrev } = useHandleDateChange({
-      day: [dayValue, setDayValue],
-      month: [monthValue, setMonthValue],
-      year: [yearValue, setYearValue],
-      shouldSetFocus: [shouldSetFocus, setShouldSetFocus],
-      onChange: onChangeWithAnalytics,
-    });
+	const { navigate, handleClickNext, handleClickPrev } = useHandleDateChange({
+		day: [dayValue, setDayValue],
+		month: [monthValue, setMonthValue],
+		year: [yearValue, setYearValue],
+		shouldSetFocus: [shouldSetFocus, setShouldSetFocus],
+		onChange: onChangeWithAnalytics,
+	});
 
-    const onSelectWithAnalytics = usePlatformLeafEventHandler({
-      fn: onSelect,
-      action: 'selected',
-      analyticsData: analyticsContext,
-      ...analyticsAttributes,
-    });
+	const onSelectWithAnalytics = usePlatformLeafEventHandler({
+		fn: onSelect,
+		action: 'selected',
+		analyticsData: analyticsContext,
+		...analyticsAttributes,
+	});
 
-    const { handleClickDay, handleContainerKeyDown } = useHandleDateSelect({
-      day: [dayValue, setDayValue],
-      month: [monthValue, setMonthValue],
-      year: [yearValue, setYearValue],
-      selected: [selectedValue, setSelectedValue],
-      previous: [, setPreviouslySelectedValue],
-      onSelect: onSelectWithAnalytics,
-      navigate,
-    });
+	const { handleClickDay, handleContainerKeyDown } = useHandleDateSelect({
+		day: [dayValue, setDayValue],
+		month: [monthValue, setMonthValue],
+		year: [yearValue, setYearValue],
+		selected: [selectedValue, setSelectedValue],
+		previous: [, setPreviouslySelectedValue],
+		onSelect: onSelectWithAnalytics,
+		navigate,
+	});
 
-    const { handleContainerBlur, handleContainerFocus } = useFocusing({
-      onFocus,
-      onBlur,
-    });
+	const { handleContainerBlur, handleContainerFocus } = useFocusing({
+		onFocus,
+		onBlur,
+	});
 
-    useCalendarRef(calendarRef, {
-      navigate,
-    });
+	useCalendarRef(calendarRef, {
+		navigate,
+	});
 
-    const { monthsLong, daysShort, daysLong } = useLocale({
-      locale,
-      weekStartDay,
-    });
+	const { monthsLong, daysShort, daysLong } = useLocale({
+		locale,
+		weekStartDay,
+	});
 
-    const weeks = useGetWeeks({
-      day: dayValue,
-      month: monthValue,
-      year: yearValue,
-      today: todayValue,
-      selected: selectedValue,
-      previouslySelected: previouslySelectedValue,
-      disabled,
-      disabledDateFilter,
-      minDate,
-      maxDate,
-      daysLong,
-      weekStartDay,
-    });
+	const weeks = useGetWeeks({
+		day: dayValue,
+		month: monthValue,
+		year: yearValue,
+		today: todayValue,
+		selected: selectedValue,
+		previouslySelected: previouslySelectedValue,
+		disabled,
+		disabledDateFilter,
+		minDate,
+		maxDate,
+		daysLong,
+		weekStartDay,
+	});
 
-    const getNextHeading = () => {
-      // Next month is (currentMonth - 1) + 1, or just currentMonth in this
-      // instance.
-      const nextMonth = monthValue % 12;
-      const showNextYear = monthValue === 12;
-      return `${monthsLong[nextMonth]} ${
-        showNextYear ? yearValue + 1 : yearValue
-      }`;
-    };
+	const getNextHeading = () => {
+		// Next month is (currentMonth - 1) + 1, or just currentMonth in this
+		// instance.
+		const nextMonth = monthValue % 12;
+		const showNextYear = monthValue === 12;
+		return `${monthsLong[nextMonth]} ${showNextYear ? yearValue + 1 : yearValue}`;
+	};
 
-    const getPreviousHeading = () => {
-      // Previous month is (monthValue - 1) - 1. Need to add 12 so the modulo
-      // works as expected and stays positive.
-      const previousMonth = (monthValue + 12 - 2) % 12;
-      const showPreviousYear = monthValue === 1;
-      return `${monthsLong[previousMonth]} ${
-        showPreviousYear ? yearValue - 1 : yearValue
-      }`;
-    };
+	const getPreviousHeading = () => {
+		// Previous month is (monthValue - 1) - 1. Need to add 12 so the modulo
+		// works as expected and stays positive.
+		const previousMonth = (monthValue + 12 - 2) % 12;
+		const showPreviousYear = monthValue === 1;
+		return `${monthsLong[previousMonth]} ${showPreviousYear ? yearValue - 1 : yearValue}`;
+	};
 
-    const headerId = useUniqueId('month-year-header');
+	const headerId = useUniqueId('month-year-header');
 
-    return (
-      <div
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className={className}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        style={style}
-        onBlur={handleContainerBlur}
-        onFocus={handleContainerFocus}
-        data-testid={testId && `${testId}--container`}
-        ref={ref}
-      >
-        <Box
-          xcss={boxStyles}
-          padding="space.200"
-          aria-label="calendar"
-          testId={testId && `${testId}--calendar`}
-        >
-          <Stack space="space.150">
-            <Header
-              // The month number needs to be translated to index in the month
-              // name array e.g. 1 (January) -> 0
-              monthLongTitle={monthsLong[monthValue - 1]}
-              year={yearValue}
-              nextMonthLabel={nextMonthLabel}
-              previousMonthLabel={previousMonthLabel}
-              nextHeading={getNextHeading()}
-              previousHeading={getPreviousHeading()}
-              handleClickNext={handleClickNext}
-              handleClickPrev={handleClickPrev}
-              headerId={headerId}
-              tabIndex={tabIndex}
-              testId={testId}
-            />
-            <Box
-              role="grid"
-              onKeyDown={handleContainerKeyDown}
-              aria-labelledby={headerId}
-              testId={testId && `${testId}--calendar-dates`}
-            >
-              <WeekHeaderComponent daysShort={daysShort} testId={testId} />
-              <WeekDaysComponent
-                weeks={weeks}
-                handleClickDay={handleClickDay}
-                monthsLong={monthsLong}
-                shouldSetFocus={shouldSetFocus}
-                tabIndex={tabIndex}
-                testId={testId}
-              />
-            </Box>
-          </Stack>
-        </Box>
-      </div>
-    );
-  },
-);
+	return (
+		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={className}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={style}
+			onBlur={handleContainerBlur}
+			onFocus={handleContainerFocus}
+			data-testid={testId && `${testId}--container`}
+			ref={ref}
+		>
+			<Box
+				xcss={boxStyles}
+				padding="space.200"
+				aria-label="calendar"
+				testId={testId && `${testId}--calendar`}
+			>
+				<Stack space="space.150">
+					<Header
+						// The month number needs to be translated to index in the month
+						// name array e.g. 1 (January) -> 0
+						monthLongTitle={monthsLong[monthValue - 1]}
+						year={yearValue}
+						nextMonthLabel={nextMonthLabel}
+						previousMonthLabel={previousMonthLabel}
+						nextHeading={getNextHeading()}
+						previousHeading={getPreviousHeading()}
+						handleClickNext={handleClickNext}
+						handleClickPrev={handleClickPrev}
+						headerId={headerId}
+						tabIndex={tabIndex}
+						testId={testId}
+					/>
+					<Box
+						role="grid"
+						onKeyDown={handleContainerKeyDown}
+						aria-labelledby={headerId}
+						testId={testId && `${testId}--calendar-dates`}
+					>
+						<WeekHeaderComponent daysShort={daysShort} testId={testId} />
+						<WeekDaysComponent
+							weeks={weeks}
+							handleClickDay={handleClickDay}
+							monthsLong={monthsLong}
+							shouldSetFocus={shouldSetFocus}
+							tabIndex={tabIndex}
+							testId={testId}
+						/>
+					</Box>
+				</Stack>
+			</Box>
+		</div>
+	);
+});
 
 /**
  * __Calendar__
@@ -238,9 +232,9 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(
  * - [Usage](https://atlassian.design/components/calendar/usage)
  */
 const Calendar = memo(
-  forwardRef<HTMLDivElement, CalendarProps>(function Calendar(props, ref) {
-    return <InnerCalendar {...props} ref={ref} />;
-  }),
+	forwardRef<HTMLDivElement, CalendarProps>(function Calendar(props, ref) {
+		return <InnerCalendar {...props} ref={ref} />;
+	}),
 );
 
 Calendar.displayName = 'Calendar';

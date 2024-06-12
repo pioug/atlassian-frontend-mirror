@@ -24,30 +24,27 @@ import type { ModalDialogProps } from './types';
 export type { ModalDialogProps };
 
 const fillScreenStyles = css({
-  width: '100vw',
-  height: '100vh',
+	width: '100vw',
+	height: '100vh',
 
-  position: 'fixed',
-  insetBlockStart: token('space.0', '0'),
-  insetInlineStart: token('space.0', '0'),
+	position: 'fixed',
+	insetBlockStart: token('space.0', '0'),
+	insetInlineStart: token('space.0', '0'),
 
-  overflowY: 'auto',
-  WebkitOverflowScrolling: 'touch',
+	overflowY: 'auto',
+	WebkitOverflowScrolling: 'touch',
 });
 
-const allowlistElements = (
-  element: HTMLElement,
-  callback?: (element: HTMLElement) => boolean,
-) => {
-  // allows focus to reach elements outside the modal if they contain the data-atlas-extension attribute
-  if (element.hasAttribute('data-atlas-extension')) {
-    return false;
-  }
-  // allows to pass a callback function to allow elements be ignored by focus lock
-  if (typeof callback === 'function') {
-    return callback(element);
-  }
-  return true;
+const allowlistElements = (element: HTMLElement, callback?: (element: HTMLElement) => boolean) => {
+	// allows focus to reach elements outside the modal if they contain the data-atlas-extension attribute
+	if (element.hasAttribute('data-atlas-extension')) {
+		return false;
+	}
+	// allows to pass a callback function to allow elements be ignored by focus lock
+	if (typeof callback === 'function') {
+		return callback(element);
+	}
+	return true;
 };
 
 /**
@@ -61,135 +58,125 @@ const allowlistElements = (
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
 const ModalWrapper = (props: ModalDialogProps) => {
-  const {
-    autoFocus = true,
-    focusLockAllowlist,
-    shouldCloseOnEscapePress = true,
-    shouldCloseOnOverlayClick = true,
-    shouldScrollInViewport = false,
-    shouldReturnFocus = true,
-    stackIndex: stackIndexOverride,
-    onClose = noop,
-    onStackChange = noop,
-    isBlanketHidden,
-    children,
-    height,
-    width,
-    onCloseComplete,
-    onOpenComplete,
-    label,
-    testId,
-  } = props;
+	const {
+		autoFocus = true,
+		focusLockAllowlist,
+		shouldCloseOnEscapePress = true,
+		shouldCloseOnOverlayClick = true,
+		shouldScrollInViewport = false,
+		shouldReturnFocus = true,
+		stackIndex: stackIndexOverride,
+		onClose = noop,
+		onStackChange = noop,
+		isBlanketHidden,
+		children,
+		height,
+		width,
+		onCloseComplete,
+		onOpenComplete,
+		label,
+		testId,
+	} = props;
 
-  const calculatedStackIndex = useModalStack({ onStackChange });
-  const stackIndex = stackIndexOverride || calculatedStackIndex;
-  const isForeground = stackIndex === 0;
+	const calculatedStackIndex = useModalStack({ onStackChange });
+	const stackIndex = stackIndexOverride || calculatedStackIndex;
+	const isForeground = stackIndex === 0;
 
-  // When a user supplies a ref to focus we skip auto focus via react-focus-lock
-  const autoFocusLock = typeof autoFocus === 'boolean' ? autoFocus : false;
+	// When a user supplies a ref to focus we skip auto focus via react-focus-lock
+	const autoFocusLock = typeof autoFocus === 'boolean' ? autoFocus : false;
 
-  const onCloseHandler = usePlatformLeafEventHandler({
-    fn: onClose,
-    action: 'closed',
-    componentName: 'modalDialog',
-    packageName: process.env._PACKAGE_NAME_!,
-    packageVersion: process.env._PACKAGE_VERSION_!,
-  });
+	const onCloseHandler = usePlatformLeafEventHandler({
+		fn: onClose,
+		action: 'closed',
+		componentName: 'modalDialog',
+		packageName: process.env._PACKAGE_NAME_!,
+		packageVersion: process.env._PACKAGE_VERSION_!,
+	});
 
-  const onBlanketClicked = useCallback(
-    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      if (shouldCloseOnOverlayClick) {
-        onCloseHandler(e);
-      }
-    },
-    [shouldCloseOnOverlayClick, onCloseHandler],
-  );
+	const onBlanketClicked = useCallback(
+		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+			if (shouldCloseOnOverlayClick) {
+				onCloseHandler(e);
+			}
+		},
+		[shouldCloseOnOverlayClick, onCloseHandler],
+	);
 
-  usePreventProgrammaticScroll();
+	usePreventProgrammaticScroll();
 
-  const modalDialogWithBlanket = (
-    <Blanket
-      isTinted={!isBlanketHidden}
-      onBlanketClicked={onBlanketClicked}
-      testId={testId && `${testId}--blanket`}
-    >
-      <ModalDialog
-        testId={testId}
-        label={label}
-        autoFocus={autoFocus}
-        stackIndex={stackIndex}
-        onClose={onCloseHandler}
-        shouldCloseOnEscapePress={shouldCloseOnEscapePress && isForeground}
-        shouldScrollInViewport={shouldScrollInViewport}
-        height={height}
-        width={width}
-        onCloseComplete={onCloseComplete}
-        onOpenComplete={onOpenComplete}
-      >
-        {children}
-      </ModalDialog>
-    </Blanket>
-  );
+	const modalDialogWithBlanket = (
+		<Blanket
+			isTinted={!isBlanketHidden}
+			onBlanketClicked={onBlanketClicked}
+			testId={testId && `${testId}--blanket`}
+		>
+			<ModalDialog
+				testId={testId}
+				label={label}
+				autoFocus={autoFocus}
+				stackIndex={stackIndex}
+				onClose={onCloseHandler}
+				shouldCloseOnEscapePress={shouldCloseOnEscapePress && isForeground}
+				shouldScrollInViewport={shouldScrollInViewport}
+				height={height}
+				width={width}
+				onCloseComplete={onCloseComplete}
+				onOpenComplete={onOpenComplete}
+			>
+				{children}
+			</ModalDialog>
+		</Blanket>
+	);
 
-  let returnFocus = true;
-  let onDeactivation: (node: HTMLElement) => void;
+	let returnFocus = true;
+	let onDeactivation: (node: HTMLElement) => void;
 
-  if ('boolean' === typeof shouldReturnFocus) {
-    returnFocus = shouldReturnFocus;
-  } else {
-    onDeactivation = () => {
-      window.setTimeout(() => {
-        shouldReturnFocus.current?.focus();
-      }, 0);
-    };
-  }
+	if ('boolean' === typeof shouldReturnFocus) {
+		returnFocus = shouldReturnFocus;
+	} else {
+		onDeactivation = () => {
+			window.setTimeout(() => {
+				shouldReturnFocus.current?.focus();
+			}, 0);
+		};
+	}
 
-  return (
-    <UNSAFE_LAYERING
-      isDisabled={
-        getBooleanFF('platform.design-system-team.layering_qmiw3')
-          ? false
-          : true
-      }
-    >
-      <Portal zIndex={layers.modal()}>
-        <FadeIn>
-          {(fadeInProps) => (
-            <div
-              {...fadeInProps}
-              css={fillScreenStyles}
-              aria-hidden={!isForeground}
-            >
-              <FocusLock
-                autoFocus={autoFocusLock}
-                disabled={
-                  getBooleanFF(
-                    'platform.design-system-team.multiple-modal-inappropriate-focus_z5u4j',
-                  )
-                    ? undefined
-                    : !isForeground
-                }
-                returnFocus={returnFocus}
-                onDeactivation={onDeactivation}
-                whiteList={(element) =>
-                  allowlistElements(element, focusLockAllowlist)
-                }
-              >
-                {/* Ensures scroll events are blocked on the document body and locked */}
-                <ScrollLock />
-                {/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
-                {shouldScrollInViewport ? (
-                  <TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
-                ) : (
-                  modalDialogWithBlanket
-                )}
-              </FocusLock>
-            </div>
-          )}
-        </FadeIn>
-      </Portal>
-    </UNSAFE_LAYERING>
-  );
+	return (
+		<UNSAFE_LAYERING
+			isDisabled={getBooleanFF('platform.design-system-team.layering_qmiw3') ? false : true}
+		>
+			<Portal zIndex={layers.modal()}>
+				<FadeIn>
+					{(fadeInProps) => (
+						<div {...fadeInProps} css={fillScreenStyles} aria-hidden={!isForeground}>
+							<FocusLock
+								autoFocus={autoFocusLock}
+								disabled={
+									getBooleanFF(
+										'platform.design-system-team.multiple-modal-inappropriate-focus_z5u4j',
+									)
+										? undefined
+										: !isForeground
+								}
+								returnFocus={returnFocus}
+								onDeactivation={onDeactivation}
+								whiteList={(element) => allowlistElements(element, focusLockAllowlist)}
+							>
+								{/* Ensures scroll events are blocked on the document body and locked */}
+								<ScrollLock />
+								{/* TouchScrollable makes the whole modal dialog scrollable when scroll boundary is set to viewport. */}
+								{shouldScrollInViewport ? (
+									<TouchScrollable>{modalDialogWithBlanket}</TouchScrollable>
+								) : (
+									modalDialogWithBlanket
+								)}
+							</FocusLock>
+						</div>
+					)}
+				</FadeIn>
+			</Portal>
+		</UNSAFE_LAYERING>
+	);
 };
 
 export default ModalWrapper;

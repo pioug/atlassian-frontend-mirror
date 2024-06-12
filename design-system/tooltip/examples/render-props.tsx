@@ -8,126 +8,103 @@ import { token } from '@atlaskit/tokens';
 
 import Tooltip, { type PositionType, TooltipPrimitive } from '../src';
 
-const VALID_POSITIONS: PositionType[] = [
-  'mouse',
-  'top',
-  'right',
-  'bottom',
-  'left',
-];
+const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'left'];
 
 const shortMessage = "I'm a short tooltip";
-const longMessage =
-  'I am a longer tooltip with a decent amount of content inside';
+const longMessage = 'I am a longer tooltip with a decent amount of content inside';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InlineDialog = styled(TooltipPrimitive)({
-  background: 'white',
-  borderRadius: token('border.radius', '4px'),
-  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
-  boxSizing: 'content-box',
-  color: token('color.text'),
-  maxHeight: '300px',
-  maxWidth: '300px',
-  padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
+	background: 'white',
+	borderRadius: token('border.radius', '4px'),
+	boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
+	boxSizing: 'content-box',
+	color: token('color.text'),
+	maxHeight: '300px',
+	maxWidth: '300px',
+	padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
 });
 
 export default () => {
-  const [message, setMessage] = React.useState(shortMessage);
-  const [position, setPosition] = useState(0);
+	const [message, setMessage] = React.useState(shortMessage);
+	const [position, setPosition] = useState(0);
 
-  const updateTooltip = React.useRef<() => void>();
+	const updateTooltip = React.useRef<() => void>();
 
-  const changeDirection = () => {
-    setPosition((position + 1) % VALID_POSITIONS.length);
-  };
+	const changeDirection = () => {
+		setPosition((position + 1) % VALID_POSITIONS.length);
+	};
 
-  const handleOnMouseDown = (event: React.MouseEvent<HTMLElement>) =>
-    console.log(event);
+	const handleOnMouseDown = (event: React.MouseEvent<HTMLElement>) => console.log(event);
 
-  const positionText = VALID_POSITIONS[position];
+	const positionText = VALID_POSITIONS[position];
 
-  React.useLayoutEffect(() => {
-    updateTooltip.current?.();
-  }, [message]);
+	React.useLayoutEffect(() => {
+		updateTooltip.current?.();
+	}, [message]);
 
-  return (
-    <Fragment>
-      <p>Icon</p>
-      <Tooltip content="Save">
-        {(tooltipProps) => (
-          <IconButton
-            icon={AddIcon}
-            testId="add"
-            {...tooltipProps}
-            label="Add"
-          />
-        )}
-      </Tooltip>
+	return (
+		<Fragment>
+			<p>Icon</p>
+			<Tooltip content="Save">
+				{(tooltipProps) => <IconButton icon={AddIcon} testId="add" {...tooltipProps} label="Add" />}
+			</Tooltip>
 
-      <p>Position</p>
-      <div
-        style={{
-          padding: `${token('space.500', '40px')} ${token(
-            'space.500',
-            '40px',
-          )}`,
-        }}
-      >
-        <Tooltip content={positionText} position={positionText}>
-          {(tooltipProps) => (
-            <Button {...tooltipProps} onClick={changeDirection}>
-              Target
-            </Button>
-          )}
-        </Tooltip>
-      </div>
+			<p>Position</p>
+			<div
+				style={{
+					padding: `${token('space.500', '40px')} ${token('space.500', '40px')}`,
+				}}
+			>
+				<Tooltip content={positionText} position={positionText}>
+					{(tooltipProps) => (
+						<Button {...tooltipProps} onClick={changeDirection}>
+							Target
+						</Button>
+					)}
+				</Tooltip>
+			</div>
 
-      <p>Position without render props</p>
-      <div
-        style={{
-          padding: `${token('space.500', '40px')} ${token(
-            'space.500',
-            '40px',
-          )}`,
-        }}
-      >
-        <Tooltip content={positionText} position={positionText}>
-          <Button onClick={changeDirection}>Target</Button>
-        </Tooltip>
-      </div>
+			<p>Position without render props</p>
+			<div
+				style={{
+					padding: `${token('space.500', '40px')} ${token('space.500', '40px')}`,
+				}}
+			>
+				<Tooltip content={positionText} position={positionText}>
+					<Button onClick={changeDirection}>Target</Button>
+				</Tooltip>
+			</div>
 
-      <p>Click to update</p>
-      <Tooltip
-        content={({ update }) => {
-          updateTooltip.current = update;
-          return message;
-        }}
-      >
-        {(tooltipProps) => (
-          <Button
-            {...tooltipProps}
-            onClick={() =>
-              setMessage(message === shortMessage ? longMessage : shortMessage)
-            }
-            onMouseDown={(e) => {
-              tooltipProps.onMouseDown(e);
-              handleOnMouseDown(e);
-            }}
-          >
-            Activate to toggle tooltip
-          </Button>
-        )}
-      </Tooltip>
+			<p>Click to update</p>
+			<Tooltip
+				content={({ update }) => {
+					updateTooltip.current = update;
+					return message;
+				}}
+			>
+				{(tooltipProps) => (
+					<Button
+						{...tooltipProps}
+						onClick={() => setMessage(message === shortMessage ? longMessage : shortMessage)}
+						onMouseDown={(e) => {
+							tooltipProps.onMouseDown(e);
+							handleOnMouseDown(e);
+						}}
+					>
+						Activate to toggle tooltip
+					</Button>
+				)}
+			</Tooltip>
 
-      <p>Component in content</p>
-      <Tooltip component={InlineDialog} content="This is a tooltip">
-        {(tooltipProps) => (
-          <Button appearance="primary" {...tooltipProps}>
-            Hover over me
-          </Button>
-        )}
-      </Tooltip>
-    </Fragment>
-  );
+			<p>Component in content</p>
+			<Tooltip component={InlineDialog} content="This is a tooltip">
+				{(tooltipProps) => (
+					<Button appearance="primary" {...tooltipProps}>
+						Hover over me
+					</Button>
+				)}
+			</Tooltip>
+		</Fragment>
+	);
 };

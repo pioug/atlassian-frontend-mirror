@@ -58,12 +58,15 @@ const showOverlayStyles = css({
 
 const iconStyles = css({
 	background: CONFIGURE_ICON_BACKGROUND_COLOR,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		background: CONFIGURE_ICON_BACKGROUND_HOVERED_COLOR,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':active': {
 		background: CONFIGURE_ICON_BACKGROUND_ACTIVE_COLOR,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	span: {
 		// If PreferencesIcon left as inline-block (default), height is incorrect and border radius is clipped when parent element
 		// uses 1lh height (rather than 100%)
@@ -189,6 +192,7 @@ const LeftIconOverlay = ({
 					{(tooltipProps) => (
 						<React.Fragment>
 							{/* ClassName usage for calculating availableWidth */}
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 							<span aria-hidden="true" className={OVERLAY_MARKER_CLASSNAME}>
 								{ZERO_WIDTH_JOINER}
 							</span>
@@ -200,6 +204,7 @@ const LeftIconOverlay = ({
 								<span
 									{...tooltipProps}
 									css={iconAndLabelStyles}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={ICON_AND_LABEL_CLASSNAME}
 								>
 									<span css={iconStyles}>

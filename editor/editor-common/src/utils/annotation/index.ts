@@ -128,3 +128,30 @@ export function containsAnyAnnotations(slice: Slice, state: EditorState): boolea
 	});
 	return hasAnnotation;
 }
+
+/**
+ * This returns a list of node names that are inline nodes in the range.
+ */
+export function getRangeInlineNodeNames({
+	doc,
+	pos,
+}: {
+	doc: PMNode;
+	pos: { from: number; to: number };
+}) {
+	if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		return undefined;
+	}
+
+	let nodeNames = new Set<string>();
+
+	doc.nodesBetween(pos.from, pos.to, (node) => {
+		if (node.isInline) {
+			nodeNames.add(node.type.name);
+		}
+	});
+
+	// We sort the list alphabetically to make human consumption of the list easier (in tools like the analytics extension)
+	const sortedNames = [...nodeNames].sort();
+	return sortedNames;
+}

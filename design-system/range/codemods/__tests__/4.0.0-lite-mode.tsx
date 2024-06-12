@@ -5,10 +5,10 @@ import transformer from '../4.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Update ref prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useRef } from 'react';
       import Range from '@atlaskit/range';
 
@@ -21,7 +21,7 @@ describe('Update ref prop', () => {
         return <Range inputRef={inputRef} />;
       }
     `,
-    `
+		`
       import React, { useRef } from 'react';
       import Range from '@atlaskit/range';
 
@@ -34,13 +34,13 @@ describe('Update ref prop', () => {
         return <Range ref={inputRef} />;
       }
     `,
-    'should replace inputRef with ref',
-  );
+		'should replace inputRef with ref',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useRef } from 'react';
       import Range from '@atlaskit/range';
 
@@ -56,7 +56,7 @@ describe('Update ref prop', () => {
         );
       }
     `,
-    `
+		`
       import React, { useRef } from 'react';
       import Range from '@atlaskit/range';
 
@@ -72,13 +72,13 @@ describe('Update ref prop', () => {
         );
       }
     `,
-    'should replace inputRef with ref when defined inline',
-  );
+		'should replace inputRef with ref when defined inline',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useRef } from 'react';
       import Foo from '@atlaskit/range';
 
@@ -91,7 +91,7 @@ describe('Update ref prop', () => {
         return <Foo inputRef={inputRef} />;
       }
     `,
-    `
+		`
       import React, { useRef } from 'react';
       import Foo from '@atlaskit/range';
 
@@ -104,6 +104,6 @@ describe('Update ref prop', () => {
         return <Foo ref={inputRef} />;
       }
     `,
-    'should change inputRef with aliased import name',
-  );
+		'should change inputRef with aliased import name',
+	);
 });

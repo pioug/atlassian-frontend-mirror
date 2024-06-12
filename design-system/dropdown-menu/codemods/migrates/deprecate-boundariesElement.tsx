@@ -2,8 +2,8 @@
 import { createRemoveFuncAddCommentFor } from '@atlaskit/codemod-utils';
 
 const deprecateItems = createRemoveFuncAddCommentFor(
-  '@atlaskit/dropdown-menu',
-  'boundariesElement',
+	'@atlaskit/dropdown-menu',
+	'boundariesElement',
 );
 
 export default deprecateItems;

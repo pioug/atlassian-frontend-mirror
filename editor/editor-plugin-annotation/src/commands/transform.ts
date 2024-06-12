@@ -8,13 +8,16 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type {
 	AnalyticsEventPayload,
+	AnnotationAEP,
 	EditorAnalyticsAPI,
 	RESOLVE_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { applyMarkOnRange } from '@atlaskit/editor-common/mark';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin, InlineCommentInputMethod } from '../types';
 import { getDraftCommandAnalyticsPayload, getPluginState, resolveDraftBookmark } from '../utils';
@@ -82,13 +85,27 @@ const addOpenCloseAnalytics =
 const addInsertAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(transaction: Transaction, state: EditorState) => {
-		editorAnalyticsAPI?.attachAnalyticsEvent({
+		const analyticsEvent: AnnotationAEP = {
 			action: ACTION.INSERTED,
 			actionSubject: ACTION_SUBJECT.ANNOTATION,
 			eventType: EVENT_TYPE.TRACK,
 			actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 			attributes: {},
-		})(transaction);
+		};
+
+		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			const { bookmark } = getPluginState(state) || {};
+
+			// When this FF is removed we can move the analytics event creation inside of the
+			// attachAnalyticsEvent and get type inference for the attributes.
+			// @ts-ignore
+			analyticsEvent.attributes.inlineNodeNames = getRangeInlineNodeNames({
+				doc: state.doc,
+				pos: resolveDraftBookmark(state, bookmark),
+			});
+		}
+
+		editorAnalyticsAPI?.attachAnalyticsEvent(analyticsEvent)(transaction);
 		return transaction;
 	};
 

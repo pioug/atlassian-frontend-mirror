@@ -5,5 +5,5 @@ import NoUnderlineExample from '../../../../../examples/02-no-underline';
 import { themeVariants } from './utils';
 
 snapshot(NoUnderlineExample, {
-  variants: themeVariants,
+	variants: themeVariants,
 });

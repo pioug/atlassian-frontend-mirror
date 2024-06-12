@@ -6,6 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 export const container = (height?: number) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius: `${borderRadius()}px`,
 		boxShadow: token('elevation.shadow.overlay', `0 12px 24px -6px ${N50A}, 0 0 1px ${N60A}`),
 		display: 'flex',
@@ -13,5 +14,6 @@ export const container = (height?: number) =>
 		boxSizing: 'border-box',
 		padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
 		backgroundColor: token('color.background.input', N0),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: height ? `${height}px` : undefined,
 	});

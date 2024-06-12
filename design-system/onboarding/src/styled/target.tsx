@@ -8,17 +8,17 @@ import { P300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type BaseProps = React.HTMLAttributes<HTMLDivElement> & {
-  bgColor?: string;
-  radius?: number;
-  className?: string;
-  testId?: string;
-  children?: ReactNode;
+	bgColor?: string;
+	radius?: number;
+	className?: string;
+	testId?: string;
+	children?: ReactNode;
 };
 
 type TargetProps = Omit<BaseProps, 'css'> & {
-  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-  pulse?: boolean;
-  testId?: string;
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
+	pulse?: boolean;
+	testId?: string;
 };
 
 // NOTE:
@@ -27,48 +27,38 @@ const baseShadow = `0 0 0 2px ${token('color.border.discovery', P300)}`;
 
 const easing = 'cubic-bezier(0.55, 0.055, 0.675, 0.19)';
 const pulseKeyframes = keyframes({
-  '0%, 33%': {
-    boxShadow: `${baseShadow}, 0 0 0 ${token(
-      'color.border.discovery',
-      'rgba(101, 84, 192, 1)',
-    )}`,
-  },
-  '66%, 100%': {
-    boxShadow: `${baseShadow}, 0 0 0 10px rgba(101, 84, 192, 0.01)`,
-  },
+	'0%, 33%': {
+		boxShadow: `${baseShadow}, 0 0 0 ${token('color.border.discovery', 'rgba(101, 84, 192, 1)')}`,
+	},
+	'66%, 100%': {
+		boxShadow: `${baseShadow}, 0 0 0 10px rgba(101, 84, 192, 0.01)`,
+	},
 });
 // This is needed for unit tests
 export const pulseKeyframesName = pulseKeyframes.name;
 const animationStyles = css({
-  animation: `${pulseKeyframes} 3000ms ${easing} infinite`,
-  // Keep a purple boxshadow on the Pulse component if `prefers-reduced-motion`
-  // is applied so we still have a functioning semantic affordance.
-  boxShadow: baseShadow,
+	animation: `${pulseKeyframes} 3000ms ${easing} infinite`,
+	// Keep a purple boxshadow on the Pulse component if `prefers-reduced-motion`
+	// is applied so we still have a functioning semantic affordance.
+	boxShadow: baseShadow,
 });
 
-const Base = ({
-  children,
-  bgColor,
-  radius,
-  style,
-  testId,
-  ...props
-}: BaseProps) => (
-  <div
-    data-testid={testId}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    style={
-      {
-        ...style,
-        backgroundColor: bgColor,
-        borderRadius: radius ? `${radius}px` : undefined,
-      } as React.CSSProperties
-    }
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    {...props}
-  >
-    {children}
-  </div>
+const Base = ({ children, bgColor, radius, style, testId, ...props }: BaseProps) => (
+	<div
+		data-testid={testId}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		style={
+			{
+				...style,
+				backgroundColor: bgColor,
+				borderRadius: radius ? `${radius}px` : undefined,
+			} as React.CSSProperties
+		}
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+	>
+		{children}
+	</div>
 );
 
 /**
@@ -79,24 +69,24 @@ const Base = ({
  * @internal
  */
 export const TargetInner = ({ children, pulse, ...props }: TargetProps) => (
-  <Base
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    {...props}
-    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-    css={[pulse && animationStyles, reduceMotionAsPerUserPreference]}
-  >
-    {children}
-  </Base>
+	<Base
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		css={[pulse && animationStyles, reduceMotionAsPerUserPreference]}
+	>
+		{children}
+	</Base>
 );
 
 const targetOverlayStyles = css({
-  width: '100%',
-  height: '100%',
-  position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  insetBlockStart: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  insetInlineStart: 0,
+	width: '100%',
+	height: '100%',
+	position: 'absolute',
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	insetBlockStart: 0,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	insetInlineStart: 0,
 });
 
 /**
@@ -108,17 +98,17 @@ const targetOverlayStyles = css({
  * @internal
  */
 export const TargetOverlay = (props: HTMLAttributes<HTMLDivElement>) => (
-  <div
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    {...props}
-    css={targetOverlayStyles}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    style={
-      {
-        cursor: props.onClick ? 'pointer' : 'auto',
-      } as React.CSSProperties
-    }
-  />
+	<div
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+		css={targetOverlayStyles}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		style={
+			{
+				cursor: props.onClick ? 'pointer' : 'auto',
+			} as React.CSSProperties
+		}
+	/>
 );
 
 /**
@@ -130,22 +120,17 @@ export const TargetOverlay = (props: HTMLAttributes<HTMLDivElement>) => (
  * - [Code](https://atlassian.design/components/onboarding/code)
  * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
-export const Pulse = ({
-  children,
-  pulse = true,
-  testId,
-  ...props
-}: TargetProps) => (
-  <Base
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    {...props}
-    css={[
-      pulse && animationStyles,
-      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-      reduceMotionAsPerUserPreference,
-    ]}
-    testId={testId}
-  >
-    {children}
-  </Base>
+export const Pulse = ({ children, pulse = true, testId, ...props }: TargetProps) => (
+	<Base
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+		css={[
+			pulse && animationStyles,
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			reduceMotionAsPerUserPreference,
+		]}
+		testId={testId}
+	>
+		{children}
+	</Base>
 );

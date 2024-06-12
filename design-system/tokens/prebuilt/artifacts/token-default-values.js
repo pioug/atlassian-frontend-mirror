@@ -13,7 +13,7 @@ exports.default = void 0;
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::1b4213f436ca98f72f768a71f0174638>>
+ * @codegen <<SignedSource::2fa3f52c4d7435cd0f92feb235c7ca68>>
  * @codegenCommand yarn build tokens
  */
 var defaultTokenValues = {

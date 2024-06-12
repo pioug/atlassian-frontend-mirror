@@ -52,7 +52,7 @@ const from = (init: ItemInit): MenuItem => ({
 	value: { name: init.name },
 	elemBefore: <init.Icon label="" />,
 	elemAfter: init.shortcut ? (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={shortcutStyle}>{init.shortcut}</div>
 	) : undefined,
 	'aria-label': init.shortcut ? init.content + ' ' + init.shortcut : init.content,

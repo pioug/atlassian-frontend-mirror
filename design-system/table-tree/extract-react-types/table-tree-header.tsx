@@ -7,14 +7,14 @@
  * Defining it here for now lets us provide *something* without much headache.
  */
 type HeaderProps = {
-  /**
-   * Width of the header item. Takes a string, or a number representing the width in pixels.
-   */
-  width?: string | number;
+	/**
+	 * Width of the header item. Takes a string, or a number representing the width in pixels.
+	 */
+	width?: string | number;
 };
 
 const TableHeader = function (props: HeaderProps) {
-  return null;
+	return null;
 };
 
 export default TableHeader;

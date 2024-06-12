@@ -7,12 +7,12 @@ const transformer = createTransformer([mapBodyFromProps]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('map body from props', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -31,7 +31,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -55,13 +55,13 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should invoke Body declared as shorthand with children passed as argument',
-      );
+				'should invoke Body declared as shorthand with children passed as argument',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -83,7 +83,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -107,13 +107,13 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should invoke Body declared as assigned variable with children passed as argument',
-      );
+				'should invoke Body declared as assigned variable with children passed as argument',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -140,7 +140,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -167,13 +167,13 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should invoke Body declared as a function expression with children passed as argument',
-      );
+				'should invoke Body declared as a function expression with children passed as argument',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -198,7 +198,7 @@ describe('map body from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -225,13 +225,13 @@ describe('map body from props', () => {
       }
     }
     `,
-        'should invoke Body of a modal dialog declared as class component',
-      );
+				'should invoke Body of a modal dialog declared as class component',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -255,7 +255,7 @@ describe('map body from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -283,13 +283,13 @@ describe('map body from props', () => {
       }
     }
     `,
-        'should invoke Body passed to the body prop',
-      );
+				'should invoke Body passed to the body prop',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -315,7 +315,7 @@ describe('map body from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -343,13 +343,13 @@ describe('map body from props', () => {
       }
     }
     `,
-        'should take Body passed from components prop if both declarations exist',
-      );
+				'should take Body passed from components prop if both declarations exist',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -366,7 +366,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog, { ModalBody } from "@atlaskit/modal-dialog";
@@ -385,13 +385,13 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should wrap children in default ModalBody if components prop is NOT defined as inline object expression',
-      );
+				'should wrap children in default ModalBody if components prop is NOT defined as inline object expression',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -411,7 +411,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog, { ModalBody } from "@atlaskit/modal-dialog";
@@ -432,13 +432,13 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should wrap children in default ModalBody if no override exists in the components prop',
-      );
+				'should wrap children in default ModalBody if no override exists in the components prop',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -451,7 +451,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog, { ModalBody } from "@atlaskit/modal-dialog";
@@ -466,13 +466,13 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should wrap children in default ModalBody if no components/body props exist',
-      );
+				'should wrap children in default ModalBody if no components/body props exist',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     const ModalDialog = React.lazy(() => import('@atlaskit/modal-dialog'));
@@ -485,7 +485,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     const ModalDialog = React.lazy(() => import('@atlaskit/modal-dialog'));
@@ -503,13 +503,13 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should wrap import ModalBody dynamically when ModalDialog is dynamically imported',
-      );
+				'should wrap import ModalBody dynamically when ModalDialog is dynamically imported',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -531,7 +531,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog, { ModalBody as AKModalBody } from "@atlaskit/modal-dialog";
@@ -554,13 +554,13 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should import default ModalBody as AKModalBody if the declaration already exists',
-      );
+				'should import default ModalBody as AKModalBody if the declaration already exists',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog, { ModalBody } from '@atlaskit/modal-dialog';
@@ -583,7 +583,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog, { ModalBody } from '@atlaskit/modal-dialog';
@@ -606,13 +606,13 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should do nothing if ModalBody is already imported',
-      );
+				'should do nothing if ModalBody is already imported',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -625,7 +625,7 @@ describe('map body from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -638,8 +638,8 @@ describe('map body from props', () => {
       );
     }
     `,
-        'should do nothing when no overrides exist and ModalDialog is self-closing',
-      );
-    });
-  });
+				'should do nothing when no overrides exist and ModalDialog is self-closing',
+			);
+		});
+	});
 });

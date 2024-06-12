@@ -4,11 +4,11 @@ import rule from '../index';
 const importSources = ['@emotion/core', '@emotion/react', 'styled-components'];
 
 tester.run('keyframes API - fixable', rule, {
-  valid: [],
-  invalid: importSources.flatMap((importSource) => [
-    {
-      name: `[${importSource}] styles are a plain object with literal values`,
-      code: `
+	valid: [],
+	invalid: importSources.flatMap((importSource) => [
+		{
+			name: `[${importSource}] styles are a plain object with literal values`,
+			code: `
         import { keyframes } from '${importSource}';
 
         const fadeIn = keyframes({
@@ -20,7 +20,7 @@ tester.run('keyframes API - fixable', rule, {
           }
         });
       `,
-      output: `
+			output: `
         import { keyframes } from '@compiled/react';
 
         const fadeIn = keyframes({
@@ -32,10 +32,10 @@ tester.run('keyframes API - fixable', rule, {
           }
         });
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-  ]),
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+	]),
 });
 
 /**
@@ -43,11 +43,11 @@ tester.run('keyframes API - fixable', rule, {
  * them unsafe to automatically convert.
  */
 tester.run('keyframes API - not fixable', rule, {
-  valid: [],
-  invalid: importSources.flatMap((importSource) => [
-    {
-      name: `[${importSource}] function as style argument`,
-      code: `
+	valid: [],
+	invalid: importSources.flatMap((importSource) => [
+		{
+			name: `[${importSource}] function as style argument`,
+			code: `
         import { keyframes } from '${importSource}';
 
         const Component = keyframes(() => ({
@@ -59,12 +59,12 @@ tester.run('keyframes API - not fixable', rule, {
           }
         }));
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: `[${importSource}] function as style object value`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: `[${importSource}] function as style object value`,
+			code: `
         import { keyframes } from '${importSource}';
 
         const Component = keyframes({
@@ -76,12 +76,12 @@ tester.run('keyframes API - not fixable', rule, {
           }
         });
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: `[${importSource}] identifier as style object value`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: `[${importSource}] identifier as style object value`,
+			code: `
         import { keyframes } from '${importSource}';
 
         const startOpacity = 0;
@@ -94,16 +94,16 @@ tester.run('keyframes API - not fixable', rule, {
           }
         });
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      /**
-       * We could auto-fix this safely but intentionally
-       * keeping this rule very simple for now.
-       */
-      name: `[${importSource}] function call as style object value`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			/**
+			 * We could auto-fix this safely but intentionally
+			 * keeping this rule very simple for now.
+			 */
+			name: `[${importSource}] function call as style object value`,
+			code: `
         import { keyframes } from '${importSource}';
         import { token } from '@atlaskit/tokens';
 
@@ -116,12 +116,12 @@ tester.run('keyframes API - not fixable', rule, {
           }
         });
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: `[${importSource}] with unsupported named import`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: `[${importSource}] with unsupported named import`,
+			code: `
         import { keyframes, type CSSObject } from '${importSource}';
 
         const fadeIn = keyframes({
@@ -133,8 +133,8 @@ tester.run('keyframes API - not fixable', rule, {
           }
         })
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-  ]),
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+	]),
 });

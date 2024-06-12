@@ -39,10 +39,7 @@ export default evaluateInner`
   }
 
   caption {
-    font: ${token(
-      'font.heading.medium',
-      `500 1.4285714285714286em/1.2 ${fontFamily()}`,
-    )};
+    font: ${token('font.heading.medium', `500 1.4285714285714286em/1.2 ${fontFamily()}`)};
     letter-spacing: -0.008em;
     color: ${token('color.text')};
     margin-top: 28px;

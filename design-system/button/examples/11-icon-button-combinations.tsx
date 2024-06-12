@@ -10,156 +10,116 @@ import { type CommonIconButtonProps } from '../src/new-button/variants/icon/type
 import LegacyButton from '../src/old-button/button';
 import { iconButtonVariants } from '../src/utils/variants';
 
-const iconSizes: CommonIconButtonProps['UNSAFE_size'][] = [
-  'small',
-  'large',
-  'xlarge',
-];
+const iconSizes: CommonIconButtonProps['UNSAFE_size'][] = ['small', 'large', 'xlarge'];
 
 export default function IconButtonExample() {
-  const [showLegacyButton, setShowLegacyButton] = useState(false);
+	const [showLegacyButton, setShowLegacyButton] = useState(false);
 
-  return (
-    <Box padding="space.200">
-      <Checkbox
-        label="Compare to legacy button"
-        isChecked={showLegacyButton}
-        onChange={() => setShowLegacyButton((value) => !value)}
-      />
-      <Stack space="space.300" alignInline="start">
-        {iconButtonVariants.map(({ name, Component, appearances }) => {
-          return (
-            <Stack space="space.050" key={name}>
-              <h2>{name}</h2>
-              <table>
-                <thead>
-                  <tr>
-                    {showLegacyButton && <th>Version</th>}
-                    <th>Appearance</th>
-                    <th>Default</th>
-                    <th>Disabled</th>
-                    <th>Selected</th>
-                    <th>Disabled + Selected</th>
-                    {iconSizes.map((size) => (
-                      <th>{capitalize(size)} icon size</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {appearances.map((appearance) => (
-                    <Fragment key={appearance}>
-                      {showLegacyButton && (
-                        <tr>
-                          <th>Legacy button</th>
-                          <th>{capitalize(appearance)}</th>
-                          <td>
-                            <LegacyButton
-                              appearance={
-                                appearance === 'discovery'
-                                  ? undefined
-                                  : appearance
-                              }
-                              iconBefore={
-                                <StarFilledIcon label="Label" size="medium" />
-                              }
-                            />
-                          </td>
-                          <td>
-                            <LegacyButton
-                              appearance={
-                                appearance === 'discovery'
-                                  ? undefined
-                                  : appearance
-                              }
-                              iconBefore={
-                                <StarFilledIcon label="Label" size="medium" />
-                              }
-                              isDisabled
-                            />
-                          </td>
-                          <td>
-                            <LegacyButton
-                              appearance={
-                                appearance === 'discovery'
-                                  ? undefined
-                                  : appearance
-                              }
-                              iconBefore={
-                                <StarFilledIcon label="Label" size="medium" />
-                              }
-                              isSelected
-                            />
-                          </td>
-                          <td>
-                            <LegacyButton
-                              appearance={
-                                appearance === 'discovery'
-                                  ? undefined
-                                  : appearance
-                              }
-                              iconBefore={
-                                <StarFilledIcon label="Label" size="medium" />
-                              }
-                              isSelected
-                              isDisabled
-                            />
-                          </td>
+	return (
+		<Box padding="space.200">
+			<Checkbox
+				label="Compare to legacy button"
+				isChecked={showLegacyButton}
+				onChange={() => setShowLegacyButton((value) => !value)}
+			/>
+			<Stack space="space.300" alignInline="start">
+				{iconButtonVariants.map(({ name, Component, appearances }) => {
+					return (
+						<Stack space="space.050" key={name}>
+							<h2>{name}</h2>
+							<table>
+								<thead>
+									<tr>
+										{showLegacyButton && <th>Version</th>}
+										<th>Appearance</th>
+										<th>Default</th>
+										<th>Disabled</th>
+										<th>Selected</th>
+										<th>Disabled + Selected</th>
+										{iconSizes.map((size) => (
+											<th>{capitalize(size)} icon size</th>
+										))}
+									</tr>
+								</thead>
+								<tbody>
+									{appearances.map((appearance) => (
+										<Fragment key={appearance}>
+											{showLegacyButton && (
+												<tr>
+													<th>Legacy button</th>
+													<th>{capitalize(appearance)}</th>
+													<td>
+														<LegacyButton
+															appearance={appearance === 'discovery' ? undefined : appearance}
+															iconBefore={<StarFilledIcon label="Label" size="medium" />}
+														/>
+													</td>
+													<td>
+														<LegacyButton
+															appearance={appearance === 'discovery' ? undefined : appearance}
+															iconBefore={<StarFilledIcon label="Label" size="medium" />}
+															isDisabled
+														/>
+													</td>
+													<td>
+														<LegacyButton
+															appearance={appearance === 'discovery' ? undefined : appearance}
+															iconBefore={<StarFilledIcon label="Label" size="medium" />}
+															isSelected
+														/>
+													</td>
+													<td>
+														<LegacyButton
+															appearance={appearance === 'discovery' ? undefined : appearance}
+															iconBefore={<StarFilledIcon label="Label" size="medium" />}
+															isSelected
+															isDisabled
+														/>
+													</td>
 
-                          {iconSizes.map((size) => (
-                            <td>
-                              <LegacyButton
-                                appearance={
-                                  appearance === 'discovery'
-                                    ? undefined
-                                    : appearance
-                                }
-                                iconBefore={
-                                  <StarFilledIcon label="Label" size={size} />
-                                }
-                              />
-                            </td>
-                          ))}
-                        </tr>
-                      )}
-                      <tr>
-                        {showLegacyButton && <th>New IconButton</th>}
-                        <th>{capitalize(appearance)}</th>
-                        <td>
-                          <Component appearance={appearance} />
-                        </td>
-                        <td>
-                          <Component appearance={appearance} isDisabled />
-                        </td>
-                        <td>
-                          <Component appearance={appearance} isSelected />
-                        </td>
-                        <td>
-                          <Component
-                            appearance={appearance}
-                            isSelected
-                            isDisabled
-                          />
-                        </td>
+													{iconSizes.map((size) => (
+														<td>
+															<LegacyButton
+																appearance={appearance === 'discovery' ? undefined : appearance}
+																iconBefore={<StarFilledIcon label="Label" size={size} />}
+															/>
+														</td>
+													))}
+												</tr>
+											)}
+											<tr>
+												{showLegacyButton && <th>New IconButton</th>}
+												<th>{capitalize(appearance)}</th>
+												<td>
+													<Component appearance={appearance} />
+												</td>
+												<td>
+													<Component appearance={appearance} isDisabled />
+												</td>
+												<td>
+													<Component appearance={appearance} isSelected />
+												</td>
+												<td>
+													<Component appearance={appearance} isSelected isDisabled />
+												</td>
 
-                        {iconSizes.map((size) => (
-                          <td>
-                            <Component
-                              appearance={appearance}
-                              icon={(iconProps) => (
-                                <StarFilledIcon {...iconProps} size={size} />
-                              )}
-                            />
-                          </td>
-                        ))}
-                      </tr>
-                    </Fragment>
-                  ))}
-                </tbody>
-              </table>
-            </Stack>
-          );
-        })}
-      </Stack>
-    </Box>
-  );
+												{iconSizes.map((size) => (
+													<td>
+														<Component
+															appearance={appearance}
+															icon={(iconProps) => <StarFilledIcon {...iconProps} size={size} />}
+														/>
+													</td>
+												))}
+											</tr>
+										</Fragment>
+									))}
+								</tbody>
+							</table>
+						</Stack>
+					);
+				})}
+			</Stack>
+		</Box>
+	);
 }

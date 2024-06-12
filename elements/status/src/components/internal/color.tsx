@@ -9,6 +9,7 @@ import { ANALYTICS_HOVER_DELAY } from '../constants';
 import { messages } from '../i18n';
 import { type Color as ColorType } from '../Status';
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const buttonStyles = css`
 	height: 24px;
 	width: 24px;
@@ -24,7 +25,7 @@ const buttonStyles = css`
 
 // We have tried with changing border and padding from 1px to token near version 2px,
 // the pop - up is being expanded to two lines.
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const buttonWrapperStyles = css`
 	border: 1px solid transparent;
 	margin: 0 ${token('space.025', '2px')};

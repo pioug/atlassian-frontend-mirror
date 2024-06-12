@@ -28,6 +28,7 @@ const LineNumber = styled.div({
 	padding: '2px',
 	background: '#dfe1e5',
 	flex: '20px 0 0',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > a': {
 		color: '#5e6c84',
 	},
@@ -38,6 +39,7 @@ const Code = styled.div({
 	background: '#fafbfc',
 	margin: 0,
 	flex: 'auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > pre': {
 		padding: '2px',
 	},

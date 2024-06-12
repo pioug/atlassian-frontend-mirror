@@ -4,62 +4,57 @@ import stuff from '!!style-loader!css-loader!../src/bundle.css';
 import Warning from './utils/warning';
 
 export default () => (
-  <div>
-    <Warning />
-    <p>
-      Note that tooltips are only available for <code>button</code> elements,
-      and
-      <code>a</code> elements with an <code>href</code> attribute.
-    </p>
-    <h2>Button triggers</h2>
-    <button
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className="ak-button ak-button__appearance-default"
-      data-ak-tooltip="Oh hi there"
-      data-ak-tooltip-position="top"
-    >
-      Top
-    </button>
-    <button
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className="ak-button ak-button__appearance-default"
-      data-ak-tooltip="Oh hi there"
-      data-ak-tooltip-position="right"
-    >
-      Right
-    </button>
-    <button
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className="ak-button ak-button__appearance-default"
-      data-ak-tooltip="Oh hi there"
-      data-ak-tooltip-position="bottom"
-    >
-      Bottom
-    </button>
-    <button
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className="ak-button ak-button__appearance-default"
-      data-ak-tooltip="Oh hi there"
-      data-ak-tooltip-position="left"
-    >
-      Left
-    </button>
-    <button
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className="ak-button ak-button__appearance-default"
-      data-ak-tooltip="Oh hi there I am a tooltip with way too much text, let us see how I behave!"
-      data-ak-tooltip-position="top"
-    >
-      Long Text
-    </button>
+	<div>
+		<Warning />
+		<p>
+			Note that tooltips are only available for <code>button</code> elements, and
+			<code>a</code> elements with an <code>href</code> attribute.
+		</p>
+		<h2>Button triggers</h2>
+		<button
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="ak-button ak-button__appearance-default"
+			data-ak-tooltip="Oh hi there"
+			data-ak-tooltip-position="top"
+		>
+			Top
+		</button>
+		<button
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="ak-button ak-button__appearance-default"
+			data-ak-tooltip="Oh hi there"
+			data-ak-tooltip-position="right"
+		>
+			Right
+		</button>
+		<button
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="ak-button ak-button__appearance-default"
+			data-ak-tooltip="Oh hi there"
+			data-ak-tooltip-position="bottom"
+		>
+			Bottom
+		</button>
+		<button
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="ak-button ak-button__appearance-default"
+			data-ak-tooltip="Oh hi there"
+			data-ak-tooltip-position="left"
+		>
+			Left
+		</button>
+		<button
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="ak-button ak-button__appearance-default"
+			data-ak-tooltip="Oh hi there I am a tooltip with way too much text, let us see how I behave!"
+			data-ak-tooltip-position="top"
+		>
+			Long Text
+		</button>
 
-    <h2>Using a link</h2>
-    <a
-      href="#trigger"
-      data-ak-tooltip="Oh hi there"
-      data-ak-tooltip-position="right"
-    >
-      Using a Link as a target
-    </a>
-  </div>
+		<h2>Using a link</h2>
+		<a href="#trigger" data-ak-tooltip="Oh hi there" data-ak-tooltip-position="right">
+			Using a Link as a target
+		</a>
+	</div>
 );

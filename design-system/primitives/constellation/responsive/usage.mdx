@@ -6,26 +6,32 @@ order: 2
 
 ## Media query helpers
 
-The media query helper object `media.above[breakpoint]` maps to our [breakpoints](/components/primitives/responsive/breakpoints/examples) as a media query for use in CSS-in-JS. `media.above[breakpoint]` targets all viewports **above** (larger than) the min-width of a given breakpoint
+The media query helper object `media.above[breakpoint]` maps to our
+[breakpoints](/components/primitives/responsive/breakpoints/examples) as a media query for use in
+CSS-in-JS. `media.above[breakpoint]` targets all viewports **above** (larger than) the min-width of
+a given breakpoint
 
-These responsive helpers are designed be used in conjunction with [xcss](/components/primitives/xcss). It is recommended that both are used when available as this uses our media queries to allow for safe, responsive styling.
+These responsive helpers are designed be used in conjunction with
+[xcss](/components/primitives/xcss). It is recommended that both are used when available as this
+uses our media queries to allow for safe, responsive styling.
 
 ### Basic example
 
-Compose your default styles alongside media overrides in [xcss](/components/primitives/xcss) or `css`.
+Compose your default styles alongside media overrides in [xcss](/components/primitives/xcss) or
+`css`.
 
 #### xcss
 
 ```tsx
 const customStyles = xcss({
-  display: 'none', // hide by default
-  padding: 'space.100',
-  [media.above.md]: { display: 'revert' }, // show above md
-  [media.above.lg]: { padding: 'space.150' }, // increase padding above md
+	display: 'none', // hide by default
+	padding: 'space.100',
+	[media.above.md]: { display: 'revert' }, // show above md
+	[media.above.lg]: { padding: 'space.150' }, // increase padding above md
 });
 
 export const Component = ({ children }: { children: ReactNode }) => (
-  <Box xcss={customStyles}>{children}</Box>
+	<Box xcss={customStyles}>{children}</Box>
 );
 ```
 
@@ -33,15 +39,17 @@ export const Component = ({ children }: { children: ReactNode }) => (
 
 ```tsx
 const customStyles = css({
-  marginBlock: token('space.0'),
-  [media.above.xs]: { marginBlock: token('space.025') },
-  [media.above.sm]: { marginBlock: token('space.050') },
-  [media.above.md]: { marginBlock: token('space.075') },
-  [media.above.lg]: { marginBlock: token('space.100') },
-  [media.above.xl]: { marginBlock: token('space.150') },
+	marginBlock: token('space.0'),
+	[media.above.xs]: { marginBlock: token('space.025') },
+	[media.above.sm]: { marginBlock: token('space.050') },
+	[media.above.md]: { marginBlock: token('space.075') },
+	[media.above.lg]: { marginBlock: token('space.100') },
+	[media.above.xl]: { marginBlock: token('space.150') },
 });
 ```
 
 ### Using media.above
 
-It is important to note that the `media.above.xxs` will **always** match, it is explicitly `'@media all'`. This is only included for easy programmatic usage, but it has a negative performance impact.
+It is important to note that the `media.above.xxs` will **always** match, it is explicitly
+`'@media all'`. This is only included for easy programmatic usage, but it has a negative performance
+impact.

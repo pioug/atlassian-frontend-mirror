@@ -7,55 +7,55 @@ import { type OptionsPropType } from '@atlaskit/radio/types';
 import { PopupSelect } from '../src';
 
 const cities = [
-  { label: 'Adelaide', value: 'adelaide' },
-  { label: 'Brisbane', value: 'brisbane' },
-  { label: 'Canberra', value: 'canberra' },
-  { label: 'Darwin', value: 'darwin' },
-  { label: 'Hobart', value: 'hobart' },
-  { label: 'Melbourne', value: 'melbourne' },
-  { label: 'Perth', value: 'perth' },
-  { label: 'Sydney', value: 'sydney' },
+	{ label: 'Adelaide', value: 'adelaide' },
+	{ label: 'Brisbane', value: 'brisbane' },
+	{ label: 'Canberra', value: 'canberra' },
+	{ label: 'Darwin', value: 'darwin' },
+	{ label: 'Hobart', value: 'hobart' },
+	{ label: 'Melbourne', value: 'melbourne' },
+	{ label: 'Perth', value: 'perth' },
+	{ label: 'Sydney', value: 'sydney' },
 ];
 
 const SelectPopupSearchExample = () => {
-  const [isSearchable, setIsSearchable] = useState(false);
-  const [searchThreshold, setSearchThreshold] = useState('1');
+	const [isSearchable, setIsSearchable] = useState(false);
+	const [searchThreshold, setSearchThreshold] = useState('1');
 
-  const radio_options: OptionsPropType = [
-    { name: '1', value: '1', label: '1' },
-    { name: '5', value: '5', label: '5' },
-    { name: '10', value: '10', label: '10' },
-  ];
+	const radio_options: OptionsPropType = [
+		{ name: '1', value: '1', label: '1' },
+		{ name: '5', value: '5', label: '5' },
+		{ name: '10', value: '10', label: '10' },
+	];
 
-  return (
-    <>
-      <p>searchThreshold</p>
-      <RadioGroup
-        defaultValue={'1'}
-        options={radio_options}
-        onChange={(e) => setSearchThreshold(e.target.value)}
-        aria-labelledby="radiogroup-label"
-      />
-      <Checkbox
-        value="isSearchable"
-        name="toggleValue"
-        isChecked={isSearchable}
-        onChange={(e) => setIsSearchable(e.currentTarget.checked)}
-        label={<code>isSearchable</code>}
-      />
-      <PopupSelect
-        options={cities}
-        searchThreshold={parseInt(searchThreshold)}
-        placeholder={'Choose a City'}
-        isSearchable={isSearchable}
-        target={({ isOpen, ...triggerProps }) => (
-          <Button isSelected={isOpen} {...triggerProps}>
-            Target
-          </Button>
-        )}
-      />
-    </>
-  );
+	return (
+		<>
+			<p>searchThreshold</p>
+			<RadioGroup
+				defaultValue={'1'}
+				options={radio_options}
+				onChange={(e) => setSearchThreshold(e.target.value)}
+				aria-labelledby="radiogroup-label"
+			/>
+			<Checkbox
+				value="isSearchable"
+				name="toggleValue"
+				isChecked={isSearchable}
+				onChange={(e) => setIsSearchable(e.currentTarget.checked)}
+				label={<code>isSearchable</code>}
+			/>
+			<PopupSelect
+				options={cities}
+				searchThreshold={parseInt(searchThreshold)}
+				placeholder={'Choose a City'}
+				isSearchable={isSearchable}
+				target={({ isOpen, ...triggerProps }) => (
+					<Button isSelected={isOpen} {...triggerProps}>
+						Target
+					</Button>
+				)}
+			/>
+		</>
+	);
 };
 
 export default SelectPopupSearchExample;

@@ -19,16 +19,17 @@ import InlinePracticalUseCase from '../../examples/constellation/inline/practica
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 <CodeDocsHeader
-  name="@atlaskit/primitives"
-  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
-  directoryName="primitives"
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
 />
 
 ## Basic
 
 Use an inline component to configure the layout of a group of elements horizontally.
 
-Use the given props to configure display behavior using design tokens, as shown in the more complex examples below.
+Use the given props to configure display behavior using design tokens, as shown in the more complex
+examples below.
 
 <Example Component={InlineBasic} packageName="@atlaskit/primitives/inline" />
 
@@ -36,57 +37,55 @@ Use the given props to configure display behavior using design tokens, as shown 
 
 Control the spacing between items with the `space` prop.
 
-<Example
-  Component={InlineSpaceBasic}
-  packageName="@atlaskit/primitives/inline"
-/>
+<Example Component={InlineSpaceBasic} packageName="@atlaskit/primitives/inline" />
 
 When content is set to wrap, the `space` prop applies equal spacing between rows.
 
 For a different space value between rows use the `rowSpace` prop.
 
-<Example
-  Component={InlineSpaceWrap}
-  packageName="@atlaskit/primitives/inline"
-/>
+<Example Component={InlineSpaceWrap} packageName="@atlaskit/primitives/inline" />
 
 ## Reverse content
 
-`flex-direction: `row-reverse` is a pattern that has [accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction#accessibility_concerns) so inline doesn't support it.
+`flex-direction: `row-reverse` is a pattern that has
+[accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction#accessibility_concerns)
+so inline doesn't support it.
 
-If reversing content is required, we generally recommend to use JavaScript to reverse the JSX content thereby preserving the tabbing order.
+If reversing content is required, we generally recommend to use JavaScript to reverse the JSX
+content thereby preserving the tabbing order.
 
-In situations where tabbing order changes based on different breakpoints, then we have [show](/components/primitives/responsive/hide/examples) and [hide](/components/primitives/responsive/hide/examples) components that enable switching between different orderings of content.
+In situations where tabbing order changes based on different breakpoints, then we have
+[show](/components/primitives/responsive/hide/examples) and
+[hide](/components/primitives/responsive/hide/examples) components that enable switching between
+different orderings of content.
 
-For non-tabbable content that needs to be reversed, `flex-direction: row-reverse` is supported in XCSS. However, please be aware that we may lint against this in the future.
+For non-tabbable content that needs to be reversed, `flex-direction: row-reverse` is supported in
+XCSS. However, please be aware that we may lint against this in the future.
 
 ## Alignment
 
-To control the alignment of items you can use the `alignBlock` and `alignInline` props which control alignment in the vertical and horizontal axis respectively.
+To control the alignment of items you can use the `alignBlock` and `alignInline` props which control
+alignment in the vertical and horizontal axis respectively.
 
 ### Block alignment
 
-<Example
-  Component={InlineAlignBlock}
-  packageName="@atlaskit/primitives/inline"
-/>
+<Example Component={InlineAlignBlock} packageName="@atlaskit/primitives/inline" />
 
 ### Inline alignment
 
-<Example
-  Component={InlineAlignInline}
-  packageName="@atlaskit/primitives/inline"
-/>
+<Example Component={InlineAlignInline} packageName="@atlaskit/primitives/inline" />
 
 ## Spread
 
-Elements can be set to stay together, spaced at the given value (default behavior) or spread equally in the space available.
+Elements can be set to stay together, spaced at the given value (default behavior) or spread equally
+in the space available.
 
 <Example Component={InlineSpread} packageName="@atlaskit/primitives/inline" />
 
 ## Wrap
 
-When the number of items goes beyond the available space, use `shouldWrap` to create new rows of content.
+When the number of items goes beyond the available space, use `shouldWrap` to create new rows of
+content.
 
 <Example Component={InlineWrap} packageName="@atlaskit/primitives/inline" />
 
@@ -94,15 +93,12 @@ When the number of items goes beyond the available space, use `shouldWrap` to cr
 
 For logically related elements it's possible to specify a `separator` character value.
 
-<Example
-  Component={InlineSeparator}
-  packageName="@atlaskit/primitives/inline"
-/>
+<Example Component={InlineSeparator} packageName="@atlaskit/primitives/inline" />
 
 ## Width control
 
-By default an `Inline` will have its width influenced by the context where it appears.
-To control the width, use the `grow` prop with the values:
+By default an `Inline` will have its width influenced by the context where it appears. To control
+the width, use the `grow` prop with the values:
 
 - `hug` (default) to use space only as required by its children, or
 - `fill` to take all space provided by the parent element.
@@ -117,9 +113,7 @@ It's possible to control the rendered HTML element with the `as` prop.
 
 ## Practical use case
 
-An example of how an inline component might be used in product, using Atlassian Design System components.
+An example of how an inline component might be used in product, using Atlassian Design System
+components.
 
-<Example
-  Component={InlinePracticalUseCase}
-  packageName="@atlaskit/primitives/inline"
-/>
+<Example Component={InlinePracticalUseCase} packageName="@atlaskit/primitives/inline" />

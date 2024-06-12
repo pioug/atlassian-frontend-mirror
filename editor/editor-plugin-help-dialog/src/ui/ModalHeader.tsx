@@ -16,7 +16,9 @@ interface ModalHeaderProps extends WrappedComponentProps {
 
 const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeaderProps) => {
 	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={header}>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<h1 css={dialogHeader}>
 				<FormattedMessage {...messages.editorHelp} />
 			</h1>
@@ -28,6 +30,7 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 					title={formatMessage(messages.closeHelpDialog)}
 					spacing="compact"
 					iconBefore={<CrossIcon label={formatMessage(messages.closeHelpDialog)} size="medium" />}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={toolbarButton}
 				/>
 			</div>

@@ -5,11 +5,11 @@ import { Flex } from '@atlaskit/primitives';
 import ExampleBox from '../shared/example-box';
 
 export default function Example() {
-  return (
-    <Flex gap="space.100" wrap="wrap">
-      {[...Array(20).keys()].map(i => (
-        <ExampleBox key={i} />
-      ))}
-    </Flex>
-  );
+	return (
+		<Flex gap="space.100" wrap="wrap">
+			{[...Array(20).keys()].map((i) => (
+				<ExampleBox key={i} />
+			))}
+		</Flex>
+	);
 }

@@ -8,6 +8,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	clearDirtyMark,
@@ -282,15 +283,47 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 										),
 									);
 								} else {
-									focusDecorations.push(
-										Decoration.inline(pos, pos + node.nodeSize, {
-											class: `${getAnnotationViewClassname(
-												isUnresolved,
-												isSelected,
-											)} ${isUnresolved}`,
-											nodeName: 'span',
-										}),
-									);
+									if (
+										getBooleanFF(
+											'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
+										)
+									) {
+										if (node.isText) {
+											focusDecorations.push(
+												Decoration.inline(pos, pos + node.nodeSize, {
+													class: `${getAnnotationViewClassname(
+														isUnresolved,
+														isSelected,
+													)} ${isUnresolved}`,
+													nodeName: 'span',
+												}),
+											);
+										} else {
+											focusDecorations.push(
+												Decoration.node(
+													pos,
+													pos + node.nodeSize,
+													{
+														class: `${getAnnotationViewClassname(
+															isUnresolved,
+															isSelected,
+														)} ${isUnresolved}`,
+													},
+													{ key: decorationKey.block },
+												),
+											);
+										}
+									} else {
+										focusDecorations.push(
+											Decoration.inline(pos, pos + node.nodeSize, {
+												class: `${getAnnotationViewClassname(
+													isUnresolved,
+													isSelected,
+												)} ${isUnresolved}`,
+												nodeName: 'span',
+											}),
+										);
+									}
 								}
 							}
 						});

@@ -8,9 +8,9 @@ export { default as DropdownItemRadio } from './radio/dropdown-item-radio';
 export { default as DropdownItemRadioGroup } from './radio/dropdown-item-radio-group';
 
 export type {
-  DropdownMenuProps,
-  DropdownMenuGroupProps,
-  DropdownItemProps,
-  OnOpenChangeArgs,
-  CustomTriggerProps,
+	DropdownMenuProps,
+	DropdownMenuGroupProps,
+	DropdownItemProps,
+	OnOpenChangeArgs,
+	CustomTriggerProps,
 } from './types';

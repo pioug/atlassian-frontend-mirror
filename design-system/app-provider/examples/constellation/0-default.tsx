@@ -25,15 +25,15 @@ function AppProviderTheme() {
 }`;
 
 function ThemedComponent() {
-  return (
-    <Box backgroundColor="elevation.surface" padding="space.200">
-      <Box as="h3">Theming with design tokens</Box>
-    </Box>
-  );
+	return (
+		<Box backgroundColor="elevation.surface" padding="space.200">
+			<Box as="h3">Theming with design tokens</Box>
+		</Box>
+	);
 }
 
 function AppProviderTheme() {
-  return <ThemedComponent />;
+	return <ThemedComponent />;
 }
 
 export default { example: AppProviderTheme, code: AppProviderThemeCodeBlock };

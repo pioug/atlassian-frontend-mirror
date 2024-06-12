@@ -1,9 +1,10 @@
-Using design tokens in an unsafe way risks the health of the system and will effect how fast your codebase can migrate between versions.
+Using design tokens in an unsafe way risks the health of the system and will effect how fast your
+codebase can migrate between versions.
 
 ## Examples
 
-This rule will mark design token usage that is not statically and locally analyzable,
-as well as design tokens that are considered deleted.
+This rule will mark design token usage that is not statically and locally analyzable, as well as
+design tokens that are considered deleted.
 
 ## Incorrect
 
@@ -27,7 +28,7 @@ import { token } from '@atlaskit/tokens';
 css({ boxShadow: token('elevation.shadow.card') });
 
 css`
-  color: ${(token('color.text.highemphasis'), N20)};
+	color: ${(token('color.text.highemphasis'), N20)};
 `;
 ```
 

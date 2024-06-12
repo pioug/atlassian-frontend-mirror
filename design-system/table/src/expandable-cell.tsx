@@ -17,25 +17,25 @@ import { ExpandableCell as ExpandableCellPrimitive } from './ui/expandable-cell'
  * of the `<ExpandableRow>`.
  */
 const ExpandableCell = memo(() => {
-  const { isExpanded, toggleExpanded } = useExpand();
+	const { isExpanded, toggleExpanded } = useExpand();
 
-  const handleClick = useCallback(() => {
-    toggleExpanded();
-  }, [toggleExpanded]);
+	const handleClick = useCallback(() => {
+		toggleExpanded();
+	}, [toggleExpanded]);
 
-  return (
-    <ExpandableCellPrimitive as="td">
-      <IconButton
-        spacing="compact"
-        appearance="subtle"
-        icon={isExpanded ? ChevronUpIcon : ChevronDownIcon}
-        label="Expand row"
-        UNSAFE_size="small"
-        onClick={handleClick}
-        aria-pressed={isExpanded}
-      />
-    </ExpandableCellPrimitive>
-  );
+	return (
+		<ExpandableCellPrimitive as="td">
+			<IconButton
+				spacing="compact"
+				appearance="subtle"
+				icon={isExpanded ? ChevronUpIcon : ChevronDownIcon}
+				label="Expand row"
+				UNSAFE_size="small"
+				onClick={handleClick}
+				aria-pressed={isExpanded}
+			/>
+		</ExpandableCellPrimitive>
+	);
 });
 
 export default ExpandableCell;

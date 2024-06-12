@@ -2,34 +2,34 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'no-nested-selectors',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [
-      {
-        name: 'Basic valid test',
-        code: `
+	'no-nested-selectors',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [
+			{
+				name: 'Basic valid test',
+				code: `
           import { css } from '@compiled/react';
           const styles = css({
             display: 'flex',
             flexDirection: 'column',
           });
         `,
-      },
-      {
-        name: 'Basic valid test using emotion',
-        code: `
+			},
+			{
+				name: 'Basic valid test using emotion',
+				code: `
           import styled from '@emotion/styled';
           const Container = styled.div({
             display: 'flex',
             flexDirection: 'column'
           })
         `,
-      },
-      {
-        name: 'Custom import sources (subtractive)',
-        code: `
+			},
+			{
+				name: 'Custom import sources (subtractive)',
+				code: `
           import { css } from '@compiled/react';
           const styles = css({
             h2: {
@@ -37,15 +37,15 @@ typescriptEslintTester.run(
             }
           });
         `,
-        options: [
-          {
-            importSources: [],
-          },
-        ],
-      },
-      {
-        name: 'Styled div with no selectors',
-        code: `
+				options: [
+					{
+						importSources: [],
+					},
+				],
+			},
+			{
+				name: 'Styled div with no selectors',
+				code: `
           import { styled } from '@compiled/react';
           const Component = styled.div({
             padding: 0,
@@ -54,10 +54,10 @@ typescriptEslintTester.run(
             boxSizing: 'border-box',
           });
         `,
-      },
-      {
-        name: 'Pseudo element selectors',
-        code: `
+			},
+			{
+				name: 'Pseudo element selectors',
+				code: `
           import { styled } from '@compiled/react';
           const Component = styled.div({
             '&:hover': {
@@ -71,10 +71,10 @@ typescriptEslintTester.run(
             },
           });
         `,
-      },
-      {
-        name: 'Skips @ queries',
-        code: `
+			},
+			{
+				name: 'Skips @ queries',
+				code: `
           import { css } from '@compiled/react';
           const styles = css({
             '@container (width > 400px)': {
@@ -86,12 +86,12 @@ typescriptEslintTester.run(
             },
           });
         `,
-      },
-    ],
-    invalid: [
-      {
-        name: 'Universal selector',
-        code: `
+			},
+		],
+		invalid: [
+			{
+				name: 'Universal selector',
+				code: `
           import { styled } from '@compiled/react';
           const Component = styled.div({
             '*': {
@@ -99,11 +99,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Class selector',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Class selector',
+				code: `
           import { styled } from '@compiled/react';
           const Component = styled.div({
             '.myclass': {
@@ -111,11 +111,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'ID selector',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'ID selector',
+				code: `
           import { styled } from '@compiled/react';
           const Component = styled.div({
             '#myid': {
@@ -123,11 +123,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'HTML element selector',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'HTML element selector',
+				code: `
           import { styled } from '@compiled/react';
           const Component = styled.div({
             h2: {
@@ -135,11 +135,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Data-component-selector',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Data-component-selector',
+				code: `
           import { styled } from '@compiled/react';
           const Component = styled.div({
             '[data-component-selector="my.button"]': {
@@ -147,11 +147,11 @@ typescriptEslintTester.run(
             },
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Grouping selector',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Grouping selector',
+				code: `
           import { styled } from '@compiled/react';
           const Component = styled.div({
             'div, p, span': {
@@ -161,11 +161,11 @@ typescriptEslintTester.run(
             backgroundColor: 'red',
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Selector including a variable',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Selector including a variable',
+				code: `
           import { styled } from '@compiled/react';
           styled.div({
               [\`\${SOME_VAR} > *\`]: {
@@ -173,11 +173,11 @@ typescriptEslintTester.run(
               },
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Current element selector',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Current element selector',
+				code: `
           import { styled } from '@compiled/react';
           styled.div({
             color: 'darkorchid',
@@ -186,11 +186,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Child combinator',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Child combinator',
+				code: `
           import { styled } from '@compiled/react';
           styled.div({
             '& > &': {
@@ -198,11 +198,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Child combinator without whitespace',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Child combinator without whitespace',
+				code: `
           import { styled } from '@compiled/react';
           styled.div({
             '&>a': {
@@ -210,11 +210,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Column combinator',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Column combinator',
+				code: `
           import { styled } from '@compiled/react';
           styled.div({
             'col.selected||td': {
@@ -222,11 +222,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Namespace selector',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Namespace selector',
+				code: `
           import { styled } from '@compiled/react';
           styled.div({
             'myNameSpace|a': {
@@ -234,11 +234,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Descendant combinator',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Descendant combinator',
+				code: `
           import { styled } from '@compiled/react';
           const Component = styled.div({
             '& &:hover': {
@@ -246,11 +246,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'cssMap API',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'cssMap API',
+				code: `
           import { cssMap } from '@compiled/react';
 
           const styles = cssMap({
@@ -261,11 +261,11 @@ typescriptEslintTester.run(
             },
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'keyframes API',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'keyframes API',
+				code: `
           import { keyframes } from '@emotion/react';
 
           const keyFrameStyles = keyframes({
@@ -279,11 +279,11 @@ typescriptEslintTester.run(
             },
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Next sibling selector',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Next sibling selector',
+				code: `
           import { styled } from '@compiled/react';
           styled.div({
             '&+a': {
@@ -291,11 +291,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Next sibling selector on non-HTML element',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Next sibling selector on non-HTML element',
+				code: `
           import { styled } from '@compiled/react';
           styled.div({
             '& + &': {
@@ -303,11 +303,11 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-      {
-        name: 'Subsequent sibling selector on non-HTML element',
-        code: `
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+			{
+				name: 'Subsequent sibling selector on non-HTML element',
+				code: `
           import { styled } from '@compiled/react';
           styled.div({
             '& ~ &': {
@@ -315,8 +315,8 @@ typescriptEslintTester.run(
             }
           });
         `,
-        errors: [{ messageId: 'no-nested-selectors' }],
-      },
-    ],
-  },
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
+		],
+	},
 );

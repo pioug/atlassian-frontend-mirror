@@ -5,10 +5,10 @@ import transformer from '../11.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Calendar code-mods', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
 
@@ -32,7 +32,7 @@ describe('Calendar code-mods', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) This file uses the @atlaskit/calendar \`innerProps\` which
     has now been removed due to its poor performance characteristics. Codemod
     has auto flattened 'className' & 'style' properties inside it if present as a standalone props to calendar.
@@ -58,13 +58,13 @@ describe('Calendar code-mods', () => {
       );
     }
     `,
-    `should flatten style & className in innerProps as standalone prop
+		`should flatten style & className in innerProps as standalone prop
       & then remove innerProps`,
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
 
@@ -89,7 +89,7 @@ describe('Calendar code-mods', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) This file uses the @atlaskit/calendar \`innerProps\` which
     has now been removed due to its poor performance characteristics. Codemod
     has auto flattened 'className' & 'style' properties inside it if present as a standalone props to calendar.
@@ -115,13 +115,13 @@ describe('Calendar code-mods', () => {
       );
     }
     `,
-    `should only flatten style & className in innerProps as standalone prop
+		`should only flatten style & className in innerProps as standalone prop
       & then remove innerProps`,
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
     const SimpleCalendar= () => {
@@ -140,7 +140,7 @@ describe('Calendar code-mods', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) This file uses the @atlaskit/calendar \`innerProps\` which
     has now been removed due to its poor performance characteristics. Codemod
     has auto flattened 'className' & 'style' properties inside it if present as a standalone props to calendar.
@@ -160,7 +160,7 @@ describe('Calendar code-mods', () => {
       );
     }
     `,
-    `should not flatten any other prop apart from style & className in innerProps
+		`should not flatten any other prop apart from style & className in innerProps
       & just remove innerProps`,
-  );
+	);
 });

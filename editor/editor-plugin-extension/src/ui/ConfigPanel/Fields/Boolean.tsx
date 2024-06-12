@@ -119,7 +119,7 @@ function Toggle({
 							<label css={toggleLabelStyles} id={id} htmlFor={id}>
 								{label}
 								{isRequired ? (
-									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									<span css={requiredIndicator} aria-hidden="true">
 										*
 									</span>

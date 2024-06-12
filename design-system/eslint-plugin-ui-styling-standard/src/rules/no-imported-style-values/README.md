@@ -1,6 +1,10 @@
-This rule disallows using imported style values in `css`, `cssMap`, `styled`, `keyframes` and `xcss` calls.
+This rule disallows using imported style values in `css`, `cssMap`, `styled`, `keyframes` and `xcss`
+calls.
 
-Importing style values may result in unexpected errors when used in these APIs, because its value will be null at runtime when using `@compiled/react`. Additionally, co-locating style definitions with their usage is considered best practice in order to improve code readability and build performance.
+Importing style values may result in unexpected errors when used in these APIs, because its value
+will be null at runtime when using `@compiled/react`. Additionally, co-locating style definitions
+with their usage is considered best practice in order to improve code readability and build
+performance.
 
 ## Examples
 
@@ -11,8 +15,8 @@ import { css } from '@compiled/react';
 import { colors, getColor } from '@mui/theme';
 
 const styles = css({
-  [colorKey]: getColor('red'),
-  background: colors['red'],
+	[colorKey]: getColor('red'),
+	background: colors['red'],
 });
 ```
 
@@ -24,10 +28,10 @@ import { ff } from '@atlaskit/ff';
 const sharedObject = { padding: 0 };
 
 const styles = css({
-  ...cssShared,
-  ...sharedObject,
-  height: `${HEIGHT}px`,
-  width: ff('…') ? `${HEIGHT}px` : undefined,
+	...cssShared,
+	...sharedObject,
+	height: `${HEIGHT}px`,
+	width: ff('…') ? `${HEIGHT}px` : undefined,
 });
 ```
 
@@ -38,7 +42,7 @@ import { css } from '@compiled/react';
 import { buttonStyles } from '../shared';
 
 const styles = css({
-  color: 'red',
+	color: 'red',
 });
 
 export default () => <div css={[styles, buttonStyles]} />;
@@ -54,15 +58,16 @@ export default () => <div style={{ width: importedWidth }} />;
 
 ### Correct
 
-Co-locate your styles next to your components to improve code readability, linting, and build performance.
+Co-locate your styles next to your components to improve code readability, linting, and build
+performance.
 
 ```js
 import { css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const styles = css({
-  color: 'red',
-  padding: token('space.150'),
+	color: 'red',
+	padding: token('space.150'),
 });
 export const Component = ({ children }) => <div css={styles}>{children}></div>;
 ```
@@ -81,7 +86,8 @@ export const Component = ({ children }) => <div css={styles}>{children}></div>;
 
 Use this to allow specified imports as dynamic keys, in addition to the built-in allow-list.
 
-Each value should be a two-element array. The first item is the entrypoint, and the second item is a named export.
+Each value should be a two-element array. The first item is the entrypoint, and the second item is a
+named export.
 
 Default imports are not supported.
 
@@ -107,7 +113,8 @@ Default imports are not supported.
 
 Use this to allow specific functions to be called, in addition to the built-in allow-list.
 
-Each value should be a two-element array. The first item is the entrypoint, and the second item is a named export.
+Each value should be a two-element array. The first item is the entrypoint, and the second item is a
+named export.
 
 Default imports are not currently supported.
 
@@ -141,4 +148,5 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an
+array of package names (strings).

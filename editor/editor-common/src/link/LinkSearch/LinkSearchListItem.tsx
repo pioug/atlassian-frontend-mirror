@@ -16,6 +16,7 @@ import { getCorrectAltByIconUrl } from './listItemAlts';
 import { transformTimeStamp } from './transformTimeStamp';
 import type { LinkSearchListItemData } from './types';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const container = css({
 	backgroundColor: 'transparent',
 	padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
@@ -24,6 +25,7 @@ export const container = css({
 	marginTop: 0,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const containerSelected = css({
 	backgroundColor: token('color.background.neutral.subtle.hovered', N20),
 });
@@ -32,6 +34,7 @@ const nameWrapper = css({
 	overflow: 'hidden',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const nameStyle = css({
 	color: token('color.text', N800),
 	overflow: 'hidden',
@@ -40,9 +43,11 @@ export const nameStyle = css({
 	lineHeight: '20px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const containerName = css({
 	color: token('color.text.subtlest', N300),
 	lineHeight: '14px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(fontSizeSmall()),
 });
 
@@ -50,6 +55,7 @@ const iconStyle = css({
 	minWidth: '16px',
 	marginTop: token('space.050', '4px'),
 	marginRight: token('space.150', '12px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {
 		maxWidth: '16px',
 	},

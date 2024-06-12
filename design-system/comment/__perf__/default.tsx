@@ -6,6 +6,4 @@ import Comment from '../src';
 
 import avatarImg from './utils/sample-avatar.png';
 
-export default () => (
-  <Comment avatar={<Avatar src={avatarImg} size="medium" />} />
-);
+export default () => <Comment avatar={<Avatar src={avatarImg} size="medium" />} />;

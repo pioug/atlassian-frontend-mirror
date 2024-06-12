@@ -26,7 +26,9 @@ const wrapper = (isDisabled?: boolean) =>
 		outline: 'none',
 		margin: 0,
 		width: '100%',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		cursor: isDisabled ? 'not-allowed' : 'pointer',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		opacity: isDisabled ? token('opacity.disabled', '0.4') : undefined,
 	});
 
@@ -46,6 +48,7 @@ const getTextStyle = (isSecondary?: boolean) => {
 		overflowX: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...secondaryCssArgs,
 	});
 };
@@ -59,6 +62,7 @@ export const textWrapper = (color?: string) =>
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		display: 'inline',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color,
 	});
 
@@ -98,11 +102,14 @@ export const AvatarItemOption = ({
 	};
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<span css={wrapper(isDisabled)}>
 			{avatar}
 			<div css={optionWrapper}>
 				<div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={getTextStyle()}>{primaryText}</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					{secondaryText && <div css={getTextStyle(true)}>{secondaryText}</div>}
 				</div>
 			</div>

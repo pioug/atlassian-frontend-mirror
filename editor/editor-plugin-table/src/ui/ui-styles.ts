@@ -56,9 +56,12 @@ const InsertLine = (cssString?: string) => css`
 
 const Marker = () =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: tableBorderColor,
 		position: 'absolute',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${lineMarkerSize}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${lineMarkerSize}px`,
 		borderRadius: '50%',
 		pointerEvents: 'none',
@@ -268,8 +271,11 @@ export const dragCornerControlButton = () => css`
 
 export const insertColumnButtonWrapper = () =>
 	css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		InsertButton(),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		InsertButtonHover(),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		InsertLine(
 			`
     width: 2px;
@@ -280,12 +286,16 @@ export const insertColumnButtonWrapper = () =>
 
 export const insertRowButtonWrapper = () =>
 	css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		InsertButton(),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		InsertButtonHover(),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		InsertLine(
 			`
     height: 2px;
     top: -11px;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
     left: ${tableInsertColumnButtonSize - 1}px;
   `,
 		),
@@ -380,14 +390,17 @@ const overflowShadowWidhoutDnD = (isDragAndDropEnabled: boolean | undefined) => 
 const columnHeaderButton = (cssString?: string) => {
 	return css(
 		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			background: tableHeaderCellBackgroundColor,
 			display: 'block',
 			boxSizing: 'border-box',
 			padding: 0,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			':focus': {
 				outline: 'none',
 			},
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		cssString,
 	);
 };
@@ -395,8 +408,11 @@ const columnHeaderButton = (cssString?: string) => {
 const columnHeaderButtonSelected = () =>
 	css({
 		color: token('color.text.inverse', N0),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: tableToolbarSelectedColor,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderColor: tableBorderSelectedColor,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		zIndex: columnControlsSelectedZIndex,
 	});
 
@@ -623,6 +639,7 @@ export const hoveredCell = () => css`
 	}
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const hoveredWarningCell = css`
 	:not(.${ClassName.IS_RESIZING})
 		.${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
@@ -761,8 +778,11 @@ export const resizeHandle = (isDragAndDropEnabled: boolean | undefined) => css`
 const tableCellColumnInsertLineStyles = css({
 	content: "' '",
 	position: 'absolute',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `calc(100% + ${tableCellBorderWidth * 2}px)`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${insertLineWidth}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: columnControlsZIndex * 2,
 });
 
@@ -770,16 +790,21 @@ const tableCellRowInsertLineStyles = css({
 	content: "' '",
 	position: 'absolute',
 	left: token('space.negative.025', '-2px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `${insertLineWidth}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `calc(100% + ${tableCellBorderWidth * 2}px)`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: columnControlsZIndex * 2,
 });
 
 const insertLineActiveColor = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: tableBorderSelectedColor,
 });
 
 const insertLineInactiveColor = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.accent.gray.subtler', akEditorTableBorder),
 });
 

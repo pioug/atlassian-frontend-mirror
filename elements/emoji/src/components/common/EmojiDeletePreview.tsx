@@ -81,8 +81,11 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 
 		return (
 			<FocusLock noFocusGuards>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={deletePreview} data-testid={emojiDeletePreviewTestId}>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={deleteText}>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<h2 css={headingH5}>
 							<FormattedMessage {...messages.deleteEmojiTitle} />
 						</h2>
@@ -91,8 +94,10 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 							values={{ emojiShortName: emoji.shortName }}
 						/>
 					</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={deleteFooter}>
 						<CachingEmoji emoji={emoji} />
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={previewButtonGroup}>
 							{error ? (
 								!loading ? (

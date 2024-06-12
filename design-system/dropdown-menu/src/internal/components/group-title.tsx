@@ -10,13 +10,13 @@ const itemHeadingContentHeight = headingSizes.h100.lineHeight;
 const itemHeadingFontSize = headingSizes.h100.size;
 
 const headingStyles = css({
-  color: token('color.text.subtle', N300),
-  fontSize: itemHeadingFontSize,
-  fontWeight: token('font.weight.bold', '700'),
-  lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
-  paddingBlock: token('space.0', '0px'),
-  paddingInline: token('space.200', '16px'),
-  textTransform: 'uppercase',
+	color: token('color.text.subtle', N300),
+	fontSize: itemHeadingFontSize,
+	fontWeight: token('font.weight.bold', '700'),
+	lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
+	paddingBlock: token('space.0', '0px'),
+	paddingInline: token('space.200', '16px'),
+	textTransform: 'uppercase',
 });
 
 /**
@@ -26,16 +26,10 @@ const headingStyles = css({
  *
  * @internal
  */
-const GroupTitle = ({id, title}: {id: string, title: string}) => (
-  <div
-    data-ds--menu--heading-item
-    role="menuitem"
-    id={id}
-    aria-hidden="true"
-    css={headingStyles}
-  >
-    {title}
-  </div>
+const GroupTitle = ({ id, title }: { id: string; title: string }) => (
+	<div data-ds--menu--heading-item role="menuitem" id={id} aria-hidden="true" css={headingStyles}>
+		{title}
+	</div>
 );
 
 export default GroupTitle;

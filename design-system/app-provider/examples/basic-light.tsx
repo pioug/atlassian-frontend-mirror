@@ -5,15 +5,15 @@ import { Box } from '@atlaskit/primitives';
 import AppProvider, { useColorMode } from '../src';
 
 function Basic() {
-  const colorMode = useColorMode();
+	const colorMode = useColorMode();
 
-  return <Box padding="space.200">Color mode: {colorMode}</Box>;
+	return <Box padding="space.200">Color mode: {colorMode}</Box>;
 }
 
 export default function () {
-  return (
-    <AppProvider defaultColorMode="light">
-      <Basic />
-    </AppProvider>
-  );
+	return (
+		<AppProvider defaultColorMode="light">
+			<Basic />
+		</AppProvider>
+	);
 }

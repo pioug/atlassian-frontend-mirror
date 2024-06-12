@@ -34,6 +34,7 @@ const ErrorImage = () => (
 						data-name="&lt;Polygon&gt;"
 					/>
 				</clipPath>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 				<style>{`.cls-1{fill:url(#linear-gradient)}.cls-2{fill:#253858}.cls-6{fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:2px;stroke:#5e6c84}`}</style>
 			</defs>
 			<g id="Layer_2" data-name="Layer 2">

@@ -15,55 +15,49 @@ const froms: Direction[] = ['top', 'right', 'bottom', 'left'];
 const fades: Fade[] = ['none', 'in', 'out', 'inout'];
 
 export default () => {
-  const [isIn, setIsIn] = useState(true);
-  const [fromIndex, setFromIndex] = useState(0);
-  const [fadeIndex, setFadeIndex] = useState(0);
+	const [isIn, setIsIn] = useState(true);
+	const [fromIndex, setFromIndex] = useState(0);
+	const [fadeIndex, setFadeIndex] = useState(0);
 
-  return (
-    <RetryContainer>
-      <div css={{ textAlign: 'center' }}>
-        <ButtonGroup label="Motion options">
-          <Button onClick={() => setIsIn((prev) => !prev)}>
-            {isIn ? 'Exit' : 'Enter'}
-          </Button>
-          <Button
-            onClick={() => setFromIndex((prev) => (prev + 1) % froms.length)}
-          >
-            From {froms[fromIndex]}
-          </Button>
-          <Button
-            onClick={() => setFadeIndex((prev) => (prev + 1) % fades.length)}
-          >
-            Fade {fades[fadeIndex]}
-          </Button>
-        </ButtonGroup>
+	return (
+		<RetryContainer>
+			<div css={{ textAlign: 'center' }}>
+				<ButtonGroup label="Motion options">
+					<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>
+					<Button onClick={() => setFromIndex((prev) => (prev + 1) % froms.length)}>
+						From {froms[fromIndex]}
+					</Button>
+					<Button onClick={() => setFadeIndex((prev) => (prev + 1) % fades.length)}>
+						Fade {fades[fadeIndex]}
+					</Button>
+				</ButtonGroup>
 
-        <Centered
-          css={{
-            overflow: 'hidden',
-            height: '300px',
-            margin: '0 auto',
-            position: 'relative',
-          }}
-        >
-          <ExitingPersistence appear>
-            {isIn && (
-              <SlideIn enterFrom={froms[fromIndex]} fade={fades[fadeIndex]}>
-                {(props) => (
-                  <Block
-                    {...props}
-                    css={{
-                      height: '95%',
-                      width: '95%',
-                      margin: 'auto',
-                    }}
-                  />
-                )}
-              </SlideIn>
-            )}
-          </ExitingPersistence>
-        </Centered>
-      </div>
-    </RetryContainer>
-  );
+				<Centered
+					css={{
+						overflow: 'hidden',
+						height: '300px',
+						margin: '0 auto',
+						position: 'relative',
+					}}
+				>
+					<ExitingPersistence appear>
+						{isIn && (
+							<SlideIn enterFrom={froms[fromIndex]} fade={fades[fadeIndex]}>
+								{(props) => (
+									<Block
+										{...props}
+										css={{
+											height: '95%',
+											width: '95%',
+											margin: 'auto',
+										}}
+									/>
+								)}
+							</SlideIn>
+						)}
+					</ExitingPersistence>
+				</Centered>
+			</div>
+		</RetryContainer>
+	);
 };

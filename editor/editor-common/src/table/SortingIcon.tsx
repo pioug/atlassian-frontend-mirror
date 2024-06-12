@@ -19,7 +19,7 @@ export enum StatusClassNames {
 	SORTING_NOT_ALLOWED = 'sorting-icon-svg__not-allowed',
 }
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const buttonStyles = css`
 	position: absolute;
 	display: flex;
@@ -48,7 +48,7 @@ const buttonStyles = css`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const iconWrapperStyles = css`
 	width: 8px;
 	height: 12px;

@@ -1,8 +1,10 @@
-Props across the Atlassian Design System can be deprecated when they are deemed no-longer fit for purporse or dangerous and risk effective use at scale.
+Props across the Atlassian Design System can be deprecated when they are deemed no-longer fit for
+purporse or dangerous and risk effective use at scale.
 
 ## Examples
 
-Anything that can be used as props from Atlassian Design System components can be violations when marked as deprecated.
+Anything that can be used as props from Atlassian Design System components can be violations when
+marked as deprecated.
 
 ### Incorrect
 
@@ -16,26 +18,28 @@ Anything that can be used as props from Atlassian Design System components can b
 
 ## Options
 
-The rule can take one option: `deprecatedConfig`,
-if not provided the rule will use an internal config.
-If provided the rule will use the passed in config instead.
+The rule can take one option: `deprecatedConfig`, if not provided the rule will use an internal
+config. If provided the rule will use the passed in config instead.
 
 ### deprecatedConfig
 
 The following fields can be defined in the config:
 
 - `deprecatedProp`, which is the deprecated props. Each prop has the following fields:
-  - `moduleSpecifier`, which is the module specifier of the package in which the prop was deprecated. For example: `@atlaskit/button`.
-  - `namedSpecifier` **(optional)**, which is an array of named specifiers of the package in which the prop was deprecated. For example: `Button`.
-  - `actionableVersion` **(optional)**, which is the version of the package in which the prop can be actioned on. For example: `1.0.0`.
+  - `moduleSpecifier`, which is the module specifier of the package in which the prop was
+    deprecated. For example: `@atlaskit/button`.
+  - `namedSpecifier` **(optional)**, which is an array of named specifiers of the package in which
+    the prop was deprecated. For example: `Button`.
+  - `actionableVersion` **(optional)**, which is the version of the package in which the prop can be
+    actioned on. For example: `1.0.0`.
 
 ```json
 {
-  "cssFn": [
-    {
-      "moduleSpecifier": "@atlaskit/menu"
-    }
-  ]
+	"cssFn": [
+		{
+			"moduleSpecifier": "@atlaskit/menu"
+		}
+	]
 }
 ```
 
@@ -43,24 +47,26 @@ The following fields can be defined in the config:
 import { configs } from '@atlaskit/eslint-plugin-design-system';
 
 module.exports = {
-  rules: {
-    '@atlaskit/design-system/no-deprecated-api': [
-      'error',
-      {
-        deprecatedConfig: {
-          cssFn: [
-            {
-              moduleSpecifier: '@atlaskit/menu',
-            },
-          ],
-        },
-      },
-    ],
-  },
+	rules: {
+		'@atlaskit/design-system/no-deprecated-api': [
+			'error',
+			{
+				deprecatedConfig: {
+					cssFn: [
+						{
+							moduleSpecifier: '@atlaskit/menu',
+						},
+					],
+				},
+			},
+		],
+	},
 };
 ```
 
-The plugin also provides a `filterActionableDeprecations` util function that accepts the `deprecated APIs config` and your root `package.json` as params and will filter the default deprecated APIs config based on the package versions installed.
+The plugin also provides a `filterActionableDeprecations` util function that accepts the
+`deprecated APIs config` and your root `package.json` as params and will filter the default
+deprecated APIs config based on the package versions installed.
 
 ```js
 import { configs, filterActionableDeprecations } from '@atlaskit/eslint-plugin-design-system';

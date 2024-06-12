@@ -15,10 +15,10 @@ export const comment = `/* TODO: (from codemod)
 
 // TODO come up with a comment here
 describe('remove language prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -33,7 +33,7 @@ describe('remove language prop', () => {
       );
     }
     `,
-    `
+		`
     ${comment}
     import React from 'react';
 
@@ -49,13 +49,13 @@ describe('remove language prop', () => {
       );
     }
     `,
-    'should remove language prop if it is a string',
-  );
+		'should remove language prop if it is a string',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -72,7 +72,7 @@ describe('remove language prop', () => {
       );
     }
     `,
-    `
+		`
     ${comment}
     import React from 'react';
 
@@ -90,13 +90,13 @@ describe('remove language prop', () => {
       );
     }
     `,
-    'should remove language prop if it is a variable',
-  );
+		'should remove language prop if it is a variable',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -111,7 +111,7 @@ describe('remove language prop', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -126,6 +126,6 @@ describe('remove language prop', () => {
       );
     }
     `,
-    'should not do anything if language prop is not defined',
-  );
+		'should not do anything if language prop is not defined',
+	);
 });

@@ -26,6 +26,7 @@ const float = keyframes({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const containerStyle = css({
 	position: 'relative',
 	left: 8,
@@ -34,6 +35,7 @@ export const containerStyle = css({
 	zIndex: layers.tooltip() + 1,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const reactionParticleStyle = css({
 	position: 'absolute',
 	top: 0,
@@ -44,14 +46,17 @@ export const reactionParticleStyle = css({
 	animationDuration: '700ms',
 
 	// Override position and delay for each particle
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-child(2)': {
 		left: -5,
 		animationDelay: '0.15s',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-child(3)': {
 		left: 8,
 		animationDelay: '0.3s',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-child(4)': {
 		left: -1,
 		animationDelay: '0.45s',

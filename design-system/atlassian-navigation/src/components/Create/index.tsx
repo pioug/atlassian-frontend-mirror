@@ -16,41 +16,41 @@ import { getCreateButtonTheme } from './styles';
 import { type CreateProps } from './types';
 
 const wrapperStyles = css({
-  display: 'flex',
-  alignItems: 'center',
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '& [data-hide-on-smallscreens]': {
-    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-    [`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
-      display: 'none !important',
-    },
-  },
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '& [data-hide-on-largescreens]': {
-    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-    [`@media (min-width: ${CREATE_BREAKPOINT}px)`]: {
-      display: 'none !important',
-    },
-  },
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '&&': {
-    marginInlineStart: token('space.150', '12px'),
-  },
+	display: 'flex',
+	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'& [data-hide-on-smallscreens]': {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		[`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
+			display: 'none !important',
+		},
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'& [data-hide-on-largescreens]': {
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		[`@media (min-width: ${CREATE_BREAKPOINT}px)`]: {
+			display: 'none !important',
+		},
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'&&': {
+		marginInlineStart: token('space.150', '12px'),
+	},
 });
 
 type TooltipSwitchProps = {
-  buttonTooltip?: React.ReactNode;
-  children: React.ReactNode;
+	buttonTooltip?: React.ReactNode;
+	children: React.ReactNode;
 };
 
 const TooltipSwitch = ({ buttonTooltip, children }: TooltipSwitchProps) =>
-  buttonTooltip ? (
-    <Tooltip content={buttonTooltip} hideTooltipOnClick>
-      {children}
-    </Tooltip>
-  ) : (
-    <Fragment>{children}</Fragment>
-  );
+	buttonTooltip ? (
+		<Tooltip content={buttonTooltip} hideTooltipOnClick>
+			{children}
+		</Tooltip>
+	) : (
+		<Fragment>{children}</Fragment>
+	);
 
 /**
  * _Create__
@@ -62,51 +62,47 @@ const TooltipSwitch = ({ buttonTooltip, children }: TooltipSwitchProps) =>
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 export const Create = ({
-  onClick,
-  href,
-  text,
-  buttonTooltip,
-  iconButtonTooltip,
-  testId,
-  label,
+	onClick,
+	href,
+	text,
+	buttonTooltip,
+	iconButtonTooltip,
+	testId,
+	label,
 }: CreateProps) => {
-  const theme = useTheme();
+	const theme = useTheme();
 
-  return (
-    <div
-      css={wrapperStyles}
-      role="listitem"
-      data-testid="create-button-wrapper"
-    >
-      <TooltipSwitch buttonTooltip={buttonTooltip}>
-        <Button
-          id="createGlobalItem"
-          aria-label={label}
-          onClick={onClick}
-          href={href}
-          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-          theme={getCreateButtonTheme(theme)}
-          testId={testId && `${testId}-button`}
-          data-hide-on-smallscreens
-        >
-          {text}
-        </Button>
-      </TooltipSwitch>
+	return (
+		<div css={wrapperStyles} role="listitem" data-testid="create-button-wrapper">
+			<TooltipSwitch buttonTooltip={buttonTooltip}>
+				<Button
+					id="createGlobalItem"
+					aria-label={label}
+					onClick={onClick}
+					href={href}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					theme={getCreateButtonTheme(theme)}
+					testId={testId && `${testId}-button`}
+					data-hide-on-smallscreens
+				>
+					{text}
+				</Button>
+			</TooltipSwitch>
 
-      <IconButton
-        id="createGlobalItemIconButton"
-        testId={testId && `${testId}-icon-button`}
-        icon={<AddIcon label={text} />}
-        onClick={onClick}
-        href={href}
-        tooltip={iconButtonTooltip}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-        theme={getCreateButtonTheme(theme)}
-        aria-label={text}
-        data-hide-on-largescreens
-      />
-    </div>
-  );
+			<IconButton
+				id="createGlobalItemIconButton"
+				testId={testId && `${testId}-icon-button`}
+				icon={<AddIcon label={text} />}
+				onClick={onClick}
+				href={href}
+				tooltip={iconButtonTooltip}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+				theme={getCreateButtonTheme(theme)}
+				aria-label={text}
+				data-hide-on-largescreens
+			/>
+		</div>
+	);
 };
 
 export default Create;

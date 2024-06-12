@@ -84,7 +84,7 @@ export const DropdownMenu = ({
 				}}
 				targetRef={targetRefDiv}
 			>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div style={{ height: 0, minWidth: dragMenuDropdownWidth }} />
 				<MenuGroup role="menu">
 					{items.map((group, index) => (

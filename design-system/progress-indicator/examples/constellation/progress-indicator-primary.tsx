@@ -8,41 +8,34 @@ import Button from '@atlaskit/button/new';
 import { ProgressIndicator } from '../../src';
 
 const containerStyles = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'space-between',
 });
 
 const PrimaryExample = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [values] = useState(['first', 'second', 'third']);
+	const [selectedIndex, setSelectedIndex] = useState(0);
+	const [values] = useState(['first', 'second', 'third']);
 
-  const handlePrev = () => {
-    setSelectedIndex((prevState) => prevState - 1);
-  };
+	const handlePrev = () => {
+		setSelectedIndex((prevState) => prevState - 1);
+	};
 
-  const handleNext = () => {
-    setSelectedIndex((prevState) => prevState + 1);
-  };
+	const handleNext = () => {
+		setSelectedIndex((prevState) => prevState + 1);
+	};
 
-  return (
-    <div css={containerStyles}>
-      <Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
-        Prev
-      </Button>
-      <ProgressIndicator
-        appearance="primary"
-        selectedIndex={selectedIndex}
-        values={values}
-      />
-      <Button
-        isDisabled={selectedIndex === values.length - 1}
-        onClick={handleNext}
-      >
-        Next
-      </Button>
-    </div>
-  );
+	return (
+		<div css={containerStyles}>
+			<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
+				Prev
+			</Button>
+			<ProgressIndicator appearance="primary" selectedIndex={selectedIndex} values={values} />
+			<Button isDisabled={selectedIndex === values.length - 1} onClick={handleNext}>
+				Next
+			</Button>
+		</div>
+	);
 };
 
 export default PrimaryExample;

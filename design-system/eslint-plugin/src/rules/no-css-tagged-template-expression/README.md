@@ -1,8 +1,12 @@
-Disallows any `css` tagged template expressions that originate from a CSS-in-JS library, including `@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
+Disallows any `css` tagged template expressions that originate from a CSS-in-JS library, including
+`@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
 
-Tagged template expressions cannot be type safe and are difficult to parse correctly. Will auto fix ` css`` ` to the preferred `css({})` call expression syntax.
+Tagged template expressions cannot be type safe and are difficult to parse correctly. Will auto fix
+` css`` ` to the preferred `css({})` call expression syntax.
 
-Thank you to the [Compiled team for their rule](https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-css-tagged-template-expression) from which this was ported.
+Thank you to the
+[Compiled team for their rule](https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-css-tagged-template-expression)
+from which this was ported.
 
 ## Examples
 
@@ -12,12 +16,12 @@ Thank you to the [Compiled team for their rule](https://github.com/atlassian-lab
 import { css } from '@emotion/react';
 
 css`
-  color: blue;
+	color: blue;
 `;
 
 const styles = css`
-  color: blue;
-  font-weight: 500;
+	color: blue;
+	font-weight: 500;
 `;
 ```
 
@@ -29,8 +33,8 @@ import { css } from '@emotion/react';
 css({ color: 'blue' });
 
 const styles = css({
-  color: 'blue',
-  fontWeight: 500,
+	color: 'blue',
+	fontWeight: 500,
 });
 ```
 
@@ -48,7 +52,8 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an
+array of package names (strings).
 
 ```tsx
 // [{ importSources: ['other-lib'] }]

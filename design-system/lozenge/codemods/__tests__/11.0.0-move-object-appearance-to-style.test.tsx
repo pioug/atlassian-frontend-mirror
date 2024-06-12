@@ -3,10 +3,10 @@ import transformer from '../11.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Lozenge codemod', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
 
@@ -20,7 +20,7 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
 
@@ -37,13 +37,13 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `should move object appearance values to style prop`,
-  );
+		`should move object appearance values to style prop`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/custom-lozenge';
 
@@ -57,7 +57,7 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/custom-lozenge';
 
@@ -71,13 +71,13 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `should not be modified when not imported from "@atlaskit/lozenge"`,
-  );
+		`should not be modified when not imported from "@atlaskit/lozenge"`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
 
@@ -89,7 +89,7 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
 
@@ -101,13 +101,13 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `should not be modified when appearance prop is not an object`,
-  );
+		`should not be modified when appearance prop is not an object`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
 
@@ -119,7 +119,7 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
 
@@ -131,13 +131,13 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `should not be modified when appearance prop is dynamic`,
-  );
+		`should not be modified when appearance prop is dynamic`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
 
@@ -152,7 +152,7 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Lozenge from '@atlaskit/lozenge';
 
@@ -167,6 +167,6 @@ describe('Lozenge codemod', () => {
       );
     }
     `,
-    `should not be modified when appearance prop is not type of object and style prop is also present`,
-  );
+		`should not be modified when appearance prop is not type of object and style prop is also present`,
+	);
 });

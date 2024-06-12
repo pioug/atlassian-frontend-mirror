@@ -1,8 +1,8 @@
 import { media } from '../../index';
 
 describe('media-helper', () => {
-  it('exposes expected media queries', () => {
-    expect(media).toMatchInlineSnapshot(`
+	it('exposes expected media queries', () => {
+		expect(media).toMatchInlineSnapshot(`
       Object {
         "above": Object {
           "lg": "@media (min-width: 90rem)",
@@ -29,5 +29,5 @@ describe('media-helper', () => {
         },
       }
     `);
-  });
+	});
 });

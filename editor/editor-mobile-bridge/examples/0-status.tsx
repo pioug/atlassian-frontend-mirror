@@ -27,6 +27,7 @@ export interface Props {
 
 const divStyle = (height: string) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: height ? height : 'auto',
 		border: '1px solid #ddd',
 		margin: '16px 0',
@@ -119,10 +120,12 @@ export default class Example extends React.Component<Props, {}> {
 				</div>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div style={{ flex: '1 0 100%' }}>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={divStyle('250px')}>
 						<h3>Mobile editor</h3>
 						<MobileEditorWithFetchProxy />
 					</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={divStyle('200px')}>
 						<h3>Web to native</h3>
 						<WebToNativeReporter filter={['statusBridge']} />

@@ -5,10 +5,10 @@ import { check } from './_framework';
 import transformer from '../upgrade-pragmatic-drag-and-drop-to-stable';
 
 describe('shift offsetFromPointer() to pointerOutsideOfPreview()', () => {
-  check({
-    transformer,
-    it: 'should transform imports and usage',
-    original: `
+	check({
+		transformer,
+		it: 'should transform imports and usage',
+		original: `
       import {
         draggable
       } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -34,7 +34,7 @@ describe('shift offsetFromPointer() to pointerOutsideOfPreview()', () => {
         },
       });
     `,
-    expected: `
+		expected: `
       import {
         draggable
       } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -60,5 +60,5 @@ describe('shift offsetFromPointer() to pointerOutsideOfPreview()', () => {
         },
       });
   `,
-  });
+	});
 });

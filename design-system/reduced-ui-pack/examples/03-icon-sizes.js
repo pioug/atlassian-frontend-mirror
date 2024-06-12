@@ -9,42 +9,42 @@ import Warning from './utils/warning';
 const Spritemap = () => <div dangerouslySetInnerHTML={{ __html: icons }} />;
 
 export default () => (
-  <div>
-    <Spritemap />
-    <Warning />
-    <p>
-      <svg
-        focusable="false"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className="ak-icon ak-icon__size-small"
-        aria-label="Add"
-      >
-        <use xlinkHref="#ak-icon-add" />
-      </svg>
-      <svg
-        focusable="false"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className="ak-icon ak-icon__size-medium"
-        aria-label="Add"
-      >
-        <use xlinkHref="#ak-icon-add" />
-      </svg>
-      <svg
-        focusable="false"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className="ak-icon ak-icon__size-large"
-        aria-label="Add"
-      >
-        <use xlinkHref="#ak-icon-add" />
-      </svg>
-      <svg
-        focusable="false"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-        className="ak-icon ak-icon__size-xlarge"
-        aria-label="Add"
-      >
-        <use xlinkHref="#ak-icon-add" />
-      </svg>
-    </p>
-  </div>
+	<div>
+		<Spritemap />
+		<Warning />
+		<p>
+			<svg
+				focusable="false"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="ak-icon ak-icon__size-small"
+				aria-label="Add"
+			>
+				<use xlinkHref="#ak-icon-add" />
+			</svg>
+			<svg
+				focusable="false"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="ak-icon ak-icon__size-medium"
+				aria-label="Add"
+			>
+				<use xlinkHref="#ak-icon-add" />
+			</svg>
+			<svg
+				focusable="false"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="ak-icon ak-icon__size-large"
+				aria-label="Add"
+			>
+				<use xlinkHref="#ak-icon-add" />
+			</svg>
+			<svg
+				focusable="false"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="ak-icon ak-icon__size-xlarge"
+				aria-label="Add"
+			>
+				<use xlinkHref="#ak-icon-add" />
+			</svg>
+		</p>
+	</div>
 );

@@ -3,19 +3,19 @@ import transformer from '../13.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('all transforms should be applied', () => {
-  beforeEach(() => {
-    jest.spyOn(global.Math, 'random').mockReturnValue(0.123456789);
-  });
+	beforeEach(() => {
+		jest.spyOn(global.Math, 'random').mockReturnValue(0.123456789);
+	});
 
-  afterEach(() => {
-    jest.spyOn(global.Math, 'random').mockRestore();
-  });
+	afterEach(() => {
+		jest.spyOn(global.Math, 'random').mockRestore();
+	});
 
-  // Note the first 2 are extreme cases, not many usages would have all these use cases
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	// Note the first 2 are extreme cases, not many usages would have all these use cases
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useState } from "react";
       import Tabs, { TabItem } from "@atlaskit/tabs";
       import {
@@ -59,7 +59,7 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    `
+		`
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
       /* TODO: (from codemod) 
@@ -133,13 +133,13 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    'should change usages',
-  );
+		'should change usages',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useState } from "react";
       import Tabs, { TabItem, TabContent } from "@atlaskit/tabs";
       import {
@@ -177,7 +177,7 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    `
+		`
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
       /* TODO: (from codemod) 
@@ -256,13 +256,13 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    'should change usages with different variations of how the props are used',
-  );
+		'should change usages with different variations of how the props are used',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useState } from "react";
       import Tabs from "@atlaskit/tabs";
       import {
@@ -300,7 +300,7 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    `
+		`
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
       /* TODO: (from codemod) 
@@ -351,13 +351,13 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    'should change usages when not using components and isSelectedTest',
-  );
+		'should change usages when not using components and isSelectedTest',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useState } from "react";
       import Tabs from "@atlaskit/tabs";
       import {
@@ -386,7 +386,7 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    `
+		`
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
       /* TODO: (from codemod) 
@@ -441,13 +441,13 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    'should change usages when spreading props',
-  );
+		'should change usages when spreading props',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useState } from "react";
       import Tabs, { TabItem, TabContent } from "@atlaskit/tabs";
       import {
@@ -485,7 +485,7 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    `
+		`
       /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
       The codemod has added a random ID but you can add one that makes sense for your use case. */
       /* TODO: (from codemod) 
@@ -564,6 +564,6 @@ describe('all transforms should be applied', () => {
         );
       }
       `,
-    'should change usages when onChange is defined in a child',
-  );
+		'should change usages when onChange is defined in a child',
+	);
 });

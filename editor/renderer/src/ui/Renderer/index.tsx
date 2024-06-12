@@ -704,7 +704,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 						ref={innerRef}
 						onClick={onClick}
 						onMouseDown={onMouseDown}
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={rendererStyles({
 							appearance,
 							allowNestedHeaderLinks,

@@ -14,27 +14,27 @@ import { SwitcherPopup } from './shared/switcher-popup';
 import { themes } from './shared/themes';
 
 const ThemingExample = () => (
-  <div>
-    {themes.map((theme, i) => (
-      <Fragment key={i}>
-        <AtlassianNavigation
-          label="site"
-          primaryItems={defaultPrimaryItems}
-          renderAppSwitcher={SwitcherPopup}
-          renderCreate={DefaultCreate}
-          renderHelp={HelpPopup}
-          renderNotifications={NotificationsPopup}
-          renderProductHome={DefaultProductHome}
-          renderProfile={ProfilePopup}
-          renderSearch={DefaultSearch}
-          renderSettings={DefaultSettings}
-          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-          theme={theme}
-        />
-        {i < themes.length - 1 && <br />}
-      </Fragment>
-    ))}
-  </div>
+	<div>
+		{themes.map((theme, i) => (
+			<Fragment key={i}>
+				<AtlassianNavigation
+					label="site"
+					primaryItems={defaultPrimaryItems}
+					renderAppSwitcher={SwitcherPopup}
+					renderCreate={DefaultCreate}
+					renderHelp={HelpPopup}
+					renderNotifications={NotificationsPopup}
+					renderProductHome={DefaultProductHome}
+					renderProfile={ProfilePopup}
+					renderSearch={DefaultSearch}
+					renderSettings={DefaultSettings}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					theme={theme}
+				/>
+				{i < themes.length - 1 && <br />}
+			</Fragment>
+		))}
+	</div>
 );
 
 export default ThemingExample;

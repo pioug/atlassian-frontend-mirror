@@ -4,40 +4,38 @@ import { createContext, type MutableRefObject, useContext } from 'react';
  * @internal
  */
 export interface NestedContextValue {
-  currentStackId: string;
-  onNest: (id: string) => void;
-  onUnNest: () => void;
-  stack: string[];
-  parentId: string;
-  backButton?: React.ReactNode;
-  childIds: MutableRefObject<Set<string>>;
-  forceShowTopScrollIndicator: boolean | undefined;
+	currentStackId: string;
+	onNest: (id: string) => void;
+	onUnNest: () => void;
+	stack: string[];
+	parentId: string;
+	backButton?: React.ReactNode;
+	childIds: MutableRefObject<Set<string>>;
+	forceShowTopScrollIndicator: boolean | undefined;
 }
 
 /**
  * @internal
  */
-export const NestedContext = createContext<NestedContextValue | undefined>(
-  undefined,
-);
+export const NestedContext = createContext<NestedContextValue | undefined>(undefined);
 
 export const useNestedContext = (): NestedContextValue => {
-  const context = useContext(NestedContext);
-  if (!context) {
-    let error = '';
-    if (process.env.NODE_ENV === 'development') {
-      error = `
+	const context = useContext(NestedContext);
+	if (!context) {
+		let error = '';
+		if (process.env.NODE_ENV === 'development') {
+			error = `
 To use a <NestingItem /> it needs to be a descendant of <NestableNavigationContent>.
 You probably need to replace your <NavigationContent> with <NestableNavigationContent>.
 
 import { NestableNavigationContent } from '@atlaskit/side-navigation';
       `;
-    }
+		}
 
-    throw new Error(error);
-  }
+		throw new Error(error);
+	}
 
-  return context;
+	return context;
 };
 
 /**
@@ -46,15 +44,15 @@ import { NestableNavigationContent } from '@atlaskit/side-navigation';
  * If it returns `false` - either return `null` or `children` if you have children.
  */
 export const useShouldNestedElementRender = () => {
-  const context = useContext(NestedContext);
+	const context = useContext(NestedContext);
 
-  if (!context) {
-    return {
-      shouldRender: true,
-    };
-  }
+	if (!context) {
+		return {
+			shouldRender: true,
+		};
+	}
 
-  return {
-    shouldRender: context.currentStackId === context.parentId,
-  };
+	return {
+		shouldRender: context.currentStackId === context.parentId,
+	};
 };

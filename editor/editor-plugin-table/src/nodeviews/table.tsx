@@ -92,6 +92,7 @@ export default class TableView extends ReactNodeView<Props> {
 	eventDispatcher?: EventDispatcher;
 	getPos: getPosHandlerNode;
 	options;
+	getEditorFeatureFlags;
 
 	constructor(props: Props) {
 		super(
@@ -109,6 +110,7 @@ export default class TableView extends ReactNodeView<Props> {
 		this.getPos = props.getPos;
 		this.eventDispatcher = props.eventDispatcher;
 		this.options = props.options;
+		this.getEditorFeatureFlags = props.getEditorFeatureFlags;
 	}
 
 	getContentDOM() {
@@ -126,7 +128,7 @@ export default class TableView extends ReactNodeView<Props> {
 			if (
 				!this.options?.isTableScalingEnabled ||
 				(this.options?.isTableScalingEnabled &&
-					getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+					this.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption &&
 					this.node.attrs.displayMode === 'fixed')
 			) {
 				const tableInlineWidth = getInlineWidth(
@@ -157,7 +159,7 @@ export default class TableView extends ReactNodeView<Props> {
 		if (
 			!this.options?.isTableScalingEnabled ||
 			(this.options?.isTableScalingEnabled &&
-				getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+				this.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption &&
 				node.attrs.displayMode === 'fixed')
 		) {
 			// handle inline style when table been resized

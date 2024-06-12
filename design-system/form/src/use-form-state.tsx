@@ -14,14 +14,14 @@ const defaultSubscriptionConfig: FormSubscription = { values: true };
  * @example { values: true, dirty: false } => 'values:true|dirty:false|'
  */
 const getSubscriptionHash = (subscriptionConfig: FormSubscription): string => {
-  let hash = '';
-  for (const key in subscriptionConfig) {
-    if (subscriptionConfig.hasOwnProperty(key)) {
-      hash += `${key}:${subscriptionConfig[key as keyof FormSubscription]}|`;
-    }
-  }
+	let hash = '';
+	for (const key in subscriptionConfig) {
+		if (subscriptionConfig.hasOwnProperty(key)) {
+			hash += `${key}:${subscriptionConfig[key as keyof FormSubscription]}|`;
+		}
+	}
 
-  return hash;
+	return hash;
 };
 
 /**
@@ -33,38 +33,38 @@ const getSubscriptionHash = (subscriptionConfig: FormSubscription): string => {
  * @note On the initial render, this should be `undefined` as our form has not provided any state.
  */
 export const useFormState = <FormValues extends Record<string, any>>(
-  subscriptionConfig: FormSubscription = defaultSubscriptionConfig,
+	subscriptionConfig: FormSubscription = defaultSubscriptionConfig,
 ): FormState<FormValues> | undefined => {
-  const { subscribe } = useContext(FormContext);
-  const [state, setState] = useState<FormState<FormValues>>();
+	const { subscribe } = useContext(FormContext);
+	const [state, setState] = useState<FormState<FormValues>>();
 
-  /**
-   * A hash for us to shallow compare the subscriptionConfig object to react to shallow changes, but avoid referential changes.
-   * We avoid computing the hash if the subscription config has referential equality altogether.
-   */
-  const subscriptionConfigHash = useMemo(
-    () => getSubscriptionHash(subscriptionConfig),
-    [subscriptionConfig],
-  );
+	/**
+	 * A hash for us to shallow compare the subscriptionConfig object to react to shallow changes, but avoid referential changes.
+	 * We avoid computing the hash if the subscription config has referential equality altogether.
+	 */
+	const subscriptionConfigHash = useMemo(
+		() => getSubscriptionHash(subscriptionConfig),
+		[subscriptionConfig],
+	);
 
-  /**
-   * Return a memoized version of the subscription config to only react to shallow changes, not referential changes.
-   * Eg. calling `useFormState({ values: true })` twice will result in two different objects by reference, but not by shallow comparison.
-   * This will ensure we don't re-subscribe to the form state when the subscription config is the same.
-   */
-  const config = useMemo(
-    () => subscriptionConfig,
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally controlled with a hash to have an explicit shallow comparison
-    [subscriptionConfigHash],
-  );
+	/**
+	 * Return a memoized version of the subscription config to only react to shallow changes, not referential changes.
+	 * Eg. calling `useFormState({ values: true })` twice will result in two different objects by reference, but not by shallow comparison.
+	 * This will ensure we don't re-subscribe to the form state when the subscription config is the same.
+	 */
+	const config = useMemo(
+		() => subscriptionConfig,
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally controlled with a hash to have an explicit shallow comparison
+		[subscriptionConfigHash],
+	);
 
-  useEffect(() => {
-    const unsubscribe = subscribe((formState) => {
-      setState(formState as FormState<FormValues>);
-    }, config);
+	useEffect(() => {
+		const unsubscribe = subscribe((formState) => {
+			setState(formState as FormState<FormValues>);
+		}, config);
 
-    return () => unsubscribe();
-  }, [subscribe, config]);
+		return () => unsubscribe();
+	}, [subscribe, config]);
 
-  return state;
+	return state;
 };

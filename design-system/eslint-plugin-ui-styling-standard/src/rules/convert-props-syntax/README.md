@@ -1,34 +1,42 @@
-Convert props syntax that are unsupported by `styled-components@<4` and `@emotion/styled` to a props syntax that is supported. This is useful when used in conjunction with `no-styled-tagged-template-expression`, as output from the latter may use props syntax that results in a type error.
+Convert props syntax that are unsupported by `styled-components@<4` and `@emotion/styled` to a props
+syntax that is supported. This is useful when used in conjunction with
+`no-styled-tagged-template-expression`, as output from the latter may use props syntax that results
+in a type error.
 
 These libraries do not support having an arrow function inside a CSS value:
 
 ```js
 styled.div({
-  color: ({ myColor }) => myColor,
-  backgroundColor: (props) => props.someColor,
+	color: ({ myColor }) => myColor,
+	backgroundColor: (props) => props.someColor,
 });
 ```
 
-However, refactoring the arrow function so that it is the argument to `styled.div` will fix the issue:
+However, refactoring the arrow function so that it is the argument to `styled.div` will fix the
+issue:
 
 ```js
 styled.div((props) => ({
-  color: props.myColor,
-  backgroundColor: props.someColor,
+	color: props.myColor,
+	backgroundColor: props.someColor,
 }));
 ```
 
-This ESLint rule will only run on usages of the `styled` API when imported from libraries that are known to have this problem.
+This ESLint rule will only run on usages of the `styled` API when imported from libraries that are
+known to have this problem.
 
 ## About the autofixer
 
-This rule has an autofixer that will automatically perform the above arrow function refactoring for the majority of cases, including for nested selectors and any props used in template literal values.
+This rule has an autofixer that will automatically perform the above arrow function refactoring for
+the majority of cases, including for nested selectors and any props used in template literal values.
 
-However, there are a few situations where the autofixer will not be run. For these, you will need to manually fix the output, or migrate the code to `@compiled/react`.
+However, there are a few situations where the autofixer will not be run. For these, you will need to
+manually fix the output, or migrate the code to `@compiled/react`.
 
 ### Type annotations
 
-Type annotations in the arrow function are not supported; you will need to remediate the lint error manually. For example:
+Type annotations in the arrow function are not supported; you will need to remediate the lint error
+manually. For example:
 
 ```js
 type Props = {
@@ -58,12 +66,13 @@ styled.div((props: Props) => ({
 
 ### Special syntax in the arrow function parameter(s)
 
-Rest elements, default values, and so on in the parameter of an arrow function will need to be remediated manually. For example:
+Rest elements, default values, and so on in the parameter of an arrow function will need to be
+remediated manually. For example:
 
 ```js
 styled.div({
-  color: ({ myColor = '#fff' }) => myColor,
-  backgroundColor: ({ myColor = '#aaa' }) => myColor,
+	color: ({ myColor = '#fff' }) => myColor,
+	backgroundColor: ({ myColor = '#aaa' }) => myColor,
 });
 ```
 
@@ -71,8 +80,8 @@ could potentially be remediated with
 
 ```js
 styled.div((props) => ({
-  color: myColor ?? '#fff',
-  backgroundColor: myColor ?? '#aaa',
+	color: myColor ?? '#fff',
+	backgroundColor: myColor ?? '#aaa',
 }));
 ```
 
@@ -84,12 +93,12 @@ styled.div((props) => ({
 import styled from 'styled-components';
 
 styled.div({
-  color: ({ myColor }) => myColor,
-  backgroundColor: (props) => props.someColor,
+	color: ({ myColor }) => myColor,
+	backgroundColor: (props) => props.someColor,
 });
 
 styled.div({
-  color: `url(/tmp/${({ coolProp }) => coolProp}.png)`,
+	color: `url(/tmp/${({ coolProp }) => coolProp}.png)`,
 });
 ```
 
@@ -99,15 +108,16 @@ styled.div({
 import styled from '@emotion/styled';
 
 styled.div((props) => ({
-  color: props.myColor,
-  backgroundColor: props.someColor,
+	color: props.myColor,
+	backgroundColor: props.someColor,
 }));
 
 styled.div((props) => ({
-  color: url(`/tmp/${coolProp}.png`),
+	color: url(`/tmp/${coolProp}.png`),
 }));
 ```
 
 ## When not to use it
 
-You do not need this rule if you are not using a codebase that has a violating library as it will never do anything.
+You do not need this rule if you are not using a codebase that has a violating library as it will
+never do anything.

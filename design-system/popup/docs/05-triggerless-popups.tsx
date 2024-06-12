@@ -9,10 +9,10 @@ export default md`
   but open it via other interactions.
 
   ${(
-    <Example
-      packageName="@atlaskit/popup"
-      Component={require('../examples/triggerless').default}
-      source={require('!!raw-loader!../examples/triggerless')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/popup"
+			Component={require('../examples/triggerless').default}
+			source={require('!!raw-loader!../examples/triggerless')}
+		/>
+	)}
 `;

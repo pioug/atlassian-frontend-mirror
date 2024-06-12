@@ -20,17 +20,12 @@ import Popup from '@atlaskit/popup';
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/popup"
-      Component={require('../examples/default').default}
-      source={require('!!raw-loader!../examples/default')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/popup"
+			Component={require('../examples/default').default}
+			source={require('!!raw-loader!../examples/default')}
+		/>
+	)}
 
-  ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/popup')}
-    />
-  )}
+  ${(<Props heading="Props" props={require('!!extract-react-types-loader!../src/popup')} />)}
 `;

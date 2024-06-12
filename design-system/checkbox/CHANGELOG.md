@@ -4,529 +4,526 @@
 
 ### Minor Changes
 
--   [#103698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103698)
-    [`413b5201c8fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/413b5201c8fe) -
-    Introduce the bounded `xcss` prop.
+- [#103698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103698)
+  [`413b5201c8fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/413b5201c8fe) -
+  Introduce the bounded `xcss` prop.
 
 ## 13.3.0
 
 ### Minor Changes
 
--   [#94675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94675)
-    [`5d9e1dccacca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d9e1dccacca) -
-    [ux] Update input border color token to meet 3:1 color contrast ratioLight theme:
-    color.border.input: #091E4224 → #8590A2Dark mode: color.border.input: #A6C5E229 → #738496
+- [#94675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94675)
+  [`5d9e1dccacca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d9e1dccacca) -
+  [ux] Update input border color token to meet 3:1 color contrast ratioLight theme:
+  color.border.input: #091E4224 → #8590A2Dark mode: color.border.input: #A6C5E229 → #738496
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 13.2.0
 
 ### Minor Changes
 
--   [#96187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96187)
-    [`53443aace88d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53443aace88d) -
-    Add support for React 18 in non-strict mode.
+- [#96187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96187)
+  [`53443aace88d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53443aace88d) -
+  Add support for React 18 in non-strict mode.
 
 ## 13.1.5
 
 ### Patch Changes
 
--   [#89923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89923)
-    [`32bc9f9f09b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32bc9f9f09b3) -
-    Internal changes to typography, no visual change.
+- [#89923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89923)
+  [`32bc9f9f09b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32bc9f9f09b3) -
+  Internal changes to typography, no visual change.
 
 ## 13.1.4
 
 ### Patch Changes
 
--   [#84905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84905)
-    [`f03cb7163ffc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f03cb7163ffc) -
-    Fixes a bug with input focus styles.
+- [#84905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84905)
+  [`f03cb7163ffc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f03cb7163ffc) -
+  Fixes a bug with input focus styles.
 
 ## 13.1.3
 
 ### Patch Changes
 
--   [#83297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83297)
-    [`6b1707c169e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b1707c169e0) -
-    The internal composition of this component has changed. There is no expected change in
-    behaviour.
+- [#83297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83297)
+  [`6b1707c169e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b1707c169e0) -
+  The internal composition of this component has changed. There is no expected change in behaviour.
 
 ## 13.1.2
 
 ### Patch Changes
 
--   [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
-    [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
-    Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 13.1.1
 
 ### Patch Changes
 
--   [#81644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81644)
-    [`8ab7a816dca7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ab7a816dca7) -
-    Revert input border change from the previous version
+- [#81644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81644)
+  [`8ab7a816dca7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ab7a816dca7) -
+  Revert input border change from the previous version
 
 ## 13.1.0
 
 ### Minor Changes
 
--   [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805)
-    [`427c2dd9e0d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/427c2dd9e0d6) -
-    [ux] update border with from 2px to 1px with darker color to meet 3:1 color contrast for
-    accessibility improvement
+- [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805)
+  [`427c2dd9e0d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/427c2dd9e0d6) -
+  [ux] update border with from 2px to 1px with darker color to meet 3:1 color contrast for
+  accessibility improvement
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 13.0.2
 
 ### Patch Changes
 
--   [#78598](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78598)
-    [`cabae83473c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cabae83473c3) -
-    [ux] Improved visibility of focus styles by adding a gap between the checkbox and focus ring.
-    This makes the focus ring easier to distinguish to a selected checkbox, which is also blue.
+- [#78598](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78598)
+  [`cabae83473c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cabae83473c3) -
+  [ux] Improved visibility of focus styles by adding a gap between the checkbox and focus ring. This
+  makes the focus ring easier to distinguish to a selected checkbox, which is also blue.
 
 ## 13.0.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 13.0.0
 
 ### Major Changes
 
--   [#41760](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41760)
-    [`909e4a30fe7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/909e4a30fe7) -
-    Removed all remaining legacy theming logic from the Blanket, Breadcrumbs and Checkbox
-    components.
+- [#41760](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41760)
+  [`909e4a30fe7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/909e4a30fe7) - Removed
+  all remaining legacy theming logic from the Blanket, Breadcrumbs and Checkbox components.
 
 ## 12.6.11
 
 ### Patch Changes
 
--   [#38875](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38875)
-    [`b580abfbc29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b580abfbc29) - Remove
-    onClick from checkbox label
+- [#38875](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38875)
+  [`b580abfbc29`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b580abfbc29) - Remove
+  onClick from checkbox label
 
 ## 12.6.10
 
 ### Patch Changes
 
--   [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731)
-    [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete
-    version.json
+- [#38731](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38731)
+  [`9af31f3c1ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9af31f3c1ae) - Delete
+  version.json
 
 ## 12.6.9
 
 ### Patch Changes
 
--   [#38201](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38201)
-    [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This
-    package is now onboarded onto the product push model.
+- [#38201](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38201)
+  [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This
+  package is now onboarded onto the product push model.
 
 ## 12.6.8
 
 ### Patch Changes
 
--   [#37615](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37615)
-    [`ba0a43d8ccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba0a43d8ccc) - [ux]
-    update focused color fallback to meet contrast requirement
+- [#37615](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37615)
+  [`ba0a43d8ccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba0a43d8ccc) - [ux]
+  update focused color fallback to meet contrast requirement
 
 ## 12.6.7
 
 ### Patch Changes
 
--   [#37452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37452)
-    [`9cc3b8d1902`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cc3b8d1902) -
-    chore(checkbox): use new feature flag for border contrast
+- [#37452](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37452)
+  [`9cc3b8d1902`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cc3b8d1902) -
+  chore(checkbox): use new feature flag for border contrast
 
 ## 12.6.6
 
 ### Patch Changes
 
--   [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754)
-    [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use
-    `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility
-    testing.
+- [#36754](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36754)
+  [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use
+  `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility
+  testing.
 
 ## 12.6.5
 
 ### Patch Changes
 
--   [#36666](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36666)
-    [`3958636a718`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3958636a718) - update
-    border width with border spacing token
+- [#36666](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36666)
+  [`3958636a718`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3958636a718) - update
+  border width with border spacing token
 
 ## 12.6.4
 
 ### Patch Changes
 
--   [#35111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35111)
-    [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend
-    border contrast feature flag to support confluence
+- [#35111](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/35111)
+  [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend
+  border contrast feature flag to support confluence
 
 ## 12.6.3
 
 ### Patch Changes
 
--   [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051)
-    [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) -
-    Migrated use of `gridSize` to space tokens where possible. There is no expected visual or
-    behaviour change.
+- [#34051](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34051)
+  [`49b08bfdf5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/49b08bfdf5f) - Migrated
+  use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 12.6.2
 
 ### Patch Changes
 
--   [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
-    [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
-    legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 12.6.1
 
 ### Patch Changes
 
--   [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
-    [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) -
-    Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 12.6.0
 
 ### Minor Changes
 
--   [#33335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33335)
-    [`8d0fd2d3f6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d0fd2d3f6c) - [ux]
-    reduce stroke width from 2px to 1px with new color to meet contrast requirement
+- [#33335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33335)
+  [`8d0fd2d3f6c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d0fd2d3f6c) - [ux]
+  reduce stroke width from 2px to 1px with new color to meet contrast requirement
 
 ## 12.5.0
 
 ### Minor Changes
 
--   [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
-    [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
-    minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.4.6
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.4.5
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.4.4
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.4.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.4.2
 
 ### Patch Changes
 
--   [#27738](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27738)
-    [`ed1b0fd2c2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed1b0fd2c2d) - [ux]
-    Removes redundant whitespace from checkbox when no visual label is applied - eg when an
-    aria-label or id is used instead.
+- [#27738](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27738)
+  [`ed1b0fd2c2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed1b0fd2c2d) - [ux]
+  Removes redundant whitespace from checkbox when no visual label is applied - eg when an aria-label
+  or id is used instead.
 
 ## 12.4.1
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.4.0
 
 ### Minor Changes
 
--   [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710)
-    [`0944c0e7eed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0944c0e7eed) -
-    Updates `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+- [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710)
+  [`0944c0e7eed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0944c0e7eed) - Updates
+  `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.20
 
 ### Patch Changes
 
--   [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
-    [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) -
-    Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
+  [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade
+  Typescript from `4.3.5` to `4.5.5`
 
 ## 12.3.19
 
 ### Patch Changes
 
--   [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
-    [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) -
-    Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
+  [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade
+  Typescript from `4.2.4` to `4.3.5`.
 
 ## 12.3.18
 
 ### Patch Changes
 
--   [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381)
-    [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) -
-    Updated styles to use new input design tokens
--   Updated dependencies
+- [#23381](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23381)
+  [`fe575d49d66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe575d49d66) - Updated
+  styles to use new input design tokens
+- Updated dependencies
 
 ## 12.3.17
 
 ### Patch Changes
 
--   [#23299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23299)
-    [`90e89e12034`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90e89e12034) - [ux]
-    Updated colors to use appropriate tokens
+- [#23299](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23299)
+  [`90e89e12034`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90e89e12034) - [ux]
+  Updated colors to use appropriate tokens
 
 ## 12.3.16
 
 ### Patch Changes
 
--   [#23179](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23179)
-    [`f55cf469372`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f55cf469372) - Added
-    id property to the checkbox label for compatibility with aria-labelledby
+- [#23179](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23179)
+  [`f55cf469372`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f55cf469372) - Added id
+  property to the checkbox label for compatibility with aria-labelledby
 
 ## 12.3.15
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.14
 
 ### Patch Changes
 
--   [#22130](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22130)
-    [`ff75f6c3189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff75f6c3189) - [ux]
-    Checkbox now uses grid layout in order to position the hidden checkbox over the area where the
-    icon is. This improves the virtual cursor for screen readers while also meaning that modifier
-    keys used when clicking the checkbox work."
+- [#22130](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/22130)
+  [`ff75f6c3189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ff75f6c3189) - [ux]
+  Checkbox now uses grid layout in order to position the hidden checkbox over the area where the
+  icon is. This improves the virtual cursor for screen readers while also meaning that modifier keys
+  used when clicking the checkbox work."
 
 ## 12.3.13
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.12
 
 ### Patch Changes
 
--   [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
-    [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) -
-    Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
+  [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade
+  to TypeScript 4.2.4
 
 ## 12.3.11
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.10
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.9
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.8
 
 ### Patch Changes
 
--   [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526)
-    [`5d27b03c5cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d27b03c5cf) - Styles
-    have been rewritten in preparation for migration to compiled.
--   Updated dependencies
+- [#18526](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/18526)
+  [`5d27b03c5cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5d27b03c5cf) - Styles
+  have been rewritten in preparation for migration to compiled.
+- Updated dependencies
 
 ## 12.3.7
 
 ### Patch Changes
 
--   [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752)
-    [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) -
-    Updates usage of deprecated token names so they're aligned with the latest naming conventions.
-    No UI or visual changes
--   Updated dependencies
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752)
+  [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Updates
+  usage of deprecated token names so they're aligned with the latest naming conventions. No UI or
+  visual changes
+- Updated dependencies
 
 ## 12.3.6
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.5
 
 ### Patch Changes
 
--   [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998)
-    [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds
-    for this package now pass through a tokens babel plugin, removing runtime invocations of the
-    tokens() function and improving bundle size.
--   Updated dependencies
+- [#15998](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15998)
+  [`f460cc7c411`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f460cc7c411) - Builds
+  for this package now pass through a tokens babel plugin, removing runtime invocations of the
+  tokens() function and improving bundle size.
+- Updated dependencies
 
 ## 12.3.4
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.3
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.2
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 12.3.1
 
 ### Patch Changes
 
--   [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864)
-    [`6e2231d4609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e2231d4609) -
-    Checkbox no longer creates an empty `<span/>` element next to the input if no label is provided.
--   Updated dependencies
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864)
+  [`6e2231d4609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e2231d4609) - Checkbox
+  no longer creates an empty `<span/>` element next to the input if no label is provided.
+- Updated dependencies
 
 ## 12.3.0
 
 ### Minor Changes
 
--   [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302)
-    [`fe79d66ea34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe79d66ea34) -
-    Instruments checkbox with the new tokens api. This will continue to work alongside the existing
-    theming implementation. No visual changes
+- [#13302](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13302)
+  [`fe79d66ea34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe79d66ea34) -
+  Instruments checkbox with the new tokens api. This will continue to work alongside the existing
+  theming implementation. No visual changes
 
 ### Patch Changes
 
--   [`b6b4c4100cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6b4c4100cd) -
-    Updates high contrast css declarations to use system color tokens + generic media query
--   [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) -
-    Updates token usage to match the latest token set
--   Updated dependencies
+- [`b6b4c4100cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6b4c4100cd) - Updates
+  high contrast css declarations to use system color tokens + generic media query
+- [`2d7cc544696`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d7cc544696) - Updates
+  token usage to match the latest token set
+- Updated dependencies
 
 ## 12.2.2
 
 ### Patch Changes
 
--   [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837)
-    [`18c128f6b73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18c128f6b73) - [ux]
-    Fix bug in which modified click events (e.g. Ctrl+Click) would not get passed down to the
-    underlying input element in Firefox.
--   Updated dependencies
+- [#12837](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12837)
+  [`18c128f6b73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18c128f6b73) - [ux] Fix
+  bug in which modified click events (e.g. Ctrl+Click) would not get passed down to the underlying
+  input element in Firefox.
+- Updated dependencies
 
 ## 12.2.1
 
 ### Patch Changes
 
--   [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880)
-    [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump
-    `@atlaskit/theme` to version `^11.3.0`.
+- [#12880](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12880)
+  [`378d1cef00f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/378d1cef00f) - Bump
+  `@atlaskit/theme` to version `^11.3.0`.
 
 ## 12.2.0
 
 ### Minor Changes
 
--   [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328)
-    [`987e2fc4ddd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/987e2fc4ddd) - Add
-    configuration to eslint rule label-has-associated-control
+- [#12328](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12328)
+  [`987e2fc4ddd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/987e2fc4ddd) - Add
+  configuration to eslint rule label-has-associated-control
 
 ### Patch Changes
 
--   [`3c67db1a6e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c67db1a6e9) - Fix
-    for checkbox to account for a change in the @atlaskit/icon API
--   Updated dependencies
+- [`3c67db1a6e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c67db1a6e9) - Fix for
+  checkbox to account for a change in the @atlaskit/icon API
+- Updated dependencies
 
 ## 12.1.3
 
 ### Patch Changes
 
--   [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167)
-    [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) -
-    Updates to development dependency `storybook-addon-performance`
+- [#12167](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12167)
+  [`d6f7ff383cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f7ff383cf) - Updates
+  to development dependency `storybook-addon-performance`
 
 ## 12.1.2
 
 ### Patch Changes
 
--   [#11584](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11584)
-    [`37324ccc750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37324ccc750) - Fix
-    styling error causing rendering errors in iOS Safari, and focus rings in Firefox
+- [#11584](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11584)
+  [`37324ccc750`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37324ccc750) - Fix
+  styling error causing rendering errors in iOS Safari, and focus rings in Firefox
 
 ## 12.1.1
 
 ### Patch Changes
 
--   [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230)
-    [`a99925b1634`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a99925b1634) - Added
-    styles for edge high contrast modes (black on white and white on black)
--   Updated dependencies
+- [#10230](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/10230)
+  [`a99925b1634`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a99925b1634) - Added
+  styles for edge high contrast modes (black on white and white on black)
+- Updated dependencies
 
 ## 12.1.0
 
 ### Minor Changes
 
--   [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510)
-    [`02a0cdbd98b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02a0cdbd98b) - Added
-    aria-invalid to checkbox input which corresponds the isInvalid prop
+- [#9510](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9510)
+  [`02a0cdbd98b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02a0cdbd98b) - Added
+  aria-invalid to checkbox input which corresponds the isInvalid prop
 
 ## 12.0.2
 
 ### Patch Changes
 
--   [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083)
-    [`e0278312c57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0278312c57) -
-    Checkbox now uses the new `SVG` component from @atlaskit/icon.
--   Updated dependencies
+- [#9083](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9083)
+  [`e0278312c57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0278312c57) - Checkbox
+  now uses the new `SVG` component from @atlaskit/icon.
+- Updated dependencies
 
 ## 12.0.1
 
 ### Patch Changes
 
--   [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644)
-    [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use
-    injected package name and version for analytics instead of version.json.
--   [`08c1f789a45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c1f789a45) - [ux]
-    Fixes flickering when transitioning to and from indeterminate states
+- [#8644](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8644)
+  [`79c23df6340`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79c23df6340) - Use
+  injected package name and version for analytics instead of version.json.
+- [`08c1f789a45`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c1f789a45) - [ux]
+  Fixes flickering when transitioning to and from indeterminate states
 
 ## 12.0.0
 
 ### Major Changes
 
--   [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571)
-    [`ee02ee0aaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee02ee0aaa) In this
-    version, we made `Checkbox` dramatically faster and more lightweight 😍
+- [#6571](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/6571)
+  [`ee02ee0aaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee02ee0aaa) In this
+  version, we made `Checkbox` dramatically faster and more lightweight 😍
 
 ### Changes
 
@@ -620,36 +617,36 @@ used with the removal of `theme`.
 
 ### Other changes
 
--   Previously all interaction styles were generated in JS using events, causing unnecessary and
-    slow rerenders for actions like hovering and focusing. Now all styles for the `Checkbox` are
-    applied using css selectors.
--   To generate less dom elements we have removed the dependency on `@atlaskit/icon` and instead
-    changed to an `svg` that can be customised to be the default checkbox or the indeterminate
-    checkbox. This `svg` is styled from the input element with the sibling selector.
--   The disabled state of `Checkbox` previously had no border. This was not intentional and now
-    `Checkbox` has a 2px border when it is disabled, this is consistent with all other states of
-    `Checkbox`.
--   `CheckboxProps` now extends `HTMLInputAttribute` which means you can pass any input attribute as
-    a prop onto `Checkbox`.
--   Changed the `inputRef` prop to be `ref` which returns the `ref` of the checkbox input using
-    `forwardRef`. This new `ref` prop will accept the type of the old `inputRef` prop,
-    `(input?: HTMLInputElement) => any`, as well as if `ref` is created with `createRef`.
--   Removed the prop `isFullWidth` as it did not do anything.
--   Updated the entry point to only export `Checkbox` and `CheckboxProps`. `Checkbox` can now be a
-    named or default import. As the old entry point allowed access to every export at the base level
-    these exports have now been removed; `ComponentTokens`, `ThemeFn`, `CheckboxWithoutAnalytics`,
-    `CheckboxIcon` as well as all exported types.
--   Changed indeterminate checkboxes to set `aria-checked` to be `mixed`.
+- Previously all interaction styles were generated in JS using events, causing unnecessary and slow
+  rerenders for actions like hovering and focusing. Now all styles for the `Checkbox` are applied
+  using css selectors.
+- To generate less dom elements we have removed the dependency on `@atlaskit/icon` and instead
+  changed to an `svg` that can be customised to be the default checkbox or the indeterminate
+  checkbox. This `svg` is styled from the input element with the sibling selector.
+- The disabled state of `Checkbox` previously had no border. This was not intentional and now
+  `Checkbox` has a 2px border when it is disabled, this is consistent with all other states of
+  `Checkbox`.
+- `CheckboxProps` now extends `HTMLInputAttribute` which means you can pass any input attribute as a
+  prop onto `Checkbox`.
+- Changed the `inputRef` prop to be `ref` which returns the `ref` of the checkbox input using
+  `forwardRef`. This new `ref` prop will accept the type of the old `inputRef` prop,
+  `(input?: HTMLInputElement) => any`, as well as if `ref` is created with `createRef`.
+- Removed the prop `isFullWidth` as it did not do anything.
+- Updated the entry point to only export `Checkbox` and `CheckboxProps`. `Checkbox` can now be a
+  named or default import. As the old entry point allowed access to every export at the base level
+  these exports have now been removed; `ComponentTokens`, `ThemeFn`, `CheckboxWithoutAnalytics`,
+  `CheckboxIcon` as well as all exported types.
+- Changed indeterminate checkboxes to set `aria-checked` to be `mixed`.
 
 ### Automatic upgrading
 
 There is a codemod that assists you in upgrading most of the changes from above.
 
--   Removes `isFullWidth`, `theme` and `overrides` prop.
--   Shifts over usages of `inputRef` to `ref`
--   Removes imports of `ComponentTokens` and `ThemeFn`.
--   Changes imports of `CheckboxProps` to be at the base level.
--   Changes imports of `CheckboxWithoutAnalytics` to import `Checkbox` at the base level.
+- Removes `isFullWidth`, `theme` and `overrides` prop.
+- Shifts over usages of `inputRef` to `ref`
+- Removes imports of `ComponentTokens` and `ThemeFn`.
+- Changes imports of `CheckboxProps` to be at the base level.
+- Changes imports of `CheckboxWithoutAnalytics` to import `Checkbox` at the base level.
 
 ```
 # You first need to have the latest `Checkbox` installed before you can run the codemod
@@ -662,1143 +659,1140 @@ npx @atlaskit/codemod-cli /path/to/target/directory --parser [tsx | flow | babel
 
 ### Patch Changes
 
--   [`c7604cdf02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7604cdf02) - In
-    `12.0.0` the `checkbox` input accidentally changed vertical alignment from `top` to `center`.
-    This had a visual impact when you had a checkbox label the spanned multiple lines. This changes
-    the vertical alignment of the `checkbox` input back to `top`.
--   [`6cb7f0c5e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cb7f0c5e5) - Patch
-    fix to make the svg not shrink and give Checkbox a display name.
+- [`c7604cdf02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c7604cdf02) - In
+  `12.0.0` the `checkbox` input accidentally changed vertical alignment from `top` to `center`. This
+  had a visual impact when you had a checkbox label the spanned multiple lines. This changes the
+  vertical alignment of the `checkbox` input back to `top`.
+- [`6cb7f0c5e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6cb7f0c5e5) - Patch fix
+  to make the svg not shrink and give Checkbox a display name.
 
 ## 11.0.8
 
 ### Patch Changes
 
--   [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
-    [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) -
-    Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
+  [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile
+  packages using babel rather than tsc
 
 ## 11.0.7
 
 ### Patch Changes
 
--   [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497)
-    [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export
-    types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules
-    compiler option. This requires version 3.8 of Typescript, read more about how we handle
-    Typescript versions here: https://atlaskit.atlassian.com/get-started Also add `typescript` to
-    `devDependencies` to denote version that the package was built with.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497)
+  [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export
+  types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules
+  compiler option. This requires version 3.8 of Typescript, read more about how we handle Typescript
+  versions here: https://atlaskit.atlassian.com/get-started Also add `typescript` to
+  `devDependencies` to denote version that the package was built with.
 
 ## 11.0.6
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 11.0.5
 
 ### Patch Changes
 
--   [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707)
-    [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable
-    integration tests for Edge browser
+- [#4707](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/4707)
+  [`6360c46009`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6360c46009) - Reenable
+  integration tests for Edge browser
 
 ## 11.0.4
 
 ### Patch Changes
 
--   [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885)
-    [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded
-    to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885)
+  [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded
+  to TypeScript 3.9.6 and tslib to 2.0.0
 
-    Since tslib is a dependency for all our packages we recommend that products also follow this
-    tslib upgrade to prevent duplicates of tslib being bundled.
+  Since tslib is a dependency for all our packages we recommend that products also follow this tslib
+  upgrade to prevent duplicates of tslib being bundled.
 
 ## 11.0.3
 
 ### Patch Changes
 
--   [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823)
-    [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the
-    'lodash' package instead of single-function 'lodash.\*' packages
--   [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form
-    elements now have a default font explicitly set
+- [#3823](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3823)
+  [`6262f382de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6262f382de) - Use the
+  'lodash' package instead of single-function 'lodash.\*' packages
+- [`e99262c6f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e99262c6f0) - All form
+  elements now have a default font explicitly set
 
 ## 11.0.2
 
 ### Patch Changes
 
--   [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293)
-    [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The
-    readme and package information has been updated to point to the new design system website.
+- [#3293](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3293)
+  [`954cc87b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/954cc87b62) - The readme
+  and package information has been updated to point to the new design system website.
 
 ## 11.0.1
 
 ### Patch Changes
 
--   [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428)
-    [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update
-    all the theme imports to be tree-shakable
+- [#3428](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3428)
+  [`db053b24d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db053b24d8) - Update all
+  the theme imports to be tree-shakable
 
 ## 11.0.0
 
 ### Major Changes
 
--   [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335)
-    [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) -
-    Officially dropping IE11 support, from this version onwards there are no warranties of the
-    package working in IE11. For more information see:
-    https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335)
+  [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially
+  dropping IE11 support, from this version onwards there are no warranties of the package working in
+  IE11. For more information see:
+  https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 10.1.14
 
 ### Patch Changes
 
--   [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866)
-    [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build
-    and supporting files will no longer be published to npm
+- [#2866](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2866)
+  [`54a9514fcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54a9514fcf) - Build and
+  supporting files will no longer be published to npm
 
 ## 10.1.13
 
 ### Patch Changes
 
--   [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137)
-    [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove
-    unused dependencies
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137)
+  [`54d82b49f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54d82b49f0) - Remove
+  unused dependencies
 
 ## 10.1.12
 
 ### Patch Changes
 
--   Updated dependencies
+- Updated dependencies
 
 ## 10.1.11
 
 ### Patch Changes
 
--   [patch][68ff159118](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff159118):
+- [patch][68ff159118](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ff159118):
 
-    Change imports to comply with Atlassian conventions- Updated dependencies
-    [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
+  Change imports to comply with Atlassian conventions- Updated dependencies
+  [6b8e60827e](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b8e60827e):
 
--   Updated dependencies
-    [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
--   Updated dependencies
-    [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
--   Updated dependencies
-    [0059d26429](https://bitbucket.org/atlassian/atlassian-frontend/commits/0059d26429):
--   Updated dependencies
-    [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
-    -   @atlaskit/button@13.3.11
-    -   @atlaskit/icon@20.1.1
-    -   @atlaskit/form@7.2.1
-    -   @atlaskit/webdriver-runner@0.3.4
+- Updated dependencies
+  [449ef134b3](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ef134b3):
+- Updated dependencies
+  [57c0487a02](https://bitbucket.org/atlassian/atlassian-frontend/commits/57c0487a02):
+- Updated dependencies
+  [0059d26429](https://bitbucket.org/atlassian/atlassian-frontend/commits/0059d26429):
+- Updated dependencies
+  [fd41d77c29](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd41d77c29):
+  - @atlaskit/button@13.3.11
+  - @atlaskit/icon@20.1.1
+  - @atlaskit/form@7.2.1
+  - @atlaskit/webdriver-runner@0.3.4
 
 ## 10.1.10
 
 ### Patch Changes
 
--   Updated dependencies
-    [66dcced7a0](https://bitbucket.org/atlassian/atlassian-frontend/commits/66dcced7a0):
--   Updated dependencies
-    [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
--   Updated dependencies
-    [64fb94fb1e](https://bitbucket.org/atlassian/atlassian-frontend/commits/64fb94fb1e):
--   Updated dependencies
-    [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
--   Updated dependencies
-    [eea5e9bd8c](https://bitbucket.org/atlassian/atlassian-frontend/commits/eea5e9bd8c):
--   Updated dependencies
-    [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
--   Updated dependencies
-    [109c1a2c0a](https://bitbucket.org/atlassian/atlassian-frontend/commits/109c1a2c0a):
--   Updated dependencies
-    [c57bb32f6d](https://bitbucket.org/atlassian/atlassian-frontend/commits/c57bb32f6d):
-    -   @atlaskit/docs@8.4.0
-    -   @atlaskit/icon@20.1.0
-    -   @atlaskit/webdriver-runner@0.3.0
-    -   @atlaskit/button@13.3.9
-    -   @atlaskit/form@7.1.5
-    -   @atlaskit/section-message@4.1.7
+- Updated dependencies
+  [66dcced7a0](https://bitbucket.org/atlassian/atlassian-frontend/commits/66dcced7a0):
+- Updated dependencies
+  [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
+- Updated dependencies
+  [64fb94fb1e](https://bitbucket.org/atlassian/atlassian-frontend/commits/64fb94fb1e):
+- Updated dependencies
+  [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
+- Updated dependencies
+  [eea5e9bd8c](https://bitbucket.org/atlassian/atlassian-frontend/commits/eea5e9bd8c):
+- Updated dependencies
+  [fd5292fd5a](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd5292fd5a):
+- Updated dependencies
+  [109c1a2c0a](https://bitbucket.org/atlassian/atlassian-frontend/commits/109c1a2c0a):
+- Updated dependencies
+  [c57bb32f6d](https://bitbucket.org/atlassian/atlassian-frontend/commits/c57bb32f6d):
+  - @atlaskit/docs@8.4.0
+  - @atlaskit/icon@20.1.0
+  - @atlaskit/webdriver-runner@0.3.0
+  - @atlaskit/button@13.3.9
+  - @atlaskit/form@7.1.5
+  - @atlaskit/section-message@4.1.7
 
 ## 10.1.9
 
 ### Patch Changes
 
--   Updated dependencies
-    [e3f01787dd](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3f01787dd):
-    -   @atlaskit/webdriver-runner@0.2.0
-    -   @atlaskit/button@13.3.8
-    -   @atlaskit/form@7.1.4
-    -   @atlaskit/section-message@4.1.6
+- Updated dependencies
+  [e3f01787dd](https://bitbucket.org/atlassian/atlassian-frontend/commits/e3f01787dd):
+  - @atlaskit/webdriver-runner@0.2.0
+  - @atlaskit/button@13.3.8
+  - @atlaskit/form@7.1.4
+  - @atlaskit/section-message@4.1.6
 
 ## 10.1.8
 
 ### Patch Changes
 
--   [patch][c1992227dc](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1992227dc):
+- [patch][c1992227dc](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1992227dc):
 
-    Bump to lodash.merge to 4.6.2- Updated dependencies
-    [eaad41d56c](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaad41d56c):
+  Bump to lodash.merge to 4.6.2- Updated dependencies
+  [eaad41d56c](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaad41d56c):
 
--   Updated dependencies
-    [c12ba5eb3e](https://bitbucket.org/atlassian/atlassian-frontend/commits/c12ba5eb3e):
--   Updated dependencies
-    [0603860c07](https://bitbucket.org/atlassian/atlassian-frontend/commits/0603860c07):
-    -   @atlaskit/form@7.1.3
-    -   @atlaskit/icon@20.0.2
+- Updated dependencies
+  [c12ba5eb3e](https://bitbucket.org/atlassian/atlassian-frontend/commits/c12ba5eb3e):
+- Updated dependencies
+  [0603860c07](https://bitbucket.org/atlassian/atlassian-frontend/commits/0603860c07):
+  - @atlaskit/form@7.1.3
+  - @atlaskit/icon@20.0.2
 
 ## 10.1.7
 
 ### Patch Changes
 
--   [patch][6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+- [patch][6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
-    Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
-    [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
+  [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
-    -   @atlaskit/docs@8.3.2
-    -   @atlaskit/visual-regression@0.1.9
-    -   @atlaskit/analytics-next@6.3.5
-    -   @atlaskit/button@13.3.7
-    -   @atlaskit/form@7.1.2
-    -   @atlaskit/icon@20.0.1
-    -   @atlaskit/section-message@4.1.5
-    -   @atlaskit/theme@9.5.1
+  - @atlaskit/docs@8.3.2
+  - @atlaskit/visual-regression@0.1.9
+  - @atlaskit/analytics-next@6.3.5
+  - @atlaskit/button@13.3.7
+  - @atlaskit/form@7.1.2
+  - @atlaskit/icon@20.0.1
+  - @atlaskit/section-message@4.1.5
+  - @atlaskit/theme@9.5.1
 
 ## 10.1.6
 
 ### Patch Changes
 
--   Updated dependencies
-    [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
-    -   @atlaskit/icon@20.0.0
-    -   @atlaskit/form@7.1.1
-    -   @atlaskit/section-message@4.1.4
-    -   @atlaskit/docs@8.3.1
-    -   @atlaskit/button@13.3.6
+- Updated dependencies
+  [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
+  - @atlaskit/icon@20.0.0
+  - @atlaskit/form@7.1.1
+  - @atlaskit/section-message@4.1.4
+  - @atlaskit/docs@8.3.1
+  - @atlaskit/button@13.3.6
 
 ## 10.1.5
 
 ### Patch Changes
 
--   [patch][4a223473c5](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a223473c5):
+- [patch][4a223473c5](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a223473c5):
 
-    Removes babel/runtime from dependencies. Users should see a smaller bundlesize as a result-
-    [patch][6a8bc6f866](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a8bc6f866):
+  Removes babel/runtime from dependencies. Users should see a smaller bundlesize as a result-
+  [patch][6a8bc6f866](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a8bc6f866):
 
-    Fixes an issue where focus rings and borders were not appearing as expected on some checkboxes-
-    Updated dependencies
-    [28f8f0e089](https://bitbucket.org/atlassian/atlassian-frontend/commits/28f8f0e089):
+  Fixes an issue where focus rings and borders were not appearing as expected on some checkboxes-
+  Updated dependencies
+  [28f8f0e089](https://bitbucket.org/atlassian/atlassian-frontend/commits/28f8f0e089):
 
--   Updated dependencies
-    [82747f2922](https://bitbucket.org/atlassian/atlassian-frontend/commits/82747f2922):
--   Updated dependencies
-    [4a223473c5](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a223473c5):
-    -   @atlaskit/icon@19.1.0
-    -   @atlaskit/theme@9.5.0
-    -   @atlaskit/button@13.3.5
-    -   @atlaskit/section-message@4.1.3
+- Updated dependencies
+  [82747f2922](https://bitbucket.org/atlassian/atlassian-frontend/commits/82747f2922):
+- Updated dependencies
+  [4a223473c5](https://bitbucket.org/atlassian/atlassian-frontend/commits/4a223473c5):
+  - @atlaskit/icon@19.1.0
+  - @atlaskit/theme@9.5.0
+  - @atlaskit/button@13.3.5
+  - @atlaskit/section-message@4.1.3
 
 ## 10.1.4
 
 ### Patch Changes
 
--   [patch][24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+- [patch][24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
 
-    Form has been converted to Typescript. TypeScript consumers will now get static type safety.
-    Flow types are no longer provided. No API changes.-
-    [patch][24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+  Form has been converted to Typescript. TypeScript consumers will now get static type safety. Flow
+  types are no longer provided. No API changes.-
+  [patch][24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
 
-    fixes disabled checkbox not having correct cursor when hovering over icons- Updated dependencies
-    [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+  fixes disabled checkbox not having correct cursor when hovering over icons- Updated dependencies
+  [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
 
--   Updated dependencies
-    [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
--   Updated dependencies
-    [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
--   Updated dependencies
-    [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
-    -   @atlaskit/analytics-next@6.3.3
-    -   @atlaskit/form@7.0.0
+- Updated dependencies
+  [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+- Updated dependencies
+  [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+- Updated dependencies
+  [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+  - @atlaskit/analytics-next@6.3.3
+  - @atlaskit/form@7.0.0
 
 ## 10.1.3
 
 ### Patch Changes
 
--   [patch][d222c2b987](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d222c2b987):
+- [patch][d222c2b987](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d222c2b987):
 
-    Theme has been converted to Typescript. Typescript consumers will now get static type safety.
-    Flow types are no longer provided.
+  Theme has been converted to Typescript. Typescript consumers will now get static type safety. Flow
+  types are no longer provided.
 
-    ### Breaking
+  ### Breaking
 
-    ** getTokens props changes ** When defining the value function passed into a ThemeProvider, the
-    getTokens parameter cannot be called without props; if no props are provided an empty object
-    `{}` must be passed in:
+  ** getTokens props changes ** When defining the value function passed into a ThemeProvider, the
+  getTokens parameter cannot be called without props; if no props are provided an empty object `{}`
+  must be passed in:
 
-    ```javascript
-    <CustomTheme.Provider
-      value={t => ({ ...t(), backgroundColor: '#333'})}
-    >
-    ```
+  ```javascript
+  <CustomTheme.Provider
+    value={t => ({ ...t(), backgroundColor: '#333'})}
+  >
+  ```
 
-    becomes:
+  becomes:
 
-    ```javascript
-    <CustomTheme.Provider
-      value={t => ({ ...t({}), backgroundColor: '#333'})}
-    >
-    ```
+  ```javascript
+  <CustomTheme.Provider
+    value={t => ({ ...t({}), backgroundColor: '#333'})}
+  >
+  ```
 
-    ** Color palette changes ** Color palettes have been moved into their own file. Users will need
-    to update imports from this:
+  ** Color palette changes ** Color palettes have been moved into their own file. Users will need to
+  update imports from this:
 
-    ```javascript
-    import { colors } from '@atlaskit/theme';
+  ```javascript
+  import { colors } from '@atlaskit/theme';
 
-    colors.colorPalette('8');
-    ```
+  colors.colorPalette('8');
+  ```
 
-    to this:
+  to this:
 
-    ```javascript
-    import { colorPalette } from '@atlaskit/theme';
+  ```javascript
+  import { colorPalette } from '@atlaskit/theme';
 
-    colorPalette.colorPalette('8');
-    ```
+  colorPalette.colorPalette('8');
+  ```
 
-    or for multi entry-point users:
+  or for multi entry-point users:
 
-    ```javascript
-    import * as colors from '@atlaskit/theme/colors';
+  ```javascript
+  import * as colors from '@atlaskit/theme/colors';
 
-    colors.colorPalette('8');
-    ```
+  colors.colorPalette('8');
+  ```
 
-    to this:
+  to this:
 
-    ```javascript
-    import * as colorPalettes from '@atlaskit/theme/color-palette';
+  ```javascript
+  import * as colorPalettes from '@atlaskit/theme/color-palette';
 
-    colorPalettes.colorPalette('8');
-    ```
+  colorPalettes.colorPalette('8');
+  ```
 
 ## 10.1.2
 
 ### Patch Changes
 
--   [patch][35d2229b2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/35d2229b2a):
+- [patch][35d2229b2a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/35d2229b2a):
 
-    Adding missing license to packages and update to Copyright 2019 Atlassian Pty Ltd.
+  Adding missing license to packages and update to Copyright 2019 Atlassian Pty Ltd.
 
 ## 10.1.1
 
 ### Patch Changes
 
--   [patch][a2d0043716](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a2d0043716):
+- [patch][a2d0043716](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a2d0043716):
 
-    Updated version of analytics-next to fix potential incompatibilities with TS 3.6
+  Updated version of analytics-next to fix potential incompatibilities with TS 3.6
 
 ## 10.1.0
 
 ### Minor Changes
 
--   [minor][f22f6e1e4f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f22f6e1e4f):
+- [minor][f22f6e1e4f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f22f6e1e4f):
 
-    Adding an optional prop `testId` that will set the attribute value `data-testid`. It will help
-    products to write better integration and end to end tests.
+  Adding an optional prop `testId` that will set the attribute value `data-testid`. It will help
+  products to write better integration and end to end tests.
 
 ## 10.0.0
 
 ### Major Changes
 
--   [major][97bab7fd28](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97bab7fd28):
+- [major][97bab7fd28](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97bab7fd28):
 
-    `@atlaskit/checkbox` **10.x** includes the following changes:
+  `@atlaskit/checkbox` **10.x** includes the following changes:
 
-    -   Replaced previous theme implementation with new `@atlaskit/theme` v2 implementation
-        -   Please read more about this implementation in the
-            [theming guide](https://atlaskit.atlassian.com/packages/core/theme/docs/theming-guide)
-    -   Added `overrides` prop which enables targeted customisations of key components in the
-        @atlaskit/checkbox package.
-        -   Please read more about this implementation in the
-            [overrides guide](https://atlaskit.atlassian.com/packages/core/theme/docs/overrides-guide)
+  - Replaced previous theme implementation with new `@atlaskit/theme` v2 implementation
+    - Please read more about this implementation in the
+      [theming guide](https://atlaskit.atlassian.com/packages/core/theme/docs/theming-guide)
+  - Added `overrides` prop which enables targeted customisations of key components in the
+    @atlaskit/checkbox package.
+    - Please read more about this implementation in the
+      [overrides guide](https://atlaskit.atlassian.com/packages/core/theme/docs/overrides-guide)
 
-    ### Breaking Changes
+  ### Breaking Changes
 
-    **HiddenCheckbox and spread props**
+  **HiddenCheckbox and spread props**
 
-    Passing props to the `<Checkbox/>` component for them to be spread onto the underlying
-    `<HiddenCheckbox/>` component is now **no longer possible**. `@atlaskit/checkbox` still supports
-    passing props down to the `<HiddenCheckbox/>` component, however we've opted to make this
-    behaviour more explicit.
+  Passing props to the `<Checkbox/>` component for them to be spread onto the underlying
+  `<HiddenCheckbox/>` component is now **no longer possible**. `@atlaskit/checkbox` still supports
+  passing props down to the `<HiddenCheckbox/>` component, however we've opted to make this
+  behaviour more explicit.
 
-    Whereas previously you would do this:
+  Whereas previously you would do this:
 
-    ```js
-    <Checkbox
-      ...supportedCheckboxProps
-      'data-testid'='test-checkbox'
-    />
-    ```
+  ```js
+  <Checkbox
+    ...supportedCheckboxProps
+    'data-testid'='test-checkbox'
+  />
+  ```
 
-    Now you would leverage the overrides prop to pass these props down to the `<HiddenCheckbox/>`
-    component like so:
+  Now you would leverage the overrides prop to pass these props down to the `<HiddenCheckbox/>`
+  component like so:
 
-    ```js
-    <Checkbox
-      ...supportedCheckboxProps
-      overrides={{
-        HiddenCheckbox:{
-          attributesFn: () => ({ 'data-testid': 'test-checkbox' })
-        }
-      }}
-    />
-    ```
+  ```js
+  <Checkbox
+    ...supportedCheckboxProps
+    overrides={{
+      HiddenCheckbox:{
+        attributesFn: () => ({ 'data-testid': 'test-checkbox' })
+      }
+    }}
+  />
+  ```
 
 ## 9.0.9
 
 ### Patch Changes
 
--   [patch][097b696613](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/097b696613):
+- [patch][097b696613](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/097b696613):
 
-    Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving
-    non-relative imports as relative imports
+  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving
+  non-relative imports as relative imports
 
 ## 9.0.8
 
 ### Patch Changes
 
--   [patch][ecca4d1dbb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ecca4d1dbb):
+- [patch][ecca4d1dbb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ecca4d1dbb):
 
-    Upgraded Typescript to 3.3.x
+  Upgraded Typescript to 3.3.x
 
 ## 9.0.7
 
 ### Patch Changes
 
--   [patch][708028db86](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/708028db86):
+- [patch][708028db86](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/708028db86):
 
-    Change all the imports to theme in Core to use multi entry points
+  Change all the imports to theme in Core to use multi entry points
 
 ## 9.0.6
 
 ### Patch Changes
 
--   [patch][de35ce8c67](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/de35ce8c67):
+- [patch][de35ce8c67](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/de35ce8c67):
 
-    Updates component maintainers
+  Updates component maintainers
 
 ## 9.0.5
 
 ### Patch Changes
 
--   [patch][926b43142b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/926b43142b):
+- [patch][926b43142b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/926b43142b):
 
-    Analytics-next has been converted to Typescript. Typescript consumers will now get static type
-    safety. Flow types are no longer provided. No behavioural changes.
+  Analytics-next has been converted to Typescript. Typescript consumers will now get static type
+  safety. Flow types are no longer provided. No behavioural changes.
 
-    **Breaking changes**
+  **Breaking changes**
 
-    -   `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
-    -   `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
+  - `withAnalyticsForSumTypeProps` alias has been removed, please use `withAnalyticsEvents`
+  - `AnalyticsContextWrappedComp` alias has been removed, please use `withAnalyticsContext`
 
-    **Breaking changes to TypeScript annotations**
+  **Breaking changes to TypeScript annotations**
 
-    -   `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to
-        provide props as a generic type.
-    -   `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to
-        provide props as a generic type.
-    -   Type `WithAnalyticsEventProps` has been renamed to `WithAnalyticsEventsProps` to match
-        source code
-    -   Type `CreateUIAnalyticsEventSignature` has been renamed to `CreateUIAnalyticsEvent` to match
-        source code
-    -   Type `UIAnalyticsEventHandlerSignature` has been renamed to `UIAnalyticsEventHandler` to
-        match source code
-    -   Type `AnalyticsEventsPayload` has been renamed to `AnalyticsEventPayload`
-    -   Type `ObjectType` has been removed, please use `Record<string, any>` or `[key: string]: any`
-    -   Type `UIAnalyticsEventInterface` has been removed, please use `UIAnalyticsEvent`
-    -   Type `AnalyticsEventInterface` has been removed, please use `AnalyticsEvent`
-    -   Type `CreateAndFireEventFunction` removed and should now be inferred by TypeScript
-    -   Type `AnalyticsEventUpdater` removed and should now be inferred by TypeScript
+  - `withAnalyticsEvents` now infers proptypes automatically, consumers no longer need to provide
+    props as a generic type.
+  - `withAnalyticsContext` now infers proptypes automatically, consumers no longer need to provide
+    props as a generic type.
+  - Type `WithAnalyticsEventProps` has been renamed to `WithAnalyticsEventsProps` to match source
+    code
+  - Type `CreateUIAnalyticsEventSignature` has been renamed to `CreateUIAnalyticsEvent` to match
+    source code
+  - Type `UIAnalyticsEventHandlerSignature` has been renamed to `UIAnalyticsEventHandler` to match
+    source code
+  - Type `AnalyticsEventsPayload` has been renamed to `AnalyticsEventPayload`
+  - Type `ObjectType` has been removed, please use `Record<string, any>` or `[key: string]: any`
+  - Type `UIAnalyticsEventInterface` has been removed, please use `UIAnalyticsEvent`
+  - Type `AnalyticsEventInterface` has been removed, please use `AnalyticsEvent`
+  - Type `CreateAndFireEventFunction` removed and should now be inferred by TypeScript
+  - Type `AnalyticsEventUpdater` removed and should now be inferred by TypeScript
 
 ## 9.0.4
 
 ### Patch Changes
 
--   [patch][9f8ab1084b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9f8ab1084b):
+- [patch][9f8ab1084b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9f8ab1084b):
 
-    Consume analytics-next ts type definitions as an ambient declaration.
+  Consume analytics-next ts type definitions as an ambient declaration.
 
 ## 9.0.3
 
 ### Patch Changes
 
--   [patch][bbff8a7d87](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bbff8a7d87):
+- [patch][bbff8a7d87](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/bbff8a7d87):
 
-    Fixes bug, missing version.json file
+  Fixes bug, missing version.json file
 
 ## 9.0.2
 
 ### Patch Changes
 
--   [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
+- [patch][18dfac7332](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/18dfac7332):
 
-    In this PR, we are:
+  In this PR, we are:
 
-    -   Re-introducing dist build folders
-    -   Adding back cjs
-    -   Replacing es5 by cjs and es2015 by esm
-    -   Creating folders at the root for entry-points
-    -   Removing the generation of the entry-points at the root Please see this
-        [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this
-        [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points)
-        for further details
+  - Re-introducing dist build folders
+  - Adding back cjs
+  - Replacing es5 by cjs and es2015 by esm
+  - Creating folders at the root for entry-points
+  - Removing the generation of the entry-points at the root Please see this
+    [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this
+    [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points)
+    for further details
 
 ## 9.0.1
 
 ### Patch Changes
 
--   [patch][d0db01b410](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d0db01b410):
+- [patch][d0db01b410](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d0db01b410):
 
-    TypeScript users of withAnalyticsEvents and withAnalyticsContext are now required to provide
-    props as a generic type. This is so that TypeScript can correctly calculate the props and
-    defaultProps of the returned component.
+  TypeScript users of withAnalyticsEvents and withAnalyticsContext are now required to provide props
+  as a generic type. This is so that TypeScript can correctly calculate the props and defaultProps
+  of the returned component.
 
-    Before:
+  Before:
 
-    ```typescript
-    withAnalyticsEvents()(Button) as ComponentClass<Props>;
-    ```
+  ```typescript
+  withAnalyticsEvents()(Button) as ComponentClass<Props>;
+  ```
 
-    After:
+  After:
 
-    ```typescript
-    withAnalyticsEvents<Props>()(Button);
-    ```
+  ```typescript
+  withAnalyticsEvents<Props>()(Button);
+  ```
 
 ## 9.0.0
 
 ### Major Changes
 
--   [major][87a2638655](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/87a2638655):
+- [major][87a2638655](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/87a2638655):
 
-    Replaced `styled-components` with `emotion 10` as part of Atlaskit-wide conversion process.
+  Replaced `styled-components` with `emotion 10` as part of Atlaskit-wide conversion process.
 
-    **No changes to styling or API**; only a breaking change if checkbox is being styled using the
-    styled-components `styled` function or via the styled-components theming library.
+  **No changes to styling or API**; only a breaking change if checkbox is being styled using the
+  styled-components `styled` function or via the styled-components theming library.
 
 ## 8.0.5
 
--   Updated dependencies
-    [06326ef3f7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06326ef3f7):
-    -   @atlaskit/docs@8.1.3
-    -   @atlaskit/button@13.0.9
-    -   @atlaskit/form@6.1.1
-    -   @atlaskit/section-message@4.0.5
-    -   @atlaskit/icon@19.0.0
+- Updated dependencies
+  [06326ef3f7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06326ef3f7):
+  - @atlaskit/docs@8.1.3
+  - @atlaskit/button@13.0.9
+  - @atlaskit/form@6.1.1
+  - @atlaskit/section-message@4.0.5
+  - @atlaskit/icon@19.0.0
 
 ## 8.0.4
 
 ### Patch Changes
 
--   [patch][9c404c7c44](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c404c7c44):
+- [patch][9c404c7c44](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c404c7c44):
 
-    Using updated icons
+  Using updated icons
 
 ## 8.0.3
 
 ### Patch Changes
 
--   [patch][9c80ef7539](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c80ef7539):
+- [patch][9c80ef7539](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c80ef7539):
 
-    The update to node 10 reveals that unknown type is breaking the extract react types. I had to
-    replace unknown type by any
+  The update to node 10 reveals that unknown type is breaking the extract react types. I had to
+  replace unknown type by any
 
 ## 8.0.2
 
--   Updated dependencies
-    [cfc3c8adb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfc3c8adb3):
-    -   @atlaskit/docs@8.1.2
-    -   @atlaskit/button@13.0.8
-    -   @atlaskit/form@6.0.5
-    -   @atlaskit/section-message@4.0.2
-    -   @atlaskit/icon@18.0.0
+- Updated dependencies
+  [cfc3c8adb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfc3c8adb3):
+  - @atlaskit/docs@8.1.2
+  - @atlaskit/button@13.0.8
+  - @atlaskit/form@6.0.5
+  - @atlaskit/section-message@4.0.2
+  - @atlaskit/icon@18.0.0
 
 ## 8.0.1
 
 ### Patch Changes
 
--   [patch][c67483c207](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c67483c207):
+- [patch][c67483c207](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c67483c207):
 
-    Fixed a scrollbar bug with checkboxes
+  Fixed a scrollbar bug with checkboxes
 
 ## 8.0.0
 
--   [major][70862830d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/70862830d6):
+- [major][70862830d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/70862830d6):
 
-    -   Checkbox has been converted to Typescript. Typescript consumers will now get static type
-        safety. Flow types are no longer provided. No API or behavioural changes.
+  - Checkbox has been converted to Typescript. Typescript consumers will now get static type safety.
+    Flow types are no longer provided. No API or behavioural changes.
 
 ## 7.0.1
 
--   Updated dependencies
-    [6dd86f5b07](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6dd86f5b07):
-    -   @atlaskit/form@6.0.2
-    -   @atlaskit/icon@17.1.1
-    -   @atlaskit/theme@9.0.2
-    -   @atlaskit/section-message@4.0.0
+- Updated dependencies
+  [6dd86f5b07](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6dd86f5b07):
+  - @atlaskit/form@6.0.2
+  - @atlaskit/icon@17.1.1
+  - @atlaskit/theme@9.0.2
+  - @atlaskit/section-message@4.0.0
 
 ## 7.0.0
 
--   [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
+- [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
 
-    -   Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
-        this package, please ensure you use at least this version of react and react-dom.
+  - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
+    this package, please ensure you use at least this version of react and react-dom.
 
 ## 6.0.4
 
--   Updated dependencies
-    [9c0b4744be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0b4744be):
-    -   @atlaskit/docs@7.0.3
-    -   @atlaskit/button@12.0.3
-    -   @atlaskit/form@5.2.7
-    -   @atlaskit/icon@16.0.9
-    -   @atlaskit/section-message@2.0.3
-    -   @atlaskit/theme@8.1.7
+- Updated dependencies
+  [9c0b4744be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0b4744be):
+  - @atlaskit/docs@7.0.3
+  - @atlaskit/button@12.0.3
+  - @atlaskit/form@5.2.7
+  - @atlaskit/icon@16.0.9
+  - @atlaskit/section-message@2.0.3
+  - @atlaskit/theme@8.1.7
 
 ## 6.0.3
 
--   Updated dependencies
-    [1e826b2966](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e826b2966):
-    -   @atlaskit/docs@7.0.2
-    -   @atlaskit/analytics-next@4.0.3
-    -   @atlaskit/form@5.2.5
-    -   @atlaskit/icon@16.0.8
-    -   @atlaskit/section-message@2.0.2
-    -   @atlaskit/theme@8.1.6
-    -   @atlaskit/button@12.0.0
+- Updated dependencies
+  [1e826b2966](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e826b2966):
+  - @atlaskit/docs@7.0.2
+  - @atlaskit/analytics-next@4.0.3
+  - @atlaskit/form@5.2.5
+  - @atlaskit/icon@16.0.8
+  - @atlaskit/section-message@2.0.2
+  - @atlaskit/theme@8.1.6
+  - @atlaskit/button@12.0.0
 
 ## 6.0.2
 
--   [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
+- [patch][98e11001ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/98e11001ff):
 
-    -   Removes duplicate babel-runtime dependency
+  - Removes duplicate babel-runtime dependency
 
 ## 6.0.1
 
--   Updated dependencies
-    [9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
-    -   @atlaskit/docs@7.0.1
-    -   @atlaskit/analytics-next@4.0.1
-    -   @atlaskit/form@5.2.1
-    -   @atlaskit/icon@16.0.5
-    -   @atlaskit/section-message@2.0.1
-    -   @atlaskit/theme@8.0.1
-    -   @atlaskit/button@11.0.0
+- Updated dependencies
+  [9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
+  - @atlaskit/docs@7.0.1
+  - @atlaskit/analytics-next@4.0.1
+  - @atlaskit/form@5.2.1
+  - @atlaskit/icon@16.0.5
+  - @atlaskit/section-message@2.0.1
+  - @atlaskit/theme@8.0.1
+  - @atlaskit/button@11.0.0
 
 ## 6.0.0
 
--   [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
+- [major][76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
 
-    -   Drop ES5 from all the flow modules
+  - Drop ES5 from all the flow modules
 
-    ### Dropping CJS support in all @atlaskit packages
+  ### Dropping CJS support in all @atlaskit packages
 
-    As a breaking change, all @atlaskit packages will be dropping cjs distributions and will only
-    distribute esm. This means all distributed code will be transpiled, but will still contain
-    `import` and `export` declarations.
+  As a breaking change, all @atlaskit packages will be dropping cjs distributions and will only
+  distribute esm. This means all distributed code will be transpiled, but will still contain
+  `import` and `export` declarations.
 
-    The major reason for doing this is to allow us to support multiple entry points in packages,
-    e.g:
+  The major reason for doing this is to allow us to support multiple entry points in packages, e.g:
 
-    ```js
-    import colors from `@atlaskit/theme/colors`;
-    ```
+  ```js
+  import colors from `@atlaskit/theme/colors`;
+  ```
 
-    Previously this was sort of possible for consumers by doing something like:
+  Previously this was sort of possible for consumers by doing something like:
 
-    ```js
-    import colors from `@atlaskit/theme/dist/esm/colors`;
-    ```
+  ```js
+  import colors from `@atlaskit/theme/dist/esm/colors`;
+  ```
 
-    This has a couple of issues. 1, it treats the file system as API making internal refactors
-    harder, we have to worry about how consumers might be using things that aren't _actually_
-    supposed to be used. 2. We are unable to do this _internally_ in @atlaskit packages. This leads
-    to lots of packages bundling all of theme, just to use a single color, especially in situations
-    where tree shaking fails.
+  This has a couple of issues. 1, it treats the file system as API making internal refactors harder,
+  we have to worry about how consumers might be using things that aren't _actually_ supposed to be
+  used. 2. We are unable to do this _internally_ in @atlaskit packages. This leads to lots of
+  packages bundling all of theme, just to use a single color, especially in situations where tree
+  shaking fails.
 
-    To support being able to use multiple entrypoints internally, we unfortunately cannot have
-    multiple distributions as they would need to have very different imports from of their own
-    internal dependencies.
+  To support being able to use multiple entrypoints internally, we unfortunately cannot have
+  multiple distributions as they would need to have very different imports from of their own
+  internal dependencies.
 
-    ES Modules are widely supported by all modern bundlers and can be worked around in node
-    environments.
+  ES Modules are widely supported by all modern bundlers and can be worked around in node
+  environments.
 
-    We may choose to revisit this solution in the future if we find any unintended condequences, but
-    we see this as a pretty sane path forward which should lead to some major bundle size decreases,
-    saner API's and simpler package architecture.
+  We may choose to revisit this solution in the future if we find any unintended condequences, but
+  we see this as a pretty sane path forward which should lead to some major bundle size decreases,
+  saner API's and simpler package architecture.
 
-    Please reach out to #fabric-build (if in Atlassian) or create an issue in
-    [Design System Support](https://ecosystem.atlassian.net/secure/CreateIssue.jspa?pid=24670) (for
-    external) if you have any questions or queries about this.
+  Please reach out to #fabric-build (if in Atlassian) or create an issue in
+  [Design System Support](https://ecosystem.atlassian.net/secure/CreateIssue.jspa?pid=24670) (for
+  external) if you have any questions or queries about this.
 
 ## 5.0.14
 
--   [patch][c0ad531a70](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c0ad531a70):
+- [patch][c0ad531a70](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c0ad531a70):
 
-    -   Added test to make use props are passed down to hidden input
+  - Added test to make use props are passed down to hidden input
 
 ## 5.0.13
 
--   [patch][3ae465b6f0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3ae465b6f0):
+- [patch][3ae465b6f0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3ae465b6f0):
 
-    -   fix for checkbox logging error on mount
+  - fix for checkbox logging error on mount
 
 ## 5.0.12
 
--   [patch][b0153ee6c9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0153ee6c9):
+- [patch][b0153ee6c9](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0153ee6c9):
 
-    -   Enabled the isRequired validation on checkbox and added the asterisk after the checkbox
-        label to signify the required field
+  - Enabled the isRequired validation on checkbox and added the asterisk after the checkbox label to
+    signify the required field
 
 ## 5.0.11
 
--   Updated dependencies
-    [d7ef59d432](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d7ef59d432):
-    -   @atlaskit/docs@6.0.1
-    -   @atlaskit/button@10.1.2
-    -   @atlaskit/section-message@1.0.16
-    -   @atlaskit/icon@16.0.0
+- Updated dependencies
+  [d7ef59d432](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d7ef59d432):
+  - @atlaskit/docs@6.0.1
+  - @atlaskit/button@10.1.2
+  - @atlaskit/section-message@1.0.16
+  - @atlaskit/icon@16.0.0
 
 ## 5.0.10
 
--   [patch][fad28be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fad28be):
+- [patch][fad28be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/fad28be):
 
-    -   Fixing invalid type for checkbox id prop
+  - Fixing invalid type for checkbox id prop
 
 ## 5.0.9
 
--   Updated dependencies [58b84fa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58b84fa):
-    -   @atlaskit/analytics-next@3.1.2
-    -   @atlaskit/button@10.1.1
-    -   @atlaskit/icon@15.0.2
-    -   @atlaskit/section-message@1.0.14
-    -   @atlaskit/theme@7.0.1
-    -   @atlaskit/docs@6.0.0
+- Updated dependencies [58b84fa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/58b84fa):
+  - @atlaskit/analytics-next@3.1.2
+  - @atlaskit/button@10.1.1
+  - @atlaskit/icon@15.0.2
+  - @atlaskit/section-message@1.0.14
+  - @atlaskit/theme@7.0.1
+  - @atlaskit/docs@6.0.0
 
 ## 5.0.8
 
--   Updated dependencies [d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
-    -   @atlaskit/docs@5.2.3
-    -   @atlaskit/button@10.0.4
-    -   @atlaskit/icon@15.0.1
-    -   @atlaskit/section-message@1.0.13
-    -   @atlaskit/theme@7.0.0
+- Updated dependencies [d13242d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d13242d):
+  - @atlaskit/docs@5.2.3
+  - @atlaskit/button@10.0.4
+  - @atlaskit/icon@15.0.1
+  - @atlaskit/section-message@1.0.13
+  - @atlaskit/theme@7.0.0
 
 ## 5.0.7
 
--   Updated dependencies [ab9b69c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ab9b69c):
-    -   @atlaskit/docs@5.2.2
-    -   @atlaskit/button@10.0.1
-    -   @atlaskit/section-message@1.0.12
-    -   @atlaskit/icon@15.0.0
+- Updated dependencies [ab9b69c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ab9b69c):
+  - @atlaskit/docs@5.2.2
+  - @atlaskit/button@10.0.1
+  - @atlaskit/section-message@1.0.12
+  - @atlaskit/icon@15.0.0
 
 ## 5.0.6
 
--   Updated dependencies [6998f11](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6998f11):
-    -   @atlaskit/docs@5.2.1
-    -   @atlaskit/analytics-next@3.1.1
-    -   @atlaskit/icon@14.6.1
-    -   @atlaskit/section-message@1.0.11
-    -   @atlaskit/theme@6.2.1
-    -   @atlaskit/button@10.0.0
+- Updated dependencies [6998f11](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6998f11):
+  - @atlaskit/docs@5.2.1
+  - @atlaskit/analytics-next@3.1.1
+  - @atlaskit/icon@14.6.1
+  - @atlaskit/section-message@1.0.11
+  - @atlaskit/theme@6.2.1
+  - @atlaskit/button@10.0.0
 
 ## 5.0.5
 
--   [patch] Upgrade guide & minor flow type fixes
-    [0be287d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0be287d)
+- [patch] Upgrade guide & minor flow type fixes
+  [0be287d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0be287d)
 
 ## 5.0.4
 
--   [patch] Adds missing implicit @babel/runtime dependency
-    [b71751b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b71751b)
+- [patch] Adds missing implicit @babel/runtime dependency
+  [b71751b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b71751b)
 
 ## 5.0.3
 
--   [patch] Fixed bug where checkbox would use state isChecked value when passing false to isChecked
-    as props [eaf8d16](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/eaf8d16)
+- [patch] Fixed bug where checkbox would use state isChecked value when passing false to isChecked
+  as props [eaf8d16](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/eaf8d16)
 
 ## 5.0.2
 
--   [patch] Updated dependencies
-    [65c6514](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65c6514)
-    -   @atlaskit/docs@5.0.8
-    -   @atlaskit/button@9.0.13
-    -   @atlaskit/icon@14.0.0
+- [patch] Updated dependencies
+  [65c6514](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65c6514)
+  - @atlaskit/docs@5.0.8
+  - @atlaskit/button@9.0.13
+  - @atlaskit/icon@14.0.0
 
 ## 5.0.1
 
--   [patch] Checkbox now only fires onChange once
-    [c78e59e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c78e59e)
+- [patch] Checkbox now only fires onChange once
+  [c78e59e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c78e59e)
 
 ## 5.0.0
 
--   [major] Checkbox refactored to remove the need for CheckboxStateless
-    [80e1925](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80e1925)
+- [major] Checkbox refactored to remove the need for CheckboxStateless
+  [80e1925](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80e1925)
 
-    `@atlaskit/checkbox` 5.x is part of an ongoing body of work to normalize atlaskit form
-    components. There are a few breaking changes you need to be aware of in upgrading from 4.x to
-    5.x.
+  `@atlaskit/checkbox` 5.x is part of an ongoing body of work to normalize atlaskit form components.
+  There are a few breaking changes you need to be aware of in upgrading from 4.x to 5.x.
 
-    **Exports**
+  **Exports**
 
-    `@atlaskit/checkbox` no longer specifies the Checkbox component as the default export. Moreover
-    the following changes have been made to exports from the `@atlaskit/checkbox` package.
+  `@atlaskit/checkbox` no longer specifies the Checkbox component as the default export. Moreover
+  the following changes have been made to exports from the `@atlaskit/checkbox` package.
 
-    ### Checkbox
+  ### Checkbox
 
-    Checkbox is now a named export of the `@atlaskit/checkbox`package. Please import it as below.
+  Checkbox is now a named export of the `@atlaskit/checkbox`package. Please import it as below.
 
-    ```
-    import { Checkbox } from @atlaskit/checkbox;
-    ```
+  ```
+  import { Checkbox } from @atlaskit/checkbox;
+  ```
 
-    The Checkbox component is now a conditionally controlled component, the `isChecked` prop is
-    exposed for users to control the checked state of the component. This was the sole reason for
-    having the `CheckboxStateless` component in pre 5.x, and as a result leveraging this pattern
-    allows us to do away with the `CheckboxStateless` component.
+  The Checkbox component is now a conditionally controlled component, the `isChecked` prop is
+  exposed for users to control the checked state of the component. This was the sole reason for
+  having the `CheckboxStateless` component in pre 5.x, and as a result leveraging this pattern
+  allows us to do away with the `CheckboxStateless` component.
 
-    To let the component take care of checked state, leave the `isChecked` prop unset, or explicitly
-    set it to undefined.
+  To let the component take care of checked state, leave the `isChecked` prop unset, or explicitly
+  set it to undefined.
 
-    Additionally, one can control the initial checked state of a component by setting the
-    `defaultChecked` (boolean) prop. This is used as the initial value of the internal `isChecked`
-    property in state. This value will be overridden by additional user interactions with the
-    component.
+  Additionally, one can control the initial checked state of a component by setting the
+  `defaultChecked` (boolean) prop. This is used as the initial value of the internal `isChecked`
+  property in state. This value will be overridden by additional user interactions with the
+  component.
 
-    ### CheckboxStateless - deprecated
+  ### CheckboxStateless - deprecated
 
-    This component has been deprecated in favor of the conditionally controlled component pattern
-    specified above.\*\*
+  This component has been deprecated in favor of the conditionally controlled component pattern
+  specified above.\*\*
 
-    ### CheckboxGroup - deprecated:
+  ### CheckboxGroup - deprecated:
 
-    `@atlaskit/checkbox` no longer exports a CheckboxGroup component. It has been removed for the
-    following reasons:
+  `@atlaskit/checkbox` no longer exports a CheckboxGroup component. It has been removed for the
+  following reasons:
 
-    -   It was really a thin wrapper enforcing very basic styling opinions over its children
-        (display: flex, flex: column).
-    -   The existing styling blocks the horizontal display of checkbox group children.
+  - It was really a thin wrapper enforcing very basic styling opinions over its children (display:
+    flex, flex: column).
+  - The existing styling blocks the horizontal display of checkbox group children.
 
-    **Prop Changes**
+  **Prop Changes**
 
-    -   `<Checkbox/>` - `initiallyChecked` renamed to `defaultChecked`
-    -   `<Checkbox/>` - `label` prop now accepts type Node instead of type string.
-    -   `<Checkbox/>` - `isChecked` is now an optional boolean prop on the Checkbox component.
+  - `<Checkbox/>` - `initiallyChecked` renamed to `defaultChecked`
+  - `<Checkbox/>` - `label` prop now accepts type Node instead of type string.
+  - `<Checkbox/>` - `isChecked` is now an optional boolean prop on the Checkbox component.
 
 ## 4.0.6
 
--   [patch] Adds sideEffects: false to allow proper tree shaking
-    [b5d6d04](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b5d6d04)
+- [patch] Adds sideEffects: false to allow proper tree shaking
+  [b5d6d04](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b5d6d04)
 
 ## 4.0.4
 
--   [patch] Updated dependencies
-    [df22ad8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/df22ad8)
-    -   @atlaskit/theme@6.0.0
-    -   @atlaskit/icon@13.2.5
-    -   @atlaskit/button@9.0.6
-    -   @atlaskit/docs@5.0.6
+- [patch] Updated dependencies
+  [df22ad8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/df22ad8)
+  - @atlaskit/theme@6.0.0
+  - @atlaskit/icon@13.2.5
+  - @atlaskit/button@9.0.6
+  - @atlaskit/docs@5.0.6
 
 ## 4.0.3
 
--   [patch] update the dependency of react-dom to 16.4.2 due to vulnerability in previous versions
-    read https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html for details
-    [a4bd557](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4bd557)
--   [none] Updated dependencies
-    [a4bd557](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4bd557)
-    -   @atlaskit/analytics-next@3.0.4
-    -   @atlaskit/button@9.0.5
-    -   @atlaskit/theme@5.1.3
-    -   @atlaskit/icon@13.2.4
+- [patch] update the dependency of react-dom to 16.4.2 due to vulnerability in previous versions
+  read https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html for details
+  [a4bd557](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4bd557)
+- [none] Updated dependencies
+  [a4bd557](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4bd557)
+  - @atlaskit/analytics-next@3.0.4
+  - @atlaskit/button@9.0.5
+  - @atlaskit/theme@5.1.3
+  - @atlaskit/icon@13.2.4
 
 ## 4.0.2
 
--   [patch] Updated dependencies
-    [acd86a1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/acd86a1)
-    -   @atlaskit/icon@13.2.2
-    -   @atlaskit/button@9.0.4
-    -   @atlaskit/theme@5.1.2
-    -   @atlaskit/analytics-next@3.0.3
-    -   @atlaskit/docs@5.0.2
+- [patch] Updated dependencies
+  [acd86a1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/acd86a1)
+  - @atlaskit/icon@13.2.2
+  - @atlaskit/button@9.0.4
+  - @atlaskit/theme@5.1.2
+  - @atlaskit/analytics-next@3.0.3
+  - @atlaskit/docs@5.0.2
 
 ## 4.0.1
 
--   [patch] Add a SSR test for every package, add react-dom and build-utils in devDependencies
-    [7e331b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7e331b5)
--   [none] Updated dependencies
-    [7e331b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7e331b5)
-    -   @atlaskit/analytics-next@3.0.2
-    -   @atlaskit/button@9.0.3
-    -   @atlaskit/theme@5.1.1
-    -   @atlaskit/icon@13.2.1
+- [patch] Add a SSR test for every package, add react-dom and build-utils in devDependencies
+  [7e331b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7e331b5)
+- [none] Updated dependencies
+  [7e331b5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7e331b5)
+  - @atlaskit/analytics-next@3.0.2
+  - @atlaskit/button@9.0.3
+  - @atlaskit/theme@5.1.1
+  - @atlaskit/icon@13.2.1
 
 ## 4.0.0
 
--   [major] Provides analytics for common component interations. See the
-    [Instrumented Components](https://atlaskit.atlassian.com/packages/core/analytics-next) section
-    for more details. If you are using enzyme for testing you will have to use
-    [our forked version of the library](https://atlaskit.atlassian.com/docs/guides/testing#we-use-a-forked-version-of-enzyme).
-    [563a7eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/563a7eb)
--   [major] Updates to React ^16.4.0
-    [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
--   [major] Updated dependencies
-    [563a7eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/563a7eb)
-    -   @atlaskit/analytics-next@3.0.0
-    -   @atlaskit/button@9.0.0
-    -   @atlaskit/theme@5.0.0
-    -   @atlaskit/docs@5.0.0
-    -   @atlaskit/icon@13.0.0
--   [major] Updated dependencies
-    [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
-    -   @atlaskit/analytics-next@3.0.0
-    -   @atlaskit/button@9.0.0
-    -   @atlaskit/theme@5.0.0
-    -   @atlaskit/docs@5.0.0
-    -   @atlaskit/icon@13.0.0
+- [major] Provides analytics for common component interations. See the
+  [Instrumented Components](https://atlaskit.atlassian.com/packages/core/analytics-next) section for
+  more details. If you are using enzyme for testing you will have to use
+  [our forked version of the library](https://atlaskit.atlassian.com/docs/guides/testing#we-use-a-forked-version-of-enzyme).
+  [563a7eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/563a7eb)
+- [major] Updates to React ^16.4.0
+  [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
+- [major] Updated dependencies
+  [563a7eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/563a7eb)
+  - @atlaskit/analytics-next@3.0.0
+  - @atlaskit/button@9.0.0
+  - @atlaskit/theme@5.0.0
+  - @atlaskit/docs@5.0.0
+  - @atlaskit/icon@13.0.0
+- [major] Updated dependencies
+  [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
+  - @atlaskit/analytics-next@3.0.0
+  - @atlaskit/button@9.0.0
+  - @atlaskit/theme@5.0.0
+  - @atlaskit/docs@5.0.0
+  - @atlaskit/icon@13.0.0
 
 ## 3.1.3
 
--   [patch] Button should be a dev dependency
-    [50ca31b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50ca31b)
--   [none] Updated dependencies
-    [50ca31b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50ca31b)
+- [patch] Button should be a dev dependency
+  [50ca31b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50ca31b)
+- [none] Updated dependencies
+  [50ca31b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/50ca31b)
 
 ## 3.1.2
 
--   [patch] Fix \$FlowFixMe and release packages
-    [25d0b2d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/25d0b2d)
--   [none] Updated dependencies
-    [25d0b2d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/25d0b2d)
-    -   @atlaskit/button@8.2.2
-    -   @atlaskit/icon@12.3.1
+- [patch] Fix \$FlowFixMe and release packages
+  [25d0b2d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/25d0b2d)
+- [none] Updated dependencies
+  [25d0b2d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/25d0b2d)
+  - @atlaskit/button@8.2.2
+  - @atlaskit/icon@12.3.1
 
 ## 3.1.1
 
--   [patch] update to active box color of checkbox to b50 to inline with ADG3 guideline
-    [21073ca](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21073ca)
--   [none] Updated dependencies
-    [21073ca](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21073ca)
+- [patch] update to active box color of checkbox to b50 to inline with ADG3 guideline
+  [21073ca](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21073ca)
+- [none] Updated dependencies
+  [21073ca](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/21073ca)
 
 ## 3.1.0
 
--   [minor] Fixes types for Flow 0.74
-    [dc50cd2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc50cd2)
--   [none] Updated dependencies
-    [dc50cd2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc50cd2)
-    -   @atlaskit/button@8.2.0
-    -   @atlaskit/icon@12.2.0
+- [minor] Fixes types for Flow 0.74
+  [dc50cd2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc50cd2)
+- [none] Updated dependencies
+  [dc50cd2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc50cd2)
+  - @atlaskit/button@8.2.0
+  - @atlaskit/icon@12.2.0
 
 ## 3.0.6
 
--   [patch] Clean Changelogs - remove duplicates and empty entries
-    [e7756cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e7756cd)
--   [none] Updated dependencies
-    [e7756cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e7756cd)
-    -   @atlaskit/button@8.1.2
-    -   @atlaskit/theme@4.0.4
-    -   @atlaskit/icon@12.1.2
+- [patch] Clean Changelogs - remove duplicates and empty entries
+  [e7756cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e7756cd)
+- [none] Updated dependencies
+  [e7756cd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e7756cd)
+  - @atlaskit/button@8.1.2
+  - @atlaskit/theme@4.0.4
+  - @atlaskit/icon@12.1.2
 
 ## 3.0.5
 
--   [patch] Update changelogs to remove duplicate
-    [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
--   [none] Updated dependencies
-    [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
-    -   @atlaskit/theme@4.0.3
-    -   @atlaskit/icon@12.1.1
-    -   @atlaskit/button@8.1.1
-    -   @atlaskit/docs@4.1.1
+- [patch] Update changelogs to remove duplicate
+  [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
+- [none] Updated dependencies
+  [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
+  - @atlaskit/theme@4.0.3
+  - @atlaskit/icon@12.1.1
+  - @atlaskit/button@8.1.1
+  - @atlaskit/docs@4.1.1
 
 ## 3.0.4
 
--   [none] Updated dependencies
-    [9d20f54](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d20f54)
-    -   @atlaskit/icon@12.1.0
-    -   @atlaskit/docs@4.1.0
-    -   @atlaskit/theme@4.0.2
-    -   @atlaskit/button@8.1.0
+- [none] Updated dependencies
+  [9d20f54](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d20f54)
+  - @atlaskit/icon@12.1.0
+  - @atlaskit/docs@4.1.0
+  - @atlaskit/theme@4.0.2
+  - @atlaskit/button@8.1.0
 
 ## 3.0.3
 
--   [patch] ref prop on checkbox stateless component is now reference to class
-    [05b4ffd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/05b4ffd)
--   [none] Updated dependencies
-    [05b4ffd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/05b4ffd)
+- [patch] ref prop on checkbox stateless component is now reference to class
+  [05b4ffd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/05b4ffd)
+- [none] Updated dependencies
+  [05b4ffd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/05b4ffd)
 
 ## 3.0.2
 
--   [patch] Fix for flow [33f632f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/33f632f)
--   [patch] Update onChange function to pass type for name and value
-    [f3e768c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3e768c)
--   [none] Updated dependencies
-    [33f632f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/33f632f)
--   [none] Updated dependencies
-    [f3e768c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3e768c)
+- [patch] Fix for flow [33f632f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/33f632f)
+- [patch] Update onChange function to pass type for name and value
+  [f3e768c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3e768c)
+- [none] Updated dependencies
+  [33f632f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/33f632f)
+- [none] Updated dependencies
+  [f3e768c](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f3e768c)
 
 ## 3.0.1
 
--   [patch] Update readme's [223cd67](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/223cd67)
--   [patch] Updated dependencies
-    [223cd67](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/223cd67)
-    -   @atlaskit/icon@12.0.1
-    -   @atlaskit/button@8.0.1
-    -   @atlaskit/theme@4.0.1
-    -   @atlaskit/docs@4.0.1
+- [patch] Update readme's [223cd67](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/223cd67)
+- [patch] Updated dependencies
+  [223cd67](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/223cd67)
+  - @atlaskit/icon@12.0.1
+  - @atlaskit/button@8.0.1
+  - @atlaskit/theme@4.0.1
+  - @atlaskit/docs@4.0.1
 
 ## 3.0.0
 
--   [major] makes styled-components a peer dependency and upgrades version range from 1.4.6 - 3 to
-    ^3.2.6 [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
--   [patch] Updated dependencies
-    [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
-    -   @atlaskit/icon@12.0.0
-    -   @atlaskit/button@8.0.0
-    -   @atlaskit/theme@4.0.0
-    -   @atlaskit/docs@4.0.0
+- [major] makes styled-components a peer dependency and upgrades version range from 1.4.6 - 3 to
+  ^3.2.6 [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
+- [patch] Updated dependencies
+  [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
+  - @atlaskit/icon@12.0.0
+  - @atlaskit/button@8.0.0
+  - @atlaskit/theme@4.0.0
+  - @atlaskit/docs@4.0.0
 
 ## 2.1.0
 
--   [minor] Updated the appearance for checkbox and radio items
-    [ece7426](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ece7426)
--   [none] Updated dependencies
-    [ece7426](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ece7426)
+- [minor] Updated the appearance for checkbox and radio items
+  [ece7426](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ece7426)
+- [none] Updated dependencies
+  [ece7426](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ece7426)
 
 ## 2.0.2
 
--   [patch] Updated dependencies
-    [d662caa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d662caa)
-    -   @atlaskit/icon@11.3.0
-    -   @atlaskit/button@7.2.5
-    -   @atlaskit/theme@3.2.2
-    -   @atlaskit/docs@3.0.4
+- [patch] Updated dependencies
+  [d662caa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d662caa)
+  - @atlaskit/icon@11.3.0
+  - @atlaskit/button@7.2.5
+  - @atlaskit/theme@3.2.2
+  - @atlaskit/docs@3.0.4
 
 ## 2.0.0
 
--   [major] Bump to React 16.3.
-    [4251858](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4251858)
+- [major] Bump to React 16.3.
+  [4251858](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4251858)
 
 ## 1.4.0
 
--   [minor] Add indeterminate prop to stateless checkbox
-    [3fc6c5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3fc6c5e)
+- [minor] Add indeterminate prop to stateless checkbox
+  [3fc6c5e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3fc6c5e)
 
 ## 1.3.1
 
--   [patch] Re-releasing due to potentially broken babel release
-    [9ed0bba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9ed0bba)
+- [patch] Re-releasing due to potentially broken babel release
+  [9ed0bba](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9ed0bba)
 
 ## 1.3.0
 
--   [minor] Update styled-components dependency to support versions 1.4.6 - 3
-    [ceccf30](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ceccf30)
+- [minor] Update styled-components dependency to support versions 1.4.6 - 3
+  [ceccf30](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ceccf30)
 
 ## 1.2.3
 
--   [patch] updated the repository url to https://bitbucket.org/atlassian/atlaskit-mk-2
-    [1e57e5a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e57e5a)
+- [patch] updated the repository url to https://bitbucket.org/atlassian/atlaskit-mk-2
+  [1e57e5a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e57e5a)
 
 ## 1.2.2
 
--   [patch] Packages Flow types for elements components
-    [3111e74](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3111e74)
+- [patch] Packages Flow types for elements components
+  [3111e74](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3111e74)
 
 ## 1.2.1
 
--   [patch] Resolved low hanging flow errors in field-base field-text comment icon item and website,
-    \$ [007de27](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/007de27)
+- [patch] Resolved low hanging flow errors in field-base field-text comment icon item and website,
+  \$ [007de27](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/007de27)
 
 ## 1.2.0
 
--   [minor] Add React 16 support.
-    [12ea6e4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12ea6e4)
+- [minor] Add React 16 support.
+  [12ea6e4](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12ea6e4)
 
 ## 1.1.8
 
--   [patch] update flow dep, fix flow errors
-    [722ad83](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/722ad83)
+- [patch] update flow dep, fix flow errors
+  [722ad83](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/722ad83)
 
 ## 1.1.7
 
--   [patch] Updates dependency on button to 6.0.0
-    [2b02ebc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2b02ebc)
--   [patch] Moved to new repo & build system. Cleaned up docs & examples & added Flow
-    [9b55672](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9b55672)
+- [patch] Updates dependency on button to 6.0.0
+  [2b02ebc](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2b02ebc)
+- [patch] Moved to new repo & build system. Cleaned up docs & examples & added Flow
+  [9b55672](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9b55672)
 
 ## 1.1.6 (2017-11-24)
 
 ### Bug Fixes
 
--   **component:** fixed typo in Checkbox defaultProps
-    ([4388a11](https://bitbucket.org/atlassian/atlaskit/commits/4388a11))
+- **component:** fixed typo in Checkbox defaultProps
+  ([4388a11](https://bitbucket.org/atlassian/atlaskit/commits/4388a11))
 
 ## 1.1.5 (2017-11-22)
 
 ### Bug Fixes
 
--   **component:** checkbox and radio should not highlight when parent element is focused
-    ([5c900ff](https://bitbucket.org/atlassian/atlaskit/commits/5c900ff))
--   **component:** removed focus styling from radio and checkbox svg as they will never be focused
-    ([ec68128](https://bitbucket.org/atlassian/atlaskit/commits/ec68128))
+- **component:** checkbox and radio should not highlight when parent element is focused
+  ([5c900ff](https://bitbucket.org/atlassian/atlaskit/commits/5c900ff))
+- **component:** removed focus styling from radio and checkbox svg as they will never be focused
+  ([ec68128](https://bitbucket.org/atlassian/atlaskit/commits/ec68128))
 
 ## 1.1.4 (2017-11-15)
 
 ### Bug Fixes
 
--   **component:** bumping internal dependencies to latest major version
-    ([91833c3](https://bitbucket.org/atlassian/atlaskit/commits/91833c3))
+- **component:** bumping internal dependencies to latest major version
+  ([91833c3](https://bitbucket.org/atlassian/atlaskit/commits/91833c3))
 
 ## 1.1.3 (2017-10-27)
 
 ### Bug Fixes
 
--   **stories:** rebuild stories
-    ([7aa7337](https://bitbucket.org/atlassian/atlaskit/commits/7aa7337))
+- **stories:** rebuild stories ([7aa7337](https://bitbucket.org/atlassian/atlaskit/commits/7aa7337))
 
 ## 1.1.2 (2017-10-22)
 
 ### Bug Fixes
 
--   **package:** update dependencies for react-16
-    ([077d1ad](https://bitbucket.org/atlassian/atlaskit/commits/077d1ad))
+- **package:** update dependencies for react-16
+  ([077d1ad](https://bitbucket.org/atlassian/atlaskit/commits/077d1ad))
 
 ## 1.1.1 (2017-10-10)
 
 ### Bug Fixes
 
--   **package:** removed internal label from keywords
-    ([b76b4f2](https://bitbucket.org/atlassian/atlaskit/commits/b76b4f2))
+- **package:** removed internal label from keywords
+  ([b76b4f2](https://bitbucket.org/atlassian/atlaskit/commits/b76b4f2))
 
 # 1.1.0 (2017-09-27)
 
 ### Bug Fixes
 
--   **component:** change margin of icon
-    ([4459e96](https://bitbucket.org/atlassian/atlaskit/commits/4459e96))
+- **component:** change margin of icon
+  ([4459e96](https://bitbucket.org/atlassian/atlaskit/commits/4459e96))
 
 ### Features
 
--   **component:** dark mode checkbox
-    ([554c978](https://bitbucket.org/atlassian/atlaskit/commits/554c978))
+- **component:** dark mode checkbox
+  ([554c978](https://bitbucket.org/atlassian/atlaskit/commits/554c978))
 
 # 1.0.0 (2017-09-13)
 
 ### Features
 
--   **component:** create checkbox component
-    ([5ce7055](https://bitbucket.org/atlassian/atlaskit/commits/5ce7055))
+- **component:** create checkbox component
+  ([5ce7055](https://bitbucket.org/atlassian/atlaskit/commits/5ce7055))

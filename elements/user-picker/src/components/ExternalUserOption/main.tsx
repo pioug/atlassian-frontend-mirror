@@ -19,6 +19,7 @@ import InfoIcon from './InfoIcon';
 import { ExternalAvatarItemOption } from './ExternalAvatarItemOption';
 import { SourcesTooltipContent } from './SourcesTooltipContent';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const imageContainer = css({
 	height: '16px',
 	width: '16px',
@@ -28,6 +29,7 @@ export const imageContainer = css({
 	justifyContent: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const emailDomainWrapper = css({
 	fontWeight: 'bold',
 });
@@ -59,6 +61,7 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 		return (
 			<span
 				key="name"
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
 					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
 				)}
@@ -81,6 +84,7 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 
 		// Render byline if present
 		if (byline) {
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			return <span css={textWrapper(textColor)}>{byline}</span>;
 		}
 
@@ -90,6 +94,7 @@ class ExternalUserOptionImpl extends React.PureComponent<ExternalUserOptionProps
 			const emailDomainWithAt = `@${emailDomain}`;
 
 			return (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<span css={textWrapper(textColor)}>
 					{emailUser}
 					<span css={emailDomainWrapper}>{emailDomainWithAt}</span>

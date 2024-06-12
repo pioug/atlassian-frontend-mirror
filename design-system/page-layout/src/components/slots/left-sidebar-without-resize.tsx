@@ -21,40 +21,25 @@ import SlotDimensions from './slot-dimensions';
  * - [Code](https://atlassian.design/components/page-layout/code)
  */
 const LeftSidebarWithoutResize = (props: SlotWidthProps) => {
-  const {
-    children,
-    id,
-    width,
-    isFixed,
-    shouldPersistWidth,
-    testId,
-    skipLinkTitle,
-  } = props;
+	const { children, id, width, isFixed, shouldPersistWidth, testId, skipLinkTitle } = props;
 
-  const leftSidebarWidth = resolveDimension(
-    VAR_LEFT_SIDEBAR_WIDTH,
-    width,
-    shouldPersistWidth,
-  );
+	const leftSidebarWidth = resolveDimension(VAR_LEFT_SIDEBAR_WIDTH, width, shouldPersistWidth);
 
-  useEffect(() => {
-    publishGridState({ [VAR_LEFT_SIDEBAR_WIDTH]: leftSidebarWidth });
-    return () => {
-      publishGridState({ [VAR_LEFT_SIDEBAR_WIDTH]: 0 });
-    };
-  }, [leftSidebarWidth]);
+	useEffect(() => {
+		publishGridState({ [VAR_LEFT_SIDEBAR_WIDTH]: leftSidebarWidth });
+		return () => {
+			publishGridState({ [VAR_LEFT_SIDEBAR_WIDTH]: 0 });
+		};
+	}, [leftSidebarWidth]);
 
-  useSkipLink(id, skipLinkTitle);
+	useSkipLink(id, skipLinkTitle);
 
-  return (
-    <LeftSidebarOuter id={id} testId={testId} isFixed={isFixed}>
-      <SlotDimensions
-        variableName={VAR_LEFT_SIDEBAR_WIDTH}
-        value={leftSidebarWidth}
-      />
-      <LeftSidebarInner isFixed={isFixed}>{children}</LeftSidebarInner>
-    </LeftSidebarOuter>
-  );
+	return (
+		<LeftSidebarOuter id={id} testId={testId} isFixed={isFixed}>
+			<SlotDimensions variableName={VAR_LEFT_SIDEBAR_WIDTH} value={leftSidebarWidth} />
+			<LeftSidebarInner isFixed={isFixed}>{children}</LeftSidebarInner>
+		</LeftSidebarOuter>
+	);
 };
 
 export default LeftSidebarWithoutResize;

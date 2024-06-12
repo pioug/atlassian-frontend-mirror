@@ -28,7 +28,6 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { insertColumnWithAnalytics, insertRowWithAnalytics } from '../../commands-with-analytics';
-import { getPluginState } from '../../pm-plugins/plugin-factory';
 import { TableCssClassName as ClassName } from '../../types';
 import { checkIfNumberColumnEnabled } from '../../utils';
 
@@ -45,6 +44,7 @@ export interface Props {
 	isHeaderColumnEnabled?: boolean;
 	isHeaderRowEnabled?: boolean;
 	isDragAndDropEnabled?: boolean;
+	isTableScalingEnabled?: boolean;
 	mountPoint?: HTMLElement;
 	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
@@ -256,28 +256,31 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 	}
 
 	private insertColumn(event: React.SyntheticEvent) {
-		const { editorView, insertColumnButtonIndex, editorAnalyticsAPI, getEditorFeatureFlags } =
-			this.props;
+		const {
+			editorView,
+			insertColumnButtonIndex,
+			editorAnalyticsAPI,
+			getEditorFeatureFlags,
+			isTableScalingEnabled,
+		} = this.props;
 
 		if (typeof insertColumnButtonIndex !== 'undefined') {
 			event.preventDefault();
 
-			const { isTableScalingEnabled = false } = getPluginState(editorView.state);
+			const { tableDuplicateCellColouring = false, tableWithFixedColumnWidthsOption = false } =
+				getEditorFeatureFlags ? getEditorFeatureFlags() : {};
 
 			const shouldUseIncreasedScalingPercent =
 				isTableScalingEnabled &&
-				getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+				tableWithFixedColumnWidthsOption &&
 				getBooleanFF('platform.editor.table.use-increased-scaling-percent');
-
-			const { tableDuplicateCellColouring = false } = getEditorFeatureFlags
-				? getEditorFeatureFlags()
-				: {};
 
 			const { state, dispatch } = editorView;
 			insertColumnWithAnalytics(
 				editorAnalyticsAPI,
 				isTableScalingEnabled,
 				tableDuplicateCellColouring,
+				tableWithFixedColumnWidthsOption,
 				shouldUseIncreasedScalingPercent,
 			)(INPUT_METHOD.BUTTON, insertColumnButtonIndex)(state, dispatch, editorView);
 		}

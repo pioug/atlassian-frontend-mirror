@@ -62,6 +62,7 @@ export const ReactionsList = ({
 
 	return (
 		<Tabs id="reactions-dialog-tabs" onChange={onTabChange} selected={selectedEmoji.index}>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={customTabListStyles} id="reactions-dialog-tabs-list">
 				<TabList>
 					{reactions.map((reaction) => {
@@ -69,6 +70,7 @@ export const ReactionsList = ({
 
 						return (
 							<div
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								css={customTabWrapper(
 									emojiId?.id === selectedEmoji.id,
 									selectedEmoji.id,
@@ -86,6 +88,7 @@ export const ReactionsList = ({
 										fitToHeight={16}
 										showTooltip
 									/>
+									{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 									<div css={counterStyle(emojiId?.id === selectedEmoji.id)}>
 										<Counter value={reaction.count} />
 									</div>

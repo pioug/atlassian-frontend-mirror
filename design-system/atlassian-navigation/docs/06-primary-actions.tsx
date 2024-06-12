@@ -19,21 +19,21 @@ import { PrimaryButton } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="Primary button"
-      Component={require('../examples/primary-button').default}
-      source={require('!!raw-loader!../examples/primary-button')}
-    />
-  )}
+		<Example
+			title="Primary button"
+			Component={require('../examples/primary-button').default}
+			source={require('!!raw-loader!../examples/primary-button')}
+		/>
+	)}
 
   ### Props
 
   ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/components/PrimaryButton')}
-    />
-  )}
+		<Props
+			heading=""
+			props={require('!!extract-react-types-loader!../src/components/PrimaryButton')}
+		/>
+	)}
 
   ## Primary dropdown button
 
@@ -46,19 +46,19 @@ import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="Primary dropdown button"
-      Component={require('../examples/primary-dropdown-button').default}
-      source={require('!!raw-loader!../examples/primary-dropdown-button')}
-    />
-  )}
+		<Example
+			title="Primary dropdown button"
+			Component={require('../examples/primary-dropdown-button').default}
+			source={require('!!raw-loader!../examples/primary-dropdown-button')}
+		/>
+	)}
 
   ### Props
 
   ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/components/PrimaryDropdownButton')}
-    />
-  )}
+		<Props
+			heading=""
+			props={require('!!extract-react-types-loader!../src/components/PrimaryDropdownButton')}
+		/>
+	)}
 `;

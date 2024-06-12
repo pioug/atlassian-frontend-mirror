@@ -3,8 +3,8 @@ import { removeInnerProps } from './migrations/remove-inner-props';
 import { createTransformer } from './utils';
 
 const transformer = createTransformer('@atlaskit/calendar', [
-  flattenCertainInnerPropsAsProp,
-  removeInnerProps,
+	flattenCertainInnerPropsAsProp,
+	removeInnerProps,
 ]);
 
 export default transformer;

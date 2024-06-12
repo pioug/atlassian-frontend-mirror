@@ -5,10 +5,10 @@ import transformer from '../12.0.0-merge-state-and-stateless';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Upgrade ToggleStateless to Toggle', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { ToggleStateless } from '@atlaskit/toggle';
 
@@ -16,7 +16,7 @@ describe('Upgrade ToggleStateless to Toggle', () => {
       <ToggleStateless size="large" isChecked />
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -24,13 +24,13 @@ describe('Upgrade ToggleStateless to Toggle', () => {
       <Toggle size="large" isChecked />
     );
     `,
-    'change ToggleStateless to Toggle',
-  );
+		'change ToggleStateless to Toggle',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Toggle, { ToggleStateless } from '@atlaskit/toggle';
 
@@ -41,7 +41,7 @@ describe('Upgrade ToggleStateless to Toggle', () => {
       </>
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -52,13 +52,13 @@ describe('Upgrade ToggleStateless to Toggle', () => {
       </>
     );
     `,
-    'convert toggle and toggle-statelss when they show up together',
-  );
+		'convert toggle and toggle-statelss when they show up together',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Toggle from '@material-ui/toggle';
     import { ToggleStateless } from '@atlaskit/toggle';
@@ -70,7 +70,7 @@ describe('Upgrade ToggleStateless to Toggle', () => {
       </>
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@material-ui/toggle';
     import DSToggle from '@atlaskit/toggle';
@@ -82,13 +82,13 @@ describe('Upgrade ToggleStateless to Toggle', () => {
       </>
     );
     `,
-    'fallback to DSToggle if name Toggle has been used',
-  );
+		'fallback to DSToggle if name Toggle has been used',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Toggle, { ToggleStateless } from '@atlaskit/toggle';
 
@@ -100,7 +100,7 @@ describe('Upgrade ToggleStateless to Toggle', () => {
       </>
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -112,6 +112,6 @@ describe('Upgrade ToggleStateless to Toggle', () => {
       </>
     );
     `,
-    'convert toggle and toggle-statelss when they show up together',
-  );
+		'convert toggle and toggle-statelss when they show up together',
+	);
 });

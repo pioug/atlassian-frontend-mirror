@@ -1,5 +1,1 @@
-export {
-  default,
-  zoomInAnimation,
-  shrinkOutAnimation,
-} from '../entering/zoom-in';
+export { default, zoomInAnimation, shrinkOutAnimation } from '../entering/zoom-in';

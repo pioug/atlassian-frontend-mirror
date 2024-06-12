@@ -22,45 +22,33 @@ iconColor: token('color.icon.information'),
 `;
 
 const informationStyles = {
-  bold: {
-    color: token('color.text.inverse', '#FFFFFF'),
-    backgroundColor: token('color.background.information.bold', '#0C66E4'),
-    border: `1px solid ${token('color.border.information', '#E9F2FF')}`,
-    hoverBackgroundColor: token(
-      'color.background.information.bold.hovered',
-      '#0055CC',
-    ),
-    activeBackgroundColor: token(
-      'color.background.information.bold.pressed',
-      '#09326C',
-    ),
-    iconColor: token('color.icon.inverse', '#FFFFFF'),
-  },
-  default: {
-    color: token('color.text', '#172B4D'),
-    backgroundColor: token('color.background.information', '#E9F2FF'),
-    border: `1px solid ${token('color.border.information', '#1D7AFC')}`,
-    hoverBackgroundColor: token(
-      'color.background.information.hovered',
-      '#CCE0FF',
-    ),
-    activeBackgroundColor: token(
-      'color.background.information.pressed',
-      '#85B8FF',
-    ),
-    iconColor: token('color.icon.information', '#1D7AFC'),
-  },
+	bold: {
+		color: token('color.text.inverse', '#FFFFFF'),
+		backgroundColor: token('color.background.information.bold', '#0C66E4'),
+		border: `1px solid ${token('color.border.information', '#E9F2FF')}`,
+		hoverBackgroundColor: token('color.background.information.bold.hovered', '#0055CC'),
+		activeBackgroundColor: token('color.background.information.bold.pressed', '#09326C'),
+		iconColor: token('color.icon.inverse', '#FFFFFF'),
+	},
+	default: {
+		color: token('color.text', '#172B4D'),
+		backgroundColor: token('color.background.information', '#E9F2FF'),
+		border: `1px solid ${token('color.border.information', '#1D7AFC')}`,
+		hoverBackgroundColor: token('color.background.information.hovered', '#CCE0FF'),
+		activeBackgroundColor: token('color.background.information.pressed', '#85B8FF'),
+		iconColor: token('color.icon.information', '#1D7AFC'),
+	},
 };
 
 const TokenInformation = () => {
-  return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    <div style={{ display: 'flex', columnGap: '24px' }}>
-      {Object.entries(informationStyles).map(([key, subStyle]) => (
-        <Card key={key} tokenSet={subStyle} />
-      ))}
-    </div>
-  );
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ display: 'flex', columnGap: '24px' }}>
+			{Object.entries(informationStyles).map(([key, subStyle]) => (
+				<Card key={key} tokenSet={subStyle} />
+			))}
+		</div>
+	);
 };
 
 export default { example: TokenInformation, code: TokenInformationCodeBlock };

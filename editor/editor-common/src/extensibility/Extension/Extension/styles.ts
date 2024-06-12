@@ -7,45 +7,51 @@ import { wrapperDefault } from '../styles';
 
 export const widerLayoutClassName = 'wider-layout';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const wrapperStyle = css(wrapperDefault, {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.without-frame': {
 		background: 'transparent',
 	},
 	cursor: 'pointer',
 	width: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.extension-overflow-wrapper:not(.with-body)': {
 		overflowX: 'auto',
 	},
-	'&.with-border': {
-		border: `1px solid transparent`, // adding this so macro doesn't jump when hover border is shown
-	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-bodied-border': {
-		border: `1px solid ${token('color.border', N30)}`,
+		boxShadow: `0 0 0 1px ${token('color.border', N30)}`,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-hover-border': {
-		border: `1px solid ${token('color.border.input', N500)}`,
+		boxShadow: `0 0 0 1px ${token('color.border.input', N500)}`,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
 		margin: `0 ${token('space.negative.150', '-12px')}`,
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-		padding: '0 10px', // need exact number here to match editor elements' width
+		padding: `0 ${token('space.150', '12px')}`,
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const header = css({
 	padding: `${token('space.050', '4px')} ${token('space.050', '4px')} 0px`,
 	verticalAlign: 'middle',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&.with-children:not(.without-frame)': {
 		padding: `${token('space.050', '4px')} ${token('space.100', '8px')} ${token(
 			'space.100',
 			'8px',
 		)}`,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.without-frame': {
 		padding: 0,
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const content = css({
 	padding: token('space.100', '8px'),
 	background: token('elevation.surface', 'white'),
@@ -53,23 +59,27 @@ export const content = css({
 	borderRadius: token('border.radius', '3px'),
 	cursor: 'initial',
 	width: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.remove-border': {
 		border: 'none',
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const contentWrapper = css({
 	padding: `0 ${token('space.100', '8px')} ${token('space.100', '8px')}`,
 	display: 'flex',
 	justifyContent: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-padding-styles': {
 		padding: token('space.100', '8px'),
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const overflowWrapperStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-		margin: `0 -10px`, // need exact number here to match editor elements' width
+		margin: `0 ${token('space.negative.150', '-12px')}`,
 	},
 });

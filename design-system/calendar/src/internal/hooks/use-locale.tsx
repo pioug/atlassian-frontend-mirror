@@ -6,27 +6,21 @@ import type { WeekDay } from '../../types';
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default function useLocale({
-  locale,
-  weekStartDay,
+	locale,
+	weekStartDay,
 }: {
-  locale: string;
-  weekStartDay: WeekDay;
+	locale: string;
+	weekStartDay: WeekDay;
 }) {
-  const l10n = useMemo(() => createLocalizationProvider(locale), [locale]);
+	const l10n = useMemo(() => createLocalizationProvider(locale), [locale]);
 
-  const monthsLong = useMemo(() => l10n.getMonthsLong(), [l10n]);
-  const daysShort = useMemo(
-    () => l10n.getDaysShort(weekStartDay),
-    [l10n, weekStartDay],
-  );
-  const daysLong = useMemo(
-    () => l10n.getDaysLong(weekStartDay),
-    [l10n, weekStartDay],
-  );
+	const monthsLong = useMemo(() => l10n.getMonthsLong(), [l10n]);
+	const daysShort = useMemo(() => l10n.getDaysShort(weekStartDay), [l10n, weekStartDay]);
+	const daysLong = useMemo(() => l10n.getDaysLong(weekStartDay), [l10n, weekStartDay]);
 
-  return {
-    monthsLong,
-    daysShort,
-    daysLong,
-  };
+	return {
+		monthsLong,
+		daysShort,
+		daysLong,
+	};
 }

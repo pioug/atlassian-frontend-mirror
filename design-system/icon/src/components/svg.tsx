@@ -18,28 +18,28 @@ const svgStyles = css(commonSVGStyles);
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-svgs)
  */
 const SVG = memo(function SVG({
-  size = 'medium',
-  label,
-  primaryColor = 'currentColor',
-  secondaryColor,
-  testId,
-  children,
+	size = 'medium',
+	label,
+	primaryColor = 'currentColor',
+	secondaryColor,
+	testId,
+	children,
 }: SVGProps) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      style={{
-        color: primaryColor,
-        fill: secondaryColor || getBackground(),
-      }}
-      css={[svgStyles, sizeStyleMap[size]]}
-      data-testid={testId}
-      aria-label={label || undefined}
-      role={label ? 'img' : 'presentation'}
-    >
-      {children}
-    </svg>
-  );
+	return (
+		<svg
+			viewBox="0 0 24 24"
+			style={{
+				color: primaryColor,
+				fill: secondaryColor || getBackground(),
+			}}
+			css={[svgStyles, sizeStyleMap[size]]}
+			data-testid={testId}
+			aria-label={label || undefined}
+			role={label ? 'img' : 'presentation'}
+		>
+			{children}
+		</svg>
+	);
 });
 
 export default SVG;

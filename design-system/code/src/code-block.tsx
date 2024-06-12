@@ -19,79 +19,65 @@ import SyntaxHighlighter from './syntax-highlighter';
  * - [Usage](https://atlassian.design/components/code/code-block/usage)
  */
 const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
-  showLineNumbers = true,
-  language: providedLanguage = 'text',
-  highlight = '',
-  highlightedStartText = 'Highlight start',
-  highlightedEndText = 'Highlight end',
-  testId,
-  text,
-  codeBidiWarnings = true,
-  codeBidiWarningLabel,
-  codeBidiWarningTooltipEnabled = true,
-  shouldWrapLongLines = false,
+	showLineNumbers = true,
+	language: providedLanguage = 'text',
+	highlight = '',
+	highlightedStartText = 'Highlight start',
+	highlightedEndText = 'Highlight end',
+	testId,
+	text,
+	codeBidiWarnings = true,
+	codeBidiWarningLabel,
+	codeBidiWarningTooltipEnabled = true,
+	shouldWrapLongLines = false,
 }) {
-  const numLines = (text || '').split('\n').length;
-  const theme = useMemo(() => getCodeBlockTheme(numLines), [numLines]);
+	const numLines = (text || '').split('\n').length;
+	const theme = useMemo(() => getCodeBlockTheme(numLines), [numLines]);
 
-  const getStyles = useMemo(() => getCodeBlockStyles(theme), [theme]);
-  const styles = useMemo(
-    () =>
-      css(
-        getStyles(
-          highlightedStartText,
-          highlightedEndText,
-          showLineNumbers,
-          shouldWrapLongLines,
-        ),
-      ),
-    [
-      highlightedStartText,
-      highlightedEndText,
-      showLineNumbers,
-      shouldWrapLongLines,
-      getStyles,
-    ],
-  );
+	const getStyles = useMemo(() => getCodeBlockStyles(theme), [theme]);
+	const styles = useMemo(
+		() =>
+			css(
+				getStyles(highlightedStartText, highlightedEndText, showLineNumbers, shouldWrapLongLines),
+			),
+		[highlightedStartText, highlightedEndText, showLineNumbers, shouldWrapLongLines, getStyles],
+	);
 
-  const { getHighlightStyles, highlightedLines } = useHighlightLines({
-    highlight,
-    testId,
-  });
+	const { getHighlightStyles, highlightedLines } = useHighlightLines({
+		highlight,
+		testId,
+	});
 
-  const getLineProps = useCallback(
-    (line: number) => getHighlightStyles(line, highlightedLines),
-    [getHighlightStyles, highlightedLines],
-  );
+	const getLineProps = useCallback(
+		(line: number) => getHighlightStyles(line, highlightedLines),
+		[getHighlightStyles, highlightedLines],
+	);
 
-  const language = useMemo(
-    () => normalizeLanguage(providedLanguage),
-    [providedLanguage],
-  );
+	const language = useMemo(() => normalizeLanguage(providedLanguage), [providedLanguage]);
 
-  // https://product-fabric.atlassian.net/browse/DST-2472
-  const languageToUse = text ? language : 'text';
+	// https://product-fabric.atlassian.net/browse/DST-2472
+	const languageToUse = text ? language : 'text';
 
-  return (
-    <SyntaxHighlighter
-      data-code-lang={language}
-      data-ds--code--code-block=""
-      testId={testId}
-      language={languageToUse}
-      css={styles}
-      showLineNumbers={showLineNumbers}
-      lineProps={getLineProps}
-      // shouldCreateParentElementForLines is needed to pass down props to each line.
-      // This is necessary for both line highlighting and testId's, as each of
-      // these rely on a data attribute being passed down to lines.
-      shouldCreateParentElementForLines={highlight.length > 0 || !!testId}
-      shouldWrapLongLines={shouldWrapLongLines}
-      codeBidiWarnings={codeBidiWarnings}
-      codeBidiWarningLabel={codeBidiWarningLabel}
-      codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
-      text={text}
-    />
-  );
+	return (
+		<SyntaxHighlighter
+			data-code-lang={language}
+			data-ds--code--code-block=""
+			testId={testId}
+			language={languageToUse}
+			css={styles}
+			showLineNumbers={showLineNumbers}
+			lineProps={getLineProps}
+			// shouldCreateParentElementForLines is needed to pass down props to each line.
+			// This is necessary for both line highlighting and testId's, as each of
+			// these rely on a data attribute being passed down to lines.
+			shouldCreateParentElementForLines={highlight.length > 0 || !!testId}
+			shouldWrapLongLines={shouldWrapLongLines}
+			codeBidiWarnings={codeBidiWarnings}
+			codeBidiWarningLabel={codeBidiWarningLabel}
+			codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
+			text={text}
+		/>
+	);
 });
 
 CodeBlock.displayName = 'CodeBlock';

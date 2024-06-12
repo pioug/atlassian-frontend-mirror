@@ -6,10 +6,12 @@ import { token } from '@atlaskit/tokens';
 const NOTIFICATION_SIZE = 8;
 const SPACE_FROM_EDGE = token('space.100', '8px');
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const resizableMediaMigrationNotificationStyle = css({
 	position: 'absolute',
 	top: SPACE_FROM_EDGE,
 	right: `calc(${token('space.150', '12px')} + ${SPACE_FROM_EDGE})`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.warning.bold', colors.Y300),
 	borderRadius: token('border.radius.circle', '50%'),
 	width: `${NOTIFICATION_SIZE}px`,

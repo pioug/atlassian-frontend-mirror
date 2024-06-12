@@ -3,6 +3,7 @@ import React from 'react';
 const SlackIcon = () => {
 	return (
 		<svg width="24" height="24" viewBox="0 0 125 125">
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 			<style>
 				{
 					'.prefix__st0{fill:#e01e5a}.prefix__st1{fill:#36c5f0}.prefix__st2{fill:#2eb67d}.prefix__st3{fill:#ecb22e}'

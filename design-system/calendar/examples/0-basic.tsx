@@ -15,20 +15,20 @@ const onFocus = () => log('Focus');
 const onSelect = () => log('Select');
 
 export default () => (
-  // Necessary to pass the SSR hydration test
-  <Box>
-    <Calendar
-      disabled={disabledArray}
-      maxDate={'2020-12-25'}
-      defaultPreviouslySelected={defaultPreviouslySelected}
-      defaultSelected={defaultSelected}
-      defaultMonth={12}
-      defaultYear={2020}
-      onBlur={onBlur}
-      onChange={onChange}
-      onFocus={onFocus}
-      onSelect={onSelect}
-      testId={'calendar'}
-    />
-  </Box>
+	// Necessary to pass the SSR hydration test
+	<Box>
+		<Calendar
+			disabled={disabledArray}
+			maxDate={'2020-12-25'}
+			defaultPreviouslySelected={defaultPreviouslySelected}
+			defaultSelected={defaultSelected}
+			defaultMonth={12}
+			defaultYear={2020}
+			onBlur={onBlur}
+			onChange={onChange}
+			onFocus={onFocus}
+			onSelect={onSelect}
+			testId={'calendar'}
+		/>
+	</Box>
 );

@@ -22,39 +22,33 @@ iconColor: token('color.icon.danger'),
 `;
 
 const dangerStyles = {
-  bold: {
-    color: token('color.text.inverse', '#FFFFFF'),
-    backgroundColor: token('color.background.danger.bold', '#CA3521'),
-    border: `1px solid ${token('color.border.danger', '#E34935')}`,
-    hoverBackgroundColor: token(
-      'color.background.danger.bold.hovered',
-      '#AE2A19',
-    ),
-    activeBackgroundColor: token(
-      'color.background.danger.bold.pressed',
-      '#601E16',
-    ),
-    iconColor: token('color.icon.inverse', '#FFFFFF'),
-  },
-  default: {
-    color: token('color.text', '#172B4D'),
-    backgroundColor: token('color.background.danger', '#FFEDEB'),
-    border: `1px solid ${token('color.border.danger', '#E34935')}`,
-    hoverBackgroundColor: token('color.background.danger.hovered', '#FFD2CC'),
-    activeBackgroundColor: token('color.background.danger.pressed', '#FF9C8F'),
-    iconColor: token('color.icon.danger', '#E34935'),
-  },
+	bold: {
+		color: token('color.text.inverse', '#FFFFFF'),
+		backgroundColor: token('color.background.danger.bold', '#CA3521'),
+		border: `1px solid ${token('color.border.danger', '#E34935')}`,
+		hoverBackgroundColor: token('color.background.danger.bold.hovered', '#AE2A19'),
+		activeBackgroundColor: token('color.background.danger.bold.pressed', '#601E16'),
+		iconColor: token('color.icon.inverse', '#FFFFFF'),
+	},
+	default: {
+		color: token('color.text', '#172B4D'),
+		backgroundColor: token('color.background.danger', '#FFEDEB'),
+		border: `1px solid ${token('color.border.danger', '#E34935')}`,
+		hoverBackgroundColor: token('color.background.danger.hovered', '#FFD2CC'),
+		activeBackgroundColor: token('color.background.danger.pressed', '#FF9C8F'),
+		iconColor: token('color.icon.danger', '#E34935'),
+	},
 };
 
 const TokenDanger = () => {
-  return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    <div style={{ display: 'flex', columnGap: '24px' }}>
-      {Object.entries(dangerStyles).map(([key, subStyle]) => (
-        <Card key={key} tokenSet={subStyle} />
-      ))}
-    </div>
-  );
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ display: 'flex', columnGap: '24px' }}>
+			{Object.entries(dangerStyles).map(([key, subStyle]) => (
+				<Card key={key} tokenSet={subStyle} />
+			))}
+		</div>
+	);
 };
 
 export default { example: TokenDanger, code: TokenDangerCodeBlock };

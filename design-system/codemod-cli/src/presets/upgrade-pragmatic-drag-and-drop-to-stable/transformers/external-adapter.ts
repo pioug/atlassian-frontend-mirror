@@ -33,53 +33,50 @@ export const pleaseMigrateMessage = `
 const oldImportPath = '@atlaskit/pragmatic-drag-and-drop/adapter/file';
 const newImportPath = '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 
-export function moveFromFileAdapterToExternalAdapter(
-  file: FileInfo,
-  api: API,
-): string {
-  const j = api.jscodeshift;
-  const root = j(file.source);
+export function moveFromFileAdapterToExternalAdapter(file: FileInfo, api: API): string {
+	const j = api.jscodeshift;
+	const root = j(file.source);
 
-  const isUsingFileAdapter: boolean = root
-    .find(j.ImportDeclaration)
-    .some((path) => path.node.source.value === oldImportPath);
+	const isUsingFileAdapter: boolean = root
+		.find(j.ImportDeclaration)
+		.some((path) => path.node.source.value === oldImportPath);
 
-  if (!isUsingFileAdapter) {
-    return file.source;
-  }
+	if (!isUsingFileAdapter) {
+		return file.source;
+	}
 
-  // replace old import path with new import path
-  root
-    .find(j.ImportDeclaration)
-    .filter((path) => path.node.source.value === oldImportPath)
-    // replace import
-    .map((path) => {
-      path.node.source.value = newImportPath;
-      return path;
-    })
-    // Add an import for 'containsFiles()' and `getFiles()` as likely this file will need it
-    .insertAfter(
-      j.importDeclaration(
-        [
-          j.importSpecifier(j.identifier('containsFiles')),
-          j.importSpecifier(j.identifier('getFiles')),
-        ],
-        j.literal('@atlaskit/pragmatic-drag-and-drop/external/file'),
-      ),
-    );
+	// replace old import path with new import path
+	root
+		.find(j.ImportDeclaration)
+		.filter((path) => path.node.source.value === oldImportPath)
+		// replace import
+		.map((path) => {
+			path.node.source.value = newImportPath;
+			return path;
+		})
+		// Add an import for 'containsFiles()' and `getFiles()` as likely this file will need it
+		.insertAfter(
+			j.importDeclaration(
+				[
+					j.importSpecifier(j.identifier('containsFiles')),
+					j.importSpecifier(j.identifier('getFiles')),
+				],
+				j.literal('@atlaskit/pragmatic-drag-and-drop/external/file'),
+			),
+		);
 
-  // update usages of `monitorForFiles` and `dropTargetForFiles`
-  root
-    .find(j.Identifier)
-    .filter((path) => path.value.name === 'monitorForFiles')
-    .replaceWith(j.identifier('monitorForExternal'));
-  root
-    .find(j.Identifier)
-    .filter((path) => path.value.name === 'dropTargetForFiles')
-    .replaceWith(j.identifier('dropTargetForExternal'));
+	// update usages of `monitorForFiles` and `dropTargetForFiles`
+	root
+		.find(j.Identifier)
+		.filter((path) => path.value.name === 'monitorForFiles')
+		.replaceWith(j.identifier('monitorForExternal'));
+	root
+		.find(j.Identifier)
+		.filter((path) => path.value.name === 'dropTargetForFiles')
+		.replaceWith(j.identifier('dropTargetForExternal'));
 
-  // add comment to the start of the file
-  addCommentToStartOfFile({ j, base: root, message: pleaseMigrateMessage });
+	// add comment to the start of the file
+	addCommentToStartOfFile({ j, base: root, message: pleaseMigrateMessage });
 
-  return root.toSource({ quote: 'single' });
+	return root.toSource({ quote: 'single' });
 }

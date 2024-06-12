@@ -10,37 +10,37 @@ export default md`
   Refer to the [design documentation](https://atlassian.design/guidelines/product/foundations/typography) for more information.
 
   ${(
-    <Example
-      highlight="3,12-20"
-      packageName="@atlaskit/theme"
-      Component={require('../examples/typography').default}
-      source={require('!!raw-loader!../examples/typography')}
-      title="Heading mixins"
-    />
-  )}
+		<Example
+			highlight="3,12-20"
+			packageName="@atlaskit/theme"
+			Component={require('../examples/typography').default}
+			source={require('!!raw-loader!../examples/typography')}
+			title="Heading mixins"
+		/>
+	)}
 
   ${(
-    <Example
-      highlight=""
-      packageName="@atlaskit/theme"
-      Component={require('../examples/fonts').default}
-      source={require('!!raw-loader!../examples/fonts')}
-      title="Fonts"
-    />
-  )}
+		<Example
+			highlight=""
+			packageName="@atlaskit/theme"
+			Component={require('../examples/fonts').default}
+			source={require('!!raw-loader!../examples/fonts')}
+			title="Fonts"
+		/>
+	)}
 
   ### Elevation
 
   This will elevate an element (using box-shadow) over varying heights.
 
   ${(
-    <Example
-      packageName="@atlaskit/theme"
-      Component={require('../examples/elevation').default}
-      source={require('!!raw-loader!../examples/elevation')}
-      title=""
-    />
-  )}
+		<Example
+			packageName="@atlaskit/theme"
+			Component={require('../examples/elevation').default}
+			source={require('!!raw-loader!../examples/elevation')}
+			title=""
+		/>
+	)}
 
   ### Focus ring
 

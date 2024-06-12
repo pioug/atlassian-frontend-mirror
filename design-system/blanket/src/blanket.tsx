@@ -15,26 +15,26 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const analyticsAttributes = {
-  componentName: 'blanket',
-  packageName,
-  packageVersion,
+	componentName: 'blanket',
+	packageName,
+	packageVersion,
 };
 
 const baseStyles = css({
-  position: 'fixed',
-  zIndex: layers.blanket(),
-  inset: 0,
-  backgroundColor: token('color.blanket', N100A),
-  overflowY: 'auto',
-  pointerEvents: 'initial',
+	position: 'fixed',
+	zIndex: layers.blanket(),
+	inset: 0,
+	backgroundColor: token('color.blanket', N100A),
+	overflowY: 'auto',
+	pointerEvents: 'initial',
 });
 
 const shouldAllowClickThroughStyles = css({
-  pointerEvents: 'none',
+	pointerEvents: 'none',
 });
 
 const invisibleStyles = css({
-  backgroundColor: 'transparent',
+	backgroundColor: 'transparent',
 });
 
 /**
@@ -45,66 +45,64 @@ const invisibleStyles = css({
  * - [Examples](https://atlaskit.atlassian.com/examples/design-system/blanket/basic-usage)
  */
 const Blanket = memo(
-  forwardRef<HTMLDivElement, BlanketProps>(function Blanket(
-    {
-      shouldAllowClickThrough = false,
-      isTinted = false,
-      onBlanketClicked = noop,
-      testId,
-      children,
-      analyticsContext,
-    },
-    ref,
-  ) {
-    const mouseDownTarget = useRef<EventTarget | null>(null);
+	forwardRef<HTMLDivElement, BlanketProps>(function Blanket(
+		{
+			shouldAllowClickThrough = false,
+			isTinted = false,
+			onBlanketClicked = noop,
+			testId,
+			children,
+			analyticsContext,
+		},
+		ref,
+	) {
+		const mouseDownTarget = useRef<EventTarget | null>(null);
 
-    const onBlanketClickedWithAnalytics = usePlatformLeafEventHandler({
-      fn: onBlanketClicked,
-      action: 'clicked',
-      analyticsData: analyticsContext,
-      ...analyticsAttributes,
-    });
+		const onBlanketClickedWithAnalytics = usePlatformLeafEventHandler({
+			fn: onBlanketClicked,
+			action: 'clicked',
+			analyticsData: analyticsContext,
+			...analyticsAttributes,
+		});
 
-    const blanketClickOutsideChildren = useCallback(
-      (e: MouseEvent<HTMLDivElement>) =>
-        e.currentTarget === e.target && mouseDownTarget.current === e.target
-          ? onBlanketClickedWithAnalytics(e)
-          : undefined,
-      [onBlanketClickedWithAnalytics],
-    );
+		const blanketClickOutsideChildren = useCallback(
+			(e: MouseEvent<HTMLDivElement>) =>
+				e.currentTarget === e.target && mouseDownTarget.current === e.target
+					? onBlanketClickedWithAnalytics(e)
+					: undefined,
+			[onBlanketClickedWithAnalytics],
+		);
 
-    const onClick = shouldAllowClickThrough
-      ? undefined
-      : blanketClickOutsideChildren;
+		const onClick = shouldAllowClickThrough ? undefined : blanketClickOutsideChildren;
 
-    const onMouseDown = useCallback((e: MouseEvent<HTMLDivElement>) => {
-      mouseDownTarget.current = e.target;
-    }, []);
+		const onMouseDown = useCallback((e: MouseEvent<HTMLDivElement>) => {
+			mouseDownTarget.current = e.target;
+		}, []);
 
-    return (
-      /**
-       * It is not normally acceptable to add click and key handlers to non-interactive
-       * elements as this is an accessibility anti-pattern. However, because this
-       * instance is to enable light dismiss functionality instead of creating an
-       * inaccessible custom element, we can add role="presentation" so that there
-       * are no negative impacts to assistive technologies.
-       */
-      <div
-        role="presentation"
-        css={[
-          baseStyles,
-          shouldAllowClickThrough && shouldAllowClickThroughStyles,
-          !isTinted && invisibleStyles,
-        ]}
-        onClick={onClick}
-        onMouseDown={onMouseDown}
-        data-testid={testId}
-        ref={ref}
-      >
-        {children}
-      </div>
-    );
-  }),
+		return (
+			/**
+			 * It is not normally acceptable to add click and key handlers to non-interactive
+			 * elements as this is an accessibility anti-pattern. However, because this
+			 * instance is to enable light dismiss functionality instead of creating an
+			 * inaccessible custom element, we can add role="presentation" so that there
+			 * are no negative impacts to assistive technologies.
+			 */
+			<div
+				role="presentation"
+				css={[
+					baseStyles,
+					shouldAllowClickThrough && shouldAllowClickThroughStyles,
+					!isTinted && invisibleStyles,
+				]}
+				onClick={onClick}
+				onMouseDown={onMouseDown}
+				data-testid={testId}
+				ref={ref}
+			>
+				{children}
+			</div>
+		);
+	}),
 );
 
 Blanket.displayName = 'Blanket';

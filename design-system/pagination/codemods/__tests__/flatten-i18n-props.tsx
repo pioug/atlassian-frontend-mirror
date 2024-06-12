@@ -9,10 +9,10 @@ const transformer = createTransformer([flattenI18nInnerPropsAsProp]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Flatten i18n inner props', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
     const SimplePagination = () => {
@@ -24,7 +24,7 @@ describe('Flatten i18n inner props', () => {
       );
     };
   `,
-    `
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
     const SimplePagination = () => {
@@ -38,13 +38,13 @@ describe('Flatten i18n inner props', () => {
       );
     };
   `,
-    'should flatten prev & next properties in i18n props as a new standalone props',
-  );
+		'should flatten prev & next properties in i18n props as a new standalone props',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
 
@@ -60,7 +60,7 @@ describe('Flatten i18n inner props', () => {
       );
     };
   `,
-    `
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
 
@@ -78,13 +78,13 @@ describe('Flatten i18n inner props', () => {
       );
     };
   `,
-    'should flatten prev & next object properties in i18n props as a new standalone props',
-  );
+		'should flatten prev & next object properties in i18n props as a new standalone props',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
     const message = { 
@@ -100,7 +100,7 @@ describe('Flatten i18n inner props', () => {
       );
     };
   `,
-    `
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
     const message = { 
@@ -116,6 +116,6 @@ describe('Flatten i18n inner props', () => {
       );
     };
   `,
-    'should not flatten prev & next props if i18n value comming from a variable',
-  );
+		'should not flatten prev & next props if i18n value comming from a variable',
+	);
 });

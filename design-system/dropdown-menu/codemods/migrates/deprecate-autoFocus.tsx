@@ -2,17 +2,9 @@
 import { createRemoveFuncFor } from '@atlaskit/codemod-utils';
 
 const deprecateAutoFocus = () => [
-  createRemoveFuncFor('@atlaskit/dropdown-menu', 'DropdownItem', 'autoFocus'),
-  createRemoveFuncFor(
-    '@atlaskit/dropdown-menu',
-    'DropdownItemCheckbox',
-    'autoFocus',
-  ),
-  createRemoveFuncFor(
-    '@atlaskit/dropdown-menu',
-    'DropdownItemRadio',
-    'autoFocus',
-  ),
+	createRemoveFuncFor('@atlaskit/dropdown-menu', 'DropdownItem', 'autoFocus'),
+	createRemoveFuncFor('@atlaskit/dropdown-menu', 'DropdownItemCheckbox', 'autoFocus'),
+	createRemoveFuncFor('@atlaskit/dropdown-menu', 'DropdownItemRadio', 'autoFocus'),
 ];
 
 export default deprecateAutoFocus;

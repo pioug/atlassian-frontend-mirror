@@ -11,6 +11,7 @@ interface FrameViewProps {
 }
 
 export const Frame = ({ children, testId }: React.PropsWithChildren<FrameViewProps>) => (
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<span css={wrapperStyle} data-testid={testId}>
 		{children}
 	</span>

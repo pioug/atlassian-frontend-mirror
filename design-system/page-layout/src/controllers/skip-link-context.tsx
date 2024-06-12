@@ -6,24 +6,24 @@ import { type SkipLinkContextProps, type SkipLinkData } from './types';
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SkipLinksContext = createContext<SkipLinkContextProps>({
-  skipLinksData: [],
-  registerSkipLink: noop,
-  unregisterSkipLink: noop,
+	skipLinksData: [],
+	registerSkipLink: noop,
+	unregisterSkipLink: noop,
 });
 
 export const useSkipLinks = () => useContext(SkipLinksContext);
 
 export const useSkipLink = (
-  id?: SkipLinkData['id'],
-  skipLinkTitle?: SkipLinkData['skipLinkTitle'],
+	id?: SkipLinkData['id'],
+	skipLinkTitle?: SkipLinkData['skipLinkTitle'],
 ) => {
-  const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
-  useEffect(() => {
-    if (id && skipLinkTitle) {
-      registerSkipLink({ id, skipLinkTitle });
-    }
-    return () => {
-      unregisterSkipLink(id);
-    };
-  }, [id, skipLinkTitle, registerSkipLink, unregisterSkipLink]);
+	const { registerSkipLink, unregisterSkipLink } = useSkipLinks();
+	useEffect(() => {
+		if (id && skipLinkTitle) {
+			registerSkipLink({ id, skipLinkTitle });
+		}
+		return () => {
+			unregisterSkipLink(id);
+		};
+	}, [id, skipLinkTitle, registerSkipLink, unregisterSkipLink]);
 };

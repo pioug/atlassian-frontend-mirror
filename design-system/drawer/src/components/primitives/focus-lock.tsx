@@ -10,65 +10,61 @@ import { type FocusLockProps } from '../types';
 // Thin wrapper over react-focus-lock. This wrapper only exists to ensure API compatibility.
 // This component should be deleted during https://ecosystem.atlassian.net/browse/AK-5658
 export default class FocusLock extends Component<FocusLockProps> {
-  static defaultProps = { ...defaultFocusLockSettings };
+	static defaultProps = { ...defaultFocusLockSettings };
 
-  componentDidMount() {
-    const { isFocusLockEnabled, autoFocusFirstElem } = this.props;
+	componentDidMount() {
+		const { isFocusLockEnabled, autoFocusFirstElem } = this.props;
 
-    if (
-      typeof process !== 'undefined' &&
-      process.env.NODE_ENV !== 'production' &&
-      !process.env.CI
-    ) {
-      invariant(
-        typeof autoFocusFirstElem === 'boolean',
-        '@atlaskit/drawer: Passing a function as autoFocus is deprecated. Instead call focus on the element ref or use the autofocus property.',
-      );
-    }
-    if (typeof autoFocusFirstElem === 'function' && isFocusLockEnabled) {
-      const elem = autoFocusFirstElem();
-      if (elem && elem.focus) {
-        elem.focus();
-      }
-    }
-  }
+		if (
+			typeof process !== 'undefined' &&
+			process.env.NODE_ENV !== 'production' &&
+			!process.env.CI
+		) {
+			invariant(
+				typeof autoFocusFirstElem === 'boolean',
+				'@atlaskit/drawer: Passing a function as autoFocus is deprecated. Instead call focus on the element ref or use the autofocus property.',
+			);
+		}
+		if (typeof autoFocusFirstElem === 'function' && isFocusLockEnabled) {
+			const elem = autoFocusFirstElem();
+			if (elem && elem.focus) {
+				elem.focus();
+			}
+		}
+	}
 
-  getFocusTarget = () => {
-    const { shouldReturnFocus } = this.props;
+	getFocusTarget = () => {
+		const { shouldReturnFocus } = this.props;
 
-    if (typeof shouldReturnFocus === 'boolean') {
-      return shouldReturnFocus;
-    }
+		if (typeof shouldReturnFocus === 'boolean') {
+			return shouldReturnFocus;
+		}
 
-    return false;
-  }
+		return false;
+	};
 
-  onDeactivation = () => {
-    const { shouldReturnFocus } = this.props;
+	onDeactivation = () => {
+		const { shouldReturnFocus } = this.props;
 
-    if (typeof shouldReturnFocus !== 'boolean') {
-      window.setTimeout(() => {
-        shouldReturnFocus?.current?.focus();
-      }, 0);
-    }
-  }
+		if (typeof shouldReturnFocus !== 'boolean') {
+			window.setTimeout(() => {
+				shouldReturnFocus?.current?.focus();
+			}, 0);
+		}
+	};
 
-  render() {
-    const {
-      isFocusLockEnabled,
-      autoFocusFirstElem,
-      children,
-    } = this.props;
+	render() {
+		const { isFocusLockEnabled, autoFocusFirstElem, children } = this.props;
 
-    return (
-      <ReactFocusLock
-        disabled={!isFocusLockEnabled}
-        autoFocus={!!autoFocusFirstElem}
-        returnFocus={this.getFocusTarget()}
-        onDeactivation={this.onDeactivation}
-      >
-        <ScrollLock>{children}</ScrollLock>
-      </ReactFocusLock>
-    );
-  }
+		return (
+			<ReactFocusLock
+				disabled={!isFocusLockEnabled}
+				autoFocus={!!autoFocusFirstElem}
+				returnFocus={this.getFocusTarget()}
+				onDeactivation={this.onDeactivation}
+			>
+				<ScrollLock>{children}</ScrollLock>
+			</ReactFocusLock>
+		);
+	}
 }

@@ -158,6 +158,7 @@ export const createPlugin = (
 			}
 
 			if (tr) {
+				const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 				// "fixTables" removes empty rows as we don't allow that in schema
 				const updatedTr = handleCut(
 					tr,
@@ -166,6 +167,7 @@ export const createPlugin = (
 					editorAnalyticsAPI,
 					editorViewRef || undefined,
 					isTableScalingEnabled,
+					tableWithFixedColumnWidthsOption,
 					shouldUseIncreasedScalingPercent,
 				);
 				return fixTables(updatedTr) || updatedTr;

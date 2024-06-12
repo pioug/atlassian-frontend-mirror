@@ -10,12 +10,12 @@ export default md`
   like in the example below:
 
   ${(
-    <Example
-      packageName="@atlaskit/popup"
-      Component={require('../examples/nested').default}
-      source={require('!!raw-loader!../examples/nested')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/popup"
+			Component={require('../examples/nested').default}
+			source={require('!!raw-loader!../examples/nested')}
+		/>
+	)}
 
   ## Gotchas
 

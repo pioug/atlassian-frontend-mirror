@@ -2,8 +2,8 @@
 import { createRemoveFuncAddCommentFor } from '@atlaskit/codemod-utils';
 
 const deprecateOnItemActivated = createRemoveFuncAddCommentFor(
-  '@atlaskit/dropdown-menu',
-  'onItemActivated',
+	'@atlaskit/dropdown-menu',
+	'onItemActivated',
 );
 
 export default deprecateOnItemActivated;

@@ -10,10 +10,10 @@ const transformer = createTransformer([deprecateShouldFitContainer]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('delete shouldFitContainer prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -22,7 +22,7 @@ describe('delete shouldFitContainer prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -31,13 +31,13 @@ describe('delete shouldFitContainer prop', () => {
       </DropdownMenu>
     );
     `,
-    'should not change anything when shouldFitContainer is not used ',
-  );
+		'should not change anything when shouldFitContainer is not used ',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -46,7 +46,7 @@ describe('delete shouldFitContainer prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -55,13 +55,13 @@ describe('delete shouldFitContainer prop', () => {
       </DropdownMenu>
     );
     `,
-    'should delete shouldFitContainer when found it',
-  );
+		'should delete shouldFitContainer when found it',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import AKDropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -70,7 +70,7 @@ describe('delete shouldFitContainer prop', () => {
       </AKDropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import AKDropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -79,13 +79,13 @@ describe('delete shouldFitContainer prop', () => {
       </AKDropdownMenu>
     );
     `,
-    'should delete shouldFitContainer when found it - named import',
-  );
+		'should delete shouldFitContainer when found it - named import',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@fancy-ds/dropdown-menu";
 
@@ -94,7 +94,7 @@ describe('delete shouldFitContainer prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@fancy-ds/dropdown-menu";
 
@@ -103,6 +103,6 @@ describe('delete shouldFitContainer prop', () => {
       </DropdownMenu>
     );
     `,
-    'should not delete shouldFitContainer when found it - other library',
-  );
+		'should not delete shouldFitContainer when found it - other library',
+	);
 });

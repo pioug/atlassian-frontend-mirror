@@ -234,7 +234,9 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 		let listBody;
 		if (loading) {
 			listBody = (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={emojiTypeAheadSpinnerContainer}>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={emojiTypeAheadSpinner}>
 						<Spinner size="medium" />
 					</div>
@@ -245,8 +247,9 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 		}
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={typeAheadListContainer}>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div className={'ak-emoji-typeahead-list'} css={classes}>
 					<Scrollable ref={this.handleScrollableRef} maxHeight={`${emojiTypeAheadMaxHeight}px`}>
 						{listBody}

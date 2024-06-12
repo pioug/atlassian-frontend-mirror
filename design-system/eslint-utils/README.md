@@ -6,4 +6,5 @@ Shared utilities for ESLint rules
 
 `import EslintUtils from '@atlaskit/eslint-utils';`
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/design-system/eslint-utils).
+Detailed docs and example usage can be found
+[here](https://atlaskit.atlassian.com/packages/design-system/eslint-utils).

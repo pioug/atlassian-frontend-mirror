@@ -30,22 +30,21 @@ import type { Breakpoint, ResponsiveCSSObject } from './types';
  * ```
  */
 export const UNSAFE_buildAboveMediaQueryCSS = (
-  /**
-   * The desired CSS to place inside of the media query.
-   * This can either be a css object directly or functional with `breakpoint` as the arg to return a css object.
-   */
-  input: CSSObject | ((breakpoint: Breakpoint) => CSSObject),
+	/**
+	 * The desired CSS to place inside of the media query.
+	 * This can either be a css object directly or functional with `breakpoint` as the arg to return a css object.
+	 */
+	input: CSSObject | ((breakpoint: Breakpoint) => CSSObject),
 ) => {
-  return UNSAFE_BREAKPOINTS_ORDERED_LIST.reduce(
-    (acc, breakpoint) => ({
-      ...acc,
-      [breakpoint]: css({
-        [media.above[breakpoint]]:
-          typeof input === 'function' ? input(breakpoint) : input,
-      }),
-    }),
-    {} as Required<ResponsiveCSSObject>,
-  );
+	return UNSAFE_BREAKPOINTS_ORDERED_LIST.reduce(
+		(acc, breakpoint) => ({
+			...acc,
+			[breakpoint]: css({
+				[media.above[breakpoint]]: typeof input === 'function' ? input(breakpoint) : input,
+			}),
+		}),
+		{} as Required<ResponsiveCSSObject>,
+	);
 };
 
 /**
@@ -73,24 +72,23 @@ export const UNSAFE_buildAboveMediaQueryCSS = (
  * ```
  */
 export const UNSAFE_buildBelowMediaQueryCSS = (
-  /**
-   * The desired CSS to place inside of the media query.
-   * This can either be a css object directly or functional with `breakpoint` as the arg to return a css object.
-   */
-  input: CSSObject | ((breakpoint: Breakpoint) => CSSObject),
+	/**
+	 * The desired CSS to place inside of the media query.
+	 * This can either be a css object directly or functional with `breakpoint` as the arg to return a css object.
+	 */
+	input: CSSObject | ((breakpoint: Breakpoint) => CSSObject),
 ) => {
-  return UNSAFE_BREAKPOINTS_ORDERED_LIST.reduce((acc, breakpoint) => {
-    if (breakpoint === 'xxs') {
-      return acc;
-    }
+	return UNSAFE_BREAKPOINTS_ORDERED_LIST.reduce((acc, breakpoint) => {
+		if (breakpoint === 'xxs') {
+			return acc;
+		}
 
-    return {
-      ...acc,
-      [breakpoint]: css({
-        // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-        [UNSAFE_media.below[breakpoint]]:
-          typeof input === 'function' ? input(breakpoint) : input,
-      }),
-    };
-  }, {} as Required<ResponsiveCSSObject>);
+		return {
+			...acc,
+			[breakpoint]: css({
+				// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+				[UNSAFE_media.below[breakpoint]]: typeof input === 'function' ? input(breakpoint) : input,
+			}),
+		};
+	}, {} as Required<ResponsiveCSSObject>);
 };

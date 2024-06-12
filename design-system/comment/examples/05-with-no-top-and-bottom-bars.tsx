@@ -8,14 +8,13 @@ import Comment from '../src';
 import avatarImg from './images/avatar_400x400.jpg';
 
 export default () => (
-  <Comment
-    avatar={<Avatar src={avatarImg} />}
-    content={
-      <Text as="p">
-        Cookie macaroon liquorice. Marshmallow donut lemon drops candy canes
-        marshmallow topping chocolate cake. Croissant pastry soufflé waffle cake
-        fruitcake. Brownie oat cake sugar plum.
-      </Text>
-    }
-  />
+	<Comment
+		avatar={<Avatar src={avatarImg} />}
+		content={
+			<Text as="p">
+				Cookie macaroon liquorice. Marshmallow donut lemon drops candy canes marshmallow topping
+				chocolate cake. Croissant pastry soufflé waffle cake fruitcake. Brownie oat cake sugar plum.
+			</Text>
+		}
+	/>
 );

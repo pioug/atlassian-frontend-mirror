@@ -1,6 +1,7 @@
 # Visually hidden
 
-A utility that hides content from the screen while retaining readability by screen readers for accessibility.
+A utility that hides content from the screen while retaining readability by screen readers for
+accessibility.
 
 ## Installation
 

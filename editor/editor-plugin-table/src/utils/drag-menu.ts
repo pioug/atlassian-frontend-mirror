@@ -160,6 +160,7 @@ export const getDragMenuConfig = (
 	isHeaderRowRequired?: boolean,
 	isTableScalingEnabled = false,
 	tableDuplicateCellColouring = false,
+	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 ): DragMenuConfig[] => {
 	const addOptions =
@@ -272,6 +273,7 @@ export const getDragMenuConfig = (
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
 						tableDuplicateCellColouring,
+						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
 					)(INPUT_METHOD.TABLE_CONTEXT_MENU, (index ?? 0) + offset)(state, dispatch, editorView);
 				}
@@ -293,6 +295,7 @@ export const getDragMenuConfig = (
 								editorView.domAtPos.bind(editorView),
 								getEditorContainerWidth,
 								isTableScalingEnabled,
+								isTableFixedColumnWidthsOptionEnabled,
 							);
 
 							if (newResizeState) {
@@ -333,10 +336,16 @@ export const getDragMenuConfig = (
 						!!isHeaderRowRequired,
 					)(state, dispatch);
 				} else {
-					deleteColumnsWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
-						INPUT_METHOD.TABLE_CONTEXT_MENU,
-						selectionRect ?? defaultSelectionRect,
-					)(state, dispatch, editorView);
+					deleteColumnsWithAnalytics(
+						editorAnalyticsAPI,
+						isTableScalingEnabled,
+						isTableFixedColumnWidthsOptionEnabled,
+						shouldUseIncreasedScalingPercent,
+					)(INPUT_METHOD.TABLE_CONTEXT_MENU, selectionRect ?? defaultSelectionRect)(
+						state,
+						dispatch,
+						editorView,
+					);
 				}
 				return true;
 			},

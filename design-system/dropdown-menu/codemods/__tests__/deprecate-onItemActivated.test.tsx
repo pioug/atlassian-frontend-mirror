@@ -10,10 +10,10 @@ const transformer = createTransformer([deprecateOnItemActivated]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('delete onItemActivated prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -22,7 +22,7 @@ describe('delete onItemActivated prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -31,13 +31,13 @@ describe('delete onItemActivated prop', () => {
       </DropdownMenu>
     );
     `,
-    'should not change anything when onItemActivated is not used ',
-  );
+		'should not change anything when onItemActivated is not used ',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -46,7 +46,7 @@ describe('delete onItemActivated prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -55,13 +55,13 @@ describe('delete onItemActivated prop', () => {
       </DropdownMenu>
     );
     `,
-    'should delete onItemActivated when found it',
-  );
+		'should delete onItemActivated when found it',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import AKDropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -70,7 +70,7 @@ describe('delete onItemActivated prop', () => {
       </AKDropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import AKDropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -79,13 +79,13 @@ describe('delete onItemActivated prop', () => {
       </AKDropdownMenu>
     );
     `,
-    'should delete onItemActivated when found it - named import',
-  );
+		'should delete onItemActivated when found it - named import',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@fancy-ds/dropdown-menu";
 
@@ -94,7 +94,7 @@ describe('delete onItemActivated prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@fancy-ds/dropdown-menu";
 
@@ -103,6 +103,6 @@ describe('delete onItemActivated prop', () => {
       </DropdownMenu>
     );
     `,
-    'should not delete onItemActivated when found it - other library',
-  );
+		'should not delete onItemActivated when found it - other library',
+	);
 });

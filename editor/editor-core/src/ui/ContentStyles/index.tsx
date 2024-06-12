@@ -74,7 +74,7 @@ import { panelStyles } from './panel';
 import { statusStyles } from './status';
 import { taskDecisionStyles } from './tasks-and-decisions';
 
-// eslint-disable-next-line @atlaskit/design-system/no-exported-css
+// eslint-disable-next-line @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const linkStyles = css`
 	.ProseMirror {
 		${linkSharedStyle}
@@ -179,13 +179,15 @@ const emojiStyles = css`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-exported-css
+// eslint-disable-next-line @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const placeholderStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror .placeholder-decoration': {
 		color: token('color.text.subtlest', N200),
 		width: '100%',
 		pointerEvents: 'none',
 		userSelect: 'none',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.placeholder-android': {
 			pointerEvents: 'none',
 			outline: 'none',

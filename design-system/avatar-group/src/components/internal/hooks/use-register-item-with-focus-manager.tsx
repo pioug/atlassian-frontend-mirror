@@ -6,16 +6,16 @@ import { FocusManagerContext } from '../components/focus-manager';
 // The refs stored in the context are used to programatically
 // control focus on a user navigates using the keyboard.
 function useRegisterItemWithFocusManager() {
-  const { registerRef } = useContext(FocusManagerContext);
-  const itemRef = useRef<FocusableElement>(null);
+	const { registerRef } = useContext(FocusManagerContext);
+	const itemRef = useRef<FocusableElement>(null);
 
-  useEffect(() => {
-    if (itemRef.current !== null) {
-      registerRef(itemRef.current);
-    }
-  }, [registerRef]);
+	useEffect(() => {
+		if (itemRef.current !== null) {
+			registerRef(itemRef.current);
+		}
+	}, [registerRef]);
 
-  return itemRef;
+	return itemRef;
 }
 
 export default useRegisterItemWithFocusManager;

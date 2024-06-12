@@ -12,36 +12,32 @@ import { token } from '@atlaskit/tokens';
  * @internal
  */
 const RadioIcon = ({ checked }: { checked: boolean }) => {
-  return (
-    <SVGIcon
-      label=""
-      size="medium"
-      primaryColor={
-        checked
-          ? token('color.background.selected.bold', B400)
-          : token('color.background.input', N10)
-      }
-      secondaryColor={
-        checked ? token('color.icon.inverse', N10) : 'transparent'
-      }
-    >
-      <g fillRule="evenodd">
-        <circle
-          fill="currentColor"
-          cx="12"
-          cy="12"
-          r="6"
-          stroke={
-            checked
-              ? token('color.border.selected', B400)
-              : token('color.border.input', N100)
-          }
-          strokeWidth={1}
-        />
-        <circle fill="inherit" cx="12" cy="12" r="2" />
-      </g>
-    </SVGIcon>
-  );
+	return (
+		<SVGIcon
+			label=""
+			size="medium"
+			primaryColor={
+				checked
+					? token('color.background.selected.bold', B400)
+					: token('color.background.input', N10)
+			}
+			secondaryColor={checked ? token('color.icon.inverse', N10) : 'transparent'}
+		>
+			<g fillRule="evenodd">
+				<circle
+					fill="currentColor"
+					cx="12"
+					cy="12"
+					r="6"
+					stroke={
+						checked ? token('color.border.selected', B400) : token('color.border.input', N100)
+					}
+					strokeWidth={1}
+				/>
+				<circle fill="inherit" cx="12" cy="12" r="2" />
+			</g>
+		</SVGIcon>
+	);
 };
 
 export default RadioIcon;

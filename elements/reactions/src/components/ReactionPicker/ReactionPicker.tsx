@@ -266,6 +266,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={wrapperClassName}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={pickerStyle}
 			data-testid={RENDER_REACTIONPICKER_TESTID}
 			ref={wrapperRef}
@@ -305,6 +306,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 								size={emojiPickerSize}
 							/>
 						) : (
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							<div css={contentStyle}>
 								<Selector
 									emojiProvider={emojiProvider}
@@ -355,10 +357,12 @@ const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 								setPopupRef(node);
 							}
 						}}
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={popupWrapperStyle}
 						tabIndex={0}
 					>
 						<RepositionOnUpdate update={update} settings={settings}>
+							{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 							<div css={popupStyle}>{children}</div>
 						</RepositionOnUpdate>
 					</div>

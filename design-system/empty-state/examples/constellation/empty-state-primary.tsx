@@ -5,13 +5,13 @@ import Button from '@atlaskit/button/new';
 import EmptyState from '../../src';
 
 const EmptyStatePrimaryActionExample = () => {
-  return (
-    <EmptyState
-      header="You don't have access to this issue"
-      description="Make sure the issue exists in this project. If it does, ask a project admin for permission to see the project's issues."
-      primaryAction={<Button appearance="primary">Request access</Button>}
-    />
-  );
+	return (
+		<EmptyState
+			header="You don't have access to this issue"
+			description="Make sure the issue exists in this project. If it does, ask a project admin for permission to see the project's issues."
+			primaryAction={<Button appearance="primary">Request access</Button>}
+		/>
+	);
 };
 
 export default EmptyStatePrimaryActionExample;

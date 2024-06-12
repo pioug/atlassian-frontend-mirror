@@ -5,12 +5,12 @@ import Tooltip from '@atlaskit/tooltip';
 import Pressable from '../src/components/pressable';
 
 export default function DisabledWithTooltip() {
-  return (
-    // Tooltip should not display
-    <Tooltip content="Tooltip content">
-      <Pressable testId="pressable-disabled-with-tooltip" isDisabled>
-        Disabled
-      </Pressable>
-    </Tooltip>
-  );
+	return (
+		// Tooltip should not display
+		<Tooltip content="Tooltip content">
+			<Pressable testId="pressable-disabled-with-tooltip" isDisabled>
+				Disabled
+			</Pressable>
+		</Tooltip>
+	);
 }

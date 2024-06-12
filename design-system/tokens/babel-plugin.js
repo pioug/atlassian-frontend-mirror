@@ -12,7 +12,7 @@ const dev = fs.existsSync(project);
 let entrypoint = path.join(__dirname, 'dist', 'cjs', 'babel-plugin', 'index');
 
 if (dev || !fs.existsSync(entrypoint)) {
-  entrypoint = path.join(__dirname, 'prebuilt', 'babel-plugin', 'plugin');
+	entrypoint = path.join(__dirname, 'prebuilt', 'babel-plugin', 'plugin');
 }
 
 module.exports = require(entrypoint);

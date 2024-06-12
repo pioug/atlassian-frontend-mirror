@@ -5,20 +5,20 @@
  *  - day: 1 - [28, 29, 30, 31] (depending on month)
  */
 export type DateObj = {
-  year: number;
-  month: number;
-  day: number;
+	year: number;
+	month: number;
+	day: number;
 };
 
 export const toDateObj = (date: Date): DateObj => ({
-  year: date.getFullYear(),
-  month: date.getMonth() + 1,
-  day: date.getDate(),
+	year: date.getFullYear(),
+	month: date.getMonth() + 1,
+	day: date.getDate(),
 });
 
 export const toDate = (date: DateObj): Date =>
-  // The 'proper' month is stored in a DateObj but Date expects month index
-  new Date(date.year, date.month - 1, date.day);
+	// The 'proper' month is stored in a DateObj but Date expects month index
+	new Date(date.year, date.month - 1, date.day);
 
 /**
  * Determines if the input year is a leap year
@@ -28,7 +28,7 @@ export const toDate = (date: DateObj): Date =>
  * @returns boolean
  */
 export const isLeapYear = (year: number): boolean => {
-  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+	return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 };
 
 /**
@@ -39,12 +39,12 @@ export const isLeapYear = (year: number): boolean => {
  * @returns number
  */
 export const getDaysInMonth = (year: number, month: number): number => {
-  // February depends on leap year
-  if (month === 2 && isLeapYear(year)) {
-    return 29;
-  }
+	// February depends on leap year
+	if (month === 2 && isLeapYear(year)) {
+		return 29;
+	}
 
-  return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+	return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
 };
 
 /**
@@ -55,10 +55,10 @@ export const getDaysInMonth = (year: number, month: number): number => {
  * @returns boolean
  */
 export const isValid = (date: DateObj): boolean => {
-  const { year, month, day } = date;
-  const daysInMonth = getDaysInMonth(year, month);
+	const { year, month, day } = date;
+	const daysInMonth = getDaysInMonth(year, month);
 
-  return 1 <= month && month <= 12 && 1 <= day && day <= daysInMonth;
+	return 1 <= month && month <= 12 && 1 <= day && day <= daysInMonth;
 };
 
 /**
@@ -70,20 +70,20 @@ export const isValid = (date: DateObj): boolean => {
  * @returns DateObj
  */
 export const normalizeDate = (date: DateObj): DateObj => {
-  const now = toDateObj(new Date());
-  const { year, month, day } = date;
+	const now = toDateObj(new Date());
+	const { year, month, day } = date;
 
-  // 19 should evaluate to 2019
-  const fullYear = year < 100 ? 2000 + year : year;
+	// 19 should evaluate to 2019
+	const fullYear = year < 100 ? 2000 + year : year;
 
-  // Missing date pieces are filled in with their current date values
-  const normalizedYear = !isNaN(fullYear) ? fullYear : now.year;
-  const normalizedMonth = !isNaN(month) && month !== 0 ? month : now.month;
-  const normalizedDay = !isNaN(day) && day !== 0 ? day : now.day;
+	// Missing date pieces are filled in with their current date values
+	const normalizedYear = !isNaN(fullYear) ? fullYear : now.year;
+	const normalizedMonth = !isNaN(month) && month !== 0 ? month : now.month;
+	const normalizedDay = !isNaN(day) && day !== 0 ? day : now.day;
 
-  return {
-    year: normalizedYear,
-    month: normalizedMonth,
-    day: normalizedDay,
-  };
+	return {
+		year: normalizedYear,
+		month: normalizedMonth,
+		day: normalizedDay,
+	};
 };

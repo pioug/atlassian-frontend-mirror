@@ -42,20 +42,20 @@ export type ResponsiveCSSObject = ResponsiveObject<SerializedStyles>;
  * Our internal breakpoint config used to build media queries and define attributes for certain components.
  */
 export type BreakpointConfig = {
-  /**
-   * The gap between a `GridItem`.
-   */
-  gridItemGutter: ReturnType<typeof token>;
-  /**
-   * The outer whitespace of a `Grid` item.
-   */
-  gridMargin: ReturnType<typeof token>;
-  /**
-   * The min-width used in media queries.
-   */
-  min: `${number}rem`;
-  /**
-   * The max-width used in media queries; if set to `null`, it has no max-width (should strictly only be on the largest breakpoint).
-   */
-  max: `${number}rem` | null;
+	/**
+	 * The gap between a `GridItem`.
+	 */
+	gridItemGutter: ReturnType<typeof token>;
+	/**
+	 * The outer whitespace of a `Grid` item.
+	 */
+	gridMargin: ReturnType<typeof token>;
+	/**
+	 * The min-width used in media queries.
+	 */
+	min: `${number}rem`;
+	/**
+	 * The max-width used in media queries; if set to `null`, it has no max-width (should strictly only be on the largest breakpoint).
+	 */
+	max: `${number}rem` | null;
 };

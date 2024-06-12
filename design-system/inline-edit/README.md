@@ -8,4 +8,5 @@ yarn add @atlaskit/inline-edit
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/inline-edit).
+Detailed docs and example usage can be found
+[here](https://atlaskit.atlassian.com/packages/core/inline-edit).

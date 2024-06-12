@@ -12,7 +12,6 @@ import {
 } from '@atlaskit/analytics-next';
 import { getOptions } from '../utils';
 import { css, jsx } from '@emotion/react';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { injectIntl } from 'react-intl-next';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import messages from '../messages';
@@ -88,10 +87,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 			this.setState({ isTabbing: true });
 		} else if (key === KEY_ARROW_UP || key === KEY_ARROW_DOWN) {
 			this.setState({ isTabbing: false });
-		} else if (
-			getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy') &&
-			key === 'Escape'
-		) {
+		} else if (key === 'Escape') {
 			e.stopPropagation();
 		}
 	};
@@ -131,10 +127,8 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 							{...value}
 							label={fullLabel}
 							expanded={isOpen}
-							{...(getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy') && {
-								swatchSize: selectedColourSwatchSize,
-								isDisabled: isDisabledSelectedSwatch,
-							})}
+							swatchSize={selectedColourSwatchSize}
+							isDisabled={isDisabledSelectedSwatch}
 						/>
 					</div>
 				)}

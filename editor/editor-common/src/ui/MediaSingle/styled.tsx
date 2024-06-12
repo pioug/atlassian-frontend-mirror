@@ -349,6 +349,7 @@ export const MediaWrapper = ({
 	children,
 	...rest
 }: React.HTMLAttributes<HTMLDivElement> & MediaWrapperProps) => (
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={mediaWrapperStyle(rest)}>{children}</div>
 );
 

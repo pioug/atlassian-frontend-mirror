@@ -21,6 +21,7 @@ const getLabelStyle = () =>
 		color: token('color.text.subtlest', N200),
 		fontSize: `${fontSize}px`,
 		fontWeight: 600,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		lineHeight: `${lineHeight}`,
 		paddingBottom: token('space.050', '4px'),
 		paddingLeft: token('space.0', '0px'),
@@ -36,6 +37,7 @@ export class PopupControl extends React.PureComponent<ControlProps<any>> {
 
 		return (
 			<div css={controlWrapper}>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={getLabelStyle()}>{popupTitle}</div>
 				<components.Control {...this.props} />
 			</div>

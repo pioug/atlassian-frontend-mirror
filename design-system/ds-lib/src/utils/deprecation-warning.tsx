@@ -14,15 +14,13 @@ import warnOnce from './warn-once';
  * ```
  */
 export default function deprecationWarning(
-  packageName: string,
-  api: string,
-  additionalMessage?: string,
+	packageName: string,
+	api: string,
+	additionalMessage?: string,
 ): void {
-  warnOnce(
-    `[${packageName}]: The ${api} is deprecated.${
-      additionalMessage && ` ${additionalMessage}`
-    }`,
-  );
+	warnOnce(
+		`[${packageName}]: The ${api} is deprecated.${additionalMessage && ` ${additionalMessage}`}`,
+	);
 }
 
 /**
@@ -34,19 +32,15 @@ export default function deprecationWarning(
  * @param deprecationAnnouncementOnDAC Link to the public announcement on DAC.
  */
 export function propDeprecationWarning(
-  packageName: string,
-  propName: string,
-  predicate: boolean,
-  deprecationAnnouncementOnDAC: string,
+	packageName: string,
+	propName: string,
+	predicate: boolean,
+	deprecationAnnouncementOnDAC: string,
 ): void {
-  if (
-    typeof process !== 'undefined' &&
-    process.env.NODE_ENV === 'development' &&
-    predicate
-  ) {
-    warnOnce(
-      `[${packageName}]: The ${propName} prop is deprecated and will be removed, please migrate away.
+	if (typeof process !== 'undefined' && process.env.NODE_ENV === 'development' && predicate) {
+		warnOnce(
+			`[${packageName}]: The ${propName} prop is deprecated and will be removed, please migrate away.
 Public announcement: ${deprecationAnnouncementOnDAC}`,
-    );
-  }
+		);
+	}
 }

@@ -31,9 +31,12 @@ const exampleWrapperStyles = css({ display: 'flex', flexDirection: 'row' });
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const column = (width: number | string) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${width}px`,
 		margin: token('space.200', '16px'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		h3: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderBottom: `1px solid ${colors.N50}`,
 			marginBottom: token('space.200', '16px'),
 		},

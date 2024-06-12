@@ -1,6 +1,9 @@
-Unsafe style overrides cause friction and incidents when internals of the component you're overriding change. They're inherently unbounded and everything is API that can change at a moments notice.
+Unsafe style overrides cause friction and incidents when internals of the component you're
+overriding change. They're inherently unbounded and everything is API that can change at a moments
+notice.
 
-Instead, lean on composition, primitive components, and safe style overrides via the `xcss` prop where component authors declare what styles they want to support.
+Instead, lean on composition, primitive components, and safe style overrides via the `xcss` prop
+where component authors declare what styles they want to support.
 
 ## Examples
 
@@ -31,7 +34,7 @@ import { ButtonItem } from '@atlaskit/side-navigation';
 
 ```tsx
 <Button>
-  <strong>foo</strong>
+	<strong>foo</strong>
 </Button>
 ```
 
@@ -39,9 +42,9 @@ import { ButtonItem } from '@atlaskit/side-navigation';
 const styles = css({ padding: 'var(--ds-space-100)' });
 
 <Box as="a" xcss={styles}>
-  <Stack>
-    <Inline />
-    <Inline />
-  </Stack>
+	<Stack>
+		<Inline />
+		<Inline />
+	</Stack>
 </Box>;
 ```

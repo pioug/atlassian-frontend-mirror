@@ -9,49 +9,49 @@ import { Box, xcss } from '@atlaskit/primitives';
 import Popup from '../src';
 
 const contentStyles = xcss({
-  margin: 'space.200',
+	margin: 'space.200',
 });
 
 type PopupExampleProps = {
-  name: string;
+	name: string;
 };
 
 const PopupExample: FC<PopupExampleProps> = ({ name }) => {
-  const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
-  const onClick = useCallback(() => {
-    console.log('onClick', name);
-    setIsOpen(!isOpen);
-  }, [isOpen, name, setIsOpen]);
+	const onClick = useCallback(() => {
+		console.log('onClick', name);
+		setIsOpen(!isOpen);
+	}, [isOpen, name, setIsOpen]);
 
-  const onClose = useCallback(() => {
-    console.log('onClose', name);
-    setIsOpen(false);
-  }, [name, setIsOpen]);
+	const onClose = useCallback(() => {
+		console.log('onClose', name);
+		setIsOpen(false);
+	}, [name, setIsOpen]);
 
-  return (
-    <Popup
-      isOpen={isOpen}
-      onClose={onClose}
-      content={() => <Box xcss={contentStyles}>content</Box>}
-      trigger={(triggerProps) => (
-        <Button {...triggerProps} onClick={onClick}>
-          {isOpen ? 'Close' : 'Open'} {name} popup
-        </Button>
-      )}
-      placement="bottom-start"
-    />
-  );
+	return (
+		<Popup
+			isOpen={isOpen}
+			onClose={onClose}
+			content={() => <Box xcss={contentStyles}>content</Box>}
+			trigger={(triggerProps) => (
+				<Button {...triggerProps} onClick={onClick}>
+					{isOpen ? 'Close' : 'Open'} {name} popup
+				</Button>
+			)}
+			placement="bottom-start"
+		/>
+	);
 };
 
 const containerStyles = css({
-  display: 'flex',
+	display: 'flex',
 });
 
 export default () => (
-  <div css={containerStyles}>
-    <PopupExample name="foo" />
-    <PopupExample name="bar" />
-    <PopupExample name="baz" />
-  </div>
+	<div css={containerStyles}>
+		<PopupExample name="foo" />
+		<PopupExample name="bar" />
+		<PopupExample name="baz" />
+	</div>
 );

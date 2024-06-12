@@ -3,12 +3,12 @@ import transformer from '../12.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('12.0.0-lite-mode', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
       import React, { useState } from 'react';
 
       import ModalDialog from '@atlaskit/modal-dialog';
@@ -34,7 +34,7 @@ describe('12.0.0-lite-mode', () => {
         );
       }
       `,
-        `
+				`
       /* TODO: (from codemod)\u0020
       We have converted this file as best we could but you might still need
       to manually complete migrating this usage of ModalDialog.
@@ -85,13 +85,13 @@ describe('12.0.0-lite-mode', () => {
         );
       }
       `,
-        'should change custom usages in the appropriate order',
-      );
+				'should change custom usages in the appropriate order',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
       import React, { useState } from 'react';
 
       import ModalDialog, {
@@ -119,7 +119,7 @@ describe('12.0.0-lite-mode', () => {
         );
       }
       `,
-        `
+				`
       /* TODO: (from codemod)\u0020
       We have converted this file as best we could but you might still need
       to manually complete migrating this usage of ModalDialog.
@@ -170,13 +170,13 @@ describe('12.0.0-lite-mode', () => {
         );
       }
       `,
-        'should change custom usages for a self-closing modal without body',
-      );
+				'should change custom usages for a self-closing modal without body',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
       import React, { useState } from 'react';
 
       import ModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
@@ -215,7 +215,7 @@ describe('12.0.0-lite-mode', () => {
         );
       }
       `,
-        `
+				`
       /* TODO: (from codemod)\u0020
       This file is spreading props on the ModalDialog component, so we could not
       automatically convert this usage to the new API.
@@ -274,13 +274,13 @@ describe('12.0.0-lite-mode', () => {
         );
       }
       `,
-        'should change default usages for modal dialog',
-      );
+				'should change default usages for modal dialog',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
       import React, { useState } from 'react';
 
       import ModalDialog, { ModalTransition, ModalBody } from '@atlaskit/modal-dialog';
@@ -313,7 +313,7 @@ describe('12.0.0-lite-mode', () => {
         );
       }
       `,
-        `
+				`
       /* TODO: (from codemod)\u0020
       We have converted this file as best we could but you might still need
       to manually complete migrating this usage of ModalDialog.
@@ -383,16 +383,16 @@ describe('12.0.0-lite-mode', () => {
         );
       }
       `,
-        'should change mixed usages (custom + default) for modal dialog',
-      );
-    });
-  });
+				'should change mixed usages (custom + default) for modal dialog',
+			);
+		});
+	});
 
-  // Only support ts for this case
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	// Only support ts for this case
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { useState } from 'react';
 
     import ModalDialog, {
@@ -428,7 +428,7 @@ describe('12.0.0-lite-mode', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod)\u0020
     We have converted this file as best we could but you might still need
     to manually complete migrating this usage of ModalDialog.
@@ -488,6 +488,6 @@ describe('12.0.0-lite-mode', () => {
       );
     }
     `,
-    'should change custom usages and types in the appropriate order',
-  );
+		'should change custom usages and types in the appropriate order',
+	);
 });

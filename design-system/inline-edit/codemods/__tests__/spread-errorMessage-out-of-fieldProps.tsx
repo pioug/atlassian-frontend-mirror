@@ -8,10 +8,10 @@ jest.autoMockOff();
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('spreadErrorMessage prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -30,7 +30,7 @@ describe('spreadErrorMessage prop', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -54,13 +54,13 @@ describe('spreadErrorMessage prop', () => {
       />
     );
     `,
-    'should spread errorMessage out',
-  );
+		'should spread errorMessage out',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -79,7 +79,7 @@ describe('spreadErrorMessage prop', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -103,13 +103,13 @@ describe('spreadErrorMessage prop', () => {
       />
     );
     `,
-    'should spread errorMessage out - with alias',
-  );
+		'should spread errorMessage out - with alias',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { PureComponent } from "react";
     import InlineEdit from "@atlaskit/inline-edit";
     import TextField from "@atlaskit/textfield";
@@ -202,7 +202,7 @@ describe('spreadErrorMessage prop', () => {
       }
     }
     `,
-    `
+		`
     import React, { PureComponent } from "react";
     import InlineEdit from "@atlaskit/inline-edit";
     import TextField from "@atlaskit/textfield";
@@ -295,13 +295,13 @@ describe('spreadErrorMessage prop', () => {
       }
     }
     `,
-    'ColumnEditableTitle - add comment when editView is not inline',
-  );
+		'ColumnEditableTitle - add comment when editView is not inline',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { PureComponent } from "react";
     import InlineEdit from "@atlaskit/inline-edit";
     import TextField from "@atlaskit/textfield";
@@ -393,7 +393,7 @@ describe('spreadErrorMessage prop', () => {
       }
     }
     `,
-    `
+		`
     import React, { PureComponent } from "react";
     import InlineEdit from "@atlaskit/inline-edit";
     import TextField from "@atlaskit/textfield";
@@ -488,6 +488,6 @@ describe('spreadErrorMessage prop', () => {
       }
     }
     `,
-    'ColumnEditableTitle - convert when editView is inline',
-  );
+		'ColumnEditableTitle - convert when editView is inline',
+	);
 });

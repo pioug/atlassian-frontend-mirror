@@ -15,6 +15,7 @@ import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 import { segmentText } from '../../../react/utils/segment-text';
 import { renderTextSegments } from '../../../react/utils/render-text-segments';
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const markStyles = () =>
 	css(
 		{
@@ -22,6 +23,7 @@ const markStyles = () =>
 			backgroundColor: 'unset',
 			WebkitTapHighlightColor: 'transparent',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		AnnotationSharedCSSByState().focus,
 	);
 

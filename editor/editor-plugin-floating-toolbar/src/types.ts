@@ -10,6 +10,7 @@ import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -44,6 +45,7 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
 			EditorDisabledPlugin,
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<BlockControlsPlugin>,
+			OptionalPlugin<FeatureFlagsPlugin>,
 		];
 		actions: { forceFocusSelector: ForceFocusSelector };
 		sharedState:

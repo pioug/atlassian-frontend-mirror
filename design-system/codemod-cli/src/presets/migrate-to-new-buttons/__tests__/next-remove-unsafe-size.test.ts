@@ -4,10 +4,10 @@ import transformer from '../codemods/next-remove-unsafe-size';
 const check = createCheck(transformer);
 
 describe('Migrate unsafe size APIs', () => {
-  describe('from bounded to render props', () => {
-    check({
-      it: 'should replace UNSAFE_iconAfter_size with render prop',
-      original: `
+	describe('from bounded to render props', () => {
+		check({
+			it: 'should replace UNSAFE_iconAfter_size with render prop',
+			original: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -16,7 +16,7 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-      expected: `
+			expected: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -25,11 +25,11 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-    });
+		});
 
-    check({
-      it: 'should replace UNSAFE_iconBefore_size with render prop',
-      original: `
+		check({
+			it: 'should replace UNSAFE_iconBefore_size with render prop',
+			original: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -38,7 +38,7 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-      expected: `
+			expected: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -47,11 +47,11 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-    });
+		});
 
-    check({
-      it: 'should replace UNSAFE_iconBefore_size and UNSAFE_iconAfter_size with render prop',
-      original: `
+		check({
+			it: 'should replace UNSAFE_iconBefore_size and UNSAFE_iconAfter_size with render prop',
+			original: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -74,7 +74,7 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-      expected: `
+			expected: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -93,17 +93,17 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-    });
+		});
 
-    check({
-      it: 'should replace UNSAFE_size with render prop',
-      original: `
+		check({
+			it: 'should replace UNSAFE_size with render prop',
+			original: `
         import { IconButton } from '@atlaskit/button/new';
         const App = () => (
           <IconButton label="More" icon={MoreIcon} UNSAFE_size="small" />
         );
       `,
-      expected: `
+			expected: `
         import { IconButton } from '@atlaskit/button/new';
         const App = () => (
           <IconButton
@@ -112,11 +112,11 @@ describe('Migrate unsafe size APIs', () => {
           />
         );
       `,
-    });
+		});
 
-    check({
-      it: 'should account for named imports',
-      original: `
+		check({
+			it: 'should account for named imports',
+			original: `
         import { IconButton as AKIconButton } from '@atlaskit/button/new';
         import { IconButton  } from '../product-icon-button';
         const App = () => (
@@ -126,7 +126,7 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-      expected: `
+			expected: `
         import { IconButton as AKIconButton } from '@atlaskit/button/new';
         import { IconButton  } from '../product-icon-button';
         const App = () => (
@@ -139,13 +139,13 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-    });
-  });
+		});
+	});
 
-  describe('from unbounded to render props', () => {
-    check({
-      it: 'should move UNSAFE_iconAfter_size to size on render prop',
-      original: `
+	describe('from unbounded to render props', () => {
+		check({
+			it: 'should move UNSAFE_iconAfter_size to size on render prop',
+			original: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -155,7 +155,7 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-      expected: `
+			expected: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -165,11 +165,11 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-    });
+		});
 
-    check({
-      it: 'should move UNSAFE_iconBefore_size to size on render prop',
-      original: `
+		check({
+			it: 'should move UNSAFE_iconBefore_size to size on render prop',
+			original: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -179,7 +179,7 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-      expected: `
+			expected: `
         import Button, { LinkButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -189,11 +189,11 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-    });
+		});
 
-    check({
-      it: 'should move UNSAFE_size to size on render prop',
-      original: `
+		check({
+			it: 'should move UNSAFE_size to size on render prop',
+			original: `
         import { IconButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -201,7 +201,7 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-      expected: `
+			expected: `
         import { IconButton } from '@atlaskit/button/new';
         const App = () => (
           <>
@@ -209,6 +209,6 @@ describe('Migrate unsafe size APIs', () => {
           </>
         );
       `,
-    });
-  });
+		});
+	});
 });

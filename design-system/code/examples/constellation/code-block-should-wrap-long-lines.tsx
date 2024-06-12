@@ -26,35 +26,35 @@ ReactDOM.render(
 );`;
 
 const CodeBlockShouldWrapLongLinesExample = () => {
-  const [lineWrapState, setLineWrapState] = useState(true);
-  return (
-    <>
-      <div
-        style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          paddingBottom: token('space.300', '24px'),
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          display: 'flex',
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          flexDirection: 'column',
-        }}
-      >
-        <Label htmlFor="toggle">Wrap long lines</Label>
-        <Toggle
-          isChecked={lineWrapState}
-          onChange={() => setLineWrapState(!lineWrapState)}
-          size="large"
-          id="toggle"
-        />
-      </div>
-      <CodeBlock
-        language="jsx"
-        text={exampleCodeBlock}
-        shouldWrapLongLines={lineWrapState}
-        highlight="3"
-      />
-    </>
-  );
+	const [lineWrapState, setLineWrapState] = useState(true);
+	return (
+		<>
+			<div
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					paddingBottom: token('space.300', '24px'),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					display: 'flex',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					flexDirection: 'column',
+				}}
+			>
+				<Label htmlFor="toggle">Wrap long lines</Label>
+				<Toggle
+					isChecked={lineWrapState}
+					onChange={() => setLineWrapState(!lineWrapState)}
+					size="large"
+					id="toggle"
+				/>
+			</div>
+			<CodeBlock
+				language="jsx"
+				text={exampleCodeBlock}
+				shouldWrapLongLines={lineWrapState}
+				highlight="3"
+			/>
+		</>
+	);
 };
 
 export default CodeBlockShouldWrapLongLinesExample;

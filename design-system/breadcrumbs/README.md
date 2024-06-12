@@ -10,4 +10,5 @@ yarn add @atlaskit/breadcrumbs
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlassian.design/components/breadcrumbs/).
+Detailed docs and example usage can be found
+[here](https://atlassian.design/components/breadcrumbs/).

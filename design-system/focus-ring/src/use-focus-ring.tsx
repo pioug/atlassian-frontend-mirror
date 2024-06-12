@@ -10,16 +10,16 @@ import type { FocusEventHandlers, FocusState } from './types';
  *
  */
 const useFocusRing = (initialState: FocusState = 'off') => {
-  const [focusState, setFocusState] = useState<'on' | 'off'>(initialState);
-  const focusProps = useRef<FocusEventHandlers>({
-    onFocus: () => setFocusState('on'),
-    onBlur: () => setFocusState('off'),
-  });
+	const [focusState, setFocusState] = useState<'on' | 'off'>(initialState);
+	const focusProps = useRef<FocusEventHandlers>({
+		onFocus: () => setFocusState('on'),
+		onBlur: () => setFocusState('off'),
+	});
 
-  return {
-    focusState,
-    focusProps: focusProps.current,
-  } as const;
+	return {
+		focusState,
+		focusProps: focusProps.current,
+	} as const;
 };
 
 export default useFocusRing;

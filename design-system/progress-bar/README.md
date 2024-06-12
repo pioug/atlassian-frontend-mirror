@@ -10,4 +10,5 @@ yarn add @atlaskit/progress-bar
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/server/progress-bar).
+Detailed docs and example usage can be found
+[here](https://atlaskit.atlassian.com/packages/server/progress-bar).

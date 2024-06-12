@@ -79,7 +79,7 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
 									marginTop: `${marginTop}px`,
 									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 									top: thisRowSticky ? `${this.props.stickyTop! + 3}px` : undefined,
-									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									paddingTop: thisRowSticky ? `${tableControlsSpacing}px` : undefined,
 								}}
 							>

@@ -13,6 +13,7 @@ export {
 	containsAnyAnnotations,
 	getAnnotationIdsFromRange,
 	hasAnnotationMark,
+	getRangeInlineNodeNames,
 } from './annotation';
 export { getExtensionLozengeData } from './macro';
 export type { Params } from './macro';

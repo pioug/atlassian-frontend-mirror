@@ -132,6 +132,7 @@ class EmojiPickerTabPanelInternal extends PureComponent<
 		return (
 			<div
 				ref="root"
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={emojiPickerList}
 				data-testid={RENDER_EMOJI_PICKER_LIST_TESTID}
 				id={RENDER_EMOJI_PICKER_LIST_TESTID}

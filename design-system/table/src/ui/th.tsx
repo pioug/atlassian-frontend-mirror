@@ -14,25 +14,25 @@ type InternalTHProps = THProps & { sortDirection?: SortDirection };
  * @primitive
  */
 export const TH: FC<InternalTHProps> = ({
-  children,
-  testId,
-  align,
-  scope,
-  backgroundColor,
-  width,
-  sortDirection,
-  colSpan
+	children,
+	testId,
+	align,
+	scope,
+	backgroundColor,
+	width,
+	sortDirection,
+	colSpan,
 }) => (
-  <BaseCell
-    as="th"
-    testId={testId}
-    align={align}
-    scope={scope}
-    width={width}
-    backgroundColor={backgroundColor}
-    sortDirection={sortDirection}
-    colSpan={colSpan}
-  >
-    {children}
-  </BaseCell>
+	<BaseCell
+		as="th"
+		testId={testId}
+		align={align}
+		scope={scope}
+		width={width}
+		backgroundColor={backgroundColor}
+		sortDirection={sortDirection}
+		colSpan={colSpan}
+	>
+		{children}
+	</BaseCell>
 );

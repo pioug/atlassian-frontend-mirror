@@ -12,16 +12,16 @@ import { SwitcherPopup } from './shared/switcher-popup';
 const SignInExample = () => <SignIn tooltip="Sign in" />;
 
 const AnonymousExample = () => (
-  <AtlassianNavigation
-    label="site"
-    primaryItems={defaultPrimaryItems}
-    renderAppSwitcher={SwitcherPopup}
-    renderCreate={DefaultCreate}
-    renderHelp={HelpPopup}
-    renderProductHome={DefaultProductHome}
-    renderSignIn={SignInExample}
-    renderSearch={DefaultSearch}
-  />
+	<AtlassianNavigation
+		label="site"
+		primaryItems={defaultPrimaryItems}
+		renderAppSwitcher={SwitcherPopup}
+		renderCreate={DefaultCreate}
+		renderHelp={HelpPopup}
+		renderProductHome={DefaultProductHome}
+		renderSignIn={SignInExample}
+		renderSearch={DefaultSearch}
+	/>
 );
 
 export default AnonymousExample;

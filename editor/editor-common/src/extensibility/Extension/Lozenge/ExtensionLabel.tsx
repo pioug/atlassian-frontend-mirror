@@ -17,11 +17,13 @@ const labelStyles = css({
 	// Unfortunately, these need to be these exact numbers - otherwise there will be a noticeable gap/overlap
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 	top: '-19px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.inline': {
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 		top: '-18px',
 		marginLeft: token('space.150', '12px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.show-label': {
 		cursor: 'pointer',
 		background: token('color.background.accent.gray.subtle.pressed', N40),
@@ -30,20 +32,20 @@ const labelStyles = css({
 	},
 	borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
 	lineHeight: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.nested': {
 		// Need to add indent if the node is nested since we removed previous indentation styles to make it fit properly
 		// in the nested component
 		marginLeft: token('space.150', '12px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.bodied-background': {
 		background: token('elevation.surface', N0),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.bodied-border': {
-		border: `1px solid ${token('color.border', N30)}`,
+		boxShadow: `0 0 0 1px ${token('color.border', N30)}`,
 	},
-	// to account for bodied having borders now - adding this to help with less conditional styling
-	border: '1px solid transparent',
-	borderBottom: 'none',
 });
 
 const textStyles = css({
@@ -56,6 +58,7 @@ const containerStyles = css({
 	textAlign: 'left',
 	zIndex: 1,
 	position: 'relative',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.bodied': {
 		marginTop: token('space.300', '24px'),
 	},
@@ -109,6 +112,7 @@ export const ExtensionLabel = ({
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			css={containerStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={containerClassNames}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={customContainerStyles}

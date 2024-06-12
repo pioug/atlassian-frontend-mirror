@@ -6,10 +6,10 @@ import transformer from '../11.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('apply all needed codemods for version 11.0.0 major bump', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu, {
       DropdownItemGroupCheckbox as MyComponent, DropdownItemCheckbox, DropdownItem, DropdownItemRadio,
@@ -45,7 +45,7 @@ describe('apply all needed codemods for version 11.0.0 major bump', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu, {
       DropdownItemCheckboxGroup as MyComponent, DropdownItemCheckbox, DropdownItem, DropdownItemRadio,
@@ -63,6 +63,6 @@ describe('apply all needed codemods for version 11.0.0 major bump', () => {
       </DropdownMenu>
     );
     `,
-    'should not change anything when items is not used ',
-  );
+		'should not change anything when items is not used ',
+	);
 });

@@ -4,21 +4,29 @@ description: A stack manages the vertical layout of direct children using flexbo
 order: 2
 ---
 
-Use the stack component in conjunction with other layout components such as [box](/components/primitives/box/usage) and [inline](/components/primitives/inline/usage) to easily create customized layouts, with built-in guidance from the Atlassian Design System.
+Use the stack component in conjunction with other layout components such as
+[box](/components/primitives/box/usage) and [inline](/components/primitives/inline/usage) to easily
+create customized layouts, with built-in guidance from the Atlassian Design System.
 
-A stack component aligns content vertically on a page or layout, acting as a container that decides the vertical layout of its children. Stack components also decide the specifics of how the children are displayed, for example, where they are aligned or how much space is between child elements. Stack is purely for visual alignment, and should have no opinions about the functionality of its children.
+A stack component aligns content vertically on a page or layout, acting as a container that decides
+the vertical layout of its children. Stack components also decide the specifics of how the children
+are displayed, for example, where they are aligned or how much space is between child elements.
+Stack is purely for visual alignment, and should have no opinions about the functionality of its
+children.
 
-In its simplest form, `Stack` works like a flexbox column, with built-in design token support and guidance.
+In its simplest form, `Stack` works like a flexbox column, with built-in design token support and
+guidance.
 
 ```jsx
 <Stack space="space.100" alignInline="center" alignBlock="start">
-  ...
+	...
 </Stack>
 ```
 
 ## Using stack
 
-A stack is primarily a container element controlling how content is displayed and aligned vertically. Use stack any time you wish to lay out elements or components vertically.
+A stack is primarily a container element controlling how content is displayed and aligned
+vertically. Use stack any time you wish to lay out elements or components vertically.
 
 These props customize the spacing and styling of any child elements:
 

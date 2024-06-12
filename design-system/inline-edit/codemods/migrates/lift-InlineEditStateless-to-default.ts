@@ -1,9 +1,9 @@
 import type {
-  ASTPath,
-  default as core,
-  ImportDeclaration,
-  ImportDefaultSpecifier,
-  ImportSpecifier,
+	ASTPath,
+	default as core,
+	ImportDeclaration,
+	ImportDefaultSpecifier,
+	ImportSpecifier,
 } from 'jscodeshift';
 
 import { addCommentToStartOfFile } from './utils';
@@ -14,58 +14,44 @@ This file uses \`InlineEdit\` and \`InlineEditStateless\` at the same time. We'v
 `;
 
 const elevateComponentToDefault =
-  (pkg: string, toPkg: string, innerElementName: string) =>
-  (j: core.JSCodeshift, root: any) => {
-    const importDeclarations = root
-      .find(j.ImportDeclaration)
-      .filter(
-        (path: ASTPath<ImportDeclaration>) => path.node.source.value === pkg,
-      );
+	(pkg: string, toPkg: string, innerElementName: string) => (j: core.JSCodeshift, root: any) => {
+		const importDeclarations = root
+			.find(j.ImportDeclaration)
+			.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === pkg);
 
-    const defaultSpecifier = importDeclarations
-      .find(j.ImportDefaultSpecifier)
-      .nodes();
-    const otherSpecifier = importDeclarations.find(j.ImportSpecifier).nodes();
+		const defaultSpecifier = importDeclarations.find(j.ImportDefaultSpecifier).nodes();
+		const otherSpecifier = importDeclarations.find(j.ImportSpecifier).nodes();
 
-    const isImportingStateless =
-      otherSpecifier.filter(
-        (s: ImportSpecifier) =>
-          s.imported && s.imported.name === innerElementName,
-      ).length > 0;
+		const isImportingStateless =
+			otherSpecifier.filter(
+				(s: ImportSpecifier) => s.imported && s.imported.name === innerElementName,
+			).length > 0;
 
-    if (defaultSpecifier.length > 0 && isImportingStateless) {
-      addCommentToStartOfFile({ j, base: root, message: commentMessage });
-      return;
-    }
+		if (defaultSpecifier.length > 0 && isImportingStateless) {
+			addCommentToStartOfFile({ j, base: root, message: commentMessage });
+			return;
+		}
 
-    const newDefaultSpecifier = defaultSpecifier.map(
-      (s: ImportDefaultSpecifier) => {
-        return j.importDeclaration(
-          [j.importDefaultSpecifier(s.local)],
-          j.literal(pkg),
-        );
-      },
-    );
+		const newDefaultSpecifier = defaultSpecifier.map((s: ImportDefaultSpecifier) => {
+			return j.importDeclaration([j.importDefaultSpecifier(s.local)], j.literal(pkg));
+		});
 
-    const newOtherSpecifiers = otherSpecifier.map((s: ImportSpecifier) => {
-      if (s.imported.name === innerElementName) {
-        return j.importDeclaration(
-          [j.importDefaultSpecifier(s.local)],
-          j.literal(toPkg),
-        );
-      } else {
-        return j.importDeclaration([s], j.literal(pkg));
-      }
-    });
+		const newOtherSpecifiers = otherSpecifier.map((s: ImportSpecifier) => {
+			if (s.imported.name === innerElementName) {
+				return j.importDeclaration([j.importDefaultSpecifier(s.local)], j.literal(toPkg));
+			} else {
+				return j.importDeclaration([s], j.literal(pkg));
+			}
+		});
 
-    importDeclarations.forEach((path: ASTPath<ImportDeclaration>) => {
-      j(path).replaceWith(newDefaultSpecifier);
-      j(path).insertBefore(newOtherSpecifiers);
-    });
-  };
+		importDeclarations.forEach((path: ASTPath<ImportDeclaration>) => {
+			j(path).replaceWith(newDefaultSpecifier);
+			j(path).insertBefore(newOtherSpecifiers);
+		});
+	};
 
 export default elevateComponentToDefault(
-  '@atlaskit/inline-edit',
-  '@atlaskit/inline-edit',
-  'InlineEditStateless',
+	'@atlaskit/inline-edit',
+	'@atlaskit/inline-edit',
+	'InlineEditStateless',
 );

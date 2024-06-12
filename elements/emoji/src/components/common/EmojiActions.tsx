@@ -64,6 +64,7 @@ const AddOwnEmoji = (props: AddOwnEmojiProps) => {
 	return (
 		<Fragment>
 			{uploadEnabled && (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={addCustomEmoji} data-testid={uploadEmojiTestId}>
 					<FormattedMessage {...messages.addCustomEmojiLabel}>
 						{(label) => (
@@ -72,6 +73,7 @@ const AddOwnEmoji = (props: AddOwnEmojiProps) => {
 								iconBefore={<AddIcon label="" size="small" />}
 								appearance="subtle"
 								// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								css={addCustomEmojiButton}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={emojiPickerAddEmoji}
@@ -131,6 +133,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 	}
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={emojiToneSelectorContainer}>
 			<ToneSelector
 				emoji={toneEmoji}
@@ -196,6 +199,7 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 
 	if (uploading) {
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<div css={previewFooterClassnames}>
 				<EmojiUploadPicker
 					onUploadCancelled={onUploadCancelled}
@@ -210,6 +214,7 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 
 	if (emojiToDelete) {
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<div css={previewFooterClassnames}>
 				<EmojiDeletePreview
 					emoji={emojiToDelete}
@@ -223,9 +228,11 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 	return (
 		<div
 			data-testid={emojiActionsTestId}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={previewFooterClassnames}
 			onMouseLeave={onMouseLeaveHandler}
 		>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={emojiActionsWrapper}>
 				<EmojiPickerListSearch
 					onChange={onChange}

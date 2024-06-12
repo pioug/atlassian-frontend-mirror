@@ -169,6 +169,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					: formatMessage(messages.cellBackground),
 				value: { name: 'background' },
 				elemBefore: isDragAndDropEnabled ? (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					<span css={elementBeforeIconStyles}>
 						<EditorBackgroundColorIcon
 							label={formatMessage(messages.backgroundColor)}
@@ -180,6 +181,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					<div className={DropdownMenuSharedCssClassName.SUBMENU}>
 						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={cellColourPreviewStyles(background)}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={
@@ -228,6 +230,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					value: { name: 'merge' },
 					isDisabled: !canMergeCells(state.tr),
 					elemBefore: isDragAndDropEnabled ? (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						<span css={elementBeforeIconStyles}>
 							<MergeCellsIcon />
 						</span>
@@ -238,6 +241,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					value: { name: 'split' },
 					isDisabled: !splitCell(state),
 					elemBefore: isDragAndDropEnabled ? (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						<span css={elementBeforeIconStyles}>
 							<SplitCellIcon />
 						</span>
@@ -260,8 +264,10 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				isDragAndDropEnabled ? messages.addColumnRight : messages.insertColumn,
 			),
 			value: { name: 'insert_column' },
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(addColumnAfter)}</div>,
 			elemBefore: isDragAndDropEnabled ? (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={elementBeforeIconStyles}>
 					<AddColRightIcon />
 				</span>
@@ -279,8 +285,10 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		return {
 			content: formatMessage(isDragAndDropEnabled ? messages.addRowBelow : messages.insertRow),
 			value: { name: 'insert_row' },
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(addRowAfter)}</div>,
 			elemBefore: isDragAndDropEnabled ? (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={elementBeforeIconStyles}>
 					<AddRowBelowIcon />
 				</span>
@@ -304,8 +312,10 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				0: Math.max(noOfColumns, noOfRows),
 			}),
 			value: { name: 'clear' },
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(backspace)}</div>,
 			elemBefore: isDragAndDropEnabled ? (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={elementBeforeIconStyles}>
 					<CrossCircleIcon
 						label={formatMessage(messages.clearCells, {
@@ -334,6 +344,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			}),
 			value: { name: 'delete_column' },
 			elemBefore: isDragAndDropEnabled ? (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={elementBeforeIconStyles}>
 					<RemoveIcon
 						label={formatMessage(messages.removeColumns, {
@@ -362,6 +373,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			}),
 			value: { name: 'delete_row' },
 			elemBefore: isDragAndDropEnabled ? (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={elementBeforeIconStyles}>
 					<RemoveIcon
 						label={formatMessage(messages.removeRows, {
@@ -379,6 +391,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			intl: { formatMessage },
 			editorView,
 			getEditorContainerWidth,
+			getEditorFeatureFlags,
 		} = this.props;
 		const {
 			isDragAndDropEnabled,
@@ -386,12 +399,17 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		} = getPluginState(editorView.state);
 		if (allowDistributeColumns && !isDragAndDropEnabled) {
 			const { isTableScalingEnabled = false } = getPluginState(editorView.state);
+			const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags
+				? getEditorFeatureFlags()
+				: {};
+
 			const newResizeState = getNewResizeStateFromSelectedColumns(
 				selectionRect,
 				editorView.state,
 				editorView.domAtPos.bind(editorView),
 				getEditorContainerWidth,
 				isTableScalingEnabled,
+				tableWithFixedColumnWidthsOption,
 			);
 
 			const wouldChange = newResizeState?.changed ?? false;
@@ -507,13 +525,12 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		const { state, dispatch } = editorView;
 		const { targetCellPosition, isTableScalingEnabled = false } = getPluginState(state);
 
-		const { tableDuplicateCellColouring = false } = getEditorFeatureFlags
-			? getEditorFeatureFlags()
-			: {};
+		const { tableDuplicateCellColouring = false, tableWithFixedColumnWidthsOption = false } =
+			getEditorFeatureFlags ? getEditorFeatureFlags() : {};
 
 		const shouldUseIncreasedScalingPercent =
 			isTableScalingEnabled &&
-			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+			tableWithFixedColumnWidthsOption &&
 			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 
 		switch (item.value.name) {
@@ -548,6 +565,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					editorView.domAtPos.bind(editorView),
 					getEditorContainerWidth,
 					isTableScalingEnabled,
+					tableWithFixedColumnWidthsOption,
 				);
 
 				if (newResizeStateWithAnalytics) {
@@ -570,6 +588,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					editorAnalyticsAPI,
 					isTableScalingEnabled,
 					tableDuplicateCellColouring,
+					tableWithFixedColumnWidthsOption,
 					shouldUseIncreasedScalingPercent,
 				)(INPUT_METHOD.CONTEXT_MENU, selectionRect.right)(state, dispatch, editorView);
 				this.toggleOpen();
@@ -588,6 +607,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				deleteColumnsWithAnalytics(
 					editorAnalyticsAPI,
 					isTableScalingEnabled,
+					tableWithFixedColumnWidthsOption,
 					shouldUseIncreasedScalingPercent,
 				)(INPUT_METHOD.CONTEXT_MENU, selectionRect)(state, dispatch, editorView);
 				this.toggleOpen();

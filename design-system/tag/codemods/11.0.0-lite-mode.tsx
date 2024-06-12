@@ -4,9 +4,9 @@ import { replaceImportStatement } from './migrates/replace-import-statements';
 import { createTransformer } from './utils';
 
 const transformer = createTransformer('@atlaskit/tag', [
-  addIsRemovableFlag,
-  renameRemoveButtonText,
-  replaceImportStatement,
+	addIsRemovableFlag,
+	renameRemoveButtonText,
+	replaceImportStatement,
 ]);
 
 export default transformer;

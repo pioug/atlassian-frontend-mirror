@@ -13,6 +13,7 @@ export type ColorType = Color;
 
 const fieldTextWrapperStyles = css({
 	margin: `0 ${token('space.100', '8px')}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& [data-ds--text-field--container]': {
 		borderColor: token('color.border.bold', N80A),
 	},

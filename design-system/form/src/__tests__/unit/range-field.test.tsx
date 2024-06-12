@@ -10,110 +10,84 @@ import Range from '@atlaskit/range';
 import Form, { RangeField } from '../../index';
 
 describe('RangeField', () => {
-  const user = userEvent.setup();
+	const user = userEvent.setup();
 
-  it('renders without errors', () => {
-    const error = jest.spyOn(console, 'error');
-    const warn = jest.spyOn(console, 'warn');
+	it('renders without errors', () => {
+		const error = jest.spyOn(console, 'error');
+		const warn = jest.spyOn(console, 'warn');
 
-    render(
-      <Form onSubmit={__noop}>
-        {({ formProps }) => (
-          <form {...formProps} data-testid="form">
-            <RangeField
-              name="light"
-              defaultValue={30}
-              label="Adjust brightness"
-            >
-              {({ fieldProps }) => (
-                <Range {...fieldProps} testId="form--range" min={0} max={100} />
-              )}
-            </RangeField>
-            <RangeField
-              name="loaded"
-              defaultValue={30}
-              isDisabled
-              id="test"
-              label="Label"
-            >
-              {({ fieldProps }) => (
-                <Range {...fieldProps} testId="form--range" min={0} max={100} />
-              )}
-            </RangeField>
-          </form>
-        )}
-      </Form>,
-    );
+		render(
+			<Form onSubmit={__noop}>
+				{({ formProps }) => (
+					<form {...formProps} data-testid="form">
+						<RangeField name="light" defaultValue={30} label="Adjust brightness">
+							{({ fieldProps }) => <Range {...fieldProps} testId="form--range" min={0} max={100} />}
+						</RangeField>
+						<RangeField name="loaded" defaultValue={30} isDisabled id="test" label="Label">
+							{({ fieldProps }) => <Range {...fieldProps} testId="form--range" min={0} max={100} />}
+						</RangeField>
+					</form>
+				)}
+			</Form>,
+		);
 
-    expect(error).not.toHaveBeenCalled();
-    expect(warn).not.toHaveBeenCalled();
+		expect(error).not.toHaveBeenCalled();
+		expect(warn).not.toHaveBeenCalled();
 
-    warn.mockRestore();
-    error.mockRestore();
-  });
+		warn.mockRestore();
+		error.mockRestore();
+	});
 
-  it('passes through defaultValue correctly', async () => {
-    const spy = jest.fn();
-    render(
-      <Form onSubmit={(data) => spy(data)}>
-        {({ formProps }) => (
-          <form {...formProps} data-testid="form">
-            <RangeField
-              name="volume"
-              defaultValue={30}
-              label="Adjust brightness"
-            >
-              {({ fieldProps }) => (
-                <Range {...fieldProps} testId="form--range" min={0} max={100} />
-              )}
-            </RangeField>
-            <Button type="submit" testId="form--submit">
-              Submit
-            </Button>
-          </form>
-        )}
-      </Form>,
-    );
+	it('passes through defaultValue correctly', async () => {
+		const spy = jest.fn();
+		render(
+			<Form onSubmit={(data) => spy(data)}>
+				{({ formProps }) => (
+					<form {...formProps} data-testid="form">
+						<RangeField name="volume" defaultValue={30} label="Adjust brightness">
+							{({ fieldProps }) => <Range {...fieldProps} testId="form--range" min={0} max={100} />}
+						</RangeField>
+						<Button type="submit" testId="form--submit">
+							Submit
+						</Button>
+					</form>
+				)}
+			</Form>,
+		);
 
-    const range = screen.getByTestId('form--range');
+		const range = screen.getByTestId('form--range');
 
-    expect(range).toHaveValue('30');
+		expect(range).toHaveValue('30');
 
-    const submit = screen.getByTestId('form--submit');
-    await user.click(submit);
+		const submit = screen.getByTestId('form--submit');
+		await user.click(submit);
 
-    expect(spy).toHaveBeenCalledWith({ volume: 30 });
-  });
+		expect(spy).toHaveBeenCalledWith({ volume: 30 });
+	});
 
-  it('updates value when range changes', () => {
-    const spy = jest.fn();
-    render(
-      <Form onSubmit={(data) => spy(data)}>
-        {({ formProps }) => (
-          <form {...formProps} data-testid="form">
-            <RangeField
-              name="volume"
-              defaultValue={30}
-              label="Adjust brightness"
-            >
-              {({ fieldProps }) => (
-                <Range {...fieldProps} testId="form--range" min={0} max={100} />
-              )}
-            </RangeField>
-            <Button type="submit" testId="form--submit">
-              Submit
-            </Button>
-          </form>
-        )}
-      </Form>,
-    );
+	it('updates value when range changes', () => {
+		const spy = jest.fn();
+		render(
+			<Form onSubmit={(data) => spy(data)}>
+				{({ formProps }) => (
+					<form {...formProps} data-testid="form">
+						<RangeField name="volume" defaultValue={30} label="Adjust brightness">
+							{({ fieldProps }) => <Range {...fieldProps} testId="form--range" min={0} max={100} />}
+						</RangeField>
+						<Button type="submit" testId="form--submit">
+							Submit
+						</Button>
+					</form>
+				)}
+			</Form>,
+		);
 
-    const range = screen.getByTestId('form--range');
-    fireEvent.change(range, { target: { value: 70 } });
-    expect(range).toHaveValue('70');
+		const range = screen.getByTestId('form--range');
+		fireEvent.change(range, { target: { value: 70 } });
+		expect(range).toHaveValue('70');
 
-    const submit = screen.getByTestId('form--submit');
-    fireEvent.click(submit);
-    expect(spy).toHaveBeenCalledWith({ volume: 70 });
-  });
+		const submit = screen.getByTestId('form--submit');
+		fireEvent.click(submit);
+		expect(spy).toHaveBeenCalledWith({ volume: 70 });
+	});
 });

@@ -7,12 +7,12 @@ const transformer = createTransformer([removeAppearanceProp]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('remove appearance prop', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import ModalDialog from '@atlaskit/modal-dialog';
 
@@ -28,7 +28,7 @@ describe('remove appearance prop', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
     import ModalDialog from '@atlaskit/modal-dialog';
 
@@ -40,13 +40,13 @@ describe('remove appearance prop', () => {
       );
     }
     `,
-        'should remove appearance prop from ModalDialog component',
-      );
+				'should remove appearance prop from ModalDialog component',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
     import ModalDialog from '@atlaskit/modal-dialog';
 
@@ -60,7 +60,7 @@ describe('remove appearance prop', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
     import ModalDialog from '@atlaskit/modal-dialog';
 
@@ -72,8 +72,8 @@ describe('remove appearance prop', () => {
       </>;
     }
     `,
-        'should remove appearance props from ALL ModalDialog components if there are multiple',
-      );
-    });
-  });
+				'should remove appearance props from ALL ModalDialog components if there are multiple',
+			);
+		});
+	});
 });

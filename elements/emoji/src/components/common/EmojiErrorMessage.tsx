@@ -24,6 +24,7 @@ const EmojiErrorMessage = (props: Props) => {
 	const { formatMessage } = useIntl();
 
 	const visualContent = tooltip ? (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={messageStyles} data-testid={emojiErrorMessageTestId}>
 			<Tooltip content={message} position="top" testId={emojiErrorMessageTooltipTestId}>
 				<ErrorIcon
@@ -34,6 +35,7 @@ const EmojiErrorMessage = (props: Props) => {
 			</Tooltip>
 		</div>
 	) : (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={messageStyles} data-testid={emojiErrorMessageTestId}>
 			<ErrorIcon label={formatMessage(messages.error)} size="small" />
 			{message}

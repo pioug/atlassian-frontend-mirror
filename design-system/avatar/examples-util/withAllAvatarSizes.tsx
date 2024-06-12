@@ -7,21 +7,21 @@ import { type AppearanceType } from '../src/types';
 import { Block } from './helpers';
 
 interface WithAllAvatarSizesProps {
-  presence?: JSX.Element;
-  appearance?: AppearanceType;
+	presence?: JSX.Element;
+	appearance?: AppearanceType;
 }
 
 export default (props: WithAllAvatarSizesProps) => {
-  const { presence, ...rest } = props;
+	const { presence, ...rest } = props;
 
-  return (
-    <Block>
-      <Avatar size="xxlarge" {...rest} />
-      <Avatar size="xlarge" {...props} />
-      <Avatar size="large" {...props} />
-      <Avatar size="medium" {...props} />
-      <Avatar size="small" {...props} />
-      <Avatar size="xsmall" {...rest} />
-    </Block>
-  );
+	return (
+		<Block>
+			<Avatar size="xxlarge" {...rest} />
+			<Avatar size="xlarge" {...props} />
+			<Avatar size="large" {...props} />
+			<Avatar size="medium" {...props} />
+			<Avatar size="small" {...props} />
+			<Avatar size="xsmall" {...rest} />
+		</Block>
+	);
 };

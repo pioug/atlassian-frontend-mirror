@@ -1,8 +1,8 @@
 import ReactSelect from 'react-select';
 import {
-  withAnalyticsEvents,
-  withAnalyticsContext,
-  createAndFireEvent,
+	withAnalyticsEvents,
+	withAnalyticsContext,
+	createAndFireEvent,
 } from '@atlaskit/analytics-next';
 import createSelect from './createSelect';
 
@@ -13,21 +13,21 @@ export const SelectWithoutAnalytics = createSelect(ReactSelect);
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
 const Select = withAnalyticsContext({
-  componentName: 'select',
-  packageName,
-  packageVersion,
+	componentName: 'select',
+	packageName,
+	packageVersion,
 })(
-  withAnalyticsEvents({
-    onChange: createAndFireEventOnAtlaskit({
-      action: 'changed',
-      actionSubject: 'option',
-      attributes: {
-        componentName: 'select',
-        packageName,
-        packageVersion,
-      },
-    }),
-  })(SelectWithoutAnalytics),
+	withAnalyticsEvents({
+		onChange: createAndFireEventOnAtlaskit({
+			action: 'changed',
+			actionSubject: 'option',
+			attributes: {
+				componentName: 'select',
+				packageName,
+				packageVersion,
+			},
+		}),
+	})(SelectWithoutAnalytics),
 ) as unknown as ReturnType<typeof createSelect>;
 
 export default Select;

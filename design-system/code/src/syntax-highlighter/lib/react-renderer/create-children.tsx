@@ -5,18 +5,18 @@ import { type CodeBidiWarningConfig, type RefractorNode } from '../../types';
 import createElement from './create-element';
 
 export default function createChildren(
-  codeBidiWarningConfig: CodeBidiWarningConfig,
+	codeBidiWarningConfig: CodeBidiWarningConfig,
 ): (children: RefractorNode[]) => ReactNode[] {
-  let childrenCount = 0;
+	let childrenCount = 0;
 
-  return (children: RefractorNode[]) => {
-    childrenCount += 1;
-    return children.map((child: RefractorNode, i: number) =>
-      createElement({
-        node: child,
-        codeBidiWarningConfig,
-        key: `code-segment-${childrenCount}-${i}`,
-      }),
-    );
-  };
+	return (children: RefractorNode[]) => {
+		childrenCount += 1;
+		return children.map((child: RefractorNode, i: number) =>
+			createElement({
+				node: child,
+				codeBidiWarningConfig,
+				key: `code-segment-${childrenCount}-${i}`,
+			}),
+		);
+	};
 }

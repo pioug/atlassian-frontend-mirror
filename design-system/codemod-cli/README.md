@@ -1,10 +1,13 @@
 # Codemods
 
-To easily download and run codemods associated with atlassian-frontend components and services, we provide a CLI tool called `@atlaskit/codemod-cli`.
+To easily download and run codemods associated with atlassian-frontend components and services, we
+provide a CLI tool called `@atlaskit/codemod-cli`.
 
-The idea is that upgrading major versions can be **assisted** by codemods, reducing upgrade-pain, improving adoption and giving component authors the flexibility to improve API and component design.
+The idea is that upgrading major versions can be **assisted** by codemods, reducing upgrade-pain,
+improving adoption and giving component authors the flexibility to improve API and component design.
 
-**Note:** Codemods will be designed to do the heavy lifting, but they'll often not be perfect so some manual work may still be required in order to successfully migrate.
+**Note:** Codemods will be designed to do the heavy lifting, but they'll often not be perfect so
+some manual work may still be required in order to successfully migrate.
 
 ---
 
@@ -16,7 +19,8 @@ The idea is that upgrading major versions can be **assisted** by codemods, reduc
 
 ### --preset, -n
 
-Select which transform to run from existing transform list by providing the preset name. This will allow you run the transfrom without any interaction.
+Select which transform to run from existing transform list by providing the preset name. This will
+allow you run the transfrom without any interaction.
 
 **example:**
 
@@ -33,7 +37,8 @@ The transform to run, transforms can be either a single file or directory with a
 
 ### --since-ref <git-ref>
 
-Determines changed packages since the specified git ref and runs all codemods for them. The automatic version of `--packages`. The ref can be any valid git ref, e.g. a commit hash, HEAD etc.
+Determines changed packages since the specified git ref and runs all codemods for them. The
+automatic version of `--packages`. The ref can be any valid git ref, e.g. a commit hash, HEAD etc.
 
 **example:**
 
@@ -42,7 +47,8 @@ Determines changed packages since the specified git ref and runs all codemods fo
 
 ### --packages
 
-Runs transforms for the specified comma separated list of packages, optionally include a version for each package to run all transforms since that version
+Runs transforms for the specified comma separated list of packages, optionally include a version for
+each package to run all transforms since that version
 
 **example:**
 
@@ -85,7 +91,9 @@ Ignore files that match a provided glob expression
 
 ### --no-filter-paths
 
-The codemod CLI filters supplied file paths by default, improving runtime by preventing codemods from running in non-dependent packages. Add this flag if there are problems with the filtering logic.
+The codemod CLI filters supplied file paths by default, improving runtime by preventing codemods
+from running in non-dependent packages. Add this flag if there are problems with the filtering
+logic.
 
 **example:**
 
@@ -110,7 +118,8 @@ Print all help text to the command line
 
 ### Custom options
 
-All options are passed to the transformer, which means you can supply custom options that are not listed here.
+All options are passed to the transformer, which means you can supply custom options that are not
+listed here.
 
 **examples:**
 
@@ -132,4 +141,5 @@ For a list of commands run it with `-h` or refer to the documentation above.
 
 ## For internal Atlassians
 
-_Internal Atlassians can access [additional documentation on Confluence](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods)._
+_Internal Atlassians can access
+[additional documentation on Confluence](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods)._

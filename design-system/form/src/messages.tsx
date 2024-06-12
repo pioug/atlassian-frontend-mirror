@@ -17,21 +17,21 @@ type MessageAppearance = 'default' | 'error' | 'valid';
  * API for the internal `<Message />` component. This is not public API.
  */
 interface InternalMessageProps {
-  /**
-   * The content of the message
-   */
-  children: ReactNode;
-  /**
-   * A testId prop is provided for specified elements, which is a unique string
-   *  that appears as a data attribute data-testid in the rendered code,
-   *  serving as a hook for automated tests
-   */
-  testId?: string;
-  /**
-   * Determines the appearance of the message.
-   */
-  appearance?: MessageAppearance;
-  fieldId?: string;
+	/**
+	 * The content of the message
+	 */
+	children: ReactNode;
+	/**
+	 * A testId prop is provided for specified elements, which is a unique string
+	 *  that appears as a data attribute data-testid in the rendered code,
+	 *  serving as a hook for automated tests
+	 */
+	testId?: string;
+	/**
+	 * Determines the appearance of the message.
+	 */
+	appearance?: MessageAppearance;
+	fieldId?: string;
 }
 
 /**
@@ -40,68 +40,62 @@ interface InternalMessageProps {
 type MessageProps = Pick<InternalMessageProps, 'children' | 'testId'>;
 
 const messageStyles = css({
-  display: 'flex',
-  justifyContent: 'baseline',
-  gap: token('space.050', '4px'),
-  font: token('font.body.UNSAFE_small'),
-  marginBlockStart: token('space.050', '4px'),
+	display: 'flex',
+	justifyContent: 'baseline',
+	gap: token('space.050', '4px'),
+	font: token('font.body.UNSAFE_small'),
+	marginBlockStart: token('space.050', '4px'),
 });
 
 const messageAppearanceStyles: Record<MessageAppearance, SerializedStyles> = {
-  default: css({
-    color: token('color.text.subtlest', N200),
-  }),
-  error: css({
-    color: token('color.text.danger', '#AE2A19'),
-  }),
-  valid: css({
-    color: token('color.text.success', '#216E4E'),
-  }),
+	default: css({
+		color: token('color.text.subtlest', N200),
+	}),
+	error: css({
+		color: token('color.text.danger', '#AE2A19'),
+	}),
+	valid: css({
+		color: token('color.text.success', '#216E4E'),
+	}),
 };
 
 const iconWrapperStyles = css({
-  display: 'flex',
+	display: 'flex',
 });
 
 const IconWrapper = ({ children }: { children: ReactNode }) => {
-  return <span css={iconWrapperStyles}>{children}</span>;
+	return <span css={iconWrapperStyles}>{children}</span>;
 };
 
 const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
-  error: <ErrorIcon size="small" label="error" />,
-  valid: <SuccessIcon size="small" label="success" />,
+	error: <ErrorIcon size="small" label="error" />,
+	valid: <SuccessIcon size="small" label="success" />,
 };
 
-const Message = ({
-  children,
-  appearance = 'default',
-  fieldId,
-  testId,
-}: InternalMessageProps) => {
-  const icon = messageIcons[appearance];
+const Message = ({ children, appearance = 'default', fieldId, testId }: InternalMessageProps) => {
+	const icon = messageIcons[appearance];
 
-  /**
-   * The wrapping span is necessary to preserve spaces between children.
-   * Otherwise the flex layout of the message will remove any whitespace
-   * between children.
-   *
-   * If the child is just a string, this is not required and we can use one
-   * less DOM element.
-   */
-  const content =
-    typeof children === 'string' ? children : <span>{children}</span>;
+	/**
+	 * The wrapping span is necessary to preserve spaces between children.
+	 * Otherwise the flex layout of the message will remove any whitespace
+	 * between children.
+	 *
+	 * If the child is just a string, this is not required and we can use one
+	 * less DOM element.
+	 */
+	const content = typeof children === 'string' ? children : <span>{children}</span>;
 
-  return (
-    <div
-      css={[messageStyles, messageAppearanceStyles[appearance]]}
-      data-testid={testId}
-      id={fieldId}
-      aria-live="polite"
-    >
-      {icon && <IconWrapper>{icon}</IconWrapper>}
-      {content}
-    </div>
-  );
+	return (
+		<div
+			css={[messageStyles, messageAppearanceStyles[appearance]]}
+			data-testid={testId}
+			id={fieldId}
+			aria-live="polite"
+		>
+			{icon && <IconWrapper>{icon}</IconWrapper>}
+			{content}
+		</div>
+	);
 };
 
 /**
@@ -112,16 +106,13 @@ const Message = ({
  *
  */
 export const HelperMessage = ({ children, testId }: MessageProps) => (
-  <FieldId.Consumer>
-    {(fieldId) => (
-      <Message
-        fieldId={fieldId ? `${fieldId}-helper` : undefined}
-        testId={testId}
-      >
-        {children}
-      </Message>
-    )}
-  </FieldId.Consumer>
+	<FieldId.Consumer>
+		{(fieldId) => (
+			<Message fieldId={fieldId ? `${fieldId}-helper` : undefined} testId={testId}>
+				{children}
+			</Message>
+		)}
+	</FieldId.Consumer>
 );
 
 /**
@@ -132,17 +123,17 @@ export const HelperMessage = ({ children, testId }: MessageProps) => (
  *
  */
 export const ErrorMessage = ({ children, testId }: MessageProps) => (
-  <FieldId.Consumer>
-    {(fieldId) => (
-      <Message
-        appearance="error"
-        fieldId={fieldId ? `${fieldId}-error` : undefined}
-        testId={testId}
-      >
-        {children}
-      </Message>
-    )}
-  </FieldId.Consumer>
+	<FieldId.Consumer>
+		{(fieldId) => (
+			<Message
+				appearance="error"
+				fieldId={fieldId ? `${fieldId}-error` : undefined}
+				testId={testId}
+			>
+				{children}
+			</Message>
+		)}
+	</FieldId.Consumer>
 );
 
 /**
@@ -153,15 +144,15 @@ export const ErrorMessage = ({ children, testId }: MessageProps) => (
  *
  */
 export const ValidMessage = ({ children, testId }: MessageProps) => (
-  <FieldId.Consumer>
-    {(fieldId) => (
-      <Message
-        appearance="valid"
-        fieldId={fieldId ? `${fieldId}-valid` : undefined}
-        testId={testId}
-      >
-        {children}
-      </Message>
-    )}
-  </FieldId.Consumer>
+	<FieldId.Consumer>
+		{(fieldId) => (
+			<Message
+				appearance="valid"
+				fieldId={fieldId ? `${fieldId}-valid` : undefined}
+				testId={testId}
+			>
+				{children}
+			</Message>
+		)}
+	</FieldId.Consumer>
 );

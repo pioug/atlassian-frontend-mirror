@@ -29,6 +29,7 @@ const codeBlockButtonsStyle = css({
 	right: token('space.075', '6px'),
 	top: token('space.050', '4px'),
 	padding: token('space.025', '2px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	button: {
 		height: '32px',
 		width: '32px',
@@ -45,9 +46,11 @@ const codeBlockButtonsStyle = css({
 			height: '32px',
 			width: '32px',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&.clicked': {
 			backgroundColor: `${token('color.background.neutral.bold.pressed', N700)}`,
 			borderRadius: '4px',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 			color: `${token('color.icon.inverse', N0)} !important`,
 		},
 	},

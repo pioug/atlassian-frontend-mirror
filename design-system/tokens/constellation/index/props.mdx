@@ -6,30 +6,34 @@ import TokenPropsTable from '../../examples/constellation/token-props-table';
 
 ### token(path, fallback)
 
-The `token()` function takes a dot-separated token name and returns a valid CSS custom property for the corresponding token. This method will warn you if an unknown token is provided.
+The `token()` function takes a dot-separated token name and returns a valid CSS custom property for
+the corresponding token. This method will warn you if an unknown token is provided.
 
-Additionally, provide a fallback argument to the `token()` method to ensure experiences remain consistent for users until we are ready to launch. When the theme CSS is not present in your app, the fallback color will render instead. Keep the fallback colour as the color visible in your app today.
+Additionally, provide a fallback argument to the `token()` method to ensure experiences remain
+consistent for users until we are ready to launch. When the theme CSS is not present in your app,
+the fallback color will render instead. Keep the fallback colour as the color visible in your app
+today.
 
 <TokenPropsTable
-  propName={'path'}
-  description={'Name of the color token in string form'}
-  typing={'keyof CSSTokenMap'}
-  required={true}
+	propName={'path'}
+	description={'Name of the color token in string form'}
+	typing={'keyof CSSTokenMap'}
+	required={true}
 />
 <TokenPropsTable
-  propName={'fallback'}
-  description={
-    'Optional color value, represented as a color code or hex value, used for when token usage has not been switched on for the site'
-  }
-  typing={'string'}
+	propName={'fallback'}
+	description={
+		'Optional color value, represented as a color code or hex value, used for when token usage has not been switched on for the site'
+	}
+	typing={'string'}
 />
 
 ```tsx
 import { token } from '@atlaskit/tokens';
 
 const buttonStyles = {
-  backgroundColor: token('color.background.brand.bold'),
-  color: token('color.text.inverse'),
+	backgroundColor: token('color.background.brand.bold'),
+	color: token('color.text.inverse'),
 };
 ```
 
@@ -37,26 +41,32 @@ const buttonStyles = {
 
 Use the `setGlobalTheme` method to switch themes globally at runtime. It:
 
-- updates the `data-theme` and `data-color-mode` attributes on your page's HTML tag, and `data-custom-theme` if theme options are provided.
-- dynamically loads in the CSS required to support each selected theme, and adds it to a series of `<style>` tag in your page's document head.
+- updates the `data-theme` and `data-color-mode` attributes on your page's HTML tag, and
+  `data-custom-theme` if theme options are provided.
+- dynamically loads in the CSS required to support each selected theme, and adds it to a series of
+  `<style>` tag in your page's document head.
 - optionally generates and loads customized themes based on the options provided.
-- optionally overrides default theme loading behavior if a `themeLoader` function has been provided. E.g. when appending `<style>` elements isn't possible.
+- optionally overrides default theme loading behavior if a `themeLoader` function has been provided.
+  E.g. when appending `<style>` elements isn't possible.
 
 The `themeState` object includes the following properties:
 
-- **colorMode:** Determines whether the light or dark color theme is shown. If set to `auto`, the browser will use the OS setting to determine which is shown.
-- **dark:** The color theme to be shown when a "dark" theme is requested by the user (or triggered by OS setting).
-- **light:** The color theme to be shown when a "light" theme is requested by the user (or triggered by OS setting).
+- **colorMode:** Determines whether the light or dark color theme is shown. If set to `auto`, the
+  browser will use the OS setting to determine which is shown.
+- **dark:** The color theme to be shown when a "dark" theme is requested by the user (or triggered
+  by OS setting).
+- **light:** The color theme to be shown when a "light" theme is requested by the user (or triggered
+  by OS setting).
 - **spacing:** The spacing theme to be shown.
 - **typography:** The typography theme to be shown.
 - **UNSAFE_themeOptions:** Options for customizing the loaded themes, such as a custom brand color.
 
 <TokenPropsTable
-  propName={'themeState'}
-  description={
-    'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
-  }
-  typing={`{
+	propName={'themeState'}
+	description={
+		'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
+	}
+	typing={`{
   colorMode?: ColorMode<"light", "dark", "auto">,
   light?: ThemeIds,
   dark?: ThemeIds,
@@ -64,25 +74,25 @@ The `themeState` object includes the following properties:
   typography?: ThemeIds,
   UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
 }`}
-  defaultValue={
-    '{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
-  }
+	defaultValue={
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+	}
 />
 
 <TokenPropsTable
-  propName={'themeLoader'}
-  description={
-    'A callback function that can be used to override the default theme loading functionality. It will run the function for each required theme ID instead of creating `<style>` elements. For example, this can be used to add `<link>` elements for each theme instead.'
-  }
-  typing={'(id: ThemeIds) => void'}
+	propName={'themeLoader'}
+	description={
+		'A callback function that can be used to override the default theme loading functionality. It will run the function for each required theme ID instead of creating `<style>` elements. For example, this can be used to add `<link>` elements for each theme instead.'
+	}
+	typing={'(id: ThemeIds) => void'}
 />
 
 <TokenPropsTable
-  propName={'return value'}
-  description={
-    'A Promise of a function, that can be used to stop listening for changes to system theme.'
-  }
-  typing={'Promise<() => void>'}
+	propName={'return value'}
+	description={
+		'A Promise of a function, that can be used to stop listening for changes to system theme.'
+	}
+	typing={'Promise<() => void>'}
 />
 
 #### Example usage
@@ -91,38 +101,37 @@ The `themeState` object includes the following properties:
 import { token, setGlobalTheme } from '@atlaskit/tokens';
 
 const App = () => {
-  setGlobalTheme({
-    light: 'light',
-    dark: 'dark',
-    colorMode: 'auto',
-    typography: 'typography',
-  });
+	setGlobalTheme({
+		light: 'light',
+		dark: 'dark',
+		colorMode: 'auto',
+		typography: 'typography',
+	});
 
-  return <div style={{ backgroundColor: token('elevation.surface') }}>...</div>;
+	return <div style={{ backgroundColor: token('elevation.surface') }}>...</div>;
 };
 ```
 
 #### Example usage with custom theme options
 
 <SectionMessage title="Custom theming is in alpha." appearance="warning">
-  <p>
-    Custom theming is in alpha, the UNSAFE_themeOptions API is subject to change
-    or removal in minor or patch releases. For Atlassians, please reach out to{' '}
-    <a href="https://atlassian.slack.com/archives/CFJ9DU39U">
-      Design System Team
-    </a>{' '}
-    to learn more.
-  </p>
+	<p>
+		Custom theming is in alpha, the UNSAFE_themeOptions API is subject to change or removal in minor
+		or patch releases. For Atlassians, please reach out to{' '}
+		<a href="https://atlassian.slack.com/archives/CFJ9DU39U">Design System Team</a> to learn more.
+	</p>
 </SectionMessage>
 
-When `UNSAFE_themeOptions` is set in ThemeState, custom themes will be generated at runtime based on the options provided. The available options for the `UNSAFE_themeOptions` prop are defined below:
+When `UNSAFE_themeOptions` is set in ThemeState, custom themes will be generated at runtime based on
+the options provided. The available options for the `UNSAFE_themeOptions` prop are defined below:
 
-- **brandColor:** sets a custom brand color that replaces the Atlassian blue. Affects `brand`, `selected` and `link` color tokens
+- **brandColor:** sets a custom brand color that replaces the Atlassian blue. Affects `brand`,
+  `selected` and `link` color tokens
 
 <TokenPropsTable
-  propName={'UNSAFE_themeOptions'}
-  description={'The schema for defining custom themes'}
-  typing={`{
+	propName={'UNSAFE_themeOptions'}
+	description={'The schema for defining custom themes'}
+	typing={`{
    brandColor: HexColor
 }`}
 />
@@ -133,57 +142,61 @@ The theme generation logic is lazy-loaded only when `UNSAFE_themeOptions` is set
 import { token, setGlobalTheme } from '@atlaskit/tokens';
 
 const App = () => {
-  setGlobalTheme({
-    colorMode: 'auto',
-    UNSAFE_themeOptions: {
-      brandColor: '#64329A',
-    },
-  });
+	setGlobalTheme({
+		colorMode: 'auto',
+		UNSAFE_themeOptions: {
+			brandColor: '#64329A',
+		},
+	});
 
-  return <div style={{ backgroundColor: token('elevation.surface') }}>...</div>;
+	return <div style={{ backgroundColor: token('elevation.surface') }}>...</div>;
 };
 ```
 
 #### Example usage with a theme loader
 
-The `themeLoader` parameter takes a synchronous function, which will be called with the `themeId` for each theme that needs to be loaded onto the page based for the provided `ThemeState`. If `colorMode` is set to ‘light’, the theme set in `ThemeState.dark` will not be loaded, and visa versa.
+The `themeLoader` parameter takes a synchronous function, which will be called with the `themeId`
+for each theme that needs to be loaded onto the page based for the provided `ThemeState`. If
+`colorMode` is set to ‘light’, the theme set in `ThemeState.dark` will not be loaded, and visa
+versa.
 
 ```tsx
 import { token, setGlobalTheme } from '@atlaskit/tokens';
 
 const App = () => {
-  const themeLoader = (id) => {
-    const link = document.createElement('link');
-    const stylesheetUrl = `https://test-cdn.com/atlaskit-tokens_${id}.css`;
+	const themeLoader = (id) => {
+		const link = document.createElement('link');
+		const stylesheetUrl = `https://test-cdn.com/atlaskit-tokens_${id}.css`;
 
-    link.rel = 'stylesheet';
-    link.href = stylesheetUrl;
-    link.dataset.theme = id;
-    document.head.appendChild(link);
-  };
+		link.rel = 'stylesheet';
+		link.href = stylesheetUrl;
+		link.dataset.theme = id;
+		document.head.appendChild(link);
+	};
 
-  setGlobalTheme(
-    {
-      light: 'light',
-      dark: 'dark',
-      colorMode: 'auto',
-      typography: 'typography',
-    },
-    themeLoader,
-  );
+	setGlobalTheme(
+		{
+			light: 'light',
+			dark: 'dark',
+			colorMode: 'auto',
+			typography: 'typography',
+		},
+		themeLoader,
+	);
 
-  return <div style={{ backgroundColor: token('elevation.surface') }}>...</div>;
+	return <div style={{ backgroundColor: token('elevation.surface') }}>...</div>;
 };
 ```
 
 ### useThemeObserver()
 
-A React hook which returns the current themes and color mode set on `<html>`. It is useful for watching the theme and then performing side-effects when it changes.
+A React hook which returns the current themes and color mode set on `<html>`. It is useful for
+watching the theme and then performing side-effects when it changes.
 
 <TokenPropsTable
-  propName={'return value'}
-  description={'Returns the current themes and color mode set.'}
-  typing={`{
+	propName={'return value'}
+	description={'Returns the current themes and color mode set.'}
+	typing={`{
   colorMode?: ColorMode<"light", "dark", "auto">,
   light?: ThemeIds,
   dark?: ThemeIds,
@@ -198,24 +211,25 @@ A React hook which returns the current themes and color mode set on `<html>`. It
 import { useThemeObserver } from '@atlaskit/tokens';
 
 const App = () => {
-  const theme = useThemeObserver();
-  console.log(theme); // { light: light, dark: dark, ... }
+	const theme = useThemeObserver();
+	console.log(theme); // { light: light, dark: dark, ... }
 
-  return <div>...</div>;
+	return <div>...</div>;
 };
 ```
 
 ### ThemeMutationObserver(callback)
 
-An observer which watches the `<html>` element for changes to the theme. In React, use the `useThemeObserver` hook.
+An observer which watches the `<html>` element for changes to the theme. In React, use the
+`useThemeObserver` hook.
 
 <TokenPropsTable
-  propName={'callback'}
-  description={
-    'Watches the <html> element for changes to the theme. The supplied callback function fires when the theme changes.'
-  }
-  typing={'(theme: ThemeState) => unknown'}
-  required={true}
+	propName={'callback'}
+	description={
+		'Watches the <html> element for changes to the theme. The supplied callback function fires when the theme changes.'
+	}
+	typing={'(theme: ThemeState) => unknown'}
+	required={true}
 />
 
 #### Example usage
@@ -224,7 +238,7 @@ An observer which watches the `<html>` element for changes to the theme. In Reac
 import { ThemeMutationObserver } from '@atlaskit/tokens';
 
 const observer = new ThemeMutationObserver((newTheme) => {
-  console.log(newTheme); // { light: light, dark: dark, ... }
+	console.log(newTheme); // { light: light, dark: dark, ... }
 });
 
 observer.observe();
@@ -233,24 +247,27 @@ observer.disconnect();
 
 ### themeObjectToString(themes)
 
-The `themeObjectToString()` function converts a theme state object into a formatted string. Useful for cases where the theme state needs to be stored or transferred between systems via iframes etc. The returned value could be provided as an argument to JavaScript's built-in `encodeURIComponent()` function to convert the string into a URL friendly format.
+The `themeObjectToString()` function converts a theme state object into a formatted string. Useful
+for cases where the theme state needs to be stored or transferred between systems via iframes etc.
+The returned value could be provided as an argument to JavaScript's built-in `encodeURIComponent()`
+function to convert the string into a URL friendly format.
 
 <TokenPropsTable
-  propName={'themes'}
-  typing={`{
+	propName={'themes'}
+	typing={`{
   light?: ThemeIds,
   dark?: ThemeIds,
   spacing?: ThemeIds,
   typography?: ThemeIds,
 }`}
-  required={true}
+	required={true}
 />
 <TokenPropsTable
-  propName={'return value'}
-  description={
-    'A string in the format used by the `data-theme` html attribute; or a stringified theme state object used for constructing a URL as query params'
-  }
-  typing={`string`}
+	propName={'return value'}
+	description={
+		'A string in the format used by the `data-theme` html attribute; or a stringified theme state object used for constructing a URL as query params'
+	}
+	typing={`string`}
 />
 
 #### Example usage
@@ -259,10 +276,10 @@ The `themeObjectToString()` function converts a theme state object into a format
 import { themeObjectToString } from '@atlaskit/tokens';
 
 const theme = {
-  colorMode: 'auto',
-  dark: 'dark',
-  light: 'legacy-light',
-  spacing: 'spacing',
+	colorMode: 'auto',
+	dark: 'dark',
+	light: 'legacy-light',
+	spacing: 'spacing',
 };
 
 const themeString = themeObjectToString(theme);
@@ -276,26 +293,28 @@ console.log(themeQueryString);
 
 ### themeStringToObject(themes)
 
-The `themeStringToObject()` function converts a string representation of the theme state into an object that:
+The `themeStringToObject()` function converts a string representation of the theme state into an
+object that:
 
 - can be passed to the `setGlobalTheme()` function;
 - can be used for parsing a URL query parameters from a stringified theme state object.
 
-An example of the expected formatting of the `themes` string is `'dark:dark light:legacy-light spacing:spacing'`.
+An example of the expected formatting of the `themes` string is
+`'dark:dark light:legacy-light spacing:spacing'`.
 
 <TokenPropsTable
-  propName={'themes'}
-  description={
-    'A string in the format used by the `data-theme` html attribute; or a stringigied theme state object as a URL qeury string'
-  }
-  typing={`string`}
-  required={true}
+	propName={'themes'}
+	description={
+		'A string in the format used by the `data-theme` html attribute; or a stringigied theme state object as a URL qeury string'
+	}
+	typing={`string`}
+	required={true}
 />
 
 <TokenPropsTable
-  propName={'return value'}
-  description={'An object representation of the theme string supplied.'}
-  typing={`{
+	propName={'return value'}
+	description={'An object representation of the theme string supplied.'}
+	typing={`{
   light?: ThemeIds,
   dark?: ThemeIds,
   spacing?: ThemeIds,
@@ -310,42 +329,41 @@ import { setGlobalTheme, themeStringToObject } from '@atlaskit/tokens';
 
 const newTheme = 'colorMode:auto dark:dark light:legacy-light spacing:spacing';
 function onThemeChangeHandler(newTheme) {
-  setGlobalTheme(themeStringToObject(newTheme));
+	setGlobalTheme(themeStringToObject(newTheme));
 }
 
 const parsedUrlProps = {
-  contentId: 'contentId',
-  hostname: 'hostname',
-  themeState:
-    'colorMode:auto dark:dark light:legacy-light UNSAFE_themeOptions:{"brandColor":"#ff0000"}',
+	contentId: 'contentId',
+	hostname: 'hostname',
+	themeState:
+		'colorMode:auto dark:dark light:legacy-light UNSAFE_themeOptions:{"brandColor":"#ff0000"}',
 };
-parsedThemeState = themeStringToObject(
-  decodeURIComponent(parsedUrlProps.themeState),
-);
+parsedThemeState = themeStringToObject(decodeURIComponent(parsedUrlProps.themeState));
 ```
 
 ### getTokenValue(path, fallback)
 
-The `getTokenValue()` function takes the same dot-separated token names as the main `token()` function,
-however it returns the currently computed value based on the current theme. This is useful for things like
-`<canvas>` which cannot inherit a CSS Variable.
+The `getTokenValue()` function takes the same dot-separated token names as the main `token()`
+function, however it returns the currently computed value based on the current theme. This is useful
+for things like `<canvas>` which cannot inherit a CSS Variable.
 
-Additionally, provide a fallback argument to the `getTokenValue()` method to ensure experiences remain consistent
-for users until we are ready to launch. When the theme CSS is not present in your app, the fallback color
-will render instead. Keep the fallback colour as the color visible in your app today.
+Additionally, provide a fallback argument to the `getTokenValue()` method to ensure experiences
+remain consistent for users until we are ready to launch. When the theme CSS is not present in your
+app, the fallback color will render instead. Keep the fallback colour as the color visible in your
+app today.
 
 <TokenPropsTable
-  propName={'path'}
-  description={'Name of the color token in string form'}
-  typing={'keyof CSSTokenMap'}
-  required={true}
+	propName={'path'}
+	description={'Name of the color token in string form'}
+	typing={'keyof CSSTokenMap'}
+	required={true}
 />
 <TokenPropsTable
-  propName={'fallback'}
-  description={
-    'Optional color value, represented as a color code or hex value, used for when token usage has not been switched on for the site'
-  }
-  typing={'string'}
+	propName={'fallback'}
+	description={
+		'Optional color value, represented as a color code or hex value, used for when token usage has not been switched on for the site'
+	}
+	typing={'string'}
 />
 
 #### Example usage
@@ -358,59 +376,62 @@ getTokenValue('path.to.token', '#000000');
 
 ## Server-side Rendering (SSR) utilities
 
-`setGlobalTheme` provides the required logic for loading, applying and configuring themes on the client side of your app. However, if
-your app supports server-side rendering (SSR), additional configuration will be required to ensure themes are loaded before
-your app hydrates, otherwise users can experience a flash of unthemed content before their preferred theme is loaded in.
+`setGlobalTheme` provides the required logic for loading, applying and configuring themes on the
+client side of your app. However, if your app supports server-side rendering (SSR), additional
+configuration will be required to ensure themes are loaded before your app hydrates, otherwise users
+can experience a flash of unthemed content before their preferred theme is loaded in.
 
-The tokens package provides a set of utilities to assist with this. Each accepts a `themeState` object with the user's stored theme preferences,
-and returns content to be applied manually to your document on SSR render.
+The tokens package provides a set of utilities to assist with this. Each accepts a `themeState`
+object with the user's stored theme preferences, and returns content to be applied manually to your
+document on SSR render.
 
-If your app stores user theme preference on the client side, such as in `localStorage`, your app may need additional logic to check client-side
-preferences before first paint, and update theme HTML attributes appropriately.
+If your app stores user theme preference on the client side, such as in `localStorage`, your app may
+need additional logic to check client-side preferences before first paint, and update theme HTML
+attributes appropriately.
 
 The example below demonstrates how these scripts can be used to support SSR in a basic NextJS app:
 
 ```tsx
 class MyDocument extends Document<DocumentProps> {
-  static async getInitialProps(
-    ctx: DocumentContext,
-  ): Promise<DocumentInitialProps & DocumentProps> {
-    const initialProps = await Document.getInitialProps(ctx);
+	static async getInitialProps(
+		ctx: DocumentContext,
+	): Promise<DocumentInitialProps & DocumentProps> {
+		const initialProps = await Document.getInitialProps(ctx);
 
-    // Pass user theme preferences to `@atlaskit/tokens` SSR utilities:
-    const themeAttrs = getThemeHtmlAttrs(themePreferences);
-    const themeStyles = await getThemeStyles(themePreferences);
-    const ssrAutoScript = getSSRAutoScript(themePreferences.colorMode);
+		// Pass user theme preferences to `@atlaskit/tokens` SSR utilities:
+		const themeAttrs = getThemeHtmlAttrs(themePreferences);
+		const themeStyles = await getThemeStyles(themePreferences);
+		const ssrAutoScript = getSSRAutoScript(themePreferences.colorMode);
 
-    return {
-      ...initialProps,
-      theme: {
-        htmlAttrs: themeAttrs,
-        styles: themeStyles,
-      },
-      ssrAutoScript,
-    };
-  }
+		return {
+			...initialProps,
+			theme: {
+				htmlAttrs: themeAttrs,
+				styles: themeStyles,
+			},
+			ssrAutoScript,
+		};
+	}
 
-  render() {
-    return (
-      <Html lang="en" {...this.props.theme.htmlAttrs}>
-        <Head>
-          {this.props.theme.styles.map((theme) => (
-            <style
-              key={theme.id}
-              {...theme.themeAttrs}
-              dangerouslySetInnerHTML={{ __html: theme.themeCss }}
-            />
-          ))}
-          <script dangerouslySetInnerHTML={ssrAutoScript} />
-        </Head>
-        <body>
-          <Main />
-        </body>
-      </Html>
-    );
-  }
+	render() {
+		return (
+			<Html lang="en" {...this.props.theme.htmlAttrs}>
+				<Head>
+					{this.props.theme.styles.map((theme) => (
+						<style
+							key={theme.id}
+							{...theme.themeAttrs}
+							dangerouslySetInnerHTML={{ __html: theme.themeCss }}
+						/>
+					))}
+					<script dangerouslySetInnerHTML={ssrAutoScript} />
+				</Head>
+				<body>
+					<Main />
+				</body>
+			</Html>
+		);
+	}
 }
 export default MyDocument;
 ```
@@ -419,32 +440,36 @@ export default MyDocument;
 
 ### getThemeStyles(themeState | "all")
 
-When server-side rendering the app, a number of themes need to be added as `<style>` tags to the `<head>` of the document,
-based on the user's theme preferences.
+When server-side rendering the app, a number of themes need to be added as `<style>` tags to the
+`<head>` of the document, based on the user's theme preferences.
 
-Given a `themeState` object representing the user's theme preferences, `getThemeStyles` provides an array of objects that can be used
-to construct these `<style>` tags:
+Given a `themeState` object representing the user's theme preferences, `getThemeStyles` provides an
+array of objects that can be used to construct these `<style>` tags:
 
 - **`id:`** the ID of the loaded theme
 - **`attrs:`** an object of data attributes to attach to the `<style>` tag
-- **`css:`** the string of CSS to set as the `innerHtml` of the `<style>`, containing the styles for that theme.
+- **`css:`** the string of CSS to set as the `innerHtml` of the `<style>`, containing the styles for
+  that theme.
 
-By default, `getThemeStyles` only supplies the color themes necessary for initial render, based on the current `themeState`. I.e.
-if the user has automatic theme switching turned off, and is in light mode, dark mode themes will not be returned.
+By default, `getThemeStyles` only supplies the color themes necessary for initial render, based on
+the current `themeState`. I.e. if the user has automatic theme switching turned off, and is in light
+mode, dark mode themes will not be returned.
 
-When passing the string "all" as an argument to `getThemeStyles`, it will return objects for all possible themes instead of just the ones associated with a `themeState`.
+When passing the string "all" as an argument to `getThemeStyles`, it will return objects for all
+possible themes instead of just the ones associated with a `themeState`.
 
-When `UNSAFE_themeOptions` is set in `themeState`, additional objects will be returned for constructing custom theme `<style>` tags.
+When `UNSAFE_themeOptions` is set in `themeState`, additional objects will be returned for
+constructing custom theme `<style>` tags.
 
 If an error is encountered while loading a specific theme, the theme styles for that theme will be
 missing from the returned array, and will only be visible to the user on app hydration.
 
 <TokenPropsTable
-  propName={'themeState'}
-  description={
-    'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
-  }
-  typing={`{
+	propName={'themeState'}
+	description={
+		'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
+	}
+	typing={`{
   colorMode?: ColorMode<"light", "dark", "auto">,
   light?: ThemeIds,
   dark?: ThemeIds,
@@ -452,17 +477,15 @@ missing from the returned array, and will only be visible to the user on app hyd
   typography?: ThemeIds,
   UNSAFE_themeOptions?: { brandColor: HexColor }
 }`}
-  defaultValue={
-    '{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
-  }
+	defaultValue={
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+	}
 />
 
 <TokenPropsTable
-  propName={'return value'}
-  description={
-    'A promise that resolves to an array of objects with the theme styles.'
-  }
-  typing={`Promise<{
+	propName={'return value'}
+	description={'A promise that resolves to an array of objects with the theme styles.'}
+	typing={`Promise<{
   id: ThemeIds,
   attrs: {
     color-theme: ThemeIds
@@ -479,11 +502,11 @@ Use `setGlobalTheme` to set attributes correctly on the client side - this utili
 used when configuring SSR.
 
 <TokenPropsTable
-  propName={'themeState'}
-  description={
-    'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
-  }
-  typing={`{
+	propName={'themeState'}
+	description={
+		'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
+	}
+	typing={`{
   colorMode?: ColorMode<"light", "dark", "auto">,
   light?: ThemeIds,
   dark?: ThemeIds,
@@ -491,59 +514,62 @@ used when configuring SSR.
   typography?: ThemeIds,
   UNSAFE_themeOptions?: { brandColor: HexColor }
 }`}
-  defaultValue={
-    '{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
-  }
+	defaultValue={
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+	}
 />
 
 <TokenPropsTable
-  propName={'return value'}
-  description={
-    'A record of HTML attributes to be applied to the document root.'
-  }
-  typing={`Record<string, string>`}
+	propName={'return value'}
+	description={'A record of HTML attributes to be applied to the document root.'}
+	typing={`Record<string, string>`}
 />
 
 ### getSSRAutoScript(colorMode)
 
-The `getSSRAutoScript` function enables SSR support for 'auto' theme switching. It provides a script that, when executed before paint, sets the
-`data-color-mode` attribute based on the current system theme, to avoid a flash of un-themed content on first paint.
+The `getSSRAutoScript` function enables SSR support for 'auto' theme switching. It provides a script
+that, when executed before paint, sets the `data-color-mode` attribute based on the current system
+theme, to avoid a flash of un-themed content on first paint.
 
-The SSR server should attach the return value of this function as the `innerhtml` of a `script` tag inside the `<head>` of the document element.
+The SSR server should attach the return value of this function as the `innerhtml` of a `script` tag
+inside the `<head>` of the document element.
 
 <TokenPropsTable
-  propName={'themeState'}
-  description={
-    'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
-  }
-  typing={`{
+	propName={'themeState'}
+	description={
+		'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
+	}
+	typing={`{
   colorMode?: ColorMode<"light", "dark", "auto">,
   light?: ThemeIds,
   dark?: ThemeIds,
   spacing?: ThemeIds,
   typography?: ThemeIds,
 }`}
-  defaultValue={
-    '{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
-  }
+	defaultValue={
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+	}
 />
 
 <TokenPropsTable
-  propName={'return value'}
-  description={
-    'A string containing a script to update `data-color-mode` attribute based on the current system theme.'
-  }
-  typing={`string`}
+	propName={'return value'}
+	description={
+		'A string containing a script to update `data-color-mode` attribute based on the current system theme.'
+	}
+	typing={`string`}
 />
 
 ## Loading and applying themes on the client
 
-If your app is unable to configure data-attributes or styles on the server at request time, it may be necessary to load and apply themes on the client instead.
-This can be necessary for static sites or apps that store the user's theme preferences on the client (such as in `localStorage`).
+If your app is unable to configure data-attributes or styles on the server at request time, it may
+be necessary to load and apply themes on the client instead. This can be necessary for static sites
+or apps that store the user's theme preferences on the client (such as in `localStorage`).
 
-For these cases, the `@atlaskit/tokens` package provides synchronous alternative functions to `setGlobalTheme` that can synchronously configure the page on first render.
+For these cases, the `@atlaskit/tokens` package provides synchronous alternative functions to
+`setGlobalTheme` that can synchronously configure the page on first render.
 
-On the server, use the SSR utilities above to generate the theme assets and bundle them with your application:
+On the server, use the SSR utilities above to generate the theme assets and bundle them with your
+application:
 
 ```ts
 // webpack.config.js
@@ -552,34 +578,35 @@ const generate = require('generate-file-webpack-plugin');
 const { getThemeStyles } = require('@atlaskit/tokens');
 
 module.exports = async (env) => {
-  const themeStyles = await getThemeStyles();
+	const themeStyles = await getThemeStyles();
 
-  return {
-    // ...
-    plugins: [
-      ...themeStyles.map(({ id, css }) =>
-        generate({
-          file: `themes/atlaskit-tokens_${id}.css`,
-          content: css,
-        }),
-      ),
-    ],
-  };
+	return {
+		// ...
+		plugins: [
+			...themeStyles.map(({ id, css }) =>
+				generate({
+					file: `themes/atlaskit-tokens_${id}.css`,
+					content: css,
+				}),
+			),
+		],
+	};
 };
 ```
 
-At build time, add all required themes as `<link>`s or `<styles>` in your document template.
-To ensure all recommended themes are included, we recommend generating the list at build time using `getThemeStyles`.
+At build time, add all required themes as `<link>`s or `<styles>` in your document template. To
+ensure all recommended themes are included, we recommend generating the list at build time using
+`getThemeStyles`.
 
 ```html
 <!-- Index.html -->
 <html>
-  <head>
-    <link rel="stylesheet" href="path/to/atlaskit-tokens_<theme-name-1>.css" />
-    <link rel="stylesheet" href="path/to/atlaskit-tokens_<theme-name-2>.css" />
-    <!-- Generate links for all required styles using getThemeStyles ...   -->
-  </head>
-  <body></body>
+	<head>
+		<link rel="stylesheet" href="path/to/atlaskit-tokens_<theme-name-1>.css" />
+		<link rel="stylesheet" href="path/to/atlaskit-tokens_<theme-name-2>.css" />
+		<!-- Generate links for all required styles using getThemeStyles ...   -->
+	</head>
+	<body></body>
 </html>
 ```
 
@@ -595,35 +622,39 @@ UNSAFE_loadCustomThemeStyles(themePreferences);
 ```
 
 <SectionMessage
-  title="Client-side configuration of themes can cause a flash of unthemed content"
-  appearance="warning"
+	title="Client-side configuration of themes can cause a flash of unthemed content"
+	appearance="warning"
 >
-  <p>
-    Styles and data-attributes added to the document via client-side Javascript
-    will <strong>not</strong> block first paint; depending on how your app
-    renders, your users may see a flash of unthemed content.
-  </p>
-  <p>Where possible, we recommend configuring themes on the server instead.</p>
+	<p>
+		Styles and data-attributes added to the document via client-side Javascript will{' '}
+		<strong>not</strong> block first paint; depending on how your app renders, your users may see a
+		flash of unthemed content.
+	</p>
+	<p>Where possible, we recommend configuring themes on the server instead.</p>
 </SectionMessage>
 
 More details on these two utilities are included below:
 
 ### enableGlobalTheme(themeState)
 
-The `enableGlobalTheme` function is a synchronous alternative to `setGlobalTheme`, that can be used to configure the theme before first paint.
-It should only be used in cases where the document cannot be configured by the server. Depending on when it is called, it may still result in a flash of un-themed content.
+The `enableGlobalTheme` function is a synchronous alternative to `setGlobalTheme`, that can be used
+to configure the theme before first paint. It should only be used in cases where the document cannot
+be configured by the server. Depending on when it is called, it may still result in a flash of
+un-themed content.
 
-Similar to `setGlobalTheme`, it updates data-attributes and adds listeners to the page for automatic theme switching.
+Similar to `setGlobalTheme`, it updates data-attributes and adds listeners to the page for automatic
+theme switching.
 
-Unlike `setGlobalTheme`, `enableGlobalTheme` does not load CSS onto the page; instead themes should be loaded manually, by extracting and bundling themes from `getThemeStyles` at build time.
-Custom theme styles can be generated at runtime using `UNSAFE_loadCustomThemeStyles` (see below).
+Unlike `setGlobalTheme`, `enableGlobalTheme` does not load CSS onto the page; instead themes should
+be loaded manually, by extracting and bundling themes from `getThemeStyles` at build time. Custom
+theme styles can be generated at runtime using `UNSAFE_loadCustomThemeStyles` (see below).
 
 <TokenPropsTable
-  propName={'themeState'}
-  description={
-    'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
-  }
-  typing={`{
+	propName={'themeState'}
+	description={
+		'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
+	}
+	typing={`{
   colorMode?: ColorMode<"light", "dark", "auto">,
   light?: ThemeIds,
   dark?: ThemeIds,
@@ -631,41 +662,41 @@ Custom theme styles can be generated at runtime using `UNSAFE_loadCustomThemeSty
   typography?: ThemeIds,
   UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
 }`}
-  defaultValue={
-    '{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
-  }
+	defaultValue={
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+	}
 />
 
 <TokenPropsTable
-  propName={'themeLoader'}
-  description={
-    'A callback function that can be used to override the default theme loading functionality. It will run the function for each required theme ID instead of creating `<style>` elements. For example, this can be used to add `<link>` elements for each theme.'
-  }
-  typing={'(id: ThemeIds) => void'}
+	propName={'themeLoader'}
+	description={
+		'A callback function that can be used to override the default theme loading functionality. It will run the function for each required theme ID instead of creating `<style>` elements. For example, this can be used to add `<link>` elements for each theme.'
+	}
+	typing={'(id: ThemeIds) => void'}
 />
 
 <TokenPropsTable
-  propName={'return value'}
-  description={
-    'A function, that can be used to stop listening for changes to system theme.'
-  }
-  typing={'() => void'}
+	propName={'return value'}
+	description={'A function, that can be used to stop listening for changes to system theme.'}
+	typing={'() => void'}
 />
 
 ### UNSAFE_loadCustomThemeStyles(themeState)
 
-The `UNSAFE_loadCustomThemeStyles` function provides a synchronous way of generating and setting custom theme styles on the page.
-It should only be used in cases where the styles cannot be generated and set by the server. Depending on when it is called, it may still result in a flash of un-themed content.
-The generated styles are activated by a `data-custom-theme` attribute on the `<html>` element, which is set by `setGlobalTheme` or `enableGlobalTheme`.
+The `UNSAFE_loadCustomThemeStyles` function provides a synchronous way of generating and setting
+custom theme styles on the page. It should only be used in cases where the styles cannot be
+generated and set by the server. Depending on when it is called, it may still result in a flash of
+un-themed content. The generated styles are activated by a `data-custom-theme` attribute on the
+`<html>` element, which is set by `setGlobalTheme` or `enableGlobalTheme`.
 
 It can be accessed from the entrypoint `@atlaskit/tokens/custom-themes`/
 
 <TokenPropsTable
-  propName={'themeState'}
-  description={
-    'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
-  }
-  typing={`{
+	propName={'themeState'}
+	description={
+		'Used to specify which themes the site is currently using. Omitted properties will fall back to the default value.'
+	}
+	typing={`{
   colorMode?: ColorMode<"light", "dark", "auto">,
   light?: ThemeIds,
   dark?: ThemeIds,
@@ -673,16 +704,20 @@ It can be accessed from the entrypoint `@atlaskit/tokens/custom-themes`/
   typography?: ThemeIds,
   UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
 }`}
-  defaultValue={
-    '{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
-  }
+	defaultValue={
+		'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'
+	}
 />
 
 ## Current surface color
 
-The current surface is a dynamic color value implemented via CSS custom properties (CSS variables). Which allows UI to be styled with a color based on a parent element's surface color. This is useful when an element needs an opaque background based on a parent element's surface color. For example, when it needs to mask content.
+The current surface is a dynamic color value implemented via CSS custom properties (CSS variables).
+Which allows UI to be styled with a color based on a parent element's surface color. This is useful
+when an element needs an opaque background based on a parent element's surface color. For example,
+when it needs to mask content.
 
-Some components in the Atlassian Design System will set the `CURRENT_SURFACE_CSS_VAR` when they set a surface color. The following components set the surface color CSS variable:
+Some components in the Atlassian Design System will set the `CURRENT_SURFACE_CSS_VAR` when they set
+a surface color. The following components set the surface color CSS variable:
 
 - [Box](/components/primitives/box)
 - [Drawer](/components/drawer)
@@ -692,7 +727,8 @@ Some components in the Atlassian Design System will set the `CURRENT_SURFACE_CSS
 
 ### Get the current suface color
 
-The current surface color can be used the same way as other [design tokens](/components/tokens/all-tokens) are used:
+The current surface color can be used the same way as other
+[design tokens](/components/tokens/all-tokens) are used:
 
 - JavaScript syntax: `token('utility.elevation.surface.current')`
 - CSS syntax: `--ds-elevation-surface-current`
@@ -704,26 +740,26 @@ import Modal, { ModalBody } from '@atlaskit/modal-dialog';
 import { token } from '@atlaskit/tokens';
 
 function ExampleWithModal() {
-  return (
-    <Modal>
-      <ModalBody>
-        <div
-          style={{
-            backgroundColor: token('utility.elevation.surface.current'),
-          }}
-        >
-          This div's background color will be set to the background color of the
-          Modal.
-        </div>
-      </ModalBody>
-    </Modal>
-  );
+	return (
+		<Modal>
+			<ModalBody>
+				<div
+					style={{
+						backgroundColor: token('utility.elevation.surface.current'),
+					}}
+				>
+					This div's background color will be set to the background color of the Modal.
+				</div>
+			</ModalBody>
+		</Modal>
+	);
 }
 ```
 
 ### Set the current suface color
 
-The simplest way to set the current surface color is by using the Box primitive. When the background color of a `Box` is set to a [surface token](/components/tokens/all-tokens#elevation-surface),
+The simplest way to set the current surface color is by using the Box primitive. When the background
+color of a `Box` is set to a [surface token](/components/tokens/all-tokens#elevation-surface),
 internally it will set the current surface color to that token for its children to utilise.
 
 #### Example usage with the Box component
@@ -733,21 +769,20 @@ import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 function ExampleWithBox() {
-  return (
-    <Box backgroundColor="elevation.surface.raised">
-      <div
-        style={{ backgroundColor: token('utility.elevation.surface.current') }}
-      >
-        This div's background color will be set to the background color of the
-        parent Box.
-      </div>
-    </Box>
-  );
+	return (
+		<Box backgroundColor="elevation.surface.raised">
+			<div style={{ backgroundColor: token('utility.elevation.surface.current') }}>
+				This div's background color will be set to the background color of the parent Box.
+			</div>
+		</Box>
+	);
 }
 ```
 
-For cases where the Box component cannot be used (for example, in non-react apps), the `CURRENT_SURFACE_CSS_VAR` constant can be used to set the current surface color.
-The `CURRENT_SURFACE_CSS_VAR` constant is the CSS custom property name for accessing the 'current surface' value.
+For cases where the Box component cannot be used (for example, in non-react apps), the
+`CURRENT_SURFACE_CSS_VAR` constant can be used to set the current surface color. The
+`CURRENT_SURFACE_CSS_VAR` constant is the CSS custom property name for accessing the 'current
+surface' value.
 
 #### Example usage
 
@@ -755,17 +790,12 @@ The `CURRENT_SURFACE_CSS_VAR` constant is the CSS custom property name for acces
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
 function Example() {
-  return (
-    <div
-      style={{ [CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay') }}
-    >
-      <div
-        style={{ backgroundColor: token('utility.elevation.surface.current') }}
-      >
-        This div's background color will be the value assigned to
-        `CURRENT_SURFACE_CSS_VAR`.
-      </div>
-    </div>
-  );
+	return (
+		<div style={{ [CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay') }}>
+			<div style={{ backgroundColor: token('utility.elevation.surface.current') }}>
+				This div's background color will be the value assigned to `CURRENT_SURFACE_CSS_VAR`.
+			</div>
+		</div>
+	);
 }
 ```

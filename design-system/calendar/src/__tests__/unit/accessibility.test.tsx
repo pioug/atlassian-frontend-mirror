@@ -7,6 +7,6 @@ import { axe } from '@af/accessibility-testing';
 import Calendar from '../../index';
 
 it('Calendar should pass an aXe audit', async () => {
-  const { container } = render(<Calendar />);
-  await axe(container);
+	const { container } = render(<Calendar />);
+	await axe(container);
 });

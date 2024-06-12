@@ -8,19 +8,16 @@ import type { LogoProps } from '../types';
 import { getColorsFromAppearance } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = (
-  { appearance, iconColor, textColor }: LogoProps,
-  colorMode: string | undefined,
-) => {
-  let colors = {
-    iconColor,
-    textColor,
-  };
+const svg = ({ appearance, iconColor, textColor }: LogoProps, colorMode: string | undefined) => {
+	let colors = {
+		iconColor,
+		textColor,
+	};
 
-  if (appearance) {
-    colors = getColorsFromAppearance(appearance, colorMode);
-  }
-  return `<svg fill="none" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 114 32" focusable="false" aria-hidden="true">
+	if (appearance) {
+		colors = getColorsFromAppearance(appearance, colorMode);
+	}
+	return `<svg fill="none" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 114 32" focusable="false" aria-hidden="true">
       <path
         d="M.918 13.733h20.83c.598 0 .918-.32.918-.918V5.792c0-.599-.32-.918-.918-.918h-4.39c-.598 0-.918.32-.918.918v3.551h-1.995V5.792c0-.599-.319-.918-.918-.918H9.139c-.599 0-.918.32-.918.918v3.551H6.225V5.792c0-.599-.32-.918-.918-.918H.917c-.598 0-.917.32-.917.918v7.023c0 .599.32.918.918.918m.359 6.145a13.9 13.9 0 0 1-.798-3.99c-.04-.52.2-.799.758-.799h20.191c.56 0 .799.24.799.719q-.12 2.214-.838 4.07c-.24.638-.599.918-1.277.918H2.554c-.679 0-1.038-.28-1.277-.918m18.476 3.312c-1.916 2.354-5.068 3.87-8.42 3.87s-6.584-1.516-8.46-3.87c-.479-.638-.24-1.038.24-1.038h16.44c.479 0 .718.4.2 1.038"
         fill="${colors.iconColor}"
@@ -42,30 +39,30 @@ const svg = (
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const GuardLogo = ({
-  appearance,
-  label = 'Guard',
-  size = defaultLogoParams.size,
-  testId,
-  textColor = defaultLogoParams.textColor,
-  iconColor = defaultLogoParams.iconColor,
+	appearance,
+	label = 'Guard',
+	size = defaultLogoParams.size,
+	testId,
+	textColor = defaultLogoParams.textColor,
+	iconColor = defaultLogoParams.iconColor,
 }: LogoProps) => {
-  const { colorMode } = useThemeObserver();
-  return (
-    <Wrapper
-      appearance={appearance}
-      iconColor={iconColor}
-      label={label}
-      size={size}
-      svg={svg(
-        {
-          appearance,
-          iconColor,
-          textColor,
-        },
-        colorMode,
-      )}
-      testId={testId}
-      textColor={textColor}
-    />
-  );
+	const { colorMode } = useThemeObserver();
+	return (
+		<Wrapper
+			appearance={appearance}
+			iconColor={iconColor}
+			label={label}
+			size={size}
+			svg={svg(
+				{
+					appearance,
+					iconColor,
+					textColor,
+				},
+				colorMode,
+			)}
+			testId={testId}
+			textColor={textColor}
+		/>
+	);
 };

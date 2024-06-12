@@ -4,81 +4,74 @@ import { act, fireEvent, render } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
-import DropdownMenu, {
-  DropdownItemRadio,
-  DropdownItemRadioGroup,
-} from '../../../index';
+import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '../../../index';
 
 const DropdownMenuWithRadio = () => {
-  const [selected, setSelected] = useState('');
-  return (
-    <DropdownMenu
-      trigger="Choices"
-      onOpenChange={__noop}
-      testId="lite-mode-ddm"
-    >
-      <DropdownItemRadioGroup id="oversea-cities" title="Oversea cities">
-        <DropdownItemRadio
-          id="london"
-          isSelected={selected === 'london'}
-          onClick={() => setSelected('london')}
-        >
-          London
-        </DropdownItemRadio>
-        <DropdownItemRadio
-          id="berlin"
-          isSelected={selected === 'berlin'}
-          onClick={() => setSelected('berlin')}
-        >
-          Berlin
-        </DropdownItemRadio>
-      </DropdownItemRadioGroup>
-    </DropdownMenu>
-  );
+	const [selected, setSelected] = useState('');
+	return (
+		<DropdownMenu trigger="Choices" onOpenChange={__noop} testId="lite-mode-ddm">
+			<DropdownItemRadioGroup id="oversea-cities" title="Oversea cities">
+				<DropdownItemRadio
+					id="london"
+					isSelected={selected === 'london'}
+					onClick={() => setSelected('london')}
+				>
+					London
+				</DropdownItemRadio>
+				<DropdownItemRadio
+					id="berlin"
+					isSelected={selected === 'berlin'}
+					onClick={() => setSelected('berlin')}
+				>
+					Berlin
+				</DropdownItemRadio>
+			</DropdownItemRadioGroup>
+		</DropdownMenu>
+	);
 };
 
 describe('DropdownMenu with RadioGroup and Radio', () => {
-  describe('radio', () => {
-    it('should render radio as initially unchecked', async () => {
-      const { findByText, findAllByRole } = render(<DropdownMenuWithRadio />);
+	describe('radio', () => {
+		it('should render radio as initially unchecked', async () => {
+			const { findByText, findAllByRole } = render(<DropdownMenuWithRadio />);
 
-      const trigger = await findByText('Choices');
-      act(() => {
-        fireEvent.click(trigger);
-      });
+			const trigger = await findByText('Choices');
+			act(() => {
+				fireEvent.click(trigger);
+			});
 
-      let radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
-        x.getAttribute('aria-checked'),
-      );
+			let radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
+				x.getAttribute('aria-checked'),
+			);
 
-      expect(radios).toEqual(['false', 'false']);
-    });
+			expect(radios).toEqual(['false', 'false']);
+		});
 
-    it('should toggle the radio when click', async () => {
-      const { findByText, findAllByRole } = render(<DropdownMenuWithRadio />);
+		it('should toggle the radio when click', async () => {
+			const { findByText, findAllByRole } = render(<DropdownMenuWithRadio />);
 
-      const trigger = await findByText('Choices');
-      act(() => {
-        fireEvent.click(trigger);
-      });
+			const trigger = await findByText('Choices');
+			act(() => {
+				fireEvent.click(trigger);
+			});
 
-      let radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
-        x.getAttribute('aria-checked'),
-      );
+			let radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
+				x.getAttribute('aria-checked'),
+			);
 
-      expect(radios).toEqual(['false', 'false']);
+			expect(radios).toEqual(['false', 'false']);
 
-      const london = await findByText('London');
+			const london = await findByText('London');
 
-      act(() => {
-        fireEvent.click(london);
-      });
+			act(() => {
+				fireEvent.click(london);
+			});
 
-      radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
-        x.getAttribute('aria-checked'),
-      );
+			radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
+				x.getAttribute('aria-checked'),
+			);
 
-      expect(radios).toEqual(['true', 'false']);
-    });
-  });
+			expect(radios).toEqual(['true', 'false']);
+		});
+	});
 });

@@ -5,10 +5,10 @@ import transformer from '../12.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Update imports', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { CheckboxWithoutAnalytics as Checkbox } from '@atlaskit/checkbox/Checkbox';
 
@@ -16,7 +16,7 @@ describe('Update imports', () => {
         return <Checkbox />;
       }
     `,
-    `
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
 
@@ -24,12 +24,12 @@ describe('Update imports', () => {
         return <Checkbox />;
       }
     `,
-    'should replace import to CheckboxWithoutAnayltics with base import',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should replace import to CheckboxWithoutAnayltics with base import',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
       import { CheckboxProps } from '@atlaskit/checkbox/types';
@@ -41,7 +41,7 @@ describe('Update imports', () => {
         return <Checkbox {...props} />;
       }
     `,
-    `
+		`
       import React from 'react';
       import { Checkbox, CheckboxProps } from '@atlaskit/checkbox';
 
@@ -52,12 +52,12 @@ describe('Update imports', () => {
         return <Checkbox {...props} />;
       }
     `,
-    'should replace import into /types with base import',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should replace import into /types with base import',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
       import { CheckboxProps as AkCheckboxProps } from '@atlaskit/checkbox/dist/cjs/types';
@@ -69,7 +69,7 @@ describe('Update imports', () => {
         return <Checkbox {...props} />;
       }
     `,
-    `
+		`
       import React from 'react';
       import { Checkbox, CheckboxProps as AkCheckboxProps } from '@atlaskit/checkbox';
 
@@ -80,12 +80,12 @@ describe('Update imports', () => {
         return <Checkbox {...props} />;
       }
     `,
-    'should replace import into /dist/cjs/types with an alias with base import',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should replace import into /dist/cjs/types with an alias with base import',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
       import { ComponentTokens, ThemeFn } from '@atlaskit/checkbox/types';
@@ -94,7 +94,7 @@ describe('Update imports', () => {
         return <Checkbox />;
       }
     `,
-    `
+		`
       /* TODO: (from codemod) This file uses exports used to help theme @atlaskit/checkbox which
       has now been removed due to its poor performance characteristics. We have not replaced
       theme with an equivalent API due to minimal usage of the theming.
@@ -106,12 +106,12 @@ describe('Update imports', () => {
         return <Checkbox />;
       }
     `,
-    'should replace import from /types that do not exist anymore',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should replace import from /types that do not exist anymore',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
       import { ComponentTokens, ThemeFn, CheckboxProps as AkCheckboxProps } from '@atlaskit/checkbox/types';
@@ -123,7 +123,7 @@ describe('Update imports', () => {
         return <Checkbox {...props} />;
       }
     `,
-    `
+		`
       /* TODO: (from codemod) This file uses exports used to help theme @atlaskit/checkbox which
       has now been removed due to its poor performance characteristics. We have not replaced
       theme with an equivalent API due to minimal usage of the theming.
@@ -138,15 +138,15 @@ describe('Update imports', () => {
         return <Checkbox {...props} />;
       }
     `,
-    'should replace import from /types that do not exist anymore',
-  );
+		'should replace import from /types that do not exist anymore',
+	);
 });
 
 describe('Update ref prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useRef } from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
 
@@ -159,7 +159,7 @@ describe('Update ref prop', () => {
         return <Checkbox inputRef={inputRef} />;
       }
     `,
-    `
+		`
       import React, { useRef } from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
 
@@ -172,13 +172,13 @@ describe('Update ref prop', () => {
         return <Checkbox ref={inputRef} />;
       }
     `,
-    'should replace inputRef with ref',
-  );
+		'should replace inputRef with ref',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useRef } from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
 
@@ -194,7 +194,7 @@ describe('Update ref prop', () => {
         );
       }
     `,
-    `
+		`
       import React, { useRef } from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
 
@@ -210,13 +210,13 @@ describe('Update ref prop', () => {
         );
       }
     `,
-    'should replace inputRef with ref when defined inline',
-  );
+		'should replace inputRef with ref when defined inline',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React, { useRef } from 'react';
       import { Checkbox as Foo } from '@atlaskit/checkbox';
 
@@ -229,7 +229,7 @@ describe('Update ref prop', () => {
         return <Foo inputRef={inputRef} />;
       }
     `,
-    `
+		`
       import React, { useRef } from 'react';
       import { Checkbox as Foo } from '@atlaskit/checkbox';
 
@@ -242,15 +242,15 @@ describe('Update ref prop', () => {
         return <Foo ref={inputRef} />;
       }
     `,
-    'should change inputRef with aliased import name',
-  );
+		'should change inputRef with aliased import name',
+	);
 });
 
 describe('Remove props', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
 
@@ -258,7 +258,7 @@ describe('Remove props', () => {
         return <Checkbox isFullWidth={true} />;
       }
     `,
-    `
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
 
@@ -266,12 +266,12 @@ describe('Remove props', () => {
         return <Checkbox />;
       }
     `,
-    'should remove isFullWidth',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should remove isFullWidth',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
       import IconIndeterminate from '@atlaskit/icon/glyph/add-circle';
@@ -294,7 +294,7 @@ describe('Remove props', () => {
         );
       }
     `,
-    `
+		`
       /* TODO: (from codemod) This file uses the @atlaskit/checkbox \`overrides\` prop
       which has now been removed due to its poor performance characteristics. We have not
       replaced overrides with an equivalent API and the overrides pattern exposes internal
@@ -309,12 +309,12 @@ describe('Remove props', () => {
         return <Checkbox />;
       }
     `,
-    'should remove overrides and leave a comment',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should remove overrides and leave a comment',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
       import customeTheme from './theme';
@@ -327,7 +327,7 @@ describe('Remove props', () => {
         );
       }
     `,
-    `
+		`
       /* TODO: (from codemod) This file uses the @atlaskit/checkbox \`theme\` prop which
       has now been removed due to its poor performance characteristics. We have not replaced
       theme with an equivalent API due to minimal usage of the \`theme\` prop. However if you
@@ -341,12 +341,12 @@ describe('Remove props', () => {
         return <Checkbox />;
       }
     `,
-    'should remove theme and leave a comment',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should remove theme and leave a comment',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
       import IconIndeterminate from '@atlaskit/icon/glyph/add-circle';
@@ -372,7 +372,7 @@ describe('Remove props', () => {
         );
       }
     `,
-    `
+		`
       /* TODO: (from codemod) This file uses the @atlaskit/checkbox \`overrides\` prop
       which has now been removed due to its poor performance characteristics. We have not
       replaced overrides with an equivalent API and the overrides pattern exposes internal
@@ -393,12 +393,12 @@ describe('Remove props', () => {
         return <Checkbox />;
       }
     `,
-    'should remove all 3 props and leave a comment',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should remove all 3 props and leave a comment',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
         import React from 'react';
         import { Checkbox } from '@atlaskit/checkbox';
         import { ComponentTokens, ThemeFn, CheckboxProps as AkCheckboxProps } from '@atlaskit/checkbox/types';
@@ -425,7 +425,7 @@ describe('Remove props', () => {
           );
         }
       `,
-    `
+		`
         /* TODO: (from codemod) This file uses exports used to help theme @atlaskit/checkbox which
         has now been removed due to its poor performance characteristics. We have not replaced
         theme with an equivalent API due to minimal usage of the theming.
@@ -450,12 +450,12 @@ describe('Remove props', () => {
           return <Checkbox />;
         }
       `,
-    'should remove an old import, all 3 props and leave a comment',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should remove an old import, all 3 props and leave a comment',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox } from '@atlaskit/checkbox';
       import customeTheme from './theme';
@@ -473,7 +473,7 @@ describe('Remove props', () => {
         );
       }
     `,
-    `
+		`
       /* TODO: (from codemod) This file uses the @atlaskit/checkbox \`theme\` prop which
       has now been removed due to its poor performance characteristics. We have not replaced
       theme with an equivalent API due to minimal usage of the \`theme\` prop. However if you
@@ -492,12 +492,12 @@ describe('Remove props', () => {
         );
       }
     `,
-    'should remove 2 usages of theme and add 1 comment',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should remove 2 usages of theme and add 1 comment',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from 'react';
       import { Checkbox as Foo } from '@atlaskit/checkbox';
       import IconIndeterminate from '@atlaskit/icon/glyph/add-circle';
@@ -523,7 +523,7 @@ describe('Remove props', () => {
         );
       }
     `,
-    `
+		`
       /* TODO: (from codemod) This file uses the @atlaskit/checkbox \`overrides\` prop
       which has now been removed due to its poor performance characteristics. We have not
       replaced overrides with an equivalent API and the overrides pattern exposes internal
@@ -544,6 +544,6 @@ describe('Remove props', () => {
         return <Foo />;
       }
     `,
-    'should remove props when using an aliased name',
-  );
+		'should remove props when using an aliased name',
+	);
 });

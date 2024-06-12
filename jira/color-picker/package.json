@@ -1,91 +1,88 @@
 {
-  "name": "@atlaskit/color-picker",
-  "version": "3.2.14",
-  "description": "Jira Color Picker Component",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "AAIS: Chronos",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Color Picker"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/platform-feature-flags": "^0.2.5",
-    "@atlaskit/select": "^17.10.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "memoize-one": "^6.0.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@af/visual-regression": "*",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "ast-types": "^0.13.3",
-    "jscodeshift": "^0.13.0",
-    "react": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "ui",
-    "color",
-    "picker",
-    "palette"
-  ],
-  "af:exports": {
-    "./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx",
-    ".": "./src/index.ts"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color",
-        "spacing"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.color-picker-radio-button-functionality_6hkcy": {
-      "type": "boolean"
-    },
-    "platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/color-picker",
+	"version": "3.2.14",
+	"description": "Jira Color Picker Component",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "AAIS: Chronos",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Color Picker"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/platform-feature-flags": "^0.2.5",
+		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.49.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"memoize-one": "^6.0.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@af/visual-regression": "*",
+		"@atlaskit/primitives": "^7.0.0",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"ast-types": "^0.13.3",
+		"jscodeshift": "^0.13.0",
+		"react": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"ui",
+		"color",
+		"picker",
+		"palette"
+	],
+	"af:exports": {
+		"./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx",
+		".": "./src/index.ts"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color",
+				"spacing"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i": {
+			"type": "boolean"
+		}
+	}
 }

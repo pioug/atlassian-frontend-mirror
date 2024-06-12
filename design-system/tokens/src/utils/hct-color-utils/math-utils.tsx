@@ -32,13 +32,13 @@
  * @return 1 if num > 0, -1 if num < 0, and 0 if num = 0
  */
 export function signum(num: number): number {
-  if (num < 0) {
-    return -1;
-  } else if (num === 0) {
-    return 0;
-  } else {
-    return 1;
-  }
+	if (num < 0) {
+		return -1;
+	} else if (num === 0) {
+		return 0;
+	} else {
+		return 1;
+	}
 }
 
 /**
@@ -47,7 +47,7 @@ export function signum(num: number): number {
  * @return start if amount = 0 and stop if amount = 1
  */
 export function lerp(start: number, stop: number, amount: number): number {
-  return (1.0 - amount) * start + amount * stop;
+	return (1.0 - amount) * start + amount * stop;
 }
 
 /**
@@ -57,13 +57,13 @@ export function lerp(start: number, stop: number, amount: number): number {
  * otherwise.
  */
 export function clampInt(min: number, max: number, input: number): number {
-  if (input < min) {
-    return min;
-  } else if (input > max) {
-    return max;
-  }
+	if (input < min) {
+		return min;
+	} else if (input > max) {
+		return max;
+	}
 
-  return input;
+	return input;
 }
 
 /**
@@ -73,13 +73,13 @@ export function clampInt(min: number, max: number, input: number): number {
  * otherwise.
  */
 export function clampDouble(min: number, max: number, input: number): number {
-  if (input < min) {
-    return min;
-  } else if (input > max) {
-    return max;
-  }
+	if (input < min) {
+		return min;
+	} else if (input > max) {
+		return max;
+	}
 
-  return input;
+	return input;
 }
 
 /**
@@ -89,11 +89,11 @@ export function clampDouble(min: number, max: number, input: number): number {
  * (exclusive).
  */
 export function sanitizeDegreesInt(degrees: number): number {
-  degrees = degrees % 360;
-  if (degrees < 0) {
-    degrees = degrees + 360;
-  }
-  return degrees;
+	degrees = degrees % 360;
+	if (degrees < 0) {
+		degrees = degrees + 360;
+	}
+	return degrees;
 }
 
 /**
@@ -103,11 +103,11 @@ export function sanitizeDegreesInt(degrees: number): number {
  * (exclusive).
  */
 export function sanitizeDegreesDouble(degrees: number): number {
-  degrees = degrees % 360.0;
-  if (degrees < 0) {
-    degrees = degrees + 360.0;
-  }
-  return degrees;
+	degrees = degrees % 360.0;
+	if (degrees < 0) {
+		degrees = degrees + 360.0;
+	}
+	return degrees;
 }
 
 /**
@@ -125,26 +125,23 @@ export function sanitizeDegreesDouble(degrees: number): number {
  * distance.
  */
 export function rotationDirection(from: number, to: number): number {
-  const increasingDifference = sanitizeDegreesDouble(to - from);
-  return increasingDifference <= 180.0 ? 1.0 : -1.0;
+	const increasingDifference = sanitizeDegreesDouble(to - from);
+	return increasingDifference <= 180.0 ? 1.0 : -1.0;
 }
 
 /**
  * Distance of two points on a circle, represented using degrees.
  */
 export function differenceDegrees(a: number, b: number): number {
-  return 180.0 - Math.abs(Math.abs(a - b) - 180.0);
+	return 180.0 - Math.abs(Math.abs(a - b) - 180.0);
 }
 
 /**
  * Multiplies a 1x3 row vector with a 3x3 matrix.
  */
 export function matrixMultiply(row: number[], matrix: number[][]): number[] {
-  const a =
-    row[0] * matrix[0][0] + row[1] * matrix[0][1] + row[2] * matrix[0][2];
-  const b =
-    row[0] * matrix[1][0] + row[1] * matrix[1][1] + row[2] * matrix[1][2];
-  const c =
-    row[0] * matrix[2][0] + row[1] * matrix[2][1] + row[2] * matrix[2][2];
-  return [a, b, c];
+	const a = row[0] * matrix[0][0] + row[1] * matrix[0][1] + row[2] * matrix[0][2];
+	const b = row[0] * matrix[1][0] + row[1] * matrix[1][1] + row[2] * matrix[1][2];
+	const c = row[0] * matrix[2][0] + row[1] * matrix[2][1] + row[2] * matrix[2][2];
+	return [a, b, c];
 }

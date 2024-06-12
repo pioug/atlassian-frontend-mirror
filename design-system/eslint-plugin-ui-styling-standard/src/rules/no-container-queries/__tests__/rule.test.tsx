@@ -2,24 +2,24 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'no-container-queries',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [
-      {
-        name: 'Basic valid test',
-        code: `
+	'no-container-queries',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [
+			{
+				name: 'Basic valid test',
+				code: `
           import { css } from '@compiled/react';
           const containerStyles = css({
             display: 'flex',
             flexDirection: 'column',
           });
         `,
-      },
-      {
-        name: 'Custom import sources (subtractive)',
-        code: `
+			},
+			{
+				name: 'Custom import sources (subtractive)',
+				code: `
           import { css } from '@compiled/react';
           const styles = css({
             '@container (width > 400px)': {
@@ -29,17 +29,17 @@ typescriptEslintTester.run(
             }
           });
         `,
-        options: [
-          {
-            importSources: [],
-          },
-        ],
-      },
-    ],
-    invalid: [
-      {
-        name: 'Basic test for @container',
-        code: `
+				options: [
+					{
+						importSources: [],
+					},
+				],
+			},
+		],
+		invalid: [
+			{
+				name: 'Basic test for @container',
+				code: `
         import { css } from '@compiled/react';
 
         const styles = css({
@@ -50,11 +50,11 @@ typescriptEslintTester.run(
           }
         });
       `,
-        errors: [{ messageId: 'no-container-queries' }],
-      },
-      {
-        name: '@container template literal in styled div',
-        code: `
+				errors: [{ messageId: 'no-container-queries' }],
+			},
+			{
+				name: '@container template literal in styled div',
+				code: `
         import { styled } from '@compiled/react';
 
         const Component = styled.div({
@@ -70,14 +70,11 @@ typescriptEslintTester.run(
           },
         });
       `,
-        errors: [
-          { messageId: 'no-container-queries' },
-          { messageId: 'no-container-queries' },
-        ],
-      },
-      {
-        name: '@container in styled div under feature flag',
-        code: `
+				errors: [{ messageId: 'no-container-queries' }, { messageId: 'no-container-queries' }],
+			},
+			{
+				name: '@container in styled div under feature flag',
+				code: `
           import { styled } from "@compiled/react";
           const Container = styled.div(
             {
@@ -99,11 +96,11 @@ typescriptEslintTester.run(
             },
           );
         `,
-        errors: [{ messageId: 'no-container-queries' }],
-      },
-      {
-        name: '@container in a styled div with TS type parameter',
-        code: `
+				errors: [{ messageId: 'no-container-queries' }],
+			},
+			{
+				name: '@container in a styled div with TS type parameter',
+				code: `
         import { styled } from "@compiled/react";
 
         const Component = styled.div<{
@@ -116,11 +113,11 @@ typescriptEslintTester.run(
           },
         });
       `,
-        errors: [{ messageId: 'no-container-queries' }],
-      },
-      {
-        name: '@container in template literal within styled div with TS type parameter',
-        code: `
+				errors: [{ messageId: 'no-container-queries' }],
+			},
+			{
+				name: '@container in template literal within styled div with TS type parameter',
+				code: `
         import { styled } from "@compiled/react";
         const Container = styled.div<{
           paddingBottom: number;
@@ -135,8 +132,8 @@ typescriptEslintTester.run(
             },
         });
       `,
-        errors: [{ messageId: 'no-container-queries' }],
-      },
-    ],
-  },
+				errors: [{ messageId: 'no-container-queries' }],
+			},
+		],
+	},
 );

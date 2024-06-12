@@ -8,40 +8,40 @@ import { N10, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export interface SideNavigationProps {
-  /**
-   *  Describes the specific role of this navigation component for people viewing the page with assistive technology.
-   *  This differentiates the navigation from other navigation components on a page.
-   */
-  label: string;
+	/**
+	 *  Describes the specific role of this navigation component for people viewing the page with assistive technology.
+	 *  This differentiates the navigation from other navigation components on a page.
+	 */
+	label: string;
 
-  /**
-   * Child navigation elements.
-   * You'll want to compose children from [navigation header](/packages/navigation/side-navigation/docs/navigation-header),
-   * [navigation content](/packages/navigation/side-navigation/docs/navigation-content) or [nestable navigation content](/packages/navigation/side-navigation/docs/nestable-navigation-content),
-   * and [navigation footer](/packages/navigation/side-navigation/docs/navigation-footer).
-   */
-  children: JSX.Element[] | JSX.Element;
+	/**
+	 * Child navigation elements.
+	 * You'll want to compose children from [navigation header](/packages/navigation/side-navigation/docs/navigation-header),
+	 * [navigation content](/packages/navigation/side-navigation/docs/navigation-content) or [nestable navigation content](/packages/navigation/side-navigation/docs/nestable-navigation-content),
+	 * and [navigation footer](/packages/navigation/side-navigation/docs/navigation-footer).
+	 */
+	children: JSX.Element[] | JSX.Element;
 
-  /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
-   */
-  testId?: string;
+	/**
+	 * A `testId` prop is provided for specified elements,
+	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests.
+	 */
+	testId?: string;
 }
 
 const sidebarMinWidth = '240px';
 
 const sideNavStyles = css({
-  display: 'flex',
-  width: '100%',
-  minWidth: sidebarMinWidth,
-  height: '100%',
-  position: 'relative',
-  flexDirection: 'column',
-  backgroundColor: token('elevation.surface', N10),
-  color: token('color.text.subtle', N500),
-  overflow: 'hidden',
+	display: 'flex',
+	width: '100%',
+	minWidth: sidebarMinWidth,
+	height: '100%',
+	position: 'relative',
+	flexDirection: 'column',
+	backgroundColor: token('elevation.surface', N10),
+	color: token('color.text.subtle', N500),
+	overflow: 'hidden',
 });
 
 /**
@@ -54,21 +54,16 @@ const sideNavStyles = css({
  * - [Usage](https://atlassian.design/components/side-navigation/usage)
  */
 const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
-  (props: SideNavigationProps, ref) => {
-    const { children, testId, label } = props;
-    return (
-      <nav
-        ref={ref}
-        data-testid={testId}
-        aria-label={label}
-        css={sideNavStyles}
-      >
-        <SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="notch">
-          {children}
-        </SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
-      </nav>
-    );
-  },
+	(props: SideNavigationProps, ref) => {
+		const { children, testId, label } = props;
+		return (
+			<nav ref={ref} data-testid={testId} aria-label={label} css={sideNavStyles}>
+				<SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="notch">
+					{children}
+				</SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
+			</nav>
+		);
+	},
 );
 
 export default SideNavigation;

@@ -49,7 +49,7 @@ function Alignment({ onClick, selectedAlignment, className, intl }: Props & Wrap
 	return (
 		<div
 			data-testid="alignment-buttons"
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={alignmentWrapper}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}

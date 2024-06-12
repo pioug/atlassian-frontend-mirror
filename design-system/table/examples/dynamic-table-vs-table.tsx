@@ -8,16 +8,10 @@ import { head, rows } from './content/dynamic-table-data';
  * Dynamic table can quickly get out of control with prop based configuration
  */
 export default function Basic() {
-  return (
-    <>
-      <DynamicTable
-        rows={rows}
-        head={head}
-        testId="the-table"
-        isFixedSize
-        isLoading={false}
-      />
-      {/* <DynamicTable
+	return (
+		<>
+			<DynamicTable rows={rows} head={head} testId="the-table" isFixedSize isLoading={false} />
+			{/* <DynamicTable
         caption={caption}
         head={head}
         rows={rows}
@@ -33,6 +27,6 @@ export default function Basic() {
         testId="the-table"
         highlightedRowIndex={selectedRows}
       /> */}
-    </>
-  );
+		</>
+	);
 }

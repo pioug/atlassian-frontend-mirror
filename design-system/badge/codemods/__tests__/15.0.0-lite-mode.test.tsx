@@ -3,10 +3,10 @@ import transformer from '../15.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('badge codemod', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Badge from '@atlaskit/badge';
 
@@ -20,7 +20,7 @@ describe('badge codemod', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Badge from '@atlaskit/badge';
 
@@ -37,13 +37,13 @@ describe('badge codemod', () => {
       );
     }
     `,
-    `should move object appearance values to style prop`,
-  );
+		`should move object appearance values to style prop`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Badge from '@atlaskit/custom-badge';
 
@@ -57,7 +57,7 @@ describe('badge codemod', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Badge from '@atlaskit/custom-badge';
 
@@ -71,6 +71,6 @@ describe('badge codemod', () => {
       );
     }
     `,
-    `should should not make modifications when not imported from "@atlaskit/badge"`,
-  );
+		`should should not make modifications when not imported from "@atlaskit/badge"`,
+	);
 });

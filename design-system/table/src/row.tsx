@@ -14,15 +14,15 @@ import { SelectableCell as SelectableCellPrimitive } from './ui/selectable-cell'
 import { TR as TRPrimitive } from './ui/tr';
 
 export type RowProps = {
-  /**
-   * A `testId` prop is a unique string that appears as a data attribute `data-testid`
-   * in the rendered code, serving as a hook for automated tests.
-   */
-  testId?: string;
-  /**
-   * Content of the row.
-   */
-  children?: ReactNode;
+	/**
+	 * A `testId` prop is a unique string that appears as a data attribute `data-testid`
+	 * in the rendered code, serving as a hook for automated tests.
+	 */
+	testId?: string;
+	/**
+	 * Content of the row.
+	 */
+	children?: ReactNode;
 };
 
 /**
@@ -33,42 +33,38 @@ export type RowProps = {
  * - [Examples](https://atlassian.design/components/table/examples)
  */
 const Row: FC<RowProps> = memo(({ children, testId }) => {
-  // To ensure valid nesting
-  useTableBody();
-  // to access table state
-  const { isSelectable } = useTable();
-  const [{ allChecked, checked }] = useSelection();
-  const { isExpanded } = useExpand();
-  const { isExpandableContent } = useExpandContent();
-  const rowId = useRowId();
+	// To ensure valid nesting
+	useTableBody();
+	// to access table state
+	const { isSelectable } = useTable();
+	const [{ allChecked, checked }] = useSelection();
+	const { isExpanded } = useExpand();
+	const { isExpandableContent } = useExpandContent();
+	const rowId = useRowId();
 
-  const isSelected = useMemo(() => {
-    if (!isSelectable || rowId === undefined) {
-      return undefined;
-    }
+	const isSelected = useMemo(() => {
+		if (!isSelectable || rowId === undefined) {
+			return undefined;
+		}
 
-    return allChecked || checked.includes(rowId);
-  }, [allChecked, checked, isSelectable, rowId]);
+		return allChecked || checked.includes(rowId);
+	}, [allChecked, checked, isSelectable, rowId]);
 
-  if (isExpanded === false && isExpandableContent) {
-    return null;
-  }
+	if (isExpanded === false && isExpandableContent) {
+		return null;
+	}
 
-  let selectableCell = isSelectable && <SelectableCell />;
-  if (isSelectable && isExpandableContent) {
-    selectableCell = <SelectableCellPrimitive as="td" />;
-  }
+	let selectableCell = isSelectable && <SelectableCell />;
+	if (isSelectable && isExpandableContent) {
+		selectableCell = <SelectableCellPrimitive as="td" />;
+	}
 
-  return (
-    <TRPrimitive
-      isSelected={isSelected}
-      testId={testId}
-      isSubitem={isExpandableContent}
-    >
-      {selectableCell}
-      {children}
-    </TRPrimitive>
-  );
+	return (
+		<TRPrimitive isSelected={isSelected} testId={testId} isSubitem={isExpandableContent}>
+			{selectableCell}
+			{children}
+		</TRPrimitive>
+	);
 });
 
 export default Row;

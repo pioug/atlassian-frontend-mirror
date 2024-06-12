@@ -11,48 +11,46 @@ import { token } from '@atlaskit/tokens';
 import { Block, Centered } from '../utils';
 
 const MotionShrinkOutExample = () => {
-  const [actualProducts, setProducts] = useState(products);
+	const [actualProducts, setProducts] = useState(products);
 
-  return (
-    <div>
-      <div css={containerStyles}>
-        <ButtonGroup label="Products options">
-          <Button onClick={() => setProducts(products)}>Reset</Button>
-        </ButtonGroup>
-      </div>
+	return (
+		<div>
+			<div css={containerStyles}>
+				<ButtonGroup label="Products options">
+					<Button onClick={() => setProducts(products)}>Reset</Button>
+				</ButtonGroup>
+			</div>
 
-      <Centered css={centeredStyles}>
-        <ExitingPersistence>
-          {actualProducts.map((product) => (
-            <ShrinkOut key={product}>
-              {(props) => (
-                <Block {...props} appearance="small" css={blockStyles}>
-                  <Button
-                    onClick={() => {
-                      setProducts((prods) =>
-                        prods.filter((val) => val !== product),
-                      );
-                    }}
-                  >
-                    {product}
-                  </Button>
-                </Block>
-              )}
-            </ShrinkOut>
-          ))}
-        </ExitingPersistence>
-      </Centered>
-    </div>
-  );
+			<Centered css={centeredStyles}>
+				<ExitingPersistence>
+					{actualProducts.map((product) => (
+						<ShrinkOut key={product}>
+							{(props) => (
+								<Block {...props} appearance="small" css={blockStyles}>
+									<Button
+										onClick={() => {
+											setProducts((prods) => prods.filter((val) => val !== product));
+										}}
+									>
+										{product}
+									</Button>
+								</Block>
+							)}
+						</ShrinkOut>
+					))}
+				</ExitingPersistence>
+			</Centered>
+		</div>
+	);
 };
 
 const products = [
-  'Confluence',
-  'Bitbucket',
-  'Jira Service Management',
-  'Opsgenie',
-  'Statuspage',
-  'Jira Software',
+	'Confluence',
+	'Bitbucket',
+	'Jira Service Management',
+	'Opsgenie',
+	'Statuspage',
+	'Jira Software',
 ];
 
 const containerStyles = css({ textAlign: 'center' });
@@ -60,9 +58,9 @@ const containerStyles = css({ textAlign: 'center' });
 const centeredStyles = css({ height: '82px' });
 
 const blockStyles = css({
-  width: 'auto',
-  margin: token('space.050', '4px'),
-  overflow: 'hidden',
+	width: 'auto',
+	margin: token('space.050', '4px'),
+	overflow: 'hidden',
 });
 
 export default MotionShrinkOutExample;

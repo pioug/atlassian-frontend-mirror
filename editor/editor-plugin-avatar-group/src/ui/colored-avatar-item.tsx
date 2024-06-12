@@ -17,7 +17,7 @@ export const ColoredAvatarItem = (props: ColoredAvatarItemProps) => {
 	const color = props.api?.collabEdit?.actions?.getAvatarColor(props.sessionId).color;
 	const avatar = props.name.substr(0, 1).toUpperCase();
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={badge(color || R100)} data-testid="editor-collab-badge">
 			{avatar}
 		</div>

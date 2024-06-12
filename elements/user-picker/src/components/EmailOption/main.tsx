@@ -36,6 +36,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
 		return (
 			<span
 				key="name"
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
 					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
 				)}
@@ -48,6 +49,7 @@ export class EmailOption extends React.PureComponent<EmailOptionProps> {
 	private renderSecondaryText = (label: string) => {
 		return (
 			<span
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
 					this.props.isSelected
 						? token('color.text.selected', B400)

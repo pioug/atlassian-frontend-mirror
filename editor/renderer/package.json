@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "109.32.1",
+	"version": "109.32.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -137,9 +137,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.scale-table-when-number-column-in-table-resized_y4qh2": {
-			"type": "boolean"
-		},
-		"platform.editor.table.preserve-widths-with-lock-button": {
 			"type": "boolean"
 		},
 		"platform.editor.table.use-increased-scaling-percent": {

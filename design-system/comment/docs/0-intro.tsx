@@ -25,71 +25,71 @@ All subcomponents are expected as props with the same lowercased name.
 All children components are displayed indented after the comment body, allowing nesting of comments.
 
 ${(
-  <Example
-    packageName="@atlaskit/comment"
-    Component={require('../examples/01-example-comment').default}
-    title="Basic"
-    source={require('!!raw-loader!../examples/01-example-comment')}
-  />
+	<Example
+		packageName="@atlaskit/comment"
+		Component={require('../examples/01-example-comment').default}
+		title="Basic"
+		source={require('!!raw-loader!../examples/01-example-comment')}
+	/>
 )}
 
 ${(
-  <Example
-    packageName="@atlaskit/comment"
-    Component={require('../examples/02-comment-components').default}
-    title="Comment as Components"
-    source={require('!!raw-loader!../examples/02-comment-components')}
-  />
+	<Example
+		packageName="@atlaskit/comment"
+		Component={require('../examples/02-comment-components').default}
+		title="Comment as Components"
+		source={require('!!raw-loader!../examples/02-comment-components')}
+	/>
 )}
 
 ${(
-  <Example
-    packageName="@atlaskit/comment"
-    Component={require('../examples/03-nested-comments').default}
-    title="Nested Comments"
-    source={require('!!raw-loader!../examples/03-nested-comments')}
-  />
+	<Example
+		packageName="@atlaskit/comment"
+		Component={require('../examples/03-nested-comments').default}
+		title="Nested Comments"
+		source={require('!!raw-loader!../examples/03-nested-comments')}
+	/>
 )}
 
 ${(
-  <Props
-    heading="Comment Props"
-    props={require('!!extract-react-types-loader!../src/components/comment')}
-  />
+	<Props
+		heading="Comment Props"
+		props={require('!!extract-react-types-loader!../src/components/comment')}
+	/>
 )}
 
 ${(
-  <Props
-    heading="CommentAction Props"
-    props={require('!!extract-react-types-loader!../src/components/action-item')}
-  />
+	<Props
+		heading="CommentAction Props"
+		props={require('!!extract-react-types-loader!../src/components/action-item')}
+	/>
 )}
 
 ${(
-  <Props
-    heading="CommentAuthor Props"
-    props={require('!!extract-react-types-loader!../src/components/author')}
-  />
+	<Props
+		heading="CommentAuthor Props"
+		props={require('!!extract-react-types-loader!../src/components/author')}
+	/>
 )}
 
 ${(
-  <Props
-    heading="CommentEdited Props"
-    props={require('!!extract-react-types-loader!../src/components/edited')}
-  />
+	<Props
+		heading="CommentEdited Props"
+		props={require('!!extract-react-types-loader!../src/components/edited')}
+	/>
 )}
 
 ${(
-  <Props
-    heading="CommentLayout Props"
-    props={require('!!extract-react-types-loader!../src/components/layout')}
-  />
+	<Props
+		heading="CommentLayout Props"
+		props={require('!!extract-react-types-loader!../src/components/layout')}
+	/>
 )}
 
 ${(
-  <Props
-    heading="CommentTime Props"
-    props={require('!!extract-react-types-loader!../src/components/time')}
-  />
+	<Props
+		heading="CommentTime Props"
+		props={require('!!extract-react-types-loader!../src/components/time')}
+	/>
 )}
 `;

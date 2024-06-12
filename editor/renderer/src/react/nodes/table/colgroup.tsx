@@ -62,7 +62,10 @@ export const calcScalePercent = ({ renderWidth, tableWidth, maxScale }: ScaleOpt
 const colWidthSum = (columnWidths: number[]) => columnWidths.reduce((prev, curr) => curr + prev, 0);
 
 const renderScaleDownColgroup = (
-	props: SharedTableProps & { isTableScalingEnabled: boolean },
+	props: SharedTableProps & {
+		isTableScalingEnabled: boolean;
+		isTableFixedColumnWidthsOptionEnabled: boolean;
+	},
 ): CSSProperties[] | null => {
 	let {
 		columnWidths,
@@ -73,6 +76,7 @@ const renderScaleDownColgroup = (
 		isInsideOfBlockNode,
 		isinsideMultiBodiedExtension,
 		isTableScalingEnabled,
+		isTableFixedColumnWidthsOptionEnabled,
 	} = props;
 
 	if (!columnWidths) {
@@ -170,14 +174,15 @@ const renderScaleDownColgroup = (
 	let cellMinWidth = 0;
 	let scaleDownPercent = 0;
 
-	const isTableWithLockButtonEnabled =
-		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') && isTableScalingEnabled;
+	const isTableScalingWithFixedColumnWidthsOptionEnabled =
+		isTableScalingEnabled && isTableFixedColumnWidthsOptionEnabled;
 
 	const isTableWidthFixed =
-		isTableWithLockButtonEnabled && props.tableNode?.attrs.displayMode === 'fixed';
+		isTableScalingWithFixedColumnWidthsOptionEnabled &&
+		props.tableNode?.attrs.displayMode === 'fixed';
 	const maxScalingPercent =
 		getBooleanFF('platform.editor.table.use-increased-scaling-percent') &&
-		isTableWithLockButtonEnabled
+		isTableScalingWithFixedColumnWidthsOptionEnabled
 			? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
 			: MAX_SCALING_PERCENT;
 
@@ -224,6 +229,11 @@ export const Colgroup = (props: SharedTableProps) => {
 	const colStyles = renderScaleDownColgroup({
 		...props,
 		isTableScalingEnabled: !!(flags && 'tablePreserveWidth' in flags && flags.tablePreserveWidth),
+		isTableFixedColumnWidthsOptionEnabled: !!(
+			flags &&
+			'tableWithFixedColumnWidthsOption' in flags &&
+			flags.tableWithFixedColumnWidthsOption
+		),
 	});
 
 	if (!colStyles) {
@@ -234,7 +244,7 @@ export const Colgroup = (props: SharedTableProps) => {
 		<colgroup>
 			{isNumberColumnEnabled && (
 				<col
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					style={{ width: akEditorTableNumberColumnWidth }}
 					data-test-id={'num'}
 				/>

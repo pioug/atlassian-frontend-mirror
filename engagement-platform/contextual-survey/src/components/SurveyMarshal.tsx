@@ -53,12 +53,17 @@ export default function SurveyMarshal(props: Props) {
 
 				return (
 					<div
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={css({
 							position: 'fixed',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							right: `${surveyOffset}px`,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							bottom: `${surveyOffset}px`,
 							zIndex: layers.flag(),
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							transform: `translateX(${translateX})`,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							opacity: opacity,
 							transition: `all ${animationDuration}ms ease-in-out`,
 							transitionProperty: 'transform, opacity',

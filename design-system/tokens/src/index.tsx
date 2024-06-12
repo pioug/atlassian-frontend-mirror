@@ -10,31 +10,28 @@ export { default as getSSRAutoScript } from './get-ssr-auto-script';
 export { default as useThemeObserver } from './use-theme-observer';
 export { default as ThemeMutationObserver } from './theme-mutation-observer';
 export { default as getGlobalTheme } from './get-global-theme';
-export {
-  themeStringToObject,
-  themeObjectToString,
-} from './theme-state-transformer';
+export { themeStringToObject, themeObjectToString } from './theme-state-transformer';
 
 export type { CSSToken } from './artifacts/token-names';
 export type { ActiveTokens } from './artifacts/types';
 export type {
-  ThemeColorModes,
-  Themes,
-  ThemeFileNames,
-  ThemeIds,
-  ThemeOptionsSchema,
-  ThemeState,
+	ThemeColorModes,
+	Themes,
+	ThemeFileNames,
+	ThemeIds,
+	ThemeOptionsSchema,
+	ThemeState,
 } from './theme-config';
 export type {
-  FontFamilyToken,
-  FontWeightToken,
-  Groups,
-  OpacityToken,
-  PaintToken,
-  RawToken,
-  ShadowToken,
-  SpacingToken,
-  ShapeToken,
-  TypographyToken,
+	FontFamilyToken,
+	FontWeightToken,
+	Groups,
+	OpacityToken,
+	PaintToken,
+	RawToken,
+	ShadowToken,
+	SpacingToken,
+	ShapeToken,
+	TypographyToken,
 } from './types';
 export { CURRENT_SURFACE_CSS_VAR } from './constants';

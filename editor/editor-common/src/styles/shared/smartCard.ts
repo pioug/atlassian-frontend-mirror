@@ -18,7 +18,7 @@ export const DATASOURCE_INNER_CONTAINER_CLASSNAME = 'datasourceView-content-inne
 
 export const FLOATING_TOOLBAR_LINKPICKER_CLASSNAME = 'card-floating-toolbar--link-picker';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Seems safe to autofix with a fix to `getSelectionStyles`
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const smartCardStyles = css`
 	.${SmartCardSharedCssClassName.INLINE_CARD_CONTAINER} {
 		max-width: calc(100% - 20px);

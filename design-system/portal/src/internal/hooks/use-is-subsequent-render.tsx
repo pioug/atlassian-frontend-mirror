@@ -5,16 +5,16 @@ import { type MountStrategy } from '../types';
 import { useIsomorphicLayoutEffect } from './use-isomorphic-layout-effect';
 
 const useIsSubsequentRender = (mountStrategy?: MountStrategy) => {
-  const [isSubsequentRender, setIsSubsequentRender] = useState(false);
+	const [isSubsequentRender, setIsSubsequentRender] = useState(false);
 
-  const [useMountEffect] = useState(() =>
-    mountStrategy === 'layoutEffect' ? useIsomorphicLayoutEffect : useEffect,
-  );
+	const [useMountEffect] = useState(() =>
+		mountStrategy === 'layoutEffect' ? useIsomorphicLayoutEffect : useEffect,
+	);
 
-  useMountEffect(() => {
-    setIsSubsequentRender(true);
-  }, []);
+	useMountEffect(() => {
+		setIsSubsequentRender(true);
+	}, []);
 
-  return isSubsequentRender;
+	return isSubsequentRender;
 };
 export default useIsSubsequentRender;

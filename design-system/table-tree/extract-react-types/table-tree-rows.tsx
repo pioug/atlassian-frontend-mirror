@@ -9,30 +9,30 @@ import { type Item } from './table-tree';
  * Defining it here for now lets us provide *something* without much headache.
  */
 type RowsProps = {
-  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
-  /**
+	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/**
     The data used to render the set of rows. Will be passed down via the `children` render prop.
 
     In addition to these props, any other data can be added to the object, and it will
     be provided as props when rendering each cell.
    */
-  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-  items?: Item[] | null;
-  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
-  /**
-   * This is an accessible name for the loading state's spinner.
-   * The default text is "Loading".
-   */
-  loadingLabel?: string | null;
-  /**
-   * Render function for child rows. Render props will contain an item from the
-   * `items` prop above.
-   */
-  render?: (item: Item) => React.ReactNode;
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	items?: Item[] | null;
+	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/**
+	 * This is an accessible name for the loading state's spinner.
+	 * The default text is "Loading".
+	 */
+	loadingLabel?: string | null;
+	/**
+	 * Render function for child rows. Render props will contain an item from the
+	 * `items` prop above.
+	 */
+	render?: (item: Item) => React.ReactNode;
 };
 
 const TableRows = function (props: RowsProps) {
-  return null;
+	return null;
 };
 
 TableRows.defaultProps = {};

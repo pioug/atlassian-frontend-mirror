@@ -4,9 +4,9 @@ import themeConfig, { type ThemeIds, type ThemeOverrideIds } from '../theme-conf
  * Finds any matching increased contrast theme available for a selected theme.
  */
 export default function getIncreasedContrastTheme(
-  themeId: ThemeIds | ThemeOverrideIds,
+	themeId: ThemeIds | ThemeOverrideIds,
 ): ThemeIds | ThemeOverrideIds | undefined {
-  return Object.entries(themeConfig).find(([, { increasesContrastFor }]) => {
-    return increasesContrastFor === themeId;
-  })?.[1].id;
+	return Object.entries(themeConfig).find(([, { increasesContrastFor }]) => {
+		return increasesContrastFor === themeId;
+	})?.[1].id;
 }

@@ -40,6 +40,7 @@ export default class NumberColumn extends Component<Props, any> {
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 					marginTop: hasHeaderRow && this.props.stickyTop !== undefined ? rowHeights[0] : undefined,
 					borderLeft:
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						isDragAndDropEnabled && tableActive ? `1px solid ${tableBorderColor}` : undefined,
 				}}
 				contentEditable={false}

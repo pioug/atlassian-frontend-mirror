@@ -62,7 +62,9 @@ export class ExampleEditor extends React.Component<Props> {
 	render() {
 		return (
 			<IntlProvider locale="en">
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={wrapperStyles}>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={contentStyles}>
 						<ToolsDrawer
 							renderEditor={({

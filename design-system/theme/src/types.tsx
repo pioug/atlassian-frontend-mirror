@@ -9,28 +9,28 @@ export type Elevation = 'e100' | 'e200' | 'e300' | 'e400' | 'e500';
 // Deprecated / legacy types
 export type ThemeModes = 'light' | 'dark';
 export interface Theme {
-  mode: ThemeModes;
+	mode: ThemeModes;
 }
 export interface GlobalThemeTokens extends Theme {}
 
 export type ThemeProps = AtlaskitThemeProps | CustomThemeProps | NoThemeProps;
 export interface CustomThemeProps {
-  theme: Theme;
-  [index: string]: any;
+	theme: Theme;
+	[index: string]: any;
 }
 export interface AtlaskitThemeProps {
-  theme: { __ATLASKIT_THEME__: Theme };
-  [index: string]: any;
+	theme: { __ATLASKIT_THEME__: Theme };
+	[index: string]: any;
 }
 
 export interface AKThemeProviderProps {
-  mode?: ThemeModes;
-  background?: ThemedValue<string>;
-  children?: ReactNode;
+	mode?: ThemeModes;
+	background?: ThemedValue<string>;
+	children?: ReactNode;
 }
 
 export interface NoThemeProps {
-  [index: string]: any;
+	[index: string]: any;
 }
 
 export type DefaultValue = string | number;
@@ -38,13 +38,13 @@ export type DefaultValue = string | number;
 export type ThemedValue<V = DefaultValue> = (props?: ThemeProps) => V | '';
 
 export interface Layers {
-  card: 100;
-  navigation: 200;
-  dialog: 300;
-  layer: 400;
-  blanket: 500;
-  modal: 510;
-  flag: 600;
-  spotlight: 700;
-  tooltip: 9999;
+	card: 100;
+	navigation: 200;
+	dialog: 300;
+	layer: 400;
+	blanket: 500;
+	modal: 510;
+	flag: 600;
+	spotlight: 700;
+	tooltip: 9999;
 }

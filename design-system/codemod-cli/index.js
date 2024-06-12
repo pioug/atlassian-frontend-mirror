@@ -11,12 +11,12 @@ const dev = fs.existsSync(project);
 
 let entrypoint = path.join(__dirname, 'dist', 'cjs', 'index');
 if (dev) {
-  if (!require.extensions['.ts']) {
-    // ts-node can only handle being registered once, see https://github.com/TypeStrong/ts-node/issues/409
-    // eslint-disable-next-line import/no-extraneous-dependencies
-    require('ts-node').register({ project });
-  }
-  entrypoint = path.join(__dirname, 'src', 'index');
+	if (!require.extensions['.ts']) {
+		// ts-node can only handle being registered once, see https://github.com/TypeStrong/ts-node/issues/409
+		// eslint-disable-next-line import/no-extraneous-dependencies
+		require('ts-node').register({ project });
+	}
+	entrypoint = path.join(__dirname, 'src', 'index');
 }
 
 module.exports = require(entrypoint);

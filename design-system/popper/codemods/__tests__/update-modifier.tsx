@@ -5,20 +5,20 @@ import transformer from '../5.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Changing popper usage', () => {
-  // TODO this probably isn't worth including, as they still have to do some major work to
-  //  re-work these modifiers.
+	// TODO this probably isn't worth including, as they still have to do some major work to
+	//  re-work these modifiers.
 
-  /**
-   * Modifiers:
-   * - format has been changed from object of objects, to array of objects, with the key for each
-   *   modifier replaced with a name key:value pair inside the modifier object
-   * - modifier-specific options have been moved inside an options: key:value pair
-   * - modifier options have been changed significantly: check the popper.js docs for more info
-   */
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	/**
+	 * Modifiers:
+	 * - format has been changed from object of objects, to array of objects, with the key for each
+	 *   modifier replaced with a name key:value pair inside the modifier object
+	 * - modifier-specific options have been moved inside an options: key:value pair
+	 * - modifier options have been changed significantly: check the popper.js docs for more info
+	 */
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import { Popper } from '@atlaskit/popper';
 
     export default () => {
@@ -40,7 +40,7 @@ describe('Changing popper usage', () => {
         </Popper>
     )};
   `,
-    `
+		`
     /* TODO: (from codemod) Popper.js has been upgraded from 1.14.1 to 2.4.2,
     and as a result the modifier prop has changed significantly. The format has been
     changed from object of objects, to array of objects, with the key for each modifier
@@ -68,5 +68,5 @@ describe('Changing popper usage', () => {
         </Popper>
       );};
   `,
-  );
+	);
 });

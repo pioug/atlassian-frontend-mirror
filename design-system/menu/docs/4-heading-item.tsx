@@ -17,17 +17,17 @@ import { HeadingItem } from '@atlaskit/menu';
   `}
 
   ${(
-    <Example
-      title="Heading item"
-      Component={require('../examples/heading-item').default}
-      source={require('!!raw-loader!../examples/heading-item')}
-    />
-  )}
+		<Example
+			title="Heading item"
+			Component={require('../examples/heading-item').default}
+			source={require('!!raw-loader!../examples/heading-item')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/menu-item/heading-item')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/menu-item/heading-item')}
+		/>
+	)}
 `;

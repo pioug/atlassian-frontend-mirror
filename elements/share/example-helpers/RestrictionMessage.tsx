@@ -9,6 +9,7 @@ const message = 'Restrictions on this page may prevent people from viewing or ed
 
 export default () => (
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			maxWidth: '100%',
 			color: `${token('color.text.danger', '#de350c')}`,

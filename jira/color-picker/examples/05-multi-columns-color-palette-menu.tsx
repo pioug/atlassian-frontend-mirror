@@ -32,7 +32,6 @@ const Story = () => <ColorPaletteMenuExample />;
 
 Story.decorators = [
 	withPlatformFeatureFlags({
-		'platform.color-picker-radio-button-functionality_6hkcy': true,
 		'platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i': true,
 	}),
 ];

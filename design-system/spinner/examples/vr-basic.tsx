@@ -10,15 +10,15 @@ import Spinner from '../src';
  * freeze the spinner, avoiding potential for VR test flakiness.
  */
 const animationStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  'svg, span': {
-    animationDuration: '0s',
-    animationTimingFunction: 'step-end',
-  },
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'svg, span': {
+		animationDuration: '0s',
+		animationTimingFunction: 'step-end',
+	},
 });
 
 export default () => (
-  <div css={animationStyles}>
-    <Spinner testId="spinner" />
-  </div>
+	<div css={animationStyles}>
+		<Spinner testId="spinner" />
+	</div>
 );

@@ -10,10 +10,10 @@ const transformer = createTransformer([replaceShouldAllowMultiline]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('delete items prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -22,7 +22,7 @@ describe('delete items prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -31,13 +31,13 @@ describe('delete items prop', () => {
       </DropdownMenu>
     );
     `,
-    'should not change anything when items is not used ',
-  );
+		'should not change anything when items is not used ',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -46,7 +46,7 @@ describe('delete items prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -59,13 +59,13 @@ describe('delete items prop', () => {
       </DropdownMenu>
     );
     `,
-    'should replace shouldAllowMultiline with shouldTitleWrap and shouldDescriptionWrap - default value',
-  );
+		'should replace shouldAllowMultiline with shouldTitleWrap and shouldDescriptionWrap - default value',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -74,7 +74,7 @@ describe('delete items prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -87,13 +87,13 @@ describe('delete items prop', () => {
       </DropdownMenu>
     );
     `,
-    'should replace shouldAllowMultiline with shouldTitleWrap and shouldDescriptionWrap - with value',
-  );
+		'should replace shouldAllowMultiline with shouldTitleWrap and shouldDescriptionWrap - with value',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -103,7 +103,7 @@ describe('delete items prop', () => {
       </DropdownMenu>
     );
     `,
-    `
+		`
     import React from "react";
     import DropdownMenu from "@atlaskit/dropdown-menu";
 
@@ -117,6 +117,6 @@ describe('delete items prop', () => {
       </DropdownMenu>
     );
     `,
-    'should replace shouldAllowMultiline with shouldTitleWrap and shouldDescriptionWrap - variable',
-  );
+		'should replace shouldAllowMultiline with shouldTitleWrap and shouldDescriptionWrap - variable',
+	);
 });

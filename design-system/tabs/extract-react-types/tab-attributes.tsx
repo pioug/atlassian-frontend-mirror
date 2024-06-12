@@ -1,5 +1,5 @@
 import { type TabAttributesType } from '../src/types';
 
 export default function TabAttributes(props: TabAttributesType) {
-  return null;
+	return null;
 }

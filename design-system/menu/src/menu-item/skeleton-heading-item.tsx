@@ -13,28 +13,28 @@ import SkeletonShimmer from '../internal/components/skeleton-shimmer';
 import type { SkeletonHeadingItemProps } from '../types';
 
 const skeletonStyles = css({
-  paddingBlock: token('space.0', '0px'),
-  paddingInline: token('space.200', '16px'),
-  '::after': {
-    display: 'block',
-    width: '30%',
-    height: token('space.100', '8px'),
-    backgroundColor: token('color.skeleton', N20A),
-    borderRadius: 100,
-    content: '""',
-  },
+	paddingBlock: token('space.0', '0px'),
+	paddingInline: token('space.200', '16px'),
+	'::after': {
+		display: 'block',
+		width: '30%',
+		height: token('space.100', '8px'),
+		backgroundColor: token('color.skeleton', N20A),
+		borderRadius: 100,
+		content: '""',
+	},
 });
 
 const defaultWidthStyles = css({
-  '::after': {
-    width: '30%',
-  },
+	'::after': {
+		width: '30%',
+	},
 });
 
 const customWidthStyles = css({
-  '::after': {
-    width: 'var(--width)',
-  },
+	'::after': {
+		width: 'var(--width)',
+	},
 });
 
 /**
@@ -46,48 +46,48 @@ const customWidthStyles = css({
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/menu)
  */
 const SkeletonHeadingItem = ({
-  isShimmering = false,
-  testId,
-  width,
-  cssFn = noop as any,
+	isShimmering = false,
+	testId,
+	width,
+	cssFn = noop as any,
 }: SkeletonHeadingItemProps) => {
-  propDeprecationWarning(
-    process.env._PACKAGE_NAME_ || '',
-    'cssFn',
-    cssFn !== (noop as any),
-    '', // TODO: Create DAC post when primitives/xcss are available as alternatives
-  );
+	propDeprecationWarning(
+		process.env._PACKAGE_NAME_ || '',
+		'cssFn',
+		cssFn !== (noop as any),
+		'', // TODO: Create DAC post when primitives/xcss are available as alternatives
+	);
 
-  const UNSAFE_overrides = getBooleanFF(
-    'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
-  )
-    ? undefined
-    : css(cssFn(undefined));
+	const UNSAFE_overrides = getBooleanFF(
+		'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
+	)
+		? undefined
+		: css(cssFn(undefined));
 
-  return (
-    <SkeletonShimmer isShimmering={isShimmering}>
-      {({ className }) => (
-        <div
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-          className={className}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          style={
-            {
-              '--width': width,
-            } as CSSProperties
-          }
-          css={[
-            skeletonStyles,
-            width ? customWidthStyles : defaultWidthStyles,
-            // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-            UNSAFE_overrides,
-          ]}
-          data-ds--menu--skeleton-heading-item
-          data-testid={testId}
-        />
-      )}
-    </SkeletonShimmer>
-  );
+	return (
+		<SkeletonShimmer isShimmering={isShimmering}>
+			{({ className }) => (
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={className}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={
+						{
+							'--width': width,
+						} as CSSProperties
+					}
+					css={[
+						skeletonStyles,
+						width ? customWidthStyles : defaultWidthStyles,
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						UNSAFE_overrides,
+					]}
+					data-ds--menu--skeleton-heading-item
+					data-testid={testId}
+				/>
+			)}
+		</SkeletonShimmer>
+	);
 };
 
 export default SkeletonHeadingItem;

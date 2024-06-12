@@ -26,18 +26,15 @@ import DropdownMenu, {
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/01-default-dropdown-menu').default}
-      title=""
-      source={require('!!raw-loader!../examples/01-default-dropdown-menu')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/dropdown-menu"
+			Component={require('../examples/01-default-dropdown-menu').default}
+			title=""
+			source={require('!!raw-loader!../examples/01-default-dropdown-menu')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/dropdown-menu')}
-    />
-  )}
+		<Props heading="Props" props={require('!!extract-react-types-loader!../src/dropdown-menu')} />
+	)}
 `;

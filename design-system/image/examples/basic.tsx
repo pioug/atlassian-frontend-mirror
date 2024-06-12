@@ -8,11 +8,11 @@ import Image from '../src';
 import ExampleImage from './images/Celebration.png';
 
 const containerStyles = xcss({
-  height: '100%',
+	height: '100%',
 });
 
 export default () => (
-  <Inline alignBlock="center" alignInline="center" xcss={containerStyles}>
-    <Image src={ExampleImage} alt="Simple example" testId="image" />
-  </Inline>
+	<Inline alignBlock="center" alignInline="center" xcss={containerStyles}>
+		<Image src={ExampleImage} alt="Simple example" testId="image" />
+	</Inline>
 );

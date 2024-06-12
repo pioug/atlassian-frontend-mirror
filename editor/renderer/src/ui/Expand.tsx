@@ -36,7 +36,9 @@ export type StyleProps = {
 const titleStyles = css({
 	outline: 'none',
 	border: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(fontSize()),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: akEditorLineHeight,
 	fontWeight: 'normal',
 	display: 'flex',
@@ -217,6 +219,7 @@ function Expand({
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 				<div className={`${nodeType}-content-wrapper`}>
 					<WidthProvider>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<div css={clearNextSiblingMarginTopStyle} />
 						{children}
 					</WidthProvider>

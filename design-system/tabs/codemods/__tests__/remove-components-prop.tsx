@@ -7,10 +7,10 @@ const transformer = createTransformer([removeComponentsProp]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('remove components prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -38,7 +38,7 @@ describe('remove components prop', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     We could not automatically convert this code to the new API.
 
@@ -75,13 +75,13 @@ describe('remove components prop', () => {
       );
     }
     `,
-    'should remove component prop if using variable',
-  );
+		'should remove component prop if using variable',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -109,7 +109,7 @@ describe('remove components prop', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) 
     We could not automatically convert this code to the new API.
 
@@ -146,6 +146,6 @@ describe('remove components prop', () => {
       );
     }
     `,
-    'should remove component prop if using an object',
-  );
+		'should remove component prop if using an object',
+	);
 });

@@ -80,6 +80,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 		ufoExperiences['emoji-picker-opened'].markFMP();
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={emojiPicker()} ref={handlePickerRef}>
 				{item.renderItem()}
 			</div>

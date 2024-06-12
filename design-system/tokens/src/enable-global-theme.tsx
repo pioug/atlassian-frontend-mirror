@@ -1,10 +1,6 @@
 import { type UnbindFn } from 'bind-event-listener';
 
-import {
-  type ThemeIdsWithOverrides,
-  type ThemeState,
-  themeStateDefaults,
-} from './theme-config';
+import { type ThemeIdsWithOverrides, type ThemeState, themeStateDefaults } from './theme-config';
 import configurePage from './utils/configure-page';
 import { getThemePreferences } from './utils/get-theme-preferences';
 
@@ -30,37 +26,37 @@ import { getThemePreferences } from './utils/get-theme-preferences';
  * ```
  */
 const enableGlobalTheme = (
-  {
-    colorMode = themeStateDefaults['colorMode'],
-    contrastMode = themeStateDefaults['contrastMode'],
-    dark = themeStateDefaults['dark'],
-    light = themeStateDefaults['light'],
-    shape = themeStateDefaults['shape'],
-    spacing = themeStateDefaults['spacing'],
-    typography = themeStateDefaults['typography'],
-    UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
-  }: Partial<ThemeState> = {},
-  themeLoader?: (id: ThemeIdsWithOverrides) => void,
+	{
+		colorMode = themeStateDefaults['colorMode'],
+		contrastMode = themeStateDefaults['contrastMode'],
+		dark = themeStateDefaults['dark'],
+		light = themeStateDefaults['light'],
+		shape = themeStateDefaults['shape'],
+		spacing = themeStateDefaults['spacing'],
+		typography = themeStateDefaults['typography'],
+		UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
+	}: Partial<ThemeState> = {},
+	themeLoader?: (id: ThemeIdsWithOverrides) => void,
 ): UnbindFn => {
-  const themeState = {
-    colorMode,
-    contrastMode,
-    dark,
-    light,
-    shape,
-    spacing,
-    typography,
-    UNSAFE_themeOptions: themeLoader ? undefined : UNSAFE_themeOptions,
-  };
+	const themeState = {
+		colorMode,
+		contrastMode,
+		dark,
+		light,
+		shape,
+		spacing,
+		typography,
+		UNSAFE_themeOptions: themeLoader ? undefined : UNSAFE_themeOptions,
+	};
 
-  // Determine what to load and call theme loader
-  const themePreferences = getThemePreferences(themeState);
-  if (themeLoader) {
-    themePreferences.map((themeId) => themeLoader(themeId));
-  }
+	// Determine what to load and call theme loader
+	const themePreferences = getThemePreferences(themeState);
+	if (themeLoader) {
+		themePreferences.map((themeId) => themeLoader(themeId));
+	}
 
-  const autoUnbind = configurePage(themeState);
-  return autoUnbind;
+	const autoUnbind = configurePage(themeState);
+	return autoUnbind;
 };
 
 export default enableGlobalTheme;

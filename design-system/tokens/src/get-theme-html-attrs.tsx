@@ -1,16 +1,16 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
-  COLOR_MODE_ATTRIBUTE,
-  CONTRAST_MODE_ATTRIBUTE,
-  CUSTOM_THEME_ATTRIBUTE,
-  THEME_DATA_ATTRIBUTE,
+	COLOR_MODE_ATTRIBUTE,
+	CONTRAST_MODE_ATTRIBUTE,
+	CUSTOM_THEME_ATTRIBUTE,
+	THEME_DATA_ATTRIBUTE,
 } from './constants';
 import {
-  type DataColorModes,
-  type DataContrastModes,
-  type ThemeState,
-  themeStateDefaults,
+	type DataColorModes,
+	type DataContrastModes,
+	type ThemeState,
+	themeStateDefaults,
 } from './theme-config';
 import { themeObjectToString } from './theme-state-transformer';
 import { isValidBrandHex } from './utils/color-utils';
@@ -34,47 +34,44 @@ const defaultContrastMode: DataContrastModes = 'no-preference';
  * @returns {Object} Object of HTML attributes to be applied to the document root
  */
 const getThemeHtmlAttrs = ({
-  colorMode = themeStateDefaults['colorMode'],
-  dark = themeStateDefaults['dark'],
-  light = themeStateDefaults['light'],
-  contrastMode = themeStateDefaults['contrastMode'],
-  shape = themeStateDefaults['shape'],
-  spacing = themeStateDefaults['spacing'],
-  typography = themeStateDefaults['typography'],
-  UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
+	colorMode = themeStateDefaults['colorMode'],
+	dark = themeStateDefaults['dark'],
+	light = themeStateDefaults['light'],
+	contrastMode = themeStateDefaults['contrastMode'],
+	shape = themeStateDefaults['shape'],
+	spacing = themeStateDefaults['spacing'],
+	typography = themeStateDefaults['typography'],
+	UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
 }: Partial<ThemeState> = {}): Record<string, string> => {
-  const themeAttribute = themeObjectToString({
-    dark,
-    light,
-    shape,
-    spacing,
-    typography,
-  });
+	const themeAttribute = themeObjectToString({
+		dark,
+		light,
+		shape,
+		spacing,
+		typography,
+	});
 
-  let result: Record<string, string> = {
-    [THEME_DATA_ATTRIBUTE]: themeAttribute,
-    [COLOR_MODE_ATTRIBUTE]:
-      colorMode === 'auto' ? (defaultColorMode as string) : colorMode,
-  };
+	let result: Record<string, string> = {
+		[THEME_DATA_ATTRIBUTE]: themeAttribute,
+		[COLOR_MODE_ATTRIBUTE]: colorMode === 'auto' ? (defaultColorMode as string) : colorMode,
+	};
 
-  if (getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
-    result = {
-      ...result,
-      // CLEANUP: Move this to the initial `result` assignment above
-      [CONTRAST_MODE_ATTRIBUTE]:
-        contrastMode === 'auto'
-          ? (defaultContrastMode as string)
-          : contrastMode,
-    };
-  }
+	if (getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
+		result = {
+			...result,
+			// CLEANUP: Move this to the initial `result` assignment above
+			[CONTRAST_MODE_ATTRIBUTE]:
+				contrastMode === 'auto' ? (defaultContrastMode as string) : contrastMode,
+		};
+	}
 
-  if (UNSAFE_themeOptions && isValidBrandHex(UNSAFE_themeOptions.brandColor)) {
-    const optionString = JSON.stringify(UNSAFE_themeOptions);
-    const uniqueId = hash(optionString);
-    result[CUSTOM_THEME_ATTRIBUTE] = uniqueId;
-  }
+	if (UNSAFE_themeOptions && isValidBrandHex(UNSAFE_themeOptions.brandColor)) {
+		const optionString = JSON.stringify(UNSAFE_themeOptions);
+		const uniqueId = hash(optionString);
+		result[CUSTOM_THEME_ATTRIBUTE] = uniqueId;
+	}
 
-  return result;
+	return result;
 };
 
 export default getThemeHtmlAttrs;

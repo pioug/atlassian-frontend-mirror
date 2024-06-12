@@ -15,24 +15,18 @@ import { type AppSwitcherProps } from './types';
  * - [Examples](https://atlassian.design/components/atlassian-navigation/examples#app-switcher)
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
-export const AppSwitcher = forwardRef(
-  (props: AppSwitcherProps, ref: Ref<any>) => {
-    const { tooltip, ...iconButtonProps } = props;
+export const AppSwitcher = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {
+	const { tooltip, ...iconButtonProps } = props;
 
-    return (
-      <IconButton
-        icon={
-          <AppSwitcherIcon
-            label={typeof tooltip === 'string' ? tooltip : 'Appswitcher Icon'}
-          />
-        }
-        tooltip={tooltip}
-        ref={ref}
-        {...iconButtonProps}
-      />
-    );
-  },
-);
+	return (
+		<IconButton
+			icon={<AppSwitcherIcon label={typeof tooltip === 'string' ? tooltip : 'Appswitcher Icon'} />}
+			tooltip={tooltip}
+			ref={ref}
+			{...iconButtonProps}
+		/>
+	);
+});
 
 // exists only to extract props
 // eslint-disable-next-line @repo/internal/react/use-noop

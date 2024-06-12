@@ -29,12 +29,12 @@ To modify the "Skip to:" text, set the \`skipLinksI18n\` prop in \`PageLayout\`.
 On first tab into the example below, you should see the skip link menu appear:
 
 ${(
-  <Example
-    packageName="@atlaskit/page-layout"
-    Component={require('../examples/01-basic-page-layout').default}
-    title="Basic page layout with skip link menu"
-    source={require('!!raw-loader!../examples/01-basic-page-layout')}
-  />
+	<Example
+		packageName="@atlaskit/page-layout"
+		Component={require('../examples/01-basic-page-layout').default}
+		title="Basic page layout with skip link menu"
+		source={require('!!raw-loader!../examples/01-basic-page-layout')}
+	/>
 )}
 
 ### Custom skip links
@@ -46,12 +46,12 @@ You can choose the position the link will show up in the menu by using the optio
 **Note:** Although \`useCustomSkipLink\` can link to DOM elements outside of PageLayout using the HTML id, it needs to be called from within PageLayout, since it relies on the context provider that wraps PageLayout.
 
 ${(
-  <Example
-    packageName="@atlaskit/page-layout"
-    Component={require('../examples/30-custom-skip-links').default}
-    title="Page layout using the customSkipLinks prop"
-    source={require('!!raw-loader!../examples/30-custom-skip-links')}
-  />
+	<Example
+		packageName="@atlaskit/page-layout"
+		Component={require('../examples/30-custom-skip-links').default}
+		title="Page layout using the customSkipLinks prop"
+		source={require('!!raw-loader!../examples/30-custom-skip-links')}
+	/>
 )}
 
 ### Accessibility

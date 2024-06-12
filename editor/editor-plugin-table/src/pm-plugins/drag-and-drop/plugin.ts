@@ -29,7 +29,12 @@ import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 import { getDraggableDataFromEvent } from './utils/monitor';
 
-const destroyFn = (editorView: EditorView, editorAnalyticsAPI: any) => {
+const destroyFn = (
+	editorView: EditorView,
+	editorAnalyticsAPI: any,
+	isTableScalingEnabled: boolean,
+	isTableFixedColumnWidthsOptionEnabled: boolean,
+) => {
 	const editorPageScrollContainer = document.querySelector('.fabric-editor-popup-scroll-parent');
 
 	const rowAutoScrollers = editorPageScrollContainer
@@ -211,24 +216,22 @@ const destroyFn = (editorView: EditorView, editorAnalyticsAPI: any) => {
 					if (sourceType === 'table-column') {
 						const { tableRef, tableNode } = getTablePluginState(editorView.state);
 						if (tableRef && tableNode) {
-							const { isTableScalingEnabled = false } = getTablePluginState(editorView.state);
-
 							let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
-							const isTableScalingEnabledWithLockButton =
-								isTableScalingEnabled &&
-								getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
-							const shouldUseIncreasedScalingPercent =
-								isTableScalingEnabledWithLockButton &&
-								getBooleanFF('platform.editor.table.use-increased-scaling-percent');
-
-							if (isTableScalingEnabledWithLockButton) {
+							const isTableScalingWithFixedColumnWidthsOptionEnabled =
+								isTableScalingEnabled && isTableFixedColumnWidthsOptionEnabled;
+							if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 								isTableScalingEnabledOnCurrentTable = tableNode.attrs.displayMode !== 'fixed';
 							}
+
+							const shouldUseIncreasedScalingPercent =
+								isTableScalingWithFixedColumnWidthsOptionEnabled &&
+								getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 
 							insertColgroupFromNode(
 								tableRef,
 								tableNode,
 								isTableScalingEnabledOnCurrentTable,
+								undefined,
 								shouldUseIncreasedScalingPercent,
 							);
 						}
@@ -241,7 +244,12 @@ const destroyFn = (editorView: EditorView, editorAnalyticsAPI: any) => {
 	);
 };
 
-export const createPlugin = (dispatch: Dispatch, editorAnalyticsAPI?: EditorAnalyticsAPI) => {
+export const createPlugin = (
+	dispatch: Dispatch,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
+	isTableScalingEnabled = false,
+	isTableFixedColumnWidthsOptionEnabled = false,
+) => {
 	return new SafePlugin({
 		state: createPluginState(dispatch, (state) => ({
 			decorationSet: DecorationSet.empty,
@@ -310,7 +318,12 @@ export const createPlugin = (dispatch: Dispatch, editorAnalyticsAPI?: EditorAnal
 		},
 		view: (editorView: EditorView) => {
 			return {
-				destroy: destroyFn(editorView, editorAnalyticsAPI),
+				destroy: destroyFn(
+					editorView,
+					editorAnalyticsAPI,
+					isTableScalingEnabled,
+					isTableFixedColumnWidthsOptionEnabled,
+				),
 			};
 		},
 		props: {

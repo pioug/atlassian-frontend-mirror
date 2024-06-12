@@ -146,88 +146,88 @@ export const DN10A = 'rgba(13, 20, 36, 0.97)';
  * @deprecated use `token('elevation.surface')` instead.
  */
 export const background = themed({
-  light: token('elevation.surface', N0),
-  dark: token('elevation.surface', DN30),
+	light: token('elevation.surface', N0),
+	dark: token('elevation.surface', DN30),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.background.selected')` instead.
  */
 export const backgroundActive = themed({
-  light: token('color.background.selected', B50),
-  dark: token('color.background.selected', B75),
+	light: token('color.background.selected', B50),
+	dark: token('color.background.selected', B75),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.background.neutral.hovered')` instead.
  */
 export const backgroundHover = themed({
-  light: token('color.background.neutral.hovered', N30),
-  dark: token('color.background.neutral.hovered', DN70),
+	light: token('color.background.neutral.hovered', N30),
+	dark: token('color.background.neutral.hovered', DN70),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('elevation.surface.overlay')` instead.
  */
 export const backgroundOnLayer = themed({
-  light: token('elevation.surface.overlay', N0),
-  dark: token('elevation.surface.overlay', DN50),
+	light: token('elevation.surface.overlay', N0),
+	dark: token('elevation.surface.overlay', DN50),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.text')` instead.
  */
 export const text = themed({
-  light: token('color.text', N900),
-  dark: token('color.text', DN600),
+	light: token('color.text', N900),
+	dark: token('color.text', DN600),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.text')` instead.
  */
 export const textHover = themed({
-  light: token('color.text', N800),
-  dark: token('color.text', DN600),
+	light: token('color.text', N800),
+	dark: token('color.text', DN600),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.text.selected')` instead.
  */
 export const textActive = themed({
-  light: token('color.text.selected', B400),
-  dark: token('color.text.selected', B400),
+	light: token('color.text.selected', B400),
+	dark: token('color.text.selected', B400),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.text.subtlest')` instead.
  */
 export const subtleText = themed({
-  light: token('color.text.subtlest', N200),
-  dark: token('color.text.subtlest', DN300),
+	light: token('color.text.subtlest', N200),
+	dark: token('color.text.subtlest', DN300),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use token('color.text.subtlest', N200) instead. Use DN200 as the fallback color for dark mode.
  */
 export const placeholderText = themed({
-  light: token('color.text.subtlest', N200),
-  dark: token('color.text.subtlest', DN200),
+	light: token('color.text.subtlest', N200),
+	dark: token('color.text.subtlest', DN200),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.text')` instead.
  */
 export const heading = themed({
-  light: token('color.text', N800),
-  dark: token('color.text', DN600),
+	light: token('color.text', N800),
+	dark: token('color.text', DN600),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.text.subtlest')` instead.
  */
 export const subtleHeading = themed({
-  light: token('color.text.subtlest', N200),
-  dark: token('color.text.subtlest', DN300),
+	light: token('color.text.subtlest', N200),
+	dark: token('color.text.subtlest', DN300),
 });
 export const codeBlock = themed({ light: N20, dark: DN50 });
 /**
@@ -235,64 +235,64 @@ export const codeBlock = themed({ light: N20, dark: DN50 });
  * @deprecated use `token('color.link')` instead.
  */
 export const link = themed({
-  light: token('color.link', B400),
-  dark: token('color.link', B100),
+	light: token('color.link', B400),
+	dark: token('color.link', B100),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.link.pressed')` instead.
  */
 export const linkHover = themed({
-  light: token('color.link.pressed', B300),
-  dark: token('color.link.pressed', B200),
+	light: token('color.link.pressed', B300),
+	dark: token('color.link.pressed', B200),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.link.pressed')` instead.
  */
 export const linkActive = themed({
-  light: token('color.link.pressed', B500),
-  dark: token('color.link.pressed', B100),
+	light: token('color.link.pressed', B500),
+	dark: token('color.link.pressed', B100),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.border.focused', B200)` instead.
  */
 export const linkOutline = themed({
-  light: token('color.border.focused', B200),
-  dark: token('color.border.focused', B200),
+	light: token('color.border.focused', B200),
+	dark: token('color.border.focused', B200),
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * @deprecated use `token('color.background.brand.bold')` instead.
  */
 export const primary = themed({
-  light: token('color.background.brand.bold', B400),
-  dark: token('color.background.brand.bold', B100),
+	light: token('color.background.brand.bold', B400),
+	dark: token('color.background.brand.bold', B100),
 });
 export const blue = themed({
-  light: B400,
-  dark: B100,
+	light: B400,
+	dark: B100,
 });
 export const teal = themed({
-  light: T300,
-  dark: T200,
+	light: T300,
+	dark: T200,
 });
 export const purple = themed({
-  light: P300,
-  dark: P100,
+	light: P300,
+	dark: P100,
 });
 export const red = themed({
-  light: R300,
-  dark: R300,
+	light: R300,
+	dark: R300,
 });
 export const yellow = themed({
-  light: Y300,
-  dark: Y300,
+	light: Y300,
+	dark: Y300,
 });
 export const green = themed({
-  light: G300,
-  dark: G300,
+	light: G300,
+	dark: G300,
 });
 
 /**

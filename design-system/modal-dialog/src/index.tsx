@@ -1,18 +1,18 @@
 export { default } from './modal-wrapper';
 export { default as ModalTransition } from './modal-transition';
 export type {
-  KeyboardOrMouseEvent,
-  Appearance,
-  ModalAttributes,
-  ModalDialogProps,
-  ModalHeaderProps,
-  ModalTitleProps,
-  ModalBodyProps,
-  ModalFooterProps,
-  OnCloseHandler,
-  OnCloseCompleteHandler,
-  OnOpenCompleteHandler,
-  OnStackChangeHandler,
+	KeyboardOrMouseEvent,
+	Appearance,
+	ModalAttributes,
+	ModalDialogProps,
+	ModalHeaderProps,
+	ModalTitleProps,
+	ModalBodyProps,
+	ModalFooterProps,
+	OnCloseHandler,
+	OnCloseCompleteHandler,
+	OnOpenCompleteHandler,
+	OnStackChangeHandler,
 } from './types';
 
 export { default as ModalHeader } from './modal-header';

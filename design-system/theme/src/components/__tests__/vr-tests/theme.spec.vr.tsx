@@ -6,22 +6,22 @@ import Colors from '../../../../examples/colors';
 
 snapshot(Colors);
 snapshot(AtlaskitThemeProvider, {
-  variants: [
-    {
-      name: 'Default',
-      environment: {},
-    },
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'Dark',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Default',
+			environment: {},
+		},
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'Dark',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });

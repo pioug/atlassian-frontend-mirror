@@ -10,7 +10,7 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const statusStyles = css`
 	.${TableSharedCssClassName.TABLE_CELL_WRAPPER},
 		.${TableSharedCssClassName.TABLE_HEADER_CELL_WRAPPER},

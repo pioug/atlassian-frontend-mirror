@@ -25,6 +25,7 @@ const ModalBody = React.forwardRef<HTMLDivElement, React.AllHTMLAttributes<HTMLD
 	},
 );
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const iframeStyle = {
 	width: '100%',
 	height: '100%',
@@ -37,7 +38,9 @@ const bottomShadow = css({
 	alignItems: 'baseline',
 });
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const spacingDivStyle = { width: '28px' };
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const headingStyle = { marginTop: `${token('space.100', '8px')}` };
 
 const Header = () => {

@@ -108,6 +108,7 @@ export default function BlockCard(props: {
 									css={datasourceContainerStyle}
 									data-testid="renderer-datasource-table"
 									style={{
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										width: isNodeNested ? '100%' : calcBreakoutWidth(layout, width),
 									}}
 								>

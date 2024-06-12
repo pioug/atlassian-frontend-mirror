@@ -9,6 +9,7 @@ import { footer } from './styles';
 import { getComponentFromKeymap } from './utils';
 
 const ModalFooter = () => (
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={footer}>
 		<FormattedMessage
 			{...messages.helpDialogTips}

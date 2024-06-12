@@ -1,6 +1,7 @@
 ## Description
 
-Soon, non-token values for the following properties will raise TypeScript errors. This rule prevents new violations from being written until blockers are resolved.
+Soon, non-token values for the following properties will raise TypeScript errors. This rule prevents
+new violations from being written until blockers are resolved.
 
 ## Examples
 
@@ -21,8 +22,10 @@ const someStyles = xcss({
 })
 ```
 
-See the list of available space tokens on the [ADS website](https://atlassian.design/foundations/spacing#space-tokens).
+See the list of available space tokens on the
+[ADS website](https://atlassian.design/foundations/spacing#space-tokens).
 
 For Atlassians:
 
-- See [go/xcss-spacing](https://go.atlassian.com/xcss-spacing) for context on why this is happening, and how you can prepare.
+- See [go/xcss-spacing](https://go.atlassian.com/xcss-spacing) for context on why this is happening,
+  and how you can prepare.

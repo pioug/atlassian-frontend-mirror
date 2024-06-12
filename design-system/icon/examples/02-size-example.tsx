@@ -20,60 +20,56 @@ import ArrowUpIcon from '../glyph/arrow-up';
 import { token } from '@atlaskit/tokens';
 
 const iconRowStyles = css({
-  display: 'flex',
-  justifyContent: 'flex-start',
-  flexDirection: 'row',
-  marginBlockStart: token('space.100', '8px'),
+	display: 'flex',
+	justifyContent: 'flex-start',
+	flexDirection: 'row',
+	marginBlockStart: token('space.100', '8px'),
 });
 
 const iconWrapperStyles = css({
-  margin: token('space.050', '4px'),
+	margin: token('space.050', '4px'),
 });
 
 const demoIcons = [
-  ActivityIcon,
-  AddCircleIcon,
-  AddItemIcon,
-  AddIcon,
-  AddonIcon,
-  AppSwitcherIcon,
-  ArrowDownIcon,
-  ArrowLeftCircleIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ArrowUpIcon,
+	ActivityIcon,
+	AddCircleIcon,
+	AddItemIcon,
+	AddIcon,
+	AddonIcon,
+	AppSwitcherIcon,
+	ArrowDownIcon,
+	ArrowLeftCircleIcon,
+	ArrowLeftIcon,
+	ArrowRightIcon,
+	ArrowUpIcon,
 ];
 
 const sizes: Size[] = ['small', 'medium', 'large', 'xlarge'];
 
 const IconSizeExample = ({ defaultSize = 'medium' }: { defaultSize: Size }) => {
-  const [size, setSize] = useState<Size>(defaultSize);
+	const [size, setSize] = useState<Size>(defaultSize);
 
-  return (
-    <div>
-      <ButtonGroup label="Choose icon size">
-        {sizes.map((sizeOpt) => (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-          <div style={{ marginRight: token('space.050', '4px') }} key={sizeOpt}>
-            <Button
-              testId={sizeOpt}
-              isSelected={sizeOpt === size}
-              onClick={() => setSize(sizeOpt)}
-            >
-              {sizeOpt}
-            </Button>
-          </div>
-        ))}
-      </ButtonGroup>
-      <div id="size-example" css={iconRowStyles}>
-        {demoIcons.map((Icon, i) => (
-          <span css={iconWrapperStyles} key={i}>
-            <Icon label={`Icon ${i}`} size={size} />
-          </span>
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<ButtonGroup label="Choose icon size">
+				{sizes.map((sizeOpt) => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					<div style={{ marginRight: token('space.050', '4px') }} key={sizeOpt}>
+						<Button testId={sizeOpt} isSelected={sizeOpt === size} onClick={() => setSize(sizeOpt)}>
+							{sizeOpt}
+						</Button>
+					</div>
+				))}
+			</ButtonGroup>
+			<div id="size-example" css={iconRowStyles}>
+				{demoIcons.map((Icon, i) => (
+					<span css={iconWrapperStyles} key={i}>
+						<Icon label={`Icon ${i}`} size={size} />
+					</span>
+				))}
+			</div>
+		</div>
+	);
 };
 
 export const IconSizeSmall = () => <IconSizeExample defaultSize="small" />;

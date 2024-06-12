@@ -120,6 +120,7 @@ export default function MediaSingle({
 	return (
 		<div
 			ref={handleMediaSingleRef}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={MediaSingleDimensionHelper({
 				width,
 				layout,

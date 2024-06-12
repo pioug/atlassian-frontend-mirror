@@ -43,7 +43,9 @@ class DropList extends Component<Props> {
 	private triggerRef?: HTMLDivElement;
 
 	private wrapperStyles = css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		display: this.props.shouldFitContainer ? 'block' : 'inline-flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		flex: this.props.shouldFitContainer ? '1 1 auto' : undefined,
 		transitionDuration: '0.2s',
 		transition: 'box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
@@ -52,7 +54,9 @@ class DropList extends Component<Props> {
 	private triggerStyles = css({
 		transitionDuration: '0.2s',
 		transition: 'box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		display: this.props.shouldFitContainer ? 'block' : 'inline-flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		boxSizing: this.props.shouldFitContainer ? 'border-box' : undefined,
 	});
 

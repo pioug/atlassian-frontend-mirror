@@ -70,7 +70,7 @@ const useMultiBodiedExtensionActions = ({ updateActiveChild, children }: Actions
 	return actions;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const navigationCssExtended = css`
 	${sharedMultiBodiedExtensionStyles.mbeNavigation};
 	margin-left: 0 !important;
@@ -142,6 +142,7 @@ const MultiBodiedExtension = (props: Props) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={`${RendererCssClassName.EXTENSION} ${centerAlignClass} ${overflowContainerClass}`}
 				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
 				}}
 				data-layout={layout}

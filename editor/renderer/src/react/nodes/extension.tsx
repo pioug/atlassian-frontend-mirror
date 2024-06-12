@@ -55,6 +55,7 @@ export const renderExtension = (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={`${RendererCssClassName.EXTENSION} ${options.shadowClassNames} ${centerAlignClass}`}
 					style={{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
 					}}
 					data-layout={layout}

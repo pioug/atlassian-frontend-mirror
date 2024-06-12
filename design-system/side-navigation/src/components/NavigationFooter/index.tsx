@@ -3,11 +3,11 @@ import React, { type ReactNode } from 'react';
 import { Box, xcss } from '@atlaskit/primitives';
 
 export interface NavigationFooterProps {
-  children: ReactNode;
+	children: ReactNode;
 }
 
 const navigationFooterStyles = xcss({
-  position: 'relative',
+	position: 'relative',
 });
 
 /**
@@ -19,15 +19,11 @@ const navigationFooterStyles = xcss({
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
 const NavigationFooter = ({ children }: NavigationFooterProps) => {
-  return (
-    <Box
-      padding="space.100"
-      paddingBlockEnd="space.200"
-      xcss={navigationFooterStyles}
-    >
-      {children}
-    </Box>
-  );
+	return (
+		<Box padding="space.100" paddingBlockEnd="space.200" xcss={navigationFooterStyles}>
+			{children}
+		</Box>
+	);
 };
 
 export default NavigationFooter;

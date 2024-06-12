@@ -4,89 +4,80 @@ import { act, fireEvent, render } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
-import DropdownMenu, {
-  DropdownItemCheckbox,
-  DropdownItemCheckboxGroup,
-} from '../../../index';
+import DropdownMenu, { DropdownItemCheckbox, DropdownItemCheckboxGroup } from '../../../index';
 
 const DropdownCheckboxStateless = () => {
-  const [selected, setSelected] = useState<string[]>([]);
+	const [selected, setSelected] = useState<string[]>([]);
 
-  const selectOption = (option: string) => {
-    if (selected.includes(option)) {
-      setSelected(selected.filter((x) => x !== option));
-    } else {
-      setSelected([...selected, option]);
-    }
-  };
-  return (
-    <DropdownMenu
-      trigger="Select cities"
-      onOpenChange={__noop}
-      testId="lite-mode-ddm"
-    >
-      <DropdownItemCheckboxGroup id="cities" title="Some cities">
-        <DropdownItemCheckbox
-          id="sydney"
-          isSelected={selected.includes('sydney')}
-          onClick={() => {
-            selectOption('sydney');
-          }}
-        >
-          Sydney
-        </DropdownItemCheckbox>
-        <DropdownItemCheckbox
-          id="melbourne"
-          isSelected={selected.includes('melbourne')}
-          onClick={() => {
-            selectOption('melbourne');
-          }}
-        >
-          Melbourne
-        </DropdownItemCheckbox>
-      </DropdownItemCheckboxGroup>
-    </DropdownMenu>
-  );
+	const selectOption = (option: string) => {
+		if (selected.includes(option)) {
+			setSelected(selected.filter((x) => x !== option));
+		} else {
+			setSelected([...selected, option]);
+		}
+	};
+	return (
+		<DropdownMenu trigger="Select cities" onOpenChange={__noop} testId="lite-mode-ddm">
+			<DropdownItemCheckboxGroup id="cities" title="Some cities">
+				<DropdownItemCheckbox
+					id="sydney"
+					isSelected={selected.includes('sydney')}
+					onClick={() => {
+						selectOption('sydney');
+					}}
+				>
+					Sydney
+				</DropdownItemCheckbox>
+				<DropdownItemCheckbox
+					id="melbourne"
+					isSelected={selected.includes('melbourne')}
+					onClick={() => {
+						selectOption('melbourne');
+					}}
+				>
+					Melbourne
+				</DropdownItemCheckbox>
+			</DropdownItemCheckboxGroup>
+		</DropdownMenu>
+	);
 };
 
 describe('DropdownMenu with checkbox as item', () => {
-  describe('checkbox stateless', () => {
-    it('select item by click', async () => {
-      const { getByText, findAllByRole } = render(
-        <DropdownCheckboxStateless />,
-      );
+	describe('checkbox stateless', () => {
+		it('select item by click', async () => {
+			const { getByText, findAllByRole } = render(<DropdownCheckboxStateless />);
 
-      const trigger = getByText('Select cities');
+			const trigger = getByText('Select cities');
 
-      act(() => {
-        fireEvent.click(trigger);
-      });
+			act(() => {
+				fireEvent.click(trigger);
+			});
 
-      expect(getByText('Sydney')).toBeInTheDocument();
-      expect(getByText('Melbourne')).toBeInTheDocument();
+			expect(getByText('Sydney')).toBeInTheDocument();
+			expect(getByText('Melbourne')).toBeInTheDocument();
 
-      let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map(
-        (x) => x.getAttribute('aria-checked'),
-      );
+			let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+				x.getAttribute('aria-checked'),
+			);
 
-      expect(checkboxes).toEqual(['false', 'false']);
+			expect(checkboxes).toEqual(['false', 'false']);
 
-      const sydney = getByText('Sydney');
-      const melbourne = getByText('Melbourne');
+			const sydney = getByText('Sydney');
+			const melbourne = getByText('Melbourne');
 
-      act(() => {
-        fireEvent.click(sydney);
-      });
+			act(() => {
+				fireEvent.click(sydney);
+			});
 
-      act(() => {
-        fireEvent.click(melbourne);
-      });
+			act(() => {
+				fireEvent.click(melbourne);
+			});
 
-      checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
-        x.getAttribute('aria-checked'),
-      );
+			checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+				x.getAttribute('aria-checked'),
+			);
 
-      expect(checkboxes).toEqual(['true', 'true']);
-    });
-  });
+			expect(checkboxes).toEqual(['true', 'true']);
+		});
+	});
 });

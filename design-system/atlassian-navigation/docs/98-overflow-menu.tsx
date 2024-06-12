@@ -29,21 +29,18 @@ import { ButtonItem } from '@atlaskit/menu';
 `}
 
   ${(
-    <Example
-      title="Overflow menu"
-      Component={require('../examples/overflow-menu').default}
-      source={require('!!raw-loader!../examples/overflow-menu')}
-    />
-  )}
+		<Example
+			title="Overflow menu"
+			Component={require('../examples/overflow-menu').default}
+			source={require('!!raw-loader!../examples/overflow-menu')}
+		/>
+	)}
 
   ## \`useOverflowStatus()\`
 
   Used to get the current visibility of the navigation item.
 
   ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/controllers/overflow')}
-    />
-  )}
+		<Props heading="" props={require('!!extract-react-types-loader!../src/controllers/overflow')} />
+	)}
 `;

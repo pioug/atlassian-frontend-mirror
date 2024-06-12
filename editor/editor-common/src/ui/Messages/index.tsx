@@ -17,7 +17,9 @@ const validColor = css({
 	color: token('color.text.success', G400),
 });
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const messageStyle = () =>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	css(h200(), {
 		fontWeight: 'normal',
 		color: token('color.text.subtlest', N200),

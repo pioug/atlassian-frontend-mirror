@@ -153,6 +153,7 @@ export const previewScaleTable = (
 	options: ScaleOptions,
 	domAtPos: DomAtPos,
 	isTableScalingEnabled: boolean = false,
+	isTableWithFixedColumnWidthsOptionEnabled: boolean = false,
 ) => {
 	const { node, start, parentWidth } = options;
 
@@ -169,9 +170,10 @@ export const previewScaleTable = (
 	}
 
 	let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
-	const isTableScalingEnabledWithLockButton =
-		isTableScalingEnabled && getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
-	if (isTableScalingEnabledWithLockButton) {
+	const isTableScalingWithFixedColumnWidthsOptionEnabled =
+		isTableScalingEnabled && isTableWithFixedColumnWidthsOptionEnabled;
+
+	if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 		isTableScalingEnabledOnCurrentTable =
 			isTableScalingEnabled && node.attrs.displayMode !== 'fixed';
 	}
@@ -183,7 +185,7 @@ export const previewScaleTable = (
 	}
 
 	const shouldUseIncreasedScalingPercent =
-		isTableScalingEnabledWithLockButton &&
+		isTableScalingWithFixedColumnWidthsOptionEnabled &&
 		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 
 	const resizeState = parentWidth

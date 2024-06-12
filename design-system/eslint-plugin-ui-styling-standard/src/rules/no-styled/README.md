@@ -10,7 +10,7 @@ Avoid usages of styled, eg. `styled.div`, `styled('div')`, `styled(Component)`, 
 import styled from 'styled-components';
 
 const Component = styled.div`
-  color: red;
+	color: red;
 `;
 export default styled.div({ color: 'red' });
 ```
@@ -33,7 +33,7 @@ export const ComponentTwo = styled3(Component)({ … });
 import styled from 'styled-components';
 
 export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))({
-  color: 'red',
+	color: 'red',
 });
 ```
 
@@ -41,7 +41,7 @@ export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))({
 import styled from 'styled-components';
 
 export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))`
-  color: red;
+	color: red;
 `;
 ```
 
@@ -53,7 +53,7 @@ import { css, jsx } from '@emotion/react';
 const styles = css({ color: 'red' });
 
 const Component = ({ children }) => {
-  return <div css={styles}>{children}</div>;
+	return <div css={styles}>{children}</div>;
 };
 ```
 
@@ -62,11 +62,11 @@ const Component = ({ children }) => {
 import { Box, xcss } from '@atlaskit/primitives';
 
 const styles = xcss({
-  color: 'color.text.subtlest',
+	color: 'color.text.subtlest',
 });
 
 const Component = ({ children }) => {
-  return <Box xcss={styles}>{children}</Box>;
+	return <Box xcss={styles}>{children}</Box>;
 };
 ```
 
@@ -74,9 +74,14 @@ const Component = ({ children }) => {
 
 ### Why avoid using `styled` imports?
 
-Using `styled` imports impacts file readability, has TypeScript implications, adds linting complexity, promotes exported styles, and potential refactoring efforts. Using `css()` with the `<div css={…}>` syntax is more performant and clear.
+Using `styled` imports impacts file readability, has TypeScript implications, adds linting
+complexity, promotes exported styles, and potential refactoring efforts. Using `css()` with the
+`<div css={…}>` syntax is more performant and clear.
 
 ### How will I extend like `styled(Button)`?
 
-Primarily, we would suggest you don't extend styles of a component you don't own unless they have an explicit bounded interface for you to customize against. The Atlassian Design System for example has removed `styled(Button)` interactivity in our latest variants because they are unsafe for us to evolve the system with.
-Instead, make use of reusable component patterns to pass props around which impact the styles of that component.
+Primarily, we would suggest you don't extend styles of a component you don't own unless they have an
+explicit bounded interface for you to customize against. The Atlassian Design System for example has
+removed `styled(Button)` interactivity in our latest variants because they are unsafe for us to
+evolve the system with. Instead, make use of reusable component patterns to pass props around which
+impact the styles of that component.

@@ -8,10 +8,10 @@ const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 // Only testing for tsx here because it's modifying types
 describe('rename inner component prop types', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import {
       HeaderComponentProps,
@@ -20,7 +20,7 @@ describe('rename inner component prop types', () => {
       TitleComponentProps,
     } from '@atlaskit/modal-dialog';
     `,
-    `
+		`
     import React from 'react';
     import {
       ModalHeaderProps as HeaderComponentProps,
@@ -29,13 +29,13 @@ describe('rename inner component prop types', () => {
       ModalTitleProps as TitleComponentProps,
     } from '@atlaskit/modal-dialog';
     `,
-    'should create aliases for (Header/Body/Footer/Title)ComponentProps as Modal(Header/Body/Footer/Title)Props',
-  );
+		'should create aliases for (Header/Body/Footer/Title)ComponentProps as Modal(Header/Body/Footer/Title)Props',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import ModalDialog, {
       HeaderComponentProps,
@@ -44,7 +44,7 @@ describe('rename inner component prop types', () => {
       TitleComponentProps,
     } from '@atlaskit/modal-dialog';
     `,
-    `
+		`
     import React from 'react';
     import ModalDialog, {
       ModalHeaderProps as HeaderComponentProps,
@@ -53,13 +53,13 @@ describe('rename inner component prop types', () => {
       ModalTitleProps as TitleComponentProps,
     } from '@atlaskit/modal-dialog';
     `,
-    'should create aliases when imported with a default import',
-  );
+		'should create aliases when imported with a default import',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import ModalDialog, {
       HeaderComponentProps as CustomHeaderProps,
@@ -68,7 +68,7 @@ describe('rename inner component prop types', () => {
       TitleComponentProps as CustomTitleProps,
     } from '@atlaskit/modal-dialog';
     `,
-    `
+		`
     import React from 'react';
     import ModalDialog, {
       ModalHeaderProps as CustomHeaderProps,
@@ -77,6 +77,6 @@ describe('rename inner component prop types', () => {
       ModalTitleProps as CustomTitleProps,
     } from '@atlaskit/modal-dialog';
     `,
-    'should preserve old alias names',
-  );
+		'should preserve old alias names',
+	);
 });

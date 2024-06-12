@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { N90, B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const countStyle = css({
 	fontSize: 11,
 	color: token('color.text.subtlest', N90),
@@ -15,15 +16,18 @@ export const countStyle = css({
 	lineHeight: '14px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const containerStyle = css({
 	display: 'flex',
 	flexDirection: 'column',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const highlightStyle = css({
 	color: token('color.text.selected', B400),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const counterLabelStyle = css({
 	fontVariantNumeric: 'tabular-nums',
 });

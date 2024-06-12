@@ -1,7 +1,7 @@
 import { createRenameFuncFor } from '../utils';
 
 export const renameRemoveButtonText = createRenameFuncFor(
-  '@atlaskit/tag',
-  'removeButtonText',
-  'removeButtonLabel',
+	'@atlaskit/tag',
+	'removeButtonText',
+	'removeButtonLabel',
 );

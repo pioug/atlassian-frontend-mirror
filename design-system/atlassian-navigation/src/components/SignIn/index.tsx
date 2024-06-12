@@ -15,21 +15,17 @@ import { type SignInProps } from './types';
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 export const SignIn = (props: SignInProps) => {
-  const { tooltip, ...iconButtonProps } = props;
-  return (
-    <div role="listitem">
-      <IconButton
-        icon={
-          <SignInIcon
-            label={typeof tooltip === 'string' ? tooltip : 'Sign-in Icon'}
-          />
-        }
-        tooltip={tooltip}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-        {...iconButtonProps}
-      />
-    </div>
-  );
+	const { tooltip, ...iconButtonProps } = props;
+	return (
+		<div role="listitem">
+			<IconButton
+				icon={<SignInIcon label={typeof tooltip === 'string' ? tooltip : 'Sign-in Icon'} />}
+				tooltip={tooltip}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...iconButtonProps}
+			/>
+		</div>
+	);
 };
 
 export default SignIn;

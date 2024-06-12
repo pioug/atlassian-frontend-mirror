@@ -1,9 +1,9 @@
 import {
-  disableAllAnimations,
-  disableAllTransitions,
-  getExampleUrl,
-  loadExampleUrl,
-  takeElementScreenShot,
+	disableAllAnimations,
+	disableAllTransitions,
+	getExampleUrl,
+	loadExampleUrl,
+	takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
 const createRepoBtn = '#create-repo-button';
@@ -16,63 +16,48 @@ const submitBtn = 'button[type="submit"]';
 const submissionValidationError = '[data-testid="userSubmissionError"]';
 
 describe('Snapshot Test', () => {
-  it('Create repository should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'form',
-      'create-repository',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadExampleUrl(page, url);
-    await page.waitForSelector(createRepoBtn);
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+	it('Create repository should match production example', async () => {
+		const url = getExampleUrl('design-system', 'form', 'create-repository', global.__BASEURL__);
+		const { page } = global;
+		await loadExampleUrl(page, url);
+		await page.waitForSelector(createRepoBtn);
+		const image = await page.screenshot();
+		expect(image).toMatchProdImageSnapshot();
+	});
 
-  // FIXME: This test was automatically skipped due to failure on 30/08/2023: https://product-fabric.atlassian.net/browse/DSP-12725
-  it.skip('Signup Form password field validations should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'form',
-      'signup-form',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadExampleUrl(page, url);
+	// FIXME: This test was automatically skipped due to failure on 30/08/2023: https://product-fabric.atlassian.net/browse/DSP-12725
+	it.skip('Signup Form password field validations should match production example', async () => {
+		const url = getExampleUrl('design-system', 'form', 'signup-form', global.__BASEURL__);
+		const { page } = global;
+		await loadExampleUrl(page, url);
 
-    // disable animations in TextField
-    await disableAllAnimations(page);
-    await disableAllTransitions(page);
+		// disable animations in TextField
+		await disableAllAnimations(page);
+		await disableAllTransitions(page);
 
-    await page.waitForSelector(signupPasswordLabel);
-    await page.waitForSelector(signupPasswordField);
-    // focus on the field
-    await page.click(signupPasswordField);
-    await page.keyboard.type('jane');
+		await page.waitForSelector(signupPasswordLabel);
+		await page.waitForSelector(signupPasswordField);
+		// focus on the field
+		await page.click(signupPasswordField);
+		await page.keyboard.type('jane');
 
-    await page.waitForSelector(signUpPassword);
-    const image = await takeElementScreenShot(page, signUpPassword);
-    expect(image).toMatchProdImageSnapshot();
-  });
+		await page.waitForSelector(signUpPassword);
+		const image = await takeElementScreenShot(page, signUpPassword);
+		expect(image).toMatchProdImageSnapshot();
+	});
 
-  it('Submission validation should match production example', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'form',
-      'submission-validation',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadExampleUrl(page, url);
-    await page.waitForSelector(submissionValidationUsername);
-    await page.focus(submissionValidationUsername);
-    await page.keyboard.type('jsmith');
-    await page.focus(submissionValidationEmail);
-    await page.keyboard.type('jsmith@abc.com');
-    await page.click(submitBtn);
-    await page.waitForTimeout(2000);
-    const image = await takeElementScreenShot(page, submissionValidationError);
-    expect(image).toMatchProdImageSnapshot();
-  });
+	it('Submission validation should match production example', async () => {
+		const url = getExampleUrl('design-system', 'form', 'submission-validation', global.__BASEURL__);
+		const { page } = global;
+		await loadExampleUrl(page, url);
+		await page.waitForSelector(submissionValidationUsername);
+		await page.focus(submissionValidationUsername);
+		await page.keyboard.type('jsmith');
+		await page.focus(submissionValidationEmail);
+		await page.keyboard.type('jsmith@abc.com');
+		await page.click(submitBtn);
+		await page.waitForTimeout(2000);
+		const image = await takeElementScreenShot(page, submissionValidationError);
+		expect(image).toMatchProdImageSnapshot();
+	});
 });

@@ -2,6 +2,7 @@
 import { Status, type Color } from '../src/element';
 import { css, jsx } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const containerStyles = css`
 	width: 140px;
 `;

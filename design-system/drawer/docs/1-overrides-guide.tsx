@@ -28,12 +28,12 @@ for your own custom component.
 Below is an example of leveraging this property to switch out the default icons used within @atlaskit/drawer for an alternative set.
 
 ${(
-  <Example
-    packageName="@atlaskit/drawer"
-    Component={require('../examples/45-component-override').default}
-    title="Switching sidebar component via the overrides prop"
-    source={require('!!raw-loader!../examples/45-component-override')}
-  />
+	<Example
+		packageName="@atlaskit/drawer"
+		Component={require('../examples/45-component-override').default}
+		title="Switching sidebar component via the overrides prop"
+		source={require('!!raw-loader!../examples/45-component-override')}
+	/>
 )}
 
 ## Applying CSS customisations using the \`overrides\` prop
@@ -68,12 +68,12 @@ Below is an example of using the \`cssFn\` to augment the transition styles of a
 
 
 ${(
-  <Example
-    packageName="@atlaskit/drawer"
-    Component={require('../examples/46-css-function-override').default}
-    title="Switching sidebar component via the overrides prop"
-    source={require('!!raw-loader!../examples/46-css-function-override')}
-  />
+	<Example
+		packageName="@atlaskit/drawer"
+		Component={require('../examples/46-css-function-override').default}
+		title="Switching sidebar component via the overrides prop"
+		source={require('!!raw-loader!../examples/46-css-function-override')}
+	/>
 )}
 
 ## The \`Sidebar\` override
@@ -85,12 +85,12 @@ This component could be overriden in order to provide a more full-screen layout 
 The following example clearly shows the boundaries of the Sidebar override.
 
 ${(
-  <Example
-    packageName="@atlaskit/drawer"
-    Component={require('../examples/90-sidebar-override').default}
-    title="Outlining the sidebar override"
-    source={require('!!raw-loader!../examples/90-sidebar-override')}
-  />
+	<Example
+		packageName="@atlaskit/drawer"
+		Component={require('../examples/90-sidebar-override').default}
+		title="Outlining the sidebar override"
+		source={require('!!raw-loader!../examples/90-sidebar-override')}
+	/>
 )}
 
 
@@ -103,12 +103,12 @@ This component could be overriden to change the bounds of the rendered content w
 The following example clearly shows the boundaries of the Component override.
 
 ${(
-  <Example
-    packageName="@atlaskit/drawer"
-    Component={require('../examples/91-content-override').default}
-    title="Outlining the content override"
-    source={require('!!raw-loader!../examples/91-content-override')}
-  />
+	<Example
+		packageName="@atlaskit/drawer"
+		Component={require('../examples/91-content-override').default}
+		title="Outlining the content override"
+		source={require('!!raw-loader!../examples/91-content-override')}
+	/>
 )}
 
 

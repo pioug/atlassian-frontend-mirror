@@ -4,10 +4,10 @@ import transformer from '../../15.0.0-lite-mode';
 import { check } from '../_framework';
 
 describe('Change `type ButtonAppearances` to `type Appearance`', () => {
-  check({
-    transformer,
-    it: 'should separate types into a different export from the components',
-    original: `
+	check({
+		transformer,
+		it: 'should separate types into a different export from the components',
+		original: `
       import Button, { ButtonAppearances } from '@atlaskit/button';
 
       export type Mine = ButtonAppearances & 'purple';
@@ -18,7 +18,7 @@ describe('Change `type ButtonAppearances` to `type Appearance`', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import { Appearance } from '@atlaskit/button/types';
       import Button from '@atlaskit/button/custom-theme-button';
 
@@ -30,14 +30,14 @@ describe('Change `type ButtonAppearances` to `type Appearance`', () => {
         );
       }
     `,
-  });
+	});
 });
 
 describe('Changing <Button /> usage', () => {
-  check({
-    transformer,
-    it: 'should move to custom theme button',
-    original: `
+	check({
+		transformer,
+		it: 'should move to custom theme button',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
 
@@ -47,7 +47,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import Button from '@atlaskit/button/custom-theme-button';
 
@@ -57,29 +57,29 @@ describe('Changing <Button /> usage', () => {
         );
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move over when not used in JSX',
-    original: `
+	check({
+		transformer,
+		it: 'should move over when not used in JSX',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
 
       expect(Button).toBeTruthy();
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import Button from '@atlaskit/button/custom-theme-button';
 
       expect(Button).toBeTruthy();
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should respect self closing tags',
-    original: `
+	check({
+		transformer,
+		it: 'should respect self closing tags',
+		original: `
       import React from 'react';
       import Button from '@atlaskit/button';
 
@@ -87,7 +87,7 @@ describe('Changing <Button /> usage', () => {
         return <Button onClick={() => console.log('hi')} />;
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import Button from '@atlaskit/button/custom-theme-button';
 
@@ -95,12 +95,12 @@ describe('Changing <Button /> usage', () => {
         return <Button onClick={() => console.log('hi')} />;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should respect the existing alias',
-    original: `
+	check({
+		transformer,
+		it: 'should respect the existing alias',
+		original: `
       import React from 'react';
       import Button from './our-button';
       import AkButton from '@atlaskit/button';
@@ -114,7 +114,7 @@ describe('Changing <Button /> usage', () => {
         );
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import Button from './our-button';
       import AkButton from '@atlaskit/button/custom-theme-button';
@@ -128,14 +128,14 @@ describe('Changing <Button /> usage', () => {
         );
       }
   `,
-  });
+	});
 });
 
 describe('`type ButtonProps` to `type CustomButtonProps`', () => {
-  check({
-    transformer,
-    it: 'should move to the new type',
-    original: `
+	check({
+		transformer,
+		it: 'should move to the new type',
+		original: `
       import React from 'react';
       import Button, { ButtonProps } from '@atlaskit/button';
 
@@ -143,7 +143,7 @@ describe('`type ButtonProps` to `type CustomButtonProps`', () => {
         return <Button>click me</Button>;
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import { CustomThemeButtonProps } from '@atlaskit/button/types';
       import Button from '@atlaskit/button/custom-theme-button';
@@ -152,12 +152,12 @@ describe('`type ButtonProps` to `type CustomButtonProps`', () => {
         return <Button>click me</Button>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should respect aliasing',
-    original: `
+	check({
+		transformer,
+		it: 'should respect aliasing',
+		original: `
       import React from 'react';
       import Button, { ButtonProps as Foo } from '@atlaskit/button';
 
@@ -167,7 +167,7 @@ describe('`type ButtonProps` to `type CustomButtonProps`', () => {
         return <Button>click me</Button>;
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import { CustomThemeButtonProps as Foo } from '@atlaskit/button/types';
       import Button from '@atlaskit/button/custom-theme-button';
@@ -178,12 +178,12 @@ describe('`type ButtonProps` to `type CustomButtonProps`', () => {
         return <Button>click me</Button>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should avoid clashes',
-    original: `
+	check({
+		transformer,
+		it: 'should avoid clashes',
+		original: `
       import React from 'react';
       import { CustomThemeButtonProps } from './my-types';
       import Button, { ButtonProps } from '@atlaskit/button';
@@ -194,7 +194,7 @@ describe('`type ButtonProps` to `type CustomButtonProps`', () => {
         return <Button>click me</Button>;
       }
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import { CustomThemeButtonProps } from './my-types';
       import { CustomThemeButtonProps as DSCustomThemeButtonProps } from '@atlaskit/button/types';
@@ -206,18 +206,18 @@ describe('`type ButtonProps` to `type CustomButtonProps`', () => {
         return <Button>click me</Button>;
       }
   `,
-  });
+	});
 
-  check({
-    transformer,
-    it: 'should move from type entry point',
-    original: `
+	check({
+		transformer,
+		it: 'should move from type entry point',
+		original: `
       import React from 'react';
       import { ButtonProps } from '@atlaskit/button/types';
     `,
-    expected: `
+		expected: `
       import React from 'react';
       import { CustomThemeButtonProps } from '@atlaskit/button/types';
     `,
-  });
+	});
 });

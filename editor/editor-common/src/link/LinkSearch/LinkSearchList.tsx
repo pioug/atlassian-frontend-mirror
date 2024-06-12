@@ -22,6 +22,7 @@ const spinnerContainer = css({
 	marginTop: token('space.400', '32px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const linkSearchList = css({
 	padding: 0,
 	listStyle: 'none',

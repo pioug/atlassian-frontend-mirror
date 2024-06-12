@@ -3,10 +3,10 @@ import transformer from '../12.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('apply all transforms', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import InlineEdit, {InlineEditableTextfield} from "@atlaskit/inline-edit";
 
@@ -20,7 +20,7 @@ describe('apply all transforms', () => {
       </Container>
     );
     `,
-    `
+		`
     /* TODO: (from codemod) We could not automatically convert this code to the new API.
 
     This file uses \`inline-edit\`’s \`validate\` prop which previously would use \`react-loadable\` and the \`inline-dialog\` packages. Version 12.0.0 of \`inline-edit\` now no longer includes these dependencies out of the box and instead allows you to compose your own experience.
@@ -63,13 +63,13 @@ describe('apply all transforms', () => {
       </Container>
     );
     `,
-    'should switch InlineEditableTextfield to a new entrypoint with default import',
-  );
+		'should switch InlineEditableTextfield to a new entrypoint with default import',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { PureComponent } from "react";
     import InlineEdit from "@atlaskit/inline-edit";
     import TextField from "@atlaskit/textfield";
@@ -163,7 +163,7 @@ describe('apply all transforms', () => {
       }
     }
     `,
-    `
+		`
     /* TODO: (from codemod) We could not automatically convert this code to the new API.
 
     This file uses \`inline-edit\`’s \`validate\` prop which previously would use \`react-loadable\` and the \`inline-dialog\` packages. Version 12.0.0 of \`inline-edit\` now no longer includes these dependencies out of the box and instead allows you to compose your own experience.
@@ -280,13 +280,13 @@ describe('apply all transforms', () => {
       }
     }
     `,
-    'ColumnEditableTitle - add comment when editView is not inline and validate is passed',
-  );
+		'ColumnEditableTitle - add comment when editView is not inline and validate is passed',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -343,7 +343,7 @@ describe('apply all transforms', () => {
       </InlineEditOffsetContainer>
     );
     `,
-    `
+		`
     import React from "react";
     import InlineEdit from "@atlaskit/inline-edit";
 
@@ -400,6 +400,6 @@ describe('apply all transforms', () => {
       </InlineEditOffsetContainer>
     );
     `,
-    'should do nothing for editView is something other than arrow function',
-  );
+		'should do nothing for editView is something other than arrow function',
+	);
 });

@@ -19,16 +19,16 @@ ReactDOM.render(
 );`;
 
 export default function Component() {
-  return (
-    <div>
-      <h2>Highlighting specific lines with long line wrapping </h2>
-      <CodeBlock
-        testId="highlight-long-lines"
-        language="jsx"
-        text={exampleCodeBlock}
-        highlight="1,5-7"
-        shouldWrapLongLines
-      />
-    </div>
-  );
+	return (
+		<div>
+			<h2>Highlighting specific lines with long line wrapping </h2>
+			<CodeBlock
+				testId="highlight-long-lines"
+				language="jsx"
+				text={exampleCodeBlock}
+				highlight="1,5-7"
+				shouldWrapLongLines
+			/>
+		</div>
+	);
 }

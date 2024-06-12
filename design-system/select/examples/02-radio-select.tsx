@@ -7,24 +7,23 @@ import { cities } from './common/data';
 
 // data imported for brevity; equal to the options from Single Select example
 const RadioExample = () => (
-  <>
-    <Label htmlFor="radio-select-example">What city do you live in?</Label>
-    <RadioSelect
-      inputId="radio-select-example"
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-      className="radio-select"
-      classNamePrefix="react-select"
-      options={[
-        ...cities,
-        {
-          label:
-            "super long name that noone will ever read because it's way too long",
-          value: 'test',
-        },
-      ]}
-      placeholder="Choose a City"
-    />
-  </>
+	<>
+		<Label htmlFor="radio-select-example">What city do you live in?</Label>
+		<RadioSelect
+			inputId="radio-select-example"
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="radio-select"
+			classNamePrefix="react-select"
+			options={[
+				...cities,
+				{
+					label: "super long name that noone will ever read because it's way too long",
+					value: 'test',
+				},
+			]}
+			placeholder="Choose a City"
+		/>
+	</>
 );
 
 export default RadioExample;

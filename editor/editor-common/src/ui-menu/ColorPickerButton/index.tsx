@@ -43,6 +43,7 @@ const colorPickerExpandContainer = css({
 // Control the size of color picker buttons and preview
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4134
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const colorPickerWrapper = () =>
 	css({
 		borderRadius: token('border.radius', '3px'),
@@ -219,17 +220,23 @@ const ColorPickerButton = (props: Props) => {
 		css({
 			padding: `${token('space.075', '6px')} 10px`,
 			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			height: `${!!props.size?.height ? 'inherit' : ''}`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:before': {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
 				alignSelf: 'center',
 				content: "''",
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				border: `1px solid ${DEFAULT_BORDER_COLOR}`,
 				borderRadius: token('border.radius', '3px'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: currentColor || 'transparent',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				width: props.size?.width || '14px',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				height: props.size?.height || '14px',
 				padding: 0,
 				margin: `0px ${token('space.025', '2px')}`,

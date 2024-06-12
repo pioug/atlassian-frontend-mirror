@@ -53,10 +53,11 @@ export const ExternalDropTargets = ({
 				overflow: 'hidden',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				position: 'absolute',
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				top: `-${dropTargetExtendedWidth - tableMarginTop}px`,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				pointerEvents: 'auto',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				zIndex: `${dropTargetsZIndex}`,
 			}}
 			data-testid="table-floating-column-extended-drop-targets"

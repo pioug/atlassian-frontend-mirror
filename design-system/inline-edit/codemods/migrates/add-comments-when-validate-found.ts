@@ -1,10 +1,6 @@
 import type { ASTPath, default as core, ImportDeclaration } from 'jscodeshift';
 
-import {
-  addCommentToStartOfFile,
-  getDefaultSpecifierName,
-  hasJSXAttributesByName,
-} from './utils';
+import { addCommentToStartOfFile, getDefaultSpecifierName, hasJSXAttributesByName } from './utils';
 
 const commentMessage = `We could not automatically convert this code to the new API.
 
@@ -31,24 +27,18 @@ const MyEditView = (
 `;
 
 const addCommentsWhenValidateFound = (j: core.JSCodeshift, source: any) => {
-  const defaultSpecifier = getDefaultSpecifierName(
-    j,
-    source,
-    '@atlaskit/inline-edit',
-  );
+	const defaultSpecifier = getDefaultSpecifierName(j, source, '@atlaskit/inline-edit');
 
-  if (!defaultSpecifier) {
-    return;
-  }
+	if (!defaultSpecifier) {
+		return;
+	}
 
-  source
-    .findJSXElements(defaultSpecifier)
-    .forEach((element: ASTPath<ImportDeclaration>) => {
-      const isValidateDefined = hasJSXAttributesByName(j, element, 'validate');
-      if (isValidateDefined) {
-        addCommentToStartOfFile({ j, base: source, message: commentMessage });
-      }
-    });
+	source.findJSXElements(defaultSpecifier).forEach((element: ASTPath<ImportDeclaration>) => {
+		const isValidateDefined = hasJSXAttributesByName(j, element, 'validate');
+		if (isValidateDefined) {
+			addCommentToStartOfFile({ j, base: source, message: commentMessage });
+		}
+	});
 };
 
 export default addCommentsWhenValidateFound;

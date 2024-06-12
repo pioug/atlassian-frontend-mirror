@@ -5,15 +5,15 @@ import { Label } from '@atlaskit/form';
 import { TimePicker } from '../../src';
 
 export default function App() {
-  return (
-    <>
-      <Label htmlFor="timepicker-editable-time">Editable time example</Label>
-      <TimePicker
-        timeIsEditable
-        selectProps={{
-          inputId: 'timepicker-editable-time',
-        }}
-      />
-    </>
-  );
+	return (
+		<>
+			<Label htmlFor="timepicker-editable-time">Editable time example</Label>
+			<TimePicker
+				timeIsEditable
+				selectProps={{
+					inputId: 'timepicker-editable-time',
+				}}
+			/>
+		</>
+	);
 }

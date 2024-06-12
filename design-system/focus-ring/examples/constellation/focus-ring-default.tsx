@@ -9,32 +9,32 @@ import { token } from '@atlaskit/tokens';
 import FocusRing from '../../src';
 
 const buttonStyles = css({
-  display: 'block',
-  margin: `${token('space.150', '12px')} 0`,
-  padding: token('space.100', '8px'),
-  border: 'none',
-  borderRadius: token('border.radius.100', '3px'),
+	display: 'block',
+	margin: `${token('space.150', '12px')} 0`,
+	padding: token('space.100', '8px'),
+	border: 'none',
+	borderRadius: token('border.radius.100', '3px'),
 });
 
 const spacerStyles = xcss({
-  padding: 'space.100',
+	padding: 'space.100',
 });
 
 export default () => {
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
-  useEffect(() => {
-    if (buttonRef.current) {
-      buttonRef.current.focus();
-    }
-  }, []);
+	const buttonRef = useRef<HTMLButtonElement | null>(null);
+	useEffect(() => {
+		if (buttonRef.current) {
+			buttonRef.current.focus();
+		}
+	}, []);
 
-  return (
-    <Box xcss={spacerStyles}>
-      <FocusRing>
-        <button type="button" ref={buttonRef} css={buttonStyles}>
-          Native Button
-        </button>
-      </FocusRing>
-    </Box>
-  );
+	return (
+		<Box xcss={spacerStyles}>
+			<FocusRing>
+				<button type="button" ref={buttonRef} css={buttonStyles}>
+					Native Button
+				</button>
+			</FocusRing>
+		</Box>
+	);
 };

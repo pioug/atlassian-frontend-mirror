@@ -8,12 +8,12 @@ import Link from '../../../../index';
 import variations from '../../../../utils/variations';
 
 describe(`Accessibility:`, () => {
-  variations.forEach(({ name, props }) => {
-    describe(`'${name}' accessibility`, () => {
-      it('should not fail an aXe audit', async () => {
-        const { container } = render(<Link {...props} />);
-        await axe(container);
-      });
-    });
-  });
+	variations.forEach(({ name, props }) => {
+		describe(`'${name}' accessibility`, () => {
+			it('should not fail an aXe audit', async () => {
+				const { container } = render(<Link {...props} />);
+				await axe(container);
+			});
+		});
+	});
 });

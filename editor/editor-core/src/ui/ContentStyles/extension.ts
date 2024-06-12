@@ -18,23 +18,24 @@ const extensionLabelStyles = css`
 		background-color: ${token('color.background.accent.red.subtler', R50)};
 		color: ${token('color.text.danger', R400)};
 		opacity: 1;
-		border: none;
+		box-shadow: none;
 	}
 
 	&:not(.danger).${akEditorSelectedNodeClassName} > span > div > .extension-label {
 		background-color: ${token('color.background.selected', B50)};
 		color: ${token('color.text.selected', B400)};
 		opacity: 1;
-		border: none;
+		box-shadow: none;
 	}
 `;
 
 const dangerOverlayStyles = css({
 	opacity: 0.3,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.danger.hovered', akEditorDeleteBackground),
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css -- Needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const extensionStyles = css`
 	.multiBodiedExtensionView-content-wrap {
 		&.danger > span > .multiBodiedExtension--container {

@@ -3,17 +3,15 @@ jest.autoMockOff();
 import { flattenCertainInnerPropsAsProp } from '../migrations/flatten-certain-inner-props-as-prop';
 import { createTransformer } from '../utils';
 
-const transformer = createTransformer('@atlaskit/calendar', [
-  flattenCertainInnerPropsAsProp,
-]);
+const transformer = createTransformer('@atlaskit/calendar', [flattenCertainInnerPropsAsProp]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Flatten Inner Prop Style As Prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
     const SimpleCalendar = () => {
@@ -30,7 +28,7 @@ describe('Flatten Inner Prop Style As Prop', () => {
       )
     };
   `,
-    `
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
     const SimpleCalendar = () => {
@@ -51,12 +49,12 @@ describe('Flatten Inner Prop Style As Prop', () => {
       );
     };
   `,
-    'should flatten style & className properties in inner props as a new standalone props',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should flatten style & className properties in inner props as a new standalone props',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
     const SimpleCalendar = () => {
@@ -69,7 +67,7 @@ describe('Flatten Inner Prop Style As Prop', () => {
       )
     };
   `,
-    `
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
     const SimpleCalendar = () => {
@@ -82,12 +80,12 @@ describe('Flatten Inner Prop Style As Prop', () => {
       );
     };
   `,
-    'should just flatten className property in inner props as a new standalone prop',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should just flatten className property in inner props as a new standalone prop',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
     const SimpleCalendar = () => {
@@ -103,7 +101,7 @@ describe('Flatten Inner Prop Style As Prop', () => {
       )
     };
   `,
-    `
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
     const SimpleCalendar = () => {
@@ -122,12 +120,12 @@ describe('Flatten Inner Prop Style As Prop', () => {
       );
     };
   `,
-    'should just flatten style property in inner props as a new standalone prop',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should just flatten style property in inner props as a new standalone prop',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
     const SimpleCalendar = () => {
@@ -140,7 +138,7 @@ describe('Flatten Inner Prop Style As Prop', () => {
       )
     };
   `,
-    `
+		`
     import React from 'react';
     import Calendar from '@atlaskit/calendar';
     const SimpleCalendar = () => {
@@ -153,6 +151,6 @@ describe('Flatten Inner Prop Style As Prop', () => {
       )
     };
   `,
-    'should not flatten any other prop in inner props if className & style prop is not present',
-  );
+		'should not flatten any other prop in inner props if className & style prop is not present',
+	);
 });

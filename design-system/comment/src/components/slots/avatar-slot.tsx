@@ -6,14 +6,14 @@ import { jsx } from '@emotion/react';
 import { Box, xcss } from '@atlaskit/primitives';
 
 const avatarSectionStyles = xcss({
-  gridArea: 'avatar-area',
+	gridArea: 'avatar-area',
 });
 
 interface AvatarSlotProps {
-  /**
-   * The element to display as the Comment avatar - generally an Atlaskit Avatar
-   */
-  children?: ReactNode;
+	/**
+	 * The element to display as the Comment avatar - generally an Atlaskit Avatar
+	 */
+	children?: ReactNode;
 }
 
 /**
@@ -23,7 +23,7 @@ interface AvatarSlotProps {
  *
  */
 const AvatarSlot: FC<AvatarSlotProps> = ({ children }) => (
-  <Box xcss={avatarSectionStyles}>{children}</Box>
+	<Box xcss={avatarSectionStyles}>{children}</Box>
 );
 
 export default AvatarSlot;

@@ -2,28 +2,33 @@ import HeadingMigration from '../../examples/constellation/heading-migration';
 
 ## Migrating to new Heading API
 
-As part of our new typography system, we've updated Heading to provide an API more consistent with other Design System components.
-The primary change is replacing the `level` prop with `size` and updating the values to reference t-shirt sizes.
+As part of our new typography system, we've updated Heading to provide an API more consistent with
+other Design System components. The primary change is replacing the `level` prop with `size` and
+updating the values to reference t-shirt sizes.
 
 <Example Component={HeadingMigration} packageName="@atlaskit/heading" />
 
 ### `level` renamed to `size`
 
-The `level` prop on the `Heading` component has been renamed to `size` to better reflect its purpose.
-The `level` prop is still supported but is deprecated and will be removed in a future major release.
+The `level` prop on the `Heading` component has been renamed to `size` to better reflect its
+purpose. The `level` prop is still supported but is deprecated and will be removed in a future major
+release.
 
-To migrate from `level` to `size`, rename the `prop` in your code and update the value to match the new `size` values referenced in the example above.
+To migrate from `level` to `size`, rename the `prop` in your code and update the value to match the
+new `size` values referenced in the example above.
 
 ```diff
 - <Heading level="h300">
 + <Heading size="xxsmall">
 ```
 
-This migration isn't 1:1 as the `size` prop has a different set of values to the `level` prop, although equivalents exist for most levels.
+This migration isn't 1:1 as the `size` prop has a different set of values to the `level` prop,
+although equivalents exist for most levels.
 
-Certain headings (h100, h300) have no direct equivalents in the new typography system.
-For these, assess whether the text should still be a heading and if so, use the `xxsmall` size.
+Certain headings (h100, h300) have no direct equivalents in the new typography system. For these,
+assess whether the text should still be a heading and if so, use the `xxsmall` size.
 
-The removal of the all caps style from h300 and lighter colors from h100 and h200 is intentional for accessibility reasons.
+The removal of the all caps style from h300 and lighter colors from h100 and h200 is intentional for
+accessibility reasons.
 
 Other props on the `Heading` component have not changed.

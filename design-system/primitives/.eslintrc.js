@@ -1,3 +1,3 @@
 module.exports = {
-  ignorePatterns: ['./scripts/codegen-file-templates/*'],
+	ignorePatterns: ['./scripts/codegen-file-templates/*'],
 };

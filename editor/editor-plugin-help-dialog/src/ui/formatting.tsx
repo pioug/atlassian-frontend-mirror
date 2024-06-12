@@ -75,6 +75,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleBold,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>
 					**
 					<FormattedMessage {...toolbarMessages.bold} />
@@ -89,6 +90,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleItalic,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>
 					*<FormattedMessage {...toolbarMessages.italic} />*
 				</span>
@@ -106,6 +108,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleStrikethrough,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>
 					~~
 					<FormattedMessage {...toolbarMessages.strike} />
@@ -130,6 +133,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleHeading1,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeSm}>#</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -140,6 +144,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleHeading2,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>##</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -150,6 +155,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleHeading3,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>###</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -160,6 +166,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleHeading4,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>####</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -170,6 +177,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleHeading5,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>#####</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -180,6 +188,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleHeading6,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>######</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -195,6 +204,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleOrderedList,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeSm}>1.</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -205,6 +215,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleBulletList,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeSm}>*</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -215,6 +226,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleBlockQuote,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>{'>'}</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -224,6 +236,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		type: 'codeBlock',
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>```</span>
 			</span>
 		),
@@ -234,6 +247,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => insertRule,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>---</span>
 			</span>
 		),
@@ -244,6 +258,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => addLink,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>
 					[<FormattedMessage {...toolbarInsertBlockMessages.link} />
 					](http://a.com)
@@ -257,6 +272,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		keymap: () => toggleCode,
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>
 					`<FormattedMessage {...toolbarMessages.code} />`
 				</span>
@@ -268,6 +284,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		type: 'taskItem',
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeSm}>[]</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -277,6 +294,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		type: 'decisionItem',
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeSm}>&lt;&gt;</span> <span css={codeLg}>Space</span>
 			</span>
 		),
@@ -286,6 +304,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		type: 'emoji',
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>:</span>
 			</span>
 		),
@@ -295,6 +314,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		type: 'mention',
 		autoFormatting: () => (
 			<span>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<span css={codeLg}>@</span>
 			</span>
 		),
@@ -355,23 +375,32 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 		name: formatMessage(messages.selectTableRow),
 		type: 'table',
 		autoFormatting: () => (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<span css={shortcutsArray}>
 				<span>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeMd}>Shift</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeSm}>←</span>
 				</span>
 				<span>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeMd}>Shift</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeSm}>→</span>
 				</span>
 			</span>
@@ -381,23 +410,32 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 		name: formatMessage(messages.selectTableColumn),
 		type: 'table',
 		autoFormatting: () => (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<span css={shortcutsArray}>
 				<span>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeMd}>Shift</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeSm}>↑</span>
 				</span>
 				<span>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeMd}>Shift</span>
 					{' + '}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<span css={codeSm}>↓</span>
 				</span>
 			</span>
@@ -409,19 +447,26 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 					name: formatMessage(messages.InsertTableColumn),
 					type: 'table',
 					autoFormatting: () => (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						<span css={shortcutsArray}>
 							<span>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>=</span>
 							</span>
 							<span>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>-</span>
 							</span>
 						</span>
@@ -431,19 +476,26 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 					name: formatMessage(messages.InsertTableRow),
 					type: 'table',
 					autoFormatting: () => (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						<span css={shortcutsArray}>
 							<span>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>]</span>
 							</span>
 							<span>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>[</span>
 							</span>
 						</span>
@@ -455,19 +507,26 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 					name: formatMessage(messages.InsertTableColumn),
 					type: 'table',
 					autoFormatting: () => (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						<span css={shortcutsArray}>
 							<span>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>{browser.mac ? '⌃' : 'Ctrl'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>→</span>
 							</span>
 							<span>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>{browser.mac ? '⌃' : 'Ctrl'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>←</span>
 							</span>
 						</span>
@@ -477,19 +536,26 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 					name: formatMessage(messages.InsertTableRow),
 					type: 'table',
 					autoFormatting: () => (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						<span css={shortcutsArray}>
 							<span>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>{browser.mac ? '⌃' : 'Ctrl'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>↓</span>
 							</span>
 							<span>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>{browser.mac ? '⌃' : 'Ctrl'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>↑</span>
 							</span>
 						</span>
@@ -502,14 +568,19 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 					name: formatMessage(messages.selectColumnResize),
 					type: 'table',
 					autoFormatting: () => (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						<span css={shortcutsArray}>
 							<span>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeMd}>Shift</span>
 								{' + '}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<span css={codeSm}>C</span>
 							</span>
 						</span>
@@ -545,6 +616,7 @@ const imageAutoFormat: Format = {
 	type: 'image',
 	autoFormatting: () => (
 		<span>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<span css={codeLg}>
 				![
 				<FormattedMessage {...messages.altText} />
@@ -559,6 +631,7 @@ const quickInsertAutoFormat: (intl: IntlShape) => Format = ({ formatMessage }) =
 	type: 'quickInsert',
 	autoFormatting: () => (
 		<span>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<span css={codeLg}>/</span>
 		</span>
 	),

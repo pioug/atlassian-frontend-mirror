@@ -6,20 +6,14 @@ export type AvatarSizeMap = Record<SizeType, number>;
 export type AppearanceType = 'circle' | 'square';
 
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-export type SizeType =
-  | 'xsmall'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xlarge'
-  | 'xxlarge';
+export type SizeType = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge';
 
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type IndicatorSizeType = 'small' | 'medium' | 'large' | 'xlarge';
 
 export type AvatarClickEventHandler = (
-  event: React.MouseEvent,
-  analyticsEvent?: UIAnalyticsEvent,
+	event: React.MouseEvent,
+	analyticsEvent?: UIAnalyticsEvent,
 ) => void;
 
 export type Status = 'approved' | 'declined' | 'locked';

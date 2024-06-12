@@ -7,10 +7,10 @@ const transformer = createTransformer([changeAppearanceProp]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('SectionMessage code-mods', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
 
@@ -35,7 +35,7 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
 
@@ -60,13 +60,13 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `should change the value of appearance prop from "info" to "information"`,
-  );
+		`should change the value of appearance prop from "info" to "information"`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
 
@@ -85,7 +85,7 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
 
@@ -104,13 +104,13 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `should change the value of appearance prop from "confirmation" to "success"`,
-  );
+		`should change the value of appearance prop from "confirmation" to "success"`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
 
@@ -128,7 +128,7 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
 
@@ -146,13 +146,13 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `should change the value of appearance prop from "change" to "discovery"`,
-  );
+		`should change the value of appearance prop from "change" to "discovery"`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const App = () => {
@@ -168,7 +168,7 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const App = () => {
@@ -184,13 +184,13 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `should change the value of appearance prop from "change" to "discovery" when appearance value is string wrapped in JSX expression`,
-  );
+		`should change the value of appearance prop from "change" to "discovery" when appearance value is string wrapped in JSX expression`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
 
@@ -207,7 +207,7 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
 
@@ -224,13 +224,13 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `should not change the value of appearance prop when it's not one of "info","confirmation","change"`,
-  );
+		`should not change the value of appearance prop when it's not one of "info","confirmation","change"`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const App = () => {
@@ -245,7 +245,7 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const App = () => {
@@ -260,13 +260,13 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `should not change the value of appearance prop when it's not one of "info","confirmation","change" and value is string wrapped in JSX expression`,
-  );
+		`should not change the value of appearance prop when it's not one of "info","confirmation","change" and value is string wrapped in JSX expression`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const appearanceValue = "change";
@@ -284,7 +284,7 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const appearanceValue = "change";
@@ -308,13 +308,13 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `should add appearance mapping when appearance prop value is other than string`,
-  );
+		`should add appearance mapping when appearance prop value is other than string`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const appearanceValue = "error";
@@ -331,7 +331,7 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const appearanceValue = "error";
@@ -354,13 +354,13 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `should add appearance mapping when appearance prop value is conditional type`,
-  );
+		`should add appearance mapping when appearance prop value is conditional type`,
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const appearance = { value: { ohRealValue: "error" } };
@@ -377,7 +377,7 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import SectionMessage from '@atlaskit/section-message';
     const appearance = { value: { ohRealValue: "error" } };
@@ -400,6 +400,6 @@ describe('SectionMessage code-mods', () => {
       );
     }
     `,
-    `should add appearance mapping when appearance prop value is complex object type`,
-  );
+		`should add appearance mapping when appearance prop value is complex object type`,
+	);
 });

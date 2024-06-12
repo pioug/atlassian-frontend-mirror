@@ -5,14 +5,14 @@ import BitbucketPullrequestsIcon from '@atlaskit/icon/glyph/bitbucket/pullreques
 import { LinkIconButton } from '../../../../src/new';
 
 const LinkIconButtonSelectedExample = () => {
-  return (
-    <LinkIconButton
-      href="https://atlassian.com"
-      icon={BitbucketPullrequestsIcon}
-      label="View pull requests"
-      isSelected
-    />
-  );
+	return (
+		<LinkIconButton
+			href="https://atlassian.com"
+			icon={BitbucketPullrequestsIcon}
+			label="View pull requests"
+			isSelected
+		/>
+	);
 };
 
 export default LinkIconButtonSelectedExample;

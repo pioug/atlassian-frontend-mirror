@@ -19,45 +19,43 @@ export type { ButtonItemProps as GoBackItemProps } from '@atlaskit/menu';
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
 const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
-  (
-    {
-      cssFn,
-      iconBefore = (
-        <LeftArrow secondaryColor={token('elevation.surface', N10)} label="" />
-      ),
-      onClick,
-      isSelected,
-      ...rest
-    }: // Type needed on props to extract types with extract react types.
-    ButtonItemProps,
-    ref,
-  ) => {
-    const [isInteracted, setIsInteracted] = useState(false);
+	(
+		{
+			cssFn,
+			iconBefore = <LeftArrow secondaryColor={token('elevation.surface', N10)} label="" />,
+			onClick,
+			isSelected,
+			...rest
+		}: // Type needed on props to extract types with extract react types.
+		ButtonItemProps,
+		ref,
+	) => {
+		const [isInteracted, setIsInteracted] = useState(false);
 
-    const onClickHandler: NonNullable<ButtonItemProps['onClick']> = useCallback(
-      (e) => {
-        if (isInteracted) {
-          return;
-        }
+		const onClickHandler: NonNullable<ButtonItemProps['onClick']> = useCallback(
+			(e) => {
+				if (isInteracted) {
+					return;
+				}
 
-        setIsInteracted(true);
-        onClick && onClick(e);
-      },
-      [onClick, isInteracted],
-    );
+				setIsInteracted(true);
+				onClick && onClick(e);
+			},
+			[onClick, isInteracted],
+		);
 
-    return (
-      <ButtonItem
-        isSelected={isSelected}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-        cssFn={cssFn}
-        iconBefore={iconBefore}
-        onClick={onClickHandler}
-        ref={ref}
-        {...rest}
-      />
-    );
-  },
+		return (
+			<ButtonItem
+				isSelected={isSelected}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+				cssFn={cssFn}
+				iconBefore={iconBefore}
+				onClick={onClickHandler}
+				ref={ref}
+				{...rest}
+			/>
+		);
+	},
 );
 
 export default GoBackItem;

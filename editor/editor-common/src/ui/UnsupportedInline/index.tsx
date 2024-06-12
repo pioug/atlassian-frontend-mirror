@@ -23,10 +23,12 @@ const inlineNodeStyle = css({
 	alignItems: 'center',
 	background: token('color.background.disabled', N30),
 	border: `1px dashed ${token('color.border.disabled', N50)}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `${borderRadius()}px`,
 	boxSizing: 'border-box',
 	cursor: 'default',
 	display: 'inline-flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(fontSize()),
 	margin: `0 ${token('space.025', '2px')}`,
 	minHeight: '24px',

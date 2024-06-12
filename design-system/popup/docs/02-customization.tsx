@@ -13,10 +13,10 @@ export default md`
   Else the positioning of the popup will not work correctly.
 
   ${(
-    <Example
-      packageName="@atlaskit/popup"
-      Component={require('../examples/custom').default}
-      source={require('!!raw-loader!../examples/custom')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/popup"
+			Component={require('../examples/custom').default}
+			source={require('!!raw-loader!../examples/custom')}
+		/>
+	)}
 `;

@@ -57,9 +57,7 @@ module.exports = evaluateInner`
     line-height: 20px;
     max-width: 100%;
     outline: none;
-    padding: ${basePaddingY - baseBorderWidth}px ${
-  basePaddingX - baseBorderWidth
-}px;
+    padding: ${basePaddingY - baseBorderWidth}px ${basePaddingX - baseBorderWidth}px;
     transition: background-color ${baseTransitionDuration} ease-in-out, border-color ${baseTransitionDuration} ease-in-out;
     width: 100%;
   }

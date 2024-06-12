@@ -6,11 +6,11 @@ export { default as Skeleton } from './components/skeleton';
 export { default as IconTile } from './components/icon-tile';
 
 export type {
-  Size,
-  SkeletonProps,
-  IconProps,
-  GlyphProps,
-  CustomGlyphProps,
-  SVGProps,
-  NewIconProps as UNSAFE_NewIconProps,
+	Size,
+	SkeletonProps,
+	IconProps,
+	GlyphProps,
+	CustomGlyphProps,
+	SVGProps,
+	NewIconProps as UNSAFE_NewIconProps,
 } from './types';

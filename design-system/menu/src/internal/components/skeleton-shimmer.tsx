@@ -7,8 +7,8 @@ import { N20A, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type SkeletonShimmerProps = {
-  children: ({ className }: { className?: string }) => ReactNode;
-  isShimmering?: boolean;
+	children: ({ className }: { className?: string }) => ReactNode;
+	isShimmering?: boolean;
 };
 
 /**
@@ -18,12 +18,12 @@ type SkeletonShimmerProps = {
  * Please update both.
  */
 const shimmerKeyframes = keyframes({
-  from: {
-    backgroundColor: token('color.skeleton', N20A),
-  },
-  to: {
-    backgroundColor: token('color.skeleton.subtle', N30A),
-  },
+	from: {
+		backgroundColor: token('color.skeleton', N20A),
+	},
+	to: {
+		backgroundColor: token('color.skeleton.subtle', N30A),
+	},
 });
 
 /**
@@ -33,14 +33,14 @@ const shimmerKeyframes = keyframes({
  * Please update both.
  */
 const shimmerStyles = css({
-  '::before, ::after': {
-    animationDirection: 'alternate',
-    animationDuration: '1.5s',
-    animationIterationCount: 'infinite',
-    animationName: `${shimmerKeyframes}`,
-    animationTimingFunction: 'linear',
-    backgroundColor: token('color.skeleton', N20A),
-  },
+	'::before, ::after': {
+		animationDirection: 'alternate',
+		animationDuration: '1.5s',
+		animationIterationCount: 'infinite',
+		animationName: `${shimmerKeyframes}`,
+		animationTimingFunction: 'linear',
+		backgroundColor: token('color.skeleton', N20A),
+	},
 });
 
 /**
@@ -56,19 +56,16 @@ const shimmerStyles = css({
  *
  * @internal
  */
-const SkeletonShimmer = ({
-  children,
-  isShimmering = false,
-}: SkeletonShimmerProps) => {
-  return (
-    <ClassNames>
-      {({ css }) =>
-        children({
-          className: isShimmering ? css(shimmerStyles) : undefined,
-        })
-      }
-    </ClassNames>
-  );
+const SkeletonShimmer = ({ children, isShimmering = false }: SkeletonShimmerProps) => {
+	return (
+		<ClassNames>
+			{({ css }) =>
+				children({
+					className: isShimmering ? css(shimmerStyles) : undefined,
+				})
+			}
+		</ClassNames>
+	);
 };
 
 export default SkeletonShimmer;

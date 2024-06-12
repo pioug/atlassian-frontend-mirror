@@ -1,9 +1,6 @@
 import type { Rule } from 'eslint';
 
-import {
-  getImportSources,
-  type SupportedNameChecker,
-} from '../is-supported-import';
+import { getImportSources, type SupportedNameChecker } from '../is-supported-import';
 
 import { checkIfSupportedExport } from './check-if-supported-export';
 
@@ -24,60 +21,51 @@ type RuleModule = Rule.RuleModule;
  * @returns An eslint rule.
  */
 export const createNoExportedRule =
-  (
-    isUsage: readonly SupportedNameChecker[],
-    messageId: string,
-  ): RuleModule['create'] =>
-  context => {
-    const importSources = getImportSources(context);
+	(isUsage: readonly SupportedNameChecker[], messageId: string): RuleModule['create'] =>
+	(context) => {
+		const importSources = getImportSources(context);
 
-    const { text } = context.getSourceCode();
-    if (
-      importSources.every(
-        (importSource: string) => !text.includes(importSource),
-      )
-    ) {
-      return {};
-    }
+		const { text } = context.getSourceCode();
+		if (importSources.every((importSource: string) => !text.includes(importSource))) {
+			return {};
+		}
 
-    return {
-      CallExpression: function (node) {
-        const { references } = context.getScope();
+		return {
+			CallExpression: function (node) {
+				const { references } = context.getScope();
 
-        if (
-          isUsage.every(func => !func(node.callee, references, importSources))
-        ) {
-          return;
-        }
+				if (isUsage.every((func) => !func(node.callee, references, importSources))) {
+					return;
+				}
 
-        const state = checkIfSupportedExport(context, node, importSources);
-        if (!state.isExport) {
-          return;
-        }
+				const state = checkIfSupportedExport(context, node, importSources);
+				if (!state.isExport) {
+					return;
+				}
 
-        context.report({
-          messageId,
-          node: state.node,
-        });
-      },
-      TaggedTemplateExpression: function (node) {
-        const { references } = context.getScope();
+				context.report({
+					messageId,
+					node: state.node,
+				});
+			},
+			TaggedTemplateExpression: function (node) {
+				const { references } = context.getScope();
 
-        if (isUsage.every(func => !func(node.tag, references, importSources))) {
-          return;
-        }
+				if (isUsage.every((func) => !func(node.tag, references, importSources))) {
+					return;
+				}
 
-        const state = checkIfSupportedExport(context, node, importSources);
-        if (!state.isExport) {
-          return;
-        }
+				const state = checkIfSupportedExport(context, node, importSources);
+				if (!state.isExport) {
+					return;
+				}
 
-        context.report({
-          messageId,
-          node: state.node,
-        });
-      },
-    };
-  };
+				context.report({
+					messageId,
+					node: state.node,
+				});
+			},
+		};
+	};
 
 export default createNoExportedRule;

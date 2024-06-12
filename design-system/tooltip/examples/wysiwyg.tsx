@@ -16,43 +16,43 @@ import Tooltip from '../src';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Toolbar = styled.div({
-  backgroundColor: token('color.background.neutral'),
-  borderRadius: `${borderRadius()}px`,
-  display: 'flex',
-  padding: '5px',
+	backgroundColor: token('color.background.neutral'),
+	borderRadius: `${borderRadius()}px`,
+	display: 'flex',
+	padding: '5px',
 });
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Action = styled.button({
-  alignItems: 'center',
-  borderRadius: '3px',
-  display: 'flex',
-  height: '24px',
-  justifyContent: 'center',
-  marginRight: '3px',
-  width: '36px',
-  '&:hover': {
-    backgroundColor: token('color.background.neutral.hovered'),
-  },
+	alignItems: 'center',
+	borderRadius: '3px',
+	display: 'flex',
+	height: '24px',
+	justifyContent: 'center',
+	marginRight: '3px',
+	width: '36px',
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.hovered'),
+	},
 });
 
 const ACTIONS: { [key: string]: React.ReactElement } = {
-  Bold: <BoldIcon label="Bold" />,
-  Italic: <ItalicIcon label="Italic" />,
-  Underline: <UnderlineIcon label="Underline" />,
-  Link: <LinkIcon label="Link" />,
-  'Bullet List': <BulletListIcon label="Bullet List" />,
-  'Number List': <NumberListIcon label="Number List" />,
-  Source: <CodeIcon label="Source" />,
+	Bold: <BoldIcon label="Bold" />,
+	Italic: <ItalicIcon label="Italic" />,
+	Underline: <UnderlineIcon label="Underline" />,
+	Link: <LinkIcon label="Link" />,
+	'Bullet List': <BulletListIcon label="Bullet List" />,
+	'Number List': <NumberListIcon label="Number List" />,
+	Source: <CodeIcon label="Source" />,
 };
 
 export default function WysiwygExample() {
-  return (
-    <Toolbar>
-      {Object.keys(ACTIONS).map((a) => (
-        <Tooltip key={a} content={a} position="top">
-          {(tooltipProps) => <Action {...tooltipProps}>{ACTIONS[a]}</Action>}
-        </Tooltip>
-      ))}
-    </Toolbar>
-  );
+	return (
+		<Toolbar>
+			{Object.keys(ACTIONS).map((a) => (
+				<Tooltip key={a} content={a} position="top">
+					{(tooltipProps) => <Action {...tooltipProps}>{ACTIONS[a]}</Action>}
+				</Tooltip>
+			))}
+		</Toolbar>
+	);
 }

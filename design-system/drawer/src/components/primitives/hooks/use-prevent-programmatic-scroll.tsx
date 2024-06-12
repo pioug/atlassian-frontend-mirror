@@ -15,12 +15,7 @@ import { bind } from 'bind-event-listener';
  * Scroll distance is the height of overflow outside the viewport.
  */
 function getScrollDistance(): number {
-  return (
-    window.pageYOffset ||
-    document.documentElement?.scrollTop ||
-    document.body?.scrollTop ||
-    0
-  );
+	return window.pageYOffset || document.documentElement?.scrollTop || document.body?.scrollTop || 0;
 }
 
 /**
@@ -32,24 +27,24 @@ function getScrollDistance(): number {
  * @returns scroll top offset of the viewport
  */
 export default function usePreventProgrammaticScroll(): number {
-  const [scrollTopOffset, setScrollTopOffset] = useState(0);
+	const [scrollTopOffset, setScrollTopOffset] = useState(0);
 
-  useLayoutEffect(() => {
-    setScrollTopOffset(getScrollDistance());
-  }, []);
+	useLayoutEffect(() => {
+		setScrollTopOffset(getScrollDistance());
+	}, []);
 
-  const onWindowScroll = useCallback(() => {
-    if (getScrollDistance() !== scrollTopOffset) {
-      window.scrollTo(window.pageXOffset, scrollTopOffset);
-    }
-  }, [scrollTopOffset]);
+	const onWindowScroll = useCallback(() => {
+		if (getScrollDistance() !== scrollTopOffset) {
+			window.scrollTo(window.pageXOffset, scrollTopOffset);
+		}
+	}, [scrollTopOffset]);
 
-  useEffect(() => {
-    return bind(window, {
-      type: 'scroll',
-      listener: onWindowScroll,
-    });
-  }, [onWindowScroll]);
+	useEffect(() => {
+		return bind(window, {
+			type: 'scroll',
+			listener: onWindowScroll,
+		});
+	}, [onWindowScroll]);
 
-  return scrollTopOffset;
+	return scrollTopOffset;
 }

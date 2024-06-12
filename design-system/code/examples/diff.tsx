@@ -9,10 +9,10 @@ function thisIsAFunction() {
 }`;
 
 export default function Component() {
-  return (
-    <div>
-      <h2>Diff</h2>
-      <CodeBlock language="diff" text={exampleCodeBlock} />
-    </div>
-  );
+	return (
+		<div>
+			<h2>Diff</h2>
+			<CodeBlock language="diff" text={exampleCodeBlock} />
+		</div>
+	);
 }

@@ -10,24 +10,15 @@ export type { StatusProps } from './Status';
 export { default as Skeleton } from './Skeleton';
 export type { SkeletonProps } from './Skeleton';
 
-export {
-  AvatarContext,
-  type AvatarContextProps,
-  useAvatarContext,
-} from './context';
+export { AvatarContext, type AvatarContextProps, useAvatarContext } from './context';
 
-export {
-  AVATAR_SIZES,
-  BORDER_WIDTH,
-  AVATAR_RADIUS,
-  ACTIVE_SCALE_FACTOR,
-} from './constants';
+export { AVATAR_SIZES, BORDER_WIDTH, AVATAR_RADIUS, ACTIVE_SCALE_FACTOR } from './constants';
 
 export type {
-  AvatarClickEventHandler,
-  AppearanceType,
-  SizeType,
-  Presence as PresenceType,
-  Status as StatusType,
-  IndicatorSizeType,
+	AvatarClickEventHandler,
+	AppearanceType,
+	SizeType,
+	Presence as PresenceType,
+	Status as StatusType,
+	IndicatorSizeType,
 } from './types';

@@ -7,9 +7,11 @@ import classnames from 'classnames';
 import { ZERO_WIDTH_SPACE } from '../utils';
 
 const styles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.inline-extension': {
 		display: 'inline-block',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.relative': {
 		position: 'relative',
 	},

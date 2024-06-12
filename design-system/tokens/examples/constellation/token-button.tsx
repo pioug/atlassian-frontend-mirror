@@ -20,7 +20,7 @@ background: token('color.background.selected.bold', B400),
 }`;
 
 const TokenButton = () => {
-  return <Button appearance="primary">Default button</Button>;
+	return <Button appearance="primary">Default button</Button>;
 };
 
 export default { example: TokenButton, code: TokenButtonCodeBlock };

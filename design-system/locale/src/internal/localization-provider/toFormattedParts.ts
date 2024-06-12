@@ -5,13 +5,11 @@ export type FormattedParts = Record<Intl.DateTimeFormatPartTypes, string>;
  * into an indexed object of type
  * `{ day: '17', month: '3', ... }`
  */
-export const toFormattedParts = (
-  rawParts: Intl.DateTimeFormatPart[],
-): FormattedParts =>
-  rawParts.reduce(
-    (result, datePart) => ({
-      ...result,
-      [datePart.type]: datePart.value,
-    }),
-    {} as FormattedParts,
-  );
+export const toFormattedParts = (rawParts: Intl.DateTimeFormatPart[]): FormattedParts =>
+	rawParts.reduce(
+		(result, datePart) => ({
+			...result,
+			[datePart.type]: datePart.value,
+		}),
+		{} as FormattedParts,
+	);

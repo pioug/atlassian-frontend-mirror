@@ -8,17 +8,15 @@ import { axe } from '@af/accessibility-testing';
 import Blanket from '../../blanket';
 
 it('Basic Blanket should not fail aXe audit', async () => {
-  const { container } = render(
-    <Blanket isTinted={true} shouldAllowClickThrough={true} />,
-  );
-  await axe(container);
+	const { container } = render(<Blanket isTinted={true} shouldAllowClickThrough={true} />);
+	await axe(container);
 });
 
 it('Basic Blanket with children should not fail aXe audit', async () => {
-  const { container } = render(
-    <Blanket isTinted={true} shouldAllowClickThrough={true}>
-      <Lorem count={20} />
-    </Blanket>,
-  );
-  await axe(container);
+	const { container } = render(
+		<Blanket isTinted={true} shouldAllowClickThrough={true}>
+			<Lorem count={20} />
+		</Blanket>,
+	);
+	await axe(container);
 });

@@ -1,10 +1,7 @@
 import { type JSCodeshift } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
-import {
-  createTransformer,
-  hasImportDeclaration,
-} from '@atlaskit/codemod-utils';
+import { createTransformer, hasImportDeclaration } from '@atlaskit/codemod-utils';
 
 import { handlePropSpread } from './migrations/handle-prop-spread';
 import { inlineWidthNamesDeclaration } from './migrations/inline-width-names-declaration';
@@ -28,24 +25,24 @@ import { renameScrollBehaviorToShouldScrollInViewport } from './migrations/renam
  * after the other migrations.
  */
 const transformer = createTransformer(
-  [
-    mapBodyFromProps,
-    mapHeaderFromProps,
-    mapFooterFromProps,
-    renameScrollBehaviorToShouldScrollInViewport,
-    renameAppearanceType,
-    renameInnerComponentPropTypes,
-    inlineWidthNamesDeclaration,
-    mapHeadingPropToModalTitle,
-    mapActionsProp,
-    mapContainerFromProps,
-    removeComponentOverrideProps,
-    removeAppearanceProp,
-    removeIsChromeless,
-    handlePropSpread,
-  ],
-  (j: JSCodeshift, source: Collection<Node>) =>
-    hasImportDeclaration(j, source, '@atlaskit/modal-dialog'),
+	[
+		mapBodyFromProps,
+		mapHeaderFromProps,
+		mapFooterFromProps,
+		renameScrollBehaviorToShouldScrollInViewport,
+		renameAppearanceType,
+		renameInnerComponentPropTypes,
+		inlineWidthNamesDeclaration,
+		mapHeadingPropToModalTitle,
+		mapActionsProp,
+		mapContainerFromProps,
+		removeComponentOverrideProps,
+		removeAppearanceProp,
+		removeIsChromeless,
+		handlePropSpread,
+	],
+	(j: JSCodeshift, source: Collection<Node>) =>
+		hasImportDeclaration(j, source, '@atlaskit/modal-dialog'),
 );
 
 export default transformer;

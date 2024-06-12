@@ -9,30 +9,30 @@ import { Box, xcss } from '@atlaskit/primitives';
 import Popup from '../../src';
 
 const contentStyles = xcss({
-  padding: 'space.200',
+	padding: 'space.200',
 });
 
 const PopupDefaultExample = () => {
-  const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <Popup
-      isOpen={isOpen}
-      onClose={() => setIsOpen(false)}
-      placement="bottom-start"
-      content={() => <Box xcss={contentStyles}>Content</Box>}
-      trigger={(triggerProps) => (
-        <Button
-          {...triggerProps}
-          appearance="primary"
-          isSelected={isOpen}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? 'Close' : 'Open'} popup{' '}
-        </Button>
-      )}
-    />
-  );
+	return (
+		<Popup
+			isOpen={isOpen}
+			onClose={() => setIsOpen(false)}
+			placement="bottom-start"
+			content={() => <Box xcss={contentStyles}>Content</Box>}
+			trigger={(triggerProps) => (
+				<Button
+					{...triggerProps}
+					appearance="primary"
+					isSelected={isOpen}
+					onClick={() => setIsOpen(!isOpen)}
+				>
+					{isOpen ? 'Close' : 'Open'} popup{' '}
+				</Button>
+			)}
+		/>
+	);
 };
 
 export default PopupDefaultExample;

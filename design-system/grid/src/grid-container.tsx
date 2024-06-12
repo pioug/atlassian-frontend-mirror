@@ -3,28 +3,25 @@ import { createContext, type FC } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import {
-  gapMediaQueries,
-  inlinePaddingMediaQueries,
-} from './grid-media-querys';
+import { gapMediaQueries, inlinePaddingMediaQueries } from './grid-media-querys';
 import type { BaseGridProps } from './types';
 
 export type GridContainerProps = BaseGridProps;
 
 const containerBaseStyles = css({
-  display: 'grid',
-  boxSizing: 'border-box',
-  width: '100%',
-  gridTemplateColumns: `1fr`,
-  marginInline: 'auto',
+	display: 'grid',
+	boxSizing: 'border-box',
+	width: '100%',
+	gridTemplateColumns: `1fr`,
+	marginInline: 'auto',
 });
 
 const gridMaxWidthMap: Record<
-  NonNullable<GridContainerProps['maxWidth']>,
-  ReturnType<typeof css>
+	NonNullable<GridContainerProps['maxWidth']>,
+	ReturnType<typeof css>
 > = {
-  wide: css({ maxWidth: '70.5rem' }),
-  narrow: css({ maxWidth: '46.5rem' }),
+	wide: css({ maxWidth: '70.5rem' }),
+	narrow: css({ maxWidth: '46.5rem' }),
 } as const;
 
 /**
@@ -59,26 +56,24 @@ export const GridContainerContext = createContext(false);
  * ```
  */
 export const GridContainer: FC<GridContainerProps> = ({
-  testId,
-  children,
-  maxWidth,
-  hasInlinePadding = true,
+	testId,
+	children,
+	maxWidth,
+	hasInlinePadding = true,
 }) => {
-  return (
-    <div
-      data-testid={testId}
-      css={[
-        containerBaseStyles,
-        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-        gapMediaQueries,
-        maxWidth && gridMaxWidthMap[maxWidth],
-        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-        hasInlinePadding && inlinePaddingMediaQueries,
-      ]}
-    >
-      <GridContainerContext.Provider value={true}>
-        {children}
-      </GridContainerContext.Provider>
-    </div>
-  );
+	return (
+		<div
+			data-testid={testId}
+			css={[
+				containerBaseStyles,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				gapMediaQueries,
+				maxWidth && gridMaxWidthMap[maxWidth],
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				hasInlinePadding && inlinePaddingMediaQueries,
+			]}
+		>
+			<GridContainerContext.Provider value={true}>{children}</GridContainerContext.Provider>
+		</div>
+	);
 };

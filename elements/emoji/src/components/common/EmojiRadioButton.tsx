@@ -41,6 +41,7 @@ export const EmojiRadioButton = forwardRef<HTMLInputElement, Props>((props: Prop
 
 	return (
 		<label
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={emojiButton}
 			onMouseDown={(event) => handleMouseDown(props, event)}
 			onKeyDown={(event) => handleKeyPress(props, event)}
@@ -51,6 +52,7 @@ export const EmojiRadioButton = forwardRef<HTMLInputElement, Props>((props: Prop
 				data-testid={ariaLabelText}
 				type="radio"
 				name="skin-tone"
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={emojiRadio}
 				defaultChecked={defaultChecked}
 			/>

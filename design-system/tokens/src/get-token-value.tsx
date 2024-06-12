@@ -25,33 +25,23 @@ type Tokens = typeof tokens;
  * ```
  *
  */
-function getTokenValue<T extends keyof Tokens>(
-  tokenId: T,
-  fallback: string = '',
-): string {
-  let token: Tokens[keyof Tokens] | '' = tokens[tokenId];
-  let tokenValue = fallback;
+function getTokenValue<T extends keyof Tokens>(tokenId: T, fallback: string = ''): string {
+	let token: Tokens[keyof Tokens] | '' = tokens[tokenId];
+	let tokenValue = fallback;
 
-  if (
-    typeof process !== 'undefined' &&
-    process.env.NODE_ENV !== 'production' &&
-    !token
-  ) {
-    warnOnce(`Unknown token id at path: ${tokenId} in @atlaskit/tokens`);
-  }
+	if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production' && !token) {
+		warnOnce(`Unknown token id at path: ${tokenId} in @atlaskit/tokens`);
+	}
 
-  if (typeof window === 'undefined') {
-    return tokenValue;
-  }
+	if (typeof window === 'undefined') {
+		return tokenValue;
+	}
 
-  tokenValue = window
-    .getComputedStyle(document.documentElement)
-    .getPropertyValue(token)
-    .trim();
+	tokenValue = window.getComputedStyle(document.documentElement).getPropertyValue(token).trim();
 
-  tokenValue = tokenValue || fallback;
+	tokenValue = tokenValue || fallback;
 
-  return tokenValue;
+	return tokenValue;
 }
 
 export default getTokenValue;

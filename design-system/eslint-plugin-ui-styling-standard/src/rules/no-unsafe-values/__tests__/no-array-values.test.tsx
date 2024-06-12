@@ -2,15 +2,15 @@ import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 typescriptEslintTester.run(
-  'no-unsafe-values',
-  // @ts-expect-error
-  rule,
-  {
-    valid: [],
-    invalid: [
-      {
-        name: 'passing an array of values',
-        code: `
+	'no-unsafe-values',
+	// @ts-expect-error
+	rule,
+	{
+		valid: [],
+		invalid: [
+			{
+				name: 'passing an array of values',
+				code: `
           import { css } from '@compiled/react';
 
           const styles = css({
@@ -20,8 +20,8 @@ typescriptEslintTester.run(
             ]
           });
         `,
-        errors: [{ messageId: 'no-array-values' }],
-      },
-    ],
-  },
+				errors: [{ messageId: 'no-array-values' }],
+			},
+		],
+	},
 );

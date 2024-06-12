@@ -65,6 +65,8 @@ export function keymapPlugin(
 	isFullWidthEnabled?: boolean,
 	pluginInjectionApi?: PluginInjectionAPIWithA11y,
 	getIntl?: () => IntlShape,
+	isCellBackgroundDuplicated = false,
+	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent?: boolean,
 ): SafePlugin {
 	const list = {};
@@ -116,13 +118,23 @@ export function keymapPlugin(
 
 	bindKeymapWithCommand(
 		addColumnBefore.common!,
-		addColumnBeforeCommand(isTableScalingEnabled, shouldUseIncreasedScalingPercent),
+		addColumnBeforeCommand(
+			isTableScalingEnabled,
+			isCellBackgroundDuplicated,
+			isTableFixedColumnWidthsOptionEnabled,
+			shouldUseIncreasedScalingPercent,
+		),
 		list,
 	);
 
 	bindKeymapWithCommand(
 		addColumnAfter.common!,
-		addColumnAfterCommand(isTableScalingEnabled, shouldUseIncreasedScalingPercent),
+		addColumnAfterCommand(
+			isTableScalingEnabled,
+			isCellBackgroundDuplicated,
+			isTableFixedColumnWidthsOptionEnabled,
+			shouldUseIncreasedScalingPercent,
+		),
 		list,
 	);
 
@@ -141,13 +153,23 @@ export function keymapPlugin(
 
 		bindKeymapWithCommand(
 			addColumnBeforeVO.common!,
-			addColumnBeforeCommand(isTableScalingEnabled),
+			addColumnBeforeCommand(
+				isTableScalingEnabled,
+				isCellBackgroundDuplicated,
+				isTableFixedColumnWidthsOptionEnabled,
+				shouldUseIncreasedScalingPercent,
+			),
 			list,
 		);
 
 		bindKeymapWithCommand(
 			addColumnAfterVO.common!,
-			addColumnAfterCommand(isTableScalingEnabled),
+			addColumnAfterCommand(
+				isTableScalingEnabled,
+				isCellBackgroundDuplicated,
+				isTableFixedColumnWidthsOptionEnabled,
+				shouldUseIncreasedScalingPercent,
+			),
 			list,
 		);
 	}
@@ -191,6 +213,7 @@ export function keymapPlugin(
 			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
 				isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
 			),
 			list,
@@ -201,6 +224,7 @@ export function keymapPlugin(
 			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
 				isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
 			),
 			list,
@@ -243,6 +267,7 @@ export function keymapPlugin(
 				-10,
 				getEditorContainerWidth,
 				isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
 				INPUT_METHOD.SHORTCUT,
 				ariaNotifyPlugin,
 				getIntl,
@@ -256,6 +281,7 @@ export function keymapPlugin(
 				10,
 				getEditorContainerWidth,
 				isTableScalingEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
 				INPUT_METHOD.SHORTCUT,
 				ariaNotifyPlugin,
 				getIntl,

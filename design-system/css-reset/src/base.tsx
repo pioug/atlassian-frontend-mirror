@@ -1,11 +1,6 @@
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import {
-  codeFontFamily,
-  colors,
-  fontFamily,
-  typography,
-} from '@atlaskit/theme';
+import { codeFontFamily, colors, fontFamily, typography } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import evaluateInner from './utils/evaluate-inner';
@@ -21,10 +16,7 @@ export default evaluateInner`
   body {
     background-color: ${token('elevation.surface', '#fff')};
     color: ${token('color.text', colors.N800)};
-    font: ${token(
-      'font.body',
-      `normal 400 14px/1.42857142857143 ${fontFamily()}`,
-    )};
+    font: ${token('font.body', `normal 400 14px/1.42857142857143 ${fontFamily()}`)};
     -ms-overflow-style: -ms-autohiding-scrollbar;
     text-decoration-skip-ink: auto;
   }
@@ -61,71 +53,62 @@ export default evaluateInner`
   }
   a:focus-visible {
     outline: ${token('border.width.outline', '2px')} solid ${token(
-      'color.border.focused',
-      colors.B200,
-    )};
+			'color.border.focused',
+			colors.B200,
+		)};
     outline-offset: ${token('space.025', '2px')};
   }
   @supports not selector(*:focus-visible) {
     a:focus {
       outline: ${token('border.width.outline', '2px')} solid ${token(
-        'color.border.focused',
-        colors.B100,
-      )};
+				'color.border.focused',
+				colors.B100,
+			)};
       outline-offset: ${token('space.025', '2px')};
     }
   }
   /* Headings */
   h1 {
     font: ${token(
-      'font.heading.xlarge',
-      `600 2.0714285714285716em/1.103448275862069 ${fontFamily()}`,
-    )};
+			'font.heading.xlarge',
+			`600 2.0714285714285716em/1.103448275862069 ${fontFamily()}`,
+		)};
     letter-spacing: -0.01em;
     color: ${token('color.text')};
     margin-top: ${token('space.500')};
   }
   h2 {
     font: ${token(
-      'font.heading.large',
-      `500 1.7142857142857142em/1.1666666666666667 ${fontFamily()}`,
-    )};
+			'font.heading.large',
+			`500 1.7142857142857142em/1.1666666666666667 ${fontFamily()}`,
+		)};
     letter-spacing: -0.01em;
     color: ${token('color.text')};
     margin-top: ${token('space.500')};
   }
   h3 {
-    font: ${token(
-      'font.heading.medium',
-      `500 1.4285714285714286em/1.2 ${fontFamily()}`,
-    )};
+    font: ${token('font.heading.medium', `500 1.4285714285714286em/1.2 ${fontFamily()}`)};
     letter-spacing: -0.008em;
     color: ${token('color.text')};
     margin-top: 28px;
   }
   h4 {
-    font: ${token(
-      'font.heading.small',
-      `600 1.1428571428571428em/1.25 ${fontFamily()}`,
-    )};
+    font: ${token('font.heading.small', `600 1.1428571428571428em/1.25 ${fontFamily()}`)};
     letter-spacing: -0.006em;
     color: ${token('color.text')};
     margin-top: ${token('space.300')};
   }
   h5 {
-    font: ${token(
-      'font.heading.xsmall',
-      `600 1em/1.1428571428571428 ${fontFamily()}`,
-    )};
+    font: ${token('font.heading.xsmall', `600 1em/1.1428571428571428 ${fontFamily()}`)};
     letter-spacing: -0.003em;
     color: ${token('color.text')};
     margin-top: ${token('space.200')};
   }
   h6 {
     font: ${token(
-      'font.heading.xxsmall',
-      `600 0.8571428571428571em/1.3333333333333333 ${fontFamily()}`,
-    )};
+			'font.heading.xxsmall',
+			`600 0.8571428571428571em/1.3333333333333333 ${fontFamily()}`,
+		)};
     color: ${token('color.text')};
     margin-top: ${token('space.250')};
     text-transform: uppercase;

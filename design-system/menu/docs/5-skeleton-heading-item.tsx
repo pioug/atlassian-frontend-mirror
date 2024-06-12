@@ -20,19 +20,19 @@ import { SkeletonHeadingItem } from '@atlaskit/menu';
   `}
 
   ${(
-    <Example
-      title="Skeleton heading item"
-      Component={require('../examples/skeleton-heading-item').default}
-      source={require('!!raw-loader!../examples/skeleton-heading-item')}
-    />
-  )}
+		<Example
+			title="Skeleton heading item"
+			Component={require('../examples/skeleton-heading-item').default}
+			source={require('!!raw-loader!../examples/skeleton-heading-item')}
+		/>
+	)}
 
   ### Props
 
   ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/menu-item/skeleton-heading-item')}
-    />
-  )}
+		<Props
+			heading=""
+			props={require('!!extract-react-types-loader!../src/menu-item/skeleton-heading-item')}
+		/>
+	)}
 `;

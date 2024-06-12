@@ -7,20 +7,20 @@ const transformer = createTransformer([wrapAkThemeProvider]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('convert ak-theme-provider usage', () => {
-  const supportedParsers = ['tsx', 'babylon'];
+	const supportedParsers = ['tsx', 'babylon'];
 
-  supportedParsers.forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	supportedParsers.forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
 
 const Element = () => (
   <AtlaskitThemeProvider />
 );`,
-        `
+				`
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import DeprecatedThemeProvider from "@atlaskit/theme/deprecated-provider-please-do-not-use";
 
@@ -28,32 +28,32 @@ const Element = () => (
   <DeprecatedThemeProvider provider={StyledThemeProvider} />
 );
 `,
-        'should change import if no props',
-      );
+				'should change import if no props',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
 
 const Element = () => (
   <AtlaskitThemeProvider mode="light" />
 );`,
-        `
+				`
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import DeprecatedThemeProvider from "@atlaskit/theme/deprecated-provider-please-do-not-use";
 
 const Element = () => (
   <DeprecatedThemeProvider mode="light" provider={StyledThemeProvider} />
 );`,
-        'should change import if props are provided',
-      );
+				'should change import if props are provided',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
 
 const Element = () => (
@@ -61,7 +61,7 @@ const Element = () => (
     <App />
   </AtlaskitThemeProvider>
 );`,
-        `
+				`
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import DeprecatedThemeProvider from "@atlaskit/theme/deprecated-provider-please-do-not-use";
 
@@ -71,13 +71,13 @@ const Element = () => (
   </DeprecatedThemeProvider>
 );
 `,
-        'should change import if no props with children',
-      );
+				'should change import if no props with children',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
 import { AtlaskitThemeProvider } from '@atlaskit/theme';
 
 const Element = () => (
@@ -85,7 +85,7 @@ const Element = () => (
     <App />
   </AtlaskitThemeProvider>
 );`,
-        `
+				`
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import DeprecatedThemeProvider from "@atlaskit/theme/deprecated-provider-please-do-not-use";
 
@@ -94,12 +94,12 @@ const Element = () => (
     <App />
   </DeprecatedThemeProvider>
 );`,
-        'should change import if props are provided with children',
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				'should change import if props are provided with children',
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
 import { AtlaskitThemeProvider, colors } from "@atlaskit/theme";
 
 const Element = () => (
@@ -107,7 +107,7 @@ const Element = () => (
     <App color={colors.red} />
   </AtlaskitThemeProvider>
 );`,
-        `
+				`
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import DeprecatedThemeProvider from "@atlaskit/theme/deprecated-provider-please-do-not-use";
 import { colors } from "@atlaskit/theme";
@@ -117,13 +117,13 @@ const Element = () => (
     <App color={colors.red} />
   </DeprecatedThemeProvider>
 );`,
-        'should only remove AKThemeProvider if AKThemeProvider is not only import from "theme"',
-      );
+				'should only remove AKThemeProvider if AKThemeProvider is not only import from "theme"',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
 import styled, { ThemeProvider as StyledThemeProvider } from "styled-components";
 import { AtlaskitThemeProvider } from "@atlaskit/theme";
 
@@ -132,7 +132,7 @@ const Element = () => (
     <App />
   </AtlaskitThemeProvider>
 );`,
-        `
+				`
 import styled, { ThemeProvider as StyledThemeProvider } from "styled-components";
 import { AtlaskitThemeProvider } from "@atlaskit/theme";
 
@@ -141,13 +141,13 @@ const Element = () => (
     <App />
   </AtlaskitThemeProvider>
 );`,
-        'should abort if styled-components ThemeProvider is already imported',
-      );
+				'should abort if styled-components ThemeProvider is already imported',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
 import styled, { ThemeProvider as StyledThemeProvider } from "styled-components";
 import { themed } from "@atlaskit/theme/components";
 import DeprecatedThemeProvider from "@atlaskit/theme/deprecated-provider-please-do-not-use";
@@ -157,7 +157,7 @@ const Element = () => (
     <App />
   </DeprecatedThemeProvider>
 );`,
-        `
+				`
 import styled, { ThemeProvider as StyledThemeProvider } from "styled-components";
 import { themed } from "@atlaskit/theme/components";
 import DeprecatedThemeProvider from "@atlaskit/theme/deprecated-provider-please-do-not-use";
@@ -167,13 +167,13 @@ const Element = () => (
     <App />
   </DeprecatedThemeProvider>
 );`,
-        'should abort if the codemod has already changed usage to "@atlaskit/theme/deprecated-provider-please-do-not-use"',
-      );
+				'should abort if the codemod has already changed usage to "@atlaskit/theme/deprecated-provider-please-do-not-use"',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
         import React, { FC, Fragment, useEffect, useState } from "react";
         import { Subscribe } from "unstated";
 
@@ -294,7 +294,7 @@ const Element = () => (
           );
         };
         `,
-        `
+				`
         import React, { FC, Fragment, useEffect, useState } from "react";
         import { Subscribe } from "unstated";
 
@@ -416,13 +416,13 @@ const Element = () => (
           );
         };
         `,
-        'should cleanup correctly in complex example"',
-      );
+				'should cleanup correctly in complex example"',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
         import React from "react";
         import { FormattedMessage, IntlProvider } from "react-intl-next";
         import { render, screen } from '@testing-library/react';
@@ -496,7 +496,7 @@ const Element = () => (
             ).toBe("super-admin.start.session");
           });
         });`,
-        `
+				`
         import React from "react";
         import { FormattedMessage, IntlProvider } from "react-intl-next";
         import { render, screen } from '@testing-library/react';
@@ -570,8 +570,8 @@ const Element = () => (
             ).toBe("super-admin.start.session");
           });
         });`,
-        'should deal with non-jsx usage, eg in tests"',
-      );
-    });
-  });
+				'should deal with non-jsx usage, eg in tests"',
+			);
+		});
+	});
 });

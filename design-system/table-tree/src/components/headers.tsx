@@ -7,21 +7,21 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
-  display: 'flex',
-  borderBottom: `solid 2px ${token('color.border', '#dfe1e6')}`,
+	display: 'flex',
+	borderBottom: `solid 2px ${token('color.border', '#dfe1e6')}`,
 });
 
 export default class Headers extends Component<any> {
-  render() {
-    return (
-      // TODO: Determine whether proper `tr` elements can be used instead of
-      // roles (DSP-11588)
-      <div css={containerStyles} role="row">
-        {Children.map(this.props.children, (header, index) =>
-          // eslint-disable-next-line react/no-array-index-key
-          cloneElement(header as any, { key: index, columnIndex: index }),
-        )}
-      </div>
-    );
-  }
+	render() {
+		return (
+			// TODO: Determine whether proper `tr` elements can be used instead of
+			// roles (DSP-11588)
+			<div css={containerStyles} role="row">
+				{Children.map(this.props.children, (header, index) =>
+					// eslint-disable-next-line react/no-array-index-key
+					cloneElement(header as any, { key: index, columnIndex: index }),
+				)}
+			</div>
+		);
+	}
 }

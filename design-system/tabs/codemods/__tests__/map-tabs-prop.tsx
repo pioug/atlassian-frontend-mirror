@@ -7,10 +7,10 @@ const transformer = createTransformer([mapTabsProp, removeTabsProp]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('map tabs prop to components', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import Tabs from "@atlaskit/tabs";
 
@@ -27,7 +27,7 @@ describe('map tabs prop to components', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import Tabs, { Tab, TabList, TabPanel } from "@atlaskit/tabs";
 
@@ -48,13 +48,13 @@ describe('map tabs prop to components', () => {
     );
 
     `,
-    'should map tabs correctly',
-  );
+		'should map tabs correctly',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import Tabs from "@atlaskit/tabs";
 
@@ -69,7 +69,7 @@ describe('map tabs prop to components', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import Tabs, { Tab, TabList, TabPanel } from "@atlaskit/tabs";
 
@@ -93,13 +93,13 @@ describe('map tabs prop to components', () => {
     );
 
     `,
-    'should map tabs correctly if defined inline',
-  );
+		'should map tabs correctly if defined inline',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import Tabs from "@atlaskit/tabs";
 
@@ -119,7 +119,7 @@ describe('map tabs prop to components', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import Tabs, { Tab as AtlaskitTab, TabList as AtlaskitTabList, TabPanel } from "@atlaskit/tabs";
 
@@ -145,13 +145,13 @@ describe('map tabs prop to components', () => {
     );
 
     `,
-    'should map tabs correctly - with alias',
-  );
+		'should map tabs correctly - with alias',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import Tabs from "@atlaskit/tabs";
 
@@ -172,7 +172,7 @@ describe('map tabs prop to components', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import Tabs, {
       Tab as AtlaskitTab,
@@ -205,13 +205,13 @@ describe('map tabs prop to components', () => {
     );
 
     `,
-    'should map tabs correctly - with all clashed',
-  );
+		'should map tabs correctly - with all clashed',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import Tabs from "@atlaskit/tabs";
 
@@ -230,7 +230,7 @@ describe('map tabs prop to components', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import Tabs, { Tab, TabList, TabPanel } from "@atlaskit/tabs";
 
@@ -253,13 +253,13 @@ describe('map tabs prop to components', () => {
     );
 
     `,
-    'should map tabs correctly if defined inline',
-  );
+		'should map tabs correctly if defined inline',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import Tabs from "@atlaskit/tabs";
 
@@ -269,7 +269,7 @@ describe('map tabs prop to components', () => {
       />
     );
     `,
-    `
+		`
     /* TODO: (from codemod) 
     This file is spreading props on the Tabs component.
 
@@ -294,6 +294,6 @@ describe('map tabs prop to components', () => {
     );
 
     `,
-    'should map tabs correctly if spread is used',
-  );
+		'should map tabs correctly if spread is used',
+	);
 });

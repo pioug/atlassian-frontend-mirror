@@ -8,52 +8,52 @@ import BoxCustomStyles from '../../../../examples/07-box-custom-styles';
 import BoxSurfaceDetection from '../../../../examples/08-box-surface-detection';
 
 snapshot(Box, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(BoxPadding, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(BoxColor, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(BoxCustomStyles, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(BoxSurfaceDetection, {
-  variants: [
-    {
-      name: 'Dark',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Dark',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });

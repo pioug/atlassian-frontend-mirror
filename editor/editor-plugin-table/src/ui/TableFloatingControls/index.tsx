@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -113,6 +114,8 @@ export const TableFloatingControls = ({
 		[editorView, tableActive],
 	);
 
+	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
+
 	if (!tableRef) {
 		return null;
 	}
@@ -149,7 +152,7 @@ export const TableFloatingControls = ({
 					<>
 						{isDragAndDropEnabled ? (
 							<>
-								{!getBooleanFF('platform.editor.drag-and-drop_wmv9t') &&
+								{!featureFlagsState?.elementDragAndDrop &&
 									(getBooleanFF('platform.editor.table.use-shared-state-hook') ? (
 										<DragCornerControlsWithSelection
 											editorView={editorView}

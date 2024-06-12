@@ -26,6 +26,7 @@ const EmojiPickerCategoryHeading = ({ id, title, className }: Props) => (
 		data-testid={RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID}
 		role="rowheader"
 	>
+		{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 		<div css={emojiCategoryTitle}>
 			{isMessagesKey(title) ? <FormattedMessage {...messages[title]} /> : title}
 		</div>

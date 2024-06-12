@@ -9,6 +9,7 @@ const getEmailAvatarWrapperStyle = (isLozenge?: boolean) => {
 	const padding = isLozenge ? `${token('space.0', '0px')}` : `${token('space.050', '4px')}`;
 
 	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		padding: padding,
 		backgroundColor: token('color.background.neutral', N40),
 		borderRadius: '50%',
@@ -27,6 +28,7 @@ export const AddOptionAvatar: React.FunctionComponent<AddOptionAvatarProps> = ({
 	label,
 }) => {
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={getEmailAvatarWrapperStyle(isLozenge)}>
 			<EmailIcon
 				label={label}

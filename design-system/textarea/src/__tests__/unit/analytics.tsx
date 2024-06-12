@@ -12,42 +12,40 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const noop = __noop;
 const attributes = {
-  componentName: 'textArea',
-  packageName,
-  packageVersion,
+	componentName: 'textArea',
+	packageName,
+	packageVersion,
 };
 
 describe('TextArea analytics', () => {
-  [
-    { method: 'onFocus', action: 'focused' },
-    { method: 'onBlur', action: 'blurred' },
-  ].forEach((event) => {
-    it(`should fire an event on internal channel when ${event.action}`, async () => {
-      const onAtlaskitEvent = jest.fn();
-      const { getByTestId } = render(
-        <AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
-          <div>
-            <label htmlFor="name">
-              Name
-              <TextArea id="name" testId="test" onBlur={noop} onFocus={noop} />
-            </label>
-          </div>
-        </AnalyticsListener>,
-      );
-      const textarea = getByTestId('test') as HTMLTextAreaElement;
-      const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
-        payload: {
-          action: event.action,
-          actionSubject: 'textArea',
-          attributes,
-        },
-      });
-      event.action === 'focused'
-        ? fireEvent.focus(textarea)
-        : fireEvent.blur(textarea);
-      const mock: jest.Mock = onAtlaskitEvent;
-      expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock.mock.calls[0][0].payload).toEqual(expected.payload);
-    });
-  });
+	[
+		{ method: 'onFocus', action: 'focused' },
+		{ method: 'onBlur', action: 'blurred' },
+	].forEach((event) => {
+		it(`should fire an event on internal channel when ${event.action}`, async () => {
+			const onAtlaskitEvent = jest.fn();
+			const { getByTestId } = render(
+				<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
+					<div>
+						<label htmlFor="name">
+							Name
+							<TextArea id="name" testId="test" onBlur={noop} onFocus={noop} />
+						</label>
+					</div>
+				</AnalyticsListener>,
+			);
+			const textarea = getByTestId('test') as HTMLTextAreaElement;
+			const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+				payload: {
+					action: event.action,
+					actionSubject: 'textArea',
+					attributes,
+				},
+			});
+			event.action === 'focused' ? fireEvent.focus(textarea) : fireEvent.blur(textarea);
+			const mock: jest.Mock = onAtlaskitEvent;
+			expect(mock).toHaveBeenCalledTimes(1);
+			expect(mock.mock.calls[0][0].payload).toEqual(expected.payload);
+		});
+	});
 });

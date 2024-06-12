@@ -7,20 +7,15 @@ import { token } from '@atlaskit/tokens';
 import Flag, { FlagGroup } from '../src';
 
 export default () => (
-  <FlagGroup>
-    <Flag
-      appearance="success"
-      icon={
-        <SuccessIcon
-          label="Success"
-          secondaryColor={token('color.background.success.bold')}
-        />
-      }
-      id="success"
-      key="success"
-      title="Connected"
-      description="All wires now hooked up."
-      actions={[{ content: 'Alrighty then', onClick: noop }]}
-    />
-  </FlagGroup>
+	<FlagGroup>
+		<Flag
+			appearance="success"
+			icon={<SuccessIcon label="Success" secondaryColor={token('color.background.success.bold')} />}
+			id="success"
+			key="success"
+			title="Connected"
+			description="All wires now hooked up."
+			actions={[{ content: 'Alrighty then', onClick: noop }]}
+		/>
+	</FlagGroup>
 );

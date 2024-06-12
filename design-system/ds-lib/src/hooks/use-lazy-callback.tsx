@@ -14,8 +14,8 @@ import useLazyRef from './use-lazy-ref';
  * @param callback
  */
 export default function useLazyCallback<TCallback extends Function>(
-  callback: TCallback,
+	callback: TCallback,
 ): TCallback {
-  const ref = useLazyRef(() => callback);
-  return ref.current;
+	const ref = useLazyRef(() => callback);
+	return ref.current;
 }

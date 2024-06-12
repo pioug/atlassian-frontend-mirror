@@ -8,77 +8,75 @@ import { AtlassianIcon } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
 
 interface BlockProps extends React.HTMLProps<HTMLDivElement> {
-  appearance?: 'small' | 'medium' | 'large';
+	appearance?: 'small' | 'medium' | 'large';
 }
 
 interface AnimatedBlockProps extends BlockProps {
-  curve: string;
-  duration: number;
+	curve: string;
+	duration: number;
 }
 
 const blockSize = {
-  small: 50,
-  medium: 150,
-  large: 300,
+	small: 50,
+	medium: 150,
+	large: 300,
 };
 
 const logoSize = {
-  large: 'xlarge',
-  medium: 'large',
-  small: 'small',
+	large: 'xlarge',
+	medium: 'large',
+	small: 'small',
 };
 
 export const Block = forwardRef<HTMLDivElement, BlockProps>(
-  ({ onClick, appearance = 'medium', ...props }: BlockProps, ref) => {
-    const size = blockSize[appearance];
-    return (
-      <div
-        ref={ref}
-        css={css({
-          display: 'flex',
-          width: `${size}px`,
-          height: `${size}px`,
-          margin: token('space.200', '16px'),
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: token('elevation.surface'),
-          borderRadius: `${Math.floor(size / 7)}px`,
-          boxShadow: token('elevation.shadow.overlay'),
-          cursor: onClick ? 'pointer' : 'default',
-          ':hover': {
-            backgroundColor: onClick
-              ? token('color.background.brand.bold')
-              : undefined,
-          },
-        })}
-        {...props}
-      >
-        {props.children || <AtlassianIcon size={logoSize[appearance] as any} />}
-      </div>
-    );
-  },
+	({ onClick, appearance = 'medium', ...props }: BlockProps, ref) => {
+		const size = blockSize[appearance];
+		return (
+			<div
+				ref={ref}
+				css={css({
+					display: 'flex',
+					width: `${size}px`,
+					height: `${size}px`,
+					margin: token('space.200', '16px'),
+					alignItems: 'center',
+					justifyContent: 'center',
+					backgroundColor: token('elevation.surface'),
+					borderRadius: `${Math.floor(size / 7)}px`,
+					boxShadow: token('elevation.shadow.overlay'),
+					cursor: onClick ? 'pointer' : 'default',
+					':hover': {
+						backgroundColor: onClick ? token('color.background.brand.bold') : undefined,
+					},
+				})}
+				{...props}
+			>
+				{props.children || <AtlassianIcon size={logoSize[appearance] as any} />}
+			</div>
+		);
+	},
 );
 
 const movesRight = keyframes({
-  from: {
-    transform: 'none',
-  },
-  to: {
-    transform: 'translate3d(200%, 0, 0)',
-  },
+	from: {
+		transform: 'none',
+	},
+	to: {
+		transform: 'translate3d(200%, 0, 0)',
+	},
 });
 
 export const MovesRightBlock = forwardRef<HTMLDivElement, AnimatedBlockProps>(
-  (props: AnimatedBlockProps, ref) => (
-    <Block
-      ref={ref as any}
-      css={{
-        animationName: `${movesRight}`,
-        animationDuration: `${props.duration}ms`,
-        animationTimingFunction: props.curve,
-        animationIterationCount: 'infinite',
-      }}
-      {...props}
-    />
-  ),
+	(props: AnimatedBlockProps, ref) => (
+		<Block
+			ref={ref as any}
+			css={{
+				animationName: `${movesRight}`,
+				animationDuration: `${props.duration}ms`,
+				animationTimingFunction: props.curve,
+				animationIterationCount: 'infinite',
+			}}
+			{...props}
+		/>
+	),
 );

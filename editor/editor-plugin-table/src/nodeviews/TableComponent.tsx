@@ -204,16 +204,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			}
 		}
 
-		if (
-			isTableScalingEnabled &&
-			!getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-		) {
+		const { tableWithFixedColumnWidthsOption = false, stickyScrollbar } = getEditorFeatureFlags();
+
+		if (isTableScalingEnabled && !tableWithFixedColumnWidthsOption) {
 			this.handleColgroupUpdates(true);
 		}
 
 		if (
 			isTableScalingEnabled &&
-			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+			tableWithFixedColumnWidthsOption &&
 			getNode().attrs.displayMode !== 'fixed'
 		) {
 			this.handleColgroupUpdates(true);
@@ -223,8 +222,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			this.wrapper.addEventListener('scroll', this.handleScrollDebounced, {
 				passive: true,
 			});
-
-			const { stickyScrollbar } = getEditorFeatureFlags();
 
 			if (stickyScrollbar) {
 				if (this.table) {
@@ -332,7 +329,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	};
 
 	handleColgroupUpdates(force = false) {
-		const { getNode, containerWidth, isResizing, view, getPos } = this.props;
+		const { getNode, containerWidth, isResizing, view, getPos, getEditorFeatureFlags } = this.props;
 
 		if (!this.table) {
 			return;
@@ -383,12 +380,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isNumberColumnChanged ||
 				isNumberOfColumnsChanged;
 
-			const isTableScalingEnabledWithLockButton =
-				this.props.options?.isTableScalingEnabled &&
-				getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+			const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
+
+			const isTableScalingWithFixedColumnWidthsOptionEnabled =
+				this.props.options?.isTableScalingEnabled && tableWithFixedColumnWidthsOption;
 
 			const shouldUseIncreasedScalingPercent =
-				(isTableScalingEnabledWithLockButton &&
+				(isTableScalingWithFixedColumnWidthsOptionEnabled &&
 					getBooleanFF('platform.editor.table.use-increased-scaling-percent')) ||
 				false;
 
@@ -405,14 +403,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				});
 
 				let shouldScaleOnColgroupUpdate = false;
-				if (
-					this.props.options?.isTableScalingEnabled &&
-					!getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-				) {
+				if (this.props.options?.isTableScalingEnabled && !tableWithFixedColumnWidthsOption) {
 					shouldScaleOnColgroupUpdate = true;
 				}
 
-				if (isTableScalingEnabledWithLockButton && tableNode.attrs.displayMode !== 'fixed') {
+				if (
+					isTableScalingWithFixedColumnWidthsOptionEnabled &&
+					tableNode.attrs.displayMode !== 'fixed'
+				) {
 					shouldScaleOnColgroupUpdate = true;
 				}
 
@@ -443,6 +441,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			options,
 			isTableScalingEnabled, // we could use options.isTableScalingEnabled here
 			getPos,
+			getEditorFeatureFlags,
 		} = this.props;
 		let { isInDanger } = this.props;
 
@@ -455,23 +454,23 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		let shouldScale = false;
 		let shouldHandleColgroupUpdates = false;
+		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
-		if (
-			isTableScalingEnabled &&
-			!getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-		) {
+		if (isTableScalingEnabled && !tableWithFixedColumnWidthsOption) {
 			shouldScale = true;
 			shouldHandleColgroupUpdates = true;
 		}
 
-		const isTableScalingEnabledWithLockButton =
-			isTableScalingEnabled &&
-			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+		const isTableScalingWithFixedColumnWidthsOptionEnabled =
+			isTableScalingEnabled && tableWithFixedColumnWidthsOption;
 		const shouldUseIncreasedScalingPercent =
-			isTableScalingEnabledWithLockButton &&
+			isTableScalingWithFixedColumnWidthsOptionEnabled &&
 			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 
-		if (isTableScalingEnabledWithLockButton && getNode().attrs.displayMode !== 'fixed') {
+		if (
+			isTableScalingWithFixedColumnWidthsOptionEnabled &&
+			getNode().attrs.displayMode !== 'fixed'
+		) {
 			shouldScale = true;
 			shouldHandleColgroupUpdates = true;
 		}
@@ -743,11 +742,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			: this.state.stickyHeader &&
 				this.state.stickyHeader.top + this.state.stickyHeader.padding + shadowPadding + 2;
 
-		const { stickyScrollbar } = getEditorFeatureFlags();
+		const { stickyScrollbar, tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
 		const shouldUseIncreasedScalingPercent =
 			isTableScalingEnabled &&
-			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+			tableWithFixedColumnWidthsOption &&
 			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 
 		return (
@@ -770,6 +769,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isTableResizingEnabled={options?.isTableResizingEnabled}
 				isResizing={isResizing}
 				isTableScalingEnabled={isTableScalingEnabled}
+				isTableWithFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
 				isWholeTableInDanger={isWholeTableInDanger}
 				isTableAlignmentEnabled={isTableAlignmentEnabled}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}

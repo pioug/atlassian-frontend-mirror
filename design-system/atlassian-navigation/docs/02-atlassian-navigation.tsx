@@ -22,17 +22,17 @@ import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
   `}
 
   ${(
-    <Example
-      title="Atlassian navigation"
-      Component={require('../examples/barebones').default}
-      source={require('!!raw-loader!../examples/barebones')}
-    />
-  )}
+		<Example
+			title="Atlassian navigation"
+			Component={require('../examples/barebones').default}
+			source={require('!!raw-loader!../examples/barebones')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/components/AtlassianNavigation')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/components/AtlassianNavigation')}
+		/>
+	)}
 `;

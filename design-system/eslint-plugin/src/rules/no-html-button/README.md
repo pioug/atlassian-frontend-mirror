@@ -1,6 +1,11 @@
-Don't use native HTML buttons. The Atlassian Design System provides ready-made button components that include event tracking, ensure accessible implementations, and provide access to ADS styling features like design tokens.
+Don't use native HTML buttons. The Atlassian Design System provides ready-made button components
+that include event tracking, ensure accessible implementations, and provide access to ADS styling
+features like design tokens.
 
-Use Atlassian Design System components such as the [Button component](/components/button/) when suitable. There may also be other components better-suited depending on the use case. If these components aren't suitable, use the [Pressable primitive](/components/primitives/pressable/) which helps you build custom buttons with Atlassian Design System styling.
+Use Atlassian Design System components such as the [Button component](/components/button/) when
+suitable. There may also be other components better-suited depending on the use case. If these
+components aren't suitable, use the [Pressable primitive](/components/primitives/pressable/) which
+helps you build custom buttons with Atlassian Design System styling.
 
 ## Examples
 

@@ -13,6 +13,6 @@ import { BaseCell, type BaseCellProps } from './base-cell';
  * @primitive
  */
 export const TD: FC<Omit<BaseCellProps, 'as'>> = ({ testId, ...props }) => (
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  <BaseCell as="td" testId={testId} {...props} />
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+	<BaseCell as="td" testId={testId} {...props} />
 );

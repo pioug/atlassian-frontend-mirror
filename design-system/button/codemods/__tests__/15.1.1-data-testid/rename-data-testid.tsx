@@ -4,16 +4,16 @@ import transformer from '../../15.1.1-data-testid';
 import { check } from '../_framework';
 
 check({
-  transformer,
-  it: 'should rename data-testid to testId (default import)',
-  original: `
+	transformer,
+	it: 'should rename data-testid to testId (default import)',
+	original: `
     import DSButton from '@atlaskit/button';
 
     function App() {
       return <DSButton data-testid="my-testid">click me</DSButton>;
     }
   `,
-  expected: `
+	expected: `
     import DSButton from '@atlaskit/button';
 
     function App() {
@@ -23,16 +23,16 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should rename data-testid to testId (standard button)',
-  original: `
+	transformer,
+	it: 'should rename data-testid to testId (standard button)',
+	original: `
     import Button from '@atlaskit/button/standard-button';
 
     function App() {
       return <Button data-testid="my-testid">click me</Button>;
     }
   `,
-  expected: `
+	expected: `
     import Button from '@atlaskit/button/standard-button';
 
     function App() {
@@ -42,16 +42,16 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should rename data-testid to testId (loading button)',
-  original: `
+	transformer,
+	it: 'should rename data-testid to testId (loading button)',
+	original: `
     import Button from '@atlaskit/button/loading-button';
 
     function App() {
       return <Button data-testid="my-testid">click me</Button>;
     }
   `,
-  expected: `
+	expected: `
     import Button from '@atlaskit/button/loading-button';
 
     function App() {
@@ -61,16 +61,16 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should rename data-testid to testId (custom theme button)',
-  original: `
+	transformer,
+	it: 'should rename data-testid to testId (custom theme button)',
+	original: `
     import Button from '@atlaskit/button/custom-theme-button';
 
     function App() {
       return <Button data-testid="my-testid">click me</Button>;
     }
   `,
-  expected: `
+	expected: `
     import Button from '@atlaskit/button/custom-theme-button';
 
     function App() {
@@ -80,9 +80,9 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should rename data-testid to testId (named imports)',
-  original: `
+	transformer,
+	it: 'should rename data-testid to testId (named imports)',
+	original: `
     import { StandardButton, LoadingButton, CustomThemeButton } from '@atlaskit/button';
 
     function App() {
@@ -93,7 +93,7 @@ check({
       </>;
     }
   `,
-  expected: `
+	expected: `
     import { StandardButton, LoadingButton, CustomThemeButton } from '@atlaskit/button';
 
     function App() {
@@ -107,9 +107,9 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should rename data-testid to testId (named imports with alias)',
-  original: `
+	transformer,
+	it: 'should rename data-testid to testId (named imports with alias)',
+	original: `
     import { StandardButton as SB, LoadingButton as LB, CustomThemeButton as CTB } from '@atlaskit/button';
 
     function App() {
@@ -120,7 +120,7 @@ check({
       </>;
     }
   `,
-  expected: `
+	expected: `
     import { StandardButton as SB, LoadingButton as LB, CustomThemeButton as CTB } from '@atlaskit/button';
 
     function App() {
@@ -134,16 +134,16 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should add a warning when both the testId and data-testid props are being used',
-  original: `
+	transformer,
+	it: 'should add a warning when both the testId and data-testid props are being used',
+	original: `
     import StandardButton from '@atlaskit/button';
 
     function App() {
       return <StandardButton testId="oh-my" data-testid="oh-dear">Click me</StandardButton>
     }
   `,
-  expected: `
+	expected: `
     /* TODO: (from codemod) Cannot rename data-testid to testId on StandardButton.
     A StandardButton was detected with both data-testid and testId props.
     Please remove the data-testid prop and check your tests */
@@ -156,9 +156,9 @@ check({
 });
 
 check({
-  transformer,
-  it: 'should not touch unrelated testids',
-  original: `
+	transformer,
+	it: 'should not touch unrelated testids',
+	original: `
     import DSButton from '@atlaskit/button';
     import Something from '@atlaskit/foobar';
 
@@ -170,7 +170,7 @@ check({
       </>;
     }
   `,
-  expected: `
+	expected: `
     import DSButton from '@atlaskit/button';
     import Something from '@atlaskit/foobar';
 

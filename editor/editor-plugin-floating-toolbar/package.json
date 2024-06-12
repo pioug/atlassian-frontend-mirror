@@ -114,9 +114,6 @@
     },
     "platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33": {
       "type": "boolean"
-    },
-    "platform.editor.drag-and-drop_wmv9t": {
-      "type": "boolean"
     }
   }
 }

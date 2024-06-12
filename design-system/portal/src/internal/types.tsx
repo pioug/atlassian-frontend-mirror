@@ -10,9 +10,9 @@ export type LayerName = keyof Layers;
  * @returns - The reversed type
  */
 type ReverseMap<T extends Record<keyof T, T[keyof T]>> = {
-  [P in T[keyof T]]: {
-    [K in keyof T]: T[K] extends P ? K : never;
-  }[keyof T];
+	[P in T[keyof T]]: {
+		[K in keyof T]: T[K] extends P ? K : never;
+	}[keyof T];
 };
 
 // create a new type by using ReverseMap on Layers
@@ -22,8 +22,8 @@ export type ReversedLayers = ReverseMap<Layers>;
  * Interface for event to be fired on Atlassian Portal component mount and unmount
  */
 export interface PortalEventDetail {
-  layer: LayerName | null;
-  zIndex: number;
+	layer: LayerName | null;
+	zIndex: number;
 }
 
 // Specify the mount strategy type for portal

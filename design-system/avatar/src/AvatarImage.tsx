@@ -13,44 +13,44 @@ import { AVATAR_RADIUS, AVATAR_SIZES } from './constants';
 import { type AppearanceType, type SizeType } from './types';
 
 interface AvatarImageProps {
-  appearance: AppearanceType;
-  size: SizeType;
-  alt?: string;
-  src?: string;
-  testId?: string;
+	appearance: AppearanceType;
+	size: SizeType;
+	alt?: string;
+	src?: string;
+	testId?: string;
 }
 
 export const ICON_BACKGROUND = token('color.icon.inverse', N0);
 export const ICON_COLOR = token('color.icon.subtle', N90);
 
 const avatarDefaultIconStyles = css({
-  display: 'block',
-  width: '100%',
-  height: '100%',
-  backgroundColor: ICON_COLOR,
+	display: 'block',
+	width: '100%',
+	height: '100%',
+	backgroundColor: ICON_COLOR,
 });
 
 const nestedAvatarStyles = Object.entries(AVATAR_SIZES).reduce(
-  (styles, [key, size]) => {
-    return {
-      ...styles,
-      [key]: css({
-        // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-        '& svg': {
-          width: `${size}px`,
-          height: `${size}px`,
-        },
-      }),
-    };
-  },
-  {} as Record<SizeType, SerializedStyles>,
+	(styles, [key, size]) => {
+		return {
+			...styles,
+			[key]: css({
+				// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+				'& svg': {
+					width: `${size}px`,
+					height: `${size}px`,
+				},
+			}),
+		};
+	},
+	{} as Record<SizeType, SerializedStyles>,
 );
 
 const avatarImageStyles = css({
-  display: 'flex',
-  width: '100%',
-  height: '100%',
-  flex: '1 1 100%',
+	display: 'flex',
+	width: '100%',
+	height: '100%',
+	flex: '1 1 100%',
 });
 
 /**
@@ -58,61 +58,54 @@ const avatarImageStyles = css({
  *
  * An avatar image is an internal component used to control the rendering phases of an image.
  */
-const AvatarImage: FC<AvatarImageProps> = ({
-  alt = '',
-  src,
-  appearance,
-  size,
-  testId,
-}) => {
-  const [hasImageErrored, setHasImageErrored] = useState(false);
-  const borderRadius =
-    appearance === 'circle' ? '50%' : `${AVATAR_RADIUS[size]}px`;
-  const isHidden = !alt ? true : undefined;
+const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, testId }) => {
+	const [hasImageErrored, setHasImageErrored] = useState(false);
+	const borderRadius = appearance === 'circle' ? '50%' : `${AVATAR_RADIUS[size]}px`;
+	const isHidden = !alt ? true : undefined;
 
-  // If src changes, reset state
-  useEffect(() => {
-    setHasImageErrored(false);
-  }, [src]);
+	// If src changes, reset state
+	useEffect(() => {
+		setHasImageErrored(false);
+	}, [src]);
 
-  if (!src || hasImageErrored) {
-    return (
-      <span css={[avatarDefaultIconStyles, nestedAvatarStyles[size]]}>
-        {appearance === 'circle' ? (
-          <PersonIcon
-            label={alt}
-            primaryColor={ICON_BACKGROUND}
-            secondaryColor={ICON_COLOR}
-            testId={testId && `${testId}--person`}
-            aria-hidden={isHidden}
-          />
-        ) : (
-          <ShipIcon
-            label={alt}
-            primaryColor={ICON_BACKGROUND}
-            secondaryColor={ICON_COLOR}
-            testId={testId && `${testId}--ship`}
-            aria-hidden={isHidden}
-          />
-        )}
-      </span>
-    );
-  }
+	if (!src || hasImageErrored) {
+		return (
+			<span css={[avatarDefaultIconStyles, nestedAvatarStyles[size]]}>
+				{appearance === 'circle' ? (
+					<PersonIcon
+						label={alt}
+						primaryColor={ICON_BACKGROUND}
+						secondaryColor={ICON_COLOR}
+						testId={testId && `${testId}--person`}
+						aria-hidden={isHidden}
+					/>
+				) : (
+					<ShipIcon
+						label={alt}
+						primaryColor={ICON_BACKGROUND}
+						secondaryColor={ICON_COLOR}
+						testId={testId && `${testId}--ship`}
+						aria-hidden={isHidden}
+					/>
+				)}
+			</span>
+		);
+	}
 
-  return (
-    <img
-      src={src}
-      alt={alt}
-      data-testid={testId && `${testId}--image`}
-      css={avatarImageStyles}
-      style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        borderRadius: borderRadius,
-      }}
-      onError={() => setHasImageErrored(true)}
-      aria-hidden={isHidden}
-    />
-  );
+	return (
+		<img
+			src={src}
+			alt={alt}
+			data-testid={testId && `${testId}--image`}
+			css={avatarImageStyles}
+			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				borderRadius: borderRadius,
+			}}
+			onError={() => setHasImageErrored(true)}
+			aria-hidden={isHidden}
+		/>
+	);
 };
 
 export default AvatarImage;

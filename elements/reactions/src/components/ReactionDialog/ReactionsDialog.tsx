@@ -166,6 +166,7 @@ export const ReactionsDialog = ({
 	return (
 		<Modal onClose={handleCloseReactionsDialog} height={600} testId={RENDER_MODAL_TESTID}>
 			<ModalHeader>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={titleStyle}>
 					<ModalTitle>
 						{intl.formatMessage(messages.reactionsCount, {
@@ -175,6 +176,7 @@ export const ReactionsDialog = ({
 				</div>
 			</ModalHeader>
 			<ModalBody>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={containerStyle(reactionsBorderWidth)} ref={setRef}>
 					<ReactionsList
 						initialEmojiId={selectedEmojiId}

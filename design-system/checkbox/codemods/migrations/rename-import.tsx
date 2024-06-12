@@ -5,20 +5,20 @@ import { createRenameImportFor } from '../utils';
 // these are the only things that need to be fixed
 
 export const renameTypeImport = createRenameImportFor({
-  componentName: 'CheckboxProps',
-  oldPackagePath: '@atlaskit/checkbox/types',
-  newPackagePath: '@atlaskit/checkbox',
+	componentName: 'CheckboxProps',
+	oldPackagePath: '@atlaskit/checkbox/types',
+	newPackagePath: '@atlaskit/checkbox',
 });
 
 export const renameDeepTypeImport = createRenameImportFor({
-  componentName: 'CheckboxProps',
-  oldPackagePath: '@atlaskit/checkbox/dist/cjs/types',
-  newPackagePath: '@atlaskit/checkbox',
+	componentName: 'CheckboxProps',
+	oldPackagePath: '@atlaskit/checkbox/dist/cjs/types',
+	newPackagePath: '@atlaskit/checkbox',
 });
 
 export const renameCheckboxWithoutAnalyticsImport = createRenameImportFor({
-  componentName: 'CheckboxWithoutAnalytics',
-  newComponentName: 'Checkbox',
-  oldPackagePath: '@atlaskit/checkbox/Checkbox',
-  newPackagePath: '@atlaskit/checkbox',
+	componentName: 'CheckboxWithoutAnalytics',
+	newComponentName: 'Checkbox',
+	oldPackagePath: '@atlaskit/checkbox/Checkbox',
+	newPackagePath: '@atlaskit/checkbox',
 });

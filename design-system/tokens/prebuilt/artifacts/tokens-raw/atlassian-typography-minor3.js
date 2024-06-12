@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::873558ad2ac06a865c6a318cb5b693db>>
+ * @codegen <<SignedSource::12bdee9d76f2380829d25e57e552d655>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -311,7 +311,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "For headers in small components where space is limited. Migrate instances of H400 to Heading XS."
   },
-  "value": "normal 700 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+  "value": "normal 700 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-minor3/theme.tsx",
   "isSource": true,
   "original": {
@@ -324,7 +324,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight700",
       "fontSize": "FontSize14",
-      "lineHeight": "LineHeight16",
+      "lineHeight": "LineHeight20",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"

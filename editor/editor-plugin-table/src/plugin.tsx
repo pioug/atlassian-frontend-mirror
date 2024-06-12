@@ -30,6 +30,7 @@ import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibi
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -134,6 +135,7 @@ export type TablePlugin = NextEditorPlugin<
 			OptionalPlugin<AccessibilityUtilsPlugin>,
 			OptionalPlugin<MediaPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
+			OptionalPlugin<FeatureFlagsPlugin>,
 		];
 	}
 >;
@@ -153,12 +155,14 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 	};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
-	const isTableScalingWithFixedColumnWidthsOptionEnabled =
-		options?.isTableScalingEnabled &&
-		getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
-	const shouldUseIncreasedScalingPercent =
-		isTableScalingWithFixedColumnWidthsOptionEnabled &&
+	const isTableFixedColumnWidthsOptionEnabled =
+		options?.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
+	const shouldUseIncreasedScalingPercent = options?.isTableScalingEnabled;
+	isTableFixedColumnWidthsOptionEnabled &&
 		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+
+	const isCellBackgroundDuplicated =
+		options?.getEditorFeatureFlags?.().tableDuplicateCellColouring || false;
 
 	return {
 		name: 'table',
@@ -331,6 +335,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							fullWidthEnabled,
 							api,
 							getIntl,
+							isCellBackgroundDuplicated,
+							isTableFixedColumnWidthsOptionEnabled,
 							shouldUseIncreasedScalingPercent,
 						);
 					},
@@ -371,7 +377,12 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 					name: 'tableDragAndDrop',
 					plugin: ({ dispatch }) => {
 						return options?.dragAndDropEnabled
-							? createDragAndDropPlugin(dispatch, editorAnalyticsAPI)
+							? createDragAndDropPlugin(
+									dispatch,
+									editorAnalyticsAPI,
+									options?.isTableScalingEnabled,
+									isTableFixedColumnWidthsOptionEnabled,
+								)
 							: undefined;
 					},
 				},
@@ -533,6 +544,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 											isHeaderColumnEnabled={isHeaderColumnEnabled}
 											isHeaderRowEnabled={isHeaderRowEnabled}
 											isDragAndDropEnabled={isDragAndDropEnabled}
+											isTableScalingEnabled={options?.isTableScalingEnabled}
 											editorView={editorView}
 											mountPoint={popupsMountPoint}
 											boundariesElement={popupsBoundariesElement}
@@ -662,7 +674,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
 				() => editorViewRef.current,
 				options,
-				isTableScalingWithFixedColumnWidthsOptionEnabled,
+				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
 			)(pluginConfig(options?.tableOptions)),
 		},

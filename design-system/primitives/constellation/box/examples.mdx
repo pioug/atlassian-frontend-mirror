@@ -14,38 +14,44 @@ import BoxPracticalUseCase from '../../examples/constellation/box/practical-use-
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 <CodeDocsHeader
-  name="@atlaskit/primitives"
-  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
-  directoryName="primitives"
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
 />
 
 ## Basic
 
-Box is a general-purpose container that allows for controlled use of design tokens. Use the given props to configure display behavior and styling that aligns with the Atlassian Design System.
-Use [XCSS](/components/primitives/xcss/usage) to style primitive components safely with tokens.
+Box is a general-purpose container that allows for controlled use of design tokens. Use the given
+props to configure display behavior and styling that aligns with the Atlassian Design System. Use
+[XCSS](/components/primitives/xcss/usage) to style primitive components safely with tokens.
 
 <Example Component={BoxBasic} packageName="@atlaskit/primitives/box" />
 
 ## Padding
 
-Use padding props to access spacing design tokens and control internal layout. The following example demonstrates how each prop works with space tokens.
+Use padding props to access spacing design tokens and control internal layout. The following example
+demonstrates how each prop works with space tokens.
 
 <Example Component={BoxPadding} packageName="@atlaskit/primitives/box" />
 
-The nomenclature used by these props follows [logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties). This naming is used to support different [writing modes](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode) in Atlassian products.
+The nomenclature used by these props follows
+[logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties). This
+naming is used to support different
+[writing modes](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode) in Atlassian
+products.
 
 ## Background color
 
-Box accepts a wide variety of background colors, referenced as semantic design tokens. For the full list of color tokens, visit the [token list](/components/tokens/all-tokens).
+Box accepts a wide variety of background colors, referenced as semantic design tokens. For the full
+list of color tokens, visit the [token list](/components/tokens/all-tokens).
 
-<Example
-  Component={BoxBackgroundColor}
-  packageName="@atlaskit/primitives/box"
-/>
+<Example Component={BoxBackgroundColor} packageName="@atlaskit/primitives/box" />
 
 ## XCSS
 
-Box exposes an `xcss` prop. This prop accepts `xcss` function calls that contain a subset of permitted styles. When used with `Box`, `xcss` accepts most CSS properties, and when a token exists, the rule accepts that token as a value.
+Box exposes an `xcss` prop. This prop accepts `xcss` function calls that contain a subset of
+permitted styles. When used with `Box`, `xcss` accepts most CSS properties, and when a token exists,
+the rule accepts that token as a value.
 
 For more information on XCSS, see the dedicated [XCSS documentation](/components/primitives/xcss).
 
@@ -53,7 +59,8 @@ For more information on XCSS, see the dedicated [XCSS documentation](/components
 
 ## Conditional styles
 
-To achieve conditional styles, we suggest composing conditional styles via the `props.xcss` API rather than applying conditional behaviour to individual props.
+To achieve conditional styles, we suggest composing conditional styles via the `props.xcss` API
+rather than applying conditional behaviour to individual props.
 
 <Example Component={BoxConditional} packageName="@atlaskit/primitives/box" />
 
@@ -61,9 +68,8 @@ To achieve conditional styles, we suggest composing conditional styles via the `
 
 Box is designed to be composed with inline, stack, and other components to create layouts.
 
-Atlassian uses dozens of distinct card-like components across products. Therefore, rather than providing a strict component, the Atlassian Design System empowers and supports you to build your own card components in ways that are consistent and will scale over time.
+Atlassian uses dozens of distinct card-like components across products. Therefore, rather than
+providing a strict component, the Atlassian Design System empowers and supports you to build your
+own card components in ways that are consistent and will scale over time.
 
-<Example
-  Component={BoxPracticalUseCase}
-  packageName="@atlaskit/primitives/box"
-/>
+<Example Component={BoxPracticalUseCase} packageName="@atlaskit/primitives/box" />

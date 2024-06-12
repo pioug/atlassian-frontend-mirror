@@ -17,6 +17,7 @@ const clickWrapper = ({ isExpanded, minHeight }: { isExpanded?: boolean; minHeig
 		{
 			height: '100%',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		isExpanded && minHeight ? `min-height: ${minHeight}px` : '',
 	);
 
@@ -69,6 +70,7 @@ export default class ClickAreaMobile extends React.Component<Props> {
 	render() {
 		return (
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={clickWrapper({
 					isExpanded: this.props.isExpanded,
 					minHeight: this.props.minHeight,

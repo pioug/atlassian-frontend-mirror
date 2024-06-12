@@ -53,13 +53,18 @@ const fixedTableDivStaticStyles = (
 		stickyHeaderZIndex = akEditorStickyHeaderZIndex;
 	}
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	return css(typeof top === 'number' && `top: ${top}px;`, {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${width}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		zIndex: stickyHeaderZIndex,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		[`& .${TableSharedCssClassName.TABLE_CONTAINER}, & .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
 			{
 				marginTop: 0,
 				marginBottom: 0,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				tr: {
 					background: token('elevation.surface', 'white'),
 				},
@@ -67,15 +72,19 @@ const fixedTableDivStaticStyles = (
 		borderTop: `${tableStickyPadding}px solid ${token('elevation.surface', 'white')}`,
 		background: token('elevation.surface.overlay', 'white'),
 		boxShadow: `0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)}`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		"div[data-expanded='false'] &": {
 			display: 'none',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		[`& .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.right-shadow::after, & .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.left-shadow::before`]:
 			{
 				top: '0px',
 				height: '100%',
 			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		"&.fixed-table-div-custom-table-resizing[mode='stick']": {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			zIndex: stickyHeaderZIndex,
 		},
 	});
@@ -98,6 +107,7 @@ export const FixedTableDiv = (props: FixedProps) => {
 			className={
 				isTableResizingEnabled(rendererAppearance) ? 'fixed-table-div-custom-table-resizing' : ''
 			}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={fixedTableCss}
 		>
 			{props.children}
@@ -144,21 +154,22 @@ export const StickyTable = ({
 	/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 	if (isTableResizingEnabled(rendererAppearance)) {
 		styles = css({
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			top: mode === 'pin-bottom' ? top : undefined,
 			position: 'absolute',
 		});
 	} else {
 		styles = css({
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			left: left && left < 0 ? left : undefined,
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			top: mode === 'pin-bottom' ? top : undefined,
 			position: 'relative',
 		});
 	}
 	/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={styles}>
 			<FixedTableDiv
 				top={mode === 'stick' ? top : undefined}

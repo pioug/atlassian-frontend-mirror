@@ -10,16 +10,18 @@ import { dragMenuDropdownWidth } from '../consts';
 export const cellColourPreviewStyles = (selectedColor: string) =>
 	css({
 		'&::before': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			background: selectedColor,
 		},
 	});
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const elementBeforeIconStyles = css({
 	marginRight: token('space.negative.075', '-6px'),
 	display: 'flex',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const dragMenuBackgroundColorStyles = css`
 	.${ClassName.DRAG_SUBMENU} {
 		border-radius: ${token('border.radius', '3px')};
@@ -57,17 +59,21 @@ export const dragMenuBackgroundColorStyles = css`
 	}
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const toggleStyles = css({
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"input[type='checkbox']": {
 		width: '30px',
 		height: '14px',
 		pointerEvents: 'initial',
 		cursor: 'pointer',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> label': {
 		margin: '0px',
 		pointerEvents: 'none',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			pointerEvents: 'none',
 		},

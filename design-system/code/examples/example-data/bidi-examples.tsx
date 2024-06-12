@@ -3,7 +3,7 @@
 // https://asecurityteam.atlassian.net/browse/VULN-601295
 
 export const codeSnippets = {
-  stretchedStringC: `
+	stretchedStringC: `
 #include <stdio.h>
 #include <string.h>
 
@@ -14,7 +14,7 @@ int main() {
     }
     return 0;
 }`,
-  renderedConditionalJs: `
+	renderedConditionalJs: `
 #!/usr/bin/env node
 
 var isAdmin = false;
@@ -22,15 +22,15 @@ var isAdmin = false;
     console.log("You are an admin.");
 /* end admins only ‮ { ⁦*/`,
 
-  renderedConditional2JsSingleLine: `if (level != "user‮ ⁦// Check if admin⁩ ⁦") {`,
-  renderedConditional2Js: `
+	renderedConditional2JsSingleLine: `if (level != "user‮ ⁦// Check if admin⁩ ⁦") {`,
+	renderedConditional2Js: `
 #!/usr/bin/env node
 
 var level = "user";
 if (level != "user‮ ⁦// Check if admin ⁩ ⁦") {
     console.log("You are an admin.");
 }`,
-  commentingOutC: `
+	commentingOutC: `
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -44,7 +44,7 @@ int main() {
 };
 
 export const characters = {
-  u202e: '‮',
-  u2066: '⁦',
-  u2069: '⁩',
+	u202e: '‮',
+	u2066: '⁦',
+	u2069: '⁩',
 };

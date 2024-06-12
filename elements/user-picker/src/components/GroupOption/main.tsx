@@ -12,8 +12,10 @@ import { AvatarItemOption, textWrapper } from '../AvatarItemOption';
 import { messages } from '../i18n';
 import { HighlightText } from '../HighlightText';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const groupOptionIconWrapper = css({
 	padding: token('space.025', '2px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> span': {
 		backgroundColor: token('color.background.neutral', N20),
 		borderRadius: '50%',
@@ -35,6 +37,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
 		return [
 			<span
 				key="name"
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
 					isSelected ? token('color.text.selected', B400) : token('color.text', N800),
 				)}
@@ -54,6 +57,7 @@ export class GroupOption extends React.PureComponent<GroupOptionProps> {
 		const { isSelected } = this.props;
 		return (
 			<span
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
 					isSelected ? token('color.text.selected', B400) : token('color.text.subtlest', N200),
 				)}

@@ -7,6 +7,7 @@ import { token } from '@atlaskit/tokens';
 import { JIRATransformer } from '../src';
 
 const container = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#source, #output': {
 		boxSizing: 'border-box',
 		margin: token('space.100', '8px'),
@@ -17,9 +18,11 @@ const container = css({
 			outline: 'none',
 		},
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#source': {
 		height: '80px',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#output': {
 		border: '1px solid',
 		minHeight: '480px',

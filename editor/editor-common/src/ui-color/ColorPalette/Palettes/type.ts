@@ -1,3 +1,5 @@
+import { type ReactElement } from 'react';
+
 import { type MessageDescriptor } from 'react-intl-next';
 
 export interface PaletteColor {
@@ -5,6 +7,7 @@ export interface PaletteColor {
 	label: string;
 	border: string;
 	message?: MessageDescriptor;
+	decorator?: ReactElement;
 }
 
 export type Palette = Array<PaletteColor>;

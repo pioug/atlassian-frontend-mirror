@@ -5,5 +5,5 @@ import AppearancesExample from '../../../examples/15-appearances';
 import { themeVariants } from './utils';
 
 snapshot(AppearancesExample, {
-  variants: themeVariants,
+	variants: themeVariants,
 });

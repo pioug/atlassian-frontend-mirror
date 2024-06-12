@@ -12,114 +12,109 @@ import { token } from '@atlaskit/tokens';
 import InlineEdit from '../src';
 
 interface Props {
-  isCompact?: boolean;
+	isCompact?: boolean;
 }
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReadViewContainer = styled.div<Props>((props) => ({
-  display: 'flex',
-  fontSize: `${fontSize()}px`,
-  lineHeight: (gridSize() * 2.5) / fontSize(),
-  maxWidth: '100%',
-  minHeight: `${(gridSize() * 2.5) / fontSize()}em`,
-  padding: `${
-    props.isCompact ? token('space.050', '4px') : token('space.100', '8px')
-  } ${token('space.075', '6px')}`,
-  wordBreak: 'break-word',
+	display: 'flex',
+	fontSize: `${fontSize()}px`,
+	lineHeight: (gridSize() * 2.5) / fontSize(),
+	maxWidth: '100%',
+	minHeight: `${(gridSize() * 2.5) / fontSize()}em`,
+	padding: `${
+		props.isCompact ? token('space.050', '4px') : token('space.100', '8px')
+	} ${token('space.075', '6px')}`,
+	wordBreak: 'break-word',
 }));
 
 const InlineEditExample = () => {
-  const [editValue, setEditValue] = useState('Field Value');
+	const [editValue, setEditValue] = useState('Field Value');
 
-  let validateValue = '';
-  let validateTimeoutId: number | undefined;
+	let validateValue = '';
+	let validateTimeoutId: number | undefined;
 
-  useEffect(() => {
-    return () => {
-      if (validateTimeoutId) {
-        window.clearTimeout(validateTimeoutId);
-      }
-    };
-  });
+	useEffect(() => {
+		return () => {
+			if (validateTimeoutId) {
+				window.clearTimeout(validateTimeoutId);
+			}
+		};
+	});
 
-  const validate = (value: string) => {
-    validateValue = value;
-    return new Promise<{ value: string; error: string } | undefined>(
-      (resolve) => {
-        validateTimeoutId = window.setTimeout(() => {
-          if (value.length <= 6) {
-            resolve({ value, error: 'Enter a value longer than 6 characters' });
-          }
-          resolve(undefined);
-        }, 100);
-      },
-    ).then((validateObject) => {
-      if (validateObject && validateObject.value === validateValue) {
-        return validateObject.error;
-      }
-      return undefined;
-    });
-  };
+	const validate = (value: string) => {
+		validateValue = value;
+		return new Promise<{ value: string; error: string } | undefined>((resolve) => {
+			validateTimeoutId = window.setTimeout(() => {
+				if (value.length <= 6) {
+					resolve({ value, error: 'Enter a value longer than 6 characters' });
+				}
+				resolve(undefined);
+			}, 100);
+		}).then((validateObject) => {
+			if (validateObject && validateObject.value === validateValue) {
+				return validateObject.error;
+			}
+			return undefined;
+		});
+	};
 
-  const clearInlineEditContent = () => {
-    setEditValue('');
-  };
+	const clearInlineEditContent = () => {
+		setEditValue('');
+	};
 
-  return (
-    <div
-      style={{
-        padding: `${token('space.100', '8px')} ${token('space.100', '8px')}`,
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-        width: '50%',
-      }}
-    >
-      <button data-testid="clear-button" onClick={clearInlineEditContent}>
-        Click to clear
-      </button>
-      <InlineEdit
-        testId="validation"
-        defaultValue={editValue}
-        label="Inline edit validation"
-        editView={({ errorMessage, ...fieldProps }) => (
-          <InlineDialog
-            isOpen={fieldProps.isInvalid}
-            content={<div id="error-message">{errorMessage}</div>}
-            placement="right"
-          >
-            <TextField
-              testId="edit-view"
-              {...fieldProps}
-              elemAfterInput={
-                fieldProps.isInvalid && (
-                  <div
-                    style={{
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-                      paddingRight: token('space.075', '6px'),
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-                      lineHeight: '100%',
-                    }}
-                  >
-                    <ErrorIcon
-                      label="error"
-                      primaryColor={token('color.icon.danger')}
-                    />
-                  </div>
-                )
-              }
-              autoFocus
-            />
-          </InlineDialog>
-        )}
-        readView={() => (
-          <ReadViewContainer data-testid="read-view">
-            {editValue || 'Click to enter value'}
-          </ReadViewContainer>
-        )}
-        onConfirm={(value) => setEditValue(value)}
-        validate={validate}
-      />
-    </div>
-  );
+	return (
+		<div
+			style={{
+				padding: `${token('space.100', '8px')} ${token('space.100', '8px')}`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				width: '50%',
+			}}
+		>
+			<button data-testid="clear-button" onClick={clearInlineEditContent}>
+				Click to clear
+			</button>
+			<InlineEdit
+				testId="validation"
+				defaultValue={editValue}
+				label="Inline edit validation"
+				editView={({ errorMessage, ...fieldProps }) => (
+					<InlineDialog
+						isOpen={fieldProps.isInvalid}
+						content={<div id="error-message">{errorMessage}</div>}
+						placement="right"
+					>
+						<TextField
+							testId="edit-view"
+							{...fieldProps}
+							elemAfterInput={
+								fieldProps.isInvalid && (
+									<div
+										style={{
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+											paddingRight: token('space.075', '6px'),
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+											lineHeight: '100%',
+										}}
+									>
+										<ErrorIcon label="error" primaryColor={token('color.icon.danger')} />
+									</div>
+								)
+							}
+							autoFocus
+						/>
+					</InlineDialog>
+				)}
+				readView={() => (
+					<ReadViewContainer data-testid="read-view">
+						{editValue || 'Click to enter value'}
+					</ReadViewContainer>
+				)}
+				onConfirm={(value) => setEditValue(value)}
+				validate={validate}
+			/>
+		</div>
+	);
 };
 
 export default InlineEditExample;

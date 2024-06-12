@@ -55,6 +55,7 @@ export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: React
 	const tabPanelAttributes = useTabPanel();
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={reactionViewStyle} {...tabPanelAttributes}>
 			<p>
 				<ResourcedEmoji
@@ -65,14 +66,17 @@ export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: React
 				{intl.formatMessage(messages.emojiName, { emojiName })}
 			</p>
 			{alphabeticalNames.length === 0 ? (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={centerSpinner}>
 					<Spinner size="large" />
 				</div>
 			) : (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<ul css={userListStyle}>
 					{alphabeticalNames.map((user) => {
 						const profile = user.profilePicture?.path;
 						return (
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							<li css={userStyle} key={user.id}>
 								<Avatar size="large" src={profile} />
 								<span>{user.displayName}</span>

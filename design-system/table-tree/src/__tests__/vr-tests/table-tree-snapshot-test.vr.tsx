@@ -6,72 +6,72 @@ import VrLoadingNested from '../../../examples/vr-loading-nested';
 import VrOverflow from '../../../examples/vr-overflow-behavior';
 
 snapshot(ControlledExpandedState, {
-  variants: [
-    {
-      name: 'Default',
-      environment: {},
-    },
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'Dark',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Default',
+			environment: {},
+		},
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'Dark',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });
 snapshot(VrLoading, {
-  variants: [
-    {
-      name: 'Default',
-      environment: {},
-    },
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'Dark',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Default',
+			environment: {},
+		},
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'Dark',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });
 snapshot(VrLoadingNested, {
-  variants: [
-    {
-      name: 'Default',
-      environment: {},
-    },
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'Dark',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Default',
+			environment: {},
+		},
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'Dark',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });
 snapshot(VrOverflow, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });

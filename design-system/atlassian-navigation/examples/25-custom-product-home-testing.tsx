@@ -13,19 +13,19 @@ import { DefaultSettings } from './shared/settings';
 import { SwitcherPopup } from './shared/switcher-popup';
 
 const CustomProductHomeExample = () => (
-  <AtlassianNavigation
-    label="site"
-    primaryItems={bitbucketPrimaryItems}
-    renderAppSwitcher={SwitcherPopup}
-    renderCreate={DefaultCreate}
-    renderHelp={HelpPopup}
-    renderNotifications={NotificationsPopup}
-    renderProductHome={BitbucketProductHome}
-    renderProfile={ProfilePopup}
-    renderSearch={DefaultSearch}
-    renderSettings={DefaultSettings}
-    testId="bitbucket-nav"
-  />
+	<AtlassianNavigation
+		label="site"
+		primaryItems={bitbucketPrimaryItems}
+		renderAppSwitcher={SwitcherPopup}
+		renderCreate={DefaultCreate}
+		renderHelp={HelpPopup}
+		renderNotifications={NotificationsPopup}
+		renderProductHome={BitbucketProductHome}
+		renderProfile={ProfilePopup}
+		renderSearch={DefaultSearch}
+		renderSettings={DefaultSettings}
+		testId="bitbucket-nav"
+	/>
 );
 
 export default CustomProductHomeExample;

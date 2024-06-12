@@ -15,6 +15,7 @@ import {
 	EVENT_TYPE,
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
+import { getRendererRangeInlineNodeNames } from '../../../actions/get-renderer-range-inline-node-names';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 import { ProvidersContext } from '../context';
 
@@ -81,7 +82,12 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 					action: ACTION.INSERTED,
 					actionSubject: ACTION_SUBJECT.ANNOTATION,
 					actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-					attributes: {},
+					attributes: {
+						inlineNodeNames: getRendererRangeInlineNodeNames({
+							pos: positionToAnnotate,
+							actions,
+						}),
+					},
 					eventType: EVENT_TYPE.TRACK,
 				}).fire(FabricChannel.editor);
 			}
@@ -118,7 +124,12 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 						action: ACTION.CREATE_NOT_ALLOWED,
 						actionSubject: ACTION_SUBJECT.ANNOTATION,
 						actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-						attributes: {},
+						attributes: {
+							inlineNodeNames: getRendererRangeInlineNodeNames({
+								pos: documentPosition,
+								actions,
+							}),
+						},
 						eventType: EVENT_TYPE.TRACK,
 					}).fire(FabricChannel.editor);
 				}
@@ -138,6 +149,10 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 					eventType: EVENT_TYPE.TRACK,
 					attributes: {
 						overlap: uniqueAnnotationsInRange.length,
+						inlineNodeNames: getRendererRangeInlineNodeNames({
+							pos: documentPosition,
+							actions,
+						}),
 					},
 				}).fire(FabricChannel.editor);
 			}
@@ -196,12 +211,17 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				actionSubject: ACTION_SUBJECT.ANNOTATION,
 				actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 				eventType: EVENT_TYPE.TRACK,
-				attributes: {},
+				attributes: {
+					inlineNodeNames: getRendererRangeInlineNodeNames({
+						pos: documentPosition,
+						actions,
+					}),
+				},
 			}).fire(FabricChannel.editor);
 		}
 		removeDraftModeCallback();
 		onCloseProps();
-	}, [onCloseProps, removeDraftModeCallback, createAnalyticsEvent]);
+	}, [actions, documentPosition, onCloseProps, removeDraftModeCallback, createAnalyticsEvent]);
 
 	return (
 		<Component

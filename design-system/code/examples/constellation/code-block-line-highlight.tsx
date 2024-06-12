@@ -20,7 +20,7 @@ ReactDOM.render(
 );`;
 
 const CodeBlockLineHighlightExample = () => {
-  return <CodeBlock language="jsx" text={exampleCodeBlock} highlight="2,5-7" />;
+	return <CodeBlock language="jsx" text={exampleCodeBlock} highlight="2,5-7" />;
 };
 
 export default CodeBlockLineHighlightExample;

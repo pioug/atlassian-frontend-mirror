@@ -26,10 +26,10 @@ class HelloMessage extends React.Component {
 ReactDOM.render(<HelloMessage name="Taylor" />, document.body);`;
 
 export default function Component() {
-  return (
-    <div>
-      <h2>JSX</h2>
-      <CodeBlock language="jsx" text={exampleCodeBlock} />
-    </div>
-  );
+	return (
+		<div>
+			<h2>JSX</h2>
+			<CodeBlock language="jsx" text={exampleCodeBlock} />
+		</div>
+	);
 }

@@ -2,26 +2,26 @@ import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
 tester.run('no-keyframes-at-rules', rule, {
-  valid: [],
-  invalid: [
-    {
-      name: '@keyframes',
-      code: `
+	valid: [],
+	invalid: [
+		{
+			name: '@keyframes',
+			code: `
         import { css } from '@compiled/react';
 
         css({
           '@keyframes fadeIn': {}
         });
       `,
-      errors: [
-        {
-          messageId: 'no-keyframes-at-rules',
-        },
-      ],
-    },
-    {
-      name: '@keyframes in cssMap',
-      code: `
+			errors: [
+				{
+					messageId: 'no-keyframes-at-rules',
+				},
+			],
+		},
+		{
+			name: '@keyframes in cssMap',
+			code: `
         import { cssMap } from '@compiled/react';
 
         cssMap({
@@ -30,11 +30,11 @@ tester.run('no-keyframes-at-rules', rule, {
           }
         });
       `,
-      errors: [
-        {
-          messageId: 'no-keyframes-at-rules',
-        },
-      ],
-    },
-  ],
+			errors: [
+				{
+					messageId: 'no-keyframes-at-rules',
+				},
+			],
+		},
+	],
 });

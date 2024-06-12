@@ -9,47 +9,45 @@ import { token } from '@atlaskit/tokens';
 import PageHeader from '../../src';
 
 const readViewStyles = css({
-  display: 'flex',
-  maxWidth: '100%',
-  padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
-  font: token('font.heading.large'),
-  overflow: 'hidden',
+	display: 'flex',
+	maxWidth: '100%',
+	padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
+	font: token('font.heading.large'),
+	overflow: 'hidden',
 });
 
 const editViewStyles = css({
-  boxSizing: 'border-box',
-  width: '100%',
-  padding: `${token('space.075', '6px')} ${token('space.075', '6px')}`,
+	boxSizing: 'border-box',
+	width: '100%',
+	padding: `${token('space.075', '6px')} ${token('space.075', '6px')}`,
 
-  border: `2px solid ${token('color.border')}`,
-  borderRadius: token('border.radius', '3px'),
-  cursor: 'inherit',
-  font: token('font.heading.large'),
-  outline: 'none',
-  ':focus': {
-    border: `2px solid ${token('color.border.focused')}`,
-  },
+	border: `2px solid ${token('color.border')}`,
+	borderRadius: token('border.radius', '3px'),
+	cursor: 'inherit',
+	font: token('font.heading.large'),
+	outline: 'none',
+	':focus': {
+		border: `2px solid ${token('color.border.focused')}`,
+	},
 });
 
 const CustomTitleComponent = () => {
-  return (
-    <InlineEdit
-      readView={() => <div css={readViewStyles}>Editable title</div>}
-      editView={(props, ref) => (
-        <input css={editViewStyles} {...props} ref={ref} />
-      )}
-      defaultValue="Editable title"
-      onConfirm={__noop}
-    />
-  );
+	return (
+		<InlineEdit
+			readView={() => <div css={readViewStyles}>Editable title</div>}
+			editView={(props, ref) => <input css={editViewStyles} {...props} ref={ref} />}
+			defaultValue="Editable title"
+			onConfirm={__noop}
+		/>
+	);
 };
 
 const PageHeaderCustomTitleExample = () => {
-  return (
-    <PageHeader disableTitleStyles>
-      <CustomTitleComponent />
-    </PageHeader>
-  );
+	return (
+		<PageHeader disableTitleStyles>
+			<CustomTitleComponent />
+		</PageHeader>
+	);
 };
 
 export default PageHeaderCustomTitleExample;

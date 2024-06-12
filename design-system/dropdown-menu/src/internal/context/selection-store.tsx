@@ -3,14 +3,14 @@ import React, { createContext, useMemo, useRef } from 'react';
 import noop from '@atlaskit/ds-lib/noop';
 
 type OptionsInGroup = {
-  [key: string]: boolean | undefined;
+	[key: string]: boolean | undefined;
 };
 
 type SelectionStoreContextProps = {
-  setItemState: (group: string, id: string, value: boolean | undefined) => void;
-  getItemState: (group: string, id: string) => boolean | undefined;
-  setGroupState: (group: string, value: OptionsInGroup) => void;
-  getGroupState: (group: string) => OptionsInGroup;
+	setItemState: (group: string, id: string, value: boolean | undefined) => void;
+	getItemState: (group: string, id: string) => boolean | undefined;
+	setGroupState: (group: string, value: OptionsInGroup) => void;
+	getGroupState: (group: string) => OptionsInGroup;
 };
 
 /**
@@ -20,18 +20,18 @@ type SelectionStoreContextProps = {
  *
  */
 export const SelectionStoreContext = createContext<SelectionStoreContextProps>({
-  setItemState: noop,
-  getItemState: () => undefined,
-  setGroupState: noop,
-  getGroupState: () => ({}),
+	setItemState: noop,
+	getItemState: () => undefined,
+	setGroupState: noop,
+	getGroupState: () => ({}),
 });
 
 type SelectionStoreProps = {
-  children: React.ReactNode;
+	children: React.ReactNode;
 };
 
 type Entity = {
-  [key: string]: OptionsInGroup;
+	[key: string]: OptionsInGroup;
 };
 
 /**
@@ -40,39 +40,37 @@ type Entity = {
  * items can be mounted/unmounted depending if the menu is open or closed.
  */
 const SelectionStore = (props: SelectionStoreProps) => {
-  const { children } = props;
-  const store = useRef<Entity>({});
-  const context: SelectionStoreContextProps = useMemo(
-    () => ({
-      setItemState: (group: string, id: string, value: boolean | undefined) => {
-        if (!store.current[group]) {
-          store.current[group] = {};
-        }
+	const { children } = props;
+	const store = useRef<Entity>({});
+	const context: SelectionStoreContextProps = useMemo(
+		() => ({
+			setItemState: (group: string, id: string, value: boolean | undefined) => {
+				if (!store.current[group]) {
+					store.current[group] = {};
+				}
 
-        store.current[group][id] = value;
-      },
-      getItemState: (group: string, id: string) => {
-        if (!store.current[group]) {
-          return undefined;
-        }
+				store.current[group][id] = value;
+			},
+			getItemState: (group: string, id: string) => {
+				if (!store.current[group]) {
+					return undefined;
+				}
 
-        return store.current[group][id];
-      },
-      setGroupState: (group: string, value: OptionsInGroup) => {
-        store.current[group] = value;
-      },
-      getGroupState: (group: string) => {
-        return store.current[group] || {};
-      },
-    }),
-    [],
-  );
+				return store.current[group][id];
+			},
+			setGroupState: (group: string, value: OptionsInGroup) => {
+				store.current[group] = value;
+			},
+			getGroupState: (group: string) => {
+				return store.current[group] || {};
+			},
+		}),
+		[],
+	);
 
-  return (
-    <SelectionStoreContext.Provider value={context}>
-      {children}
-    </SelectionStoreContext.Provider>
-  );
+	return (
+		<SelectionStoreContext.Provider value={context}>{children}</SelectionStoreContext.Provider>
+	);
 };
 
 export default SelectionStore;

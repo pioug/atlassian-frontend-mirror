@@ -5,14 +5,10 @@ import Avatar from '@atlaskit/avatar';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => (
-  <DropdownMenu defaultOpen trigger="Assign to" shouldRenderToParent>
-    <DropdownItemGroup>
-      <DropdownItem elemBefore={<Avatar size="small" />}>
-        Some text
-      </DropdownItem>
-      <DropdownItem elemBefore={<Avatar size="small" />}>
-        Some text also
-      </DropdownItem>
-    </DropdownItemGroup>
-  </DropdownMenu>
+	<DropdownMenu defaultOpen trigger="Assign to" shouldRenderToParent>
+		<DropdownItemGroup>
+			<DropdownItem elemBefore={<Avatar size="small" />}>Some text</DropdownItem>
+			<DropdownItem elemBefore={<Avatar size="small" />}>Some text also</DropdownItem>
+		</DropdownItemGroup>
+	</DropdownMenu>
 );

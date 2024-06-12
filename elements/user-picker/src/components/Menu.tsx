@@ -22,6 +22,7 @@ export class Menu extends React.Component<Props> {
 				{this.props.selectProps.header}
 				{this.props.children}
 				{this.props.selectProps.footer && (
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					<div css={getFooterStyle()}>{this.props.selectProps.footer}</div>
 				)}
 			</components.Menu>

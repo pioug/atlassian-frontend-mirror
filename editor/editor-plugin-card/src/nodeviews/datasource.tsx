@@ -310,7 +310,8 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 					style={{
 						minWidth: this.isNodeNested
 							? '100%'
-							: calcBreakoutWidth(attrs.layout || DATASOURCE_DEFAULT_LAYOUT, this.tableWidth),
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								calcBreakoutWidth(attrs.layout || DATASOURCE_DEFAULT_LAYOUT, this.tableWidth),
 					}}
 				>
 					<DatasourceComponent node={this.node} view={this.view} getPos={this.getPos} />

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import {
-  SkeletonHeadingItem as MenuSkeletonHeadingItem,
-  type SkeletonHeadingItemProps,
+	SkeletonHeadingItem as MenuSkeletonHeadingItem,
+	type SkeletonHeadingItemProps,
 } from '@atlaskit/menu';
 
 import { sectionHeaderSpacingStyles } from '../../common/styles';
@@ -18,21 +18,21 @@ export type { SkeletonHeadingItemProps } from '@atlaskit/menu';
  * - [Examples](https://atlassian.design/components/side-navigation/examples#loading)
  */
 const SkeletonHeadingItem = (props: SkeletonHeadingItemProps) => {
-  const { shouldRender } = useShouldNestedElementRender();
-  if (!shouldRender) {
-    return null;
-  }
+	const { shouldRender } = useShouldNestedElementRender();
+	if (!shouldRender) {
+		return null;
+	}
 
-  return (
-    <MenuSkeletonHeadingItem
-      // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
-      cssFn={() => ({
-        ...sectionHeaderSpacingStyles(),
-      })}
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      {...props}
-    />
-  );
+	return (
+		<MenuSkeletonHeadingItem
+			// eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
+			cssFn={() => ({
+				...sectionHeaderSpacingStyles(),
+			})}
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+			{...props}
+		/>
+	);
 };
 
 export default SkeletonHeadingItem;

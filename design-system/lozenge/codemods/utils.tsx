@@ -2,26 +2,26 @@ import type core from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
 import {
-  addCommentToStartOfFile,
-  getDefaultSpecifier,
-  getJSXAttributesByName,
+	addCommentToStartOfFile,
+	getDefaultSpecifier,
+	getJSXAttributesByName,
 } from '@atlaskit/codemod-utils';
 
 export const createRemoveFuncWithDefaultSpecifierFor =
-  (component: string, prop: string, comment?: string) =>
-  (j: core.JSCodeshift, source: Collection<Node>) => {
-    const specifier = getDefaultSpecifier(j, source, component);
+	(component: string, prop: string, comment?: string) =>
+	(j: core.JSCodeshift, source: Collection<Node>) => {
+		const specifier = getDefaultSpecifier(j, source, component);
 
-    if (!specifier) {
-      return;
-    }
+		if (!specifier) {
+			return;
+		}
 
-    source.findJSXElements(specifier).forEach((element) => {
-      getJSXAttributesByName(j, element, prop).forEach((attribute: any) => {
-        if (comment) {
-          addCommentToStartOfFile({ j, base: source, message: comment });
-        }
-        j(attribute).remove();
-      });
-    });
-  };
+		source.findJSXElements(specifier).forEach((element) => {
+			getJSXAttributesByName(j, element, prop).forEach((attribute: any) => {
+				if (comment) {
+					addCommentToStartOfFile({ j, base: source, message: comment });
+				}
+				j(attribute).remove();
+			});
+		});
+	};

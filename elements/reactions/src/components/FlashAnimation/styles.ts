@@ -5,6 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 const flashTime = 700;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const flashAnimation = keyframes({
 	'0%': {
 		backgroundColor: 'transparent',
@@ -23,11 +24,14 @@ export const flashAnimation = keyframes({
 	},
 }) as unknown as typeof keyframes;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const containerStyle = css({
 	width: '100%',
 	height: '100%',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const flashStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	animation: `${flashAnimation} ${flashTime}ms ease-in-out`,
 });

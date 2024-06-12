@@ -10,16 +10,19 @@ type Props = {
 	selected?: boolean;
 } & DateProps;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 const SelectableDate = styled(Date)((props: Props) =>
 	props.selected
-		? css({
+		? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			css({
 				display: "'relative'",
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				'&:before': {
 					content: "''",
 					border: `2px solid ${token('color.border.selected', B200)}`,
 					display: "'absolute'",
 					background: 'transparent',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					borderRadius: `${borderRadius()}px`,
 					boxSizing: 'border-box',
 					position: 'absolute',

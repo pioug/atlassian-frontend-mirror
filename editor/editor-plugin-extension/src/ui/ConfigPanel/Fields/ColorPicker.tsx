@@ -199,6 +199,7 @@ const colorPickerWrapperStyles = css({
 });
 
 const colorPickerLabelStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: `${headingSizes.h400.size}px`,
 	marginTop: 0,
 });
@@ -275,7 +276,7 @@ const ColorPickerField = ({
 						<label css={colorPickerLabelStyles}>
 							{label}
 							{isRequired && (
-								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								<span css={requiredIndicator} aria-hidden="true">
 									*
 								</span>

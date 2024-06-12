@@ -6,30 +6,21 @@ const spacesAndTabs: RegExp = /[ \t]{2,}/g;
 const lineStartWithSpaces: RegExp = /^[ \t]*/gm;
 
 function clean(value: string): string {
-  return value
-    .replace(spacesAndTabs, ' ')
-    .replace(lineStartWithSpaces, '')
-    .trim();
+	return value.replace(spacesAndTabs, ' ').replace(lineStartWithSpaces, '').trim();
 }
 
-export function addCommentBefore(
-  j: core.JSCodeshift,
-  target: Collection<any>,
-  message: string,
-) {
-  const content: string = ` TODO: (from codemod) ${clean(message)} `;
-  target.forEach((path: ASTPath<any>) => {
-    path.value.comments = path.value.comments || [];
+export function addCommentBefore(j: core.JSCodeshift, target: Collection<any>, message: string) {
+	const content: string = ` TODO: (from codemod) ${clean(message)} `;
+	target.forEach((path: ASTPath<any>) => {
+		path.value.comments = path.value.comments || [];
 
-    const exists = path.value.comments.find(
-      (comment: any) => comment.value === content,
-    );
+		const exists = path.value.comments.find((comment: any) => comment.value === content);
 
-    // avoiding duplicates of the same comment
-    if (exists) {
-      return;
-    }
+		// avoiding duplicates of the same comment
+		if (exists) {
+			return;
+		}
 
-    path.value.comments.push(j.commentBlock(content));
-  });
+		path.value.comments.push(j.commentBlock(content));
+	});
 }

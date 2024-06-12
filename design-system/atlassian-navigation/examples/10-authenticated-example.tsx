@@ -13,18 +13,18 @@ import { DefaultSettings } from './shared/settings';
 import { SwitcherPopup } from './shared/switcher-popup';
 
 const AuthenticatedExample = () => (
-  <AtlassianNavigation
-    label="site"
-    primaryItems={defaultPrimaryItems}
-    renderAppSwitcher={SwitcherPopup}
-    renderCreate={DefaultCreate}
-    renderHelp={HelpPopup}
-    renderNotifications={NotificationsPopup}
-    renderProductHome={DefaultProductHome}
-    renderProfile={ProfilePopup}
-    renderSearch={DefaultSearch}
-    renderSettings={DefaultSettings}
-  />
+	<AtlassianNavigation
+		label="site"
+		primaryItems={defaultPrimaryItems}
+		renderAppSwitcher={SwitcherPopup}
+		renderCreate={DefaultCreate}
+		renderHelp={HelpPopup}
+		renderNotifications={NotificationsPopup}
+		renderProductHome={DefaultProductHome}
+		renderProfile={ProfilePopup}
+		renderSearch={DefaultSearch}
+		renderSettings={DefaultSettings}
+	/>
 );
 
 export default AuthenticatedExample;

@@ -1,17 +1,19 @@
 # no-unsafe-design-token-usage
 
-Disallow usage of non-existent or deleted design tokens. Optionally will disallow token usage without fallbacks specified.
+Disallow usage of non-existent or deleted design tokens. Optionally will disallow token usage
+without fallbacks specified.
 
 ```css
 a {
-  color: var(--ds-background-brand, #e9f2ff);
-  /*         ↑ Deprecated tokens like this */
+	color: var(--ds-background-brand, #e9f2ff);
+	/*         ↑ Deprecated tokens like this */
 }
 ```
 
 ## Autofix
 
-Replaces deleted tokens with the recommended replacement token. This may not work if the token has been hard deleted.
+Replaces deleted tokens with the recommended replacement token. This may not work if the token has
+been hard deleted.
 
 ## Options
 
@@ -22,14 +24,14 @@ The following patterns are considered problems:
 ```css
 /* Does not exist */
 p {
-  color: var(--ds-non-existent);
+	color: var(--ds-non-existent);
 }
 ```
 
 ```css
 /* Deleted token */
 div {
-  background-color: var(--ds-background-overlay);
+	background-color: var(--ds-background-overlay);
 }
 ```
 
@@ -37,7 +39,7 @@ The following patterns are _not_ considered problems:
 
 ```css
 div {
-  background-color: var(--ds-surface-overlay);
+	background-color: var(--ds-surface-overlay);
 }
 ```
 
@@ -50,7 +52,7 @@ The following patterns are considered problems:
 ```css
 /* Missing a fallback */
 a {
-  color: var(--ds-text-brand);
+	color: var(--ds-text-brand);
 }
 ```
 
@@ -58,6 +60,6 @@ The following patterns are _not_ considered problems:
 
 ```css
 div {
-  background-color: var(--ds-surface-overlay, #ffffff);
+	background-color: var(--ds-surface-overlay, #ffffff);
 }
 ```

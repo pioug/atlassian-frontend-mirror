@@ -6,11 +6,11 @@ import { SkeletonIconButton } from './components/SkeletonIconButton';
 import { useTheme } from './theme';
 
 export type SkeletonHelpButtonProps = {
-  /**
-   *  Describes the specific role of this navigation component for users viewing the page with a screen
-   *  reader. Use this to differentiate the buttons from other navigation buttons on a page.
-   */
-  label: string;
+	/**
+	 *  Describes the specific role of this navigation component for users viewing the page with a screen
+	 *  reader. Use this to differentiate the buttons from other navigation buttons on a page.
+	 */
+	label: string;
 };
 
 /**
@@ -24,16 +24,13 @@ export type SkeletonHelpButtonProps = {
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 export const SkeletonHelpButton = ({ label = '' }: SkeletonHelpButtonProps) => {
-  const {
-    mode: { navigation },
-  } = useTheme();
+	const {
+		mode: { navigation },
+	} = useTheme();
 
-  return (
-    <SkeletonIconButton>
-      <QuestionCircleIcon
-        label={label}
-        secondaryColor={navigation.backgroundColor}
-      />
-    </SkeletonIconButton>
-  );
+	return (
+		<SkeletonIconButton>
+			<QuestionCircleIcon label={label} secondaryColor={navigation.backgroundColor} />
+		</SkeletonIconButton>
+	);
 };

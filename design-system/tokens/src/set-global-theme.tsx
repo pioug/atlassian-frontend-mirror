@@ -2,18 +2,11 @@ import { type UnbindFn } from 'bind-event-listener';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import {
-  type ThemeIdsWithOverrides,
-  type ThemeState,
-  themeStateDefaults,
-} from './theme-config';
+import { type ThemeIdsWithOverrides, type ThemeState, themeStateDefaults } from './theme-config';
 import { isValidBrandHex } from './utils/color-utils';
 import configurePage from './utils/configure-page';
 import { findMissingCustomStyleElements } from './utils/custom-theme-loading-utils';
-import {
-  getThemeOverridePreferences,
-  getThemePreferences,
-} from './utils/get-theme-preferences';
+import { getThemeOverridePreferences, getThemePreferences } from './utils/get-theme-preferences';
 import { loadAndAppendThemeCss } from './utils/theme-loading';
 
 /**
@@ -38,91 +31,82 @@ import { loadAndAppendThemeCss } from './utils/theme-loading';
  * ```
  */
 const setGlobalTheme = async (
-  {
-    colorMode = themeStateDefaults['colorMode'],
-    contrastMode = themeStateDefaults['contrastMode'],
-    dark = themeStateDefaults['dark'],
-    light = themeStateDefaults['light'],
-    shape = themeStateDefaults['shape'],
-    spacing = themeStateDefaults['spacing'],
-    typography = themeStateDefaults['typography'],
-    UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
-  }: Partial<ThemeState> = {},
-  themeLoader?: (id: ThemeIdsWithOverrides) => void | Promise<void>,
+	{
+		colorMode = themeStateDefaults['colorMode'],
+		contrastMode = themeStateDefaults['contrastMode'],
+		dark = themeStateDefaults['dark'],
+		light = themeStateDefaults['light'],
+		shape = themeStateDefaults['shape'],
+		spacing = themeStateDefaults['spacing'],
+		typography = themeStateDefaults['typography'],
+		UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
+	}: Partial<ThemeState> = {},
+	themeLoader?: (id: ThemeIdsWithOverrides) => void | Promise<void>,
 ): Promise<UnbindFn> => {
-  // CLEANUP: Remove. This blocks application of increased contrast themes
-  // without the feature flag enabled.
-  if (!getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
-    if (light === 'light-increased-contrast') {
-      light = 'light';
-    }
-    if (dark === 'dark-increased-contrast') {
-      dark = 'dark';
-    }
-  }
+	// CLEANUP: Remove. This blocks application of increased contrast themes
+	// without the feature flag enabled.
+	if (!getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
+		if (light === 'light-increased-contrast') {
+			light = 'light';
+		}
+		if (dark === 'dark-increased-contrast') {
+			dark = 'dark';
+		}
+	}
 
-  const themeState = {
-    colorMode,
-    contrastMode,
-    dark,
-    light,
-    shape,
-    spacing,
-    typography,
-    UNSAFE_themeOptions: themeLoader ? undefined : UNSAFE_themeOptions,
-  };
+	const themeState = {
+		colorMode,
+		contrastMode,
+		dark,
+		light,
+		shape,
+		spacing,
+		typography,
+		UNSAFE_themeOptions: themeLoader ? undefined : UNSAFE_themeOptions,
+	};
 
-  // Determine what to load and loading strategy
-  let themePreferences = getThemePreferences(themeState);
+	// Determine what to load and loading strategy
+	let themePreferences = getThemePreferences(themeState);
 
-  const loadingStrategy = themeLoader ? themeLoader : loadAndAppendThemeCss;
+	const loadingStrategy = themeLoader ? themeLoader : loadAndAppendThemeCss;
 
-  // Load standard themes
-  const loadingTasks = themePreferences.map(
-    async (themeId) => await loadingStrategy(themeId),
-  );
+	// Load standard themes
+	const loadingTasks = themePreferences.map(async (themeId) => await loadingStrategy(themeId));
 
-  // Load custom themes if needed
-  if (
-    !themeLoader &&
-    UNSAFE_themeOptions &&
-    isValidBrandHex(UNSAFE_themeOptions?.brandColor)
-  ) {
-    const mode = colorMode || themeStateDefaults['colorMode'];
-    const attrOfMissingCustomStyles = findMissingCustomStyleElements(
-      UNSAFE_themeOptions,
-      mode,
-    );
-    if (attrOfMissingCustomStyles.length > 0) {
-      // Load custom theme styles
-      loadingTasks.push(
-        (async () => {
-          const { loadAndAppendCustomThemeCss } = await import(
-            /* webpackChunkName: "@atlaskit-internal_atlassian-custom-theme" */
-            './custom-theme'
-          );
-          loadAndAppendCustomThemeCss({
-            colorMode:
-              attrOfMissingCustomStyles.length === 2
-                ? 'auto'
-                : // only load the missing custom theme styles
-                  attrOfMissingCustomStyles[0],
-            UNSAFE_themeOptions,
-          });
-        })(),
-      );
-    }
-  }
-  await Promise.all(loadingTasks);
+	// Load custom themes if needed
+	if (!themeLoader && UNSAFE_themeOptions && isValidBrandHex(UNSAFE_themeOptions?.brandColor)) {
+		const mode = colorMode || themeStateDefaults['colorMode'];
+		const attrOfMissingCustomStyles = findMissingCustomStyleElements(UNSAFE_themeOptions, mode);
+		if (attrOfMissingCustomStyles.length > 0) {
+			// Load custom theme styles
+			loadingTasks.push(
+				(async () => {
+					const { loadAndAppendCustomThemeCss } = await import(
+						/* webpackChunkName: "@atlaskit-internal_atlassian-custom-theme" */
+						'./custom-theme'
+					);
+					loadAndAppendCustomThemeCss({
+						colorMode:
+							attrOfMissingCustomStyles.length === 2
+								? 'auto'
+								: // only load the missing custom theme styles
+									attrOfMissingCustomStyles[0],
+						UNSAFE_themeOptions,
+					});
+				})(),
+			);
+		}
+	}
+	await Promise.all(loadingTasks);
 
-  // Load override themes after standard themes
-  const themeOverridePreferences = getThemeOverridePreferences(themeState);
-  for (const themeId of themeOverridePreferences) {
-    await loadingStrategy(themeId);
-  }
+	// Load override themes after standard themes
+	const themeOverridePreferences = getThemeOverridePreferences(themeState);
+	for (const themeId of themeOverridePreferences) {
+		await loadingStrategy(themeId);
+	}
 
-  const autoUnbind = configurePage(themeState);
-  return autoUnbind;
+	const autoUnbind = configurePage(themeState);
+	return autoUnbind;
 };
 
 export default setGlobalTheme;

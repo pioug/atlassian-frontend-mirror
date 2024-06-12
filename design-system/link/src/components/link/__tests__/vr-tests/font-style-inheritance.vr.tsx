@@ -5,5 +5,5 @@ import FontStyleInheritanceExample from '../../../../../examples/10-font-style-i
 import { themeVariants } from './utils';
 
 snapshot(FontStyleInheritanceExample, {
-  variants: themeVariants,
+	variants: themeVariants,
 });

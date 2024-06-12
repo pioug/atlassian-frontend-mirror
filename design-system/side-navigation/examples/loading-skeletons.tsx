@@ -4,45 +4,43 @@ import { jsx } from '@emotion/react';
 import CustomerIcon from '@atlaskit/icon/glyph/person';
 
 import {
-  ButtonItem,
-  HeadingItem,
-  NavigationContent,
-  NavigationHeader,
-  Section,
-  SideNavigation,
-  SkeletonHeadingItem,
-  SkeletonItem,
+	ButtonItem,
+	HeadingItem,
+	NavigationContent,
+	NavigationHeader,
+	Section,
+	SideNavigation,
+	SkeletonHeadingItem,
+	SkeletonItem,
 } from '../src';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
 
 const BasicExample = () => {
-  return (
-    <AppFrame shouldHideAppBar>
-      <SideNavigation label="project" testId="side-navigation">
-        <NavigationHeader>
-          <SampleHeader />
-        </NavigationHeader>
-        <NavigationContent>
-          <Section>
-            <HeadingItem>Heading</HeadingItem>
-            <SkeletonHeadingItem />
-            <SkeletonItem hasAvatar />
-            <SkeletonItem hasIcon />
-            <ButtonItem iconBefore={<CustomerIcon label="" />}>
-              Create
-            </ButtonItem>
-            <SkeletonItem width="100%" />
-            <SkeletonItem />
-            <SkeletonItem />
+	return (
+		<AppFrame shouldHideAppBar>
+			<SideNavigation label="project" testId="side-navigation">
+				<NavigationHeader>
+					<SampleHeader />
+				</NavigationHeader>
+				<NavigationContent>
+					<Section>
+						<HeadingItem>Heading</HeadingItem>
+						<SkeletonHeadingItem />
+						<SkeletonItem hasAvatar />
+						<SkeletonItem hasIcon />
+						<ButtonItem iconBefore={<CustomerIcon label="" />}>Create</ButtonItem>
+						<SkeletonItem width="100%" />
+						<SkeletonItem />
+						<SkeletonItem />
 
-            <ButtonItem>Create</ButtonItem>
-          </Section>
-        </NavigationContent>
-      </SideNavigation>
-    </AppFrame>
-  );
+						<ButtonItem>Create</ButtonItem>
+					</Section>
+				</NavigationContent>
+			</SideNavigation>
+		</AppFrame>
+	);
 };
 
 export default BasicExample;

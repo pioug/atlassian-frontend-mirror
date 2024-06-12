@@ -11,14 +11,12 @@ const uniqueReferencedValue = {};
  *
  * @param initializer
  */
-export default function useLazyRef<T>(
-  initializer: () => T,
-): React.MutableRefObject<T> {
-  const ref = useRef<T | typeof uniqueReferencedValue>(uniqueReferencedValue);
+export default function useLazyRef<T>(initializer: () => T): React.MutableRefObject<T> {
+	const ref = useRef<T | typeof uniqueReferencedValue>(uniqueReferencedValue);
 
-  if (ref.current === uniqueReferencedValue) {
-    ref.current = initializer();
-  }
+	if (ref.current === uniqueReferencedValue) {
+		ref.current = initializer();
+	}
 
-  return ref as React.MutableRefObject<T>;
+	return ref as React.MutableRefObject<T>;
 }

@@ -15,7 +15,9 @@ const iconStyles = (showPlaceholder: boolean | undefined) => {
 		height: '16px',
 		width: '16px',
 		margin: `${token('space.050', '4px')} ${token('space.150', '12px')} 0 0`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: showPlaceholder ? token('color.icon.subtle', N100) : token('color.icon.success', G400),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			margin: token('space.negative.100', '-8px'),
 		},
@@ -40,6 +42,7 @@ const DecisionItem = ({
 	dataAttributes,
 }: Props) => {
 	const icon = (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<span contentEditable={false} css={iconStyles(showPlaceholder)}>
 			<DecisionIcon label="Decision" size="large" />
 		</span>

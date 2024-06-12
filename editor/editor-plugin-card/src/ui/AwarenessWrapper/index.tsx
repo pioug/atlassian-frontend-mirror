@@ -32,7 +32,7 @@ type AwarenessWrapperProps = {
 // editor adds a standard line-height that is bigger than an inline smart link
 // due to that the link has a bit of white space around it, which doesn't look right when there is pulse around it
 const loaderWrapperStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.loader-wrapper': {
 		lineHeight: 'normal',
 	},

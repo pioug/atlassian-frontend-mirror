@@ -19,21 +19,16 @@ import { Help } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="Help button"
-      Component={require('../examples/help-button').default}
-      source={require('!!raw-loader!../examples/help-button')}
-    />
-  )}
+		<Example
+			title="Help button"
+			Component={require('../examples/help-button').default}
+			source={require('!!raw-loader!../examples/help-button')}
+		/>
+	)}
 
   ### Props
 
-  ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/components/Help')}
-    />
-  )}
+  ${(<Props heading="" props={require('!!extract-react-types-loader!../src/components/Help')} />)}
 
   ## Profile
 
@@ -59,21 +54,18 @@ import { Profile } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="Profile button"
-      Component={require('../examples/profile').default}
-      source={require('!!raw-loader!../examples/profile')}
-    />
-  )}
+		<Example
+			title="Profile button"
+			Component={require('../examples/profile').default}
+			source={require('!!raw-loader!../examples/profile')}
+		/>
+	)}
 
   ### Props
 
   ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/components/Profile')}
-    />
-  )}
+		<Props heading="" props={require('!!extract-react-types-loader!../src/components/Profile')} />
+	)}
 
   ## Search
 
@@ -98,21 +90,16 @@ import { Search } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="Search"
-      Component={require('../examples/search').default}
-      source={require('!!raw-loader!../examples/search')}
-    />
-  )}
+		<Example
+			title="Search"
+			Component={require('../examples/search').default}
+			source={require('!!raw-loader!../examples/search')}
+		/>
+	)}
 
   ### Props
 
-  ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/components/Search')}
-    />
-  )}
+  ${(<Props heading="" props={require('!!extract-react-types-loader!../src/components/Search')} />)}
 
   ## Settings
 
@@ -126,21 +113,18 @@ import { Settings } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="Settings"
-      Component={require('../examples/settings').default}
-      source={require('!!raw-loader!../examples/settings')}
-    />
-  )}
+		<Example
+			title="Settings"
+			Component={require('../examples/settings').default}
+			source={require('!!raw-loader!../examples/settings')}
+		/>
+	)}
 
   ### Props
 
   ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/components/Settings')}
-    />
-  )}
+		<Props heading="" props={require('!!extract-react-types-loader!../src/components/Settings')} />
+	)}
 
   ## Sign in
 
@@ -156,21 +140,16 @@ import { Settings } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="Settings"
-      Component={require('../examples/sign-in').default}
-      source={require('!!raw-loader!../examples/sign-in')}
-    />
-  )}
+		<Example
+			title="Settings"
+			Component={require('../examples/sign-in').default}
+			source={require('!!raw-loader!../examples/sign-in')}
+		/>
+	)}
 
   ### Props
 
-  ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/components/SignIn')}
-    />
-  )}
+  ${(<Props heading="" props={require('!!extract-react-types-loader!../src/components/SignIn')} />)}
 
   ## Notifications
 
@@ -188,19 +167,19 @@ import { Notifications } from '@atlaskit/atlassian-navigation';
 `}
 
   ${(
-    <Example
-      title="Notifications"
-      Component={require('../examples/notifications').default}
-      source={require('!!raw-loader!../examples/notifications')}
-    />
-  )}
+		<Example
+			title="Notifications"
+			Component={require('../examples/notifications').default}
+			source={require('!!raw-loader!../examples/notifications')}
+		/>
+	)}
 
   ### Props
 
   ${(
-    <Props
-      heading=""
-      props={require('!!extract-react-types-loader!../src/components/Notifications')}
-    />
-  )}
+		<Props
+			heading=""
+			props={require('!!extract-react-types-loader!../src/components/Notifications')}
+		/>
+	)}
 `;

@@ -6,27 +6,27 @@ import { Label } from '@atlaskit/form';
 import Textfield from '../src';
 
 export default function ForwardRefExample() {
-  let input: HTMLInputElement | null = null;
+	let input: HTMLInputElement | null = null;
 
-  const handleRef = (ref: HTMLInputElement | null) => {
-    input = ref;
-  };
+	const handleRef = (ref: HTMLInputElement | null) => {
+		input = ref;
+	};
 
-  const handleFocus = () => {
-    if (input) {
-      input.focus();
-    }
-  };
+	const handleFocus = () => {
+		if (input) {
+			input.focus();
+		}
+	};
 
-  return (
-    <div>
-      <Label htmlFor="textfield">Text Input</Label>
-      <Textfield id="textfield" ref={handleRef} />
-      <p>
-        <Button appearance="primary" onClick={handleFocus}>
-          Focus TextField
-        </Button>
-      </p>
-    </div>
-  );
+	return (
+		<div>
+			<Label htmlFor="textfield">Text Input</Label>
+			<Textfield id="textfield" ref={handleRef} />
+			<p>
+				<Button appearance="primary" onClick={handleFocus}>
+					Focus TextField
+				</Button>
+			</p>
+		</div>
+	);
 }

@@ -10,20 +10,20 @@ import { token } from '@atlaskit/tokens';
 import { BORDER_WIDTH } from './constants';
 
 interface IconWrapperProps {
-  bgColor?: string;
-  children?: ReactNode;
-  label?: string;
+	bgColor?: string;
+	children?: ReactNode;
+	label?: string;
 }
 
 const iconWrapperStyles = css({
-  display: 'flex',
-  boxSizing: 'border-box',
-  width: '100%',
-  height: '100%',
-  alignItems: 'center',
-  alignContent: 'center',
-  borderRadius: token('border.radius.circle', '50%'),
-  overflow: 'hidden',
+	display: 'flex',
+	boxSizing: 'border-box',
+	width: '100%',
+	height: '100%',
+	alignItems: 'center',
+	alignContent: 'center',
+	borderRadius: token('border.radius.circle', '50%'),
+	overflow: 'hidden',
 });
 
 /**
@@ -32,19 +32,19 @@ const iconWrapperStyles = css({
  * An icon wrapper is used internally only.
  */
 const IconWrapper: FC<IconWrapperProps> = ({
-  bgColor = token('elevation.surface.overlay', N0),
-  children,
+	bgColor = token('elevation.surface.overlay', N0),
+	children,
 }) => (
-  <span
-    css={iconWrapperStyles}
-    role="presentation"
-    style={{
-      border: `${BORDER_WIDTH}px solid ${bgColor}`,
-      backgroundColor: bgColor,
-    }}
-  >
-    {children}
-  </span>
+	<span
+		css={iconWrapperStyles}
+		role="presentation"
+		style={{
+			border: `${BORDER_WIDTH}px solid ${bgColor}`,
+			backgroundColor: bgColor,
+		}}
+	>
+		{children}
+	</span>
 );
 
 export default IconWrapper;

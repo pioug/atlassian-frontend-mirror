@@ -21,46 +21,44 @@ index 77aae63a48e..27b8feb2ddf 100644
 `;
 
 describe('sinceRef', () => {
-  let mockGit: {};
-  beforeEach(() => {
-    jest.resetAllMocks();
-    mockGit = {
-      revparse: jest.fn(() => 'abcdef123'),
-      diff: jest.fn(() => mockDiff),
-    };
-    (simpleGit as jest.Mock).mockImplementation(() => mockGit);
-  });
-  describe('getPackagesSinceRef', () => {
-    it('should return packages that have been upgraded since the ref', async () => {
-      expect(await getPackagesSinceRef('head')).toEqual([
-        {
-          name: '@atlaskit/avatar',
-          version: '^17.1.9',
-        },
-        {
-          name: '@atlaskit/badge',
-          version: '^13.1.7',
-        },
-      ]);
-    });
-    it('should throw when an invalid ref is passed', async () => {
-      mockGit = {
-        ...mockGit,
-        revparse: jest.fn(() => {
-          throw Error();
-        }),
-      };
-      await expect(
-        getPackagesSinceRef('foo'),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(
-        `"Invalid git ref \\"foo\\""`,
-      );
-    });
-    it('should not return packages that have been deleted', async () => {
-      mockGit = {
-        ...mockGit,
-        diff: jest.fn(
-          () => `
+	let mockGit: {};
+	beforeEach(() => {
+		jest.resetAllMocks();
+		mockGit = {
+			revparse: jest.fn(() => 'abcdef123'),
+			diff: jest.fn(() => mockDiff),
+		};
+		(simpleGit as jest.Mock).mockImplementation(() => mockGit);
+	});
+	describe('getPackagesSinceRef', () => {
+		it('should return packages that have been upgraded since the ref', async () => {
+			expect(await getPackagesSinceRef('head')).toEqual([
+				{
+					name: '@atlaskit/avatar',
+					version: '^17.1.9',
+				},
+				{
+					name: '@atlaskit/badge',
+					version: '^13.1.7',
+				},
+			]);
+		});
+		it('should throw when an invalid ref is passed', async () => {
+			mockGit = {
+				...mockGit,
+				revparse: jest.fn(() => {
+					throw Error();
+				}),
+			};
+			await expect(getPackagesSinceRef('foo')).rejects.toThrowErrorMatchingInlineSnapshot(
+				`"Invalid git ref \\"foo\\""`,
+			);
+		});
+		it('should not return packages that have been deleted', async () => {
+			mockGit = {
+				...mockGit,
+				diff: jest.fn(
+					() => `
 diff --git a/package.json b/package.json
 index 77aae63a48e..27b8feb2ddf 100644
 --- a/package.json
@@ -75,20 +73,20 @@ index 77aae63a48e..27b8feb2ddf 100644
 +    "@atlaskit/badge": "^14.0.0",
      "@atlaskit/banner": "^10.1.7",
         `,
-        ),
-      };
-      expect(await getPackagesSinceRef('head')).toEqual([
-        {
-          name: '@atlaskit/badge',
-          version: '^13.1.7',
-        },
-      ]);
-    });
-    it('should not return packages that have been added', async () => {
-      mockGit = {
-        ...mockGit,
-        diff: jest.fn(
-          () => `
+				),
+			};
+			expect(await getPackagesSinceRef('head')).toEqual([
+				{
+					name: '@atlaskit/badge',
+					version: '^13.1.7',
+				},
+			]);
+		});
+		it('should not return packages that have been added', async () => {
+			mockGit = {
+				...mockGit,
+				diff: jest.fn(
+					() => `
 diff --git a/package.json b/package.json
 index 77aae63a48e..27b8feb2ddf 100644
 --- a/package.json
@@ -103,20 +101,20 @@ index 77aae63a48e..27b8feb2ddf 100644
 +    "@atlaskit/badge": "^14.0.0",
      "@atlaskit/banner": "^10.1.7",
         `,
-        ),
-      };
-      expect(await getPackagesSinceRef('head')).toEqual([
-        {
-          name: '@atlaskit/badge',
-          version: '^13.1.7',
-        },
-      ]);
-    });
-    it('should not return packages that are modified in the diff but do not differ in version', async () => {
-      mockGit = {
-        ...mockGit,
-        diff: jest.fn(
-          () => `
+				),
+			};
+			expect(await getPackagesSinceRef('head')).toEqual([
+				{
+					name: '@atlaskit/badge',
+					version: '^13.1.7',
+				},
+			]);
+		});
+		it('should not return packages that are modified in the diff but do not differ in version', async () => {
+			mockGit = {
+				...mockGit,
+				diff: jest.fn(
+					() => `
 diff --git a/package.json b/package.json
 index 77aae63a48e..27b8feb2ddf 100644
 --- a/package.json
@@ -132,14 +130,14 @@ index 77aae63a48e..27b8feb2ddf 100644
 +    "@atlaskit/badge": "^14.0.0",
      "@atlaskit/banner": "^10.1.7",
         `,
-        ),
-      };
-      expect(await getPackagesSinceRef('head')).toEqual([
-        {
-          name: '@atlaskit/badge',
-          version: '^13.1.7',
-        },
-      ]);
-    });
-  });
+				),
+			};
+			expect(await getPackagesSinceRef('head')).toEqual([
+				{
+					name: '@atlaskit/badge',
+					version: '^13.1.7',
+				},
+			]);
+		});
+	});
 });

@@ -8,36 +8,30 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Banner from '../../banner';
 
 describe('a11y', () => {
-  it('Default banner with icon should not fail an aXe audit', async () => {
-    const { container } = render(
-      <Banner
-        icon={<WarningIcon label="" secondaryColor="inherit" size="medium" />}
-      >
-        Your license is about to expire.
-      </Banner>,
-    );
-    expect(screen.getByRole('alert')).toBeInTheDocument();
-    await axe(container);
-  });
+	it('Default banner with icon should not fail an aXe audit', async () => {
+		const { container } = render(
+			<Banner icon={<WarningIcon label="" secondaryColor="inherit" size="medium" />}>
+				Your license is about to expire.
+			</Banner>,
+		);
+		expect(screen.getByRole('alert')).toBeInTheDocument();
+		await axe(container);
+	});
 
-  it('Warning banner should not fail an aXe audit', async () => {
-    const { container } = render(
-      <Banner appearance="warning">Simple warning banner</Banner>,
-    );
-    await axe(container);
-  });
+	it('Warning banner should not fail an aXe audit', async () => {
+		const { container } = render(<Banner appearance="warning">Simple warning banner</Banner>);
+		await axe(container);
+	});
 
-  it('Announcement banner should not fail an aXe audit', async () => {
-    const { container } = render(
-      <Banner appearance="announcement">Simple announcement banner</Banner>,
-    );
-    await axe(container);
-  });
+	it('Announcement banner should not fail an aXe audit', async () => {
+		const { container } = render(
+			<Banner appearance="announcement">Simple announcement banner</Banner>,
+		);
+		await axe(container);
+	});
 
-  it('Error banner should not fail an aXe audit', async () => {
-    const { container } = render(
-      <Banner appearance="error">Simple error banner</Banner>,
-    );
-    await axe(container);
-  });
+	it('Error banner should not fail an aXe audit', async () => {
+		const { container } = render(<Banner appearance="error">Simple error banner</Banner>);
+		await axe(container);
+	});
 });

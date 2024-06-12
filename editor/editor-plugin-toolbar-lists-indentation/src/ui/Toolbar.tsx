@@ -69,7 +69,7 @@ export function Toolbar(props: ToolbarProps) {
 	}, [outdentButtonRef, outdentDisabled, isOutdentButtonFocused]);
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={buttonGroupStyle}>
 			<div role="group" aria-label={labelListsFormat}>
 				<ToolbarButton
@@ -129,7 +129,7 @@ export function Toolbar(props: ToolbarProps) {
 					/>
 				)}
 			</div>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<span css={separatorStyles} />
 		</span>
 	);

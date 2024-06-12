@@ -88,6 +88,7 @@ export const Counter = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			data-testid={RENDER_COMPONENT_WRAPPER}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={countStyle}
 		>
 			<ExitingPersistence>
@@ -102,8 +103,11 @@ export const Counter = ({
 							<div
 								ref={motion.ref}
 								css={[
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									containerStyle,
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									css({
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 										position: direction === 'exiting' ? 'absolute' : undefined,
 									}),
 								]}
@@ -113,6 +117,7 @@ export const Counter = ({
 							>
 								<span
 									data-testid={RENDER_LABEL_TESTID}
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									css={highlight ? [counterLabelStyle, highlightStyle] : counterLabelStyle}
 									key={value}
 								>

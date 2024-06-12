@@ -6,19 +6,18 @@ import { SpotlightCard } from '../../src';
 import spotlightImage from '../assets/this-is-new-jira.png';
 
 const SpotlightCardHeadingExample = () => {
-  return (
-    <SpotlightCard
-      image={<img src={spotlightImage} alt="" width="400" />}
-      heading="Switch it up"
-      actions={[
-        { text: 'Next', onClick: __noop },
-        { text: 'Dismiss', onClick: __noop, appearance: 'subtle' },
-      ]}
-    >
-      Select the project name and icon to quickly switch between your most
-      recent projects.
-    </SpotlightCard>
-  );
+	return (
+		<SpotlightCard
+			image={<img src={spotlightImage} alt="" width="400" />}
+			heading="Switch it up"
+			actions={[
+				{ text: 'Next', onClick: __noop },
+				{ text: 'Dismiss', onClick: __noop, appearance: 'subtle' },
+			]}
+		>
+			Select the project name and icon to quickly switch between your most recent projects.
+		</SpotlightCard>
+	);
 };
 
 export default SpotlightCardHeadingExample;

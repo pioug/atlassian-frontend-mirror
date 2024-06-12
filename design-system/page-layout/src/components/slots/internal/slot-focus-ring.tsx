@@ -7,19 +7,19 @@ import { B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type SlotFocusRingProps = {
-  children: (props: { className: string }) => ReactNode;
-  isSidebar?: boolean;
+	children: (props: { className: string }) => ReactNode;
+	isSidebar?: boolean;
 };
 
 const focusStyles = css({
-  ':focus': {
-    outline: 'none',
-    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-    '> div': {
-      boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
-      outline: 'none',
-    },
-  },
+	':focus': {
+		outline: 'none',
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		'> div': {
+			boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
+			outline: 'none',
+		},
+	},
 });
 
 /**
@@ -27,14 +27,14 @@ const focusStyles = css({
  * so the nested selector needs to target an extra level deeper.
  */
 const sidebarFocusStyles = css({
-  ':focus': {
-    outline: 'none',
-    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-    '> div > div': {
-      boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
-      outline: 'none',
-    },
-  },
+	':focus': {
+		outline: 'none',
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		'> div > div': {
+			boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
+			outline: 'none',
+		},
+	},
 });
 
 /**
@@ -47,15 +47,15 @@ const sidebarFocusStyles = css({
  *    because there's no guarantee the passed child takes `className`.
  */
 const SlotFocusRing = ({ children, isSidebar = false }: SlotFocusRingProps) => {
-  return (
-    <ClassNames>
-      {({ css }) =>
-        children({
-          className: isSidebar ? css(sidebarFocusStyles) : css(focusStyles),
-        })
-      }
-    </ClassNames>
-  );
+	return (
+		<ClassNames>
+			{({ css }) =>
+				children({
+					className: isSidebar ? css(sidebarFocusStyles) : css(focusStyles),
+				})
+			}
+		</ClassNames>
+	);
 };
 
 export default SlotFocusRing;

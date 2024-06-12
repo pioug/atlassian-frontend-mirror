@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.19
+
+### Patch Changes
+
+- [#109033](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109033)
+  [`046555d9a96ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/046555d9a96ea) -
+  Converts LD flag to an experiment for Preserve Table Widths part two feature.
+
 ## 7.16.18
 
 ### Patch Changes

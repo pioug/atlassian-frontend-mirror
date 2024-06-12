@@ -7,6 +7,7 @@ import { jsx } from '@emotion/react';
 
 export const Grid = ({ children }: React.PropsWithChildren<unknown>) => (
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			display: 'flex',
 			flexWrap: 'wrap',
@@ -19,6 +20,7 @@ export const Grid = ({ children }: React.PropsWithChildren<unknown>) => (
 
 export const Item = ({ children }: React.PropsWithChildren<unknown>) => (
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			flex: '1 1 0',
 			margin: 10,

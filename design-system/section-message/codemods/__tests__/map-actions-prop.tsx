@@ -7,11 +7,11 @@ const transformer = createTransformer([mapActionsProp]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('map actions prop to components', () => {
-  describe('for default & named imports', () => {
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+	describe('for default & named imports', () => {
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
       import SectionMessage from "@atlaskit/section-message";
 
@@ -28,7 +28,7 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      `
+			`
       import React from "react";
       import SectionMessage, { SectionMessageAction } from "@atlaskit/section-message";
 
@@ -50,13 +50,13 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      'should map actions correctly',
-    );
+			'should map actions correctly',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps } from "@atlaskit/section-message";
 
@@ -71,7 +71,7 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      `
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps, SectionMessageAction } from "@atlaskit/section-message";
 
@@ -91,13 +91,13 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      'should map actions correctly if defined inline',
-    );
+			'should map actions correctly if defined inline',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps } from "@atlaskit/section-message";
 
@@ -118,7 +118,7 @@ describe('map actions prop to components', () => {
 
       export default Component;
       `,
-      `
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps, SectionMessageAction as AtlaskitSectionMessageAction } from "@atlaskit/section-message";
 
@@ -144,13 +144,13 @@ describe('map actions prop to components', () => {
 
       export default Component;
       `,
-      'should map actions correctly - with alias',
-    );
+			'should map actions correctly - with alias',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
       import SectionMessage from "@atlaskit/section-message";
 
@@ -165,7 +165,7 @@ describe('map actions prop to components', () => {
         <SectionMessage />
       );
       `,
-      `
+			`
       import React from "react";
       import SectionMessage from "@atlaskit/section-message";
 
@@ -180,13 +180,13 @@ describe('map actions prop to components', () => {
         <SectionMessage />
       );
       `,
-      'should only map when "actions" prop is defined',
-    );
+			'should only map when "actions" prop is defined',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
       import SectionMessage from "@atlaskit/section-message";
 
@@ -203,7 +203,7 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      `
+			`
       import React from "react";
       import SectionMessage, { SectionMessageAction } from "@atlaskit/section-message";
 
@@ -225,13 +225,13 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      'should map actions correctly if result coming from a function call',
-    );
+			'should map actions correctly if result coming from a function call',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps } from "@atlaskit/section-message";
 
@@ -246,7 +246,7 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      `
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps, SectionMessageAction } from "@atlaskit/section-message";
 
@@ -266,13 +266,13 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      'should map actions correctly if defined inline based on a condition',
-    );
+			'should map actions correctly if defined inline based on a condition',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps } from "@atlaskit/section-message";
 
@@ -290,7 +290,7 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      `
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps, SectionMessageAction } from "@atlaskit/section-message";
 
@@ -311,13 +311,13 @@ describe('map actions prop to components', () => {
           ) => <SectionMessageAction linkComponent={CustomLink} {...restAction}>{text}</SectionMessageAction>)} />
       );
       `,
-      'should move "linkComponent" from "SectionMessage" to "SectionMessageAction" if pointing to a component',
-    );
+			'should move "linkComponent" from "SectionMessage" to "SectionMessageAction" if pointing to a component',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps } from "@atlaskit/section-message";
 
@@ -333,7 +333,7 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      `
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps, SectionMessageAction } from "@atlaskit/section-message";
 
@@ -352,13 +352,13 @@ describe('map actions prop to components', () => {
           ) => <SectionMessageAction linkComponent={() => <a></a>} {...restAction}>{text}</SectionMessageAction>)} />
       );
       `,
-      'should move "linkComponent" from "SectionMessage" to "SectionMessageAction" if component is defined inline',
-    );
+			'should move "linkComponent" from "SectionMessage" to "SectionMessageAction" if component is defined inline',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps } from "@atlaskit/section-message";
 
@@ -370,7 +370,7 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      `
+			`
       import React from "react";
       import SectionMessage, { SectionMessageProps } from "@atlaskit/section-message";
 
@@ -380,15 +380,15 @@ describe('map actions prop to components', () => {
         <SectionMessage />
       );
       `,
-      'should remove "linkComponent" from "SectionMessage" if no actions are present',
-    );
-  });
+			'should remove "linkComponent" from "SectionMessage" if no actions are present',
+		);
+	});
 
-  describe('for dynamic imports', () => {
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+	describe('for dynamic imports', () => {
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
 
       const SectionMessageDynamicImport = React.lazy(() => import('@atlaskit/section-message'));
@@ -406,7 +406,7 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      `
+			`
       import React from "react";
 
       const SectionMessageDynamicImport = React.lazy(() => import('@atlaskit/section-message'));
@@ -432,13 +432,13 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      'should map actions correctly',
-    );
+			'should map actions correctly',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
 
       const SectionMessageDynamicImport = React.lazy(() => import('@atlaskit/section-message'));
@@ -454,7 +454,7 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      `
+			`
       import React from "react";
 
       const SectionMessageDynamicImport = React.lazy(() => import('@atlaskit/section-message'));
@@ -478,13 +478,13 @@ describe('map actions prop to components', () => {
         />
       );
       `,
-      'should map actions correctly if defined inline',
-    );
+			'should map actions correctly if defined inline',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
 
       const SectionMessageDynamicImport = React.lazy(() => import('@atlaskit/section-message'));
@@ -506,7 +506,7 @@ describe('map actions prop to components', () => {
 
       export default Component;
       `,
-      `
+			`
       import React from "react";
 
       const SectionMessageDynamicImport = React.lazy(() => import('@atlaskit/section-message'));
@@ -536,13 +536,13 @@ describe('map actions prop to components', () => {
 
       export default Component;
       `,
-      'should map actions correctly - with alias',
-    );
+			'should map actions correctly - with alias',
+		);
 
-    defineInlineTest(
-      { default: transformer, parser: 'tsx' },
-      {},
-      `
+		defineInlineTest(
+			{ default: transformer, parser: 'tsx' },
+			{},
+			`
       import React from "react";
 
       const SectionMessageDynamicImport = React.lazy(() => import('@atlaskit/section-message'));
@@ -558,7 +558,7 @@ describe('map actions prop to components', () => {
         <SectionMessageDynamicImport />
       );
       `,
-      `
+			`
       import React from "react";
 
       const SectionMessageDynamicImport = React.lazy(() => import('@atlaskit/section-message'));
@@ -574,7 +574,7 @@ describe('map actions prop to components', () => {
         <SectionMessageDynamicImport />
       );
       `,
-      'should only map when "actions" prop is defined',
-    );
-  });
+			'should only map when "actions" prop is defined',
+		);
+	});
 });

@@ -100,6 +100,7 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 		const { value } = this.state;
 		return (
 			<input
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={[panelTextInput, width !== undefined && panelTextInputWithCustomWidth(width)]}
 				role={role}
 				aria-autocomplete={ariaAutoComplete ? 'list' : undefined}

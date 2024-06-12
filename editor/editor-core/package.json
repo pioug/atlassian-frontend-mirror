@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.25.3",
+  "version": "193.25.4",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -109,7 +109,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlassian/adf-schema-json": "^1.14.0",
     "@atlassian/link-picker-plugins": "^24.4.0",
-    "@atlassian/search-provider": "2.4.78",
+    "@atlassian/search-provider": "2.4.79",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -181,10 +181,6 @@
       "referenceOnly": "true"
     },
     "platform.linking-platform.datasource-assets_objects": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.preserve-widths-with-lock-button": {
       "type": "boolean",
       "referenceOnly": "true"
     },
@@ -325,6 +321,10 @@
       "type": "boolean",
       "referenceOnly": true
     },
+    "platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
     "platform.editor.live-view.no-editor-selection-in-view-mode": {
       "type": "boolean"
     },
@@ -358,6 +358,10 @@
     },
     "platform.editor.core.increase-full-page-guttering": {
       "type": "boolean"
+    },
+    "platform.editor.transparent-diagonal-decorator": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   },
   "stricter": {

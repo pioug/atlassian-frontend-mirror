@@ -32,11 +32,16 @@ const getContainerCssExtendedStyles = (
 	activeChildIndex: number,
 	showMacroInteractionDesignUpdates?: boolean,
 ) =>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	css(sharedMultiBodiedExtensionStyles.mbeExtensionContainer, {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		[`.multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true']:nth-of-type(${
 			activeChildIndex + 1
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		})`]: css(
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			sharedMultiBodiedExtensionStyles.extensionFrameContent,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			showMacroInteractionDesignUpdates && removeMarginsAndBorder,
 		),
 	});
@@ -230,6 +235,7 @@ const MultiBodiedExtensionWithWidth = ({
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={wrapperClassNames}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={mbeExtensionWrapperCSSStyles}
 				data-testid="multiBodiedExtension--wrapper"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -238,6 +244,7 @@ const MultiBodiedExtensionWithWidth = ({
 				onMouseLeave={() => handleMouseEvent(false)}
 			>
 				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={overlayStyles}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={overlayClassNames}
@@ -247,6 +254,7 @@ const MultiBodiedExtensionWithWidth = ({
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={containerClassNames}
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={getContainerCssExtendedStyles(activeChildIndex, showMacroInteractionDesignUpdates)}
 					data-testid="multiBodiedExtension--container"
 					data-active-child-index={activeChildIndex}
@@ -254,6 +262,7 @@ const MultiBodiedExtensionWithWidth = ({
 					<nav
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={navigationClassNames}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={sharedMultiBodiedExtensionStyles.mbeNavigation}
 						data-testid="multiBodiedExtension-navigation"
 					>

@@ -5,5 +5,5 @@ import LoadingExample from '../../../examples/75-loading';
 import { themeVariants } from './utils';
 
 snapshot(LoadingExample, {
-  variants: themeVariants,
+	variants: themeVariants,
 });

@@ -1,8 +1,8 @@
 import { N30, N900, R400 } from '@atlaskit/theme/colors';
 import {
-  borderRadius as getBorderRadius,
-  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-  gridSize as getGridSize,
+	borderRadius as getBorderRadius,
+	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+	gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -11,20 +11,20 @@ import type { Appearance } from '../types';
 export type WidthNames = 'small' | 'medium' | 'large' | 'x-large';
 
 interface Width {
-  values: string[];
-  widths: { [index in WidthNames]: number };
-  defaultValue: string;
+	values: string[];
+	widths: { [index in WidthNames]: number };
+	defaultValue: string;
 }
 
 export const width: Width = {
-  values: ['small', 'medium', 'large', 'x-large'],
-  widths: {
-    small: 400,
-    medium: 600,
-    large: 800,
-    'x-large': 968,
-  },
-  defaultValue: 'medium',
+	values: ['small', 'medium', 'large', 'x-large'],
+	widths: {
+		small: 400,
+		medium: 600,
+		large: 800,
+		'x-large': 968,
+	},
+	defaultValue: 'medium',
 };
 
 export const gutter = 60;
@@ -40,6 +40,6 @@ export const keylineColor = token('color.border', N30);
 export const textColor = token('color.text', N900);
 
 export const iconColor: { [key in Appearance]: string } = {
-  danger: token('color.icon.danger', R400),
-  warning: token('color.icon.warning', '#D97008'),
+	danger: token('color.icon.danger', R400),
+	warning: token('color.icon.warning', '#D97008'),
 } as const;

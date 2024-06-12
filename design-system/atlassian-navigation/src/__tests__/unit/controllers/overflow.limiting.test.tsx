@@ -9,7 +9,7 @@ import { useOverflowController } from '../../../controllers/overflow';
  * so none of the `updateWidth` have an effect unless we mock `throttle`.
  */
 jest.mock('lodash/throttle', () => {
-  return <T,>(fn: T): T => fn;
+	return <T,>(fn: T): T => fn;
 });
 
 /**
@@ -23,31 +23,28 @@ jest.mock('lodash/throttle', () => {
  */
 
 describe('useOverflowController', () => {
-  it('should not re-add items after determining they do not fit', async () => {
-    jest.useFakeTimers();
+	it('should not re-add items after determining they do not fit', async () => {
+		jest.useFakeTimers();
 
-    const { result } = renderHook(({ nodes }) => useOverflowController(nodes), {
-      initialProps: {
-        nodes: [
-          <button type="button">Hello</button>,
-          <button type="button">World</button>,
-        ],
-      },
-    });
+		const { result } = renderHook(({ nodes }) => useOverflowController(nodes), {
+			initialProps: {
+				nodes: [<button type="button">Hello</button>, <button type="button">World</button>],
+			},
+		});
 
-    expect(result.current.visibleItems.length).toEqual(2);
-    /**
-     * Tell the controller the items are too squished.
-     */
-    act(() => result.current.updateWidth(1));
-    expect(result.current.visibleItems.length).toEqual(1);
+		expect(result.current.visibleItems.length).toEqual(2);
+		/**
+		 * Tell the controller the items are too squished.
+		 */
+		act(() => result.current.updateWidth(1));
+		expect(result.current.visibleItems.length).toEqual(1);
 
-    /**
-     * Tell the controller there is now enough room.
-     */
-    act(() => result.current.updateWidth(100));
-    expect(result.current.visibleItems.length).toEqual(1);
+		/**
+		 * Tell the controller there is now enough room.
+		 */
+		act(() => result.current.updateWidth(100));
+		expect(result.current.visibleItems.length).toEqual(1);
 
-    jest.useRealTimers();
-  });
+		jest.useRealTimers();
+	});
 });

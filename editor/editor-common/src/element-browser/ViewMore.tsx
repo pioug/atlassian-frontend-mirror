@@ -34,6 +34,7 @@ export const ViewMore = ({ item, focus }: { item: QuickInsertItem; focus: boolea
 				aria-describedby={item.title}
 				data-testid="view-more-elements-item"
 				// @ts-ignore Overriding Menu styles is not supported
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={css({
 					padding: `0px ${token('space.150', '12px')}`,
 				})}

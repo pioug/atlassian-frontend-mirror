@@ -8,12 +8,12 @@ import { interactionTasks } from './utils/interaction-tasks';
 const linkItem = () => <Example Component={LinkItem} displayName="Link item" />;
 
 linkItem.story = {
-  name: 'Link Item',
-  parameters: {
-    performance: {
-      interactions: interactionTasks,
-    },
-  },
+	name: 'Link Item',
+	parameters: {
+		performance: {
+			interactions: interactionTasks,
+		},
+	},
 };
 
 export default linkItem;

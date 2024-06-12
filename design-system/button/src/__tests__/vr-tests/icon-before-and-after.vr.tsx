@@ -5,5 +5,5 @@ import IconBeforeAndAfterExample from '../../../examples/30-icon-before-and-afte
 import { themeVariants } from './utils';
 
 snapshot(IconBeforeAndAfterExample, {
-  variants: themeVariants,
+	variants: themeVariants,
 });

@@ -11,11 +11,13 @@ interface Props {
 
 export default ({ children }: Props) => (
 	<section
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css={css({
 			marginLeft: token('space.500', '40px'),
 		})}
 	>
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={css({
 				position: 'absolute',
 				top: token('space.300', '24px'),

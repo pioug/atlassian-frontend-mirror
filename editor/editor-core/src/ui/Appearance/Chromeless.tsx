@@ -21,16 +21,19 @@ const chromelessEditorStyles = css(
 		overflowX: 'hidden',
 		overflowY: 'auto',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	scrollbarStyles,
 	{
 		maxWidth: 'inherit',
 		boxSizing: 'border-box',
 		wordWrap: 'break-word',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'div > .ProseMirror': {
 			outline: 'none',
 			whiteSpace: 'pre-wrap',
 			padding: 0,
 			margin: 0,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'& > :last-child': {
 				paddingBottom: token('space.100', '0.5em'),
 			},
@@ -74,10 +77,14 @@ export default class Editor extends React.Component<EditorAppearanceComponentPro
 					css={[
 						chromelessEditorStyles,
 						maxHeight &&
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css({
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 								maxHeight: `${maxHeight}px`,
 							}),
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						css({
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							minHeight: `${minHeight}px`,
 						}),
 					]}

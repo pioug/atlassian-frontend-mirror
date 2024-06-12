@@ -12,17 +12,21 @@ export const triggerStyle = ({ miniMode = false, disabled = false }) =>
 		height: '24px',
 		padding: 0,
 		border: `1px solid ${token('color.border', N40)}`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		borderRadius: '20px',
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
 		lineHeight: '16px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...(miniMode && {
 			minWidth: '24px',
 			padding: token('space.050', '4px'),
 			border: 'none',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			borderRadius: `${borderRadius()}px`,
 		}),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...(disabled && {
 			color: DISABLED_BUTTON_COLOR,
 			cursor: 'not-allowed',

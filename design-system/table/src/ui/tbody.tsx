@@ -7,15 +7,15 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 const bodyStyles = css({
-  position: 'relative',
-  border: 'none',
-  '&:after': {
-    position: 'absolute',
-    inset: 0,
-    boxShadow: `inset 0 -2px 0 0 ${token('color.border', '#eee')}`,
-    content: "''",
-    pointerEvents: 'none',
-  },
+	position: 'relative',
+	border: 'none',
+	'&:after': {
+		position: 'absolute',
+		inset: 0,
+		boxShadow: `inset 0 -2px 0 0 ${token('color.border', '#eee')}`,
+		content: "''",
+		pointerEvents: 'none',
+	},
 });
 
 /**
@@ -23,7 +23,7 @@ const bodyStyles = css({
  * @primitive
  */
 export const TBody: FC<{ children: ReactNode }> = ({ children }) => (
-  <tbody css={bodyStyles}>{children}</tbody>
+	<tbody css={bodyStyles}>{children}</tbody>
 );
 
 export default TBody;

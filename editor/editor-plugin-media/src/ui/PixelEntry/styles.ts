@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 const PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH = 120;
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const pixelSizingWrapper = css`
 	display: grid;
 	grid-template-columns: 1fr 1em 1fr 0;
@@ -19,30 +19,38 @@ export const pixelSizingWrapper = css`
 		margin-top: 0 !important;
 	}
 `;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const pixelEntryForm = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	form: {
 		width: '100%',
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const pixelSizingInput = css({
 	width: '100%',
 	height: token('space.300', '24px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& input': {
 		textAlign: 'center',
 	},
 });
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const pixelSizingLabel = css({
 	gridArea: 'label',
 	lineHeight: token('space.300', '24px'),
 });
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const pixelSizingWidthInput = css({
 	gridArea: 'widthinput',
 });
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const pixelSizingHeightInput = css({
 	gridArea: 'heightinput',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const pixelEntryHiddenSubmit = css({
 	gridArea: 'submit',
 	visibility: 'hidden',
@@ -50,6 +58,7 @@ export const pixelEntryHiddenSubmit = css({
 	height: 0,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const pixelSizingFullWidthLabelStyles = css({
 	minWidth: `${PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH}px`,
 	height: token('space.300', '24px'),

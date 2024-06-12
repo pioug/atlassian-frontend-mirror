@@ -27,29 +27,21 @@ type Tokens = typeof tokens;
  * ```
  *
  */
-function token<T extends keyof Tokens>(
-  path: T,
-  fallback?: string,
-): CSSTokenMap[T] {
-  let token: Tokens[keyof Tokens] | typeof TOKEN_NOT_FOUND_CSS_VAR =
-    tokens[path];
+function token<T extends keyof Tokens>(path: T, fallback?: string): CSSTokenMap[T] {
+	let token: Tokens[keyof Tokens] | typeof TOKEN_NOT_FOUND_CSS_VAR = tokens[path];
 
-  if (
-    typeof process !== 'undefined' &&
-    process.env.NODE_ENV !== 'production' &&
-    !token
-  ) {
-    warnOnce(`Unknown token id at path: ${path} in @atlaskit/tokens`);
-  }
+	if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production' && !token) {
+		warnOnce(`Unknown token id at path: ${path} in @atlaskit/tokens`);
+	}
 
-  // if the token is not found - replacing it with variable name without any value, to avoid it being undefined which would result in invalid css
-  if (!token) {
-    token = TOKEN_NOT_FOUND_CSS_VAR;
-  }
+	// if the token is not found - replacing it with variable name without any value, to avoid it being undefined which would result in invalid css
+	if (!token) {
+		token = TOKEN_NOT_FOUND_CSS_VAR;
+	}
 
-  const tokenCall = fallback ? `var(${token}, ${fallback})` : `var(${token})`;
+	const tokenCall = fallback ? `var(${token}, ${fallback})` : `var(${token})`;
 
-  return tokenCall as CSSTokenMap[T];
+	return tokenCall as CSSTokenMap[T];
 }
 
 export default token;

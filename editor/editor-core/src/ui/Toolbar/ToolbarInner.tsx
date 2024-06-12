@@ -11,6 +11,7 @@ import type { ToolbarInnerProps } from './toolbar-types';
 
 const toolbarComponentsWrapper = css({
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
 		justifyContent: 'space-between',
 	},

@@ -30,6 +30,7 @@ export const AnnotationSharedCSSByState = () => {
 				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
 				cursor: 'pointer',
 				padding: '1.5px 0',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				'&:has(.card)': {
 					padding: '4.5px 0 3px 0',
 				},
@@ -39,6 +40,7 @@ export const AnnotationSharedCSSByState = () => {
 				borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
 				cursor: 'pointer',
 				padding: '1.5px 0',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				'&:has(.card)': {
 					padding: '4.5px 0 3px 0',
 				},
@@ -51,9 +53,11 @@ export const AnnotationSharedCSSByState = () => {
 				borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
 				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
 				cursor: 'pointer',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				'&:has(.card)': {
 					fontSize: '1.5rem',
 					lineHeight: '1.2rem',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 					'& > *': {
 						fontSize: '16px',
 					},
@@ -63,9 +67,11 @@ export const AnnotationSharedCSSByState = () => {
 				background: token('color.background.accent.yellow.subtlest', Yellow100),
 				borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
 				cursor: 'pointer',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				'&:has(.card)': {
 					fontSize: '1.5rem',
 					lineHeight: '1.2rem',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 					'& > *': {
 						fontSize: '16px',
 					},

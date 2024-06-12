@@ -1,7 +1,7 @@
 import { createRenameFuncFor } from '../utils';
 
 export const renameDefaultChecked = createRenameFuncFor(
-  '@atlaskit/toggle',
-  'isDefaultChecked',
-  'defaultChecked',
+	'@atlaskit/toggle',
+	'isDefaultChecked',
+	'defaultChecked',
 );

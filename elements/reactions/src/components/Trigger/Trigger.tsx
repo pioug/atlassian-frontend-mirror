@@ -59,6 +59,7 @@ export const Trigger = React.forwardRef(
 				<Button
 					testId={RENDER_TRIGGER_BUTTON_TESTID}
 					// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={triggerStyle({ miniMode, disabled })}
 					appearance="subtle"
 					onClick={handleMouseDown}

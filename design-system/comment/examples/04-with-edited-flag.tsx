@@ -11,21 +11,20 @@ import avatarImg from './images/avatar_400x400.jpg';
 const getCommentEditTime = () => 'just now';
 
 export default () => (
-  <Comment
-    avatar={<Avatar src={avatarImg} size="medium" />}
-    author={<CommentAuthor>John Smith</CommentAuthor>}
-    type="author"
-    edited={<CommentEdited>Edited {getCommentEditTime()}</CommentEdited>}
-    content={
-      <Text as="p">
-        Content goes here. This can include <a href="/link">links</a> and other
-        content.
-      </Text>
-    }
-    actions={[
-      <CommentAction>Reply</CommentAction>,
-      <CommentAction>Edit</CommentAction>,
-      <CommentAction>Like</CommentAction>,
-    ]}
-  />
+	<Comment
+		avatar={<Avatar src={avatarImg} size="medium" />}
+		author={<CommentAuthor>John Smith</CommentAuthor>}
+		type="author"
+		edited={<CommentEdited>Edited {getCommentEditTime()}</CommentEdited>}
+		content={
+			<Text as="p">
+				Content goes here. This can include <a href="/link">links</a> and other content.
+			</Text>
+		}
+		actions={[
+			<CommentAction>Reply</CommentAction>,
+			<CommentAction>Edit</CommentAction>,
+			<CommentAction>Like</CommentAction>,
+		]}
+	/>
 );

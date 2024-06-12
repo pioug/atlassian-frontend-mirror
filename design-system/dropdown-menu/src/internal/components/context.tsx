@@ -1,9 +1,9 @@
 import React, {
-  createContext,
-  type MutableRefObject,
-  type PropsWithChildren,
-  useMemo,
-  useRef,
+	createContext,
+	type MutableRefObject,
+	type PropsWithChildren,
+	useMemo,
+	useRef,
 } from 'react';
 
 /**
@@ -23,11 +23,11 @@ export const NestedLevelContext = createContext(0);
  *
  */
 export const TrackMaxLevelContext = createContext<{
-  maxLevelRef: MutableRefObject<number>;
-  setMaxLevel: (level: number, isMin?: boolean) => void;
+	maxLevelRef: MutableRefObject<number>;
+	setMaxLevel: (level: number, isMin?: boolean) => void;
 }>({
-  maxLevelRef: { current: 0 },
-  setMaxLevel: () => {},
+	maxLevelRef: { current: 0 },
+	setMaxLevel: () => {},
 });
 
 /**
@@ -37,22 +37,16 @@ export const TrackMaxLevelContext = createContext<{
  *
  */
 export const TrackLevelProvider = ({ children }: PropsWithChildren<{}>) => {
-  const maxLevelRef = useRef(0);
+	const maxLevelRef = useRef(0);
 
-  const value = useMemo(
-    () => ({
-      maxLevelRef,
-      setMaxLevel: (level: number, isMin = false) => {
-        maxLevelRef.current = isMin
-          ? Math.min(maxLevelRef.current, level)
-          : level;
-      },
-    }),
-    [maxLevelRef],
-  );
-  return (
-    <TrackMaxLevelContext.Provider value={value}>
-      {children}
-    </TrackMaxLevelContext.Provider>
-  );
+	const value = useMemo(
+		() => ({
+			maxLevelRef,
+			setMaxLevel: (level: number, isMin = false) => {
+				maxLevelRef.current = isMin ? Math.min(maxLevelRef.current, level) : level;
+			},
+		}),
+		[maxLevelRef],
+	);
+	return <TrackMaxLevelContext.Provider value={value}>{children}</TrackMaxLevelContext.Provider>;
 };

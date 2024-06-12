@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 /**
  * Loading styled-components
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LoadignWhatsNewResultsList = styled.ul({
 	width: '100%',
 	margin: 0,
@@ -14,7 +14,7 @@ export const LoadignWhatsNewResultsList = styled.ul({
 	marginTop: token('space.200', '16px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LoadignWhatsNewResultsListItem = styled.li({
 	display: 'block',
 	width: '100%',

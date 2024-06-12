@@ -3,137 +3,132 @@ import outdent from 'outdent';
 import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
-const importSources = [
-  '@emotion/core',
-  '@emotion/react',
-  '@emotion/styled',
-  'styled-components',
-];
+const importSources = ['@emotion/core', '@emotion/react', '@emotion/styled', 'styled-components'];
 
 tester.run('imports - ignored', rule, {
-  valid: [
-    {
-      name: '[@atlaskit/primitives.xcss] - is ignored (it\'s okay to use, for now)',
-      code: `
+	valid: [
+		{
+			name: "[@atlaskit/primitives.xcss] - is ignored (it's okay to use, for now)",
+			code: `
         import { xcss, Box } from '@atlaskit/primitives';
       `,
-    },
-    {
-      name: '[@atlaskit/css] - is ignored (it\'s okay to use)',
-      code: `
+		},
+		{
+			name: "[@atlaskit/css] - is ignored (it's okay to use)",
+			code: `
         import { cssMap, keyframes } from '@atlaskit/css';
       `,
-    },
-    {
-      name: '[@stylexjs/stylex] - is ignored (we don\'t maintain a list of all CSS-in-JS libraries, but we could)',
-      code: `
+		},
+		{
+			name: "[@stylexjs/stylex] - is ignored (we don't maintain a list of all CSS-in-JS libraries, but we could)",
+			code: `
         import * as stylex from '@stylexjs/stylex';
       `,
-    }
-  ],
-  invalid: [],
+		},
+	],
+	invalid: [],
 });
 
 tester.run('imports - fixable', rule, {
-  valid: [],
-  invalid: [
-    {
-      name: '[@emotion/core] - supported imports with aliasing',
-      code: `
+	valid: [],
+	invalid: [
+		{
+			name: '[@emotion/core] - supported imports with aliasing',
+			code: `
         import { css as c, keyframes as kf } from '@emotion/core';
       `,
-      output: `
+			output: `
         import { css as c, keyframes as kf } from '@compiled/react';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: '[@emotion/react] - supported imports with aliasing',
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: '[@emotion/react] - supported imports with aliasing',
+			code: `
         import { css as c, keyframes as kf } from '@emotion/react';
       `,
-      output: `
+			output: `
         import { css as c, keyframes as kf } from '@compiled/react';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: '[@emotion/styled] - supported imports with aliasing',
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: '[@emotion/styled] - supported imports with aliasing',
+			code: `
         import s from '@emotion/styled';
       `,
-      output: `
+			output: `
         import { styled as s } from '@compiled/react';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: '[styled-components] - supported imports with aliasing',
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: '[styled-components] - supported imports with aliasing',
+			code: `
         import s, { css as c, keyframes as kf } from 'styled-components';
       `,
-      output: `
+			output: `
         import { css as c, keyframes as kf, styled as s } from '@compiled/react';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: '[@emotion/core] - with existing compiled import',
-      code: outdent`
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: '[@emotion/core] - with existing compiled import',
+			code: outdent`
         import { css } from '@emotion/core';
         import { styled } from '@compiled/react';
       `,
-      output: outdent`
+			output: outdent`
 
         import { styled, css } from '@compiled/react';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: '[@emotion/react] - with existing compiled import',
-      code: outdent`
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: '[@emotion/react] - with existing compiled import',
+			code: outdent`
         import { css } from '@emotion/react';
         import { styled } from '@compiled/react';
       `,
-      output: outdent`
+			output: outdent`
 
         import { styled, css } from '@compiled/react';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: '[@emotion/styled] - with existing compiled import',
-      code: outdent`
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: '[@emotion/styled] - with existing compiled import',
+			code: outdent`
         import styled from '@emotion/styled';
         import { css } from '@compiled/react';
       `,
-      output: outdent`
+			output: outdent`
 
         import { css, styled } from '@compiled/react';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: '[styled-components] - with existing compiled import',
-      code: outdent`
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: '[styled-components] - with existing compiled import',
+			code: outdent`
         import styled from 'styled-components';
         import { css } from '@compiled/react';
       `,
-      output: outdent`
+			output: outdent`
 
         import { css, styled } from '@compiled/react';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-  ],
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+	],
 });
 
 /**
@@ -141,23 +136,23 @@ tester.run('imports - fixable', rule, {
  * them unsafe to automatically convert.
  */
 tester.run('imports - not fixable', rule, {
-  valid: [],
-  invalid: importSources.flatMap((importSource) => [
-    {
-      name: `[${importSource}] namespace import`,
-      code: `
+	valid: [],
+	invalid: importSources.flatMap((importSource) => [
+		{
+			name: `[${importSource}] namespace import`,
+			code: `
         import * as namespace from '${importSource}';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-    {
-      name: `[${importSource}] unsupported import`,
-      code: `
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+		{
+			name: `[${importSource}] unsupported import`,
+			code: `
         import { type CSSObject } from '${importSource}';
       `,
-      errors: [{ messageId: 'use-compiled' }],
-      options: [{ canAutoFix: true }],
-    },
-  ]),
+			errors: [{ messageId: 'use-compiled' }],
+			options: [{ canAutoFix: true }],
+		},
+	]),
 });

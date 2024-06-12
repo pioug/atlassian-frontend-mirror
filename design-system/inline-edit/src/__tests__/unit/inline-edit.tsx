@@ -13,270 +13,247 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('InlineEdit component', () => {
-  describe('Simple render', () => {
-    it('should render read view component by default', () => {
-      const defaultValue = 'Some text';
-      const onConfirm = jest.fn();
+	describe('Simple render', () => {
+		it('should render read view component by default', () => {
+			const defaultValue = 'Some text';
+			const onConfirm = jest.fn();
 
-      render(
-        <InlineEdit
-          defaultValue={defaultValue}
-          label="Inline edit"
-          editView={({ errorMessage, ...fieldProps }) => (
-            <Textfield testId="edit-view" {...fieldProps} />
-          )}
-          readView={() => (
-            <div data-testid="read-view">
-              {defaultValue || 'Click to enter value'}
-            </div>
-          )}
-          onConfirm={onConfirm}
-        />,
-      );
+			render(
+				<InlineEdit
+					defaultValue={defaultValue}
+					label="Inline edit"
+					editView={({ errorMessage, ...fieldProps }) => (
+						<Textfield testId="edit-view" {...fieldProps} />
+					)}
+					readView={() => (
+						<div data-testid="read-view">{defaultValue || 'Click to enter value'}</div>
+					)}
+					onConfirm={onConfirm}
+				/>,
+			);
 
-      const read = screen.queryByTestId('read-view');
-      expect(read).toBeInTheDocument();
-    });
+			const read = screen.queryByTestId('read-view');
+			expect(read).toBeInTheDocument();
+		});
 
-    it('should render edit component when user clicked', () => {
-      const defaultValue = 'Some text';
-      const onConfirm = jest.fn();
-      const onEdit = jest.fn();
+		it('should render edit component when user clicked', () => {
+			const defaultValue = 'Some text';
+			const onConfirm = jest.fn();
+			const onEdit = jest.fn();
 
-      const { container, queryByText } = render(
-        <InlineEdit
-          defaultValue={defaultValue}
-          label="Inline edit"
-          editView={({ errorMessage, ...fieldProps }) => (
-            <Textfield testId="edit-view" {...fieldProps} />
-          )}
-          readView={() => (
-            <div data-testid="read-view">
-              {defaultValue || 'Click to enter value'}
-            </div>
-          )}
-          onConfirm={onConfirm}
-          onEdit={onEdit}
-        />,
-      );
+			const { container, queryByText } = render(
+				<InlineEdit
+					defaultValue={defaultValue}
+					label="Inline edit"
+					editView={({ errorMessage, ...fieldProps }) => (
+						<Textfield testId="edit-view" {...fieldProps} />
+					)}
+					readView={() => (
+						<div data-testid="read-view">{defaultValue || 'Click to enter value'}</div>
+					)}
+					onConfirm={onConfirm}
+					onEdit={onEdit}
+				/>,
+			);
 
-      const read = screen.queryByTestId('read-view');
-      const edit = screen.queryByTestId('edit-view');
+			const read = screen.queryByTestId('read-view');
+			const edit = screen.queryByTestId('edit-view');
 
-      expect(read).toBeInTheDocument();
-      expect(edit).not.toBeInTheDocument();
+			expect(read).toBeInTheDocument();
+			expect(edit).not.toBeInTheDocument();
 
-      //enter edit mode
-      fireEvent.click(read!);
+			//enter edit mode
+			fireEvent.click(read!);
 
-      expect(onEdit).toHaveBeenCalledTimes(1);
+			expect(onEdit).toHaveBeenCalledTimes(1);
 
-      const textField = container.querySelector('[data-testid="edit-view"]');
-      const confirm = queryByText('Confirm');
-      const cancel = queryByText('Cancel');
+			const textField = container.querySelector('[data-testid="edit-view"]');
+			const confirm = queryByText('Confirm');
+			const cancel = queryByText('Cancel');
 
-      expect(textField).toBeInTheDocument();
-      expect(confirm).toBeInTheDocument();
-      expect(cancel).toBeInTheDocument();
-    });
+			expect(textField).toBeInTheDocument();
+			expect(confirm).toBeInTheDocument();
+			expect(cancel).toBeInTheDocument();
+		});
 
-    it('should edit the content', () => {
-      const defaultValue = 'Some text';
-      const onConfirm = jest.fn();
+		it('should edit the content', () => {
+			const defaultValue = 'Some text';
+			const onConfirm = jest.fn();
 
-      const { container, queryByText } = render(
-        <InlineEdit
-          defaultValue={defaultValue}
-          label="Inline edit"
-          editView={({ errorMessage, ...fieldProps }) => (
-            <Textfield testId="edit-view" {...fieldProps} />
-          )}
-          readView={() => (
-            <div data-testid="read-view">
-              {defaultValue || 'Click to enter value'}
-            </div>
-          )}
-          onConfirm={onConfirm}
-        />,
-      );
+			const { container, queryByText } = render(
+				<InlineEdit
+					defaultValue={defaultValue}
+					label="Inline edit"
+					editView={({ errorMessage, ...fieldProps }) => (
+						<Textfield testId="edit-view" {...fieldProps} />
+					)}
+					readView={() => (
+						<div data-testid="read-view">{defaultValue || 'Click to enter value'}</div>
+					)}
+					onConfirm={onConfirm}
+				/>,
+			);
 
-      const read = screen.queryByTestId('read-view');
-      const edit = screen.queryByTestId('edit-view');
+			const read = screen.queryByTestId('read-view');
+			const edit = screen.queryByTestId('edit-view');
 
-      expect(read).toBeInTheDocument();
-      expect(edit).not.toBeInTheDocument();
+			expect(read).toBeInTheDocument();
+			expect(edit).not.toBeInTheDocument();
 
-      //enter edit mode
-      fireEvent.click(read!);
+			//enter edit mode
+			fireEvent.click(read!);
 
-      const textField = container.querySelector('[data-testid="edit-view"]');
-      const confirm = queryByText('Confirm');
+			const textField = container.querySelector('[data-testid="edit-view"]');
+			const confirm = queryByText('Confirm');
 
-      fireEvent.change(textField!, { target: { value: 'New content' } });
-      fireEvent.click(confirm!);
+			fireEvent.change(textField!, { target: { value: 'New content' } });
+			fireEvent.click(confirm!);
 
-      expect(onConfirm).toHaveBeenCalledWith(
-        'New content',
-        expect.objectContaining({}),
-      );
-    });
+			expect(onConfirm).toHaveBeenCalledWith('New content', expect.objectContaining({}));
+		});
 
-    it('should be able to update the content - integration', () => {
-      const InlineEditExample = () => {
-        const [editValue, setEditValue] = useState('Old content');
+		it('should be able to update the content - integration', () => {
+			const InlineEditExample = () => {
+				const [editValue, setEditValue] = useState('Old content');
 
-        return (
-          <InlineEdit
-            defaultValue={editValue}
-            label="Inline edit"
-            editView={({ errorMessage, ...fieldProps }) => (
-              <Textfield testId="edit-view" {...fieldProps} />
-            )}
-            readView={() => (
-              <div data-testid="read-view">
-                {editValue || 'Click to enter value'}
-              </div>
-            )}
-            onConfirm={(value) => setEditValue(value)}
-          />
-        );
-      };
+				return (
+					<InlineEdit
+						defaultValue={editValue}
+						label="Inline edit"
+						editView={({ errorMessage, ...fieldProps }) => (
+							<Textfield testId="edit-view" {...fieldProps} />
+						)}
+						readView={() => (
+							<div data-testid="read-view">{editValue || 'Click to enter value'}</div>
+						)}
+						onConfirm={(value) => setEditValue(value)}
+					/>
+				);
+			};
 
-      const { container, queryByTestId, queryByText } = render(
-        <InlineEditExample />,
-      );
+			const { container, queryByTestId, queryByText } = render(<InlineEditExample />);
 
-      const read = screen.queryByTestId('read-view');
-      expect(read).toBeInTheDocument();
-      expect(read!.innerText).toContain('Old content');
+			const read = screen.queryByTestId('read-view');
+			expect(read).toBeInTheDocument();
+			expect(read!.innerText).toContain('Old content');
 
-      //enter edit mode
-      fireEvent.click(read!);
+			//enter edit mode
+			fireEvent.click(read!);
 
-      const textField = container.querySelector('[data-testid="edit-view"]');
-      const confirm = queryByText('Confirm');
+			const textField = container.querySelector('[data-testid="edit-view"]');
+			const confirm = queryByText('Confirm');
 
-      fireEvent.change(textField!, { target: { value: 'New content' } });
-      fireEvent.click(confirm!);
+			fireEvent.change(textField!, { target: { value: 'New content' } });
+			fireEvent.click(confirm!);
 
-      expect(queryByTestId('read-view')!.innerText).toContain('New content');
-    });
-  });
+			expect(queryByTestId('read-view')!.innerText).toContain('New content');
+		});
+	});
 
-  describe('generic types', () => {
-    interface OptionType {
-      label: string;
-      value: string;
-    }
+	describe('generic types', () => {
+		interface OptionType {
+			label: string;
+			value: string;
+		}
 
-    const selectOptions = [
-      { label: 'Apple', value: 'Apple' },
-      { label: 'Banana', value: 'Banana' },
-      { label: 'Cherry', value: 'Cherry' },
-    ];
+		const selectOptions = [
+			{ label: 'Apple', value: 'Apple' },
+			{ label: 'Banana', value: 'Banana' },
+			{ label: 'Cherry', value: 'Cherry' },
+		];
 
-    it('should be able to handle different types', () => {
-      const onConfirm = jest.fn();
-      const InlineEditWithDropdown = () => {
-        const [editValue] = useState<OptionType[]>([]);
+		it('should be able to handle different types', () => {
+			const onConfirm = jest.fn();
+			const InlineEditWithDropdown = () => {
+				const [editValue] = useState<OptionType[]>([]);
 
-        return (
-          <InlineEdit<ValueType<OptionType, true>>
-            defaultValue={editValue}
-            label="Inline edit"
-            editView={(fieldProps) => (
-              <Select<OptionType, true>
-                {...fieldProps}
-                options={selectOptions}
-                isMulti
-                autoFocus
-                openMenuOnFocus
-              />
-            )}
-            readView={() => (
-              <div data-testid="read-view">
-                {editValue || 'Click to enter value'}
-              </div>
-            )}
-            onConfirm={onConfirm}
-          />
-        );
-      };
+				return (
+					<InlineEdit<ValueType<OptionType, true>>
+						defaultValue={editValue}
+						label="Inline edit"
+						editView={(fieldProps) => (
+							<Select<OptionType, true>
+								{...fieldProps}
+								options={selectOptions}
+								isMulti
+								autoFocus
+								openMenuOnFocus
+							/>
+						)}
+						readView={() => (
+							<div data-testid="read-view">{editValue || 'Click to enter value'}</div>
+						)}
+						onConfirm={onConfirm}
+					/>
+				);
+			};
 
-      const { container } = render(<InlineEditWithDropdown />);
+			const { container } = render(<InlineEditWithDropdown />);
 
-      const readView = screen.queryByTestId('read-view');
-      expect(readView).toBeInTheDocument();
+			const readView = screen.queryByTestId('read-view');
+			expect(readView).toBeInTheDocument();
 
-      fireEvent.click(readView!);
+			fireEvent.click(readView!);
 
-      selectEvent.openMenu(screen.getByRole('combobox'));
-      const firstOption = container.querySelector('#react-select-2-option-0');
-      fireEvent.click(firstOption!);
+			selectEvent.openMenu(screen.getByRole('combobox'));
+			const firstOption = container.querySelector('#react-select-2-option-0');
+			fireEvent.click(firstOption!);
 
-      const submitButton = container.querySelector('button[type="submit"]');
-      fireEvent.click(submitButton!);
+			const submitButton = container.querySelector('button[type="submit"]');
+			fireEvent.click(submitButton!);
 
-      expect(onConfirm).toHaveBeenCalledWith(
-        expect.arrayContaining([
-          expect.objectContaining({ label: 'Apple', value: 'Apple' }),
-        ]),
-        expect.anything(),
-      );
-    });
-  });
+			expect(onConfirm).toHaveBeenCalledWith(
+				expect.arrayContaining([expect.objectContaining({ label: 'Apple', value: 'Apple' })]),
+				expect.anything(),
+			);
+		});
+	});
 
-  describe('analytics', () => {
-    it('should send event to atlaskit/analytics', () => {
-      const defaultValue = '';
-      const newValue = 'new value';
-      const onConfirm = jest.fn();
-      const onAnalyticsEvent = jest.fn();
+	describe('analytics', () => {
+		it('should send event to atlaskit/analytics', () => {
+			const defaultValue = '';
+			const newValue = 'new value';
+			const onConfirm = jest.fn();
+			const onAnalyticsEvent = jest.fn();
 
-      const { container } = render(
-        <AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
-          <InlineEdit
-            defaultValue={defaultValue}
-            label="Inline edit"
-            editView={({ errorMessage, ...fieldProps }) => (
-              <Textfield {...fieldProps} autoFocus />
-            )}
-            readView={() => (
-              <span>{defaultValue || 'Click to enter value'}</span>
-            )}
-            onConfirm={onConfirm}
-            testId="test"
-          />
-        </AnalyticsListener>,
-      );
+			const { container } = render(
+				<AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
+					<InlineEdit
+						defaultValue={defaultValue}
+						label="Inline edit"
+						editView={({ errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
+						readView={() => <span>{defaultValue || 'Click to enter value'}</span>}
+						onConfirm={onConfirm}
+						testId="test"
+					/>
+				</AnalyticsListener>,
+			);
 
-      const button = screen.queryByTestId('test--edit-button');
-      fireEvent.click(button!);
+			const button = screen.queryByTestId('test--edit-button');
+			fireEvent.click(button!);
 
-      const input = container.querySelector('input[name="inlineEdit"]');
-      fireEvent.change(input!, { target: { value: newValue } });
+			const input = container.querySelector('input[name="inlineEdit"]');
+			fireEvent.change(input!, { target: { value: newValue } });
 
-      const confirm = container.querySelector('button[type="submit"]');
-      fireEvent.click(confirm!);
+			const confirm = container.querySelector('button[type="submit"]');
+			fireEvent.click(confirm!);
 
-      expect(onConfirm).toHaveBeenCalled();
-      expect(
-        onAnalyticsEvent.mock.calls[onAnalyticsEvent.mock.calls.length - 1],
-      ).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            payload: {
-              action: 'confirmed',
-              actionSubject: 'inlineEdit',
-              attributes: {
-                componentName: 'inlineEdit',
-                packageName,
-                packageVersion,
-              },
-            },
-          }),
-        ]),
-      );
-    });
-  });
+			expect(onConfirm).toHaveBeenCalled();
+			expect(onAnalyticsEvent.mock.calls[onAnalyticsEvent.mock.calls.length - 1]).toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({
+						payload: {
+							action: 'confirmed',
+							actionSubject: 'inlineEdit',
+							attributes: {
+								componentName: 'inlineEdit',
+								packageName,
+								packageVersion,
+							},
+						},
+					}),
+				]),
+			);
+		});
+	});
 });

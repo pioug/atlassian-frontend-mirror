@@ -40,6 +40,7 @@ export const InlineDialogFormWrapper = ({
 }>) => {
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={{
 				width: calculateFormWrapperWidth({
 					integrationMode,

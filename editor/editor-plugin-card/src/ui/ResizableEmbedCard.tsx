@@ -389,9 +389,11 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 		return (
 			<div data-testid="resizable-embed-card-spacing">
 				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={wrapperStyle({
 						layout,
 						isResized: !!pctWidth,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						containerWidth: containerWidth || DEFAULT_EMBED_CARD_WIDTH,
 						fullWidthMode,
 					})}

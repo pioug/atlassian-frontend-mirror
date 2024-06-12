@@ -46,6 +46,7 @@ const CommentEditorMargin = 14;
 const commentEditorStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.less-margin .ProseMirror': {
 		margin: `${token('space.150', '12px')} ${token('space.100', '8px')} ${token(
 			'space.100',
@@ -57,6 +58,7 @@ const commentEditorStyles = css({
 	backgroundColor: token('color.background.input', 'white'),
 	border: `1px solid ${token('color.border.input', N100)}`,
 	boxSizing: 'border-box',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `${borderRadius()}px`,
 	maxWidth: 'inherit',
 	wordWrap: 'break-word',
@@ -66,18 +68,23 @@ const ContentArea = createEditorContentStyle(
 	css(
 		{
 			flexGrow: 1,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			overflowX: getBooleanFF('platform.editor.table-sticky-scrollbar') ? 'clip' : 'hidden',
 			lineHeight: '24px',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'.ProseMirror': {
 				margin: token('space.150', '12px'),
 			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'.gridParent': {
 				marginLeft: token('space.025', '2px'),
 				marginRight: token('space.025', '2px'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				width: `calc(100% + ${CommentEditorMargin - GRID_GUTTER}px)`,
 			},
 			padding: token('space.250', '20px'),
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		tableCommentEditorStyles,
 	),
 );
@@ -180,7 +187,9 @@ class Editor extends React.Component<
 				<div
 					css={[
 						commentEditorStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						css({
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							minHeight: `${minHeight}px`,
 						}),
 					]}
@@ -216,6 +225,7 @@ class Editor extends React.Component<
 								containerElement={this.containerElement}
 								twoLineEditorToolbar={isTwoLineToolbarEnabled}
 							/>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 							<div css={mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)}>
 								{customPrimaryToolbarComponents as React.ReactNode}
 							</div>
@@ -229,7 +239,9 @@ class Editor extends React.Component<
 										ref={(ref) => (this.containerElement = ref)}
 										css={
 											maxHeight
-												? css({
+												? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+													css({
+														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 														maxHeight: `${maxHeight}px`,
 													})
 												: null
@@ -438,7 +450,9 @@ const EditorNext = (props: EditorAppearanceComponentProps & WrappedComponentProp
 			<div
 				css={[
 					commentEditorStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 						minHeight: `${minHeight}px`,
 					}),
 				]}
@@ -474,6 +488,7 @@ const EditorNext = (props: EditorAppearanceComponentProps & WrappedComponentProp
 							containerElement={containerElement.current}
 							twoLineEditorToolbar={isTwoLineToolbarEnabled}
 						/>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<div css={mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)}>
 							{customPrimaryToolbarComponents as React.ReactNode}
 						</div>
@@ -487,7 +502,9 @@ const EditorNext = (props: EditorAppearanceComponentProps & WrappedComponentProp
 									ref={containerElement}
 									css={
 										maxHeight
-											? css({
+											? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+												css({
+													// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 													maxHeight: `${maxHeight}px`,
 												})
 											: null

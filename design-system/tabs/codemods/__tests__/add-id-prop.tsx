@@ -7,18 +7,18 @@ const transformer = createTransformer([addIdProp]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('add id prop', () => {
-  beforeEach(() => {
-    jest.spyOn(global.Math, 'random').mockReturnValue(0.123456789);
-  });
+	beforeEach(() => {
+		jest.spyOn(global.Math, 'random').mockReturnValue(0.123456789);
+	});
 
-  afterEach(() => {
-    jest.spyOn(global.Math, 'random').mockRestore();
-  });
+	afterEach(() => {
+		jest.spyOn(global.Math, 'random').mockRestore();
+	});
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
@@ -44,7 +44,7 @@ describe('add id prop', () => {
       );
     }
     `,
-    `
+		`
     /* TODO: (from codemod) We have added an "id" prop to "Tabs" for accessibility reasons.
     The codemod has added a random ID but you can add one that makes sense for your use case. */
     import React from 'react';
@@ -72,6 +72,6 @@ describe('add id prop', () => {
       );
     }
     `,
-    'should add an id prop',
-  );
+		'should add an id prop',
+	);
 });

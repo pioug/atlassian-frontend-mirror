@@ -12,89 +12,82 @@ import Page, { Grid } from '../src';
 import { ButtonWrapper } from './common/button-wrapper';
 
 const NavigationExample = () => {
-  const errorBannerRef = useRef<HTMLDivElement>(null);
-  const announcementBannerRef = useRef<HTMLDivElement>(null);
+	const errorBannerRef = useRef<HTMLDivElement>(null);
+	const announcementBannerRef = useRef<HTMLDivElement>(null);
 
-  const [isErrorBannerOpen, setIsErrorBannerOpen] = useState(false);
-  const [isAnnouncementBannerOpen, setIsAnnouncementBannerOpen] =
-    useState(false);
-  const [offset, setOffset] = useState(0);
+	const [isErrorBannerOpen, setIsErrorBannerOpen] = useState(false);
+	const [isAnnouncementBannerOpen, setIsAnnouncementBannerOpen] = useState(false);
+	const [offset, setOffset] = useState(0);
 
-  useEffect(() => {
-    const errorBannerHeight = errorBannerRef?.current?.clientHeight ?? 0;
-    const announcementBannerHeight =
-      announcementBannerRef?.current?.clientHeight ?? 0;
+	useEffect(() => {
+		const errorBannerHeight = errorBannerRef?.current?.clientHeight ?? 0;
+		const announcementBannerHeight = announcementBannerRef?.current?.clientHeight ?? 0;
 
-    let tempOffset = 0;
-    if (isErrorBannerOpen) {
-      tempOffset += errorBannerHeight;
-    }
-    if (isAnnouncementBannerOpen) {
-      tempOffset += announcementBannerHeight;
-    }
-    setOffset(tempOffset);
-  }, [isErrorBannerOpen, isAnnouncementBannerOpen]);
+		let tempOffset = 0;
+		if (isErrorBannerOpen) {
+			tempOffset += errorBannerHeight;
+		}
+		if (isAnnouncementBannerOpen) {
+			tempOffset += announcementBannerHeight;
+		}
+		setOffset(tempOffset);
+	}, [isErrorBannerOpen, isAnnouncementBannerOpen]);
 
-  const toggleErrorBanner = useCallback(
-    () => setIsErrorBannerOpen((isOpen) => !isOpen),
-    [setIsErrorBannerOpen],
-  );
+	const toggleErrorBanner = useCallback(
+		() => setIsErrorBannerOpen((isOpen) => !isOpen),
+		[setIsErrorBannerOpen],
+	);
 
-  const toggleAnnouncementBanner = useCallback(
-    () => setIsAnnouncementBannerOpen((isOpen) => !isOpen),
-    [setIsAnnouncementBannerOpen],
-  );
+	const toggleAnnouncementBanner = useCallback(
+		() => setIsAnnouncementBannerOpen((isOpen) => !isOpen),
+		[setIsAnnouncementBannerOpen],
+	);
 
-  return (
-    /* This wrapping div exists to help this example display nicely on the
+	return (
+		/* This wrapping div exists to help this example display nicely on the
     atlaskit website. It probably shouldn't be in code otherwise. */
-    <div>
-      <Page
-        testId="page"
-        isBannerOpen={isErrorBannerOpen || isAnnouncementBannerOpen}
-        bannerHeight={offset}
-        banner={
-          <>
-            {isErrorBannerOpen && (
-              <Banner appearance="error" ref={errorBannerRef}>
-                Example Banner
-              </Banner>
-            )}
-            {isAnnouncementBannerOpen && (
-              <Banner appearance="announcement" ref={announcementBannerRef}>
-                What if we have two?
-              </Banner>
-            )}
-          </>
-        }
-        navigation={
-          <Navigation
-            topOffset={offset}
-            globalPrimaryIcon={<AtlassianIcon size="small" />}
-          >
-            <AkNavigationItem text="Welcome to banners!" />
-          </Navigation>
-        }
-      >
-        <Grid>
-          <ButtonWrapper>
-            <Button onClick={toggleErrorBanner}>Toggle Error Banner</Button>
-            <Button onClick={toggleAnnouncementBanner}>
-              Toggle Announcement Banner
-            </Button>
-            <Button
-              testId="toggle"
-              onClick={() => {
-                toggleAnnouncementBanner();
-                toggleErrorBanner();
-              }}
-            >
-              Toggle both Banners
-            </Button>
-          </ButtonWrapper>
-        </Grid>
-      </Page>
-    </div>
-  );
+		<div>
+			<Page
+				testId="page"
+				isBannerOpen={isErrorBannerOpen || isAnnouncementBannerOpen}
+				bannerHeight={offset}
+				banner={
+					<>
+						{isErrorBannerOpen && (
+							<Banner appearance="error" ref={errorBannerRef}>
+								Example Banner
+							</Banner>
+						)}
+						{isAnnouncementBannerOpen && (
+							<Banner appearance="announcement" ref={announcementBannerRef}>
+								What if we have two?
+							</Banner>
+						)}
+					</>
+				}
+				navigation={
+					<Navigation topOffset={offset} globalPrimaryIcon={<AtlassianIcon size="small" />}>
+						<AkNavigationItem text="Welcome to banners!" />
+					</Navigation>
+				}
+			>
+				<Grid>
+					<ButtonWrapper>
+						<Button onClick={toggleErrorBanner}>Toggle Error Banner</Button>
+						<Button onClick={toggleAnnouncementBanner}>Toggle Announcement Banner</Button>
+						<Button
+							testId="toggle"
+							onClick={() => {
+								toggleAnnouncementBanner();
+								toggleErrorBanner();
+							}}
+						>
+							Toggle both Banners
+						</Button>
+					</ButtonWrapper>
+				</Grid>
+			</Page>
+		</div>
+	);
 };
 export default NavigationExample;

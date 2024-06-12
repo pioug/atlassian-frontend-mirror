@@ -15,13 +15,13 @@ import { layers } from '@atlaskit/theme';
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/theme"
-      Component={require('../examples/layers').default}
-      source={require('!!raw-loader!../examples/layers')}
-      title="Definitions"
-    />
-  )}
+		<Example
+			packageName="@atlaskit/theme"
+			Component={require('../examples/layers').default}
+			source={require('!!raw-loader!../examples/layers')}
+			title="Definitions"
+		/>
+	)}
 
   ### Border radius
 

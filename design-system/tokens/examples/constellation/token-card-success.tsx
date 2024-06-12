@@ -22,33 +22,33 @@ iconColor: token('color.icon.success'),
 `;
 
 const successStyles = {
-  bold: {
-    color: token('color.text.inverse'),
-    backgroundColor: token('color.background.success.bold'),
-    border: `1px solid ${token('color.border.success')}`,
-    hoverBackgroundColor: token('color.background.success.bold.hovered'),
-    activeBackgroundColor: token('color.background.success.bold.pressed'),
-    iconColor: token('color.icon.inverse'),
-  },
-  default: {
-    color: token('color.text'),
-    backgroundColor: token('color.background.success'),
-    border: `1px solid ${token('color.border.success')}`,
-    hoverBackgroundColor: token('color.background.success.hovered'),
-    activeBackgroundColor: token('color.background.success.pressed'),
-    iconColor: token('color.icon.success'),
-  },
+	bold: {
+		color: token('color.text.inverse'),
+		backgroundColor: token('color.background.success.bold'),
+		border: `1px solid ${token('color.border.success')}`,
+		hoverBackgroundColor: token('color.background.success.bold.hovered'),
+		activeBackgroundColor: token('color.background.success.bold.pressed'),
+		iconColor: token('color.icon.inverse'),
+	},
+	default: {
+		color: token('color.text'),
+		backgroundColor: token('color.background.success'),
+		border: `1px solid ${token('color.border.success')}`,
+		hoverBackgroundColor: token('color.background.success.hovered'),
+		activeBackgroundColor: token('color.background.success.pressed'),
+		iconColor: token('color.icon.success'),
+	},
 };
 
 export const TokenSuccess = () => {
-  return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-    <div style={{ display: 'flex', columnGap: '24px' }}>
-      {Object.entries(successStyles).map(([key, subStyle]) => (
-        <Card key={key} tokenSet={subStyle} />
-      ))}
-    </div>
-  );
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ display: 'flex', columnGap: '24px' }}>
+			{Object.entries(successStyles).map(([key, subStyle]) => (
+				<Card key={key} tokenSet={subStyle} />
+			))}
+		</div>
+	);
 };
 
 export default { example: TokenSuccess, code: TokenSuccessCodeBlock };

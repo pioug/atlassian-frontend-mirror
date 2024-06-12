@@ -10,78 +10,71 @@ import { Box, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
 
-import Portal, {
-  PORTAL_MOUNT_EVENT,
-  PORTAL_UNMOUNT_EVENT,
-  type PortalEvent,
-} from '../../src';
+import Portal, { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT, type PortalEvent } from '../../src';
 
 const containerStyles = xcss({
-  margin: 'space.200',
+	margin: 'space.200',
 });
 
 const verticalSpaceContainerStyles = xcss({
-  marginBlockEnd: 'space.200',
+	marginBlockEnd: 'space.200',
 });
 
 const portalContentStyles = css({
-  margin: `${token('space.0', '0')} ${token('space.200', '16px')} ${token(
-    'space.200',
-    '16px',
-  )}`,
+	margin: `${token('space.0', '0')} ${token('space.200', '16px')} ${token('space.200', '16px')}`,
 });
 
 const figureStyles = css({
-  margin: token('space.0', '0'),
+	margin: token('space.0', '0'),
 });
 
 const PortalEventExample = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [customEventData, setCustomEventData] = useState('');
+	const [isMounted, setIsMounted] = useState(false);
+	const [customEventData, setCustomEventData] = useState('');
 
-  useEffect(() => {
-    const portalEventListener = ((event: PortalEvent) => {
-      const { type, detail } = event;
+	useEffect(() => {
+		const portalEventListener = ((event: PortalEvent) => {
+			const { type, detail } = event;
 
-      setCustomEventData(JSON.stringify({ type, detail }));
-    }) as EventListener;
+			setCustomEventData(JSON.stringify({ type, detail }));
+		}) as EventListener;
 
-    const unbind: UnbindFn = bindAll(window, [
-      {
-        type: PORTAL_MOUNT_EVENT,
-        listener: portalEventListener,
-      },
-      {
-        type: PORTAL_UNMOUNT_EVENT,
-        listener: portalEventListener,
-      },
-    ]);
+		const unbind: UnbindFn = bindAll(window, [
+			{
+				type: PORTAL_MOUNT_EVENT,
+				listener: portalEventListener,
+			},
+			{
+				type: PORTAL_UNMOUNT_EVENT,
+				listener: portalEventListener,
+			},
+		]);
 
-    return unbind;
-  }, []);
+		return unbind;
+	}, []);
 
-  return (
-    <Box xcss={containerStyles}>
-      <Box xcss={verticalSpaceContainerStyles}>
-        <Button appearance="primary" onClick={() => setIsMounted(!isMounted)}>
-          {isMounted ? 'Unmount' : 'Mount'} portal
-        </Button>
-      </Box>
-      <div>
-        <figure css={figureStyles}>
-          <figcaption>PortalEvent specific data:</figcaption>
-          <CodeBlock language="JSON" text={customEventData} />
-        </figure>
-      </div>
-      {isMounted && (
-        <Portal>
-          <div css={portalContentStyles}>
-            <SectionMessage>I am inside portal!</SectionMessage>
-          </div>
-        </Portal>
-      )}
-    </Box>
-  );
+	return (
+		<Box xcss={containerStyles}>
+			<Box xcss={verticalSpaceContainerStyles}>
+				<Button appearance="primary" onClick={() => setIsMounted(!isMounted)}>
+					{isMounted ? 'Unmount' : 'Mount'} portal
+				</Button>
+			</Box>
+			<div>
+				<figure css={figureStyles}>
+					<figcaption>PortalEvent specific data:</figcaption>
+					<CodeBlock language="JSON" text={customEventData} />
+				</figure>
+			</div>
+			{isMounted && (
+				<Portal>
+					<div css={portalContentStyles}>
+						<SectionMessage>I am inside portal!</SectionMessage>
+					</div>
+				</Portal>
+			)}
+		</Box>
+	);
 };
 
 export default PortalEventExample;

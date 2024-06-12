@@ -6,35 +6,35 @@ import { sectionHeaderSpacingStyles } from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
 export interface SectionProps {
-  /**
-   * The children of the section.
-   * These should generally be item or heading components.
-   */
-  children: React.ReactNode;
+	/**
+	 * The children of the section.
+	 * These should generally be item or heading components.
+	 */
+	children: React.ReactNode;
 
-  /**
-   * The text passed to heading.
-   * If you don't provide a title, then the heading won't be rendered.
-   */
-  title?: string;
+	/**
+	 * The text passed to heading.
+	 * If you don't provide a title, then the heading won't be rendered.
+	 */
+	title?: string;
 
-  /**
-   * This will render a border at the top of the section.
-   */
-  hasSeparator?: boolean;
+	/**
+	 * This will render a border at the top of the section.
+	 */
+	hasSeparator?: boolean;
 
-  /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
-   */
-  testId?: string;
+	/**
+	 * A `testId` prop is provided for specified elements,
+	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests.
+	 */
+	testId?: string;
 
-  /**
-   * Adds `<ul>` and `<li>` tags around the items for better semantic markup in a list of items.
-   *
-   */
-  isList?: boolean;
+	/**
+	 * Adds `<ul>` and `<li>` tags around the items for better semantic markup in a list of items.
+	 *
+	 */
+	isList?: boolean;
 }
 
 // Type needed on props to extract types with extract react types.
@@ -47,22 +47,20 @@ export interface SectionProps {
  * - [Examples](https://atlassian.design/components/side-navigation/examples#section)
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
-const Section = forwardRef<HTMLElement, SectionProps>(
-  (props: SectionProps, ref) => {
-    const { shouldRender } = useShouldNestedElementRender();
-    if (!shouldRender) {
-      return props.children as JSX.Element;
-    }
+const Section = forwardRef<HTMLElement, SectionProps>((props: SectionProps, ref) => {
+	const { shouldRender } = useShouldNestedElementRender();
+	if (!shouldRender) {
+		return props.children as JSX.Element;
+	}
 
-    return (
-      <MenuSection
-        {...props}
-        ref={ref}
-        // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
-        overrides={{ HeadingItem: { cssFn: sectionHeaderSpacingStyles } }}
-      />
-    );
-  },
-);
+	return (
+		<MenuSection
+			{...props}
+			ref={ref}
+			// eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
+			overrides={{ HeadingItem: { cssFn: sectionHeaderSpacingStyles } }}
+		/>
+	);
+});
 
 export default Section;

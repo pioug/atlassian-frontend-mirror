@@ -6,25 +6,25 @@ import { Box } from '@atlaskit/primitives';
 import { Radio } from '../../src';
 
 export default function RadioDefaultExample() {
-  return (
-    <Box>
-      <Radio
-        value="default radio"
-        label="Default radio"
-        name="radio-default"
-        testId="radio-default"
-        isChecked={true}
-        onChange={noop}
-      />
-      <Radio
-        value="disabled radio"
-        label="Disabled radio"
-        name="radio-disabled"
-        testId="radio-disabled"
-        isChecked={false}
-        isDisabled={true}
-        onChange={noop}
-      />
-    </Box>
-  );
+	return (
+		<Box>
+			<Radio
+				value="default radio"
+				label="Default radio"
+				name="radio-default"
+				testId="radio-default"
+				isChecked={true}
+				onChange={noop}
+			/>
+			<Radio
+				value="disabled radio"
+				label="Disabled radio"
+				name="radio-disabled"
+				testId="radio-disabled"
+				isChecked={false}
+				isDisabled={true}
+				onChange={noop}
+			/>
+		</Box>
+	);
 }

@@ -53,21 +53,32 @@ const prismBorderStyles = (
 		content: "''",
 		position: 'absolute',
 		background: `conic-gradient( from var(--panel-gradient-angle, 180deg) at 50% 50%, ${
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			aiPrismColor['prism.border.step.4'][colorMode ?? 'light']
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		} -52.2deg, ${aiPrismColor['prism.border.step.1'][colorMode ?? 'light']} 89.76deg, ${
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			aiPrismColor['prism.border.step.2'][colorMode ?? 'light']
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		} 145.8deg, ${aiPrismColor['prism.border.step.3'][colorMode ?? 'light']} 262.8deg, ${
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			aiPrismColor['prism.border.step.4'][colorMode ?? 'light']
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		} 307.8deg, ${aiPrismColor['prism.border.step.1'][colorMode ?? 'light']} 449.76deg )`,
 		zIndex: -1,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `calc(100% + ${sizeOffset}px)`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `calc(100% + ${sizeOffset}px)`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		top: `${positionOffset}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		left: `${positionOffset}px`,
 		borderRadius: token('border.radius.200', '5px'),
 		transform: 'translate3d(0, 0, 0)',
 	});
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 export const aiPanelStyles = (colorMode?: 'light' | 'dark') => css`
 	@property --panel-gradient-angle {
 		syntax: '<angle>';

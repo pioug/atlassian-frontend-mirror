@@ -24,7 +24,7 @@ Update your Compiled config to have `importSources` point to `@atlaskit/css`:
 import { css } from '@atlaskit/css';
 
 const basicStyles = css({
-  color: 'var(--ds-link)',
+	color: 'var(--ds-link)',
 });
 
 <div css={basicStyles} />;

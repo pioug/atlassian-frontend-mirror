@@ -18,31 +18,31 @@ import { type IconButtonProps } from './types';
  *
  */
 export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
-  (props: IconButtonProps, ref: Ref<HTMLElement>) => {
-    const { icon, label, testId, tooltip, ...buttonProps } = props;
-    const theme = useTheme();
+	(props: IconButtonProps, ref: Ref<HTMLElement>) => {
+		const { icon, label, testId, tooltip, ...buttonProps } = props;
+		const theme = useTheme();
 
-    const button = (
-      <Button
-        appearance="primary"
-        aria-label={label}
-        testId={testId}
-        iconBefore={icon}
-        ref={ref}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-        theme={getIconButtonTheme(theme)}
-        {...buttonProps}
-      />
-    );
+		const button = (
+			<Button
+				appearance="primary"
+				aria-label={label}
+				testId={testId}
+				iconBefore={icon}
+				ref={ref}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+				theme={getIconButtonTheme(theme)}
+				{...buttonProps}
+			/>
+		);
 
-    if (tooltip) {
-      return (
-        <Tooltip content={tooltip} hideTooltipOnClick>
-          {button}
-        </Tooltip>
-      );
-    }
+		if (tooltip) {
+			return (
+				<Tooltip content={tooltip} hideTooltipOnClick>
+					{button}
+				</Tooltip>
+			);
+		}
 
-    return button;
-  },
+		return button;
+	},
 );

@@ -14,11 +14,13 @@ import { type LozengeProps, type StatusModifiedDateType, type StatusType } from 
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const StoryWrapper = styled.div({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	label: {
 		color: token('color.text', N800),
 		marginRight: token('space.100', '8px'),
 		WebkitUserSelect: 'none',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	ul: {
 		margin: 0,
 		padding: 0,

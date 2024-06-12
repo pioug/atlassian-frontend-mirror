@@ -11,8 +11,8 @@ import { keylineHeight, padding } from './internal/constants';
 import useScroll from './internal/hooks/use-scroll';
 
 const bodyStyles = css({
-  /* This ensures the body fills the whole space between header and footer. */
-  flex: '1 1 auto',
+	/* This ensures the body fills the whole space between header and footer. */
+	flex: '1 1 auto',
 });
 
 /**
@@ -21,8 +21,8 @@ const bodyStyles = css({
  * keyline height from header and footer.
  */
 const bodyScrollStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  padding: `${keylineHeight}px ${padding}px`,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	padding: `${keylineHeight}px ${padding}px`,
 });
 
 /**
@@ -30,22 +30,22 @@ const bodyScrollStyles = css({
  * not account for them in this case.
  */
 const viewportScrollStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  padding: `0px ${padding}px`,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	padding: `0px ${padding}px`,
 });
 
 export interface ModalBodyProps {
-  /**
-   * Children of modal dialog footer.
-   */
-  children: React.ReactNode;
+	/**
+	 * Children of modal dialog footer.
+	 */
+	children: React.ReactNode;
 
-  /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
-   */
-  testId?: string;
+	/**
+	 * A `testId` prop is provided for specified elements,
+	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests.
+	 */
+	testId?: string;
 }
 
 /**
@@ -58,25 +58,25 @@ export interface ModalBodyProps {
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
 const ModalBody = (props: ModalBodyProps) => {
-  const { children, testId: userDefinedTestId } = props;
-  const { testId: modalTestId } = useModal();
-  const shouldScrollInViewport = useScroll();
+	const { children, testId: userDefinedTestId } = props;
+	const { testId: modalTestId } = useModal();
+	const shouldScrollInViewport = useScroll();
 
-  const testId = userDefinedTestId || (modalTestId && `${modalTestId}--body`);
+	const testId = userDefinedTestId || (modalTestId && `${modalTestId}--body`);
 
-  return shouldScrollInViewport ? (
-    <div css={[bodyStyles, viewportScrollStyles]} data-testid={testId}>
-      {children}
-    </div>
-  ) : (
-    <TouchScrollable>
-      <ScrollContainer testId={userDefinedTestId || modalTestId}>
-        <div css={[bodyStyles, bodyScrollStyles]} data-testid={testId}>
-          {children}
-        </div>
-      </ScrollContainer>
-    </TouchScrollable>
-  );
+	return shouldScrollInViewport ? (
+		<div css={[bodyStyles, viewportScrollStyles]} data-testid={testId}>
+			{children}
+		</div>
+	) : (
+		<TouchScrollable>
+			<ScrollContainer testId={userDefinedTestId || modalTestId}>
+				<div css={[bodyStyles, bodyScrollStyles]} data-testid={testId}>
+					{children}
+				</div>
+			</ScrollContainer>
+		</TouchScrollable>
+	);
 };
 
 export default ModalBody;

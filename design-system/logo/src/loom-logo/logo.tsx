@@ -8,18 +8,15 @@ import type { LogoProps } from '../types';
 import { getColorsForLoom } from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = (
-  { appearance, iconColor, textColor }: LogoProps,
-  colorMode: string | undefined,
-) => {
-  let colors = {
-    iconColor,
-    textColor,
-  };
-  if (appearance) {
-    colors = getColorsForLoom(appearance, colorMode);
-  }
-  return `<svg
+const svg = ({ appearance, iconColor, textColor }: LogoProps, colorMode: string | undefined) => {
+	let colors = {
+		iconColor,
+		textColor,
+	};
+	if (appearance) {
+		colors = getColorsForLoom(appearance, colorMode);
+	}
+	return `<svg
       fill="none"
       height="32"
       xmlns="http://www.w3.org/2000/svg"
@@ -48,31 +45,31 @@ const svg = (
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const LoomLogo = ({
-  appearance,
-  label = 'Loom',
-  size = defaultLogoParams.size,
-  testId,
-  iconColor = defaultLogoParams.iconColor,
-  textColor = defaultLogoParams.textColor,
+	appearance,
+	label = 'Loom',
+	size = defaultLogoParams.size,
+	testId,
+	iconColor = defaultLogoParams.iconColor,
+	textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
-  const { colorMode } = useThemeObserver();
+	const { colorMode } = useThemeObserver();
 
-  return (
-    <Wrapper
-      appearance={appearance}
-      label={label}
-      iconColor={iconColor}
-      size={size}
-      svg={svg(
-        {
-          appearance,
-          iconColor,
-          textColor,
-        },
-        colorMode,
-      )}
-      testId={testId}
-      textColor={textColor}
-    />
-  );
+	return (
+		<Wrapper
+			appearance={appearance}
+			label={label}
+			iconColor={iconColor}
+			size={size}
+			svg={svg(
+				{
+					appearance,
+					iconColor,
+					textColor,
+				},
+				colorMode,
+			)}
+			testId={testId}
+			textColor={textColor}
+		/>
+	);
 };

@@ -27,12 +27,13 @@ const toolbarButtonWrapper = css({
 	justifyContent: 'flex-end',
 	flexGrow: 0,
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > div': {
 		marginRight: 0,
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const toolbarButtonWrapperFullWidth = css(toolbarButtonWrapper, {
 	flexGrow: 1,
 });

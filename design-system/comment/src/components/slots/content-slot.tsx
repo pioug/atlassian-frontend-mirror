@@ -6,18 +6,18 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 const contentSlotStyles = css({
-  minWidth: 0,
-  // this spacing is a specific affordance to the avatar border
-  paddingTop: token('space.025', '2px'),
-  gridArea: 'comment-area',
-  wordWrap: 'break-word',
+	minWidth: 0,
+	// this spacing is a specific affordance to the avatar border
+	paddingTop: token('space.025', '2px'),
+	gridArea: 'comment-area',
+	wordWrap: 'break-word',
 });
 
 interface ContentSlotProps {
-  /**
-   * The slot for the header, body, and actions of a Comment
-   */
-  children?: ReactNode;
+	/**
+	 * The slot for the header, body, and actions of a Comment
+	 */
+	children?: ReactNode;
 }
 
 /**
@@ -27,7 +27,7 @@ interface ContentSlotProps {
  *
  */
 const ContentSlot: FC<ContentSlotProps> = ({ children }) => (
-  <div css={contentSlotStyles}>{children}</div>
+	<div css={contentSlotStyles}>{children}</div>
 );
 
 export default ContentSlot;

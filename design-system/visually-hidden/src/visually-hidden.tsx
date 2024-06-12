@@ -7,14 +7,14 @@ import type { VisuallyHiddenProps } from './types';
 
 // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
 const visuallyHiddenStyles = css({
-  width: '1px',
-  height: '1px',
-  padding: '0',
-  position: 'absolute',
-  border: '0',
-  clip: 'rect(1px, 1px, 1px, 1px)',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
+	width: '1px',
+	height: '1px',
+	padding: '0',
+	position: 'absolute',
+	border: '0',
+	clip: 'rect(1px, 1px, 1px, 1px)',
+	overflow: 'hidden',
+	whiteSpace: 'nowrap',
 });
 
 /**
@@ -35,17 +35,12 @@ const visuallyHiddenStyles = css({
  * );
  * ```
  */
-const VisuallyHidden: FC<VisuallyHiddenProps> = ({
-  children,
-  testId,
-  role,
-  id,
-}) => {
-  return (
-    <span id={id} data-testid={testId} css={visuallyHiddenStyles} role={role}>
-      {children}
-    </span>
-  );
+const VisuallyHidden: FC<VisuallyHiddenProps> = ({ children, testId, role, id }) => {
+	return (
+		<span id={id} data-testid={testId} css={visuallyHiddenStyles} role={role}>
+			{children}
+		</span>
+	);
 };
 
 export default VisuallyHidden;

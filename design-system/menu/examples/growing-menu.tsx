@@ -10,53 +10,53 @@ import MenuGroupContainer from './common/menu-group-container';
 import Yeti from './icons/yeti.png';
 
 const fullText =
-  'A spacecraft is a vehicle or machine designed to fly in outer space. A type of artificial satellite, spacecraft are used for a variety of purposes.';
+	'A spacecraft is a vehicle or machine designed to fly in outer space. A type of artificial satellite, spacecraft are used for a variety of purposes.';
 
 export default () => {
-  const [textIndex, setTextIndex] = useState(-1);
+	const [textIndex, setTextIndex] = useState(-1);
 
-  useEffect(() => {
-    // Slight delay to allow the page to load.
-    const id = setTimeout(() => {
-      setTextIndex(0);
-    }, 500);
+	useEffect(() => {
+		// Slight delay to allow the page to load.
+		const id = setTimeout(() => {
+			setTextIndex(0);
+		}, 500);
 
-    return () => clearTimeout(id);
-  }, []);
+		return () => clearTimeout(id);
+	}, []);
 
-  useEffect(() => {
-    if (textIndex === -1) {
-      return;
-    }
+	useEffect(() => {
+		if (textIndex === -1) {
+			return;
+		}
 
-    if (textIndex !== fullText.length - 1) {
-      const id = setTimeout(() => {
-        setTextIndex((prev) => prev + 2);
-      }, 30);
+		if (textIndex !== fullText.length - 1) {
+			const id = setTimeout(() => {
+				setTextIndex((prev) => prev + 2);
+			}, 30);
 
-      return () => clearTimeout(id);
-    }
-  }, [textIndex]);
+			return () => clearTimeout(id);
+		}
+	}, [textIndex]);
 
-  return (
-    <Stack space="space.200">
-      <MenuGroupContainer growing>
-        <MenuGroup>
-          <Section>
-            <ButtonItem
-              iconBefore={<ImgIcon src={Yeti} alt={'Yeti'} />}
-              description={fullText.slice(0, textIndex + 12)}
-            >
-              Spacecraft
-            </ButtonItem>
-          </Section>
-        </MenuGroup>
-      </MenuGroupContainer>
+	return (
+		<Stack space="space.200">
+			<MenuGroupContainer growing>
+				<MenuGroup>
+					<Section>
+						<ButtonItem
+							iconBefore={<ImgIcon src={Yeti} alt={'Yeti'} />}
+							description={fullText.slice(0, textIndex + 12)}
+						>
+							Spacecraft
+						</ButtonItem>
+					</Section>
+				</MenuGroup>
+			</MenuGroupContainer>
 
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <div style={{ textAlign: 'center' }}>
-        <Button onClick={() => setTextIndex(0)}>Again</Button>
-      </div>
-    </Stack>
-  );
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ textAlign: 'center' }}>
+				<Button onClick={() => setTextIndex(0)}>Again</Button>
+			</div>
+		</Stack>
+	);
 };

@@ -7,10 +7,10 @@ const transformer = createTransformer([textToChild]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('make the test prop a child', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -25,7 +25,7 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -40,13 +40,13 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    'should make the text prop a child if it is a string',
-  );
+		'should make the text prop a child if it is a string',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -63,7 +63,7 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -80,13 +80,13 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    'should make the text prop a child if it is a variable',
-  );
+		'should make the text prop a child if it is a variable',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -101,7 +101,7 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -116,13 +116,13 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    'should retain other props when converting to children',
-  );
+		'should retain other props when converting to children',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -139,7 +139,7 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -156,13 +156,13 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    'should retain other props that are spread when converting to children',
-  );
+		'should retain other props that are spread when converting to children',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -180,7 +180,7 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
 
     import { Code } from '@atlaskit/code';
@@ -198,6 +198,6 @@ describe('make the test prop a child', () => {
       );
     }
     `,
-    'should make the text prop a child with 2 usages',
-  );
+		'should make the text prop a child with 2 usages',
+	);
 });

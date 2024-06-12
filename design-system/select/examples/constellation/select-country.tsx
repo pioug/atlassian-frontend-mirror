@@ -3,10 +3,10 @@ import { Label } from '@atlaskit/form';
 import { CountrySelect } from '../../src';
 
 const CountrySelectExample = () => (
-  <>
-    <Label htmlFor="country-select-example">What country do you live in?</Label>
-    <CountrySelect inputId="country-select-example" placeholder="Country" />
-  </>
+	<>
+		<Label htmlFor="country-select-example">What country do you live in?</Label>
+		<CountrySelect inputId="country-select-example" placeholder="Country" />
+	</>
 );
 
 export default CountrySelectExample;

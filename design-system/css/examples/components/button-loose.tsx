@@ -4,34 +4,34 @@ import React from 'react';
 import { cssMap, jsx, type XCSSProp } from '@compiled/react';
 
 const buttonStyles = cssMap({
-  container: {
-    color: 'var(--ds-text-inverse)',
-    backgroundColor: 'var(--ds-background-brand-bold)',
-    borderRadius: '3px',
-    border: 0,
-    fontWeight: '500',
-    paddingBlock: '4px',
-    paddingInline: '8px',
-    '&:hover': {
-      backgroundColor: 'var(--ds-background-brand-bold-hovered)',
-    },
-    '&:active': {
-      backgroundColor: 'var(--ds-background-brand-bold-pressed)',
-    },
-  },
+	container: {
+		color: 'var(--ds-text-inverse)',
+		backgroundColor: 'var(--ds-background-brand-bold)',
+		borderRadius: '3px',
+		border: 0,
+		fontWeight: '500',
+		paddingBlock: '4px',
+		paddingInline: '8px',
+		'&:hover': {
+			backgroundColor: 'var(--ds-background-brand-bold-hovered)',
+		},
+		'&:active': {
+			backgroundColor: 'var(--ds-background-brand-bold-pressed)',
+		},
+	},
 });
 
 export function Button({
-  children,
-  xcss,
+	children,
+	xcss,
 }: {
-  children: React.ReactNode;
-  xcss?: XCSSProp<'color' | 'backgroundColor', '&:hover' | '&:active'>;
+	children: React.ReactNode;
+	xcss?: XCSSProp<'color' | 'backgroundColor', '&:hover' | '&:active'>;
 }) {
-  return (
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-    <button css={buttonStyles.container} className={xcss}>
-      {children}
-    </button>
-  );
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		<button css={buttonStyles.container} className={xcss}>
+			{children}
+		</button>
+	);
 }

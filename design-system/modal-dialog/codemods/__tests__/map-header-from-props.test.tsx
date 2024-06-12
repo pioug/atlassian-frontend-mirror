@@ -7,12 +7,12 @@ const transformer = createTransformer([mapHeaderFromProps]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('map header from props', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -34,7 +34,7 @@ describe('map header from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -55,13 +55,13 @@ describe('map header from props', () => {
       );
     }
     `,
-        'should invoke Header declared as shorthand',
-      );
+				'should invoke Header declared as shorthand',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -83,7 +83,7 @@ describe('map header from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -104,13 +104,13 @@ describe('map header from props', () => {
       );
     }
     `,
-        'should invoke Header declared as assigned variable',
-      );
+				'should invoke Header declared as assigned variable',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -135,7 +135,7 @@ describe('map header from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -157,13 +157,13 @@ describe('map header from props', () => {
       );
     }
     `,
-        'should invoke Header declared as arrow function',
-      );
+				'should invoke Header declared as arrow function',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -180,7 +180,7 @@ describe('map header from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -197,13 +197,13 @@ describe('map header from props', () => {
       );
     }
     `,
-        'should do nothing if components definition is not an inline object expression',
-      );
+				'should do nothing if components definition is not an inline object expression',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -228,7 +228,7 @@ describe('map header from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -252,13 +252,13 @@ describe('map header from props', () => {
       }
     }
     `,
-        'should invoke Header of a modal dialog declared as class component',
-      );
+				'should invoke Header of a modal dialog declared as class component',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -283,7 +283,7 @@ describe('map header from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -308,13 +308,13 @@ describe('map header from props', () => {
       }
     }
     `,
-        'should invoke Header passed to the header prop',
-      );
+				'should invoke Header passed to the header prop',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -344,7 +344,7 @@ describe('map header from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -373,13 +373,13 @@ describe('map header from props', () => {
       }
     }
     `,
-        'should take Header passed from components prop if both declarations exist',
-      );
+				'should take Header passed from components prop if both declarations exist',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -405,7 +405,7 @@ describe('map header from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -432,13 +432,13 @@ describe('map header from props', () => {
       }
     }
     `,
-        'should pass appearance set as string literal from parent ModalDialog to custom header as a prop',
-      );
+				'should pass appearance set as string literal from parent ModalDialog to custom header as a prop',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -464,7 +464,7 @@ describe('map header from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -491,13 +491,13 @@ describe('map header from props', () => {
       }
     }
     `,
-        'should pass appearance set as expression from parent ModalDialog to custom header as a prop',
-      );
+				'should pass appearance set as expression from parent ModalDialog to custom header as a prop',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -524,7 +524,7 @@ describe('map header from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -552,8 +552,8 @@ describe('map header from props', () => {
       );
     }
     `,
-        'should pass appearance attribute ONLY from parent ModalDialog',
-      );
-    });
-  });
+				'should pass appearance attribute ONLY from parent ModalDialog',
+			);
+		});
+	});
 });

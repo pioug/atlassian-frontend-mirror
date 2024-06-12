@@ -1,70 +1,62 @@
-import {
-  createContext,
-  type KeyboardEvent,
-  type MouseEvent,
-  useContext,
-  useEffect,
-} from 'react';
+import { createContext, type KeyboardEvent, type MouseEvent, useContext, useEffect } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type LeftSidebarState = {
-  isFlyoutOpen: boolean;
-  isResizing: boolean;
-  isLeftSidebarCollapsed: boolean;
-  leftSidebarWidth: number;
-  lastLeftSidebarWidth: number;
-  flyoutLockCount: number;
-  isFixed: boolean;
+	isFlyoutOpen: boolean;
+	isResizing: boolean;
+	isLeftSidebarCollapsed: boolean;
+	leftSidebarWidth: number;
+	lastLeftSidebarWidth: number;
+	flyoutLockCount: number;
+	isFixed: boolean;
 };
 
 export type SidebarResizeContextValue = {
-  isLeftSidebarCollapsed: boolean;
-  expandLeftSidebar: () => void;
-  collapseLeftSidebar: (
-    event?: MouseEvent | KeyboardEvent,
-    collapseWithoutTransition?: boolean,
-  ) => void;
-  /**
-   * Conditionally expands or collapses the left sidebar based on the current state.
-   * This is aware of our flyout mode in mobile as well.
-   */
-  toggleLeftSidebar: (
-    event?: MouseEvent | KeyboardEvent,
-    collapseWithoutTransition?: boolean,
-  ) => void;
-  leftSidebarState: LeftSidebarState;
-  setLeftSidebarState: (
-    value:
-      | LeftSidebarState
-      | ((prevState: LeftSidebarState) => LeftSidebarState),
-  ) => void;
+	isLeftSidebarCollapsed: boolean;
+	expandLeftSidebar: () => void;
+	collapseLeftSidebar: (
+		event?: MouseEvent | KeyboardEvent,
+		collapseWithoutTransition?: boolean,
+	) => void;
+	/**
+	 * Conditionally expands or collapses the left sidebar based on the current state.
+	 * This is aware of our flyout mode in mobile as well.
+	 */
+	toggleLeftSidebar: (
+		event?: MouseEvent | KeyboardEvent,
+		collapseWithoutTransition?: boolean,
+	) => void;
+	leftSidebarState: LeftSidebarState;
+	setLeftSidebarState: (
+		value: LeftSidebarState | ((prevState: LeftSidebarState) => LeftSidebarState),
+	) => void;
 };
 
 const leftSidebarState: LeftSidebarState = {
-  isFlyoutOpen: false,
-  isResizing: false,
-  isLeftSidebarCollapsed: false,
-  leftSidebarWidth: 0,
-  lastLeftSidebarWidth: 0,
-  flyoutLockCount: 0,
-  isFixed: true,
+	isFlyoutOpen: false,
+	isResizing: false,
+	isLeftSidebarCollapsed: false,
+	leftSidebarWidth: 0,
+	lastLeftSidebarWidth: 0,
+	flyoutLockCount: 0,
+	isFixed: true,
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SidebarResizeContext = createContext<SidebarResizeContextValue>({
-  isLeftSidebarCollapsed: false,
-  expandLeftSidebar: noop,
-  collapseLeftSidebar: noop,
-  leftSidebarState,
-  setLeftSidebarState: noop,
-  toggleLeftSidebar: noop,
+	isLeftSidebarCollapsed: false,
+	expandLeftSidebar: noop,
+	collapseLeftSidebar: noop,
+	leftSidebarState,
+	setLeftSidebarState: noop,
+	toggleLeftSidebar: noop,
 });
 
 export const usePageLayoutResize = () => {
-  const { setLeftSidebarState, ...context } = useContext(SidebarResizeContext);
-  return context;
+	const { setLeftSidebarState, ...context } = useContext(SidebarResizeContext);
+	return context;
 };
 
 /**
@@ -85,30 +77,30 @@ export const usePageLayoutResize = () => {
  * as long as the popup is open.
  */
 export const useLeftSidebarFlyoutLock = () => {
-  const { setLeftSidebarState } = useContext(SidebarResizeContext);
+	const { setLeftSidebarState } = useContext(SidebarResizeContext);
 
-  useEffect(() => {
-    setLeftSidebarState((current) => ({
-      ...current,
-      flyoutLockCount: current.flyoutLockCount + 1,
-    }));
-    return () => {
-      setLeftSidebarState((current) => ({
-        ...current,
-        flyoutLockCount: current.flyoutLockCount - 1,
-      }));
-    };
-  }, [setLeftSidebarState]);
+	useEffect(() => {
+		setLeftSidebarState((current) => ({
+			...current,
+			flyoutLockCount: current.flyoutLockCount + 1,
+		}));
+		return () => {
+			setLeftSidebarState((current) => ({
+				...current,
+				flyoutLockCount: current.flyoutLockCount - 1,
+			}));
+		};
+	}, [setLeftSidebarState]);
 };
 
 /**
  * @deprecated Returns noop. Added to support an internal redesign, `UNSAFE_useSetLeftSidebarState` will be removed in the next major release.
  */
 export const UNSAFE_useSetLeftSidebarState =
-  (): SidebarResizeContextValue['setLeftSidebarState'] => {
-    const { setLeftSidebarState } = useContext(SidebarResizeContext);
+	(): SidebarResizeContextValue['setLeftSidebarState'] => {
+		const { setLeftSidebarState } = useContext(SidebarResizeContext);
 
-    return getBooleanFF('platform.atlassian.griffin-navigation-redesign')
-      ? setLeftSidebarState
-      : noop;
-  };
+		return getBooleanFF('platform.atlassian.griffin-navigation-redesign')
+			? setLeftSidebarState
+			: noop;
+	};

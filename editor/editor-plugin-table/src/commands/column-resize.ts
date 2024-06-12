@@ -257,12 +257,14 @@ export const changeColumnWidthByStep =
 		stepSize,
 		getEditorContainerWidth,
 		isTableScalingEnabled,
+		isTableFixedColumnWidthsOptionEnabled,
 		ariaNotify,
 		getIntl,
 	}: {
 		stepSize: number;
 		getEditorContainerWidth: GetEditorContainerWidth;
 		isTableScalingEnabled: boolean;
+		isTableFixedColumnWidthsOptionEnabled: boolean;
 		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void;
 		getIntl?: () => IntlShape;
 		originalTr?: Transaction;
@@ -326,15 +328,13 @@ export const changeColumnWidthByStep =
 		});
 
 		let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
-		const isTableScalingEnabledWithLockButton =
-			isTableScalingEnabled &&
-			getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
-		if (isTableScalingEnabledWithLockButton) {
+		const isTableScalingWithFixedColumnWidthsOptionEnabled =
+			isTableScalingEnabled && isTableFixedColumnWidthsOptionEnabled;
+		if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 			isTableScalingEnabledOnCurrentTable = originalTable.attrs.displayMode !== 'fixed';
 		}
-
 		const shouldUseIncreasedScalingPercent =
-			isTableScalingEnabledWithLockButton &&
+			isTableScalingWithFixedColumnWidthsOptionEnabled &&
 			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 
 		const initialResizeState = getResizeState({

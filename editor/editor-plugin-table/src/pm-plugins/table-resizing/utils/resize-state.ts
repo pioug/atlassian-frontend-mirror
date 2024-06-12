@@ -325,6 +325,7 @@ export const getNewResizeStateFromSelectedColumns = (
 	domAtPos: (pos: number) => { node: Node; offset: number },
 	getEditorContainerWidth: GetEditorContainerWidth,
 	isTableScalingEnabled = false,
+	isTableFixedColumnWidthsOptionEnabled = false,
 ): ResizeStateWithAnalytics | undefined => {
 	// Fail early so that we don't do complex calculations for no reason
 	const numColumnsSelected = rect.right - rect.left;
@@ -367,10 +368,9 @@ export const getNewResizeStateFromSelectedColumns = (
 	let resizeState;
 
 	let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
-
-	const isTableScalingEnabledWithLockButton =
-		isTableScalingEnabled && getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
-	if (isTableScalingEnabledWithLockButton) {
+	const isTableScalingWithFixedColumnWidthsOptionEnabled =
+		isTableScalingEnabled && isTableFixedColumnWidthsOptionEnabled;
+	if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 		isTableScalingEnabledOnCurrentTable = table.node.attrs.displayMode !== 'fixed';
 	}
 
@@ -383,7 +383,7 @@ export const getNewResizeStateFromSelectedColumns = (
 		domAtPos,
 		isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
 		shouldUseIncreasedScalingPercent:
-			isTableScalingEnabledWithLockButton &&
+			isTableScalingWithFixedColumnWidthsOptionEnabled &&
 			getBooleanFF('platform.editor.table.use-increased-scaling-percent'),
 	});
 

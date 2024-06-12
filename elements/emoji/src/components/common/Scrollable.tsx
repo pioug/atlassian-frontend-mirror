@@ -71,6 +71,7 @@ export default class Scrollable extends PureComponent<Props, {}> {
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={`emoji-scrollable ${className}`}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={styles.emojiScrollable}
 				onMouseLeave={onMouseLeave}
 				onScroll={this.handleScroll}

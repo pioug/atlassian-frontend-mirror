@@ -48,11 +48,13 @@ export default class EmojiTypeAheadItem extends PureComponent<Props, {}> {
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={`ak-emoji-typeahead-item ${selected ? typeaheadSelected : ''}`}
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={classes}
 					onMouseDown={this.onEmojiSelected}
 					onMouseMove={this.onEmojiMenuItemMouseMove}
 					data-emoji-id={emoji.shortName}
 				>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={typeAheadItemRow}>{emoji && <EmojiPreviewComponent emoji={emoji} />}</div>
 				</div>
 			</EmojiCommonProvider>

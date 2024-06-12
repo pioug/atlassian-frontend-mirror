@@ -26,20 +26,20 @@ export default md`
   This component can be used implement a spotlight tour.
 
   ${(
-    <Example
-      packageName="@atlaskit/onboarding"
-      Component={require('../examples/10-spotlight-basic').default}
-      title="Spotlight Tour"
-      source={require('!!raw-loader!../examples/10-spotlight-basic')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/onboarding"
+			Component={require('../examples/10-spotlight-basic').default}
+			title="Spotlight Tour"
+			source={require('!!raw-loader!../examples/10-spotlight-basic')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Spotlight Props"
-      props={require('!!extract-react-types-loader!../src/components/spotlight')}
-    />
-  )}
+		<Props
+			heading="Spotlight Props"
+			props={require('!!extract-react-types-loader!../src/components/spotlight')}
+		/>
+	)}
 
   ## SpotlightCard
 
@@ -48,20 +48,20 @@ export default md`
   If you need to include more than one action, make sure the primary action is listed first. It will automatically be displayed on the right-hand side, but it will still recieve focus before the secondary action.
 
   ${(
-    <Example
-      packageName="@atlaskit/onboarding"
-      Component={require('../examples/00-different-spotlights').default}
-      title="Spotlight Cards"
-      source={require('!!raw-loader!../examples/00-different-spotlights')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/onboarding"
+			Component={require('../examples/00-different-spotlights').default}
+			title="Spotlight Cards"
+			source={require('!!raw-loader!../examples/00-different-spotlights')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="SpotlightCard Props"
-      props={require('!!extract-react-types-loader!../src/components/spotlight-card')}
-    />
-  )}
+		<Props
+			heading="SpotlightCard Props"
+			props={require('!!extract-react-types-loader!../src/components/spotlight-card')}
+		/>
+	)}
 
   ## Benefits Modal
 
@@ -69,19 +69,19 @@ export default md`
   benefits of the change to the user.
 
   ${(
-    <Example
-      packageName="@atlaskit/onboarding"
-      Component={require('../examples/99-modal-basic').default}
-      title="Benefits Modal"
-      source={require('!!raw-loader!../examples/99-modal-basic')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/onboarding"
+			Component={require('../examples/99-modal-basic').default}
+			title="Benefits Modal"
+			source={require('!!raw-loader!../examples/99-modal-basic')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Benefits Modal Props"
-      props={require('!!extract-react-types-loader!../src/components/modal')}
-    />
-  )}
+		<Props
+			heading="Benefits Modal Props"
+			props={require('!!extract-react-types-loader!../src/components/modal')}
+		/>
+	)}
 
 `;

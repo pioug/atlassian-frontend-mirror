@@ -8,11 +8,13 @@ import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const integrationButtonCopyWrapperStyle = css`
 	display: flex;
 	justify-content: left;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 const integrationIconWrapperStyle = css`
 	margin: ${token('space.025', '2px')} ${token('space.100', '8px')} ${token('space.0', '0px')}
 		${token('space.0', '0px')};

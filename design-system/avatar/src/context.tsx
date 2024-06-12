@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 import { type SizeType } from './types';
 
 export type AvatarContextProps = {
-  size: SizeType;
+	size: SizeType;
 };
 
 /**
@@ -19,8 +19,6 @@ export type AvatarContextProps = {
  * </AvatarContext.Provider>
  * ```
  */
-export const AvatarContext = createContext<AvatarContextProps | undefined>(
-  undefined,
-);
+export const AvatarContext = createContext<AvatarContextProps | undefined>(undefined);
 
 export const useAvatarContext = () => useContext(AvatarContext);

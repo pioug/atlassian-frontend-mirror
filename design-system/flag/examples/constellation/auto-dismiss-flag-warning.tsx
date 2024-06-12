@@ -8,49 +8,49 @@ import { Box } from '@atlaskit/primitives';
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
 const AutoDismissFlagWarningExample = () => {
-  const [flags, setFlags] = React.useState<Array<number>>([]);
+	const [flags, setFlags] = React.useState<Array<number>>([]);
 
-  const addFlag = () => {
-    const newFlagId = flags.length + 1;
-    const newFlags = flags.slice();
-    newFlags.splice(0, 0, newFlagId);
+	const addFlag = () => {
+		const newFlagId = flags.length + 1;
+		const newFlags = flags.slice();
+		newFlags.splice(0, 0, newFlagId);
 
-    setFlags(newFlags);
-  };
+		setFlags(newFlags);
+	};
 
-  const handleDismiss = () => {
-    setFlags(flags.slice(1));
-  };
+	const handleDismiss = () => {
+		setFlags(flags.slice(1));
+	};
 
-  return (
-    <Box>
-{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-      <p style={{ padding: token('space.200', '16px') }}>
-        <Button appearance="primary" onClick={addFlag}>
-          Add flag
-        </Button>
-      </p>
-      <FlagGroup onDismissed={handleDismiss}>
-        {flags.map((flagId) => {
-          return (
-            <AutoDismissFlag
-              appearance="warning"
-              id={flagId}
-              icon={
-                <WarningIcon
-                  label="Warning"
-                  secondaryColor={token('color.background.warning.bold')}
-                />
-              }
-              key={flagId}
-              title={`#${flagId} I'm a warning`}
-              description="I will auto dismiss after 8 seconds."
-            />
-          );
-        })}
-      </FlagGroup>
-    </Box>
-  );
+	return (
+		<Box>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<p style={{ padding: token('space.200', '16px') }}>
+				<Button appearance="primary" onClick={addFlag}>
+					Add flag
+				</Button>
+			</p>
+			<FlagGroup onDismissed={handleDismiss}>
+				{flags.map((flagId) => {
+					return (
+						<AutoDismissFlag
+							appearance="warning"
+							id={flagId}
+							icon={
+								<WarningIcon
+									label="Warning"
+									secondaryColor={token('color.background.warning.bold')}
+								/>
+							}
+							key={flagId}
+							title={`#${flagId} I'm a warning`}
+							description="I will auto dismiss after 8 seconds."
+						/>
+					);
+				})}
+			</FlagGroup>
+		</Box>
+	);
 };
 
 export default AutoDismissFlagWarningExample;

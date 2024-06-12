@@ -83,6 +83,7 @@ export default class ToolsDrawer extends React.Component<any, State> {
 	render() {
 		const { reloadEditor, jsonDocument } = this.state;
 		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<div css={content}>
 				{reloadEditor
 					? ''

@@ -32,10 +32,13 @@ const dragHandleButtonStyles = css({
 	flexDirection: 'column',
 	justifyContent: 'center',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: DRAG_HANDLE_HEIGHT,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: DRAG_HANDLE_WIDTH,
 	border: 'none',
 	background: 'transparent',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
 	color: token('color.icon', '#44546F'),
 	cursor: 'grab',
@@ -74,7 +77,7 @@ export const DragHandle = ({
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
 
-	const handleClick = useCallback(() => {
+	const handleOnClick = useCallback(() => {
 		setDragHandleSelected(!dragHandleSelected);
 		api?.core?.actions.execute(({ tr }) => {
 			if (start === undefined) {
@@ -88,6 +91,22 @@ export const DragHandle = ({
 
 		api?.core?.actions.focus();
 	}, [start, api, dragHandleSelected, setDragHandleSelected, nodeType]);
+
+	// handleMouseDown required along with onClick to ensure the correct selection
+	// is set immediately when the drag handle is clicked. Otherwise browser native
+	// drag and drop can take over and cause unpredictable behaviour.
+	const handleMouseDown = useCallback(() => {
+		api?.core?.actions.execute(({ tr }) => {
+			if (start === undefined) {
+				return tr;
+			}
+
+			tr = selectNode(tr, start, nodeType);
+			tr.setMeta(key, { pos: start });
+			return tr;
+		});
+		api?.core?.actions.focus();
+	}, [start, api, nodeType]);
 
 	useEffect(() => {
 		const element = buttonRef.current;
@@ -171,8 +190,10 @@ export const DragHandle = ({
 			type="button"
 			css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
 			ref={buttonRef}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={positionStyles}
-			onClick={handleClick}
+			onClick={handleOnClick}
+			onMouseDown={handleMouseDown}
 			data-testid="block-ctrl-drag-handle"
 		>
 			<DragHandlerIcon label="" size="medium" />

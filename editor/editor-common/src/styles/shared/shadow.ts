@@ -26,19 +26,23 @@ const shadowWidth = 8;
  */
 
 const shadowSharedStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowClassNames.RIGHT_SHADOW}::before, .${shadowClassNames.RIGHT_SHADOW}::after, .${shadowClassNames.LEFT_SHADOW}::before, .${shadowClassNames.LEFT_SHADOW}::after`]:
 		{
 			display: 'none',
 			position: 'absolute',
 			pointerEvents: 'none',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			zIndex: akEditorShadowZIndex,
 			width: `${shadowWidth}px`,
 			content: "''",
 			height: 'calc(100%)',
 		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowClassNames.RIGHT_SHADOW}, .${shadowClassNames.LEFT_SHADOW}`]: {
 		position: 'relative',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowClassNames.LEFT_SHADOW}::before`]: {
 		background: `linear-gradient( to left, transparent 0, ${token(
 			'elevation.shadow.overflow.spread',
@@ -51,6 +55,7 @@ const shadowSharedStyle = css({
 		left: 0,
 		display: 'block',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowClassNames.RIGHT_SHADOW}::after`]: {
 		background: `linear-gradient( to right, transparent 0, ${token(
 			'elevation.shadow.overflow.spread',
@@ -63,11 +68,13 @@ const shadowSharedStyle = css({
 		top: '0px',
 		display: 'block',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowObserverClassNames.SENTINEL_LEFT}`]: {
 		height: '100%',
 		width: '0px',
 		minWidth: '0px',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${shadowObserverClassNames.SENTINEL_RIGHT}`]: {
 		height: '100%',
 		width: '0px',
@@ -75,4 +82,5 @@ const shadowSharedStyle = css({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export { shadowSharedStyle };

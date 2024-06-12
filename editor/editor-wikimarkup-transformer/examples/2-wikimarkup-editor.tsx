@@ -11,6 +11,7 @@ import { WikiMarkupTransformer } from '../src';
 const container = css({
 	display: 'grid',
 	gridTemplateColumns: '33% 33% 33%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#source, #output': {
 		border: '2px solid',
 		margin: token('space.100', '8px'),
@@ -19,11 +20,13 @@ const container = css({
 		'&:focus': {
 			outline: 'none',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:empty:not(:focus)::before': {
 			content: 'attr(data-placeholder)',
 			fontSize: '14px',
 		},
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#source': {
 		fontSize: 'xx-small',
 	},

@@ -18,6 +18,7 @@ import { createCollabProviderFactory } from '../src/providers/collab-provider';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const wrapper: any = css({
 	position: 'absolute',
 	top: 0,
@@ -29,11 +30,13 @@ export const wrapper: any = css({
 	boxSizing: 'border-box',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const toolbar = css({
 	borderBottom: `1px dashed ${token('color.border.disabled', N50)}`,
 	padding: token('space.200', '16px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const clipboardZone: any = css({
 	maxWidth: '500px',
 	display: 'flex',
@@ -41,6 +44,7 @@ export const clipboardZone: any = css({
 	alignItems: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const copyWrapper: any = css({
 	border: 'none',
 	background: 'none',

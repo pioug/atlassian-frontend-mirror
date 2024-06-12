@@ -5,14 +5,14 @@ import NodeResolver from 'react-node-resolver';
 import { TargetConsumer } from './spotlight-manager';
 
 interface SpotlightTargetProps {
-  /**
-   * A single child.
-   */
-  children: ReactNode;
-  /**
-   * The name to reference from Spotlight.
-   */
-  name: string;
+	/**
+	 * A single child.
+	 */
+	children: ReactNode;
+	/**
+	 * The name to reference from Spotlight.
+	 */
+	name: string;
 }
 
 /**
@@ -25,16 +25,16 @@ interface SpotlightTargetProps {
  * - [Usage](https://atlassian.design/components/onboarding/usage)
  */
 const SpotlightTarget = ({ children, name }: SpotlightTargetProps) => (
-  <TargetConsumer>
-    {(targetRef) =>
-      targetRef ? (
-        <NodeResolver innerRef={targetRef(name)}>
-          <>{children}</>
-        </NodeResolver>
-      ) : (
-        children
-      )
-    }
-  </TargetConsumer>
+	<TargetConsumer>
+		{(targetRef) =>
+			targetRef ? (
+				<NodeResolver innerRef={targetRef(name)}>
+					<>{children}</>
+				</NodeResolver>
+			) : (
+				children
+			)
+		}
+	</TargetConsumer>
 );
 export default SpotlightTarget;

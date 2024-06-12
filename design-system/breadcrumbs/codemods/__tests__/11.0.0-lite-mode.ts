@@ -6,10 +6,10 @@ import transformer from '../11.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Rename Breadcrumbs component and delete hasSeperator', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Breadcrumbs, {BreadcrumbsItem} from "@atlaskit/breadcrumbs";
 
@@ -20,7 +20,7 @@ describe('Rename Breadcrumbs component and delete hasSeperator', () => {
       </Breadcrumbs>
       );
     `,
-    `
+		`
       import React from "react";
       import Breadcrumbs, {BreadcrumbsItem} from "@atlaskit/breadcrumbs";
 
@@ -31,12 +31,12 @@ describe('Rename Breadcrumbs component and delete hasSeperator', () => {
       </Breadcrumbs>
       );
     `,
-    'should delete hasSeparator when found it',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should delete hasSeparator when found it',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import { BreadcrumbsStateless, BreadcrumbsItem } from "@atlaskit/breadcrumbs";
 
@@ -47,7 +47,7 @@ describe('Rename Breadcrumbs component and delete hasSeperator', () => {
       </BreadcrumbsStateless>
       );
     `,
-    `
+		`
       import React from "react";
       import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
@@ -58,12 +58,12 @@ describe('Rename Breadcrumbs component and delete hasSeperator', () => {
       </Breadcrumbs>
       );
     `,
-    'should rename BreadcrumbsStateless when found it',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should rename BreadcrumbsStateless when found it',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import { BreadcrumbsStateless as BCControlled, BreadcrumbsItem as Item } from "@atlaskit/breadcrumbs";
 
@@ -74,7 +74,7 @@ describe('Rename Breadcrumbs component and delete hasSeperator', () => {
       </BCControlled>
       );
     `,
-    `
+		`
       import React from "react";
       import BCControlled, { BreadcrumbsItem as Item } from '@atlaskit/breadcrumbs';
 
@@ -85,12 +85,12 @@ describe('Rename Breadcrumbs component and delete hasSeperator', () => {
       </BCControlled>
       );
     `,
-    'should elevate and rename BreadcrumbsStateless when alias is used',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		'should elevate and rename BreadcrumbsStateless when alias is used',
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import { BreadcrumbsStateless, BreadcrumbsItem } from "@atlaskit/breadcrumbs";
 
@@ -101,7 +101,7 @@ describe('Rename Breadcrumbs component and delete hasSeperator', () => {
       </BreadcrumbsStateless>
       );
     `,
-    `
+		`
       import React from "react";
       import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 
@@ -112,6 +112,6 @@ describe('Rename Breadcrumbs component and delete hasSeperator', () => {
       </Breadcrumbs>
       );
     `,
-    'should rename BreadcrumbsStateless and delete hasSeparator when found it',
-  );
+		'should rename BreadcrumbsStateless and delete hasSeparator when found it',
+	);
 });

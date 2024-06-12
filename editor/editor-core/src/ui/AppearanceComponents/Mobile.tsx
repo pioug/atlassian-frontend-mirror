@@ -39,6 +39,7 @@ const mobileEditor = css({
 	maxWidth: 'inherit',
 	boxSizing: 'border-box',
 	wordWrap: 'break-word',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'div > .ProseMirror': {
 		outline: 'none',
 		whiteSpace: 'pre-wrap',

@@ -11,82 +11,82 @@ import InlineShouldWrap from '../../../../examples/16-inline-should-wrap';
 import InlineGrow from '../../../../examples/17-inline-grow';
 
 snapshot(InlineBasic, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(InlineSeparator, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(InlineSpace, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(InlineAlignBlock, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(InlineAlignInline, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(InlineSpread, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(InlineShouldWrap, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 snapshot(InlineGrow, {
-  variants: [
-    {
-      name: 'Light',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });

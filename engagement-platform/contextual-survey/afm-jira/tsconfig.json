@@ -1,0 +1,46 @@
+{
+  "extends": "../../../../tsconfig.products.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__contextual-survey/app",
+    "composite": true,
+    "rootDir": "../",
+    "baseUrl": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../../design-system/button/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/checkbox/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/form/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/textarea/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+    }
+  ]
+}

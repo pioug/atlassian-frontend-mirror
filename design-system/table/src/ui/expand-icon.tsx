@@ -16,10 +16,10 @@ import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
  * An icon used to display the expanded state in an `<ExpandableCell>`.
  */
 export const ExpandIcon = memo(({ isExpanded }: { isExpanded: boolean }) => {
-  switch (isExpanded) {
-    case true:
-      return <ChevronUpIcon size="small" label="" primaryColor="inherit" />;
-    case false:
-      return <ChevronDownIcon size="small" label="" primaryColor="inherit" />;
-  }
+	switch (isExpanded) {
+		case true:
+			return <ChevronUpIcon size="small" label="" primaryColor="inherit" />;
+		case false:
+			return <ChevronDownIcon size="small" label="" primaryColor="inherit" />;
+	}
 });

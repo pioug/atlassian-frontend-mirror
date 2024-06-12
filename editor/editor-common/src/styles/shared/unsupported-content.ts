@@ -18,7 +18,7 @@ export const UnsupportedSharedCssClassName = {
 const inlineUnsupportedSelector = `.${UnsupportedSharedCssClassName.INLINE_CONTAINER} > span:nth-of-type(2)`;
 const blockUnsupportedSelector = `.${UnsupportedSharedCssClassName.BLOCK_CONTAINER} > div`;
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Nested `getSelectionStyles` would need a rebuild to autofix
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const unsupportedStyles = css`
 	${blockUnsupportedSelector}, ${inlineUnsupportedSelector} {
 		cursor: pointer;

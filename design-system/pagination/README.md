@@ -10,4 +10,5 @@ yarn add @atlaskit/pagination
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlassian.design/components/pagination/).
+Detailed docs and example usage can be found
+[here](https://atlassian.design/components/pagination/).

@@ -17,18 +17,18 @@ import DropdownMenu, { DropdownItemGroupRadio, DropdownItemRadio } from @atlaski
   `}
 
   ${(
-    <Example
-      packageName="@atlaskit/dropdown-menu"
-      Component={require('../examples/07-dropdown-item-radio').default}
-      title=""
-      source={require('!!raw-loader!../examples/07-dropdown-item-radio')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/dropdown-menu"
+			Component={require('../examples/07-dropdown-item-radio').default}
+			title=""
+			source={require('!!raw-loader!../examples/07-dropdown-item-radio')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="Props"
-      props={require('!!extract-react-types-loader!../src/radio/dropdown-item-radio')}
-    />
-  )}
+		<Props
+			heading="Props"
+			props={require('!!extract-react-types-loader!../src/radio/dropdown-item-radio')}
+		/>
+	)}
 `;

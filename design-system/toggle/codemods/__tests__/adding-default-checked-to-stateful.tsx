@@ -3,17 +3,15 @@ jest.autoMockOff();
 import { addingDefaultCheckedToStateful } from '../migrates/adding-default-checked-to-stateful';
 import { createTransformer } from '../utils';
 
-const transformer = createTransformer('@atlaskit/toggle', [
-  addingDefaultCheckedToStateful,
-]);
+const transformer = createTransformer('@atlaskit/toggle', [addingDefaultCheckedToStateful]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Add defaultChecked to stateful toggle', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -21,7 +19,7 @@ describe('Add defaultChecked to stateful toggle', () => {
       <Toggle size="large" />
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -29,13 +27,13 @@ describe('Add defaultChecked to stateful toggle', () => {
       <Toggle size="large" defaultChecked={false} />
     );
     `,
-    'add defaultChecked to Toggle to make it stateful - default export',
-  );
+		'add defaultChecked to Toggle to make it stateful - default export',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -43,7 +41,7 @@ describe('Add defaultChecked to stateful toggle', () => {
       <Toggle size="large" defaultChecked={true} />
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -51,13 +49,13 @@ describe('Add defaultChecked to stateful toggle', () => {
       <Toggle size="large" defaultChecked={true} />
     );
     `,
-    'do not change value of defaultChecked',
-  );
+		'do not change value of defaultChecked',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -67,7 +65,7 @@ describe('Add defaultChecked to stateful toggle', () => {
       <Toggle size="large" defaultChecked={checked} />
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle from '@atlaskit/toggle';
 
@@ -77,13 +75,13 @@ describe('Add defaultChecked to stateful toggle', () => {
       <Toggle size="large" defaultChecked={checked} />
     );
     `,
-    'do not change value of defaultChecked when value provided as variable',
-  );
+		'do not change value of defaultChecked when value provided as variable',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import { ToggleStateless } from '@atlaskit/toggle';
 
@@ -91,7 +89,7 @@ describe('Add defaultChecked to stateful toggle', () => {
       <ToggleStateless size="large" isChecked />
     );
     `,
-    `
+		`
     import React from 'react';
     import { ToggleStateless } from '@atlaskit/toggle';
 
@@ -99,13 +97,13 @@ describe('Add defaultChecked to stateful toggle', () => {
       <ToggleStateless size="large" isChecked />
     );
     `,
-    'do nothing to ToggleStateless',
-  );
+		'do nothing to ToggleStateless',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Toggle, { ToggleStateless } from '@atlaskit/toggle';
 
@@ -116,7 +114,7 @@ describe('Add defaultChecked to stateful toggle', () => {
       </>
     );
     `,
-    `
+		`
     import React from 'react';
     import Toggle, { ToggleStateless } from '@atlaskit/toggle';
 
@@ -127,6 +125,6 @@ describe('Add defaultChecked to stateful toggle', () => {
       </>
     );
     `,
-    'skip ToggleStateless',
-  );
+		'skip ToggleStateless',
+	);
 });

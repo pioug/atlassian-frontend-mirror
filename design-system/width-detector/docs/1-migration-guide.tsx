@@ -9,29 +9,29 @@ export default md`
   ${code`import { WidthObserver } from '@atlaskit/width-detector';`}
 
   ${(
-    <Example
-      packageName="@atlaskit/width-detector"
-      Component={require('../examples/4-on-resize-width-observer').default}
-      title="Basic WidthObserver"
-      source={require('!!raw-loader!../examples/4-on-resize-width-observer')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/width-detector"
+			Component={require('../examples/4-on-resize-width-observer').default}
+			title="Basic WidthObserver"
+			source={require('!!raw-loader!../examples/4-on-resize-width-observer')}
+		/>
+	)}
 
   ${(
-    <Example
-      packageName="@atlaskit/width-detector"
-      Component={require('../examples/5-resizing-box-width-observer').default}
-      title="Resizing box"
-      source={require('!!raw-loader!../examples/5-resizing-box-width-observer')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/width-detector"
+			Component={require('../examples/5-resizing-box-width-observer').default}
+			title="Resizing box"
+			source={require('!!raw-loader!../examples/5-resizing-box-width-observer')}
+		/>
+	)}
 
   ${(
-    <Props
-      heading="WidthObserver Props"
-      props={require('!!extract-react-types-loader!../src/WidthObserver/index')}
-    />
-  )}
+		<Props
+			heading="WidthObserver Props"
+			props={require('!!extract-react-types-loader!../src/WidthObserver/index')}
+		/>
+	)}
 
   ## Migration guide
 

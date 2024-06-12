@@ -1,4 +1,6 @@
-Using private or experimental packages is dangerous as they are not supported across major versions meaning you will not be able to migrate easily causing friction for yourself and the Atlassian Design System team.
+Using private or experimental packages is dangerous as they are not supported across major versions
+meaning you will not be able to migrate easily causing friction for yourself and the Atlassian
+Design System team.
 
 ## Examples
 

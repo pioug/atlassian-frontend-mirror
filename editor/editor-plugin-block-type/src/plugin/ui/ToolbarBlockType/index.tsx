@@ -93,7 +93,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 		if (!this.props.isDisabled && !blockTypesDisabled) {
 			const items = this.createItems();
 			return (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<span css={wrapperStyle}>
 					<DropdownMenu
 						items={items}
@@ -130,7 +130,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					</DropdownMenu>
 					{!api?.primaryToolbar && (
 						<span
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							css={separatorStyles}
 						/>
 					)}
@@ -139,7 +139,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 		}
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<span css={wrapperStyle}>
 				<BlockTypeButton
 					isSmall={isSmall}
@@ -156,7 +156,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 
 				{!api?.primaryToolbar && (
 					<span
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={separatorStyles}
 					/>
 				)}
@@ -195,7 +195,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 
 			return {
 				content: (
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={blockTypeMenuItemStyle(tagName, isActive)}>
 						<Tag>{formatMessage(blockType.title)}</Tag>
 					</div>
@@ -206,7 +206,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 				keyShortcuts: getAriaKeyshortcuts(keyMap),
 				key: `${blockType.name}-${index}`,
 				elemAfter: (
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={[keyboardShortcut, isActive && keyboardShortcutSelect]}>{tooltip(keyMap)}</div>
 				),
 				isActive,

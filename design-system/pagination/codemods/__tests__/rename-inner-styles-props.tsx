@@ -9,10 +9,10 @@ const transformer = createTransformer([renameInnerStylesProps]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Rename innerStyles to style', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
     
@@ -27,7 +27,7 @@ describe('Rename innerStyles to style', () => {
       );
     }
   `,
-    `
+		`
     import React from 'react';
     import Pagination from '@atlaskit/pagination';
     
@@ -42,6 +42,6 @@ describe('Rename innerStyles to style', () => {
       );
     }
   `,
-    'should rename innerStyles prop to style prop',
-  );
+		'should rename innerStyles prop to style prop',
+	);
 });

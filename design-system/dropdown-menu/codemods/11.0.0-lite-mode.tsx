@@ -11,41 +11,41 @@ import deprecateOnItemActivated from './migrates/deprecate-onItemActivated';
 import deprecateOnPositioned from './migrates/deprecate-onPositioned';
 import deprecateShouldFitContainer from './migrates/deprecate-shouldFitContainer';
 import {
-  renameDropdownItemGroupCheckbox,
-  renameDropdownItemGroupRadio,
-  renameDropdownMenuStateless,
+	renameDropdownItemGroupCheckbox,
+	renameDropdownItemGroupRadio,
+	renameDropdownMenuStateless,
 } from './migrates/rename-imports';
 import updatePositionValue from './migrates/replace-position-to-placement';
 import replaceShouldAllowMultiline from './migrates/replace-shouldAllowMultiline';
 import {
-  updateDropdownItemGroupCheckboxCallsite,
-  updateDropdownItemGroupRadioCallsite,
+	updateDropdownItemGroupCheckboxCallsite,
+	updateDropdownItemGroupRadioCallsite,
 } from './migrates/update-component-callsites';
 
 const transformer = createTransformer([
-  deprecateItems,
-  deprecateOnItemActivated,
-  deprecateOnPositioned,
-  deprecateShouldFitContainer,
-  deprecateboundariesElement,
-  deprecateIsMenuFixed,
+	deprecateItems,
+	deprecateOnItemActivated,
+	deprecateOnPositioned,
+	deprecateShouldFitContainer,
+	deprecateboundariesElement,
+	deprecateIsMenuFixed,
 
-  // props on *Items
-  ...deprecateAutoFocus(),
-  ...deprecateIsCompact(),
-  ...deprecateIsHidden(),
+	// props on *Items
+	...deprecateAutoFocus(),
+	...deprecateIsCompact(),
+	...deprecateIsHidden(),
 
-  replaceShouldAllowMultiline,
-  updatePositionValue,
+	replaceShouldAllowMultiline,
+	updatePositionValue,
 
-  renameDropdownItemGroupCheckbox,
-  renameDropdownItemGroupRadio,
-  renameDropdownMenuStateless,
+	renameDropdownItemGroupCheckbox,
+	renameDropdownItemGroupRadio,
+	renameDropdownMenuStateless,
 
-  updateDropdownItemGroupCheckboxCallsite,
-  updateDropdownItemGroupRadioCallsite,
+	updateDropdownItemGroupCheckboxCallsite,
+	updateDropdownItemGroupRadioCallsite,
 
-  convertTriggerType,
+	convertTriggerType,
 ]);
 
 export default transformer;

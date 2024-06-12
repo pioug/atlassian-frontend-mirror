@@ -463,6 +463,7 @@ export const EmojiNodeWrapper = forwardRef<
 			data-testid={`${type}-emoji-${emoji.shortName}`}
 			data-emoji-type={type}
 			tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={type === 'sprite' ? emojiSpriteContainer : emojiImageContainer}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}

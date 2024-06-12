@@ -1,6 +1,9 @@
-Disallows any `styled` tagged template expressions that originate from a CSS-in-JS library, including `@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
+Disallows any `styled` tagged template expressions that originate from a CSS-in-JS library,
+including `@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
 
-Tagged template expressions are difficult to parse correctly (which can lead to more frequent build failures or invalid CSS generation), have limited type safety, and lack syntax highlighting. These problems can be avoided by using the preferred call expression syntax instead.
+Tagged template expressions are difficult to parse correctly (which can lead to more frequent build
+failures or invalid CSS generation), have limited type safety, and lack syntax highlighting. These
+problems can be avoided by using the preferred call expression syntax instead.
 
 The `--fix` option on the command line automatically fixes problems reported by this rule.
 
@@ -12,21 +15,21 @@ The `--fix` option on the command line automatically fixes problems reported by 
 import { styled } from '@compiled/react';
 
 const InlinedStyles = styled.div`
-  color: blue;
+	color: blue;
 `;
 
 const MultilineStyles = styled.div`
-  color: blue;
-  font-weight: 500;
+	color: blue;
+	font-weight: 500;
 `;
 
 const ComposedStyles = styled(InlinedStyles)`
-  font-weight: 500;
+	font-weight: 500;
 `;
 
 const DynamicStyles = styled.div`
-  color: ${(props) => props.color};
-  ${(props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1')}
+	color: ${(props) => props.color};
+	${(props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1')}
 `;
 ```
 
@@ -36,23 +39,23 @@ const DynamicStyles = styled.div`
 import { styled } from '@compiled/react';
 
 const InlinedStyles = styled.div({
-  color: 'blue',
+	color: 'blue',
 });
 
 const MultilineStyles = styled.div({
-  color: 'blue',
-  fontWeight: 500,
+	color: 'blue',
+	fontWeight: 500,
 });
 
 const ComposedStyles = styled(InlinedStyles)({
-  fontWeight: 500,
+	fontWeight: 500,
 });
 
 const DynamicStyles = styled.div(
-  {
-    color: (props) => props.color,
-  },
-  (props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1'),
+	{
+		color: (props) => props.color,
+	},
+	(props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1'),
 );
 ```
 
@@ -70,7 +73,8 @@ By default, this rule will check `styled` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an
+array of package names (strings).
 
 ```tsx
 // [{ importSources: ['other-lib'] }]
@@ -104,25 +108,26 @@ Instead, style the button directly—make it clear that you're styling that butt
 ```tsx
 const buttonStyles = css({ color: 'blue' });
 const Wrapper = styled.div({
-  color: 'red',
+	color: 'red',
 });
 
 <Wrapper>
-  <button css={buttonStyles} />
+	<button css={buttonStyles} />
 </Wrapper>;
 ```
 
-If that's not feasible, you can use data attributes, but these will result in failing the UI Styling Standard around nested styles, pushing the error down the road.
+If that's not feasible, you can use data attributes, but these will result in failing the UI Styling
+Standard around nested styles, pushing the error down the road.
 
 ```tsx
 const Wrapper = styled.div({
-  color: 'red',
-  '[data-component-selector="my.button"]': {
-    color: 'blue',
-  },
+	color: 'red',
+	'[data-component-selector="my.button"]': {
+		color: 'blue',
+	},
 });
 
 <Wrapper>
-  <button data-component-selector="my.button" />
+	<button data-component-selector="my.button" />
 </Wrapper>;
 ```

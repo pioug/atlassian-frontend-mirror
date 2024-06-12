@@ -38,7 +38,6 @@ import type {
 import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
 import { hideConfirmDialog } from './pm-plugins/toolbar-data/commands';
@@ -239,10 +238,19 @@ export function ContentComponent({
 > & {
 	pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 }) {
-	const { floatingToolbarState, editorDisabledState, editorViewModeState } = useSharedPluginState(
-		pluginInjectionApi,
-		['floatingToolbar', 'editorDisabled', 'editorViewMode'],
-	);
+	const {
+		floatingToolbarState,
+		editorDisabledState,
+		editorViewModeState,
+		featureFlagsState,
+		blockControlsState,
+	} = useSharedPluginState(pluginInjectionApi, [
+		'floatingToolbar',
+		'editorDisabled',
+		'editorViewMode',
+		'featureFlags',
+		'blockControls',
+	]);
 
 	const { configWithNodeInfo, floatingToolbarData } = floatingToolbarState ?? {};
 
@@ -255,10 +263,7 @@ export function ContentComponent({
 		return null;
 	}
 
-	if (
-		getBooleanFF('platform.editor.drag-and-drop_wmv9t') &&
-		pluginInjectionApi?.blockControls?.sharedState?.currentState()?.isDragging
-	) {
+	if (featureFlagsState?.elementDragAndDrop && blockControlsState?.isDragging) {
 		return null;
 	}
 

@@ -5,12 +5,11 @@ import LoadingSpinner from './shared/loading-spinner';
 import { type BaseProps } from './types';
 
 export type LoadingButtonOwnProps = {
-  /* Conditionally show a spinner over the top of a button */
-  isLoading?: boolean;
+	/* Conditionally show a spinner over the top of a button */
+	isLoading?: boolean;
 };
 
-export type LoadingButtonProps = Omit<BaseProps, 'overlay'> &
-  LoadingButtonOwnProps;
+export type LoadingButtonProps = Omit<BaseProps, 'overlay'> & LoadingButtonOwnProps;
 
 /**
  * __Loading button__
@@ -22,39 +21,32 @@ export type LoadingButtonProps = Omit<BaseProps, 'overlay'> &
  * - [Examples](https://atlassian.design/components/button/examples#loading-button)
  */
 const LoadingButton = React.forwardRef(function LoadingButton(
-  {
-    appearance,
-    isDisabled,
-    isSelected,
-    isLoading = false,
-    spacing,
-    ...rest
-  }: LoadingButtonProps,
-  ref: React.Ref<HTMLElement>,
+	{ appearance, isDisabled, isSelected, isLoading = false, spacing, ...rest }: LoadingButtonProps,
+	ref: React.Ref<HTMLElement>,
 ) {
-  // Button already has React.memo, so just leaning on that
-  return (
-    <Button
-      {...rest}
-      ref={ref}
-      appearance={appearance}
-      // No need to render aria-disabled when it is false
-      aria-disabled={isLoading || undefined}
-      isDisabled={isDisabled}
-      isSelected={isSelected}
-      overlay={
-        isLoading ? (
-          <LoadingSpinner
-            spacing={spacing}
-            appearance={appearance}
-            isDisabled={isDisabled}
-            isSelected={isSelected}
-          />
-        ) : null
-      }
-      spacing={spacing}
-    />
-  );
+	// Button already has React.memo, so just leaning on that
+	return (
+		<Button
+			{...rest}
+			ref={ref}
+			appearance={appearance}
+			// No need to render aria-disabled when it is false
+			aria-disabled={isLoading || undefined}
+			isDisabled={isDisabled}
+			isSelected={isSelected}
+			overlay={
+				isLoading ? (
+					<LoadingSpinner
+						spacing={spacing}
+						appearance={appearance}
+						isDisabled={isDisabled}
+						isSelected={isSelected}
+					/>
+				) : null
+			}
+			spacing={spacing}
+		/>
+	);
 });
 
 // Tools including enzyme rely on components having a display name

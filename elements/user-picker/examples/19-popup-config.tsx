@@ -8,9 +8,10 @@ import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { PopupUserPicker } from '../src';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const MenuPlaceholder = styled.div((props) => ({
 	minWidth: token('space.150', '12px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	visibility: props ? 'visible' : 'hidden',
 	marginLeft: token('space.050', '4px'),
 	position: 'relative',

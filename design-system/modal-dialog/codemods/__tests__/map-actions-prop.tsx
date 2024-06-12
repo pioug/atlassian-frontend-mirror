@@ -7,12 +7,12 @@ const transformer = createTransformer([mapActionsProp]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('map actions prop', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
       import React, { useState } from 'react';
       import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 
@@ -42,7 +42,7 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `
+				`
       import React, { useState } from 'react';
       import Button from "@atlaskit/button/standard-button";
       import Modal, { ModalTransition, ModalFooter } from "@atlaskit/modal-dialog";
@@ -76,12 +76,12 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `should map the actions prop to ModalFooter buttons, add autoFocus primary button, flip buttons when appearance is not present on actions`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should map the actions prop to ModalFooter buttons, add autoFocus primary button, flip buttons when appearance is not present on actions`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
       import React, { useState } from 'react';
       import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
       const actions = [];
@@ -111,7 +111,7 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `
+				`
       import React, { useState } from 'react';
       import Button from "@atlaskit/button/standard-button";
       import Modal, { ModalTransition, ModalFooter } from "@atlaskit/modal-dialog";
@@ -151,12 +151,12 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `should add the comment when there are multiple variables as with same name as actions prop`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should add the comment when there are multiple variables as with same name as actions prop`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
       import React, { useState } from 'react';
       import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 
@@ -186,7 +186,7 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `
+				`
       import React, { useState } from 'react';
       import Button from "@atlaskit/button/standard-button";
       import Modal, { ModalTransition, ModalFooter } from "@atlaskit/modal-dialog";
@@ -219,12 +219,12 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `should map the actions prop to ModalFooter buttons, shouldn't autoFocus primary button, shouldn't flip buttons when appearance is present on any actions item`,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should map the actions prop to ModalFooter buttons, shouldn't autoFocus primary button, shouldn't flip buttons when appearance is present on any actions item`,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
       import React, { useState } from 'react';
       import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
       import Button from "@atlaskit/button/standard-button";
@@ -254,7 +254,7 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `
+				`
       import React, { useState } from 'react';
       import Modal, { ModalTransition, ModalFooter } from "@atlaskit/modal-dialog";
       import Button from "@atlaskit/button/standard-button";
@@ -286,12 +286,12 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `should map the actions prop to ModalFooter buttons and take apperance prop from modal, should autoFocus primary button and flip actions buttons `,
-      );
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+				`should map the actions prop to ModalFooter buttons and take apperance prop from modal, should autoFocus primary button and flip actions buttons `,
+			);
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
       import React, { useState } from 'react';
       import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 
@@ -327,7 +327,7 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `
+				`
       import React, { useState } from 'react';
       import Button from "@atlaskit/button/standard-button";
       import Modal, { ModalTransition, ModalFooter } from "@atlaskit/modal-dialog";
@@ -364,13 +364,13 @@ describe('map actions prop', () => {
         );
       }
     `,
-        `should map the actions prop to ModalFooter buttons, not take apperance prop from modal, not add autoFocus and not flip buttons when apperance is defined in actions`,
-      );
+				`should map the actions prop to ModalFooter buttons, not take apperance prop from modal, not add autoFocus and not flip buttons when apperance is defined in actions`,
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React, { useState } from 'react';
     import Modal, { ModalTransition } from '@atlaskit/modal-dialog';
 
@@ -399,7 +399,7 @@ describe('map actions prop', () => {
       );
     }
     `,
-        `
+				`
     import React, { useState } from 'react';
     import Button from "@atlaskit/button/standard-button";
     import Modal, { ModalTransition, ModalFooter } from "@atlaskit/modal-dialog";
@@ -429,8 +429,8 @@ describe('map actions prop', () => {
       );
     }
     `,
-        `should map the actions prop to ModalFooter buttons, NOT add autoFocus and NOT flip buttons when actions are not declared in the same file`,
-      );
-    });
-  });
+				`should map the actions prop to ModalFooter buttons, NOT add autoFocus and NOT flip buttons when actions are not declared in the same file`,
+			);
+		});
+	});
 });

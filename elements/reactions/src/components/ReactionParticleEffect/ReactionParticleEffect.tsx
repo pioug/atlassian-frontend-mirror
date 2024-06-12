@@ -18,9 +18,11 @@ interface ReactionParticleEffectProps {
 }
 
 export const ReactionParticleEffect = ({ emojiProvider, emojiId }: ReactionParticleEffectProps) => (
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	<div css={containerStyle}>
 		{[...Array(PARTICLE_COUNT)].map((_, index) => {
 			return (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div key={index} css={reactionParticleStyle}>
 					<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} fitToHeight={16} />
 				</div>

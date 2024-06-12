@@ -22,6 +22,7 @@ export class CustomOption extends React.PureComponent<CustomOptionProps> {
 		return [
 			<span
 				key="name"
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={textWrapper(
 					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
 				)}
@@ -33,6 +34,7 @@ export class CustomOption extends React.PureComponent<CustomOptionProps> {
 
 	private getBylineComponent = (isSelected: boolean, message: string) => (
 		<span
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={textWrapper(
 				isSelected ? token('color.text.selected', B400) : token('color.text.subtlest', N200),
 			)}

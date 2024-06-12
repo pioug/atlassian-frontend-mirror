@@ -15,28 +15,31 @@ import ResponsiveGrid from '../../examples/constellation/grid/responsive';
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 <CodeDocsHeader
-  name="@atlaskit/primitives"
-  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
-  directoryName="primitives"
+	name="@atlaskit/primitives"
+	repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+	directoryName="primitives"
 />
 
 ## Basic
 
-The `Grid` component is designed as a very basic mapping to the CSS Grid API.
-It can be used as an alternative to [Flex](/components/primitives/flex), [Inline](/components/primitives/inline) or [Stack](/components/primitives/stack).
+The `Grid` component is designed as a very basic mapping to the CSS Grid API. It can be used as an
+alternative to [Flex](/components/primitives/flex), [Inline](/components/primitives/inline) or
+[Stack](/components/primitives/stack).
 
 <Example Component={GridBasic} packageName="@atlaskit/primitives/grid" />
 
 ## Gap properties
 
-Gap properties `rowGap`, `columnGap` and `gap` only allow token-backed values. This is to aid ergonomics and keep the whitespace of the grid harmonious with the spacing system.
+Gap properties `rowGap`, `columnGap` and `gap` only allow token-backed values. This is to aid
+ergonomics and keep the whitespace of the grid harmonious with the spacing system.
 
 <Example Component={GridGap} packageName="@atlaskit/primitives/grid" />
 
 ## Template syntax
 
-Grid-prefixed template properties in CSS do not have this prefix in the component API.
-For example `grid-template-*` are instead applied as `templateColumns`, `templateRows` and `templateArea` properties.
+Grid-prefixed template properties in CSS do not have this prefix in the component API. For example
+`grid-template-*` are instead applied as `templateColumns`, `templateRows` and `templateArea`
+properties.
 
 ### Template columns
 
@@ -58,13 +61,15 @@ Template areas enables grid to declare the grid areas are applied in the templat
 
 ## Autoflow syntax
 
-Grid-prefixed properties in CSS do not have this prefix in the component API. `grid-auto-flow` is instead applied via `autoFlow`.
+Grid-prefixed properties in CSS do not have this prefix in the component API. `grid-auto-flow` is
+instead applied via `autoFlow`.
 
 <Example Component={GridAutoFlow} packageName="@atlaskit/primitives/grid" />
 
 ## Responsive grid
 
-Here, we construct a grid layout that adapts from a single column to a four-column layout depending on the viewport size.
+Here, we construct a grid layout that adapts from a single column to a four-column layout depending
+on the viewport size.
 
 <Example Component={ResponsiveGrid} packageName="@atlaskit/primitives/grid" />
 

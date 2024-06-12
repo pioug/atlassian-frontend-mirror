@@ -5,7 +5,7 @@ const prop = 'innerProps';
 const childProps = ['style', 'className'];
 
 export const flattenCertainInnerPropsAsProp = flattenCertainChildPropsAsProp(
-  component,
-  prop,
-  childProps,
+	component,
+	prop,
+	childProps,
 );

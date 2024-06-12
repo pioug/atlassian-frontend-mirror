@@ -5,5 +5,5 @@ import LinkConfiguredExample from '../../../../../examples/50-link-configured';
 import { themeVariants } from './utils';
 
 snapshot(LinkConfiguredExample, {
-  variants: themeVariants,
+	variants: themeVariants,
 });

@@ -14,10 +14,10 @@ export default md`
   For a more in-depth look at how to approach loading states have our _work in progress_ [Skeleton exploration](https://hello.atlassian.net/wiki/spaces/ADG/pages/598816601/Loading+experiences+-+3.4+-+Guideline+exploration+-+Skeleton#Exploration-(spec)) (only Atlassians will be able to access this link unfortuntely).
 
   ${(
-    <Example
-      title="Loading skeleton"
-      Component={require('../examples/loading-skeleton').default}
-      source={require('!!raw-loader!../examples/loading-skeleton')}
-    />
-  )}
+		<Example
+			title="Loading skeleton"
+			Component={require('../examples/loading-skeleton').default}
+			source={require('!!raw-loader!../examples/loading-skeleton')}
+		/>
+	)}
 `;

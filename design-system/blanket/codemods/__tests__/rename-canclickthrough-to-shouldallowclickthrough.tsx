@@ -7,10 +7,10 @@ const transformer = createTransformer([renameCanClickThrough]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Blanket codemods', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
 
@@ -22,7 +22,7 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
 
@@ -34,12 +34,12 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `should rename the "canClickThrough" prop to "shouldAllowClickThrough" prop`,
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		`should rename the "canClickThrough" prop to "shouldAllowClickThrough" prop`,
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
 
@@ -51,7 +51,7 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
 
@@ -63,12 +63,12 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `should rename the "canClickThrough" prop to "shouldAllowClickThrough" prop`,
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		`should rename the "canClickThrough" prop to "shouldAllowClickThrough" prop`,
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
 
@@ -82,7 +82,7 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
 
@@ -96,12 +96,12 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `should rename only "canClickThrough" prop and leave other props unaffected`,
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		`should rename only "canClickThrough" prop and leave other props unaffected`,
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
     const shouldAllowClickThrough = false;
@@ -115,7 +115,7 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
     const shouldAllowClickThrough = false;
@@ -129,12 +129,12 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `should rename the "canClickThrough" prop when its value is a variable`,
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+		`should rename the "canClickThrough" prop when its value is a variable`,
+	);
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
     const shouldAllowClickThrough = false;
@@ -148,7 +148,7 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `
+		`
     import React from 'react';
     import Blanket from '@atlaskit/blanket';
     const shouldAllowClickThrough = false;
@@ -162,6 +162,6 @@ describe('Blanket codemods', () => {
       );
     }
     `,
-    `should rename the "canClickThrough" prop when its value is a complex expression`,
-  );
+		`should rename the "canClickThrough" prop when its value is a complex expression`,
+	);
 });

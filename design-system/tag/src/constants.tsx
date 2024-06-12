@@ -22,23 +22,23 @@ export const textPaddingRight = token('space.200', `${2 * gridSizeValue}px`);
 export const textMarginLeft = tagHeight;
 
 export const cssVar = {
-  color: {
-    background: {
-      default: '--ds-cb',
-      hover: '--ds-cbh',
-      active: '--ds-cba',
-    },
-    focusRing: '--ds-cfr',
-    text: {
-      default: '--ds-ct',
-      hover: '--ds-cth',
-      active: '--ds-ctp',
-      link: '--ds-ctl',
-    },
-    removeButton: {
-      default: '--ds-rb',
-      hover: '--ds-rbh',
-    },
-  },
-  borderRadius: '--ds-br',
+	color: {
+		background: {
+			default: '--ds-cb',
+			hover: '--ds-cbh',
+			active: '--ds-cba',
+		},
+		focusRing: '--ds-cfr',
+		text: {
+			default: '--ds-ct',
+			hover: '--ds-cth',
+			active: '--ds-ctp',
+			link: '--ds-ctl',
+		},
+		removeButton: {
+			default: '--ds-rb',
+			hover: '--ds-rbh',
+		},
+	},
+	borderRadius: '--ds-br',
 };

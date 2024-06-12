@@ -5,8 +5,8 @@ import { bindAll } from 'bind-event-listener';
 import { ESCAPE } from '../utils/keycodes';
 
 interface UseCloseOnEscapePressOpts {
-  onClose: (e: KeyboardEvent) => void;
-  isDisabled?: boolean;
+	onClose: (e: KeyboardEvent) => void;
+	isDisabled?: boolean;
 }
 
 /**
@@ -22,43 +22,43 @@ interface UseCloseOnEscapePressOpts {
  * ```
  */
 export default function useCloseOnEscapePress({
-  onClose,
-  isDisabled,
+	onClose,
+	isDisabled,
 }: UseCloseOnEscapePressOpts): void {
-  const escapePressed = useRef(false);
+	const escapePressed = useRef(false);
 
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (isDisabled || escapePressed.current || e.key !== ESCAPE) {
-        // We're either already handling the key down event or it's not escape.
-        // Bail early!
-        return;
-      }
+	const onKeyDown = useCallback(
+		(e: KeyboardEvent) => {
+			if (isDisabled || escapePressed.current || e.key !== ESCAPE) {
+				// We're either already handling the key down event or it's not escape.
+				// Bail early!
+				return;
+			}
 
-      escapePressed.current = true;
-      onClose(e);
-    },
-    [onClose, isDisabled],
-  );
+			escapePressed.current = true;
+			onClose(e);
+		},
+		[onClose, isDisabled],
+	);
 
-  const onKeyUp = useCallback(() => {
-    escapePressed.current = false;
-  }, []);
+	const onKeyUp = useCallback(() => {
+		escapePressed.current = false;
+	}, []);
 
-  useEffect(() => {
-    return bindAll(
-      document,
-      [
-        {
-          type: 'keydown',
-          listener: onKeyDown,
-        },
-        {
-          type: 'keyup',
-          listener: onKeyUp,
-        },
-      ],
-      { capture: false },
-    );
-  }, [onKeyDown, onKeyUp]);
+	useEffect(() => {
+		return bindAll(
+			document,
+			[
+				{
+					type: 'keydown',
+					listener: onKeyDown,
+				},
+				{
+					type: 'keyup',
+					listener: onKeyUp,
+				},
+			],
+			{ capture: false },
+		);
+	}, [onKeyDown, onKeyUp]);
 }

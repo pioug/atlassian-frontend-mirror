@@ -8,15 +8,15 @@ import { token } from '@atlaskit/tokens';
 // IE11 and Edge: z-index needed because fixed position calculates z-index relative
 // to body instead of nearest stacking context (Portal in our case).
 const blanketStyles = css({
-  position: 'fixed',
-  zIndex: layers.spotlight(),
-  inset: 0,
-  transition: 'opacity 220ms',
+	position: 'fixed',
+	zIndex: layers.spotlight(),
+	inset: 0,
+	transition: 'opacity 220ms',
 });
 
 type BlanketProps = {
-  isTinted?: boolean;
-  style?: React.CSSProperties;
+	isTinted?: boolean;
+	style?: React.CSSProperties;
 };
 
 /**
@@ -31,20 +31,18 @@ type BlanketProps = {
  * @internal
  */
 const Blanket = (props: BlanketProps) => {
-  return (
-    <div
-      css={blanketStyles}
-// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-      style={
-        {
-          ...props.style,
-          backgroundColor: props.isTinted
-            ? token('color.blanket', N100A)
-            : 'transparent',
-        } as React.CSSProperties
-      }
-    />
-  );
+	return (
+		<div
+			css={blanketStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={
+				{
+					...props.style,
+					backgroundColor: props.isTinted ? token('color.blanket', N100A) : 'transparent',
+				} as React.CSSProperties
+			}
+		/>
+	);
 };
 
 export default Blanket;

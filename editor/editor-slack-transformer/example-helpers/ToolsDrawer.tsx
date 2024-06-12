@@ -92,6 +92,7 @@ export default function ToolsDrawer({ renderEditor }: Props) {
 	};
 
 	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={content}>
 			<div style={{ padding: `${token('space.075', '6px')} 0` }}>️️️Slack Editor</div>
 			{reloadEditor

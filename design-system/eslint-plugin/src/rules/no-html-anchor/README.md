@@ -1,6 +1,12 @@
-Don't use native HTML anchors. The Atlassian Design System provides ready-made link components that include event tracking, automatic router configuration, ensure accessible implementations, and provide access to ADS styling features like design tokens.
+Don't use native HTML anchors. The Atlassian Design System provides ready-made link components that
+include event tracking, automatic router configuration, ensure accessible implementations, and
+provide access to ADS styling features like design tokens.
 
-Use Atlassian Design System components such as the [Link](/components/link/) or [LinkButton](/components/button/link-button/) components when suitable. There may also be other components better-suited depending on the use case. If these components aren't suitable, use the [Anchor primitive](/components/primitives/anchor/) which helps you build custom links with Atlassian Design System styling.
+Use Atlassian Design System components such as the [Link](/components/link/) or
+[LinkButton](/components/button/link-button/) components when suitable. There may also be other
+components better-suited depending on the use case. If these components aren't suitable, use the
+[Anchor primitive](/components/primitives/anchor/) which helps you build custom links with Atlassian
+Design System styling.
 
 ## Examples
 

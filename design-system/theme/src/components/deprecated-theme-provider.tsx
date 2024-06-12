@@ -7,8 +7,8 @@ import type { ThemeModes } from '../types';
 import AtlaskitThemeProvider from './atlaskit-theme-provider';
 
 export type DeprecatedThemeProviderProps = PropsWithChildren<{
-  mode?: ThemeModes;
-  provider: ComponentType<any>;
+	mode?: ThemeModes;
+	provider: ComponentType<any>;
 }>;
 
 /**
@@ -20,15 +20,11 @@ export type DeprecatedThemeProviderProps = PropsWithChildren<{
  * @deprecated
  */
 const CompatThemeProvider = memo(
-  ({
-    mode = DEFAULT_THEME_MODE,
-    provider: Provider,
-    children,
-  }: DeprecatedThemeProviderProps) => (
-    <Provider theme={{ [CHANNEL]: { mode } }}>
-      <AtlaskitThemeProvider mode={mode}>{children}</AtlaskitThemeProvider>
-    </Provider>
-  ),
+	({ mode = DEFAULT_THEME_MODE, provider: Provider, children }: DeprecatedThemeProviderProps) => (
+		<Provider theme={{ [CHANNEL]: { mode } }}>
+			<AtlaskitThemeProvider mode={mode}>{children}</AtlaskitThemeProvider>
+		</Provider>
+	),
 );
 
 export default CompatThemeProvider;

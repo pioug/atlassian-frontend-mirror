@@ -14,7 +14,7 @@ https://atlassian.design/components/tabs/examples#customizing-tab-panel
 `;
 
 export const removeComponentsProp = createRemoveFuncWithDefaultSpecifierFor(
-  '@atlaskit/tabs',
-  'components',
-  comment,
+	'@atlaskit/tabs',
+	'components',
+	comment,
 );

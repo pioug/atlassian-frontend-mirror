@@ -1,4 +1,5 @@
-Using the visually hidden component allows you to delete bespoke or legacy theme code and replace it with a ready made solution by the Atlassian Design System Team.
+Using the visually hidden component allows you to delete bespoke or legacy theme code and replace it
+with a ready made solution by the Atlassian Design System Team.
 
 ## Examples
 

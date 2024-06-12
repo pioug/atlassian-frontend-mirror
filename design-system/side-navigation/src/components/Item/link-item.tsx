@@ -2,10 +2,7 @@ import React, { forwardRef } from 'react';
 
 import { LinkItem as Link, type LinkItemProps } from '@atlaskit/menu';
 
-import {
-  baseSideNavItemStyle,
-  overrideStyleFunction,
-} from '../../common/styles';
+import { baseSideNavItemStyle, overrideStyleFunction } from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
 export type { LinkItemProps } from '@atlaskit/menu';
@@ -22,17 +19,17 @@ export type { LinkItemProps } from '@atlaskit/menu';
  * - [Code](https://atlassian.design/components/side-navigation/code)
  */
 const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
-  // Type needed on props to extract types with extract react types.
-  ({ cssFn, href, ...rest }: LinkItemProps, ref) => {
-    const { shouldRender } = useShouldNestedElementRender();
-    if (!shouldRender) {
-      return null;
-    }
+	// Type needed on props to extract types with extract react types.
+	({ cssFn, href, ...rest }: LinkItemProps, ref) => {
+		const { shouldRender } = useShouldNestedElementRender();
+		if (!shouldRender) {
+			return null;
+		}
 
-    const cssOverride = overrideStyleFunction(baseSideNavItemStyle, cssFn);
-    // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
-    return <Link ref={ref} cssFn={cssOverride} href={href} {...rest} />;
-  },
+		const cssOverride = overrideStyleFunction(baseSideNavItemStyle, cssFn);
+		// eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
+		return <Link ref={ref} cssFn={cssOverride} href={href} {...rest} />;
+	},
 );
 
 export default LinkItem;

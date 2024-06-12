@@ -1,6 +1,9 @@
 This rule enforces passing dynamic CSS values to the `style` prop in JSX components.
 
-We only want `props.style` to be used for dynamic values that cannot be easily determined at build time, e.g. `<div style={{ width: props.width }}>`. No statics values such as numbers, strings or any other statically analysable values should be passed to the `style` attribute. Instead, static CSS values should be passed into the `css` prop in JSX components.
+We only want `props.style` to be used for dynamic values that cannot be easily determined at build
+time, e.g. `<div style={{ width: props.width }}>`. No statics values such as numbers, strings or any
+other statically analysable values should be passed to the `style` attribute. Instead, static CSS
+values should be passed into the `css` prop in JSX components.
 
 ## Examples
 
@@ -8,14 +11,14 @@ We only want `props.style` to be used for dynamic values that cannot be easily d
 
 ```tsx
 function Component() {
-  return (
-    <div
-      style={{
-        margin: 0,
-        color: 'red',
-      }}
-    />
-  );
+	return (
+		<div
+			style={{
+				margin: 0,
+				color: 'red',
+			}}
+		/>
+	);
 }
 ```
 
@@ -23,14 +26,14 @@ function Component() {
 
 ```tsx
 function Component(props) {
-  return (
-    <div
-      style={{
-        width: props.width,
-        '--my-nested-width': props.width,
-      }}
-      css={css({ margin: 0, color: 'red' })}
-    />
-  );
+	return (
+		<div
+			style={{
+				width: props.width,
+				'--my-nested-width': props.width,
+			}}
+			css={css({ margin: 0, color: 'red' })}
+		/>
+	);
 }
 ```

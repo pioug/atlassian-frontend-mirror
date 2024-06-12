@@ -133,7 +133,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		);
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<span css={wrapperStyle}>
 				<Dropdown
 					mountTo={popupsMountPoint}
@@ -166,14 +166,14 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 							onKeyDown={this.onKeyDown}
 							ref={this.toolbarItemRef}
 							iconBefore={
-								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								<div css={triggerWrapperStyles}>
 									<SteppedRainbowIconDecoration
 										selectedColor={selectedColor}
 										disabled={pluginState.disabled}
 										icon={<EditorTextColorIcon />}
 									/>
-									{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 									<span css={expandIconWrapperStyle}>
 										<ExpandIcon label="" />
 									</span>
@@ -202,6 +202,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 				</Dropdown>
 				{!pluginInjectionApi?.primaryToolbar && (
 					/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					<span css={separatorStyles} />
 				)}
 			</span>

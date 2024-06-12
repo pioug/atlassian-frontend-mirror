@@ -7,12 +7,12 @@ const transformer = createTransformer([mapContainerFromProps]);
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('map container from props', () => {
-  ['tsx', 'babylon'].forEach((parser) => {
-    describe(`parser: ${parser}`, () => {
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+	['tsx', 'babylon'].forEach((parser) => {
+		describe(`parser: ${parser}`, () => {
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -34,7 +34,7 @@ describe('map container from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -58,13 +58,13 @@ describe('map container from props', () => {
       );
     }
     `,
-        'should invoke Container declared as shorthand with children passed as argument',
-      );
+				'should invoke Container declared as shorthand with children passed as argument',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -86,7 +86,7 @@ describe('map container from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -110,13 +110,13 @@ describe('map container from props', () => {
       );
     }
     `,
-        'should invoke Container declared as assigned variable with children passed as argument',
-      );
+				'should invoke Container declared as assigned variable with children passed as argument',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -137,7 +137,7 @@ describe('map container from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -158,13 +158,13 @@ describe('map container from props', () => {
       );
     }
     `,
-        'should wrap Container declared as string around children',
-      );
+				'should wrap Container declared as string around children',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -191,7 +191,7 @@ describe('map container from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -218,13 +218,13 @@ describe('map container from props', () => {
       );
     }
     `,
-        'should invoke Container declared as a function expression with children passed as argument',
-      );
+				'should invoke Container declared as a function expression with children passed as argument',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -241,7 +241,7 @@ describe('map container from props', () => {
       );
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -258,13 +258,13 @@ describe('map container from props', () => {
       );
     }
     `,
-        'should do nothing if components definition is not an inline object expression',
-      );
+				'should do nothing if components definition is not an inline object expression',
+			);
 
-      defineInlineTest(
-        { default: transformer, parser },
-        {},
-        `
+			defineInlineTest(
+				{ default: transformer, parser },
+				{},
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -289,7 +289,7 @@ describe('map container from props', () => {
       }
     }
     `,
-        `
+				`
     import React from 'react';
 
     import ModalDialog from '@atlaskit/modal-dialog';
@@ -316,8 +316,8 @@ describe('map container from props', () => {
       }
     }
     `,
-        'should invoke Container of a modal dialog declared as class component',
-      );
-    });
-  });
+				'should invoke Container of a modal dialog declared as class component',
+			);
+		});
+	});
 });

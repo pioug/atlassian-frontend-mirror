@@ -7,33 +7,31 @@ import { FadeIn } from '../src';
 import { Block, Centered, RetryContainer } from './utils';
 
 export default () => {
-  const directions = [
-    undefined,
-    'top' as const,
-    'right' as const,
-    'bottom' as const,
-    'left' as const,
-  ];
-  const [direction, setDirection] = useState(0);
+	const directions = [
+		undefined,
+		'top' as const,
+		'right' as const,
+		'bottom' as const,
+		'left' as const,
+	];
+	const [direction, setDirection] = useState(0);
 
-  return (
-    <RetryContainer>
-      <Centered>
-        <FadeIn entranceDirection={directions[direction]}>
-          {(props) => <Block {...props} />}
-        </FadeIn>
-      </Centered>
-      <Centered>
-        <Button
-          onClick={() => {
-            setDirection((direction + 1) % directions.length);
-          }}
-        >
-          {directions[direction] !== undefined
-            ? `Enter from ${directions[direction]}`
-            : 'No Motion'}
-        </Button>
-      </Centered>
-    </RetryContainer>
-  );
+	return (
+		<RetryContainer>
+			<Centered>
+				<FadeIn entranceDirection={directions[direction]}>{(props) => <Block {...props} />}</FadeIn>
+			</Centered>
+			<Centered>
+				<Button
+					onClick={() => {
+						setDirection((direction + 1) % directions.length);
+					}}
+				>
+					{directions[direction] !== undefined
+						? `Enter from ${directions[direction]}`
+						: 'No Motion'}
+				</Button>
+			</Centered>
+		</RetryContainer>
+	);
 };

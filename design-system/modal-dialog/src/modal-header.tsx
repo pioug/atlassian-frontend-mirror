@@ -7,26 +7,26 @@ import { useModal } from './hooks';
 import { keylineHeight, padding } from './internal/constants';
 
 const headerStyles = css({
-  display: 'flex',
-  padding: padding,
-  position: 'relative',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  paddingBlockEnd: `${padding - keylineHeight}px`,
+	display: 'flex',
+	padding: padding,
+	position: 'relative',
+	alignItems: 'center',
+	justifyContent: 'space-between',
+	paddingBlockEnd: `${padding - keylineHeight}px`,
 });
 
 export interface ModalHeaderProps {
-  /**
-   * Children of modal dialog header.
-   */
-  children?: React.ReactNode;
+	/**
+	 * Children of modal dialog header.
+	 */
+	children?: React.ReactNode;
 
-  /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
-   */
-  testId?: string;
+	/**
+	 * A `testId` prop is provided for specified elements,
+	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests.
+	 */
+	testId?: string;
 }
 
 /**
@@ -39,16 +39,16 @@ export interface ModalHeaderProps {
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
 const ModalHeader = (props: ModalHeaderProps) => {
-  const { children, testId: userDefinedTestId } = props;
-  const { testId: modalTestId } = useModal();
+	const { children, testId: userDefinedTestId } = props;
+	const { testId: modalTestId } = useModal();
 
-  const testId = userDefinedTestId || (modalTestId && `${modalTestId}--header`);
+	const testId = userDefinedTestId || (modalTestId && `${modalTestId}--header`);
 
-  return (
-    <div css={headerStyles} data-testid={testId}>
-      {children}
-    </div>
-  );
+	return (
+		<div css={headerStyles} data-testid={testId}>
+			{children}
+		</div>
+	);
 };
 
 export default ModalHeader;

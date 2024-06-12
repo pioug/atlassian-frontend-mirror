@@ -9,13 +9,13 @@ import GroupTitle from '../internal/components/group-title';
 import { SelectionStoreContext } from '../internal/context/selection-store';
 import resetOptionsInGroup from '../internal/utils/reset-options-in-group';
 interface DropdownItemRadioGroupProps extends SectionProps {
-  id: string;
+	id: string;
 }
 
 interface RadioGroupContextProps {
-  id: string;
-  radioGroupState: { [key: string]: boolean | undefined };
-  selectRadioItem: (id: string, value: boolean) => void;
+	id: string;
+	radioGroupState: { [key: string]: boolean | undefined };
+	selectRadioItem: (id: string, value: boolean) => void;
 }
 
 /**
@@ -23,9 +23,9 @@ interface RadioGroupContextProps {
  * Context provider that wraps each DropdownItemRadioGroup
  */
 export const RadioGroupContext = createContext<RadioGroupContextProps>({
-  id: '',
-  radioGroupState: {},
-  selectRadioItem: noop,
+	id: '',
+	radioGroupState: {},
+	selectRadioItem: noop,
 });
 
 /**
@@ -35,62 +35,56 @@ export const RadioGroupContext = createContext<RadioGroupContextProps>({
  *
  */
 const DropdownItemRadioGroup = ({
-  children,
-  hasSeparator,
-  id,
-  isList,
-  isScrollable,
-  overrides,
-  testId,
-  title,
-  // DSP-13312 TODO: remove spread props in future major release
-  ...rest
+	children,
+	hasSeparator,
+	id,
+	isList,
+	isScrollable,
+	overrides,
+	testId,
+	title,
+	// DSP-13312 TODO: remove spread props in future major release
+	...rest
 }: DropdownItemRadioGroupProps) => {
-  const { setGroupState, getGroupState } = useContext(SelectionStoreContext);
-  const uid = useUID();
-  const titleId = `dropdown-menu-item-radio-group-title-${uid}`;
+	const { setGroupState, getGroupState } = useContext(SelectionStoreContext);
+	const uid = useUID();
+	const titleId = `dropdown-menu-item-radio-group-title-${uid}`;
 
-  /**
-   *  - initially `radioGroupState` is from selection store, so it's safe to update without re-rendering
-   *  - we flush a render by updating this local radio group state
-   */
-  const [radioGroupState, setRadioGroupState] = useState(() =>
-    getGroupState(id),
-  );
+	/**
+	 *  - initially `radioGroupState` is from selection store, so it's safe to update without re-rendering
+	 *  - we flush a render by updating this local radio group state
+	 */
+	const [radioGroupState, setRadioGroupState] = useState(() => getGroupState(id));
 
-  const selectRadioItem = (childId: string, value: boolean) => {
-    const newValue = {
-      ...resetOptionsInGroup(getGroupState(id)),
-      [childId]: value,
-    };
+	const selectRadioItem = (childId: string, value: boolean) => {
+		const newValue = {
+			...resetOptionsInGroup(getGroupState(id)),
+			[childId]: value,
+		};
 
-    setRadioGroupState(newValue);
-    setGroupState(id, newValue);
-  };
+		setRadioGroupState(newValue);
+		setGroupState(id, newValue);
+	};
 
-  return (
-    <RadioGroupContext.Provider
-      value={{ id, radioGroupState, selectRadioItem }}
-    >
-      <Section
-        hasSeparator={hasSeparator}
-        id={id}
-        isList={isList}
-        isScrollable={isScrollable}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
-        overrides={overrides}
-        testId={testId}
-        titleId={title ? titleId : undefined}
-        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-        {...rest}
-      >
-        {title && (
-          <GroupTitle id={titleId} title={title} />
-        )}
-        {children}
-      </Section>
-    </RadioGroupContext.Provider>
-  );
+	return (
+		<RadioGroupContext.Provider value={{ id, radioGroupState, selectRadioItem }}>
+			<Section
+				hasSeparator={hasSeparator}
+				id={id}
+				isList={isList}
+				isScrollable={isScrollable}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
+				overrides={overrides}
+				testId={testId}
+				titleId={title ? titleId : undefined}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
+			>
+				{title && <GroupTitle id={titleId} title={title} />}
+				{children}
+			</Section>
+		</RadioGroupContext.Provider>
+	);
 };
 
 export default DropdownItemRadioGroup;

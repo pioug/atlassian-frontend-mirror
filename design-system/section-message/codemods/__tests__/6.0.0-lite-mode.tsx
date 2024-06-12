@@ -3,10 +3,10 @@ import transformer from '../6.0.0-lite-mode';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('section message codemod', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import SectionMessage from "@atlaskit/section-message";
 
@@ -24,7 +24,7 @@ describe('section message codemod', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import SectionMessage, { SectionMessageAction } from "@atlaskit/section-message";
 
@@ -47,13 +47,13 @@ describe('section message codemod', () => {
       />
     );
     `,
-    'should transform both appearance and actions prop',
-  );
+		'should transform both appearance and actions prop',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import SectionMessage from "@atlaskit/section-message";
 
@@ -71,7 +71,7 @@ describe('section message codemod', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import SectionMessage, { SectionMessageAction } from "@atlaskit/section-message";
 
@@ -94,13 +94,13 @@ describe('section message codemod', () => {
       />
     );
     `,
-    'should transform both appearance and actions prop when arranged in different order',
-  );
+		'should transform both appearance and actions prop when arranged in different order',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import SectionMessage from "@atlaskit/section-message";
 
@@ -119,7 +119,7 @@ describe('section message codemod', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import SectionMessage, { SectionMessageAction } from "@atlaskit/section-message";
 
@@ -143,13 +143,13 @@ describe('section message codemod', () => {
       />
     );
     `,
-    'should transform both appearance and actions prop when a prop is in between them',
-  );
+		'should transform both appearance and actions prop when a prop is in between them',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import SectionMessage from "@atlaskit/section-message";
 
@@ -167,7 +167,7 @@ describe('section message codemod', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import SectionMessage from "@atlaskit/section-message";
 
@@ -185,13 +185,13 @@ describe('section message codemod', () => {
       />
     );
     `,
-    'should transform only appearance prop',
-  );
+		'should transform only appearance prop',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import SectionMessage from "@atlaskit/section-message";
 
@@ -209,7 +209,7 @@ describe('section message codemod', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import SectionMessage, { SectionMessageAction } from "@atlaskit/section-message";
 
@@ -232,13 +232,13 @@ describe('section message codemod', () => {
       />
     );
     `,
-    'should transform only actions prop',
-  );
+		'should transform only actions prop',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import SectionMessage from "@atlaskit/section-message";
 
@@ -260,7 +260,7 @@ describe('section message codemod', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import SectionMessage, { SectionMessageAction } from "@atlaskit/section-message";
 
@@ -285,13 +285,13 @@ describe('section message codemod', () => {
         appearance="information" />
     );
     `,
-    'should transform both appearance and actions prop and move linkComponent to "SectionMessageAction"',
-  );
+		'should transform both appearance and actions prop and move linkComponent to "SectionMessageAction"',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import SectionMessage from "@atlaskit/section-message";
 
@@ -305,7 +305,7 @@ describe('section message codemod', () => {
       />
     );
     `,
-    `
+		`
     import React from "react";
     import SectionMessage from "@atlaskit/section-message";
 
@@ -315,6 +315,6 @@ describe('section message codemod', () => {
       <SectionMessage title="hello" appearance="information" />
     );
     `,
-    'should transform appearance prop and remove linkComponent prop if no actions prop is present',
-  );
+		'should transform appearance prop and remove linkComponent prop if no actions prop is present',
+	);
 });

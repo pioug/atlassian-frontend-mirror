@@ -6,44 +6,44 @@ import MarginExample from '../../../../examples/32-xcss-margin';
 import CompiledExample from '../../../../examples/xcss-compiled';
 
 snapshot(Example, {
-  variants: [
-    {
-      name: 'default',
-      environment: {},
-    },
-    {
-      name: 'light mode',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-    {
-      name: 'dark mode',
-      environment: {
-        colorScheme: 'dark',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'default',
+			environment: {},
+		},
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+		{
+			name: 'dark mode',
+			environment: {
+				colorScheme: 'dark',
+			},
+		},
+	],
 });
 
 snapshot(MarginExample, {
-  variants: [
-    {
-      name: 'light mode',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 
 snapshot(CompiledExample, {
-  variants: [
-    {
-      name: 'light mode',
-      environment: {
-        colorScheme: 'light',
-      },
-    },
-  ],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });

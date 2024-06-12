@@ -2,43 +2,37 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 
-import Modal, {
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-  ModalTransition,
-} from '../src';
+import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../src';
 
 export default function Example() {
-  const [isOpen, setIsOpen] = useState(false);
-  const close = () => setIsOpen(false);
-  const open = () => setIsOpen(true);
+	const [isOpen, setIsOpen] = useState(false);
+	const close = () => setIsOpen(false);
+	const open = () => setIsOpen(true);
 
-  return (
-    <>
-      <button onClick={open} type="button">
-        open modal
-      </button>
+	return (
+		<>
+			<button onClick={open} type="button">
+				open modal
+			</button>
 
-      <ModalTransition>
-        {isOpen && (
-          <Modal onClose={close}>
-            <ModalHeader>
-              <ModalTitle>Modal title</ModalTitle>
-            </ModalHeader>
-            <ModalBody>A simple Modal</ModalBody>
-            <ModalFooter>
-              <Button testId="primary" appearance="primary" onClick={close}>
-                Close
-              </Button>
-              <Button testId="secondary" appearance="subtle">
-                Secondary Action
-              </Button>
-            </ModalFooter>
-          </Modal>
-        )}
-      </ModalTransition>
-    </>
-  );
+			<ModalTransition>
+				{isOpen && (
+					<Modal onClose={close}>
+						<ModalHeader>
+							<ModalTitle>Modal title</ModalTitle>
+						</ModalHeader>
+						<ModalBody>A simple Modal</ModalBody>
+						<ModalFooter>
+							<Button testId="primary" appearance="primary" onClick={close}>
+								Close
+							</Button>
+							<Button testId="secondary" appearance="subtle">
+								Secondary Action
+							</Button>
+						</ModalFooter>
+					</Modal>
+				)}
+			</ModalTransition>
+		</>
+	);
 }

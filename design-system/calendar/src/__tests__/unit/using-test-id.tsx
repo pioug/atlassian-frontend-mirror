@@ -19,45 +19,40 @@ const testIdContainer = `${testId}--container`;
 const testIdColumnHeader = `${testId}--column-header`;
 
 describe('Calendar should be found by data-testid', () => {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth();
+	const today = new Date();
+	const year = today.getFullYear();
+	const month = today.getMonth();
 
-  const iso = dateToString({
-    year,
-    month,
-    day: today.getDate(),
-  });
+	const iso = dateToString({
+		year,
+		month,
+		day: today.getDate(),
+	});
 
-  cases(
-    'should be accessible via data-testid',
-    ({ selector }: { selector: string }) => {
-      const { queryAllByTestId, rerender, unmount } = render(
-        <Calendar
-          defaultSelected={[iso]}
-          month={month}
-          year={year}
-          testId={testId}
-        />,
-      );
-      expect(queryAllByTestId(selector).length).toBeGreaterThan(0);
+	cases(
+		'should be accessible via data-testid',
+		({ selector }: { selector: string }) => {
+			const { queryAllByTestId, rerender, unmount } = render(
+				<Calendar defaultSelected={[iso]} month={month} year={year} testId={testId} />,
+			);
+			expect(queryAllByTestId(selector).length).toBeGreaterThan(0);
 
-      rerender(<Calendar defaultSelected={[iso]} month={month} year={year} />);
-      expect(queryAllByTestId(selector).length).toBe(0);
+			rerender(<Calendar defaultSelected={[iso]} month={month} year={year} />);
+			expect(queryAllByTestId(selector).length).toBe(0);
 
-      unmount();
-    },
-    [
-      { name: 'Previous month button', selector: testIdPrevMonth },
-      { name: 'Next month button', selector: testIdNextMonth },
-      { name: 'Month', selector: testIdMonth },
-      { name: 'Weeks', selector: testIdWeek },
-      { name: 'Days', selector: testIdDay },
-      { name: 'Selected day', selector: testIdSelectedDay },
-      { name: 'Calendar dates', selector: testIdCalendarDates },
-      { name: 'Current month and year', selector: testIdCurrentMonthYear },
-      { name: 'Container', selector: testIdContainer },
-      { name: 'Column headers', selector: testIdColumnHeader },
-    ],
-  );
+			unmount();
+		},
+		[
+			{ name: 'Previous month button', selector: testIdPrevMonth },
+			{ name: 'Next month button', selector: testIdNextMonth },
+			{ name: 'Month', selector: testIdMonth },
+			{ name: 'Weeks', selector: testIdWeek },
+			{ name: 'Days', selector: testIdDay },
+			{ name: 'Selected day', selector: testIdSelectedDay },
+			{ name: 'Calendar dates', selector: testIdCalendarDates },
+			{ name: 'Current month and year', selector: testIdCurrentMonthYear },
+			{ name: 'Container', selector: testIdContainer },
+			{ name: 'Column headers', selector: testIdColumnHeader },
+		],
+	);
 });

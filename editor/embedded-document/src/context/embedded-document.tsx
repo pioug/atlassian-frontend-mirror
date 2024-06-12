@@ -16,6 +16,7 @@ const Content = styled.div({
 	lineHeight: '24px',
 	height: '100%',
 	width: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: `${akEditorFullPageMaxWidth + akEditorGutterPaddingDynamic() * 2}px`,
 	paddingTop: token('space.600', '48px'),
 	margin: '0 auto',
@@ -23,6 +24,7 @@ const Content = styled.div({
 	flexDirection: 'column',
 	flexGrow: 1,
 	paddingBottom: token('space.600', '48px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		padding: `0 ${token('space.400', '32px')}`,
 	},

@@ -5,5 +5,5 @@ import SplitButtonExample from '../../../examples/95-split-button';
 import { themeVariants } from './utils';
 
 snapshot(SplitButtonExample, {
-  variants: themeVariants,
+	variants: themeVariants,
 });

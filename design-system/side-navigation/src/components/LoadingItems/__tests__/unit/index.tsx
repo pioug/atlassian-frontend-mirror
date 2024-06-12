@@ -8,88 +8,72 @@ import { NestedContext } from '../../../NestableNavigationContent/context';
 import LoadingItems from '../../index';
 
 describe('<LoadingItems />', () => {
-  const markup = (loading: boolean = true) => (
-    <LoadingItems
-      testId="test"
-      isLoading={loading}
-      fallback={<div>loading...</div>}
-    >
-      <div>hello, world</div>
-    </LoadingItems>
-  );
+	const markup = (loading: boolean = true) => (
+		<LoadingItems testId="test" isLoading={loading} fallback={<div>loading...</div>}>
+			<div>hello, world</div>
+		</LoadingItems>
+	);
 
-  it('should not affect position when entering', () => {
-    const { getByTestId } = render(markup());
+	it('should not affect position when entering', () => {
+		const { getByTestId } = render(markup());
 
-    expect(getByTestId('test--entering')).not.toHaveStyleDeclaration(
-      'position',
-      'absolute',
-    );
-  });
+		expect(getByTestId('test--entering')).not.toHaveStyleDeclaration('position', 'absolute');
+	});
 
-  it('should position itself absolutely when exiting', () => {
-    const { getByTestId, rerender } = render(markup());
+	it('should position itself absolutely when exiting', () => {
+		const { getByTestId, rerender } = render(markup());
 
-    rerender(markup(false));
+		rerender(markup(false));
 
-    expect(getByTestId('test--exiting')).toHaveStyleDeclaration(
-      'position',
-      'absolute',
-    );
-  });
+		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('position', 'absolute');
+	});
 
-  it('should take up all the available space when exiting', () => {
-    const { getByTestId, rerender } = render(markup());
+	it('should take up all the available space when exiting', () => {
+		const { getByTestId, rerender } = render(markup());
 
-    rerender(markup(false));
+		rerender(markup(false));
 
-    expect(getByTestId('test--exiting')).toHaveStyleDeclaration('top', '0');
-    expect(getByTestId('test--exiting')).toHaveStyleDeclaration('left', '0');
-    expect(getByTestId('test--exiting')).toHaveStyleDeclaration('right', '0');
-  });
+		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('top', '0');
+		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('left', '0');
+		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('right', '0');
+	});
 
-  it('should position entering elements over exiting elements', () => {
-    const { getByTestId, rerender } = render(markup());
+	it('should position entering elements over exiting elements', () => {
+		const { getByTestId, rerender } = render(markup());
 
-    rerender(markup(false));
+		rerender(markup(false));
 
-    expect(getByTestId('test--exiting')).toHaveStyleDeclaration('z-index', '1');
-    expect(getByTestId('test--entering')).toHaveStyleDeclaration(
-      'z-index',
-      '2',
-    );
-  });
+		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('z-index', '1');
+		expect(getByTestId('test--entering')).toHaveStyleDeclaration('z-index', '2');
+	});
 
-  it('should use medium duration', () => {
-    const { getByTestId, rerender } = render(markup());
+	it('should use medium duration', () => {
+		const { getByTestId, rerender } = render(markup());
 
-    rerender(markup(false));
+		rerender(markup(false));
 
-    expect(getByTestId('test--exiting')).toHaveStyleDeclaration(
-      'animation-duration',
-      '175ms',
-    );
-  });
+		expect(getByTestId('test--exiting')).toHaveStyleDeclaration('animation-duration', '175ms');
+	});
 
-  it('should render nothing when not apart of the active view', () => {
-    const { queryByTestId } = render(
-      <NestedContext.Provider
-        value={{
-          currentStackId: '1',
-          parentId: '2',
-          onNest: __noop,
-          onUnNest: __noop,
-          stack: [],
-          forceShowTopScrollIndicator: false,
-          childIds: jest
-            .spyOn(React, 'useRef')
-            .mockReturnValue({ current: new Set<string>() }) as any,
-        }}
-      >
-        {markup()}
-      </NestedContext.Provider>,
-    );
+	it('should render nothing when not apart of the active view', () => {
+		const { queryByTestId } = render(
+			<NestedContext.Provider
+				value={{
+					currentStackId: '1',
+					parentId: '2',
+					onNest: __noop,
+					onUnNest: __noop,
+					stack: [],
+					forceShowTopScrollIndicator: false,
+					childIds: jest
+						.spyOn(React, 'useRef')
+						.mockReturnValue({ current: new Set<string>() }) as any,
+				}}
+			>
+				{markup()}
+			</NestedContext.Provider>,
+		);
 
-    expect(queryByTestId('test--entering')).toBeNull();
-  });
+		expect(queryByTestId('test--entering')).toBeNull();
+	});
 });

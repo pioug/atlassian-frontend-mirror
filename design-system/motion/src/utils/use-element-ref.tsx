@@ -9,10 +9,10 @@ export type CallbackRef = (instance: Element) => void;
  * as the types don't flow through as one would expect.
  */
 export const useElementRef = (): [Element, CallbackRef] => {
-  const elementRef = useRef<Element>(null);
-  const setRef: CallbackRef = useCallback((ref: Element) => {
-    elementRef.current = ref;
-  }, []);
+	const elementRef = useRef<Element>(null);
+	const setRef: CallbackRef = useCallback((ref: Element) => {
+		elementRef.current = ref;
+	}, []);
 
-  return [elementRef.current, setRef];
+	return [elementRef.current, setRef];
 };

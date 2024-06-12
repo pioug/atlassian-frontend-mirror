@@ -7,35 +7,35 @@ import { axe } from '@af/accessibility-testing';
 import Checkbox from '../../checkbox';
 
 describe('Checkbox Accessibility jest-axe', () => {
-  const props = {
-    value: 'Basic checkbox',
-    label: 'Basic checkbox',
-    name: 'checkbox-basic',
-    testId: 'the-checkbox',
-  };
+	const props = {
+		value: 'Basic checkbox',
+		label: 'Basic checkbox',
+		name: 'checkbox-basic',
+		testId: 'the-checkbox',
+	};
 
-  it('Checkbox should not fail an aXe audit', async () => {
-    const { container } = render(<Checkbox {...props} />);
-    await axe(container);
-  });
+	it('Checkbox should not fail an aXe audit', async () => {
+		const { container } = render(<Checkbox {...props} />);
+		await axe(container);
+	});
 
-  it('Checked Checkbox should not fail an aXe audit', async () => {
-    const { container } = render(<Checkbox {...props} isChecked />);
-    await axe(container);
-  });
+	it('Checked Checkbox should not fail an aXe audit', async () => {
+		const { container } = render(<Checkbox {...props} isChecked />);
+		await axe(container);
+	});
 
-  it('Disabled Checkbox should not fail an aXe audit', async () => {
-    const { container } = render(<Checkbox {...props} isDisabled />);
-    await axe(container);
-  });
+	it('Disabled Checkbox should not fail an aXe audit', async () => {
+		const { container } = render(<Checkbox {...props} isDisabled />);
+		await axe(container);
+	});
 
-  it('Invalid Checkbox should not fail an aXe audit', async () => {
-    const { container } = render(<Checkbox {...props} isInvalid />);
-    await axe(container);
-  });
+	it('Invalid Checkbox should not fail an aXe audit', async () => {
+		const { container } = render(<Checkbox {...props} isInvalid />);
+		await axe(container);
+	});
 
-  it('Sized Checkbox should not fail an aXe audit', async () => {
-    const { container } = render(<Checkbox {...props} size="large" />);
-    await axe(container);
-  });
+	it('Sized Checkbox should not fail an aXe audit', async () => {
+		const { container } = render(<Checkbox {...props} size="large" />);
+		await axe(container);
+	});
 });

@@ -10,27 +10,26 @@ import { useEffect, useRef, useState } from 'react';
  * @returns Scrollbar width of the container and the element ref.
  */
 export default function useScrollbarWidth() {
-  const [scrollbarWidth, setScrollbarWidth] = useState(0);
-  const elementRef = useRef<HTMLDivElement | null>(null);
+	const [scrollbarWidth, setScrollbarWidth] = useState(0);
+	const elementRef = useRef<HTMLDivElement | null>(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (!elementRef.current) {
-      return;
-    }
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(() => {
+		if (!elementRef.current) {
+			return;
+		}
 
-    const width =
-      elementRef.current.offsetWidth - elementRef.current.scrollWidth;
+		const width = elementRef.current.offsetWidth - elementRef.current.scrollWidth;
 
-    if (width === scrollbarWidth) {
-      return;
-    }
+		if (width === scrollbarWidth) {
+			return;
+		}
 
-    setScrollbarWidth(width);
-  });
+		setScrollbarWidth(width);
+	});
 
-  return {
-    width: scrollbarWidth,
-    ref: elementRef,
-  };
+	return {
+		width: scrollbarWidth,
+		ref: elementRef,
+	};
 }

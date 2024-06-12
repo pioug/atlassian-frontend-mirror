@@ -24,7 +24,6 @@ const options: SnapshotTestOptions<{}> = {
 };
 
 const featureFlags = {
-	'platform.color-picker-radio-button-functionality_6hkcy': true,
 	'platform.design-system-team.update-input-border-wdith_5abwv': true,
 };
 

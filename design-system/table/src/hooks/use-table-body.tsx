@@ -11,6 +11,6 @@ const TableBodyContext = createContext(false);
 export const TableBodyProvider = TableBodyContext.Provider;
 
 export const useTableBody = () => {
-  const hasTableBody = useContext(TableBodyContext);
-  invariant(hasTableBody, '<Row /> must be nested inside a <TableBody>');
+	const hasTableBody = useContext(TableBodyContext);
+	invariant(hasTableBody, '<Row /> must be nested inside a <TableBody>');
 };

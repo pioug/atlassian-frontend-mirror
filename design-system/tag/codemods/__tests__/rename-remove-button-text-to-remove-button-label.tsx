@@ -3,89 +3,87 @@ jest.autoMockOff();
 import { renameRemoveButtonText } from '../migrates/rename-remove-button-text-to-remove-button-label';
 import { createTransformer } from '../utils';
 
-const transformer = createTransformer('@atlaskit/tag', [
-  renameRemoveButtonText,
-]);
+const transformer = createTransformer('@atlaskit/tag', [renameRemoveButtonText]);
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Rename removeButtonText prop to removeButtonLabel prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button"/>;
     `,
-    `
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button"/>;
     `,
-    'should not rename removeButtonText if it is not provided',
-  );
+		'should not rename removeButtonText if it is not provided',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonText=""/>;
     `,
-    `
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonLabel=""/>;
     `,
-    'should rename removeButtonText to removeButtonLabel',
-  );
+		'should rename removeButtonText to removeButtonLabel',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonText="Remove" />;
     `,
-    `
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonLabel="Remove" />;
     `,
-    'should rename removeButtonText to removeButtonLabel with value',
-  );
+		'should rename removeButtonText to removeButtonLabel with value',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import RemovableTag from "@atlaskit/tag";
 
       export default () => <RemovableTag text="Removable button" removeButtonText="Remove" />;
     `,
-    `
+		`
       import React from "react";
       import RemovableTag from "@atlaskit/tag";
 
       export default () => <RemovableTag text="Removable button" removeButtonLabel="Remove" />;
     `,
-    'should rename removeButtonText to removeButtonLabel with alias',
-  );
+		'should rename removeButtonText to removeButtonLabel with alias',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import RemovableTag from "@atlaskit/tag";
 
@@ -93,7 +91,7 @@ describe('Rename removeButtonText prop to removeButtonLabel prop', () => {
 
       export default () => <RemovableTag text="Removable button" removeButtonText={removeButtonLabel} />;
     `,
-    `
+		`
       import React from "react";
       import RemovableTag from "@atlaskit/tag";
 
@@ -101,13 +99,13 @@ describe('Rename removeButtonText prop to removeButtonLabel prop', () => {
 
       export default () => <RemovableTag text="Removable button" removeButtonLabel={removeButtonLabel} />;
     `,
-    'should rename removeButtonText to removeButtonLabel with alias when there is a removeButtonText defined as a variable',
-  );
+		'should rename removeButtonText to removeButtonLabel with alias when there is a removeButtonText defined as a variable',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
@@ -120,7 +118,7 @@ describe('Rename removeButtonText prop to removeButtonLabel prop', () => {
           <Tag text="Removable button" />
         </div>);
     `,
-    `
+		`
       import React from "react";
       import Tag from "@atlaskit/tag";
 
@@ -133,31 +131,31 @@ describe('Rename removeButtonText prop to removeButtonLabel prop', () => {
           <Tag text="Removable button" />
         </div>);
     `,
-    'should rename removeButtonText to removeButtonLabel for different cases',
-  );
+		'should rename removeButtonText to removeButtonLabel for different cases',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
       import React from "react";
       import { SimpleTag as Tag } from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonText="Remove" />;
     `,
-    `
+		`
       import React from "react";
       import { SimpleTag as Tag } from "@atlaskit/tag";
 
       export default () => <Tag text="Removable button" removeButtonText="Remove" />;
     `,
-    'should NOT rename removeButtonText to removeButtonLabel  when it is SimpleTag',
-  );
+		'should NOT rename removeButtonText to removeButtonLabel  when it is SimpleTag',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React, { useState } from 'react';
 
     import Tag from '@atlaskit/tag';
@@ -203,7 +201,7 @@ describe('Rename removeButtonText prop to removeButtonLabel prop', () => {
       </div>
     );
     `,
-    `
+		`
     import React, { useState } from 'react';
 
     import Tag from '@atlaskit/tag';
@@ -249,6 +247,6 @@ describe('Rename removeButtonText prop to removeButtonLabel prop', () => {
       </div>
     );
     `,
-    'should rename removeButtonText to removeButtonLabel with value',
-  );
+		'should rename removeButtonText to removeButtonLabel with value',
+	);
 });

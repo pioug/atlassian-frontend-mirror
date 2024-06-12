@@ -52,7 +52,7 @@ const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const stickyToolbarWrapperStyle = css`
 	/* stylelint-disable declaration-block-no-duplicate-properties */
 	position: relative;
@@ -91,6 +91,7 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/prefer-primitives
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[mainToolbarWrapperStyle(props.twoLineEditorToolbar), stickyToolbarWrapperStyle]}
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 			style={{ top: `${top}px` }}
@@ -111,6 +112,7 @@ type FixedToolbarProps = {
 const FixedToolbar = (props: FixedToolbarProps) => (
 	// eslint-disable-next-line @atlaskit/design-system/prefer-primitives
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={mainToolbarWrapperStyle(props.twoLineEditorToolbar)}
 		data-testid="ak-editor-main-toolbar"
 	>

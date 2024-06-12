@@ -10,4 +10,5 @@ yarn add @atlaskit/theme
 
 ## Usage
 
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/core/theme).
+Detailed docs and example usage can be found
+[here](https://atlaskit.atlassian.com/packages/core/theme).

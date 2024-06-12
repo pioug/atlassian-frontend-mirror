@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { bind } from 'bind-event-listener';
 
 const isMatchMediaAvailable = (): boolean =>
-  typeof window !== 'undefined' && 'matchMedia' in window;
+	typeof window !== 'undefined' && 'matchMedia' in window;
 
 /**
  * Use for any programatic motions needed at runtime.
@@ -11,12 +11,12 @@ const isMatchMediaAvailable = (): boolean =>
  * This is generally set through OS preferences/settings.
  */
 export const isReducedMotion = (): boolean => {
-  if (!isMatchMediaAvailable()) {
-    return false;
-  }
+	if (!isMatchMediaAvailable()) {
+		return false;
+	}
 
-  const { matches } = window.matchMedia('(prefers-reduced-motion: reduce)');
-  return matches;
+	const { matches } = window.matchMedia('(prefers-reduced-motion: reduce)');
+	return matches;
 };
 
 /**
@@ -25,28 +25,24 @@ export const isReducedMotion = (): boolean => {
  * preference changes at runtime.
  */
 export const useIsReducedMotion = (): boolean => {
-  const [prefersReducedMotion, setPrefersReducedMotion] =
-    useState(isReducedMotion);
+	const [prefersReducedMotion, setPrefersReducedMotion] = useState(isReducedMotion);
 
-  useEffect(() => {
-    if (!isMatchMediaAvailable()) {
-      return;
-    }
+	useEffect(() => {
+		if (!isMatchMediaAvailable()) {
+			return;
+		}
 
-    const mediaQueryList = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    );
+		const mediaQueryList = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    const onChange = (event: MediaQueryListEvent) =>
-      setPrefersReducedMotion(event.matches);
+		const onChange = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches);
 
-    return bind(mediaQueryList, {
-      type: 'change',
-      listener: onChange,
-    });
-  }, []);
+		return bind(mediaQueryList, {
+			type: 'change',
+			listener: onChange,
+		});
+	}, []);
 
-  return prefersReducedMotion;
+	return prefersReducedMotion;
 };
 
 /**
@@ -55,10 +51,10 @@ export const useIsReducedMotion = (): boolean => {
  * Reduced motion preference is generally set through OS preferences/settings.
  */
 export const reduceMotionAsPerUserPreference = {
-  '@media (prefers-reduced-motion: reduce)': {
-    animation: 'none',
-    transition: 'none',
-  },
+	'@media (prefers-reduced-motion: reduce)': {
+		animation: 'none',
+		transition: 'none',
+	},
 } as const;
 
 /**

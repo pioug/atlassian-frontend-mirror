@@ -9,15 +9,15 @@ import { convertTokens } from './parse-tokens';
  * @returns An ISO date (`YYYY-MM-DD`).
  */
 export function getShortISOString(date: Date): string {
-  return format(date, convertTokens('YYYY-MM-DD'));
+	return format(date, convertTokens('YYYY-MM-DD'));
 }
 
 export function getSafeCalendarValue(calendarValue: string): string {
-  // If `calendarValue` has a year that is greater than 9999, default to
-  // today's date
-  const yearIsOverLimit = calendarValue.match(/^\d{5,}/);
-  if (yearIsOverLimit) {
-    return getShortISOString(new Date());
-  }
-  return calendarValue;
+	// If `calendarValue` has a year that is greater than 9999, default to
+	// today's date
+	const yearIsOverLimit = calendarValue.match(/^\d{5,}/);
+	if (yearIsOverLimit) {
+		return getShortISOString(new Date());
+	}
+	return calendarValue;
 }

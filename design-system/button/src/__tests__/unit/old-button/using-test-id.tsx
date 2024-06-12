@@ -5,9 +5,7 @@ import { render } from '@testing-library/react';
 import Button from '../../../old-button/button';
 
 it('should support test id', async () => {
-  const { getByTestId } = render(
-    <Button testId="iamTheDataTestId">Button</Button>,
-  );
+	const { getByTestId } = render(<Button testId="iamTheDataTestId">Button</Button>);
 
-  expect(getByTestId('iamTheDataTestId')).toBeTruthy();
+	expect(getByTestId('iamTheDataTestId')).toBeTruthy();
 });

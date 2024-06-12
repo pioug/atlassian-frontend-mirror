@@ -12,81 +12,79 @@ import { iconColor } from './internal/constants';
 import { type Appearance } from './types';
 
 const titleStyles = css({
-  display: 'flex',
-  minWidth: 0,
+	display: 'flex',
+	minWidth: 0,
 
-  margin: token('space.0', '0px'),
-  gap: token('space.100'),
+	margin: token('space.0', '0px'),
+	gap: token('space.100'),
 
-  font: token('font.heading.medium'),
+	font: token('font.heading.medium'),
 });
 
 const textStyles = css({
-  minWidth: 0,
+	minWidth: 0,
 
-  /**
-   * This ensures that the element fills the whole header space
-   * and its content does not overflow (since flex items don't
-   * shrink past its content size by default).
-   */
-  flex: '1 1 auto',
-  wordWrap: 'break-word',
+	/**
+	 * This ensures that the element fills the whole header space
+	 * and its content does not overflow (since flex items don't
+	 * shrink past its content size by default).
+	 */
+	flex: '1 1 auto',
+	wordWrap: 'break-word',
 });
 
 const iconStyles = css({
-  flex: '0 0 auto',
-  // The following properties have been added purely to avoid a global style override in Jira breaking alignment between the icon and title text.
-  // https://stash.atlassian.com/projects/JIRACLOUD/repos/jira/browse/jira-components/jira-legacy-frontend/jira-atlaskit-module/src/main/resources/jira-atlaskit-module/css/adg3-general-overrides.less?at=master#24
-  // When the override is removed, these can be removed.
-  color: 'inherit',
-  fontSize: 'inherit',
-  fontStyle: 'inherit',
-  fontWeight: 'inherit',
-  letterSpacing: 'inherit',
-  lineHeight: 'inherit',
+	flex: '0 0 auto',
+	// The following properties have been added purely to avoid a global style override in Jira breaking alignment between the icon and title text.
+	// https://stash.atlassian.com/projects/JIRACLOUD/repos/jira/browse/jira-components/jira-legacy-frontend/jira-atlaskit-module/src/main/resources/jira-atlaskit-module/css/adg3-general-overrides.less?at=master#24
+	// When the override is removed, these can be removed.
+	color: 'inherit',
+	fontSize: 'inherit',
+	fontStyle: 'inherit',
+	fontWeight: 'inherit',
+	letterSpacing: 'inherit',
+	lineHeight: 'inherit',
 });
 
 const truncatedTextStyles = css({
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
 });
 
-const TitleIcon = ({
-  appearance,
-}: Required<Pick<ModalTitleProps, 'appearance'>>) => {
-  const Icon = appearance === 'danger' ? ErrorIcon : WarningIcon;
+const TitleIcon = ({ appearance }: Required<Pick<ModalTitleProps, 'appearance'>>) => {
+	const Icon = appearance === 'danger' ? ErrorIcon : WarningIcon;
 
-  return (
-    <span css={iconStyles}>
-      <Icon label={appearance} primaryColor={iconColor[appearance]} />
-    </span>
-  );
+	return (
+		<span css={iconStyles}>
+			<Icon label={appearance} primaryColor={iconColor[appearance]} />
+		</span>
+	);
 };
 
 export interface ModalTitleProps {
-  /**
-   * Appearance of the modal that changes the color of the primary action and adds an icon to the title.
-   */
-  appearance?: Appearance;
+	/**
+	 * Appearance of the modal that changes the color of the primary action and adds an icon to the title.
+	 */
+	appearance?: Appearance;
 
-  /**
-   * Children of modal dialog header.
-   */
-  children?: ReactNode;
+	/**
+	 * Children of modal dialog header.
+	 */
+	children?: ReactNode;
 
-  /**
-   * When `true` will allow the title to span multiple lines.
-   * Defaults to `true`.
-   */
-  isMultiline?: boolean;
+	/**
+	 * When `true` will allow the title to span multiple lines.
+	 * Defaults to `true`.
+	 */
+	isMultiline?: boolean;
 
-  /**
-   * A `testId` prop is provided for specified elements,
-   * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
-   * serving as a hook for automated tests.
-   */
-  testId?: string;
+	/**
+	 * A `testId` prop is provided for specified elements,
+	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests.
+	 */
+	testId?: string;
 }
 
 /**
@@ -99,28 +97,23 @@ export interface ModalTitleProps {
  * - [Usage](https://atlassian.design/components/modal-dialog/usage)
  */
 const ModalTitle = (props: ModalTitleProps) => {
-  const {
-    appearance,
-    children,
-    isMultiline = true,
-    testId: userDefinedTestId,
-  } = props;
-  const { titleId, testId: modalTestId } = useModal();
+	const { appearance, children, isMultiline = true, testId: userDefinedTestId } = props;
+	const { titleId, testId: modalTestId } = useModal();
 
-  const testId = userDefinedTestId || (modalTestId && `${modalTestId}--title`);
+	const testId = userDefinedTestId || (modalTestId && `${modalTestId}--title`);
 
-  return (
-    <h1 css={titleStyles} data-testid={testId}>
-      {appearance && <TitleIcon appearance={appearance} />}
-      <span
-        id={titleId}
-        css={[textStyles, !isMultiline && truncatedTextStyles]}
-        data-testid={testId && `${testId}-text`}
-      >
-        {children}
-      </span>
-    </h1>
-  );
+	return (
+		<h1 css={titleStyles} data-testid={testId}>
+			{appearance && <TitleIcon appearance={appearance} />}
+			<span
+				id={titleId}
+				css={[textStyles, !isMultiline && truncatedTextStyles]}
+				data-testid={testId && `${testId}-text`}
+			>
+				{children}
+			</span>
+		</h1>
+	);
 };
 
 export default ModalTitle;

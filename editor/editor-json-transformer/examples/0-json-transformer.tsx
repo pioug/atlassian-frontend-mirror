@@ -14,6 +14,7 @@ import { JSONTransformer } from '../src';
 const container = css({
 	display: 'grid',
 	gridTemplateColumns: '50% 50%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#output': {
 		border: '2px solid',
 		margin: token('space.100', '8px'),
@@ -23,6 +24,7 @@ const container = css({
 		'&:focus': {
 			outline: 'none',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:empty:not(:focus)::before': {
 			content: 'attr(data-placeholder)',
 			fontSize: '14px',

@@ -9,83 +9,74 @@ import RemovableTag from '../../removable-tag';
 import Tag from '../../simple-tag';
 
 describe('Tag component accessibility', () => {
-  describe('Simple Tag', () => {
-    it('should not fail an aXe audit', async () => {
-      const { container } = render(<Tag text="Testing" />);
-      await axe(container);
-    });
+	describe('Simple Tag', () => {
+		it('should not fail an aXe audit', async () => {
+			const { container } = render(<Tag text="Testing" />);
+			await axe(container);
+		});
 
-    it('should not fail an aXe audit when rounded', async () => {
-      const { container } = render(<Tag text="Testing" appearance="rounded" />);
-      await axe(container);
-    });
+		it('should not fail an aXe audit when rounded', async () => {
+			const { container } = render(<Tag text="Testing" appearance="rounded" />);
+			await axe(container);
+		});
 
-    it('should not fail an aXe audit when containing an href', async () => {
-      const { container } = render(<Tag text="Testing" href="/test" />);
-      await axe(container);
-    });
+		it('should not fail an aXe audit when containing an href', async () => {
+			const { container } = render(<Tag text="Testing" href="/test" />);
+			await axe(container);
+		});
 
-    it('should not fail an aXe audit when containing an elemBefore', async () => {
-      const { container } = render(
-        <Tag
-          text="Testing"
-          elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
-        />,
-      );
+		it('should not fail an aXe audit when containing an elemBefore', async () => {
+			const { container } = render(
+				<Tag text="Testing" elemBefore={<Avatar borderColor="transparent" size="xsmall" />} />,
+			);
 
-      await axe(container);
-    });
-  });
+			await axe(container);
+		});
+	});
 
-  describe('Removable Tag', () => {
-    it('should not fail an aXe audit', async () => {
-      const { container } = render(
-        <RemovableTag text="Testing" removeButtonLabel="Remove" />,
-      );
-      await axe(container);
-    });
+	describe('Removable Tag', () => {
+		it('should not fail an aXe audit', async () => {
+			const { container } = render(<RemovableTag text="Testing" removeButtonLabel="Remove" />);
+			await axe(container);
+		});
 
-    it('should not fail an aXe audit when rounded', async () => {
-      const { container } = render(
-        <RemovableTag
-          text="Testing"
-          removeButtonLabel="Remove"
-          appearance="rounded"
-        />,
-      );
-      await axe(container);
-    });
+		it('should not fail an aXe audit when rounded', async () => {
+			const { container } = render(
+				<RemovableTag text="Testing" removeButtonLabel="Remove" appearance="rounded" />,
+			);
+			await axe(container);
+		});
 
-    it('should not fail an aXe audit when containing an href', async () => {
-      const { container } = render(
-        <RemovableTag text="Testing" removeButtonLabel="Remove" href="/test" />,
-      );
-      await axe(container);
-    });
+		it('should not fail an aXe audit when containing an href', async () => {
+			const { container } = render(
+				<RemovableTag text="Testing" removeButtonLabel="Remove" href="/test" />,
+			);
+			await axe(container);
+		});
 
-    it('should not fail an aXe audit when containing an elemBefore', async () => {
-      const { container } = render(
-        <RemovableTag
-          text="Testing"
-          removeButtonLabel="Remove"
-          elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
-        />,
-      );
+		it('should not fail an aXe audit when containing an elemBefore', async () => {
+			const { container } = render(
+				<RemovableTag
+					text="Testing"
+					removeButtonLabel="Remove"
+					elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
+				/>,
+			);
 
-      await axe(container);
-    });
+			await axe(container);
+		});
 
-    it('should not fail an aXe audit when containing removal event handlers', async () => {
-      const { container } = render(
-        <RemovableTag
-          text="Testing"
-          removeButtonLabel="Remove"
-          onBeforeRemoveAction={() => true}
-          onAfterRemoveAction={() => true}
-        />,
-      );
+		it('should not fail an aXe audit when containing removal event handlers', async () => {
+			const { container } = render(
+				<RemovableTag
+					text="Testing"
+					removeButtonLabel="Remove"
+					onBeforeRemoveAction={() => true}
+					onAfterRemoveAction={() => true}
+				/>,
+			);
 
-      await axe(container);
-    });
-  });
+			await axe(container);
+		});
+	});
 });

@@ -17,37 +17,37 @@ import { type TabAttributesType, type TabProps } from '../types';
  * - [Usage](https://atlassian.design/components/tabs/usage)
  */
 export default function Tab({ children, testId }: TabProps) {
-  const {
-    onClick,
-    id,
-    'aria-controls': ariaControls,
-    'aria-posinset': ariaPosinset,
-    'aria-selected': ariaSelected,
-    'aria-setsize': ariaSetsize,
-    onKeyDown,
-    role,
-    tabIndex,
-  }: TabAttributesType = useTab();
+	const {
+		onClick,
+		id,
+		'aria-controls': ariaControls,
+		'aria-posinset': ariaPosinset,
+		'aria-selected': ariaSelected,
+		'aria-setsize': ariaSetsize,
+		onKeyDown,
+		role,
+		tabIndex,
+	}: TabAttributesType = useTab();
 
-  return (
-    <FocusRing isInset>
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-      <div
-        data-testid={testId}
-        onClick={onClick}
-        id={id}
-        aria-controls={ariaControls}
-        aria-posinset={ariaPosinset}
-        aria-selected={ariaSelected}
-        aria-setsize={ariaSetsize}
-        onKeyDown={onKeyDown}
-        role={role}
-        tabIndex={tabIndex}
-      >
-        <Text weight="medium" color="inherit" maxLines={1}>
-          {children}
-        </Text>
-      </div>
-    </FocusRing>
-  );
+	return (
+		<FocusRing isInset>
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+			<div
+				data-testid={testId}
+				onClick={onClick}
+				id={id}
+				aria-controls={ariaControls}
+				aria-posinset={ariaPosinset}
+				aria-selected={ariaSelected}
+				aria-setsize={ariaSetsize}
+				onKeyDown={onKeyDown}
+				role={role}
+				tabIndex={tabIndex}
+			>
+				<Text weight="medium" color="inherit" maxLines={1}>
+					{children}
+				</Text>
+			</div>
+		</FocusRing>
+	);
 }

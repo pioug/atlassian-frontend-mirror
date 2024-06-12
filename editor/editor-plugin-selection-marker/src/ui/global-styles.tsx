@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
 /**
@@ -11,7 +12,7 @@ import { css, Global, jsx } from '@emotion/react';
  * - We do not apply this reset when the editor is disabled
  */
 const globalStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror:not(:focus):not([contenteditable="false"]) ::selection:not(input)': {
 		background: 'unset',
 	},

@@ -12,27 +12,27 @@ import createElement from './create-element';
  * code bidi warning config settings.
  */
 export default function ReactRenderer({
-  containerProps,
-  codeTagProps,
-  rows,
-  codeBidiWarningConfig,
+	containerProps,
+	codeTagProps,
+	rows,
+	codeBidiWarningConfig,
 }: {
-  containerProps: React.HTMLProps<HTMLElement>;
-  codeTagProps: React.HTMLProps<HTMLElement>;
-  rows: RefractorNode[];
-  codeBidiWarningConfig: CodeBidiWarningConfig;
+	containerProps: React.HTMLProps<HTMLElement>;
+	codeTagProps: React.HTMLProps<HTMLElement>;
+	rows: RefractorNode[];
+	codeBidiWarningConfig: CodeBidiWarningConfig;
 }): JSX.Element {
-  const renderedRows = rows.map((node: RefractorNode, i: number) =>
-    createElement({
-      node,
-      codeBidiWarningConfig,
-      key: `code-segment${i}`,
-    }),
-  );
+	const renderedRows = rows.map((node: RefractorNode, i: number) =>
+		createElement({
+			node,
+			codeBidiWarningConfig,
+			key: `code-segment${i}`,
+		}),
+	);
 
-  return (
-    <span {...containerProps}>
-      <code {...codeTagProps}>{renderedRows}</code>
-    </span>
-  );
+	return (
+		<span {...containerProps}>
+			<code {...codeTagProps}>{renderedRows}</code>
+		</span>
+	);
 }

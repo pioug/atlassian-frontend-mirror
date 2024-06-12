@@ -44,6 +44,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 	private renderImage = (lozengeData: LozengeData) => {
 		const { extensionKey } = this.props.node.attrs;
 		const { url, ...rest } = lozengeData;
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		return <img css={styledImage} src={url} {...rest} alt={extensionKey} />;
 	};
 

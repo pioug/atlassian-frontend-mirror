@@ -1,17 +1,17 @@
 let delayId: number | null = null;
 
 export function clearScheduled() {
-  if (delayId != null) {
-    window.clearTimeout(delayId);
-    delayId = null;
-  }
+	if (delayId != null) {
+		window.clearTimeout(delayId);
+		delayId = null;
+	}
 }
 
 export function scheduleTimeout(fn: () => void, delay: number) {
-  clearScheduled();
+	clearScheduled();
 
-  delayId = window.setTimeout(() => {
-    delayId = null;
-    fn();
-  }, delay);
+	delayId = window.setTimeout(() => {
+		delayId = null;
+		fn();
+	}, delay);
 }

@@ -1,8 +1,11 @@
-Popup should have an accessible name or a reference to it when `role="dialog"`, so that upon opening, users of assistive technologies could have contextual information of interaction with current element.
+Popup should have an accessible name or a reference to it when `role="dialog"`, so that upon
+opening, users of assistive technologies could have contextual information of interaction with
+current element.
 
 ## Examples
 
-This rule will indicate user with warning to strongly recommend usage of either `label` or `titleId` prop.
+This rule will indicate user with warning to strongly recommend usage of either `label` or `titleId`
+prop.
 
 ### Incorrect
 

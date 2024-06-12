@@ -6,183 +6,183 @@ import setGlobalTheme from '../../set-global-theme';
 import ThemeMutationObserver from '../../theme-mutation-observer';
 
 describe('ThemeMutationObserver', () => {
-  it('should observe the theme', async () => {
-    const callbackSpy = jest.fn();
-    const observer = new ThemeMutationObserver(callbackSpy);
-    observer.observe();
+	it('should observe the theme', async () => {
+		const callbackSpy = jest.fn();
+		const observer = new ThemeMutationObserver(callbackSpy);
+		observer.observe();
 
-    setGlobalTheme({ colorMode: 'dark' });
+		setGlobalTheme({ colorMode: 'dark' });
 
-    await waitFor(() => expect(callbackSpy).toHaveBeenCalledTimes(1));
+		await waitFor(() => expect(callbackSpy).toHaveBeenCalledTimes(1));
 
-    setGlobalTheme({ dark: 'legacy-dark' });
+		setGlobalTheme({ dark: 'legacy-dark' });
 
-    await waitFor(() => expect(callbackSpy).toHaveBeenCalledTimes(2));
-  });
+		await waitFor(() => expect(callbackSpy).toHaveBeenCalledTimes(2));
+	});
 
-  describe('it should report theme changes to multiple instances/observers', () => {
-    ffTest(
-      'platform.design-system-team.mutation-observer-performance-improvement_8usdg',
-      async () => {
-        const callbackSpy1 = jest.fn();
-        const callbackSpy2 = jest.fn();
-        const observer1 = new ThemeMutationObserver(callbackSpy1);
-        const observer2 = new ThemeMutationObserver(callbackSpy2);
+	describe('it should report theme changes to multiple instances/observers', () => {
+		ffTest(
+			'platform.design-system-team.mutation-observer-performance-improvement_8usdg',
+			async () => {
+				const callbackSpy1 = jest.fn();
+				const callbackSpy2 = jest.fn();
+				const observer1 = new ThemeMutationObserver(callbackSpy1);
+				const observer2 = new ThemeMutationObserver(callbackSpy2);
 
-        observer1.observe();
-        observer2.observe();
+				observer1.observe();
+				observer2.observe();
 
-        setGlobalTheme({ colorMode: 'dark' });
+				setGlobalTheme({ colorMode: 'dark' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(1);
-          expect(callbackSpy2).toHaveBeenCalledTimes(1);
-          expect(callbackSpy1).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
-          );
-          expect(callbackSpy2).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
-          );
-        });
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(1);
+					expect(callbackSpy2).toHaveBeenCalledTimes(1);
+					expect(callbackSpy1).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
+					);
+					expect(callbackSpy2).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
+					);
+				});
 
-        setGlobalTheme({ dark: 'legacy-dark' });
+				setGlobalTheme({ dark: 'legacy-dark' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(2);
-          expect(callbackSpy2).toHaveBeenCalledTimes(2);
-          expect(callbackSpy1).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'legacy-dark' }),
-          );
-          expect(callbackSpy2).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'legacy-dark' }),
-          );
-        });
-      },
-      async () => {
-        const callbackSpy1 = jest.fn();
-        const callbackSpy2 = jest.fn();
-        const observer1 = new ThemeMutationObserver(callbackSpy1);
-        const observer2 = new ThemeMutationObserver(callbackSpy2);
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(2);
+					expect(callbackSpy2).toHaveBeenCalledTimes(2);
+					expect(callbackSpy1).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'legacy-dark' }),
+					);
+					expect(callbackSpy2).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'legacy-dark' }),
+					);
+				});
+			},
+			async () => {
+				const callbackSpy1 = jest.fn();
+				const callbackSpy2 = jest.fn();
+				const observer1 = new ThemeMutationObserver(callbackSpy1);
+				const observer2 = new ThemeMutationObserver(callbackSpy2);
 
-        observer1.observe();
-        observer2.observe();
+				observer1.observe();
+				observer2.observe();
 
-        setGlobalTheme({ colorMode: 'dark' });
+				setGlobalTheme({ colorMode: 'dark' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(1);
-          expect(callbackSpy2).toHaveBeenCalledTimes(1);
-          expect(callbackSpy1).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
-          );
-          expect(callbackSpy2).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
-          );
-        });
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(1);
+					expect(callbackSpy2).toHaveBeenCalledTimes(1);
+					expect(callbackSpy1).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
+					);
+					expect(callbackSpy2).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
+					);
+				});
 
-        setGlobalTheme({ dark: 'legacy-dark' });
+				setGlobalTheme({ dark: 'legacy-dark' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(2);
-          expect(callbackSpy2).toHaveBeenCalledTimes(2);
-          expect(callbackSpy1).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'legacy-dark' }),
-          );
-          expect(callbackSpy2).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'legacy-dark' }),
-          );
-        });
-      },
-    );
-  });
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(2);
+					expect(callbackSpy2).toHaveBeenCalledTimes(2);
+					expect(callbackSpy1).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'legacy-dark' }),
+					);
+					expect(callbackSpy2).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'legacy-dark' }),
+					);
+				});
+			},
+		);
+	});
 
-  describe('it should not call observer callbacks once disconnected', () => {
-    ffTest(
-      'platform.design-system-team.mutation-observer-performance-improvement_8usdg',
-      async () => {
-        const callbackSpy1 = jest.fn();
-        const callbackSpy2 = jest.fn();
-        const observer1 = new ThemeMutationObserver(callbackSpy1);
-        const observer2 = new ThemeMutationObserver(callbackSpy2);
+	describe('it should not call observer callbacks once disconnected', () => {
+		ffTest(
+			'platform.design-system-team.mutation-observer-performance-improvement_8usdg',
+			async () => {
+				const callbackSpy1 = jest.fn();
+				const callbackSpy2 = jest.fn();
+				const observer1 = new ThemeMutationObserver(callbackSpy1);
+				const observer2 = new ThemeMutationObserver(callbackSpy2);
 
-        observer1.observe();
-        observer2.observe();
-        observer2.disconnect();
+				observer1.observe();
+				observer2.observe();
+				observer2.disconnect();
 
-        setGlobalTheme({ colorMode: 'dark' });
+				setGlobalTheme({ colorMode: 'dark' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(1);
-          expect(callbackSpy2).toHaveBeenCalledTimes(0);
-          expect(callbackSpy1).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
-          );
-        });
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(1);
+					expect(callbackSpy2).toHaveBeenCalledTimes(0);
+					expect(callbackSpy1).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
+					);
+				});
 
-        // Disconnect the final observer and verify neither is called
-        observer1.disconnect();
-        callbackSpy1.mockClear();
-        callbackSpy2.mockClear();
-        setGlobalTheme({ colorMode: 'light' });
+				// Disconnect the final observer and verify neither is called
+				observer1.disconnect();
+				callbackSpy1.mockClear();
+				callbackSpy2.mockClear();
+				setGlobalTheme({ colorMode: 'light' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(0);
-          expect(callbackSpy2).toHaveBeenCalledTimes(0);
-        });
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(0);
+					expect(callbackSpy2).toHaveBeenCalledTimes(0);
+				});
 
-        // Reconnect the observer and verify it works as expected
-        observer1.observe();
-        callbackSpy1.mockClear();
-        callbackSpy2.mockClear();
-        setGlobalTheme({ colorMode: 'light' });
+				// Reconnect the observer and verify it works as expected
+				observer1.observe();
+				callbackSpy1.mockClear();
+				callbackSpy2.mockClear();
+				setGlobalTheme({ colorMode: 'light' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(0);
-          expect(callbackSpy2).toHaveBeenCalledTimes(0);
-        });
-      },
-      async () => {
-        const callbackSpy1 = jest.fn();
-        const callbackSpy2 = jest.fn();
-        const observer1 = new ThemeMutationObserver(callbackSpy1);
-        const observer2 = new ThemeMutationObserver(callbackSpy2);
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(0);
+					expect(callbackSpy2).toHaveBeenCalledTimes(0);
+				});
+			},
+			async () => {
+				const callbackSpy1 = jest.fn();
+				const callbackSpy2 = jest.fn();
+				const observer1 = new ThemeMutationObserver(callbackSpy1);
+				const observer2 = new ThemeMutationObserver(callbackSpy2);
 
-        observer1.observe();
-        observer2.observe();
-        observer2.disconnect();
+				observer1.observe();
+				observer2.observe();
+				observer2.disconnect();
 
-        setGlobalTheme({ colorMode: 'dark' });
+				setGlobalTheme({ colorMode: 'dark' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(1);
-          expect(callbackSpy2).toHaveBeenCalledTimes(0);
-          expect(callbackSpy1).toHaveBeenCalledWith(
-            expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
-          );
-        });
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(1);
+					expect(callbackSpy2).toHaveBeenCalledTimes(0);
+					expect(callbackSpy1).toHaveBeenCalledWith(
+						expect.objectContaining({ dark: 'dark', colorMode: 'dark' }),
+					);
+				});
 
-        // Disconnect the final observer and verify neither is called
-        observer1.disconnect();
-        callbackSpy1.mockClear();
-        callbackSpy2.mockClear();
-        setGlobalTheme({ colorMode: 'light' });
+				// Disconnect the final observer and verify neither is called
+				observer1.disconnect();
+				callbackSpy1.mockClear();
+				callbackSpy2.mockClear();
+				setGlobalTheme({ colorMode: 'light' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(0);
-          expect(callbackSpy2).toHaveBeenCalledTimes(0);
-        });
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(0);
+					expect(callbackSpy2).toHaveBeenCalledTimes(0);
+				});
 
-        // Reconnect the observer and verify it works as expected
-        observer1.observe();
-        callbackSpy1.mockClear();
-        callbackSpy2.mockClear();
-        setGlobalTheme({ colorMode: 'light' });
+				// Reconnect the observer and verify it works as expected
+				observer1.observe();
+				callbackSpy1.mockClear();
+				callbackSpy2.mockClear();
+				setGlobalTheme({ colorMode: 'light' });
 
-        await waitFor(() => {
-          expect(callbackSpy1).toHaveBeenCalledTimes(0);
-          expect(callbackSpy2).toHaveBeenCalledTimes(0);
-        });
-      },
-    );
-  });
+				await waitFor(() => {
+					expect(callbackSpy1).toHaveBeenCalledTimes(0);
+					expect(callbackSpy2).toHaveBeenCalledTimes(0);
+				});
+			},
+		);
+	});
 });

@@ -91,9 +91,11 @@ export default ({ question, statement, textPlaceholder, textLabel, onSubmit }: P
 						<Transition in={expanded} timeout={transitionDuration} mountOnEnter>
 							{(state: TransitionState) => (
 								<div
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									css={css({
 										transition: `max-height ${transitionDuration}ms ease-in-out`,
 										overflow: 'hidden',
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 										maxHeight: getExpandedHeight(expandedAreaRef, state),
 									})}
 									ref={expandedAreaRef}

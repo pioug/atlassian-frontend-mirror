@@ -36,7 +36,7 @@ export const MoreButton = React.memo(
 				spacing={isReducedSpacing ? 'none' : 'default'}
 				title={label}
 				iconBefore={
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={triggerWrapperStyles}>
 						<MoreIcon label="" />
 					</div>

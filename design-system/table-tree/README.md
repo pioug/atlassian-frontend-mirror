@@ -10,4 +10,5 @@ yarn add @atlaskit/table-tree
 
 ## Usage
 
-Detailed docs and examples can be found in the [Atlassian Design System documentation](https://atlassian.design/components/table-tree/).
+Detailed docs and examples can be found in the
+[Atlassian Design System documentation](https://atlassian.design/components/table-tree/).

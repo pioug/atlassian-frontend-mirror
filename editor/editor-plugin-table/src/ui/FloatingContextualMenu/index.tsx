@@ -92,6 +92,7 @@ const FloatingContextualMenu = ({
 			offset={[-7, 0]}
 			stick={true}
 		>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={tablePopupStyles(isDragAndDropEnabled)}>
 				<ContextualMenu
 					editorView={editorView}

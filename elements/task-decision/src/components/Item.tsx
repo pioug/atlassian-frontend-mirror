@@ -37,6 +37,7 @@ export default class Item extends PureComponent<Props, {}> {
 			<span
 				data-testid="task-decision-item-placeholder"
 				data-component="placeholder"
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={placeholderStyles(offset)}
 				contentEditable={false}
 			>
@@ -50,9 +51,11 @@ export default class Item extends PureComponent<Props, {}> {
 
 		if (itemType === 'TASK') {
 			return (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={taskStyles} id={`${checkBoxId}-wrapper`}>
 					{icon}
 					{this.renderPlaceholder()}
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div data-component="content" css={contentStyles} ref={contentRef} {...dataAttributes}>
 						{children}
 					</div>
@@ -62,11 +65,13 @@ export default class Item extends PureComponent<Props, {}> {
 			return (
 				<div
 					data-testid="elements-decision-item"
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={decisionStyles()}
 					data-decision-wrapper="true"
 				>
 					{icon}
 					{this.renderPlaceholder()}
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div data-component="content" css={contentStyles} ref={contentRef} {...dataAttributes}>
 						{children}
 					</div>

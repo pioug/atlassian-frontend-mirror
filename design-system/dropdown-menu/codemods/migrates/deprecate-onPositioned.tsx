@@ -2,8 +2,8 @@
 import { createRemoveFuncAddCommentFor } from '@atlaskit/codemod-utils';
 
 const deprecateOnPositioned = createRemoveFuncAddCommentFor(
-  '@atlaskit/dropdown-menu',
-  'onPositioned',
+	'@atlaskit/dropdown-menu',
+	'onPositioned',
 );
 
 export default deprecateOnPositioned;

@@ -5,10 +5,10 @@ import transformer from '../11.0.0-prop-rename-default-checked';
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 describe('Update isDefaultChecked prop', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import { X as Toggle } from "x";
     () => {
@@ -19,7 +19,7 @@ describe('Update isDefaultChecked prop', () => {
       );
     };
     `,
-    `
+		`
     import React from "react";
     import { X as Toggle } from "x";
     () => {
@@ -30,13 +30,13 @@ describe('Update isDefaultChecked prop', () => {
       );
     };
     `,
-    'should not transform if imports are not present',
-  );
+		'should not transform if imports are not present',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import Toggle from "@atlaskit/toggle";
     () => {
@@ -47,7 +47,7 @@ describe('Update isDefaultChecked prop', () => {
       );
     };
     `,
-    `
+		`
     import React from "react";
     import Toggle from "@atlaskit/toggle";
     () => {
@@ -58,13 +58,13 @@ describe('Update isDefaultChecked prop', () => {
       );
     };
     `,
-    'transforms `isDefaultChecked` to `defaultChecked` when `@atlaskit/toggle` is imported',
-  );
+		'transforms `isDefaultChecked` to `defaultChecked` when `@atlaskit/toggle` is imported',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import Toggle from "@atlaskit/toggle";
     () => {
@@ -75,7 +75,7 @@ describe('Update isDefaultChecked prop', () => {
       );
     };
     `,
-    `
+		`
     import React from "react";
     import Toggle from "@atlaskit/toggle";
     () => {
@@ -86,13 +86,13 @@ describe('Update isDefaultChecked prop', () => {
       );
     };
     `,
-    'transforms `isDefaultChecked` to `defaultChecked` when `@atlaskit/toggle` is imported - without changing the value',
-  );
+		'transforms `isDefaultChecked` to `defaultChecked` when `@atlaskit/toggle` is imported - without changing the value',
+	);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
+	defineInlineTest(
+		{ default: transformer, parser: 'tsx' },
+		{},
+		`
     import React from "react";
     import Toggle from "@atlaskit/toggle";
     () => {
@@ -111,7 +111,7 @@ describe('Update isDefaultChecked prop', () => {
       );
     };
     `,
-    `
+		`
     import React from "react";
     import Toggle from "@atlaskit/toggle";
     () => {
@@ -130,6 +130,6 @@ describe('Update isDefaultChecked prop', () => {
       );
     };
     `,
-    'transforms `isDefaultChecked` to `defaultChecked` when `@atlaskit/toggle` is imported',
-  );
+		'transforms `isDefaultChecked` to `defaultChecked` when `@atlaskit/toggle` is imported',
+	);
 });

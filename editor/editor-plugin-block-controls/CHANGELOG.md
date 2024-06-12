@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.12
+
+### Patch Changes
+
+- [#108853](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108853)
+  [`390f442689fd6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/390f442689fd6) -
+  Fix position of drag handle for extension/ bodiedExtension nodes in wide or fullWidth layout
+
 ## 1.4.11
 
 ### Patch Changes

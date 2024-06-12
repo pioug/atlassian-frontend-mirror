@@ -4,7 +4,6 @@ import { gridSize } from '@atlaskit/theme';
 import { COLOR_CARD_SIZE } from './constants';
 import memoizeOne from 'memoize-one';
 import { Mode, type Palette } from './types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const getWidth = (cols: number, mode?: Mode) => {
 	const width = cols * (COLOR_CARD_SIZE + gridSize() / 2);
@@ -16,10 +15,7 @@ export const getOptions = memoizeOne(
 	(palette: Palette, selectedColor?: string, showDefaultSwatchColor?: boolean) => {
 		let focusedItemIndex = 0;
 		let defaultSelectedColor = palette[0];
-		if (
-			getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy') &&
-			!showDefaultSwatchColor
-		) {
+		if (!showDefaultSwatchColor) {
 			defaultSelectedColor = { label: '', value: '' };
 		}
 		const value =

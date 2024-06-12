@@ -18,6 +18,7 @@ const headerWrapperStyles = css({
 });
 
 export const getFormHeaderTitleStyles = (theme: Theme) =>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	css(h500(theme), {
 		lineHeight: token('space.400', '32px'),
 		marginRight: token('space.400', '32px'),
@@ -25,6 +26,7 @@ export const getFormHeaderTitleStyles = (theme: Theme) =>
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			fontSize: 'initial',
 		},
@@ -35,6 +37,7 @@ export const ShareHeader: React.FunctionComponent<Props> = ({ title }) => {
 
 	return (
 		<div css={headerWrapperStyles}>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<h1 css={getFormHeaderTitleStyles(theme)}>
 				{title || <FormattedMessage {...messages.formTitle} />}
 			</h1>

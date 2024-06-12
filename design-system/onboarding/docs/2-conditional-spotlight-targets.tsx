@@ -12,13 +12,11 @@ ${code`
 `}
 
   ${(
-    <Example
-      packageName="@atlaskit/onboarding"
-      Component={
-        require('../examples/102-spotlight-with-conditional-targets').default
-      }
-      title=""
-      source={require('!!raw-loader!../examples/102-spotlight-with-conditional-targets')}
-    />
-  )}
+		<Example
+			packageName="@atlaskit/onboarding"
+			Component={require('../examples/102-spotlight-with-conditional-targets').default}
+			title=""
+			source={require('!!raw-loader!../examples/102-spotlight-with-conditional-targets')}
+		/>
+	)}
 `;

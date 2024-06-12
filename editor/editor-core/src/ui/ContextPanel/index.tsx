@@ -45,6 +45,7 @@ type EditorWidth = WidthPluginState & {
 const absolutePanelStyles = css({
 	position: 'absolute',
 	right: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `calc(100% - ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT()})`,
 });
 
@@ -86,18 +87,24 @@ const panelHidden = css({
 	width: 0,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const panel = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${akEditorContextPanelWidth}px`,
 	height: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier}`,
 	overflow: 'hidden',
 	boxShadow: `inset 2px 0 0 0 ${token('color.border', N30)}`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const content = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `width 600ms ${akEditorSwoopCubicBezier}`,
 	boxSizing: 'border-box',
 	padding: `${token('space.200', '16px')} ${token('space.200', '16px')} 0px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${akEditorContextPanelWidth}px`,
 	height: '100%',
 	overflowY: 'auto',

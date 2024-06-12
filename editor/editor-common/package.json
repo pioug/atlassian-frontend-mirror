@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "82.2.1",
+	"version": "82.2.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -321,6 +321,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.a11y-element-browser": {
+			"type": "boolean"
+		},
+		"platform.editor.transparent-diagonal-decorator": {
 			"type": "boolean"
 		}
 	}

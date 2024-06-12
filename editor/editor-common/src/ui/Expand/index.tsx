@@ -83,17 +83,21 @@ const expandIconWrapperStyle = () =>
 		'&:hover': {
 			background: token('color.background.neutral.subtle.hovered', N30A),
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		svg: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			transition: `transform 0.2s ${akEditorSwoopCubicBezier}`,
 		},
 	});
 
 const expandIconWrapperExpandedStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	svg: {
 		transform: 'rotate(90deg)',
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const expandLayoutWrapperStyle = css({
 	width: token('space.300', '24px'),
 	height: token('space.300', '24px'),
@@ -118,12 +122,14 @@ const containerStyles = (styleProps: StyleProps) => {
 	// and is the root level expand.
 	const marginHorizontal =
 		styleProps['data-node-type'] === 'expand' ? `-${akLayoutGutterOffset}px` : 0;
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	const margin = `${marginTop} ${marginHorizontal} ${marginBottom}`;
 
 	return () =>
 		css({
 			borderWidth: '1px',
 			borderStyle: 'solid',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderColor: focused
 				? EXPAND_FOCUSED_BORDER_COLOR
 				: expanded
@@ -131,8 +137,10 @@ const containerStyles = (styleProps: StyleProps) => {
 					: EXPAND_COLLAPSED_BORDER_COLOR,
 			borderRadius: BORDER_RADIUS,
 			minHeight: '25px',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			background: !expanded ? EXPAND_COLLAPSED_BACKGROUND : EXPAND_SELECTED_BACKGROUND,
 			margin: margin,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			transition: `background 0.3s ${akEditorSwoopCubicBezier}, border-color 0.3s ${akEditorSwoopCubicBezier}`,
 			padding: token('space.100', '8px'),
 			'&:hover': {
@@ -142,6 +150,7 @@ const containerStyles = (styleProps: StyleProps) => {
 				border: `1px solid ${token('color.border', N50A)}`,
 				background: EXPAND_SELECTED_BACKGROUND,
 			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'td > :not(style):first-child, td > style:first-child + *': {
 				marginTop: 0,
 			},
@@ -185,7 +194,9 @@ const titleInputStyles = () =>
 	css({
 		outline: 'none',
 		border: 'none',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(fontSize()),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		lineHeight: akEditorLineHeight,
 		fontWeight: 'normal',
 		color: token('color.text.subtlest', N200A),
@@ -207,6 +218,7 @@ const titleContainerStyles = () =>
 		alignItems: 'flex-start',
 		background: 'none',
 		border: 'none',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(fontSize()),
 		width: '100%',
 		color: token('color.text.subtle', N300A),
